@@ -1,6 +1,6 @@
 {
   "1903": {
-    "notes": "Points de passage d'après les parcours décrits sur Wikipédia (articles « 1903 Tour de France » et étapes détaillées, CC BY-SA), recoupés avec bikeraceinfo.com. Tracé reconstitué sur le réseau routier actuel : les distances diffèrent des distances officielles de 1903.",
+    "notes": "Points de passage d'après les parcours décrits sur Wikipédia (articles « 1903 Tour de France » et étapes détaillées, CC BY-SA), recoupés avec bikeraceinfo.com, mon-sejour-en-montagne.com et cols-cyclisme.com. Tracé reconstitué sur le réseau routier actuel : les distances diffèrent des distances officielles de 1903.",
     "stages": {
       "1": {
         "start": "Montgeron",
@@ -10,15 +10,23 @@
           "Montargis",
           "Nevers",
           "Moulins",
+          "Lapalisse",
           "Roanne",
-          "Saint-Étienne",
-          { "label": "Col de la République", "kind": "col", "ele": 1161 },
-          "Givors"
+          "Tarare",
+          { "label": "Col du Pin-Bouchain", "kind": "col", "ele": 759 }
         ],
-        "note": "Départ réel au Réveil-Matin à Montgeron. Passage par le col de la République (1 161 m) avant la descente sur Lyon."
+        "note": "Départ réel au Réveil-Matin à Montgeron. Passage par le col du Pin-Bouchain (759 m, entre Tarare et Roanne, sur l'ancienne route) — le tout premier col franchi dans l'histoire du Tour de France, avant la descente sur Lyon. Le col de la République (1 161 m), premier col à plus de 1 000 m, est franchi à l'étape 2, pas ici."
       },
       "2": {
-        "vias": ["Vienne", "Valence", "Avignon", "Arles"]
+        "vias": [
+          "Givors",
+          "Saint-Étienne",
+          { "label": "Col de la République", "kind": "col", "ele": 1161 },
+          "Valence",
+          "Avignon",
+          "Arles"
+        ],
+        "note": "Passage par Saint-Étienne et le col de la République (1 161 m, dit aussi col du Grand Bois, à la sortie de Saint-Étienne) — premier col à plus de 1 000 m de l'histoire du Tour."
       },
       "3": {
         "vias": ["Arles", "Montpellier", "Béziers", "Narbonne", "Carcassonne", "Castelnaudary"]

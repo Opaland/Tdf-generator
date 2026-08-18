@@ -21,7 +21,10 @@ const GAZETTEER = [
   { name: 'Montargis', lat: 47.9972, lon: 2.7325, ele: 85, kind: 'city' },
   { name: 'Nevers', lat: 46.9896, lon: 3.1592, ele: 180, kind: 'city' },
   { name: 'Moulins', lat: 46.5661, lon: 3.3328, ele: 220, kind: 'city' },
+  { name: 'Lapalisse', lat: 46.2417, lon: 3.6444, ele: 275, kind: 'city' },
   { name: 'Roanne', lat: 46.0367, lon: 4.0689, ele: 280, kind: 'city' },
+  { name: 'Tarare', lat: 45.9027, lon: 4.4372, ele: 250, kind: 'city' },
+  { name: 'Col du Pin-Bouchain', lat: 45.9360, lon: 4.3450, ele: 759, kind: 'peak' },
   { name: 'Saint-Étienne', lat: 45.4397, lon: 4.3872, ele: 520, kind: 'city' },
   { name: 'Col de la République', lat: 45.3522, lon: 4.4563, ele: 1161, kind: 'peak' },
   { name: 'Givors', lat: 45.5904, lon: 4.7716, ele: 160, kind: 'city' },
@@ -166,8 +169,11 @@ function baseTerrain(lat, lon) {
   if (lat < 43.45 && lon > -2.0 && lon < 3.2) {
     e += Math.min(1.2, 43.45 - lat) * 550;
   }
-  // Massif central : large dôme.
-  const dMc = Math.hypot((lat - 45.1) / 1.6, (lon - 3.1) / 2.0);
+  // Massif central : dôme resserré sur son cœur (Puy-de-Dôme/Pilat) — un dôme
+  // trop large gonflait artificiellement toute la vallée du Rhône (Lyon
+  // simulé à ~760 m au lieu de 170 m réels) et masquait les vraies montées
+  // locales (ex. col du Pin-Bouchain entre Tarare et Roanne).
+  const dMc = Math.hypot((lat - 45.1) / 0.85, (lon - 3.1) / 1.0);
   e += 750 * Math.exp(-dMc * dMc);
   // Préalpes : dôme à l'est du Rhône.
   const dAl = Math.hypot((lat - 44.9) / 1.8, (lon - 6.4) / 1.6);
@@ -175,9 +181,14 @@ function baseTerrain(lat, lon) {
   return Math.max(2, e);
 }
 
+// Cols modestes situés dans un relief déjà vallonné (le socle de base y est
+// proche de l'altitude du sommet) : un sigma plus court concentre le peu
+// d'amplitude disponible dans une rampe finale plus nette et détectable.
+const SIGMA_OVERRIDES = { 'col du pin bouchain': 2200 };
+
 const PEAKS = GAZETTEER.filter((g) => g.kind === 'peak').map((g) => ({
   ...g,
-  sigmaM: 5000, // étalement du pic : concentre l'ascension sur les ~6 derniers km (pentes 4-10 %)
+  sigmaM: SIGMA_OVERRIDES[normalize(g.name)] || 5000, // étalement du pic : concentre l'ascension sur les ~6 derniers km (pentes 4-10 %)
   amp: 0,
 }));
 
