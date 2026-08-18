@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ÉtapeForge — Carte globale</title>
+  <link rel="stylesheet" href="/vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main>
+  <h1>Carte globale d'un tour</h1>
+  <div class="toolbar">
+    <label class="field" style="min-width:280px;margin:0">Tour / édition
+      <select id="sel-edition"></select>
+    </label>
+    <button id="btn-anim" class="secondary">▶ Animation étape par étape</button>
+    <a class="btn secondary" id="exp-site" target="_blank">Mini-site HTML autonome</a>
+  </div>
+  <div class="legend" id="legend"></div>
+  <div id="map" style="height:560px"></div>
+  <div id="tour-note"></div>
+  <h2>Étapes</h2>
+  <div class="card"><table class="stage-list" id="tour-stages"><tbody></tbody></table></div>
+</main>
+<script src="/vendor/leaflet/leaflet.js"></script>
+<script src="/common.js"></script>
+<script src="/profile.js"></script>
+<script src="/tourmap.js"></script>
+</body>
+</html>

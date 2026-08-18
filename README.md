@@ -1,0 +1,142 @@
+# ÉtapeForge
+
+**Générateur d'étapes du Tour de France** — application web 100 % locale : Node.js + SQLite +
+Leaflet/SVG. Aucun compte, aucune dépendance cloud propriétaire.
+
+Positionnement : ce que [la-flamme-rouge.eu](https://la-flamme-rouge.eu) ne fait pas —
+**reconstruction historique 1903→2027**, **fiches côte-par-côte automatiques**,
+**analyse km par km**, **exports JSON/GPX/PNG/HTML**, **audits de qualité** par étape.
+
+## Démarrage en 3 commandes
+
+```bash
+npm install
+npm run demo     # génère et vérifie la démo (Pau→Hautacam + Tour 1903 complet)
+npm start        # http://localhost:4567
+```
+
+> `npm run demo` tourne par défaut en **mode hors-ligne** (simulateur déterministe,
+> reproductible partout, données synthétiques clairement étiquetées). Avec accès
+> internet, `node scripts/demo.js --online` utilise les vraies APIs (Géoplateforme,
+> OSRM, opentopodata, Wikipédia). Le serveur, lui, utilise les vraies APIs par
+> défaut ; lancez `ETAPEFORGE_OFFLINE=1 npm start` pour rester sur le simulateur.
+
+## Les 4 écrans
+
+| | |
+|---|---|
+| **1. Éditeur d'étape** — formulaire (nom, date, type, statut libre), waypoints ordonnés avec autocomplétion géocodage, carte de prévisualisation (ajout d'un waypoint par clic → géocodage inverse), bouton « Générer » → pipeline → fiche. ![Éditeur](docs/captures/1-editeur.png) | **2. Fiche d'étape** — profil SVG style ASO (silhouette sable lissée, annotations obliques des villes/cols à leur km réel, pastilles de catégorie HC/1/2/3/4, bande jaune kilométrique, D+, distance), section **côte par côte** (profil zoomé en blocs de 1 km colorés par pente, % affiché), section **km par km** (tableau triable + export CSV), mini-carte IGN PLANIGNV2/OSM avec bornes 20/10/5 km, flamme rouge, damier, sommets. ![Fiche](docs/captures/2-fiche-etape.png) |
+| **3. Carte globale interactive** — tous les tracés d'un tour, couleur par type d'étape, transferts en pointillés, popup par étape avec profil miniature, filtre par édition, animation étape par étape. ![Carte](docs/captures/3-carte-globale.png) | **4. Mode archives 1903→aujourd'hui** — import de la liste des étapes d'une année depuis Wikipédia (CC BY-SA), reconstruction par le pipeline standard, affichage « tracé reconstitué sur le réseau routier actuel — distance officielle X km / reconstitution Y km (écart %) ». 1903 livré complet en démo. ![Archives](docs/captures/4-archives.png) |
+
+## Architecture
+
+```
+backend/    Express + better-sqlite3 — API REST + frontend statique
+            tables : editions, stages, waypoints, tracks (GeoJSON),
+            elevation_samples, climbs, km_analysis,
+            geocode_cache, elevation_cache, api_cache
+pipeline/   modules réutilisables (géocodage, routage, altimétrie, détection
+            de côtes, analyse km/km, checks, importeur Wikipédia) + CLI
+frontend/   vanilla JS + Leaflet (servi localement) + SVG maison (profile.js,
+            partagé avec l'export HTML autonome). Aucun framework lourd.
+scripts/    demo.js — démo de validation auto-vérifiée
+test/       node:test — détecteur de côtes (profils synthétiques) + parseur
+            Wikipédia (fixtures 1903, 2025, 2026)
+```
+
+**Tout appel externe passe par un cache SQLite** (clé = sha256 de la requête
+normalisée) : on ne géocode et n'échantillonne jamais deux fois la même chose.
+Chaque hôte a sa file d'attente avec délai minimal (rate limiting).
+
+## Pipeline de génération (identique pour étape créée ou historique)
+
+1. **Géocodage** — France : `data.geopf.fr/geocodage/search` ; hors France :
+   Nominatim (User-Agent dédié, max 1 req/s). Les cols sont géocodés au sommet
+   et leur altitude vérifiée par altimétrie.
+2. **Routage** — OSRM public (`router.project-osrm.org`, driving,
+   `geometries=geojson`, `overview=full`), leg par leg (cache par paire de
+   waypoints). Si un col est contourné (tracé > 500 m du sommet), routage
+   jusqu'au pied puis interpolation pied→sommet, segment marqué « approximé ».
+3. **Altimétrie** — échantillonnage tous les 100 m (étapes < 60 km) ou 250 m
+   (au-delà). France : `data.geopf.fr/altimetrie` (ressource `ign_rge_alti_wld`,
+   paquets de 150 points). Ailleurs : `api.opentopodata.org/v1/eudem25m`
+   (100 pts/req, 1 req/s). Stockage **brut + lissé** (moyenne glissante 1 500 m).
+4. **Détection des côtes** — segment continu ≥ 1,5 km à ≥ 3 % de moyenne, fusion
+   si replat < 500 m. Catégorisation approx ASO : `score = longueur_km × pente_moy_%`
+   → > 80 HC, > 32 cat. 1, > 16 cat. 2, > 6 cat. 3, sinon cat. 4. Nom = waypoint
+   « col » le plus proche du sommet, sinon toponyme géocodé inverse.
+5. **Analyse km par km** — pour chaque km : altitude début/fin, pente moyenne,
+   pente max sur 100 m (à la résolution d'échantillonnage), D+ cumulé. Stockée
+   en base, exportée en JSON/CSV.
+
+## CLI
+
+```bash
+npm run generate -- --stage 12          # (re)génère l'étape n° 12
+npm run generate -- --edition 1903      # importe puis génère toute l'édition
+npm run generate -- --import 1903       # import seul
+# options : --offline (simulateur), --force (regénère les étapes déjà faites)
+```
+
+## Mode archives
+
+- **Importeur** : liste des étapes (villes départ/arrivée, distance officielle,
+  date, type) depuis l'API REST de Wikipédia (`en.wikipedia.org/api/rest_v1`,
+  pages « *année* Tour de France », tableaux structurés, CC BY-SA). Source de
+  recoupement autorisée : bikeraceinfo.com. **On ne scrape ni letour.fr ni
+  lequipe.fr.** La provenance de chaque champ est stockée (`stages.source`,
+  `editions.source`).
+- **Points de passage curés** (`pipeline/data/historic_routes.json`) : villes
+  d'époque et cols connus (ex. 1903 : départ réel à Montgeron, col de la
+  République sur Paris→Lyon), avec leur source.
+- **Reconstruction** : pipeline standard sur le réseau routier actuel — la fiche
+  affiche « tracé reconstitué sur le réseau routier actuel — distance officielle
+  *année* : X km / reconstitution : Y km (écart %) ».
+- **Fixtures hors-ligne** : 1903 (complète), 2025 (complète), 2026 (partielle —
+  parcours annoncé, indicatif). Toute autre année s'importe en ligne.
+
+## Garde-fous et qualité
+
+- Rate limits respectés (files d'attente par hôte) ; progression affichée pour
+  les longues générations (une étape de 467 km ≈ 1 900 points d'altimétrie).
+- Bloc **checks** par étape : distance reconstituée vs cible (±25 %), cols
+  atteints (< 500 m), altitudes de sommets vs valeurs connues, segments
+  approximés listés, échantillons manquants.
+- **Attributions affichées** dans l'application et les exports :
+  IGN/Géoplateforme, © OpenStreetMap contributors, OSRM, opentopodata,
+  Wikipédia (CC BY-SA) pour les données historiques.
+- **Mode hors-ligne** : simulateur déterministe (gazetier de lieux réels +
+  modèle de terrain calibré sur les altitudes connues des sommets) — le reste
+  du pipeline est strictement identique ; les fiches portent l'avertissement
+  « données simulées ».
+
+## Exports
+
+- **JSON** complet par étape (`/api/stages/:id/export.json`)
+- **GPX** du tracé (`/api/stages/:id/export.gpx`)
+- **PNG** du profil (rendu SVG → canvas, bouton sur la fiche)
+- **CSV** du km par km (bouton sur la fiche)
+- **Page HTML autonome par tour** (`/api/editions/:id/export.html`) — mini-site
+  avec carte et profils embarqués
+
+## Tests
+
+```bash
+npm test
+```
+
+- détecteur de côtes sur profils synthétiques connus (détection, fusion < 500 m,
+  seuils, catégorisation, blocs de 1 km) ;
+- parseur Wikipédia sur les fixtures 1903 (6 étapes, 2 428 km), 2025 (21 étapes,
+  types CLM/montagne, entités accentuées) et 2026 (partielle).
+
+## Démo de validation finale (`npm run demo`)
+
+1. **Étape créée** : Pau → Hautacam via Lourdes, col du Soulor, Argelès-Gazost —
+   Soulor et Hautacam détectés et catégorisés.
+2. **Étape historique** : Paris (Montgeron) → Lyon, édition 1903 — distance
+   officielle 467 km, écart de reconstitution affiché, col de la République détecté.
+3. **Carte globale** du Tour 1903 complet (6 étapes).
+
+Chaque point est vérifié automatiquement ; le script sort en erreur si une
+vérification échoue.

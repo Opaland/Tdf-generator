@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ÉtapeForge — Fiche d'étape</title>
+  <link rel="stylesheet" href="/vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main id="main">
+  <div id="loading" class="progress-box card">
+    <h1 id="pg-title">Génération en cours…</h1>
+    <div class="progress-bar"><div id="pg-bar"></div></div>
+    <p id="pg-detail" class="meta-line">préparation…</p>
+  </div>
+
+  <div id="fiche" style="display:none">
+    <h1 id="st-name"></h1>
+    <p class="meta-line" id="st-meta"></p>
+    <div id="st-reconstruction"></div>
+
+    <div class="toolbar">
+      <a class="btn secondary" id="exp-json">Export JSON</a>
+      <a class="btn secondary" id="exp-gpx">Export GPX</a>
+      <button class="secondary" id="exp-png">Export PNG du profil</button>
+      <button id="btn-regen" class="secondary">↻ Régénérer</button>
+    </div>
+
+    <h2>Profil de l'étape</h2>
+    <div class="card" id="profile-box"></div>
+
+    <h2>Audits qualité (checks)</h2>
+    <div class="card"><ul class="checks" id="checks"></ul></div>
+
+    <h2>Côte par côte</h2>
+    <div id="climbs"></div>
+
+    <h2>Km par km</h2>
+    <div class="card">
+      <div class="toolbar">
+        <button class="secondary" id="exp-csv">Export CSV</button>
+        <span class="meta-line">Cliquez un en-tête pour trier.</span>
+      </div>
+      <div class="kmtable-wrap">
+        <table class="kmtable" id="kmtable">
+          <thead><tr>
+            <th data-k="km">km</th><th data-k="ele_end_m">alt. (m)</th>
+            <th data-k="avg_gradient">pente moy. (%)</th><th data-k="max_gradient_100m">pente max (%)</th>
+            <th data-k="ascent_m">D+ du km (m)</th><th data-k="cum_ascent_m">D+ cumulé (m)</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <h2>Carte</h2>
+    <div class="stagemap" id="map"></div>
+    <p class="meta-line">Bornes 20/10/5 km, flamme rouge au dernier kilomètre, damier à l'arrivée, sommets marqués.</p>
+  </div>
+</main>
+<script src="/vendor/leaflet/leaflet.js"></script>
+<script src="/common.js"></script>
+<script src="/profile.js"></script>
+<script src="/stage.js"></script>
+</body>
+</html>

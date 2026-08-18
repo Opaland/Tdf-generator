@@ -1,0 +1,27 @@
+{
+  "name": "etapeforge",
+  "version": "1.0.0",
+  "description": "ÉtapeForge — générateur d'étapes du Tour de France : éditeur, reconstruction historique 1903→2027, fiches côte-par-côte, analyse km par km. 100 % local (Node.js + SQLite), aucun compte, aucune dépendance cloud propriétaire.",
+  "license": "MIT",
+  "type": "commonjs",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "node backend/server.js",
+    "generate": "node pipeline/cli.js",
+    "import": "node pipeline/cli.js --import",
+    "demo": "node scripts/demo.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.10.0",
+    "express": "^4.21.2",
+    "leaflet": "^1.9.4"
+  },
+  "devDependencies": {
+    "playwright": "^1.62.1"
+  }
+}
