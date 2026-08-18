@@ -34,11 +34,15 @@ async function renderSuunto() {
 
   if (!st.configured) {
     box.innerHTML = `
+      <p class="meta-line"><b>Pas indispensable :</b> l'export GPX ci-dessus donne le même résultat
+        sans aucune configuration. La connexion directe ajoute seulement la liste automatique
+        de vos sorties.</p>
       <p>L'API Suunto nécessite une application (gratuite) enregistrée sur
         <a href="https://apizone.suunto.com" target="_blank" rel="noopener">apizone.suunto.com</a> :
         créez un compte, enregistrez une app avec l'URL de redirection ci-dessous, souscrivez au
         produit API pour obtenir la clé d'abonnement, puis saisissez les trois valeurs ici
-        (stockées uniquement dans votre base locale).</p>
+        (stockées uniquement dans votre base locale).
+        <a href="https://github.com/Opaland/Tdf-generator/blob/main/docs/SUUNTO.md" target="_blank" rel="noopener">Guide pas-à-pas détaillé</a>.</p>
       <p class="meta-line">URL de redirection à déclarer : <code>${EF.esc(st.redirect_uri)}</code></p>
       <div class="row">
         <label class="field">Client ID<input id="su-id" autocomplete="off"></label>

@@ -150,12 +150,12 @@ exports) — la trace remplace le routage, le reste du pipeline est identique :
   Suunto, Strava, Garmin Connect, Komoot…). Les altitudes du fichier sont
   utilisées si présentes, sinon échantillonnées par les fournisseurs
   d'altimétrie. ![Mes traces](docs/captures/8-traces.png)
-- **Connexion Suunto Cloud API** : OAuth2 vers votre compte Suunto, liste de
-  vos sorties, import en un clic (export FIT décodé côté serveur). Nécessite
-  une application (gratuite) enregistrée sur
-  [apizone.suunto.com](https://apizone.suunto.com) — l'écran guide la
-  configuration (client id, client secret, clé d'abonnement, URL de
-  redirection) ; les identifiants restent dans votre base locale.
+- **Connexion Suunto Cloud API** (optionnelle — le GPX suffit dans la plupart
+  des cas) : OAuth2 vers votre compte Suunto, liste de vos sorties, import en
+  un clic (export FIT décodé côté serveur). Nécessite une application
+  (gratuite) enregistrée sur [apizone.suunto.com](https://apizone.suunto.com) ;
+  **guide pas-à-pas : [docs/SUUNTO.md](docs/SUUNTO.md)**. Les identifiants
+  restent dans votre base locale.
 
 ## Éditer une étape existante
 
