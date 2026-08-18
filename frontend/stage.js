@@ -7,12 +7,7 @@ let FULL = null;
 let kmSortKey = 'km';
 let kmSortAsc = true;
 
-function decimate(arr, n) {
-  if (arr.length <= n) return arr;
-  const out = [];
-  for (let i = 0; i < n; i++) out.push(arr[Math.round((i * (arr.length - 1)) / (n - 1))]);
-  return out;
-}
+const decimate = (arr, n) => EFProfile.decimate(arr, n);
 
 function toPayload(full) {
   return {

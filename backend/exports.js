@@ -60,13 +60,8 @@ ${pts}
 </gpx>`;
 }
 
-/** Décime une liste en gardant ~n points (premier et dernier inclus). */
-function decimate(arr, n) {
-  if (arr.length <= n) return arr;
-  const out = [];
-  for (let i = 0; i < n; i++) out.push(arr[Math.round((i * (arr.length - 1)) / (n - 1))]);
-  return out;
-}
+// Décimation partagée avec le frontend (profile.js expose aussi module.exports).
+const { decimate } = require('../frontend/profile');
 
 /** Données allégées d'une étape pour la page HTML autonome et les popups carte. */
 function stagePayload(full, { maxSamples = 600, maxTrack = 900 } = {}) {

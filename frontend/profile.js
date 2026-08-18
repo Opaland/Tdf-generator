@@ -368,7 +368,15 @@
     );
   }
 
-  const EFProfile = { renderProfileSVG, renderClimbSVG, renderRibbon3D, CAT_COLORS, CAT_TEXT, gradStyle };
+  /** Décime une liste en gardant ~n points (premier et dernier inclus). */
+  function decimate(arr, n) {
+    if (arr.length <= n) return arr;
+    const out = [];
+    for (let i = 0; i < n; i++) out.push(arr[Math.round((i * (arr.length - 1)) / (n - 1))]);
+    return out;
+  }
+
+  const EFProfile = { renderProfileSVG, renderClimbSVG, renderRibbon3D, decimate, niceStep, CAT_COLORS, CAT_TEXT, gradStyle };
   if (typeof module !== 'undefined' && module.exports) module.exports = EFProfile;
   global.EFProfile = EFProfile;
 })(typeof window !== 'undefined' ? window : globalThis);

@@ -69,6 +69,8 @@ const EF = {
        <nav>
          <a href="/" data-nav="editeur">Éditeur d'étape</a>
          <a href="/tour.html" data-nav="tour">Carte globale</a>
+         <a href="/cols.html" data-nav="cols">Cols</a>
+         <a href="/compare.html" data-nav="compare">Comparer</a>
          <a href="/archives.html" data-nav="archives">Archives 1903→</a>
        </nav>
        <span class="offline-badge" id="offline-badge">mode hors-ligne — données simulées</span>`;

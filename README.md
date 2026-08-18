@@ -47,6 +47,14 @@ la visualisation de cols, utilisé jusque dans les retransmissions TV) :
   officiels/reconstitués, écart, D+, nombre de côtes, catégorie max, pente max,
   toit de l'étape — avec tuiles de totaux (distance, D+, côtes par catégorie,
   toit du tour).
+- **Catalogue des cols** (`/cols.html`) : toutes les côtes détectées, toutes
+  étapes confondues — liste triable et filtrable (catégorie, édition,
+  recherche), profil de la montée déroulable par ligne, records (plus haut,
+  plus long, plus pentu). ![Catalogue des cols](docs/captures/6-cols.png)
+- **Comparateur d'étapes** (`/compare.html`) : superposition des profils de
+  deux étapes (axe en km absolus ou en % de l'étape) + tableau de métriques
+  côte à côte (D+/km, catégorie max, pente max, altitude moyenne…).
+  ![Comparateur](docs/captures/7-comparateur.png)
 
 ## Architecture
 

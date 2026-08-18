@@ -181,6 +181,25 @@ app.post('/api/stages/:id/generate', wrap(async (req, res) => {
   res.status(202).json({ running: true });
 }));
 
+// ---------------------------------------------------------------- catalogue des cols
+// Toutes les côtes détectées, toutes étapes confondues (liste dense façon VeloViewer).
+app.get('/api/climbs', (req, res) => {
+  const db = getDb();
+  const rows = db
+    .prepare(
+      `SELECT c.*, s.name AS stage_name, s.date AS stage_date, s.state AS stage_state,
+              e.name AS edition_name, e.year AS edition_year, e.id AS edition_id
+       FROM climbs c
+       JOIN stages s ON s.id = c.stage_id
+       LEFT JOIN editions e ON e.id = s.edition_id
+       WHERE s.state = 'done'  -- une étape modifiée (draft) garde ses anciennes côtes jusqu'à regénération
+       ORDER BY c.summit_ele_m DESC`
+    )
+    .all()
+    .map((c) => ({ ...c, km_blocks: c.km_blocks ? JSON.parse(c.km_blocks) : [] }));
+  res.json(rows);
+});
+
 // ---------------------------------------------------------------- éditions / tours
 app.get('/api/editions', (req, res) => {
   const db = getDb();

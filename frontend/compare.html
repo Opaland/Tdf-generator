@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ÉtapeForge — Comparateur d'étapes</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main>
+  <h1>Comparer deux étapes</h1>
+  <div class="toolbar">
+    <label class="field" style="margin:0;min-width:300px">Étape A
+      <select id="sel-a"></select>
+    </label>
+    <label class="field" style="margin:0;min-width:300px">Étape B
+      <select id="sel-b"></select>
+    </label>
+    <label class="field" style="margin:0">Axe des distances
+      <select id="sel-axis">
+        <option value="km">kilomètres absolus</option>
+        <option value="pct">pourcentage de l'étape</option>
+      </select>
+    </label>
+  </div>
+  <div class="card" id="overlay-box"><p class="meta-line">Choisissez deux étapes générées.</p></div>
+  <div class="card" style="overflow-x:auto">
+    <table class="stats" id="cmp-table"><thead></thead><tbody></tbody></table>
+  </div>
+</main>
+<script src="/common.js"></script>
+<script src="/profile.js"></script>
+<script src="/compare.js"></script>
+</body>
+</html>
