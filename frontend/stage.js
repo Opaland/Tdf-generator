@@ -78,9 +78,11 @@ function renderFiche() {
       `(écart ${delta >= 0 ? '+' : ''}${delta.toFixed(1)} %)</div>`;
   }
 
-  // Profil.
+  // Profil 2D + profil 3D interactif (rotation à la souris, relief étirable —
+  // visualisation inspirée des profils 3D VeloViewer).
   const payload = toPayload(FULL);
   document.getElementById('profile-box').innerHTML = EFProfile.renderProfileSVG(payload, { width: 1080, height: 300 });
+  setup3D(payload);
 
   // Checks.
   const ul = document.getElementById('checks');
@@ -122,7 +124,20 @@ function renderFiche() {
     const mid = coords[Math.floor(coords.length / 2)];
     const map = L.map('map');
     EF.baseLayerFor(mid[0], mid[1]).addTo(map);
-    L.polyline(coords, { color: '#c0392b', weight: 4 }).addTo(map);
+    // Tracé coloré par pente locale (lisible d'un coup d'œil, façon VeloViewer) :
+    // halo sombre + segments entre échantillons successifs, teintés par gradient.
+    L.polyline(coords, { color: '#3a3a3a', weight: 6, opacity: 0.5 }).addTo(map);
+    const segs = decimate(FULL.samples, 700);
+    for (let i = 1; i < segs.length; i++) {
+      const a = segs[i - 1];
+      const b = segs[i];
+      const dd = b.dist_m - a.dist_m;
+      const g = dd > 0 ? ((b.ele_smooth_m - a.ele_smooth_m) / dd) * 100 : 0;
+      const color = g < 1 ? '#3fa34d' : EFProfile.gradStyle(g).color;
+      L.polyline([[a.lat, a.lon], [b.lat, b.lon]], { color, weight: 4, opacity: 0.95 })
+        .bindTooltip(`km ${(b.dist_m / 1000).toFixed(1)} · ${Math.round(b.ele_smooth_m)} m · ${g.toFixed(1)} %`)
+        .addTo(map);
+    }
     // segments approximés en surimpression
     for (const seg of track.approx_segments || []) {
       const sub = FULL.samples.filter((s) => s.dist_m >= seg.fromM && s.dist_m <= seg.toM).map((s) => [s.lat, s.lon]);
@@ -172,6 +187,44 @@ function renderFiche() {
     await EF.api(`/api/stages/${stageId}/generate`, { method: 'POST' });
     location.reload();
   });
+}
+
+function setup3D(payload) {
+  const box2d = document.getElementById('profile-box');
+  const box3d = document.getElementById('ribbon-box');
+  const ctl = document.getElementById('ctl-3d');
+  const tab2d = document.getElementById('tab-2d');
+  const tab3d = document.getElementById('tab-3d');
+  let rotation = 0;
+  let stretch = parseFloat(document.getElementById('stretch').value);
+
+  const draw = () => {
+    box3d.innerHTML = EFProfile.renderRibbon3D(payload, { width: 1080, height: 440, rotation, stretch });
+  };
+  const show = (three) => {
+    box2d.style.display = three ? 'none' : 'block';
+    box3d.style.display = three ? 'block' : 'none';
+    ctl.style.display = three ? 'inline' : 'none';
+    tab2d.className = three ? 'tab secondary' : 'tab active';
+    tab3d.className = three ? 'tab active' : 'tab secondary';
+    if (three) draw();
+  };
+  tab2d.addEventListener('click', () => show(false));
+  tab3d.addEventListener('click', () => show(true));
+  document.getElementById('stretch').addEventListener('input', (e) => {
+    stretch = parseFloat(e.target.value);
+    draw();
+  });
+  let dragging = false;
+  let lastX = 0;
+  box3d.addEventListener('pointerdown', (e) => { dragging = true; lastX = e.clientX; box3d.style.cursor = 'grabbing'; });
+  window.addEventListener('pointermove', (e) => {
+    if (!dragging) return;
+    rotation += (e.clientX - lastX) * 0.008;
+    lastX = e.clientX;
+    draw();
+  });
+  window.addEventListener('pointerup', () => { dragging = false; box3d.style.cursor = 'grab'; });
 }
 
 function renderKmTable() {

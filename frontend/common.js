@@ -81,7 +81,7 @@ const EF = {
     document.body.appendChild(footer);
     try {
       const st = await EF.api('/api/status');
-      footer.textContent = st.attributions;
+      footer.innerHTML = `${EF.esc(st.attributions)} · <a href="/diag.html">diagnostic APIs</a>`;
       if (st.offline) document.getElementById('offline-badge').style.display = 'inline-block';
       EF.status = st;
     } catch {

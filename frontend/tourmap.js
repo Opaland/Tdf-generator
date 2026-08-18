@@ -61,24 +61,101 @@ function renderLegend() {
     .join('') + `<span><span class="sw" style="background:#777;border:1px dashed #333"></span>transfert</span>`;
 }
 
-function renderStageList(data) {
-  const tbody = document.querySelector('#tour-stages tbody');
-  tbody.innerHTML = data.stages
-    .map((st) => {
-      const s = st.stage;
-      return `<tr><td><a href="/stage.html?id=${s.id}">${EF.esc(s.name)}</a></td>
-        <td>${EF.esc(s.date || '')}</td>
-        <td><span style="color:${EF.typeColor(s.stage_type)}">${EF.esc(s.stage_type || '—')}</span></td>
-        <td>${s.generated_distance_km != null ? s.generated_distance_km + ' km' : '—'}</td>
-        <td>${EF.stateBadge(s.state)}</td></tr>`;
-    })
+// Tableau de statistiques dense et triable (façon listes VeloViewer) + tuiles de totaux.
+const CAT_ORDER = { HC: 5, 1: 4, 2: 3, 3: 2, 4: 1 };
+let statRows = [];
+let statSort = { k: 'order', asc: true };
+
+function buildStatRows(data) {
+  statRows = data.stages.map((st, i) => {
+    const s = st.stage;
+    const climbs = st.climbs || [];
+    const maxCat = climbs.reduce((a, c) => (CAT_ORDER[c.category] > CAT_ORDER[a] ? c.category : a), '');
+    const delta = s.official_distance_km && s.generated_distance_km
+      ? ((s.generated_distance_km - s.official_distance_km) / s.official_distance_km) * 100
+      : null;
+    return {
+      id: s.id,
+      order: s.stage_order || i + 1,
+      name: s.name,
+      date: s.date || '',
+      type: s.stage_type || '',
+      off: s.official_distance_km || null,
+      gen: s.generated_distance_km || null,
+      delta,
+      dplus: s.total_ascent_m || null,
+      nclimbs: climbs.length,
+      maxcat: maxCat,
+      maxgrad: climbs.length ? Math.max(...climbs.map((c) => c.max_gradient)) : null,
+      summit: climbs.length ? Math.max(...climbs.map((c) => c.summit_ele_m)) : null,
+      state: s.state,
+    };
+  });
+}
+
+function renderStageList() {
+  const rows = [...statRows].sort((a, b) => {
+    let va = a[statSort.k];
+    let vb = b[statSort.k];
+    if (statSort.k === 'maxcat') { va = CAT_ORDER[va] || 0; vb = CAT_ORDER[vb] || 0; }
+    if (va == null) return 1;
+    if (vb == null) return -1;
+    const cmp = typeof va === 'string' ? String(va).localeCompare(String(vb)) : va - vb;
+    return statSort.asc ? cmp : -cmp;
+  });
+  const fmt = (v, d) => (v == null ? '—' : typeof v === 'number' ? v.toFixed(d ?? 0) : v);
+  document.querySelector('#tour-stages tbody').innerHTML = rows
+    .map(
+      (r) => `<tr>
+        <td>${r.order}</td>
+        <td><a href="/stage.html?id=${r.id}">${EF.esc(r.name)}</a></td>
+        <td>${EF.esc(r.date)}</td>
+        <td><span style="color:${EF.typeColor(r.type)}">${EF.esc(r.type || '—')}</span></td>
+        <td>${fmt(r.off)}</td><td>${fmt(r.gen, 1)}</td>
+        <td>${r.delta == null ? '—' : (r.delta >= 0 ? '+' : '') + r.delta.toFixed(1)}</td>
+        <td>${fmt(r.dplus)}</td><td>${r.nclimbs || '—'}</td>
+        <td>${r.maxcat ? `<span class="pill" style="background:${EFProfile.CAT_COLORS[r.maxcat]};color:${EFProfile.CAT_TEXT[r.maxcat]}">${r.maxcat}</span>` : '—'}</td>
+        <td>${fmt(r.maxgrad, 1)}</td><td>${fmt(r.summit)}</td>
+        <td>${EF.stateBadge(r.state)}</td></tr>`
+    )
+    .join('');
+  const tot = (k) => statRows.reduce((a, r) => a + (r[k] || 0), 0);
+  document.querySelector('#tour-stages tfoot').innerHTML =
+    `<tr><td></td><td>Total</td><td></td><td></td><td>${tot('off') || '—'}</td>` +
+    `<td>${tot('gen').toFixed(1)}</td><td></td><td>${tot('dplus')}</td><td>${tot('nclimbs')}</td>` +
+    `<td colspan="4"></td></tr>`;
+}
+
+function renderStatTiles(data) {
+  const rows = statRows;
+  const totalKm = rows.reduce((a, r) => a + (r.gen || 0), 0);
+  const totalDplus = rows.reduce((a, r) => a + (r.dplus || 0), 0);
+  const allClimbs = data.stages.flatMap((st) => st.climbs || []);
+  const byCat = {};
+  for (const c of allClimbs) byCat[c.category] = (byCat[c.category] || 0) + 1;
+  const highest = allClimbs.reduce((a, c) => (c.summit_ele_m > (a?.summit_ele_m || 0) ? c : a), null);
+  const tiles = [
+    { v: rows.length, l: 'étapes' },
+    { v: totalKm.toFixed(0) + ' km', l: 'distance reconstituée' },
+    { v: 'D+ ' + totalDplus.toLocaleString('fr-FR') + ' m', l: 'dénivelé total' },
+    { v: allClimbs.length, l: 'côtes détectées' },
+    {
+      v: ['HC', '1', '2', '3', '4'].filter((k) => byCat[k]).map((k) => `${byCat[k]}×${k === 'HC' ? 'HC' : 'c' + k}`).join(' ') || '—',
+      l: 'par catégorie',
+    },
+    { v: highest ? `${highest.summit_ele_m} m` : '—', l: highest ? `toit du tour (${highest.name})` : 'toit du tour' },
+  ];
+  document.getElementById('tour-stats').innerHTML = tiles
+    .map((t) => `<div class="stat"><div class="v">${t.v}</div><div class="l">${EF.esc(t.l)}</div></div>`)
     .join('');
 }
 
 async function loadEdition(id) {
   TOURDATA = await EF.api(`/api/editions/${id}/mapdata`);
   drawTour(TOURDATA);
-  renderStageList(TOURDATA);
+  buildStatRows(TOURDATA);
+  renderStatTiles(TOURDATA);
+  renderStageList();
   document.getElementById('exp-site').href = `/api/editions/${id}/site`;
   const note = document.getElementById('tour-note');
   const src = TOURDATA.edition.source;
@@ -112,6 +189,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     : '<option value="">— aucun tour : importez une édition dans Archives —</option>';
   sel.addEventListener('change', () => sel.value && loadEdition(sel.value));
   document.getElementById('btn-anim').addEventListener('click', animate);
+  document.querySelectorAll('#tour-stages th').forEach((th) =>
+    th.addEventListener('click', () => {
+      const k = th.dataset.k;
+      if (statSort.k === k) statSort.asc = !statSort.asc;
+      else statSort = { k, asc: true };
+      renderStageList();
+    })
+  );
 
   const wanted = EF.qs('edition');
   if (wanted && editions.some((e) => String(e.id) === wanted)) sel.value = wanted;

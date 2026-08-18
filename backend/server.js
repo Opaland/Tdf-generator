@@ -44,6 +44,46 @@ app.post('/api/offline', (req, res) => {
   res.json({ offline: isOffline() });
 });
 
+// Diagnostic de connectivité vers chaque API externe (une micro-requête par
+// service, timeout 8 s, sans cache) — pour vérifier le mode « live » chez soi.
+app.get('/api/diagnostic', wrap(async (req, res) => {
+  const { USER_AGENT } = require('../pipeline/http');
+  const probe = async (name, url, check) => {
+    const t0 = Date.now();
+    try {
+      const ctl = new AbortController();
+      const timer = setTimeout(() => ctl.abort(), 8000);
+      const r = await fetch(url, { headers: { 'User-Agent': USER_AGENT }, signal: ctl.signal });
+      clearTimeout(timer);
+      const text = await r.text();
+      let body = null;
+      try { body = JSON.parse(text); } catch { /* réponse non-JSON (proxy, page d'erreur…) */ }
+      const ok = r.ok && body != null && (!check || check(body));
+      return {
+        name, ok, ms: Date.now() - t0,
+        detail: ok ? `HTTP ${r.status}` : `HTTP ${r.status} — ${body == null ? text.slice(0, 80) : 'réponse inattendue'}`,
+      };
+    } catch (err) {
+      return { name, ok: false, ms: Date.now() - t0, detail: String(err.cause?.message || err.message) };
+    }
+  };
+  const results = [];
+  results.push(await probe('Géoplateforme — géocodage',
+    'https://data.geopf.fr/geocodage/search?q=Paris&limit=1', (b) => (b.features || []).length > 0));
+  results.push(await probe('Géoplateforme — altimétrie (RGE ALTI)',
+    'https://data.geopf.fr/altimetrie/1.0/calcul/alti/rest/elevation.json?lon=2.35&lat=48.85&resource=ign_rge_alti_wld&zonly=true', (b) => (b.elevations || []).length > 0));
+  results.push(await probe('OSRM — routage',
+    'https://router.project-osrm.org/route/v1/driving/2.35,48.85;2.37,48.86?overview=false', (b) => b.code === 'Ok'));
+  results.push(await probe('Nominatim — géocodage hors France',
+    'https://nominatim.openstreetmap.org/search?q=Barcelona&format=jsonv2&limit=1', (b) => Array.isArray(b) && b.length > 0));
+  results.push(await probe('opentopodata — altimétrie hors France',
+    'https://api.opentopodata.org/v1/eudem25m?locations=41.38,2.17', (b) => b.status === 'OK'));
+  results.push(await probe('Wikipédia — archives',
+    'https://en.wikipedia.org/api/rest_v1/page/summary/Tour_de_France', (b) => !!b.title));
+  const allOk = results.every((r) => r.ok);
+  res.json({ allOk, offline: isOffline(), results });
+}));
+
 // ---------------------------------------------------------------- géocodage
 app.get('/api/geocode', wrap(async (req, res) => {
   res.json(await geocodeSuggest(String(req.query.q || '')));

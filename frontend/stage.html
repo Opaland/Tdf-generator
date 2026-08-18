@@ -28,7 +28,18 @@
     </div>
 
     <h2>Profil de l'étape</h2>
-    <div class="card" id="profile-box"></div>
+    <div class="card">
+      <div class="toolbar">
+        <button id="tab-2d" class="tab active">Profil 2D</button>
+        <button id="tab-3d" class="tab secondary">Profil 3D interactif</button>
+        <span id="ctl-3d" style="display:none" class="meta-line">
+          glissez pour pivoter ·
+          relief ×<input id="stretch" type="range" min="0.5" max="3" step="0.1" value="1.4" style="vertical-align:middle">
+        </span>
+      </div>
+      <div id="profile-box"></div>
+      <div id="ribbon-box" style="display:none;cursor:grab;user-select:none"></div>
+    </div>
 
     <h2>Audits qualité (checks)</h2>
     <div class="card"><ul class="checks" id="checks"></ul></div>

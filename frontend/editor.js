@@ -8,8 +8,19 @@ let waypoints = []; // {label, kind, lat, lon}
 
 function wpRow(wp, i) {
   const li = document.createElement('li');
+  // Réordonnancement par glisser-déposer via la poignée ⠿ (en plus des boutons ↑/↓).
+  li.addEventListener('dragover', (e) => e.preventDefault());
+  li.addEventListener('drop', (e) => {
+    e.preventDefault();
+    const from = parseInt(e.dataTransfer.getData('text/plain'), 10);
+    if (Number.isInteger(from) && from !== i) {
+      const [moved] = waypoints.splice(from, 1);
+      waypoints.splice(i, 0, moved);
+      render();
+    }
+  });
   li.innerHTML = `
-    <span class="idx">${i + 1}</span>
+    <span class="idx" title="glisser pour réordonner" style="cursor:grab">⠿ ${i + 1}</span>
     <input class="label" value="${EF.esc(wp.label || '')}" placeholder="Ville, col, lieu-dit…">
     <select class="kind">
       <option value="start"${wp.kind === 'start' ? ' selected' : ''}>départ</option>
@@ -22,6 +33,10 @@ function wpRow(wp, i) {
     <button class="secondary down" title="descendre">↓</button>
     <button class="danger del" title="supprimer">✕</button>
   `;
+  const handle = li.querySelector('.idx');
+  handle.draggable = true;
+  handle.addEventListener('dragstart', (e) => e.dataTransfer.setData('text/plain', String(i)));
+
   const input = li.querySelector('input.label');
   const suggestBox = document.createElement('div');
   suggestBox.className = 'suggest';

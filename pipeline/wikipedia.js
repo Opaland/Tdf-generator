@@ -185,6 +185,7 @@ async function fetchEditionHtml(year) {
  * Retourne [{label, kind, altitude_hint_m?, source}]
  */
 function reconstructionWaypoints(year, stage) {
+  const { isColQuery } = require('./geocode');
   const curated = HISTORIC_ROUTES[String(year)]?.stages?.[String(stage.number)];
   const wps = [];
   const startLabel = curated?.start || stage.start;
@@ -194,7 +195,13 @@ function reconstructionWaypoints(year, stage) {
     if (typeof via === 'string') wps.push({ label: via, kind: 'via', source: 'parcours curé' });
     else wps.push({ label: via.label, kind: via.kind || 'via', altitude_hint_m: via.ele ?? null, source: 'parcours curé' });
   }
-  wps.push({ label: finishLabel, kind: 'finish', source: curated?.finish ? 'parcours curé' : 'wikipedia' });
+  // Arrivée au sommet (Alpe d'Huez, Hautacam…) : traitée comme un col pour
+  // garantir le passage au sommet et la vérification d'altitude.
+  wps.push({
+    label: finishLabel,
+    kind: isColQuery(finishLabel) ? 'col' : 'finish',
+    source: curated?.finish ? 'parcours curé' : 'wikipedia',
+  });
   return wps;
 }
 

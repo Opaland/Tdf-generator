@@ -12,13 +12,31 @@ function esc(s) {
 
 /** GPX 1.1 du tracé (points d'altimétrie : lat/lon/ele brute). */
 function stageToGpx(full) {
-  const { stage, samples, waypoints } = full;
+  const { stage, samples, waypoints, climbs } = full;
+  // Sommets des côtes détectées inclus comme waypoints nommés (catégorie + pente).
+  const climbWpts = (climbs || [])
+    .map((c) => {
+      let best = samples[0];
+      for (const s of samples) {
+        if (Math.abs(s.dist_m - c.end_km * 1000) < Math.abs(best.dist_m - c.end_km * 1000)) best = s;
+      }
+      return best
+        ? `  <wpt lat="${best.lat.toFixed(6)}" lon="${best.lon.toFixed(6)}">\n` +
+          `    <ele>${c.summit_ele_m}</ele>\n` +
+          `    <name>${esc(c.name)} (cat. ${esc(c.category)})</name>\n` +
+          `    <desc>${c.length_km} km à ${c.avg_gradient} % (max ${c.max_gradient} %)</desc>\n` +
+          `    <type>climb</type>\n  </wpt>`
+        : '';
+    })
+    .filter(Boolean)
+    .join('\n');
   const wpts = waypoints
     .filter((w) => w.lat != null)
     .map(
       (w) =>
         `  <wpt lat="${w.lat}" lon="${w.lon}">\n    <name>${esc(w.label)}</name>\n    <type>${esc(w.kind)}</type>\n  </wpt>`
     )
+    .concat(climbWpts ? [climbWpts] : [])
     .join('\n');
   const pts = samples
     .map(

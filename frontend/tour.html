@@ -20,8 +20,21 @@
   <div class="legend" id="legend"></div>
   <div id="map" style="height:560px"></div>
   <div id="tour-note"></div>
-  <h2>Étapes</h2>
-  <div class="card"><table class="stage-list" id="tour-stages"><tbody></tbody></table></div>
+  <div class="statgrid" id="tour-stats"></div>
+  <h2>Étapes — statistiques (cliquez un en-tête pour trier)</h2>
+  <div class="card" style="overflow-x:auto">
+    <table class="stats" id="tour-stages">
+      <thead><tr>
+        <th data-k="order">#</th><th data-k="name">Étape</th><th data-k="date">Date</th>
+        <th data-k="type">Type</th><th data-k="off">Km off.</th><th data-k="gen">Km reconst.</th>
+        <th data-k="delta">Écart %</th><th data-k="dplus">D+ (m)</th><th data-k="nclimbs">Côtes</th>
+        <th data-k="maxcat">Max cat.</th><th data-k="maxgrad">Pente max %</th><th data-k="summit">Sommet (m)</th>
+        <th data-k="state">État</th>
+      </tr></thead>
+      <tbody></tbody>
+      <tfoot></tfoot>
+    </table>
+  </div>
 </main>
 <script src="/vendor/leaflet/leaflet.js"></script>
 <script src="/common.js"></script>

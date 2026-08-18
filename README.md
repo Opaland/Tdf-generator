@@ -1,5 +1,7 @@
 # ÉtapeForge
 
+![CI](https://github.com/Opaland/Tdf-generator/actions/workflows/ci.yml/badge.svg)
+
 **Générateur d'étapes du Tour de France** — application web 100 % locale : Node.js + SQLite +
 Leaflet/SVG. Aucun compte, aucune dépendance cloud propriétaire.
 
@@ -27,6 +29,24 @@ npm start        # http://localhost:4567
 |---|---|
 | **1. Éditeur d'étape** — formulaire (nom, date, type, statut libre), waypoints ordonnés avec autocomplétion géocodage, carte de prévisualisation (ajout d'un waypoint par clic → géocodage inverse), bouton « Générer » → pipeline → fiche. ![Éditeur](docs/captures/1-editeur.png) | **2. Fiche d'étape** — profil SVG style ASO (silhouette sable lissée, annotations obliques des villes/cols à leur km réel, pastilles de catégorie HC/1/2/3/4, bande jaune kilométrique, D+, distance), section **côte par côte** (profil zoomé en blocs de 1 km colorés par pente, % affiché), section **km par km** (tableau triable + export CSV), mini-carte IGN PLANIGNV2/OSM avec bornes 20/10/5 km, flamme rouge, damier, sommets. ![Fiche](docs/captures/2-fiche-etape.png) |
 | **3. Carte globale interactive** — tous les tracés d'un tour, couleur par type d'étape, transferts en pointillés, popup par étape avec profil miniature, filtre par édition, animation étape par étape. ![Carte](docs/captures/3-carte-globale.png) | **4. Mode archives 1903→aujourd'hui** — import de la liste des étapes d'une année depuis Wikipédia (CC BY-SA), reconstruction par le pipeline standard, affichage « tracé reconstitué sur le réseau routier actuel — distance officielle X km / reconstitution Y km (écart %) ». 1903 livré complet en démo. ![Archives](docs/captures/4-archives.png) |
+
+## Visualisations inspirées de VeloViewer
+
+En plus du profil 2D style ASO, la fiche d'étape propose des visualisations
+inspirées de [VeloViewer](https://veloviewer.com) (le site de référence pour
+la visualisation de cols, utilisé jusque dans les retransmissions TV) :
+
+- **Profil 3D interactif** (onglet « Profil 3D » de la fiche) : le tracé est
+  projeté en perspective et extrudé selon l'altitude, chaque tranche colorée
+  par la pente locale (jaune < 5 %, orange 5–8 %, rouge 8–10 %, noir > 10 %).
+  **Glissez pour pivoter** la vue, ajustez l'**étirement du relief** au curseur.
+  ![Profil 3D](docs/captures/5-profil-3d.png)
+- **Tracé coloré par pente sur la carte** : chaque segment du parcours est teinté
+  selon sa pente (survol → km, altitude, %).
+- **Tableau de statistiques dense et triable** sur la carte globale : km
+  officiels/reconstitués, écart, D+, nombre de côtes, catégorie max, pente max,
+  toit de l'étape — avec tuiles de totaux (distance, D+, côtes par catégorie,
+  toit du tour).
 
 ## Architecture
 
@@ -87,8 +107,10 @@ npm run generate -- --import 1903       # import seul
   lequipe.fr.** La provenance de chaque champ est stockée (`stages.source`,
   `editions.source`).
 - **Points de passage curés** (`pipeline/data/historic_routes.json`) : villes
-  d'époque et cols connus (ex. 1903 : départ réel à Montgeron, col de la
-  République sur Paris→Lyon), avec leur source.
+  d'époque et cols connus, avec leur source — fournis pour 1903 (départ réel à
+  Montgeron, col de la République), 1905 (Ballon d'Alsace), 1910 (le « Cercle
+  de la mort » : Peyresourde, Aspin, Tourmalet, Aubisque), 1911 (premier
+  Galibier), 1952 (première arrivée à l'Alpe d'Huez), 2025 et 2026.
 - **Reconstruction** : pipeline standard sur le réseau routier actuel — la fiche
   affiche « tracé reconstitué sur le réseau routier actuel — distance officielle
   *année* : X km / reconstitution : Y km (écart %) ».
@@ -110,10 +132,20 @@ npm run generate -- --import 1903       # import seul
   du pipeline est strictement identique ; les fiches portent l'avertissement
   « données simulées ».
 
+## Diagnostic du mode réel
+
+La page **/diag.html** (lien en pied de page) teste la connectivité vers chaque
+API externe (Géoplateforme géocodage + altimétrie, OSRM, Nominatim,
+opentopodata, Wikipédia) avec latence et détail d'erreur — pratique avant une
+grosse génération, ou pour comprendre pourquoi le mode réel échoue derrière un
+proxy. En cas de réseau indisponible, tout fonctionne en mode hors-ligne :
+`ETAPEFORGE_OFFLINE=1 npm start`.
+
 ## Exports
 
 - **JSON** complet par étape (`/api/stages/:id/export.json`)
-- **GPX** du tracé (`/api/stages/:id/export.gpx`)
+- **GPX** du tracé (`/api/stages/:id/export.gpx`) — les sommets des côtes
+  détectées y figurent comme waypoints nommés (catégorie, pente)
 - **PNG** du profil (rendu SVG → canvas, bouton sur la fiche)
 - **CSV** du km par km (bouton sur la fiche)
 - **Page HTML autonome par tour** (`/api/editions/:id/export.html`) — mini-site

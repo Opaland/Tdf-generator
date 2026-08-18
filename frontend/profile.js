@@ -228,7 +228,147 @@
     );
   }
 
-  const EFProfile = { renderProfileSVG, renderClimbSVG, CAT_COLORS, CAT_TEXT, gradStyle };
+  /**
+   * Profil 3D « ruban » (inspiré des visualisations VeloViewer) : le tracé est
+   * projeté en perspective oblique, extrudé verticalement selon l'altitude,
+   * chaque tranche colorée par la pente locale. Entrée : profile [{d,e,lat,lon}].
+   */
+  function renderRibbon3D(data, opts) {
+    opts = opts || {};
+    const W = opts.width || 1040;
+    const H = opts.height || 420;
+    const rotation = opts.rotation || 0;  // rotation autour de la verticale (drag souris)
+    const stretch = opts.stretch || 1;    // étirement vertical de l'altitude
+    const prof = (data.profile || []).filter((p) => p.lat != null);
+    if (prof.length < 3) return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}"></svg>`;
+
+    // Coordonnées locales en mètres.
+    const lat0 = prof.reduce((a, p) => a + p.lat, 0) / prof.length;
+    const lon0 = prof.reduce((a, p) => a + p.lon, 0) / prof.length;
+    const kx = Math.cos((lat0 * Math.PI) / 180) * 111320;
+    const ky = 110540;
+    let pts = prof.map((p) => ({
+      x: (p.lon - lon0) * kx,
+      y: (p.lat - lat0) * ky,
+      e: p.e,
+      d: p.d,
+    }));
+
+    // Orientation : axe principal du tracé à l'horizontale (ACP simplifiée).
+    let sxx = 0, sxy = 0, syy = 0;
+    for (const p of pts) { sxx += p.x * p.x; sxy += p.x * p.y; syy += p.y * p.y; }
+    const theta = 0.5 * Math.atan2(2 * sxy, sxx - syy) + rotation;
+    const cos = Math.cos(-theta);
+    const sin = Math.sin(-theta);
+    pts = pts.map((p) => ({ ...p, x: p.x * cos - p.y * sin, y: p.x * sin + p.y * cos }));
+
+    // Projection oblique : profondeur écrasée + cisaillement.
+    const DEPTH = 0.42;   // écrasement de l'axe profondeur
+    const SHEAR = 0.35;   // décalage horizontal par profondeur
+    const eMin = Math.min.apply(null, pts.map((p) => p.e));
+    const eMax = Math.max.apply(null, pts.map((p) => p.e));
+    const eleScale = ((H * 0.34) / Math.max(200, eMax - eMin)) * stretch;
+
+    const proj = pts.map((p) => ({
+      px: p.x + p.y * SHEAR,
+      py: -p.y * DEPTH,
+      h: (p.e - eMin) * eleScale,
+      depth: p.y,
+      d: p.d,
+      e: p.e,
+    }));
+    const minX = Math.min.apply(null, proj.map((p) => p.px));
+    const maxX = Math.max.apply(null, proj.map((p) => p.px));
+    const minY = Math.min.apply(null, proj.map((p) => p.py));
+    const maxY = Math.max.apply(null, proj.map((p) => p.py));
+    const pad = 40;
+    const scale = Math.min((W - 2 * pad) / (maxX - minX || 1), (H * 0.5 - pad) / (maxY - minY || 1));
+    const X = (p) => pad + (p.px - minX) * scale;
+    const YBase = (p) => H - pad - (p.py - minY) * scale;
+
+    // Tranches (murs verticaux) triées de l'arrière vers l'avant (peintre).
+    const slices = [];
+    for (let i = 1; i < proj.length; i++) {
+      const a = proj[i - 1];
+      const b = proj[i];
+      const dd = b.d - a.d;
+      const g = dd > 0 ? ((b.e - a.e) / dd) * 100 : 0;
+      slices.push({ a, b, g, depth: (a.depth + b.depth) / 2 });
+    }
+    slices.sort((s, t) => t.depth - s.depth); // fond d'abord
+
+    let walls = '';
+    for (const s of slices) {
+      const gs = gradStyle(s.g);
+      const x0 = X(s.a).toFixed(1);
+      const x1 = X(s.b).toFixed(1);
+      const y0b = YBase(s.a).toFixed(1);
+      const y1b = YBase(s.b).toFixed(1);
+      const y0t = (YBase(s.a) - s.a.h).toFixed(1);
+      const y1t = (YBase(s.b) - s.b.h).toFixed(1);
+      const shade = s.g < 0 ? 0.55 : 0.9; // descentes assombries pour la lecture du relief
+      walls +=
+        `<path d="M ${x0} ${y0b} L ${x1} ${y1b} L ${x1} ${y1t} L ${x0} ${y0t} Z"` +
+        ` fill="${gs.color}" fill-opacity="${shade}" stroke="#ffffff" stroke-width="0.4"/>`;
+    }
+
+    // Ligne de sol et ligne de crête.
+    let ground = '';
+    let ridge = '';
+    for (let i = 0; i < proj.length; i++) {
+      const p = proj[i];
+      const cmd = i === 0 ? 'M' : 'L';
+      ground += `${cmd} ${X(p).toFixed(1)} ${YBase(p).toFixed(1)} `;
+      ridge += `${cmd} ${X(p).toFixed(1)} ${(YBase(p) - p.h).toFixed(1)} `;
+    }
+
+    // Marqueurs départ / arrivée / sommets des côtes.
+    let marks = '';
+    const at = (m) => {
+      let best = proj[0];
+      for (const p of proj) if (Math.abs(p.d - m) < Math.abs(best.d - m)) best = p;
+      return best;
+    };
+    const start = proj[0];
+    const end = proj[proj.length - 1];
+    marks += `<circle cx="${X(start).toFixed(1)}" cy="${(YBase(start) - start.h).toFixed(1)}" r="5" fill="#2e8b57" stroke="#fff" stroke-width="1.5"/>`;
+    marks += `<rect x="${(X(end) - 5).toFixed(1)}" y="${(YBase(end) - end.h - 5).toFixed(1)}" width="10" height="10" fill="#111" stroke="#fff" stroke-width="1.5"/>`;
+    for (const c of data.climbs || []) {
+      const p = at(c.end_km * 1000);
+      const cc = CAT_COLORS[c.category] || '#999';
+      const tc = CAT_TEXT[c.category] || '#fff';
+      const yTop = YBase(p) - p.h;
+      marks +=
+        `<line x1="${X(p).toFixed(1)}" y1="${yTop.toFixed(1)}" x2="${X(p).toFixed(1)}" y2="${(yTop - 16).toFixed(1)}" stroke="#555" stroke-width="1"/>` +
+        `<circle cx="${X(p).toFixed(1)}" cy="${(yTop - 24).toFixed(1)}" r="9" fill="${cc}" stroke="#fff" stroke-width="1.5"/>` +
+        `<text x="${X(p).toFixed(1)}" y="${(yTop - 20.5).toFixed(1)}" text-anchor="middle" font-size="9" font-weight="bold" fill="${tc}">${esc(c.category)}</text>` +
+        (X(p) > W - 170
+          ? `<text x="${(X(p) - 12).toFixed(1)}" y="${(yTop - 28).toFixed(1)}" text-anchor="end" font-size="10.5" fill="#333">${esc(c.name)} (${c.summit_ele_m} m)</text>`
+          : `<text x="${(X(p) + 12).toFixed(1)}" y="${(yTop - 28).toFixed(1)}" font-size="10.5" fill="#333">${esc(c.name)} (${c.summit_ele_m} m)</text>`);
+    }
+
+    // Légende pente.
+    let legend = '';
+    const items = [['< 5 %', '#f7d154'], ['5–8 %', '#f08c00'], ['8–10 %', '#d7263d'], ['> 10 %', '#1a1a1a']];
+    items.forEach(([label, color], i) => {
+      legend +=
+        `<rect x="${pad + i * 86}" y="14" width="13" height="13" fill="${color}"/>` +
+        `<text x="${pad + i * 86 + 18}" y="25" font-size="11" fill="#444">${label}</text>`;
+    });
+
+    return (
+      `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Profil 3D de l'étape">` +
+      `<rect width="${W}" height="${H}" fill="#faf6ec"/>` +
+      legend +
+      `<path d="${ground}" fill="none" stroke="#c9bd9c" stroke-width="1" stroke-dasharray="4 4"/>` +
+      walls +
+      `<path d="${ridge}" fill="none" stroke="#333" stroke-width="1.1"/>` +
+      marks +
+      `</svg>`
+    );
+  }
+
+  const EFProfile = { renderProfileSVG, renderClimbSVG, renderRibbon3D, CAT_COLORS, CAT_TEXT, gradStyle };
   if (typeof module !== 'undefined' && module.exports) module.exports = EFProfile;
   global.EFProfile = EFProfile;
 })(typeof window !== 'undefined' ? window : globalThis);

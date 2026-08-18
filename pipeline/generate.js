@@ -52,6 +52,9 @@ async function generateStage(stageId, { onProgress } = {}) {
       if (i === waypoints.length - 1 && kind !== 'col') kind = 'finish';
       if (wp.lat == null || wp.lon == null) {
         const res = kind === 'col' ? await geocodeCol(wp.label) : await geocode(wp.label);
+        // Le géocodeur sait parfois qu'un lieu est un sommet (ex. « Hautacam ») :
+        // on le traite alors comme un col, même en position d'arrivée.
+        if (res.kind === 'peak' && kind !== 'start') kind = 'col';
         wp.lat = res.lat;
         wp.lon = res.lon;
         wp.geocode = JSON.stringify(res);
