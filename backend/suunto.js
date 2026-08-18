@@ -14,8 +14,9 @@ const express = require('express');
 const { getDb } = require('./db');
 const { importTrackAsStage, pointsFromFitRecords } = require('../pipeline/importTrack');
 
-const OAUTH_BASE = 'https://cloudapi-oauth.suunto.com';
-const API_BASE = 'https://cloudapi.suunto.com';
+// Surchargeables pour les tests d'intégration (serveur Suunto simulé en local).
+const OAUTH_BASE = process.env.SUUNTO_OAUTH_BASE || 'https://cloudapi-oauth.suunto.com';
+const API_BASE = process.env.SUUNTO_API_BASE || 'https://cloudapi.suunto.com';
 
 // --- petit stockage clé/valeur local -------------------------------------------
 function ensureSettings(db) {
