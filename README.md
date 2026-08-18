@@ -130,7 +130,10 @@ npm run generate -- --import 1903       # import seul
   affiche « tracé reconstitué sur le réseau routier actuel — distance officielle
   *année* : X km / reconstitution : Y km (écart %) ».
 - **Fixtures hors-ligne** : 1903 (complète), 2025 (complète), 2026 (partielle —
-  parcours annoncé, indicatif). Toute autre année s'importe en ligne.
+  snapshot du parcours annoncé, capturé avant la course ; l'édition 2026 est
+  en réalité terminée depuis le 26 juillet 2026, voir les étapes reines
+  curées avec résultats dans `historic_routes.json`). Toute autre année
+  s'importe en ligne.
 
 ## Garde-fous et qualité
 
