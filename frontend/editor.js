@@ -1,10 +1,12 @@
 'use strict';
 // Écran 1 : éditeur d'étape — formulaire + waypoints ordonnés avec autocomplétion
 // géocodage + carte Leaflet de prévisualisation (ajout de waypoint par clic).
+// Avec ?id=<n> : mode édition d'une étape existante (mise à jour + regénération).
 
 let map;
 let markersLayer;
 let waypoints = []; // {label, kind, lat, lon}
+let editingId = null; // id de l'étape en cours de modification (mode édition)
 
 function wpRow(wp, i) {
   const li = document.createElement('li');
@@ -109,7 +111,8 @@ async function loadStages() {
       <td>${s.generated_distance_km != null ? s.generated_distance_km + ' km' : s.official_distance_km ? s.official_distance_km + ' km (off.)' : '—'}</td>
       <td>${s.total_ascent_m != null ? 'D+ ' + s.total_ascent_m + ' m' : '—'}</td>
       <td>${EF.stateBadge(s.state)}</td>
-      <td><button class="danger" data-del="${s.id}">✕</button></td>`;
+      <td><a class="btn secondary" href="/?id=${s.id}" title="modifier">✎</a>
+          <button class="danger" data-del="${s.id}">✕</button></td>`;
     tbody.appendChild(tr);
   }
   tbody.querySelectorAll('[data-del]').forEach((b) =>
@@ -142,25 +145,44 @@ async function generate() {
   valid[0].kind = 'start';
   if (valid[valid.length - 1].kind !== 'col') valid[valid.length - 1].kind = 'finish';
   btn.disabled = true;
-  msg.textContent = 'Création…';
+  msg.textContent = editingId ? 'Mise à jour…' : 'Création…';
+  const body = {
+    name,
+    date: document.getElementById('f-date').value || null,
+    stage_type: document.getElementById('f-type').value,
+    status: document.getElementById('f-status').value || null,
+    edition_id: document.getElementById('f-edition').value || null,
+    waypoints: valid,
+  };
   try {
-    const { id } = await EF.api('/api/stages', {
-      method: 'POST',
-      body: {
-        name,
-        date: document.getElementById('f-date').value || null,
-        stage_type: document.getElementById('f-type').value,
-        status: document.getElementById('f-status').value || null,
-        edition_id: document.getElementById('f-edition').value || null,
-        waypoints: valid,
-      },
-    });
+    let id = editingId;
+    if (editingId) {
+      await EF.api(`/api/stages/${editingId}`, { method: 'PUT', body });
+    } else {
+      id = (await EF.api('/api/stages', { method: 'POST', body })).id;
+    }
     await EF.api(`/api/stages/${id}/generate`, { method: 'POST' });
     location.href = `/stage.html?id=${id}`;
   } catch (err) {
     msg.textContent = 'Erreur : ' + err.message;
     btn.disabled = false;
   }
+}
+
+/** Mode édition : précharge une étape existante dans le formulaire. */
+async function loadForEdit(id) {
+  const full = await EF.api(`/api/stages/${id}`);
+  editingId = id;
+  const st = full.stage;
+  document.getElementById('f-name').value = st.name || '';
+  if (st.date && /^\d{4}-\d{2}-\d{2}$/.test(st.date)) document.getElementById('f-date').value = st.date;
+  if (st.stage_type) document.getElementById('f-type').value = st.stage_type;
+  document.getElementById('f-status').value = st.status || '';
+  if (st.edition_id) document.getElementById('f-edition').value = st.edition_id;
+  waypoints = full.waypoints.map((w) => ({ label: w.label, kind: w.kind, lat: w.lat, lon: w.lon }));
+  document.querySelector('main h1').textContent = `Modifier : ${st.name}`;
+  document.getElementById('btn-generate').textContent = 'Mettre à jour et régénérer ▶';
+  render();
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -191,5 +213,37 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
   document.getElementById('btn-generate').addEventListener('click', generate);
   loadStages();
-  loadEditions();
+  await loadEditions();
+
+  // « + nouveau tour… » : crée un tour personnalisé (groupe d'étapes) à la volée.
+  const sel = document.getElementById('f-edition');
+  const optNew = document.createElement('option');
+  optNew.value = '__new__';
+  optNew.textContent = '+ nouveau tour…';
+  sel.appendChild(optNew);
+  sel.addEventListener('change', async () => {
+    if (sel.value !== '__new__') return;
+    const name = prompt('Nom du nouveau tour (ex. « Mon Tour rêvé 2027 ») :');
+    if (!name) { sel.value = ''; return; }
+    try {
+      const { id } = await EF.api('/api/editions', { method: 'POST', body: { name, is_custom: 1 } });
+      const o = document.createElement('option');
+      o.value = id;
+      o.textContent = name;
+      sel.insertBefore(o, optNew);
+      sel.value = id;
+    } catch (err) {
+      alert('Erreur : ' + err.message);
+      sel.value = '';
+    }
+  });
+
+  const editId = EF.qs('id');
+  if (editId) {
+    try {
+      await loadForEdit(parseInt(editId, 10));
+    } catch (err) {
+      document.getElementById('gen-msg').textContent = 'Erreur de chargement : ' + err.message;
+    }
+  }
 });

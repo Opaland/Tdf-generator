@@ -36,9 +36,16 @@ async function demoStagePauHautacam(db) {
   console.log('\n■ Démo 1 — étape créée : Pau → Hautacam (~montagne, via Lourdes, Soulor, Argelès-Gazost)');
   const existing = db.prepare(`SELECT id FROM stages WHERE name = 'Pau → Hautacam (démo)'`).get();
   if (existing) db.prepare('DELETE FROM stages WHERE id = ?').run(existing.id);
+  // Tour personnalisé « Démo » : permet à la carte globale et à la vitrine
+  // statique d'inclure aussi l'étape créée.
+  let demoEd = db.prepare(`SELECT id FROM editions WHERE name = 'Démo ÉtapeForge'`).get();
+  if (!demoEd) {
+    demoEd = { id: db.prepare(`INSERT INTO editions (name, is_custom) VALUES ('Démo ÉtapeForge', 1)`).run().lastInsertRowid };
+  }
   const r = db
-    .prepare(`INSERT INTO stages (name, stage_type, status, state) VALUES ('Pau → Hautacam (démo)', 'montagne', 'démo de validation', 'draft')`)
-    .run();
+    .prepare(`INSERT INTO stages (name, stage_type, status, state, edition_id, stage_order)
+              VALUES ('Pau → Hautacam (démo)', 'montagne', 'démo de validation', 'draft', ?, 1)`)
+    .run(demoEd.id);
   const id = r.lastInsertRowid;
   const wps = [
     ['Pau', 'start'], ['Lourdes', 'via'], ['Col du Soulor', 'col'],

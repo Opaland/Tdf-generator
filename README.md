@@ -140,6 +140,37 @@ npm run generate -- --import 1903       # import seul
   du pipeline est strictement identique ; les fiches portent l'avertissement
   « données simulées ».
 
+## Mes traces : import GPX et connexion Suunto
+
+L'écran **« Mes traces »** (`/traces.html`) transforme vos sorties réelles en
+étapes ÉtapeForge complètes (profil, côtes détectées/catégorisées, km par km,
+exports) — la trace remplace le routage, le reste du pipeline est identique :
+
+- **Import GPX universel** : glissez un fichier `.gpx` (export de l'appli
+  Suunto, Strava, Garmin Connect, Komoot…). Les altitudes du fichier sont
+  utilisées si présentes, sinon échantillonnées par les fournisseurs
+  d'altimétrie. ![Mes traces](docs/captures/8-traces.png)
+- **Connexion Suunto Cloud API** : OAuth2 vers votre compte Suunto, liste de
+  vos sorties, import en un clic (export FIT décodé côté serveur). Nécessite
+  une application (gratuite) enregistrée sur
+  [apizone.suunto.com](https://apizone.suunto.com) — l'écran guide la
+  configuration (client id, client secret, clé d'abonnement, URL de
+  redirection) ; les identifiants restent dans votre base locale.
+
+## Éditer une étape existante
+
+Chaque fiche a un bouton **« ✎ Modifier l'étape »** (ou `/?id=<n>`) : le
+formulaire et les waypoints sont préchargés, « Mettre à jour et régénérer »
+relance le pipeline. L'éditeur permet aussi de créer un **tour personnalisé**
+à la volée (« + nouveau tour… ») pour grouper des étapes sur la carte globale.
+
+## Vitrine GitHub Pages
+
+Le workflow `pages.yml` publie automatiquement (à chaque push sur `main`) une
+**vitrine statique** sur GitHub Pages : mini-sites HTML autonomes des tours
+pré-générés (démo hors-ligne) + captures. L'application complète, elle, reste
+locale (`npm start`) — c'est elle qui parle aux APIs IGN/OSRM/Wikipédia.
+
 ## Diagnostic du mode réel
 
 La page **/diag.html** (lien en pied de page) teste la connectivité vers chaque

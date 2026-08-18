@@ -12,9 +12,13 @@ const { geocodeSuggest, reverseGeocode } = require('../pipeline/geocode');
 const { isOffline, setOffline } = require('../pipeline/http');
 const { stageToGpx, stagePayload, tourToStandaloneHtml, ATTRIBUTIONS } = require('./exports');
 
+const { suuntoRouter } = require('./suunto');
+const { parseGpx, importTrackAsStage } = require('../pipeline/importTrack');
+
 const PORT = parseInt(process.env.PORT || '4567', 10);
 const app = express();
 app.use(express.json({ limit: '2mb' }));
+app.use('/api/import/gpx', express.text({ type: '*/*', limit: '30mb' }));
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
 // Leaflet servi localement (aucune dépendance CDN pour l'application elle-même).
 app.use('/vendor/leaflet', express.static(path.join(__dirname, '..', 'node_modules', 'leaflet', 'dist')));
@@ -180,6 +184,21 @@ app.post('/api/stages/:id/generate', wrap(async (req, res) => {
   running.set(id, p);
   res.status(202).json({ running: true });
 }));
+
+// ---------------------------------------------------------------- import de traces
+// GPX brut dans le corps de la requête → étape « trace » (pipeline aval identique).
+app.post('/api/import/gpx', wrap(async (req, res) => {
+  const { points, name } = parseGpx(String(req.body || ''));
+  if (points.length < 2) return res.status(400).json({ error: 'GPX illisible : aucun point de trace (trkpt/rtept)' });
+  const id = await importTrackAsStage(points, {
+    name: req.query.name || name || 'Trace GPX importée',
+    source: 'gpx',
+  });
+  res.json({ id, points: points.length });
+}));
+
+// Connecteur Suunto (OAuth2, liste des sorties, import FIT).
+app.use('/api/suunto', suuntoRouter);
 
 // ---------------------------------------------------------------- catalogue des cols
 // Toutes les côtes détectées, toutes étapes confondues (liste dense façon VeloViewer).
