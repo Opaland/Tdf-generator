@@ -59,9 +59,17 @@ function main() {
   fs.mkdirSync(DIST, { recursive: true });
   const db = getDb();
 
+  // Données réelles (APIs IGN/OSRM) ou simulées (mode hors-ligne) ?
+  const simulated = db
+    .prepare(`SELECT checks FROM stages WHERE state = 'done'`)
+    .all()
+    .some((r) => {
+      try { return !!JSON.parse(r.checks || '{}').offline; } catch { return false; }
+    });
+
   // --- 1. Données pré-générées (miroir des endpoints GET) ----------------------
   writeJson('data/status.json', {
-    offline: true,
+    offline: simulated,
     static: true,
     counts: {},
     attributions: ATTRIBUTIONS,
@@ -163,8 +171,10 @@ function main() {
 <main>
   <h1>ÉtapeForge — démo interactive</h1>
   <p class="meta-line">Générateur d'étapes du Tour de France, open source et 100 % local.
-    Cette démo est <b>entièrement navigable</b> (données pré-générées hors-ligne, simulateur) ;
-    la création d'étapes et les vraies APIs (IGN, OSRM, Wikipédia) fonctionnent dans la
+    Cette démo est <b>entièrement navigable</b> — ${simulated
+      ? 'données pré-générées avec le <b>simulateur hors-ligne</b> (tracés synthétiques, clairement étiquetés)'
+      : 'tracés routés sur le <b>vrai réseau routier</b> (OSRM/OpenStreetMap) et <b>altimétrie réelle IGN</b>, pré-générés à la publication'} ;
+    la création de vos propres étapes se fait dans la
     <a href="https://github.com/Opaland/Tdf-generator">version locale</a>.</p>
   <div class="hub">
     ${demoStage ? `<a href="stage.html?id=${demoStage.id}"><div class="t">📈 Fiche d'étape</div>

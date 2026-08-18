@@ -31,7 +31,8 @@ async function geocode(query, { countryHint = 'fr' } = {}) {
   }
   if (countryHint === 'fr') {
     const { value } = await cached('geocode', 'geopf', { q: query }, async () => {
-      const url = `https://data.geopf.fr/geocodage/search?q=${encodeURIComponent(query)}&limit=5`;
+      // index=poi indispensable pour les cols/sommets (l'index par défaut est adresse).
+      const url = `https://data.geopf.fr/geocodage/search?q=${encodeURIComponent(query)}&limit=5&index=address,poi`;
       const json = await httpJson(url, { minDelayMs: 120 });
       const feats = (json.features || []).map((f) => ({
         label: f.properties.label || f.properties.name || query,
@@ -132,7 +133,7 @@ async function geocodeSuggest(query) {
     return [{ label: s.label, lat: s.lat, lon: s.lon, ele: s.ele, kind: 'via', provider: 'simulateur' }];
   }
   const { value } = await cached('geocode', 'geopf-suggest', { q: query }, async () => {
-    const url = `https://data.geopf.fr/geocodage/search?q=${encodeURIComponent(query)}&limit=5`;
+    const url = `https://data.geopf.fr/geocodage/search?q=${encodeURIComponent(query)}&limit=5&index=address,poi`;
     const json = await httpJson(url, { minDelayMs: 120 });
     return (json.features || []).map((f) => ({
       label: f.properties.label || f.properties.name,
