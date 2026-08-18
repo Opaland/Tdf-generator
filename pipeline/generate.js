@@ -101,6 +101,7 @@ async function generateStage(stageId, { onProgress } = {}) {
       approxSegments: routed.approxSegments,
       climbs,
       samples: profile.samples,
+      legs: routed.legs,
     });
 
     // --- Persistance ------------------------------------------------------

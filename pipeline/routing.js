@@ -69,6 +69,7 @@ async function routeStage(waypoints, { onProgress } = {}) {
   const allPoints = [];
   const approxSegments = [];
   const wpOnTrack = [];
+  const legs = []; // diagnostic : distance routée vs vol d'oiseau par leg
   let cum = 0;
   let router = null;
 
@@ -96,6 +97,12 @@ async function routeStage(waypoints, { onProgress } = {}) {
     }
     const leg = await routeLeg(a, b);
     router = router || leg.router;
+    legs.push({
+      from: a.label || `wp${i}`,
+      to: b.label || `wp${i + 1}`,
+      straightM: Math.round(haversine(a, b)),
+      roadM: Math.round(leg.distanceM),
+    });
 
     const isColB = b.kind === 'col' || b.kind === 'peak';
     const legEnd = leg.points[leg.points.length - 1];
@@ -127,7 +134,7 @@ async function routeStage(waypoints, { onProgress } = {}) {
     }
   }
 
-  return { points: allPoints, distanceM: cum, waypointsOnTrack: wpOnTrack, approxSegments, router: router || 'osrm' };
+  return { points: allPoints, distanceM: cum, waypointsOnTrack: wpOnTrack, approxSegments, legs, router: router || 'osrm' };
 }
 
 module.exports = { routeStage, routeLeg, COL_TOLERANCE_M };
