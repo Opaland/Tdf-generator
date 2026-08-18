@@ -40,16 +40,15 @@ function pickFeature(feats, query) {
  * homonymies quand on géocode les waypoints d'une étape de proche en proche.
  * Retourne { label, lat, lon, ele?, provider, raw? }.
  */
-async function geocode(query, { countryHint = 'fr', near = null } = {}) {
+async function geocode(query, { countryHint = 'fr', near = null, summit = false } = {}) {
   if (isOffline()) {
     const { value } = await cached('geocode', 'simulateur', { q: query }, async () => simGeocode(query));
     return value;
   }
   const nearKey = near ? [Math.round(near.lat * 10) / 10, Math.round(near.lon * 10) / 10] : null;
   if (countryHint === 'fr') {
-    const { value } = await cached('geocode', 'geopf', { q: query, near: nearKey }, async () => {
-      // index=poi indispensable pour les cols/sommets (l'index par défaut est adresse).
-      let url = `https://data.geopf.fr/geocodage/search?q=${encodeURIComponent(query)}&limit=5&index=address,poi`;
+    const geopfSearch = async (index) => {
+      let url = `https://data.geopf.fr/geocodage/search?q=${encodeURIComponent(query)}&limit=5&index=${index}`;
       if (near) url += `&lat=${near.lat.toFixed(4)}&lon=${near.lon.toFixed(4)}`;
       const json = await httpJson(url, { minDelayMs: 120 });
       const feats = (json.features || []).map((f) => ({
@@ -61,7 +60,17 @@ async function geocode(query, { countryHint = 'fr', near = null } = {}) {
         provider: 'geopf',
       }));
       return pickFeature(feats, query);
-    });
+    };
+    // Un sommet déclaré (waypoint « col ») se cherche d'abord dans l'index POI
+    // seul : « Hautacam » n'a aucun mot-clé de col et sinon une adresse
+    // homonyme lointaine peut l'emporter.
+    if (summit) {
+      const { value } = await cached('geocode', 'geopf-poi', { q: query, near: nearKey }, () => geopfSearch('poi'));
+      if (value) return value;
+    }
+    const { value } = await cached('geocode', 'geopf', { q: query, near: nearKey }, () =>
+      geopfSearch('address,poi')
+    );
     if (value) return value;
     // Repli : Nominatim si la Géoplateforme ne trouve rien.
   }
@@ -87,7 +96,7 @@ async function geocode(query, { countryHint = 'fr', near = null } = {}) {
  * vérifie/complète l'altitude (échantillon d'altimétrie au point trouvé).
  */
 async function geocodeCol(query, opts = {}) {
-  const res = await geocode(query, opts);
+  const res = await geocode(query, { ...opts, summit: true });
   const { sampleElevations } = require('./elevation'); // import tardif (cycle)
   try {
     const eles = await sampleElevations([{ lat: res.lat, lon: res.lon }]);

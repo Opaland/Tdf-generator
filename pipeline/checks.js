@@ -12,9 +12,22 @@ const ALT_TOLERANCE_M = 120;
 /**
  * @returns { ok, items: [{id, label, status: 'ok'|'warn'|'fail', detail}] }
  */
-function runChecks({ stage, distanceM, waypointsOnTrack, approxSegments, climbs, samples }) {
+function runChecks({ stage, distanceM, waypointsOnTrack, approxSegments, climbs, samples, legs }) {
   const items = [];
   const kmGen = distanceM / 1000;
+
+  // 0) Legs aberrants : une distance routée très supérieure au vol d'oiseau
+  //    signale presque toujours un waypoint mal géocodé (homonyme lointain).
+  for (const l of legs || []) {
+    if (l.roadM > 50000 && l.roadM > 5 * Math.max(1, l.straightM)) {
+      items.push({
+        id: `leg-${l.from}-${l.to}`,
+        label: `Leg suspect : ${l.from} → ${l.to}`,
+        status: 'fail',
+        detail: `${(l.roadM / 1000).toFixed(0)} km routés pour ${(l.straightM / 1000).toFixed(0)} km à vol d'oiseau — waypoint probablement mal géocodé`,
+      });
+    }
+  }
 
   // 1) Distance vs cible.
   if (stage.official_distance_km) {
