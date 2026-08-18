@@ -212,6 +212,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     render();
   });
   document.getElementById('btn-generate').addEventListener('click', generate);
+  if (window.EF_STATIC) {
+    const btn = document.getElementById('btn-generate');
+    btn.disabled = true;
+    btn.title = EF.STATIC_MSG;
+    document.getElementById('gen-msg').textContent = EF.STATIC_MSG;
+  }
   loadStages();
   await loadEditions();
 

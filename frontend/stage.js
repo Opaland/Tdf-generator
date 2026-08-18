@@ -172,8 +172,15 @@ function renderFiche() {
   }
 
   // Exports.
-  document.getElementById('exp-json').href = `/api/stages/${stageId}/export.json`;
-  document.getElementById('exp-gpx').href = `/api/stages/${stageId}/export.gpx`;
+  if (window.EF_STATIC) {
+    document.getElementById('exp-json').href = `data/stage-${stageId}.json`;
+    document.getElementById('exp-gpx').style.display = 'none';
+    document.getElementById('btn-regen').style.display = 'none';
+    document.getElementById('btn-edit').style.display = 'none';
+  } else {
+    document.getElementById('exp-json').href = `/api/stages/${stageId}/export.json`;
+    document.getElementById('exp-gpx').href = `/api/stages/${stageId}/export.gpx`;
+  }
   document.getElementById('exp-png').addEventListener('click', () => {
     const svg = document.querySelector('#profile-box svg');
     if (svg) EF.svgToPng(svg, `profil-etape-${stageId}.png`, 2);

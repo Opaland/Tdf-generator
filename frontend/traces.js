@@ -3,6 +3,7 @@
 
 async function importGpxFiles(files) {
   const msg = document.getElementById('gpx-msg');
+  if (window.EF_STATIC) { msg.textContent = EF.STATIC_MSG; return; }
   for (const file of files) {
     msg.textContent = `Import de ${file.name}…`;
     try {
