@@ -116,9 +116,11 @@ npm run generate -- --import 1903       # import seul
   `editions.source`).
 - **Points de passage curés** (`pipeline/data/historic_routes.json`) : villes
   d'époque et cols connus, avec leur source — fournis pour 1903 (départ réel à
-  Montgeron, col de la République), 1905 (Ballon d'Alsace), 1910 (le « Cercle
-  de la mort » : Peyresourde, Aspin, Tourmalet, Aubisque), 1911 (premier
-  Galibier), 1952 (première arrivée à l'Alpe d'Huez), 2025 et 2026.
+  Montgeron, col du Pin-Bouchain à l'étape 1 — tout premier col de l'histoire
+  du Tour, col de la République à l'étape 2 — premier col > 1000 m), 1905
+  (Ballon d'Alsace), 1910 (le « Cercle de la mort » : Peyresourde, Aspin,
+  Tourmalet, Aubisque), 1911 (premier Galibier), 1952 (première arrivée à
+  l'Alpe d'Huez), 2025 et 2026.
 - **Reconstruction** : pipeline standard sur le réseau routier actuel — la fiche
   affiche « tracé reconstitué sur le réseau routier actuel — distance officielle
   *année* : X km / reconstitution : Y km (écart %) ».
@@ -217,7 +219,9 @@ npm test
 1. **Étape créée** : Pau → Hautacam via Lourdes, col du Soulor, Argelès-Gazost —
    Soulor et Hautacam détectés et catégorisés.
 2. **Étape historique** : Paris (Montgeron) → Lyon, édition 1903 — distance
-   officielle 467 km, écart de reconstitution affiché, col de la République détecté.
+   officielle 467 km, écart de reconstitution affiché, col du Pin-Bouchain
+   détecté (étape 1, tout premier col de l'histoire du Tour) ; col de la
+   République détecté (étape 2 Lyon → Marseille, premier col > 1000 m).
 3. **Carte globale** du Tour 1903 complet (6 étapes).
 
 Chaque point est vérifié automatiquement ; le script sort en erreur si une

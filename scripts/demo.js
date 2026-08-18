@@ -4,7 +4,8 @@
 //   1. Étape créée : Pau → Hautacam via Lourdes, col du Soulor, Argelès-Gazost
 //      (Soulor et Hautacam détectés et catégorisés).
 //   2. Étape historique : Paris (Montgeron) → Lyon, édition 1903 — distance
-//      officielle 467 km, écart de reconstitution affiché, col de la République détecté.
+//      officielle 467 km, écart de reconstitution affiché, col du Pin-Bouchain
+//      détecté (étape 1) ; col de la République détecté (étape 2, Lyon → Marseille).
 //   3. Carte globale du Tour 1903 complet (6 étapes générées).
 //
 // Par défaut la démo tourne en mode HORS-LIGNE (simulateur déterministe) pour être
@@ -87,8 +88,17 @@ async function demo1903(db) {
   const delta1 = ((full1.stage.generated_distance_km - 467) / 467) * 100;
   check('Étape 1 : écart de reconstitution affiché et ≤ 25 %', Math.abs(delta1) <= 25,
     `officielle 467 km / reconstitution ${full1.stage.generated_distance_km} km (${delta1 >= 0 ? '+' : ''}${delta1.toFixed(1)} %)`);
-  const republique = full1.climbs.find((c) => /r[ée]publique/i.test(c.name));
-  check('Col de la République détecté', !!republique,
+  // Étape 1 : col du Pin-Bouchain (759 m, entre Tarare et Roanne) — tout premier
+  // col franchi dans l'histoire du Tour. Le col de la République (1 161 m,
+  // premier col > 1000 m) est franchi à l'étape 2, pas ici.
+  const pinBouchain = full1.climbs.find((c) => /pin.bouchain/i.test(c.name));
+  check('Col du Pin-Bouchain détecté (étape 1)', !!pinBouchain,
+    pinBouchain ? `cat. ${pinBouchain.category}, ${pinBouchain.length_km} km à ${pinBouchain.avg_gradient} %, sommet ${pinBouchain.summit_ele_m} m` : 'non détecté');
+
+  const st2 = db.prepare('SELECT id FROM stages WHERE edition_id = ? AND stage_order = 2').get(edition.id);
+  const full2 = loadStageFull(st2.id);
+  const republique = full2.climbs.find((c) => /r[ée]publique/i.test(c.name));
+  check('Col de la République détecté (étape 2)', !!republique,
     republique ? `cat. ${republique.category}, ${republique.length_km} km à ${republique.avg_gradient} %, sommet ${republique.summit_ele_m} m` : 'non détecté');
   return edition;
 }

@@ -37,13 +37,25 @@ test('parse le tableau des étapes du Tour 1903', () => {
   assert.strictEqual(total, 2428, 'distance totale officielle 1903');
 });
 
-test('waypoints de reconstruction 1903 : Montgeron au départ, col de la République', () => {
+test('waypoints de reconstruction 1903 étape 1 : Montgeron au départ, col du Pin-Bouchain', () => {
+  // Le col du Pin-Bouchain (759 m, entre Tarare et Roanne) est le tout premier
+  // col franchi dans l'histoire du Tour — sur l'étape 1 Paris→Lyon, pas le col
+  // de la République (qui est franchi à l'étape 2, premier col > 1000 m).
   const stages = parseStagesFromHtml(load('wikipedia_1903_en.html'), 1903);
   const wps = reconstructionWaypoints(1903, stages[0]);
   assert.strictEqual(wps[0].label, 'Montgeron', 'départ réel au Réveil-Matin de Montgeron');
   assert.strictEqual(wps[wps.length - 1].label, 'Lyon');
   const col = wps.find((w) => w.kind === 'col');
-  assert.ok(col, 'le col de la République figure dans le parcours curé');
+  assert.ok(col, 'le col du Pin-Bouchain figure dans le parcours curé de l\'étape 1');
+  assert.strictEqual(col.label, 'Col du Pin-Bouchain');
+  assert.strictEqual(col.altitude_hint_m, 759);
+});
+
+test('waypoints de reconstruction 1903 étape 2 : col de la République (premier col > 1000 m)', () => {
+  const stages = parseStagesFromHtml(load('wikipedia_1903_en.html'), 1903);
+  const wps = reconstructionWaypoints(1903, stages[1]);
+  const col = wps.find((w) => w.kind === 'col');
+  assert.ok(col, 'le col de la République figure dans le parcours curé de l\'étape 2');
   assert.strictEqual(col.label, 'Col de la République');
   assert.strictEqual(col.altitude_hint_m, 1161);
 });
