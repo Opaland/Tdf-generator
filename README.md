@@ -120,7 +120,12 @@ npm run generate -- --import 1903       # import seul
   du Tour, col de la République à l'étape 2 — premier col > 1000 m), 1905
   (Ballon d'Alsace), 1910 (le « Cercle de la mort » : Peyresourde, Aspin,
   Tourmalet, Aubisque), 1911 (premier Galibier), 1952 (première arrivée à
-  l'Alpe d'Huez), 2025 et 2026.
+  l'Alpe d'Huez), puis toutes les éditions **2020 à 2026** (étapes reines :
+  Loze, doublé du Ventoux, Granon, Spandelles, Markstein, Superbagnères,
+  Peyragudes, Toses, Gavarnie, doublé de l'Alpe d'Huez…). Ce fichier ne
+  contient que des données réelles/officielles sourcées — voir la démo
+  spéculative ci-dessous pour un contre-exemple volontairement hors de ce
+  périmètre.
 - **Reconstruction** : pipeline standard sur le réseau routier actuel — la fiche
   affiche « tracé reconstitué sur le réseau routier actuel — distance officielle
   *année* : X km / reconstitution : Y km (écart %) ».
@@ -226,3 +231,23 @@ npm test
 
 Chaque point est vérifié automatiquement ; le script sort en erreur si une
 vérification échoue.
+
+## Démo spéculative (`npm run demo:2027`)
+
+`scripts/demo-2027.js` génère deux étapes d'un **parcours 2027 imaginé**, à
+titre d'exercice algorithmique — **aucun Tour 2027 n'est annoncé à ce jour**
+(l'ASO présente le parcours de l'année N+1 en octobre de l'année N). Édition
+créée à part (`is_custom`), jamais mélangée aux données sourcées de
+`historic_routes.json` :
+
+1. Édimbourg → Carlisle : géocodage hors France (repli Nominatim automatique,
+   aucune couverture IGN sur ce tronçon).
+2. Val-d'Isère → Sestriere : franchissement France → Italie via le col de
+   l'Iseran (2 764 m), le col du Mont-Cenis (2 081 m) et la Colle delle
+   Finestre (2 178 m, ascension partiellement non goudronnée) — exerce le
+   garde-fou « col difficilement routable → interpolation pied-sommet
+   marquée approximée ».
+
+Nécessite `--online` (aucune couverture Royaume-Uni/Italie dans le
+simulateur hors-ligne) ; n'est pas un test de non-régression — `npm test` et
+`npm run demo` restent les garde-fous requis avant tout commit.
