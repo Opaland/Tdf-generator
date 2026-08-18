@@ -23,3 +23,20 @@ jobs:
         run: npm test
       - name: Démo de validation auto-vérifiée (mode hors-ligne, 9 checks)
         run: npm run demo
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Construire l'image Docker (kit Synology/VPS)
+        run: docker build -t etapeforge:ci .
+      - name: Smoke test du conteneur
+        run: |
+          docker run -d --name ef -p 4567:4567 -e ETAPEFORGE_OFFLINE=1 etapeforge:ci
+          for i in $(seq 1 20); do
+            if curl -sf http://localhost:4567/api/status > /dev/null; then break; fi
+            sleep 1
+          done
+          curl -sf http://localhost:4567/api/status | grep -q '"offline":true'
+          docker logs ef
+          docker rm -f ef

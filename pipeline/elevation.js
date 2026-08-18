@@ -19,18 +19,28 @@ function r5(x) {
 
 async function geopfBatch(points) {
   const req = { pts: points.map((p) => [r5(p.lat), r5(p.lon)]) };
-  const { value } = await cached('elevation', 'geopf-rge-alti', req, async () => {
-    const lons = points.map((p) => r5(p.lon)).join('|');
-    const lats = points.map((p) => r5(p.lat)).join('|');
-    const url =
-      `https://data.geopf.fr/altimetrie/1.0/calcul/alti/rest/elevation.json` +
-      `?lon=${lons}&lat=${lats}&resource=ign_rge_alti_wld&zonly=true&delimiter=|`;
-    const json = await httpJson(url, { minDelayMs: 250 });
-    const eles = (json.elevations || []).map((e) => (typeof e === 'number' ? e : e.z));
-    if (eles.length !== points.length) throw new Error('Altimétrie Géoplateforme : réponse incomplète');
-    return eles;
-  });
-  return value;
+  try {
+    const { value } = await cached('elevation', 'geopf-rge-alti', req, async () => {
+      const lons = points.map((p) => r5(p.lon)).join('|');
+      const lats = points.map((p) => r5(p.lat)).join('|');
+      const url =
+        `https://data.geopf.fr/altimetrie/1.0/calcul/alti/rest/elevation.json` +
+        `?lon=${lons}&lat=${lats}&resource=ign_rge_alti_wld&zonly=true&delimiter=|`;
+      const json = await httpJson(url, { minDelayMs: 250 });
+      const eles = (json.elevations || []).map((e) => (typeof e === 'number' ? e : e.z));
+      if (eles.length !== points.length) throw new Error('Altimétrie Géoplateforme : réponse incomplète');
+      return eles;
+    });
+    return value;
+  } catch (err) {
+    // URL trop longue ou paquet refusé : on scinde récursivement.
+    if (points.length > 25) {
+      const mid = Math.ceil(points.length / 2);
+      const [a, b] = await Promise.all([geopfBatch(points.slice(0, mid)), geopfBatch(points.slice(mid))]);
+      return a.concat(b);
+    }
+    throw err;
+  }
 }
 
 async function opentopodataBatch(points) {

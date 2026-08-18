@@ -26,9 +26,22 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - name: Générer les données de démo (hors-ligne)
-        run: npm run demo
-      - name: Construire la vitrine statique
+      # Le cache SQLite d'ÉtapeForge est réutilisé d'un build à l'autre : on ne
+      # re-géocode/re-route/re-échantillonne jamais deux fois la même chose.
+      - name: Restaurer le cache de données
+        uses: actions/cache@v4
+        with:
+          path: data
+          key: etapeforge-data-${{ github.run_id }}
+          restore-keys: |
+            etapeforge-data-
+      - name: Générer la démo avec les APIs réelles (routes et altimétrie vraies)
+        run: |
+          node scripts/demo.js --online || {
+            echo "::warning::APIs externes indisponibles — repli sur le simulateur hors-ligne";
+            rm -rf data && npm run demo;
+          }
+      - name: Construire la démo statique
         run: node scripts/build-site.js
       - uses: actions/configure-pages@v5
         with:

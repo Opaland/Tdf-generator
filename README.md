@@ -164,12 +164,23 @@ formulaire et les waypoints sont préchargés, « Mettre à jour et régénérer
 relance le pipeline. L'éditeur permet aussi de créer un **tour personnalisé**
 à la volée (« + nouveau tour… ») pour grouper des étapes sur la carte globale.
 
-## Vitrine GitHub Pages
+## Démo interactive GitHub Pages
 
-Le workflow `pages.yml` publie automatiquement (à chaque push sur `main`) une
-**vitrine statique** sur GitHub Pages : mini-sites HTML autonomes des tours
-pré-générés (démo hors-ligne) + captures. L'application complète, elle, reste
-locale (`npm start`) — c'est elle qui parle aux APIs IGN/OSRM/Wikipédia.
+Le workflow `pages.yml` publie automatiquement (à chaque push sur `main`) la
+**démo interactive** sur https://opaland.github.io/Tdf-generator/ : l'application
+frontend complète (fiches avec profil 3D, carte globale, cols, comparateur…)
+branchée sur des données pré-générées **avec les vraies APIs** (routage OSRM sur
+le réseau routier réel, altimétrie IGN) — repli automatique sur le simulateur
+hors-ligne si une API est indisponible, avec étiquetage du mode utilisé. La
+création d'étapes reste réservée à la version locale (`npm start`).
+
+## NAS Synology / Docker
+
+`Dockerfile` + `docker-compose.yml` durcis (conteneur non-root, lecture seule,
+un seul volume monté pour la base — aucun accès aux autres fichiers du NAS) ;
+accès distant recommandé via Tailscale, **sans exposer de port sur Internet**.
+**Guide pas-à-pas : [docs/SYNOLOGY.md](docs/SYNOLOGY.md)**. L'image est
+construite et smoke-testée en CI à chaque push.
 
 ## Diagnostic du mode réel
 

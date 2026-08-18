@@ -108,18 +108,20 @@ const EF = {
     const footer = document.createElement('footer');
     footer.className = 'attrib';
     document.body.appendChild(footer);
-    if (window.EF_STATIC) {
-      const note = document.createElement('div');
-      note.className = 'note';
-      note.style.margin = '10px 20px';
-      note.innerHTML =
-        `🌐 <b>Démo interactive statique</b> (GitHub Pages, données pré-générées hors-ligne). ` +
-        `La création et la génération d'étapes nécessitent la version locale : ` +
-        `<code>git clone https://github.com/Opaland/Tdf-generator && npm install && npm run demo && npm start</code>`;
-      header.after(note);
-    }
     try {
       const st = await EF.api('/api/status');
+      if (window.EF_STATIC) {
+        const note = document.createElement('div');
+        note.className = 'note';
+        note.style.margin = '10px 20px';
+        note.innerHTML =
+          `🌐 <b>Démo interactive statique</b> (GitHub Pages${st.offline
+            ? ', données simulées hors-ligne'
+            : ' — tracés réels OSRM/OpenStreetMap, altimétrie réelle IGN, pré-générés à la publication'}). ` +
+          `La création et la génération d'étapes nécessitent la version locale : ` +
+          `<code>git clone https://github.com/Opaland/Tdf-generator && npm install && npm run demo && npm start</code>`;
+        header.after(note);
+      }
       footer.innerHTML = window.EF_STATIC
         ? `${EF.esc(st.attributions)} · <a href="https://github.com/Opaland/Tdf-generator">code source (MIT)</a>`
         : `${EF.esc(st.attributions)} · <a href="/diag.html">diagnostic APIs</a>`;

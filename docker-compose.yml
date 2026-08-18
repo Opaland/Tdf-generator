@@ -1,0 +1,27 @@
+# ÉtapeForge sur Synology (Container Manager → Projet) ou tout hôte Docker.
+# Sécurité par défaut :
+#  - conteneur non-root, sans capacités, sans élévation de privilèges ;
+#  - système de fichiers en lecture seule : seul le volume /data est inscriptible
+#    (base SQLite + caches) — l'app ne voit RIEN d'autre du NAS ;
+#  - port publié en LAN uniquement : ne PAS créer de redirection de port dans la
+#    box ; pour l'accès distant, utilisez Tailscale (voir docs/SYNOLOGY.md).
+services:
+  etapeforge:
+    build: .
+    container_name: etapeforge
+    ports:
+      - "4567:4567"
+    volumes:
+      # Adaptez le chemin de gauche à votre NAS (dossier dédié, vide au départ).
+      - /volume1/docker/etapeforge/data:/data
+    environment:
+      - PORT=4567
+      # - ETAPEFORGE_OFFLINE=1   # décommenter pour forcer le simulateur (démo)
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
