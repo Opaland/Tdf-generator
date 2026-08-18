@@ -21,18 +21,36 @@ function isColQuery(q) {
 }
 
 /**
+ * Choisit le meilleur résultat de géocodage : pour une ville/lieu de passage,
+ * une commune bat une rue ou un département homonyme (« Vienne » ne doit pas
+ * résoudre sur le département de la Vienne quand on trace Lyon → Marseille).
+ */
+function pickFeature(feats, query) {
+  if (!feats.length) return null;
+  if (!isColQuery(query)) {
+    const commune = feats.find((f) => f.type === 'municipality' || f.type === 'city');
+    if (commune) return commune;
+  }
+  return feats[0];
+}
+
+/**
  * Géocode un libellé. `countryHint` ('fr' par défaut) choisit le fournisseur.
+ * `near` ({lat, lon}) biaise vers la proximité — indispensable pour lever les
+ * homonymies quand on géocode les waypoints d'une étape de proche en proche.
  * Retourne { label, lat, lon, ele?, provider, raw? }.
  */
-async function geocode(query, { countryHint = 'fr' } = {}) {
+async function geocode(query, { countryHint = 'fr', near = null } = {}) {
   if (isOffline()) {
     const { value } = await cached('geocode', 'simulateur', { q: query }, async () => simGeocode(query));
     return value;
   }
+  const nearKey = near ? [Math.round(near.lat * 10) / 10, Math.round(near.lon * 10) / 10] : null;
   if (countryHint === 'fr') {
-    const { value } = await cached('geocode', 'geopf', { q: query }, async () => {
+    const { value } = await cached('geocode', 'geopf', { q: query, near: nearKey }, async () => {
       // index=poi indispensable pour les cols/sommets (l'index par défaut est adresse).
-      const url = `https://data.geopf.fr/geocodage/search?q=${encodeURIComponent(query)}&limit=5&index=address,poi`;
+      let url = `https://data.geopf.fr/geocodage/search?q=${encodeURIComponent(query)}&limit=5&index=address,poi`;
+      if (near) url += `&lat=${near.lat.toFixed(4)}&lon=${near.lon.toFixed(4)}`;
       const json = await httpJson(url, { minDelayMs: 120 });
       const feats = (json.features || []).map((f) => ({
         label: f.properties.label || f.properties.name || query,
@@ -42,8 +60,7 @@ async function geocode(query, { countryHint = 'fr' } = {}) {
         score: f.properties.score,
         provider: 'geopf',
       }));
-      if (!feats.length) return null;
-      return feats[0];
+      return pickFeature(feats, query);
     });
     if (value) return value;
     // Repli : Nominatim si la Géoplateforme ne trouve rien.
@@ -66,8 +83,8 @@ async function geocode(query, { countryHint = 'fr' } = {}) {
 }
 
 /**
- * Géocode un col : localise le sommet puis vérifie/complète l'altitude
- * (échantillon d'altimétrie au point trouvé).
+ * Géocode un col : localise le sommet (avec biais de proximité éventuel) puis
+ * vérifie/complète l'altitude (échantillon d'altimétrie au point trouvé).
  */
 async function geocodeCol(query, opts = {}) {
   const res = await geocode(query, opts);
@@ -97,8 +114,10 @@ async function reverseGeocode(lat, lon) {
       const url = `https://data.geopf.fr/geocodage/reverse?lat=${lat}&lon=${lon}&limit=1`;
       const json = await httpJson(url, { minDelayMs: 120 });
       const f = (json.features || [])[0];
+      // Commune de préférence : pour nommer une côte, « Aucun » vaut mieux
+      // que « 16 Rue des Pyrénées 65400 Aucun ».
       return f
-        ? { label: f.properties.label || f.properties.city || f.properties.name, provider: 'geopf' }
+        ? { label: f.properties.city || f.properties.label || f.properties.name, provider: 'geopf' }
         : null;
     });
     if (value) return value;
@@ -146,4 +165,4 @@ async function geocodeSuggest(query) {
   return value;
 }
 
-module.exports = { geocode, geocodeCol, reverseGeocode, geocodeSuggest, looksLikeFrance, isColQuery };
+module.exports = { geocode, geocodeCol, reverseGeocode, geocodeSuggest, looksLikeFrance, isColQuery, pickFeature };
