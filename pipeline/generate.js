@@ -44,6 +44,7 @@ async function generateStage(stageId, { onProgress } = {}) {
   try {
     // --- 1. Géocodage -----------------------------------------------------
     progress({ step: 'géocodage', detail: `${waypoints.length} waypoints`, percent: 0 });
+    let prevPos = null; // biais de proximité : chaque waypoint est cherché près du précédent
     for (let i = 0; i < waypoints.length; i++) {
       const wp = waypoints[i];
       let kind = wp.kind;
@@ -51,7 +52,8 @@ async function generateStage(stageId, { onProgress } = {}) {
       if (i === 0) kind = 'start';
       if (i === waypoints.length - 1 && kind !== 'col') kind = 'finish';
       if (wp.lat == null || wp.lon == null) {
-        const res = kind === 'col' ? await geocodeCol(wp.label) : await geocode(wp.label);
+        const opts = { near: prevPos };
+        const res = kind === 'col' ? await geocodeCol(wp.label, opts) : await geocode(wp.label, opts);
         // Le géocodeur sait parfois qu'un lieu est un sommet (ex. « Hautacam ») :
         // on le traite alors comme un col, même en position d'arrivée.
         if (res.kind === 'peak' && kind !== 'start') kind = 'col';
@@ -63,6 +65,7 @@ async function generateStage(stageId, { onProgress } = {}) {
         }
       }
       wp.kind = kind;
+      if (wp.lat != null) prevPos = { lat: wp.lat, lon: wp.lon };
       db.prepare(
         `UPDATE waypoints SET lat=?, lon=?, kind=?, altitude_hint_m=?, geocode=? WHERE id=?`
       ).run(wp.lat, wp.lon, wp.kind, wp.altitude_hint_m, wp.geocode || null, wp.id);
