@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ÉtapeForge — Éditeur d'étape</title>
+  <link rel="stylesheet" href="/vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main>
+  <h1>Éditeur d'étape</h1>
+  <div class="card">
+    <div class="row">
+      <label class="field">Nom de l'étape
+        <input id="f-name" placeholder="Pau → Hautacam">
+      </label>
+      <label class="field">Date
+        <input id="f-date" type="date">
+      </label>
+      <label class="field">Type
+        <select id="f-type">
+          <option value="plaine">Plaine</option>
+          <option value="accidentée">Accidentée</option>
+          <option value="montagne" selected>Montagne</option>
+          <option value="clm">Contre-la-montre</option>
+          <option value="clm par équipes">CLM par équipes</option>
+        </select>
+      </label>
+      <label class="field">Statut (libre)
+        <input id="f-status" placeholder="projet, officielle, rêvée…">
+      </label>
+      <label class="field">Tour (groupe d'étapes)
+        <select id="f-edition"><option value="">— aucun —</option></select>
+      </label>
+    </div>
+
+    <h2>Waypoints (ordonnés)</h2>
+    <p class="meta-line">Tapez un lieu (autocomplétion par géocodage) ou cliquez sur la carte pour ajouter
+      un point (géocodage inverse). Marquez les cols pour garantir leur passage et leur vérification d'altitude.</p>
+    <ul id="wp-list" class="wp-list"></ul>
+    <div class="toolbar">
+      <button id="wp-add" class="secondary">+ Ajouter un waypoint</button>
+      <button id="btn-generate">Générer l'étape ▶</button>
+      <span id="gen-msg" class="meta-line"></span>
+    </div>
+  </div>
+
+  <div id="map"></div>
+
+  <h2>Étapes existantes</h2>
+  <div class="card">
+    <table class="stage-list" id="stage-table">
+      <thead><tr><th>Étape</th><th>Tour</th><th>Type</th><th>Distance</th><th>D+</th><th>État</th><th></th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</main>
+<script src="/vendor/leaflet/leaflet.js"></script>
+<script src="/common.js"></script>
+<script src="/editor.js"></script>
+</body>
+</html>

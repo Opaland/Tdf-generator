@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ÉtapeForge — Archives 1903→aujourd'hui</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main>
+  <h1>Mode archives : reconstruction historique 1903 → aujourd'hui</h1>
+  <p class="meta-line">
+    L'importeur récupère la liste des étapes d'une année (villes, distances officielles, dates, types)
+    depuis Wikipédia (CC BY-SA), puis chaque étape est reconstituée par le pipeline standard :
+    villes d'époque géocodées, routage sur les routes actuelles, altimétrie, détection des côtes.
+    La source de chaque champ est conservée.
+  </p>
+
+  <div class="card">
+    <div class="toolbar">
+      <label class="field" style="margin:0">Importer une année (1903 → 2027)
+        <input id="f-year" type="number" min="1903" max="2027" value="1903" style="width:120px">
+      </label>
+      <button id="btn-import">Importer l'année</button>
+      <span id="import-msg" class="meta-line"></span>
+    </div>
+    <p class="meta-line">Démo fournie : <b>1903</b>, premier Tour de France — 6 étapes, dont
+      Paris (Montgeron) → Lyon, 467 km officiels.</p>
+  </div>
+
+  <div id="editions"></div>
+</main>
+<script src="/common.js"></script>
+<script src="/archives.js"></script>
+</body>
+</html>

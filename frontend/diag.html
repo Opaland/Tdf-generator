@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ÉtapeForge — Diagnostic des APIs</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main>
+  <h1>Diagnostic des APIs externes</h1>
+  <p class="meta-line">Vérifie la connectivité vers chaque service utilisé par le pipeline en mode réel.
+    Si un service est injoignable, l'application reste utilisable en mode hors-ligne
+    (<code>ETAPEFORGE_OFFLINE=1 npm start</code>) avec le simulateur.</p>
+  <div class="toolbar">
+    <button id="btn-run">Lancer le diagnostic</button>
+    <span id="diag-msg" class="meta-line"></span>
+  </div>
+  <div class="card"><ul class="checks" id="diag-list"></ul></div>
+</main>
+<script src="/common.js"></script>
+<script>
+async function run() {
+  const btn = document.getElementById('btn-run');
+  const msg = document.getElementById('diag-msg');
+  const ul = document.getElementById('diag-list');
+  btn.disabled = true;
+  msg.textContent = 'test en cours (quelques secondes)…';
+  ul.innerHTML = '';
+  try {
+    const d = await EF.api('/api/diagnostic');
+    ul.innerHTML = d.results.map((r) =>
+      `<li class="${r.ok ? 'ok' : 'fail'}"><span class="st">${r.ok ? '✓' : '✗'}</span>` +
+      `<b>${EF.esc(r.name)}</b> — ${EF.esc(r.detail)} (${r.ms} ms)</li>`).join('');
+    msg.textContent = d.allOk
+      ? 'Tous les services répondent : le mode réel est pleinement fonctionnel.'
+      : d.offline
+        ? 'Mode hors-ligne actif : le simulateur est utilisé, les échecs ci-dessus sont attendus.'
+        : 'Certains services sont injoignables — voir ci-dessus.';
+  } catch (err) {
+    msg.textContent = 'Erreur : ' + err.message;
+  } finally {
+    btn.disabled = false;
+  }
+}
+document.addEventListener('DOMContentLoaded', async () => {
+  await EF.initChrome('');
+  document.getElementById('btn-run').addEventListener('click', run);
+  run();
+});
+</script>
+</body>
+</html>

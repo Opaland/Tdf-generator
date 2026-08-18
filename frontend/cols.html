@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ÉtapeForge — Catalogue des cols</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main>
+  <h1>Catalogue des cols et côtes détectés</h1>
+  <p class="meta-line">Toutes les côtes détectées par le pipeline, toutes étapes confondues.
+    Cliquez un en-tête pour trier, une ligne pour dérouler le profil de la montée.</p>
+  <div class="statgrid" id="cols-stats"></div>
+  <div class="toolbar">
+    <label class="field" style="margin:0">Catégorie
+      <select id="f-cat">
+        <option value="">toutes</option>
+        <option>HC</option><option>1</option><option>2</option><option>3</option><option>4</option>
+      </select>
+    </label>
+    <label class="field" style="margin:0">Tour / édition
+      <select id="f-edition"><option value="">tous</option></select>
+    </label>
+    <label class="field" style="margin:0;min-width:200px">Recherche
+      <input id="f-search" placeholder="nom du col…">
+    </label>
+  </div>
+  <div class="card" style="overflow-x:auto">
+    <table class="stats" id="cols-table">
+      <thead><tr>
+        <th data-k="name">Col / côte</th><th data-k="category">Cat.</th>
+        <th data-k="summit_ele_m">Sommet (m)</th><th data-k="length_km">Longueur (km)</th>
+        <th data-k="avg_gradient">Pente moy. %</th><th data-k="max_gradient">Pente max %</th>
+        <th data-k="score">Score</th><th data-k="stage_name">Étape</th><th data-k="edition_name">Tour</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</main>
+<script src="/common.js"></script>
+<script src="/profile.js"></script>
+<script src="/cols.js"></script>
+</body>
+</html>
