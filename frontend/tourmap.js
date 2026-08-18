@@ -156,7 +156,17 @@ async function loadEdition(id) {
   buildStatRows(TOURDATA);
   renderStatTiles(TOURDATA);
   renderStageList();
-  document.getElementById('exp-site').href = `/api/editions/${id}/site`;
+  if (window.EF_STATIC) {
+    // Les mini-sites pré-construits sont référencés par data/sitelinks.json.
+    const el = document.getElementById('exp-site');
+    try {
+      const links = await (await fetch('data/sitelinks.json')).json();
+      if (links[id]) { el.href = links[id]; el.style.display = ''; }
+      else el.style.display = 'none';
+    } catch { el.style.display = 'none'; }
+  } else {
+    document.getElementById('exp-site').href = `/api/editions/${id}/site`;
+  }
   const note = document.getElementById('tour-note');
   const src = TOURDATA.edition.source;
   note.innerHTML = src && src.notes ? `<div class="note">${EF.esc(src.notes)}</div>` : '';

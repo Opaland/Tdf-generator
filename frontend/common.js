@@ -3,6 +3,7 @@
 
 const EF = {
   async api(path, opts) {
+    if (window.EF_STATIC) return EF.staticApi(path, opts);
     const res = await fetch(path, {
       headers: { 'Content-Type': 'application/json' },
       ...opts,
@@ -13,6 +14,31 @@ const EF = {
       try { msg = (await res.json()).error || msg; } catch { /* texte brut */ }
       throw new Error(msg);
     }
+    return res.json();
+  },
+
+  // Mode « démo statique » (GitHub Pages) : les lectures sont servies par des
+  // fichiers JSON pré-générés dans data/ ; toute écriture est refusée.
+  STATIC_MSG:
+    'Démo statique (GitHub Pages) en lecture seule — pour créer et générer vos ' +
+    'propres étapes : git clone puis « npm install && npm run demo && npm start ».',
+  async staticApi(path, opts) {
+    if (opts && opts.method && opts.method.toUpperCase() !== 'GET') {
+      throw new Error(EF.STATIC_MSG);
+    }
+    const p = String(path).replace(/^\//, '').split('?')[0];
+    let m;
+    let file = null;
+    if (p === 'api/status') file = 'data/status.json';
+    else if (p === 'api/stages') file = 'data/stages.json';
+    else if ((m = p.match(/^api\/stages\/(\d+)(\/export\.json)?$/))) file = `data/stage-${m[1]}.json`;
+    else if (p === 'api/editions') file = 'data/editions.json';
+    else if ((m = p.match(/^api\/editions\/(\d+)\/mapdata$/))) file = `data/mapdata-${m[1]}.json`;
+    else if ((m = p.match(/^api\/editions\/(\d+)$/))) file = `data/edition-${m[1]}.json`;
+    else if (p === 'api/climbs') file = 'data/climbs.json';
+    if (!file) throw new Error(EF.STATIC_MSG);
+    const res = await fetch(file);
+    if (!res.ok) throw new Error(`Donnée statique manquante (${file})`);
     return res.json();
   },
 
@@ -82,9 +108,21 @@ const EF = {
     const footer = document.createElement('footer');
     footer.className = 'attrib';
     document.body.appendChild(footer);
+    if (window.EF_STATIC) {
+      const note = document.createElement('div');
+      note.className = 'note';
+      note.style.margin = '10px 20px';
+      note.innerHTML =
+        `🌐 <b>Démo interactive statique</b> (GitHub Pages, données pré-générées hors-ligne). ` +
+        `La création et la génération d'étapes nécessitent la version locale : ` +
+        `<code>git clone https://github.com/Opaland/Tdf-generator && npm install && npm run demo && npm start</code>`;
+      header.after(note);
+    }
     try {
       const st = await EF.api('/api/status');
-      footer.innerHTML = `${EF.esc(st.attributions)} · <a href="/diag.html">diagnostic APIs</a>`;
+      footer.innerHTML = window.EF_STATIC
+        ? `${EF.esc(st.attributions)} · <a href="https://github.com/Opaland/Tdf-generator">code source (MIT)</a>`
+        : `${EF.esc(st.attributions)} · <a href="/diag.html">diagnostic APIs</a>`;
       if (st.offline) document.getElementById('offline-badge').style.display = 'inline-block';
       EF.status = st;
     } catch {
