@@ -245,22 +245,81 @@
     }
   },
   "2025": {
-    "notes": "Liste des étapes d'après l'article « 2025 Tour de France » (en.wikipedia.org, CC BY-SA). En mode hors-ligne, une fixture locale reproduit ce tableau (distances arrondies) ; importer en ligne pour les données certifiées.",
+    "notes": "Grand Départ de Lille. Liste des étapes d'après l'article « 2025 Tour de France » (en.wikipedia.org, CC BY-SA). Points de passage des étapes reines recoupés sur olympics.com, mon-sejour-en-montagne.com, pyrenees31.com et cyclingstage.com. En mode hors-ligne, une fixture locale reproduit le tableau des étapes (distances arrondies) ; importer en ligne pour les données certifiées.",
     "stages": {
+      "1": {
+        "start": "Lille",
+        "note": "Grand Départ de Lille (Hauts-de-France)."
+      },
       "12": {
         "vias": ["Tarbes", "Lourdes", "Argelès-Gazost"],
-        "note": "Finale par la montée d'Hautacam."
+        "finish": "Hautacam",
+        "note": "Auch → Hautacam (180 km), arrivée au sommet (13,6 km à 7,8 %, HC)."
+      },
+      "13": {
+        "start": "Loudenvielle",
+        "finish": "Peyragudes",
+        "note": "Contre-la-montre individuel en montagne Loudenvielle → Peyragudes (11 km à 7,9 %) : arrivée à l'altiport, altitude de la ligne d'arrivée variable selon les éditions (≈1 580-1 645 m)."
       },
       "14": {
-        "vias": ["Lourdes", "Col du Tourmalet", "Bagnères-de-Luchon"]
+        "start": "Pau",
+        "vias": [
+          { "label": "Col du Tourmalet", "kind": "col", "ele": 2115 },
+          { "label": "Col d'Aspin", "kind": "col", "ele": 1490 },
+          { "label": "Col de Peyresourde", "kind": "col", "ele": 1569 }
+        ],
+        "finish": "Luchon-Superbagnères",
+        "note": "Pau → Luchon-Superbagnères (182,6 km) : Tourmalet, Aspin, Peyresourde puis l'ascension finale de Superbagnères (12,4 km à 7,3-7,5 %, sommet à 1 800 m)."
+      },
+      "16": {
+        "finish": "Mont Ventoux",
+        "note": "Montpellier → Mont Ventoux (171,5 km), arrivée au sommet du Géant de Provence (15,7 km à 8,8 %, HC, 1 909 m)."
+      },
+      "21": {
+        "finish": "Paris",
+        "vias": ["Butte Montmartre"],
+        "note": "Mantes-la-Ville → Paris, avec le passage inédit par la Butte Montmartre en fin de circuit final."
       }
     }
   },
   "2026": {
-    "notes": "PARCOURS ANNONCÉ (présentation d'octobre 2025) — la fixture hors-ligne 2026 est PARTIELLE et INDICATIVE (Grand Départ de Barcelone, Pyrénées, doublé de l'Alpe d'Huez, arrivée à Paris). Importer l'année avec accès réseau pour la liste complète et à jour.",
+    "notes": "PARCOURS ANNONCÉ (présentation d'octobre 2025, Grand Départ Barcelone le 4 juillet) — la fixture hors-ligne 2026 est PARTIELLE (seules les étapes reines sont curées). L'édition court du 4 au 26 juillet 2026 ; au moment de la rédaction, les résultats de course n'étaient pas encore disponibles dans les sources consultées, ce tracé ne décrit donc que le parcours annoncé, pas les résultats. Points de passage recoupés sur breizh-info.com, cyclingnews.com, granfondoguide.com et todaycycling.com. Importer en ligne pour la liste complète et à jour.",
     "stages": {
+      "1": {
+        "start": "Barcelona",
+        "finish": "Barcelona",
+        "note": "Grand Départ à l'étranger : contre-la-montre par équipes à Barcelone (Montjuïc), Espagne."
+      },
+      "3": {
+        "start": "Granollers",
+        "finish": "Les Angles",
+        "vias": [{ "label": "Col de Toses", "kind": "col", "ele": 1800 }],
+        "note": "Granollers → Les Angles (196 km) : entrée dans les Pyrénées dès la 3ᵉ étape par le col de Toses (Coll de Tosses, versant catalan) avant la montée finale vers la station des Angles."
+      },
       "6": {
-        "vias": ["Lourdes", "Luz-Saint-Sauveur"]
+        "start": "Pau",
+        "finish": "Gavarnie",
+        "vias": [
+          { "label": "Col d'Aspin", "kind": "col", "ele": 1490 },
+          { "label": "Col du Tourmalet", "kind": "col", "ele": 2115 }
+        ],
+        "note": "Pau → Gavarnie : unique étape pyrénéenne de l'édition 2026, via le col d'Aspin et le col du Tourmalet."
+      },
+      "19": {
+        "start": "Gap",
+        "finish": "L'Alpe d'Huez",
+        "note": "Gap → L'Alpe d'Huez, montée par les 21 virages historiques."
+      },
+      "20": {
+        "start": "Le Bourg-d'Oisans",
+        "finish": "L'Alpe d'Huez",
+        "vias": [
+          { "label": "Col de la Croix de Fer", "kind": "col", "ele": 2067 },
+          { "label": "Col du Télégraphe", "kind": "col", "ele": 1566 },
+          { "label": "Col du Galibier", "kind": "col", "ele": 2642 },
+          { "label": "Col de Sarenne", "kind": "col", "ele": 1999 }
+        ],
+        "note": "Étape reine, 2ᵉ passage par L'Alpe d'Huez en deux jours — une première dans l'histoire du Tour : Bourg-d'Oisans → col de la Croix-de-Fer → Télégraphe → Galibier → col de Sarenne, puis descente et ascension finale de l'Alpe d'Huez."
       }
     }
   }
