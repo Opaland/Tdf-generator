@@ -9,7 +9,7 @@ const { getDb, DB_PATH } = require('./db');
 const { generateStage, loadStageFull } = require('../pipeline/generate');
 const { importEdition } = require('../pipeline/importer');
 const { geocodeSuggest, reverseGeocode } = require('../pipeline/geocode');
-const { isOffline, setOffline } = require('../pipeline/http');
+const { isOffline, setOffline, httpText } = require('../pipeline/http');
 const { stageToGpx, stagePayload, tourToStandaloneHtml, ATTRIBUTIONS } = require('./exports');
 
 const { suuntoRouter } = require('./suunto');
@@ -42,6 +42,7 @@ const running = new Map(); // stageId -> Promise
 
 const wrap = (fn) => (req, res) =>
   Promise.resolve(fn(req, res)).catch((err) => {
+    if (err.status) return res.status(err.status).json({ error: err.message }); // rejet de validation attendu, pas de log
     console.error(err);
     res.status(500).json({ error: String(err.message || err) });
   });
@@ -267,6 +268,38 @@ app.post('/api/import/gpx', wrap(async (req, res) => {
   const id = await importTrackAsStage(points, {
     name: req.query.name || name || 'Trace GPX importée',
     source: 'gpx',
+  });
+  res.json({ id, points: points.length });
+}));
+
+// Import depuis un lien d'export direct (ex. Suunto app → « télécharger GPX »,
+// qui ne fournit pas de fichier local mais un lien signé api.sports-tracker.com —
+// backend historique de l'appli Suunto). Le navigateur ne peut pas le récupérer
+// lui-même (pas de CORS côté sports-tracker.com), donc le serveur le fait à sa
+// place. Liste blanche d'hôtes stricte : un lien saisi par l'utilisateur ne doit
+// jamais permettre au serveur d'aller sonder une adresse interne (SSRF).
+const ALLOWED_IMPORT_LINK_HOSTS = [/(^|\.)sports-tracker\.com$/i];
+
+app.post('/api/import/link', wrap(async (req, res) => {
+  const url = requireString(req.body?.url, 'url');
+  let parsed;
+  try {
+    parsed = new URL(url);
+  } catch {
+    throw httpError(400, 'URL invalide');
+  }
+  if (parsed.protocol !== 'https:') throw httpError(400, 'Seules les URL https:// sont acceptées');
+  if (!ALLOWED_IMPORT_LINK_HOSTS.some((re) => re.test(parsed.hostname))) {
+    throw httpError(400, `Domaine non autorisé pour l'import par lien (${parsed.hostname}). Domaines acceptés : sports-tracker.com (export Suunto).`);
+  }
+  const text = await httpText(url, { retries: 1 });
+  const { points, name } = parseGpx(text);
+  if (points.length < 2) {
+    throw httpError(400, "Le lien n'a pas renvoyé un GPX exploitable — vérifie que l'export choisi (dans Suunto/Sports-Tracker) est bien au format GPX.");
+  }
+  const id = await importTrackAsStage(points, {
+    name: (typeof req.body?.name === 'string' && req.body.name.trim()) || name || 'Trace importée (lien)',
+    source: 'import-link',
   });
   res.json({ id, points: points.length });
 }));
