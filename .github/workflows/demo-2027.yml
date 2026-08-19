@@ -1,0 +1,32 @@
+name: Démo spéculative 2027 (surveillance)
+
+# scripts/demo-2027.js est le seul exercice du géocodage hors France (repli
+# Nominatim, Édimbourg/Carlisle) et du routage transfrontalier France → Italie
+# (Val-d'Isère → Sestriere, col difficilement routable) — jamais lancé par
+# aucune automatisation avant ce workflow (item de backlog issue #10, section
+# F). Planifié mensuellement plutôt que sur chaque push : ce n'est pas un test
+# de non-régression du code (npm test / npm run demo s'en chargent), plutôt
+# une sonde sur la disponibilité/le comportement des APIs externes réelles.
+#
+# Volontairement PAS de continue-on-error : ce job est isolé dans son propre
+# workflow (n'affecte ni ci.yml ni pages.yml), donc le laisser échouer au
+# rouge est ce qui le rend visible — un succès forcé masquerait justement la
+# régression qu'on cherche à détecter.
+
+on:
+  schedule:
+    - cron: '0 6 3 * *'  # le 3 de chaque mois, 6h UTC
+  workflow_dispatch: {}
+
+jobs:
+  demo-2027:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Démo spéculative 2027 en ligne (géocodage UK/Italie, routage transfrontalier)
+        run: npm run demo:2027

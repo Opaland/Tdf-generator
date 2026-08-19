@@ -9,6 +9,22 @@ Positionnement : ce que [la-flamme-rouge.eu](https://la-flamme-rouge.eu) ne fait
 **reconstruction historique 1903→2027**, **fiches côte-par-côte automatiques**,
 **analyse km par km**, **exports JSON/GPX/PNG/HTML**, **audits de qualité** par étape.
 
+## Prérequis : Node.js installé
+
+Les 3 commandes ci-dessous supposent que [Node.js](https://nodejs.org/) (version
+20 ou plus récente) est déjà installé. Pas développeur et jamais installé Node ?
+
+1. Téléchargez la version « LTS » sur [nodejs.org](https://nodejs.org/) (bouton
+   principal de la page d'accueil) et lancez l'installeur — Windows, macOS et Linux.
+2. Vérifiez l'installation dans un terminal (invite de commandes) :
+   ```bash
+   node --version   # doit afficher v20 ou plus
+   npm --version
+   ```
+3. Erreur `npm: command not found` (ou `'npm' n'est pas reconnu…` sous Windows) :
+   l'installation n'a pas abouti ou le terminal a été ouvert avant l'install —
+   fermez et rouvrez le terminal, ou redémarrez la machine.
+
 ## Démarrage en 3 commandes
 
 ```bash
@@ -267,4 +283,19 @@ créée à part (`is_custom`), jamais mélangée aux données sourcées de
 
 Nécessite `--online` (aucune couverture Royaume-Uni/Italie dans le
 simulateur hors-ligne) ; n'est pas un test de non-régression — `npm test` et
-`npm run demo` restent les garde-fous requis avant tout commit.
+`npm run demo` restent les garde-fous requis avant tout commit. Un job GitHub
+Actions mensuel (`.github/workflows/demo-2027.yml`) la surveille en continu.
+
+## Roadmap / contribuer
+
+Ce README décrit ce qui existe. Pour ce qui est envisagé mais pas encore fait,
+voir le **[backlog du projet](https://github.com/Opaland/Tdf-generator/issues/10)**
+(idées groupées par thème : rigueur des données, couverture historique,
+algorithmes, UX, infra, tests — sans engagement de calendrier).
+
+## Licences
+
+Code sous licence [MIT](./LICENSE). Certaines données embarquées (import
+Wikipédia dans `pipeline/data/historic_routes.json`) restent sous leur
+licence d'origine (CC BY-SA), distincte du code — détails dans
+**[`NOTICE.md`](./NOTICE.md)**.
