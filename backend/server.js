@@ -46,6 +46,29 @@ const wrap = (fn) => (req, res) =>
     res.status(500).json({ error: String(err.message || err) });
   });
 
+// Validation d'entrée minimale : SQLite (better-sqlite3) n'accepte comme
+// paramètre lié qu'un nombre, une chaîne, un bigint, un buffer ou null — un
+// objet/tableau/booléen envoyé par erreur (ou par un client hostile) fait
+// planter .run() avec une exception non gérée (500 + fuite de stack trace).
+function httpError(status, message) {
+  return Object.assign(new Error(message), { status });
+}
+function requireString(v, field) {
+  if (typeof v !== 'string' || !v.trim()) throw httpError(400, `${field} doit être une chaîne non vide`);
+  return v;
+}
+function optionalString(v, field) {
+  if (v == null) return null;
+  if (typeof v !== 'string') throw httpError(400, `${field} doit être une chaîne (ou absent)`);
+  return v;
+}
+function optionalNumber(v, field) {
+  if (v == null || v === '') return null;
+  const n = typeof v === 'number' ? v : NaN;
+  if (!Number.isFinite(n)) throw httpError(400, `${field} doit être un nombre (ou absent)`);
+  return n;
+}
+
 // ---------------------------------------------------------------- statut
 app.get('/api/status', (req, res) => {
   const db = getDb();
@@ -134,17 +157,31 @@ app.get('/api/stages', (req, res) => {
 });
 
 app.post('/api/stages', (req, res) => {
-  const { name, date, stage_type, status, edition_id, stage_order, waypoints } = req.body || {};
-  if (!name || !Array.isArray(waypoints) || waypoints.length < 2) {
+  const body = req.body || {};
+  const name = requireString(body.name, 'name');
+  if (!Array.isArray(body.waypoints) || body.waypoints.length < 2) {
     return res.status(400).json({ error: 'name et au moins 2 waypoints requis' });
   }
+  const date = optionalString(body.date, 'date');
+  const stage_type = optionalString(body.stage_type, 'stage_type');
+  const status = optionalString(body.status, 'status');
+  const edition_id = optionalNumber(body.edition_id, 'edition_id');
+  const stage_order = optionalNumber(body.stage_order, 'stage_order');
+  const waypoints = body.waypoints.map((w, i) => ({
+    label: typeof w?.label === 'string' && w.label ? w.label : `Point ${i + 1}`,
+    kind: optionalString(w?.kind, `waypoints[${i}].kind`) || 'via',
+    lat: optionalNumber(w?.lat, `waypoints[${i}].lat`),
+    lon: optionalNumber(w?.lon, `waypoints[${i}].lon`),
+    altitude_hint_m: optionalNumber(w?.altitude_hint_m, `waypoints[${i}].altitude_hint_m`),
+    source: optionalString(w?.source, `waypoints[${i}].source`) || 'éditeur',
+  }));
   const db = getDb();
   const r = db
     .prepare(
       `INSERT INTO stages (name, date, stage_type, status, edition_id, stage_order, state)
        VALUES (?, ?, ?, ?, ?, ?, 'draft')`
     )
-    .run(name, date || null, stage_type || null, status || null, edition_id || null, stage_order || null);
+    .run(name, date, stage_type, status, edition_id, stage_order);
   const id = r.lastInsertRowid;
   const ins = db.prepare(
     `INSERT INTO waypoints (stage_id, idx, label, kind, lat, lon, altitude_hint_m, source)
@@ -161,21 +198,35 @@ app.put('/api/stages/:id', (req, res) => {
   const id = parseInt(req.params.id, 10);
   const stage = db.prepare('SELECT id FROM stages WHERE id = ?').get(id);
   if (!stage) return res.status(404).json({ error: 'Étape introuvable' });
-  const { name, date, stage_type, status, edition_id, stage_order, waypoints } = req.body || {};
+  const body = req.body || {};
+  const name = optionalString(body.name, 'name');
+  const date = optionalString(body.date, 'date');
+  const stage_type = optionalString(body.stage_type, 'stage_type');
+  const status = optionalString(body.status, 'status');
+  const edition_id = optionalNumber(body.edition_id, 'edition_id');
+  const stage_order = optionalNumber(body.stage_order, 'stage_order');
   db.prepare(
     `UPDATE stages SET name = COALESCE(?, name), date = COALESCE(?, date),
        stage_type = COALESCE(?, stage_type), status = COALESCE(?, status),
        edition_id = COALESCE(?, edition_id), stage_order = COALESCE(?, stage_order),
        updated_at = datetime('now') WHERE id = ?`
-  ).run(name ?? null, date ?? null, stage_type ?? null, status ?? null, edition_id ?? null, stage_order ?? null, id);
-  if (Array.isArray(waypoints) && waypoints.length >= 2) {
+  ).run(name, date, stage_type, status, edition_id, stage_order, id);
+  if (Array.isArray(body.waypoints) && body.waypoints.length >= 2) {
+    const waypoints = body.waypoints.map((w, i) => ({
+      label: typeof w?.label === 'string' && w.label ? w.label : `Point ${i + 1}`,
+      kind: optionalString(w?.kind, `waypoints[${i}].kind`) || 'via',
+      lat: optionalNumber(w?.lat, `waypoints[${i}].lat`),
+      lon: optionalNumber(w?.lon, `waypoints[${i}].lon`),
+      altitude_hint_m: optionalNumber(w?.altitude_hint_m, `waypoints[${i}].altitude_hint_m`),
+      source: optionalString(w?.source, `waypoints[${i}].source`) || 'éditeur',
+    }));
     db.prepare('DELETE FROM waypoints WHERE stage_id = ?').run(id);
     const ins = db.prepare(
       `INSERT INTO waypoints (stage_id, idx, label, kind, lat, lon, altitude_hint_m, source)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
     );
     waypoints.forEach((w, i) =>
-      ins.run(id, i, w.label || `Point ${i + 1}`, w.kind || 'via', w.lat ?? null, w.lon ?? null, w.altitude_hint_m ?? null, w.source || 'éditeur')
+      ins.run(id, i, w.label, w.kind, w.lat, w.lon, w.altitude_hint_m, w.source)
     );
     db.prepare(`UPDATE stages SET state = 'draft' WHERE id = ?`).run(id);
   }
@@ -258,12 +309,13 @@ app.get('/api/editions', (req, res) => {
 });
 
 app.post('/api/editions', (req, res) => {
-  const { name, year, is_custom } = req.body || {};
-  if (!name) return res.status(400).json({ error: 'name requis' });
+  const body = req.body || {};
+  const name = requireString(body.name, 'name');
+  const year = optionalNumber(body.year, 'year');
   const db = getDb();
   const r = db
     .prepare('INSERT INTO editions (year, name, is_custom) VALUES (?, ?, ?)')
-    .run(year ?? null, name, is_custom ? 1 : 0);
+    .run(year, name, body.is_custom ? 1 : 0);
   res.json({ id: r.lastInsertRowid });
 });
 
@@ -323,6 +375,19 @@ app.get('/api/editions/:id/site', wrap(async (req, res) => {
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.send(tourToStandaloneHtml(parseInt(req.params.id, 10)));
 }));
+
+// Gestionnaire d'erreur global (4 arguments — signature reconnue par Express
+// pour un middleware d'erreur) : filet de sécurité pour toute exception
+// synchrone non interceptée par une route (ex. requireString/optionalNumber
+// ci-dessus, ou un bug futur). Sans ce middleware, Express renvoie sa page
+// HTML par défaut qui inclut la stack trace complète — donc les chemins de
+// fichiers internes du serveur — trouvée en pratique lors d'un fuzzing de
+// l'API (payloads de type non-primitif dans des champs attendus en chaîne).
+app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
+  if (err.status) return res.status(err.status).json({ error: err.message }); // rejet de validation attendu, pas de log
+  console.error(err);
+  res.status(500).json({ error: 'Erreur interne du serveur' });
+});
 
 if (require.main === module) {
   app.listen(PORT, () => {
