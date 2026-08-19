@@ -115,9 +115,24 @@ async function loadStages() {
           <button class="danger" data-del="${s.id}">✕</button></td>`;
     tbody.appendChild(tr);
   }
+  // Confirmation par double-clic (arme le bouton 3s) plutôt qu'un confirm()
+  // natif non stylable et incohérent avec le reste de l'app.
   tbody.querySelectorAll('[data-del]').forEach((b) =>
     b.addEventListener('click', async () => {
-      if (!confirm('Supprimer cette étape ?')) return;
+      if (b.dataset.armed !== '1') {
+        b.dataset.armed = '1';
+        b.textContent = 'confirmer ✕';
+        b.title = 'Cliquer à nouveau pour confirmer la suppression';
+        clearTimeout(Number(b.dataset.timer) || 0);
+        b.dataset.timer = setTimeout(() => {
+          b.dataset.armed = '0';
+          b.textContent = '✕';
+          b.title = 'supprimer';
+        }, 3000);
+        return;
+      }
+      clearTimeout(Number(b.dataset.timer) || 0);
+      b.disabled = true;
       await EF.api(`/api/stages/${b.dataset.del}`, { method: 'DELETE' });
       loadStages();
     })
@@ -227,10 +242,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   optNew.value = '__new__';
   optNew.textContent = '+ nouveau tour…';
   sel.appendChild(optNew);
-  sel.addEventListener('change', async () => {
-    if (sel.value !== '__new__') return;
-    const name = prompt('Nom du nouveau tour (ex. « Mon Tour rêvé 2027 ») :');
-    if (!name) { sel.value = ''; return; }
+  // Saisie du nom inline (au lieu d'un prompt()/alert() natifs) : un petit
+  // encart apparaît sous le sélecteur plutôt qu'une boîte de dialogue système.
+  const newBox = document.getElementById('new-tour-box');
+  const newName = document.getElementById('new-tour-name');
+  const newMsg = document.getElementById('new-tour-msg');
+  async function createTour() {
+    const name = newName.value.trim();
+    if (!name) { newMsg.textContent = 'Donnez un nom au tour.'; return; }
+    newMsg.textContent = 'Création…';
     try {
       const { id } = await EF.api('/api/editions', { method: 'POST', body: { name, is_custom: 1 } });
       const o = document.createElement('option');
@@ -238,10 +258,25 @@ document.addEventListener('DOMContentLoaded', async () => {
       o.textContent = name;
       sel.insertBefore(o, optNew);
       sel.value = id;
+      newBox.style.display = 'none';
     } catch (err) {
-      alert('Erreur : ' + err.message);
-      sel.value = '';
+      newMsg.textContent = 'Erreur : ' + err.message;
     }
+  }
+  sel.addEventListener('change', () => {
+    if (sel.value !== '__new__') return;
+    newBox.style.display = '';
+    newMsg.textContent = '';
+    newName.value = '';
+    newName.focus();
+  });
+  document.getElementById('new-tour-cancel').addEventListener('click', () => {
+    newBox.style.display = 'none';
+    sel.value = '';
+  });
+  document.getElementById('new-tour-ok').addEventListener('click', createTour);
+  newName.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { e.preventDefault(); createTour(); }
   });
 
   const editId = EF.qs('id');

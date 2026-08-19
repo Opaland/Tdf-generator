@@ -98,7 +98,9 @@ function metricRows(fa, fb) {
   document.querySelector('#cmp-table thead').innerHTML =
     `<tr><th>Métrique</th><th style="color:${COLOR_A}">${EF.esc(fa.stage.name)}</th><th style="color:${COLOR_B}">${EF.esc(fb.stage.name)}</th></tr>`;
   document.querySelector('#cmp-table tbody').innerHTML = Object.keys(A)
-    .map((k) => `<tr><td>${k}</td><td>${A[k] ?? '—'}</td><td>${B[k] ?? '—'}</td></tr>`)
+    .map((k) => `<tr><td>${k}</td>` +
+      `<td data-label="${EF.esc(fa.stage.name)}">${A[k] ?? '—'}</td>` +
+      `<td data-label="${EF.esc(fb.stage.name)}">${B[k] ?? '—'}</td></tr>`)
     .join('');
 }
 

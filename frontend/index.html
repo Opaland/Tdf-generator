@@ -33,6 +33,16 @@
       <label class="field">Tour (groupe d'étapes)
         <select id="f-edition"><option value="">— aucun —</option></select>
       </label>
+      <div id="new-tour-box" style="display:none">
+        <label class="field" style="margin:0">Nom du nouveau tour
+          <input id="new-tour-name" placeholder="Mon Tour rêvé 2027">
+        </label>
+        <div class="toolbar" style="margin:6px 0 0">
+          <button type="button" id="new-tour-ok" class="secondary">Créer</button>
+          <button type="button" id="new-tour-cancel" class="secondary">Annuler</button>
+        </div>
+        <span id="new-tour-msg" class="meta-line" style="margin:2px 0 0"></span>
+      </div>
     </div>
 
     <h2>Waypoints (ordonnés)</h2>
@@ -49,7 +59,7 @@
   <div id="map"></div>
 
   <h2>Étapes existantes</h2>
-  <div class="card">
+  <div class="card" style="overflow-x:auto">
     <table class="stage-list" id="stage-table">
       <thead><tr><th>Étape</th><th>Tour</th><th>Type</th><th>Distance</th><th>D+</th><th>État</th><th></th></tr></thead>
       <tbody></tbody>
