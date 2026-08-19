@@ -5,6 +5,9 @@
 #    (base SQLite + caches) — l'app ne voit RIEN d'autre du NAS ;
 #  - port publié en LAN uniquement : ne PAS créer de redirection de port dans la
 #    box ; pour l'accès distant, utilisez Tailscale (voir docs/SYNOLOGY.md).
+#
+# Pour une exposition publique avec comptes (VPS + reverse proxy HTTPS), voir
+# docs/DEPLOY-PUBLIC.md — NE PAS activer ETAPEFORGE_PUBLIC sur ce compose LAN.
 services:
   etapeforge:
     build: .

@@ -122,6 +122,24 @@ CREATE TABLE IF NOT EXISTS api_cache (   -- routage OSRM, Wikipédia…
   response TEXT NOT NULL,
   created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
+
+-- Authentification (mur d'accès en mode ETAPEFORGE_PUBLIC=1 — voir backend/auth.js).
+-- Toutes les données ci-dessus restent partagées entre les comptes : ces deux
+-- tables ne servent qu'à contrôler qui peut se connecter, pas à cloisonner les
+-- données par utilisateur.
+CREATE TABLE IF NOT EXISTS users (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  email TEXT UNIQUE NOT NULL,
+  password_hash TEXT NOT NULL,   -- "salt_hex:hash_hex" (scrypt, voir backend/auth.js)
+  created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+CREATE TABLE IF NOT EXISTS sessions (
+  id TEXT PRIMARY KEY,           -- sha256(token brut du cookie) — jamais le token en clair
+  user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  created_at TEXT NOT NULL DEFAULT (datetime('now')),
+  expires_at TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_sessions_user ON sessions(user_id);
 `;
 
 function getDb() {

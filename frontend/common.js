@@ -87,7 +87,26 @@ const EF = {
     return EF.inFrance(lat, lon) ? EF.ignLayer() : EF.osmLayer();
   },
 
+  // Redirige vers /login.html si le serveur exige un compte (ETAPEFORGE_PUBLIC=1)
+  // et qu'aucune session valide n'est présente. Retourne l'utilisateur connecté
+  // (ou null si l'auth n'est pas activée).
+  async requireAuthOrRedirect() {
+    if (window.EF_STATIC) return null; // démo GitHub Pages : jamais de mur d'accès
+    let status;
+    try { status = await (await fetch('/api/status')).json(); } catch { return null; }
+    if (!status.authRequired) return null;
+    const res = await fetch('/api/auth/me');
+    if (res.status === 401) {
+      const next = encodeURIComponent(location.pathname + location.search);
+      location.href = `/login.html?next=${next}`;
+      return new Promise(() => {}); // ne résout jamais : la redirection est en cours
+    }
+    return res.json();
+  },
+
   async initChrome(active) {
+    const user = await EF.requireAuthOrRedirect();
+
     const header = document.createElement('header');
     header.className = 'topbar';
     header.innerHTML =
@@ -100,10 +119,17 @@ const EF = {
          <a href="/traces.html" data-nav="traces">Mes traces</a>
          <a href="/archives.html" data-nav="archives">Archives 1903→</a>
        </nav>
-       <span class="offline-badge" id="offline-badge">mode hors-ligne — données simulées</span>`;
+       <span class="offline-badge" id="offline-badge">mode hors-ligne — données simulées</span>
+       ${user ? `<span class="user-badge">${EF.esc(user.email)} · <a href="#" id="logout-link">déconnexion</a></span>` : ''}`;
     document.body.prepend(header);
     const link = header.querySelector(`[data-nav="${active}"]`);
     if (link) link.classList.add('active');
+    const logout = header.querySelector('#logout-link');
+    if (logout) logout.addEventListener('click', async (e) => {
+      e.preventDefault();
+      await fetch('/api/auth/logout', { method: 'POST' });
+      location.href = '/login.html';
+    });
 
     const footer = document.createElement('footer');
     footer.className = 'attrib';
