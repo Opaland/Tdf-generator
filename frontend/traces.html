@@ -24,6 +24,18 @@
     <p id="gpx-msg" class="meta-line"></p>
   </div>
 
+  <h2>Import par lien</h2>
+  <div class="card">
+    <p class="meta-line">Si l'appli Suunto ne vous donne pas de fichier à télécharger mais un <b>lien</b>
+      (export « GPX » → lien <code>api.sports-tracker.com/…</code>, le backend historique de l'appli
+      Suunto), collez-le ici : le serveur va chercher le tracé à votre place.</p>
+    <div class="row">
+      <label class="field" style="flex:1">Lien d'export<input id="link-url" placeholder="https://api.sports-tracker.com/apiserver/v1/workouts/export/…"></label>
+      <button id="link-import">Importer</button>
+    </div>
+    <p id="link-msg" class="meta-line"></p>
+  </div>
+
   <h2>Connexion Suunto (Cloud API)</h2>
   <div class="card" id="suunto-box">
     <p class="meta-line">chargement…</p>

@@ -23,6 +23,22 @@ async function importGpxFiles(files) {
   }
 }
 
+async function importFromLink() {
+  const input = document.getElementById('link-url');
+  const msg = document.getElementById('link-msg');
+  if (window.EF_STATIC) { msg.textContent = EF.STATIC_MSG; return; }
+  const url = input.value.trim();
+  if (!url) { msg.textContent = 'Collez un lien d\'export.'; return; }
+  msg.textContent = 'Import en cours…';
+  try {
+    const json = await EF.api('/api/import/link', { method: 'POST', body: { url } });
+    msg.innerHTML = `✔ Trace importée (${json.points} points) — <a href="/stage.html?id=${json.id}">ouvrir la fiche</a>`;
+    input.value = '';
+  } catch (err) {
+    msg.textContent = `Erreur : ${err.message}`;
+  }
+}
+
 async function renderSuunto() {
   const box = document.getElementById('suunto-box');
   let st;
@@ -136,6 +152,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     dz.style.background = '';
     importGpxFiles([...e.dataTransfer.files].filter((f) => /\.gpx$/i.test(f.name)));
   });
+
+  document.getElementById('link-import').addEventListener('click', importFromLink);
+  document.getElementById('link-url').addEventListener('keydown', (e) => { if (e.key === 'Enter') importFromLink(); });
 
   const flag = EF.qs('suunto');
   if (flag && flag !== 'ok') {
