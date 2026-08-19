@@ -111,6 +111,7 @@ const EF = {
     header.className = 'topbar';
     header.innerHTML =
       `<div class="logo">Étape<span>Forge</span></div>
+       <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Menu" aria-expanded="false">☰</button>
        <nav>
          <a href="/" data-nav="editeur">Éditeur d'étape</a>
          <a href="/tour.html" data-nav="tour">Carte globale</a>
@@ -119,11 +120,16 @@ const EF = {
          <a href="/traces.html" data-nav="traces">Mes traces</a>
          <a href="/archives.html" data-nav="archives">Archives 1903→</a>
        </nav>
-       <span class="offline-badge" id="offline-badge">mode hors-ligne — données simulées</span>
-       ${user ? `<span class="user-badge">${EF.esc(user.email)} · <a href="#" id="logout-link">déconnexion</a></span>` : ''}`;
+       <span class="offline-badge" id="offline-badge" title="mode hors-ligne — données simulées">mode hors-ligne — données simulées</span>
+       ${user ? `<span class="user-badge" title="${EF.esc(user.email)}">${EF.esc(user.email)} · <a href="#" id="logout-link">déconnexion</a></span>` : ''}`;
     document.body.prepend(header);
     const link = header.querySelector(`[data-nav="${active}"]`);
     if (link) link.classList.add('active');
+    const toggle = header.querySelector('#nav-toggle');
+    toggle.addEventListener('click', () => {
+      const open = header.classList.toggle('nav-open');
+      toggle.setAttribute('aria-expanded', String(open));
+    });
     const logout = header.querySelector('#logout-link');
     if (logout) logout.addEventListener('click', async (e) => {
       e.preventDefault();

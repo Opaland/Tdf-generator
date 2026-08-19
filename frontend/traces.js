@@ -127,10 +127,19 @@ async function renderSuunto() {
           });
           location.href = `/stage.html?id=${r.id}`;
         } catch (err) {
+          // Message affiché en ligne (pas d'alert() natif) : sous le bouton
+          // de la sortie concernée, cohérent avec le reste de l'écran.
           b.textContent = 'échec';
           b.title = err.message;
-          alert('Import Suunto : ' + err.message);
           b.disabled = false;
+          let msg = b.nextElementSibling;
+          if (!msg || !msg.classList.contains('err-msg')) {
+            msg = document.createElement('span');
+            msg.className = 'err-msg meta-line';
+            msg.style.cssText = 'display:block;margin:4px 0 0';
+            b.after(msg);
+          }
+          msg.textContent = 'Erreur : ' + err.message;
         }
       })
     );

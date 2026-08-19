@@ -7,8 +7,8 @@
   --bord: #ddd5c2;
   --texte: #222;
   --texte2: #6b6b6b;
-  --ok: #2e8b57;
-  --warn: #e67e22;
+  --ok: #27764a;
+  --warn: #a15818;
   --fail: #d7263d;
 }
 * { box-sizing: border-box; }
@@ -26,6 +26,7 @@ header.topbar {
   gap: 22px;
   padding: 0 20px;
   height: 52px;
+  position: relative;
 }
 header.topbar .logo { font-weight: 800; font-size: 1.15em; letter-spacing: 0.5px; }
 header.topbar .logo span { color: #fff; }
@@ -43,6 +44,29 @@ header.topbar .offline-badge {
 header.topbar .user-badge { margin-left: auto; font-size: 0.82em; color: #ccc; white-space: nowrap; }
 header.topbar .user-badge a { color: var(--jaune); text-decoration: none; }
 header.topbar .user-badge a:hover { text-decoration: underline; }
+header.topbar .nav-toggle {
+  display: none; background: none; border: none; color: var(--jaune);
+  font-size: 1.3em; line-height: 1; padding: 4px 6px; cursor: pointer;
+}
+/* Nav qui déborde d'un viewport étroit (pas de flex-wrap) : au lieu de laisser
+   toute la page défiler horizontalement (les liens au-delà de "Cols" devenaient
+   alors inatteignables sans le deviner), la nav bascule en menu déroulant sous
+   un bouton ☰ en dessous de 720px. */
+@media (max-width: 720px) {
+  header.topbar { gap: 10px; }
+  header.topbar nav { display: none; }
+  header.topbar .nav-toggle { display: inline-block; }
+  header.topbar.nav-open nav {
+    display: flex; flex-direction: column; position: absolute;
+    top: 52px; left: 0; right: 0; height: auto; background: var(--noir);
+    z-index: 1000; padding: 6px 0; box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+  }
+  header.topbar.nav-open nav a { padding: 12px 20px; }
+  header.topbar .offline-badge, header.topbar .user-badge {
+    font-size: 0.68em; max-width: 108px; overflow: hidden;
+    text-overflow: ellipsis; white-space: nowrap;
+  }
+}
 main { max-width: 1160px; margin: 0 auto; padding: 18px 20px 60px; }
 h1 { font-size: 1.45em; margin: 12px 0; }
 h2 { font-size: 1.12em; margin: 22px 0 10px; border-bottom: 2px solid var(--jaune); padding-bottom: 4px; }
@@ -76,6 +100,16 @@ button:disabled { opacity: 0.5; cursor: default; }
 .wp-list select { padding: 6px; border: 1px solid var(--bord); border-radius: 6px; }
 .wp-list .coords { font-size: 0.75em; color: var(--texte2); width: 120px; }
 .wp-list button { padding: 4px 8px; font-size: 0.8em; }
+/* Ligne de waypoint : idx + champ + select + coordonnées + 3 boutons ne
+   tiennent pas sur une largeur mobile (~366px de contenu à taille fixe avant
+   même le champ texte, qui a lui-même un contenu minimal incompressible) —
+   ça forçait toute la page en scroll horizontal. En dessous de 600px, la
+   ligne peut passer sur deux lignes plutôt que déborder. */
+@media (max-width: 600px) {
+  .wp-list li { flex-wrap: wrap; }
+  .wp-list input.label { flex: 1 1 100%; }
+  .suggest { right: 12px; }
+}
 .suggest {
   position: absolute; top: 100%; left: 34px; right: 220px; z-index: 1000;
   background: #fff; border: 1px solid var(--bord); border-radius: 0 0 8px 8px;
@@ -135,6 +169,20 @@ table.stats th { background: var(--sable); cursor: pointer; user-select: none; w
 table.stats td:first-child, table.stats th:first-child { text-align: left; }
 table.stats tr:hover { background: #f6f1e4; }
 table.stats tfoot td { font-weight: 700; background: #f3ecd9; }
+/* Comparateur (#cmp-table) : sur mobile, une vraie table à 3 colonnes (Métrique,
+   Étape A, Étape B) fait sortir la colonne Étape B de l'écran — la moitié de la
+   comparaison disparaît sans indice qu'elle existe. En dessous de 640px, chaque
+   ligne devient un bloc empilé (métrique en titre, valeurs des deux étapes
+   labellisées via data-label) plutôt que de compter sur un défilement horizontal
+   invisible. */
+@media (max-width: 640px) {
+  #cmp-table thead { display: none; }
+  #cmp-table, #cmp-table tbody, #cmp-table tr, #cmp-table td { display: block; width: 100%; }
+  #cmp-table tr { border: 1px solid var(--bord); border-radius: 8px; margin: 10px 0; padding: 8px 10px; }
+  #cmp-table td { border: none; padding: 3px 0; text-align: left; }
+  #cmp-table td:first-child { font-weight: 700; border-bottom: 1px dashed var(--bord); padding-bottom: 5px; margin-bottom: 3px; }
+  #cmp-table td:not(:first-child)::before { content: attr(data-label) " : "; color: var(--texte2); font-weight: 600; }
+}
 .statgrid { display: flex; gap: 14px; flex-wrap: wrap; margin: 10px 0; }
 .stat { background: var(--carte); border: 1px solid var(--bord); border-radius: 10px; padding: 10px 18px; text-align: center; flex: 1; min-width: 130px; }
 .stat .v { font-size: 1.5em; font-weight: 800; }
