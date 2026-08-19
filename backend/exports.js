@@ -161,6 +161,9 @@ function tourToStandaloneHtml(editionId) {
 <script>
 const TOUR = ${JSON.stringify({ edition: { id: edition.id, name: edition.name, year: edition.year }, stages: payloads })};
 const TYPE_COLORS = { plaine:'#2e8b57', 'accidentée':'#e67e22', montagne:'#c0392b', clm:'#2980b9', 'clm par équipes':'#8e44ad' };
+function escHtml(s) {
+  return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
 document.addEventListener('DOMContentLoaded', () => {
   const map = L.map('map');
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -174,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (prevEnd) L.polyline([prevEnd, latlngs[0]], { color:'#888', dashArray:'6 8', weight:2 }).addTo(map);
     const color = TYPE_COLORS[st.stage.stage_type] || '#c0392b';
     L.polyline(latlngs, { color, weight: 3.5 }).addTo(map)
-      .bindPopup('<b>' + st.stage.name + '</b><br>' + (st.stage.generated_distance_km || '?') + ' km — D+ ' + (st.stage.total_ascent_m || '?') + ' m');
+      .bindPopup('<b>' + escHtml(st.stage.name) + '</b><br>' + (st.stage.generated_distance_km || '?') + ' km — D+ ' + (st.stage.total_ascent_m || '?') + ' m');
     prevEnd = latlngs[latlngs.length - 1];
   }
   if (bounds.length) map.fitBounds(bounds, { padding: [24, 24] });
@@ -186,8 +189,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const delta = st.stage.official_distance_km && st.stage.generated_distance_km
       ? ((st.stage.generated_distance_km - st.stage.official_distance_km) / st.stage.official_distance_km * 100)
       : null;
-    card.innerHTML = '<h2>' + st.stage.name + '</h2>' +
-      '<div class="meta">' + [st.stage.date, st.stage.stage_type,
+    card.innerHTML = '<h2>' + escHtml(st.stage.name) + '</h2>' +
+      '<div class="meta">' + [escHtml(st.stage.date), escHtml(st.stage.stage_type),
         (st.stage.generated_distance_km || '?') + ' km', 'D+ ' + (st.stage.total_ascent_m || '?') + ' m',
         delta != null ? 'tracé reconstitué sur le réseau routier actuel — distance officielle : ' + st.stage.official_distance_km + ' km / reconstitution : ' + st.stage.generated_distance_km + ' km (écart ' + (delta >= 0 ? '+' : '') + delta.toFixed(1) + ' %)' : null
       ].filter(Boolean).join(' · ') + '</div>' +

@@ -23,7 +23,10 @@ npm start        # http://localhost:4567
 > OSRM, opentopodata, Wikipédia). Le serveur, lui, utilise les vraies APIs par
 > défaut ; lancez `ETAPEFORGE_OFFLINE=1 npm start` pour rester sur le simulateur.
 
-## Les 4 écrans
+## Les 4 écrans principaux
+
+(la barre de navigation en compte 6 au total — Cols et Comparer, présentés
+plus bas dans « Visualisations inspirées de VeloViewer », s'ajoutent à ces 4.)
 
 | | |
 |---|---|

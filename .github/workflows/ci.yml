@@ -21,7 +21,7 @@ jobs:
       - run: npm ci
       - name: Tests unitaires (détecteur de côtes, parseur Wikipédia)
         run: npm test
-      - name: Démo de validation auto-vérifiée (mode hors-ligne, 9 checks)
+      - name: Démo de validation auto-vérifiée (mode hors-ligne, 10 checks)
         run: npm run demo
 
   docker:

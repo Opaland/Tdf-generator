@@ -18,14 +18,20 @@
 
   <div class="card">
     <div class="toolbar">
-      <label class="field" style="margin:0">Importer une année (1903 → 2027)
-        <input id="f-year" type="number" min="1903" max="2027" value="1903" style="width:120px">
+      <label class="field" style="margin:0">Importer une année (1903 → 2026)
+        <input id="f-year" type="number" min="1903" max="2026" value="1903" style="width:120px">
       </label>
       <button id="btn-import">Importer l'année</button>
       <span id="import-msg" class="meta-line"></span>
     </div>
     <p class="meta-line">Démo fournie : <b>1903</b>, premier Tour de France — 6 étapes, dont
       Paris (Montgeron) → Lyon, 467 km officiels.</p>
+    <p class="meta-line">Points de passage sourcés (villes d'époque, cols) disponibles pour :
+      <b>1903</b> (col du Pin-Bouchain, tout premier col du Tour), <b>1905</b> (Ballon d'Alsace),
+      <b>1910</b> (le « Cercle de la mort » pyrénéen), <b>1911</b> (premier Galibier),
+      <b>1952</b> (première arrivée à l'Alpe d'Huez), et chaque édition <b>2020-2026</b> en détail
+      (étapes reines). Le Tour 2027 n'étant pas encore annoncé, il n'est pas importable ici —
+      voir <code>npm run demo:2027</code> pour un parcours spéculatif à part.</p>
   </div>
 
   <div id="editions"></div>
