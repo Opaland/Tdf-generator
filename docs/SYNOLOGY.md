@@ -62,9 +62,11 @@ sudo docker compose up -d --build
    par une IP publique.
 
 > N'activez **pas** de redirection du port 4567 dans votre box, et n'exposez
-> pas ce port via QuickConnect/portail Synology : l'application n'a pas
-> d'authentification (elle est conçue pour un usage personnel), Tailscale est
-> votre couche d'accès.
+> pas ce port via QuickConnect/portail Synology : par défaut l'application n'a
+> pas d'authentification (elle est conçue pour un usage personnel en réseau
+> local), Tailscale est votre couche d'accès. Pour une vraie exposition
+> publique avec comptes, voir [`DEPLOY-PUBLIC.md`](./DEPLOY-PUBLIC.md) plutôt
+> que d'ouvrir ce port directement.
 
 ## Mise à jour
 

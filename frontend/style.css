@@ -40,6 +40,9 @@ header.topbar .offline-badge {
   margin-left: auto; font-size: 0.75em; background: #444; color: #ffce54;
   padding: 3px 10px; border-radius: 12px; display: none;
 }
+header.topbar .user-badge { margin-left: auto; font-size: 0.82em; color: #ccc; white-space: nowrap; }
+header.topbar .user-badge a { color: var(--jaune); text-decoration: none; }
+header.topbar .user-badge a:hover { text-decoration: underline; }
 main { max-width: 1160px; margin: 0 auto; padding: 18px 20px 60px; }
 h1 { font-size: 1.45em; margin: 12px 0; }
 h2 { font-size: 1.12em; margin: 22px 0 10px; border-bottom: 2px solid var(--jaune); padding-bottom: 4px; }

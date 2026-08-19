@@ -195,6 +195,17 @@ accès distant recommandé via Tailscale, **sans exposer de port sur Internet**.
 **Guide pas-à-pas : [docs/SYNOLOGY.md](docs/SYNOLOGY.md)**. L'image est
 construite et smoke-testée en CI à chaque push.
 
+## Mode public (comptes email/mot de passe)
+
+Par défaut, ÉtapeForge n'a **aucun compte** — c'est l'usage prévu en local ou
+sur un NAS en réseau privé. Pour une exposition publique sur Internet (VPS),
+un mur d'accès optionnel existe : `ETAPEFORGE_PUBLIC=1` active des comptes
+email/mot de passe (hachage `crypto.scrypt`, sessions par cookie `httpOnly`).
+**Important : les données restent partagées entre tous les comptes** (ce
+n'est pas un cloisonnement multi-utilisateur) — voir les détails et la mise
+en garde dans **[docs/DEPLOY-PUBLIC.md](docs/DEPLOY-PUBLIC.md)** avant
+d'activer ce mode.
+
 ## Diagnostic du mode réel
 
 La page **/diag.html** (lien en pied de page) teste la connectivité vers chaque

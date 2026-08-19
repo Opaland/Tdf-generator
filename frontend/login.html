@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ÉtapeForge — Connexion</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main style="max-width: 420px; margin: 60px auto;">
+  <h1 style="text-align:center">Étape<span style="color:var(--jaune, #ffd320)">Forge</span></h1>
+  <div class="card">
+    <div class="toolbar" style="justify-content:center">
+      <button id="tab-login" class="tab active" type="button">Se connecter</button>
+      <button id="tab-register" class="tab" type="button">Créer un compte</button>
+    </div>
+    <form id="auth-form">
+      <label class="field">Email
+        <input id="f-email" type="email" autocomplete="username" required>
+      </label>
+      <label class="field">Mot de passe
+        <input id="f-password" type="password" autocomplete="current-password" required minlength="8">
+      </label>
+      <button id="f-submit" type="submit">Se connecter</button>
+      <p id="auth-msg" class="meta-line"></p>
+    </form>
+  </div>
+</main>
+<script src="/common.js"></script>
+<script src="/login.js"></script>
+</body>
+</html>

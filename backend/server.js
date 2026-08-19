@@ -14,11 +14,25 @@ const { stageToGpx, stagePayload, tourToStandaloneHtml, ATTRIBUTIONS } = require
 
 const { suuntoRouter } = require('./suunto');
 const { parseGpx, importTrackAsStage } = require('../pipeline/importTrack');
+const { authRouter, requireAuth, AUTH_REQUIRED } = require('./auth');
 
 const PORT = parseInt(process.env.PORT || '4567', 10);
 const app = express();
+// Derrière un reverse proxy (déploiement public), fait foi de X-Forwarded-For
+// pour que req.ip (utilisé par le limiteur de tentatives login/register)
+// reflète l'IP réelle du client plutôt que celle du proxy.
+if (AUTH_REQUIRED) app.set('trust proxy', 1);
 app.use(express.json({ limit: '2mb' }));
 app.use('/api/import/gpx', express.text({ type: '*/*', limit: '30mb' }));
+app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  next();
+});
+// Comptes email/mot de passe : mur d'accès actif seulement en ETAPEFORGE_PUBLIC=1
+// (voir backend/auth.js). En usage local/Synology par défaut, requireAuth ne fait
+// rien — le comportement historique « aucun compte » est inchangé.
+app.use('/api/auth', authRouter);
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
 // Leaflet servi localement (aucune dépendance CDN pour l'application elle-même).
 app.use('/vendor/leaflet', express.static(path.join(__dirname, '..', 'node_modules', 'leaflet', 'dist')));
@@ -41,8 +55,13 @@ app.get('/api/status', (req, res) => {
     geocode_cache: db.prepare('SELECT COUNT(*) n FROM geocode_cache').get().n,
     elevation_cache: db.prepare('SELECT COUNT(*) n FROM elevation_cache').get().n,
   };
-  res.json({ offline: isOffline(), db: DB_PATH, counts, attributions: ATTRIBUTIONS });
+  res.json({ offline: isOffline(), authRequired: AUTH_REQUIRED, db: DB_PATH, counts, attributions: ATTRIBUTIONS });
 });
+
+// Tout ce qui suit nécessite une session valide quand ETAPEFORGE_PUBLIC=1
+// (GET /api/status ci-dessus reste accessible sans compte : sonde de santé).
+app.use('/api', requireAuth);
+
 app.post('/api/offline', (req, res) => {
   setOffline(!!req.body.offline);
   res.json({ offline: isOffline() });
