@@ -1,7 +1,8 @@
-name: Vitrine GitHub Pages
+name: Démo interactive GitHub Pages
 
-# Publie une vitrine statique (mini-sites des tours pré-générés hors-ligne +
-# captures) sur GitHub Pages à chaque push sur main.
+# Publie l'application interactive complète (frontend + données JSON
+# pré-générées, en ligne quand possible sinon via le simulateur hors-ligne)
+# sur GitHub Pages à chaque push sur main.
 on:
   push:
     branches: [main]

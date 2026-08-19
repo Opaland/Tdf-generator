@@ -49,7 +49,7 @@
     "stages": {
       "2": {
         "vias": [{ "label": "Ballon d'Alsace", "kind": "col", "ele": 1178 }, "Belfort"],
-        "note": "Nancy → Besançon par le Ballon d'Alsace, premier col officiel de l'histoire du Tour."
+        "note": "Nancy → Besançon par le Ballon d'Alsace — premier GRAND col du Tour (le col du Pin-Bouchain en 1903, plus modeste à 759 m, avait été le tout premier col franchi ; le col de la République avait été le premier à plus de 1000 m la même année)."
       }
     }
   },
@@ -93,7 +93,16 @@
     "stages": {
       "1": {
         "start": "Nice",
-        "note": "Grand Départ de Nice (Nice → Nice, via le Colle de Turini) — édition marquée par la pandémie de Covid-19, disputée en septembre-octobre."
+        "note": "Grand Départ de Nice, étape 1 (Nice → Nice, profil roulant, victoire Alexander Kristoff) — édition marquée par la pandémie de Covid-19, disputée en septembre-octobre."
+      },
+      "2": {
+        "start": "Nice",
+        "finish": "Nice",
+        "vias": [
+          { "label": "Col de la Colmiane", "kind": "col", "ele": 1500 },
+          { "label": "Col de Turini", "kind": "col", "ele": 1607 }
+        ],
+        "note": "Étape 2, Nice → Nice (« Nice Haut Pays »), via le col de la Colmiane et le col de Turini avant de boucler par le col d'Èze — Julian Alaphilippe s'y impose et prend le maillot jaune."
       },
       "17": {
         "vias": [
@@ -197,7 +206,6 @@
       "20": {
         "start": "Belfort",
         "finish": "Le Markstein",
-        "vias": [{ "label": "Le Markstein", "kind": "col", "ele": 1183 }],
         "note": "Belfort → Le Markstein (133,5 km), six difficultés répertoriées dans les Vosges (dont le Grand Ballon) avant l'arrivée sur la crête du Markstein (~1 183 m, route des Crêtes)."
       }
     }

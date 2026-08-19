@@ -37,11 +37,12 @@ async function httpJson(url, { minDelayMs = 0, headers = {}, retries = 3 } = {})
         if (res.status === 429 || res.status >= 500) {
           lastErr = new Error(`HTTP ${res.status} sur ${host}`);
         } else if (!res.ok) {
-          throw new Error(`HTTP ${res.status} sur ${url}`);
+          throw Object.assign(new Error(`HTTP ${res.status} sur ${url}`), { nonRetryable: true });
         } else {
           return await res.json();
         }
       } catch (err) {
+        if (err.nonRetryable) throw err;
         lastErr = err;
       }
       if (attempt < retries) await sleep(1000 * 2 ** attempt);
@@ -67,11 +68,12 @@ async function httpText(url, { minDelayMs = 0, headers = {}, retries = 3 } = {})
         if (res.status === 429 || res.status >= 500) {
           lastErr = new Error(`HTTP ${res.status} sur ${host}`);
         } else if (!res.ok) {
-          throw new Error(`HTTP ${res.status} sur ${url}`);
+          throw Object.assign(new Error(`HTTP ${res.status} sur ${url}`), { nonRetryable: true });
         } else {
           return await res.text();
         }
       } catch (err) {
+        if (err.nonRetryable) throw err;
         lastErr = err;
       }
       if (attempt < retries) await sleep(1000 * 2 ** attempt);

@@ -165,7 +165,11 @@ app.put('/api/stages/:id', (req, res) => {
 
 app.delete('/api/stages/:id', (req, res) => {
   const db = getDb();
-  db.prepare('DELETE FROM stages WHERE id = ?').run(parseInt(req.params.id, 10));
+  const id = parseInt(req.params.id, 10);
+  if (!Number.isInteger(id)) return res.status(400).json({ error: 'Identifiant invalide' });
+  const stage = db.prepare('SELECT id FROM stages WHERE id = ?').get(id);
+  if (!stage) return res.status(404).json({ error: 'Étape introuvable' });
+  db.prepare('DELETE FROM stages WHERE id = ?').run(id);
   res.json({ ok: true });
 });
 
