@@ -286,6 +286,30 @@ simulateur hors-ligne) ; n'est pas un test de non-régression — `npm test` et
 `npm run demo` restent les garde-fous requis avant tout commit. Un job GitHub
 Actions mensuel (`.github/workflows/demo-2027.yml`) la surveille en continu.
 
+## Monkey testing (`npm run monkey`)
+
+```bash
+npm run monkey                              # graine aléatoire (affichée pour rejeu)
+MONKEY_SEEDS=42 npm run monkey              # rejoue exactement la même séance
+MONKEY_SEEDS=1,2,3 MONKEY_ACTIONS=40 npm run monkey   # plusieurs graines, plus d'actions/page
+```
+
+`scripts/monkey.js` déchaîne « Fatiha » (cyclosportive amatrice pressée, pas
+développeuse) sur les 8 écrans : clics et remplissages aléatoires (payloads
+XSS/injection SQL/unicode/chaînes géantes…), redimensionnements, retours
+arrière, rechargements en plein chargement. Chaque séance est **reproductible
+par graine** (PRNG déterministe, pas `Math.random()`) : une graine qui trouve
+un problème peut être rejouée telle quelle une fois le correctif écrit, pour
+vérifier qu'il tient. Échoue (code de sortie non nul) à la moindre erreur JS,
+5xx, ou XSS effectivement déclenché.
+
+Exploratoire, **volontairement hors CI** : une trouvaille doit être lue par un
+humain puis, si elle est réelle, verrouillée dans un test permanent — c'est
+ainsi que les deux bugs de `test/serverFuzz.test.js` ont été trouvés et
+corrigés. Dans un environnement au réseau restreint, des erreurs de chargement
+de tuiles de carte (CDN, fonds IGN/OSM) sont normales et ne signalent aucune
+régression de l'application elle-même.
+
 ## Roadmap / contribuer
 
 Ce README décrit ce qui existe. Pour ce qui est envisagé mais pas encore fait,
