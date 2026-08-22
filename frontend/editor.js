@@ -115,27 +115,16 @@ async function loadStages() {
           <button class="danger" data-del="${s.id}">✕</button></td>`;
     tbody.appendChild(tr);
   }
-  // Confirmation par double-clic (arme le bouton 3s) plutôt qu'un confirm()
-  // natif non stylable et incohérent avec le reste de l'app.
   tbody.querySelectorAll('[data-del]').forEach((b) =>
-    b.addEventListener('click', async () => {
-      if (b.dataset.armed !== '1') {
-        b.dataset.armed = '1';
-        b.textContent = 'confirmer ✕';
-        b.title = 'Cliquer à nouveau pour confirmer la suppression';
-        clearTimeout(Number(b.dataset.timer) || 0);
-        b.dataset.timer = setTimeout(() => {
-          b.dataset.armed = '0';
-          b.textContent = '✕';
-          b.title = 'supprimer';
-        }, 3000);
-        return;
-      }
-      clearTimeout(Number(b.dataset.timer) || 0);
-      b.disabled = true;
-      await EF.api(`/api/stages/${b.dataset.del}`, { method: 'DELETE' });
-      loadStages();
-    })
+    b.addEventListener('click', EF.confirmClick(b, {
+      confirmText: 'confirmer ✕',
+      confirmTitle: 'Cliquer à nouveau pour confirmer la suppression',
+      onConfirm: async () => {
+        b.disabled = true;
+        await EF.api(`/api/stages/${b.dataset.del}`, { method: 'DELETE' });
+        loadStages();
+      },
+    }))
   );
 }
 
