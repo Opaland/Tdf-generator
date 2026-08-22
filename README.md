@@ -317,6 +317,22 @@ voir le **[backlog du projet](https://github.com/Opaland/Tdf-generator/issues/10
 (idées groupées par thème : rigueur des données, couverture historique,
 algorithmes, UX, infra, tests — sans engagement de calendrier).
 
+## Les documents du projet
+
+Ils se lisent dans cet ordre — chacun répond à une question différente, et
+aucun ne recopie les autres (même principe que chez
+[Rando-generator](https://github.com/Opaland/Rando-generator), le dépôt
+cousin dont plusieurs idées de ce README/backlog sont directement reprises).
+
+| Document | La question à laquelle il répond |
+|---|---|
+| [`docs/BRIEF.md`](./docs/BRIEF.md) | Quel problème, pour qui, contre qui — et **ce qu'on ne fera pas** |
+| [`docs/PRD.md`](./docs/PRD.md) | Dans quel ordre avancer, et à quoi voit-on qu'un sujet est fini |
+| [`docs/PERSONAS.md`](./docs/PERSONAS.md) | Six personnes suivies pas à pas, et l'endroit exact où elles s'arrêtent |
+| [`docs/DESIGN_SYSTEM.md`](./docs/DESIGN_SYSTEM.md) | Couleurs, espacement, boutons — et **pourquoi certaines duplications ne doivent pas être « corrigées »** |
+| [issue #10](https://github.com/Opaland/Tdf-generator/issues/10) | Le backlog détaillé, par thème |
+| [issue #14](https://github.com/Opaland/Tdf-generator/issues/14) | L'étude concurrentielle — contre qui, quelles idées en retenir |
+
 ## Licences
 
 Code sous licence [MIT](./LICENSE). Certaines données embarquées (import
