@@ -164,6 +164,35 @@ const EF = {
     }
   },
 
+  /**
+   * Confirmation par double-clic sur un bouton, plutôt qu'un confirm() natif
+   * non stylable et incohérent avec le reste de l'app (voir PR #24). Premier
+   * clic : arme le bouton (texte + titre de confirmation) pendant `armedMs`,
+   * revient à l'état initial si rien ne se passe. Second clic dans ce délai :
+   * exécute `onConfirm`. Retourne un gestionnaire prêt pour addEventListener.
+   */
+  confirmClick(btn, { confirmText = 'confirmer ?', confirmTitle = 'Cliquer à nouveau pour confirmer', armedMs = 3000, onConfirm }) {
+    const originalText = btn.textContent;
+    const originalTitle = btn.title;
+    return async () => {
+      if (btn.dataset.armed !== '1') {
+        btn.dataset.armed = '1';
+        btn.textContent = confirmText;
+        btn.title = confirmTitle;
+        clearTimeout(Number(btn.dataset.timer) || 0);
+        btn.dataset.timer = setTimeout(() => {
+          btn.dataset.armed = '0';
+          btn.textContent = originalText;
+          btn.title = originalTitle;
+        }, armedMs);
+        return;
+      }
+      clearTimeout(Number(btn.dataset.timer) || 0);
+      btn.dataset.armed = '0';
+      await onConfirm();
+    };
+  },
+
   downloadText(filename, text, mime) {
     const blob = new Blob([text], { type: mime || 'text/plain' });
     const a = document.createElement('a');
