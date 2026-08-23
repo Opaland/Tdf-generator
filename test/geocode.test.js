@@ -1,11 +1,51 @@
 'use strict';
 // Sélection du bon résultat de géocodage (bugs vus lors de la première
 // génération en ligne : « Vienne » résolu sur le département de la Vienne,
-// adresses préférées aux communes).
+// adresses préférées aux communes) + chemins réseau non couverts jusqu'ici
+// (backlog issue #10, section F) : repli Géoplateforme → Nominatim, aucun
+// résultat nulle part. pipeline/geocode.js n'expose pas d'URL de base
+// substituable (contrairement à backend/suunto.js) : on mocke global.fetch
+// par hôte, en délégant tout appel non prévu à une erreur explicite plutôt
+// que de le laisser passer en silence (voir CLAUDE.md, règle 6 — un mock
+// global doit distinguer ce qu'il simule de ce qu'il laisse passer).
 
-const { test } = require('node:test');
+const os = require('os');
+const path = require('path');
+const fs = require('fs');
+
+process.env.ETAPEFORGE_DATA_DIR = path.join(os.tmpdir(), `etapeforge-geocode-test-${process.pid}`);
+// Pas de ETAPEFORGE_OFFLINE=1 ici : ces tests couvrent justement le chemin
+// réseau réel (mocké), pas le repli simulateur hors-ligne.
+
+const { test, before, after } = require('node:test');
 const assert = require('node:assert');
-const { pickFeature, isColQuery } = require('../pipeline/geocode');
+const { geocode, reverseGeocode, pickFeature, isColQuery } = require('../pipeline/geocode');
+
+let realFetch;
+let mock; // { geopf?: (url) => Response, nominatim?: (url) => Response }
+
+before(() => {
+  realFetch = global.fetch;
+  global.fetch = async (url) => {
+    const host = new URL(String(url)).hostname;
+    if (host === 'data.geopf.fr' && mock.geopf) return mock.geopf(String(url));
+    if (host === 'nominatim.openstreetmap.org' && mock.nominatim) return mock.nominatim(String(url));
+    throw new Error(`appel réseau non simulé par ce test : ${url}`);
+  };
+});
+
+after(() => {
+  global.fetch = realFetch;
+  fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true });
+});
+
+function jsonResponse(body, status = 200) {
+  return { ok: status >= 200 && status < 300, status, json: async () => body };
+}
+
+function neverCalled(nom) {
+  return async () => { throw new Error(`${nom} ne devait pas être appelé sur ce chemin`); };
+}
 
 test('une commune bat un homonyme mieux classé (département, rue…)', () => {
   const feats = [
@@ -34,4 +74,89 @@ test('isColQuery reconnaît les libellés de sommets', () => {
   assert.ok(isColQuery('Col du Tourmalet'));
   assert.ok(isColQuery('Mont Ventoux'));
   assert.ok(!isColQuery('Pau'));
+});
+
+// ---------------------------------------------------------------- geocode()
+
+test('Géoplateforme trouve directement : Nominatim jamais appelé', async () => {
+  mock = {
+    geopf: async () => jsonResponse({
+      features: [{ properties: { label: 'Pau (64000)', type: 'municipality' }, geometry: { coordinates: [-0.37, 43.3] } }],
+    }),
+    nominatim: neverCalled('Nominatim'),
+  };
+  const r = await geocode('Pau-test-geopf-direct');
+  assert.strictEqual(r.provider, 'geopf');
+  assert.strictEqual(r.label, 'Pau (64000)');
+});
+
+test('repli Géoplateforme → Nominatim quand la Géoplateforme ne trouve rien', async () => {
+  mock = {
+    geopf: async () => jsonResponse({ features: [] }),
+    nominatim: async () => jsonResponse([
+      { display_name: 'Quelque part, Ailleurs, France', lat: '45.0', lon: '3.0', type: 'village' },
+    ]),
+  };
+  const r = await geocode('LieuIntrouvableGeopf-test-repli');
+  assert.strictEqual(r.provider, 'nominatim');
+  assert.strictEqual(r.lat, 45.0);
+});
+
+test('Géoplateforme et Nominatim sans résultat : rejette avec un message clair', async () => {
+  mock = {
+    geopf: async () => jsonResponse({ features: [] }),
+    nominatim: async () => jsonResponse([]),
+  };
+  await assert.rejects(() => geocode('IntrouvablePartout-test-echec'), /Géocodage sans résultat/);
+});
+
+test('countryHint hors France : saute directement la Géoplateforme', async () => {
+  mock = {
+    geopf: neverCalled('la Géoplateforme'),
+    nominatim: async () => jsonResponse([
+      { display_name: 'Edinburgh, Scotland, UK', lat: '55.9', lon: '-3.2', type: 'city' },
+    ]),
+  };
+  const r = await geocode('Edinburgh-test-hors-france', { countryHint: 'uk' });
+  assert.strictEqual(r.provider, 'nominatim');
+});
+
+// ----------------------------------------------------------- reverseGeocode()
+
+test('reverseGeocode en France : Géoplateforme trouve, Nominatim jamais appelé', async () => {
+  mock = {
+    geopf: async () => jsonResponse({ features: [{ properties: { city: 'Pau', label: 'Pau' } }] }),
+    nominatim: neverCalled('Nominatim'),
+  };
+  const r = await reverseGeocode(43.31, -0.001);
+  assert.strictEqual(r.provider, 'geopf');
+  assert.strictEqual(r.label, 'Pau');
+});
+
+test('reverseGeocode hors bbox France : saute directement Nominatim', async () => {
+  mock = {
+    geopf: neverCalled('la Géoplateforme'),
+    nominatim: async () => jsonResponse({ display_name: 'Edinburgh, Scotland' }),
+  };
+  const r = await reverseGeocode(55.95, -3.19);
+  assert.strictEqual(r.provider, 'nominatim');
+});
+
+test('reverseGeocode : repli Géoplateforme → Nominatim si aucun résultat', async () => {
+  mock = {
+    geopf: async () => jsonResponse({ features: [] }),
+    nominatim: async () => jsonResponse({ display_name: 'Quelque part, France' }),
+  };
+  const r = await reverseGeocode(43.32, -0.002);
+  assert.strictEqual(r.provider, 'nominatim');
+});
+
+test('reverseGeocode : aucun résultat nulle part → repli sur les coordonnées, ne rejette jamais', async () => {
+  mock = {
+    geopf: async () => jsonResponse({ features: [] }),
+    nominatim: async () => jsonResponse({}), // pas de display_name
+  };
+  const r = await reverseGeocode(43.33, -0.003);
+  assert.strictEqual(r.provider, 'aucun');
+  assert.strictEqual(r.label, '(43.330, -0.003)');
 });
