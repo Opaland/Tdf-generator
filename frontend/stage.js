@@ -97,18 +97,48 @@ function renderFiche() {
     ul.appendChild(li);
   }
 
+  // Réserves de confiance (backlog #10, section A/D) : affirmations à
+  // confiance structurée portées par historic_routes.json pour cette étape
+  // précise (ex. altitude non confirmée sur le roadbook) — absent = aucune
+  // réserve connue, pas une affirmation « tout est vérifié à 100 % ».
+  const CONFIDENCE_ICON = { OK: '✓', UNSURE: '⚠', FIX: '✗' };
+  const CONFIDENCE_CLASS = { OK: 'ok', UNSURE: 'warn', FIX: 'fail' };
+  const confidence = FULL.confidence || [];
+  document.getElementById('confidence-section').style.display = confidence.length ? 'block' : 'none';
+  const confList = document.getElementById('confidence-list');
+  confList.innerHTML = '';
+  for (const c of confidence) {
+    const li = document.createElement('li');
+    li.className = CONFIDENCE_CLASS[c.status] || 'warn';
+    li.innerHTML = `<span class="st">${CONFIDENCE_ICON[c.status] || '⚠'}</span>` +
+      `<b>${EF.esc(c.claim)}</b> — confiance ${EF.esc(c.level)}${c.detail ? ` · ${EF.esc(c.detail)}` : ''}`;
+    confList.appendChild(li);
+  }
+
   // Côte par côte.
   const climbsBox = document.getElementById('climbs');
   climbsBox.innerHTML = FULL.climbs.length ? '' : '<p class="meta-line">Aucune côte détectée (seuil : ≥ 1,5 km à ≥ 3 %).</p>';
   for (const c of FULL.climbs) {
     const div = document.createElement('div');
     div.className = 'card climb-card';
+    // Badge de confiance (backlog #10, section D, "lié à A") : seulement pour
+    // un waypoint issu d'une reconstruction historique (source « parcours
+    // curé » / « wikipedia ») — une étape éditeur/GPX n'a pas ce concept de
+    // sourcing, donc pas de badge dans ce cas (ni faux positif « sourcé »,
+    // ni faux négatif « approximatif »).
+    const wp = FULL.waypoints.find((w) => w.label === c.name && (w.kind === 'col' || w.kind === 'peak'));
+    let sourceBadge = '';
+    if (wp && wp.source === 'parcours curé') {
+      sourceBadge = '<span class="badge sourced-badge" title="point de passage vérifié (historic_routes.json)">sourcé</span>';
+    } else if (wp && wp.source === 'wikipedia') {
+      sourceBadge = '<span class="badge partial-badge" title="ville de départ/arrivée Wikipédia, position approximative — pas de point de passage vérifié pour ce col précis">position approximative</span>';
+    }
     div.innerHTML =
       EFProfile.renderClimbSVG({ ...c }, { width: 1040, height: 300 }) +
       `<p class="meta-line">km ${c.start_km} → ${c.end_km} · du pied (${c.start_ele_m} m) au sommet (${c.summit_ele_m} m) · ` +
       `score ${c.score} → catégorie ${c.category}` +
       `${c.irregularity_index != null ? ` · indice d'irrégularité ${c.irregularity_index} (écart-type des pentes par km — un mur peut noyer dans la moyenne)` : ''}` +
-      ` · nom : ${EF.esc(c.name_source === 'waypoint' ? 'waypoint' : 'toponyme géocodé inverse')}</p>`;
+      ` · nom : ${EF.esc(c.name_source === 'waypoint' ? 'waypoint' : 'toponyme géocodé inverse')} ${sourceBadge}</p>`;
     climbsBox.appendChild(div);
   }
 
