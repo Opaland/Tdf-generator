@@ -79,6 +79,10 @@ header.topbar .nav-toggle {
 main { max-width: 1160px; margin: 0 auto; padding: 18px 20px 60px; }
 h1 { font-size: 1.45em; margin: 12px 0; }
 h2 { font-size: 1.12em; margin: 22px 0 10px; border-bottom: 2px solid var(--jaune); padding-bottom: 4px; }
+/* <details>/<summary> natif : divulgation progressive sans JS (archives.js
+   par édition, archives.html pour la méthode de reconstitution — #22). */
+summary { cursor: pointer; font-weight: 700; padding: 6px 0; }
+details > :not(summary) { margin-left: 2px; }
 .card {
   background: var(--carte); border: 1px solid var(--bord); border-radius: 10px;
   padding: 16px; margin: 14px 0;
