@@ -97,6 +97,21 @@ function renderFiche() {
     ul.appendChild(li);
   }
 
+  // Indice de pénibilité cumulée (backlog #10, section C) : heuristique
+  // documentée (pas une reconstruction du score propriétaire VeloViewer) —
+  // affichée seulement une fois l'étape générée (climbs/D+ connus).
+  const pain = FULL.pain;
+  document.getElementById('pain-section').style.display = pain ? 'block' : 'none';
+  if (pain) {
+    document.getElementById('pain-summary').textContent = `${pain.score} points`;
+    const streakText = pain.mountainStreak > 1
+      ? ` · ${pain.mountainStreak}ᵉ jour de montagne consécutif de l'édition → fatigue ×${pain.fatigueFactor}`
+      : '';
+    document.getElementById('pain-detail').textContent =
+      `côtes catégorisées : ${pain.climbScore} pts · D+ (${st.total_ascent_m} m) : ${pain.ascentContribution} pts${streakText} ` +
+      `— heuristique maison (D+ pondéré par catégorie de côte + fatigue des jours de montagne consécutifs), pas une reconstruction du score VeloViewer.`;
+  }
+
   // Réserves de confiance (backlog #10, section A/D) : affirmations à
   // confiance structurée portées par historic_routes.json pour cette étape
   // précise (ex. altitude non confirmée sur le roadbook) — absent = aucune

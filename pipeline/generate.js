@@ -13,6 +13,7 @@ const { analyzeByKm, detectFauxPlats } = require('./kmanalysis');
 const { runChecks } = require('./checks');
 const { isOffline } = require('./http');
 const { stageConfidence } = require('./wikipedia');
+const { consecutiveMountainDays, painIndex } = require('./pain');
 
 function setProgress(stageId, progress) {
   const db = getDb();
@@ -200,6 +201,13 @@ function loadStageFull(stageId) {
   // (année, numéro d'étape) dans historic_routes.json, pas à l'id de base — se
   // résout donc via l'édition importée, pas via une colonne dédiée sur `stages`.
   const confidence = edition && edition.year ? stageConfidence(edition.year, stage.stage_order) : [];
+  // Indice de pénibilité cumulée (backlog issue #10, section C) : dérivé à la
+  // lecture comme fauxPlats ci-dessus, pas persisté (bon marché à recalculer,
+  // dépend de l'état d'autres étapes de l'édition qui peut changer).
+  const mountainStreak = stage.state === 'done'
+    ? consecutiveMountainDays(db, stage.edition_id, stage.stage_order)
+    : 0;
+  const pain = painIndex({ totalAscentM: stage.total_ascent_m, climbs, mountainStreak });
   return {
     stage: {
       ...stage,
@@ -217,6 +225,7 @@ function loadStageFull(stageId) {
     kmAnalysis,
     fauxPlats,
     confidence,
+    pain,
   };
 }
 

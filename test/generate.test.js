@@ -47,6 +47,59 @@ test('loadStageFull : confidence vide pour une étape sans édition (créée dan
   assert.deepStrictEqual(full.confidence, []);
 });
 
+function insertDoneStage(db, editionId, stageOrder, { stageType = 'montagne', ascentM = 1000, climbCategories = ['HC'] } = {}) {
+  const r = db.prepare(
+    `INSERT INTO stages (edition_id, stage_order, name, stage_type, state, total_ascent_m)
+     VALUES (?, ?, ?, ?, 'done', ?)`
+  ).run(editionId, stageOrder, `Étape ${stageOrder}`, stageType, ascentM);
+  const stageId = r.lastInsertRowid;
+  const insClimb = db.prepare(
+    `INSERT INTO climbs (stage_id, name, category, start_km, end_km) VALUES (?, ?, ?, 0, 10)`
+  );
+  climbCategories.forEach((cat, i) => insClimb.run(stageId, `Côte ${i}`, cat));
+  return stageId;
+}
+
+test('loadStageFull : pain.mountainStreak compte les jours de montagne consécutifs de l\'édition (backlog #10, section C)', () => {
+  const db = getDb();
+  const ed = db.prepare("INSERT INTO editions (year, name) VALUES (2030, 'Édition test pénibilité')").run();
+  const editionId = ed.lastInsertRowid;
+  insertDoneStage(db, editionId, 1); // jour de montagne 1
+  insertDoneStage(db, editionId, 2); // jour de montagne 2
+  const stage3Id = insertDoneStage(db, editionId, 3); // jour de montagne 3
+
+  const full = loadStageFull(stage3Id);
+  assert.strictEqual(full.pain.mountainStreak, 3);
+  assert.strictEqual(full.pain.climbScore, 5); // une côte HC
+  assert.ok(full.pain.fatigueFactor > 1, 'la fatigue doit augmenter après plusieurs jours de montagne consécutifs');
+  assert.strictEqual(full.pain.fatigueFactor, 1.3); // +15 % × 2 jours au-delà du premier
+});
+
+test('loadStageFull : pain.mountainStreak s\'arrête à un jour de plaine ou un trou dans la numérotation', () => {
+  const db = getDb();
+  const ed = db.prepare("INSERT INTO editions (year, name) VALUES (2031, 'Édition test pénibilité 2')").run();
+  const editionId = ed.lastInsertRowid;
+  insertDoneStage(db, editionId, 1);
+  insertDoneStage(db, editionId, 2, { stageType: 'plaine', climbCategories: [] }); // rompt la série
+  const stage3Id = insertDoneStage(db, editionId, 3);
+
+  const full = loadStageFull(stage3Id);
+  assert.strictEqual(full.pain.mountainStreak, 1, 'la série ne doit pas remonter au-delà du jour de plaine');
+});
+
+test('loadStageFull : pain reste défini (mais sans fatigue) pour une étape hors édition', () => {
+  const db = getDb();
+  const st = db.prepare(
+    `INSERT INTO stages (name, stage_type, state, total_ascent_m) VALUES ('Étape libre', 'montagne', 'done', 800)`
+  ).run();
+  const insClimb = db.prepare(`INSERT INTO climbs (stage_id, name, category, start_km, end_km) VALUES (?, ?, ?, 0, 5)`);
+  insClimb.run(st.lastInsertRowid, 'Côte', '2');
+  const full = loadStageFull(st.lastInsertRowid);
+  assert.strictEqual(full.pain.mountainStreak, 0);
+  assert.strictEqual(full.pain.fatigueFactor, 1);
+  assert.ok(full.pain.score > 0);
+});
+
 test('generateStage : un seul waypoint → refusé sans toucher l\'état de l\'étape', async () => {
   const db = getDb();
   const r = db.prepare(`INSERT INTO stages (name, state) VALUES ('Étape incomplète', 'draft')`).run();
