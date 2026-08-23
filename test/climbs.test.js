@@ -94,3 +94,52 @@ test('profil type Hautacam : ~13 km à ~8 % → HC', () => {
   assert.strictEqual(climbs[0].category, 'HC');
   assert.ok(climbs[0].maxGradient >= climbs[0].avgGradient - 0.2);
 });
+
+test('profil vide ou à un/deux échantillons : aucune côte, pas d\'exception', () => {
+  assert.deepStrictEqual(detectClimbs([]), []);
+  assert.deepStrictEqual(detectClimbs([{ dist: 0, eleSmooth: 200 }]), []);
+  assert.deepStrictEqual(
+    detectClimbs([{ dist: 0, eleSmooth: 200 }, { dist: 100, eleSmooth: 210 }]),
+    []
+  );
+});
+
+test('altitude null au milieu d\'une montée : comblée par le voisin, pas de NaN dans la sortie', () => {
+  const profile = buildProfile([[5000, 0], [8000, 6], [6000, -4]]);
+  const idx = profile.findIndex((s) => s.dist === 9000);
+  profile[idx].eleSmooth = null;
+  const climbs = detectClimbs(profile);
+  assert.strictEqual(climbs.length, 1, 'toujours une seule côte détectée');
+  const c = climbs[0];
+  for (const [k, v] of Object.entries(c)) {
+    if (typeof v === 'number') assert.ok(Number.isFinite(v), `${k} doit rester un nombre fini, reçu ${v}`);
+  }
+  for (const b of c.kmBlocks) {
+    for (const [k, v] of Object.entries(b)) {
+      if (typeof v === 'number') assert.ok(Number.isFinite(v), `kmBlocks.${k} doit rester fini, reçu ${v}`);
+    }
+  }
+});
+
+test('altitude NaN au milieu d\'une montée : comblée par le voisin, pas de NaN dans la sortie', () => {
+  const profile = buildProfile([[5000, 0], [8000, 6], [6000, -4]]);
+  const idx = profile.findIndex((s) => s.dist === 9000);
+  profile[idx].eleSmooth = NaN;
+  const climbs = detectClimbs(profile);
+  assert.strictEqual(climbs.length, 1);
+  assert.ok(Number.isFinite(climbs[0].maxGradient));
+  assert.ok(Number.isFinite(climbs[0].avgGradient));
+});
+
+test('pic de bruit GPS isolé (+500 m sur un échantillon) : toujours détecté, pente max reflète le pic', () => {
+  const profile = buildProfile([[5000, 0], [8000, 6], [6000, -4]]);
+  const idx = profile.findIndex((s) => s.dist === 9000);
+  profile[idx].eleSmooth += 500;
+  profile[idx].eleRaw += 500;
+  const climbs = detectClimbs(profile);
+  assert.strictEqual(climbs.length, 1, 'le pic ne casse pas la détection');
+  assert.ok(
+    climbs[0].maxGradient > climbs[0].avgGradient * 5,
+    'le pic non lissé se reflète dans maxGradient (pas de filtrage — ce n\'est pas le rôle de detectClimbs)'
+  );
+});
