@@ -130,13 +130,23 @@ async function update() {
 document.addEventListener('DOMContentLoaded', async () => {
   await EF.initChrome('compare');
   stages = (await EF.api('/api/stages')).filter((s) => s.state === 'done');
+  // Préselection depuis un lien "Comparer" (fiche étape, liste des étapes) —
+  // ?a=<id> présélectionne l'étape A, ?b=<id> l'étape B (backlog issue #10,
+  // section D : signaler qu'une trace importée peut se comparer à une étape
+  // officielle, pas seulement l'inverse).
+  const qsA = EF.qs('a');
+  const qsB = EF.qs('b');
+  const idxOf = (id) => stages.findIndex((s) => String(s.id) === String(id));
   const fill = (sel, defIdx) => {
     const el = document.getElementById(sel);
     el.innerHTML = stages.map((s) => `<option value="${s.id}">${EF.esc(s.name)}</option>`).join('');
     if (stages[defIdx]) el.value = stages[defIdx].id;
   };
-  fill('sel-a', 0);
-  fill('sel-b', Math.min(1, stages.length - 1));
+  const idxA = qsA && idxOf(qsA) >= 0 ? idxOf(qsA) : 0;
+  let idxB = qsB && idxOf(qsB) >= 0 ? idxOf(qsB) : Math.min(1, stages.length - 1);
+  if (idxB === idxA) idxB = idxA === 0 ? Math.min(1, stages.length - 1) : 0;
+  fill('sel-a', idxA);
+  fill('sel-b', idxB);
   for (const id of ['sel-a', 'sel-b', 'sel-axis']) document.getElementById(id).addEventListener('change', update);
   if (stages.length >= 2) update();
 });
