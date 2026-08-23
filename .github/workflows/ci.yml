@@ -24,6 +24,20 @@ jobs:
       - name: Démo de validation auto-vérifiée (mode hors-ligne, 10 checks)
         run: npm run demo
 
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: ESLint (eslint:recommended — erreurs réelles, pas de style)
+        run: npm run lint
+      - name: npm audit (dépendances directes + dev, seuil élevé)
+        run: npm audit --audit-level=high
+
   docker:
     runs-on: ubuntu-latest
     steps:

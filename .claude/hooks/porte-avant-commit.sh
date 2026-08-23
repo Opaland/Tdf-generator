@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 # Porte rapide avant tout commit (voir CLAUDE.md, règle 10).
 #
-# Ne contient QUE npm test (~2 s au moment d'écrire ces lignes, 75 tests).
-# npm run demo et la vérification visuelle restent dans /porte — les mettre
-# ici rendrait chaque commit plus lent pour un gain marginal, et un
-# garde-fou qu'on désactive parce qu'il gêne ne garde plus rien.
+# npm test + eslint (les deux tiennent largement sous la minute). npm run
+# demo et la vérification visuelle restent dans /porte, nettement plus
+# lents (démo réseau simulée, Playwright) — les mettre ici rendrait chaque
+# commit plus lent pour un gain marginal, et un garde-fou qu'on désactive
+# parce qu'il gêne ne garde plus rien.
 #
-# Pas d'étape lint/typecheck ici : ÉtapeForge n'a ni ESLint configuré ni
-# TypeScript (voir backlog, issue #10, section F) — contrairement au dépôt
-# cousin Rando-generator dont ce hook s'inspire, qui en a besoin.
+# Pas d'étape typecheck : ÉtapeForge n'a pas de TypeScript, contrairement
+# au dépôt cousin Rando-generator dont ce hook s'inspire.
 set -uo pipefail
 
 # Le filtre `if` de settings.json n'est pas honoré partout : on relit la
@@ -44,4 +44,13 @@ ${resume}"
   exit 0
 }
 
-jq -nc '{systemMessage:"Porte avant commit : npm test au vert."}'
+sortie_lint=$(npm run lint --silent 2>&1) || {
+  raison="Porte avant commit : eslint en échec. Corriger avant de committer.
+
+$(printf '%s' "$sortie_lint" | tail -30)"
+  jq -nc --arg r "$raison" \
+    '{hookSpecificOutput:{hookEventName:"PreToolUse",permissionDecision:"deny",permissionDecisionReason:$r}}'
+  exit 0
+}
+
+jq -nc '{systemMessage:"Porte avant commit : npm test et eslint au vert."}'

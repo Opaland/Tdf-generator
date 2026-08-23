@@ -33,7 +33,7 @@ if (!process.argv.includes('--online')) {
 setOffline(false);
 
 const { getDb } = require('../backend/db');
-const { generateStage, loadStageFull } = require('../pipeline/generate');
+const { generateStage } = require('../pipeline/generate');
 
 function progress() {
   let last = '';

@@ -13,6 +13,7 @@
     "demo": "node scripts/demo.js",
     "demo:2027": "node scripts/demo-2027.js --online",
     "test": "node --test",
+    "lint": "eslint .",
     "monkey": "node scripts/monkey.js"
   },
   "engines": {
@@ -25,6 +26,9 @@
     "leaflet": "^1.9.4"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.9.0",
+    "globals": "^17.11.0",
     "playwright": "^1.62.1"
   }
 }

@@ -244,13 +244,20 @@ proxy. En cas de réseau indisponible, tout fonctionne en mode hors-ligne :
 ## Tests
 
 ```bash
-npm test
+npm test              # node:test — pipeline, sécurité, parseur historique
+npm run lint           # ESLint (eslint:recommended) — erreurs réelles, pas de style
+npm audit --audit-level=high
 ```
 
 - détecteur de côtes sur profils synthétiques connus (détection, fusion < 500 m,
   seuils, catégorisation, blocs de 1 km) ;
 - parseur Wikipédia sur les fixtures 1903 (6 étapes, 2 428 km), 2025 (21 étapes,
-  types CLM/montagne, entités accentuées) et 2026 (partielle).
+  types CLM/montagne, entités accentuées) et 2026 (partielle) ;
+- géocodage réseau (repli Géoplateforme → Nominatim, aucun résultat nulle part) —
+  mock HTTP local, aucun vrai appel externe.
+
+Les trois commandes tournent en CI (`.github/workflows/ci.yml`, jobs `test` et
+`lint`) à chaque push et pull request.
 
 ## Démo de validation finale (`npm run demo`)
 
