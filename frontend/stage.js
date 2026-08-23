@@ -110,6 +110,21 @@ function renderFiche() {
     climbsBox.appendChild(div);
   }
 
+  // Faux-plats : longues portions à 1-3 % (sous le seuil de détection des
+  // côtes) — ni signalées comme côte, ni distinguées du plat, alors qu'elles
+  // usent plus l'organisme que le D+ ne le montre.
+  const fauxPlatsSection = document.getElementById('faux-plats-section');
+  const fauxPlats = FULL.fauxPlats || [];
+  fauxPlatsSection.style.display = fauxPlats.length ? 'block' : 'none';
+  const fpList = document.getElementById('faux-plats');
+  fpList.innerHTML = '';
+  for (const fp of fauxPlats) {
+    const li = document.createElement('li');
+    li.className = 'fauxplat-item';
+    li.innerHTML = `<span class="badge fauxplat-badge">faux-plat</span> km ${fp.fromKm} → ${fp.toKm} · ${fp.lengthKm.toFixed(1)} km à ${fp.avgGradient.toFixed(1)} % en moyenne`;
+    fpList.appendChild(li);
+  }
+
   renderKmTable();
 
   // Carte.
