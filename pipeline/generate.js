@@ -128,14 +128,14 @@ async function generateStage(stageId, { onProgress } = {}) {
       db.prepare('DELETE FROM climbs WHERE stage_id = ?').run(stageId);
       const insClimb = db.prepare(
         `INSERT INTO climbs (stage_id, name, category, score, start_km, end_km, length_km,
-           start_ele_m, summit_ele_m, avg_gradient, max_gradient, km_blocks, name_source)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+           start_ele_m, summit_ele_m, avg_gradient, max_gradient, irregularity_index, km_blocks, name_source)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
       );
       for (const c of climbs) {
         insClimb.run(
           stageId, c.name, c.category, c.score,
           Math.round((c.startM / 1000) * 100) / 100, Math.round((c.endM / 1000) * 100) / 100,
-          c.lengthKm, c.startEle, c.summitEle, c.avgGradient, c.maxGradient,
+          c.lengthKm, c.startEle, c.summitEle, c.avgGradient, c.maxGradient, c.irregularityIndex,
           JSON.stringify(c.kmBlocks), c.nameSource
         );
       }

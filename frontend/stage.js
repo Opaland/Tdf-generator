@@ -106,7 +106,9 @@ function renderFiche() {
     div.innerHTML =
       EFProfile.renderClimbSVG({ ...c }, { width: 1040, height: 300 }) +
       `<p class="meta-line">km ${c.start_km} → ${c.end_km} · du pied (${c.start_ele_m} m) au sommet (${c.summit_ele_m} m) · ` +
-      `score ${c.score} → catégorie ${c.category} · nom : ${EF.esc(c.name_source === 'waypoint' ? 'waypoint' : 'toponyme géocodé inverse')}</p>`;
+      `score ${c.score} → catégorie ${c.category}` +
+      `${c.irregularity_index != null ? ` · indice d'irrégularité ${c.irregularity_index} (écart-type des pentes par km — un mur peut noyer dans la moyenne)` : ''}` +
+      ` · nom : ${EF.esc(c.name_source === 'waypoint' ? 'waypoint' : 'toponyme géocodé inverse')}</p>`;
     climbsBox.appendChild(div);
   }
 
