@@ -129,10 +129,21 @@
         "start": "Sorgues",
         "finish": "Malaucène",
         "vias": [
+          "Sault",
           { "label": "Mont Ventoux", "kind": "col" },
+          "Malaucène",
+          "Bédoin",
           { "label": "Mont Ventoux", "kind": "col" }
         ],
-        "note": "Sorgues → Malaucène (198,9 km), avec une double ascension du mont Ventoux (1 909 m) dans la même étape — une première dans l'histoire du Tour."
+        "note": "Sorgues → Malaucène (198,9 km), avec une double ascension du mont Ventoux (1 909 m) dans la même étape — une première dans l'histoire du Tour. Première ascension par Sault (22 km à 5,1 %, la plus longue et la moins raide des trois routes), descente rapide sur Malaucène, puis deuxième ascension par Bédoin (15,7 km à environ 9 %, la plus courte et la plus raide) avant l'arrivée en descente sur Malaucène.",
+        "confidence": [
+          {
+            "claim": "villes de départ des deux ascensions (Sault puis Bédoin) et sens de la descente intermédiaire par Malaucène",
+            "status": "OK",
+            "level": "haute",
+            "detail": "confirmé par recoupement de plusieurs sites spécialisés (cyclingstage.com, ventouxprovence.fr, rouleur.cc) — corrige un point de passage qui répétait deux fois « Mont Ventoux » sans ville intermédiaire distincte entre les deux ascensions, ce qui faisait fusionner les deux montées en une seule lors de la génération du tracé (routage entre deux points identiques = distance nulle)."
+          }
+        ]
       },
       "17": {
         "finish": "Col du Portet",

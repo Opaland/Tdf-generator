@@ -20,18 +20,41 @@ function viaLabel(via) {
   return typeof via === 'string' ? via : via.label;
 }
 
-test('historic_routes.json : aucun via ne duplique le start/finish de sa propre étape', () => {
+test('historic_routes.json : deux points de passage consécutifs ne partagent jamais le même label', () => {
+  // Vérifie l'ADJACENCE dans toute la séquence start→vias→finish, pas
+  // n'importe quelle occurrence répétée du même label : une étape peut
+  // légitimement retraverser une même ville en cours de route sans que ce
+  // soit le bug visé (ex. 2021 étape 11, double ascension du Ventoux par
+  // Sault puis Bédoin, qui redescend sur Malaucène avant d'y remonter et d'y
+  // finir — "Malaucène" apparaît deux fois dans la séquence, mais jamais deux
+  // fois côte à côte).
+  //
+  // Deux points adjacents avec le même label géocodent au même endroit, donc
+  // routent en un saut de distance nulle : c'est le bug Markstein 2023 (un
+  // col sommet-d'arrivée listé à la fois en dernier via et en finish, corrigé
+  // 3 fois à la main avant ce test), et c'est aussi ce qui a fait fusionner
+  // en une seule côte la double ascension du Ventoux 2021 avant que ses deux
+  // vias "Mont Ventoux" adjacents ne soient séparés par de vrais points de
+  // passage intermédiaires (Sault, Malaucène, Bédoin — voir backlog #10,
+  // section C, "vérifier la détection des ascensions doublées").
+  //
+  // Un start == finish SANS via entre les deux (ex. 2026 étape 1, contre-la-
+  // montre par équipes en circuit fermé à Barcelone) est volontairement
+  // exclu : ce n'est pas un via redondant, c'est juste une étape en boucle.
   const offenders = [];
   for (const [year, edition] of Object.entries(HISTORIC_ROUTES)) {
     for (const [stageNum, stage] of Object.entries(edition.stages || {})) {
-      for (const via of stage.vias || []) {
-        const label = viaLabel(via);
-        if (stage.finish && label === stage.finish) offenders.push(`${year} étape ${stageNum} : "${label}" en via ET en finish`);
-        if (stage.start && label === stage.start) offenders.push(`${year} étape ${stageNum} : "${label}" en via ET en start`);
+      const vias = stage.vias || [];
+      if (!vias.length) continue;
+      const sequence = [stage.start, ...vias.map(viaLabel), stage.finish].filter(Boolean);
+      for (let i = 1; i < sequence.length; i++) {
+        if (sequence[i] === sequence[i - 1]) {
+          offenders.push(`${year} étape ${stageNum} : "${sequence[i]}" apparaît deux fois de suite (position ${i - 1}/${i})`);
+        }
       }
     }
   }
-  assert.deepStrictEqual(offenders, [], 'un via ne doit jamais reprendre le label exact du start/finish de la même étape (voir les corrections 2022/2023/2024 dans l\'historique git)');
+  assert.deepStrictEqual(offenders, [], 'deux points de passage adjacents ne doivent jamais partager le même label (voir les corrections 2022/2023/2024 dans l\'historique git, et 2021 étape 11)');
 });
 
 test('historic_routes.json : chaque via objet a un label et un kind reconnu', () => {
