@@ -16,6 +16,28 @@ function categorize(score) {
   return '4';
 }
 
+// Comble les altitudes lissées absentes/invalides (null, undefined, NaN) par le
+// voisin valide le plus proche — même idiome que `importTrack.js` pour les trous
+// d'altitude bruts. Sans ça, un seul échantillon invalide au milieu d'un profil
+// (trou de couverture d'un fournisseur d'altitude, bruit GPS ponctuel) propage
+// un NaN silencieux dans maxGradient/kmBlocks jusqu'à l'API et le frontend.
+function fillInvalidElevations(samples) {
+  const filled = samples.map((s) => {
+    const v = s.eleSmooth != null ? s.eleSmooth : s.ele;
+    return Number.isFinite(v) ? v : null;
+  });
+  for (let i = 0; i < filled.length; i++) {
+    if (filled[i] == null) {
+      let a = i;
+      let b = i;
+      while (a > 0 && filled[a] == null) a--;
+      while (b < filled.length - 1 && filled[b] == null) b++;
+      filled[i] = filled[a] ?? filled[b] ?? 0;
+    }
+  }
+  return samples.map((s, i) => ({ ...s, eleSmooth: filled[i] }));
+}
+
 /**
  * Détecte les côtes.
  * @param samples [{dist, eleRaw?, eleSmooth}] triés par dist (m) — la détection
@@ -24,8 +46,9 @@ function categorize(score) {
  * @returns [{ startM, endM, lengthKm, startEle, summitEle, avgGradient,
  *             maxGradient, score, category, kmBlocks }]
  */
-function detectClimbs(samples) {
-  if (samples.length < 3) return [];
+function detectClimbs(rawSamples) {
+  if (rawSamples.length < 3) return [];
+  const samples = fillInvalidElevations(rawSamples);
   const ele = (s) => (s.eleSmooth != null ? s.eleSmooth : s.ele);
 
   // 1) Segments élémentaires en montée (pente > 0 entre échantillons consécutifs).
