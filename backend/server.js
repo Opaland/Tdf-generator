@@ -331,9 +331,16 @@ app.get('/api/editions', (req, res) => {
   const db = getDb();
   const rows = db
     .prepare(
-      `SELECT e.*, COUNT(s.id) AS stage_count,
-              SUM(CASE WHEN s.state = 'done' THEN 1 ELSE 0 END) AS done_count
-       FROM editions e LEFT JOIN stages s ON s.edition_id = e.id
+      // COUNT(DISTINCT ...) partout : la jointure waypoints multiplie les lignes
+      // par étape (plusieurs waypoints par étape), un SUM/COUNT non-distinct sur
+      // s.id ou s.state compterait alors chaque étape plusieurs fois.
+      `SELECT e.*,
+              COUNT(DISTINCT s.id) AS stage_count,
+              COUNT(DISTINCT CASE WHEN s.state = 'done' THEN s.id END) AS done_count,
+              COUNT(DISTINCT CASE WHEN w.source = 'parcours curé' THEN s.id END) AS curated_stage_count
+       FROM editions e
+       LEFT JOIN stages s ON s.edition_id = e.id
+       LEFT JOIN waypoints w ON w.stage_id = s.id
        GROUP BY e.id ORDER BY e.year, e.name`
     )
     .all()
@@ -356,10 +363,26 @@ app.get('/api/editions/:id', (req, res) => {
   const db = getDb();
   const edition = db.prepare('SELECT * FROM editions WHERE id = ?').get(parseInt(req.params.id, 10));
   if (!edition) return res.status(404).json({ error: 'Édition introuvable' });
+  const curatedStageIds = new Set(
+    db
+      .prepare(
+        `SELECT DISTINCT s.id FROM stages s
+         JOIN waypoints w ON w.stage_id = s.id
+         WHERE s.edition_id = ? AND w.source = 'parcours curé'`
+      )
+      .all(edition.id)
+      .map((r) => r.id)
+  );
   const stages = db
     .prepare('SELECT * FROM stages WHERE edition_id = ? ORDER BY stage_order, id')
     .all(edition.id)
-    .map((s) => ({ ...s, checks: s.checks ? JSON.parse(s.checks) : null, progress: s.progress ? JSON.parse(s.progress) : null, source: s.source ? JSON.parse(s.source) : null }));
+    .map((s) => ({
+      ...s,
+      checks: s.checks ? JSON.parse(s.checks) : null,
+      progress: s.progress ? JSON.parse(s.progress) : null,
+      source: s.source ? JSON.parse(s.source) : null,
+      is_curated: curatedStageIds.has(s.id),
+    }));
   res.json({ ...edition, source: edition.source ? JSON.parse(edition.source) : null, stages });
 });
 
