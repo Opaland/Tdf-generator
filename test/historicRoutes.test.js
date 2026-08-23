@@ -9,7 +9,10 @@
 
 const { test } = require('node:test');
 const assert = require('node:assert');
-const { HISTORIC_ROUTES, KNOWN_COLS, reconstructionWaypoints } = require('../pipeline/wikipedia');
+const {
+  HISTORIC_ROUTES, KNOWN_COLS, reconstructionWaypoints,
+  stageConfidence, CONFIDENCE_STATUSES, CONFIDENCE_LEVELS,
+} = require('../pipeline/wikipedia');
 
 const VALID_KINDS = new Set(['start', 'via', 'col', 'peak', 'finish']);
 
@@ -101,6 +104,44 @@ test('historic_routes.json : toutes les occurrences d\'un même col résolvent l
     if (values.size > 1) offenders.push(`"${label}" résout des altitudes différentes selon l'occurrence : ${[...values].join(', ')}`);
   }
   assert.deepStrictEqual(offenders, []);
+});
+
+test('historic_routes.json : chaque affirmation confidence est bien formée (backlog #10, section A)', () => {
+  // Format repris de la revue de vérification manuelle du 18/08/2026 (voir
+  // CLAUDE.md) : status OK/FIX/UNSURE, confiance haute/moyenne/basse — porté
+  // maintenant comme métadonnée structurée plutôt que noyé dans `note`.
+  const offenders = [];
+  for (const [year, edition] of Object.entries(HISTORIC_ROUTES)) {
+    for (const [stageNum, stage] of Object.entries(edition.stages || {})) {
+      for (const c of stage.confidence || []) {
+        const where = `${year} étape ${stageNum}`;
+        if (!c.claim || typeof c.claim !== 'string' || c.claim.trim().length < 5) {
+          offenders.push(`${where} : claim manquant ou trop court`);
+        }
+        if (!CONFIDENCE_STATUSES.includes(c.status)) {
+          offenders.push(`${where} : status invalide "${c.status}" (attendu ${CONFIDENCE_STATUSES.join('/')})`);
+        }
+        if (!CONFIDENCE_LEVELS.includes(c.level)) {
+          offenders.push(`${where} : level invalide "${c.level}" (attendu ${CONFIDENCE_LEVELS.join('/')})`);
+        }
+      }
+    }
+  }
+  assert.deepStrictEqual(offenders, []);
+});
+
+test('stageConfidence : renvoie [] pour une étape sans réserve connue, le détail pour une étape marquée UNSURE', () => {
+  assert.deepStrictEqual(stageConfidence(1903, 3), [], 'aucune réserve connue sur cette étape');
+  const puyDeDome = stageConfidence(2023, 9);
+  assert.strictEqual(puyDeDome.length, 1);
+  assert.strictEqual(puyDeDome[0].status, 'UNSURE');
+  assert.strictEqual(puyDeDome[0].level, 'moyenne');
+  assert.match(puyDeDome[0].claim, /1415|1 415/);
+
+  const colDuNoyer = stageConfidence(2026, 19);
+  assert.strictEqual(colDuNoyer.length, 1);
+  assert.strictEqual(colDuNoyer[0].status, 'UNSURE');
+  assert.strictEqual(colDuNoyer[0].level, 'basse');
 });
 
 test('reconstructionWaypoints : le col du Tourmalet résout son altitude via known_cols.json sans ele local', () => {
