@@ -9,7 +9,7 @@ const { geocode, geocodeCol, reverseGeocode, isColQuery } = require('./geocode')
 const { routeStage } = require('./routing');
 const { buildProfile } = require('./elevation');
 const { detectClimbs, nameClimbs } = require('./climbs');
-const { analyzeByKm } = require('./kmanalysis');
+const { analyzeByKm, detectFauxPlats } = require('./kmanalysis');
 const { runChecks } = require('./checks');
 const { isOffline } = require('./http');
 
@@ -188,6 +188,10 @@ function loadStageFull(stageId) {
     .all(stageId);
   const climbs = db.prepare('SELECT * FROM climbs WHERE stage_id = ? ORDER BY start_km').all(stageId);
   const kmAnalysis = db.prepare('SELECT * FROM km_analysis WHERE stage_id = ? ORDER BY km').all(stageId);
+  // Dérivé de kmAnalysis à la lecture, pas persisté : déterministe et bon marché
+  // à recalculer, pas besoin d'une table dédiée ni de la resynchroniser (backlog
+  // issue #10, section C, "faux-plats classés à part du plat").
+  const fauxPlats = detectFauxPlats(kmAnalysis);
   const edition = stage.edition_id
     ? db.prepare('SELECT * FROM editions WHERE id = ?').get(stage.edition_id)
     : null;
@@ -206,6 +210,7 @@ function loadStageFull(stageId) {
     samples,
     climbs: climbs.map((c) => ({ ...c, km_blocks: c.km_blocks ? JSON.parse(c.km_blocks) : [] })),
     kmAnalysis,
+    fauxPlats,
   };
 }
 
