@@ -105,8 +105,13 @@ const EF = {
   },
 
   async initChrome(active) {
-    const user = await EF.requireAuthOrRedirect();
-
+    // La nav ne dépend d'aucun appel réseau (les liens sont statiques) — on
+    // la construit et l'insère en tout premier, avant tout `await`, pour
+    // qu'elle s'affiche sans attendre la vérification d'auth ni le statut
+    // hors-ligne. Avant ce découplage, chaque page passait par 1-2
+    // aller-retours réseau (statut, puis éventuellement session) avant que
+    // la moindre nav apparaisse — un flash « page sans en-tête » à chaque
+    // chargement, plus visible sur un lien lent (issue #21).
     const header = document.createElement('header');
     header.className = 'topbar';
     header.innerHTML =
@@ -120,8 +125,7 @@ const EF = {
          <a href="/traces.html" data-nav="traces">Mes traces</a>
          <a href="/archives.html" data-nav="archives">Archives 1903→</a>
        </nav>
-       <span class="offline-badge" id="offline-badge" title="mode hors-ligne — données simulées">mode hors-ligne — données simulées</span>
-       ${user ? `<span class="user-badge" title="${EF.esc(user.email)}">${EF.esc(user.email)} · <a href="#" id="logout-link">déconnexion</a></span>` : ''}`;
+       <span class="offline-badge" id="offline-badge" title="mode hors-ligne — données simulées">mode hors-ligne — données simulées</span>`;
     document.body.prepend(header);
     const link = header.querySelector(`[data-nav="${active}"]`);
     if (link) link.classList.add('active');
@@ -130,16 +134,27 @@ const EF = {
       const open = header.classList.toggle('nav-open');
       toggle.setAttribute('aria-expanded', String(open));
     });
-    const logout = header.querySelector('#logout-link');
-    if (logout) logout.addEventListener('click', async (e) => {
-      e.preventDefault();
-      await fetch('/api/auth/logout', { method: 'POST' });
-      location.href = '/login.html';
-    });
 
     const footer = document.createElement('footer');
     footer.className = 'attrib';
     document.body.appendChild(footer);
+
+    // Dynamique (dépend d'un appel réseau) : ajouté après coup, sans bloquer
+    // l'affichage de la nav ci-dessus.
+    const user = await EF.requireAuthOrRedirect();
+    if (user) {
+      const badge = document.createElement('span');
+      badge.className = 'user-badge';
+      badge.title = user.email;
+      badge.innerHTML = `${EF.esc(user.email)} · <a href="#" id="logout-link">déconnexion</a>`;
+      header.appendChild(badge);
+      badge.querySelector('#logout-link').addEventListener('click', async (e) => {
+        e.preventDefault();
+        await fetch('/api/auth/logout', { method: 'POST' });
+        location.href = '/login.html';
+      });
+    }
+
     try {
       const st = await EF.api('/api/status');
       if (window.EF_STATIC) {
