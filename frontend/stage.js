@@ -168,7 +168,13 @@ function renderFiche() {
   for (const fp of fauxPlats) {
     const li = document.createElement('li');
     li.className = 'fauxplat-item';
-    li.innerHTML = `<span class="badge fauxplat-badge">faux-plat</span> km ${fp.fromKm} → ${fp.toKm} · ${fp.lengthKm.toFixed(1)} km à ${fp.avgGradient.toFixed(1)} % en moyenne`;
+    // Cap du tronçon (backlog #10, section C, "exposition au vent") : signale
+    // une orientation, pas un vent réel — aucune donnée météo disponible.
+    const COMPASS_FULL = { N: 'Nord', NE: 'Nord-Est', E: 'Est', SE: 'Sud-Est', S: 'Sud', SO: 'Sud-Ouest', O: 'Ouest', NO: 'Nord-Ouest' };
+    const orientation = fp.compass
+      ? ` · cap ${COMPASS_FULL[fp.compass] || fp.compass} (${fp.bearingDeg}°) — exposition potentielle au vent latéral/de face selon le vent du jour`
+      : '';
+    li.innerHTML = `<span class="badge fauxplat-badge">faux-plat</span> km ${fp.fromKm} → ${fp.toKm} · ${fp.lengthKm.toFixed(1)} km à ${fp.avgGradient.toFixed(1)} % en moyenne${orientation}`;
     fpList.appendChild(li);
   }
 

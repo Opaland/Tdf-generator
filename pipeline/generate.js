@@ -193,7 +193,7 @@ function loadStageFull(stageId) {
   // Dérivé de kmAnalysis à la lecture, pas persisté : déterministe et bon marché
   // à recalculer, pas besoin d'une table dédiée ni de la resynchroniser (backlog
   // issue #10, section C, "faux-plats classés à part du plat").
-  const fauxPlats = detectFauxPlats(kmAnalysis);
+  const fauxPlats = detectFauxPlats(kmAnalysis, samples);
   const edition = stage.edition_id
     ? db.prepare('SELECT * FROM editions WHERE id = ?').get(stage.edition_id)
     : null;
