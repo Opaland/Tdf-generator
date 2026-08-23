@@ -103,6 +103,35 @@ arrêtez le conteneur le temps de la copie — une copie de fichier brute
 pendant que SQLite écrit (mode WAL) n'est pas garantie cohérente, contrairement
 à la sauvegarde automatique intégrée ci-dessus.
 
+## Notifications
+
+Une génération d'étape tourne en tâche de fond (jusqu'à quelques minutes en
+mode réel) — sans notification, un échec (API externe indisponible, col
+inroutable…) ne se voit qu'en revenant sur l'application. Décommentez
+`ETAPEFORGE_NOTIFY_WEBHOOK_URL` dans
+[`docker-compose.yml`](../docker-compose.yml) pour recevoir un webhook à
+chaque échec.
+
+Aucune intégration propriétaire figée (pas de bot Telegram à configurer) :
+un POST générique, dans l'un des deux formats les plus largement supportés
+sans code supplémentaire côté récepteur —
+
+- **Texte brut** (`ETAPEFORGE_NOTIFY_FORMAT=text`) : le message seul dans le
+  corps de la requête — le format attendu par
+  [ntfy.sh](https://ntfy.sh) (auto-hébergeable, sans compte : `POST
+  https://ntfy.sh/mon-etapeforge`, cohérent avec la philosophie 100 % locale
+  du projet) et la plupart des webhooks génériques (Home Assistant, n8n…).
+- **JSON** (par défaut) : `{text, content, stage_id, stage_name, error,
+  timestamp}` — `text` est lu par les webhooks entrants Slack, `content` par
+  ceux de Discord (les deux portent le même message ; chaque service ignore
+  le champ qu'il ne connaît pas).
+
+Un vrai bot Telegram (API `chat_id`/token) ou un service exigeant un corps
+différent nécessite un petit relais côté utilisateur (ex. un webhook
+n8n/Home Assistant qui reçoit le POST générique et le retransmet dans le
+format attendu) — hors scope de cette intégration minimale. État visible sur
+`GET /api/status` (champ `notify`).
+
 ## Dépannage
 
 - **Le conteneur ne démarre pas après une mise à jour** : reconstruisez l'image
