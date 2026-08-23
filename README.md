@@ -144,7 +144,10 @@ npm run generate -- --import 1903       # import seul
   Peyragudes, Toses, Gavarnie, doublé de l'Alpe d'Huez…). Ce fichier ne
   contient que des données réelles/officielles sourcées — voir la démo
   spéculative ci-dessous pour un contre-exemple volontairement hors de ce
-  périmètre.
+  périmètre. Les altitudes des cols qui reviennent d'une édition à l'autre
+  (Tourmalet, Galibier…) sont centralisées dans `pipeline/data/known_cols.json`
+  plutôt que retapées à chaque occurrence ; un via peut toujours fournir son
+  propre `ele` pour prévaloir sur ce référentiel dans un cas particulier.
 - **Reconstruction** : pipeline standard sur le réseau routier actuel — la fiche
   affiche « tracé reconstitué sur le réseau routier actuel — distance officielle
   *année* : X km / reconstitution : Y km (écart %) ».
