@@ -235,3 +235,14 @@ test('1922 étape 10 : première apparition du col d\'Izoard — Colle Saint-Mic
   assert.strictEqual(izoard.kind, 'col');
   assert.strictEqual(izoard.altitude_hint_m, 2360, 'altitude résolue via known_cols.json');
 });
+
+test('1919 étape 11 : premier maillot jaune — Lautaret, Galibier, Aravis dans l\'ordre', () => {
+  const wps = reconstructionWaypoints(1919, { number: 11, start: 'Grenoble', finish: 'Genève' });
+  const labels = wps.map((w) => w.label);
+  assert.deepStrictEqual(labels, [
+    'Grenoble', 'Col du Lautaret', 'Col du Galibier', 'Col des Aravis', 'Genève',
+  ]);
+  const lautaret = wps.find((w) => w.label === 'Col du Lautaret');
+  assert.strictEqual(lautaret.kind, 'col');
+  assert.strictEqual(lautaret.altitude_hint_m, 2058, 'altitude résolue via known_cols.json');
+});

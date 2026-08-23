@@ -140,6 +140,7 @@ npm run generate -- --import 1903       # import seul
   (Ballon d'Alsace), 1910 (le « Cercle de la mort » : Peyresourde, Aspin,
   Tourmalet, Aubisque), 1911 (premier Galibier), 1913 (la fourche cassée
   d'Eugène Christophe, réparée seul à la forge de Sainte-Marie-de-Campan),
+  1919 (premier maillot jaune, porté par Eugène Christophe),
   1922 (première apparition du col d'Izoard),
   1951 (première ascension du mont Ventoux, montée par Malaucène),
   1952 (première arrivée à
