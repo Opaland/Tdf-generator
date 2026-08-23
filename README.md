@@ -144,6 +144,8 @@ npm run generate -- --import 1903       # import seul
   1922 (première apparition du col d'Izoard),
   1926 (l'étape la plus longue de l'histoire, Metz → Dunkerque, 433 km),
   1934 (premier contre-la-montre individuel),
+  1947 (retour du Tour d'après-guerre, Jean Robic vainqueur sans jamais
+  avoir porté le jaune avant la dernière étape),
   1951 (première ascension du mont Ventoux, montée par Malaucène),
   1952 (première arrivée à
   l'Alpe d'Huez), 1975 (première arrivée aux Champs-Élysées),

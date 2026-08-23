@@ -278,3 +278,10 @@ test('1926 étape 3 : l\'étape la plus longue de l\'histoire — Metz → Dunke
   assert.deepStrictEqual(labels, ['Metz', 'Dunkerque']);
   assert.ok(wps.every((w) => w.source === 'parcours curé'), 'les deux extrémités sont explicitement sourcées, pas seulement Wikipédia');
 });
+
+test('1947 étape 1 : retour du Tour d\'après-guerre — Paris → Lille, sourcé', () => {
+  const wps = reconstructionWaypoints(1947, { number: 1, start: 'Paris', finish: 'Lille' });
+  const labels = wps.map((w) => w.label);
+  assert.deepStrictEqual(labels, ['Paris', 'Lille']);
+  assert.ok(wps.every((w) => w.source === 'parcours curé'), 'les deux extrémités sont explicitement sourcées, pas seulement Wikipédia');
+});
