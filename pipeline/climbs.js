@@ -16,6 +16,20 @@ function categorize(score) {
   return '4';
 }
 
+// Indice d'irrégularité (backlog issue #10, section C) : la catégorisation
+// ASO approchée (longueur × pente moyenne) noie un mur irrégulier — un
+// tronçon à 13 % sur 1,5 km peut se fondre dans une moyenne à 6 % sur toute
+// la montée. L'écart-type des pentes par bloc de 1 km (déjà produits pour la
+// fiche « côte par côte ») donne une mesure complémentaire, quasi gratuite à
+// calculer, sans toucher au score/à la catégorie eux-mêmes (qui restent
+// l'approximation ASO telle quelle).
+function irregularityIndex(kmBlocks) {
+  if (!kmBlocks.length) return 0;
+  const mean = kmBlocks.reduce((a, b) => a + b.gradient, 0) / kmBlocks.length;
+  const variance = kmBlocks.reduce((a, b) => a + (b.gradient - mean) ** 2, 0) / kmBlocks.length;
+  return Math.round(Math.sqrt(variance) * 10) / 10;
+}
+
 // Comble les altitudes lissées absentes/invalides (null, undefined, NaN) par le
 // voisin valide le plus proche — même idiome que `importTrack.js` pour les trous
 // d'altitude bruts. Sans ça, un seul échantillon invalide au milieu d'un profil
@@ -154,6 +168,7 @@ function detectClimbs(rawSamples) {
       maxGradient: Math.round(maxGradient * 10) / 10,
       score: Math.round(score * 10) / 10,
       category: categorize(score),
+      irregularityIndex: irregularityIndex(kmBlocks),
       kmBlocks,
     });
   }
@@ -193,4 +208,7 @@ async function nameClimbs(climbs, waypointsOnTrack, samples, reverseGeocodeFn) {
   return climbs;
 }
 
-module.exports = { detectClimbs, nameClimbs, categorize, MIN_LENGTH_M, MIN_AVG_GRADIENT, MERGE_GAP_M };
+module.exports = {
+  detectClimbs, nameClimbs, categorize, irregularityIndex,
+  MIN_LENGTH_M, MIN_AVG_GRADIENT, MERGE_GAP_M,
+};

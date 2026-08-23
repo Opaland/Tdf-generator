@@ -83,6 +83,7 @@ CREATE TABLE IF NOT EXISTS climbs (
   length_km REAL,
   start_ele_m REAL, summit_ele_m REAL,
   avg_gradient REAL, max_gradient REAL,
+  irregularity_index REAL,     -- écart-type des pentes par bloc de 1 km (indice de "mur")
   km_blocks TEXT,              -- JSON : blocs de 1 km [{fromKm,toKm,gradient,ele0,ele1}]
   name_source TEXT             -- waypoint | reverse-geocode
 );
@@ -142,6 +143,17 @@ CREATE TABLE IF NOT EXISTS sessions (
 CREATE INDEX IF NOT EXISTS idx_sessions_user ON sessions(user_id);
 `;
 
+// `CREATE TABLE IF NOT EXISTS` ne touche jamais une table déjà créée par une
+// installation existante (Synology/LAN, base persistante) — pour ajouter une
+// colonne à une table déjà en place sans casser ces bases, il faut un
+// `ALTER TABLE ADD COLUMN` explicite, idempotent (SQLite n'a pas de
+// `ADD COLUMN IF NOT EXISTS`, vérifié : erreur de syntaxe sur la version
+// bundlée avec better-sqlite3).
+function ensureColumn(database, table, column, ddl) {
+  const cols = database.prepare(`PRAGMA table_info(${table})`).all().map((c) => c.name);
+  if (!cols.includes(column)) database.exec(`ALTER TABLE ${table} ADD COLUMN ${ddl}`);
+}
+
 function getDb() {
   if (db) return db;
   fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
@@ -149,7 +161,8 @@ function getDb() {
   db.pragma('journal_mode = WAL');
   db.pragma('foreign_keys = ON');
   db.exec(SCHEMA);
+  ensureColumn(db, 'climbs', 'irregularity_index', 'irregularity_index REAL');
   return db;
 }
 
-module.exports = { getDb, DB_PATH, DATA_DIR };
+module.exports = { getDb, DB_PATH, DATA_DIR, ensureColumn };

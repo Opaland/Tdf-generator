@@ -3,7 +3,7 @@
 
 const { test } = require('node:test');
 const assert = require('node:assert');
-const { detectClimbs, categorize } = require('../pipeline/climbs');
+const { detectClimbs, categorize, irregularityIndex } = require('../pipeline/climbs');
 
 /** Construit un profil échantillonné tous les 100 m depuis des segments [lengthM, gradientPct]. */
 function buildProfile(segments, startEle = 200) {
@@ -37,6 +37,7 @@ test('détecte une montée simple de 8 km à 6 % (cat. 1)', () => {
   assert.ok(Math.abs(c.summitEle - 680) < 15, `sommet ${c.summitEle} ≈ 680 m`);
   assert.strictEqual(c.kmBlocks.length, 8);
   for (const b of c.kmBlocks) assert.ok(Math.abs(b.gradient - 6) < 0.5);
+  assert.ok(c.irregularityIndex < 0.5, `montée régulière : indice d'irrégularité ${c.irregularityIndex} ≈ 0`);
 });
 
 test('fusionne deux montées séparées par un replat < 500 m', () => {
@@ -93,6 +94,38 @@ test('profil type Hautacam : ~13 km à ~8 % → HC', () => {
   assert.strictEqual(climbs.length, 1);
   assert.strictEqual(climbs[0].category, 'HC');
   assert.ok(climbs[0].maxGradient >= climbs[0].avgGradient - 0.2);
+});
+
+test('mur irrégulier : même catégorie ASO qu\'une montée régulière, mais indice d\'irrégularité nettement plus haut', () => {
+  // Deux montées à la même longueur, l'une régulière (8 km à 6 %), l'autre
+  // avec un mur à 13 % noyé dans un faux-plat à ~3 % (8 km à 5 % en
+  // moyenne) — la catégorisation ASO approchée (longueur × pente moyenne)
+  // les range dans la même catégorie 1, l'indice d'irrégularité les distingue.
+  const regular = detectClimbs(buildProfile([[10000, 0], [8000, 6], [6000, -4]]))[0];
+  const wall = detectClimbs(buildProfile([
+    [10000, 0],
+    [3000, 3],    // faux-plat
+    [1500, 13],   // mur
+    [3500, 3.2],  // faux-plat
+    [6000, -4],
+  ]))[0];
+  assert.strictEqual(regular.category, '1');
+  assert.strictEqual(wall.category, '1', 'même catégorie malgré le mur — c\'est justement ce que l\'indice complète');
+  assert.ok(
+    wall.irregularityIndex > regular.irregularityIndex + 1,
+    `mur détecté par l'indice d'irrégularité (régulier ${regular.irregularityIndex} vs mur ${wall.irregularityIndex})`
+  );
+});
+
+test('irregularityIndex() : écart-type des pentes par bloc de 1 km', () => {
+  assert.strictEqual(irregularityIndex([]), 0, 'aucun bloc : 0, pas une exception');
+  assert.strictEqual(
+    irregularityIndex([{ gradient: 6 }, { gradient: 6 }, { gradient: 6 }]),
+    0,
+    'blocs identiques : aucune irrégularité'
+  );
+  // écart-type de [4, 8] (moyenne 6) = 2
+  assert.strictEqual(irregularityIndex([{ gradient: 4 }, { gradient: 8 }]), 2);
 });
 
 test('profil vide ou à un/deux échantillons : aucune côte, pas d\'exception', () => {
