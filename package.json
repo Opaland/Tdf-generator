@@ -11,6 +11,7 @@
     "generate": "node pipeline/cli.js",
     "import": "node pipeline/cli.js --import",
     "demo": "node scripts/demo.js",
+    "demo:online": "node scripts/demo.js --online",
     "demo:2027": "node scripts/demo-2027.js --online",
     "test": "node --test",
     "lint": "eslint .",
