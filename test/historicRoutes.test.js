@@ -190,3 +190,12 @@ test('1913 étape 6 : la fourche cassée d\'Eugène Christophe — Aubisque, Tou
   const tourmalet = wps.find((w) => w.label === 'Col du Tourmalet');
   assert.strictEqual(tourmalet.altitude_hint_m, 2115, 'altitude résolue via known_cols.json');
 });
+
+test('1951 étape 17 : première ascension du Ventoux par le Tour — montée par Malaucène, descente par Bédoin', () => {
+  const wps = reconstructionWaypoints(1951, { number: 17, start: 'Montpellier', finish: 'Avignon' });
+  const labels = wps.map((w) => w.label);
+  assert.deepStrictEqual(labels, ['Montpellier', 'Malaucène', 'Mont Ventoux', 'Bédoin', 'Avignon']);
+  const ventoux = wps.find((w) => w.label === 'Mont Ventoux');
+  assert.strictEqual(ventoux.kind, 'col');
+  assert.strictEqual(ventoux.altitude_hint_m, 1909, 'altitude résolue via known_cols.json');
+});
