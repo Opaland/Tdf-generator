@@ -4,6 +4,9 @@ Ce document décrit comment rendre ÉtapeForge accessible depuis Internet, avec
 un vrai mur d'accès (comptes email/mot de passe), sur un VPS externe (OVH ou
 équivalent). Il complète — et ne remplace pas — le mode par défaut (local ou
 Synology/Tailscale, [`SYNOLOGY.md`](./SYNOLOGY.md)) qui reste sans compte.
+Pas de VPS sous la main ? [`RASPBERRY-PI.md`](./RASPBERRY-PI.md) couvre la
+même exposition publique (`ETAPEFORGE_PUBLIC=1` inchangé) depuis un
+Raspberry Pi chez soi.
 
 ## ⚠️ Modèle de données : à lire avant d'inviter qui que ce soit
 

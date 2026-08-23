@@ -233,7 +233,10 @@ email/mot de passe (hachage `crypto.scrypt`, sessions par cookie `httpOnly`).
 **Important : les données restent partagées entre tous les comptes** (ce
 n'est pas un cloisonnement multi-utilisateur) — voir les détails et la mise
 en garde dans **[docs/DEPLOY-PUBLIC.md](docs/DEPLOY-PUBLIC.md)** avant
-d'activer ce mode.
+d'activer ce mode. Pas de VPS sous la main ? **[docs/RASPBERRY-PI.md](docs/RASPBERRY-PI.md)**
+documente la même exposition publique depuis un Raspberry Pi chez soi
+(Cloudflare Tunnel, contourne le CGNAT des box grand public sans redirection
+de port).
 
 ## Diagnostic du mode réel
 
