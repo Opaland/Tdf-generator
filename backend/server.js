@@ -16,6 +16,8 @@ const { suuntoRouter } = require('./suunto');
 const { parseGpx, importTrackAsStage } = require('../pipeline/importTrack');
 const { authRouter, requireAuth, AUTH_REQUIRED } = require('./auth');
 const { startScheduledBackups, getBackupStatus } = require('./backup');
+const notify = require('./notify');
+const { notifyGenerationFailure } = notify;
 
 const PORT = parseInt(process.env.PORT || '4567', 10);
 const app = express();
@@ -83,6 +85,7 @@ app.get('/api/status', (req, res) => {
   res.json({
     offline: isOffline(), authRequired: AUTH_REQUIRED, db: DB_PATH, counts,
     attributions: ATTRIBUTIONS, backup: getBackupStatus(),
+    notify: { enabled: !!notify.WEBHOOK_URL, format: notify.FORMAT },
   });
 });
 
@@ -258,7 +261,11 @@ app.post('/api/stages/:id/generate', wrap(async (req, res) => {
   const id = parseInt(req.params.id, 10);
   if (running.has(id)) return res.status(202).json({ running: true });
   const p = generateStage(id)
-    .catch((err) => console.error(`Génération étape ${id} :`, err.message))
+    .catch((err) => {
+      console.error(`Génération étape ${id} :`, err.message);
+      const stage = getDb().prepare('SELECT name FROM stages WHERE id = ?').get(id);
+      notifyGenerationFailure({ stageId: id, stageName: stage?.name || `#${id}`, error: err.message });
+    })
     .finally(() => running.delete(id));
   running.set(id, p);
   res.status(202).json({ running: true });

@@ -29,6 +29,12 @@ services:
       # - ETAPEFORGE_BACKUP_DIR=/backup          # active la sauvegarde automatique périodique
       # - ETAPEFORGE_BACKUP_INTERVAL_HOURS=24    # par défaut : une fois par jour
       # - ETAPEFORGE_BACKUP_KEEP=7                # par défaut : conserve les 7 dernières
+      # Notification d'échec de génération (désactivée par défaut) : webhook
+      # générique — ntfy.sh (auto-hébergeable), webhook entrant Slack/Discord,
+      # ou tout récepteur JSON générique (Home Assistant, n8n…). Voir
+      # docs/SYNOLOGY.md, section « Notifications ».
+      # - ETAPEFORGE_NOTIFY_WEBHOOK_URL=https://ntfy.sh/mon-etapeforge
+      # - ETAPEFORGE_NOTIFY_FORMAT=text          # "text" pour ntfy.sh ; JSON par défaut sinon
     restart: unless-stopped
     read_only: true
     tmpfs:
