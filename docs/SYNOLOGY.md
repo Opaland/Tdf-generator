@@ -82,10 +82,26 @@ après un `git pull`).
 ## Sauvegarde
 
 Toutes les données (étapes, tours, caches, config Suunto) tiennent dans
-`docker/etapeforge/data/etapeforge.sqlite` : incluez ce dossier dans
-Hyper Backup, ou copiez simplement le fichier (le conteneur peut rester actif,
-SQLite est en mode WAL ; pour une copie parfaitement cohérente, arrêtez le
-conteneur le temps de la copie).
+`docker/etapeforge/data/etapeforge.sqlite`.
+
+**Sauvegarde automatique intégrée** (recommandée) : décommentez le volume
+`/backup` et les trois variables `ETAPEFORGE_BACKUP_*` dans
+[`docker-compose.yml`](../docker-compose.yml), en pointant le volume vers un
+**deuxième volume physique** du NAS si possible — le même disque que `/data`
+ne protège de rien en cas de panne disque. Une sauvegarde tourne alors au
+démarrage puis toutes les `ETAPEFORGE_BACKUP_INTERVAL_HOURS` heures (24 par
+défaut), les `ETAPEFORGE_BACKUP_KEEP` plus récentes sont conservées (7 par
+défaut, les plus anciennes purgées automatiquement). C'est une copie
+**cohérente** même pendant que l'application écrit (API de sauvegarde native
+SQLite, pas une simple copie de fichier) — pas besoin d'arrêter le
+conteneur. État visible sur `GET /api/status` (champ `backup` : répertoire,
+cadence, nombre de sauvegardes conservées, nom de la plus récente).
+
+**Alternative** : incluez le dossier `docker/etapeforge/data` dans
+Hyper Backup, ou copiez le fichier `.sqlite` directement. Dans ce cas,
+arrêtez le conteneur le temps de la copie — une copie de fichier brute
+pendant que SQLite écrit (mode WAL) n'est pas garantie cohérente, contrairement
+à la sauvegarde automatique intégrée ci-dessus.
 
 ## Dépannage
 

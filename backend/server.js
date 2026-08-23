@@ -15,6 +15,7 @@ const { stageToGpx, stagePayload, tourToStandaloneHtml, ATTRIBUTIONS } = require
 const { suuntoRouter } = require('./suunto');
 const { parseGpx, importTrackAsStage } = require('../pipeline/importTrack');
 const { authRouter, requireAuth, AUTH_REQUIRED } = require('./auth');
+const { startScheduledBackups, getBackupStatus } = require('./backup');
 
 const PORT = parseInt(process.env.PORT || '4567', 10);
 const app = express();
@@ -79,7 +80,10 @@ app.get('/api/status', (req, res) => {
     geocode_cache: db.prepare('SELECT COUNT(*) n FROM geocode_cache').get().n,
     elevation_cache: db.prepare('SELECT COUNT(*) n FROM elevation_cache').get().n,
   };
-  res.json({ offline: isOffline(), authRequired: AUTH_REQUIRED, db: DB_PATH, counts, attributions: ATTRIBUTIONS });
+  res.json({
+    offline: isOffline(), authRequired: AUTH_REQUIRED, db: DB_PATH, counts,
+    attributions: ATTRIBUTIONS, backup: getBackupStatus(),
+  });
 });
 
 // Tout ce qui suit nécessite une session valide quand ETAPEFORGE_PUBLIC=1
@@ -450,6 +454,7 @@ if (require.main === module) {
     console.log(`ÉtapeForge démarré : http://localhost:${PORT}`);
     if (isOffline()) console.log('Mode hors-ligne actif (ETAPEFORGE_OFFLINE=1) : données simulées.');
   });
+  startScheduledBackups();
 }
 
 module.exports = { app };
