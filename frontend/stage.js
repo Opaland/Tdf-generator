@@ -203,6 +203,7 @@ function renderFiche() {
     if (svg) EF.svgToPng(svg, `profil-etape-${stageId}.png`, 2);
   });
   document.getElementById('btn-edit').href = `/?id=${stageId}`;
+  document.getElementById('btn-compare').href = `/compare.html?a=${stageId}`;
   document.getElementById('btn-regen').addEventListener('click', async () => {
     await EF.api(`/api/stages/${stageId}/generate`, { method: 'POST' });
     location.reload();
