@@ -143,3 +143,6 @@ format attendu) — hors scope de cette intégration minimale. État visible sur
   votre pare-feu sortant, autorisez `data.geopf.fr`, `router.project-osrm.org`,
   `nominatim.openstreetmap.org`, `api.opentopodata.org`, `en.wikipedia.org`,
   `cloudapi.suunto.com` et `cloudapi-oauth.suunto.com` (HTTPS sortant uniquement).
+  Pour un NAS pensé pour tourner en continu, voir
+  **[CONTINUITE-APIS.md](./CONTINUITE-APIS.md)** — auto-hébergement d'OSRM
+  et alerting sur panne d'une API externe, ces services n'ayant aucun SLA.
