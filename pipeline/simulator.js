@@ -89,6 +89,7 @@ const GAZETTEER = [
   { name: "Ballon d'Alsace", lat: 47.8217, lon: 6.8400, ele: 1178, kind: 'peak' },
   { name: 'Puy de Dôme', lat: 45.7717, lon: 2.9644, ele: 1465, kind: 'peak' },
   { name: 'Nancy', lat: 48.6921, lon: 6.1844, ele: 210, kind: 'city' },
+  { name: 'Metz', lat: 49.1202, lon: 6.1778, ele: 173, kind: 'city' },
   { name: 'Besançon', lat: 47.2378, lon: 6.0241, ele: 250, kind: 'city' },
   { name: 'Belfort', lat: 47.6380, lon: 6.8629, ele: 360, kind: 'city' },
   { name: 'Chamonix', lat: 45.9237, lon: 6.8694, ele: 1035, kind: 'city' },

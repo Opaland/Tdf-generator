@@ -271,3 +271,10 @@ test('1934 étape 21 : premier contre-la-montre individuel — La Roche-sur-Yon 
   assert.deepStrictEqual(labels, ['La Roche-sur-Yon', 'Nantes']);
   assert.ok(wps.every((w) => w.source === 'parcours curé'), 'les deux extrémités sont explicitement sourcées, pas seulement Wikipédia');
 });
+
+test('1926 étape 3 : l\'étape la plus longue de l\'histoire — Metz → Dunkerque, sourcé', () => {
+  const wps = reconstructionWaypoints(1926, { number: 3, start: 'Metz', finish: 'Dunkerque' });
+  const labels = wps.map((w) => w.label);
+  assert.deepStrictEqual(labels, ['Metz', 'Dunkerque']);
+  assert.ok(wps.every((w) => w.source === 'parcours curé'), 'les deux extrémités sont explicitement sourcées, pas seulement Wikipédia');
+});
