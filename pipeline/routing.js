@@ -137,4 +137,4 @@ async function routeStage(waypoints, { onProgress } = {}) {
   return { points: allPoints, distanceM: cum, waypointsOnTrack: wpOnTrack, approxSegments, legs, router: router || 'osrm' };
 }
 
-module.exports = { routeStage, routeLeg, COL_TOLERANCE_M };
+module.exports = { routeStage, routeLeg, COL_TOLERANCE_M, OSRM_BASE };

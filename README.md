@@ -242,7 +242,9 @@ API externe (Géoplateforme géocodage + altimétrie, OSRM, Nominatim,
 opentopodata, Wikipédia) avec latence et détail d'erreur — pratique avant une
 grosse génération, ou pour comprendre pourquoi le mode réel échoue derrière un
 proxy. En cas de réseau indisponible, tout fonctionne en mode hors-ligne :
-`ETAPEFORGE_OFFLINE=1 npm start`.
+`ETAPEFORGE_OFFLINE=1 npm start`. Ces APIs publiques n'ont aucun SLA — voir
+**[docs/CONTINUITE-APIS.md](docs/CONTINUITE-APIS.md)** pour l'auto-hébergement
+d'OSRM et une stratégie d'alerting sur un kit pensé pour tourner en continu.
 
 ## Exports
 
