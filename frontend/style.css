@@ -83,6 +83,24 @@ h2 { font-size: 1.12em; margin: 22px 0 10px; border-bottom: 2px solid var(--jaun
    par édition, archives.html pour la méthode de reconstitution — #22). */
 summary { cursor: pointer; font-weight: 700; padding: 6px 0; }
 details > :not(summary) { margin-left: 2px; }
+/* Affordance de défilement horizontal (#23) : deux dégradés locaux (qui
+   défilent avec le contenu, invisibles une fois arrivé au bout) + deux
+   ombres fixes à l'écran (toujours à l'endroit exact du bord, discrètes) —
+   pattern connu sous le nom de « scroll shadows ». Généralise à toute
+   carte/table le pattern déjà posé pour #cmp-table (PR #24), qui masquait
+   la deuxième moitié d'une comparaison sans qu'aucun indice ne le montre. */
+.scrollx {
+  overflow-x: auto;
+  background:
+    linear-gradient(to right, var(--carte) 30%, rgba(255,255,255,0)),
+    linear-gradient(to left, var(--carte) 30%, rgba(255,255,255,0)) 100% 0,
+    radial-gradient(farthest-side at 0 50%, rgba(0,0,0,.18), rgba(0,0,0,0)),
+    radial-gradient(farthest-side at 100% 50%, rgba(0,0,0,.18), rgba(0,0,0,0)) 100% 0;
+  background-repeat: no-repeat;
+  background-color: var(--carte);
+  background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
+  background-attachment: local, local, scroll, scroll;
+}
 .card {
   background: var(--carte); border: 1px solid var(--bord); border-radius: 10px;
   padding: 16px; margin: 14px 0;
