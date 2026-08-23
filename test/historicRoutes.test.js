@@ -180,3 +180,13 @@ test('reconstructionWaypoints : le col du Tourmalet résout son altitude via kno
   const wp = wps.find((w) => w.label === 'Col du Tourmalet');
   assert.strictEqual(wp.altitude_hint_m, 2115, 'résolu via known_cols.json malgré l\'absence de ele local');
 });
+
+test('1913 étape 6 : la fourche cassée d\'Eugène Christophe — Aubisque, Tourmalet, Sainte-Marie-de-Campan, Aspin dans l\'ordre', () => {
+  const wps = reconstructionWaypoints(1913, { number: 6, start: 'Bayonne', finish: 'Bagnères-de-Luchon' });
+  const labels = wps.map((w) => w.label);
+  assert.deepStrictEqual(labels, [
+    'Bayonne', "Col d'Aubisque", 'Col du Tourmalet', 'Sainte-Marie-de-Campan', "Col d'Aspin", 'Bagnères-de-Luchon',
+  ]);
+  const tourmalet = wps.find((w) => w.label === 'Col du Tourmalet');
+  assert.strictEqual(tourmalet.altitude_hint_m, 2115, 'altitude résolue via known_cols.json');
+});
