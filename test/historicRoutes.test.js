@@ -264,3 +264,10 @@ test('1975 étape 22 : première arrivée aux Champs-Élysées — circuit ferm�
   assert.deepStrictEqual(labels, ['Paris', 'Paris']);
   assert.ok(wps.every((w) => w.source === 'parcours curé'), 'les deux extrémités sont explicitement sourcées, pas seulement Wikipédia');
 });
+
+test('1934 étape 21 : premier contre-la-montre individuel — La Roche-sur-Yon → Nantes, sourcé', () => {
+  const wps = reconstructionWaypoints(1934, { number: 21, start: 'La Roche-sur-Yon', finish: 'Nantes' });
+  const labels = wps.map((w) => w.label);
+  assert.deepStrictEqual(labels, ['La Roche-sur-Yon', 'Nantes']);
+  assert.ok(wps.every((w) => w.source === 'parcours curé'), 'les deux extrémités sont explicitement sourcées, pas seulement Wikipédia');
+});
