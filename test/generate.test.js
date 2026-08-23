@@ -12,8 +12,9 @@ process.env.ETAPEFORGE_OFFLINE = '1';
 const { test, after } = require('node:test');
 const assert = require('node:assert');
 const { getDb } = require('../backend/db');
-const { generateStage } = require('../pipeline/generate');
+const { generateStage, loadStageFull } = require('../pipeline/generate');
 const { importTrackAsStage, parseGpx } = require('../pipeline/importTrack');
+const { stageConfidence } = require('../pipeline/wikipedia');
 
 after(() => {
   fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true });
@@ -21,6 +22,29 @@ after(() => {
 
 test('generateStage : étape introuvable → erreur explicite', async () => {
   await assert.rejects(() => generateStage(999999), /introuvable/);
+});
+
+test('loadStageFull : expose les réserves de confiance de l\'édition/étape (backlog #10, section D)', () => {
+  // Rattachées à un couple (année, numéro d'étape) dans historic_routes.json,
+  // pas à une colonne dédiée sur `stages` — vérifie le chemin de résolution
+  // via l'édition (edition.year + stage.stage_order), pas juste la fonction
+  // stageConfidence() elle-même (déjà couverte par test/historicRoutes.test.js).
+  const db = getDb();
+  const ed = db.prepare("INSERT INTO editions (year, name) VALUES (2023, 'Tour de France 2023')").run();
+  const st = db.prepare(
+    `INSERT INTO stages (edition_id, stage_order, name, state) VALUES (?, 9, 'Étape 9', 'draft')`
+  ).run(ed.lastInsertRowid);
+  const full = loadStageFull(st.lastInsertRowid);
+  const expected = stageConfidence(2023, 9);
+  assert.ok(expected.length > 0, 'hypothèse du test : 2023 étape 9 (Puy de Dôme) porte une réserve connue');
+  assert.deepStrictEqual(full.confidence, expected);
+});
+
+test('loadStageFull : confidence vide pour une étape sans édition (créée dans l\'éditeur)', () => {
+  const db = getDb();
+  const st = db.prepare(`INSERT INTO stages (name, state) VALUES ('Étape libre', 'draft')`).run();
+  const full = loadStageFull(st.lastInsertRowid);
+  assert.deepStrictEqual(full.confidence, []);
 });
 
 test('generateStage : un seul waypoint → refusé sans toucher l\'état de l\'étape', async () => {

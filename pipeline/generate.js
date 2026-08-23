@@ -12,6 +12,7 @@ const { detectClimbs, nameClimbs } = require('./climbs');
 const { analyzeByKm, detectFauxPlats } = require('./kmanalysis');
 const { runChecks } = require('./checks');
 const { isOffline } = require('./http');
+const { stageConfidence } = require('./wikipedia');
 
 function setProgress(stageId, progress) {
   const db = getDb();
@@ -195,6 +196,10 @@ function loadStageFull(stageId) {
   const edition = stage.edition_id
     ? db.prepare('SELECT * FROM editions WHERE id = ?').get(stage.edition_id)
     : null;
+  // Réserves de confiance (backlog #10, section A/D) : rattachées à un couple
+  // (année, numéro d'étape) dans historic_routes.json, pas à l'id de base — se
+  // résout donc via l'édition importée, pas via une colonne dédiée sur `stages`.
+  const confidence = edition && edition.year ? stageConfidence(edition.year, stage.stage_order) : [];
   return {
     stage: {
       ...stage,
@@ -211,6 +216,7 @@ function loadStageFull(stageId) {
     climbs: climbs.map((c) => ({ ...c, km_blocks: c.km_blocks ? JSON.parse(c.km_blocks) : [] })),
     kmAnalysis,
     fauxPlats,
+    confidence,
   };
 }
 
