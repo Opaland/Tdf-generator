@@ -165,22 +165,32 @@ function escHtml(s) {
   return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 document.addEventListener('DOMContentLoaded', () => {
-  const map = L.map('map');
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap contributors', maxZoom: 18 }).addTo(map);
-  const bounds = [];
-  let prevEnd = null;
-  for (const st of TOUR.stages) {
-    if (!st.track) continue;
-    const latlngs = st.track.coords.map(c => [c[1], c[0]]);
-    latlngs.forEach(ll => bounds.push(ll));
-    if (prevEnd) L.polyline([prevEnd, latlngs[0]], { color:'#888', dashArray:'6 8', weight:2 }).addTo(map);
-    const color = TYPE_COLORS[st.stage.stage_type] || '#c0392b';
-    L.polyline(latlngs, { color, weight: 3.5 }).addTo(map)
-      .bindPopup('<b>' + escHtml(st.stage.name) + '</b><br>' + (st.stage.generated_distance_km || '?') + ' km — D+ ' + (st.stage.total_ascent_m || '?') + ' m');
-    prevEnd = latlngs[latlngs.length - 1];
+  // La carte dépend d'un CDN externe (unpkg.com) : si Leaflet ne charge pas
+  // (réseau restreint, CDN indisponible), on ne veut pas perdre le profil et
+  // les côtes en aval pour autant — try/catch pour isoler l'échec de la
+  // carte du reste du rendu, plutôt que de laisser une exception non
+  // interceptée ("L is not defined") interrompre tout le script.
+  try {
+    const map = L.map('map');
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors', maxZoom: 18 }).addTo(map);
+    const bounds = [];
+    let prevEnd = null;
+    for (const st of TOUR.stages) {
+      if (!st.track) continue;
+      const latlngs = st.track.coords.map(c => [c[1], c[0]]);
+      latlngs.forEach(ll => bounds.push(ll));
+      if (prevEnd) L.polyline([prevEnd, latlngs[0]], { color:'#888', dashArray:'6 8', weight:2 }).addTo(map);
+      const color = TYPE_COLORS[st.stage.stage_type] || '#c0392b';
+      L.polyline(latlngs, { color, weight: 3.5 }).addTo(map)
+        .bindPopup('<b>' + escHtml(st.stage.name) + '</b><br>' + (st.stage.generated_distance_km || '?') + ' km — D+ ' + (st.stage.total_ascent_m || '?') + ' m');
+      prevEnd = latlngs[latlngs.length - 1];
+    }
+    if (bounds.length) map.fitBounds(bounds, { padding: [24, 24] });
+  } catch (e) {
+    document.getElementById('map').outerHTML = '<p class="note">Carte indisponible (Leaflet n\\'a pas pu charger depuis unpkg.com).</p>';
+    console.warn('Carte non affichée :', e);
   }
-  if (bounds.length) map.fitBounds(bounds, { padding: [24, 24] });
 
   const cont = document.getElementById('stages');
   for (const st of TOUR.stages) {
@@ -203,4 +213,102 @@ document.addEventListener('DOMContentLoaded', () => {
 </html>`;
 }
 
-module.exports = { stageToGpx, stagePayload, tourToStandaloneHtml, decimate, ATTRIBUTIONS };
+/**
+ * Page HTML autonome d'une seule étape (backlog issue #10, section D,
+ * "partage d'une fiche d'étape individuelle") : jusqu'ici l'export HTML
+ * autonome n'existait qu'au niveau d'un tour entier (tourToStandaloneHtml
+ * ci-dessus). Même structure/même style visuel, même garde-fous — voir
+ * CLAUDE.md règle 1 : une XSS stockée a déjà été trouvée puis corrigée deux
+ * fois dans ce fichier (sink DOM `innerHTML`/`bindPopup` non échappé, puis
+ * évasion de la balise `<script>` embarquant les données JSON via un
+ * `</script>` dans une donnée utilisateur) — les deux mêmes protections
+ * (escHtml sur chaque insertion innerHTML, `<` → `<` sur le JSON
+ * embarqué) sont reprises ici à l'identique, pas réinventées.
+ */
+function stageToStandaloneHtml(stageId) {
+  const full = loadStageFull(stageId);
+  if (!full) throw new Error(`Étape ${stageId} introuvable`);
+  const payload = stagePayload(full, { maxSamples: 900, maxTrack: 1200 });
+  const profileJs = fs.readFileSync(path.join(__dirname, '..', 'frontend', 'profile.js'), 'utf8');
+  const title = full.stage.name;
+  const edition = full.edition;
+
+  return `<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${esc(title)} — ÉtapeForge</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+  :root { --sable:#ede3cc; --trait:#8a6d3b; --jaune:#ffd320; }
+  body { font-family: system-ui, sans-serif; margin: 0; background:#faf7f0; color:#222; }
+  header { background:#111; color:var(--jaune); padding:14px 20px; }
+  header h1 { margin:0; font-size:1.3em; }
+  main { max-width: 1080px; margin: 0 auto; padding: 16px; }
+  .stagecard { background:#fff; border:1px solid #ddd; border-radius:8px; margin:18px 0; padding:14px; }
+  .meta { color:#666; font-size:0.9em; margin-bottom:8px; }
+  #map { height: 440px; border-radius:8px; border:1px solid #ccc; margin-bottom:18px; }
+  footer { font-size: 0.75em; color:#666; padding: 18px; text-align:center; }
+  svg { max-width: 100%; height: auto; }
+  .note { background:#fdf6dd; border:1px solid #e8d48a; border-radius:6px; padding:8px 12px; font-size:0.85em; }
+  .climb { border-top:1px dashed #ddd; padding-top:8px; margin-top:8px; font-size:0.9em; }
+</style>
+</head>
+<body>
+<header><h1>${esc(title)} — fiche générée par ÉtapeForge</h1></header>
+<main>
+  ${edition && edition.source ? (() => {
+    const src = JSON.parse(edition.source);
+    return src.notes ? `<p class="note">${esc(src.notes)}</p>` : '';
+  })() : ''}
+  <div id="map"></div>
+  <div id="stagecard"></div>
+</main>
+<footer>${esc(ATTRIBUTIONS)}</footer>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>${profileJs}</script>
+<script>
+const STAGE = ${JSON.stringify(payload).replace(/</g, '\\u003c')};
+function escHtml(s) {
+  return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+document.addEventListener('DOMContentLoaded', () => {
+  // Voir le try/catch équivalent dans tourToStandaloneHtml : ne pas laisser
+  // un échec de chargement de Leaflet (CDN externe) empêcher le rendu du
+  // profil/des côtes en aval.
+  try {
+    const map = L.map('map');
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors', maxZoom: 18 }).addTo(map);
+    if (STAGE.track) {
+      const latlngs = STAGE.track.coords.map(c => [c[1], c[0]]);
+      L.polyline(latlngs, { color: '#c0392b', weight: 4 }).addTo(map);
+      map.fitBounds(latlngs, { padding: [24, 24] });
+    } else {
+      map.setView([46.6, 2.5], 5); // France entière, en dernier recours (étape non générée)
+    }
+  } catch (e) {
+    document.getElementById('map').outerHTML = '<p class="note">Carte indisponible (Leaflet n\\'a pas pu charger depuis unpkg.com).</p>';
+    console.warn('Carte non affichée :', e);
+  }
+
+  const delta = STAGE.stage.official_distance_km && STAGE.stage.generated_distance_km
+    ? ((STAGE.stage.generated_distance_km - STAGE.stage.official_distance_km) / STAGE.stage.official_distance_km * 100)
+    : null;
+  const card = document.getElementById('stagecard');
+  card.className = 'stagecard';
+  card.innerHTML = '<div class="meta">' + [escHtml(STAGE.stage.date), escHtml(STAGE.stage.stage_type),
+      (STAGE.stage.generated_distance_km || '?') + ' km', 'D+ ' + (STAGE.stage.total_ascent_m || '?') + ' m',
+      delta != null ? 'tracé reconstitué sur le réseau routier actuel — distance officielle : ' + STAGE.stage.official_distance_km + ' km / reconstitution : ' + STAGE.stage.generated_distance_km + ' km (écart ' + (delta >= 0 ? '+' : '') + delta.toFixed(1) + ' %)' : null
+    ].filter(Boolean).join(' · ') + '</div>' +
+    (STAGE.profile.length ? EFProfile.renderProfileSVG(STAGE, { width: 1000, height: 260 }) : '<em>non générée</em>') +
+    STAGE.climbs.map(c => '<div class="climb"><b>' + escHtml(c.name) + '</b> — cat. ' + escHtml(c.category) +
+      ' · ' + c.length_km + ' km à ' + c.avg_gradient + ' % (max ' + c.max_gradient + ' %) · sommet ' + c.summit_ele_m + ' m</div>').join('');
+});
+</script>
+</body>
+</html>`;
+}
+
+module.exports = { stageToGpx, stagePayload, tourToStandaloneHtml, stageToStandaloneHtml, decimate, ATTRIBUTIONS };

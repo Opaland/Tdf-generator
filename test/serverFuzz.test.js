@@ -118,3 +118,38 @@ test('export.html : une évasion de balise </script> dans le nom d\'étape est n
   assert.ok(!html.includes('<img src=x onerror='), 'le payload ne doit jamais apparaître comme un vrai tag <img> non échappé');
   assert.match(html, /\\u003cscript>window\.__xss=1/, 'le JSON embarqué doit échapper les < en \\u003c (évite la fermeture prématurée du <script> englobant)');
 });
+
+test('étape/export.html (fiche individuelle, backlog #10 section D) : même évasion </script>, même neutralisation', async () => {
+  // Régression identique à la précédente mais sur stageToStandaloneHtml
+  // (nouvelle fonction sœur de tourToStandaloneHtml) — CLAUDE.md règle 1 :
+  // corriger la faille sur un chemin ne ferme pas la classe de bug sur un
+  // autre chemin qui la réintroduit indépendamment.
+  const payload = '<script>window.__xss=1</script><img src=x onerror="window.__xss=2">';
+  const create = await (await fetch(`${base}/api/stages`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: payload, waypoints: [{ label: 'Pau' }, { label: 'Tarbes' }] }),
+  })).json();
+
+  const html = await (await fetch(`${base}/api/stages/${create.id}/site`)).text();
+  assert.ok(!html.includes('<script>window.__xss=1</script>'), 'le payload ne doit jamais apparaître comme un vrai tag <script> non échappé');
+  assert.ok(!html.includes('<img src=x onerror='), 'le payload ne doit jamais apparaître comme un vrai tag <img> non échappé');
+  assert.match(html, /\\u003cscript>window\.__xss=1/, 'le JSON embarqué doit échapper les < en \\u003c (évite la fermeture prématurée du <script> englobant)');
+});
+
+test('GET /api/stages/:id/export.html : téléchargement (Content-Disposition attachment)', async () => {
+  const create = await (await fetch(`${base}/api/stages`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: 'Étape à exporter', waypoints: [{ label: 'Pau' }, { label: 'Tarbes' }] }),
+  })).json();
+  const res = await fetch(`${base}/api/stages/${create.id}/export.html`);
+  assert.strictEqual(res.status, 200);
+  assert.ok(res.headers.get('content-disposition')?.includes('attachment'));
+  assert.ok(res.headers.get('content-type')?.includes('text/html'));
+});
+
+test('GET /api/stages/:id/export.html : étape introuvable → erreur JSON propre, pas 500 avec fuite de stack', async () => {
+  const res = await fetch(`${base}/api/stages/999999/export.html`);
+  assert.notStrictEqual(res.status, 200);
+  const text = await res.text();
+  assert.ok(!text.includes('/home/'), 'aucun chemin de fichier serveur dans la réponse');
+});

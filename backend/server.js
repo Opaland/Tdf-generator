@@ -11,7 +11,7 @@ const { importEdition } = require('../pipeline/importer');
 const { historicHighlights } = require('../pipeline/wikipedia');
 const { geocodeSuggest, reverseGeocode } = require('../pipeline/geocode');
 const { isOffline, setOffline, httpText } = require('../pipeline/http');
-const { stageToGpx, stagePayload, tourToStandaloneHtml, ATTRIBUTIONS } = require('./exports');
+const { stageToGpx, stagePayload, tourToStandaloneHtml, stageToStandaloneHtml, ATTRIBUTIONS } = require('./exports');
 
 const { suuntoRouter } = require('./suunto');
 const { parseGpx, importTrackAsStage } = require('../pipeline/importTrack');
@@ -447,6 +447,19 @@ app.get('/api/stages/:id/export.gpx', (req, res) => {
   res.setHeader('Content-Disposition', `attachment; filename="etape-${full.stage.id}.gpx"`);
   res.send(stageToGpx(full));
 });
+
+app.get('/api/stages/:id/export.html', wrap(async (req, res) => {
+  const html = stageToStandaloneHtml(parseInt(req.params.id, 10));
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.setHeader('Content-Disposition', `attachment; filename="etape-${req.params.id}.html"`);
+  res.send(html);
+}));
+
+// Prévisualisation de la fiche autonome (sans téléchargement).
+app.get('/api/stages/:id/site', wrap(async (req, res) => {
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.send(stageToStandaloneHtml(parseInt(req.params.id, 10)));
+}));
 
 app.get('/api/editions/:id/export.html', wrap(async (req, res) => {
   const html = tourToStandaloneHtml(parseInt(req.params.id, 10));
