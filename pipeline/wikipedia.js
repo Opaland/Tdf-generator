@@ -219,6 +219,22 @@ function editionNotes(year) {
   return HISTORIC_ROUTES[String(year)]?.notes || null;
 }
 
+const CONFIDENCE_STATUSES = ['OK', 'FIX', 'UNSURE'];
+const CONFIDENCE_LEVELS = ['haute', 'moyenne', 'basse'];
+
+/**
+ * Affirmations à confiance structurée d'une étape (backlog issue #10, section
+ * A) : plutôt que de noyer une réserve (« altitude à confirmer », etc.) dans
+ * le texte libre `note`, historic_routes.json peut porter un tableau
+ * `confidence` par étape — [{claim, status: OK|FIX|UNSURE, level: haute|
+ * moyenne|basse, detail?}]. Absent = aucune réserve connue sur cette étape,
+ * pas une affirmation « tout est vérifié à 100 % ».
+ */
+function stageConfidence(year, stageNumber) {
+  const stage = HISTORIC_ROUTES[String(year)]?.stages?.[String(stageNumber)];
+  return stage?.confidence || [];
+}
+
 module.exports = {
   parseStagesFromHtml,
   extractTables,
@@ -228,6 +244,9 @@ module.exports = {
   fetchEditionHtml,
   reconstructionWaypoints,
   editionNotes,
+  stageConfidence,
+  CONFIDENCE_STATUSES,
+  CONFIDENCE_LEVELS,
   HISTORIC_ROUTES,
   KNOWN_COLS,
 };

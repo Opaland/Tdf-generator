@@ -195,7 +195,15 @@
       "9": {
         "start": "Saint-Léonard-de-Noblat",
         "finish": "Puy de Dôme",
-        "note": "Saint-Léonard-de-Noblat → Puy de Dôme (182,4 km) : première arrivée d'étape sur le Puy de Dôme depuis 1988, 4 derniers km fermés au public. Ligne d'arrivée à ~1 415 m (le sommet du puy, sous l'antenne, culmine lui à 1 465 m — altitude de la ligne d'arrivée à confirmer précisément sur le roadbook ASO)."
+        "note": "Saint-Léonard-de-Noblat → Puy de Dôme (182,4 km) : première arrivée d'étape sur le Puy de Dôme depuis 1988, 4 derniers km fermés au public. Ligne d'arrivée à ~1 415 m (le sommet du puy, sous l'antenne, culmine lui à 1 465 m).",
+        "confidence": [
+          {
+            "claim": "altitude de la ligne d'arrivée ≈ 1415 m (le sommet du puy culmine à 1465 m)",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "à confirmer précisément sur le roadbook ASO"
+          }
+        ]
       },
       "17": {
         "start": "Saint-Gervais Mont-Blanc",
@@ -319,7 +327,15 @@
         "start": "Gap",
         "finish": "L'Alpe d'Huez",
         "vias": [{ "label": "Col du Noyer", "kind": "col" }],
-        "note": "Gap → L'Alpe d'Huez, via le col du Noyer (7,2 km à 8,5 %, altitude non vérifiée — à confirmer) puis la montée par les 21 virages historiques."
+        "note": "Gap → L'Alpe d'Huez, via le col du Noyer (7,2 km à 8,5 %) puis la montée par les 21 virages historiques.",
+        "confidence": [
+          {
+            "claim": "altitude du col du Noyer",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "non vérifiée à ce jour, absente de known_cols.json"
+          }
+        ]
       },
       "20": {
         "start": "Le Bourg-d'Oisans",

@@ -147,7 +147,12 @@ npm run generate -- --import 1903       # import seul
   périmètre. Les altitudes des cols qui reviennent d'une édition à l'autre
   (Tourmalet, Galibier…) sont centralisées dans `pipeline/data/known_cols.json`
   plutôt que retapées à chaque occurrence ; un via peut toujours fournir son
-  propre `ele` pour prévaloir sur ce référentiel dans un cas particulier.
+  propre `ele` pour prévaloir sur ce référentiel dans un cas particulier. Une
+  réserve sur une affirmation précise (ex. « altitude à confirmer ») est
+  portée comme métadonnée structurée (`confidence: [{claim, status: OK/FIX/
+  UNSURE, level: haute/moyenne/basse, detail?}]` par étape) plutôt que noyée
+  dans le texte libre `note` — exposée par `stageConfidence(year, stageNumber)`
+  (`pipeline/wikipedia.js`).
 - **Reconstruction** : pipeline standard sur le réseau routier actuel — la fiche
   affiche « tracé reconstitué sur le réseau routier actuel — distance officielle
   *année* : X km / reconstitution : Y km (écart %) ».
