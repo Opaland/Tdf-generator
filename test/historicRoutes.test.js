@@ -246,3 +246,10 @@ test('1919 étape 11 : premier maillot jaune — Lautaret, Galibier, Aravis dans
   assert.strictEqual(lautaret.kind, 'col');
   assert.strictEqual(lautaret.altitude_hint_m, 2058, 'altitude résolue via known_cols.json');
 });
+
+test('1989 étape 21 : LeMond bat Fignon de 8 secondes — contre-la-montre Versailles → Paris, sourcé', () => {
+  const wps = reconstructionWaypoints(1989, { number: 21, start: 'Versailles', finish: 'Paris' });
+  const labels = wps.map((w) => w.label);
+  assert.deepStrictEqual(labels, ['Versailles', 'Paris']);
+  assert.ok(wps.every((w) => w.source === 'parcours curé'), 'les deux extrémités sont explicitement sourcées, pas seulement Wikipédia');
+});

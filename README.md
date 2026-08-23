@@ -144,7 +144,8 @@ npm run generate -- --import 1903       # import seul
   1922 (première apparition du col d'Izoard),
   1951 (première ascension du mont Ventoux, montée par Malaucène),
   1952 (première arrivée à
-  l'Alpe d'Huez), puis toutes les éditions **2020 à 2026** (étapes reines :
+  l'Alpe d'Huez), 1989 (LeMond bat Fignon de 8 secondes, la plus petite
+  marge de victoire de l'histoire du Tour), puis toutes les éditions **2020 à 2026** (étapes reines :
   Loze, doublé du Ventoux, Granon, Spandelles, Markstein, Superbagnères,
   Peyragudes, Toses, Gavarnie, doublé de l'Alpe d'Huez…). Ce fichier ne
   contient que des données réelles/officielles sourcées — voir la démo
