@@ -6,7 +6,10 @@
 
 const { test } = require('node:test');
 const assert = require('node:assert');
-const { detectFauxPlats, FAUXPLAT_MIN_GRADIENT, FAUXPLAT_MIN_LENGTH_KM } = require('../pipeline/kmanalysis');
+const {
+  detectFauxPlats, FAUXPLAT_MIN_GRADIENT, FAUXPLAT_MIN_LENGTH_KM,
+  bearingDeg, compassLabel, segmentBearing,
+} = require('../pipeline/kmanalysis');
 const { MIN_AVG_GRADIENT } = require('../pipeline/climbs');
 
 /** Construit des lignes km_analysis synthétiques à partir d'une liste de pentes moyennes. */
@@ -62,4 +65,50 @@ test('accepte aussi bien avgGradient (camelCase) que avg_gradient (lignes rechar
 
 test('aucun kilomètre : aucun faux-plat, pas d\'exception', () => {
   assert.deepStrictEqual(detectFauxPlats([]), []);
+});
+
+// Orientation des tronçons (backlog issue #10, section C, "exposition au
+// vent") : cap grand-cercle en degrés + rose des vents à 8 directions. Tests
+// sur l'équateur/le méridien, où le cap exact des 4 points cardinaux ne
+// dépend pas de la magnitude du déplacement (seulement de son signe).
+
+test('bearingDeg : les 4 points cardinaux exacts sur l\'équateur/le méridien', () => {
+  assert.strictEqual(bearingDeg(0, 0, 0, 1), 90, 'plein est');
+  assert.strictEqual(bearingDeg(0, 0, 1, 0), 0, 'plein nord');
+  assert.strictEqual(bearingDeg(0, 0, 0, -1), 270, 'plein ouest');
+  assert.strictEqual(bearingDeg(0, 0, -1, 0), 180, 'plein sud');
+});
+
+test('compassLabel : arrondit au point cardinal/intercardinal le plus proche', () => {
+  assert.strictEqual(compassLabel(0), 'N');
+  assert.strictEqual(compassLabel(44), 'NE');
+  assert.strictEqual(compassLabel(90), 'E');
+  assert.strictEqual(compassLabel(180), 'S');
+  assert.strictEqual(compassLabel(225), 'SO');
+  assert.strictEqual(compassLabel(270), 'O');
+  assert.strictEqual(compassLabel(359), 'N');
+});
+
+test('segmentBearing : interpole lat/lon aux bornes du tronçon puis calcule le cap', () => {
+  const samples = [
+    { dist_m: 0, lat: 0, lon: 0 },
+    { dist_m: 5000, lat: 0, lon: 0.5 },
+    { dist_m: 10000, lat: 0, lon: 1 },
+  ];
+  assert.strictEqual(segmentBearing(samples, 0, 10), 90, 'déplacement plein est le long de l\'équateur');
+  assert.strictEqual(segmentBearing([], 0, 1), null, 'pas assez de points → null, pas d\'exception');
+  assert.strictEqual(segmentBearing(null, 0, 1), null);
+});
+
+test('detectFauxPlats(kmRows, samples) : porte bearingDeg/compass quand samples est fourni, rien sinon', () => {
+  const rows = kmRows([0, 0, 2, 2, 2, 2, 2, 0, 0]); // faux-plat km 2→7 (voir premier test du fichier)
+  const withoutSamples = detectFauxPlats(rows);
+  assert.strictEqual(withoutSamples[0].bearingDeg, undefined);
+  assert.strictEqual(withoutSamples[0].compass, undefined);
+
+  // Tracé synthétique plein est le long de l'équateur sur toute la longueur.
+  const samples = Array.from({ length: 10 }, (_, i) => ({ dist_m: i * 1000, lat: 0, lon: i * 0.1 }));
+  const withSamples = detectFauxPlats(rows, samples);
+  assert.strictEqual(withSamples[0].bearingDeg, 90);
+  assert.strictEqual(withSamples[0].compass, 'E');
 });
