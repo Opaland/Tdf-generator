@@ -17,9 +17,39 @@
     <span id="diag-msg" class="meta-line"></span>
   </div>
   <div class="card"><ul class="checks" id="diag-list"></ul></div>
+
+  <h2>Consommation des quotas API</h2>
+  <p class="meta-line">Nombre de requêtes réellement envoyées à chaque service depuis le
+    démarrage du serveur (compteur en mémoire, remis à zéro à chaque redémarrage — pas un
+    historique persistant). Utile pour évaluer sa charge sur les API publiques gratuites lors
+    d'un import ou d'une génération en lot.</p>
+  <div class="card">
+    <p class="meta-line" id="quota-since"></p>
+    <table class="stage-list" id="quota-table">
+      <thead><tr><th>Hôte</th><th>Requêtes</th><th>Première</th><th>Dernière</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
 </main>
 <script src="/common.js"></script>
 <script>
+async function loadQuota() {
+  const tbody = document.querySelector('#quota-table tbody');
+  const since = document.getElementById('quota-since');
+  try {
+    const d = await EF.api('/api/quota');
+    since.textContent = d.since ? `Depuis le démarrage du serveur (${new Date(d.since).toLocaleString('fr-FR')}).` : '';
+    tbody.innerHTML = d.usage.length
+      ? d.usage.map((u) =>
+          `<tr><td>${EF.esc(u.host)}</td><td>${u.count}</td>` +
+          `<td>${new Date(u.firstAt).toLocaleString('fr-FR')}</td><td>${new Date(u.lastAt).toLocaleString('fr-FR')}</td></tr>`
+        ).join('')
+      : '<tr><td colspan="4" class="meta-line">Aucune requête réseau réelle depuis le démarrage (mode hors-ligne, ou aucune génération lancée).</td></tr>';
+  } catch (err) {
+    tbody.innerHTML = `<tr><td colspan="4" class="meta-line">Erreur : ${EF.esc(err.message)}</td></tr>`;
+  }
+}
+
 async function run() {
   const btn = document.getElementById('btn-run');
   const msg = document.getElementById('diag-msg');
@@ -47,6 +77,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   await EF.initChrome('');
   document.getElementById('btn-run').addEventListener('click', run);
   run();
+  loadQuota();
 });
 </script>
 </body>

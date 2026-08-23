@@ -18,8 +18,10 @@ const { authRouter, requireAuth, AUTH_REQUIRED } = require('./auth');
 const { startScheduledBackups, getBackupStatus } = require('./backup');
 const notify = require('./notify');
 const { notifyGenerationFailure } = notify;
+const { getUsageStats: getApiUsageStats } = require('../pipeline/apiUsage');
 
 const PORT = parseInt(process.env.PORT || '4567', 10);
+const SERVER_START_TIME = new Date().toISOString();
 const app = express();
 // Derrière un reverse proxy (déploiement public), fait foi de X-Forwarded-For
 // pour que req.ip (utilisé par le limiteur de tentatives login/register)
@@ -137,6 +139,14 @@ app.get('/api/diagnostic', wrap(async (req, res) => {
   const allOk = results.every((r) => r.ok);
   res.json({ allOk, offline: isOffline(), results });
 }));
+
+// Compteur de requêtes envoyées à chaque hôte externe depuis le démarrage du
+// process (backlog issue #10, section E, « dashboard de consommation des
+// quotas API ») — en mémoire, pas d'historique persistant (voir
+// pipeline/apiUsage.js).
+app.get('/api/quota', (req, res) => {
+  res.json({ since: SERVER_START_TIME, usage: getApiUsageStats() });
+});
 
 // ---------------------------------------------------------------- géocodage
 app.get('/api/geocode', wrap(async (req, res) => {

@@ -2,6 +2,7 @@
 // Enveloppe fetch : rate-limit par hôte + retries avec backoff + bascule hors-ligne.
 
 const { rateLimited, sleep } = require('./rateLimiter');
+const { recordRequest } = require('./apiUsage');
 
 const USER_AGENT = 'EtapeForge/1.0 (application locale de cartographie cycliste; +https://github.com/opaland/tdf-generator)';
 
@@ -31,6 +32,7 @@ async function httpJson(url, { minDelayMs = 0, headers = {}, retries = 3 } = {})
     let lastErr;
     for (let attempt = 0; attempt <= retries; attempt++) {
       try {
+        recordRequest(host);
         const res = await fetch(url, {
           headers: { 'User-Agent': USER_AGENT, Accept: 'application/json', ...headers },
         });
@@ -64,6 +66,7 @@ async function httpText(url, { minDelayMs = 0, headers = {}, retries = 3 } = {})
     let lastErr;
     for (let attempt = 0; attempt <= retries; attempt++) {
       try {
+        recordRequest(host);
         const res = await fetch(url, { headers: { 'User-Agent': USER_AGENT, ...headers } });
         if (res.status === 429 || res.status >= 500) {
           lastErr = new Error(`HTTP ${res.status} sur ${host}`);
