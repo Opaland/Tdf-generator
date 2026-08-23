@@ -253,3 +253,14 @@ test('1989 étape 21 : LeMond bat Fignon de 8 secondes — contre-la-montre Vers
   assert.deepStrictEqual(labels, ['Versailles', 'Paris']);
   assert.ok(wps.every((w) => w.source === 'parcours curé'), 'les deux extrémités sont explicitement sourcées, pas seulement Wikipédia');
 });
+
+test('1975 étape 22 : première arrivée aux Champs-Élysées — circuit fermé Paris, sourcé', () => {
+  // Étape en circuit fermé (27 tours du circuit Paris/Champs-Élysées) : même
+  // pattern start === finish sans via que 2026 étape 1 (Barcelone) — le test
+  // d'adjacence de historic_routes.json l'exclut déjà explicitement (aucun
+  // via, donc rien à comparer).
+  const wps = reconstructionWaypoints(1975, { number: 22, start: 'Paris', finish: 'Paris' });
+  const labels = wps.map((w) => w.label);
+  assert.deepStrictEqual(labels, ['Paris', 'Paris']);
+  assert.ok(wps.every((w) => w.source === 'parcours curé'), 'les deux extrémités sont explicitement sourcées, pas seulement Wikipédia');
+});
