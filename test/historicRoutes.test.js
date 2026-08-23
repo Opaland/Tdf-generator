@@ -199,3 +199,14 @@ test('1951 étape 17 : première ascension du Ventoux par le Tour — montée pa
   assert.strictEqual(ventoux.kind, 'col');
   assert.strictEqual(ventoux.altitude_hint_m, 1909, 'altitude résolue via known_cols.json');
 });
+
+test('1922 étape 10 : première apparition du col d\'Izoard — Colle Saint-Michel, Allos, Vars, Izoard dans l\'ordre', () => {
+  const wps = reconstructionWaypoints(1922, { number: 10, start: 'Nice', finish: 'Briançon' });
+  const labels = wps.map((w) => w.label);
+  assert.deepStrictEqual(labels, [
+    'Nice', 'Colle Saint-Michel', "Col d'Allos", 'Col de Vars', "Col d'Izoard", 'Briançon',
+  ]);
+  const izoard = wps.find((w) => w.label === "Col d'Izoard");
+  assert.strictEqual(izoard.kind, 'col');
+  assert.strictEqual(izoard.altitude_hint_m, 2360, 'altitude résolue via known_cols.json');
+});
