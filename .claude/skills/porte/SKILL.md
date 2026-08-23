@@ -12,8 +12,10 @@ une PR.
 ## L'ordre, et pourquoi
 
 ```bash
-npm test                    # 75 tests au moment d'écrire ces lignes
+npm test                    # tests unitaires (node:test)
 npm run demo                # 10 vérifications de bout en bout, mode hors-ligne
+npm run lint                # ESLint (eslint:recommended), en CI depuis le job « lint »
+npm audit --audit-level=high
 ```
 
 Si le changement touche `frontend/` (HTML/CSS/JS) : vérification visuelle

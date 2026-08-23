@@ -10,7 +10,7 @@
             "if": "Bash(git commit*)",
             "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/porte-avant-commit.sh\"",
             "timeout": 60,
-            "statusMessage": "Porte avant commit : npm test…"
+            "statusMessage": "Porte avant commit : npm test, eslint…"
           }
         ]
       }
@@ -33,6 +33,8 @@
       "Bash(npm test)",
       "Bash(npm run demo)",
       "Bash(npm run monkey)",
+      "Bash(npm run lint)",
+      "Bash(npm audit*)",
       "Bash(git status*)",
       "Bash(git diff*)",
       "Bash(git log*)"

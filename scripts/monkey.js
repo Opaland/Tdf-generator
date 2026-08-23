@@ -159,6 +159,7 @@ async function monkeyOnPage(context, base, pageDef, actionsCount, rand) {
     await page.waitForTimeout(50);
   }
 
+  // eslint-disable-next-line no-undef -- `window` s'exécute dans la page, pas dans Node.
   const xssTriggered = await page.evaluate(() => window.__xss).catch(() => undefined);
   if (xssTriggered) findings.push({ kind: 'XSS DÉCLENCHÉ', page: pageDef.name, detail: `window.__xss = ${xssTriggered}` });
 
