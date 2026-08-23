@@ -73,6 +73,8 @@ const GAZETTEER = [
   { name: 'Malaucène', lat: 44.1750, lon: 5.1331, ele: 365, kind: 'city' },
   { name: 'Col du Galibier', lat: 45.0640, lon: 6.4077, ele: 2642, kind: 'peak' },
   { name: "Col d'Aspin", lat: 42.9370, lon: 0.3260, ele: 1490, kind: 'peak' },
+  { name: 'Sainte-Marie-de-Campan', lat: 42.9923, lon: 0.2215, ele: 867, kind: 'city' },
+  { name: 'Bagnères-de-Luchon', lat: 42.7917, lon: 0.5947, ele: 630, kind: 'city' },
   { name: 'Col de Peyresourde', lat: 42.7972, lon: 0.4453, ele: 1569, kind: 'peak' },
   { name: "Col d'Izoard", lat: 44.8203, lon: 6.7347, ele: 2360, kind: 'peak' },
   { name: 'Col de la Croix de Fer', lat: 45.2274, lon: 6.2628, ele: 2067, kind: 'peak' },

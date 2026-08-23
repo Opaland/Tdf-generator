@@ -138,7 +138,9 @@ npm run generate -- --import 1903       # import seul
   Montgeron, col du Pin-Bouchain à l'étape 1 — tout premier col de l'histoire
   du Tour, col de la République à l'étape 2 — premier col > 1000 m), 1905
   (Ballon d'Alsace), 1910 (le « Cercle de la mort » : Peyresourde, Aspin,
-  Tourmalet, Aubisque), 1911 (premier Galibier), 1952 (première arrivée à
+  Tourmalet, Aubisque), 1911 (premier Galibier), 1913 (la fourche cassée
+  d'Eugène Christophe, réparée seul à la forge de Sainte-Marie-de-Campan),
+  1952 (première arrivée à
   l'Alpe d'Huez), puis toutes les éditions **2020 à 2026** (étapes reines :
   Loze, doublé du Ventoux, Granon, Spandelles, Markstein, Superbagnères,
   Peyragudes, Toses, Gavarnie, doublé de l'Alpe d'Huez…). Ce fichier ne
