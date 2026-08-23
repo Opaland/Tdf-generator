@@ -13,6 +13,13 @@ const FIXTURES_DIR = path.join(__dirname, 'fixtures');
 const HISTORIC_ROUTES = JSON.parse(
   fs.readFileSync(path.join(__dirname, 'data', 'historic_routes.json'), 'utf8')
 );
+// Référentiel centralisé des altitudes de cols connus (backlog issue #10,
+// section A) — évite de retaper la même altitude dans chaque édition de
+// historic_routes.json où le col apparaît. Une entrée peut toujours fournir
+// son propre `ele` explicite pour prévaloir sur ce référentiel.
+const KNOWN_COLS = JSON.parse(
+  fs.readFileSync(path.join(__dirname, 'data', 'known_cols.json'), 'utf8')
+);
 
 // --- Petit parseur HTML (tableaux Wikipédia), sans dépendance ------------------
 
@@ -193,7 +200,10 @@ function reconstructionWaypoints(year, stage) {
   wps.push({ label: startLabel, kind: 'start', source: curated?.start ? 'parcours curé' : 'wikipedia' });
   for (const via of curated?.vias || []) {
     if (typeof via === 'string') wps.push({ label: via, kind: 'via', source: 'parcours curé' });
-    else wps.push({ label: via.label, kind: via.kind || 'via', altitude_hint_m: via.ele ?? null, source: 'parcours curé' });
+    else {
+      const ele = via.ele ?? KNOWN_COLS[via.label]?.ele ?? null;
+      wps.push({ label: via.label, kind: via.kind || 'via', altitude_hint_m: ele, source: 'parcours curé' });
+    }
   }
   // Arrivée au sommet (Alpe d'Huez, Hautacam…) : traitée comme un col pour
   // garantir le passage au sommet et la vérification d'altitude.
@@ -219,4 +229,5 @@ module.exports = {
   reconstructionWaypoints,
   editionNotes,
   HISTORIC_ROUTES,
+  KNOWN_COLS,
 };
