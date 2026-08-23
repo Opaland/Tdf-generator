@@ -115,10 +115,27 @@ async function pollWhileGenerating() {
   if (anyRunning) pollTimer = setTimeout(pollWhileGenerating, 1500);
 }
 
+async function loadMythicGrid() {
+  const grid = document.getElementById('mythic-grid');
+  const highlights = await EF.api('/api/editions/highlights');
+  grid.innerHTML = highlights.map((h) => `
+    <button type="button" class="mythic-card" data-mythic-year="${h.year}">
+      <span class="year">${h.year}</span>
+      <span class="highlight">${EF.esc(h.highlight)}</span>
+    </button>`).join('');
+  grid.querySelectorAll('[data-mythic-year]').forEach((btn) =>
+    btn.addEventListener('click', () => {
+      document.getElementById('f-year').value = btn.dataset.mythicYear;
+      importYear();
+    })
+  );
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   await EF.initChrome('archives');
   document.getElementById('btn-import').addEventListener('click', importYear);
   document.getElementById('f-sourced-only').addEventListener('change', () => loadEditions());
+  loadMythicGrid();
   const editions = await loadEditions();
   // Première visite : proposer la démo 1903 automatiquement.
   if (!editions.some((e) => e.year === 1903)) {

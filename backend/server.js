@@ -8,6 +8,7 @@ const express = require('express');
 const { getDb, DB_PATH } = require('./db');
 const { generateStage, loadStageFull } = require('../pipeline/generate');
 const { importEdition } = require('../pipeline/importer');
+const { historicHighlights } = require('../pipeline/wikipedia');
 const { geocodeSuggest, reverseGeocode } = require('../pipeline/geocode');
 const { isOffline, setOffline, httpText } = require('../pipeline/http');
 const { stageToGpx, stagePayload, tourToStandaloneHtml, ATTRIBUTIONS } = require('./exports');
@@ -367,6 +368,13 @@ app.get('/api/editions', (req, res) => {
     .all()
     .map((e) => ({ ...e, source: e.source ? JSON.parse(e.source) : null }));
   res.json(rows);
+});
+
+/** Éditions pré-2020 marquées "mythiques" dans historic_routes.json (backlog
+ * #10, section D) — pour les vignettes cliquables de l'écran Archives. Pure
+ * lecture de données statiques, aucun accès DB nécessaire. */
+app.get('/api/editions/highlights', (req, res) => {
+  res.json(historicHighlights());
 });
 
 app.post('/api/editions', (req, res) => {

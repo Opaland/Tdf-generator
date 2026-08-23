@@ -219,6 +219,20 @@ function editionNotes(year) {
   return HISTORIC_ROUTES[String(year)]?.notes || null;
 }
 
+/**
+ * Années dont l'édition curée porte un `highlight` (libellé court, ex.
+ * « Premier Galibier ») — backlog issue #10, section D, "mettre en avant les
+ * étapes mythiques dans Archives". Triées par année croissante. Une édition
+ * curée sans `highlight` (ex. les éditions 2020+, détaillées année par année
+ * mais pas individuellement "mythiques") n'apparaît pas dans la liste.
+ */
+function historicHighlights() {
+  return Object.entries(HISTORIC_ROUTES)
+    .filter(([, edition]) => edition.highlight)
+    .map(([year, edition]) => ({ year: parseInt(year, 10), highlight: edition.highlight }))
+    .sort((a, b) => a.year - b.year);
+}
+
 const CONFIDENCE_STATUSES = ['OK', 'FIX', 'UNSURE'];
 const CONFIDENCE_LEVELS = ['haute', 'moyenne', 'basse'];
 
@@ -244,6 +258,7 @@ module.exports = {
   fetchEditionHtml,
   reconstructionWaypoints,
   editionNotes,
+  historicHighlights,
   stageConfidence,
   CONFIDENCE_STATUSES,
   CONFIDENCE_LEVELS,

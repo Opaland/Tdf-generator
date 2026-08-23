@@ -11,7 +11,7 @@ const { test } = require('node:test');
 const assert = require('node:assert');
 const {
   HISTORIC_ROUTES, KNOWN_COLS, reconstructionWaypoints,
-  stageConfidence, CONFIDENCE_STATUSES, CONFIDENCE_LEVELS,
+  stageConfidence, CONFIDENCE_STATUSES, CONFIDENCE_LEVELS, historicHighlights,
 } = require('../pipeline/wikipedia');
 
 const VALID_KINDS = new Set(['start', 'via', 'col', 'peak', 'finish']);
@@ -198,6 +198,31 @@ test('1951 étape 17 : première ascension du Ventoux par le Tour — montée pa
   const ventoux = wps.find((w) => w.label === 'Mont Ventoux');
   assert.strictEqual(ventoux.kind, 'col');
   assert.strictEqual(ventoux.altitude_hint_m, 1909, 'altitude résolue via known_cols.json');
+});
+
+test('historicHighlights : toute édition pré-2020 curée porte un highlight non vide, aucune édition 2020+ n\'en porte (backlog #10, section D)', () => {
+  // Les vignettes cliquables de l'écran Archives (frontend/archives.js)
+  // s'appuient sur ce champ — une édition mythique pré-2020 sans highlight
+  // resterait invisible côté UI sans qu'aucun test ne le signale.
+  const offenders = [];
+  for (const [year, edition] of Object.entries(HISTORIC_ROUTES)) {
+    const y = parseInt(year, 10);
+    if (y < 2020 && (!edition.highlight || edition.highlight.trim().length < 3)) {
+      offenders.push(`${year} : highlight manquant ou trop court`);
+    }
+    if (y >= 2020 && edition.highlight) {
+      offenders.push(`${year} : highlight inattendu sur une édition 2020+ (détaillée, pas "mythique")`);
+    }
+  }
+  assert.deepStrictEqual(offenders, []);
+
+  const highlights = historicHighlights();
+  assert.ok(highlights.length >= 8);
+  assert.deepStrictEqual(
+    highlights.map((h) => h.year),
+    [...highlights.map((h) => h.year)].sort((a, b) => a - b),
+    'triée par année croissante'
+  );
 });
 
 test('1922 étape 10 : première apparition du col d\'Izoard — Colle Saint-Michel, Allos, Vars, Izoard dans l\'ordre', () => {
