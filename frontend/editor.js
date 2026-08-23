@@ -31,9 +31,9 @@ function wpRow(wp, i) {
       <option value="finish"${wp.kind === 'finish' ? ' selected' : ''}>arrivée</option>
     </select>
     <span class="coords">${wp.lat != null ? wp.lat.toFixed(4) + ', ' + wp.lon.toFixed(4) : 'à géocoder'}</span>
-    <button class="secondary up" title="monter">↑</button>
-    <button class="secondary down" title="descendre">↓</button>
-    <button class="danger del" title="supprimer">✕</button>
+    <button class="secondary up" title="monter" aria-label="Monter le waypoint ${i + 1}">↑</button>
+    <button class="secondary down" title="descendre" aria-label="Descendre le waypoint ${i + 1}">↓</button>
+    <button class="danger del" title="supprimer" aria-label="Supprimer le waypoint ${i + 1}">✕</button>
   `;
   const handle = li.querySelector('.idx');
   handle.draggable = true;
@@ -111,8 +111,8 @@ async function loadStages() {
       <td>${s.generated_distance_km != null ? s.generated_distance_km + ' km' : s.official_distance_km ? s.official_distance_km + ' km (off.)' : '—'}</td>
       <td>${s.total_ascent_m != null ? 'D+ ' + s.total_ascent_m + ' m' : '—'}</td>
       <td>${EF.stateBadge(s.state)}</td>
-      <td><a class="btn secondary" href="/?id=${s.id}" title="modifier">✎</a>
-          <button class="danger" data-del="${s.id}">✕</button></td>`;
+      <td><a class="btn secondary" href="/?id=${s.id}" title="modifier" aria-label="Modifier l'étape ${EF.esc(s.name)}">✎</a>
+          <button class="danger" data-del="${s.id}" aria-label="Supprimer l'étape ${EF.esc(s.name)}">✕</button></td>`;
     tbody.appendChild(tr);
   }
   tbody.querySelectorAll('[data-del]').forEach((b) =>

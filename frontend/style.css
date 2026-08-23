@@ -18,6 +18,15 @@ body {
   background: var(--fond);
   color: var(--texte);
 }
+/* Anneau de focus clavier cohérent avec la palette plutôt que le style par
+   défaut du navigateur, peu visible sur les boutons à fond sombre.
+   :focus-visible (pas :focus) : n'apparaît qu'au clavier, jamais au clic
+   souris, pour ne pas ajouter un halo permanent sur chaque bouton cliqué. */
+a:focus-visible, button:focus-visible, input:focus-visible,
+select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--jaune);
+  outline-offset: 2px;
+}
 header.topbar {
   background: var(--noir);
   color: var(--jaune);
