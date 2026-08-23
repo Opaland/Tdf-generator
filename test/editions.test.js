@@ -83,3 +83,17 @@ test('done_count compte les étapes distinctes, pas les lignes de la jointure wa
   const ed = editions.find((e) => e.id === edition.id);
   assert.strictEqual(ed.done_count, 1, `done_count doit rester 1 (une étape 'done'), pas ${wpCount} (nb de waypoints)`);
 });
+
+test('GET /api/editions/highlights : liste triée des éditions mythiques, sans besoin d\'import préalable', async () => {
+  // Route servie directement depuis historic_routes.json (pipeline/wikipedia.js),
+  // aucune dépendance à la base — vérifie ça explicitement en n'important aucune
+  // édition avant l'appel (contrairement aux autres tests de ce fichier).
+  const highlights = await (await fetch(`${base}/api/editions/highlights`)).json();
+  assert.ok(Array.isArray(highlights));
+  assert.ok(highlights.length >= 8, 'au moins les 8 années mythiques pré-2020 curées à ce jour');
+  const years = highlights.map((h) => h.year);
+  assert.deepStrictEqual(years, [...years].sort((a, b) => a - b), 'triée par année croissante');
+  const y1922 = highlights.find((h) => h.year === 1922);
+  assert.strictEqual(y1922.highlight, "Premier Izoard");
+  assert.ok(!years.includes(2025), 'les éditions 2020+ (détaillées mais pas "mythiques") n\'ont pas de highlight');
+});
