@@ -171,19 +171,28 @@ const EF = {
    * revient à l'état initial si rien ne se passe. Second clic dans ce délai :
    * exécute `onConfirm`. Retourne un gestionnaire prêt pour addEventListener.
    */
-  confirmClick(btn, { confirmText = 'confirmer ?', confirmTitle = 'Cliquer à nouveau pour confirmer', armedMs = 3000, onConfirm }) {
+  confirmClick(btn, { confirmText = 'confirmer ?', confirmTitle = 'Cliquer à nouveau pour confirmer', confirmAriaLabel, armedMs = 3000, onConfirm }) {
     const originalText = btn.textContent;
     const originalTitle = btn.title;
+    // aria-label prime sur title dans le calcul du nom accessible : si le
+    // bouton a un aria-label, la seule bascule de title/textContent laisse
+    // un lecteur d'écran annoncer l'ancien libellé (« Supprimer l'étape X »)
+    // pendant l'état armé — trouvaille de la vérification manuelle en
+    // ajoutant l'aria-label sur les boutons-icônes (issue #20).
+    const hasAriaLabel = btn.hasAttribute('aria-label');
+    const originalAriaLabel = btn.getAttribute('aria-label');
     return async () => {
       if (btn.dataset.armed !== '1') {
         btn.dataset.armed = '1';
         btn.textContent = confirmText;
         btn.title = confirmTitle;
+        if (hasAriaLabel) btn.setAttribute('aria-label', confirmAriaLabel || confirmTitle);
         clearTimeout(Number(btn.dataset.timer) || 0);
         btn.dataset.timer = setTimeout(() => {
           btn.dataset.armed = '0';
           btn.textContent = originalText;
           btn.title = originalTitle;
+          if (hasAriaLabel) btn.setAttribute('aria-label', originalAriaLabel);
         }, armedMs);
         return;
       }
