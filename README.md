@@ -272,6 +272,15 @@ Les trois commandes tournent en CI (`.github/workflows/ci.yml`, jobs `test` et
 Chaque point est vérifié automatiquement ; le script sort en erreur si une
 vérification échoue.
 
+`npm run demo:online` lance la même démo avec les vraies APIs (Géoplateforme,
+OSRM, opentopodata, Wikipédia) au lieu du simulateur hors-ligne. `pages.yml`
+l'exécute déjà à chaque push sur main, mais avec un repli silencieux sur le
+simulateur en cas d'échec — volontaire là-bas, pour ne jamais bloquer le
+déploiement du site sur un aléa réseau. Un job GitHub Actions nocturne séparé
+(`.github/workflows/demo-online.yml`), sans repli, la relance chaque nuit pour
+qu'une vraie régression d'intégration API fasse effectivement échouer un
+build.
+
 ## Démo spéculative (`npm run demo:2027`)
 
 `scripts/demo-2027.js` génère deux étapes d'un **parcours 2027 imaginé**, à

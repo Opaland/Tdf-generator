@@ -1,0 +1,32 @@
+name: Démo en ligne (surveillance)
+
+# `pages.yml` lance déjà `node scripts/demo.js --online` à chaque push sur
+# main, mais avec un repli silencieux sur le simulateur hors-ligne en cas
+# d'échec (`::warning::` puis `npm run demo`) — un choix voulu là-bas pour ne
+# jamais bloquer le déploiement du site sur un aléa réseau ponctuel. Effet de
+# bord : une vraie régression de l'intégration Géoplateforme/OSRM/
+# opentopodata/Wikipédia ne fait alors jamais échouer de build (backlog issue
+# #10, section F — "job CI en ligne qui échoue vraiment").
+#
+# Ce job, isolé dans son propre workflow comme demo-2027.yml, exerce le même
+# `--online` mais SANS aucun repli : un échec ici est un vrai rouge visible.
+# Nocturne plutôt que sur chaque push, pour rester raisonnable sur les quotas
+# des APIs publiques gratuites (voir backlog issue #10, section E).
+
+on:
+  schedule:
+    - cron: '0 5 * * *'  # tous les jours, 5h UTC
+  workflow_dispatch: {}
+
+jobs:
+  demo-online:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Démo de validation en ligne (Géoplateforme, OSRM, opentopodata, Wikipédia — pas de repli)
+        run: npm run demo:online
