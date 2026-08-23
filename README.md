@@ -5,8 +5,11 @@
 **Générateur d'étapes du Tour de France** — application web 100 % locale : Node.js + SQLite +
 Leaflet/SVG. Aucun compte, aucune dépendance cloud propriétaire.
 
-Positionnement : ce que [la-flamme-rouge.eu](https://la-flamme-rouge.eu) ne fait pas —
-**reconstruction historique 1903→2027**, **fiches côte-par-côte automatiques**,
+Positionnement : là où [la-flamme-rouge.eu](https://la-flamme-rouge.eu) est un éditeur de
+parcours qu'on trace à la souris, ÉtapeForge part d'une simple liste de lieux et laisse le
+pipeline géocoder, router, échantillonner l'altimétrie puis détecter et catégoriser les côtes
+tout seul — ce qui rend possible la **reconstruction historique automatisée 1903→2027**, étape
+par étape, sans repasser chacune à la main. **Fiches côte-par-côte automatiques**,
 **analyse km par km**, **exports JSON/GPX/PNG/HTML**, **audits de qualité** par étape.
 
 ## Prérequis : Node.js installé
