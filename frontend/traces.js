@@ -15,7 +15,9 @@ async function importGpxFiles(files) {
       });
       const json = await res.json();
       if (!res.ok) throw new Error(json.error || `HTTP ${res.status}`);
-      msg.innerHTML = `✔ ${EF.esc(file.name)} importé (${json.points} points) — <a href="/stage.html?id=${json.id}">ouvrir la fiche</a>`;
+      msg.innerHTML = `✔ ${EF.esc(file.name)} importé (${json.points} points) — ` +
+        `<a href="/stage.html?id=${json.id}">ouvrir la fiche</a> · ` +
+        `<a href="/compare.html?a=${json.id}">⇄ comparer avec une étape officielle</a>`;
     } catch (err) {
       msg.textContent = `Erreur sur ${file.name} : ${err.message}`;
       return;
@@ -32,7 +34,9 @@ async function importFromLink() {
   msg.textContent = 'Import en cours…';
   try {
     const json = await EF.api('/api/import/link', { method: 'POST', body: { url } });
-    msg.innerHTML = `✔ Trace importée (${json.points} points) — <a href="/stage.html?id=${json.id}">ouvrir la fiche</a>`;
+    msg.innerHTML = `✔ Trace importée (${json.points} points) — ` +
+      `<a href="/stage.html?id=${json.id}">ouvrir la fiche</a> · ` +
+      `<a href="/compare.html?a=${json.id}">⇄ comparer avec une étape officielle</a>`;
     input.value = '';
   } catch (err) {
     msg.textContent = `Erreur : ${err.message}`;
