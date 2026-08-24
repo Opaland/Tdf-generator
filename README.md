@@ -353,6 +353,40 @@ corrigés. Dans un environnement au réseau restreint, des erreurs de chargement
 de tuiles de carte (CDN, fonds IGN/OSM) sont normales et ne signalent aucune
 régression de l'application elle-même.
 
+## Tests de mutation (`npm run mutation`)
+
+```bash
+npm run mutation                # lance Stryker sur le périmètre configuré (stryker.config.json)
+npx stryker run --mutate pipeline/climbs.js   # un seul fichier, pour itérer plus vite
+```
+
+[StrykerJS](https://stryker-mutator.io/) modifie mécaniquement le code source
+(inverse une condition, change un `<` en `<=`, supprime un appel…) et relance
+`npm test` sur chaque mutant : un mutant **tué** (un test échoue) prouve
+qu'un test couvre réellement ce comportement ; un mutant **survivant** (tous
+les tests passent quand même) signale un angle mort — une ligne exécutée par
+la couverture classique (`c8`/`nyc`) mais dont aucun test ne vérifie
+l'effet. C'est la différence entre « ce code est exécuté par un test » et
+« ce code est *vérifié* par un test ».
+
+Périmètre volontairement restreint (`pipeline/climbs.js`, `pipeline/geocode.js`,
+`pipeline/wikipedia.js`, `backend/exports.js`) : la logique la plus dense
+(détection/catégorisation de côtes, désambiguïsation de géocodage,
+reconstruction historique, échappement HTML/XML des exports) plutôt que tout
+le dépôt — un mutant relance toute la suite `npm test` (pas de sélection
+intelligente des tests concernés, le lanceur `command` de Stryker ne le
+permet pas avec `node:test`), donc le temps total croît vite avec le nombre
+de fichiers mutés.
+
+Comme le monkey testing, **volontairement hors CI** : une exécution complète
+prend plusieurs dizaines de minutes dans cet environnement (≈1200 mutants sur
+le périmètre actuel), incompatible avec la porte bloquante avant PR. Un
+rapport HTML est produit dans `reports/mutation/index.html` (ignoré par git).
+Un mutant survivant n'est pas automatiquement un bug : certains sont
+équivalents (le mutant change le code sans changer le comportement
+observable) — à lire par un humain avant d'ajouter un test, pas à corriger
+aveuglément pour faire monter un score.
+
 ## Roadmap / contribuer
 
 Ce README décrit ce qui existe. Pour ce qui est envisagé mais pas encore fait,

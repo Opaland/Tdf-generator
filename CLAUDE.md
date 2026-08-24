@@ -150,9 +150,12 @@ direct sur `main`.
 **Avant tout commit** : `npm test` (le hook `porte-avant-commit.sh` le
 vérifie). **Avant toute PR** : `/porte` — `npm test` + `npm run demo`, et si
 le changement touche le frontend, une vérification Playwright visuelle
-avant/après (voir `docs/PRD.md`, definition of done). `npm run monkey` reste
-exploratoire, volontairement hors de la porte bloquante (voir README) — à
-lancer à part quand une trouvaille récente mérite d'être rejouée.
+avant/après (voir `docs/PRD.md`, definition of done). `npm run monkey` et
+`npm run mutation` restent exploratoires, volontairement hors de la porte
+bloquante (voir README) — à lancer à part, le premier quand une trouvaille
+récente mérite d'être rejouée, le second pour vérifier qu'un test ajouté
+discrimine vraiment (même esprit que l'agent `verificateur-de-tests`, à
+l'échelle du fichier plutôt que d'un seul test).
 
 ## 11. Ce qui vaut arrêt
 

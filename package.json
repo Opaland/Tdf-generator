@@ -15,7 +15,8 @@
     "demo:2027": "node scripts/demo-2027.js --online",
     "test": "node --test",
     "lint": "eslint .",
-    "monkey": "node scripts/monkey.js"
+    "monkey": "node scripts/monkey.js",
+    "mutation": "stryker run"
   },
   "engines": {
     "node": ">=20"
@@ -28,6 +29,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@stryker-mutator/core": "^10.0.0",
     "eslint": "^10.9.0",
     "globals": "^17.11.0",
     "playwright": "^1.62.1"

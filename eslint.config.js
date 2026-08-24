@@ -7,7 +7,7 @@ const js = require('@eslint/js');
 const globals = require('globals');
 
 module.exports = [
-  { ignores: ['dist/**', 'node_modules/**', 'data/**'] },
+  { ignores: ['dist/**', 'node_modules/**', 'data/**', '.stryker-tmp/**', 'reports/**'] },
   js.configs.recommended,
   {
     files: ['eslint.config.js'],
