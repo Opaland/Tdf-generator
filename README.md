@@ -426,6 +426,7 @@ cousin dont plusieurs idées de ce README/backlog sont directement reprises).
 | [`CLAUDE.md`](./CLAUDE.md) | Les règles de travail qu'aucune machine ne vérifie — chacune vient d'un raté réel, daté |
 | [`docs/DATA-BACKEND.md`](./docs/DATA-BACKEND.md) | Faut-il un backend de gestion des données de référence curées — état des lieux, pistes, pas de décision prise |
 | [`docs/PERF-PIPELINE.md`](./docs/PERF-PIPELINE.md) | La génération d'une étape est-elle lente — mesuré, pas supposé |
+| [`docs/PRESENTATION.md`](./docs/PRESENTATION.md) | Présenter le projet en une séance — architecture, choix assumés, FAQ anticipée |
 | [issue #10](https://github.com/Opaland/Tdf-generator/issues/10) | Le backlog détaillé, par thème |
 | [issue #14](https://github.com/Opaland/Tdf-generator/issues/14) | L'étude concurrentielle — contre qui, quelles idées en retenir |
 

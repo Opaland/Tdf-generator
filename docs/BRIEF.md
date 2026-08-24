@@ -85,8 +85,10 @@ cousin qui a le sien dans `docs/FEUILLE_DE_ROUTE.md`.
   cache localement — jamais un service tiers à clé API payante en
   fonctionnement normal.
 - **Pas de framework frontend.** JS vanilla + Leaflet, cohérent avec
-  l'esprit « aucune dépendance inutile » du projet (4 dépendances directes
-  en tout). Voir `docs/DESIGN_SYSTEM.md` pour ce que ce choix implique.
+  l'esprit « aucune dépendance inutile » du projet (5 dépendances directes
+  en tout — chacune évaluée avant adoption, voir par exemple la revue de
+  `node-html-parser` dans l'historique git de ce fichier). Voir
+  `docs/DESIGN_SYSTEM.md` pour ce que ce choix implique.
 
 ## Ce qui reste ouvert
 
