@@ -37,8 +37,22 @@ EF.TOUR_STEPS = [
   },
 ];
 
+// État module-level plutôt que par-instance : sans lui, un clic suivi d'un
+// Entrée sur le bouton déclencheur (qui garde le focus DOM tant que rien ne
+// le déplace) rouvrait une deuxième modale empilée, avec un deuxième
+// listener keydown — trouvaille de relecture adverse. openTour() est donc
+// idempotent : un appel pendant qu'une visite est déjà ouverte replace juste
+// le focus dessus au lieu d'en créer une seconde.
+let activeOverlay = null;
+
 EF.openTour = function openTour() {
+  if (activeOverlay) {
+    activeOverlay.querySelector('.tour-card').focus();
+    return activeOverlay;
+  }
+
   let step = 0;
+  const invoker = document.activeElement;
 
   const overlay = document.createElement('div');
   overlay.className = 'tour-overlay';
@@ -48,17 +62,42 @@ EF.openTour = function openTour() {
 
   const card = document.createElement('div');
   card.className = 'tour-card';
+  card.tabIndex = -1; // cible de focus programmatique, jamais dans l'ordre de tabulation
   overlay.appendChild(card);
 
   function close() {
     overlay.remove();
     document.removeEventListener('keydown', onKeydown);
+    activeOverlay = null;
+    // Rend le focus à ce qui l'avait avant l'ouverture (le bouton
+    // déclencheur, typiquement) plutôt que de le laisser retomber sur <body>.
+    if (invoker && typeof invoker.focus === 'function') invoker.focus();
+  }
+
+  // Piège à focus : aria-modal="true" annonce au lecteur d'écran que le
+  // reste de la page est inerte, mais rien ne l'impose par défaut — Tab
+  // sortait de la modale vers le formulaire masqué derrière (trouvaille de
+  // relecture adverse). On boucle Tab/Shift+Tab sur les éléments focusables
+  // de la carte plutôt que de les laisser s'échapper.
+  function trapTab(e) {
+    const focusables = [...card.querySelectorAll('button, a[href]')];
+    if (!focusables.length) return;
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
   }
 
   function onKeydown(e) {
     if (e.key === 'Escape') close();
     else if (e.key === 'ArrowRight') go(1);
     else if (e.key === 'ArrowLeft') go(-1);
+    else if (e.key === 'Tab') trapTab(e);
   }
 
   function go(delta) {
@@ -87,6 +126,8 @@ EF.openTour = function openTour() {
   render();
   document.addEventListener('keydown', onKeydown);
   document.body.appendChild(overlay);
+  activeOverlay = overlay;
+  card.focus();
   return overlay;
 };
 
