@@ -16,7 +16,8 @@
     "test": "node --test",
     "lint": "eslint .",
     "monkey": "node scripts/monkey.js",
-    "mutation": "stryker run"
+    "mutation": "stryker run",
+    "benchmark": "node scripts/benchmark.js"
   },
   "engines": {
     "node": ">=20"
