@@ -1,3 +1,7 @@
+/* --ok/--warn/--fail : contraste WCAG AA vérifié (test/contrast.test.js) sur
+   chaque paire texte/fond réellement utilisée — pas juste une couleur qui
+   "a l'air" assez sombre. Toute retouche de ces trois variables doit
+   repasser par ce test avant d'être considérée correcte. */
 :root {
   --jaune: #ffd320;
   --noir: #141414;
@@ -9,7 +13,7 @@
   --texte2: #6b6b6b;
   --ok: #27764a;
   --warn: #a15818;
-  --fail: #d7263d;
+  --fail: #b01c2f;
 }
 * { box-sizing: border-box; }
 body {
