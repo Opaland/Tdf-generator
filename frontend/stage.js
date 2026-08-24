@@ -149,12 +149,25 @@ function renderFiche() {
     } else if (wp && wp.source === 'wikipedia') {
       sourceBadge = '<span class="badge partial-badge" title="ville de départ/arrivée Wikipédia, position approximative — pas de point de passage vérifié pour ce col précis">position approximative</span>';
     }
+    // Segment approximé (backlog #10, section C, "flag surface non goudonnée") :
+    // un col contourné par la route ou difficilement routable est reconstitué
+    // par interpolation pied→sommet en ligne droite (pipeline/routing.js) —
+    // ça lisse artificiellement la pente réelle sur ce tronçon (une route de
+    // montagne irrégulière devient une pente moyenne constante), donc la
+    // pente max affichée pour CETTE côte n'est plus fiable si elle chevauche
+    // un tel segment. On ne sait toujours pas si c'est un vrai gravel ou
+    // juste une route fermée (aucune source de type de surface — voir issue
+    // #14), donc le message reste honnête sur ce qu'on sait vraiment.
+    const overlapping = EFProfile.climbApproxOverlap(c, FULL.track?.approx_segments);
+    const approxBadge = overlapping
+      ? `<span class="badge partial-badge" title="${EF.esc(overlapping.reason)} — pente max non fiable sur ce tronçon (interpolation en ligne droite, pas la route réelle)">segment approximé</span>`
+      : '';
     div.innerHTML =
       EFProfile.renderClimbSVG({ ...c }, { width: 1040, height: 300 }) +
       `<p class="meta-line">km ${c.start_km} → ${c.end_km} · du pied (${c.start_ele_m} m) au sommet (${c.summit_ele_m} m) · ` +
       `score ${c.score} → catégorie ${c.category}` +
       `${c.irregularity_index != null ? ` · indice d'irrégularité ${c.irregularity_index} (écart-type des pentes par km — un mur peut noyer dans la moyenne)` : ''}` +
-      ` · nom : ${EF.esc(c.name_source === 'waypoint' ? 'waypoint' : 'toponyme géocodé inverse')} ${sourceBadge}</p>`;
+      ` · nom : ${EF.esc(c.name_source === 'waypoint' ? 'waypoint' : 'toponyme géocodé inverse')} ${sourceBadge}${approxBadge}</p>`;
     climbsBox.appendChild(div);
   }
 

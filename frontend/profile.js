@@ -400,6 +400,22 @@
     );
   }
 
+  /**
+   * Segment approximé (interpolation pied→sommet en ligne droite,
+   * pipeline/routing.js) qui chevauche cette côte, s'il y en a un — backlog
+   * issue #10, section C, "flag surface non goudonnée" : l'interpolation
+   * lisse artificiellement la pente réelle sur ce tronçon, donc la pente
+   * max affichée n'est plus fiable si elle recoupe un tel segment.
+   * @param climb {start_km, end_km}
+   * @param approxSegments [{fromM, toM, reason}]
+   * @returns le segment chevauchant, ou undefined
+   */
+  function climbApproxOverlap(climb, approxSegments) {
+    return (approxSegments || []).find(
+      (seg) => climb.start_km * 1000 <= seg.toM && climb.end_km * 1000 >= seg.fromM
+    );
+  }
+
   /** Décime une liste en gardant ~n points (premier et dernier inclus). */
   function decimate(arr, n) {
     if (arr.length <= n) return arr;
@@ -408,7 +424,7 @@
     return out;
   }
 
-  const EFProfile = { renderProfileSVG, renderClimbSVG, renderRibbon3D, decimate, niceStep, CAT_COLORS, CAT_TEXT, gradStyle };
+  const EFProfile = { renderProfileSVG, renderClimbSVG, renderRibbon3D, decimate, niceStep, CAT_COLORS, CAT_TEXT, gradStyle, climbApproxOverlap };
   if (typeof module !== 'undefined' && module.exports) module.exports = EFProfile;
   global.EFProfile = EFProfile;
 })(typeof window !== 'undefined' ? window : globalThis);

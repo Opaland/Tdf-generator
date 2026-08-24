@@ -6,7 +6,7 @@
 
 const { test } = require('node:test');
 const assert = require('node:assert');
-const { renderProfileSVG, gradStyle } = require('../frontend/profile.js');
+const { renderProfileSVG, gradStyle, climbApproxOverlap } = require('../frontend/profile.js');
 
 function samplePayload(waypoints, climbs = [], kmAnalysis) {
   return {
@@ -99,4 +99,32 @@ test('renderProfileSVG : sans kmAnalysis (undefined), le rendu ne plante pas et 
   ));
   assert.doesNotMatch(svg, /fill-opacity="0.16"/);
   assert.match(svg, /<svg/);
+});
+
+// Backlog issue #10, section C, "flag surface non goudonnée" : une côte qui
+// chevauche un segment interpolé (col contourné par la route, pente lissée
+// artificiellement) doit être signalée — pas de garantie de fiabilité sur
+// une pente max qu'on sait déjà approximée.
+test('climbApproxOverlap : détecte le chevauchement (côte à cheval sur un segment approximé)', () => {
+  const climb = { start_km: 10, end_km: 15 };
+  const seg = climbApproxOverlap(climb, [{ fromM: 14000, toM: 16000, reason: 'montée interpolée vers Col X (col contourné par la route)' }]);
+  assert.ok(seg, 'un segment chevauchant [10km,15km] doit être trouvé');
+  assert.match(seg.reason, /interpolée/);
+});
+
+test('climbApproxOverlap : aucun chevauchement → undefined', () => {
+  const climb = { start_km: 10, end_km: 15 };
+  const seg = climbApproxOverlap(climb, [{ fromM: 20000, toM: 22000, reason: 'sans rapport' }]);
+  assert.strictEqual(seg, undefined);
+});
+
+test('climbApproxOverlap : segment adjacent (ne se touchent qu\'aux bornes) compte comme chevauchement', () => {
+  const climb = { start_km: 10, end_km: 15 };
+  const seg = climbApproxOverlap(climb, [{ fromM: 15000, toM: 16000, reason: 'juste après le sommet' }]);
+  assert.ok(seg);
+});
+
+test('climbApproxOverlap : pas de segments (undefined/vide) → undefined, pas de crash', () => {
+  assert.strictEqual(climbApproxOverlap({ start_km: 0, end_km: 5 }, undefined), undefined);
+  assert.strictEqual(climbApproxOverlap({ start_km: 0, end_km: 5 }, []), undefined);
 });
