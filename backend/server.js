@@ -383,6 +383,44 @@ app.get('/api/editions/highlights', (req, res) => {
   res.json(historicHighlights());
 });
 
+/** Suggestion de prochaine étape à générer (backlog #10) : pondérée par
+ * variété de terrain déjà produite, pas par ordre d'ajout — parmi les
+ * brouillons, celui dont le stage_type est le moins représenté dans les
+ * étapes déjà terminées. Sans étape terminée, aucun signal de variété
+ * n'existe : on suggère la première étape brouillon en le disant
+ * explicitement, plutôt que de fabriquer une pertinence qui n'existe pas
+ * encore (CLAUDE.md règle 9). */
+app.get('/api/suggest-next', (req, res) => {
+  const db = getDb();
+  const done = db.prepare(`SELECT stage_type FROM stages WHERE state = 'done'`).all();
+  const drafts = db
+    .prepare(`SELECT id, name, stage_type, edition_id FROM stages WHERE state = 'draft' ORDER BY id`)
+    .all();
+  if (!drafts.length) return res.json({ suggestion: null });
+  if (!done.length) {
+    return res.json({
+      suggestion: drafts[0],
+      reason: `Aucune étape terminée pour l'instant : première étape brouillon, sans signal de variété.`,
+    });
+  }
+  const counts = {};
+  for (const d of done) {
+    const t = d.stage_type || 'inconnu';
+    counts[t] = (counts[t] || 0) + 1;
+  }
+  let best = drafts[0];
+  let bestCount = Infinity;
+  for (const s of drafts) {
+    const c = counts[s.stage_type || 'inconnu'] || 0;
+    if (c < bestCount) { bestCount = c; best = s; }
+  }
+  const typeLabel = best.stage_type || 'inconnu';
+  const reason = bestCount === 0
+    ? `Type « ${typeLabel} » absent des étapes déjà générées.`
+    : `Type « ${typeLabel} » sous-représenté (${bestCount} étape${bestCount > 1 ? 's' : ''} déjà générée${bestCount > 1 ? 's' : ''} de ce type).`;
+  res.json({ suggestion: best, reason });
+});
+
 app.post('/api/editions', (req, res) => {
   const body = req.body || {};
   const name = requireString(body.name, 'name');
