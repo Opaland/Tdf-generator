@@ -302,6 +302,74 @@ app.post('/api/stages/:id/generate', wrap(async (req, res) => {
   res.status(202).json({ running: true });
 }));
 
+/** Rang numérique d'une catégorie de côte (plus haut = plus dur) — pour comparer
+ * des étapes entre elles, pas pour un affichage (voir climbs.js pour le libellé). */
+const CLIMB_CATEGORY_RANK = { HC: 5, 1: 4, 2: 3, 3: 2, 4: 1 };
+
+/** Signature de profil d'une étape : D+ total et, parmi ses côtes, la catégorie
+ * la plus dure et la pente la plus raide — utilisée par /similar pour rapprocher
+ * des étapes au ressenti proche (backlog #10, section D, "étapes similaires"). */
+function stageSignature(stage, climbsByStage) {
+  const climbs = climbsByStage.get(stage.id) || [];
+  let maxCategoryRank = 0;
+  let maxCategory = null;
+  let maxGradient = 0;
+  for (const c of climbs) {
+    const rank = CLIMB_CATEGORY_RANK[c.category] || 0;
+    if (rank > maxCategoryRank) { maxCategoryRank = rank; maxCategory = c.category; }
+    if (c.max_gradient > maxGradient) maxGradient = c.max_gradient;
+  }
+  return { totalAscentM: stage.total_ascent_m || 0, maxCategoryRank, maxCategory, maxGradient };
+}
+
+/** Distance heuristique entre deux signatures — échelles choisies pour que
+ * 1000 m de D+, 1 catégorie de côte et 5 % de pente pèsent grossièrement pareil
+ * dans le rapprochement ; pas une formule validée, juste un ordre de grandeur
+ * raisonnable (même esprit documenté que pipeline/pain.js). */
+function signatureDistance(a, b) {
+  const dAscent = (a.totalAscentM - b.totalAscentM) / 1000;
+  const dCategory = a.maxCategoryRank - b.maxCategoryRank;
+  const dGradient = (a.maxGradient - b.maxGradient) / 5;
+  return Math.sqrt(dAscent ** 2 + dCategory ** 2 + dGradient ** 2);
+}
+
+app.get('/api/stages/:id/similar', wrap(async (req, res) => {
+  const db = getDb();
+  const id = parseInt(req.params.id, 10);
+  const target = db.prepare('SELECT * FROM stages WHERE id = ?').get(id);
+  if (!target) return res.status(404).json({ error: 'Étape introuvable' });
+  if (target.state !== 'done') return res.json({ similar: [] });
+
+  const candidates = db
+    .prepare(
+      `SELECT s.id, s.name, s.stage_type, s.total_ascent_m, e.year AS edition_year, e.name AS edition_name
+       FROM stages s LEFT JOIN editions e ON e.id = s.edition_id
+       WHERE s.state = 'done' AND s.id != ?
+       ORDER BY s.id`
+    )
+    .all(id);
+  if (!candidates.length) return res.json({ similar: [] });
+
+  const allClimbs = db.prepare('SELECT stage_id, category, max_gradient FROM climbs').all();
+  const climbsByStage = new Map();
+  for (const c of allClimbs) {
+    if (!climbsByStage.has(c.stage_id)) climbsByStage.set(c.stage_id, []);
+    climbsByStage.get(c.stage_id).push(c);
+  }
+
+  const targetSig = stageSignature(target, climbsByStage);
+  const ranked = candidates
+    .map((c) => ({ ...c, signature: stageSignature({ id: c.id, total_ascent_m: c.total_ascent_m }, climbsByStage) }))
+    .map((c) => ({ ...c, distance: signatureDistance(targetSig, c.signature) }))
+    .sort((a, b) => a.distance - b.distance)
+    .slice(0, 5)
+    .map((c) => ({
+      id: c.id, name: c.name, stage_type: c.stage_type, edition_year: c.edition_year, edition_name: c.edition_name,
+      total_ascent_m: c.total_ascent_m, max_category: c.signature.maxCategory, max_gradient: c.signature.maxGradient,
+    }));
+  res.json({ similar: ranked });
+}));
+
 // ---------------------------------------------------------------- import de traces
 // GPX brut dans le corps de la requête → étape « trace » (pipeline aval identique).
 app.post('/api/import/gpx', wrap(async (req, res) => {
