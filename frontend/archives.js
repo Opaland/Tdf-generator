@@ -59,6 +59,45 @@ async function generateAll(editionId, btn) {
   }
 }
 
+// « Éditions explorées » (backlog #10 section D, gamification inspirée
+// d'Explorer Tiles de VeloViewer) — cadrage volontaire, pas une simple
+// copie : ÉtapeForge n'a aucune notion géographique de tuile (contrairement
+// à VeloViewer, qui suit une grille de tuiles de carte réellement roulées),
+// et le modèle de données n'a aucune notion d'utilisateur avant une future
+// authentification multi-compte — donc pas de « mes » tuiles explorées,
+// une seule vue globale à l'instance. La « tuile » ici est une édition déjà
+// importée, colorée selon combien de ses étapes ont été générées. Dérivé
+// entièrement des données déjà chargées par loadEditions() — aucune
+// nouvelle route ni persistance, /api/editions donne déjà stage_count et
+// done_count par édition.
+function renderExplorerGrid(editions) {
+  const box = document.getElementById('explorer-box');
+  const grid = document.getElementById('explorer-grid');
+  const known = editions.filter((x) => !x.is_custom && x.year).sort((a, b) => a.year - b.year);
+  if (!known.length) { box.style.display = 'none'; return; }
+  box.style.display = 'block';
+  grid.innerHTML = known.map((e) => {
+    const status = e.done_count >= e.stage_count && e.stage_count > 0
+      ? 'complete'
+      : e.done_count > 0 ? 'partial' : 'unexplored';
+    const title = status === 'complete'
+      ? `${e.year} : toutes les étapes générées (${e.done_count}/${e.stage_count})`
+      : status === 'partial'
+        ? `${e.year} : ${e.done_count}/${e.stage_count} étapes générées`
+        : `${e.year} : importée, aucune étape générée`;
+    return `<button type="button" class="explorer-tile explorer-tile-${status}" data-explorer-year="${e.year}" title="${EF.esc(title)}">${e.year}</button>`;
+  }).join('');
+  grid.querySelectorAll('[data-explorer-year]').forEach((btn) =>
+    btn.addEventListener('click', () => {
+      const edition = known.find((e) => String(e.year) === btn.dataset.explorerYear);
+      const target = edition && document.querySelector(`#editions details[data-ed="${edition.id}"]`);
+      if (!target) return;
+      target.open = true;
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    })
+  );
+}
+
 async function loadEditions() {
   const editions = await EF.api('/api/editions');
   const box = document.getElementById('editions');
@@ -66,6 +105,7 @@ async function loadEditions() {
   const openStates = {};
   box.querySelectorAll('details').forEach((d) => (openStates[d.dataset.ed] = d.open));
   box.innerHTML = '';
+  renderExplorerGrid(editions);
   for (const e of editions.filter((x) => !x.is_custom && x.year)) {
     const fullySourced = e.stage_count > 0 && e.curated_stage_count === e.stage_count;
     if (sourcedOnly && !fullySourced) continue;
