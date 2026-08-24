@@ -389,6 +389,20 @@ Un mutant survivant n'est pas automatiquement un bug : certains sont
 observable) — à lire par un humain avant d'ajouter un test, pas à corriger
 aveuglément pour faire monter un score.
 
+## Benchmark du pipeline (`npm run benchmark`)
+
+```bash
+npm run benchmark                # 5 runs/scénario, mode hors-ligne
+npm run benchmark -- --runs 20   # plus de runs pour lisser le bruit de mesure
+```
+
+Chronomètre `pipeline/generate.js` phase par phase (géocodage, routage,
+altimétrie, côtes, analyse km par km, persistance) sur plusieurs scénarios,
+dont une vraie étape historique (1903, Paris → Lyon). Résultats interprétés
+et mise en garde sur ce que ça mesure (calcul + SQLite, pas la latence des
+APIs réelles) dans **[`docs/PERF-PIPELINE.md`](./docs/PERF-PIPELINE.md)**.
+Comme le monkey testing et les tests de mutation, exploratoire et hors CI.
+
 ## Roadmap / contribuer
 
 Ce README décrit ce qui existe. Pour ce qui est envisagé mais pas encore fait,
@@ -411,6 +425,7 @@ cousin dont plusieurs idées de ce README/backlog sont directement reprises).
 | [`docs/DESIGN_SYSTEM.md`](./docs/DESIGN_SYSTEM.md) | Couleurs, espacement, boutons — et **pourquoi certaines duplications ne doivent pas être « corrigées »** |
 | [`CLAUDE.md`](./CLAUDE.md) | Les règles de travail qu'aucune machine ne vérifie — chacune vient d'un raté réel, daté |
 | [`docs/DATA-BACKEND.md`](./docs/DATA-BACKEND.md) | Faut-il un backend de gestion des données de référence curées — état des lieux, pistes, pas de décision prise |
+| [`docs/PERF-PIPELINE.md`](./docs/PERF-PIPELINE.md) | La génération d'une étape est-elle lente — mesuré, pas supposé |
 | [issue #10](https://github.com/Opaland/Tdf-generator/issues/10) | Le backlog détaillé, par thème |
 | [issue #14](https://github.com/Opaland/Tdf-generator/issues/14) | L'étude concurrentielle — contre qui, quelles idées en retenir |
 
@@ -418,10 +433,12 @@ cousin dont plusieurs idées de ce README/backlog sont directement reprises).
 
 Pour qui développe ici avec Claude Code : trois skills (`/porte` avant PR,
 `/revue-sprint` après chaque tâche, `/revue-globale` en fin de session) et
-deux agents (`relecteur-adverse`, `verificateur-de-tests`) — détaillés dans
-`CLAUDE.md` et `.claude/`. Un hook `PreToolUse` lance `npm test` avant
-chaque `git commit` ; un hook `SessionStart` rapporte l'état de la CI sur
-`main` au démarrage.
+trois agents (`relecteur-adverse` : technique, cherche ce qu'un diff a cassé ;
+`revue-personas` : six personas produit, dont chef de projet et spécialiste
+TDF ; `verificateur-de-tests` : vérifie qu'un test ajouté échoue bien sans
+son correctif) — détaillés dans `CLAUDE.md` et `.claude/`. Un hook
+`PreToolUse` lance `npm test` avant chaque `git commit` ; un hook
+`SessionStart` rapporte l'état de la CI sur `main` au démarrage.
 
 ## Licences
 
