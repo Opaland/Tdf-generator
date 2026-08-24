@@ -14,6 +14,7 @@ function toPayload(full) {
     stage: full.stage,
     waypoints: full.waypoints,
     climbs: full.climbs,
+    kmAnalysis: full.kmAnalysis,
     profile: decimate(full.samples, 900).map((s) => ({
       d: s.dist_m, e: s.ele_smooth_m, r: s.ele_raw_m, lat: s.lat, lon: s.lon,
     })),

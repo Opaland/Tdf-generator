@@ -172,7 +172,7 @@ const { decimate } = require('../frontend/profile');
 
 /** Données allégées d'une étape pour la page HTML autonome et les popups carte. */
 function stagePayload(full, { maxSamples = 600, maxTrack = 900 } = {}) {
-  const { stage, waypoints, track, samples, climbs } = full;
+  const { stage, waypoints, track, samples, climbs, kmAnalysis } = full;
   return {
     stage: {
       id: stage.id,
@@ -211,6 +211,7 @@ function stagePayload(full, { maxSamples = 600, maxTrack = 900 } = {}) {
       avg_gradient: c.avg_gradient, max_gradient: c.max_gradient,
       km_blocks: c.km_blocks,
     })),
+    kmAnalysis: (kmAnalysis || []).map((r) => ({ km: r.km, avg_gradient: r.avg_gradient })),
   };
 }
 
