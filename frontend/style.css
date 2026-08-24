@@ -255,3 +255,18 @@ table.stats tfoot td { font-weight: 700; background: #f3ecd9; }
   .card, #map, .stagemap { border: none; box-shadow: none; }
   body { background: #fff; }
 }
+/* Visite guidée (Sprint 8) : recouvre toute la page, jamais scrollable
+   sous elle (évite qu'un clic « au travers » sur mobile atteigne un lien de
+   la page derrière — même préoccupation que le menu mobile ci-dessus). */
+.tour-overlay {
+  position: fixed; inset: 0; background: rgba(20,20,20,0.65);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 2000; padding: 20px;
+}
+.tour-card {
+  background: var(--carte); border-radius: 12px; padding: 24px 28px;
+  max-width: 480px; width: 100%; box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+}
+.tour-card h2 { margin: 4px 0 10px; }
+.tour-progress { color: var(--texte2); font-size: 0.8em; margin: 0 0 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+.tour-actions { flex-wrap: wrap; margin-top: 16px; }

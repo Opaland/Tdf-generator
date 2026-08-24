@@ -10,6 +10,12 @@
 <body>
 <main>
   <h1>Éditeur d'étape</h1>
+  <div class="card" id="tour-box">
+    <p class="meta-line" style="margin:0">
+      🧭 Nouveau ici ? <button type="button" id="btn-tour" class="secondary">Visite guidée (4 étapes)</button>
+      — reconstruction historique, fiches côtes, comparateur, bilan de traces.
+    </p>
+  </div>
   <div class="card" id="challenge-box" style="display:none">
     <p class="meta-line" style="margin:0">
       🏆 Défi du jour : <b id="challenge-text"></b>
@@ -81,6 +87,7 @@
 </main>
 <script src="/vendor/leaflet/leaflet.js"></script>
 <script src="/common.js"></script>
+<script src="/onboarding.js"></script>
 <script src="/editor.js"></script>
 </body>
 </html>
