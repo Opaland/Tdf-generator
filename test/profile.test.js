@@ -6,7 +6,7 @@
 
 const { test } = require('node:test');
 const assert = require('node:assert');
-const { renderProfileSVG, gradStyle, climbApproxOverlap } = require('../frontend/profile.js');
+const { renderProfileSVG, gradStyle, climbApproxOverlap, profileHoverAt } = require('../frontend/profile.js');
 
 function samplePayload(waypoints, climbs = [], kmAnalysis) {
   return {
@@ -127,4 +127,89 @@ test('climbApproxOverlap : segment adjacent (ne se touchent qu\'aux bornes) comp
 test('climbApproxOverlap : pas de segments (undefined/vide) → undefined, pas de crash', () => {
   assert.strictEqual(climbApproxOverlap({ start_km: 0, end_km: 5 }, undefined), undefined);
   assert.strictEqual(climbApproxOverlap({ start_km: 0, end_km: 5 }, []), undefined);
+});
+
+// Profil ↔ carte synchronisés (backlog #10) : profileHoverAt convertit une
+// abscisse en unités du viewBox (mêmes marges que renderProfileSVG, W=1000
+// H=260 par défaut → M = {l:48, r:24}) en point du profil le plus proche.
+const payload = samplePayload([
+  { label: 'Départ', kind: 'start', lat: 45.0, lon: 1.0 },
+  { label: 'Arrivée', kind: 'finish', lat: 45.3, lon: 1.5 },
+]);
+
+test('profileHoverAt : à l\'abscisse du bord gauche (M.l), renvoie le tout premier point du profil', () => {
+  const pt = profileHoverAt(payload, {}, 48);
+  assert.strictEqual(pt.distM, 0);
+  assert.strictEqual(pt.lat, 45.0);
+  assert.strictEqual(pt.lon, 1.0);
+});
+
+test('profileHoverAt : à l\'abscisse du bord droit (W - M.r), renvoie le tout dernier point du profil', () => {
+  const pt = profileHoverAt(payload, {}, 1000 - 24);
+  assert.strictEqual(pt.distM, 50000);
+  assert.strictEqual(pt.lat, 45.3);
+  assert.strictEqual(pt.lon, 1.5);
+});
+
+test('profileHoverAt : au milieu de la zone de tracé, retrouve le point intermédiaire exact', () => {
+  // frac = 0.3 → distM = 15000, qui correspond pile au 2e point du profil de test.
+  const pt = profileHoverAt(payload, {}, 48 + 0.3 * (1000 - 48 - 24));
+  assert.strictEqual(pt.distM, 15000);
+  assert.strictEqual(pt.lat, 45.1);
+  assert.strictEqual(pt.lon, 1.2);
+});
+
+test('profileHoverAt : une abscisse avant le bord gauche est bornée à distM=0 (pas de valeur négative)', () => {
+  const pt = profileHoverAt(payload, {}, 0);
+  assert.strictEqual(pt.distM, 0);
+});
+
+test('profileHoverAt : une abscisse après le bord droit est bornée à la distance totale', () => {
+  const pt = profileHoverAt(payload, {}, 5000);
+  assert.strictEqual(pt.distM, 50000);
+});
+
+test('profileHoverAt : profil vide → null, pas de crash', () => {
+  assert.strictEqual(profileHoverAt({ profile: [] }, {}, 100), null);
+  assert.strictEqual(profileHoverAt({}, {}, 100), null);
+});
+
+test('profileHoverAt : renvoie des coordonnées SVG finies exploitables pour dessiner un curseur', () => {
+  const pt = profileHoverAt(payload, {}, 300);
+  for (const k of ['x', 'yTop', 'yBottom', 'yCurve']) {
+    assert.ok(Number.isFinite(pt[k]), `${k} doit être un nombre fini`);
+  }
+});
+
+// Le payload à 3 points ci-dessus est trop grossier pour discriminer une
+// marge gauche/droite inversée dans le calcul frac→distM (l'écran de
+// tolérance de "point le plus proche" absorbe l'erreur sans changer de
+// point retenu) — repéré par relecture adverse. Payload dense (1 point par
+// km) + valeurs attendues calculées à la main sur M={l:48,r:24,t:64,b:40}
+// (W=1000, H=260 par défaut) pour verrouiller la formule exacte.
+const densePayload = {
+  stage: {},
+  climbs: [],
+  waypoints: [],
+  profile: Array.from({ length: 51 }, (_, i) => ({ d: i * 1000, e: 200 + i * 2, lat: 45 + i * 0.001, lon: 1 })),
+};
+
+test('profileHoverAt (payload dense) : à mi-parcours, distM et yCurve tombent exactement sur les valeurs calculées à la main', () => {
+  // x(25000) = 48 + (25000/50000)*(1000-48-24) = 48 + 0.5*928 = 512
+  const pt = profileHoverAt(densePayload, {}, 512);
+  assert.strictEqual(pt.distM, 25000, 'une marge l/r inversée dans frac déplacerait distM d\'environ 1300 m sur ce payload dense');
+  assert.strictEqual(pt.x, 512);
+  // eMin = floor(200/100)*100 = 200 ; eMax = max(300*1.05, 200+300) = 500
+  // e(25000) = 250 → y = 64 + (1 - (250-200)/300) * (260-64-40) = 64 + (5/6)*156 = 194
+  assert.strictEqual(pt.yCurve, 194);
+  assert.strictEqual(pt.yTop, 64);
+  assert.strictEqual(pt.yBottom, 220); // y(eMin=200) = 64 + 1*156
+});
+
+test('profileHoverAt (payload dense) : une marge gauche/droite inversée changerait le point retenu (verrouille scaleFor contre ce mutant précis)', () => {
+  // Avec la vraie formule, frac=(512-48)/928=0.5 → distM=25000 → point d=25000 (e=250).
+  // Avec M.l/M.r échangés dans le calcul de frac, frac=(512-24)/928≈0.526 →
+  // distM≈26293 → point le plus proche devient d=26000 (e=252), pas 25000.
+  const pt = profileHoverAt(densePayload, {}, 512);
+  assert.strictEqual(pt.ele, 250, 'le point retenu doit être celui à 25000 m (e=250), pas un voisin décalé par une marge inversée');
 });

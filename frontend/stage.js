@@ -49,6 +49,52 @@ function sampleAt(m) {
   return best;
 }
 
+// Profil ↔ carte synchronisés (backlog #10) : survoler le profil déplace un
+// marqueur sur la carte, au point du tracé le plus proche. opts DOIT
+// correspondre exactement à l'appel de renderProfileSVG (même width/height)
+// pour que le curseur tombe pile sur la silhouette dessinée.
+const PROFILE_OPTS = { width: 1080, height: 300 };
+function setupProfileMapHover(payload, map) {
+  const svg = document.querySelector('#profile-box svg');
+  if (!svg) return;
+  const NS = 'http://www.w3.org/2000/svg';
+  const guide = document.createElementNS(NS, 'g');
+  guide.setAttribute('id', 'hover-guide');
+  guide.style.display = 'none';
+  guide.style.pointerEvents = 'none';
+  guide.innerHTML =
+    '<line id="hg-line" stroke="#1c6dd0" stroke-width="1.4" stroke-dasharray="3 3"/>' +
+    '<circle id="hg-dot" r="4.5" fill="#1c6dd0" stroke="#fff" stroke-width="1.5"/>';
+  svg.appendChild(guide);
+  const line = guide.querySelector('#hg-line');
+  const dot = guide.querySelector('#hg-dot');
+  const marker = L.circleMarker([0, 0], { radius: 7, color: '#1c6dd0', weight: 2, fillColor: '#fff', fillOpacity: 1, interactive: false });
+
+  const move = (e) => {
+    const rect = svg.getBoundingClientRect();
+    const vb = svg.viewBox.baseVal;
+    const px = ((e.clientX - rect.left) / rect.width) * vb.width;
+    const pt = EFProfile.profileHoverAt(payload, PROFILE_OPTS, px);
+    if (!pt || pt.lat == null) return;
+    guide.style.display = '';
+    line.setAttribute('x1', pt.x); line.setAttribute('x2', pt.x);
+    line.setAttribute('y1', pt.yTop); line.setAttribute('y2', pt.yBottom);
+    dot.setAttribute('cx', pt.x); dot.setAttribute('cy', pt.yCurve);
+    marker.setLatLng([pt.lat, pt.lon]);
+    if (!map.hasLayer(marker)) marker.addTo(map);
+  };
+  const leave = () => {
+    guide.style.display = 'none';
+    if (map.hasLayer(marker)) map.removeLayer(marker);
+  };
+  svg.addEventListener('pointermove', move);
+  svg.addEventListener('pointerleave', leave);
+  // pointercancel (ex. un balayage tactile repris par le navigateur pour le
+  // scroll de page, sans pointerleave) : sans ce filet, le marqueur pourrait
+  // rester affiché sur la carte après un survol tactile interrompu.
+  svg.addEventListener('pointercancel', leave);
+}
+
 function renderFiche() {
   document.getElementById('loading').style.display = 'none';
   document.getElementById('fiche').style.display = 'block';
@@ -77,7 +123,7 @@ function renderFiche() {
   // Profil 2D + profil 3D interactif (rotation à la souris, relief étirable —
   // visualisation inspirée des profils 3D VeloViewer).
   const payload = toPayload(FULL);
-  document.getElementById('profile-box').innerHTML = EFProfile.renderProfileSVG(payload, { width: 1080, height: 300 });
+  document.getElementById('profile-box').innerHTML = EFProfile.renderProfileSVG(payload, PROFILE_OPTS);
   setup3D(payload);
 
   // Checks.
@@ -221,6 +267,7 @@ function renderFiche() {
       if (sub.length > 1) L.polyline(sub, { color: '#f08c00', weight: 4, dashArray: '6 6' }).addTo(map).bindTooltip('segment approximé : ' + seg.reason);
     }
     map.fitBounds(coords, { padding: [30, 30] });
+    setupProfileMapHover(payload, map);
 
     const totalM = track.distance_m;
     const icon = (html, cls) => L.divIcon({ html, className: 'ef-marker ' + (cls || ''), iconSize: [26, 26], iconAnchor: [13, 13] });
