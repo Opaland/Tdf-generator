@@ -146,6 +146,23 @@ test('statut : configuré mais pas connecté', async () => {
   assert.strictEqual(st.connected, false);
 });
 
+// Backlog #10 section F : le chiffrement complet des identifiants a été
+// volontairement différé (trop risqué en exécution non supervisée), mais
+// GET /api/suunto/status ne doit jamais renvoyer le secret/la clé en clair
+// au client, peu importe l'évolution future de la route — verrouillé ici
+// plutôt que supposé.
+test('le statut ne renvoie jamais client_secret/subscription_key en clair', async () => {
+  const raw = await (await fetch(`${base}/api/suunto/status`)).text();
+  assert.ok(!raw.includes(process.env.SUUNTO_CLIENT_SECRET), 'client_secret absent de la réponse brute');
+  assert.ok(!raw.includes(process.env.SUUNTO_SUBSCRIPTION_KEY), 'subscription_key absent de la réponse brute');
+  const st = JSON.parse(raw);
+  assert.deepStrictEqual(
+    Object.keys(st).sort(),
+    ['configured', 'connected', 'redirect_uri', 'user'].sort(),
+    'aucun champ additionnel (secret/clé) ne doit apparaître dans la réponse'
+  );
+});
+
 test("callback OAuth : échange du code contre un jeton (Basic auth vérifiée par le simulateur)", async () => {
   const res = await fetch(`${base}/api/suunto/callback?code=code-test`, { redirect: 'manual' });
   assert.strictEqual(res.status, 302);
