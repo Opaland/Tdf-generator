@@ -141,7 +141,7 @@ function render() {
   const pts = waypoints.filter((w) => w.lat != null);
   pts.forEach((w, i) => {
     L.marker([w.lat, w.lon])
-      .bindTooltip(`${i + 1}. ${w.label}`)
+      .bindTooltip(`${i + 1}. ${EF.esc(w.label)}`)
       .addTo(markersLayer);
   });
   if (pts.length >= 2) {

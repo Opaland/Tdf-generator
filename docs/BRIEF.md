@@ -42,10 +42,9 @@ recouper avant d'agir dessus en cas de doute.
   pas. La vraie différence n'est pas une liste de fonctionnalités, c'est le
   mode de production : eux, on trace à la souris ; ici, on donne une liste de
   lieux et le pipeline géocode, route, échantillonne l'altimétrie, détecte et
-  catégorise les côtes tout seul. *(Le README affiche encore l'ancienne
-  formulation « ce que la-flamme-rouge.eu ne fait pas », identifiée comme
-  datée par #14 — à reformuler autour de ce vrai différenciateur plutôt que
-  d'une liste de features qui a changé sous nos pieds.)*
+  catégorise les côtes tout seul. *(Le README a depuis été reformulé autour
+  de ce vrai différenciateur — voir sa section « Positionnement » — plutôt
+  que la liste de features datée identifiée par #14.)*
 - **climbfinder, cols-cyclisme.com, myCols** sont des bases de données de
   cols (des dizaines de milliers, avec photos et avis) — pas de génération
   d'étape. Le catalogue `/cols.html` d'ÉtapeForge n'essaie pas de rivaliser :
