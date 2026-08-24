@@ -10,6 +10,18 @@ function esc(s) {
   return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
+// Vitesse conventionnelle utilisée partout où ÉtapeForge synthétise un temps
+// (TCX, roadbook) faute de données de sortie réellement enregistrée — à ne
+// jamais présenter comme un horaire réel (voir CLAUDE.md règle 9).
+const AVG_SPEED_MPS = 25000 / 3600;
+
+function formatElapsed(distM) {
+  const totalMin = Math.round((distM / AVG_SPEED_MPS) / 60);
+  const h = Math.floor(totalMin / 60);
+  const m = totalMin % 60;
+  return h > 0 ? `${h} h ${String(m).padStart(2, '0')}` : `${m} min`;
+}
+
 /** GPX 1.1 du tracé (points d'altimétrie : lat/lon/ele brute). */
 function stageToGpx(full) {
   const { stage, samples, waypoints, climbs } = full;
@@ -83,7 +95,6 @@ function tcxToken(s, n) {
  * valeur figée qui casserait l'ordre attendu par certains lecteurs. */
 function stageToTcx(full) {
   const { stage, samples, waypoints, climbs, track } = full;
-  const AVG_SPEED_MPS = 25000 / 3600;
   const baseTime = new Date(`${stage.date || '2024-01-01'}T08:00:00Z`).getTime();
   const timeAt = (distM) => new Date(baseTime + (distM / AVG_SPEED_MPS) * 1000).toISOString();
 
@@ -201,6 +212,122 @@ function stagePayload(full, { maxSamples = 600, maxTrack = 900 } = {}) {
       km_blocks: c.km_blocks,
     })),
   };
+}
+
+function nearestSampleDist(w, samples) {
+  let best = null;
+  let bd = Infinity;
+  for (const s of samples) {
+    const d2 = (s.lat - w.lat) ** 2 + (s.lon - w.lon) ** 2;
+    if (d2 < bd) { bd = d2; best = s; }
+  }
+  return best;
+}
+
+/**
+ * Feuille de route imprimable d'une étape (backlog issue #14, "roadbook
+ * exportable") : villes/points de passage avec km et temps écoulé indicatif,
+ * côtes avec catégorie/pente, en une page HTML autonome pensée pour
+ * l'impression (Ctrl+P / imprimer en PDF) plutôt que pour le partage à
+ * l'écran — format différent de stageToStandaloneHtml (PR #54), qui reste la
+ * page interactive avec carte Leaflet. Aucune dépendance PDF ajoutée : la
+ * mise en page `@media print` fait le travail, cohérent avec le choix du
+ * projet de rester à 4 dépendances directes (docs/BRIEF.md).
+ */
+function stageToRoadbookHtml(stageId) {
+  const full = loadStageFull(stageId);
+  if (!full) throw new Error(`Étape ${stageId} introuvable`);
+  const { stage, edition, waypoints, climbs, samples } = full;
+
+  const points = waypoints
+    .filter((w) => w.lat != null)
+    .map((w) => {
+      const s = nearestSampleDist(w, samples);
+      return {
+        distM: s ? s.dist_m : 0,
+        ele: s ? Math.round(s.ele_smooth_m) : null,
+        label: w.label,
+        kind: w.kind,
+        bonus_sec: w.bonus_sec || null,
+      };
+    })
+    .sort((a, b) => a.distM - b.distM);
+
+  const KIND_LABELS = { start: 'Départ', finish: 'Arrivée', col: 'Col', sprint: 'Sprint intermédiaire', via: 'Passage' };
+
+  const rowsHtml = points
+    .map((p) => {
+      const bonusTxt = p.bonus_sec ? ` — bonif. ${p.bonus_sec.join('/')}″` : '';
+      return `<tr><td>${(p.distM / 1000).toFixed(1)}</td><td>${formatElapsed(p.distM)}</td>` +
+        `<td>${esc(KIND_LABELS[p.kind] || 'Passage')}</td>` +
+        `<td>${esc(p.label)}${esc(bonusTxt)}</td>` +
+        `<td>${p.ele != null ? `${p.ele} m` : '—'}</td></tr>`;
+    })
+    .join('\n');
+
+  const climbsHtml = climbs.length
+    ? climbs
+        .map(
+          (c) =>
+            `<tr><td>${c.start_km} → ${c.end_km}</td><td>${esc(c.name)}</td><td>${esc(c.category)}</td>` +
+            `<td>${c.length_km} km</td><td>${c.avg_gradient} %</td><td>${c.max_gradient} %</td><td>${c.summit_ele_m} m</td></tr>`
+        )
+        .join('\n')
+    : '<tr><td colspan="7">Aucune côte détectée (seuil : ≥ 1,5 km à ≥ 3 %).</td></tr>';
+
+  const dist = stage.generated_distance_km != null ? `${stage.generated_distance_km} km` : '?';
+  const editionLine = edition ? `${esc(edition.name)} — ` : '';
+
+  return `<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roadbook — ${esc(stage.name)}</title>
+<style>
+  @page { size: A4 portrait; margin: 1.5cm; }
+  :root { --jaune:#ffd320; --trait:#8a6d3b; }
+  body { font-family: system-ui, sans-serif; margin: 0; padding: 16px; color: #111; }
+  h1 { font-size: 1.4em; margin: 0 0 4px; }
+  .meta { color: #444; font-size: 0.9em; margin-bottom: 14px; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 18px; font-size: 0.9em; }
+  th, td { border: 1px solid #ccc; padding: 4px 8px; text-align: left; }
+  th { background: var(--jaune); }
+  h2 { font-size: 1.1em; border-bottom: 2px solid var(--jaune); padding-bottom: 2px; }
+  .note { font-size: 0.8em; color: #555; margin-top: 6px; }
+  tr { break-inside: avoid; }
+  .no-print { margin-bottom: 16px; }
+  footer { font-size: 0.7em; color: #666; margin-top: 24px; }
+  @media print { .no-print { display: none; } }
+</style>
+</head>
+<body>
+<button class="no-print" onclick="window.print()">Imprimer / enregistrer en PDF</button>
+<h1>${esc(stage.name)}</h1>
+<p class="meta">${editionLine}${stage.date ? `${esc(stage.date)} · ` : ''}${dist}${stage.total_ascent_m != null ? ` · D+ ${stage.total_ascent_m} m` : ''}</p>
+
+<h2>Villes et points de passage</h2>
+<table>
+<thead><tr><th>Km</th><th>Temps écoulé (indicatif)</th><th>Type</th><th>Lieu</th><th>Altitude</th></tr></thead>
+<tbody>
+${rowsHtml}
+</tbody>
+</table>
+<p class="note">Temps écoulé calculé à une vitesse conventionnelle de 25 km/h depuis le départ — un repère indicatif, pas un horaire officiel.</p>
+
+<h2>Côtes</h2>
+<table>
+<thead><tr><th>Km</th><th>Nom</th><th>Cat.</th><th>Longueur</th><th>Pente moy.</th><th>Pente max</th><th>Sommet</th></tr></thead>
+<tbody>
+${climbsHtml}
+</tbody>
+</table>
+
+<p class="note">Ravitaillements : non représentés — ÉtapeForge ne dispose d'aucune source sur l'emplacement réel des zones de ravitaillement d'une étape reconstituée (donnée non publiée par ASO).</p>
+
+<footer>${esc(ATTRIBUTIONS)} — Généré par ÉtapeForge.</footer>
+</body>
+</html>`;
 }
 
 const ATTRIBUTIONS =
@@ -408,4 +535,4 @@ document.addEventListener('DOMContentLoaded', () => {
 </html>`;
 }
 
-module.exports = { stageToGpx, stageToTcx, stagePayload, tourToStandaloneHtml, stageToStandaloneHtml, decimate, ATTRIBUTIONS };
+module.exports = { stageToGpx, stageToTcx, stagePayload, tourToStandaloneHtml, stageToStandaloneHtml, stageToRoadbookHtml, decimate, ATTRIBUTIONS };
