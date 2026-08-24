@@ -194,6 +194,47 @@ async function monkeyOnPage(context, base, pageDef, actionsCount, rand) {
     }
   }
 
+  // Visite guidée (Sprint 8, #btn-tour uniquement sur l'accueil) : vérifiée
+  // de façon déterministe plutôt que laissée au seul clic aléatoire — trouvaille
+  // de revue-personas (persona testeur QA) : les actions aléatoires ci-dessus
+  // peuvent ouvrir #btn-tour sans jamais le refermer proprement dans la même
+  // session, donc rien ne garantissait qu'un run de monkey exerce vraiment
+  // go()/render() (bouton Précédent désactivé au 1er pas, libellé "Terminer"
+  // au dernier, fermeture Escape) plutôt que juste l'ouverture.
+  try {
+    const tourBtn = await page.$('#btn-tour');
+    if (tourBtn) {
+      await page.setViewportSize({ width: 1280, height: 900 });
+      await tourBtn.click();
+      await page.waitForSelector('.tour-overlay', { timeout: 2000 });
+      const prevDisabledAtStart = await page.$eval('#tour-prev', (b) => b.disabled);
+      if (!prevDisabledAtStart) {
+        findings.push({ kind: 'VISITE GUIDÉE', page: pageDef.name, detail: 'bouton Précédent pas désactivé à la première étape' });
+      }
+      // Clique "Suivant" jusqu'à "Terminer" plutôt que de lire
+      // EF.TOUR_STEPS.length depuis la page : `const EF = ...` en haut de
+      // common.js est une liaison lexicale, pas une propriété de `window`
+      // (contrairement à `var`) — `window.EF` y est `undefined`, trouvaille
+      // en exécutant ce script pour de vrai (TypeError reproduit avant ce
+      // correctif).
+      let lastLabel = '';
+      for (let i = 0; i < 10; i++) {
+        lastLabel = await page.textContent('#tour-next');
+        if (lastLabel.includes('Terminer')) break;
+        await page.click('#tour-next');
+      }
+      if (!lastLabel.includes('Terminer')) {
+        findings.push({ kind: 'VISITE GUIDÉE', page: pageDef.name, detail: `bouton "Terminer" jamais atteint après 10 clics "Suivant" (dernier libellé : "${lastLabel}")` });
+      }
+      await page.keyboard.press('Escape');
+      await page.waitForSelector('.tour-overlay', { state: 'detached', timeout: 2000 });
+    }
+  } catch (err) {
+    if (!/execution context was destroyed|target (page|closed)/i.test(err.message || '')) {
+      findings.push({ kind: 'action-exception', page: pageDef.name, detail: `check visite guidée: ${String(err.message).slice(0, 200)}` });
+    }
+  }
+
   await page.close();
   return findings;
 }
