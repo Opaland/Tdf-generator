@@ -32,6 +32,24 @@
   }
 
   /**
+   * Échelle px ↔ (distance, altitude) partagée par renderProfileSVG et
+   * profileHoverAt — un seul endroit qui sait comment le profil est projeté,
+   * pour que le curseur de survol tombe exactement sur la silhouette tracée.
+   */
+  function scaleFor(prof, W, H, mini) {
+    const M = mini ? { l: 6, r: 6, t: 8, b: 14 } : { l: 48, r: 24, t: 64, b: 40 };
+    const totalM = prof[prof.length - 1].d;
+    const eles = prof.map((p) => p.e);
+    const eMin = Math.floor(Math.min.apply(null, eles) / 100) * 100;
+    const eMax = Math.max(Math.max.apply(null, eles) * 1.05, eMin + 300);
+    return {
+      M, totalM, eMin, eMax,
+      x: (m) => M.l + (m / totalM) * (W - M.l - M.r),
+      y: (e) => M.t + (1 - (e - eMin) / (eMax - eMin)) * (H - M.t - M.b),
+    };
+  }
+
+  /**
    * Profil complet d'une étape.
    * @param data payload { stage, waypoints, climbs, kmAnalysis?:[{km, avg_gradient}], profile:[{d (m), e (lissé), r (brut)}] }
    * @param opts { width, height, mini }
@@ -42,21 +60,10 @@
     const W = opts.width || 1000;
     const H = opts.height || 260;
     const mini = !!opts.mini;
-    const M = mini
-      ? { l: 6, r: 6, t: 8, b: 14 }
-      : { l: 48, r: 24, t: 64, b: 40 };
     const prof = data.profile || [];
     if (!prof.length) return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}"></svg>`;
 
-    const totalM = prof[prof.length - 1].d;
-    const eles = prof.map((p) => p.e);
-    let eMin = Math.min.apply(null, eles);
-    let eMax = Math.max.apply(null, eles);
-    eMin = Math.floor(eMin / 100) * 100;
-    eMax = Math.max(eMax * 1.05, eMin + 300);
-
-    const x = (m) => M.l + (m / totalM) * (W - M.l - M.r);
-    const y = (e) => M.t + (1 - (e - eMin) / (eMax - eMin)) * (H - M.t - M.b);
+    const { M, totalM, eMin, eMax, x, y } = scaleFor(prof, W, H, mini);
 
     // Silhouette sable.
     let path = `M ${x(prof[0].d).toFixed(1)} ${y(prof[0].e).toFixed(1)}`;
@@ -416,6 +423,33 @@
     );
   }
 
+  /**
+   * Point du profil le plus proche d'une abscisse en coordonnées SVG (mêmes
+   * unités que le viewBox de renderProfileSVG) — sert à synchroniser un
+   * survol du profil avec un marqueur sur la carte (backlog #10).
+   * @param data même payload que renderProfileSVG
+   * @param opts { width, height, mini } — DOIT correspondre à l'appel de renderProfileSVG
+   * @param pxX abscisse du curseur, en unités du viewBox (pas en pixels écran bruts)
+   * @returns { x, yTop, yBottom, yCurve, distM, ele, lat, lon } ou null si profil vide
+   */
+  function profileHoverAt(data, opts, pxX) {
+    opts = opts || {};
+    const W = opts.width || 1000;
+    const H = opts.height || 260;
+    const mini = !!opts.mini;
+    const prof = data.profile || [];
+    if (!prof.length) return null;
+    const sc = scaleFor(prof, W, H, mini);
+    const frac = (pxX - sc.M.l) / (W - sc.M.l - sc.M.r);
+    const distM = Math.max(0, Math.min(sc.totalM, frac * sc.totalM));
+    let best = prof[0];
+    for (const p of prof) if (Math.abs(p.d - distM) < Math.abs(best.d - distM)) best = p;
+    return {
+      x: sc.x(best.d), yTop: sc.M.t, yBottom: sc.y(sc.eMin), yCurve: sc.y(best.e),
+      distM: best.d, ele: best.e, lat: best.lat, lon: best.lon,
+    };
+  }
+
   /** Décime une liste en gardant ~n points (premier et dernier inclus). */
   function decimate(arr, n) {
     if (arr.length <= n) return arr;
@@ -424,7 +458,7 @@
     return out;
   }
 
-  const EFProfile = { renderProfileSVG, renderClimbSVG, renderRibbon3D, decimate, niceStep, CAT_COLORS, CAT_TEXT, gradStyle, climbApproxOverlap };
+  const EFProfile = { renderProfileSVG, renderClimbSVG, renderRibbon3D, decimate, niceStep, CAT_COLORS, CAT_TEXT, gradStyle, climbApproxOverlap, profileHoverAt };
   if (typeof module !== 'undefined' && module.exports) module.exports = EFProfile;
   global.EFProfile = EFProfile;
 })(typeof window !== 'undefined' ? window : globalThis);
