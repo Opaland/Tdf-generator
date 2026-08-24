@@ -54,8 +54,8 @@ async function importEdition(year, { onProgress } = {}) {
        VALUES (?, ?, ?, ?, ?, ?, ?, 'draft', ?)`
     );
     const insWp = db.prepare(
-      `INSERT INTO waypoints (stage_id, idx, label, kind, altitude_hint_m, source)
-       VALUES (?, ?, ?, ?, ?, ?)`
+      `INSERT INTO waypoints (stage_id, idx, label, kind, altitude_hint_m, bonus_sec, source)
+       VALUES (?, ?, ?, ?, ?, ?, ?)`
     );
 
     const stages = [];
@@ -76,7 +76,7 @@ async function importEdition(year, { onProgress } = {}) {
       const stageId = r.lastInsertRowid;
       const wps = reconstructionWaypoints(year, s);
       wps.forEach((wp, i) => {
-        insWp.run(stageId, i, wp.label, wp.kind, wp.altitude_hint_m ?? null, wp.source);
+        insWp.run(stageId, i, wp.label, wp.kind, wp.altitude_hint_m ?? null, wp.bonus_sec ? JSON.stringify(wp.bonus_sec) : null, wp.source);
       });
       stages.push({ id: stageId, number: s.number, name, distanceKm: s.distanceKm });
     }

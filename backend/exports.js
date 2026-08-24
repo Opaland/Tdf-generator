@@ -180,6 +180,7 @@ function stagePayload(full, { maxSamples = 600, maxTrack = 900 } = {}) {
     },
     waypoints: waypoints.map((w) => ({
       label: w.label, kind: w.kind, lat: w.lat, lon: w.lon, approximated: !!w.approximated,
+      bonus_sec: w.bonus_sec || null,
     })),
     track: track
       ? {
