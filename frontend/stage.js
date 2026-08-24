@@ -24,7 +24,7 @@ function toPayload(full) {
 async function poll() {
   const full = await EF.api(`/api/stages/${stageId}`);
   const st = full.stage;
-  if (st.state === 'done') { FULL = full; renderFiche(); return; }
+  if (st.state === 'done') { FULL = full; renderFiche(); loadSimilarStages(); return; }
   if (st.state === 'error') {
     document.getElementById('pg-title').textContent = 'Échec de la génération';
     document.getElementById('pg-detail').textContent = st.error || 'erreur inconnue';
@@ -389,6 +389,37 @@ function setup3D(payload) {
   window.addEventListener('pointerup', () => { dragging = false; box3d.style.cursor = 'grab'; });
 }
 
+// Étapes similaires (backlog #10, section D) : requête séparée de la fiche
+// principale — non essentielle, ne doit jamais bloquer ni casser le reste
+// de la page si elle échoue (backend injoignable, mode statique, etc.).
+// Fonction pure (pas de DOM) : testée directement côté Node (voir
+// test/similarStages.test.js) pour verrouiller l'échappement HTML de s.name
+// ET de s.edition_name (un champ libre — nom de tour personnalisé) — les
+// deux vecteurs vérifiés manuellement lors de la relecture adverse.
+function similarItemHtml(s) {
+  const meta = [
+    s.edition_name ? `${s.edition_name}${s.edition_year ? ` (${s.edition_year})` : ''}` : null,
+    s.total_ascent_m != null ? `D+ ${s.total_ascent_m} m` : null,
+    s.max_category ? `côte cat. ${s.max_category}` : null,
+    s.max_gradient ? `${s.max_gradient} % max` : null,
+  ].filter(Boolean).join(' · ');
+  return `<li class="fauxplat-item"><a href="/stage.html?id=${s.id}">${EF.esc(s.name)}</a>${meta ? ` — ${EF.esc(meta)}` : ''}</li>`;
+}
+
+async function loadSimilarStages() {
+  if (window.EF_STATIC) return;
+  const section = document.getElementById('similar-section');
+  const list = document.getElementById('similar-list');
+  try {
+    const { similar } = await EF.api(`/api/stages/${stageId}/similar`);
+    if (!similar.length) return;
+    list.innerHTML = similar.map(similarItemHtml).join('');
+    section.style.display = 'block';
+  } catch {
+    // Non essentiel : la fiche reste utilisable sans les suggestions.
+  }
+}
+
 function renderKmTable() {
   const rows = [...FULL.kmAnalysis].sort((a, b) => {
     const va = a[kmSortKey];
@@ -405,6 +436,10 @@ function renderKmTable() {
     .join('');
 }
 
+// Garde typeof : similarItemHtml est une fonction pure, testée directement
+// (voir test/similarStages.test.js) sans DOM — même schéma que
+// profile.js/compare.js/editor.js.
+if (typeof document !== 'undefined') {
 document.addEventListener('DOMContentLoaded', async () => {
   await EF.initChrome('editeur');
   if (!stageId) { location.href = '/'; return; }
@@ -425,3 +460,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
   poll();
 });
+}
+
+if (typeof module !== 'undefined' && module.exports) module.exports = { similarItemHtml };

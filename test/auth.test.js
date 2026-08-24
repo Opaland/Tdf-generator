@@ -47,6 +47,15 @@ test('routes protégées : 401 sans session', async () => {
   assert.strictEqual(res.status, 401);
 });
 
+// Test dédié plutôt que de se fier uniquement à la couverture générique
+// ci-dessus : une route ajoutée par erreur avant `app.use('/api',
+// requireAuth)` (backend/server.js) ne serait pas détectée par le seul test
+// sur /api/stages — relecture adverse, backlog #10 "étapes similaires".
+test('GET /api/stages/:id/similar : 401 sans session (nouvelle route, pas seulement /api/stages)', async () => {
+  const res = await fetch(`${base}/api/stages/1/similar`);
+  assert.strictEqual(res.status, 401);
+});
+
 test('inscription : email invalide et mot de passe trop court rejetés (400)', async () => {
   const badEmail = await fetch(`${base}/api/auth/register`, {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
