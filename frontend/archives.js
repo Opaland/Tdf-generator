@@ -100,30 +100,50 @@ function renderExplorerGrid(editions) {
       // cette édition du DOM alors que sa tuile reste affichée (la grille
       // liste toutes les éditions importées, indépendamment du filtre) —
       // trouvaille de relecture adverse : le clic ne faisait alors
-      // silencieusement rien. Décocher le filtre et recharger avant de
-      // chercher la cible, plutôt que de laisser un clic mort.
+      // silencieusement rien. Décocher le filtre et recharger si besoin
+      // avant de chercher la cible.
       const sourcedOnlyBox = document.getElementById('f-sourced-only');
-      if (sourcedOnlyBox.checked && !document.querySelector(`#editions details[data-ed="${edition.id}"]`)) {
-        // Trouvaille de relecture adverse (2e tour) : sans ce verrou, un
-        // second clic pendant l'await (double-clic, ou clic sur une autre
-        // tuile filtrée) lisait sourcedOnlyBox.checked déjà remis à false
-        // par CE clic-ci, sautait sa propre branche de rechargement, et
-        // retombait dans le même clic mort silencieux qu'avant — juste
-        // décalé d'un clic. Désactiver les tuiles le temps du rechargement
-        // empêche l'entrelacement plutôt que de le détecter après coup.
-        grid.querySelectorAll('[data-explorer-year]').forEach((b) => { b.disabled = true; });
+      if (sourcedOnlyBox.checked) {
         sourcedOnlyBox.checked = false;
-        await loadEditions();
+        await loadEditions(); // sérialisé (voir loadEditions) — jamais deux rechargements concurrents
       }
-      const target = document.querySelector(`#editions details[data-ed="${edition.id}"]`);
-      if (!target) return;
-      target.open = true;
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // La cible peut ne pas encore exister au moment précis où ce clic
+      // s'exécute (rechargement d'une autre origine encore en cours,
+      // désormais sérialisé mais pas instantané) — quelques tentatives
+      // courtes plutôt qu'un clic mort au premier essai raté (trouvaille
+      // de relecture adverse, 3e tour : la fenêtre existe même sans
+      // action de ce clic-ci, dès que #editions est en cours de
+      // reconstruction par un autre appelant de loadEditions()).
+      for (let i = 0; i < 10; i++) {
+        const target = document.querySelector(`#editions details[data-ed="${edition.id}"]`);
+        if (target) {
+          target.open = true;
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return;
+        }
+        await new Promise((r) => setTimeout(r, 100));
+      }
     })
   );
 }
 
-async function loadEditions() {
+// loadEditions() a plusieurs points d'entrée indépendants qui ne se
+// coordonnaient pas (chargement initial, sondage de progression, filtre
+// sourced-only, clic sur une tuile explorateur, génération en lot) —
+// chacun fait son propre `#editions.innerHTML = ''` puis reconstruit par
+// appendChild : deux exécutions concurrentes se marchent dessus et
+// produisent un DOM incohérent (éditions dupliquées ou manquantes),
+// trouvaille de relecture adverse (3e tour, reproduit deux fois avec des
+// résultats différents). Une chaîne de promesses sérialise tous les
+// appels — chacun attend son tour puis s'exécute avec les données/coches
+// à jour au moment où il démarre, jamais en parallèle d'un autre.
+let editionsLoadChain = Promise.resolve();
+function loadEditions() {
+  editionsLoadChain = editionsLoadChain.then(runLoadEditions, runLoadEditions);
+  return editionsLoadChain;
+}
+
+async function runLoadEditions() {
   const editions = await EF.api('/api/editions');
   const box = document.getElementById('editions');
   const sourcedOnly = document.getElementById('f-sourced-only').checked;
