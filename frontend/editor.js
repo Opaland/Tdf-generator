@@ -41,6 +41,25 @@ async function loadChallengeOfTheDay() {
   }
 }
 
+// Suggestion de prochaine étape (backlog #10) : /api/suggest-next pondère
+// par variété de terrain déjà générée, pas par ordre d'ajout — voir la
+// route côté serveur pour l'algorithme et le cas "aucun signal" explicite.
+async function loadSuggestNext() {
+  if (window.EF_STATIC) return;
+  const box = document.getElementById('suggest-box');
+  try {
+    const { suggestion, reason } = await EF.api('/api/suggest-next');
+    if (!suggestion) return;
+    document.getElementById('suggest-text').textContent =
+      `${suggestion.name}${suggestion.stage_type ? ` (${suggestion.stage_type})` : ''}`;
+    document.getElementById('suggest-link').href = `/?id=${suggestion.id}`;
+    document.getElementById('suggest-reason').textContent = reason || '';
+    box.style.display = '';
+  } catch {
+    // Idem : suggestion non essentielle, l'éditeur reste utilisable sans elle.
+  }
+}
+
 function wpRow(wp, i) {
   const li = document.createElement('li');
   // Réordonnancement par glisser-déposer via la poignée ⠿ (en plus des boutons ↑/↓).
@@ -229,6 +248,7 @@ if (typeof document !== 'undefined') {
 document.addEventListener('DOMContentLoaded', async () => {
   await EF.initChrome('editeur');
   loadChallengeOfTheDay();
+  loadSuggestNext();
   map = L.map('map').setView([46.6, 2.6], 6);
   EF.ignLayer().addTo(map);
   markersLayer = L.layerGroup().addTo(map);
