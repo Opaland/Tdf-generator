@@ -23,7 +23,7 @@ module.exports = [
     // l'autre ne doit se voir imposer sa propre déclaration comme un global
     // externe, sinon no-redeclare se déclenche sur le fichier qui la crée).
     files: ['frontend/**/*.js'],
-    ignores: ['frontend/common.js', 'frontend/profile.js'],
+    ignores: ['frontend/common.js', 'frontend/profile.js', 'frontend/compare.js'],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'script',
@@ -43,6 +43,18 @@ module.exports = [
       ecmaVersion: 2022,
       sourceType: 'script',
       globals: { ...globals.browser, ...globals.node },
+    },
+  },
+  {
+    // compare.js : servi tel quel au navigateur ET require()-able côté test
+    // (overlaySVG est une fonction pure, testée directement — voir
+    // test/compare.test.js) grâce à la garde `typeof document`/`typeof
+    // module` — backlog issue #14, "align start" du comparateur.
+    files: ['frontend/compare.js'],
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: 'script',
+      globals: { ...globals.browser, ...globals.node, EF: 'readonly', EFProfile: 'readonly' },
     },
   },
 ];
