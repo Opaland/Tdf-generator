@@ -371,6 +371,57 @@ app.get('/api/stages/:id/similar', wrap(async (req, res) => {
 }));
 
 // ---------------------------------------------------------------- import de traces
+
+/** Bilan personnel « année en cols » (backlog #10, section D) : agrège les
+ * traces importées. Marqueur fiable : `tracks.router = 'trace'`, posé par
+ * une seule ligne de code (pipeline/importTrack.js) qui n'est jamais
+ * atteinte par un autre chemin — ni valeur littérale ailleurs dans le
+ * dépôt, ni champ de requête que POST/PUT /api/stages laisserait passer.
+ * `stages.stage_type` a été écarté volontairement : relecture adverse,
+ * `stage_type` est une chaîne libre acceptée telle quelle par
+ * POST/PUT /api/stages (optionalString, aucune liste blanche) — un
+ * brouillon créé à la main dans l'éditeur avec stage_type: 'trace' se
+ * routerait normalement, finirait state='done', et se ferait passer pour
+ * une sortie réellement parcourue sans jamais toucher importTrackAsStage.
+ * Cols gravis dédupliqués par nom : une même côte grimpée deux fois compte
+ * une fois dans la liste, avec un compteur d'ascensions et l'altitude
+ * sommet la plus haute observée. */
+app.get('/api/traces/summary', wrap(async (req, res) => {
+  const db = getDb();
+  const traces = db
+    .prepare(
+      `SELECT s.id, s.generated_distance_km, s.total_ascent_m
+       FROM stages s JOIN tracks t ON t.stage_id = s.id
+       WHERE t.router = 'trace' AND s.state = 'done'`
+    )
+    .all();
+  if (!traces.length) {
+    return res.json({ traceCount: 0, totalDistanceKm: 0, totalAscentM: 0, highestSummit: null, climbs: [] });
+  }
+  const traceIds = new Set(traces.map((t) => t.id));
+  const allClimbs = db.prepare('SELECT stage_id, name, category, summit_ele_m FROM climbs').all();
+
+  const byName = new Map();
+  let highestSummit = null;
+  for (const c of allClimbs) {
+    if (!traceIds.has(c.stage_id) || !c.name) continue;
+    if (!highestSummit || c.summit_ele_m > highestSummit.summit_ele_m) highestSummit = { name: c.name, summit_ele_m: c.summit_ele_m };
+    const entry = byName.get(c.name) || { name: c.name, count: 0, maxSummitM: 0, bestCategory: null };
+    entry.count += 1;
+    entry.maxSummitM = Math.max(entry.maxSummitM, c.summit_ele_m || 0);
+    if (CLIMB_CATEGORY_RANK[c.category] > (CLIMB_CATEGORY_RANK[entry.bestCategory] || 0)) entry.bestCategory = c.category;
+    byName.set(c.name, entry);
+  }
+
+  res.json({
+    traceCount: traces.length,
+    totalDistanceKm: Math.round(traces.reduce((sum, t) => sum + (t.generated_distance_km || 0), 0) * 10) / 10,
+    totalAscentM: Math.round(traces.reduce((sum, t) => sum + (t.total_ascent_m || 0), 0)),
+    highestSummit,
+    climbs: [...byName.values()].sort((a, b) => b.maxSummitM - a.maxSummitM),
+  });
+}));
+
 // GPX brut dans le corps de la requête → étape « trace » (pipeline aval identique).
 app.post('/api/import/gpx', wrap(async (req, res) => {
   const { points, name } = parseGpx(String(req.body || ''));
