@@ -104,6 +104,14 @@ function renderExplorerGrid(editions) {
       // chercher la cible, plutôt que de laisser un clic mort.
       const sourcedOnlyBox = document.getElementById('f-sourced-only');
       if (sourcedOnlyBox.checked && !document.querySelector(`#editions details[data-ed="${edition.id}"]`)) {
+        // Trouvaille de relecture adverse (2e tour) : sans ce verrou, un
+        // second clic pendant l'await (double-clic, ou clic sur une autre
+        // tuile filtrée) lisait sourcedOnlyBox.checked déjà remis à false
+        // par CE clic-ci, sautait sa propre branche de rechargement, et
+        // retombait dans le même clic mort silencieux qu'avant — juste
+        // décalé d'un clic. Désactiver les tuiles le temps du rechargement
+        // empêche l'entrelacement plutôt que de le détecter après coup.
+        grid.querySelectorAll('[data-explorer-year]').forEach((b) => { b.disabled = true; });
         sourcedOnlyBox.checked = false;
         await loadEditions();
       }
