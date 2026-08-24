@@ -3,7 +3,9 @@
 ![CI](https://github.com/Opaland/Tdf-generator/actions/workflows/ci.yml/badge.svg)
 
 **Générateur d'étapes du Tour de France** — application web 100 % locale : Node.js + SQLite +
-Leaflet/SVG. Aucun compte, aucune dépendance cloud propriétaire.
+Leaflet/SVG. Aucun compte par défaut, aucune dépendance cloud propriétaire (un mur d'accès
+email/mot de passe optionnel existe pour qui veut exposer son instance publiquement, voir
+[docs/DEPLOY-PUBLIC.md](docs/DEPLOY-PUBLIC.md)).
 
 Positionnement : là où [la-flamme-rouge.eu](https://la-flamme-rouge.eu) est un éditeur de
 parcours qu'on trace à la souris, ÉtapeForge part d'une simple liste de lieux et laisse le
