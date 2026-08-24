@@ -28,7 +28,9 @@ Pipeline (pipeline/generate.js, orchestrateur)
   1. géocodage    (pipeline/geocode.js)    → IGN/Géoplateforme, repli Nominatim
   2. routage      (pipeline/routing.js)    → OSRM
   3. altimétrie   (pipeline/elevation.js)  → opentopodata
-  4. côtes/descentes (pipeline/climbs.js, pipeline/descents.js) → calcul local
+  4. côtes/descentes (pipeline/climbs.js, pipeline/descents.js) → géocodage
+     inverse pour le nom (mêmes fournisseurs qu'à l'étape 1), catégorisation
+     par calcul local
   5. analyse km/km   (pipeline/kmanalysis.js)                   → calcul local
   6. audits qualité  (pipeline/checks.js)                       → calcul local
         │
@@ -66,17 +68,24 @@ Détail et justification complète : [`BRIEF.md`](./BRIEF.md#ce-quon-ne-fera-pas
 ## FAQ anticipée
 
 **Ça marche sans connexion Internet ?**
-Le mode démo (`npm run demo`) et toute la suite de tests tournent en mode
-hors-ligne (simulateur déterministe) — reproductible partout, y compris pour
-la présentation elle-même. La génération réelle (vrais tracés, vraie
-altimétrie) a besoin d'un accès aux APIs publiques citées ci-dessus.
+Le mode démo (`npm run demo`) tourne en mode hors-ligne (simulateur
+déterministe, `ETAPEFORGE_OFFLINE=1`) — reproductible partout, y compris
+pour la présentation elle-même. La suite de tests (`npm test`) ne dépend du
+réseau non plus, par plusieurs mécanismes selon le fichier (simulateur
+hors-ligne, `fetch` mocké, ou serveur HTTP local monté pour le test) — jamais
+un vrai appel vers une API externe. La génération réelle (vrais tracés,
+vraie altimétrie) a besoin d'un accès aux APIs publiques citées ci-dessus.
 
 **Mes données partent quelque part ?**
-Non. Tout est stocké dans un seul fichier SQLite local. Les seuls appels
-sortants sont vers les fournisseurs de géocodage/routage/altimétrie listés
-ci-dessus (aucune donnée personnelle envoyée, juste des coordonnées/requêtes
-de lieux) — visibles en direct sur `GET /api/diagnostic`
-([`docs/CONTINUITE-APIS.md`](./CONTINUITE-APIS.md)).
+Tout est stocké dans un seul fichier SQLite local. En usage par défaut, les
+seuls appels sortants sont vers les fournisseurs de géocodage/routage/
+altimétrie ci-dessus (coordonnées/requêtes de lieux, pas de donnée
+personnelle) — visibles en direct sur `GET /api/diagnostic`
+([`docs/CONTINUITE-APIS.md`](./CONTINUITE-APIS.md)). Deux intégrations
+**opt-in**, désactivées tant qu'elles ne sont pas explicitement configurées,
+font exception : la connexion Suunto (`backend/suunto.js`, OAuth2 vers
+`suunto.com`, pour importer ses propres activités) et un webhook de
+notification vers une URL au choix (`backend/notify.js`, Slack/Discord/ntfy).
 
 **Combien de temps prend la génération d'une étape ?**
 Mesuré, pas supposé (CLAUDE.md règle 9) : le pipeline lui-même (calcul +
