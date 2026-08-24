@@ -153,3 +153,78 @@ test('GET /api/stages/:id/export.html : étape introuvable → erreur JSON propr
   const text = await res.text();
   assert.ok(!text.includes('/home/'), 'aucun chemin de fichier serveur dans la réponse');
 });
+
+test('GET /api/stages/:id/export.tcx : XML bien formé, noms tronqués au format TCX (Course 15 car., CoursePoint 10 car.)', async () => {
+  const { generateStage } = require('../pipeline/generate');
+  const create = await (await fetch(`${base}/api/stages`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name: 'Étape 18 : Pau → Bagnères-de-Luchon via le Tourmalet',
+      waypoints: [
+        { label: 'Bagnères-de-Luchon' },
+        { label: 'Col du Tourmalet', kind: 'col' },
+        { label: 'Pau' },
+      ],
+    }),
+  })).json();
+  await generateStage(create.id);
+
+  const res = await fetch(`${base}/api/stages/${create.id}/export.tcx`);
+  assert.strictEqual(res.status, 200);
+  assert.ok(res.headers.get('content-disposition')?.includes('attachment'));
+  assert.ok(res.headers.get('content-type')?.includes('tcx'));
+  const xml = await res.text();
+
+  // XML bien formé : parse sans lever d'exception (pas de balise mal fermée,
+  // pas de caractère spécial non échappé dans les Name/Notes interpolés).
+  assert.doesNotThrow(() => {
+    if (!xml.startsWith('<?xml')) throw new Error('pas de prologue XML');
+    const stack = [];
+    const tagRe = /<\/?([a-zA-Z][\w:]*)[^>]*?(\/)?>/g;
+    let m;
+    while ((m = tagRe.exec(xml))) {
+      const [full, tag, selfClose] = m;
+      if (selfClose || full.startsWith('<?')) continue;
+      if (full.startsWith('</')) {
+        const top = stack.pop();
+        if (top !== tag) throw new Error(`fermeture inattendue </${tag}>, attendu </${top}>`);
+      } else {
+        stack.push(tag);
+      }
+    }
+    if (stack.length) throw new Error(`balises non fermées : ${stack.join(',')}`);
+  });
+
+  assert.match(xml, /<TrainingCenterDatabase/);
+  assert.match(xml, /<Trackpoint>/);
+  assert.match(xml, /<CoursePoint>/);
+
+  // Le nom de l'étape (39 caractères) dépasse la limite TCX de 15 caractères
+  // pour Course/Name (RestrictedToken_t) — doit être tronqué, pas rejeté.
+  const courseName = xml.match(/<Course>\s*<Name>([^<]*)<\/Name>/)?.[1];
+  assert.ok(courseName && courseName.length <= 15, `Course/Name doit tenir en 15 car. (reçu "${courseName}")`);
+
+  // "Col du Tourmalet" (17 caractères) dépasse la limite TCX de 10 caractères
+  // pour CoursePointName_t — doit être tronqué dans <Name>, mais le libellé
+  // complet doit rester lisible dans <Notes> (non contraint par le schéma).
+  const names = [...xml.matchAll(/<CoursePoint>[\s\S]*?<Name>([^<]*)<\/Name>/g)].map((m) => m[1]);
+  assert.ok(names.length > 0, 'au moins un CoursePoint généré (via ou côte)');
+  for (const n of names) assert.ok(n.length <= 10, `CoursePoint/Name doit tenir en 10 car. (reçu "${n}")`);
+  assert.match(xml, /Col du Tourmalet/, 'le libellé complet doit rester lisible dans <Notes>');
+});
+
+test('GET /api/stages/:id/export.tcx : étape non générée → 404 propre, pas de plantage sur samples vide', async () => {
+  const create = await (await fetch(`${base}/api/stages`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: 'Étape jamais générée', waypoints: [{ label: 'Pau' }, { label: 'Tarbes' }] }),
+  })).json();
+  const res = await fetch(`${base}/api/stages/${create.id}/export.tcx`);
+  assert.strictEqual(res.status, 404);
+});
+
+test('GET /api/stages/:id/export.tcx : étape introuvable → erreur JSON propre, pas 500 avec fuite de stack', async () => {
+  const res = await fetch(`${base}/api/stages/999999/export.tcx`);
+  assert.notStrictEqual(res.status, 200);
+  const text = await res.text();
+  assert.ok(!text.includes('/home/'), 'aucun chemin de fichier serveur dans la réponse');
+});

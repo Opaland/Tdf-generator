@@ -60,6 +60,102 @@ ${pts}
 </gpx>`;
 }
 
+// Catégorie de côte → PointType_t du schéma TCX (garmin-dev/tcx.xsd) : cette
+// énumération porte directement les catégories ASO (4th/3rd/2nd/1st/Hors
+// Category), pas besoin d'inventer un mapping.
+const TCX_CLIMB_POINT_TYPE = {
+  HC: 'Hors Category', 1: '1st Category', 2: '2nd Category', 3: '3rd Category', 4: '4th Category',
+};
+
+/** Tronque à `n` caractères — CoursePointName_t (10) et le nom de Course
+ * (RestrictedToken_t, 15) sont strictement bornés par le schéma TCX ;
+ * le libellé complet reste toujours disponible dans Notes (non borné). */
+function tcxToken(s, n) {
+  const str = String(s ?? '').trim();
+  return str.length > n ? str.slice(0, n) : str;
+}
+
+/** TCX 2 (Course) du tracé — Trackpoint/CoursePoint exigent un `Time`
+ * (xsd:dateTime) même pour un parcours planifié sans données de sortie
+ * réelle ; synthétisé à une vitesse moyenne conventionnelle (25 km/h) à
+ * partir de la date de l'étape (ou d'une date arbitraire si absente),
+ * pour rester croissant et proportionnel à la distance plutôt qu'une
+ * valeur figée qui casserait l'ordre attendu par certains lecteurs. */
+function stageToTcx(full) {
+  const { stage, samples, waypoints, climbs, track } = full;
+  const AVG_SPEED_MPS = 25000 / 3600;
+  const baseTime = new Date(`${stage.date || '2024-01-01'}T08:00:00Z`).getTime();
+  const timeAt = (distM) => new Date(baseTime + (distM / AVG_SPEED_MPS) * 1000).toISOString();
+
+  const coursePoints = waypoints
+    .filter((w) => w.lat != null)
+    .map((w) => {
+      const pointType = w.kind === 'col' ? 'Summit' : 'Generic';
+      return `    <CoursePoint>\n` +
+        `      <Name>${esc(tcxToken(w.label, 10))}</Name>\n` +
+        `      <Time>${timeAt(0)}</Time>\n` +
+        `      <Position><LatitudeDegrees>${w.lat}</LatitudeDegrees><LongitudeDegrees>${w.lon}</LongitudeDegrees></Position>\n` +
+        `      <PointType>${pointType}</PointType>\n` +
+        `      <Notes>${esc(w.label)}</Notes>\n` +
+        `    </CoursePoint>`;
+    })
+    .concat(
+      (climbs || []).map((c) => {
+        let best = samples[0];
+        for (const s of samples) {
+          if (Math.abs(s.dist_m - c.end_km * 1000) < Math.abs(best.dist_m - c.end_km * 1000)) best = s;
+        }
+        if (!best) return '';
+        const pointType = TCX_CLIMB_POINT_TYPE[c.category] || 'Summit';
+        return `    <CoursePoint>\n` +
+          `      <Name>${esc(tcxToken(c.name, 10))}</Name>\n` +
+          `      <Time>${timeAt(best.dist_m)}</Time>\n` +
+          `      <Position><LatitudeDegrees>${best.lat.toFixed(6)}</LatitudeDegrees><LongitudeDegrees>${best.lon.toFixed(6)}</LongitudeDegrees></Position>\n` +
+          `      <AltitudeMeters>${c.summit_ele_m}</AltitudeMeters>\n` +
+          `      <PointType>${pointType}</PointType>\n` +
+          `      <Notes>${esc(c.name)} — cat. ${esc(c.category)}, ${c.length_km} km à ${c.avg_gradient} % (max ${c.max_gradient} %)</Notes>\n` +
+          `    </CoursePoint>`;
+      })
+    )
+    .filter(Boolean)
+    .join('\n');
+
+  const trackpoints = samples
+    .map(
+      (s) =>
+        `      <Trackpoint>\n` +
+        `        <Time>${timeAt(s.dist_m)}</Time>\n` +
+        `        <Position><LatitudeDegrees>${s.lat.toFixed(6)}</LatitudeDegrees><LongitudeDegrees>${s.lon.toFixed(6)}</LongitudeDegrees></Position>\n` +
+        `        <AltitudeMeters>${s.ele_raw_m ?? 0}</AltitudeMeters>\n` +
+        `        <DistanceMeters>${s.dist_m.toFixed(1)}</DistanceMeters>\n` +
+        `      </Trackpoint>`
+    )
+    .join('\n');
+
+  const totalDistM = track ? track.distance_m : (samples[samples.length - 1]?.dist_m || 0);
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<TrainingCenterDatabase xmlns="http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2 http://www.garmin.com/xmlschemas/TrainingCenterDatabasev2.xsd">
+  <Courses>
+    <Course>
+      <Name>${esc(tcxToken(stage.name, 15))}</Name>
+      <Lap>
+        <TotalTimeSeconds>${(totalDistM / AVG_SPEED_MPS).toFixed(0)}</TotalTimeSeconds>
+        <DistanceMeters>${totalDistM.toFixed(1)}</DistanceMeters>
+        <Intensity>Active</Intensity>
+      </Lap>
+      <Track>
+${trackpoints}
+      </Track>
+${coursePoints}
+      <Notes>${esc(stage.name)} — Généré par ÉtapeForge. Horaires synthétiques (vitesse moyenne conventionnelle 25 km/h), pas une sortie réellement enregistrée.</Notes>
+    </Course>
+  </Courses>
+</TrainingCenterDatabase>`;
+}
+
 // Décimation partagée avec le frontend (profile.js expose aussi module.exports).
 const { decimate } = require('../frontend/profile');
 
@@ -311,4 +407,4 @@ document.addEventListener('DOMContentLoaded', () => {
 </html>`;
 }
 
-module.exports = { stageToGpx, stagePayload, tourToStandaloneHtml, stageToStandaloneHtml, decimate, ATTRIBUTIONS };
+module.exports = { stageToGpx, stageToTcx, stagePayload, tourToStandaloneHtml, stageToStandaloneHtml, decimate, ATTRIBUTIONS };

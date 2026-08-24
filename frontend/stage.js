@@ -243,12 +243,14 @@ function renderFiche() {
   if (window.EF_STATIC) {
     document.getElementById('exp-json').href = `data/stage-${stageId}.json`;
     document.getElementById('exp-gpx').style.display = 'none';
+    document.getElementById('exp-tcx').style.display = 'none';
     document.getElementById('exp-html').style.display = 'none';
     document.getElementById('btn-regen').style.display = 'none';
     document.getElementById('btn-edit').style.display = 'none';
   } else {
     document.getElementById('exp-json').href = `/api/stages/${stageId}/export.json`;
     document.getElementById('exp-gpx').href = `/api/stages/${stageId}/export.gpx`;
+    document.getElementById('exp-tcx').href = `/api/stages/${stageId}/export.tcx`;
     document.getElementById('exp-html').href = `/api/stages/${stageId}/export.html`;
   }
   document.getElementById('exp-png').addEventListener('click', () => {
