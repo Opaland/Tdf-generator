@@ -9,11 +9,11 @@ recopier sans référence (CLAUDE.md règle 9).
 ## En une phrase
 
 **Générateur d'étapes du Tour de France** — 100 % local (Node.js + SQLite),
-qui reconstruit automatiquement une étape (historique 1903→aujourd'hui, ou
-imaginée) sur le réseau routier actuel : donner une liste de lieux, obtenir
-un tracé routé, une altimétrie échantillonnée et des côtes catégorisées
-HC/1/2/3/4 — sans repasser chaque étape à la main. Détail du positionnement
-et des concurrents étudiés : [`BRIEF.md`](./BRIEF.md).
+qui reconstruit automatiquement une étape (historique, ou imaginée) sur le
+réseau routier actuel : donner une liste de lieux, obtenir un tracé routé,
+une altimétrie échantillonnée et des côtes catégorisées HC (hors catégorie,
+la plus dure) à 4 (la plus facile) — sans repasser chaque étape à la main.
+Détail du positionnement et des concurrents étudiés : [`BRIEF.md`](./BRIEF.md).
 
 ## Architecture, en une image mentale
 
@@ -39,16 +39,28 @@ SQLite (backend/db.js, better-sqlite3) — une seule base fichier, sauvegarde
 automatique optionnelle (backend/backup.js)
 ```
 
-Import historique (1903→2026) : `pipeline/wikipedia.js` (parseur DOM réel,
+Import historique : `pipeline/wikipedia.js` (parseur DOM réel,
 `node-html-parser`) lit la liste d'étapes d'une année sur Wikipédia,
 `pipeline/importer.js` crée les étapes + waypoints, puis le même pipeline
 ci-dessus les génère une par une — **aucun chemin de code séparé** entre une
-étape créée dans l'éditeur et une étape historique importée.
+étape créée dans l'éditeur et une étape historique importée. **N'importe
+quelle année depuis 1903 s'importe** (villes de départ/arrivée), mais les
+points de passage intermédiaires sourcés (cols, villes d'époque vérifiées) —
+donc une reconstitution fidèle plutôt qu'une ligne droite — n'existent que
+pour **21 années curées à la main** (`pipeline/data/historic_routes.json` :
+1903-1913-1919-1922-1926-1934-1947-1951-1952-1975-1989, et 2020→2026 en
+détail). Une année non curée importe quand même — badge « reconstruction
+partielle » affiché, jamais masqué (`frontend/archives.js`). Si le public
+demande une année précise en direct, vérifier d'abord qu'elle est dans cette
+liste avant de promettre un tracé détaillé.
 
 **Offline-first, pas une option cachée** : `pipeline/http.js` bascule tout
 appel réseau vers un simulateur déterministe (`ETAPEFORGE_OFFLINE=1`) —
-c'est le mode utilisé par `npm run demo` et par tous les tests, pas un mode
-dégradé secondaire. `pipeline/rateLimiter.js` et `pipeline/cache.js`
+c'est le mode utilisé par `npm run demo`, pas un mode dégradé secondaire.
+La suite de tests (`npm test`) reste elle aussi sans dépendance réseau
+réelle, par plusieurs mécanismes selon le fichier (voir la question « Ça
+marche sans connexion Internet ? » ci-dessous pour le détail — pas un
+mécanisme unique). `pipeline/rateLimiter.js` et `pipeline/cache.js`
 protègent les APIs publiques gratuites en usage réel (pas de clé payante nulle
 part, voir `docs/CONTINUITE-APIS.md`).
 
@@ -129,7 +141,9 @@ confondre :
   Le Tour de France Femmes est cadré (le modèle de données actuel utilise
   l'année seule comme clé d'édition — importer Femmes et Hommes la même
   année écraserait silencieusement l'un des deux) mais pas livré : ça
-  suppose une décision d'architecture avant le code.
+  suppose une décision d'architecture avant le code. Le **vrai parcours 2027**
+  (`scripts/demo-2027.js` reste hypothétique) attend l'annonce officielle
+  ASO, pas encore sortie — pas un blocage technique, un calendrier externe.
 - **Décision volontairement laissée à l'utilisateur, pas prise en autonome**
   — durcissement des identifiants Suunto stockés en clair en base (acceptable
   en LAN strict, à revoir si l'app est un jour exposée au-delà), points de
@@ -142,3 +156,10 @@ Choix assumé, pas un oubli : cohérent avec « aucune dépendance inutile »
 (5 dépendances directes en tout). Le détail de ce que ça implique pour le
 design (duplication volontaire de certaines valeurs CSS plutôt qu'une
 abstraction prématurée) est dans [`docs/DESIGN_SYSTEM.md`](./DESIGN_SYSTEM.md).
+
+**Le code est disponible, sous quelle licence ?**
+Oui — [github.com/Opaland/Tdf-generator](https://github.com/Opaland/Tdf-generator),
+licence [MIT](../LICENSE). Les données historiques importées de Wikipédia
+(`pipeline/data/historic_routes.json`, `pipeline/fixtures/`) restent sous
+leur licence d'origine CC BY-SA, distincte du code — détail dans
+[`NOTICE.md`](../NOTICE.md).
