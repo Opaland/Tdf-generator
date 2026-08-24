@@ -285,7 +285,7 @@ function renderFiche() {
     // segments approximés en surimpression
     for (const seg of track.approx_segments || []) {
       const sub = FULL.samples.filter((s) => s.dist_m >= seg.fromM && s.dist_m <= seg.toM).map((s) => [s.lat, s.lon]);
-      if (sub.length > 1) L.polyline(sub, { color: '#f08c00', weight: 4, dashArray: '6 6' }).addTo(map).bindTooltip('segment approximé : ' + seg.reason);
+      if (sub.length > 1) L.polyline(sub, { color: '#f08c00', weight: 4, dashArray: '6 6' }).addTo(map).bindTooltip('segment approximé : ' + EF.esc(seg.reason));
     }
     map.fitBounds(coords, { padding: [30, 30] });
     setupProfileMapHover(payload, map);
@@ -317,7 +317,7 @@ function renderFiche() {
       const s = sampleAt(c.end_km * 1000);
       const cc = EFProfile.CAT_COLORS[c.category] || '#999';
       L.marker([s.lat, s.lon], { icon: icon(`<div style="background:${cc};color:#fff;border-radius:50%;width:22px;height:22px;font-size:10px;font-weight:700;text-align:center;line-height:22px;border:2px solid #fff">${c.category}</div>`) })
-        .bindTooltip(`${c.name} — ${c.summit_ele_m} m`).addTo(map);
+        .bindTooltip(`${EF.esc(c.name)} — ${c.summit_ele_m} m`).addTo(map);
     }
   }
 
