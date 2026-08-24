@@ -8,6 +8,39 @@ let markersLayer;
 let waypoints = []; // {label, kind, lat, lon}
 let editingId = null; // id de l'étape en cours de modification (mode édition)
 
+/**
+ * Défi du jour (backlog #10, section D) : suggère une édition mythique au
+ * chargement de l'écran d'accueil, pour donner une raison de revenir
+ * régulièrement — réutilise historicHighlights() (déjà la source des
+ * vignettes Archives, backlog #10 section D antérieur), pas une nouvelle
+ * notion de donnée. Index dérivé de la date du jour (pas Math.random()) :
+ * le même défi toute la journée pour tout le monde, change le lendemain.
+ * Absent en mode EF_STATIC (démo GitHub Pages en lecture seule) — l'endpoint
+ * /api/editions/highlights n'a pas d'équivalent statique pré-généré, et une
+ * incitation « revenez demain » n'a pas de sens sur une démo figée.
+ */
+/** Index stable pour une date donnée (même jour → même index, partout, sans Math.random()). */
+function challengeIndexForDate(date, length) {
+  const seed = date.getFullYear() * 372 + date.getMonth() * 31 + date.getDate();
+  return ((seed % length) + length) % length;
+}
+
+async function loadChallengeOfTheDay() {
+  if (window.EF_STATIC) return;
+  const box = document.getElementById('challenge-box');
+  try {
+    const highlights = await EF.api('/api/editions/highlights');
+    if (!highlights.length) return;
+    const pick = highlights[challengeIndexForDate(new Date(), highlights.length)];
+    document.getElementById('challenge-text').textContent = `${pick.year} — ${pick.highlight}`;
+    document.getElementById('challenge-link').href = `/archives.html?year=${pick.year}&auto=1`;
+    box.style.display = '';
+  } catch {
+    // Pas de backend joignable, ou highlights indisponible : la suggestion
+    // n'est pas essentielle, l'éditeur reste utilisable sans elle.
+  }
+}
+
 function wpRow(wp, i) {
   const li = document.createElement('li');
   // Réordonnancement par glisser-déposer via la poignée ⠿ (en plus des boutons ↑/↓).
@@ -190,8 +223,12 @@ async function loadForEdit(id) {
   render();
 }
 
+// Garde typeof : challengeIndexForDate est une fonction pure, testée
+// directement (voir test/editor.test.js) sans DOM.
+if (typeof document !== 'undefined') {
 document.addEventListener('DOMContentLoaded', async () => {
   await EF.initChrome('editeur');
+  loadChallengeOfTheDay();
   map = L.map('map').setView([46.6, 2.6], 6);
   EF.ignLayer().addTo(map);
   markersLayer = L.layerGroup().addTo(map);
@@ -278,3 +315,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 });
+}
+
+if (typeof module !== 'undefined' && module.exports) module.exports = { challengeIndexForDate };
