@@ -408,6 +408,7 @@ cousin dont plusieurs idées de ce README/backlog sont directement reprises).
 | [`docs/PERSONAS.md`](./docs/PERSONAS.md) | Six personnes suivies pas à pas, et l'endroit exact où elles s'arrêtent |
 | [`docs/DESIGN_SYSTEM.md`](./docs/DESIGN_SYSTEM.md) | Couleurs, espacement, boutons — et **pourquoi certaines duplications ne doivent pas être « corrigées »** |
 | [`CLAUDE.md`](./CLAUDE.md) | Les règles de travail qu'aucune machine ne vérifie — chacune vient d'un raté réel, daté |
+| [`docs/DATA-BACKEND.md`](./docs/DATA-BACKEND.md) | Faut-il un backend de gestion des données de référence curées — état des lieux, pistes, pas de décision prise |
 | [issue #10](https://github.com/Opaland/Tdf-generator/issues/10) | Le backlog détaillé, par thème |
 | [issue #14](https://github.com/Opaland/Tdf-generator/issues/14) | L'étude concurrentielle — contre qui, quelles idées en retenir |
 
