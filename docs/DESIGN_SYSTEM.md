@@ -20,20 +20,25 @@ bibliothèque de composants, cohérent avec l'absence de framework frontend
 | `--texte2` | `#6b6b6b` | Texte secondaire (`.meta-line`, libellés) |
 | `--ok` | `#27764a` | Statut positif (checks, badge « générée ») |
 | `--warn` | `#a15818` | Statut d'avertissement (checks, badge « génération… ») |
-| `--fail` | `#d7263d` | Statut d'échec |
+| `--fail` | `#b01c2f` | Statut d'échec |
 
-**`--ok` et `--warn` ont été assombris en PR #24** (contraste WCAG AA
-insuffisant trouvé lors de l'audit UI/UX, [#18](https://github.com/Opaland/Tdf-generator/issues/18)) :
+**`--ok`, `--warn` et `--fail` ont été assombris** (contraste WCAG AA
+insuffisant trouvé lors de l'audit UI/UX puis verrouillé par
+`test/contrast.test.js`, [#18](https://github.com/Opaland/Tdf-generator/issues/18)) :
 
-- `--warn` : `#e67e22` → `#a15818` — 2.85:1 → **5.35:1** sur blanc, 2.53:1 →
-  **4.75:1** sur le fond du badge « génération… » (`#fdf0d8`).
-- `--ok` : `#2e8b57` → `#27764a` — 4.25:1 → **5.56:1** sur blanc, → **4.60:1**
-  sur le fond du badge « générée » (`#d9efe1`).
+- `--warn` : `#e67e22` → `#a15818` (PR #24) — 2.85:1 → **5.35:1** sur blanc,
+  2.53:1 → **4.75:1** sur le fond du badge « génération… » (`#fdf0d8`).
+- `--ok` : `#2e8b57` → `#27764a` (PR #24) — 4.25:1 → **5.56:1** sur blanc, →
+  **4.60:1** sur le fond du badge « générée » (`#d9efe1`).
+- `--fail` : `#d7263d` → `#b01c2f` (PR #87, trouvé en écrivant
+  `test/contrast.test.js` — jamais mesuré lors du correctif de #18 à
+  l'époque, qui ne portait que sur `--ok`/`--warn`) — 3.87:1 → **5.36:1** sur
+  le fond du badge d'erreur (`#fbdcdc`), → **6.88:1** sur blanc.
 
-**Ne pas revenir aux teintes plus vives sans recalculer ces ratios.** La
-formule WCAG 2.1 (luminance relative sRGB) utilisée pour ce calcul est simple
-à rejouer — un script Node de dix lignes suffit — avant toute retouche de
-palette.
+**Ne pas revenir aux teintes plus vives sans faire passer
+`npm test -- test/contrast.test.js`** (ou recalculer les ratios à la main —
+la formule WCAG 2.1, luminance relative sRGB, est simple à rejouer) avant
+toute retouche de palette.
 
 ## Typographie
 
