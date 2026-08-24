@@ -66,15 +66,39 @@ function findUnescapedRiskyAccess(node, found) {
   }
 }
 
+// name -> corps de la fonction, pour résoudre bindPopup(stagePopupHtml(st))
+// vers la fonction locale plutôt que de traiter l'appel comme opaque. Les
+// deux formes de déclaration au niveau fichier sont indexées : la classique
+// (`function f(x) {...}`) ET la fonction fléchée assignée à une const
+// (`const f = (x) => ...`), tout aussi courante dans ce code — un test qui
+// n'en résolvait qu'une seule aurait un angle mort dormant à la prochaine
+// refactorisation de style (trouvaille de relecture adverse, reproduite en
+// transformant stagePopupHtml() en arrow function tout en réintroduisant la
+// régression : le test passait à tort avant ce correctif).
+function collectTopLevelFns(ast) {
+  const fns = new Map();
+  for (const stmt of ast.body) {
+    if (stmt.type === 'FunctionDeclaration' && stmt.id) {
+      fns.set(stmt.id.name, stmt.body);
+    } else if (stmt.type === 'VariableDeclaration') {
+      for (const decl of stmt.declarations) {
+        if (
+          decl.id.type === 'Identifier' &&
+          decl.init &&
+          (decl.init.type === 'ArrowFunctionExpression' || decl.init.type === 'FunctionExpression')
+        ) {
+          fns.set(decl.id.name, decl.init.body);
+        }
+      }
+    }
+  }
+  return fns;
+}
+
 /** [{prop, line}] pour chaque bindPopup()/bindTooltip() du source qui interpole un champ risqué sans EF.esc(). */
 function findUnsafeBindCalls(src, topLevelFns) {
   const ast = espree.parse(src, { ecmaVersion: 2022, sourceType: 'script', loc: true });
-  const fns = topLevelFns || new Map();
-  if (!topLevelFns) {
-    for (const stmt of ast.body) {
-      if (stmt.type === 'FunctionDeclaration' && stmt.id) fns.set(stmt.id.name, stmt);
-    }
-  }
+  const fns = topLevelFns || collectTopLevelFns(ast);
   const offenders = [];
   (function walk(node) {
     if (!node || typeof node.type !== 'string') return;
@@ -86,10 +110,8 @@ function findUnsafeBindCalls(src, topLevelFns) {
       node.arguments.length
     ) {
       let target = node.arguments[0];
-      // bindPopup(stagePopupHtml(st)) : analyse le corps de la fonction
-      // locale plutôt que l'appel opaque.
       if (target.type === 'CallExpression' && target.callee.type === 'Identifier' && fns.has(target.callee.name)) {
-        target = fns.get(target.callee.name).body;
+        target = fns.get(target.callee.name);
       }
       const found = [];
       findUnescapedRiskyAccess(target, found);
@@ -107,15 +129,8 @@ function findUnsafeBindCalls(src, topLevelFns) {
 
 function analyzeFile(file) {
   const src = fs.readFileSync(path.join(FRONTEND_DIR, file), 'utf8');
-  const topLevelFns = new Map();
-  // Résout aussi les fonctions déclarées au niveau fichier (ex.
-  // tourmap.js: stagePopupHtml()) dont bindPopup() passe le résultat plutôt
-  // qu'un littéral directement.
   const ast = espree.parse(src, { ecmaVersion: 2022, sourceType: 'script', loc: true });
-  for (const stmt of ast.body) {
-    if (stmt.type === 'FunctionDeclaration' && stmt.id) topLevelFns.set(stmt.id.name, stmt);
-  }
-  return findUnsafeBindCalls(src, topLevelFns).map(
+  return findUnsafeBindCalls(src, collectTopLevelFns(ast)).map(
     (o) => `${file}:${o.line} — .${o.method}() interpole .${o.prop} sans EF.esc()`
   );
 }
@@ -140,10 +155,31 @@ test('le test ne signale pas un bindTooltip déjà échappé (pas de faux positi
   assert.deepStrictEqual(offenders, []);
 });
 
-test('le test résout un bindPopup(fn(x)) vers la fonction locale et y détecte un champ non échappé', () => {
+test('le test résout un bindPopup(fn(x)) vers une function déclarée classique (function f(x){...})', () => {
   const offenders = findUnsafeBindCalls(
     "function popupHtml(s) { return `<b>${s.name}</b>`; } line.bindPopup(popupHtml(st));"
   );
+  assert.strictEqual(offenders.length, 1);
+  assert.strictEqual(offenders[0].prop, 'name');
+});
+
+// Angle mort trouvé par relecture adverse : la première version ne résolvait
+// que les FunctionDeclaration, jamais une fonction fléchée assignée à une
+// const — reproduit concrètement en transformant tourmap.js:stagePopupHtml()
+// en `const stagePopupHtml = (st) => {...}` tout en réintroduisant la
+// régression exacte (s.date/s.stage_type non échappés) : le test passait à
+// tort (0 trouvaille). Verrouillé ici pour ne pas le perdre si le fichier
+// réel passe un jour à ce style, courant dans le reste du dépôt.
+test('le test résout un bindPopup(fn(x)) vers une fonction fléchée assignée (const f = (x) => {...})', () => {
+  const offenders = findUnsafeBindCalls(
+    "const popupHtml = (s) => { return `<b>${s.name}</b>`; }; line.bindPopup(popupHtml(st));"
+  );
+  assert.strictEqual(offenders.length, 1);
+  assert.strictEqual(offenders[0].prop, 'name');
+});
+
+test('le test résout un bindPopup(fn(x)) vers une fonction fléchée à corps expression (const f = (x) => `...`)', () => {
+  const offenders = findUnsafeBindCalls('const popupHtml = (s) => `<b>${s.name}</b>`; line.bindPopup(popupHtml(st));');
   assert.strictEqual(offenders.length, 1);
   assert.strictEqual(offenders[0].prop, 'name');
 });
