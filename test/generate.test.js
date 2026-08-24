@@ -100,6 +100,31 @@ test('loadStageFull : pain reste défini (mais sans fatigue) pour une étape hor
   assert.ok(full.pain.score > 0);
 });
 
+test('loadStageFull : expose les descentes persistées, blocs km décodés (backlog #10)', () => {
+  const db = getDb();
+  const st = db.prepare(`INSERT INTO stages (name, state) VALUES ('Étape avec descente', 'done')`).run();
+  const stageId = st.lastInsertRowid;
+  db.prepare(
+    `INSERT INTO descents (stage_id, name, start_km, end_km, length_km, top_ele_m, bottom_ele_m,
+       avg_gradient, max_gradient, irregularity_index, km_blocks, name_source)
+     VALUES (?, 'Descente du Tourmalet', 10, 18, 8, 2000, 1520, -6, -9.5, 1.2, ?, 'climb-summit')`
+  ).run(stageId, JSON.stringify([{ fromM: 10000, toM: 11000, ele0: 2000, ele1: 1940, gradient: -6 }]));
+  const full = loadStageFull(stageId);
+  assert.strictEqual(full.descents.length, 1);
+  const d = full.descents[0];
+  assert.strictEqual(d.name, 'Descente du Tourmalet');
+  assert.strictEqual(d.avg_gradient, -6);
+  assert.ok(Array.isArray(d.km_blocks), 'km_blocks doit être décodé du JSON stocké, pas laissé en chaîne');
+  assert.strictEqual(d.km_blocks.length, 1);
+});
+
+test('loadStageFull : descents est un tableau vide (pas undefined) pour une étape sans descente détectée', () => {
+  const db = getDb();
+  const st = db.prepare(`INSERT INTO stages (name, state) VALUES ('Étape plate', 'done')`).run();
+  const full = loadStageFull(st.lastInsertRowid);
+  assert.deepStrictEqual(full.descents, []);
+});
+
 test('generateStage : un seul waypoint → refusé sans toucher l\'état de l\'étape', async () => {
   const db = getDb();
   const r = db.prepare(`INSERT INTO stages (name, state) VALUES ('Étape incomplète', 'draft')`).run();

@@ -33,7 +33,7 @@ after(() => {
 
 beforeEach(() => {
   const db = getDb();
-  for (const t of ['km_analysis', 'climbs', 'elevation_samples', 'tracks', 'waypoints', 'stages', 'editions']) {
+  for (const t of ['km_analysis', 'descents', 'climbs', 'elevation_samples', 'tracks', 'waypoints', 'stages', 'editions']) {
     db.prepare(`DELETE FROM ${t}`).run();
   }
 });
@@ -77,7 +77,7 @@ test('GET /api/backup/export : base vide → toutes les tables présentes, vides
   const dump = await exportBackup();
   assert.strictEqual(dump.version, 1);
   assert.ok(dump.exported_at);
-  for (const t of ['editions', 'stages', 'waypoints', 'tracks', 'elevation_samples', 'climbs', 'km_analysis']) {
+  for (const t of ['editions', 'stages', 'waypoints', 'tracks', 'elevation_samples', 'climbs', 'descents', 'km_analysis']) {
     assert.deepStrictEqual(dump.tables[t], [], `${t} doit être un tableau vide`);
   }
 });

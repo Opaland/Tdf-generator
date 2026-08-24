@@ -90,6 +90,20 @@ CREATE TABLE IF NOT EXISTS climbs (
 );
 CREATE INDEX IF NOT EXISTS idx_climbs_stage ON climbs(stage_id);
 
+CREATE TABLE IF NOT EXISTS descents (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  stage_id INTEGER NOT NULL REFERENCES stages(id) ON DELETE CASCADE,
+  name TEXT,
+  start_km REAL, end_km REAL,
+  length_km REAL,
+  top_ele_m REAL, bottom_ele_m REAL,
+  avg_gradient REAL, max_gradient REAL,  -- négatifs (pente descendante)
+  irregularity_index REAL,     -- écart-type des pentes par bloc de 1 km, même mesure que climbs.irregularity_index
+  km_blocks TEXT,              -- JSON : blocs de 1 km [{fromM,toM,ele0,ele1,gradient}]
+  name_source TEXT             -- climb-summit | waypoint | reverse-geocode | defaut
+);
+CREATE INDEX IF NOT EXISTS idx_descents_stage ON descents(stage_id);
+
 CREATE TABLE IF NOT EXISTS km_analysis (
   stage_id INTEGER NOT NULL REFERENCES stages(id) ON DELETE CASCADE,
   km INTEGER NOT NULL,
