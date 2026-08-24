@@ -216,7 +216,11 @@ function loadStageFull(stageId) {
       source: stage.source ? JSON.parse(stage.source) : null,
     },
     edition,
-    waypoints: waypoints.map((w) => ({ ...w, geocode: w.geocode ? JSON.parse(w.geocode) : null })),
+    waypoints: waypoints.map((w) => ({
+      ...w,
+      geocode: w.geocode ? JSON.parse(w.geocode) : null,
+      bonus_sec: w.bonus_sec ? JSON.parse(w.bonus_sec) : null,
+    })),
     track: track
       ? { ...track, geojson: JSON.parse(track.geojson), approx_segments: track.approx_segments ? JSON.parse(track.approx_segments) : [] }
       : null,

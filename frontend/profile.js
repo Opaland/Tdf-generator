@@ -93,6 +93,7 @@
     if (!mini) {
       const climbs = data.climbs || [];
       const labels = [];
+      const bonusPoints = []; // waypoints avec bonif., y compris ceux absorbés par une côte (arrivée au sommet)
       for (const w of data.waypoints || []) {
         if (w.lat == null) continue;
         // position le long du profil : point le plus proche géographiquement
@@ -103,20 +104,26 @@
           const d2 = (prof[i].lat - w.lat) ** 2 + (prof[i].lon - w.lon) ** 2;
           if (d2 < bd) { bd = d2; best = i; }
         }
+        if (Array.isArray(w.bonus_sec) && w.bonus_sec.length) bonusPoints.push({ m: prof[best].d, bonus_sec: w.bonus_sec });
         const nearClimb = climbs.some((c) => Math.abs(c.end_km * 1000 - prof[best].d) < 1200 && (w.kind === 'col'));
         if (nearClimb) continue; // le sommet sera annoté par la côte
+        const isSprint = w.kind === 'sprint';
+        const bonusTxt = Array.isArray(w.bonus_sec) && w.bonus_sec.length ? ` — bonif. ${w.bonus_sec.join('/')}″` : '';
         labels.push({
           m: prof[best].d, e: prof[best].e,
-          text: `${w.label} (${Math.round(prof[best].e)} m)`,
-          priority: w.kind === 'start' || w.kind === 'finish' ? 2 : 1,
+          text: `${w.label} (${Math.round(prof[best].e)} m)${bonusTxt}`,
+          priority: w.kind === 'start' || w.kind === 'finish' ? 2 : (isSprint ? 2.5 : 1),
           cat: null,
+          sprint: isSprint,
         });
       }
       for (const c of climbs) {
+        const bp = bonusPoints.find((b) => Math.abs(b.m - c.end_km * 1000) < 1200);
+        const bonusTxt = bp ? ` — bonif. ${bp.bonus_sec.join('/')}″` : '';
         labels.push({
           m: c.end_km * 1000,
           e: c.summit_ele_m,
-          text: `${c.name} (${c.summit_ele_m} m)`,
+          text: `${c.name} (${c.summit_ele_m} m)${bonusTxt}`,
           priority: 3,
           cat: c.category,
         });
@@ -140,6 +147,11 @@
           ann +=
             `<circle cx="${xx.toFixed(1)}" cy="${(yy - 6).toFixed(1)}" r="8" fill="${cc}" stroke="#fff" stroke-width="1.2"/>` +
             `<text x="${xx.toFixed(1)}" y="${(yy - 2.6).toFixed(1)}" text-anchor="middle" font-size="8.5" font-weight="bold" fill="${tc}">${esc(l.cat)}</text>`;
+        }
+        if (l.sprint) {
+          ann +=
+            `<rect x="${(xx - 9).toFixed(1)}" y="${(yy - 15).toFixed(1)}" width="18" height="11" rx="2" fill="#1c6dd0" stroke="#fff" stroke-width="1.2"/>` +
+            `<text x="${xx.toFixed(1)}" y="${(yy - 6.7).toFixed(1)}" text-anchor="middle" font-size="7.5" font-weight="bold" fill="#fff">SPR</text>`;
         }
       }
       // Encart distance / D+

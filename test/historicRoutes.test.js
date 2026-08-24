@@ -14,7 +14,11 @@ const {
   stageConfidence, CONFIDENCE_STATUSES, CONFIDENCE_LEVELS, historicHighlights,
 } = require('../pipeline/wikipedia');
 
-const VALID_KINDS = new Set(['start', 'via', 'col', 'peak', 'finish']);
+const VALID_KINDS = new Set(['start', 'via', 'col', 'peak', 'sprint', 'finish']);
+
+function isBonusSecArray(v) {
+  return Array.isArray(v) && v.length > 0 && v.every((n) => typeof n === 'number' && n > 0);
+}
 
 function viaLabel(via) {
   return typeof via === 'string' ? via : via.label;
@@ -66,6 +70,19 @@ test('historic_routes.json : chaque via objet a un label et un kind reconnu', ()
         if (!via.label) offenders.push(`${year} étape ${stageNum} : via objet sans label`);
         if (via.kind && !VALID_KINDS.has(via.kind)) offenders.push(`${year} étape ${stageNum} : kind inconnu "${via.kind}" sur "${via.label}"`);
         if (via.ele != null && typeof via.ele !== 'number') offenders.push(`${year} étape ${stageNum} : ele non numérique sur "${via.label}"`);
+        if (via.bonus_sec != null && !isBonusSecArray(via.bonus_sec)) offenders.push(`${year} étape ${stageNum} : bonus_sec invalide sur "${via.label}"`);
+      }
+    }
+  }
+  assert.deepStrictEqual(offenders, []);
+});
+
+test('historic_routes.json : finish_bonus_sec, quand présent, est un tableau de secondes positives', () => {
+  const offenders = [];
+  for (const [year, edition] of Object.entries(HISTORIC_ROUTES)) {
+    for (const [stageNum, stage] of Object.entries(edition.stages || {})) {
+      if (stage.finish_bonus_sec != null && !isBonusSecArray(stage.finish_bonus_sec)) {
+        offenders.push(`${year} étape ${stageNum} : finish_bonus_sec invalide (${JSON.stringify(stage.finish_bonus_sec)})`);
       }
     }
   }
@@ -156,9 +173,11 @@ test('historic_routes.json : chaque affirmation confidence est bien formée (bac
 test('stageConfidence : renvoie [] pour une étape sans réserve connue, le détail pour une étape marquée UNSURE', () => {
   assert.deepStrictEqual(stageConfidence(1903, 3), [], 'aucune réserve connue sur cette étape');
   const puyDeDome = stageConfidence(2023, 9);
-  assert.strictEqual(puyDeDome.length, 1);
-  assert.strictEqual(puyDeDome[0].status, 'UNSURE');
-  assert.strictEqual(puyDeDome[0].level, 'moyenne');
+  // 3 réserves depuis l'ajout des marqueurs sprint/bonification (backlog
+  // issue #14) : altitude d'arrivée, position du sprint intermédiaire,
+  // barème de bonification — toutes UNSURE, aucune n'écrase les autres.
+  assert.strictEqual(puyDeDome.length, 3);
+  assert.ok(puyDeDome.every((c) => c.status === 'UNSURE'));
   assert.match(puyDeDome[0].claim, /1415|1 415/);
 
   const colDuNoyer = stageConfidence(2026, 19);
@@ -179,6 +198,28 @@ test('reconstructionWaypoints : le col du Tourmalet résout son altitude via kno
   const wps = reconstructionWaypoints(2021, { number: 18, start: stage.start, finish: stage.finish });
   const wp = wps.find((w) => w.label === 'Col du Tourmalet');
   assert.strictEqual(wp.altitude_hint_m, 2115, 'résolu via known_cols.json malgré l\'absence de ele local');
+});
+
+test('reconstructionWaypoints : propage bonus_sec du via sprint et de l\'arrivée (2023 étape 9, Puy de Dôme)', () => {
+  // Backlog issue #14, "marqueurs sprint / bonification" — vérifie que le
+  // bonus_sec curé dans historic_routes.json (via de type sprint + arrivée)
+  // ressort bien dans les waypoints reconstruits, pas seulement dans le JSON
+  // source (déjà couvert par le test structurel plus haut).
+  const stage = HISTORIC_ROUTES['2023'].stages['9'];
+  assert.ok(stage, 'édition 2023, étape 9 attendue dans la fixture de test');
+  const wps = reconstructionWaypoints(2023, { number: 9, start: stage.start, finish: stage.finish });
+  const sprint = wps.find((w) => w.kind === 'sprint');
+  assert.ok(sprint, 'un waypoint de type sprint attendu');
+  assert.strictEqual(sprint.label, 'Lac de Vassivière');
+  assert.deepStrictEqual(sprint.bonus_sec, [3, 2, 1]);
+  const finish = wps[wps.length - 1];
+  assert.strictEqual(finish.label, 'Puy de Dôme');
+  assert.deepStrictEqual(finish.bonus_sec, [10, 6, 4]);
+});
+
+test('reconstructionWaypoints : bonus_sec absent (aucune donnée curée) donne null, pas undefined ni crash', () => {
+  const wps = reconstructionWaypoints(1913, { number: 6, start: 'Bayonne', finish: 'Bagnères-de-Luchon' });
+  for (const w of wps) assert.strictEqual(w.bonus_sec, null);
 });
 
 test('1913 étape 6 : la fourche cassée d\'Eugène Christophe — Aubisque, Tourmalet, Sainte-Marie-de-Campan, Aspin dans l\'ordre', () => {

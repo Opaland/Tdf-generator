@@ -46,12 +46,13 @@ CREATE TABLE IF NOT EXISTS waypoints (
   stage_id INTEGER NOT NULL REFERENCES stages(id) ON DELETE CASCADE,
   idx INTEGER NOT NULL,
   label TEXT NOT NULL,
-  kind TEXT NOT NULL DEFAULT 'via',  -- start | via | col | finish
+  kind TEXT NOT NULL DEFAULT 'via',  -- start | via | col | sprint | finish
   lat REAL, lon REAL,
   altitude_hint_m REAL,        -- altitude attendue (cols)
   geocode TEXT,                -- JSON : réponse géocodeur retenue
   approximated INTEGER NOT NULL DEFAULT 0,
-  source TEXT
+  source TEXT,
+  bonus_sec TEXT                -- JSON : bonifications en secondes à ce point (ex. "[3,2,1]")
 );
 CREATE INDEX IF NOT EXISTS idx_waypoints_stage ON waypoints(stage_id, idx);
 
@@ -162,6 +163,7 @@ function getDb() {
   db.pragma('foreign_keys = ON');
   db.exec(SCHEMA);
   ensureColumn(db, 'climbs', 'irregularity_index', 'irregularity_index REAL');
+  ensureColumn(db, 'waypoints', 'bonus_sec', 'bonus_sec TEXT');
   return db;
 }
 

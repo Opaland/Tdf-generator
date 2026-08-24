@@ -315,6 +315,8 @@
       "9": {
         "start": "Saint-Léonard-de-Noblat",
         "finish": "Puy de Dôme",
+        "vias": [{ "label": "Lac de Vassivière", "kind": "sprint", "bonus_sec": [3, 2, 1] }],
+        "finish_bonus_sec": [10, 6, 4],
         "note": "Saint-Léonard-de-Noblat → Puy de Dôme (182,4 km) : première arrivée d'étape sur le Puy de Dôme depuis 1988, 4 derniers km fermés au public. Ligne d'arrivée à ~1 415 m (le sommet du puy, sous l'antenne, culmine lui à 1 465 m).",
         "confidence": [
           {
@@ -322,6 +324,18 @@
             "status": "UNSURE",
             "level": "moyenne",
             "detail": "à confirmer précisément sur le roadbook ASO"
+          },
+          {
+            "claim": "sprint intermédiaire au Lac de Vassivière (~km 30)",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "source : recherche web (total-velo.com), non recoupée directement sur Wikipédia (domaine bloqué par le proxy sortant de ce bac à sable)"
+          },
+          {
+            "claim": "bonification 3/2/1 sec au sprint intermédiaire, 10/6/4 sec à l'arrivée",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "barème général en vigueur sur le Tour depuis 2015 (sprint) / ~2018 (arrivée), non confirmé spécifiquement pour cette étape — certaines éditions (2019, 2023) ont ponctuellement ajouté des sprints bonus supplémentaires à d'autres points du parcours"
           }
         ]
       },

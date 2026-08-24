@@ -189,7 +189,7 @@ async function fetchEditionHtml(year) {
 /**
  * Waypoints de reconstruction d'une étape historique : villes officielles
  * (Wikipédia) + points de passage curés (historic_routes.json) quand ils existent.
- * Retourne [{label, kind, altitude_hint_m?, source}]
+ * Retourne [{label, kind, altitude_hint_m?, bonus_sec?, source}]
  */
 function reconstructionWaypoints(year, stage) {
   const { isColQuery } = require('./geocode');
@@ -197,12 +197,16 @@ function reconstructionWaypoints(year, stage) {
   const wps = [];
   const startLabel = curated?.start || stage.start;
   const finishLabel = curated?.finish || stage.finish;
-  wps.push({ label: startLabel, kind: 'start', source: curated?.start ? 'parcours curé' : 'wikipedia' });
+  wps.push({ label: startLabel, kind: 'start', bonus_sec: null, source: curated?.start ? 'parcours curé' : 'wikipedia' });
   for (const via of curated?.vias || []) {
-    if (typeof via === 'string') wps.push({ label: via, kind: 'via', source: 'parcours curé' });
+    if (typeof via === 'string') wps.push({ label: via, kind: 'via', bonus_sec: null, source: 'parcours curé' });
     else {
       const ele = via.ele ?? KNOWN_COLS[via.label]?.ele ?? null;
-      wps.push({ label: via.label, kind: via.kind || 'via', altitude_hint_m: ele, source: 'parcours curé' });
+      wps.push({
+        label: via.label, kind: via.kind || 'via', altitude_hint_m: ele,
+        bonus_sec: via.bonus_sec || null,
+        source: 'parcours curé',
+      });
     }
   }
   // Arrivée au sommet (Alpe d'Huez, Hautacam…) : traitée comme un col pour
@@ -210,6 +214,7 @@ function reconstructionWaypoints(year, stage) {
   wps.push({
     label: finishLabel,
     kind: isColQuery(finishLabel) ? 'col' : 'finish',
+    bonus_sec: curated?.finish_bonus_sec || null,
     source: curated?.finish ? 'parcours curé' : 'wikipedia',
   });
   return wps;
