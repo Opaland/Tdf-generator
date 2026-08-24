@@ -152,8 +152,38 @@ async function renderSuunto() {
   }
 }
 
+// Bilan personnel « année en cols » (backlog #10, section D) : agrège les
+// traces déjà importées (GPX/lien/Suunto) — cols gravis, D+ total, plus
+// haut sommet. Non essentiel : n'affiche rien si aucune trace n'est encore
+// importée, plutôt qu'un bilan vide qui aurait l'air cassé.
+async function loadSummary() {
+  if (window.EF_STATIC) return;
+  const box = document.getElementById('summary-box');
+  try {
+    const s = await EF.api('/api/traces/summary');
+    if (!s.traceCount) return;
+    const stats = [
+      `${s.traceCount} sortie${s.traceCount > 1 ? 's' : ''} importée${s.traceCount > 1 ? 's' : ''}`,
+      `${s.totalDistanceKm} km au total`,
+      `D+ cumulé ${s.totalAscentM} m`,
+      s.highestSummit ? `plus haut sommet : ${s.highestSummit.name} (${s.highestSummit.summit_ele_m} m)` : null,
+    ].filter(Boolean).join(' · ');
+    document.getElementById('summary-stats').textContent = stats;
+    const list = document.getElementById('summary-climbs');
+    list.innerHTML = s.climbs.map((c) => {
+      const cat = c.bestCategory ? ` · cat. ${c.bestCategory}` : '';
+      const times = c.count > 1 ? ` — gravi ${c.count} fois` : '';
+      return `<li class="fauxplat-item">${EF.esc(c.name)} — ${c.maxSummitM} m${cat}${times}</li>`;
+    }).join('') || '<li class="fauxplat-item meta-line">Aucun col détecté sur vos sorties importées.</li>';
+    box.style.display = 'block';
+  } catch {
+    // Non essentiel : l'écran reste utilisable sans le bilan.
+  }
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   await EF.initChrome('traces');
+  loadSummary();
   const dz = document.getElementById('dropzone');
   const input = document.getElementById('gpx-file');
   dz.addEventListener('click', () => input.click());
