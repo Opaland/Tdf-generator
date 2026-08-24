@@ -229,6 +229,80 @@ test('GET /api/stages/:id/export.tcx : étape introuvable → erreur JSON propre
   assert.ok(!text.includes('/home/'), 'aucun chemin de fichier serveur dans la réponse');
 });
 
+test('GET /api/stages/:id/export.kml : XML bien formé, contient le tracé (LineString) et les points de passage (Point)', async () => {
+  const { generateStage } = require('../pipeline/generate');
+  const create = await (await fetch(`${base}/api/stages`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name: 'Étape 18 : Pau → Bagnères-de-Luchon via le Tourmalet',
+      waypoints: [
+        { label: 'Bagnères-de-Luchon' },
+        { label: 'Col du Tourmalet', kind: 'col' },
+        { label: 'Pau' },
+      ],
+    }),
+  })).json();
+  await generateStage(create.id);
+
+  const res = await fetch(`${base}/api/stages/${create.id}/export.kml`);
+  assert.strictEqual(res.status, 200);
+  assert.ok(res.headers.get('content-disposition')?.includes('attachment'));
+  assert.ok(res.headers.get('content-type')?.includes('kml'));
+  const xml = await res.text();
+
+  assert.doesNotThrow(() => {
+    if (!xml.startsWith('<?xml')) throw new Error('pas de prologue XML');
+    const stack = [];
+    const tagRe = /<\/?([a-zA-Z][\w:]*)[^>]*?(\/)?>/g;
+    let m;
+    while ((m = tagRe.exec(xml))) {
+      const [full, tag, selfClose] = m;
+      if (selfClose || full.startsWith('<?')) continue;
+      if (full.startsWith('</')) {
+        const top = stack.pop();
+        if (top !== tag) throw new Error(`fermeture inattendue </${tag}>, attendu </${top}>`);
+      } else {
+        stack.push(tag);
+      }
+    }
+    if (stack.length) throw new Error(`balises non fermées : ${stack.join(',')}`);
+  });
+
+  assert.match(xml, /xmlns="http:\/\/www\.opengis\.net\/kml\/2\.2"/);
+  assert.match(xml, /<LineString>/);
+  assert.match(xml, /<coordinates>/);
+  assert.match(xml, /Col du Tourmalet/, 'le libellé complet du waypoint doit apparaître (pas de troncature comme en TCX)');
+});
+
+test('GET /api/stages/:id/export.kml : un nom d\'étape avec des caractères spéciaux XML est échappé', async () => {
+  const { generateStage } = require('../pipeline/generate');
+  const create = await (await fetch(`${base}/api/stages`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: 'Étape "spéciale" <test> & Cie', waypoints: [{ label: 'Pau' }, { label: 'Tarbes' }] }),
+  })).json();
+  await generateStage(create.id);
+  const res = await fetch(`${base}/api/stages/${create.id}/export.kml`);
+  const xml = await res.text();
+  assert.doesNotMatch(xml, /<test>/, 'les chevrons du nom ne doivent jamais former un vrai tag XML');
+  assert.match(xml, /&lt;test&gt;/);
+});
+
+test('GET /api/stages/:id/export.kml : étape non générée → 404 propre, pas de plantage sur samples vide', async () => {
+  const create = await (await fetch(`${base}/api/stages`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: 'Étape jamais générée (kml)', waypoints: [{ label: 'Pau' }, { label: 'Tarbes' }] }),
+  })).json();
+  const res = await fetch(`${base}/api/stages/${create.id}/export.kml`);
+  assert.strictEqual(res.status, 404);
+});
+
+test('GET /api/stages/:id/export.kml : étape introuvable → erreur JSON propre, pas 500 avec fuite de stack', async () => {
+  const res = await fetch(`${base}/api/stages/999999/export.kml`);
+  assert.notStrictEqual(res.status, 200);
+  const text = await res.text();
+  assert.ok(!text.includes('/home/'), 'aucun chemin de fichier serveur dans la réponse');
+});
+
 test('GET /api/stages/:id/roadbook.html : affiché inline (pas en téléchargement), tableau villes/km + côtes + note ravitaillements', async () => {
   const { generateStage } = require('../pipeline/generate');
   const create = await (await fetch(`${base}/api/stages`, {
