@@ -38,18 +38,35 @@ const espree = require('espree');
 const FRONTEND_DIR = path.join(__dirname, '..', 'frontend');
 const DIALOG_NAMES = new Set(['alert', 'confirm', 'prompt']);
 
+// Nom appelé par un CallExpression, qu'il soit direct (`alert(...)`) ou
+// qualifié (`window.alert(...)`, `globalThis["alert"](...)`, y compris via
+// `?.`) — trouvaille de relecture adverse (3ᵉ tour sur cette PR) : ne
+// vérifier que `callee.type === 'Identifier'` ratait `window.alert(...)`,
+// une forme réaliste (code de debug copié depuis la console navigateur),
+// alors que même le grep texte d'origine l'aurait attrapée par frontière
+// de mot. Élargi plutôt que juste ajouté `window`/`globalThis`/`self` en
+// dur : n'importe quel `.alert(`/`.confirm(`/`.prompt(` qualifié, même
+// motif que le grep original.
+function calleeName(callee) {
+  if (callee.type === 'Identifier') return callee.name;
+  if (callee.type === 'MemberExpression') {
+    if (!callee.computed && callee.property.type === 'Identifier') return callee.property.name;
+    if (callee.computed && callee.property.type === 'Literal' && typeof callee.property.value === 'string') {
+      return callee.property.value;
+    }
+  }
+  return null;
+}
+
 /** [{name, line}] pour chaque appel réel à alert()/confirm()/prompt() dans le source. */
 function findDialogCalls(src) {
   const ast = espree.parse(src, { ecmaVersion: 2022, sourceType: 'script', loc: true });
   const found = [];
   (function walk(node) {
     if (!node || typeof node.type !== 'string') return;
-    if (
-      node.type === 'CallExpression' &&
-      node.callee.type === 'Identifier' &&
-      DIALOG_NAMES.has(node.callee.name)
-    ) {
-      found.push({ name: node.callee.name, line: node.loc.start.line });
+    if (node.type === 'CallExpression') {
+      const name = calleeName(node.callee);
+      if (name && DIALOG_NAMES.has(name)) found.push({ name, line: node.loc.start.line });
     }
     for (const key in node) {
       if (key === 'loc' || key === 'range' || key === 'parent') continue;
@@ -116,4 +133,23 @@ test('une division n\'est pas confondue avec un appel ou un commentaire', () => 
 test('une simple référence à alert (sans appel) n\'est pas signalée', () => {
   assert.deepStrictEqual(findDialogCalls('const handler = window.alert;'), []);
   assert.deepStrictEqual(findDialogCalls('button.onclick = alert;'), []);
+});
+
+// Trouvaille de relecture adverse (3ᵉ tour) : ne vérifier que
+// `callee.type === 'Identifier'` ratait tout appel qualifié — une forme
+// réaliste (code de debug copié depuis la console navigateur, qui écrit
+// spontanément `window.alert(...)`), alors que même le grep texte
+// d'origine l'aurait attrapée par simple frontière de mot.
+test('un appel qualifié (window.alert, globalThis.confirm, self.prompt) reste détecté', () => {
+  assert.deepStrictEqual(findDialogCalls("window.alert('x')"), [{ name: 'alert', line: 1 }]);
+  assert.deepStrictEqual(findDialogCalls("globalThis.confirm('x')"), [{ name: 'confirm', line: 1 }]);
+  assert.deepStrictEqual(findDialogCalls("self.prompt('x')"), [{ name: 'prompt', line: 1 }]);
+});
+
+test('un appel qualifié par accès calculé (window["alert"](...)) reste détecté', () => {
+  assert.deepStrictEqual(findDialogCalls('window["alert"]("x")'), [{ name: 'alert', line: 1 }]);
+});
+
+test('un appel qualifié avec chaînage optionnel (window?.alert(...)) reste détecté', () => {
+  assert.deepStrictEqual(findDialogCalls('window?.alert("x")'), [{ name: 'alert', line: 1 }]);
 });
