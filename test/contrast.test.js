@@ -83,8 +83,8 @@ const BADGE_PAIRS = [
   { name: '.badge.done (--ok sur #d9efe1)', fg: 'ok', bgHex: '#d9efe1', min: 4.5 },
   { name: '.badge.generating (--warn sur #fdf0d8)', fg: 'warn', bgHex: '#fdf0d8', min: 4.5 },
   { name: '.badge.error (--fail sur #fbdcdc)', fg: 'fail', bgHex: '#fbdcdc', min: 4.5 },
-  { name: '.explorer-tile-partial (--texte sur #fdf0d8)', fg: 'texte', bgHex: '#fdf0d8', min: 4.5 },
-  { name: '.explorer-tile-complete (--texte sur #d9efe1)', fg: 'texte', bgHex: '#d9efe1', min: 4.5 },
+  { name: '.explorer-tile-partial (--noir sur #fdf0d8)', fg: 'noir', bgHex: '#fdf0d8', min: 4.5 },
+  { name: '.explorer-tile-complete (--noir sur #d9efe1)', fg: 'noir', bgHex: '#d9efe1', min: 4.5 },
 ];
 
 for (const p of PAIRS) {

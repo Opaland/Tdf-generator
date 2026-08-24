@@ -85,12 +85,29 @@ function renderExplorerGrid(editions) {
       : status === 'partial'
         ? `${e.year} : ${e.done_count}/${e.stage_count} étapes générées`
         : `${e.year} : importée, aucune étape générée`;
-    return `<button type="button" class="explorer-tile explorer-tile-${status}" data-explorer-year="${e.year}" title="${EF.esc(title)}">${e.year}</button>`;
+    // Le statut ne doit pas reposer sur la seule couleur (daltonisme, ou
+    // survol au clavier/tactile qui n'affiche pas le title) — glyphe
+    // visible directement sur la tuile, même esprit que ✓/⚠/✗ sur
+    // .checks .st ailleurs dans l'app. Trouvaille de revue-personas.
+    const glyph = status === 'complete' ? '✓' : status === 'partial' ? '½' : '';
+    return `<button type="button" class="explorer-tile explorer-tile-${status}" data-explorer-year="${e.year}" title="${EF.esc(title)}">${glyph ? `<span class="explorer-tile-glyph">${glyph}</span> ` : ''}${e.year}</button>`;
   }).join('');
   grid.querySelectorAll('[data-explorer-year]').forEach((btn) =>
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', async () => {
       const edition = known.find((e) => String(e.year) === btn.dataset.explorerYear);
-      const target = edition && document.querySelector(`#editions details[data-ed="${edition.id}"]`);
+      if (!edition) return;
+      // Le filtre « entièrement sourcé » peut avoir retiré le <details> de
+      // cette édition du DOM alors que sa tuile reste affichée (la grille
+      // liste toutes les éditions importées, indépendamment du filtre) —
+      // trouvaille de relecture adverse : le clic ne faisait alors
+      // silencieusement rien. Décocher le filtre et recharger avant de
+      // chercher la cible, plutôt que de laisser un clic mort.
+      const sourcedOnlyBox = document.getElementById('f-sourced-only');
+      if (sourcedOnlyBox.checked && !document.querySelector(`#editions details[data-ed="${edition.id}"]`)) {
+        sourcedOnlyBox.checked = false;
+        await loadEditions();
+      }
+      const target = document.querySelector(`#editions details[data-ed="${edition.id}"]`);
       if (!target) return;
       target.open = true;
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });

@@ -213,8 +213,8 @@ footer.attrib {
   font-weight: 700; font-size: 0.85em; cursor: pointer; font-family: inherit; color: var(--noir);
 }
 .explorer-tile-unexplored { background: var(--bord); color: var(--texte); }
-.explorer-tile-partial { background: #fdf0d8; }
-.explorer-tile-complete { background: #d9efe1; }
+.explorer-tile-partial { background: #fdf0d8; color: var(--noir); }
+.explorer-tile-complete { background: #d9efe1; color: var(--noir); }
 .explorer-legend-swatch {
   display: inline-block; width: 14px; height: 14px; border-radius: 3px; vertical-align: -2px; margin-right: 2px;
 }
