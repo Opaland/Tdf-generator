@@ -11,7 +11,7 @@ const { importEdition } = require('../pipeline/importer');
 const { historicHighlights } = require('../pipeline/wikipedia');
 const { geocodeSuggest, reverseGeocode } = require('../pipeline/geocode');
 const { isOffline, setOffline, httpText } = require('../pipeline/http');
-const { stageToGpx, stageToTcx, stagePayload, tourToStandaloneHtml, stageToStandaloneHtml, ATTRIBUTIONS } = require('./exports');
+const { stageToGpx, stageToTcx, stagePayload, tourToStandaloneHtml, stageToStandaloneHtml, stageToRoadbookHtml, ATTRIBUTIONS } = require('./exports');
 
 const { suuntoRouter } = require('./suunto');
 const { parseGpx, importTrackAsStage } = require('../pipeline/importTrack');
@@ -466,6 +466,14 @@ app.get('/api/stages/:id/export.html', wrap(async (req, res) => {
   const html = stageToStandaloneHtml(parseInt(req.params.id, 10));
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.setHeader('Content-Disposition', `attachment; filename="etape-${req.params.id}.html"`);
+  res.send(html);
+}));
+
+// Roadbook imprimable — affiché inline (pas en téléchargement) pour être
+// immédiatement imprimable (Ctrl+P) depuis l'onglet ouvert.
+app.get('/api/stages/:id/roadbook.html', wrap(async (req, res) => {
+  const html = stageToRoadbookHtml(parseInt(req.params.id, 10));
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.send(html);
 }));
 

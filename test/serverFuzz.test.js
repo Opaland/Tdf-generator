@@ -228,3 +228,59 @@ test('GET /api/stages/:id/export.tcx : étape introuvable → erreur JSON propre
   const text = await res.text();
   assert.ok(!text.includes('/home/'), 'aucun chemin de fichier serveur dans la réponse');
 });
+
+test('GET /api/stages/:id/roadbook.html : affiché inline (pas en téléchargement), tableau villes/km + côtes + note ravitaillements', async () => {
+  const { generateStage } = require('../pipeline/generate');
+  const create = await (await fetch(`${base}/api/stages`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name: 'Étape roadbook',
+      waypoints: [{ label: 'Pau' }, { label: 'Col du Tourmalet', kind: 'col' }, { label: 'Lourdes' }],
+    }),
+  })).json();
+  await generateStage(create.id);
+
+  const res = await fetch(`${base}/api/stages/${create.id}/roadbook.html`);
+  assert.strictEqual(res.status, 200);
+  assert.ok(res.headers.get('content-type')?.includes('text/html'));
+  assert.strictEqual(res.headers.get('content-disposition'), null, 'affiché inline, pas en pièce jointe — l\'utilisateur doit pouvoir imprimer directement depuis l\'onglet ouvert');
+  const html = await res.text();
+  assert.match(html, /Étape roadbook/);
+  assert.match(html, /Col du Tourmalet/);
+  assert.match(html, /Villes et points de passage/);
+  assert.match(html, /Ravitaillements : non représentés/, 'ne doit jamais laisser croire à une donnée de ravitaillement qu\'ÉtapeForge ne possède pas (CLAUDE.md règle 9)');
+});
+
+test('roadbook.html : un nom d\'étape contenant </script> ou des guillemets est neutralisé (même classe de bug que export.html, CLAUDE.md règle 1)', async () => {
+  const { generateStage } = require('../pipeline/generate');
+  const payload = '<script>window.__xss=1</script>"><img src=x onerror="window.__xss=2">';
+  const create = await (await fetch(`${base}/api/stages`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: payload, waypoints: [{ label: payload }, { label: 'Tarbes' }] }),
+  })).json();
+  await generateStage(create.id);
+
+  const res = await fetch(`${base}/api/stages/${create.id}/roadbook.html`);
+  const html = await res.text();
+  assert.ok(!html.includes('<script>window.__xss=1</script>'), 'le payload ne doit jamais apparaître comme un vrai tag <script> non échappé');
+  assert.ok(!html.includes('<img src=x onerror='), 'le payload ne doit jamais apparaître comme un vrai tag <img> non échappé');
+  assert.match(html, /&lt;script&gt;window\.__xss=1&lt;\/script&gt;/);
+});
+
+test('GET /api/stages/:id/roadbook.html : étape existante mais non générée → 200 avec tableau vide, pas de plantage (contrairement à GPX/TCX, un roadbook reste utile sans trace complète, même comportement que export.html)', async () => {
+  const create = await (await fetch(`${base}/api/stages`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: 'Étape jamais générée (roadbook)', waypoints: [{ label: 'Pau' }, { label: 'Tarbes' }] }),
+  })).json();
+  const res = await fetch(`${base}/api/stages/${create.id}/roadbook.html`);
+  assert.strictEqual(res.status, 200, 'une étape existante mais non générée reste servie (0 point/côte listés) — seule une étape introuvable doit échouer');
+  const html = await res.text();
+  assert.match(html, /Villes et points de passage/);
+});
+
+test('GET /api/stages/:id/roadbook.html : étape introuvable → erreur JSON propre, pas 500 avec fuite de stack', async () => {
+  const res = await fetch(`${base}/api/stages/999999/roadbook.html`);
+  assert.notStrictEqual(res.status, 200);
+  const text = await res.text();
+  assert.ok(!text.includes('/home/'), 'aucun chemin de fichier serveur dans la réponse');
+});
