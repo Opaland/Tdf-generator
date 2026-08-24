@@ -185,7 +185,13 @@ async function monkeyOnPage(context, base, pageDef, actionsCount, rand) {
       });
     }
   } catch (err) {
-    findings.push({ kind: 'action-exception', page: pageDef.name, detail: `check mobile: ${String(err.message).slice(0, 200)}` });
+    // Une navigation encore en vol (reload/back juste avant) détruit le
+    // contexte JS pendant l'evaluate() — même risque, même traitement que
+    // xssTriggered ci-dessus (.catch(() => undefined)) : ce n'est pas un
+    // bug de l'app, pas la peine de le remonter comme une trouvaille.
+    if (!/execution context was destroyed|target (page|closed)/i.test(err.message || '')) {
+      findings.push({ kind: 'action-exception', page: pageDef.name, detail: `check mobile: ${String(err.message).slice(0, 200)}` });
+    }
   }
 
   await page.close();
