@@ -21,24 +21,36 @@ ne dit rien là-dessus, volontairement. Si une mesure de la latence réseau
 réelle est utile un jour, `GET /api/diagnostic` sonde déjà chaque fournisseur
 et affiche sa latence (voir `docs/CONTINUITE-APIS.md`).
 
-## Résultats (mesurés le 24/08/2026, 5 runs/scénario, poste de développement — voir « Reproduire » ci-dessous pour rejouer sur votre matériel)
+## Résultats (mesurés le 24/08/2026, 20 runs/scénario après échauffement, poste de développement — voir « Reproduire » ci-dessous pour rejouer sur votre matériel)
+
+**Correction (même jour) :** la première version de ce document citait des
+chiffres produits sans run d'échauffement — le tout premier `generateStage()`
+du process absorbait un coût de démarrage (JIT V8, premiers `require()`,
+premières requêtes SQL préparées) qui gonflait artificiellement le scénario
+mesuré en premier (jusqu'à ×3-4 sur sa phase « côtes »), sans rapport avec sa
+complexité réelle. Trouvé par relecture adverse, en relançant le script
+plusieurs fois et en comparant le premier run à froid aux suivants. Corrigé
+par un run d'échauffement jeté avant la boucle de mesure
+(`scripts/benchmark.js`) ; les chiffres ci-dessous sont les résultats
+corrigés, stables sur plusieurs relances indépendantes (variation < 15 %
+d'une relance à l'autre à `--runs 20`).
 
 | Scénario | Total (moyenne) | Phase la plus coûteuse |
 |---|---|---|
-| Plat court, 2 waypoints (Paris → Chartres) | 8.8 ms | « terminé » (37 %) |
-| Montagne, 5 waypoints dont 2 cols (Pau → Hautacam) | 7.4 ms | « terminé » (51 %) |
-| Longue étape, 8 waypoints (Paris → Toulouse) | 117.6 ms | « terminé » (60 %) |
-| Historique réel — 1903, étape 1 Paris → Lyon (467 km officiels) | 20.9 ms | « terminé » (60 %) |
+| Plat court, 2 waypoints (Paris → Chartres) | 4.5 ms | « terminé » (58 %) |
+| Montagne, 5 waypoints dont 2 cols (Pau → Hautacam) | 6.1 ms | « terminé » (57 %) |
+| Longue étape, 8 waypoints (Paris → Toulouse) | 97.8 ms | « terminé » (69 %) |
+| Historique réel — 1903, étape 1 Paris → Lyon (467 km officiels) | 19.6 ms | « terminé » (71 %) |
 
 Détail de la longue étape (le scénario le plus lourd testé) :
 
 ```
     géocodage      0.2 ms  ( 0%)
-    routage        1.3 ms  ( 1%)
-    altimétrie     4.1 ms  ( 3%)
-    côtes         33.2 ms  (28%)
-    analyse        8.4 ms  ( 7%)
-    terminé       70.4 ms  (60%)
+    routage        0.9 ms  ( 1%)
+    altimétrie     3.4 ms  ( 3%)
+    côtes         21.0 ms  (21%)
+    analyse        4.8 ms  ( 5%)
+    terminé       67.5 ms  (69%)
 ```
 
 ## Ce que ça dit
@@ -49,8 +61,8 @@ Détail de la longue étape (le scénario le plus lourd testé) :
   de sacrifier de la lisibilité pour de la vitesse.
 - **« terminé » (audits + persistance SQLite + rechargement de la fiche)
   domine systématiquement**, et sa part grandit avec la longueur du parcours
-  (37 % sur un trajet court, 60 % sur les plus longs) — cohérent avec
-  `pipeline/generate.js` : cette phase insère une ligne par échantillon
+  (57-58 % sur les deux scénarios courts, 69-71 % sur les deux plus longs) —
+  cohérent avec `pipeline/generate.js` : cette phase insère une ligne par échantillon
   d'altimétrie (`elevation_samples`), dont le nombre croît avec la distance,
   puis relit tout via `loadStageFull()` (plusieurs `SELECT` + calculs dérivés
   comme l'indice de pénibilité). C'est le candidat naturel si un jour un
@@ -68,10 +80,12 @@ Détail de la longue étape (le scénario le plus lourd testé) :
 ## Reproduire
 
 ```bash
-npm run benchmark            # 5 runs/scénario par défaut
-npm run benchmark -- --runs 20   # plus de runs pour lisser le bruit de mesure
+npm run benchmark            # 10 runs/scénario par défaut, après échauffement
+npm run benchmark -- --runs 20   # plus de runs pour lisser encore le bruit de mesure
 ```
 
 Le script isole ses données dans un dossier temporaire dédié (même logique
-d'isolation par process que `scripts/monkey.js`, voir CLAUDE.md règle 4) et
-le nettoie en sortie. Aucune donnée existante n'est touchée.
+d'isolation par process que `scripts/monkey.js`, voir CLAUDE.md règle 4), lance
+un run d'échauffement jeté avant de commencer à chronométrer (voir la
+correction ci-dessus), et nettoie son dossier temporaire en sortie. Aucune
+donnée existante n'est touchée.

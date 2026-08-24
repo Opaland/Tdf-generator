@@ -13,7 +13,7 @@
 // `sleep()` du module sert au backoff des vraies requêtes réseau — le
 // simulateur hors-ligne (pipeline/geocode.js) n'a aucun délai artificiel.
 //
-// Usage : node scripts/benchmark.js [--runs N]  (par défaut 5)
+// Usage : node scripts/benchmark.js [--runs N]  (par défaut 10)
 
 const os = require('os');
 const path = require('path');
@@ -21,8 +21,8 @@ const fs = require('fs');
 
 const RUNS = (() => {
   const i = process.argv.indexOf('--runs');
-  const n = i !== -1 ? parseInt(process.argv[i + 1], 10) : 5;
-  return Number.isFinite(n) && n > 0 ? n : 5;
+  const n = i !== -1 ? parseInt(process.argv[i + 1], 10) : 10;
+  return Number.isFinite(n) && n > 0 ? n : 10;
 })();
 
 // Isolation par process (CLAUDE.md règle 4, même raison que scripts/monkey.js) :
@@ -108,6 +108,18 @@ async function main() {
   const db = getDb();
   console.log(`Benchmark pipeline/generate.js — mode hors-ligne (simulateur), ${RUNS} run(s)/scénario`);
   console.log(`Dossier de données temporaire : ${dataDir}`);
+
+  // Run d'échauffement, jeté, avant toute mesure — trouvaille de relecture
+  // adverse : sans lui, le tout premier generateStage() du process (donc
+  // toujours celui du 1er scénario mesuré) absorbe le coût de démarrage
+  // (JIT V8, premiers require()/compilations, premières requêtes SQL
+  // préparées) et gonfle artificiellement ses chiffres — jusqu'à ×3-4 sur
+  // la phase « côtes » du premier run, reproduit en isolant les runs
+  // individuellement. Ce coût n'a rien à voir avec la complexité du
+  // scénario ; l'échauffer une fois avant de commencer à chronométrer
+  // évite de le faire porter par le plus petit scénario testé.
+  const warmupId = createStage(db, 'échauffement (résultat jeté)', SYNTHETIC_SCENARIOS[0].waypoints);
+  await timeGeneration(warmupId);
 
   const results = [];
 
