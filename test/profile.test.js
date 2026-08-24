@@ -6,13 +6,14 @@
 
 const { test } = require('node:test');
 const assert = require('node:assert');
-const { renderProfileSVG } = require('../frontend/profile.js');
+const { renderProfileSVG, gradStyle } = require('../frontend/profile.js');
 
-function samplePayload(waypoints, climbs = []) {
+function samplePayload(waypoints, climbs = [], kmAnalysis) {
   return {
     stage: { generated_distance_km: 50, total_ascent_m: 400 },
     climbs,
     waypoints,
+    kmAnalysis,
     profile: [
       { d: 0, e: 200, lat: 45.0, lon: 1.0 },
       { d: 15000, e: 350, lat: 45.1, lon: 1.2 },
@@ -54,4 +55,48 @@ test('renderProfileSVG : bonification d\'arrivée en sommet (kind=col absorbé p
     [{ name: 'Puy de Dôme', category: '1', end_km: 50, summit_ele_m: 450 }]
   ));
   assert.match(svg, /bonif\. 10\/6\/4″/, 'la bonification doit rester visible, portée par le libellé de la côte');
+});
+
+test('renderProfileSVG : surligne (bande translucide) un km dont la pente moyenne dépasse 10 % (backlog issue #14, inspiré Komoot)', () => {
+  const steepColor = gradStyle(12).color; // couleur du dernier palier de GRAD_COLORS (> 10 %)
+  const svg = renderProfileSVG(samplePayload(
+    [
+      { label: 'Départ', kind: 'start', lat: 45.0, lon: 1.0 },
+      { label: 'Arrivée', kind: 'finish', lat: 45.3, lon: 1.5 },
+    ],
+    [],
+    [
+      { km: 1, avg_gradient: 3 },
+      { km: 2, avg_gradient: 12 }, // > 10 % : doit être surligné
+      { km: 3, avg_gradient: 6 },
+    ]
+  ));
+  assert.match(svg, new RegExp(`fill="${steepColor}" fill-opacity="0.16"`), 'un rect translucide à la couleur du palier >10% doit apparaître');
+});
+
+test('renderProfileSVG : aucun km >10% → aucune bande de surlignage', () => {
+  const svg = renderProfileSVG(samplePayload(
+    [{ label: 'Départ', kind: 'start', lat: 45.0, lon: 1.0 }, { label: 'Arrivée', kind: 'finish', lat: 45.3, lon: 1.5 }],
+    [],
+    [{ km: 1, avg_gradient: 3 }, { km: 2, avg_gradient: 8 }, { km: 3, avg_gradient: -6 }]
+  ));
+  assert.doesNotMatch(svg, /fill-opacity="0.16"/);
+});
+
+test('renderProfileSVG : une forte pente en descente (négative, < -10 %) est aussi surlignée', () => {
+  const steepColor = gradStyle(-15).color;
+  const svg = renderProfileSVG(samplePayload(
+    [{ label: 'Départ', kind: 'start', lat: 45.0, lon: 1.0 }, { label: 'Arrivée', kind: 'finish', lat: 45.3, lon: 1.5 }],
+    [],
+    [{ km: 1, avg_gradient: -15 }]
+  ));
+  assert.match(svg, new RegExp(`fill="${steepColor}" fill-opacity="0.16"`));
+});
+
+test('renderProfileSVG : sans kmAnalysis (undefined), le rendu ne plante pas et ne surligne rien', () => {
+  const svg = renderProfileSVG(samplePayload(
+    [{ label: 'Départ', kind: 'start', lat: 45.0, lon: 1.0 }, { label: 'Arrivée', kind: 'finish', lat: 45.3, lon: 1.5 }]
+  ));
+  assert.doesNotMatch(svg, /fill-opacity="0.16"/);
+  assert.match(svg, /<svg/);
 });

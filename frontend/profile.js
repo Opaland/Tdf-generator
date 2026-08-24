@@ -33,7 +33,7 @@
 
   /**
    * Profil complet d'une étape.
-   * @param data payload { stage, waypoints, climbs, profile:[{d (m), e (lissé), r (brut)}] }
+   * @param data payload { stage, waypoints, climbs, kmAnalysis?:[{km, avg_gradient}], profile:[{d (m), e (lissé), r (brut)}] }
    * @param opts { width, height, mini }
    * @returns markup SVG (string)
    */
@@ -74,6 +74,26 @@
         grid +=
           `<line x1="${M.l}" y1="${y(e).toFixed(1)}" x2="${W - M.r}" y2="${y(e).toFixed(1)}" stroke="#d8cdb4" stroke-width="0.6" stroke-dasharray="3 4"/>` +
           `<text x="${M.l - 6}" y="${(y(e) + 3).toFixed(1)}" text-anchor="end" font-size="10" fill="#8a7a58">${e}</text>`;
+      }
+    }
+
+    // Surlignage des sections > 10 % (inspiré Komoot, backlog issue #14) :
+    // bande translucide sur toute la hauteur du profil pour chaque km dont
+    // la pente moyenne dépasse 10 %, couleur reprise de gradStyle (même
+    // code couleur que le profil zoomé d'une côte, renderClimbSVG) — pas de
+    // nouvelle légende, la palette est déjà celle du reste de l'app.
+    let steepBands = '';
+    if (!mini && Array.isArray(data.kmAnalysis)) {
+      const top = M.t;
+      const base = y(eMin);
+      for (const row of data.kmAnalysis) {
+        const g = row.avg_gradient != null ? row.avg_gradient : row.avgGradient;
+        if (g == null || Math.abs(g) < 10) continue;
+        const fromM = (row.km - 1) * 1000;
+        const toM = Math.min(row.km * 1000, totalM);
+        const x0 = x(fromM);
+        const x1 = x(toM);
+        steepBands += `<rect x="${x0.toFixed(1)}" y="${top.toFixed(1)}" width="${(x1 - x0).toFixed(1)}" height="${(base - top).toFixed(1)}" fill="${gradStyle(g).color}" fill-opacity="0.16"/>`;
       }
     }
 
@@ -164,7 +184,7 @@
     return (
       `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Profil de l'étape">` +
       `<rect x="0" y="0" width="${W}" height="${H}" fill="#faf6ec"/>` +
-      grid + silhouette + band + ann +
+      grid + silhouette + steepBands + band + ann +
       `</svg>`
     );
   }
