@@ -87,10 +87,12 @@ async function loadEditions() {
           <a class="btn secondary" href="/tour.html?edition=${e.id}">Carte globale</a>
           <a class="btn secondary" href="/api/editions/${e.id}/export.html">Mini-site HTML</a>
         </div>
-        <table class="stage-list">
-          <thead><tr><th>Étape</th><th>Date</th><th>Type</th><th>Dist. officielle</th><th>Reconstitution</th><th>État</th><th></th></tr></thead>
-          <tbody>${full.stages.map(stageRow).join('')}</tbody>
-        </table>
+        <div class="scrollx">
+          <table class="stage-list">
+            <thead><tr><th>Étape</th><th>Date</th><th>Type</th><th>Dist. officielle</th><th>Reconstitution</th><th>État</th><th></th></tr></thead>
+            <tbody>${full.stages.map(stageRow).join('')}</tbody>
+          </table>
+        </div>
       </div>`;
     box.appendChild(det);
   }
