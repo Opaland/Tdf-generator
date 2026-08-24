@@ -358,3 +358,29 @@ test('GET /api/stages/:id/roadbook.html : étape introuvable → erreur JSON pro
   const text = await res.text();
   assert.ok(!text.includes('/home/'), 'aucun chemin de fichier serveur dans la réponse');
 });
+
+test('une étape au statut "démo spéculative" (scripts/demo-2027.js) reste comparable comme n\'importe quelle autre — backlog #10, section D', async () => {
+  // Investigation de l'item "étendre le comparateur aux étapes spéculatives" :
+  // rien côté serveur ni dans frontend/compare.js (filtre uniquement sur
+  // `state === 'done'`) ne distingue une étape par le contenu de son champ
+  // `status` — ce test verrouille ce comportement plutôt que d'ajouter un
+  // traitement spécial qui n'a pas lieu d'être.
+  const { generateStage } = require('../pipeline/generate');
+  const create = await (await fetch(`${base}/api/stages`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name: 'Étape spéculative test',
+      status: 'démo spéculative — parcours non officiel',
+      waypoints: [{ label: 'Pau' }, { label: 'Tarbes' }],
+    }),
+  })).json();
+  await generateStage(create.id);
+
+  const list = await (await fetch(`${base}/api/stages`)).json();
+  const found = list.find((s) => s.id === create.id);
+  assert.ok(found, 'l\'étape spéculative générée doit apparaître dans la liste servant au sélecteur du comparateur');
+  assert.strictEqual(found.state, 'done');
+
+  const full = await (await fetch(`${base}/api/stages/${create.id}`)).json();
+  assert.ok(full.samples.length, 'un profil complet reste généré, comparable comme toute autre étape');
+});
