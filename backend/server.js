@@ -567,7 +567,7 @@ app.get('/api/editions/:id/site', wrap(async (req, res) => {
 // passe ou un identifiant de session, même haché), ni les caches d'appels
 // externes (geocode_cache/elevation_cache/api_cache — régénérables, pas des
 // données produit).
-const BACKUP_TABLES = ['editions', 'stages', 'waypoints', 'tracks', 'elevation_samples', 'climbs', 'km_analysis'];
+const BACKUP_TABLES = ['editions', 'stages', 'waypoints', 'tracks', 'elevation_samples', 'climbs', 'descents', 'km_analysis'];
 
 function isBindable(v) {
   return v === null || typeof v === 'number' || typeof v === 'string' || typeof v === 'bigint';

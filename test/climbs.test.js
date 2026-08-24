@@ -3,7 +3,7 @@
 
 const { test } = require('node:test');
 const assert = require('node:assert');
-const { detectClimbs, categorize, irregularityIndex } = require('../pipeline/climbs');
+const { detectClimbs, categorize, irregularityIndex, nameClimbs } = require('../pipeline/climbs');
 
 /** Construit un profil échantillonné tous les 100 m depuis des segments [lengthM, gradientPct]. */
 function buildProfile(segments, startEle = 200) {
@@ -175,4 +175,36 @@ test('pic de bruit GPS isolé (+500 m sur un échantillon) : toujours détecté,
     climbs[0].maxGradient > climbs[0].avgGradient * 5,
     'le pic non lissé se reflète dans maxGradient (pas de filtrage — ce n\'est pas le rôle de detectClimbs)'
   );
+});
+
+// nameClimbs : c.rawLabel (backlog #10, "détection des descentes") — un
+// toponyme nu, sans le préfixe "Côte de", consommé par
+// pipeline/descents.js pour nommer la descente qui suit sans doubler un
+// préfixe ("Descente de Côte de X" serait grammaticalement faux).
+test('nameClimbs : côte nommée par un waypoint → rawLabel = label du waypoint (identique à name, pas de préfixe)', async () => {
+  const climbs = [{ endM: 10000 }];
+  await nameClimbs(climbs, [{ label: 'Col du Tourmalet', kind: 'col', alongM: 10100 }], [], async () => { throw new Error('ne doit pas être appelé'); });
+  assert.strictEqual(climbs[0].name, 'Col du Tourmalet');
+  assert.strictEqual(climbs[0].rawLabel, 'Col du Tourmalet');
+});
+
+test('nameClimbs : côte nommée par géocodage inverse → rawLabel = toponyme nu, name porte le préfixe "Côte de"', async () => {
+  const climbs = [{ endM: 10000 }];
+  const samples = [{ dist: 10000, lat: 45, lon: 1 }];
+  await nameClimbs(climbs, [], samples, async () => ({ label: 'Pin-Bouchain' }));
+  assert.strictEqual(climbs[0].name, 'Côte de Pin-Bouchain');
+  assert.strictEqual(climbs[0].rawLabel, 'Pin-Bouchain');
+});
+
+test('nameClimbs : géocodage inverse en échec ou sans résultat → repli générique, aucun rawLabel', async () => {
+  const climbsFail = [{ endM: 10000 }];
+  const samples = [{ dist: 10000, lat: 45, lon: 1 }];
+  await nameClimbs(climbsFail, [], samples, async () => { throw new Error('réseau indisponible'); });
+  assert.strictEqual(climbsFail[0].name, 'Côte du km 10');
+  assert.strictEqual(climbsFail[0].rawLabel, undefined, 'un nom de repli générique ne doit pas fournir de rawLabel exploitable en aval');
+
+  const climbsEmpty = [{ endM: 10000 }];
+  await nameClimbs(climbsEmpty, [], samples, async () => ({ label: null }));
+  assert.strictEqual(climbsEmpty[0].name, 'Côte du km 10');
+  assert.strictEqual(climbsEmpty[0].rawLabel, undefined);
 });

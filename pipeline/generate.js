@@ -9,6 +9,7 @@ const { geocode, geocodeCol, reverseGeocode, isColQuery } = require('./geocode')
 const { routeStage } = require('./routing');
 const { buildProfile } = require('./elevation');
 const { detectClimbs, nameClimbs } = require('./climbs');
+const { detectDescents, nameDescents } = require('./descents');
 const { analyzeByKm, detectFauxPlats } = require('./kmanalysis');
 const { runChecks } = require('./checks');
 const { isOffline } = require('./http');
@@ -91,6 +92,10 @@ async function generateStage(stageId, { onProgress } = {}) {
     const climbs = detectClimbs(profile.samples.map((s) => ({ dist: s.dist, eleRaw: s.eleRaw, eleSmooth: s.eleSmooth })));
     await nameClimbs(climbs, routed.waypointsOnTrack, profile.samples, reverseGeocode);
 
+    // --- 4b. Détection des descentes (symétrique, backlog #10) -----------
+    const descents = detectDescents(profile.samples.map((s) => ({ dist: s.dist, eleRaw: s.eleRaw, eleSmooth: s.eleSmooth })));
+    await nameDescents(descents, climbs, routed.waypointsOnTrack, profile.samples, reverseGeocode);
+
     // --- 5. Analyse km par km --------------------------------------------
     progress({ step: 'analyse', detail: 'analyse km par km', percent: 80 });
     const kmRows = analyzeByKm(profile.samples.map((s) => ({ dist: s.dist, eleRaw: s.eleRaw, eleSmooth: s.eleSmooth })));
@@ -142,6 +147,21 @@ async function generateStage(stageId, { onProgress } = {}) {
         );
       }
 
+      db.prepare('DELETE FROM descents WHERE stage_id = ?').run(stageId);
+      const insDescent = db.prepare(
+        `INSERT INTO descents (stage_id, name, start_km, end_km, length_km,
+           top_ele_m, bottom_ele_m, avg_gradient, max_gradient, irregularity_index, km_blocks, name_source)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+      );
+      for (const d of descents) {
+        insDescent.run(
+          stageId, d.name,
+          Math.round((d.startM / 1000) * 100) / 100, Math.round((d.endM / 1000) * 100) / 100,
+          d.lengthKm, d.topEle, d.bottomEle, d.avgGradient, d.maxGradient, d.irregularityIndex,
+          JSON.stringify(d.kmBlocks), d.nameSource
+        );
+      }
+
       db.prepare('DELETE FROM km_analysis WHERE stage_id = ?').run(stageId);
       const insKm = db.prepare(
         `INSERT INTO km_analysis (stage_id, km, ele_start_m, ele_end_m, avg_gradient, max_gradient_100m, ascent_m, cum_ascent_m)
@@ -189,6 +209,7 @@ function loadStageFull(stageId) {
     .prepare('SELECT idx, dist_m, lat, lon, ele_raw_m, ele_smooth_m FROM elevation_samples WHERE stage_id = ? ORDER BY idx')
     .all(stageId);
   const climbs = db.prepare('SELECT * FROM climbs WHERE stage_id = ? ORDER BY start_km').all(stageId);
+  const descents = db.prepare('SELECT * FROM descents WHERE stage_id = ? ORDER BY start_km').all(stageId);
   const kmAnalysis = db.prepare('SELECT * FROM km_analysis WHERE stage_id = ? ORDER BY km').all(stageId);
   // Dérivé de kmAnalysis à la lecture, pas persisté : déterministe et bon marché
   // à recalculer, pas besoin d'une table dédiée ni de la resynchroniser (backlog
@@ -226,6 +247,7 @@ function loadStageFull(stageId) {
       : null,
     samples,
     climbs: climbs.map((c) => ({ ...c, km_blocks: c.km_blocks ? JSON.parse(c.km_blocks) : [] })),
+    descents: descents.map((d) => ({ ...d, km_blocks: d.km_blocks ? JSON.parse(d.km_blocks) : [] })),
     kmAnalysis,
     fauxPlats,
     confidence,

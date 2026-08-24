@@ -188,6 +188,10 @@ async function nameClimbs(climbs, waypointsOnTrack, samples, reverseGeocodeFn) {
     if (summitWp) {
       c.name = summitWp.label;
       c.nameSource = 'waypoint';
+      // rawLabel : toponyme nu, sans le préfixe "Côte de" — pipeline/descents.js
+      // s'en sert pour nommer la descente qui suit sans doubler un préfixe
+      // ("Descente de Côte de X" serait grammaticalement faux).
+      c.rawLabel = summitWp.label;
       continue;
     }
     // Point du sommet → géocodage inverse.
@@ -199,6 +203,7 @@ async function nameClimbs(climbs, waypointsOnTrack, samples, reverseGeocodeFn) {
       const r = await reverseGeocodeFn(samples[si].lat, samples[si].lon);
       c.name = r && r.label ? `Côte de ${r.label}` : `Côte du km ${(c.endM / 1000).toFixed(0)}`;
       c.nameSource = 'reverse-geocode';
+      if (r && r.label) c.rawLabel = r.label;
     } catch {
       c.name = `Côte du km ${(c.endM / 1000).toFixed(0)}`;
       c.nameSource = 'defaut';

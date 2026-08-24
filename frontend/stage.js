@@ -238,6 +238,27 @@ function renderFiche() {
     fpList.appendChild(li);
   }
 
+  // Descentes (backlog #10) : symétrique des côtes, sans catégorie ASO (qui
+  // n'existe pas pour les descentes) — voir pipeline/descents.js.
+  const descentsSection = document.getElementById('descents-section');
+  const descents = FULL.descents || [];
+  descentsSection.style.display = descents.length ? 'block' : 'none';
+  const descList = document.getElementById('descents');
+  descList.innerHTML = '';
+  for (const d of descents) {
+    const li = document.createElement('li');
+    li.className = 'fauxplat-item';
+    const overlapping = EFProfile.climbApproxOverlap(d, FULL.track?.approx_segments);
+    const approxBadge = overlapping
+      ? ` <span class="badge partial-badge" title="${EF.esc(overlapping.reason)} — pente non fiable sur ce tronçon">segment approximé</span>`
+      : '';
+    li.innerHTML = `<span class="badge fauxplat-badge">descente</span> ${EF.esc(d.name)} · ` +
+      `km ${d.start_km} → ${d.end_km} · ${d.length_km} km à ${d.avg_gradient} % en moyenne ` +
+      `(max ${d.max_gradient} %) · du sommet (${d.top_ele_m} m) au bas (${d.bottom_ele_m} m)` +
+      `${d.irregularity_index != null ? ` · indice d'irrégularité ${d.irregularity_index}` : ''}${approxBadge}`;
+    descList.appendChild(li);
+  }
+
   renderKmTable();
 
   // Carte.
