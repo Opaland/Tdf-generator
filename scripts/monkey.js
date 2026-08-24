@@ -163,6 +163,37 @@ async function monkeyOnPage(context, base, pageDef, actionsCount, rand) {
   const xssTriggered = await page.evaluate(() => window.__xss).catch(() => undefined);
   if (xssTriggered) findings.push({ kind: 'XSS DÉCLENCHÉ', page: pageDef.name, detail: `window.__xss = ${xssTriggered}` });
 
+  // Débordement horizontal mobile (issue #16/#17, trouvé une première fois
+  // "à la main" avec Playwright hors CI, jamais reproduit automatiquement
+  // depuis — cf. #85 : rien ne le verrouille contre une régression). Vérifié
+  // à un viewport mobile fixe (375×812) systématiquement, pas seulement
+  // quand le tirage aléatoire de `action === 'resize'` y passe par hasard.
+  try {
+    await page.setViewportSize({ width: 375, height: 812 });
+    await page.waitForTimeout(150);
+    /* eslint-disable no-undef -- `document`/`window` s'exécutent dans la page, pas dans Node. */
+    const overflow = await page.evaluate(() => ({
+      scrollWidth: document.documentElement.scrollWidth,
+      innerWidth: window.innerWidth,
+    }));
+    /* eslint-enable no-undef */
+    if (overflow.scrollWidth > overflow.innerWidth + 2) {
+      findings.push({
+        kind: 'DÉBORDEMENT MOBILE',
+        page: pageDef.name,
+        detail: `scrollWidth=${overflow.scrollWidth} > innerWidth=${overflow.innerWidth} à 375px`,
+      });
+    }
+  } catch (err) {
+    // Une navigation encore en vol (reload/back juste avant) détruit le
+    // contexte JS pendant l'evaluate() — même risque, même traitement que
+    // xssTriggered ci-dessus (.catch(() => undefined)) : ce n'est pas un
+    // bug de l'app, pas la peine de le remonter comme une trouvaille.
+    if (!/execution context was destroyed|target (page|closed)/i.test(err.message || '')) {
+      findings.push({ kind: 'action-exception', page: pageDef.name, detail: `check mobile: ${String(err.message).slice(0, 200)}` });
+    }
+  }
+
   await page.close();
   return findings;
 }
