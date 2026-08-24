@@ -65,6 +65,7 @@ const PAIRS = [
   { name: '--ok sur --carte (.checks .ok .st, icône de statut)', fg: 'ok', bg: 'carte', min: 3 },
   { name: '--warn sur --carte (.checks .warn .st, icône de statut)', fg: 'warn', bg: 'carte', min: 3 },
   { name: '--fail sur --carte (.checks .fail .st, icône de statut)', fg: 'fail', bg: 'carte', min: 3 },
+  { name: '--texte sur --bord (.explorer-tile-unexplored)', fg: 'texte', bg: 'bord', min: 4.5 },
 ];
 
 // button.danger : texte blanc sur fond --fail (pas une variable :root pour
@@ -82,6 +83,8 @@ const BADGE_PAIRS = [
   { name: '.badge.done (--ok sur #d9efe1)', fg: 'ok', bgHex: '#d9efe1', min: 4.5 },
   { name: '.badge.generating (--warn sur #fdf0d8)', fg: 'warn', bgHex: '#fdf0d8', min: 4.5 },
   { name: '.badge.error (--fail sur #fbdcdc)', fg: 'fail', bgHex: '#fbdcdc', min: 4.5 },
+  { name: '.explorer-tile-partial (--noir sur #fdf0d8)', fg: 'noir', bgHex: '#fdf0d8', min: 4.5 },
+  { name: '.explorer-tile-complete (--noir sur #d9efe1)', fg: 'noir', bgHex: '#d9efe1', min: 4.5 },
 ];
 
 for (const p of PAIRS) {

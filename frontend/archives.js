@@ -59,13 +59,98 @@ async function generateAll(editionId, btn) {
   }
 }
 
-async function loadEditions() {
+// « Éditions explorées » (backlog #10 section D, gamification inspirée
+// d'Explorer Tiles de VeloViewer) — cadrage volontaire, pas une simple
+// copie : ÉtapeForge n'a aucune notion géographique de tuile (contrairement
+// à VeloViewer, qui suit une grille de tuiles de carte réellement roulées),
+// et le modèle de données n'a aucune notion d'utilisateur avant une future
+// authentification multi-compte — donc pas de « mes » tuiles explorées,
+// une seule vue globale à l'instance. La « tuile » ici est une édition déjà
+// importée, colorée selon combien de ses étapes ont été générées. Dérivé
+// entièrement des données déjà chargées par loadEditions() — aucune
+// nouvelle route ni persistance, /api/editions donne déjà stage_count et
+// done_count par édition.
+function renderExplorerGrid(editions) {
+  const box = document.getElementById('explorer-box');
+  const grid = document.getElementById('explorer-grid');
+  const known = editions.filter((x) => !x.is_custom && x.year).sort((a, b) => a.year - b.year);
+  if (!known.length) { box.style.display = 'none'; return; }
+  box.style.display = 'block';
+  grid.innerHTML = known.map((e) => {
+    const status = e.done_count >= e.stage_count && e.stage_count > 0
+      ? 'complete'
+      : e.done_count > 0 ? 'partial' : 'unexplored';
+    const title = status === 'complete'
+      ? `${e.year} : toutes les étapes générées (${e.done_count}/${e.stage_count})`
+      : status === 'partial'
+        ? `${e.year} : ${e.done_count}/${e.stage_count} étapes générées`
+        : `${e.year} : importée, aucune étape générée`;
+    // Le statut ne doit pas reposer sur la seule couleur (daltonisme, ou
+    // survol au clavier/tactile qui n'affiche pas le title) — glyphe
+    // visible directement sur la tuile, même esprit que ✓/⚠/✗ sur
+    // .checks .st ailleurs dans l'app. Trouvaille de revue-personas.
+    const glyph = status === 'complete' ? '✓' : status === 'partial' ? '½' : '';
+    return `<button type="button" class="explorer-tile explorer-tile-${status}" data-explorer-year="${e.year}" title="${EF.esc(title)}">${glyph ? `<span class="explorer-tile-glyph">${glyph}</span> ` : ''}${e.year}</button>`;
+  }).join('');
+  grid.querySelectorAll('[data-explorer-year]').forEach((btn) =>
+    btn.addEventListener('click', async () => {
+      const edition = known.find((e) => String(e.year) === btn.dataset.explorerYear);
+      if (!edition) return;
+      // Le filtre « entièrement sourcé » peut avoir retiré le <details> de
+      // cette édition du DOM alors que sa tuile reste affichée (la grille
+      // liste toutes les éditions importées, indépendamment du filtre) —
+      // trouvaille de relecture adverse : le clic ne faisait alors
+      // silencieusement rien. Décocher le filtre et recharger si besoin
+      // avant de chercher la cible.
+      const sourcedOnlyBox = document.getElementById('f-sourced-only');
+      if (sourcedOnlyBox.checked) {
+        sourcedOnlyBox.checked = false;
+        await loadEditions(); // sérialisé (voir loadEditions) — jamais deux rechargements concurrents
+      }
+      // La cible peut ne pas encore exister au moment précis où ce clic
+      // s'exécute (rechargement d'une autre origine encore en cours,
+      // désormais sérialisé mais pas instantané) — quelques tentatives
+      // courtes plutôt qu'un clic mort au premier essai raté (trouvaille
+      // de relecture adverse, 3e tour : la fenêtre existe même sans
+      // action de ce clic-ci, dès que #editions est en cours de
+      // reconstruction par un autre appelant de loadEditions()).
+      for (let i = 0; i < 10; i++) {
+        const target = document.querySelector(`#editions details[data-ed="${edition.id}"]`);
+        if (target) {
+          target.open = true;
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return;
+        }
+        await new Promise((r) => setTimeout(r, 100));
+      }
+    })
+  );
+}
+
+// loadEditions() a plusieurs points d'entrée indépendants qui ne se
+// coordonnaient pas (chargement initial, sondage de progression, filtre
+// sourced-only, clic sur une tuile explorateur, génération en lot) —
+// chacun fait son propre `#editions.innerHTML = ''` puis reconstruit par
+// appendChild : deux exécutions concurrentes se marchent dessus et
+// produisent un DOM incohérent (éditions dupliquées ou manquantes),
+// trouvaille de relecture adverse (3e tour, reproduit deux fois avec des
+// résultats différents). Une chaîne de promesses sérialise tous les
+// appels — chacun attend son tour puis s'exécute avec les données/coches
+// à jour au moment où il démarre, jamais en parallèle d'un autre.
+let editionsLoadChain = Promise.resolve();
+function loadEditions() {
+  editionsLoadChain = editionsLoadChain.then(runLoadEditions, runLoadEditions);
+  return editionsLoadChain;
+}
+
+async function runLoadEditions() {
   const editions = await EF.api('/api/editions');
   const box = document.getElementById('editions');
   const sourcedOnly = document.getElementById('f-sourced-only').checked;
   const openStates = {};
   box.querySelectorAll('details').forEach((d) => (openStates[d.dataset.ed] = d.open));
   box.innerHTML = '';
+  renderExplorerGrid(editions);
   for (const e of editions.filter((x) => !x.is_custom && x.year)) {
     const fullySourced = e.stage_count > 0 && e.curated_stage_count === e.stage_count;
     if (sourcedOnly && !fullySourced) continue;
