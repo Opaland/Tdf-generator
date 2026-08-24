@@ -19,13 +19,13 @@ EF.TOUR_STEPS = [
   },
   {
     title: 'Fiche côte par côte',
-    body: "Chaque col généré ou reconstitué obtient sa fiche : profil, pente moyenne, catégorie, indice d'irrégularité — avec la source de chaque donnée affichée, jamais masquée.",
+    body: "Le tableau des cols recense chaque côte détectée : altitude au sommet, longueur, pente moyenne et maximale, catégorie, et un score de pénibilité façon VeloViewer — cliquez une ligne pour déplier son profil.",
     href: '/cols.html',
     cta: 'Voir les cols',
   },
   {
     title: 'Comparateur',
-    body: 'Superposez deux étapes (parcours officiel vs. reconstitution, ou deux éditions différentes) pour visualiser les écarts de tracé et de dénivelé.',
+    body: 'Superposez deux étapes (parcours officiel vs. reconstitution, ou deux étapes prises dans des éditions différentes) pour visualiser les écarts de tracé et de dénivelé.',
     href: '/compare.html',
     cta: 'Ouvrir le comparateur',
   },
@@ -108,7 +108,16 @@ EF.openTour = function openTour() {
   function render() {
     const s = EF.TOUR_STEPS[step];
     const isLast = step === EF.TOUR_STEPS.length - 1;
+    // Le bouton de fermeture est isolé du reste des actions (coin
+    // supérieur droit de la carte, positionnement CSS) plutôt que rangé
+    // avec Précédent/Suivant dans .tour-actions : à 4 boutons dans une
+    // largeur de carte fixe (480px), le dernier bordait seul sur une
+    // deuxième ligne — trouvaille de revue-personas (persona développeur,
+    // capture d'écran à l'appui) — et un public non technique cherche
+    // instinctivement le ✕ en haut à droite, pas mêlé à la navigation
+    // (persona cycliste amateur).
     card.innerHTML = `
+      <button type="button" id="tour-close" class="tour-close-btn" aria-label="Fermer la visite guidée">✕</button>
       <p class="tour-progress">Étape ${step + 1} / ${EF.TOUR_STEPS.length}</p>
       <h2>${EF.esc(s.title)}</h2>
       <p>${EF.esc(s.body)}</p>
@@ -116,7 +125,6 @@ EF.openTour = function openTour() {
         <button type="button" id="tour-prev" class="secondary" ${step === 0 ? 'disabled' : ''}>◀ Précédent</button>
         <a href="${EF.esc(s.href)}" class="btn secondary" id="tour-goto">${EF.esc(s.cta)} ↗</a>
         <button type="button" id="tour-next">${isLast ? 'Terminer' : 'Suivant ▶'}</button>
-        <button type="button" id="tour-close" class="secondary" aria-label="Fermer la visite guidée">✕</button>
       </div>`;
     card.querySelector('#tour-prev').addEventListener('click', () => go(-1));
     card.querySelector('#tour-close').addEventListener('click', close);
@@ -125,6 +133,12 @@ EF.openTour = function openTour() {
 
   render();
   document.addEventListener('keydown', onKeydown);
+  // Clic sur le fond sombre (pas sur la carte elle-même) : réflexe naturel
+  // pour sortir d'une modale même sans connaître Escape — trouvaille de
+  // revue-personas (persona cycliste amateur, reproduit en direct).
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) close();
+  });
   document.body.appendChild(overlay);
   activeOverlay = overlay;
   card.focus();

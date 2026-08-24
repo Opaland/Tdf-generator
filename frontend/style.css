@@ -264,9 +264,17 @@ table.stats tfoot td { font-weight: 700; background: #f3ecd9; }
   z-index: 2000; padding: 20px;
 }
 .tour-card {
+  position: relative;
   background: var(--carte); border-radius: 12px; padding: 24px 28px;
   max-width: 480px; width: 100%; box-shadow: 0 12px 32px rgba(0,0,0,0.3);
 }
-.tour-card h2 { margin: 4px 0 10px; }
+.tour-card h2 { margin: 4px 0 10px; padding-right: 24px; }
 .tour-progress { color: var(--texte2); font-size: 0.8em; margin: 0 0 4px; text-transform: uppercase; letter-spacing: 0.5px; }
 .tour-actions { flex-wrap: wrap; margin-top: 16px; }
+.tour-close-btn {
+  position: absolute; top: 14px; right: 14px;
+  background: none; border: none; color: var(--texte2);
+  width: 30px; height: 30px; border-radius: 6px; font-size: 1.1em; line-height: 1;
+  cursor: pointer; padding: 0;
+}
+.tour-close-btn:hover { background: var(--bord); color: var(--texte); }
