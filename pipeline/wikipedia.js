@@ -6,6 +6,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { parse: parseHtml } = require('node-html-parser');
 const { httpText, isOffline } = require('./http');
 const { cached } = require('./cache');
 
@@ -21,37 +22,22 @@ const KNOWN_COLS = JSON.parse(
   fs.readFileSync(path.join(__dirname, 'data', 'known_cols.json'), 'utf8')
 );
 
-// --- Petit parseur HTML (tableaux Wikipédia), sans dépendance ------------------
+// --- Parseur HTML (tableaux Wikipédia) -----------------------------------------
+// node-html-parser (backlog #10, section F) : un vrai DOM plutôt qu'un mini-
+// parseur regex maison — celui-ci cassait silencieusement (aucune erreur,
+// juste des cellules mal découpées) dès qu'une évolution de mise en page
+// Wikipédia sortait des motifs prévus. Dépendance évaluée avant adoption :
+// 11 paquets, ~3 Mo, 0 vulnérabilité connue (`npm audit`) — et son extraction
+// vérifiée bit-à-bit identique à l'ancien parseur sur les 3 fixtures réelles
+// du dépôt (pipeline/fixtures/wikipedia_*.html, formats 1903 historique et
+// 2025/2026 modernes) avant remplacement, pas seulement testée sur un
+// nouveau cas inventé.
 
-const NAMED_ENTITIES = {
-  nbsp: ' ', ndash: '–', mdash: '—', amp: '&', lt: '<', gt: '>', quot: '"', apos: "'",
-  eacute: 'é', egrave: 'è', ecirc: 'ê', euml: 'ë',
-  agrave: 'à', acirc: 'â', auml: 'ä',
-  icirc: 'î', iuml: 'ï',
-  ocirc: 'ô', ouml: 'ö',
-  ugrave: 'ù', ucirc: 'û', uuml: 'ü',
-  ccedil: 'ç', oelig: 'œ', aelig: 'æ',
-  Eacute: 'É', Egrave: 'È', Agrave: 'À', Ccedil: 'Ç',
-};
-
-function decodeEntities(s) {
-  return s
-    .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCodePoint(parseInt(h, 16)))
-    .replace(/&#(\d+);/g, (_, d) => {
-      const cp = parseInt(d, 10);
-      return cp === 160 ? ' ' : String.fromCodePoint(cp);
-    })
-    .replace(/&([a-zA-Z]+);/g, (m, name) => NAMED_ENTITIES[name] ?? m);
-}
-
-function cellText(html) {
-  return decodeEntities(
-    html
-      .replace(/<sup[\s\S]*?<\/sup>/gi, '') // appels de référence [1]
-      .replace(/<style[\s\S]*?<\/style>/gi, '')
-      .replace(/<br\s*\/?>/gi, ' ')
-      .replace(/<[^>]+>/g, '')
-  )
+function cellText(cell) {
+  const clone = cell.clone();
+  clone.querySelectorAll('sup, style').forEach((n) => n.remove()); // appels de référence [1]
+  clone.querySelectorAll('br').forEach((n) => n.replaceWith(' '));
+  return clone.text // .text décode les entités HTML (via node-html-parser)
     .replace(/\[[^\]]*\]/g, '')
     .replace(/\s+/g, ' ')
     .trim();
@@ -59,19 +45,13 @@ function cellText(html) {
 
 /** Extrait toutes les tables wikitable d'une page HTML → [ [ [cell,…], … ], … ]. */
 function extractTables(html) {
+  const root = parseHtml(html);
   const tables = [];
-  const tableRe = /<table[^>]*>[\s\S]*?<\/table>/gi;
-  let m;
-  while ((m = tableRe.exec(html))) {
-    if (!/wikitable/i.test(m[0].slice(0, 200))) continue;
+  for (const table of root.querySelectorAll('table')) {
+    if (!/wikitable/i.test(table.getAttribute('class') || '')) continue;
     const rows = [];
-    const rowRe = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
-    let r;
-    while ((r = rowRe.exec(m[0]))) {
-      const cells = [];
-      const cellRe = /<t[hd][^>]*>([\s\S]*?)<\/t[hd]>/gi;
-      let c;
-      while ((c = cellRe.exec(r[1]))) cells.push(cellText(c[1]));
+    for (const tr of table.querySelectorAll('tr')) {
+      const cells = tr.querySelectorAll('th, td').map(cellText);
       if (cells.length) rows.push(cells);
     }
     if (rows.length) tables.push(rows);

@@ -11,6 +11,7 @@ const {
   parseDistanceKm,
   parseDate,
   reconstructionWaypoints,
+  extractTables,
 } = require('../pipeline/wikipedia');
 
 const FIXTURES = path.join(__dirname, '..', 'pipeline', 'fixtures');
@@ -95,4 +96,41 @@ test('fonctions unitaires du parseur', () => {
   assert.strictEqual(parseDistanceKm('467,5 km'), 467.5, 'décimale française');
   assert.strictEqual(parseDate('1–2 July', 1903), '1903-07-01');
   assert.strictEqual(parseDate('5 juillet 1903', 1903), '1903-07-05');
+});
+
+// extractTables (backlog #10, section F) : remplacement du mini-parseur
+// regex par node-html-parser (un vrai DOM) — vérifié bit-à-bit identique à
+// l'ancien parseur sur les 3 fixtures réelles du dépôt avant remplacement
+// (pas dans ce fichier, en amont, avant l'écriture du diff). Ces tests
+// couvrent des cas que le mini-parseur regex maison gérait déjà pour
+// partie, ou pas du tout — à ne pas régresser avec un futur changement.
+test('extractTables : ignore les tables sans classe wikitable', () => {
+  const html = '<table class="infobox"><tr><td>x</td></tr></table><table class="wikitable"><tr><td>y</td></tr></table>';
+  assert.deepStrictEqual(extractTables(html), [[['y']]]);
+});
+
+test('extractTables : retire les appels de référence <sup> du texte de cellule', () => {
+  const html = '<table class="wikitable"><tr><td>Paris<sup>[1]</sup> to Lyon</td></tr></table>';
+  assert.deepStrictEqual(extractTables(html), [[['Paris to Lyon']]]);
+});
+
+test('extractTables : <br> devient un espace, pas une concaténation collée', () => {
+  const html = '<table class="wikitable"><tr><td>Ligne1<br>Ligne2</td></tr></table>';
+  assert.deepStrictEqual(extractTables(html), [[['Ligne1 Ligne2']]]);
+});
+
+test('extractTables : décode les entités HTML au-delà du tableau fixe de l\'ancien parseur (ex. &hellip;, &#39;, entité numérique)', () => {
+  const html = '<table class="wikitable"><tr><td>L&#39;étape&hellip; &#233;tape</td></tr></table>';
+  const cell = extractTables(html)[0][0][0];
+  assert.strictEqual(cell, "L'étape… étape");
+});
+
+test('extractTables : balisage légèrement malformé (attribut non fermé) ne casse pas le parseur', () => {
+  const html = '<table class="wikitable"><tr><td class=unquoted>Étape 1</td></tr></table>';
+  assert.deepStrictEqual(extractTables(html), [[['Étape 1']]]);
+});
+
+test('extractTables : HTML vide ou sans aucune table → tableau vide, pas d\'exception', () => {
+  assert.deepStrictEqual(extractTables(''), []);
+  assert.deepStrictEqual(extractTables('<p>rien ici</p>'), []);
 });
