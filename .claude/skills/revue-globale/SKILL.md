@@ -69,9 +69,10 @@ cat package.json | grep -A6 '"dependencies"'
 ```
 
 4 dépendances directes au moment d'écrire ces lignes (`better-sqlite3`,
-`express`, `fit-file-parser`, `leaflet`) + `playwright` en dev — toute
-nouvelle dépendance se justifie explicitement (voir `docs/BRIEF.md`,
-« ce qu'on ne fera pas » : pas de dépendance cloud propriétaire, pas de
+`express`, `fit-file-parser`, `leaflet`) + `playwright` et
+`@stryker-mutator/core` en dev — toute nouvelle dépendance se justifie
+explicitement (voir `docs/BRIEF.md`, « ce qu'on ne fera pas » : pas de
+dépendance cloud propriétaire, pas de
 framework frontend).
 
 ## Le piège de l'outil qu'on vient d'écrire
