@@ -167,6 +167,70 @@ ${coursePoints}
 </TrainingCenterDatabase>`;
 }
 
+/**
+ * KML 2.2 (Google Earth) du tracé + points de passage. Schéma vérifié sur le
+ * XSD OGC réel (raw.githubusercontent.com/52North/common-xml, le domaine
+ * officiel schemas.opengis.net étant bloqué par le proxy sortant de ce bac
+ * à sable) — contrairement à TCX, KML n'impose quasi aucune contrainte de
+ * schéma (tous les champs de Placemark/LineString/Point sont minOccurs=0),
+ * donc pas de troncature ni de champ obligatoire à synthétiser ici.
+ */
+function stageToKml(full) {
+  const { stage, samples, waypoints, climbs } = full;
+  const coordTuple = (lat, lon, ele) => `${lon},${lat},${ele ?? 0}`;
+
+  const climbPlacemarks = (climbs || [])
+    .map((c) => {
+      let best = samples[0];
+      for (const s of samples) {
+        if (Math.abs(s.dist_m - c.end_km * 1000) < Math.abs(best.dist_m - c.end_km * 1000)) best = s;
+      }
+      if (!best) return '';
+      return `    <Placemark>\n` +
+        `      <name>${esc(c.name)} (cat. ${esc(c.category)})</name>\n` +
+        `      <description>${esc(`${c.length_km} km à ${c.avg_gradient} % (max ${c.max_gradient} %), sommet ${c.summit_ele_m} m`)}</description>\n` +
+        `      <Point><coordinates>${coordTuple(best.lat, best.lon, c.summit_ele_m)}</coordinates></Point>\n` +
+        `    </Placemark>`;
+    })
+    .filter(Boolean)
+    .join('\n');
+
+  const waypointPlacemarks = waypoints
+    .filter((w) => w.lat != null)
+    .map(
+      (w) =>
+        `    <Placemark>\n` +
+        `      <name>${esc(w.label)}</name>\n` +
+        `      <description>${esc(w.kind)}</description>\n` +
+        `      <Point><coordinates>${coordTuple(w.lat, w.lon, w.altitude_hint_m)}</coordinates></Point>\n` +
+        `    </Placemark>`
+    )
+    .join('\n');
+
+  const trackCoords = samples.map((s) => coordTuple(s.lat, s.lon, s.ele_raw_m)).join(' ');
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>${esc(stage.name)}</name>
+    <description>Généré par ÉtapeForge — tracé © OpenStreetMap contributors (routage OSRM), altimétrie IGN/Géoplateforme &amp; opentopodata.</description>
+    <Style id="etapeforge-track">
+      <LineStyle><color>ff20d3ff</color><width>4</width></LineStyle>
+    </Style>
+${waypointPlacemarks}
+${climbPlacemarks}
+    <Placemark>
+      <name>${esc(stage.name)}</name>
+      <styleUrl>#etapeforge-track</styleUrl>
+      <LineString>
+        <altitudeMode>absolute</altitudeMode>
+        <coordinates>${trackCoords}</coordinates>
+      </LineString>
+    </Placemark>
+  </Document>
+</kml>`;
+}
+
 // Décimation partagée avec le frontend (profile.js expose aussi module.exports).
 const { decimate } = require('../frontend/profile');
 
@@ -536,4 +600,4 @@ document.addEventListener('DOMContentLoaded', () => {
 </html>`;
 }
 
-module.exports = { stageToGpx, stageToTcx, stagePayload, tourToStandaloneHtml, stageToStandaloneHtml, stageToRoadbookHtml, decimate, ATTRIBUTIONS };
+module.exports = { stageToGpx, stageToTcx, stageToKml, stagePayload, tourToStandaloneHtml, stageToStandaloneHtml, stageToRoadbookHtml, decimate, ATTRIBUTIONS };

@@ -245,6 +245,7 @@ function renderFiche() {
     document.getElementById('exp-json').href = `data/stage-${stageId}.json`;
     document.getElementById('exp-gpx').style.display = 'none';
     document.getElementById('exp-tcx').style.display = 'none';
+    document.getElementById('exp-kml').style.display = 'none';
     document.getElementById('exp-roadbook').style.display = 'none';
     document.getElementById('exp-html').style.display = 'none';
     document.getElementById('btn-regen').style.display = 'none';
@@ -253,6 +254,7 @@ function renderFiche() {
     document.getElementById('exp-json').href = `/api/stages/${stageId}/export.json`;
     document.getElementById('exp-gpx').href = `/api/stages/${stageId}/export.gpx`;
     document.getElementById('exp-tcx').href = `/api/stages/${stageId}/export.tcx`;
+    document.getElementById('exp-kml').href = `/api/stages/${stageId}/export.kml`;
     document.getElementById('exp-roadbook').href = `/api/stages/${stageId}/roadbook.html`;
     document.getElementById('exp-html').href = `/api/stages/${stageId}/export.html`;
   }

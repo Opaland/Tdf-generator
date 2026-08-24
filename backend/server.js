@@ -11,7 +11,7 @@ const { importEdition } = require('../pipeline/importer');
 const { historicHighlights } = require('../pipeline/wikipedia');
 const { geocodeSuggest, reverseGeocode } = require('../pipeline/geocode');
 const { isOffline, setOffline, httpText } = require('../pipeline/http');
-const { stageToGpx, stageToTcx, stagePayload, tourToStandaloneHtml, stageToStandaloneHtml, stageToRoadbookHtml, ATTRIBUTIONS } = require('./exports');
+const { stageToGpx, stageToTcx, stageToKml, stagePayload, tourToStandaloneHtml, stageToStandaloneHtml, stageToRoadbookHtml, ATTRIBUTIONS } = require('./exports');
 
 const { suuntoRouter } = require('./suunto');
 const { parseGpx, importTrackAsStage } = require('../pipeline/importTrack');
@@ -460,6 +460,14 @@ app.get('/api/stages/:id/export.tcx', (req, res) => {
   res.setHeader('Content-Type', 'application/vnd.garmin.tcx+xml');
   res.setHeader('Content-Disposition', `attachment; filename="etape-${full.stage.id}.tcx"`);
   res.send(stageToTcx(full));
+});
+
+app.get('/api/stages/:id/export.kml', (req, res) => {
+  const full = loadStageFull(parseInt(req.params.id, 10));
+  if (!full || !full.samples.length) return res.status(404).json({ error: 'Étape non générée' });
+  res.setHeader('Content-Type', 'application/vnd.google-earth.kml+xml');
+  res.setHeader('Content-Disposition', `attachment; filename="etape-${full.stage.id}.kml"`);
+  res.send(stageToKml(full));
 });
 
 app.get('/api/stages/:id/export.html', wrap(async (req, res) => {
