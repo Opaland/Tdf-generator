@@ -135,7 +135,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   await EF.initChrome('archives');
   document.getElementById('btn-import').addEventListener('click', importYear);
   document.getElementById('f-sourced-only').addEventListener('change', () => loadEditions());
-  loadMythicGrid();
+  // Pas de .catch() ici plantait silencieusement (rejet de promesse non
+  // géré) en mode EF_STATIC, où /api/editions/highlights n'a pas
+  // d'équivalent statique — la grille de vignettes restait juste vide,
+  // jamais visible en pratique donc jamais remarqué jusqu'ici.
+  loadMythicGrid().catch(() => {});
   const editions = await loadEditions();
   // Première visite : proposer la démo 1903 automatiquement.
   if (!editions.some((e) => e.year === 1903)) {
@@ -143,4 +147,13 @@ document.addEventListener('DOMContentLoaded', async () => {
       '1903 pas encore importé — cliquez « Importer l\'année » pour charger la démo.';
   }
   pollWhileGenerating();
+
+  // Défi du jour (backlog #10, section D) : lien /archives.html?year=X&auto=1
+  // depuis l'écran d'accueil — présélectionne et importe directement l'année
+  // suggérée, même geste qu'un clic sur une vignette mythique.
+  const qsYear = EF.qs('year');
+  if (qsYear && EF.qs('auto') === '1') {
+    document.getElementById('f-year').value = qsYear;
+    importYear();
+  }
 });
