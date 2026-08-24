@@ -28,7 +28,21 @@ const app = express();
 // pour que req.ip (utilisé par le limiteur de tentatives login/register)
 // reflète l'IP réelle du client plutôt que celle du proxy.
 if (AUTH_REQUIRED) app.set('trust proxy', 1);
-app.use(express.json({ limit: '2mb' }));
+// 20mb (pas 2mb) : un dump complet pour /api/backup/import (voir plus bas)
+// dépasse vite l'ancienne limite de 2 Mo dès quelques dizaines d'étapes
+// générées (~55 Ko/étape mesuré, surtout elevation_samples — 7 étapes
+// suffisent déjà à dépasser 1,8 Mo en pratique). Un second body-parser
+// scopé à cette seule route ne fonctionne PAS : Express traite les
+// middlewares dans l'ordre d'enregistrement, donc le premier express.json()
+// qui matche le Content-Type rejette (413) une requête surdimensionnée
+// avant même d'atteindre un second parseur plus permissif plus loin dans la
+// chaîne — vérifié empiriquement avant de choisir cette approche plutôt
+// qu'un contournement par Content-Type (relecture adverse : ce contournement
+// laissait une route qui échouait silencieusement avec le Content-Type
+// standard application/json, la seule route ici qui a besoin d'un gros
+// body, donc pas de raison de complexifier les autres avec une limite plus
+// large qu'elles ne portent jamais.
+app.use(express.json({ limit: '20mb' }));
 app.use('/api/import/gpx', express.text({ type: '*/*', limit: '30mb' }));
 app.use((req, res, next) => {
   res.setHeader('X-Content-Type-Options', 'nosniff');
@@ -541,6 +555,93 @@ app.get('/api/editions/:id/site', wrap(async (req, res) => {
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.send(tourToStandaloneHtml(parseInt(req.params.id, 10)));
 }));
+
+// ------------------------------------------------- sauvegarde portable (export/import)
+// Complète (ne remplace pas) la sauvegarde automatique de fichier .sqlite
+// (backend/backup.js, ETAPEFORGE_BACKUP_DIR) : celle-ci sert la reprise
+// après sinistre sur la même installation ; ceci sert la portabilité —
+// déplacer ses données vers une autre instance, ou en garder une copie
+// hors rotation. Format JSON lisible plutôt qu'un dump binaire, pour rester
+// inspectable/diffable. Périmètre volontairement limité aux tables de
+// données produit : ni users/sessions (jamais exporter un hash de mot de
+// passe ou un identifiant de session, même haché), ni les caches d'appels
+// externes (geocode_cache/elevation_cache/api_cache — régénérables, pas des
+// données produit).
+const BACKUP_TABLES = ['editions', 'stages', 'waypoints', 'tracks', 'elevation_samples', 'climbs', 'km_analysis'];
+
+function isBindable(v) {
+  return v === null || typeof v === 'number' || typeof v === 'string' || typeof v === 'bigint';
+}
+
+function tableColumns(db, table) {
+  return db.prepare(`PRAGMA table_info(${table})`).all().map((c) => c.name);
+}
+
+app.get('/api/backup/export', (req, res) => {
+  const db = getDb();
+  const tables = {};
+  for (const t of BACKUP_TABLES) tables[t] = db.prepare(`SELECT * FROM ${t}`).all();
+  const stamp = new Date().toISOString().slice(0, 10);
+  res.setHeader('Content-Disposition', `attachment; filename="etapeforge-sauvegarde-${stamp}.json"`);
+  res.json({ version: 1, exported_at: db.prepare(`SELECT datetime('now') d`).get().d, tables });
+});
+
+/**
+ * Réimport complet : REMPLACE le contenu des tables de données produit par
+ * celui du fichier fourni — pas de fusion, pas de synchronisation
+ * multi-instance. Toute donnée produit absente du fichier est perdue.
+ * `confirm: true` explicite requis pour qu'un appel accidentel ne vide pas
+ * la base. Chaque colonne est validée (nom connu du schéma réel, valeur
+ * d'un type accepté par better-sqlite3) avant toute écriture — CLAUDE.md
+ * règle 8 — et l'ensemble tourne dans une transaction : un fichier
+ * incompatible laisse la base inchangée, jamais à moitié vidée.
+ */
+app.post('/api/backup/import', (req, res) => {
+  const body = req.body || {};
+  if (body.confirm !== true) {
+    return res.status(400).json({ error: 'confirm: true requis — cette opération remplace toutes les données produit existantes.' });
+  }
+  if (!body.tables || typeof body.tables !== 'object' || Array.isArray(body.tables)) {
+    return res.status(400).json({ error: 'tables (objet) requis' });
+  }
+  const db = getDb();
+  const perTable = {};
+  for (const t of BACKUP_TABLES) {
+    const rows = Array.isArray(body.tables[t]) ? body.tables[t] : [];
+    if (!rows.length) { perTable[t] = { cols: [], rows: [] }; continue; }
+    const allowed = new Set(tableColumns(db, t));
+    const cols = Object.keys(rows[0]);
+    for (const c of cols) {
+      if (!allowed.has(c)) return res.status(400).json({ error: `${t}.${c} : colonne inconnue, fichier incompatible avec ce schéma` });
+    }
+    for (let i = 0; i < rows.length; i++) {
+      const row = rows[i];
+      const rowCols = Object.keys(row);
+      if (rowCols.length !== cols.length || !rowCols.every((c) => cols.includes(c))) {
+        return res.status(400).json({ error: `${t}[${i}] : colonnes incohérentes avec les autres lignes de cette table` });
+      }
+      for (const c of cols) {
+        if (!isBindable(row[c])) return res.status(400).json({ error: `${t}[${i}].${c} : type non pris en charge (${typeof row[c]})` });
+      }
+    }
+    perTable[t] = { cols, rows };
+  }
+  const run = db.transaction(() => {
+    for (const t of [...BACKUP_TABLES].reverse()) db.prepare(`DELETE FROM ${t}`).run();
+    for (const t of BACKUP_TABLES) {
+      const { cols, rows } = perTable[t];
+      if (!rows.length) continue;
+      const stmt = db.prepare(`INSERT INTO ${t} (${cols.join(',')}) VALUES (${cols.map(() => '?').join(',')})`);
+      for (const row of rows) stmt.run(cols.map((c) => row[c]));
+    }
+  });
+  try {
+    run();
+  } catch (err) {
+    return res.status(400).json({ error: `Réimport échoué, base inchangée (transaction annulée) : ${err.message}` });
+  }
+  res.json({ ok: true, counts: Object.fromEntries(BACKUP_TABLES.map((t) => [t, perTable[t].rows.length])) });
+});
 
 // Gestionnaire d'erreur global (4 arguments — signature reconnue par Express
 // pour un middleware d'erreur) : filet de sécurité pour toute exception

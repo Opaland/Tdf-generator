@@ -30,6 +30,23 @@
       <tbody></tbody>
     </table>
   </div>
+
+  <h2>Sauvegarde portable (export / import)</h2>
+  <p class="meta-line">Exporte les données produit (éditions, étapes, tracés, côtes…) dans un fichier
+    JSON téléchargeable — pour déplacer ses données vers une autre installation, ou en garder une
+    copie hors rotation. Complète la sauvegarde automatique de fichier (<code>ETAPEFORGE_BACKUP_DIR</code>,
+    voir docs/SYNOLOGY.md) sans la remplacer : celle-ci sert la reprise après sinistre sur la même
+    installation, celle-ci sert la portabilité. Le réimport <b>remplace</b> toutes les données produit
+    existantes — pas de fusion.</p>
+  <div class="card">
+    <div class="toolbar">
+      <a class="btn" href="/api/backup/export">⬇ Télécharger la sauvegarde (JSON)</a>
+      <label class="btn secondary" for="backup-file" style="cursor:pointer">Choisir un fichier à réimporter…</label>
+      <input type="file" id="backup-file" accept="application/json" style="display:none">
+      <button id="btn-restore" class="danger" disabled>Réimporter (remplace toutes les données)</button>
+    </div>
+    <p class="meta-line" id="backup-msg"></p>
+  </div>
 </main>
 <script src="/common.js"></script>
 <script>
@@ -73,11 +90,42 @@ async function run() {
     btn.disabled = false;
   }
 }
+async function doRestore() {
+  const msg = document.getElementById('backup-msg');
+  const fileInput = document.getElementById('backup-file');
+  const file = fileInput.files[0];
+  if (!file) return;
+  let parsed;
+  try {
+    parsed = JSON.parse(await file.text());
+  } catch (err) {
+    msg.textContent = 'Fichier JSON invalide : ' + err.message;
+    return;
+  }
+  msg.textContent = 'Réimport en cours…';
+  try {
+    const res = await EF.api('/api/backup/import', { method: 'POST', body: { ...parsed, confirm: true } });
+    const total = Object.values(res.counts).reduce((a, b) => a + b, 0);
+    msg.textContent = `✔ Réimport terminé : ${total} ligne(s) réparties sur ${Object.keys(res.counts).length} tables. Rechargez les autres pages pour voir les nouvelles données.`;
+  } catch (err) {
+    msg.textContent = 'Erreur : ' + err.message;
+  }
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   await EF.initChrome('');
   document.getElementById('btn-run').addEventListener('click', run);
   run();
   loadQuota();
+
+  const fileInput = document.getElementById('backup-file');
+  const restoreBtn = document.getElementById('btn-restore');
+  fileInput.addEventListener('change', () => { restoreBtn.disabled = !fileInput.files.length; });
+  restoreBtn.addEventListener('click', EF.confirmClick(restoreBtn, {
+    confirmText: 'confirmer le remplacement',
+    confirmTitle: 'Cliquer à nouveau pour confirmer — remplace toutes les données produit existantes',
+    onConfirm: doRestore,
+  }));
 });
 </script>
 </body>
