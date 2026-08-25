@@ -19,7 +19,8 @@ process.env.ETAPEFORGE_DATA_DIR = path.join(os.tmpdir(), `etapeforge-geocode-tes
 
 const { test, before, after } = require('node:test');
 const assert = require('node:assert');
-const { geocode, reverseGeocode, pickFeature, isColQuery } = require('../pipeline/geocode');
+const { geocode, reverseGeocode, pickFeature, isColQuery, geocodeSuggest } = require('../pipeline/geocode');
+const { setOffline } = require('../pipeline/http');
 
 let realFetch;
 let mock; // { geopf?: (url) => Response, nominatim?: (url) => Response }
@@ -159,4 +160,83 @@ test('reverseGeocode : aucun résultat nulle part → repli sur les coordonnées
   const r = await reverseGeocode(43.33, -0.003);
   assert.strictEqual(r.provider, 'aucun');
   assert.strictEqual(r.label, '(43.330, -0.003)');
+});
+
+// ----------------------------------------------------------- geocodeSuggest()
+// Autocomplétion de l'éditeur (GET /api/geocode) — zéro couverture jusqu'ici
+// (trouvaille de sprint dédié, survivants de mutation testing sur les
+// conditions/ternaires/regex ci-dessous).
+
+test('geocodeSuggest : requête vide ou trop courte (< 2 caractères) → [] sans requête réseau', async () => {
+  mock = { geopf: neverCalled('la Géoplateforme'), nominatim: neverCalled('Nominatim') };
+  assert.deepStrictEqual(await geocodeSuggest(''), []);
+  assert.deepStrictEqual(await geocodeSuggest('   '), []);
+  assert.deepStrictEqual(await geocodeSuggest('a'), []);
+});
+
+test('geocodeSuggest (en ligne) : kind = col si le libellé matche isColQuery, via sinon', async () => {
+  mock = {
+    geopf: async () => jsonResponse({
+      features: [
+        { properties: { label: 'Col du Tourmalet' }, geometry: { coordinates: [0.15, 42.91] } },
+        { properties: { label: 'Bagnères-de-Bigorre (65200)' }, geometry: { coordinates: [0.15, 43.06] } },
+      ],
+    }),
+  };
+  const suggestions = await geocodeSuggest('Tourmalet-test-suggest');
+  assert.strictEqual(suggestions.length, 2);
+  assert.strictEqual(suggestions[0].kind, 'col');
+  assert.strictEqual(suggestions[0].provider, 'geopf');
+  assert.strictEqual(suggestions[1].kind, 'via');
+});
+
+test('geocodeSuggest (en ligne) : aucun résultat → tableau vide, pas d\'exception', async () => {
+  mock = { geopf: async () => jsonResponse({ features: [] }) };
+  assert.deepStrictEqual(await geocodeSuggest('IntrouvableSuggest-test'), []);
+});
+
+test('geocodeSuggest (hors ligne) : trouve dans le gazetier — kind col pour un sommet, via pour une ville', async () => {
+  setOffline(true);
+  try {
+    const cols = await geocodeSuggest('Col du Pin-Bouchain');
+    assert.ok(cols.length >= 1);
+    assert.strictEqual(cols[0].kind, 'col');
+    assert.strictEqual(cols[0].provider, 'simulateur');
+    const villes = await geocodeSuggest('Lyon');
+    assert.ok(villes.length >= 1);
+    assert.strictEqual(villes[0].kind, 'via');
+  } finally {
+    setOffline(false);
+  }
+});
+
+test('geocodeSuggest (hors ligne) : insensible aux accents (norm() du gazetier)', async () => {
+  setOffline(true);
+  try {
+    // « republique » sans accent doit matcher « Col de la République » (kind
+    // 'peak' dans le gazetier) DIRECTEMENT via le filtre norm() de ce
+    // fichier — pas seulement retomber sur le repli simGeocode() de
+    // pipeline/simulator.js, qui a sa propre normalisation indépendante et
+    // masquerait une régression de norm() ici : ce repli ne renvoie qu'un
+    // seul résultat avec `kind` figé à 'via' (ligne 161), jamais 'col',
+    // donc vérifier kind='col' distingue bien les deux chemins.
+    const hits = await geocodeSuggest('republique');
+    const hit = hits.find((h) => /République/i.test(h.label));
+    assert.ok(hit, 'doit matcher malgré l\'accent absent de la requête');
+    assert.strictEqual(hit.kind, 'col', 'un vrai hit direct du gazetier doit garder kind=col (sommet) — \'via\' trahirait le repli simGeocode()');
+  } finally {
+    setOffline(false);
+  }
+});
+
+test('geocodeSuggest (hors ligne) : rien dans le gazetier → repli simulateur, un seul résultat', async () => {
+  setOffline(true);
+  try {
+    const hits = await geocodeSuggest('VilleInexistanteXYZ123');
+    assert.strictEqual(hits.length, 1);
+    assert.strictEqual(hits[0].provider, 'simulateur');
+    assert.strictEqual(hits[0].kind, 'via');
+  } finally {
+    setOffline(false);
+  }
 });
