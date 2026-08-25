@@ -15,8 +15,15 @@
 // Un vrai bot Telegram (API chat_id/token) ou un service qui exige un corps
 // différent nécessite un petit relais côté utilisateur — hors scope ici.
 
+const { fetchWithTimeout } = require('../pipeline/http');
+
 const WEBHOOK_URL = process.env.ETAPEFORGE_NOTIFY_WEBHOOK_URL || null;
 const FORMAT = process.env.ETAPEFORGE_NOTIFY_FORMAT === 'text' ? 'text' : 'json';
+// Appelée en fire-and-forget depuis le catch() de generateStage() — jamais
+// attendue par une requête utilisateur — mais sans timeout un webhook qui
+// accepte la connexion sans jamais répondre laissait la requête pendre
+// indéfiniment (socket ouvert sans fin, trouvaille de sprint dédié).
+const NOTIFY_TIMEOUT_MS = 10000;
 
 function buildMessage({ stageId, stageName, error }) {
   return `ÉtapeForge — échec de génération : « ${stageName} » (étape #${stageId}) — ${error}`;
@@ -27,7 +34,7 @@ function buildMessage({ stageId, stageName, error }) {
  * répondu 2xx, false s'il n'est pas configuré ou a échoué (jamais d'exception
  * — une notification ratée ne doit jamais faire planter la génération).
  */
-async function notifyGenerationFailure(info, webhookUrl = WEBHOOK_URL, format = FORMAT) {
+async function notifyGenerationFailure(info, webhookUrl = WEBHOOK_URL, format = FORMAT, timeoutMs = NOTIFY_TIMEOUT_MS) {
   if (!webhookUrl) return false;
   const message = buildMessage(info);
   const isText = format === 'text';
@@ -42,17 +49,18 @@ async function notifyGenerationFailure(info, webhookUrl = WEBHOOK_URL, format = 
         timestamp: new Date().toISOString(),
       });
   try {
-    const res = await fetch(webhookUrl, {
+    const res = await fetchWithTimeout(webhookUrl, {
       method: 'POST',
       headers: { 'Content-Type': isText ? 'text/plain; charset=utf-8' : 'application/json' },
       body,
-    });
+    }, timeoutMs);
     if (!res.ok) console.error(`Notification webhook échouée : HTTP ${res.status} (${webhookUrl})`);
     return res.ok;
   } catch (err) {
-    console.error('Notification webhook injoignable :', err.message);
+    const reason = err.name === 'AbortError' ? `délai de ${timeoutMs} ms dépassé` : err.message;
+    console.error('Notification webhook injoignable :', reason);
     return false;
   }
 }
 
-module.exports = { notifyGenerationFailure, buildMessage, WEBHOOK_URL, FORMAT };
+module.exports = { notifyGenerationFailure, buildMessage, WEBHOOK_URL, FORMAT, NOTIFY_TIMEOUT_MS };

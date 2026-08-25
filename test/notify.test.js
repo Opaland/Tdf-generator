@@ -21,6 +21,12 @@ before(async () => {
     req.on('data', (c) => (body += c));
     req.on('end', () => {
       received.push({ method: req.method, headers: req.headers, body, path: req.url });
+      if (req.url === '/lent') {
+        // Ne répond jamais dans le délai testé — simule un webhook qui
+        // accepte la connexion sans jamais répondre.
+        setTimeout(() => { res.writeHead(200); res.end('ok'); }, 2000);
+        return;
+      }
       const status = req.url === '/fail' ? 503 : 200;
       res.writeHead(status, { 'Content-Type': 'text/plain' });
       res.end('ok');
@@ -80,4 +86,15 @@ test('le récepteur répond en erreur (503) : false, pas d\'exception', async ()
 test('webhook injoignable : false, pas d\'exception (ne doit jamais faire planter la génération)', async () => {
   const ok = await notifyGenerationFailure(INFO, 'http://127.0.0.1:1/injoignable', 'json');
   assert.strictEqual(ok, false);
+});
+
+// pipeline/rateLimiter.js n'entre pas en jeu ici (pas d'appel via httpJson/
+// httpText), mais un webhook qui pend sans timeout laissait quand même la
+// requête ouverte indéfiniment — trouvaille de sprint dédié.
+test('webhook qui ne répond jamais : false bien avant le délai réel du serveur, pas de blocage', async () => {
+  const start = Date.now();
+  const ok = await notifyGenerationFailure(INFO, `${base}/lent`, 'json', 150);
+  const elapsed = Date.now() - start;
+  assert.strictEqual(ok, false);
+  assert.ok(elapsed < 1500, `doit échouer bien avant les 2000 ms de réponse réelle du serveur (mesuré ${elapsed} ms)`);
 });

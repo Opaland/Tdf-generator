@@ -13,10 +13,17 @@
 const express = require('express');
 const { getDb } = require('./db');
 const { importTrackAsStage, pointsFromFitRecords } = require('../pipeline/importTrack');
+const { fetchWithTimeout } = require('../pipeline/http');
 
 // Surchargeables pour les tests d'intégration (serveur Suunto simulé en local).
 const OAUTH_BASE = process.env.SUUNTO_OAUTH_BASE || 'https://cloudapi-oauth.suunto.com';
 const API_BASE = process.env.SUUNTO_API_BASE || 'https://cloudapi.suunto.com';
+// oauthToken()/apiGet() sont attendues directement par une requête utilisateur
+// (routes /api/suunto/*) — sans timeout, un fetch() qui pend laissait cette
+// requête sans réponse indéfiniment (trouvaille de sprint dédié).
+// Surchageable comme OAUTH_BASE/API_BASE ci-dessus, pour un test qui vérifie
+// l'abandon réel sans attendre 15 s.
+const SUUNTO_TIMEOUT_MS = parseInt(process.env.SUUNTO_TIMEOUT_MS || '15000', 10);
 
 // --- petit stockage clé/valeur local -------------------------------------------
 function ensureSettings(db) {
@@ -61,14 +68,20 @@ function storeTokens(json) {
 
 async function oauthToken(params) {
   const { clientId, clientSecret } = config();
-  const res = await fetch(`${OAUTH_BASE}/oauth/token`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: 'Basic ' + Buffer.from(`${clientId}:${clientSecret}`).toString('base64'),
-    },
-    body: new URLSearchParams(params).toString(),
-  });
+  let res;
+  try {
+    res = await fetchWithTimeout(`${OAUTH_BASE}/oauth/token`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: 'Basic ' + Buffer.from(`${clientId}:${clientSecret}`).toString('base64'),
+      },
+      body: new URLSearchParams(params).toString(),
+    }, SUUNTO_TIMEOUT_MS);
+  } catch (err) {
+    if (err.name === 'AbortError') throw new Error(`OAuth Suunto : délai de ${SUUNTO_TIMEOUT_MS} ms dépassé`, { cause: err });
+    throw err;
+  }
   const json = await res.json().catch(() => ({}));
   if (!res.ok || !json.access_token) {
     throw new Error(`OAuth Suunto : HTTP ${res.status} ${JSON.stringify(json).slice(0, 300)}`);
@@ -90,13 +103,19 @@ async function accessToken() {
 async function apiGet(path, { binary = false } = {}) {
   const { subscriptionKey } = config();
   const token = await accessToken();
-  const res = await fetch(`${API_BASE}${path}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Ocp-Apim-Subscription-Key': subscriptionKey,
-      Accept: binary ? 'application/octet-stream' : 'application/json',
-    },
-  });
+  let res;
+  try {
+    res = await fetchWithTimeout(`${API_BASE}${path}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Ocp-Apim-Subscription-Key': subscriptionKey,
+        Accept: binary ? 'application/octet-stream' : 'application/json',
+      },
+    }, SUUNTO_TIMEOUT_MS);
+  } catch (err) {
+    if (err.name === 'AbortError') throw new Error(`Suunto API ${path} : délai de ${SUUNTO_TIMEOUT_MS} ms dépassé`, { cause: err });
+    throw err;
+  }
   if (!res.ok) {
     const body = await res.text().catch(() => '');
     throw new Error(`Suunto API ${path} : HTTP ${res.status} ${body.slice(0, 300)}`);
