@@ -21,8 +21,28 @@ function toPayload(full) {
   };
 }
 
+// Une panne réseau transitoire (serveur qui redémarre, Wi-Fi qui coupe) sur
+// l'un des deux appels réseau de poll() faisait rejeter EF.api() sans
+// qu'aucun catch ne la rattrape : exception non gérée dans le callback du
+// setTimeout, boucle de sondage arrêtée en silence, barre de progression
+// figée pour toujours sans le moindre message (trouvaille de sprint dédié).
+// N'entoure que les deux appels réseau (pas renderFiche()/
+// loadSimilarStages(), qui peuvent avoir leurs propres bugs sans rapport
+// avec le réseau — les y mêler produirait un message "connexion perdue"
+// trompeur et une boucle de nouvelle tentative qui ne peut jamais réussir).
+function pollRetryAfterNetworkError(err) {
+  poll.failures = (poll.failures || 0) + 1;
+  document.getElementById('pg-detail').textContent =
+    `Connexion perdue, nouvelle tentative… (${err.message || err})`;
+  setTimeout(poll, Math.min(900 * poll.failures, 10000));
+}
+
 async function poll() {
-  const full = await EF.api(`/api/stages/${stageId}`);
+  let full;
+  try {
+    full = await EF.api(`/api/stages/${stageId}`);
+  } catch (err) { pollRetryAfterNetworkError(err); return; }
+  poll.failures = 0;
   const st = full.stage;
   if (st.state === 'done') { FULL = full; renderFiche(); loadSimilarStages(); return; }
   if (st.state === 'error') {
@@ -33,7 +53,9 @@ async function poll() {
   if (st.state === 'draft' && !poll.started) {
     // fiche ouverte sur un brouillon : lancer la génération
     poll.started = true;
-    await EF.api(`/api/stages/${stageId}/generate`, { method: 'POST' });
+    try {
+      await EF.api(`/api/stages/${stageId}/generate`, { method: 'POST' });
+    } catch (err) { poll.started = false; pollRetryAfterNetworkError(err); return; }
   }
   const p = st.progress || {};
   document.getElementById('pg-title').textContent = `Génération : ${st.name}`;
@@ -469,4 +491,4 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 }
 
-if (typeof module !== 'undefined' && module.exports) module.exports = { similarItemHtml };
+if (typeof module !== 'undefined' && module.exports) module.exports = { similarItemHtml, poll };
