@@ -17,7 +17,7 @@ process.env.ETAPEFORGE_OFFLINE = '1';
 
 const {
   runBackup, pruneOldBackups, backupFileName, getBackupStatus,
-  startScheduledBackups, stopScheduledBackups,
+  startScheduledBackups, stopScheduledBackups, NAME_RE,
 } = require('../backend/backup');
 const { getDb } = require('../backend/db');
 
@@ -127,10 +127,20 @@ test('startScheduledBackups() avec ETAPEFORGE_BACKUP_DIR : sauvegarde immédiate
   // La sauvegarde immédiate est asynchrone (fire-and-forget) — attendre le
   // fichier lui-même, pas juste le répertoire (créé de façon synchrone dès
   // l'appel, avant même que la copie asynchrone n'ait écrit quoi que ce soit).
+  //
+  // Filtrer avec NAME_RE (pas un readdirSync brut) : l'API de sauvegarde de
+  // better-sqlite3 crée un fichier `.sqlite-journal` transitoire pendant la
+  // copie (vérifié en observant les événements fs.watch() sur un backup
+  // réel — présent quelques ms, supprimé une fois la copie terminée). Un
+  // readdirSync brut pendant cette fenêtre voit 2 fichiers au lieu de 1 :
+  // c'est la cause du flake CI de PR #90 (pas juste « sensible au timing »
+  // en général — un vrai fichier compté à tort), pas un mécanisme repéré
+  // ailleurs dans backend/backup.js (pruneOldBackups()/getBackupStatus()
+  // filtrent déjà avec NAME_RE, seul ce test comptait tout le répertoire).
   let files = [];
   for (let i = 0; i < 50 && files.length === 0; i++) {
     await new Promise((r) => setTimeout(r, 20));
-    files = fs.existsSync(destDir) ? fs.readdirSync(destDir) : [];
+    files = fs.existsSync(destDir) ? fs.readdirSync(destDir).filter((f) => NAME_RE.test(f)) : [];
   }
   assert.strictEqual(files.length, 1, 'une sauvegarde immédiate au démarrage, sans attendre l\'intervalle');
 });

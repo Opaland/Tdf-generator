@@ -76,5 +76,5 @@ function getBackupStatus(destDir = BACKUP_DIR) {
 module.exports = {
   runBackup, pruneOldBackups, backupFileName, getBackupStatus,
   startScheduledBackups, stopScheduledBackups,
-  BACKUP_DIR, BACKUP_INTERVAL_HOURS, BACKUP_KEEP,
+  BACKUP_DIR, BACKUP_INTERVAL_HOURS, BACKUP_KEEP, NAME_RE,
 };
