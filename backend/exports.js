@@ -22,16 +22,33 @@ function formatElapsed(distM) {
   return h > 0 ? `${h} h ${String(m).padStart(2, '0')}` : `${m} min`;
 }
 
+/**
+ * Échantillon le plus proche d'une distance cible (m) le long du tracé —
+ * sert à localiser le sommet d'une côte sur le profil altimétrique.
+ * Recopié à l'identique dans stageToGpx/stageToTcx/stageToKml jusqu'à ce
+ * commit (revue de code globale de fin de session, CLAUDE.md règle 5) ;
+ * factorisé ici pour qu'un futur correctif (gestion d'ex æquo, recherche
+ * plus efficace) ne s'applique plus qu'à un seul endroit. En cas d'égalité
+ * stricte de distance, garde le PREMIER échantillon rencontré (comparateur
+ * `<`, pas `<=`) — verrouillé par test/exports.test.js (fixture avec deux
+ * échantillons à égale distance de la cible).
+ * @returns le plus proche, ou undefined si `samples` est vide
+ */
+function nearestSample(samples, targetM) {
+  let best = samples[0];
+  for (const s of samples) {
+    if (Math.abs(s.dist_m - targetM) < Math.abs(best.dist_m - targetM)) best = s;
+  }
+  return best;
+}
+
 /** GPX 1.1 du tracé (points d'altimétrie : lat/lon/ele brute). */
 function stageToGpx(full) {
   const { stage, samples, waypoints, climbs } = full;
   // Sommets des côtes détectées inclus comme waypoints nommés (catégorie + pente).
   const climbWpts = (climbs || [])
     .map((c) => {
-      let best = samples[0];
-      for (const s of samples) {
-        if (Math.abs(s.dist_m - c.end_km * 1000) < Math.abs(best.dist_m - c.end_km * 1000)) best = s;
-      }
+      const best = nearestSample(samples, c.end_km * 1000);
       return best
         ? `  <wpt lat="${best.lat.toFixed(6)}" lon="${best.lon.toFixed(6)}">\n` +
           `    <ele>${c.summit_ele_m}</ele>\n` +
@@ -112,10 +129,7 @@ function stageToTcx(full) {
     })
     .concat(
       (climbs || []).map((c) => {
-        let best = samples[0];
-        for (const s of samples) {
-          if (Math.abs(s.dist_m - c.end_km * 1000) < Math.abs(best.dist_m - c.end_km * 1000)) best = s;
-        }
+        const best = nearestSample(samples, c.end_km * 1000);
         if (!best) return '';
         const pointType = TCX_CLIMB_POINT_TYPE[c.category] || 'Summit';
         return `    <CoursePoint>\n` +
@@ -181,10 +195,7 @@ function stageToKml(full) {
 
   const climbPlacemarks = (climbs || [])
     .map((c) => {
-      let best = samples[0];
-      for (const s of samples) {
-        if (Math.abs(s.dist_m - c.end_km * 1000) < Math.abs(best.dist_m - c.end_km * 1000)) best = s;
-      }
+      const best = nearestSample(samples, c.end_km * 1000);
       if (!best) return '';
       return `    <Placemark>\n` +
         `      <name>${esc(c.name)} (cat. ${esc(c.category)})</name>\n` +
