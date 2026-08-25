@@ -231,11 +231,23 @@ async function runLoadEditions() {
 }
 
 let pollTimer = null;
+let pollFailures = 0;
 async function pollWhileGenerating() {
   clearTimeout(pollTimer);
-  const editions = await loadEditions();
+  try {
+    await loadEditions();
+  } catch (err) {
+    // Même trouvaille que poll() (frontend/stage.js) : une panne réseau
+    // transitoire pendant le sondage faisait rejeter loadEditions() sans
+    // aucun catch — sondage arrêté en silence, liste figée sur un état
+    // "génération…" périmé jusqu'au rechargement manuel de la page.
+    pollFailures++;
+    console.error('pollWhileGenerating :', err);
+    pollTimer = setTimeout(pollWhileGenerating, Math.min(1500 * pollFailures, 10000));
+    return;
+  }
+  pollFailures = 0;
   const anyRunning = document.body.innerHTML.includes('génération…');
-  void editions;
   if (anyRunning) pollTimer = setTimeout(pollWhileGenerating, 1500);
 }
 
@@ -255,6 +267,9 @@ async function loadMythicGrid() {
   );
 }
 
+// Garde typeof : pollWhileGenerating est require()-able côté test (voir
+// test/archivesPoll.test.js) sans DOM — même schéma que stage.js/compare.js.
+if (typeof document !== 'undefined') {
 document.addEventListener('DOMContentLoaded', async () => {
   await EF.initChrome('archives');
   document.getElementById('btn-import').addEventListener('click', importYear);
@@ -282,3 +297,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     importYear();
   }
 });
+}
+
+if (typeof module !== 'undefined' && module.exports) module.exports = { pollWhileGenerating };

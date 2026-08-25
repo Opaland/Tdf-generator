@@ -23,7 +23,7 @@ module.exports = [
     // l'autre ne doit se voir imposer sa propre déclaration comme un global
     // externe, sinon no-redeclare se déclenche sur le fichier qui la crée).
     files: ['frontend/**/*.js'],
-    ignores: ['frontend/common.js', 'frontend/profile.js', 'frontend/compare.js', 'frontend/editor.js', 'frontend/stage.js'],
+    ignores: ['frontend/common.js', 'frontend/profile.js', 'frontend/compare.js', 'frontend/editor.js', 'frontend/stage.js', 'frontend/archives.js'],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'script',
@@ -80,6 +80,19 @@ module.exports = [
       ecmaVersion: 2022,
       sourceType: 'script',
       globals: { ...globals.browser, ...globals.node, EF: 'readonly', EFProfile: 'readonly', L: 'readonly' },
+    },
+  },
+  {
+    // archives.js : servi tel quel au navigateur ET require()-able côté test
+    // (pollWhileGenerating, testée directement — voir test/archivesPoll.test.js)
+    // grâce à la garde `typeof document`/`typeof module`, même schéma que
+    // compare.js/editor.js/stage.js — sprint dédié, panne réseau transitoire
+    // pendant le sondage de génération.
+    files: ['frontend/archives.js'],
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: 'script',
+      globals: { ...globals.browser, ...globals.node, EF: 'readonly' },
     },
   },
 ];
