@@ -98,6 +98,48 @@ test('fonctions unitaires du parseur', () => {
   assert.strictEqual(parseDate('5 juillet 1903', 1903), '1903-07-05');
 });
 
+// looksRight (sélection du bon tableau parmi plusieurs wikitable de la page) :
+// portait un 3e critère (colonne « course/parcours/route/itinéraire ») posé
+// avec un `|| true` qui le rendait tautologique — mort depuis son
+// introduction, jamais tué par le mutation testing (aucun code ne peut
+// changer son résultat). Retiré plutôt que « réparé » (voir le commentaire
+// dans pipeline/wikipedia.js) : ne reste que les deux critères réels
+// (colonne étape + colonne distance), verrouillés ici explicitement — rien
+// ne les couvrait directement avant, seulement en creux via les fixtures
+// réelles à une seule table candidate.
+test('parseStagesFromHtml : ignore un tableau sans colonne étape ou sans colonne distance', () => {
+  // Décoys seuls (aucune table candidate ne passe looksRight) : la fonction
+  // rejette explicitement plutôt que de renvoyer [] en silence.
+  const decoyNoStage = '<table class="wikitable"><tr><th>Rider</th><th>Distance</th></tr><tr><td>X</td><td>100 km</td></tr></table>';
+  const decoyNoDistance = '<table class="wikitable"><tr><th>Stage</th><th>Winner</th></tr><tr><td>1</td><td>X</td></tr></table>';
+  assert.throws(() => parseStagesFromHtml(decoyNoStage, 2000), /Aucun tableau d'étapes reconnu/);
+  assert.throws(() => parseStagesFromHtml(decoyNoDistance, 2000), /Aucun tableau d'étapes reconnu/);
+
+  // Page réaliste (plusieurs wikitable, comme une vraie page Wikipédia) :
+  // les décoys précèdent la vraie table des étapes — doit passer par-dessus,
+  // pas s'arrêter au premier tableau venu. Au moins 2 étapes exploitables
+  // requises pour qu'une table soit acceptée (garde-fou existant,
+  // stages.length >= 2, contre un faux positif à une seule ligne).
+  const real = '<table class="wikitable"><tr><th>Stage</th><th>Date</th><th>Course</th><th>Distance</th><th>Winner</th></tr>' +
+    '<tr><td>1</td><td>1 July</td><td>Paris to Lyon</td><td>100 km</td><td>Rider X</td></tr>' +
+    '<tr><td>2</td><td>2 July</td><td>Lyon to Marseille</td><td>120 km</td><td>Rider Y</td></tr></table>';
+  const stages = parseStagesFromHtml(decoyNoStage + decoyNoDistance + real, 2000);
+  assert.strictEqual(stages.length, 2);
+  assert.strictEqual(stages[0].start, 'Paris');
+
+  // Le 3e critère retiré n'était pas nécessaire pour parser correctement :
+  // même sans aucune colonne "course/parcours/route/itinéraire" dans l'en-tête,
+  // un tableau avec étape + distance + une colonne de villes reconnue sous un
+  // autre nom (ex. « Route ») fonctionne toujours (col() cherche 'route' même
+  // hors du critère looksRight, indépendamment).
+  const sansEnteteCourseExplicite = '<table class="wikitable"><tr><th>Stage</th><th>Date</th><th>Route</th><th>Distance</th></tr>' +
+    '<tr><td>1</td><td>1 July</td><td>Pau to Hautacam</td><td>50 km</td></tr>' +
+    '<tr><td>2</td><td>2 July</td><td>Hautacam to Lourdes</td><td>40 km</td></tr></table>';
+  const stages2 = parseStagesFromHtml(sansEnteteCourseExplicite, 2000);
+  assert.strictEqual(stages2.length, 2);
+  assert.strictEqual(stages2[0].finish, 'Hautacam');
+});
+
 // extractTables (backlog #10, section F) : remplacement du mini-parseur
 // regex par node-html-parser (un vrai DOM) — vérifié bit-à-bit identique à
 // l'ancien parseur sur les 3 fixtures réelles du dépôt avant remplacement
