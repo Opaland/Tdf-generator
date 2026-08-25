@@ -56,36 +56,6 @@ function resamplePolyline(points, stepM) {
   return out;
 }
 
-/** Distance minimale (m) entre un point et une polyligne, avec l'abscisse curviligne du plus proche. */
-function distanceToPolyline(point, points) {
-  let best = Infinity;
-  let bestDist = 0;
-  const { cum } = cumulativeDistances(points);
-  for (let i = 0; i < points.length - 1; i++) {
-    const a = points[i];
-    const b = points[i + 1];
-    // Projection approchée en plan local (valide pour de courts segments).
-    const kx = Math.cos(toRad(point.lat)) * 111320;
-    const ky = 110540;
-    const ax = (a.lon - point.lon) * kx;
-    const ay = (a.lat - point.lat) * ky;
-    const bx = (b.lon - point.lon) * kx;
-    const by = (b.lat - point.lat) * ky;
-    const dx = bx - ax;
-    const dy = by - ay;
-    const len2 = dx * dx + dy * dy;
-    const t = len2 > 0 ? Math.max(0, Math.min(1, -(ax * dx + ay * dy) / len2)) : 0;
-    const px = ax + t * dx;
-    const py = ay + t * dy;
-    const d = Math.sqrt(px * px + py * py);
-    if (d < best) {
-      best = d;
-      bestDist = cum[i] + t * (cum[i + 1] - cum[i]);
-    }
-  }
-  return { distanceM: best, alongM: bestDist };
-}
-
 /** Moyenne glissante centrée sur une fenêtre exprimée en mètres, sur des échantillons {dist, ele}. */
 function movingAverageByDistance(samples, windowM) {
   const half = windowM / 2;
@@ -113,6 +83,5 @@ module.exports = {
   lerpPoint,
   cumulativeDistances,
   resamplePolyline,
-  distanceToPolyline,
   movingAverageByDistance,
 };
