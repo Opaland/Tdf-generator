@@ -168,7 +168,11 @@
       const labels = [];
       const bonusPoints = []; // waypoints avec bonif., y compris ceux absorbés par une côte (arrivée au sommet)
       for (const w of data.waypoints || []) {
-        if (w.lat == null) continue;
+        // w.lon == null aussi : sinon `(prof[i].lon - w.lon) ** 2` coerce
+        // silencieusement un lon manquant en 0 (arithmétique JS), faussant
+        // le point le plus proche retenu plutôt que d'ignorer proprement ce
+        // waypoint — même famille que CLAUDE.md règle 10.
+        if (w.lat == null || w.lon == null) continue;
         // position le long du profil : point le plus proche géographiquement
         let best = 0;
         let bd = Infinity;

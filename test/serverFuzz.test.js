@@ -86,6 +86,60 @@ test('PUT /api/stages/:id avec des champs non-chaîne : 400 propre, pas 500', as
   assert.strictEqual(res.status, 400);
 });
 
+// Trouvaille de sprint dédié : lat et lon sont validés indépendamment
+// (optionalNumber() sur chacun séparément), donc un waypoint avec l'un
+// défini et l'autre absent passait la validation et finissait en base
+// ainsi. frontend/editor.js:85 fait `wp.lon.toFixed(4)` dès que
+// `wp.lat != null` sans re-vérifier lon — une paire dépareillée y lève une
+// TypeError qui casse tout le rendu de la liste de waypoints.
+test('POST /api/stages avec un waypoint lat sans lon : 400 propre, pas stocké dépareillé', async () => {
+  const res = await fetch(`${base}/api/stages`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: 'Étape lat sans lon', waypoints: [{ label: 'A', lat: 45.5 }, { label: 'B' }] }),
+  });
+  assert.strictEqual(res.status, 400);
+  assert.match((await res.json()).error, /lat et lon doivent être fournis ensemble/);
+});
+
+test('POST /api/stages avec un waypoint lon sans lat : 400 propre (symétrique)', async () => {
+  const res = await fetch(`${base}/api/stages`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: 'Étape lon sans lat', waypoints: [{ label: 'A', lon: 2.3 }, { label: 'B' }] }),
+  });
+  assert.strictEqual(res.status, 400);
+  assert.match((await res.json()).error, /lat et lon doivent être fournis ensemble/);
+});
+
+test('POST /api/stages avec lat ET lon, ou ni l\'un ni l\'autre : accepté (paire cohérente)', async () => {
+  const res = await fetch(`${base}/api/stages`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name: 'Étape paires cohérentes',
+      waypoints: [{ label: 'A', lat: 45.5, lon: 2.3 }, { label: 'B' }],
+    }),
+  });
+  assert.strictEqual(res.status, 200);
+});
+
+test('PUT /api/stages/:id avec un waypoint lat sans lon : 400 propre', async () => {
+  const create = await fetch(`${base}/api/stages`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: 'Étape à modifier', waypoints: [{ label: 'A' }, { label: 'B' }] }),
+  });
+  const { id } = await create.json();
+  const res = await fetch(`${base}/api/stages/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ waypoints: [{ label: 'A', lat: 45.5 }, { label: 'B' }] }),
+  });
+  assert.strictEqual(res.status, 400);
+  assert.match((await res.json()).error, /lat et lon doivent être fournis ensemble/);
+});
+
 test('erreur non gérée : JSON propre, jamais la page HTML par défaut d\'Express (fuite de stack trace)', async () => {
   const res = await fetch(`${base}/api/stages`, {
     method: 'POST',

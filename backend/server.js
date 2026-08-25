@@ -89,6 +89,19 @@ function optionalNumber(v, field) {
   if (!Number.isFinite(n)) throw httpError(400, `${field} doit être un nombre (ou absent)`);
   return n;
 }
+// lat/optionalNumber(lon) sont validés indépendamment ci-dessus (chacun
+// accepte null séparément) — un waypoint avec lat défini et lon absent (ou
+// l'inverse) passait donc la validation et finissait en base ainsi.
+// frontend/editor.js:85 fait `wp.lon.toFixed(4)` dès que `wp.lat != null`,
+// sans re-vérifier lon : une paire dépareillée y lève une TypeError qui
+// casse tout le rendu de la liste de waypoints (trouvaille de sprint dédié).
+function assertLatLonPaired(waypoints, prefix) {
+  waypoints.forEach((w, i) => {
+    if ((w.lat == null) !== (w.lon == null)) {
+      throw httpError(400, `${prefix}[${i}] : lat et lon doivent être fournis ensemble ou absents tous les deux`);
+    }
+  });
+}
 
 // ---------------------------------------------------------------- statut
 app.get('/api/status', (req, res) => {
@@ -178,6 +191,7 @@ app.post('/api/stages', (req, res) => {
     altitude_hint_m: optionalNumber(w?.altitude_hint_m, `waypoints[${i}].altitude_hint_m`),
     source: optionalString(w?.source, `waypoints[${i}].source`) || 'éditeur',
   }));
+  assertLatLonPaired(waypoints, 'waypoints');
   const db = getDb();
   const r = db
     .prepare(
@@ -223,6 +237,7 @@ app.put('/api/stages/:id', (req, res) => {
       altitude_hint_m: optionalNumber(w?.altitude_hint_m, `waypoints[${i}].altitude_hint_m`),
       source: optionalString(w?.source, `waypoints[${i}].source`) || 'éditeur',
     }));
+    assertLatLonPaired(waypoints, 'waypoints');
     db.prepare('DELETE FROM waypoints WHERE stage_id = ?').run(id);
     const ins = db.prepare(
       `INSERT INTO waypoints (stage_id, idx, label, kind, lat, lon, altitude_hint_m, source)
