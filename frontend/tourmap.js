@@ -14,13 +14,11 @@ function clearLayers() {
 
 function stagePopupHtml(st) {
   const s = st.stage;
-  const delta = s.official_distance_km && s.generated_distance_km
-    ? ((s.generated_distance_km - s.official_distance_km) / s.official_distance_km) * 100
-    : null;
+  const delta = EF.distanceDelta(s.official_distance_km, s.generated_distance_km);
   return (
     `<div style="min-width:340px"><b><a href="/stage.html?id=${s.id}">${EF.esc(s.name)}</a></b><br>` +
     `<span style="color:#666;font-size:0.85em">${[EF.esc(s.date), EF.esc(s.stage_type), (s.generated_distance_km || '?') + ' km', 'D+ ' + (s.total_ascent_m || '?') + ' m'].filter(Boolean).join(' · ')}</span>` +
-    (delta != null ? `<br><span style="font-size:0.8em">officielle ${s.official_distance_km} km / reconstituée ${s.generated_distance_km} km (${delta >= 0 ? '+' : ''}${delta.toFixed(1)} %)</span>` : '') +
+    (delta != null ? `<br><span style="font-size:0.8em">officielle ${s.official_distance_km} km / reconstituée ${s.generated_distance_km} km (${EF.formatDelta(delta)})</span>` : '') +
     (st.profile && st.profile.length ? EFProfile.renderProfileSVG(st, { width: 340, height: 90, mini: true }) : '<em>non générée</em>') +
     `</div>`
   );
@@ -71,9 +69,7 @@ function buildStatRows(data) {
     const s = st.stage;
     const climbs = st.climbs || [];
     const maxCat = climbs.reduce((a, c) => (CAT_ORDER[c.category] > CAT_ORDER[a] ? c.category : a), '');
-    const delta = s.official_distance_km && s.generated_distance_km
-      ? ((s.generated_distance_km - s.official_distance_km) / s.official_distance_km) * 100
-      : null;
+    const delta = EF.distanceDelta(s.official_distance_km, s.generated_distance_km);
     return {
       id: s.id,
       order: s.stage_order || i + 1,

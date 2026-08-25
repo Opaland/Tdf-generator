@@ -111,13 +111,13 @@ function renderFiche() {
   document.getElementById('st-meta').textContent = meta;
 
   // Bandeau reconstruction historique.
-  if (st.official_distance_km) {
-    const delta = ((st.generated_distance_km - st.official_distance_km) / st.official_distance_km) * 100;
+  const delta = EF.distanceDelta(st.official_distance_km, st.generated_distance_km);
+  if (delta != null) {
     document.getElementById('st-reconstruction').innerHTML =
       `<div class="reconstruction">Tracé <b>reconstitué sur le réseau routier actuel</b> — ` +
       `distance officielle ${FULL.edition && FULL.edition.year ? FULL.edition.year : ''} : ` +
       `<b>${st.official_distance_km} km</b> / reconstitution : <b>${st.generated_distance_km} km</b> ` +
-      `(écart ${delta >= 0 ? '+' : ''}${delta.toFixed(1)} %)</div>`;
+      `(écart ${EF.formatDelta(delta)})</div>`;
   }
 
   // Profil 2D + profil 3D interactif (rotation à la souris, relief étirable —
