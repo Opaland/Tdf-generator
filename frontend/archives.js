@@ -58,9 +58,7 @@ async function importAllYears() {
 }
 
 function stageRow(s) {
-  const delta = s.official_distance_km && s.generated_distance_km
-    ? ((s.generated_distance_km - s.official_distance_km) / s.official_distance_km) * 100
-    : null;
+  const delta = EF.distanceDelta(s.official_distance_km, s.generated_distance_km);
   return `<tr>
     <td><a href="/stage.html?id=${s.id}">${EF.esc(s.name)}</a>
       ${s.is_curated ? '<span class="badge sourced-badge" title="points de passage vérifiés (historic_routes.json), pas seulement villes Wikipédia">sourcé</span>' : ''}</td>
@@ -68,7 +66,7 @@ function stageRow(s) {
     <td>${EF.esc(s.stage_type || '—')}</td>
     <td>${s.official_distance_km ? s.official_distance_km + ' km' : '—'}</td>
     <td>${s.generated_distance_km != null
-      ? `${s.generated_distance_km} km <span class="meta-line">(${delta >= 0 ? '+' : ''}${delta.toFixed(1)} %)</span>`
+      ? `${s.generated_distance_km} km <span class="meta-line">(${EF.formatDelta(delta)})</span>`
       : '—'}</td>
     <td>${EF.stateBadge(s.state)} ${s.state === 'generating' && s.progress ? `<span class="meta-line">${EF.esc(s.progress.step || '')} ${s.progress.percent || 0}%</span>` : ''}</td>
     <td>${s.state !== 'generating' ? `<button class="secondary" data-gen="${s.id}">${s.state === 'done' ? '↻' : '▶ Générer'}</button>` : ''}</td>

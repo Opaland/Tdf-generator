@@ -87,6 +87,20 @@ const EF = {
     return `<span class="badge ${state}">${labels[state] || state}</span>`;
   },
 
+  // Écart en % entre distance reconstituée et distance officielle (fiche
+  // étape, archives, carte globale) — même formule réécrite indépendamment
+  // dans 4 endroits (trouvaille de sprint dédié). null si l'une des deux
+  // valeurs manque (rien à comparer), jamais NaN.
+  distanceDelta(officialKm, generatedKm) {
+    if (!officialKm || !generatedKm) return null;
+    return ((generatedKm - officialKm) / officialKm) * 100;
+  },
+  // "+X.X %" / "-X.X %" — même gabarit d'affichage répété à chaque site
+  // qui utilise distanceDelta().
+  formatDelta(delta) {
+    return `${delta >= 0 ? '+' : ''}${delta.toFixed(1)} %`;
+  },
+
   // Fonds de carte : IGN PLANIGNV2 (WMTS Géoplateforme) en France, OSM sinon.
   ignLayer() {
     return L.tileLayer(
