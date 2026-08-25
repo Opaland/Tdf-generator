@@ -40,6 +40,85 @@ insuffisant trouvé lors de l'audit UI/UX puis verrouillé par
 la formule WCAG 2.1, luminance relative sRGB, est simple à rejouer) avant
 toute retouche de palette.
 
+## Couleurs de catégorie de côte (`frontend/profile.js`, `CAT_COLORS`/`CAT_TEXT`/`GRAD_COLORS`)
+
+Deuxième famille de couleurs sensible au contraste WCAG, distincte de la
+palette `:root` ci-dessus (fichier différent, pas des variables CSS) — sans
+historique documenté ici jusqu'à ce que ça devienne l'occasion manquée
+identifiée par une revue-personas (backlog #63) : le motif « toute retouche
+de contraste documentée avec ses ratios » établi ci-dessus ne s'étendait pas
+à cette table.
+
+| Catégorie | Fond | Texte | Usage |
+|---|---|---|---|
+| HC | `#111111` | `#ffffff` | Pastille, bande de pente |
+| 1 | `#d7263d` | `#ffffff` | Pastille |
+| 2 | `#f08c00` | `#333333` | Pastille, bande de pente 5–8 % |
+| 3 | `#f7d154` | `#333333` | Pastille, bande de pente < 5 % |
+| 4 | `#54d854` | `#333333` | Pastille |
+
+Toute lecture de cette table passe par `EFProfile.catStyle(cat)` (renvoie
+`{color, text}`, applique le repli `#707070`/`#fff` pour une catégorie
+inconnue) — jamais un accès direct à `CAT_COLORS[cat]`/`CAT_TEXT[cat]`
+recopié localement. `frontend/profile.js` (3 points de rendu) et
+`frontend/stage.js` (marqueur de sommet de côte sur la carte Leaflet)
+utilisent tous ce seul helper.
+
+**Historique** (verrouillé par `test/profileContrast.test.js`) :
+
+- `CAT_TEXT['2']` : texte `#ffffff` → `#333333` sur `#f08c00` inchangé —
+  2.48:1 → **5.09:1** (backlog #63, trouvaille de revue-personas sur PR #87).
+- `CAT_COLORS['4']`, trois révisions successives, chacune trouvée par une
+  relecture différente :
+  1. Original `#3a9d4f` : texte blanc dessus 3.43:1 < 4.5:1, échoue WCAG AA
+     (même trouvaille revue-personas que ci-dessus).
+  2. Assombri `#268038` pour corriger (1) — mais un assombrissement en ligne
+     droite fait chuter sa luminance à 0.161, quasi identique à celle du
+     rouge cat.1 `#d7263d` (0.162) : sous protanopie/deutéranopie
+     (rouge-vert), c'est la luminance qui portait toute l'information
+     restante entre les deux, et la resserrer l'a annulée (trouvaille de
+     relecture adverse, simulation CVD Machado/Oliveira/Fairchild).
+  3. Éclairci `#5cb85c` pour corriger (2) (luminance 0.373, écart de +0.212
+     avec le rouge, contre +0.094 pour l'original) — mais cette éclaircie
+     retombe quasi exactement sur la luminance de l'orange cat.2 `#f08c00`
+     (0.373 vs 0.373, écart 0.0005) : corriger l'écart avec une couleur en a
+     fermé un autre, jamais mesuré parce que seule la paire rouge/vert avait
+     été vérifiée (trouvaille de relecture adverse, ronde suivante — même
+     défaut de méthode que (2), mesurer une paire au lieu de la table
+     entière).
+  Remplacé par **`#54d854`**, choisi par recherche exhaustive sur l'écart
+  minimal de luminance avec les 4 autres catégories **simultanément**
+  (luminance 0.516, écart minimal +0.144, contre cat.2 et cat.3 — les deux
+  plus proches — et +0.355 avec le rouge), texte `#333333` conservé
+  (**6.82:1**, AA confortable ; le `7.43:1` cité dans une version
+  intermédiaire de ce document et du commentaire de code correspondait en
+  réalité à `#141414`, une couleur jamais utilisée ici — `--noir` de
+  `style.css` — pas à `#333333` réellement écrit dans `CAT_TEXT['4']`).
+- Repli catégorie inconnue (`CAT_COLORS[cat] || '#999'`, mort en pratique —
+  `categorize()` dans `pipeline/climbs.js` ne renvoie jamais que HC/1/2/3/4)
+  assombri `#999999` → `#707070` par cohérence (2.85:1 → 4.95:1 avec texte
+  blanc), pour ne pas laisser un piège prêt à s'activer si une nouvelle
+  catégorie apparaissait un jour.
+- `frontend/stage.js` avait sa propre copie du rendu du marqueur de sommet
+  de côte sur la carte, avec un texte blanc **en dur** — ne lisait jamais
+  `CAT_TEXT`, donc aucun des correctifs ci-dessus ne s'y appliquait (jusqu'à
+  1.48:1 sur la catégorie 3, jaune). Corrigé pour passer par
+  `EFProfile.catStyle()`, comme tous les autres points de rendu — pas une
+  nouvelle copie locale de `CAT_COLORS`/`CAT_TEXT`.
+
+**Un changement de couleur de catégorie doit vérifier l'écart de luminance
+avec TOUTES les autres catégories, pas seulement celle qu'on corrige.** La
+révision (2) ci-dessus a corrigé l'écart avec le rouge en cassant le
+contraste texte/fond ; la révision (3) a corrigé le contraste texte/fond en
+rouvrant une quasi-collision avec le rouge, puis (en la corrigeant à son
+tour) en créant une quasi-collision avec l'orange — trois défauts distincts
+sur la même valeur, chacun trouvé seulement parce qu'une relecture suivante
+a mesuré autre chose que ce que la précédente avait mesuré.
+`test/profileContrast.test.js` verrouille maintenant l'écart de luminance
+minimal entre **chaque paire** de catégories (pas seulement chaque paire
+texte/fond), pour qu'un futur changement de teinte ne puisse pas refaire
+chuter deux catégories l'une sur l'autre sans qu'un test échoue.
+
 ## Typographie
 
 Pile système uniquement (`"Segoe UI", system-ui, -apple-system, sans-serif`)
