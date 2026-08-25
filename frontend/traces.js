@@ -33,7 +33,9 @@ async function importFromLink() {
   if (!url) { msg.textContent = 'Collez un lien d\'export.'; return; }
   msg.textContent = 'Import en cours…';
   try {
-    const json = await EF.api('/api/import/link', { method: 'POST', body: { url } });
+    // Aller-retour réseau externe (sports-tracker.com) côté serveur en plus
+    // du nôtre — le délai par défaut d'EF.api() serait trop court ici.
+    const json = await EF.api('/api/import/link', { method: 'POST', body: { url }, timeoutMs: 60000 });
     msg.innerHTML = `✔ Trace importée (${json.points} points) — ` +
       `<a href="/stage.html?id=${json.id}">ouvrir la fiche</a> · ` +
       `<a href="/compare.html?a=${json.id}">⇄ comparer avec une étape officielle</a>`;
