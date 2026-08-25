@@ -60,6 +60,15 @@ async function importAllYears() {
 
 function stageRow(s) {
   const delta = EF.distanceDelta(s.official_distance_km, s.generated_distance_km);
+  // EF.distanceDelta() renvoie null pour generated_distance_km === 0 (ville de
+  // départ = ville d'arrivée, aucun waypoint intermédiaire curé — motif réel
+  // présent dans pipeline/data/historic_routes.json, ex. 1975 étape 22 Paris →
+  // Paris), pas seulement quand la valeur manque. Contrairement aux 3 autres
+  // appelants d'EF.formatDelta() (stage.js, tourmap.js), cette ligne appelait
+  // formatDelta(delta) sans revérifier `delta != null` : delta.toFixed(1) sur
+  // null plantait, interrompant silencieusement toute la boucle de
+  // runLoadEditions() avant d'ajouter l'édition en cours ni les suivantes au
+  // DOM (trouvaille de revue-personas, persona développeur + QA).
   return `<tr>
     <td><a href="/stage.html?id=${s.id}">${EF.esc(s.name)}</a>
       ${s.is_curated ? '<span class="badge sourced-badge" title="points de passage vérifiés (historic_routes.json), pas seulement villes Wikipédia">sourcé</span>' : ''}</td>
@@ -67,7 +76,7 @@ function stageRow(s) {
     <td>${EF.esc(s.stage_type || '—')}</td>
     <td>${s.official_distance_km ? s.official_distance_km + ' km' : '—'}</td>
     <td>${s.generated_distance_km != null
-      ? `${s.generated_distance_km} km <span class="meta-line">(${EF.formatDelta(delta)})</span>`
+      ? `${s.generated_distance_km} km${delta != null ? ` <span class="meta-line">(${EF.formatDelta(delta)})</span>` : ''}`
       : '—'}</td>
     <td>${EF.stateBadge(s.state)} ${s.state === 'generating' && s.progress ? `<span class="meta-line">${EF.esc(s.progress.step || '')} ${s.progress.percent || 0}%</span>` : ''}</td>
     <td>${s.state !== 'generating' ? `<button class="secondary" data-gen="${s.id}">${s.state === 'done' ? '↻' : '▶ Générer'}</button>` : ''}</td>
@@ -299,4 +308,4 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 }
 
-if (typeof module !== 'undefined' && module.exports) module.exports = { pollWhileGenerating };
+if (typeof module !== 'undefined' && module.exports) module.exports = { pollWhileGenerating, stageRow };
