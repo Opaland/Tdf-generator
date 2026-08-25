@@ -27,7 +27,16 @@ async function geopfBatch(points) {
         `https://data.geopf.fr/altimetrie/1.0/calcul/alti/rest/elevation.json` +
         `?lon=${lons}&lat=${lats}&resource=ign_rge_alti_wld&zonly=true&delimiter=|`;
       const json = await httpJson(url, { minDelayMs: 250 });
-      const eles = (json.elevations || []).map((e) => (typeof e === 'number' ? e : e.z));
+      // Un point hors couverture RGE ALTI (mer, hors France métropolitaine
+      // malgré looksLikeFrance()) renvoie un objet sans `z` numérique
+      // exploitable — normalisé explicitement en `null` plutôt que de
+      // laisser passer `undefined` (voir buildProfile() plus bas : la
+      // distinction entre "0 m mesuré" et "non mesuré" doit survivre
+      // jusqu'à pipeline/checks.js, qui audite les trous d'altimétrie).
+      const eles = (json.elevations || []).map((e) => {
+        if (typeof e === 'number') return e;
+        return typeof e?.z === 'number' ? e.z : null;
+      });
       if (eles.length !== points.length) throw new Error('Altimétrie Géoplateforme : réponse incomplète');
       return eles;
     });
@@ -50,7 +59,11 @@ async function opentopodataBatch(points) {
     const url = `https://api.opentopodata.org/v1/eudem25m?locations=${locs}`;
     const json = await httpJson(url, { minDelayMs: 1100 }); // max 1 req/s
     if (json.status !== 'OK') throw new Error(`opentopodata : ${json.status}`);
-    return json.results.map((r) => (r.elevation == null ? 0 : r.elevation));
+    // Comme geopfBatch ci-dessus : un point sans donnée (eudem25m ne couvre
+    // pas certaines zones maritimes/polaires) reste `null`, jamais coercé en
+    // 0 m — un 0 fabriqué serait indiscernable d'une vraie mesure au niveau
+    // de la mer, et invisible à l'audit de checks.js.
+    return json.results.map((r) => (r.elevation == null ? null : r.elevation));
   });
   return value;
 }
@@ -126,7 +139,18 @@ async function buildProfile(trackPoints, { onProgress } = {}) {
 
   const raw = await sampleElevations(pts, { onProgress });
   const samples = pts.map((p, i) => ({ idx: i, dist: p.dist, lat: p.lat, lon: p.lon, ele: raw[i] }));
-  const smooth = movingAverageByDistance(samples, 1500);
+  // movingAverageByDistance additionne .ele directement (`sum += s.ele`) —
+  // un trou `null` non comblé y serait coercé arithmétiquement en 0 (JS :
+  // `sum += null` ⇒ `sum += 0`), biaisant silencieusement la moyenne de
+  // toute la fenêtre qui le recouvre, pas seulement l'échantillon manquant
+  // lui-même. Comblé par le voisin valide le plus proche AVANT le lissage —
+  // uniquement pour ce calcul : eleRaw ci-dessous reste le vrai `null`, pour
+  // que le trou reste détectable par pipeline/checks.js.
+  const filledEles = fillNearestValid(samples.map((s) => s.ele));
+  const smooth = movingAverageByDistance(
+    samples.map((s, i) => ({ dist: s.dist, ele: filledEles[i] })),
+    1500
+  );
 
   let ascent = 0;
   for (let i = 1; i < samples.length; i++) {
@@ -140,7 +164,7 @@ async function buildProfile(trackPoints, { onProgress } = {}) {
       dist: s.dist,
       lat: s.lat,
       lon: s.lon,
-      eleRaw: Math.round(s.ele * 10) / 10,
+      eleRaw: Number.isFinite(s.ele) ? Math.round(s.ele * 10) / 10 : null,
       eleSmooth: Math.round(smooth[i] * 10) / 10,
     })),
     stepM,
@@ -148,4 +172,26 @@ async function buildProfile(trackPoints, { onProgress } = {}) {
   };
 }
 
-module.exports = { sampleElevations, buildProfile, GEOPF_BATCH, OTD_BATCH };
+/**
+ * Comble les altitudes non finies (null/undefined/NaN) par le voisin valide
+ * le plus proche — même idiome que fillInvalidElevations
+ * (pipeline/climbs.js) et l'import de traces (pipeline/importTrack.js).
+ * 0 en dernier recours si le tableau est entièrement invalide (jamais
+ * observé en pratique : un paquet d'altimétrie totalement vide échoue plus
+ * tôt dans sampleElevations, avant d'atteindre ce point).
+ */
+function fillNearestValid(eles) {
+  const filled = eles.map((e) => (Number.isFinite(e) ? e : null));
+  for (let i = 0; i < filled.length; i++) {
+    if (filled[i] == null) {
+      let a = i;
+      let b = i;
+      while (a > 0 && filled[a] == null) a--;
+      while (b < filled.length - 1 && filled[b] == null) b++;
+      filled[i] = filled[a] ?? filled[b] ?? 0;
+    }
+  }
+  return filled;
+}
+
+module.exports = { sampleElevations, buildProfile, fillNearestValid, GEOPF_BATCH, OTD_BATCH };
