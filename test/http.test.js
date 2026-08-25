@@ -35,6 +35,17 @@ before(async () => {
       }
       return;
     }
+    if (req.url === '/lent') {
+      calls.countLent = (calls.countLent || 0) + 1;
+      // Volontairement bien plus long que le timeoutMs testé ci-dessous —
+      // le serveur finit par répondre 200, mais trop tard : httpJson() doit
+      // avoir déjà abandonné cette tentative.
+      setTimeout(() => {
+        res.statusCode = 200;
+        res.end(JSON.stringify({ ok: true }));
+      }, 2000);
+      return;
+    }
     res.statusCode = 404;
     res.end('{}');
   });
@@ -56,4 +67,22 @@ test('erreur 5xx retryable : réessaie et réussit au 2e essai', async () => {
   const json = await httpJson(`${base}/500-puis-200`, { retries: 1 });
   assert.deepStrictEqual(json, { ok: true });
   assert.strictEqual(calls.count500then200, 2);
+});
+
+// rateLimiter.js sérialise les appels par hôte (jamais deux requêtes
+// simultanées) — sans timeout, une seule requête qui pend gèlerait
+// indéfiniment la file entière vers cet hôte, pas seulement cet appel.
+test('timeout : une requête trop lente est abandonnée (retryable), pas bloquée indéfiniment', async () => {
+  const start = Date.now();
+  await assert.rejects(
+    () => httpJson(`${base}/lent`, { retries: 0, timeoutMs: 150 }),
+    /Délai dépassé \(150 ms\)/
+  );
+  const elapsed = Date.now() - start;
+  assert.ok(elapsed < 1500, `doit échouer bien avant les 2000 ms de réponse réelle du serveur (mesuré ${elapsed} ms)`);
+});
+
+test('timeout : une requête qui répond avant le délai n\'est jamais abandonnée (pas de faux positif)', async () => {
+  const json = await httpJson(`${base}/500-puis-200`, { retries: 1, timeoutMs: 5000 });
+  assert.deepStrictEqual(json, { ok: true });
 });
