@@ -12,12 +12,12 @@ const { test } = require('node:test');
 const assert = require('node:assert');
 const { execFileSync } = require('child_process');
 
-test('scripts/demo.js (hors-ligne) : 10/10 vérifications OK', () => {
+test('scripts/demo.js (hors-ligne) : 13/13 vérifications OK', () => {
   const dataDir = path.join(os.tmpdir(), `etapeforge-demo-test-${process.pid}`);
   const out = execFileSync(process.execPath, [path.join(__dirname, '..', 'scripts', 'demo.js')], {
     env: { ...process.env, ETAPEFORGE_DATA_DIR: dataDir, ETAPEFORGE_OFFLINE: '1' },
     encoding: 'utf8',
   });
-  assert.match(out, /Bilan : 10\/10 vérifications OK/);
+  assert.match(out, /Bilan : 13\/13 vérifications OK/);
   require('fs').rmSync(dataDir, { recursive: true, force: true });
 });

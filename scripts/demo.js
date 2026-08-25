@@ -17,7 +17,7 @@ if (!process.argv.includes('--online')) setOffline(true);
 
 const { getDb } = require('../backend/db');
 const { generateStage, loadStageFull } = require('../pipeline/generate');
-const { importEdition } = require('../pipeline/importer');
+const { importEdition, importAllEditions } = require('../pipeline/importer');
 
 const results = [];
 function check(label, ok, detail) {
@@ -70,7 +70,7 @@ async function demoStagePauHautacam(db) {
 }
 
 async function demo1903(db) {
-  console.log('\n■ Démo 2 — édition historique 1903 : import + reconstruction des 6 étapes');
+  console.log('\n■ Démo 3 — édition historique 1903 : import + reconstruction des 6 étapes');
   const { edition, stages } = await importEdition(1903, { onProgress: progress() });
   check('Import 1903 : 6 étapes', stages.length === 6, `${stages.length} étapes importées`);
 
@@ -104,7 +104,7 @@ async function demo1903(db) {
 }
 
 async function demoTourMap(db, edition) {
-  console.log('\n■ Démo 3 — carte globale du Tour 1903 complet');
+  console.log('\n■ Démo 4 — carte globale du Tour 1903 complet');
   const stages = db.prepare(`SELECT id, state FROM stages WHERE edition_id = ? ORDER BY stage_order`).all(edition.id);
   const done = stages.filter((s) => s.state === 'done');
   check('6 étapes générées avec tracé', done.length === 6, `${done.length}/6`);
@@ -117,10 +117,45 @@ async function demoTourMap(db, edition) {
   console.log('  → ouvrir http://localhost:4567/tour.html (sélectionner « Tour de France 1903 »)');
 }
 
+// Import en masse de toutes les éditions (1903 → 2026, hors guerres
+// mondiales) — volontairement HORS-LIGNE UNIQUEMENT : en mode --online ce
+// serait ~113 requêtes Wikipédia réelles séquentielles rien que pour cette
+// démo (respect du rate limit existant, minDelayMs 600 ms), coûteux et hors
+// de proportion pour une démo de validation qui tourne aussi en CI
+// (demo-online.yml) — l'import d'une seule année (demo1903 ci-dessus) suffit
+// à vérifier le chemin réseau réel. Ici, seules les années avec une fixture
+// locale (pipeline/fixtures/) peuvent réussir hors-ligne ; les autres
+// échouent proprement (pas de données historiques inventées pour les
+// combler) — ce test vérifie justement que l'échec est propre, pas masqué.
+async function demoImportAll() {
+  console.log('\n■ Démo 2 — import en masse : toutes les éditions 1903 → 2026 (hors guerres mondiales)');
+  const { total, imported, failed } = await importAllEditions({
+    onProgress: (p) => {
+      if (p.index === 1 || p.index % 25 === 0 || p.index === p.total) {
+        process.stdout.write(`    [import-masse] ${p.index}/${p.total} années tentées\r\n`);
+      }
+    },
+  });
+  console.log(`  → ${imported.length}/${total} importées (fixtures locales), ${failed.length} sans fixture hors-ligne`);
+  check('Import en masse : parcourt toutes les années sans planter', total === imported.length + failed.length,
+    `${total} années tentées`);
+  check('Import en masse : les années avec fixture locale réussissent', imported.length >= 3,
+    `importées : ${imported.map((i) => i.year).join(', ')}`);
+  check('Import en masse : les années sans fixture échouent proprement (pas de donnée inventée)',
+    failed.length > 0 && failed.every((f) => /fixture/i.test(f.error)),
+    failed.length ? `ex. ${failed[0].year} : ${failed[0].error}` : 'aucun échec — inattendu hors-ligne');
+}
+
 async function main() {
   console.log(`ÉtapeForge — démo de validation ${isOffline() ? '(mode hors-ligne : simulateur déterministe)' : '(mode en ligne : APIs réelles)'}`);
   const db = getDb();
   await demoStagePauHautacam(db);
+  // Import en masse AVANT demo1903 : importEdition(1903) y écrase l'édition
+  // (docstring pipeline/importer.js) — dans l'autre sens, l'import en masse
+  // aurait réinitialisé les 6 étapes 1903 à l'état 'draft' juste après leur
+  // génération par demo1903/demoTourMap, contredisant l'invite finale à
+  // ouvrir tour.html sur une édition en fait non générée.
+  if (isOffline()) await demoImportAll();
   const edition = await demo1903(db);
   await demoTourMap(db, edition);
 
