@@ -130,6 +130,25 @@ test('plus haut sommet toutes traces confondues, distinct de la déduplication p
   assert.strictEqual(s.highestSummit.summit_ele_m, 2400);
 });
 
+test('plus haut sommet : un col avec summit_ele_m null traité en premier ne masque pas un col réel derrière lui (relecture adverse)', async () => {
+  const db = getDb();
+  // c.summit_ele_m > highestSummit.summit_ele_m coercerait `null` en 0 des
+  // deux côtés de la comparaison — sans garde, un col sans altitude connue,
+  // traité en premier, empêcherait un vrai col négatif suivant de devenir
+  // "le plus haut" (-30 > 0 est faux). Domaine négatif nécessaire pour le
+  // même motif que le test ci-dessus.
+  insertStage(db, {
+    name: 'Sortie',
+    climbs: [
+      { name: 'Col Sans Altitude', category: '2', summitEleM: null },
+      { name: 'Col Réel', category: '2', summitEleM: -30 },
+    ],
+  });
+  const s = await summary();
+  assert.strictEqual(s.highestSummit.name, 'Col Réel');
+  assert.strictEqual(s.highestSummit.summit_ele_m, -30);
+});
+
 test('une trace sans aucune côte détectée ne casse rien (climbs vide reste valide)', async () => {
   const db = getDb();
   insertStage(db, { name: 'Sortie plate', distanceKm: 30, ascentM: 100 });
