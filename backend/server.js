@@ -412,7 +412,21 @@ app.get('/api/traces/summary', wrap(async (req, res) => {
   let highestSummit = null;
   for (const c of allClimbs) {
     if (!traceIds.has(c.stage_id) || !c.name) continue;
-    if (!highestSummit || c.summit_ele_m > highestSummit.summit_ele_m) highestSummit = { name: c.name, summit_ele_m: c.summit_ele_m };
+    // c.summit_ele_m peut être null (schéma sans NOT NULL, backend/db.js) —
+    // atteignable via un import de sauvegarde (POST /api/backup/import).
+    // Même classe de bug que CLAUDE.md règle 10 : sans le filtre != null,
+    // `c.summit_ele_m > highestSummit.summit_ele_m` coercerait un null de
+    // part ou d'autre en 0 — un col sans altitude connue, traité en premier,
+    // empêcherait alors un col réel négatif suivant de devenir "le plus
+    // haut" (vérifié : -30 > 0 est faux). entry.maxSummitM ci-dessous n'a
+    // PAS ce risque malgré le même `|| 0` apparent : initialisé à 0 et mis à
+    // jour par Math.max(), il ne peut jamais descendre sous 0 de toute façon
+    // (Math.max(0, x) plancherait déjà x au même endroit) — un vrai
+    // changement de comportement y aurait été un no-op, vérifié en écrivant
+    // le test avant de le garder (voir tracesSummary.test.js).
+    if (c.summit_ele_m != null && (!highestSummit || c.summit_ele_m > highestSummit.summit_ele_m)) {
+      highestSummit = { name: c.name, summit_ele_m: c.summit_ele_m };
+    }
     const entry = byName.get(c.name) || { name: c.name, count: 0, maxSummitM: 0, bestCategory: null };
     entry.count += 1;
     entry.maxSummitM = Math.max(entry.maxSummitM, c.summit_ele_m || 0);
