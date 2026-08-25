@@ -178,6 +178,29 @@ test('POST /api/backup/import : accepte un payload de plus de 2 Mo avec le Conte
   assert.strictEqual(getDb().prepare('SELECT length(source) n FROM editions WHERE id = 1').get().n, bigSource.length);
 });
 
+// Trouvaille de sprint dédié : isBindable() (backend/server.js) ne vérifiait
+// que `typeof v === 'number'`, contrairement à optionalNumber() plus haut
+// dans le même fichier qui utilise Number.isFinite. `1e999` est un nombre
+// syntaxiquement valide en JSON mais JSON.parse('1e999') === Infinity — et
+// better-sqlite3 accepte Infinity comme paramètre lié sans se plaindre,
+// empoisonnant silencieusement la colonne. Construit le corps de requête à
+// la main (pas JSON.stringify) : JSON.stringify(Infinity) redonne `null`,
+// ça ne reproduirait pas l'attaque réelle (un fichier de sauvegarde forgé
+// contenant le littéral `1e999`, jamais une valeur JS Infinity sérialisée).
+test('POST /api/backup/import : 1e999 (Infinity après JSON.parse) sur un champ numérique → 400, pas silencieusement accepté', async () => {
+  const editionId = await createEdition('Protégée aussi', 2019);
+  const body = `{"confirm":true,"tables":{"editions":[{"id":1,"year":1e999,"name":"x","is_custom":0,"source":null,"created_at":"x"}]}}`;
+  const res = await fetch(`${base}/api/backup/import`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body,
+  });
+  assert.strictEqual(res.status, 400);
+  assert.match((await res.json()).error, /type non pris en charge/);
+  const stillThere = getDb().prepare('SELECT id FROM editions WHERE id = ?').get(editionId);
+  assert.ok(stillThere, 'un champ Infinity ne doit rien écrire, même partiellement');
+});
+
 test('POST /api/backup/import : lignes aux colonnes incohérentes entre elles dans une même table → 400', async () => {
   const res = await importBackup({
     confirm: true,
