@@ -16,6 +16,7 @@ process.env.ETAPEFORGE_PUBLIC = '1';
 
 const { test, before, after } = require('node:test');
 const assert = require('node:assert');
+const { purgeStaleAttempts, attempts, RATE_WINDOW_MS } = require('../backend/auth');
 
 let appServer;
 let base;
@@ -143,4 +144,36 @@ test('limiteur de tentatives : 429 après trop d\'essais', async () => {
     });
   }
   assert.strictEqual(last.status, 429);
+});
+
+// Trouvaille de sprint dédié : chaque IP distincte laissait une entrée dans
+// `attempts` (Map de module) jamais retirée — croissance non bornée sur un
+// déploiement public longue durée avec beaucoup d'IP différentes.
+test('purgeStaleAttempts() : retire les IP sans tentative dans la fenêtre, garde les autres', () => {
+  const map = new Map();
+  const now = 1755000000000; // horodatage fixe, sans dépendre de Date.now()
+  map.set('198.51.100.1', [now - RATE_WINDOW_MS - 1]); // juste hors fenêtre
+  map.set('198.51.100.2', [now - RATE_WINDOW_MS + 1]); // juste dans la fenêtre
+  map.set('198.51.100.3', [now - RATE_WINDOW_MS - 5000, now - 1000]); // un vieux + un récent
+  purgeStaleAttempts(map, now);
+  assert.deepStrictEqual([...map.keys()].sort(), ['198.51.100.2', '198.51.100.3']);
+});
+
+test('purgeStaleAttempts() : une Map vide reste vide, ne casse rien', () => {
+  const map = new Map();
+  purgeStaleAttempts(map, Date.now());
+  assert.strictEqual(map.size, 0);
+});
+
+test('le limiteur purge réellement la Map de module lors d\'un vrai appel à /api/auth/login', async () => {
+  attempts.clear();
+  const now = Date.now();
+  attempts.set('203.0.113.9', [now - RATE_WINDOW_MS - 1000]); // IP jamais revue, doit disparaître
+  attempts.set('203.0.113.10', [now]); // IP encore dans la fenêtre, doit rester
+  await fetch(`${base}/api/auth/login`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: 'purge-test@example.com', password: 'peu-importe' }),
+  });
+  assert.strictEqual(attempts.has('203.0.113.9'), false, 'IP hors fenêtre purgée par le vrai appel HTTP');
+  assert.strictEqual(attempts.has('203.0.113.10'), true, 'IP encore active non purgée');
 });
