@@ -138,25 +138,32 @@ app.get('/api/diagnostic', wrap(async (req, res) => {
       return { name, ok: false, ms: Date.now() - t0, detail: String(err.cause?.message || err.message) };
     }
   };
-  const results = [];
-  results.push(await probe('Géoplateforme — géocodage',
-    'https://data.geopf.fr/geocodage/search?q=Paris&limit=1', (b) => (b.features || []).length > 0));
-  results.push(await probe('Géoplateforme — altimétrie (RGE ALTI)',
-    'https://data.geopf.fr/altimetrie/1.0/calcul/alti/rest/elevation.json?lon=2.35&lat=48.85&resource=ign_rge_alti_wld&zonly=true', (b) => (b.elevations || []).length > 0));
   // OSRM_BASE respecte ETAPEFORGE_OSRM (backlog issue #10, section E, "plan
   // de continuité") : sur un déploiement avec OSRM auto-hébergé, ce test
   // sonde l'instance réellement utilisée, pas systématiquement le service
   // public — sinon le diagnostic resterait vert/rouge indépendamment de
   // l'état de l'instance auto-hébergée réellement configurée.
   const { OSRM_BASE } = require('../pipeline/routing');
-  results.push(await probe(`OSRM — routage${OSRM_BASE !== 'https://router.project-osrm.org' ? ' (auto-hébergé)' : ''}`,
-    `${OSRM_BASE}/route/v1/driving/2.35,48.85;2.37,48.86?overview=false`, (b) => b.code === 'Ok'));
-  results.push(await probe('Nominatim — géocodage hors France',
-    'https://nominatim.openstreetmap.org/search?q=Barcelona&format=jsonv2&limit=1', (b) => Array.isArray(b) && b.length > 0));
-  results.push(await probe('opentopodata — altimétrie hors France',
-    'https://api.opentopodata.org/v1/eudem25m?locations=41.38,2.17', (b) => b.status === 'OK'));
-  results.push(await probe('Wikipédia — archives',
-    'https://en.wikipedia.org/api/rest_v1/page/summary/Tour_de_France', (b) => !!b.title));
+  // Chaque probe() cible un hôte indépendant et intercepte déjà ses propres
+  // erreurs (jamais de rejet, toujours { ok, ms, detail }) — les lancer en
+  // parallèle (Promise.all préserve l'ordre du tableau, pas l'ordre de
+  // résolution) borne le diagnostic au plus lent des 6 services (~8 s, le
+  // timeout individuel) plutôt qu'à leur somme (jusqu'à ~48 s en série),
+  // trouvaille de revue de code globale de fin de session.
+  const results = await Promise.all([
+    probe('Géoplateforme — géocodage',
+      'https://data.geopf.fr/geocodage/search?q=Paris&limit=1', (b) => (b.features || []).length > 0),
+    probe('Géoplateforme — altimétrie (RGE ALTI)',
+      'https://data.geopf.fr/altimetrie/1.0/calcul/alti/rest/elevation.json?lon=2.35&lat=48.85&resource=ign_rge_alti_wld&zonly=true', (b) => (b.elevations || []).length > 0),
+    probe(`OSRM — routage${OSRM_BASE !== 'https://router.project-osrm.org' ? ' (auto-hébergé)' : ''}`,
+      `${OSRM_BASE}/route/v1/driving/2.35,48.85;2.37,48.86?overview=false`, (b) => b.code === 'Ok'),
+    probe('Nominatim — géocodage hors France',
+      'https://nominatim.openstreetmap.org/search?q=Barcelona&format=jsonv2&limit=1', (b) => Array.isArray(b) && b.length > 0),
+    probe('opentopodata — altimétrie hors France',
+      'https://api.opentopodata.org/v1/eudem25m?locations=41.38,2.17', (b) => b.status === 'OK'),
+    probe('Wikipédia — archives',
+      'https://en.wikipedia.org/api/rest_v1/page/summary/Tour_de_France', (b) => !!b.title),
+  ]);
   const allOk = results.every((r) => r.ok);
   res.json({ allOk, offline: isOffline(), results });
 }));
