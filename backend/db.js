@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS editions (
   year INTEGER,                -- NULL pour un tour personnalisé
   name TEXT NOT NULL,
   is_custom INTEGER NOT NULL DEFAULT 0,
+  category TEXT NOT NULL DEFAULT 'hommes',  -- hommes | femmes — voir ensureColumn ci-dessous
   source TEXT,                 -- JSON : provenance des champs (wikipedia, manuel…)
   created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
@@ -178,6 +179,12 @@ function getDb() {
   db.exec(SCHEMA);
   ensureColumn(db, 'climbs', 'irregularity_index', 'irregularity_index REAL');
   ensureColumn(db, 'waypoints', 'bonus_sec', 'bonus_sec TEXT');
+  // Chantier L, Tour de France Femmes : `year` seul comme clé d'édition
+  // aurait fait écraser silencieusement l'un des deux tours par
+  // importEdition() (DELETE + INSERT sur la même année) dès qu'Hommes et
+  // Femmes partagent une année — trouvaille documentée dans
+  // docs/PRESENTATION.md avant d'être corrigée ici.
+  ensureColumn(db, 'editions', 'category', "category TEXT NOT NULL DEFAULT 'hommes'");
   return db;
 }
 

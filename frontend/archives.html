@@ -59,11 +59,21 @@
       <label class="field" style="margin:0">Importer une année (1903 → 2026)
         <input id="f-year" type="number" min="1903" max="2026" value="1903" style="width:120px">
       </label>
+      <label class="field" style="margin:0">Catégorie
+        <select id="f-category" style="width:120px">
+          <option value="hommes">Hommes</option>
+          <option value="femmes">Femmes</option>
+        </select>
+      </label>
       <button id="btn-import">Importer l'année</button>
       <span id="import-msg" class="meta-line"></span>
     </div>
+    <p class="meta-line" style="margin:0">Tour de France Femmes : Hommes et Femmes de la même année sont des
+      éditions distinctes, l'import de l'une n'écrase jamais l'autre. Aucune fixture hors-ligne ni parcours curé
+      n'existe encore pour Femmes dans ce dépôt — l'import y échoue proprement (pas de donnée inventée) tant que
+      cet accès réseau n'est pas disponible.</p>
     <div class="toolbar">
-      <button id="btn-import-all" class="secondary">Importer toutes les éditions (1903 → 2026)</button>
+      <button id="btn-import-all" class="secondary">Importer toutes les éditions Hommes (1903 → 2026)</button>
       <span id="import-all-msg" class="meta-line"></span>
     </div>
     <div class="toolbar">
