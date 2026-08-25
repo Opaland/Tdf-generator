@@ -88,4 +88,54 @@ async function importEdition(year, { onProgress } = {}) {
   return { edition, stages: result.stages };
 }
 
-module.exports = { importEdition };
+// Le Tour de France ne s'est pas couru pendant les deux guerres mondiales
+// (1915-1918, 1940-1946) — fait structurel bien établi, indépendant de toute
+// donnée de parcours (ville, col, distance) que ce dépôt exige normalement
+// sourcée (CLAUDE.md règle 9) : sert uniquement à borner la plage d'années
+// tentées ci-dessous, jamais à affirmer un fait de course. Une erreur sur ces
+// bornes ne casserait rien silencieusement — l'année en trop échouerait
+// simplement (pas de fixture/donnée Wikipédia), une année manquante ne
+// serait juste pas tentée.
+const WAR_GAP_YEARS = new Set([1915, 1916, 1917, 1918, 1940, 1941, 1942, 1943, 1944, 1945, 1946]);
+// Même borne haute que le champ année de frontend/archives.html (`max="2026"`)
+// — la dernière édition déjà courue au moment de ce dépôt.
+const LAST_KNOWN_YEAR = 2026;
+
+/** Liste des années de Tour de France valides, 1903 à LAST_KNOWN_YEAR, hors
+ * les deux guerres mondiales. */
+function allTdfYears() {
+  const years = [];
+  for (let y = 1903; y <= LAST_KNOWN_YEAR; y++) {
+    if (!WAR_GAP_YEARS.has(y)) years.push(y);
+  }
+  return years;
+}
+
+/**
+ * Importe toutes les éditions du Tour (1903 → LAST_KNOWN_YEAR, hors guerres
+ * mondiales) via `importEdition()`, une par une. Une édition qui échoue
+ * (pas de fixture locale en mode hors-ligne, page Wikipédia introuvable ou
+ * mal formée, etc.) n'interrompt pas les suivantes — chaque échec est
+ * collecté avec sa raison plutôt que masqué (pas de troncature silencieuse).
+ * @returns { total, imported: [{year, editionId, stagesCount}], failed: [{year, error}] }
+ */
+async function importAllEditions({ onProgress } = {}) {
+  const years = allTdfYears();
+  const imported = [];
+  const failed = [];
+  for (let i = 0; i < years.length; i++) {
+    const year = years[i];
+    if (onProgress) {
+      onProgress({ year, index: i + 1, total: years.length, imported: imported.length, failed: failed.length });
+    }
+    try {
+      const { edition, stages } = await importEdition(year);
+      imported.push({ year, editionId: edition.id, stagesCount: stages.length });
+    } catch (err) {
+      failed.push({ year, error: String(err.message || err) });
+    }
+  }
+  return { total: years.length, imported, failed };
+}
+
+module.exports = { importEdition, importAllEditions, allTdfYears };

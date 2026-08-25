@@ -22,6 +22,41 @@ async function importYear() {
   }
 }
 
+// Import en masse : toutes les éditions 1903 → 2026 (hors guerres mondiales),
+// une à une côté serveur (pipeline/importer.js, importAllEditions()). La
+// route de démarrage répond tout de suite (202) — la progression réelle
+// (des dizaines d'appels réseau Wikipédia successifs, respectant le même
+// rate limit que l'import d'une seule année) est suivie par sondage du
+// statut, même idiome que generateAll() ci-dessous pour une étape.
+async function importAllYears() {
+  const btn = document.getElementById('btn-import-all');
+  const msg = document.getElementById('import-all-msg');
+  btn.disabled = true;
+  msg.textContent = 'Démarrage…';
+  try {
+    await EF.api('/api/editions/import-all', { method: 'POST' });
+    let status = { running: true, total: 0, done: 0, imported: [], failed: [] };
+    while (status.running) {
+      await new Promise((r) => setTimeout(r, 1500));
+      status = await EF.api('/api/editions/import-all/status');
+      msg.textContent = status.total
+        ? `${status.done}/${status.total} années traitées — ${status.imported.length} importées, ${status.failed.length} échouées`
+        : 'Démarrage…';
+    }
+    const failedYears = status.failed.map((f) => f.year);
+    msg.textContent = `✔ ${status.imported.length}/${status.total} éditions importées`
+      + (failedYears.length
+        ? ` — ${failedYears.length} échouées (${failedYears.slice(0, 5).join(', ')}${failedYears.length > 5 ? '…' : ''}, détail en console)`
+        : '.');
+    if (status.failed.length) console.warn('Import en masse : années échouées', status.failed);
+    await loadEditions();
+  } catch (err) {
+    msg.textContent = 'Erreur : ' + err.message;
+  } finally {
+    btn.disabled = false;
+  }
+}
+
 function stageRow(s) {
   const delta = s.official_distance_km && s.generated_distance_km
     ? ((s.generated_distance_km - s.official_distance_km) / s.official_distance_km) * 100
@@ -224,6 +259,7 @@ async function loadMythicGrid() {
 document.addEventListener('DOMContentLoaded', async () => {
   await EF.initChrome('archives');
   document.getElementById('btn-import').addEventListener('click', importYear);
+  document.getElementById('btn-import-all').addEventListener('click', importAllYears);
   document.getElementById('f-sourced-only').addEventListener('change', () => loadEditions());
   // Pas de .catch() ici plantait silencieusement (rejet de promesse non
   // géré) en mode EF_STATIC, où /api/editions/highlights n'a pas

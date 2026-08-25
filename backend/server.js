@@ -7,7 +7,7 @@ const path = require('path');
 const express = require('express');
 const { getDb, DB_PATH } = require('./db');
 const { generateStage, loadStageFull } = require('../pipeline/generate');
-const { importEdition } = require('../pipeline/importer');
+const { importEdition, importAllEditions } = require('../pipeline/importer');
 const { historicHighlights } = require('../pipeline/wikipedia');
 const { geocodeSuggest, reverseGeocode } = require('../pipeline/geocode');
 const { isOffline, setOffline, httpText } = require('../pipeline/http');
@@ -604,6 +604,44 @@ app.post('/api/editions/import', wrap(async (req, res) => {
   const result = await importEdition(year);
   res.json({ edition: result.edition, stages: result.stages });
 }));
+
+// Import en masse (toutes les éditions 1903 → LAST_KNOWN_YEAR, hors guerres
+// mondiales) : même idiome fire-and-forget que `running` pour la génération
+// d'étape ci-dessus, mais il n'y a pas de ligne DB existante sur laquelle
+// accrocher une progression (contrairement à une étape) — un objet de
+// module suffit, un seul import en masse a du sens à la fois sur une
+// instance locale mono-utilisateur.
+let importAllJob = null; // { running, total, done, imported, failed, startedAt, error? }
+
+app.post('/api/editions/import-all', (req, res) => {
+  if (importAllJob && importAllJob.running) {
+    return res.status(409).json({ error: 'Import en masse déjà en cours' });
+  }
+  importAllJob = { running: true, total: 0, done: 0, imported: [], failed: [], startedAt: new Date().toISOString() };
+  importAllEditions({
+    onProgress: (p) => {
+      importAllJob.total = p.total;
+      importAllJob.done = p.index;
+    },
+  })
+    .then((result) => {
+      importAllJob.imported = result.imported;
+      importAllJob.failed = result.failed;
+      importAllJob.total = result.total;
+      importAllJob.done = result.total;
+    })
+    .catch((err) => {
+      importAllJob.error = String(err.message || err);
+    })
+    .finally(() => {
+      importAllJob.running = false;
+    });
+  res.status(202).json({ started: true });
+});
+
+app.get('/api/editions/import-all/status', (req, res) => {
+  res.json(importAllJob || { running: false, total: 0, done: 0, imported: [], failed: [] });
+});
 
 /** Données carte globale d'un tour : tracés décimés + profils miniatures. */
 app.get('/api/editions/:id/mapdata', wrap(async (req, res) => {
