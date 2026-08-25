@@ -3,6 +3,35 @@
 
 let mode = 'login'; // 'login' | 'register'
 
+// EF.requireAuthOrRedirect() (common.js) ne génère jamais que des chemins
+// relatifs same-origin (`location.pathname + location.search`) — mais rien
+// n'empêche un lien fabriqué à la main (phishing : "session expirée,
+// reconnectez-vous") de poser un `next` absolu vers un autre domaine.
+//
+// Une regex sur le préfixe (ex. rejeter `//`/`/\`) ferme certains vecteurs
+// mais pas la classe entière : le parseur d'URL du navigateur (WHATWG URL
+// Standard, utilisé pour toute navigation via `location.href =`) supprime
+// tabulations/CR/LF n'importe où dans la chaîne AVANT de la parser — une
+// regex qui ne connaît pas cette normalisation laisse passer `/\t/evil.com`,
+// qui redevient `//evil.com` (protocol-relatif) une fois assigné à
+// `location.href` (trouvaille de relecture adverse, vérifiée en navigateur
+// réel via Playwright — vraie requête HTTP émise vers l'hôte évadé).
+// CLAUDE.md règle 1 : corriger le vecteur trouvé (`//`, `/\`) ne ferme pas
+// la classe de bug (n'importe quelle autre normalisation du parseur). Fixé
+// en utilisant CE MÊME parseur pour la vérification — `new URL()` applique
+// exactement la normalisation que la navigation appliquera ensuite, donc
+// aucun vecteur qui passe par cette normalisation ne peut être manqué.
+function safeNext(raw) {
+  if (typeof raw !== 'string' || !raw) return '/';
+  try {
+    const url = new URL(raw, location.origin);
+    if (url.origin !== location.origin) return '/';
+    return url.pathname + url.search + url.hash;
+  } catch {
+    return '/';
+  }
+}
+
 function setMode(next) {
   mode = next;
   document.getElementById('tab-login').classList.toggle('active', mode === 'login');
@@ -30,7 +59,7 @@ document.getElementById('auth-form').addEventListener('submit', async (e) => {
     const json = await res.json().catch(() => ({}));
     if (!res.ok) throw new Error(json.error || `HTTP ${res.status}`);
     const params = new URLSearchParams(location.search);
-    location.href = params.get('next') || '/';
+    location.href = safeNext(params.get('next'));
   } catch (err) {
     msg.textContent = err.message;
   }
