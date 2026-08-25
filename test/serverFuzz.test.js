@@ -71,6 +71,24 @@ test('POST /api/editions avec year non-numérique : 400 propre, pas 500', async 
   assert.strictEqual(res.status, 400);
 });
 
+// Trouvaille de sprint dédié : pipeline/importer.js posait déjà .status=400
+// sur la validation de catégorie (Chantier L, Tour de France Femmes) mais
+// pas sur la validation d'année juste au-dessus — une année absente, non
+// numérique ou hors plage renvoyait donc 500 (journalisé côté serveur
+// comme une panne inattendue) au lieu de 400 pour une simple erreur de
+// saisie utilisateur.
+for (const bad of [1900, 3000, 'abc', {}]) {
+  test(`POST /api/editions/import avec year=${JSON.stringify(bad)} : 400 propre, pas 500`, async () => {
+    const res = await fetch(`${base}/api/editions/import`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ year: bad }),
+    });
+    assert.strictEqual(res.status, 400);
+    assert.match((await res.json()).error, /Année invalide/);
+  });
+}
+
 test('PUT /api/stages/:id avec des champs non-chaîne : 400 propre, pas 500', async () => {
   const create = await fetch(`${base}/api/stages`, {
     method: 'POST',
