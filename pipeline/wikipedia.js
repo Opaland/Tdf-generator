@@ -108,10 +108,19 @@ function parseStagesFromHtml(html, year) {
   const tables = extractTables(html);
   for (const rows of tables) {
     const header = rows[0].map((h) => h.toLowerCase());
+    // Un 3e critère (colonne « course/parcours/route/itinéraire ») avait été
+    // introduit ici mais avec un `|| true` qui le rendait tautologique — donc
+    // mort depuis son introduction (trouvaille de sprint dédié, survivant de
+    // mutation testing). Retiré plutôt que « réparé » en ôtant juste le
+    // `|| true` : cette dernière option resserre réellement la condition et
+    // rejetterait un tableau qui fonctionne aujourd'hui si son en-tête réel
+    // (page Wikipédia vivante, non vérifiable depuis ce sandbox sans accès
+    // réseau) ne contient aucun de ces mots — un changement de comportement
+    // non vérifiable, alors que la suppression pure et simple ne change rien
+    // (elle équivaut exactement à `&& true`, comme le code l'exécutait déjà).
     const looksRight =
       header.some((h) => /stage|étape|etape/.test(h)) &&
-      header.some((h) => /distance/.test(h)) &&
-      header.some((h) => /course|parcours|route|itinéraire/.test(h) || true);
+      header.some((h) => /distance/.test(h));
     if (!looksRight) continue;
 
     const col = (names) => header.findIndex((h) => names.some((n) => h.includes(n)));
