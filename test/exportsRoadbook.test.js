@@ -114,7 +114,7 @@ test('roadbook.html : temps écoulé au départ toujours "0 min" (distance nulle
   assert.match(firstRow, /<td>0\.0<\/td><td>0 min<\/td>/);
 });
 
-test('site (tour) : édition sans source.notes -> aucun encart <p class="note"> (le cas "présent" n\'est pas déclenchable via l\'API publique, seulement par import historique)', async () => {
+test('site (tour) : édition sans source.notes -> aucun encart <p class="note">', async () => {
   const ed = await (await fetch(`${base}/api/editions`, {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ name: 'Édition sans notes', is_custom: 1 }),
@@ -130,4 +130,25 @@ test('site (tour) : édition sans source.notes -> aucun encart <p class="note"> 
   // client (jamais un vrai tag HTML côté serveur) : ne pas le confondre.
   const mainBlock = html.match(/<main>([\s\S]*?)<div id="map">/)[1];
   assert.doesNotMatch(mainBlock, /<p class="note">/, 'une édition sans source.notes ne doit produire aucun encart <p class="note">');
+});
+
+test('site (tour) : édition importée (source.notes réel) -> l\'encart <p class="note"> affiche le texte échappé', async () => {
+  // Trouvaille de relecture adverse sur une version précédente de ce fichier
+  // (backlog #64) : le titre affirmait que ce cas n'était "pas déclenchable
+  // via l'API publique" — faux, POST /api/editions/import (utilisé par
+  // frontend/archives.js) écrit bien source.notes, via les fixtures
+  // hors-ligne déjà présentes (pipeline/fixtures/wikipedia_1903_en.html).
+  // CLAUDE.md règle 9 : l'affirmation non vérifiée est corrigée en test réel
+  // plutôt que reformulée en hypothèse, puisqu'elle était vérifiable.
+  const { edition } = await (await fetch(`${base}/api/editions/import`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ year: 1903 }),
+  })).json();
+  const notes = edition.source && JSON.parse(edition.source).notes;
+  assert.ok(notes, 'précondition : l\'édition 1903 importée doit avoir des notes (sinon ce test ne prouve rien)');
+
+  const html = await (await fetch(`${base}/api/editions/${edition.id}/site`)).text();
+  const mainBlock = html.match(/<main>([\s\S]*?)<div id="map">/)[1];
+  assert.match(mainBlock, /<p class="note">/, 'une édition avec source.notes doit afficher l\'encart');
+  assert.match(mainBlock, /Points de passage d.après les parcours décrits sur Wikipédia/, 'le texte des notes doit apparaître (non tronqué, non vidé)');
 });
