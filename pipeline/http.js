@@ -109,4 +109,8 @@ async function httpText(url, { minDelayMs = 0, headers = {}, retries = 3, timeou
   });
 }
 
-module.exports = { httpJson, httpText, isOffline, setOffline, USER_AGENT };
+// Exportée à part de httpJson/httpText (qui ajoutent rate-limit par hôte,
+// retries et bascule hors-ligne — hors sujet pour un webhook ou un flux
+// OAuth) : réutilisée telle quelle par backend/notify.js et backend/suunto.js,
+// mêmes appelants qui n'avaient elles non plus aucun timeout sur leur fetch().
+module.exports = { httpJson, httpText, isOffline, setOffline, fetchWithTimeout, USER_AGENT };
