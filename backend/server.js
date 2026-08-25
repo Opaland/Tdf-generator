@@ -7,7 +7,7 @@ const path = require('path');
 const express = require('express');
 const { getDb, DB_PATH } = require('./db');
 const { generateStage, loadStageFull } = require('../pipeline/generate');
-const { importEdition, importAllEditions } = require('../pipeline/importer');
+const { importEdition, importAllEditions, CATEGORIES } = require('../pipeline/importer');
 const { historicHighlights } = require('../pipeline/wikipedia');
 const { geocodeSuggest, reverseGeocode } = require('../pipeline/geocode');
 const { isOffline, setOffline, httpText } = require('../pipeline/http');
@@ -579,10 +579,14 @@ app.post('/api/editions', (req, res) => {
   const body = req.body || {};
   const name = requireString(body.name, 'name');
   const year = optionalNumber(body.year, 'year');
+  const category = body.category || 'hommes';
+  if (!CATEGORIES.includes(category)) {
+    return res.status(400).json({ error: `category doit être ${CATEGORIES.join(' ou ')}` });
+  }
   const db = getDb();
   const r = db
-    .prepare('INSERT INTO editions (year, name, is_custom) VALUES (?, ?, ?)')
-    .run(year, name, body.is_custom ? 1 : 0);
+    .prepare('INSERT INTO editions (year, name, is_custom, category) VALUES (?, ?, ?, ?)')
+    .run(year, name, body.is_custom ? 1 : 0, category);
   res.json({ id: r.lastInsertRowid });
 });
 
@@ -614,8 +618,10 @@ app.get('/api/editions/:id', (req, res) => {
 });
 
 app.post('/api/editions/import', wrap(async (req, res) => {
-  const year = parseInt((req.body || {}).year, 10);
-  const result = await importEdition(year);
+  const body = req.body || {};
+  const year = parseInt(body.year, 10);
+  const category = body.category || 'hommes';
+  const result = await importEdition(year, { category });
   res.json({ edition: result.edition, stages: result.stages });
 }));
 

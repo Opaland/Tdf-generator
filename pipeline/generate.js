@@ -221,7 +221,7 @@ function loadStageFull(stageId) {
   // Réserves de confiance (backlog #10, section A/D) : rattachées à un couple
   // (année, numéro d'étape) dans historic_routes.json, pas à l'id de base — se
   // résout donc via l'édition importée, pas via une colonne dédiée sur `stages`.
-  const confidence = edition && edition.year ? stageConfidence(edition.year, stage.stage_order) : [];
+  const confidence = edition && edition.year ? stageConfidence(edition.year, stage.stage_order, edition.category) : [];
   // Indice de pénibilité cumulée (backlog issue #10, section C) : dérivé à la
   // lecture comme fauxPlats ci-dessus, pas persisté (bon marché à recalculer,
   // dépend de l'état d'autres étapes de l'édition qui peut changer).

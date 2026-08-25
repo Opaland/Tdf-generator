@@ -4,15 +4,16 @@
 
 async function importYear() {
   const year = document.getElementById('f-year').value;
+  const category = document.getElementById('f-category').value;
   const msg = document.getElementById('import-msg');
   const btn = document.getElementById('btn-import');
   btn.disabled = true;
-  msg.textContent = `Import de l'édition ${year} depuis Wikipédia…`;
+  msg.textContent = `Import de l'édition ${category === 'femmes' ? 'Femmes ' : ''}${year} depuis Wikipédia…`;
   try {
     // Aller-retour réseau externe (Wikipédia) côté serveur en plus du
     // nôtre — le délai par défaut d'EF.api() (pensé pour un appel local)
     // serait trop court ici.
-    const res = await EF.api('/api/editions/import', { method: 'POST', body: { year: Number(year) }, timeoutMs: 60000 });
+    const res = await EF.api('/api/editions/import', { method: 'POST', body: { year: Number(year), category }, timeoutMs: 60000 });
     msg.textContent = `✔ ${res.stages.length} étapes importées.`;
     await loadEditions();
   } catch (err) {

@@ -138,10 +138,14 @@ confondre :
   même obstacle : ce sandbox de développement n'a pas de sortie réseau vers
   les APIs externes du projet (vérification croisée périodique en CI, test
   de parité simulateur vs vraies APIs, détection de surface non goudonnée).
-  Le Tour de France Femmes est cadré (le modèle de données actuel utilise
-  l'année seule comme clé d'édition — importer Femmes et Hommes la même
-  année écraserait silencieusement l'un des deux) mais pas livré : ça
-  suppose une décision d'architecture avant le code. Le **vrai parcours 2027**
+  Le Tour de France Femmes n'a plus ce blocage d'architecture : `editions`
+  porte désormais une colonne `category` (hommes | femmes), et
+  `importEdition(year, { category })` écrase l'édition existante de la même
+  année **et catégorie**, jamais l'autre catégorie. Reste bloqué par le même
+  obstacle réseau que le reste de cette liste : aucune fixture Wikipédia ni
+  parcours curé Femmes n'existe encore dans ce dépôt (rien à scraper depuis
+  ce sandbox) — l'import y échoue proprement, sans donnée inventée, en
+  attendant un accès réseau pour le peupler. Le **vrai parcours 2027**
   (`scripts/demo-2027.js` reste hypothétique) attend l'annonce officielle
   ASO, pas encore sortie — pas un blocage technique, un calendrier externe.
 - **Décision volontairement laissée à l'utilisateur, pas prise en autonome**

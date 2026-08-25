@@ -12,40 +12,53 @@ const {
 } = require('./wikipedia');
 const { isOffline } = require('./http');
 
+const CATEGORIES = ['hommes', 'femmes'];
+
 /**
- * Importe (ou ré-importe) l'édition d'une année. Écrase l'édition existante de
- * la même année. Retourne { edition, stages: [{id, ...}] }.
+ * Importe (ou ré-importe) l'édition d'une année et d'une catégorie (hommes
+ * par défaut). Écrase l'édition existante de la même année **et catégorie**
+ * — la clé d'édition est le couple (year, category), pas l'année seule :
+ * importer Femmes et Hommes la même année n'écrase plus l'un des deux
+ * (Chantier L, Tour de France Femmes — collision documentée dans
+ * docs/PRESENTATION.md avant d'être corrigée ici). Retourne
+ * { edition, stages: [{id, ...}] }.
  */
-async function importEdition(year, { onProgress } = {}) {
+async function importEdition(year, { category = 'hommes', onProgress } = {}) {
   year = parseInt(year, 10);
   if (!Number.isInteger(year) || year < 1903 || year > 2100) {
     throw new Error(`Année invalide : ${year} (le Tour commence en 1903)`);
   }
-  if (onProgress) onProgress({ step: 'import', detail: `Récupération de la liste des étapes ${year}`, percent: 5 });
+  if (!CATEGORIES.includes(category)) {
+    // .status : consommé par wrap() (backend/server.js) pour renvoyer 400
+    // plutôt que 500 — erreur de validation d'entrée, pas une panne serveur.
+    throw Object.assign(new Error(`Catégorie invalide : ${category} (attendu : ${CATEGORIES.join(' ou ')})`), { status: 400 });
+  }
+  const label = category === 'femmes' ? `Tour de France Femmes ${year}` : `Tour de France ${year}`;
+  if (onProgress) onProgress({ step: 'import', detail: `Récupération de la liste des étapes ${label}`, percent: 5 });
 
-  const html = await fetchEditionHtml(year);
+  const html = await fetchEditionHtml(year, category);
   const parsed = parseStagesFromHtml(html, year);
   if (onProgress) onProgress({ step: 'import', detail: `${parsed.length} étapes trouvées`, percent: 40 });
 
   const db = getDb();
-  const notes = editionNotes(year);
+  const notes = editionNotes(year, category);
   const sourceInfo = {
     liste_etapes: isOffline()
-      ? `fixture locale (structure Wikipédia « ${year} Tour de France », CC BY-SA) — mode hors-ligne`
-      : `en.wikipedia.org — « ${year} Tour de France » (CC BY-SA)`,
+      ? `fixture locale (structure Wikipédia « ${label} », CC BY-SA) — mode hors-ligne`
+      : `en.wikipedia.org — « ${label} » (CC BY-SA)`,
     points_de_passage: 'parcours curés (pipeline/data/historic_routes.json), d\'après Wikipédia / bikeraceinfo.com',
     notes,
   };
 
   const result = db.transaction(() => {
-    const existing = db.prepare('SELECT id FROM editions WHERE year = ?').get(year);
+    const existing = db.prepare('SELECT id FROM editions WHERE year = ? AND category = ?').get(year, category);
     if (existing) {
       db.prepare('DELETE FROM stages WHERE edition_id = ?').run(existing.id);
       db.prepare('DELETE FROM editions WHERE id = ?').run(existing.id);
     }
     const ed = db
-      .prepare('INSERT INTO editions (year, name, is_custom, source) VALUES (?, ?, 0, ?)')
-      .run(year, `Tour de France ${year}`, JSON.stringify(sourceInfo));
+      .prepare('INSERT INTO editions (year, name, is_custom, category, source) VALUES (?, ?, 0, ?, ?)')
+      .run(year, label, category, JSON.stringify(sourceInfo));
     const editionId = ed.lastInsertRowid;
 
     const insStage = db.prepare(
@@ -74,7 +87,7 @@ async function importEdition(year, { onProgress } = {}) {
         'historique', s.distanceKm, JSON.stringify(stageSource)
       );
       const stageId = r.lastInsertRowid;
-      const wps = reconstructionWaypoints(year, s);
+      const wps = reconstructionWaypoints(year, s, category);
       wps.forEach((wp, i) => {
         insWp.run(stageId, i, wp.label, wp.kind, wp.altitude_hint_m ?? null, wp.bonus_sec ? JSON.stringify(wp.bonus_sec) : null, wp.source);
       });
@@ -83,7 +96,7 @@ async function importEdition(year, { onProgress } = {}) {
     return { editionId, stages };
   })();
 
-  if (onProgress) onProgress({ step: 'import', detail: `Édition ${year} importée (${result.stages.length} étapes)`, percent: 100 });
+  if (onProgress) onProgress({ step: 'import', detail: `Édition ${label} importée (${result.stages.length} étapes)`, percent: 100 });
   const edition = db.prepare('SELECT * FROM editions WHERE id = ?').get(result.editionId);
   return { edition, stages: result.stages };
 }
@@ -112,8 +125,12 @@ function allTdfYears() {
 }
 
 /**
- * Importe toutes les éditions du Tour (1903 → LAST_KNOWN_YEAR, hors guerres
- * mondiales) via `importEdition()`, une par une. Une édition qui échoue
+ * Importe toutes les éditions du Tour de France Hommes (1903 → LAST_KNOWN_YEAR,
+ * hors guerres mondiales) via `importEdition()`, une par une. Volontairement
+ * limité à `category: 'hommes'` : le Tour de France Femmes n'a pas
+ * d'équivalent « toutes les années disponibles » établi ici (Chantier L —
+ * import Femmes une édition à la fois via `importEdition(year, { category:
+ * 'femmes' })`, mêmes garanties anti-collision). Une édition qui échoue
  * (pas de fixture locale en mode hors-ligne, page Wikipédia introuvable ou
  * mal formée, etc.) n'interrompt pas les suivantes — chaque échec est
  * collecté avec sa raison plutôt que masqué (pas de troncature silencieuse).
@@ -138,4 +155,4 @@ async function importAllEditions({ onProgress } = {}) {
   return { total: years.length, imported, failed };
 }
 
-module.exports = { importEdition, importAllEditions, allTdfYears };
+module.exports = { importEdition, importAllEditions, allTdfYears, CATEGORIES };

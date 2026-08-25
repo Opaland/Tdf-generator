@@ -158,21 +158,35 @@ function parseStagesFromHtml(html, year) {
   throw new Error(`Aucun tableau d'étapes reconnu pour ${year}`);
 }
 
-/** HTML de la page « <année> Tour de France » (cache api_cache ; fixture en hors-ligne). */
-async function fetchEditionHtml(year) {
-  const fixture = path.join(FIXTURES_DIR, `wikipedia_${year}_en.html`);
+/** HTML de la page « <année> Tour de France [Femmes] » (cache api_cache ; fixture en hors-ligne). */
+async function fetchEditionHtml(year, category = 'hommes') {
+  const pageTitle = category === 'femmes' ? `${year} Tour de France Femmes` : `${year} Tour de France`;
+  const fixtureSuffix = category === 'femmes' ? `${year}_femmes_en.html` : `${year}_en.html`;
+  const fixture = path.join(FIXTURES_DIR, `wikipedia_${fixtureSuffix}`);
   if (isOffline()) {
     if (fs.existsSync(fixture)) return fs.readFileSync(fixture, 'utf8');
     throw new Error(
-      `Mode hors-ligne : pas de fixture locale pour ${year}. ` +
-        `Relancez avec accès réseau pour importer cette année depuis Wikipédia.`
+      `Mode hors-ligne : pas de fixture locale pour « ${pageTitle} ». ` +
+        `Relancez avec accès réseau pour importer cette édition depuis Wikipédia.`
     );
   }
-  const { value } = await cached('api', 'wikipedia-en', { page: `${year}_Tour_de_France` }, async () => {
-    const url = `https://en.wikipedia.org/api/rest_v1/page/html/${year}_Tour_de_France`;
+  const { value } = await cached('api', 'wikipedia-en', { page: pageTitle.replace(/ /g, '_') }, async () => {
+    const url = `https://en.wikipedia.org/api/rest_v1/page/html/${pageTitle.replace(/ /g, '_')}`;
     return httpText(url, { minDelayMs: 600 });
   });
   return value;
+}
+
+// Clé historic_routes.json : l'année seule pour Hommes (rétrocompatible avec
+// toute la curation existante), `<année>-femmes` pour Femmes — sans ce
+// suffixe, une édition Femmes partageant l'année d'une édition Hommes déjà
+// curée (ex. 2022) hériterait à tort de ses points de passage et de ses
+// notes (Chantier L, Tour de France Femmes). Aucune entrée `-femmes`
+// n'existe encore dans historic_routes.json : une import Femmes retombe
+// donc simplement sur les libellés de ville bruts de Wikipédia, comme
+// n'importe quelle année Hommes non curée.
+function historicRoutesKey(year, category) {
+  return category === 'femmes' ? `${year}-femmes` : String(year);
 }
 
 /**
@@ -180,9 +194,9 @@ async function fetchEditionHtml(year) {
  * (Wikipédia) + points de passage curés (historic_routes.json) quand ils existent.
  * Retourne [{label, kind, altitude_hint_m?, bonus_sec?, source}]
  */
-function reconstructionWaypoints(year, stage) {
+function reconstructionWaypoints(year, stage, category = 'hommes') {
   const { isColQuery } = require('./geocode');
-  const curated = HISTORIC_ROUTES[String(year)]?.stages?.[String(stage.number)];
+  const curated = HISTORIC_ROUTES[historicRoutesKey(year, category)]?.stages?.[String(stage.number)];
   const wps = [];
   const startLabel = curated?.start || stage.start;
   const finishLabel = curated?.finish || stage.finish;
@@ -209,8 +223,8 @@ function reconstructionWaypoints(year, stage) {
   return wps;
 }
 
-function editionNotes(year) {
-  return HISTORIC_ROUTES[String(year)]?.notes || null;
+function editionNotes(year, category = 'hommes') {
+  return HISTORIC_ROUTES[historicRoutesKey(year, category)]?.notes || null;
 }
 
 /**
@@ -219,10 +233,15 @@ function editionNotes(year) {
  * étapes mythiques dans Archives". Triées par année croissante. Une édition
  * curée sans `highlight` (ex. les éditions 2020+, détaillées année par année
  * mais pas individuellement "mythiques") n'apparaît pas dans la liste.
+ *
+ * Clé `<année>-femmes` (voir historicRoutesKey) explicitement exclue plutôt
+ * que parsée avec le reste : parseInt("2022-femmes", 10) renverrait 2022 et
+ * confondrait silencieusement une vignette Femmes avec l'édition Hommes de
+ * la même année tant qu'aucun champ `category` n'est propagé jusqu'ici.
  */
 function historicHighlights() {
   return Object.entries(HISTORIC_ROUTES)
-    .filter(([, edition]) => edition.highlight)
+    .filter(([key, edition]) => edition.highlight && /^\d+$/.test(key))
     .map(([year, edition]) => ({ year: parseInt(year, 10), highlight: edition.highlight }))
     .sort((a, b) => a.year - b.year);
 }
@@ -238,8 +257,8 @@ const CONFIDENCE_LEVELS = ['haute', 'moyenne', 'basse'];
  * moyenne|basse, detail?}]. Absent = aucune réserve connue sur cette étape,
  * pas une affirmation « tout est vérifié à 100 % ».
  */
-function stageConfidence(year, stageNumber) {
-  const stage = HISTORIC_ROUTES[String(year)]?.stages?.[String(stageNumber)];
+function stageConfidence(year, stageNumber, category = 'hommes') {
+  const stage = HISTORIC_ROUTES[historicRoutesKey(year, category)]?.stages?.[String(stageNumber)];
   return stage?.confidence || [];
 }
 
