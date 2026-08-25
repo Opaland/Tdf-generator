@@ -12,6 +12,12 @@ name: Démo en ligne (surveillance)
 # `--online` mais SANS aucun repli : un échec ici est un vrai rouge visible.
 # Nocturne plutôt que sur chaque push, pour rester raisonnable sur les quotas
 # des APIs publiques gratuites (voir backlog issue #10, section E).
+#
+# Depuis Chantier L ("CI de vérification croisée périodique") : la démo 1903
+# n'exerce que Géoplateforme/OSRM/Wikipédia (route entièrement française) —
+# `npm run demo:online` sonde désormais aussi Nominatim et opentopodata
+# (pipeline/diagnostic.js), les deux services "hors France" qu'aucune démo
+# n'exerçait jamais en CI.
 
 on:
   schedule:

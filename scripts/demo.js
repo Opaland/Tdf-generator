@@ -146,6 +146,22 @@ async function demoImportAll() {
     failed.length ? `ex. ${failed[0].year} : ${failed[0].error}` : 'aucun échec — inattendu hors-ligne');
 }
 
+// Chantier L, "CI de vérification croisée périodique" : demo1903 n'exerce
+// en pratique que les services français (Géoplateforme, OSRM) — sa route
+// entière est en France. Nominatim et opentopodata ("hors France") n'étaient
+// donc jamais sondés par demo-online.yml (job nightly, --online, sans repli —
+// backlog issue #10, section F), seulement disponibles à la demande via
+// /api/diagnostic (page /diag.html, pour un humain). Réutilise les mêmes
+// sondes (pipeline/diagnostic.js) pour que les 6 hôtes externes du projet
+// soient vérifiés automatiquement, pas seulement ceux qu'une route française
+// touche par accident.
+async function demoDiagnostic() {
+  console.log('\n■ Démo 5 — diagnostic de connectivité (6 sondes, hors France comprises)');
+  const { runDiagnostic } = require('../pipeline/diagnostic');
+  const { results } = await runDiagnostic();
+  for (const r of results) check(`Diagnostic : ${r.name}`, r.ok, `${r.detail} (${r.ms} ms)`);
+}
+
 async function main() {
   console.log(`ÉtapeForge — démo de validation ${isOffline() ? '(mode hors-ligne : simulateur déterministe)' : '(mode en ligne : APIs réelles)'}`);
   const db = getDb();
@@ -158,6 +174,10 @@ async function main() {
   if (isOffline()) await demoImportAll();
   const edition = await demo1903(db);
   await demoTourMap(db, edition);
+  // Diagnostic réseau réel uniquement : runDiagnostic() ignore ETAPEFORGE_OFFLINE
+  // et appelle toujours les vraies APIs — l'exécuter hors ligne romprait la
+  // garantie "npm run demo par défaut ne touche jamais le réseau".
+  if (!isOffline()) await demoDiagnostic();
 
   const fails = results.filter((r) => !r.ok);
   console.log(`\n═══ Bilan : ${results.length - fails.length}/${results.length} vérifications OK ═══`);
