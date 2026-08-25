@@ -26,7 +26,11 @@ const CATEGORIES = ['hommes', 'femmes'];
 async function importEdition(year, { category = 'hommes', onProgress } = {}) {
   year = parseInt(year, 10);
   if (!Number.isInteger(year) || year < 1903 || year > 2100) {
-    throw new Error(`Année invalide : ${year} (le Tour commence en 1903)`);
+    // .status : consommé par wrap() (backend/server.js) pour renvoyer 400
+    // plutôt que 500 — erreur de validation d'entrée, pas une panne serveur
+    // (trouvaille de sprint dédié : cette garde manquait ici alors qu'elle
+    // était déjà posée juste en dessous sur la catégorie).
+    throw Object.assign(new Error(`Année invalide : ${year} (le Tour commence en 1903)`), { status: 400 });
   }
   if (!CATEGORIES.includes(category)) {
     // .status : consommé par wrap() (backend/server.js) pour renvoyer 400
