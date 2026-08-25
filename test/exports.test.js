@@ -54,6 +54,36 @@ function makeFull(overrides = {}) {
   };
 }
 
+// Fixture dédiée à la boucle « échantillon le plus proche du sommet »,
+// dupliquée à l'identique dans stageToGpx/stageToTcx/stageToKml (et sous une
+// forme voisine dans nearestSampleDist, non exportée). Une seule côte assez
+// loin de tout autre échantillon (comme dans makeFull() ci-dessus) ne
+// distingue pas une inversion de comparateur (`<` → `<=`/`>=`) ni un
+// opérateur arithmétique substitué (`-` → `+`, `*` → `/`) : l'écart entre
+// échantillons est alors si grand que le mauvais comparateur retombe quand
+// même sur le bon résultat par coïncidence — c'est exactement ce qui a
+// laissé survivre 8 mutants sur cette boucle avant ce commit. Ici, deux
+// échantillons sont délibérément À ÉGALITÉ de distance du sommet (45070 et
+// 45170, à 50 m de part et d'autre de la cible 45120 m) : le code original
+// (`<` strict) garde le PREMIER rencontré, un `<=` muté retomberait sur le
+// SECOND — la seule façon de distinguer les deux sans dépendre d'un écart
+// large.
+function makeFullDenseNearClimb() {
+  const base = makeFull();
+  return {
+    ...base,
+    waypoints: [],
+    samples: [
+      { lat: 43.00, lon: 1.00, dist_m: 0, ele_raw_m: 200, ele_smooth_m: 200 },
+      { lat: 43.10, lon: 1.10, dist_m: 40000, ele_raw_m: 400, ele_smooth_m: 400 },
+      { lat: 43.20, lon: 1.20, dist_m: 45070, ele_raw_m: 850, ele_smooth_m: 850 }, // 1er ex æquo (50 m avant la cible) — doit gagner
+      { lat: 43.21, lon: 1.21, dist_m: 45170, ele_raw_m: 860, ele_smooth_m: 860 }, // 2e ex æquo (50 m après la cible) — ne doit PAS gagner
+      { lat: 43.50, lon: 1.50, dist_m: 98400, ele_raw_m: 800, ele_smooth_m: 800 },
+    ],
+    climbs: [{ ...base.climbs[0], end_km: 45.12, summit_ele_m: 900 }], // cible : 45120 m
+  };
+}
+
 // --- stageToGpx --------------------------------------------------------
 
 test('stageToGpx : trkpt un par sample, lat/lon arrondis à 6 décimales, ele via ?? (pas ||, 0 doit rester 0)', () => {
@@ -86,6 +116,17 @@ test('stageToGpx : sommet de côte ajouté comme <wpt> avec catégorie et échan
   assert.match(gpx, /<desc>9\.2 km à 6\.5 % \(max 11\.2 %\)<\/desc>/);
   // Le sample le plus proche du sommet (end_km=49.2 -> 49200 m) est samples[1] (49200 m exact).
   assert.match(gpx, /<ele>900<\/ele>/);
+});
+
+test('stageToGpx : entre deux échantillons EX ÆQUO en distance du sommet, garde le premier rencontré (pas le dernier)', () => {
+  const gpx = stageToGpx(makeFullDenseNearClimb());
+  // Chaque sample génère aussi son propre <trkpt> du tracé (43.21 y apparaît
+  // légitimement) — on isole donc le seul <wpt> du sommet de côte, celui que
+  // choisit la boucle « plus proche », plutôt que de chercher dans tout le
+  // document.
+  const climbWpt = gpx.match(/<wpt lat="[^"]*" lon="[^"]*">\n\s*<ele>900<\/ele>[\s\S]*?<\/wpt>/)[0];
+  assert.match(climbWpt, /lat="43\.200000" lon="1\.200000"/, 'doit retenir le 1er échantillon à égalité (45070 m)');
+  assert.doesNotMatch(climbWpt, /lat="43\.210000"/, 'ne doit pas retenir le 2e échantillon à égalité (45170 m)');
 });
 
 test('stageToGpx : aucune côte -> pas de bloc waypoint de sommet, GPX toujours bien formé', () => {
@@ -164,6 +205,13 @@ test('stageToTcx : Time croissant et proportionnel à la distance (vitesse conve
   assert.ok(Math.abs(actualDeltaSec - expectedDeltaSec) < 1, `écart attendu ~${expectedDeltaSec}s, obtenu ${actualDeltaSec}s`);
 });
 
+test('stageToTcx : entre deux échantillons EX ÆQUO en distance du sommet, garde le premier rencontré (pas le dernier)', () => {
+  const tcx = stageToTcx(makeFullDenseNearClimb());
+  const climbCoursePoint = tcx.match(/<CoursePoint>[\s\S]*?<AltitudeMeters>[\s\S]*?<\/CoursePoint>/)[0];
+  assert.match(climbCoursePoint, /<Position><LatitudeDegrees>43\.200000<\/LatitudeDegrees>/, 'doit retenir le 1er échantillon à égalité (45070 m)');
+  assert.doesNotMatch(climbCoursePoint, /43\.210000/, 'ne doit pas retenir le 2e échantillon à égalité (45170 m)');
+});
+
 test('stageToTcx : date d\'étape absente -> date par défaut 2024-01-01, pas une exception', () => {
   const full = makeFull({ stage: { ...makeFull().stage, date: null } });
   assert.doesNotThrow(() => stageToTcx(full));
@@ -211,6 +259,12 @@ test('stageToKml : trackCoords un tuple par sample, joints par un espace', () =>
   const tuples = trackBlock.trim().split(' ');
   assert.strictEqual(tuples.length, 3, 'un tuple de coordonnées par sample');
   assert.strictEqual(tuples[0], '1.1,43.1,200');
+});
+
+test('stageToKml : entre deux échantillons EX ÆQUO en distance du sommet, garde le premier rencontré (pas le dernier)', () => {
+  const kml = stageToKml(makeFullDenseNearClimb());
+  assert.match(kml, /<coordinates>1\.2,43\.2,900<\/coordinates>/, 'doit retenir le 1er échantillon à égalité (45070 m)');
+  assert.doesNotMatch(kml, /<coordinates>1\.21,43\.21,900<\/coordinates>/, 'ne doit pas retenir le 2e échantillon à égalité (45170 m)');
 });
 
 test('stageToKml : description d\'une côte échappée (esc) même si elle contient des caractères réservés XML', () => {
