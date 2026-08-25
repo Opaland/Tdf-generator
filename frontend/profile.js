@@ -5,11 +5,24 @@
 // Expose window.EFProfile (navigateur) — aucune dépendance.
 
 (function (global) {
-  const CAT_COLORS = { HC: '#111111', 1: '#d7263d', 2: '#f08c00', 3: '#f7d154', 4: '#3a9d4f' };
-  const CAT_TEXT = { HC: '#ffffff', 1: '#ffffff', 2: '#ffffff', 3: '#333333', 4: '#ffffff' };
+  // CAT_COLORS[4] : #3a9d4f (vert cat.4) assombri à #268038 — texte blanc
+  // dessus ne passait pas WCAG AA (3.43:1, sous le seuil 4.5:1) ; texte
+  // sombre non plus (3.68:1, encore sous le seuil), donc assombrir le fond
+  // plutôt que changer le texte ici (même logique que --fail/--warn dans
+  // frontend/style.css, Sprint 4). #3a9d4f n'est utilisé nulle part
+  // ailleurs dans le dépôt (vérifié) — aucun autre endroit à mettre à jour.
+  const CAT_COLORS = { HC: '#111111', 1: '#d7263d', 2: '#f08c00', 3: '#f7d154', 4: '#268038' };
+  // CAT_TEXT[2]/GRAD_COLORS[1] (#f08c00) : texte blanc dessus ne passait pas
+  // WCAG AA (2.48:1, sous le seuil 4.5:1 texte normal et même 3:1 grand
+  // texte — trouvaille de revue-personas, Sprint 4). #f08c00 reste
+  // inchangé (identité visuelle de la catégorie 2/bande 5-8 %), texte
+  // assombri comme le fait déjà CAT_TEXT[3] sur le jaune #f7d154 — même
+  // motif, pas une nouvelle couleur inventée. Vérifié par calcul :
+  // #333333 sur #f08c00 = 5.09:1.
+  const CAT_TEXT = { HC: '#ffffff', 1: '#ffffff', 2: '#333333', 3: '#333333', 4: '#ffffff' };
   const GRAD_COLORS = [
     { max: 5, color: '#f7d154', text: '#333' },   // < 5 %
-    { max: 8, color: '#f08c00', text: '#fff' },   // 5–8 %
+    { max: 8, color: '#f08c00', text: '#333' },   // 5–8 %
     { max: 10, color: '#d7263d', text: '#fff' },  // 8–10 %
     { max: Infinity, color: '#1a1a1a', text: '#fff' }, // > 10 %
   ];
