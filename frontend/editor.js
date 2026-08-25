@@ -82,7 +82,7 @@ function wpRow(wp, i) {
       <option value="col"${wp.kind === 'col' ? ' selected' : ''}>col / sommet</option>
       <option value="finish"${wp.kind === 'finish' ? ' selected' : ''}>arrivée</option>
     </select>
-    <span class="coords">${wp.lat != null ? wp.lat.toFixed(4) + ', ' + wp.lon.toFixed(4) : 'à géocoder'}</span>
+    <span class="coords">${wp.lat != null && wp.lon != null ? wp.lat.toFixed(4) + ', ' + wp.lon.toFixed(4) : 'à géocoder'}</span>
     <button class="secondary up" title="monter" aria-label="Monter le waypoint ${i + 1}">↑</button>
     <button class="secondary down" title="descendre" aria-label="Descendre le waypoint ${i + 1}">↓</button>
     <button class="danger del" title="supprimer" aria-label="Supprimer le waypoint ${i + 1}">✕</button>
@@ -138,7 +138,11 @@ function render() {
   waypoints.forEach((wp, i) => ul.appendChild(wpRow(wp, i)));
 
   markersLayer.clearLayers();
-  const pts = waypoints.filter((w) => w.lat != null);
+  // w.lon != null aussi : L.LatLng ne rejette pas un lng null (isNaN(null)
+  // vaut false — null est coercé), donc un waypoint avec lat sans lon
+  // placerait silencieusement un marqueur sur la longitude 0 plutôt que de
+  // planter (même racine que le crash toFixed() plus haut).
+  const pts = waypoints.filter((w) => w.lat != null && w.lon != null);
   pts.forEach((w, i) => {
     L.marker([w.lat, w.lon])
       .bindTooltip(`${i + 1}. ${EF.esc(w.label)}`)
