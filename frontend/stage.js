@@ -315,8 +315,14 @@ function renderFiche() {
     // sommets
     for (const c of FULL.climbs) {
       const s = sampleAt(c.end_km * 1000);
-      const cc = EFProfile.CAT_COLORS[c.category] || '#999';
-      L.marker([s.lat, s.lon], { icon: icon(`<div style="background:${cc};color:#fff;border-radius:50%;width:22px;height:22px;font-size:10px;font-weight:700;text-align:center;line-height:22px;border:2px solid #fff">${c.category}</div>`) })
+      // Trouvé en corrigeant le contraste WCAG des pastilles (backlog #63) :
+      // ce marqueur ne lisait pas CAT_TEXT, il forçait "color:#fff" en dur —
+      // illisible sur cat.2/3/4 (jusqu'à 1.48:1 sur cat.3, jaune) quel que
+      // soit le contraste corrigé dans le reste du fichier, puisque ce point
+      // de rendu ne passait jamais par la table.
+      const cc = EFProfile.CAT_COLORS[c.category] || '#707070';
+      const tc = EFProfile.CAT_TEXT[c.category] || '#fff';
+      L.marker([s.lat, s.lon], { icon: icon(`<div style="background:${cc};color:${tc};border-radius:50%;width:22px;height:22px;font-size:10px;font-weight:700;text-align:center;line-height:22px;border:2px solid #fff">${c.category}</div>`) })
         .bindTooltip(`${EF.esc(c.name)} — ${c.summit_ele_m} m`).addTo(map);
     }
   }

@@ -40,6 +40,54 @@ insuffisant trouvé lors de l'audit UI/UX puis verrouillé par
 la formule WCAG 2.1, luminance relative sRGB, est simple à rejouer) avant
 toute retouche de palette.
 
+## Couleurs de catégorie de côte (`frontend/profile.js`, `CAT_COLORS`/`CAT_TEXT`/`GRAD_COLORS`)
+
+Deuxième famille de couleurs sensible au contraste WCAG, distincte de la
+palette `:root` ci-dessus (fichier différent, pas des variables CSS) — sans
+historique documenté ici jusqu'à ce que ça devienne l'occasion manquée
+identifiée par une revue-personas (backlog #63) : le motif « toute retouche
+de contraste documentée avec ses ratios » établi ci-dessus ne s'étendait pas
+à cette table.
+
+| Catégorie | Fond | Texte | Usage |
+|---|---|---|---|
+| HC | `#111111` | `#ffffff` | Pastille, bande de pente |
+| 1 | `#d7263d` | `#ffffff` | Pastille |
+| 2 | `#f08c00` | `#333333` | Pastille, bande de pente 5–8 % |
+| 3 | `#f7d154` | `#333333` | Pastille, bande de pente < 5 % |
+| 4 | `#5cb85c` | `#333333` | Pastille |
+
+**Historique** (verrouillé par `test/profileContrast.test.js`) :
+
+- `CAT_TEXT['2']` : texte `#ffffff` → `#333333` sur `#f08c00` inchangé —
+  2.48:1 → **5.09:1** (backlog #63, trouvaille de revue-personas sur PR #87).
+- `CAT_COLORS['4']` : d'abord assombri `#3a9d4f` → `#268038` pour corriger
+  le même défaut sur le vert (3.43:1 → 4.97:1 avec texte blanc conservé) —
+  puis **cette première correction annulée** : elle avait fait chuter la
+  luminance du vert à 0.161, quasi identique à celle du rouge cat.1
+  `#d7263d` (0.162), rendant les deux quasi indistinguables sous
+  protanopie/deutéranopie (rouge-vert) — trouvaille de relecture adverse
+  (simulation CVD Machado/Oliveira/Fairchild). Remplacé par une **éclaircie**
+  `#5cb85c` (luminance 0.373, écart de +0.212 avec le rouge — plus large que
+  l'écart original de +0.094) avec texte `#333333` (7.43:1) plutôt que blanc.
+- Repli catégorie inconnue (`CAT_COLORS[cat] || '#999'`, mort en pratique —
+  `categorize()` dans `pipeline/climbs.js` ne renvoie jamais que HC/1/2/3/4)
+  assombri `#999999` → `#707070` par cohérence (2.85:1 → 4.95:1 avec texte
+  blanc), pour ne pas laisser un piège prêt à s'activer si une nouvelle
+  catégorie apparaissait un jour.
+- `frontend/stage.js` avait sa propre copie du rendu du marqueur de sommet
+  de côte sur la carte, avec un `color:#fff` **en dur** — ne lisait jamais
+  `CAT_TEXT`, donc aucun des correctifs ci-dessus ne s'y appliquait (jusqu'à
+  1.48:1 sur la catégorie 3, jaune). Corrigé pour lire `EFProfile.CAT_TEXT`
+  comme tous les autres points de rendu.
+
+**Un changement de couleur de catégorie qui touche au vert ou au rouge doit
+vérifier l'écart de luminance entre les deux** (pas seulement le contraste
+texte/fond isolé) — l'assombrissement initial de cat.4 ci-dessus l'a appris
+à ses dépens : corriger un contraste WCAG peut en briser un autre
+(distinguabilité sous daltonisme rouge-vert) si on ne regarde que la paire
+qu'on corrige.
+
 ## Typographie
 
 Pile système uniquement (`"Segoe UI", system-ui, -apple-system, sans-serif`)

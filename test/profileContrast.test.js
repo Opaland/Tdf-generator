@@ -77,3 +77,28 @@ for (const { label, gradient } of GRAD_SAMPLES) {
 test('formule de contraste : cas de référence noir/blanc = 21:1', () => {
   assert.ok(Math.abs(contrastRatio('#000000', '#ffffff') - 21) < 0.01);
 });
+
+// Trouvaille de relecture adverse : CAT_COLORS[cat]/CAT_TEXT[cat] ont un
+// repli (`|| '#999'`/`|| '#fff'`) pour une catégorie inconnue, mort en
+// pratique aujourd'hui (categorize() ne renvoie jamais que HC/1/2/3/4) mais
+// échouant lui aussi WCAG AA (2.85:1) — assombri à #707070 (4.95:1),
+// verrouillé ici pour que ce repli ne redevienne pas un vrai piège le jour
+// où une nouvelle catégorie serait introduite.
+test('contraste WCAG : repli catégorie inconnue (#fff sur #707070) >= 4.5:1', () => {
+  const ratio = contrastRatio('#ffffff', '#707070');
+  assert.ok(ratio >= MIN_RATIO, `repli : #ffffff sur #707070 = ${ratio.toFixed(2)}:1, seuil ${MIN_RATIO}:1`);
+});
+
+// Trouvaille de relecture adverse (même revue) : frontend/stage.js construit
+// son propre marqueur de sommet de côte sur la carte et forçait
+// `color:#fff` en dur au lieu de lire CAT_TEXT — le contraste corrigé
+// ci-dessus ne s'y appliquait donc jamais (jusqu'à 1.48:1 sur cat.3, jaune).
+// Statique plutôt qu'un vrai rendu DOM (pas de navigateur en CI) : verrouille
+// que ce point de rendu précis lit bien EFProfile.CAT_TEXT, pas un texte fixe.
+test('frontend/stage.js n\'écrit plus color:#fff en dur pour le marqueur de sommet de côte', () => {
+  const fs = require('fs');
+  const path = require('path');
+  const src = fs.readFileSync(path.join(__dirname, '..', 'frontend', 'stage.js'), 'utf8');
+  assert.doesNotMatch(src, /background:\$\{cc\};color:#fff/, 'le marqueur de sommet doit lire EFProfile.CAT_TEXT, pas un texte blanc fixe');
+  assert.match(src, /EFProfile\.CAT_TEXT\[c\.category\]/, 'EFProfile.CAT_TEXT doit être lu pour ce marqueur');
+});

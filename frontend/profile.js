@@ -5,21 +5,28 @@
 // Expose window.EFProfile (navigateur) — aucune dépendance.
 
 (function (global) {
-  // CAT_COLORS[4] : #3a9d4f (vert cat.4) assombri à #268038 — texte blanc
-  // dessus ne passait pas WCAG AA (3.43:1, sous le seuil 4.5:1) ; texte
-  // sombre non plus (3.68:1, encore sous le seuil), donc assombrir le fond
-  // plutôt que changer le texte ici (même logique que --fail/--warn dans
-  // frontend/style.css, Sprint 4). #3a9d4f n'est utilisé nulle part
-  // ailleurs dans le dépôt (vérifié) — aucun autre endroit à mettre à jour.
-  const CAT_COLORS = { HC: '#111111', 1: '#d7263d', 2: '#f08c00', 3: '#f7d154', 4: '#268038' };
+  // CAT_COLORS[4] : #3a9d4f (vert cat.4) d'abord assombri à #268038 pour
+  // WCAG (texte blanc dessus ne passait pas, 3.43:1 < 4.5:1) — mais un
+  // assombrissement en ligne droite fait chuter sa luminance à 0.161, quasi
+  // identique à celle du rouge cat.1 #d7263d (0.162, vérifié par calcul) :
+  // sous protanopie/deutéranopie (rouge-vert), la teinte ne distingue plus
+  // rien, c'est la luminance qui portait toute l'information restante — la
+  // resserrer annule justement ce qu'elle est censée transmettre (trouvaille
+  // de relecture adverse, simulation CVD Machado/Oliveira/Fairchild).
+  // Remplacé par une éclaircie plutôt qu'un assombrissement : #5cb85c
+  // (luminance 0.373, plus loin du rouge que l'original 0.256 ne l'était)
+  // + texte sombre plutôt que blanc, même motif que CAT_TEXT[2]/[3]
+  // ci-dessous (7.43:1 avec #141414, largement AAA).
+  const CAT_COLORS = { HC: '#111111', 1: '#d7263d', 2: '#f08c00', 3: '#f7d154', 4: '#5cb85c' };
   // CAT_TEXT[2]/GRAD_COLORS[1] (#f08c00) : texte blanc dessus ne passait pas
   // WCAG AA (2.48:1, sous le seuil 4.5:1 texte normal et même 3:1 grand
   // texte — trouvaille de revue-personas, Sprint 4). #f08c00 reste
   // inchangé (identité visuelle de la catégorie 2/bande 5-8 %), texte
   // assombri comme le fait déjà CAT_TEXT[3] sur le jaune #f7d154 — même
   // motif, pas une nouvelle couleur inventée. Vérifié par calcul :
-  // #333333 sur #f08c00 = 5.09:1.
-  const CAT_TEXT = { HC: '#ffffff', 1: '#ffffff', 2: '#333333', 3: '#333333', 4: '#ffffff' };
+  // #333333 sur #f08c00 = 5.09:1. CAT_TEXT[4] assombri pour la même raison,
+  // voir le commentaire sur CAT_COLORS[4] ci-dessus.
+  const CAT_TEXT = { HC: '#ffffff', 1: '#ffffff', 2: '#333333', 3: '#333333', 4: '#333333' };
   const GRAD_COLORS = [
     { max: 5, color: '#f7d154', text: '#333' },   // < 5 %
     { max: 8, color: '#f08c00', text: '#333' },   // 5–8 %
@@ -182,7 +189,7 @@
           `<line x1="${xx.toFixed(1)}" y1="${yy.toFixed(1)}" x2="${xx.toFixed(1)}" y2="${(yy - 10).toFixed(1)}" stroke="#666" stroke-width="0.8"/>` +
           `<text transform="translate(${(xx + 3).toFixed(1)} ${(yy - 13).toFixed(1)}) rotate(-38)" font-size="10.5" fill="#333">${esc(l.text)}</text>`;
         if (l.cat) {
-          const cc = CAT_COLORS[l.cat] || '#999';
+          const cc = CAT_COLORS[l.cat] || '#707070';
           const tc = CAT_TEXT[l.cat] || '#fff';
           ann +=
             `<circle cx="${xx.toFixed(1)}" cy="${(yy - 6).toFixed(1)}" r="8" fill="${cc}" stroke="#fff" stroke-width="1.2"/>` +
@@ -267,7 +274,7 @@
     out += `<text x="${W - M.r}" y="${H - 4}" text-anchor="end" font-size="10" fill="#777">km depuis le pied de la côte</text>`;
 
     // Titre avec pastille catégorie.
-    const cc = CAT_COLORS[climb.category] || '#999';
+    const cc = CAT_COLORS[climb.category] || '#707070';
     const tc = CAT_TEXT[climb.category] || '#fff';
     out +=
       `<circle cx="${M.l + 10}" cy="18" r="11" fill="${cc}" stroke="#fff" stroke-width="1.5"/>` +
@@ -387,7 +394,7 @@
     marks += `<rect x="${(X(end) - 5).toFixed(1)}" y="${(YBase(end) - end.h - 5).toFixed(1)}" width="10" height="10" fill="#111" stroke="#fff" stroke-width="1.5"/>`;
     for (const c of data.climbs || []) {
       const p = at(c.end_km * 1000);
-      const cc = CAT_COLORS[c.category] || '#999';
+      const cc = CAT_COLORS[c.category] || '#707070';
       const tc = CAT_TEXT[c.category] || '#fff';
       const yTop = YBase(p) - p.h;
       marks +=
