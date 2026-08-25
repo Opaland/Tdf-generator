@@ -117,54 +117,11 @@ app.post('/api/offline', (req, res) => {
 
 // Diagnostic de connectivité vers chaque API externe (une micro-requête par
 // service, timeout 8 s, sans cache) — pour vérifier le mode « live » chez soi.
+// Sondes extraites dans pipeline/diagnostic.js (réutilisées par
+// scripts/demo.js --online, Chantier L "CI de vérification croisée périodique").
 app.get('/api/diagnostic', wrap(async (req, res) => {
-  const { USER_AGENT } = require('../pipeline/http');
-  const probe = async (name, url, check) => {
-    const t0 = Date.now();
-    try {
-      const ctl = new AbortController();
-      const timer = setTimeout(() => ctl.abort(), 8000);
-      const r = await fetch(url, { headers: { 'User-Agent': USER_AGENT }, signal: ctl.signal });
-      clearTimeout(timer);
-      const text = await r.text();
-      let body = null;
-      try { body = JSON.parse(text); } catch { /* réponse non-JSON (proxy, page d'erreur…) */ }
-      const ok = r.ok && body != null && (!check || check(body));
-      return {
-        name, ok, ms: Date.now() - t0,
-        detail: ok ? `HTTP ${r.status}` : `HTTP ${r.status} — ${body == null ? text.slice(0, 80) : 'réponse inattendue'}`,
-      };
-    } catch (err) {
-      return { name, ok: false, ms: Date.now() - t0, detail: String(err.cause?.message || err.message) };
-    }
-  };
-  // OSRM_BASE respecte ETAPEFORGE_OSRM (backlog issue #10, section E, "plan
-  // de continuité") : sur un déploiement avec OSRM auto-hébergé, ce test
-  // sonde l'instance réellement utilisée, pas systématiquement le service
-  // public — sinon le diagnostic resterait vert/rouge indépendamment de
-  // l'état de l'instance auto-hébergée réellement configurée.
-  const { OSRM_BASE } = require('../pipeline/routing');
-  // Chaque probe() cible un hôte indépendant et intercepte déjà ses propres
-  // erreurs (jamais de rejet, toujours { ok, ms, detail }) — les lancer en
-  // parallèle (Promise.all préserve l'ordre du tableau, pas l'ordre de
-  // résolution) borne le diagnostic au plus lent des 6 services (~8 s, le
-  // timeout individuel) plutôt qu'à leur somme (jusqu'à ~48 s en série),
-  // trouvaille de revue de code globale de fin de session.
-  const results = await Promise.all([
-    probe('Géoplateforme — géocodage',
-      'https://data.geopf.fr/geocodage/search?q=Paris&limit=1', (b) => (b.features || []).length > 0),
-    probe('Géoplateforme — altimétrie (RGE ALTI)',
-      'https://data.geopf.fr/altimetrie/1.0/calcul/alti/rest/elevation.json?lon=2.35&lat=48.85&resource=ign_rge_alti_wld&zonly=true', (b) => (b.elevations || []).length > 0),
-    probe(`OSRM — routage${OSRM_BASE !== 'https://router.project-osrm.org' ? ' (auto-hébergé)' : ''}`,
-      `${OSRM_BASE}/route/v1/driving/2.35,48.85;2.37,48.86?overview=false`, (b) => b.code === 'Ok'),
-    probe('Nominatim — géocodage hors France',
-      'https://nominatim.openstreetmap.org/search?q=Barcelona&format=jsonv2&limit=1', (b) => Array.isArray(b) && b.length > 0),
-    probe('opentopodata — altimétrie hors France',
-      'https://api.opentopodata.org/v1/eudem25m?locations=41.38,2.17', (b) => b.status === 'OK'),
-    probe('Wikipédia — archives',
-      'https://en.wikipedia.org/api/rest_v1/page/summary/Tour_de_France', (b) => !!b.title),
-  ]);
-  const allOk = results.every((r) => r.ok);
+  const { runDiagnostic } = require('../pipeline/diagnostic');
+  const { allOk, results } = await runDiagnostic();
   res.json({ allOk, offline: isOffline(), results });
 }));
 

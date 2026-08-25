@@ -136,8 +136,16 @@ Détail complet, item par item avec sa raison : [issue #10](https://github.com/O
 confondre :
 - **Bloqué, pas oublié** — la plupart des items encore ouverts butent sur le
   même obstacle : ce sandbox de développement n'a pas de sortie réseau vers
-  les APIs externes du projet (vérification croisée périodique en CI, test
-  de parité simulateur vs vraies APIs, détection de surface non goudonnée).
+  les APIs externes du projet (test de parité simulateur vs vraies APIs,
+  détection de surface non goudonnée). La vérification croisée périodique
+  en CI existe : `demo-online.yml` tourne déjà chaque nuit sans repli
+  (backlog #10 section F), et sonde désormais aussi Nominatim/opentopodata
+  (`pipeline/diagnostic.js`, réutilisé de `GET /api/diagnostic`) — les deux
+  seuls des 5 services externes que la route 1903 (entièrement française)
+  n'exerçait jamais. Le chemin d'échec est vérifié depuis ce sandbox (réseau
+  coupé ici, détecté proprement, `allOk: false` avec le détail par hôte) ;
+  le chemin de succès tourne sur l'infrastructure GitHub Actions, pas ici —
+  son premier résultat réel reste à observer après fusion.
   Le Tour de France Femmes n'a plus ce blocage d'architecture : `editions`
   porte désormais une colonne `category` (hommes | femmes), et
   `importEdition(year, { category })` écrase l'édition existante de la même
