@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Porte rapide avant tout commit (voir CLAUDE.md, règle 10).
+# Porte rapide avant tout commit (voir CLAUDE.md, règle 11).
 #
 # npm test + eslint (les deux tiennent largement sous la minute). npm run
 # demo et la vérification visuelle restent dans /porte, nettement plus

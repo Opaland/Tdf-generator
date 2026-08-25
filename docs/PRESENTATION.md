@@ -111,7 +111,7 @@ Chaque affirmation historique (distance officielle, année d'apparition d'un
 col) cite sa source dans `pipeline/data/historic_routes.json` — l'écart entre
 distance officielle et reconstitution s'affiche toujours sur la fiche
 d'étape, jamais masqué pour paraître plus précis que la donnée ne l'est
-(CLAUDE.md règle 11).
+(CLAUDE.md règle 12).
 
 **C'est testé comment ?**
 290 tests (`npm test`, bloquant avant chaque commit) — pipeline, sécurité
