@@ -141,7 +141,40 @@ seulement déduite du fait que c'est le comportement CORS le plus probable.
 test qui le prouve, soit la phrase se reformule en hypothèse** (« vraisembla-
 blement », « à confirmer »).
 
-## 10. Le protocole de développement
+## 10. JS coerce `null` en `0` dans l'arithmétique sans jamais planter — et le même bug se recopie ailleurs sans qu'on le sache
+
+La revue globale du 25/08 (PR #102) a trouvé qu'un trou de couverture
+altimétrique (Géoplateforme RGE ALTI ou opentopodata, réponse sans donnée)
+était coercé en `0 m` au lieu de rester `null`
+(`Math.round(s.ele * 10) / 10` avec `s.ele` = `null`/`undefined` → `0`/`NaN`
+selon le chemin). Deux mécanismes distincts, tous deux silencieux :
+`sum += null` ⇒ `sum += 0` (biaise toute une moyenne glissante qui recouvre
+le trou, pas seulement l'échantillon manquant) et `Math.max(x, null)` ⇒
+`Math.max(x, 0)` (inoffensif si `x` est positif, mais transforme un
+minimum réel négatif en faux `0` — exactement ce qui arrive dans
+`pipeline/descents.js`, qui réutilise `detectClimbs` sur un profil
+d'altitude inversé, donc négatif).
+
+Le correctif dans `pipeline/elevation.js` n'a fermé qu'un seul chemin.
+`pipeline/importTrack.js` réimplémentait la même logique en ligne pour son
+repli réseau — même bug, code dupliqué jamais touché. `pipeline/climbs.js`
+avait le même `Math.max` gardé seulement sur `samples[0].eleRaw`, pas
+chaque échantillon — trouvé par relecture adverse sur le premier
+correctif. `pipeline/checks.js` avait un troisième `Math.max(measured,
+s.eleRaw)` non gardé, trouvé par un grep de suivi (`grep -rn
+"Math\.\(max\|min\)(.*eleRaw"`) après les deux premiers correctifs.
+
+**Un correctif de coercion `null`→`0` en arithmétique (`+=`, `Math.max`,
+`Math.min`) n'est terminé qu'après un grep du même motif sur tout le dépôt,
+pas seulement le fichier où le bug a été trouvé** — trois autres
+occurrences existaient déjà, deux non détectées par la première relecture.
+Et pour tester qu'un tel garde-fou fonctionne vraiment : si le domaine réel
+de la donnée est toujours positif (altitudes de cols), `Math.max(x, 0)`
+n'est jamais discriminant dans les tests — il faut sortir du domaine
+réaliste (profil négaté, valeur négative synthétique) pour que le test
+échoue vraiment sans le correctif.
+
+## 11. Le protocole de développement
 
 Un item cohérent par PR. Commits en français, footer
 `Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>`. Jamais de push
@@ -157,7 +190,7 @@ récente mérite d'être rejouée, le second pour vérifier qu'un test ajouté
 discrimine vraiment (même esprit que l'agent `verificateur-de-tests`, à
 l'échelle du fichier plutôt que d'un seul test).
 
-## 11. Ce qui vaut arrêt
+## 12. Ce qui vaut arrêt
 
 - `main` rouge (CI en échec) : ne rien empiler dessus, corriger d'abord.
 - Une régression de sécurité qui repasse (validation d'entrée, échappement
@@ -168,7 +201,7 @@ l'échelle du fichier plutôt que d'un seul test).
   reconstitution s'affiche toujours, jamais masqué pour paraître plus précis
   que la donnée ne l'est.
 
-## 12. Après chaque tâche, une revue ; en fin de session, une revue globale
+## 13. Après chaque tâche, une revue ; en fin de session, une revue globale
 
 `/revue-sprint` relit le diff en cherchant ce qu'il a cassé, pas ce qu'il a
 réparé. `/revue-globale` regarde le dépôt dans son ensemble (sécurité, dette,
