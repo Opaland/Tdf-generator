@@ -747,8 +747,16 @@ app.get('/api/editions/:id/site', wrap(async (req, res) => {
 // données produit).
 const BACKUP_TABLES = ['editions', 'stages', 'waypoints', 'tracks', 'elevation_samples', 'climbs', 'descents', 'km_analysis'];
 
+// Number.isFinite, pas juste typeof === 'number' : better-sqlite3 accepte
+// NaN/Infinity comme paramètre lié sans se plaindre (vérifié directement),
+// contrairement à optionalNumber() plus haut qui les rejette déjà pour les
+// routes /api/stages. Un fichier de sauvegarde forgé (ou corrompu) avec
+// `1e999` sur un champ numérique — JSON.parse('1e999') === Infinity, valeur
+// JSON syntaxiquement valide — passait cette garde et empoisonnait
+// silencieusement une colonne (distance, D+, altitude) avec Infinity/NaN
+// (trouvaille de sprint dédié).
 function isBindable(v) {
-  return v === null || typeof v === 'number' || typeof v === 'string' || typeof v === 'bigint';
+  return v === null || (typeof v === 'number' && Number.isFinite(v)) || typeof v === 'string' || typeof v === 'bigint';
 }
 
 function tableColumns(db, table) {
