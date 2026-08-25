@@ -163,6 +163,44 @@ test('le statut ne renvoie jamais client_secret/subscription_key en clair', asyn
   );
 });
 
+// Trouvaille de sprint dédié : client_id/client_secret/subscription_key
+// n'étaient validés par aucun type, contrairement aux autres routes
+// d'écriture (requireString/optionalString, backend/server.js). setSetting()
+// fait String(value) donc pas de 500, mais un objet/tableau envoyé par
+// erreur était stocké silencieusement comme "[object Object]" — 200 { ok:
+// true } alors que la config est inutilisable.
+for (const [field, bad] of [['client_id', {}], ['client_secret', []], ['subscription_key', true]]) {
+  test(`POST /api/suunto/config avec ${field}=${JSON.stringify(bad)} : 400 propre, pas stocké dépareillé`, async () => {
+    const res = await fetch(`${base}/api/suunto/config`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ [field]: bad }),
+    });
+    assert.strictEqual(res.status, 400);
+    const json = await res.json();
+    assert.match(json.error, /doit être une chaîne/);
+  });
+}
+
+test('POST /api/suunto/config avec des chaînes valides : accepté', async () => {
+  const res = await fetch(`${base}/api/suunto/config`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ client_id: 'nouveau-cid', client_secret: 'nouveau-secret', subscription_key: 'nouvelle-cle' }),
+  });
+  assert.strictEqual(res.status, 200);
+  assert.deepStrictEqual(await res.json(), { ok: true });
+});
+
+test('POST /api/suunto/config sans body : accepté, no-op (rien de fourni à valider)', async () => {
+  const res = await fetch(`${base}/api/suunto/config`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({}),
+  });
+  assert.strictEqual(res.status, 200);
+});
+
 test("callback OAuth : échange du code contre un jeton (Basic auth vérifiée par le simulateur)", async () => {
   const res = await fetch(`${base}/api/suunto/callback?code=code-test`, { redirect: 'manual' });
   assert.strictEqual(res.status, 302);
