@@ -82,7 +82,12 @@ function runChecks({ stage, distanceM, waypointsOnTrack, approxSegments, climbs,
     // Altitude mesurée : max de l'altitude brute autour du passage au sommet (±1 km).
     let measured = null;
     for (const s of samples || []) {
-      if (Math.abs(s.dist - c.alongM) <= 1000) {
+      // s.eleRaw peut être null sur un trou de couverture altimétrique
+      // (pipeline/elevation.js) — filtré ici plutôt que laissé atteindre
+      // Math.max, qui le coercerait arithmétiquement en 0 (même classe de
+      // bug que pipeline/climbs.js:136, trouvaille de relecture adverse sur
+      // le correctif du trou d'altimétrie).
+      if (Math.abs(s.dist - c.alongM) <= 1000 && s.eleRaw != null) {
         measured = measured == null ? s.eleRaw : Math.max(measured, s.eleRaw);
       }
     }
