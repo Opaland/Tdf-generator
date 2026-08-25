@@ -42,6 +42,22 @@ function setSetting(key, value) {
   else db.prepare('INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)').run(key, String(value));
 }
 
+// Contrairement aux routes d'écriture de backend/server.js (requireString/
+// optionalString), POST /config n'appliquait aucune validation de type :
+// setSetting() fait String(value) avant l'écriture SQL, donc un objet/
+// tableau envoyé par erreur ne plante pas (pas de 500) mais est stocké
+// silencieusement comme la chaîne littérale "[object Object]" — la config
+// Suunto paraît enregistrée (200 { ok: true }) alors qu'elle est
+// inutilisable, découverte seulement à la connexion (trouvaille de sprint
+// dédié). .status : propagé par Express (throw synchrone dans un handler
+// de route) jusqu'au middleware d'erreur global de backend/server.js, qui
+// renvoie ce code plutôt que 500.
+function optionalString(v, field) {
+  if (v == null || v === '') return null;
+  if (typeof v !== 'string') throw Object.assign(new Error(`${field} doit être une chaîne (ou absent)`), { status: 400 });
+  return v;
+}
+
 function config() {
   return {
     clientId: process.env.SUUNTO_CLIENT_ID || getSetting('suunto_client_id'),
@@ -142,7 +158,10 @@ router.get('/status', (req, res) => {
 });
 
 router.post('/config', (req, res) => {
-  const { client_id, client_secret, subscription_key } = req.body || {};
+  const body = req.body || {};
+  const client_id = optionalString(body.client_id, 'client_id');
+  const client_secret = optionalString(body.client_secret, 'client_secret');
+  const subscription_key = optionalString(body.subscription_key, 'subscription_key');
   if (client_id) setSetting('suunto_client_id', client_id);
   if (client_secret) setSetting('suunto_client_secret', client_secret);
   if (subscription_key) setSetting('suunto_subscription_key', subscription_key);
