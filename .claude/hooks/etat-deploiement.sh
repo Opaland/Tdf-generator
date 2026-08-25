@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # État du dernier déploiement de main, au démarrage de session (voir
-# CLAUDE.md, règle 11 : « main rouge » vaut arrêt).
+# CLAUDE.md, règle 12 : « main rouge » vaut arrêt).
 #
 # Repris du dépôt cousin Rando-generator : une consigne qu'on peut oublier
 # finit par être oubliée si elle dépend d'y penser soi-même. Ici, elle
@@ -33,7 +33,7 @@ rouge=$(printf '%s' "$etat" | jq -r '[.[] | select(.conclusion != null and .conc
 resume=$(printf '%s' "$etat" | jq -r '.[] | "\(.name): \(.conclusion // "en cours")"' | paste -sd' · ' -)
 
 if [ "$rouge" -gt 0 ]; then
-  message "⚠ main EN ÉCHEC — $resume. Ne rien empiler dessus : corriger d'abord (voir CLAUDE.md, règle 11)."
+  message "⚠ main EN ÉCHEC — $resume. Ne rien empiler dessus : corriger d'abord (voir CLAUDE.md, règle 12)."
 else
   message "État de main : $resume"
 fi
