@@ -96,6 +96,31 @@ test('altitude de sommet : proche de la valeur connue → ok ; écart important 
   assert.strictEqual(find(items, 'alt-Proche').status, 'warn');
 });
 
+test('altitude de sommet : un trou d\'altimétrie (eleRaw null) dans la fenêtre ne fait pas remonter la mesure vers 0 m (relecture adverse)', () => {
+  // Sur le domaine réel des cols du Tour (toujours positif), Math.max(mesuré,
+  // null) -> Math.max(mesuré, 0) ne change jamais le résultat : 0 n'est
+  // jamais le maximum face à une vraie altitude positive. Ce test ne serait
+  // donc pas discriminant avec un col à ~2000 m (essayé d'abord, voir
+  // l'historique) — comme pour descents.test.js sur un profil négaté, il
+  // faut sortir du domaine réaliste pour forcer le cas où 0 devient le
+  // maximum : un `eleRaw` négatif suivi d'un trou de couverture.
+  const samples = [
+    { dist: 5000, eleRaw: -50 },
+    { dist: 5200, eleRaw: null }, // trou de couverture : sans le filtre sur
+    // eleRaw != null, Math.max(-50, null) coercerait ce trou en
+    // Math.max(-50, 0) = 0, remontant faussement la mesure de -50 à 0 m.
+  ];
+  const { items } = runChecks({
+    stage: {}, distanceM: 10000,
+    waypointsOnTrack: [
+      { kind: 'col', label: 'Proche', altitude_hint_m: -50, alongM: 5000, offTrackM: 10 },
+    ],
+    approxSegments: [], climbs: [], samples, legs: [],
+  });
+  assert.strictEqual(find(items, 'alt-Proche').status, 'ok');
+  assert.match(find(items, 'alt-Proche').detail, /mesurée -50 m/);
+});
+
 test('altitude de sommet : sans mesure autour du sommet → pas d\'item', () => {
   const { items } = runChecks({
     stage: {}, distanceM: 10000,

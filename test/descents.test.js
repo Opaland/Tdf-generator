@@ -57,6 +57,33 @@ test('détecte une descente simple de 8 km à -6 % avec les bons signes et altit
   }
 });
 
+// Trouvaille de relecture adverse (revue de code globale) : detectClimbs()
+// (pipeline/climbs.js, réutilisée telle quelle ici sur le profil inversé)
+// calculait summitEle via `Math.max(summitEle, samples[i].eleRaw)` sans
+// vérifier `eleRaw` par échantillon — un `null` (trou de couverture
+// altimétrique, pipeline/elevation.js) s'y coerce arithmétiquement en 0
+// (`Math.max(x, null)` ⇒ `Math.max(x, 0)`). Sans danger sur une vraie côte
+// (altitudes positives, 0 ne gagne jamais un Math.max face à ~500-2000 m),
+// mais dévastateur ici : sur le profil NÉGATÉ que réutilise detectDescents,
+// toutes les altitudes sont négatives (ex. -1000 à -520 m) — un candidat 0
+// injecté par un trou y devient le MAXIMUM, donnant bottomEle = 0 (un faux
+// point bas au niveau de la mer) au lieu de l'altitude réelle. bottom_ele_m
+// est affiché tel quel côté utilisateur (frontend/stage.js).
+test('un trou d\'altimétrie au point le plus bas de la descente ne donne pas bottomEle = 0', () => {
+  const profile = buildProfile([
+    [10000, 0],
+    [8000, -6], // descend de 1000 m à ~520 m — voir le test ci-dessus pour la valeur attendue sans trou
+    [6000, 4],
+  ]);
+  const idx = profile.findIndex((s) => s.dist === 18000); // dernier échantillon de la descente, le point le plus bas
+  profile[idx].eleRaw = null;
+  const descents = detectDescents(profile);
+  assert.strictEqual(descents.length, 1);
+  const d = descents[0];
+  assert.notStrictEqual(d.bottomEle, 0, 'un trou d\'altimétrie ne doit jamais produire un faux "bas de descente" à 0 m');
+  assert.ok(Math.abs(d.bottomEle - 520) < 20, `bas ${d.bottomEle} doit rester proche de ~520 m malgré le trou`);
+});
+
 test('ignore les descentes trop courtes ou trop douces (mêmes seuils que les côtes)', () => {
   const profile = buildProfile([
     [5000, 0],

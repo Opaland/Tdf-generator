@@ -5,7 +5,7 @@
 
 const { getDb } = require('../backend/db');
 const { resamplePolyline, movingAverageByDistance } = require('./geo');
-const { sampleElevations } = require('./elevation');
+const { sampleElevations, fillNearestValid } = require('./elevation');
 const { detectClimbs, nameClimbs } = require('./climbs');
 const { analyzeByKm } = require('./kmanalysis');
 const { runChecks } = require('./checks');
@@ -85,16 +85,10 @@ async function importTrackAsStage(points, meta = {}) {
       // Ré-interpolation des altitudes de la trace par abscisse curviligne.
       const { cumulativeDistances } = require('./geo');
       const { cum } = cumulativeDistances(points);
-      const eles = points.map((p) => p.ele);
-      // comble les trous d'altitude par le voisin le plus proche
-      for (let i = 0; i < eles.length; i++) {
-        if (eles[i] == null) {
-          let a = i; let b = i;
-          while (a > 0 && eles[a] == null) a--;
-          while (b < eles.length - 1 && eles[b] == null) b++;
-          eles[i] = eles[a] ?? eles[b] ?? 0;
-        }
-      }
+      // comble les trous d'altitude par le voisin le plus proche (fonction
+      // partagée avec pipeline/elevation.js — même idiome que
+      // fillInvalidElevations, pipeline/climbs.js)
+      const eles = fillNearestValid(points.map((p) => p.ele));
       let si = 0;
       raw = resampled.map((q) => {
         while (si < points.length - 2 && cum[si + 1] < q.dist) si++;
@@ -108,10 +102,19 @@ async function importTrackAsStage(points, meta = {}) {
     }
 
     const samples = resampled.map((p, i) => ({ idx: i, dist: p.dist, lat: p.lat, lon: p.lon, ele: raw[i] }));
-    const smooth = movingAverageByDistance(samples, 1500);
+    // Le repli réseau ci-dessus (sampleElevations) peut renvoyer `null` sur
+    // un trou de couverture altimétrique (pipeline/elevation.js) — comblé
+    // par le voisin valide le plus proche avant le lissage pour la même
+    // raison que buildProfile() : movingAverageByDistance additionne `.ele`
+    // directement, un `null` non comblé y serait coercé en 0 (trouvaille de
+    // relecture adverse sur ce même correctif, ce fichier n'avait pas reçu
+    // le traitement appliqué à pipeline/elevation.js). eleRaw, lui, garde le
+    // vrai trou (détectable par pipeline/checks.js).
+    const filledEles = fillNearestValid(samples.map((s) => s.ele));
+    const smooth = movingAverageByDistance(samples.map((s, i) => ({ dist: s.dist, ele: filledEles[i] })), 1500);
     const full = samples.map((s, i) => ({
       idx: i, dist: s.dist, lat: s.lat, lon: s.lon,
-      eleRaw: Math.round(s.ele * 10) / 10,
+      eleRaw: Number.isFinite(s.ele) ? Math.round(s.ele * 10) / 10 : null,
       eleSmooth: Math.round(smooth[i] * 10) / 10,
     }));
 

@@ -121,9 +121,19 @@ function detectClimbs(rawSamples) {
     }
 
     // Altitude de sommet : max du brut sur la montée si disponible.
+    // Vérifié par échantillon, pas seulement sur samples[0] : depuis que
+    // pipeline/elevation.js préserve les trous de couverture altimétrique en
+    // `null` (plutôt que de les coercer en 0 m), un profil peut avoir
+    // samples[0].eleRaw renseigné tout en ayant un trou ailleurs sur la
+    // montée — Math.max(summitEle, null) coercerait ce trou en 0 (même
+    // mécanisme que movingAverageByDistance, trouvaille de relecture
+    // adverse). detectClimbs() est réutilisée telle quelle par
+    // pipeline/descents.js sur un profil inversé : ce garde-fou protège
+    // aussi bottom_ele_m (point bas d'une descente), affiché tel quel côté
+    // utilisateur (frontend/stage.js).
     let summitEle = ele(samples[e]);
-    if (samples[0].eleRaw != null) {
-      for (let i = s; i <= e; i++) summitEle = Math.max(summitEle, samples[i].eleRaw);
+    for (let i = s; i <= e; i++) {
+      if (samples[i].eleRaw != null) summitEle = Math.max(summitEle, samples[i].eleRaw);
     }
 
     const lengthKm = lengthM / 1000;
