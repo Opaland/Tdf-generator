@@ -75,7 +75,11 @@ async function run() {
   msg.textContent = 'test en cours (quelques secondes)…';
   ul.innerHTML = '';
   try {
-    const d = await EF.api('/api/diagnostic');
+    // Sonde 6 services externes en séquence côté serveur, 8 s de délai chacun
+    // (backend/server.js) — pire cas ~48 s, largement au-delà du délai par
+    // défaut d'EF.api() pensé pour un appel local (trouvaille de relecture
+    // adverse, reproduite empiriquement).
+    const d = await EF.api('/api/diagnostic', { timeoutMs: 60000 });
     ul.innerHTML = d.results.map((r) =>
       `<li class="${r.ok ? 'ok' : 'fail'}"><span class="st">${r.ok ? '✓' : '✗'}</span>` +
       `<b>${EF.esc(r.name)}</b> — ${EF.esc(r.detail)} (${r.ms} ms)</li>`).join('');

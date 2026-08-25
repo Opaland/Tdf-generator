@@ -9,7 +9,10 @@ async function importYear() {
   btn.disabled = true;
   msg.textContent = `Import de l'édition ${year} depuis Wikipédia…`;
   try {
-    const res = await EF.api('/api/editions/import', { method: 'POST', body: { year: Number(year) } });
+    // Aller-retour réseau externe (Wikipédia) côté serveur en plus du
+    // nôtre — le délai par défaut d'EF.api() (pensé pour un appel local)
+    // serait trop court ici.
+    const res = await EF.api('/api/editions/import', { method: 'POST', body: { year: Number(year) }, timeoutMs: 60000 });
     msg.textContent = `✔ ${res.stages.length} étapes importées.`;
     await loadEditions();
   } catch (err) {

@@ -2,13 +2,35 @@
 // Utilitaires partagés du frontend : appels API, barre de navigation, attributions.
 
 const EF = {
+  // Délai par défaut avant abandon d'un appel qui ne répond pas — sans lui,
+  // un serveur planté/injoignable en cours de requête laissait l'appelant
+  // en attente indéfiniment (bouton bloqué sur « … », aucune erreur jamais
+  // affichée). Dépassable par appel (`timeoutMs`) pour les routes qui font
+  // elles-mêmes un aller-retour réseau externe plus long (import d'édition,
+  // import par lien) — voir leurs appels dans archives.js/traces.js.
+  DEFAULT_TIMEOUT_MS: 20000,
+
   async api(path, opts) {
     if (window.EF_STATIC) return EF.staticApi(path, opts);
-    const res = await fetch(path, {
-      headers: { 'Content-Type': 'application/json' },
-      ...opts,
-      body: opts && opts.body != null ? JSON.stringify(opts.body) : undefined,
-    });
+    const { timeoutMs = EF.DEFAULT_TIMEOUT_MS, ...fetchOpts } = opts || {};
+    const controller = new AbortController();
+    const timer = timeoutMs > 0 ? setTimeout(() => controller.abort(), timeoutMs) : null;
+    let res;
+    try {
+      res = await fetch(path, {
+        headers: { 'Content-Type': 'application/json' },
+        ...fetchOpts,
+        body: fetchOpts.body != null ? JSON.stringify(fetchOpts.body) : undefined,
+        signal: controller.signal,
+      });
+    } catch (err) {
+      if (err.name === 'AbortError') {
+        throw new Error(`Le serveur ne répond pas (délai de ${Math.round(timeoutMs / 1000)} s dépassé)`, { cause: err });
+      }
+      throw err;
+    } finally {
+      if (timer) clearTimeout(timer);
+    }
     if (!res.ok) {
       let msg = `HTTP ${res.status}`;
       try { msg = (await res.json()).error || msg; } catch { /* texte brut */ }

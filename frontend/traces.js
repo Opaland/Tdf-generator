@@ -33,7 +33,9 @@ async function importFromLink() {
   if (!url) { msg.textContent = 'Collez un lien d\'export.'; return; }
   msg.textContent = 'Import en cours…';
   try {
-    const json = await EF.api('/api/import/link', { method: 'POST', body: { url } });
+    // Aller-retour réseau externe (sports-tracker.com) côté serveur en plus
+    // du nôtre — le délai par défaut d'EF.api() serait trop court ici.
+    const json = await EF.api('/api/import/link', { method: 'POST', body: { url }, timeoutMs: 60000 });
     msg.innerHTML = `✔ Trace importée (${json.points} points) — ` +
       `<a href="/stage.html?id=${json.id}">ouvrir la fiche</a> · ` +
       `<a href="/compare.html?a=${json.id}">⇄ comparer avec une étape officielle</a>`;
@@ -125,9 +127,14 @@ async function renderSuunto() {
         b.disabled = true;
         b.textContent = 'import…';
         try {
+          // Même famille que l'import par lien ci-dessus (aller-retour
+          // réseau externe côté serveur — rafraîchissement de jeton OAuth
+          // puis téléchargement du fichier FIT depuis cloudapi.suunto.com) :
+          // même délai étendu (trouvaille de relecture adverse).
           const r = await EF.api('/api/suunto/import', {
             method: 'POST',
             body: { key: b.dataset.key, name: b.dataset.name || undefined },
+            timeoutMs: 60000,
           });
           location.href = `/stage.html?id=${r.id}`;
         } catch (err) {
