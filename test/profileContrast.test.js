@@ -89,16 +89,55 @@ test('contraste WCAG : repli catégorie inconnue (#fff sur #707070) >= 4.5:1', (
   assert.ok(ratio >= MIN_RATIO, `repli : #ffffff sur #707070 = ${ratio.toFixed(2)}:1, seuil ${MIN_RATIO}:1`);
 });
 
-// Trouvaille de relecture adverse (même revue) : frontend/stage.js construit
-// son propre marqueur de sommet de côte sur la carte et forçait
-// `color:#fff` en dur au lieu de lire CAT_TEXT — le contraste corrigé
-// ci-dessus ne s'y appliquait donc jamais (jusqu'à 1.48:1 sur cat.3, jaune).
-// Statique plutôt qu'un vrai rendu DOM (pas de navigateur en CI) : verrouille
-// que ce point de rendu précis lit bien EFProfile.CAT_TEXT, pas un texte fixe.
-test('frontend/stage.js n\'écrit plus color:#fff en dur pour le marqueur de sommet de côte', () => {
+// Trouvaille de relecture adverse : frontend/stage.js construisait son propre
+// marqueur de sommet de côte sur la carte avec un texte blanc figé au lieu de
+// lire CAT_TEXT — le contraste corrigé ci-dessus ne s'y appliquait donc
+// jamais (jusqu'à 1.48:1 sur cat.3, jaune). Corrigé en passant par
+// EFProfile.catStyle() (helper partagé, voir plus bas) plutôt qu'en relisant
+// CAT_COLORS/CAT_TEXT localement — c'est ce passage par le helper commun,
+// pas une simple absence de couleur fixe, qui est verrouillé ici. Statique
+// plutôt qu'un vrai rendu DOM (pas de navigateur en CI).
+test('frontend/stage.js utilise EFProfile.catStyle() pour le marqueur de sommet de côte', () => {
   const fs = require('fs');
   const path = require('path');
   const src = fs.readFileSync(path.join(__dirname, '..', 'frontend', 'stage.js'), 'utf8');
-  assert.doesNotMatch(src, /background:\$\{cc\};color:#fff/, 'le marqueur de sommet doit lire EFProfile.CAT_TEXT, pas un texte blanc fixe');
-  assert.match(src, /EFProfile\.CAT_TEXT\[c\.category\]/, 'EFProfile.CAT_TEXT doit être lu pour ce marqueur');
+  assert.match(src, /EFProfile\.catStyle\(c\.category\)/, 'le marqueur de sommet doit passer par EFProfile.catStyle(), pas relire CAT_COLORS/CAT_TEXT localement');
+  assert.doesNotMatch(src, /color:\s*#fff\b/, 'aucune couleur de texte ne doit être codée en dur pour ce marqueur');
+});
+
+// EFProfile.catStyle() est le seul point qui doit connaître CAT_COLORS/
+// CAT_TEXT et leur repli (frontend/profile.js en a 3 usages internes en plus
+// de frontend/stage.js) — vérifie que le helper renvoie bien la même paire
+// que la table directe, pour toutes les catégories et pour le repli.
+for (const cat of ['HC', '1', '2', '3', '4', 'inconnue']) {
+  test(`catStyle('${cat}') renvoie la même paire que CAT_COLORS/CAT_TEXT (ou le repli)`, () => {
+    const style = EFProfile.catStyle(cat);
+    assert.strictEqual(style.color, EFProfile.CAT_COLORS[cat] || '#707070');
+    assert.strictEqual(style.text, EFProfile.CAT_TEXT[cat] || '#fff');
+  });
+}
+
+// Trouvaille de relecture adverse, 2e ronde : corriger l'écart de luminance
+// entre une seule paire de catégories (ex. cat.4 vs cat.1) peut en fermer un
+// autre sans qu'aucun test ne le détecte — l'éclaircie de CAT_COLORS['4'] à
+// #5cb85c (pour corriger sa quasi-collision avec le rouge cat.1) l'a
+// justement fait retomber quasi exactement sur la luminance de l'orange
+// cat.2 (écart 0.0005), jamais mesuré parce que seul le contraste
+// texte/fond par catégorie était verrouillé. Ce test mesure l'écart de
+// luminance de CHAQUE paire de catégories, pas seulement celle qu'on vient
+// de corriger — pour qu'un futur changement de teinte (harmonisation de
+// palette, par ex.) ne puisse pas refaire chuter silencieusement deux
+// catégories l'une sur l'autre.
+test('contraste WCAG : écart de luminance entre chaque paire de catégories >= 0.10', () => {
+  const MIN_GAP = 0.10;
+  const cats = ['HC', '1', '2', '3', '4'];
+  const lums = Object.fromEntries(cats.map((c) => [c, relativeLuminance(EFProfile.CAT_COLORS[c])]));
+  const failures = [];
+  for (let i = 0; i < cats.length; i++) {
+    for (let j = i + 1; j < cats.length; j++) {
+      const gap = Math.abs(lums[cats[i]] - lums[cats[j]]);
+      if (gap < MIN_GAP) failures.push(`${cats[i]}/${cats[j]} : écart ${gap.toFixed(4)} < ${MIN_GAP}`);
+    }
+  }
+  assert.deepStrictEqual(failures, [], `paires de catégories trop proches en luminance (confusion possible sous daltonisme rouge-vert) : ${failures.join(', ')}`);
 });
