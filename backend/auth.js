@@ -118,9 +118,22 @@ const attempts = new Map(); // ip -> timestamps[]
 const RATE_WINDOW_MS = 15 * 60 * 1000;
 const RATE_MAX = 10;
 
+// Chaque IP distincte qui appelle /register ou /login ajoute une entrée dans
+// `attempts`, jamais retirée jusqu'ici (seulement filtrée à la lecture) —
+// croissance non bornée sur un déploiement public longue durée avec
+// beaucoup d'IP différentes (trouvaille de sprint dédié). `now` en
+// paramètre plutôt que Date.now() interne : testable sans vrai cycle de
+// 15 minutes.
+function purgeStaleAttempts(map, now = Date.now()) {
+  for (const [ip, timestamps] of map) {
+    if (!timestamps.some((t) => now - t < RATE_WINDOW_MS)) map.delete(ip);
+  }
+}
+
 function rateLimit(req, res, next) {
   const ip = req.ip || req.socket?.remoteAddress || 'inconnu';
   const now = Date.now();
+  purgeStaleAttempts(attempts, now);
   const recent = (attempts.get(ip) || []).filter((t) => now - t < RATE_WINDOW_MS);
   if (recent.length >= RATE_MAX) {
     return res.status(429).json({ error: 'Trop de tentatives — réessayez dans quelques minutes.' });
@@ -191,4 +204,7 @@ module.exports = {
   verifyPassword,
   createSession,
   verifySession,
+  purgeStaleAttempts,
+  attempts,
+  RATE_WINDOW_MS,
 };
