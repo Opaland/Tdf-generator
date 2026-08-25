@@ -207,3 +207,24 @@ l'échelle du fichier plutôt que d'un seul test).
 réparé. `/revue-globale` regarde le dépôt dans son ensemble (sécurité, dette,
 cohérence des docs, état du déploiement) — pas une revue transversale des
 diffs récents, qui ne trouverait rien que `/revue-sprint` n'ait déjà couvert.
+
+## 14. `clearTimeout` après l'await réussi n'annule rien si le fetch rejette
+
+En extrayant les sondes de `GET /api/diagnostic` dans `pipeline/diagnostic.js`
+(PR #117, 25/08), le timer d'abandon (8 s) était annulé juste après le
+`fetch()` réussi (`clearTimeout(timer)` en séquence, pas dans un `finally`) —
+copié tel quel depuis `backend/server.js` où le bug existait déjà. Un hôte
+injoignable (DNS, connexion refusée) fait rejeter `fetch()` *avant* cette
+ligne : l'exécution saute droit au `catch`, le timer reste armé, et le
+process Node restait vivant ~8 s de plus par sonde en échec immédiat —
+découvert seulement en écrivant `test/diagnostic.test.js` (un fichier de test
+qui aurait dû prendre <1 s en prenait ~8). `pipeline/http.js` et
+`frontend/common.js` ont le même motif `setTimeout`+`AbortController` mais
+l'annulaient déjà correctement dans un `finally` — vérifié par grep
+(`setTimeout\(\(\) => .*\.abort\(\)`) sur tout le dépôt avant de considérer
+la classe de bug fermée, pas seulement le fichier où elle a été trouvée.
+
+**`clearTimeout` (ou tout nettoyage de ressource associé à un `try`) va dans
+un `finally`, jamais juste après l'opération censée réussir** — sinon le
+chemin d'erreur, justement celui qui compte pour un timeout, ne l'exécute
+jamais.
