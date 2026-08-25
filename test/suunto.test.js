@@ -234,3 +234,23 @@ test('import FIT binaire → étape complète avec côte détectée', async () =
   assert.strictEqual(full.climbs[0].category, '1');
   assert.ok(Math.abs(full.climbs[0].summit_ele_m - 820) < 15, `sommet ${full.climbs[0].summit_ele_m} ≈ 820 m`);
 });
+
+// Trouvaille de revue globale : name partait brut jusqu'à
+// importTrackAsStage(), qui l'insère directement en SQL — contrairement à
+// client_id/client_secret/subscription_key sur POST /config (voir les
+// tests ci-dessus), name n'était gardé par aucun optionalString(). Un
+// objet/tableau y faisait planter le bind SQL, rattrapé par le catch
+// générique de la route mais renvoyé en 502 avec un message cryptique au
+// lieu du 400 propre.
+test('POST /api/suunto/import avec name={} : 400 propre, pas 502 cryptique, pas d\'appel réseau vers Suunto', async () => {
+  const callsBefore = mockCalls.length;
+  const res = await fetch(`${base}/api/suunto/import`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ key: 'wk1', name: {} }),
+  });
+  assert.strictEqual(res.status, 400);
+  const json = await res.json();
+  assert.match(json.error, /doit être une chaîne/);
+  assert.strictEqual(mockCalls.length, callsBefore, 'la validation doit échouer avant tout aller-retour vers le serveur Suunto simulé');
+});

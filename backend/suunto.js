@@ -221,6 +221,16 @@ router.post('/import', async (req, res) => {
   try {
     const { key, name } = req.body || {};
     if (!key) return res.status(400).json({ error: 'key du workout requis' });
+    // Trouvaille de revue globale : name partait brut jusqu'à
+    // importTrackAsStage() (pipeline/importTrack.js), qui l'insère
+    // directement en SQL — contrairement à client_id/client_secret/
+    // subscription_key sur POST /config juste au-dessus, dans ce même
+    // fichier, name n'était pas gardé par optionalString(). Un objet/
+    // tableau y faisait planter le bind SQL, rattrapé par le catch
+    // générique ci-dessous mais renvoyé en 502 avec un message cryptique
+    // au lieu du 400 propre que produisent /api/import/gpx et
+    // /api/import/link sur exactement le même champ.
+    const validName = optionalString(name, 'name');
     const fit = await apiGet(`/v2/workout/exportFit/${encodeURIComponent(key)}`, { binary: true });
 
     const FitParser = require('fit-file-parser').default || require('fit-file-parser');
@@ -230,13 +240,16 @@ router.post('/import', async (req, res) => {
     );
     const points = pointsFromFitRecords(data.records);
     const stageId = await importTrackAsStage(points, {
-      name: name || `Sortie Suunto ${key}`,
+      name: validName || `Sortie Suunto ${key}`,
       source: 'suunto',
       status: 'trace Suunto',
     });
     res.json({ id: stageId });
   } catch (err) {
-    res.status(502).json({ error: err.message });
+    // .status : posé par optionalString() sur une erreur de validation —
+    // distingue le 400 (name invalide) des vraies pannes réseau amont
+    // (502, cas par défaut ci-dessous).
+    res.status(err.status || 502).json({ error: err.message });
   }
 });
 
