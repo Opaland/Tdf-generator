@@ -54,7 +54,7 @@ function render() {
   tbody.innerHTML = rows
     .map(
       (c, i) => `<tr data-i="${i}" style="cursor:pointer">
-        <td>${EF.esc(c.name || '—')}</td>
+        <td>${EF.esc(c.name || '—')}${c.simulated ? '<span class="badge partial-badge" title="étape générée en mode hors-ligne : profil d\'altitude synthétique (simulateur), pas une mesure réelle — pentes affichées possiblement irréalistes">simulé</span>' : ''}</td>
         <td><span class="pill" style="background:${EFProfile.CAT_COLORS[c.category]};color:${EFProfile.CAT_TEXT[c.category]}">${c.category}</span></td>
         <td>${c.summit_ele_m}</td><td>${c.length_km}</td><td>${c.avg_gradient}</td>
         <td>${c.max_gradient}</td><td>${c.score}</td>
