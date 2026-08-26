@@ -8,14 +8,14 @@
 const http = require('http');
 const { test, before, after } = require('node:test');
 const assert = require('node:assert');
-const { httpJson } = require('../pipeline/http');
+const { httpJson, retryDelayMs } = require('../pipeline/http');
 
 let server;
 let base;
 let calls;
 
 before(async () => {
-  calls = { count400: 0, count500then200: 0 };
+  calls = { count400: 0, count500then200: 0, count429RetryAfter: 0 };
   server = http.createServer((req, res) => {
     res.setHeader('Content-Type', 'application/json');
     if (req.url === '/toujours-400') {
@@ -29,6 +29,22 @@ before(async () => {
       if (calls.count500then200 === 1) {
         res.statusCode = 500;
         res.end(JSON.stringify({ error: 'temporaire' }));
+      } else {
+        res.statusCode = 200;
+        res.end(JSON.stringify({ ok: true }));
+      }
+      return;
+    }
+    if (req.url === '/429-retry-after-puis-200') {
+      calls.count429RetryAfter++;
+      if (calls.count429RetryAfter === 1) {
+        res.statusCode = 429;
+        // 3 s, volontairement bien au-dessus du 1er délai du backoff expo
+        // (1 s) : si le correctif ne lisait pas Retry-After, ce test
+        // passerait quand même (1 s < 3 s, faux négatif) — voir le test
+        // suivant, qui isole retryDelayMs() en direct pour ce cas précis.
+        res.setHeader('Retry-After', '3');
+        res.end(JSON.stringify({ error: 'rate limited' }));
       } else {
         res.statusCode = 200;
         res.end(JSON.stringify({ ok: true }));
@@ -85,4 +101,64 @@ test('timeout : une requête trop lente est abandonnée (retryable), pas bloqué
 test('timeout : une requête qui répond avant le délai n\'est jamais abandonnée (pas de faux positif)', async () => {
   const json = await httpJson(`${base}/500-puis-200`, { retries: 1, timeoutMs: 5000 });
   assert.deepStrictEqual(json, { ok: true });
+});
+
+// Trouvaille en testant l'import en masse avec un vrai accès réseau
+// (25/08/2026) : l'API REST Wikipédia répond 429 + Retry-After sous charge,
+// mais le backoff expo (1 s, 2 s, 4 s) retentait bien avant l'expiration
+// annoncée par le serveur — chaque retry retombait sur le même 429.
+test('429 avec Retry-After : attend au moins le délai annoncé par le serveur avant de réessayer', async () => {
+  const start = Date.now();
+  const json = await httpJson(`${base}/429-retry-after-puis-200`, { retries: 1 });
+  const elapsed = Date.now() - start;
+  assert.deepStrictEqual(json, { ok: true });
+  assert.strictEqual(calls.count429RetryAfter, 2);
+  assert.ok(elapsed >= 2900, `doit attendre ~3000 ms (Retry-After: 3), pas le premier délai du backoff expo (1000 ms) (mesuré ${elapsed} ms)`);
+});
+
+test('retryDelayMs() : lit Retry-After (secondes) sur un 429, borné par le plafond', () => {
+  const fakeRes = (status, retryAfter) => ({
+    status,
+    headers: { get: (h) => (h === 'retry-after' ? retryAfter : null) },
+  });
+  assert.strictEqual(retryDelayMs(fakeRes(429, '3'), 0), 3000);
+  assert.strictEqual(retryDelayMs(fakeRes(429, '99999'), 0), 15000, 'un Retry-After absurde ne doit jamais dépasser le plafond');
+});
+
+test('retryDelayMs() : sans Retry-After exploitable, retombe sur le backoff expo', () => {
+  const fakeRes = (status, retryAfter) => ({
+    status,
+    headers: { get: (h) => (h === 'retry-after' ? retryAfter : null) },
+  });
+  assert.strictEqual(retryDelayMs(fakeRes(429, null), 2), 1000 * 2 ** 2, 'pas de Retry-After → backoff expo');
+  assert.strictEqual(retryDelayMs(fakeRes(429, 'pas-une-date'), 1), 1000 * 2 ** 1, 'Retry-After illisible → backoff expo');
+  assert.strictEqual(retryDelayMs(fakeRes(500, '3'), 0), 1000, 'Retry-After ignoré sur un 5xx (seul le 429 le porte en pratique)');
+  assert.strictEqual(retryDelayMs(undefined, 3), 1000 * 2 ** 3, 'pas de réponse (ex. timeout) → backoff expo');
+});
+
+// Relecture adverse du 26/08/2026 : Number('') === 0 (et Number('   ') === 0)
+// est fini et ≥ 0, donc passait le garde-fou Number.isFinite() et retournait
+// une pause de 0 ms — martelant un hôte qui vient justement de signaler être
+// rate-limité, au lieu du repli sur le backoff expo prévu pour toute valeur
+// Retry-After inexploitable.
+test('retryDelayMs() : Retry-After vide ou blanc (syntaxiquement valide en HTTP) retombe sur le backoff expo, pas 0 ms', () => {
+  const fakeRes = (retryAfter) => ({
+    status: 429,
+    headers: { get: (h) => (h === 'retry-after' ? retryAfter : null) },
+  });
+  assert.strictEqual(retryDelayMs(fakeRes(''), 2), 1000 * 2 ** 2, 'Retry-After vide → backoff expo, jamais 0 ms');
+  assert.strictEqual(retryDelayMs(fakeRes('   '), 2), 1000 * 2 ** 2, 'Retry-After blanc → backoff expo, jamais 0 ms');
+});
+
+// Relecture adverse du 26/08/2026 : le plafond doit rester sous le budget
+// client des routes synchrones concernées (EF.api(..., { timeoutMs: 60000 })
+// sur /api/editions/import et /api/import/link, voir
+// test/apiTimeoutOverrides.test.js) même au pire cas (3 tentatives).
+test('RETRY_AFTER_CAP_MS × 3 tentatives reste sous le budget client des routes lentes (60000 ms)', () => {
+  const fakeRes = (retryAfter) => ({
+    status: 429,
+    headers: { get: (h) => (h === 'retry-after' ? retryAfter : null) },
+  });
+  const worstCase = retryDelayMs(fakeRes('99999'), 0) * 3;
+  assert.ok(worstCase < 60000, `3 pauses au plafond (${worstCase} ms) doivent rester sous les 60000 ms que le client attend avant d'abandonner`);
 });
