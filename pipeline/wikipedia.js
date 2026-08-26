@@ -144,6 +144,15 @@ function parseStagesFromHtml(html, year) {
       // Ne retire les cellules vides que si ça réaligne exactement la ligne
       // sur l'en-tête (jamais sur une ligne déjà alignée, pour ne rien
       // changer au comportement existant des fixtures 1903/2025/2026).
+      // Limite connue (relecture adverse du 26/08/2026) : si une ligne
+      // décalée porte AUSSI une vraie donnée manquante à côté de l'icône
+      // (deux cellules vides au lieu d'une), le réalignement échoue et la
+      // ligne retombe sur son état d'origine, non corrigé — dégradation
+      // sûre plutôt que corruption silencieuse (la ligne est rejetée faute
+      // de distance/numéro d'étape exploitable), mais pas rencontré en
+      // pratique : Wikipédia représente une valeur pas encore connue par un
+      // tiret « — », jamais par une cellule vide (vérifié sur
+      // wikipedia_2026_en.html, étapes non courues).
       let row = rawRow;
       if (rawRow.length > header.length) {
         const nonEmpty = rawRow.filter((c) => String(c).trim() !== '');
