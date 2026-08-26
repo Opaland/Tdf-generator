@@ -8,7 +8,7 @@
 
 const { test } = require('node:test');
 const assert = require('node:assert');
-const { detectDescents, nameDescents, MIN_LENGTH_M, MIN_AVG_GRADIENT } = require('../pipeline/descents');
+const { detectDescents, nameDescents, reconcileDescentSummits, MIN_LENGTH_M, MIN_AVG_GRADIENT } = require('../pipeline/descents');
 const { MIN_LENGTH_M: CLIMB_MIN_LENGTH_M, MIN_AVG_GRADIENT: CLIMB_MIN_GRADIENT } = require('../pipeline/climbs');
 
 /** Construit un profil échantillonné tous les 100 m depuis des segments [lengthM, gradientPct]. */
@@ -106,6 +106,34 @@ test('fusionne deux descentes séparées par un replat < 500 m (comportement hé
   const descents = detectDescents(profile);
   assert.strictEqual(descents.length, 1, 'une seule descente après fusion');
   assert.ok(descents[0].lengthKm > 7, `longueur fusionnée ${descents[0].lengthKm} > 7 km`);
+});
+
+// Trouvaille de revue-personas (persona spécialiste TDF) : detectClimbs()
+// tourne deux fois indépendamment (profil réel pour les côtes, profil
+// inversé pour les descentes), avec ses propres bornes de rognage à chaque
+// fois — rien ne garantit que le "sommet" détecté par la côte et le "haut"
+// détecté par la descente correspondent au même échantillon pour un même
+// col physique. Écart réel observé : Tourmalet 2115 m (côte) vs 2105 m
+// (descente), sur la même fiche étape.
+test('reconcileDescentSummits() : aligne topEle sur summitEle de la côte dont le sommet précède la descente', () => {
+  const descents = [{ startM: 20500, endM: 28000, topEle: 2105 }];
+  const climbs = [{ name: 'Col du Tourmalet', endM: 20000, summitEle: 2115 }];
+  reconcileDescentSummits(descents, climbs);
+  assert.strictEqual(descents[0].topEle, 2115, 'topEle doit reprendre exactement summitEle de la côte correspondante');
+});
+
+test('reconcileDescentSummits() : n\'affecte pas les descentes sans côte proche (départ isolé)', () => {
+  const descents = [{ startM: 50000, endM: 58000, topEle: 900 }];
+  const climbs = [{ name: 'Col du Tourmalet', endM: 20000, summitEle: 2115 }];
+  reconcileDescentSummits(descents, climbs);
+  assert.strictEqual(descents[0].topEle, 900, 'aucune côte à proximité (< 800 m) : topEle reste la valeur détectée par la descente elle-même');
+});
+
+test('reconcileDescentSummits() : sans aucune côte connue, ne plante pas (liste vide ou absente)', () => {
+  const descents = [{ startM: 20500, endM: 28000, topEle: 2105 }];
+  assert.doesNotThrow(() => reconcileDescentSummits(descents, []));
+  assert.strictEqual(descents[0].topEle, 2105);
+  assert.doesNotThrow(() => reconcileDescentSummits(descents, undefined));
 });
 
 test('aucune catégorie ASO n\'est inventée pour une descente (contrairement aux côtes)', () => {

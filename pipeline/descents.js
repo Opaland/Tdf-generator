@@ -101,4 +101,36 @@ async function nameDescents(descents, climbs, waypointsOnTrack, samples, reverse
   return descents;
 }
 
-module.exports = { detectDescents, nameDescents, MIN_LENGTH_M, MIN_AVG_GRADIENT };
+/**
+ * Aligne l'altitude de sommet d'une descente (`topEle`) sur celle de la côte
+ * dont elle part, quand les deux désignent le même point physique.
+ *
+ * detectClimbs() est appelée deux fois indépendamment sur deux profils
+ * distincts — une fois sur le profil réel pour les côtes, une fois sur le
+ * profil inversé pour les descentes (voir detectDescents ci-dessus). Chacun
+ * de ces deux appels rogne ses propres bornes de segment (boucle de
+ * rognage MIN_AVG_GRADIENT dans climbs.js) indépendamment de l'autre — rien
+ * ne garantit qu'ils retombent sur le même échantillon pour « le » sommet
+ * d'un même col. Écart de quelques mètres observé en pratique (ex. col du
+ * Tourmalet : 2115 m côté côte contre 2105 m côté descente, sur la même
+ * fiche étape) — trouvaille de revue-personas (persona spécialiste TDF).
+ * `summitEle` (climbs.js) reste la valeur de référence : c'est un vrai
+ * maximum d'altitude brute sur toute la fenêtre de la montée (ligne
+ * `summitEle = Math.max(summitEle, samples[i].eleRaw)`), alors que `topEle`
+ * ici n'est que l'altitude au premier échantillon retenu par le rognage de
+ * la descente — moins fiable comme « sommet » que le vrai maximum.
+ *
+ * Même seuil de proximité que nameDescents (< 800 m, sommet de côte juste
+ * avant le départ de la descente), mais sans exiger de nom : une côte au
+ * repli générique ("Côte du km X") doit quand même corriger l'altitude de
+ * la descente qui la suit, même si elle ne sert pas à la nommer.
+ */
+function reconcileDescentSummits(descents, climbs) {
+  for (const d of descents) {
+    const fromClimb = (climbs || []).find((c) => Math.abs(c.endM - d.startM) < 800);
+    if (fromClimb) d.topEle = fromClimb.summitEle;
+  }
+  return descents;
+}
+
+module.exports = { detectDescents, nameDescents, reconcileDescentSummits, MIN_LENGTH_M, MIN_AVG_GRADIENT };
