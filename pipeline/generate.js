@@ -9,7 +9,7 @@ const { geocode, geocodeCol, reverseGeocode, isColQuery } = require('./geocode')
 const { routeStage } = require('./routing');
 const { buildProfile } = require('./elevation');
 const { detectClimbs, nameClimbs } = require('./climbs');
-const { detectDescents, nameDescents } = require('./descents');
+const { detectDescents, nameDescents, reconcileDescentSummits } = require('./descents');
 const { analyzeByKm, detectFauxPlats } = require('./kmanalysis');
 const { runChecks } = require('./checks');
 const { isOffline } = require('./http');
@@ -95,6 +95,11 @@ async function generateStage(stageId, { onProgress } = {}) {
     // --- 4b. Détection des descentes (symétrique, backlog #10) -----------
     const descents = detectDescents(profile.samples.map((s) => ({ dist: s.dist, eleRaw: s.eleRaw, eleSmooth: s.eleSmooth })));
     await nameDescents(descents, climbs, routed.waypointsOnTrack, profile.samples, reverseGeocode);
+    // Aligne l'altitude de sommet des descentes sur celle de la côte
+    // correspondante — sans ça, le même col peut afficher deux altitudes
+    // différentes selon la fiche (côte vs descente), trouvaille de
+    // revue-personas. Voir pipeline/descents.js pour le détail.
+    reconcileDescentSummits(descents, climbs);
 
     // --- 5. Analyse km par km --------------------------------------------
     progress({ step: 'analyse', detail: 'analyse km par km', percent: 80 });
