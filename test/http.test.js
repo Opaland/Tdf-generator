@@ -122,7 +122,7 @@ test('retryDelayMs() : lit Retry-After (secondes) sur un 429, borné par le plaf
     headers: { get: (h) => (h === 'retry-after' ? retryAfter : null) },
   });
   assert.strictEqual(retryDelayMs(fakeRes(429, '3'), 0), 3000);
-  assert.strictEqual(retryDelayMs(fakeRes(429, '99999'), 0), 65000, 'un Retry-After absurde ne doit jamais dépasser le plafond');
+  assert.strictEqual(retryDelayMs(fakeRes(429, '99999'), 0), 15000, 'un Retry-After absurde ne doit jamais dépasser le plafond');
 });
 
 test('retryDelayMs() : sans Retry-After exploitable, retombe sur le backoff expo', () => {
@@ -134,4 +134,31 @@ test('retryDelayMs() : sans Retry-After exploitable, retombe sur le backoff expo
   assert.strictEqual(retryDelayMs(fakeRes(429, 'pas-une-date'), 1), 1000 * 2 ** 1, 'Retry-After illisible → backoff expo');
   assert.strictEqual(retryDelayMs(fakeRes(500, '3'), 0), 1000, 'Retry-After ignoré sur un 5xx (seul le 429 le porte en pratique)');
   assert.strictEqual(retryDelayMs(undefined, 3), 1000 * 2 ** 3, 'pas de réponse (ex. timeout) → backoff expo');
+});
+
+// Relecture adverse du 26/08/2026 : Number('') === 0 (et Number('   ') === 0)
+// est fini et ≥ 0, donc passait le garde-fou Number.isFinite() et retournait
+// une pause de 0 ms — martelant un hôte qui vient justement de signaler être
+// rate-limité, au lieu du repli sur le backoff expo prévu pour toute valeur
+// Retry-After inexploitable.
+test('retryDelayMs() : Retry-After vide ou blanc (syntaxiquement valide en HTTP) retombe sur le backoff expo, pas 0 ms', () => {
+  const fakeRes = (retryAfter) => ({
+    status: 429,
+    headers: { get: (h) => (h === 'retry-after' ? retryAfter : null) },
+  });
+  assert.strictEqual(retryDelayMs(fakeRes(''), 2), 1000 * 2 ** 2, 'Retry-After vide → backoff expo, jamais 0 ms');
+  assert.strictEqual(retryDelayMs(fakeRes('   '), 2), 1000 * 2 ** 2, 'Retry-After blanc → backoff expo, jamais 0 ms');
+});
+
+// Relecture adverse du 26/08/2026 : le plafond doit rester sous le budget
+// client des routes synchrones concernées (EF.api(..., { timeoutMs: 60000 })
+// sur /api/editions/import et /api/import/link, voir
+// test/apiTimeoutOverrides.test.js) même au pire cas (3 tentatives).
+test('RETRY_AFTER_CAP_MS × 3 tentatives reste sous le budget client des routes lentes (60000 ms)', () => {
+  const fakeRes = (retryAfter) => ({
+    status: 429,
+    headers: { get: (h) => (h === 'retry-after' ? retryAfter : null) },
+  });
+  const worstCase = retryDelayMs(fakeRes('99999'), 0) * 3;
+  assert.ok(worstCase < 60000, `3 pauses au plafond (${worstCase} ms) doivent rester sous les 60000 ms que le client attend avant d'abandonner`);
 });

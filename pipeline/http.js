@@ -37,7 +37,22 @@ const DEFAULT_TIMEOUT_MS = 15000;
 // Plafond du délai imposé par un en-tête Retry-After sur un 429 — sans lui,
 // un service qui répond "Retry-After: 3600" ferait attendre une tentative
 // pendant une heure au lieu d'échouer proprement.
-const RETRY_AFTER_CAP_MS = 65000;
+//
+// Valeur choisie par rapport à MIN_EXTENDED_TIMEOUT_MS (60000 ms,
+// test/apiTimeoutOverrides.test.js) : le budget que le client (EF.api(),
+// frontend/common.js) accorde avant d'abandonner par AbortController sur
+// les routes qui font un aller-retour Wikipédia synchrone dans la requête
+// HTTP elle-même (POST /api/editions/import → pipeline/wikipedia.js,
+// retries par défaut = 3 → jusqu'à 3 pauses). Un plafond de 65000 ms
+// (première version de ce correctif, relecture adverse du 26/08/2026)
+// pouvait à lui seul dépasser les 60000 ms côté client sur une seule
+// pause — le client affichait "le serveur ne répond pas" pendant que le
+// serveur dormait encore, régression du motif déjà documenté et corrigé
+// dans test/apiTimeoutOverrides.test.js. 15000 ms laisse de la marge même
+// au pire cas (3 pauses à 15000 ms = 45000 ms, sous les 60000 ms côté
+// client) tout en restant largement au-dessus de l'ancien backoff expo
+// (1 s/2 s/4 s) qui causait le problème initial.
+const RETRY_AFTER_CAP_MS = 15000;
 
 /**
  * Délai avant la prochaine tentative. Si la réponse est un 429 et porte un
@@ -51,10 +66,16 @@ const RETRY_AFTER_CAP_MS = 65000;
 function retryDelayMs(res, attempt) {
   if (res && res.status === 429) {
     const retryAfter = res.headers.get('retry-after');
-    if (retryAfter != null) {
-      const asSeconds = Number(retryAfter);
+    // .trim() : un Retry-After présent mais vide/blanc (syntaxiquement
+    // valide en HTTP) donnerait Number('') === 0 — une pause nulle contre
+    // un hôte qui vient justement de signaler être rate-limité, au lieu du
+    // repli sur le backoff expo prévu pour toute valeur inexploitable
+    // (relecture adverse du 26/08/2026).
+    const trimmed = typeof retryAfter === 'string' ? retryAfter.trim() : '';
+    if (trimmed) {
+      const asSeconds = Number(trimmed);
       if (Number.isFinite(asSeconds) && asSeconds >= 0) return Math.min(asSeconds * 1000, RETRY_AFTER_CAP_MS);
-      const asDate = Date.parse(retryAfter);
+      const asDate = Date.parse(trimmed);
       if (!Number.isNaN(asDate)) return Math.min(Math.max(asDate - Date.now(), 0), RETRY_AFTER_CAP_MS);
     }
   }
