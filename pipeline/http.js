@@ -34,6 +34,33 @@ function setOffline(v) {
 // réellement utilisée par géocodage/altimétrie/routage/Wikipédia.
 const DEFAULT_TIMEOUT_MS = 15000;
 
+// Plafond du délai imposé par un en-tête Retry-After sur un 429 — sans lui,
+// un service qui répond "Retry-After: 3600" ferait attendre une tentative
+// pendant une heure au lieu d'échouer proprement.
+const RETRY_AFTER_CAP_MS = 65000;
+
+/**
+ * Délai avant la prochaine tentative. Si la réponse est un 429 et porte un
+ * en-tête Retry-After exploitable, on l'utilise (borné à RETRY_AFTER_CAP_MS)
+ * plutôt que le backoff expo — trouvaille en testant l'import en masse avec
+ * un vrai accès réseau (25/08/2026) : l'API REST Wikipédia répond
+ * `429` + `Retry-After: 30` sous charge, mais le backoff expo précédent
+ * (1 s, 2 s, 4 s sur 3 tentatives) réessayait bien avant l'expiration
+ * annoncée par le serveur — chaque retry retombait sur le même 429.
+ */
+function retryDelayMs(res, attempt) {
+  if (res && res.status === 429) {
+    const retryAfter = res.headers.get('retry-after');
+    if (retryAfter != null) {
+      const asSeconds = Number(retryAfter);
+      if (Number.isFinite(asSeconds) && asSeconds >= 0) return Math.min(asSeconds * 1000, RETRY_AFTER_CAP_MS);
+      const asDate = Date.parse(retryAfter);
+      if (!Number.isNaN(asDate)) return Math.min(Math.max(asDate - Date.now(), 0), RETRY_AFTER_CAP_MS);
+    }
+  }
+  return 1000 * 2 ** attempt;
+}
+
 async function fetchWithTimeout(url, opts, timeoutMs) {
   if (!timeoutMs) return fetch(url, opts);
   const ctl = new AbortController();
@@ -46,7 +73,8 @@ async function fetchWithTimeout(url, opts, timeoutMs) {
 }
 
 /**
- * GET JSON avec rate-limit par hôte et retries (3 tentatives, backoff expo).
+ * GET JSON avec rate-limit par hôte et retries (3 tentatives, backoff expo —
+ * sauf sur un 429 avec Retry-After, voir retryDelayMs()).
  * `minDelayMs` = délai minimal entre deux requêtes vers cet hôte.
  * `timeoutMs` = délai avant abandon d'une tentative (retryable, comme un 5xx).
  */
@@ -54,7 +82,9 @@ async function httpJson(url, { minDelayMs = 0, headers = {}, retries = 3, timeou
   const host = new URL(url).host;
   return rateLimited(host, minDelayMs, async () => {
     let lastErr;
+    let lastRes;
     for (let attempt = 0; attempt <= retries; attempt++) {
+      lastRes = undefined;
       try {
         recordRequest(host);
         const res = await fetchWithTimeout(url, {
@@ -62,6 +92,7 @@ async function httpJson(url, { minDelayMs = 0, headers = {}, retries = 3, timeou
         }, timeoutMs);
         if (res.status === 429 || res.status >= 500) {
           lastErr = new Error(`HTTP ${res.status} sur ${host}`);
+          lastRes = res;
         } else if (!res.ok) {
           throw Object.assign(new Error(`HTTP ${res.status} sur ${url}`), { nonRetryable: true });
         } else {
@@ -71,7 +102,7 @@ async function httpJson(url, { minDelayMs = 0, headers = {}, retries = 3, timeou
         if (err.nonRetryable) throw err;
         lastErr = err.name === 'AbortError' ? new Error(`Délai dépassé (${timeoutMs} ms) sur ${host}`) : err;
       }
-      if (attempt < retries) await sleep(1000 * 2 ** attempt);
+      if (attempt < retries) await sleep(retryDelayMs(lastRes, attempt));
     }
     if (autoOffline) {
       forcedOffline = true;
@@ -88,12 +119,15 @@ async function httpText(url, { minDelayMs = 0, headers = {}, retries = 3, timeou
   const host = new URL(url).host;
   return rateLimited(host, minDelayMs, async () => {
     let lastErr;
+    let lastRes;
     for (let attempt = 0; attempt <= retries; attempt++) {
+      lastRes = undefined;
       try {
         recordRequest(host);
         const res = await fetchWithTimeout(url, { headers: { 'User-Agent': USER_AGENT, ...headers } }, timeoutMs);
         if (res.status === 429 || res.status >= 500) {
           lastErr = new Error(`HTTP ${res.status} sur ${host}`);
+          lastRes = res;
         } else if (!res.ok) {
           throw Object.assign(new Error(`HTTP ${res.status} sur ${url}`), { nonRetryable: true });
         } else {
@@ -103,7 +137,7 @@ async function httpText(url, { minDelayMs = 0, headers = {}, retries = 3, timeou
         if (err.nonRetryable) throw err;
         lastErr = err.name === 'AbortError' ? new Error(`Délai dépassé (${timeoutMs} ms) sur ${host}`) : err;
       }
-      if (attempt < retries) await sleep(1000 * 2 ** attempt);
+      if (attempt < retries) await sleep(retryDelayMs(lastRes, attempt));
     }
     throw lastErr;
   });
@@ -113,4 +147,4 @@ async function httpText(url, { minDelayMs = 0, headers = {}, retries = 3, timeou
 // retries et bascule hors-ligne — hors sujet pour un webhook ou un flux
 // OAuth) : réutilisée telle quelle par backend/notify.js et backend/suunto.js,
 // mêmes appelants qui n'avaient elles non plus aucun timeout sur leur fetch().
-module.exports = { httpJson, httpText, isOffline, setOffline, fetchWithTimeout, USER_AGENT };
+module.exports = { httpJson, httpText, isOffline, setOffline, fetchWithTimeout, USER_AGENT, retryDelayMs };
