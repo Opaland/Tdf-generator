@@ -163,12 +163,17 @@ app.get('/api/stages', (req, res) => {
   const rows = db
     .prepare(
       `SELECT s.id, s.name, s.date, s.stage_type, s.status, s.state, s.stage_order,
-              s.official_distance_km, s.generated_distance_km, s.total_ascent_m,
+              s.official_distance_km, s.generated_distance_km, s.total_ascent_m, s.checks,
               s.edition_id, s.is_transfer, e.name AS edition_name, e.year AS edition_year
        FROM stages s LEFT JOIN editions e ON e.id = s.edition_id
        ORDER BY COALESCE(e.year, 9999), s.stage_order, s.id`
     )
-    .all();
+    .all()
+    .map((s) => {
+      let checks = null;
+      try { checks = s.checks ? JSON.parse(s.checks) : null; } catch { /* checks corrompu : ignoré plutôt que de faire planter toute la liste */ }
+      return { ...s, checks };
+    });
   res.json(rows);
 });
 

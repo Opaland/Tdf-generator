@@ -31,8 +31,12 @@ module.exports = [
     },
   },
   {
+    // common.js : servi tel quel au navigateur ET require()-able côté test
+    // (EF.stateBadge, testé directement — voir
+    // test/stateBadgeCheckFail.test.js) grâce à la garde `typeof module` —
+    // même schéma que stage.js/compare.js/editor.js/archives.js.
     files: ['frontend/common.js'],
-    languageOptions: { ecmaVersion: 2022, sourceType: 'script', globals: { ...globals.browser, L: 'readonly' } },
+    languageOptions: { ecmaVersion: 2022, sourceType: 'script', globals: { ...globals.browser, ...globals.node, L: 'readonly' } },
   },
   {
     // profile.js est un module UMD volontaire (voir la fin du fichier) :

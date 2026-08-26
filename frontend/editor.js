@@ -166,7 +166,7 @@ async function loadStages() {
       <td><span style="color:${EF.typeColor(s.stage_type)}">${EF.esc(s.stage_type || '—')}</span></td>
       <td>${s.generated_distance_km != null ? s.generated_distance_km + ' km' : s.official_distance_km ? s.official_distance_km + ' km (off.)' : '—'}</td>
       <td>${s.total_ascent_m != null ? 'D+ ' + s.total_ascent_m + ' m' : '—'}</td>
-      <td>${EF.stateBadge(s.state)}</td>
+      <td>${EF.stateBadge(s.state, s.checks)}</td>
       <td><a class="btn secondary" href="/?id=${s.id}" title="modifier" aria-label="Modifier l'étape ${EF.esc(s.name)}">✎</a>
           ${s.state === 'done' ? `<a class="btn secondary" href="/compare.html?a=${s.id}" title="comparer avec une autre étape" aria-label="Comparer l'étape ${EF.esc(s.name)}">⇄</a>` : ''}
           <button class="danger" data-del="${s.id}" aria-label="Supprimer l'étape ${EF.esc(s.name)}">✕</button></td>`;
