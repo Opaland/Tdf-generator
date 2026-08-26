@@ -36,7 +36,16 @@ const WAYPOINTS = [
   ['Hautacam', 'col'],
 ];
 
+// Même motif que scripts/demo.js : supprime l'étape du même nom laissée par
+// une exécution précédente avant d'en recréer une — sans ça, chaque
+// `npm run parity` empilait deux lignes de plus dans la base par défaut
+// (data/etapeforge.sqlite, la même que `npm start`), visibles indéfiniment
+// dans le tableau de l'éditeur au même titre que de vraies étapes
+// (trouvaille de la relecture adverse du 26/08/2026). ON DELETE CASCADE
+// (backend/db.js) supprime les waypoints/checks/etc. de l'ancienne étape.
 function makeStage(db, name) {
+  const existing = db.prepare('SELECT id FROM stages WHERE name = ?').get(name);
+  if (existing) db.prepare('DELETE FROM stages WHERE id = ?').run(existing.id);
   const r = db
     .prepare(`INSERT INTO stages (name, stage_type, status, state) VALUES (?, 'montagne', 'test de parité', 'draft')`)
     .run(name);
