@@ -82,8 +82,22 @@ const EF = {
   },
   typeColor(t) { return EF.typeColors[t] || '#555'; },
 
-  stateBadge(state) {
+  // checks (optionnel) : bloc d'audits qualité de l'étape (stages.checks).
+  // Une étape à l'état "done" dont au moins un audit est en échec
+  // (checks.ok === false — ex. distance reconstituée à -100 % de
+  // l'officielle) affichait pourtant le même badge vert "générée" qu'une
+  // étape saine, dans le tableau de l'éditeur ET dans Archives : rien ne
+  // distinguait visuellement "généré avec succès" de "généré mais
+  // fondamentalement cassé" sans ouvrir chaque fiche individuellement
+  // (trouvaille de revue-personas, persona chef de projet). checks.ok
+  // (pipeline/checks.js) ignore volontairement les simples 'warn' (déjà des
+  // tolérances acceptées ailleurs dans l'appli, ex. segments approximés) —
+  // seul un vrai 'fail' change le badge, pas n'importe quelle réserve.
+  stateBadge(state, checks) {
     const labels = { done: 'générée', generating: 'génération…', error: 'erreur', draft: 'brouillon' };
+    if (state === 'done' && checks && checks.ok === false) {
+      return `<span class="badge done-checkfail" title="au moins un audit qualité en échec — voir la fiche étape">générée ⚠</span>`;
+    }
     return `<span class="badge ${state}">${labels[state] || state}</span>`;
   },
 
@@ -291,3 +305,11 @@ const EF = {
     img.src = url;
   },
 };
+
+// EF require()-able côté test (stateBadge, testé directement — voir
+// test/stateBadgeCheckFail.test.js) grâce à la garde `typeof module`, même
+// schéma que stage.js/compare.js/editor.js/archives.js. Aucune référence à
+// document/window en dehors des méthodes elles-mêmes (appelées à la
+// demande, jamais au chargement du module) : sûr à charger tel quel côté
+// navigateur comme côté Node.
+if (typeof module !== 'undefined' && module.exports) module.exports = EF;

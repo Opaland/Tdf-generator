@@ -78,7 +78,7 @@ function stageRow(s) {
     <td>${s.generated_distance_km != null
       ? `${s.generated_distance_km} km${delta != null ? ` <span class="meta-line">(${EF.formatDelta(delta)})</span>` : ''}`
       : '—'}</td>
-    <td>${EF.stateBadge(s.state)} ${s.state === 'generating' && s.progress ? `<span class="meta-line">${EF.esc(s.progress.step || '')} ${s.progress.percent || 0}%</span>` : ''}</td>
+    <td>${EF.stateBadge(s.state, s.checks)} ${s.state === 'generating' && s.progress ? `<span class="meta-line">${EF.esc(s.progress.step || '')} ${s.progress.percent || 0}%</span>` : ''}</td>
     <td>${s.state !== 'generating' ? `<button class="secondary" data-gen="${s.id}">${s.state === 'done' ? '↻' : '▶ Générer'}</button>` : ''}</td>
   </tr>`;
 }
