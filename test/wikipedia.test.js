@@ -87,6 +87,55 @@ test('parse la fixture 2026 (parcours annoncé, partielle)', () => {
   assert.strictEqual(alpe.length, 2, "doublé de l'Alpe d'Huez");
 });
 
+// Trouvaille en testant l'import Femmes avec un vrai accès réseau (26/08/2026,
+// PR #132) : le tableau « Stage characteristics » de la page Femmes porte un
+// en-tête « Type » en colspan="2" (icône de profil d'étape + libellé texte)
+// mais une seule cellule d'en-tête, alors que chaque ligne de données a deux
+// cellules pour cette colonne — un cran de décalage qui faisait atterrir le
+// libellé de type (« Flat stage ») dans `winner`, et laissait `type` vide.
+// Jamais rencontré sur les fixtures Hommes existantes (pas de cette icône).
+test('parse le tableau des étapes du Tour de France Femmes 2022 (colonne icône sans en-tête propre)', () => {
+  const stages = parseStagesFromHtml(load('wikipedia_2022_femmes_en.html'), 2022);
+  assert.strictEqual(stages.length, 8, '8 étapes en 2022 (première édition moderne)');
+
+  const s1 = stages[0];
+  assert.strictEqual(s1.start, 'Paris: Tour Eiffel');
+  assert.strictEqual(s1.finish, 'Champs-Élysées');
+  assert.strictEqual(s1.distanceKm, 81.6);
+  assert.strictEqual(s1.type, 'plaine', 'pas "Flat stage" mal aligné dans winner');
+  assert.strictEqual(s1.winner, 'Lorena Wiebes (NED)', 'pas le libellé de type par erreur de colonne');
+
+  const s8 = stages[7];
+  assert.strictEqual(s8.finish, 'La Super Planche des Belles Filles');
+  assert.strictEqual(s8.type, 'montagne');
+  assert.strictEqual(s8.winner, 'Annemiek van Vleuten (NED)');
+
+  // Aucune étape ne doit avoir un type resté vide/null à cause du décalage.
+  assert.ok(stages.every((s) => s.type != null), 'toutes les étapes ont un type reconnu, aucune ne reste null');
+});
+
+test('parseStagesFromHtml : réaligne une ligne avec une cellule vide en trop, jamais une ligne déjà alignée', () => {
+  // Synthèse minimale du motif colspan Femmes 2022 : en-tête à 4 colonnes,
+  // lignes à 5 cellules (icône vide insérée avant Type).
+  const decale = '<table class="wikitable"><tr><th>Stage</th><th>Course</th><th>Distance</th><th>Type</th></tr>' +
+    '<tr><td>1</td><td>Paris to Lyon</td><td>100 km</td><td></td><td>Flat stage</td></tr>' +
+    '<tr><td>2</td><td>Lyon to Marseille</td><td>120 km</td><td></td><td>Hilly stage</td></tr></table>';
+  const stages = parseStagesFromHtml(decale, 2000);
+  assert.strictEqual(stages.length, 2);
+  assert.strictEqual(stages[0].type, 'plaine', 'la cellule vide en trop est retirée, Type retombe sur la bonne colonne');
+  assert.strictEqual(stages[1].type, 'accidentée');
+
+  // Une ligne déjà alignée (même nombre de cellules que l'en-tête) avec une
+  // vraie cellule vide (ex. type non renseigné) ne doit jamais être touchée
+  // par le réalignement — comportement inchangé.
+  const aligneAvecVide = '<table class="wikitable"><tr><th>Stage</th><th>Course</th><th>Distance</th><th>Type</th></tr>' +
+    '<tr><td>1</td><td>Paris to Lyon</td><td>100 km</td><td></td></tr>' +
+    '<tr><td>2</td><td>Lyon to Marseille</td><td>120 km</td><td>Hilly stage</td></tr></table>';
+  const stages2 = parseStagesFromHtml(aligneAvecVide, 2000);
+  assert.strictEqual(stages2[0].type, null, 'ligne déjà alignée : cellule vide légitime, pas de réalignement à tort');
+  assert.strictEqual(stages2[1].type, 'accidentée');
+});
+
 test('fonctions unitaires du parseur', () => {
   assert.deepStrictEqual(parseCourse('Paris to Lyon'), { start: 'Paris', finish: 'Lyon' });
   assert.deepStrictEqual(parseCourse('Pau – Hautacam'), { start: 'Pau', finish: 'Hautacam' });

@@ -133,8 +133,22 @@ function parseStagesFromHtml(html, year) {
     if (iStage < 0 || iDist < 0) continue;
 
     const stages = [];
-    for (const row of rows.slice(1)) {
-      if (row.length < 3) continue; // lignes de repos / totaux
+    for (const rawRow of rows.slice(1)) {
+      if (rawRow.length < 3) continue; // lignes de repos / totaux
+      // Certains tableaux (ex. Tour de France Femmes 2022) portent une
+      // colonne supplémentaire sans en-tête textuel entre Distance et Type
+      // (icône de profil d'étape, extraite comme cellule vide) : le nombre
+      // de cellules de la ligne dépasse alors celui de l'en-tête, et les
+      // colonnes indexées après Distance (type, winner) décalent d'un cran
+      // — « Flat stage » se retrouvait dans `winner`, `type` restait vide.
+      // Ne retire les cellules vides que si ça réaligne exactement la ligne
+      // sur l'en-tête (jamais sur une ligne déjà alignée, pour ne rien
+      // changer au comportement existant des fixtures 1903/2025/2026).
+      let row = rawRow;
+      if (rawRow.length > header.length) {
+        const nonEmpty = rawRow.filter((c) => String(c).trim() !== '');
+        if (nonEmpty.length === header.length) row = nonEmpty;
+      }
       const distanceKm = parseDistanceKm(row[iDist]);
       const numM = String(row[iStage]).match(/\d+/);
       if (!distanceKm || !numM) continue; // jour de repos, ligne « Total »…

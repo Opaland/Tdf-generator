@@ -1,0 +1,100 @@
+<!-- Extrait local (fixture de test / mode hors-ligne) reproduisant la structure du
+     tableau « Stage characteristics » de l'article anglais « 2022 Tour de France
+     Femmes » (en.wikipedia.org, licence CC BY-SA 4.0). Récupéré en ligne le
+     26/08/2026 (accès réseau débloqué sur cet environnement, voir PR #132) pour
+     documenter un vrai défaut du parseur : l'en-tête « Type » porte un
+     colspan="2" (icône de profil d'étape + libellé texte, ex. « Flat stage »)
+     mais n'a qu'UNE cellule d'en-tête, alors que chaque ligne de données a
+     DEUX cellules pour cette colonne (l'icône, vide en texte, puis le
+     libellé) — un cran de décalage jamais rencontré sur les fixtures
+     Hommes existantes (1903/2025/2026, sans cette icône). Utilisé par
+     test/wikipedia.test.js pour verrouiller le correctif de
+     pipeline/wikipedia.js#parseStagesFromHtml (réalignement des cellules
+     vides en trop avant indexation par colonne). -->
+<section>
+  <h2 id="Stage_characteristics">Stage characteristics</h2>
+  <table class="wikitable sortable">
+    <tbody>
+      <tr>
+        <th scope="col">Stage</th>
+        <th scope="col">Date</th>
+        <th scope="col">Course</th>
+        <th scope="col">Distance</th>
+        <th colspan="2" scope="col">Type</th>
+        <th scope="col">Winner</th>
+      </tr>
+      <tr>
+        <th>1</th>
+        <td>24 July</td>
+        <td>Paris: Tour Eiffel to Champs-Élysées</td>
+        <td>81.6&#160;km (50.7&#160;mi)</td>
+        <td><span><img alt="" src="//upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Plainstage.svg/20px-Plainstage.svg.png"/></span></td>
+        <td>Flat stage</td>
+        <td>Lorena Wiebes (NED)</td>
+      </tr>
+      <tr>
+        <th>2</th>
+        <td>25 July</td>
+        <td>Meaux to Provins</td>
+        <td>136.4&#160;km (84.8&#160;mi)</td>
+        <td><span><img alt="" src="//upload.wikimedia.org/wikipedia/commons/thumb/hillystage.svg/20px-hillystage.svg.png"/></span></td>
+        <td>Hilly stage</td>
+        <td>Marianne Vos (NED)</td>
+      </tr>
+      <tr>
+        <th>3</th>
+        <td>26 July</td>
+        <td>Reims to Épernay</td>
+        <td>133.6&#160;km (83.0&#160;mi)</td>
+        <td><span><img alt="" src="//upload.wikimedia.org/wikipedia/commons/thumb/hillystage.svg/20px-hillystage.svg.png"/></span></td>
+        <td>Hilly stage</td>
+        <td>Cecilie Uttrup Ludwig (DEN)</td>
+      </tr>
+      <tr>
+        <th>4</th>
+        <td>27 July</td>
+        <td>Troyes to Bar-sur-Aube</td>
+        <td>126.8&#160;km (78.8&#160;mi)</td>
+        <td><span><img alt="" src="//upload.wikimedia.org/wikipedia/commons/thumb/mediummountainstage.svg/20px-mediummountainstage.svg.png"/></span></td>
+        <td>Medium-mountain stage</td>
+        <td>Marlen Reusser (SUI)</td>
+      </tr>
+      <tr>
+        <th>5</th>
+        <td>28 July</td>
+        <td>Bar-le-Duc to Saint-Dié-des-Vosges</td>
+        <td>175.6&#160;km (109.1&#160;mi)</td>
+        <td><span><img alt="" src="//upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Plainstage.svg/20px-Plainstage.svg.png"/></span></td>
+        <td>Flat stage</td>
+        <td>Lorena Wiebes (NED)</td>
+      </tr>
+      <tr>
+        <th>6</th>
+        <td>29 July</td>
+        <td>Saint-Dié-des-Vosges to Rosheim</td>
+        <td>129.2&#160;km (80.3&#160;mi)</td>
+        <td><span><img alt="" src="//upload.wikimedia.org/wikipedia/commons/thumb/hillystage.svg/20px-hillystage.svg.png"/></span></td>
+        <td>Hilly stage</td>
+        <td>Marianne Vos (NED)</td>
+      </tr>
+      <tr>
+        <th>7</th>
+        <td>30 July</td>
+        <td>Sélestat to Le Markstein</td>
+        <td>127.1&#160;km (79.0&#160;mi)</td>
+        <td><span><img alt="" src="//upload.wikimedia.org/wikipedia/commons/thumb/mountainstage.svg/20px-mountainstage.svg.png"/></span></td>
+        <td>Mountain stage</td>
+        <td>Annemiek van Vleuten (NED)</td>
+      </tr>
+      <tr>
+        <th>8</th>
+        <td>31 July</td>
+        <td>Lure to La Super Planche des Belles Filles</td>
+        <td>123.3&#160;km (76.6&#160;mi)</td>
+        <td><span><img alt="" src="//upload.wikimedia.org/wikipedia/commons/thumb/mountainstage.svg/20px-mountainstage.svg.png"/></span></td>
+        <td>Mountain stage</td>
+        <td>Annemiek van Vleuten (NED)</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
