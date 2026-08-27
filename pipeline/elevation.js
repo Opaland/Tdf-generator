@@ -13,6 +13,32 @@ const { simElevations } = require('./simulator');
 const GEOPF_BATCH = 150;
 const OTD_BATCH = 100;
 
+// Bornes de plausibilité physique : de -500 m (large marge sous le point le
+// plus bas de France métropolitaine, l'étang du Lavalduc à -11 m, pour
+// rester valide aussi hors-France via opentopodata) à 6000 m (au-dessus du
+// Mont-Blanc, 4809 m). Toute valeur hors de cette plage n'est jamais une
+// vraie mesure de terrain.
+//
+// Trouvaille en générant en masse des étapes réelles avec un vrai accès
+// réseau (26/08/2026) : le Géoplateforme (RGE ALTI) ne renvoie pas
+// toujours un sentinel « pas de donnée » propre. Un point franchement hors
+// couverture (mer ouverte) renvoie le nombre littéral -99999 — mais un
+// point à la LIMITE de la couverture (littoral, ex. Le Havre → Cherbourg
+// le long de la Manche) renvoie une valeur INTERPOLÉE entre une case
+// valide et une case -99999 voisine : des fractions comme -74017.5 ou
+// -56315.9, jamais -99999 pile. Un test d'égalité stricte (`e ===
+// -99999`) manquait donc cette zone de transition, laissant passer des
+// altitudes fantômes qui gonflaient le dénivelé cumulé de dizaines de
+// milliers de mètres (jusqu'à +100 000 m observés sur une étape réelle).
+const PLAUSIBLE_ELE_MIN_M = -500;
+const PLAUSIBLE_ELE_MAX_M = 6000;
+
+function plausibleEle(v) {
+  return typeof v === 'number' && Number.isFinite(v) && v >= PLAUSIBLE_ELE_MIN_M && v <= PLAUSIBLE_ELE_MAX_M
+    ? v
+    : null;
+}
+
 function r5(x) {
   return Math.round(x * 1e5) / 1e5;
 }
@@ -29,13 +55,16 @@ async function geopfBatch(points) {
       const json = await httpJson(url, { minDelayMs: 250 });
       // Un point hors couverture RGE ALTI (mer, hors France métropolitaine
       // malgré looksLikeFrance()) renvoie un objet sans `z` numérique
-      // exploitable — normalisé explicitement en `null` plutôt que de
-      // laisser passer `undefined` (voir buildProfile() plus bas : la
-      // distinction entre "0 m mesuré" et "non mesuré" doit survivre
-      // jusqu'à pipeline/checks.js, qui audite les trous d'altimétrie).
+      // exploitable, ou un nombre littéral hors de toute plage physique
+      // plausible (voir plausibleEle() : sentinel -99999, ou valeur
+      // interpolée à la frontière de couverture) — normalisé explicitement
+      // en `null` plutôt que de laisser passer une fausse mesure (voir
+      // buildProfile() plus bas : la distinction entre "0 m mesuré" et
+      // "non mesuré" doit survivre jusqu'à pipeline/checks.js, qui audite
+      // les trous d'altimétrie).
       const eles = (json.elevations || []).map((e) => {
-        if (typeof e === 'number') return e;
-        return typeof e?.z === 'number' ? e.z : null;
+        if (typeof e === 'number') return plausibleEle(e);
+        return plausibleEle(e?.z);
       });
       if (eles.length !== points.length) throw new Error('Altimétrie Géoplateforme : réponse incomplète');
       return eles;
@@ -59,11 +88,13 @@ async function opentopodataBatch(points) {
     const url = `https://api.opentopodata.org/v1/eudem25m?locations=${locs}`;
     const json = await httpJson(url, { minDelayMs: 1100 }); // max 1 req/s
     if (json.status !== 'OK') throw new Error(`opentopodata : ${json.status}`);
-    // Comme geopfBatch ci-dessus : un point sans donnée (eudem25m ne couvre
-    // pas certaines zones maritimes/polaires) reste `null`, jamais coercé en
-    // 0 m — un 0 fabriqué serait indiscernable d'une vraie mesure au niveau
-    // de la mer, et invisible à l'audit de checks.js.
-    return json.results.map((r) => (r.elevation == null ? null : r.elevation));
+    // Comme geopfBatch ci-dessus (plausibleEle()) : un point sans donnée
+    // (eudem25m ne couvre pas certaines zones maritimes/polaires) reste
+    // `null`, jamais coercé en 0 m ni laissé passer sous une forme
+    // sentinel/interpolée hors plage physique plausible — un 0 fabriqué
+    // serait indiscernable d'une vraie mesure au niveau de la mer, et
+    // invisible à l'audit de checks.js.
+    return json.results.map((r) => plausibleEle(r.elevation));
   });
   return value;
 }
