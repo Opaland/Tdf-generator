@@ -59,12 +59,19 @@ function stageToGpx(full) {
     })
     .filter(Boolean)
     .join('\n');
+  // Trouvaille de relecture adverse (item KML altitudeMode, PR #147) : les
+  // <wpt> de côtes portent déjà <ele> (climbWpts ci-dessus), mais ceux des
+  // waypoints (départ/arrivée/cols/sprints…) n'en portaient aucune — pas
+  // juste ignorée par un défaut de lecteur comme en KML, la donnée
+  // n'atteignait même jamais le GPX alors qu'altitude_hint_m (géocodage
+  // IGN) est calculée pour la plupart d'entre eux. N'émettre <ele> que si
+  // une vraie altitude existe (jamais un 0 de repli présenté comme réel).
   const wpts = waypoints
     .filter((w) => w.lat != null)
-    .map(
-      (w) =>
-        `  <wpt lat="${w.lat}" lon="${w.lon}">\n    <name>${esc(w.label)}</name>\n    <type>${esc(w.kind)}</type>\n  </wpt>`
-    )
+    .map((w) => {
+      const ele = Number.isFinite(w.altitude_hint_m) ? `\n    <ele>${w.altitude_hint_m}</ele>` : '';
+      return `  <wpt lat="${w.lat}" lon="${w.lon}">${ele}\n    <name>${esc(w.label)}</name>\n    <type>${esc(w.kind)}</type>\n  </wpt>`;
+    })
     .concat(climbWpts ? [climbWpts] : [])
     .join('\n');
   const pts = samples
@@ -119,10 +126,14 @@ function stageToTcx(full) {
     .filter((w) => w.lat != null)
     .map((w) => {
       const pointType = w.kind === 'col' ? 'Summit' : 'Generic';
+      // Même trouvaille que côté GPX (voir stageToGpx ci-dessus) : les
+      // CoursePoint de côtes portent déjà <AltitudeMeters> plus bas, ceux
+      // des waypoints n'en portaient aucun malgré altitude_hint_m calculée.
+      const altitude = Number.isFinite(w.altitude_hint_m) ? `\n      <AltitudeMeters>${w.altitude_hint_m}</AltitudeMeters>` : '';
       return `    <CoursePoint>\n` +
         `      <Name>${esc(tcxToken(w.label, 10))}</Name>\n` +
         `      <Time>${timeAt(0)}</Time>\n` +
-        `      <Position><LatitudeDegrees>${w.lat}</LatitudeDegrees><LongitudeDegrees>${w.lon}</LongitudeDegrees></Position>\n` +
+        `      <Position><LatitudeDegrees>${w.lat}</LatitudeDegrees><LongitudeDegrees>${w.lon}</LongitudeDegrees></Position>${altitude}\n` +
         `      <PointType>${pointType}</PointType>\n` +
         `      <Notes>${esc(w.label)}</Notes>\n` +
         `    </CoursePoint>`;

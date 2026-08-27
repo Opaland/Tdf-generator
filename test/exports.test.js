@@ -144,6 +144,35 @@ test('stageToGpx : nom d\'étape avec caractères spéciaux échappé (esc) dans
   assert.strictEqual(occurrences, 2, 'le nom échappé doit apparaître dans <metadata><name> et <trk><name>');
 });
 
+// Trouvaille de relecture adverse (item KML altitudeMode, PR #147) : GPX a
+// un trou structurellement analogue à celui corrigé en KML, mais plus
+// radical — la donnée n'atteint même jamais le document (aucun défaut de
+// lecteur à blâmer, contrairement à clampToGround en KML). Les <wpt> de
+// côtes portent déjà <ele> (tests ci-dessus), ceux des waypoints (départ/
+// arrivée/cols/sprints…) n'en portaient aucune malgré altitude_hint_m
+// calculée par géocodage (pipeline/wikipedia.js, pipeline/generate.js).
+test('stageToGpx : waypoint AVEC altitude_hint_m -> <wpt> porte <ele>', () => {
+  const full = makeFull({
+    waypoints: [{ label: 'Col connu', kind: 'col', lat: 43.2, lon: 1.2, altitude_hint_m: 1500 }],
+    climbs: [],
+  });
+  const gpx = stageToGpx(full);
+  assert.match(gpx, /<wpt lat="43\.2" lon="1\.2">\s*<ele>1500<\/ele>/);
+});
+
+test('stageToGpx : waypoint SANS altitude_hint_m -> pas de <ele> (jamais un 0 de repli présenté comme réel)', () => {
+  const full = makeFull({
+    waypoints: [{ label: 'Sans altitude', kind: 'via', lat: 43.2, lon: 1.2, altitude_hint_m: undefined }],
+    climbs: [],
+  });
+  const gpx = stageToGpx(full);
+  // Scopé au seul bloc <wpt> (pas tout le document) : les <trkpt> du tracé
+  // portent légitimement leur propre <ele> (ele_raw_m), sans rapport avec
+  // ce garde-fou sur les waypoints.
+  const wptBlock = gpx.match(/<wpt lat="43\.2" lon="1\.2">[\s\S]*?<\/wpt>/)[0];
+  assert.doesNotMatch(wptBlock, /<ele>/);
+});
+
 // --- stageToTcx ----------------------------------------------------------
 
 test('stageToTcx : tcxToken tronque strictement à la limite (Course=15, CoursePoint=10), jamais un caractère de plus', () => {
@@ -232,6 +261,29 @@ test('stageToTcx : sans track, retombe sur la distance du dernier sample', () =>
   const full = makeFull({ track: null });
   const tcx = stageToTcx(full);
   assert.match(tcx, /<DistanceMeters>98400\.0<\/DistanceMeters>/);
+});
+
+// Même trouvaille que côté GPX ci-dessus : les CoursePoint de côtes portent
+// déjà <AltitudeMeters> (test "EX ÆQUO" plus haut), ceux des waypoints
+// n'en portaient aucun malgré altitude_hint_m calculée.
+test('stageToTcx : waypoint AVEC altitude_hint_m -> CoursePoint porte <AltitudeMeters>', () => {
+  const full = makeFull({
+    waypoints: [{ label: 'Col connu', kind: 'col', lat: 43.2, lon: 1.2, altitude_hint_m: 1500 }],
+    climbs: [],
+  });
+  const tcx = stageToTcx(full);
+  const cp = tcx.match(/<CoursePoint>[\s\S]*?<\/CoursePoint>/)[0];
+  assert.match(cp, /<AltitudeMeters>1500<\/AltitudeMeters>/);
+});
+
+test('stageToTcx : waypoint SANS altitude_hint_m -> CoursePoint sans <AltitudeMeters>', () => {
+  const full = makeFull({
+    waypoints: [{ label: 'Sans altitude', kind: 'via', lat: 43.2, lon: 1.2, altitude_hint_m: undefined }],
+    climbs: [],
+  });
+  const tcx = stageToTcx(full);
+  const cp = tcx.match(/<CoursePoint>[\s\S]*?<\/CoursePoint>/)[0];
+  assert.doesNotMatch(cp, /<AltitudeMeters>/);
 });
 
 // --- stageToKml ------------------------------------------------------------
