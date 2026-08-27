@@ -7,19 +7,40 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      full:
+        description: >-
+          Catalogue complet (113 éditions, ~2200 étapes, ~2-3h, vraies APIs)
+          au lieu de la petite démo habituelle (7 étapes) — déclenchement
+          manuel uniquement, jamais sur un push automatique.
+        type: boolean
+        default: false
 
 permissions:
   contents: read
   pages: write
   id-token: write
 
+# Groupe distinct par mode (pas juste "pages") : un run "full" dure 2-3h —
+# avec un groupe unique, un simple push sur main pendant ce délai annulerait
+# silencieusement tout le travail réseau en cours (cancel-in-progress),
+# sans même sauvegarder sa progression au cache (voir plus bas pourquoi).
+# Relecture adverse : le run "full" continue de s'auto-annuler s'il est
+# redéclenché deux fois (comportement voulu), mais un push ordinaire vers la
+# petite démo ne l'interrompt plus.
 concurrency:
-  group: pages
+  group: pages-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full' || 'demo' }}
   cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    # 15 min suffit largement à la petite démo ; le catalogue complet
+    # (inputs.full) prend ~2-3h en conditions réelles (mesuré localement,
+    # concurrence 8) — un seul timeout généreux couvre les deux cas, un
+    # run demo ne coûte pas plus cher pour autant (facturé au temps réel,
+    # pas au plafond).
+    timeout-minutes: 300
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -29,21 +50,70 @@ jobs:
       - run: npm ci
       # Le cache SQLite d'ÉtapeForge est réutilisé d'un build à l'autre : on ne
       # re-géocode/re-route/re-échantillonne jamais deux fois la même chose.
+      # Clé distincte demo/full : un run "full" (113 éditions — taille jamais
+      # mesurée sur un vrai run à ce jour, contrairement à l'estimation de
+      # dist/ plus bas qui vient d'une mesure réelle) ne doit ni écraser ni
+      # gonfler le petit cache de la démo habituelle.
+      #
+      # restore/save séparés (pas l'action combinée actions/cache@v4) :
+      # actions/cache@v4 ne sauvegarde qu'en post-step conditionné à
+      # success() — un run "full" qui échoue à mi-chemin ou dépasse
+      # timeout-minutes n'aurait alors JAMAIS sauvegardé sa progression,
+      # rendant illusoire la reprise décrite plus bas (trouvaille de
+      # relecture adverse, vérifiée sur le action.yml officiel
+      # d'actions/cache). `actions/cache/save@v4` avec `if: always()` en fin
+      # de job sauvegarde même sur un job en échec/annulé — MAIS une
+      # annulation (cancel-in-progress, timeout-minutes dépassé) ne laisse
+      # que ~5 minutes à l'ensemble des steps restants avant l'arrêt forcé
+      # du job (délai documenté par GitHub, relecture adverse), pas un temps
+      # illimité : si l'upload du cache n'y tient pas, la reprise décrite
+      # plus bas reste perdue malgré ce correctif. Réduit le risque de round
+      # 1, ne le ferme pas totalement.
       - name: Restaurer le cache de données
-        uses: actions/cache@v4
+        uses: actions/cache/restore@v4
         with:
           path: data
-          key: etapeforge-data-${{ github.run_id }}
+          key: etapeforge-data-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full' || 'demo' }}-${{ github.run_id }}
           restore-keys: |
-            etapeforge-data-
+            etapeforge-data-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full' || 'demo' }}-
       - name: Générer la démo avec les APIs réelles (routes et altimétrie vraies)
+        if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.full) }}
         run: |
           node scripts/demo.js --online || {
             echo "::warning::APIs externes indisponibles — repli sur le simulateur hors-ligne";
             rm -rf data && npm run demo;
           }
+      # Pas de repli hors-ligne silencieux ici (contrairement à la démo
+      # ci-dessus) : si les APIs réelles échouent en cours de route complète,
+      # mieux vaut un job rouge explicite qu'un « catalogue complet » publié
+      # qui serait en fait le simulateur (CLAUDE.md règle 9). Reprend
+      # automatiquement là où un run précédent s'était arrêté (state !=
+      # 'done' dans le script) — à condition que ce run précédent ait
+      # atteint l'étape de sauvegarde du cache ci-dessous, donc réussi OU
+      # échoué/annulé APRÈS son démarrage (if: always() plus bas), pas
+      # avant.
+      - name: Importer et générer le catalogue complet (113 éditions, ~2-3h, déclenchement manuel)
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.full }}
+        run: node scripts/import-all-and-generate.js
+      - name: Sauvegarder le cache de données (même en cas d'échec/timeout, pour reprendre au prochain run)
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: data
+          key: etapeforge-data-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full' || 'demo' }}-${{ github.run_id }}
       - name: Construire la démo statique
         run: node scripts/build-site.js
+      # Taille du site généré, en clair dans les logs : GitHub Pages refuse
+      # un déploiement au-delà de ~1 Go et peut expirer au-delà de 10 min de
+      # transfert (limites documentées d'actions/upload-pages-artifact) — un
+      # catalogue complet (2200 étapes, profils non décimés par étape,
+      # backend/exports.js) en est proche par estimation, jamais mesuré sur
+      # un vrai run complet à ce jour (relecture adverse). Pas de correctif
+      # préventif ici (réduire la taille par étape est un chantier à part,
+      # côté scripts/build-site.js) — seulement de la visibilité immédiate
+      # si un run "full" échoue au déploiement pour cette raison.
+      - name: Taille du site généré
+        run: du -sh dist
       - uses: actions/configure-pages@v5
         with:
           enablement: true
