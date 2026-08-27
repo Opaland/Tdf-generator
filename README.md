@@ -147,7 +147,8 @@ npm run generate -- --import 1903       # import seul
   d'Eugène Christophe, réparée seul à la forge de Sainte-Marie-de-Campan),
   1919 (premier maillot jaune, porté par Eugène Christophe),
   1922 (première apparition du col d'Izoard),
-  1926 (l'étape la plus longue de l'histoire, Metz → Dunkerque, 433 km),
+  1926 (l'édition la plus longue de l'histoire, 5 745 km, dont l'étape
+  Metz → Dunkerque, 433 km),
   1934 (premier contre-la-montre individuel),
   1947 (retour du Tour d'après-guerre, Jean Robic vainqueur sans jamais
   avoir porté le jaune avant la dernière étape),
