@@ -147,6 +147,35 @@ test('fonctions unitaires du parseur', () => {
   assert.strictEqual(parseDate('5 juillet 1903', 1903), '1903-07-05');
 });
 
+// Trouvaille en générant en masse avec un vrai accès réseau (27/08/2026,
+// Tour de France 2019, étape 1) : ligne source réelle capturée en base —
+// « Brussels (Belgium) to Brussels (Belgium) via Charleroi (Belgium) »,
+// un circuit qui part et revient à Brussels. Avant ce correctif, finish
+// valait littéralement « Brussels via Charleroi », un géocodage sans
+// résultat puisque ce n'est pas un vrai nom de lieu — « via Charleroi »
+// décrit un point de passage du trajet, jamais la ville d'arrivée.
+test('parseCourse() : « via <ville> » est un point de passage du trajet, jamais retenu dans start/finish', () => {
+  assert.deepStrictEqual(
+    parseCourse('Brussels (Belgium) to Brussels (Belgium) via Charleroi (Belgium)'),
+    { start: 'Brussels', finish: 'Brussels' }
+  );
+  assert.deepStrictEqual(parseCourse('Paris via Melun to Lyon'), { start: 'Paris', finish: 'Lyon' });
+});
+
+// Trouvaille de relecture adverse sur le test précédent : si le nom de la
+// ville-via est ENTIÈREMENT entre parenthèses, l'ancien ordre (parenthèses
+// retirées avant « via ») laissait un « via » orphelin (« Lyon via (Melun) »
+// → « Lyon via » au lieu de « Lyon ») — même classe de bug que ci-dessus,
+// pas déclenchée par les fixtures connues de ce dépôt, mais un futur format
+// Wikipédia pourrait la reproduire silencieusement.
+test('parseCourse() : « via » retiré même quand le point de passage est entièrement entre parenthèses', () => {
+  assert.deepStrictEqual(parseCourse('Paris to Lyon via (Melun)'), { start: 'Paris', finish: 'Lyon' });
+  assert.deepStrictEqual(
+    parseCourse('Paris to Lyon (France) via (Melun) (une note)'),
+    { start: 'Paris', finish: 'Lyon' }
+  );
+});
+
 // looksRight (sélection du bon tableau parmi plusieurs wikitable de la page) :
 // portait un 3e critère (colonne « course/parcours/route/itinéraire ») posé
 // avec un `|| true` qui le rendait tautologique — mort depuis son
