@@ -53,14 +53,15 @@ partager par lien.
 
 **Ça marche** : crée un tour personnalisé (« + nouveau tour… », encart
 inline depuis PR #24 — plus de `prompt()` natif), ajoute ses étapes, exporte
-la fiche en GPX pour son compteur, ou le mini-site HTML autonome pour ses
-amis (`/api/editions/:id/site`).
+la fiche en GPX pour son compteur et le mini-site HTML autonome pour ses
+amis (`/api/editions/:id/site`, la page interactive). Depuis PR #66, le
+roadbook imprimable (`/api/stages/:id/roadbook.html` — villes, km, temps
+écoulé indicatif, côtes) complète le mini-site avec un format pensé pour
+l'impression plutôt que l'écran.
 
-**Ça bloque encore** : pas de roadbook imprimable (villes, km, cols,
-ravitaillements, horaires estimés dans un document dédié) — l'export HTML
-existe mais c'est une page web, pas une feuille de route à imprimer. Idée
-notée en [#14](https://github.com/Opaland/Tdf-generator/issues/14), pas
-construite.
+**Ça bloque encore** : le roadbook n'a pas de ravitaillements/villages
+traversés (backlog #10 section C) — aucune source de données réelle
+disponible, volontairement pas inventée.
 
 ## Yannick — auto-héberge sur un Synology NAS, usage familial
 

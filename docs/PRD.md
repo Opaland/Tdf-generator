@@ -9,7 +9,7 @@ chantiers est dans [issue #10](https://github.com/Opaland/Tdf-generator/issues/1
 
 Un chantier n'est livré que si :
 
-1. **`npm test` passe** (75 tests au moment d'écrire ces lignes — pipeline,
+1. **`npm test` passe** (530 tests au moment d'écrire ces lignes — pipeline,
    parseur historique, régressions de sécurité) et **`npm run demo` passe**
    (10 vérifications de bout en bout, mode hors-ligne, reproductible partout).
 2. **Une trouvaille de test manuel/exploratoire devient un test permanent**
@@ -71,11 +71,11 @@ conflit ou de rework.
 ### 4. Les idées venues de l'étude concurrentielle (#14) s'évaluent au cas par
    cas contre `BRIEF.md`
 
-Toute idée piochée chez un concurrent (roadbook, marqueurs de sprint,
-export TCX…) passe d'abord par la question « est-ce que ça sert la
-reconstruction automatique par pipeline, ou est-ce qu'on recopie une feature
-d'éditeur manuel qui n'a pas de raison d'être ici ? » avant d'entrer dans le
-backlog actif.
+Toute idée piochée chez un concurrent passe d'abord par la question « est-ce
+que ça sert la reconstruction automatique par pipeline, ou est-ce qu'on
+recopie une feature d'éditeur manuel qui n'a pas de raison d'être ici ? »
+avant d'entrer dans le backlog actif — roadbook, marqueurs de sprint et
+export TCX en sont des exemples déjà passés par ce filtre et livrés.
 
 ### 5. L'infra self-hosted (section E) attend un besoin exprimé, pas une
    anticipation
