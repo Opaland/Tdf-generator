@@ -58,7 +58,26 @@ function hashToken(token) {
   return crypto.createHash('sha256').update(token).digest('hex');
 }
 
+// Trouvaille de revue-personas (27/08/2026, développeur performance/backend-
+// données) : une session expirée n'était supprimée que si son token exact
+// était re-présenté à verifySession() ci-dessous — une session jamais
+// re-présentée (cookie effacé, changement d'appareil) restait en base
+// indéfiniment. Même motif de croissance non bornée que la Map `attempts`
+// du rate-limiter plus bas (purgeStaleAttempts()), purgé ici au même genre
+// de moment naturel — chaque nouvelle connexion — plutôt que d'ajouter une
+// dépendance dédiée (cron/setInterval) pour un besoin de maintenance mineur.
+// `expires_at` est toujours écrit via toISOString() (jamais le
+// datetime('now') par défaut de SQLite, réservé à created_at) : comparer à
+// un autre toISOString() ici reste une comparaison ISO-avec-ISO, pas le
+// piège de format de CLAUDE.md règle 3 (deux couches avec deux formats
+// différents) — vérifié en relisant le schéma (backend/db.js) avant d'écrire
+// cette requête.
+function purgeExpiredSessions() {
+  return getDb().prepare('DELETE FROM sessions WHERE expires_at < ?').run(new Date().toISOString()).changes;
+}
+
 function createSession(userId) {
+  purgeExpiredSessions();
   const token = crypto.randomBytes(32).toString('hex');
   const expiresAt = new Date(Date.now() + SESSION_TTL_MS).toISOString();
   getDb().prepare('INSERT INTO sessions (id, user_id, expires_at) VALUES (?, ?, ?)').run(hashToken(token), userId, expiresAt);
@@ -204,6 +223,7 @@ module.exports = {
   verifyPassword,
   createSession,
   verifySession,
+  purgeExpiredSessions,
   purgeStaleAttempts,
   attempts,
   RATE_WINDOW_MS,
