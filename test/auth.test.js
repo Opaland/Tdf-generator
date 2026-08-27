@@ -16,7 +16,7 @@ process.env.ETAPEFORGE_PUBLIC = '1';
 
 const { test, before, after } = require('node:test');
 const assert = require('node:assert');
-const { purgeStaleAttempts, attempts, RATE_WINDOW_MS } = require('../backend/auth');
+const { purgeStaleAttempts, attempts, RATE_WINDOW_MS, purgeExpiredSessions } = require('../backend/auth');
 
 let appServer;
 let base;
@@ -176,4 +176,53 @@ test('le limiteur purge réellement la Map de module lors d\'un vrai appel à /a
   });
   assert.strictEqual(attempts.has('203.0.113.9'), false, 'IP hors fenêtre purgée par le vrai appel HTTP');
   assert.strictEqual(attempts.has('203.0.113.10'), true, 'IP encore active non purgée');
+});
+
+// Trouvaille de revue-personas (27/08/2026, développeur performance/backend-
+// données) : même motif que purgeStaleAttempts() ci-dessus, mais sur la
+// table sessions — une session expirée n'était supprimée que si son token
+// exact était re-présenté à verifySession(), jamais si le cookie avait
+// simplement été effacé ou l'appareil changé.
+test('purgeExpiredSessions() : supprime les sessions expirées, garde les valides', async () => {
+  const { getDb } = require('../backend/db');
+  const db = getDb();
+  const reg = await (await fetch(`${base}/api/auth/register`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: 'purge-sessions@example.com', password: 'un-mot-de-passe-suffisant' }),
+  })).json();
+  const userId = db.prepare('SELECT id FROM users WHERE email = ?').get('purge-sessions@example.com').id;
+  assert.ok(userId, 'précondition : utilisateur bien créé');
+  void reg;
+
+  const past = new Date(Date.now() - 1000).toISOString();
+  const future = new Date(Date.now() + 60000).toISOString();
+  db.prepare("INSERT INTO sessions (id, user_id, expires_at) VALUES ('expired-token-hash', ?, ?)").run(userId, past);
+  db.prepare("INSERT INTO sessions (id, user_id, expires_at) VALUES ('valid-token-hash', ?, ?)").run(userId, future);
+
+  const deleted = purgeExpiredSessions();
+  assert.ok(deleted >= 1, 'au moins la session expirée insérée ci-dessus doit être supprimée');
+  assert.strictEqual(db.prepare("SELECT 1 FROM sessions WHERE id = 'expired-token-hash'").get(), undefined);
+  assert.ok(db.prepare("SELECT 1 FROM sessions WHERE id = 'valid-token-hash'").get(), 'la session encore valide ne doit pas être supprimée');
+});
+
+test('createSession() purge réellement les sessions expirées lors d\'une vraie connexion', async () => {
+  const { getDb } = require('../backend/db');
+  const db = getDb();
+  await fetch(`${base}/api/auth/register`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: 'purge-on-login@example.com', password: 'un-mot-de-passe-suffisant' }),
+  });
+  const userId = db.prepare('SELECT id FROM users WHERE email = ?').get('purge-on-login@example.com').id;
+  const past = new Date(Date.now() - 1000).toISOString();
+  db.prepare("INSERT INTO sessions (id, user_id, expires_at) VALUES ('stale-from-old-cookie', ?, ?)").run(userId, past);
+
+  await fetch(`${base}/api/auth/login`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: 'purge-on-login@example.com', password: 'un-mot-de-passe-suffisant' }),
+  });
+  assert.strictEqual(
+    db.prepare("SELECT 1 FROM sessions WHERE id = 'stale-from-old-cookie'").get(),
+    undefined,
+    'une session expirée jamais re-présentée doit disparaître au prochain createSession(), pas rester en base indéfiniment'
+  );
 });
