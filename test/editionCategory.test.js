@@ -132,6 +132,22 @@ test('POST /api/editions/import : category omise → hommes par défaut, categor
   assert.match((await badRes.json()).error, /Catégorie invalide/);
 });
 
+// Trouvaille de revue-personas/monkey testing (27/08/2026) : le test direct
+// sur importEdition() ci-dessus (ligne 89) vérifiait déjà le rejet, mais
+// aucun test n'appelait la route HTTP pour ce même cas — elle renvoyait
+// 500 générique (avec console.error côté serveur, comme une vraie panne)
+// alors qu'une année/catégorie valide sans fixture locale en mode
+// hors-ligne est un cas attendu, pas un bug serveur.
+test('POST /api/editions/import : hors-ligne sans fixture locale -> 503 (pas 500)', async () => {
+  const res = await fetch(`${base}/api/editions/import`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ year: 2026, category: 'femmes' }),
+  });
+  assert.strictEqual(res.status, 503);
+  assert.match((await res.json()).error, /fixture locale/);
+});
+
 test('POST /api/editions (édition personnalisée) : category invalide → 400, category valide acceptée', async () => {
   const badRes = await fetch(`${base}/api/editions`, {
     method: 'POST',

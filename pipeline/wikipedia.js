@@ -188,10 +188,17 @@ async function fetchEditionHtml(year, category = 'hommes') {
   const fixture = path.join(FIXTURES_DIR, `wikipedia_${fixtureSuffix}`);
   if (isOffline()) {
     if (fs.existsSync(fixture)) return fs.readFileSync(fixture, 'utf8');
-    throw new Error(
+    // .status : consommé par wrap() (backend/server.js) pour renvoyer 503
+    // plutôt que 500 — cas attendu du mode hors-ligne (année/catégorie
+    // valides, simplement pas de fixture locale pour elles), pas une vraie
+    // panne serveur (trouvaille de revue-personas/monkey testing : ce cas
+    // déclenchait un console.error() comme s'il s'agissait d'un bug).
+    const err = new Error(
       `Mode hors-ligne : pas de fixture locale pour « ${pageTitle} ». ` +
         `Relancez avec accès réseau pour importer cette édition depuis Wikipédia.`
     );
+    err.status = 503;
+    throw err;
   }
   const { value } = await cached('api', 'wikipedia-en', { page: pageTitle.replace(/ /g, '_') }, async () => {
     const url = `https://en.wikipedia.org/api/rest_v1/page/html/${pageTitle.replace(/ /g, '_')}`;
