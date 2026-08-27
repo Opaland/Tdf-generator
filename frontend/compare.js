@@ -14,9 +14,33 @@ async function loadFull(id) {
   return cache[id];
 }
 
+// x() plus bas (dans overlaySVG) divise par maxLen (axe km) ou directement
+// par la portée de CHAQUE étape (axe pct, `d / len`) — l'invariant qui la
+// protège n'est donc pas « au moins 2 échantillons » (essayé d'abord) mais
+// « une portée de distance réellement non nulle » : avec 1 seul échantillon
+// (dist_m du seul point vaut 0) ou avec plusieurs échantillons de même
+// dist_m (points confondus — arrive réellement sur une trace importée dont
+// resamplePolyline(), pipeline/geo.js, produit une distance cumulée nulle
+// sur des coordonnées GPS dupliquées), la division produit un NaN
+// silencieux — jamais d'exception, juste un SVG visuellement cassé. Un
+// seuil sur samples.length ne couvre ni les points dupliqués ni l'axe pct
+// (trouvaille de relecture adverse sur une 1ère version de ce garde-fou,
+// CLAUDE.md règle 1 : corriger le vecteur trouvé sans fermer la classe).
+// Exportée pour que l'appelant DOM (update(), plus bas) partage exactement
+// le même prédicat plutôt que d'en garder une copie qui pourrait diverger.
+function hasComparableProfile(samples) {
+  return Array.isArray(samples) && samples.length > 0 && samples[samples.length - 1].dist_m > 0;
+}
+
+const emptyOverlaySVG = (fa, fb, W, H) =>
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Profils superposés de ${EF.esc(fa.stage.name)} et ${EF.esc(fb.stage.name)}"></svg>`;
+
 function overlaySVG(fa, fb, axis, alignStart) {
   const W = 1080;
   const H = 320;
+  if (!hasComparableProfile(fa.samples) || !hasComparableProfile(fb.samples)) {
+    return emptyOverlaySVG(fa, fb, W, H);
+  }
   const M = { l: 48, r: 24, t: 30, b: 34 };
   const rawA = decimate(fa.samples, 700);
   const rawB = decimate(fb.samples, 700);
@@ -130,7 +154,15 @@ async function update() {
   try {
     const [fa, fb] = await Promise.all([loadFull(a), loadFull(b)]);
     if (seq !== updateSeq) return; // une sélection plus récente a pris la main
-    if (!fa.samples.length || !fb.samples.length) {
+    // Même prédicat que la garde interne d'overlaySVG() (hasComparableProfile)
+    // — sinon une étape à distance dégénérée (1 échantillon, ou points GPS
+    // confondus) passe ce garde-fou DOM mais overlaySVG() renvoie un <svg>
+    // vide sans aucun message, laissant l'utilisateur face à un graphique
+    // silencieusement blanc (trouvaille de relecture adverse : la garde
+    // interne avait changé de seuil sans que cet appelant soit resynchronisé
+    // avec elle — CLAUDE.md règle 5, un helper transverse qui a toujours
+    // suffi jusqu'ici n'est pas une preuve qu'il suffira au prochain usage).
+    if (!hasComparableProfile(fa.samples) || !hasComparableProfile(fb.samples)) {
       box.innerHTML = '<p class="meta-line">Les deux étapes doivent être générées.</p>';
       return;
     }
@@ -169,4 +201,4 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 }
 
-if (typeof module !== 'undefined' && module.exports) module.exports = { overlaySVG, metricRows };
+if (typeof module !== 'undefined' && module.exports) module.exports = { overlaySVG, metricRows, hasComparableProfile };
