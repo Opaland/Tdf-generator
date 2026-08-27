@@ -107,7 +107,19 @@ async function monkeyOnPage(context, base, pageDef, actionsCount, rand) {
     findings.push({ kind: 'pageerror (exception non capturée)', page: pageDef.name, detail: String(err).slice(0, 300) });
   });
   page.on('response', (res) => {
-    if (res.status() >= 500) {
+    // 503 exclu, mais seulement sur /api/editions/import : c'est la seule
+    // route où le serveur l'utilise pour signaler volontairement une
+    // ressource indisponible dans le mode courant (import hors-ligne sans
+    // fixture locale, pipeline/wikipedia.js) — un cas attendu, pas une
+    // panne. page.on('response') capture TOUTE requête réseau de l'onglet,
+    // pas seulement les appels API — dont les tuiles de carte tierces
+    // (data.geopf.fr, tile.openstreetmap.org, frontend/common.js) chargées
+    // dès l'ouverture d'editor.html/tour.html : un blanket-exclude sur tout
+    // 503 aurait aussi masqué une vraie panne de ces fournisseurs. Trouvaille
+    // de relecture adverse (27/08/2026) sur une première version de cette
+    // exclusion, trop large. Tout autre 5xx (et tout 503 d'ailleurs) reste
+    // une vraie panne à signaler.
+    if (res.status() >= 500 && !(res.status() === 503 && res.url().includes('/api/editions/import'))) {
       findings.push({ kind: `HTTP ${res.status()}`, page: pageDef.name, detail: res.url() });
     }
   });
