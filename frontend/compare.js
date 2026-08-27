@@ -76,7 +76,7 @@ function overlaySVG(fa, fb, axis, alignStart) {
       })
       .join('');
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}">
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Profils superposés de ${EF.esc(fa.stage.name)} et ${EF.esc(fb.stage.name)}">
     <rect width="${W}" height="${H}" fill="#faf6ec"/>
     ${grid}
     <path d="${area(pa, lenA)}" fill="${COLOR_A}" fill-opacity="0.18"/>

@@ -21,6 +21,21 @@ function fullOf(samples) {
   };
 }
 
+// Trouvaille de revue-personas (27/08/2026, personas développeur/
+// développeur accessibilité) : l'unique <svg> de overlaySVG() n'avait ni
+// role="img" ni aria-label, contrairement aux 3 fonctions génératrices SVG
+// de frontend/profile.js qui posent systématiquement les deux — un lecteur
+// d'écran n'avait aucune description du graphique de comparaison.
+test('overlaySVG() : role="img" et aria-label décrivant les deux étapes comparées', () => {
+  const fa = fullOf([200, 400, 300]);
+  fa.stage.name = 'Étape A';
+  const fb = fullOf([800, 900, 850]);
+  fb.stage.name = 'Étape B';
+  const svg = overlaySVG(fa, fb, 'km', false);
+  assert.match(svg, /<svg[^>]*\brole="img"/);
+  assert.match(svg, /<svg[^>]*\baria-label="[^"]*Étape A[^"]*Étape B[^"]*"/, 'aria-label doit mentionner les deux étapes comparées');
+});
+
 test('overlaySVG sans align-start : grille en altitude brute (eMin = plancher du minimum réel, ici 200 m)', () => {
   const fa = fullOf([200, 400, 300]);
   const fb = fullOf([800, 900, 850]);
