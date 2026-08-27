@@ -93,13 +93,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   for (const id of ['f-cat', 'f-edition', 'f-search']) {
     document.getElementById(id).addEventListener('input', render);
   }
-  document.querySelectorAll('#cols-table th').forEach((th) =>
-    th.addEventListener('click', () => {
-      const k = th.dataset.k;
-      if (sort.k === k) sort.asc = !sort.asc;
-      else sort = { k, asc: k === 'name' || k === 'stage_name' || k === 'edition_name' };
+  EF.sortableHeaders(
+    '#cols-table th',
+    () => sort,
+    (prev, k) => (prev.k === k ? { k, asc: !prev.asc } : { k, asc: k === 'name' || k === 'stage_name' || k === 'edition_name' }),
+    (next) => {
+      sort = next;
       render();
-    })
+    }
   );
   render();
 });

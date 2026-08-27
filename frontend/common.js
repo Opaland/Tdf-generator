@@ -267,6 +267,44 @@ const EF = {
     };
   },
 
+  /**
+   * Câble le tri au clic ET au clavier (Entrée/Espace) sur les <th> d'un
+   * tableau, avec aria-sort tenu à jour — évite de dupliquer ce câblage
+   * dans chaque écran (frontend/cols.js, frontend/tourmap.js). Trouvaille
+   * de revue-personas (27/08/2026, persona développeur accessibilité) :
+   * les <th> cliquables n'avaient ni tabindex/role, ni aria-sort, rendant
+   * le tri impossible au clavier et invisible pour un lecteur d'écran.
+   * `nextSort(prevSort, key)` calcule le nouvel état à partir de l'ancien
+   * et de la colonne cliquée/activée. `onChange(sort)` reçoit le nouvel
+   * état (à l'appelant de le stocker et de re-rendre le tableau).
+   */
+  sortableHeaders(selector, getSort, nextSort, onChange) {
+    const ths = document.querySelectorAll(selector);
+    const refreshAria = () => {
+      const sort = getSort();
+      ths.forEach((th) => {
+        if (th.dataset.k === sort.k) th.setAttribute('aria-sort', sort.asc ? 'ascending' : 'descending');
+        else th.removeAttribute('aria-sort');
+      });
+    };
+    ths.forEach((th) => {
+      th.tabIndex = 0;
+      th.setAttribute('role', 'button');
+      const activate = () => {
+        onChange(nextSort(getSort(), th.dataset.k));
+        refreshAria();
+      };
+      th.addEventListener('click', activate);
+      th.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          activate();
+        }
+      });
+    });
+    refreshAria();
+  },
+
   downloadText(filename, text, mime) {
     const blob = new Blob([text], { type: mime || 'text/plain' });
     const a = document.createElement('a');

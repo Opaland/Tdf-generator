@@ -472,13 +472,15 @@ if (typeof document !== 'undefined') {
 document.addEventListener('DOMContentLoaded', async () => {
   await EF.initChrome('editeur');
   if (!stageId) { location.href = '/'; return; }
-  document.querySelectorAll('#kmtable th').forEach((th) =>
-    th.addEventListener('click', () => {
-      const k = th.dataset.k;
-      if (kmSortKey === k) kmSortAsc = !kmSortAsc;
-      else { kmSortKey = k; kmSortAsc = true; }
+  EF.sortableHeaders(
+    '#kmtable th',
+    () => ({ k: kmSortKey, asc: kmSortAsc }),
+    (prev, k) => (prev.k === k ? { k, asc: !prev.asc } : { k, asc: true }),
+    (next) => {
+      kmSortKey = next.k;
+      kmSortAsc = next.asc;
       renderKmTable();
-    })
+    }
   );
   document.getElementById('exp-csv').addEventListener('click', () => {
     const head = 'km;alt_fin_m;pente_moy_pct;pente_max_pct;d_plus_km_m;d_plus_cumule_m';
