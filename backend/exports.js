@@ -192,6 +192,17 @@ ${coursePoints}
 function stageToKml(full) {
   const { stage, samples, waypoints, climbs } = full;
   const coordTuple = (lat, lon, ele) => `${lon},${lat},${ele ?? 0}`;
+  // Sans <altitudeMode>, la valeur par défaut KML (clampToGround) IGNORE
+  // l'altitude de la coordonnée (référence OGC : « clampToGround —
+  // (default) Indicates to ignore an altitude specification ») — trouvaille
+  // de revue-personas : summit_ele_m/altitude_hint_m, soigneusement
+  // calculés, étaient donc silencieusement ignorés par tout lecteur KML
+  // conforme (Google Earth…), contrairement au <LineString> du tracé qui
+  // pose déjà absolute plus bas. N'émettre absolute que si une vraie
+  // altitude existe (jamais pour un waypoint sans altitude_hint_m — un
+  // point de passage sans cette info doit rester collé au sol, pas
+  // retomber au niveau de la mer par un 0 de repli).
+  const altitudeModeTag = (ele) => (Number.isFinite(ele) ? '<altitudeMode>absolute</altitudeMode>' : '');
 
   const climbPlacemarks = (climbs || [])
     .map((c) => {
@@ -200,7 +211,7 @@ function stageToKml(full) {
       return `    <Placemark>\n` +
         `      <name>${esc(c.name)} (cat. ${esc(c.category)})</name>\n` +
         `      <description>${esc(`${c.length_km} km à ${c.avg_gradient} % (max ${c.max_gradient} %), sommet ${c.summit_ele_m} m`)}</description>\n` +
-        `      <Point><coordinates>${coordTuple(best.lat, best.lon, c.summit_ele_m)}</coordinates></Point>\n` +
+        `      <Point>${altitudeModeTag(c.summit_ele_m)}<coordinates>${coordTuple(best.lat, best.lon, c.summit_ele_m)}</coordinates></Point>\n` +
         `    </Placemark>`;
     })
     .filter(Boolean)
@@ -213,7 +224,7 @@ function stageToKml(full) {
         `    <Placemark>\n` +
         `      <name>${esc(w.label)}</name>\n` +
         `      <description>${esc(w.kind)}</description>\n` +
-        `      <Point><coordinates>${coordTuple(w.lat, w.lon, w.altitude_hint_m)}</coordinates></Point>\n` +
+        `      <Point>${altitudeModeTag(w.altitude_hint_m)}<coordinates>${coordTuple(w.lat, w.lon, w.altitude_hint_m)}</coordinates></Point>\n` +
         `    </Placemark>`
     )
     .join('\n');

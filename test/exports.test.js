@@ -255,7 +255,13 @@ test('stageToKml : altitude manquante (undefined) -> "0" via ??, jamais "undefin
 test('stageToKml : trackCoords un tuple par sample, joints par un espace', () => {
   const full = makeFull();
   const kml = stageToKml(full);
-  const trackBlock = kml.match(/<altitudeMode>absolute<\/altitudeMode>\s*<coordinates>([^<]*)<\/coordinates>/)[1];
+  // Scopé au <LineString> du tracé (pas juste "le premier altitudeMode
+  // rencontré") : depuis que les Placemark/Point des côtes et waypoints
+  // portent eux aussi <altitudeMode>absolute</altitudeMode> quand une
+  // altitude est connue, une regex non scopée matcherait le waypoint
+  // "Départ" (un seul tuple) avant le <LineString> (trouvaille de
+  // relecture adverse sur le correctif altitudeMode).
+  const trackBlock = kml.match(/<LineString>\s*<altitudeMode>absolute<\/altitudeMode>\s*<coordinates>([^<]*)<\/coordinates>/)[1];
   const tuples = trackBlock.trim().split(' ');
   assert.strictEqual(tuples.length, 3, 'un tuple de coordonnées par sample');
   assert.strictEqual(tuples[0], '1.1,43.1,200');
@@ -265,6 +271,37 @@ test('stageToKml : entre deux échantillons EX ÆQUO en distance du sommet, gard
   const kml = stageToKml(makeFullDenseNearClimb());
   assert.match(kml, /<coordinates>1\.2,43\.2,900<\/coordinates>/, 'doit retenir le 1er échantillon à égalité (45070 m)');
   assert.doesNotMatch(kml, /<coordinates>1\.21,43\.21,900<\/coordinates>/, 'ne doit pas retenir le 2e échantillon à égalité (45170 m)');
+});
+
+// Trouvaille de revue-personas (27/08/2026, développeur backend-données) :
+// sans <altitudeMode>, la valeur par défaut KML (clampToGround) IGNORE
+// l'altitude d'une coordonnée (référence OGC : « clampToGround — (default)
+// Indicates to ignore an altitude specification ») — summit_ele_m/
+// altitude_hint_m, soigneusement calculés, étaient donc silencieusement
+// ignorés par tout lecteur KML conforme, contrairement au <LineString> du
+// tracé qui pose déjà absolute.
+test('stageToKml : Placemark d\'une côte -> <Point> porte <altitudeMode>absolute</altitudeMode> (sinon Google Earth ignore summit_ele_m)', () => {
+  const kml = stageToKml(makeFull());
+  assert.match(kml, /<Point><altitudeMode>absolute<\/altitudeMode><coordinates>1\.3,43\.3,900<\/coordinates><\/Point>/);
+});
+
+test('stageToKml : waypoint AVEC altitude_hint_m -> <Point> porte <altitudeMode>absolute</altitudeMode>', () => {
+  const full = makeFull({
+    waypoints: [{ label: 'Col connu', kind: 'col', lat: 43.2, lon: 1.2, altitude_hint_m: 1500 }],
+  });
+  const kml = stageToKml(full);
+  assert.match(kml, /<Point><altitudeMode>absolute<\/altitudeMode><coordinates>1\.2,43\.2,1500<\/coordinates><\/Point>/);
+});
+
+test('stageToKml : waypoint SANS altitude_hint_m -> pas d\'altitudeMode (reste clampToGround, un 0 de repli ne doit jamais être présenté comme une vraie altitude)', () => {
+  // climbs par défaut de makeFull() garde son propre <Point><altitudeMode>
+  // légitime (summit_ele_m réel) — la précondition ne porte donc que sur le
+  // Point de CE waypoint précis, pas sur le document entier.
+  const full = makeFull({
+    waypoints: [{ label: 'Sans altitude', kind: 'via', lat: 43.2, lon: 1.2, altitude_hint_m: undefined }],
+  });
+  const kml = stageToKml(full);
+  assert.match(kml, /<Point><coordinates>1\.2,43\.2,0<\/coordinates><\/Point>/, 'pas d\'altitudeMode devant ce Point précis, un 0 de repli ne doit jamais être présenté comme une vraie altitude');
 });
 
 test('stageToKml : description d\'une côte échappée (esc) même si elle contient des caractères réservés XML', () => {
