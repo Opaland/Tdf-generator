@@ -152,3 +152,55 @@ test('site (tour) : édition importée (source.notes réel) -> l\'encart <p clas
   assert.match(mainBlock, /<p class="note">/, 'une édition avec source.notes doit afficher l\'encart');
   assert.match(mainBlock, /Points de passage d.après les parcours décrits sur Wikipédia/, 'le texte des notes doit apparaître (non tronqué, non vidé)');
 });
+
+// Trouvaille de revue-personas (27/08/2026) : contrairement aux routes
+// export.json/gpx/tcx/kml (qui font res.status(404) directement dans
+// server.js), les routes HTML passées par backend/exports.js levaient une
+// simple Error sans `.status` — le helper `wrap()` de server.js la traitait
+// alors comme une vraie panne (500 générique), pas comme un id inexistant
+// (404). Même id inexistant, même route logique, deux codes de statut
+// différents selon le format demandé — motif CLAUDE.md règle 5.
+test('roadbook.html : étape inexistante -> 404 (pas 500)', async () => {
+  const res = await fetch(`${base}/api/stages/999999/roadbook.html`);
+  assert.strictEqual(res.status, 404);
+  assert.match((await res.json()).error, /introuvable/);
+});
+
+test('export.html (étape) : étape inexistante -> 404 (pas 500)', async () => {
+  const res = await fetch(`${base}/api/stages/999999/export.html`);
+  assert.strictEqual(res.status, 404);
+});
+
+test('site (étape) : étape inexistante -> 404 (pas 500)', async () => {
+  const res = await fetch(`${base}/api/stages/999999/site`);
+  assert.strictEqual(res.status, 404);
+});
+
+// Trouvaille de relecture adverse sur le correctif ci-dessus : les routes
+// /site posaient Content-Type: text/html AVANT d'appeler la fonction
+// pouvant lever — sur une erreur, le corps JSON de wrap() partait donc
+// annoncé comme HTML (Express ne réécrit Content-Type que s'il n'est pas
+// déjà posé). Préexistant, pas introduit par le correctif 404 lui-même,
+// mais même famille de bug (CLAUDE.md règle 1 : une couche corrigée n'est
+// pas forcément l'autre) — un client qui fait confiance à l'en-tête plutôt
+// qu'au contenu verrait une réponse annoncée HTML contenant du JSON brut.
+test('site (étape) : étape inexistante -> Content-Type reste application/json, pas text/html', async () => {
+  const res = await fetch(`${base}/api/stages/999999/site`);
+  assert.match(res.headers.get('content-type') || '', /application\/json/);
+});
+
+test('site (édition) : édition inexistante -> Content-Type reste application/json, pas text/html', async () => {
+  const res = await fetch(`${base}/api/editions/999999/site`);
+  assert.match(res.headers.get('content-type') || '', /application\/json/);
+});
+
+test('export.html (édition) : édition inexistante -> 404 (pas 500)', async () => {
+  const res = await fetch(`${base}/api/editions/999999/export.html`);
+  assert.strictEqual(res.status, 404);
+  assert.match((await res.json()).error, /introuvable/);
+});
+
+test('site (édition) : édition inexistante -> 404 (pas 500)', async () => {
+  const res = await fetch(`${base}/api/editions/999999/site`);
+  assert.strictEqual(res.status, 404);
+});

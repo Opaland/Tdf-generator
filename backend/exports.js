@@ -312,7 +312,11 @@ function nearestSampleDist(w, samples) {
  */
 function stageToRoadbookHtml(stageId) {
   const full = loadStageFull(stageId);
-  if (!full) throw new Error(`Étape ${stageId} introuvable`);
+  if (!full) {
+    const err = new Error(`Étape ${stageId} introuvable`);
+    err.status = 404;
+    throw err;
+  }
   const { stage, edition, waypoints, climbs, samples } = full;
 
   const points = waypoints
@@ -416,7 +420,11 @@ const ATTRIBUTIONS =
 function tourToStandaloneHtml(editionId) {
   const db = getDb();
   const edition = db.prepare('SELECT * FROM editions WHERE id = ?').get(editionId);
-  if (!edition) throw new Error(`Édition ${editionId} introuvable`);
+  if (!edition) {
+    const err = new Error(`Édition ${editionId} introuvable`);
+    err.status = 404;
+    throw err;
+  }
   const stageRows = db
     .prepare(`SELECT id FROM stages WHERE edition_id = ? ORDER BY stage_order, id`)
     .all(editionId);
@@ -527,7 +535,11 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 function stageToStandaloneHtml(stageId) {
   const full = loadStageFull(stageId);
-  if (!full) throw new Error(`Étape ${stageId} introuvable`);
+  if (!full) {
+    const err = new Error(`Étape ${stageId} introuvable`);
+    err.status = 404;
+    throw err;
+  }
   const payload = stagePayload(full, { maxSamples: 900, maxTrack: 1200 });
   const profileJs = fs.readFileSync(path.join(__dirname, '..', 'frontend', 'profile.js'), 'utf8');
   const title = full.stage.name;

@@ -713,8 +713,9 @@ app.get('/api/stages/:id/roadbook.html', wrap(async (req, res) => {
 
 // Prévisualisation de la fiche autonome (sans téléchargement).
 app.get('/api/stages/:id/site', wrap(async (req, res) => {
+  const html = stageToStandaloneHtml(parseInt(req.params.id, 10));
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  res.send(stageToStandaloneHtml(parseInt(req.params.id, 10)));
+  res.send(html);
 }));
 
 app.get('/api/editions/:id/export.html', wrap(async (req, res) => {
@@ -726,8 +727,9 @@ app.get('/api/editions/:id/export.html', wrap(async (req, res) => {
 
 // Prévisualisation du mini-site (sans téléchargement).
 app.get('/api/editions/:id/site', wrap(async (req, res) => {
+  const html = tourToStandaloneHtml(parseInt(req.params.id, 10));
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  res.send(tourToStandaloneHtml(parseInt(req.params.id, 10)));
+  res.send(html);
 }));
 
 // ------------------------------------------------- sauvegarde portable (export/import)
