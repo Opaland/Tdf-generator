@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS climbs (
   avg_gradient REAL, max_gradient REAL,
   irregularity_index REAL,     -- écart-type des pentes par bloc de 1 km (indice de "mur")
   km_blocks TEXT,              -- JSON : blocs de 1 km [{fromKm,toKm,gradient,ele0,ele1}]
-  name_source TEXT             -- waypoint | reverse-geocode
+  name_source TEXT             -- waypoint | reverse-geocode | defaut (aucun nom exploitable — échec réseau/API ou géocodage résolu sans label)
 );
 CREATE INDEX IF NOT EXISTS idx_climbs_stage ON climbs(stage_id);
 

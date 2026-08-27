@@ -202,9 +202,18 @@ test('nameClimbs : géocodage inverse en échec ou sans résultat → repli gén
   await nameClimbs(climbsFail, [], samples, async () => { throw new Error('réseau indisponible'); });
   assert.strictEqual(climbsFail[0].name, 'Côte du km 10');
   assert.strictEqual(climbsFail[0].rawLabel, undefined, 'un nom de repli générique ne doit pas fournir de rawLabel exploitable en aval');
+  assert.strictEqual(climbsFail[0].nameSource, 'defaut');
 
+  // Trouvaille de relecture adverse (27/08/2026) sur un correctif frontend
+  // qui distingue nameSource === 'reverse-geocode' (un vrai toponyme
+  // trouvé) de 'defaut' (repli générique, aucun nom disponible) : ce
+  // deuxième cas — la requête résout SANS exception mais sans label
+  // exploitable — posait encore 'reverse-geocode' avant ce correctif,
+  // comme si un vrai toponyme avait été trouvé alors que le nom produit
+  // est le même repli générique que l'échec réseau ci-dessus.
   const climbsEmpty = [{ endM: 10000 }];
   await nameClimbs(climbsEmpty, [], samples, async () => ({ label: null }));
   assert.strictEqual(climbsEmpty[0].name, 'Côte du km 10');
   assert.strictEqual(climbsEmpty[0].rawLabel, undefined);
+  assert.strictEqual(climbsEmpty[0].nameSource, 'defaut', 'un géocodage résolu sans label exploitable doit être traité comme le repli générique, pas comme un géocodage réussi');
 });
