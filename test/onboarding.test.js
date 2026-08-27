@@ -58,6 +58,24 @@ test('les 4 fonctionnalités mises en avant par le backlog sont bien représent�
   );
 });
 
+// Trouvaille de revue-personas (27/08/2026, persona product manager
+// onboarding) : l'étape "Fiche côte par côte" (href /cols.html) promettait
+// un "score de pénibilité façon VeloViewer" — ce score réel (pipeline/
+// pain.js, même formulation dans son en-tête) est affiché sur stage.html,
+// pas cols.html, qui n'a qu'un score longueur×pente approximation ASO
+// (frontend/cols.html:35,40). Les tests précédents ne vérifiaient que
+// l'existence du fichier cible (href), jamais que le texte décrit
+// vraiment ce qui s'y trouve — ce test croise le contenu réel de la page.
+test('l\'étape "Fiche côte par côte" décrit fidèlement ce que montre cols.html (pas le score de pipeline/pain.js, absent de cette page)', () => {
+  const steps = loadTourSteps();
+  const colsStep = steps.find((s) => s.href === '/cols.html');
+  assert.ok(colsStep, 'aucune étape ne pointe vers /cols.html');
+  assert.doesNotMatch(colsStep.body, /pénibilité|VeloViewer/i, 'ce score vit sur stage.html, pas cols.html');
+
+  const colsHtml = fs.readFileSync(path.join(FRONTEND_DIR, 'cols.html'), 'utf8');
+  assert.match(colsHtml, /longueur.*pente/i, 'précondition : cols.html doit bien décrire un score longueur×pente pour que ce test ait un sens');
+});
+
 test('index.html référence bien onboarding.js et un bouton #btn-tour', () => {
   const html = fs.readFileSync(path.join(FRONTEND_DIR, 'index.html'), 'utf8');
   assert.match(html, /<script src="\/onboarding\.js"><\/script>/);
