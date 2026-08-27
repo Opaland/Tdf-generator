@@ -126,6 +126,61 @@ test('buildProfile : la même donnée mais avec {z: null} (forme objet Géoplate
   assert.strictEqual(profile.samples[10].eleRaw, null);
 });
 
+// Trouvaille en générant en masse des étapes réelles avec un vrai accès
+// réseau (26/08/2026) : le Géoplateforme ne renvoie pas toujours `null`
+// pour un point hors couverture RGE ALTI. Deux formes observées en direct :
+//   1. Franchement hors couverture (mer ouverte) : nombre littéral -99999
+//      pile (vérifié sur un point en Manche, 49.5°N, -2.0°E).
+//   2. À la LIMITE de la couverture (littoral, ex. Le Havre → Cherbourg le
+//      long de la Manche) : une valeur INTERPOLÉE entre une case valide et
+//      une case -99999 voisine — des fractions comme -74017.5 ou -56315.9,
+//      jamais -99999 pile. Un premier correctif qui ne testait que
+//      l'égalité stricte à -99999 manquait cette zone de transition.
+// Un garde-fou sur une plage plausible (plausibleEle(), -500 m à 6000 m)
+// couvre les deux cas sans dépendre de la valeur exacte du sentinel.
+// Impact observé sur des étapes réelles : jusqu'à +100 000 m, voire
+// +304 000 m de D+ fantôme sur une seule étape (285 km).
+test('buildProfile : -99999 (sentinel numérique Géoplateforme hors couverture) traité comme un trou, pas une vraie altitude', async () => {
+  mockElevations = Array.from({ length: N_POINTS }, (_, i) => 200 + i * 5);
+  mockElevations[10] = -99999;
+  const profile = await buildProfile(makeTrack());
+  assert.strictEqual(profile.samples[10].eleRaw, null, 'le sentinel -99999 ne doit jamais devenir une eleRaw valide');
+  assert.strictEqual(profile.samples[9].eleRaw, 245, 'les voisins ne doivent pas être affectés');
+});
+
+test('buildProfile : -99999 sous la forme objet {z: -99999} traité de la même façon', async () => {
+  mockElevations = Array.from({ length: N_POINTS }, (_, i) => 200 + i * 5);
+  mockElevations[10] = { z: -99999 };
+  const profile = await buildProfile(makeTrack());
+  assert.strictEqual(profile.samples[10].eleRaw, null);
+});
+
+test('buildProfile : valeur interpolée fractionnaire hors plage plausible (frontière de couverture, pas -99999 pile) traitée comme un trou', async () => {
+  mockElevations = Array.from({ length: N_POINTS }, (_, i) => 200 + i * 5);
+  mockElevations[10] = -74017.5; // observé en direct, Le Havre → Cherbourg, 26/08/2026
+  const profile = await buildProfile(makeTrack());
+  assert.strictEqual(profile.samples[10].eleRaw, null, 'une valeur hors plage plausible ne doit jamais passer, même sans égaler -99999 pile');
+});
+
+test('buildProfile : une vraie altitude basse mais plausible (ex. -10 m, Camargue) n\'est jamais traitée comme un trou', async () => {
+  mockElevations = Array.from({ length: N_POINTS }, (_, i) => 200 + i * 5);
+  mockElevations[10] = -10;
+  const profile = await buildProfile(makeTrack());
+  assert.strictEqual(profile.samples[10].eleRaw, -10, 'une vraie altitude sous le niveau de la mer reste valide, la plage plausible ne doit pas la rejeter à tort');
+});
+
+test('buildProfile : totalAscentM avec un sentinel -99999 reste proche de la montée réelle (pas des dizaines de milliers de mètres en trop)', async () => {
+  mockElevations = Array.from({ length: N_POINTS }, (_, i) => 800 + i * 5); // 800 -> 900 m, montée réelle ~100 m
+  mockElevations[10] = -99999;
+  const withSentinel = await buildProfile(makeTrack());
+  mockElevations = Array.from({ length: N_POINTS }, (_, i) => 800 + i * 5); // même profil, sans sentinel
+  const withoutSentinel = await buildProfile(makeTrack());
+  assert.ok(
+    Math.abs(withSentinel.totalAscentM - withoutSentinel.totalAscentM) <= 5,
+    `D+ avec sentinel (${withSentinel.totalAscentM} m) doit rester proche du D+ sans sentinel (${withoutSentinel.totalAscentM} m), pas +100 000 m`
+  );
+});
+
 test('buildProfile : eleSmooth reste fini et cohérent au niveau du trou (pas de creux artificiel vers 0 m)', async () => {
   mockElevations = Array.from({ length: N_POINTS }, (_, i) => 800 + i * 5); // montée régulière ~800-900 m
   mockElevations[10] = null;
