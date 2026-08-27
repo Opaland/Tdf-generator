@@ -146,8 +146,53 @@ function renderStatTiles(data) {
     .join('');
 }
 
+// Trouvaille de revue-personas (27/08/2026, persona utilisateur peu
+// technophile) : "▶ Animation étape par étape" et "Mini-site HTML autonome"
+// s'affichaient comme des contrôles pleinement actifs (mêmes styles, pas
+// de disabled/aria-disabled) alors qu'ils étaient des no-op silencieux
+// tant qu'aucune édition n'était chargée (animate() : `if (!TOURDATA)
+// return`, exp-site : <a> sans href tant que loadEdition() n'a pas tourné).
+//
+// Trois tours de relecture adverse sur ce correctif, chacun a trouvé une
+// trouvaille réelle :
+//
+// 1. Activer #btn-anim inconditionnellement dès que TOURDATA est
+//    disponible réactivait le bouton natif PENDANT qu'une animation était
+//    déjà en cours — avant ce chantier, `btn.disabled` restait vrai
+//    jusqu'à la fin de l'animation, empêchant structurellement un second
+//    animate() concurrent déclenché par un clic. `animating` empêche
+//    désormais toute réactivation par enableAnimButton() tant qu'une
+//    animation tourne.
+// 2. Retirer aria-disabled/title de #exp-site avant que son href ne soit
+//    effectivement posé réintroduisait le bug d'origine si le rendu
+//    (drawTour/buildStatRows/etc.) levait une exception entre les deux.
+//    Déplacé pour n'activer #exp-site qu'au moment exact où son href est
+//    réellement assigné, dans chacune des deux branches.
+// 3. animate() n'avait pas de garde de réentrance (rien n'empêchait un
+//    second appel direct, hors clic) ni de `finally` — une exception en
+//    cours de boucle (donnée corrompue) bloquait `animating`/le bouton
+//    à `true` pour toujours, y compris après un rechargement d'édition
+//    réussi. Et rien n'empêchait de changer d'édition via #sel-edition
+//    PENDANT l'animation, qui relit TOURDATA (variable de module) à
+//    chaque itération — un changement en cours de route faisait dessiner
+//    la boucle de l'ancienne édition sur les données de la nouvelle.
+//    Fermé par un garde de réentrance explicite, un try/finally, et la
+//    désactivation de #sel-edition pendant l'animation.
+let animating = false;
+
+function enableAnimButton() {
+  if (!animating) document.getElementById('btn-anim').disabled = false;
+}
+
+function enableSiteLink() {
+  const site = document.getElementById('exp-site');
+  site.removeAttribute('aria-disabled');
+  site.removeAttribute('title');
+}
+
 async function loadEdition(id) {
   TOURDATA = await EF.api(`/api/editions/${id}/mapdata`);
+  enableAnimButton();
   drawTour(TOURDATA);
   buildStatRows(TOURDATA);
   renderStatTiles(TOURDATA);
@@ -157,11 +202,12 @@ async function loadEdition(id) {
     const el = document.getElementById('exp-site');
     try {
       const links = await (await fetch('data/sitelinks.json')).json();
-      if (links[id]) { el.href = links[id]; el.style.display = ''; }
+      if (links[id]) { el.href = links[id]; el.style.display = ''; enableSiteLink(); }
       else el.style.display = 'none';
     } catch { el.style.display = 'none'; }
   } else {
     document.getElementById('exp-site').href = `/api/editions/${id}/site`;
+    enableSiteLink();
   }
   const note = document.getElementById('tour-note');
   const src = TOURDATA.edition.source;
@@ -169,17 +215,29 @@ async function loadEdition(id) {
 }
 
 async function animate() {
-  if (!TOURDATA) return;
+  if (!TOURDATA || animating) return;
   const btn = document.getElementById('btn-anim');
+  const sel = document.getElementById('sel-edition');
+  animating = true;
   btn.disabled = true;
-  const n = TOURDATA.stages.length;
-  const all = TOURDATA.stages.flatMap((st) => (st.track ? st.track.coords.map((c) => [c[1], c[0]]) : []));
-  if (all.length) map.fitBounds(all, { padding: [30, 30] });
-  for (let i = 0; i < n; i++) {
-    drawTour(TOURDATA, i);
-    await new Promise((r) => setTimeout(r, 900));
+  sel.disabled = true; // empêche un changement d'édition de réassigner TOURDATA en cours de boucle
+  try {
+    const n = TOURDATA.stages.length;
+    const all = TOURDATA.stages.flatMap((st) => (st.track ? st.track.coords.map((c) => [c[1], c[0]]) : []));
+    if (all.length) map.fitBounds(all, { padding: [30, 30] });
+    for (let i = 0; i < n; i++) {
+      drawTour(TOURDATA, i);
+      await new Promise((r) => setTimeout(r, 900));
+    }
+  } finally {
+    // Toujours relâcher les deux contrôles, même si le rendu d'une frame a
+    // levé une exception en cours de boucle — sinon animating reste bloqué
+    // à true pour toujours et enableAnimButton() ne réactive plus jamais
+    // le bouton, y compris après un rechargement d'édition réussi.
+    animating = false;
+    btn.disabled = false;
+    sel.disabled = false;
   }
-  btn.disabled = false;
 }
 
 document.addEventListener('DOMContentLoaded', async () => {

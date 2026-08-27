@@ -125,6 +125,19 @@ button:hover, a.btn:hover { background: #333; }
 button.secondary, a.btn.secondary { background: #eee; color: #333; border: 1px solid #ccc; }
 button.danger { background: var(--fail); color: #fff; }
 button:disabled { opacity: 0.5; cursor: default; }
+/* select:disabled : sans cette règle, frontend/tourmap.js désactivant
+   #sel-edition pendant une animation retombait sur le rendu natif du
+   navigateur — visuellement incohérent avec button:disabled (opacity 0.5
+   explicite) juste au-dessus, alors que les deux contrôles sont désactivés
+   ensemble, au même instant (trouvaille de relecture adverse, 27/08/2026). */
+select:disabled { opacity: 0.5; cursor: default; }
+/* a.btn[aria-disabled] : un <a> sans href n'est déjà pas navigable, mais
+   restait visuellement identique à un bouton actif (trouvaille de
+   revue-personas, 27/08/2026 — persona utilisateur peu technophile,
+   frontend/tourmap.js "Mini-site HTML autonome" avant sélection d'édition)
+   — clic sans effet, sans rien pour expliquer pourquoi. pointer-events
+   redondant avec l'absence de href mais documente l'intention. */
+a.btn[aria-disabled="true"] { opacity: 0.5; cursor: default; pointer-events: none; }
 .wp-list { list-style: none; margin: 0; padding: 0; }
 .wp-list li {
   display: flex; gap: 8px; align-items: center; padding: 6px 0;
