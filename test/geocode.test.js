@@ -57,7 +57,7 @@ test('une commune bat un homonyme mieux classé (département, rue…)', () => {
   assert.strictEqual(pickFeature(feats, 'Vienne').type, 'municipality');
 });
 
-test('pour un col, on garde le classement du géocodeur (index POI)', () => {
+test('pour un col SANS near, on garde le classement du géocodeur (index POI)', () => {
   const feats = [
     { label: 'Col du Soulor', type: undefined, score: 0.9 },
     { label: 'Arbéost (65560)', type: 'municipality', score: 0.7 },
@@ -65,10 +65,71 @@ test('pour un col, on garde le classement du géocodeur (index POI)', () => {
   assert.strictEqual(pickFeature(feats, 'Col du Soulor').label, 'Col du Soulor');
 });
 
+// Choix délibéré (relecture adverse, 26/08/2026) : AVEC near, la distance
+// réelle prime aussi pour un col — même mécanisme que « Butte Montmartre »
+// ci-dessous, observé en direct sur de vrais cols cette session (« Col du
+// Télégraphe », « Col de Toses » résolus à des centaines de km du bon
+// massif). pipeline/generate.js passe systématiquement near: prevPos pour
+// TOUS les waypoints, y compris kind: 'col' — cette combinaison doit être
+// testée explicitement, pas seulement supposée fonctionner par ricochet.
+test('pour un col AVEC near, la distance réelle prime sur le classement du géocodeur', () => {
+  const nearArbeost = { lat: 42.98, lon: -0.34 }; // waypoint précédent, juste à côté d'Arbéost
+  const feats = [
+    { label: 'Col du Soulor (homonyme lointain)', type: undefined, score: 0.9, lat: 45.5, lon: 3.0 },
+    { label: 'Arbéost (65560)', type: 'municipality', score: 0.7, lat: 42.981, lon: -0.339 },
+  ];
+  assert.strictEqual(pickFeature(feats, 'Col du Soulor', nearArbeost).label, 'Arbéost (65560)');
+});
+
+// Relecture adverse, 26/08/2026 : haversine(near, f) avec f.lat/f.lon non
+// finis vaut NaN, et toute comparaison impliquant NaN est fausse — sans ce
+// garde, feats.reduce() garderait systématiquement feats[0] s'il est
+// malformé, quels que soient les candidats valides suivants (jamais
+// rencontré sur l'API Géoplateforme en pratique, mais un garde-fou peu
+// coûteux contre une réponse dégradée).
+test('near : un candidat sans coordonnées exploitables ne l\'emporte jamais sur un candidat valide', () => {
+  const near = { lat: 45.0, lon: 5.0 };
+  const feats = [
+    { label: 'malformé (pas de coordonnées)', score: 0.99 },
+    { label: 'valide mais loin', lat: 50, lon: 10 },
+    { label: 'valide et proche (bonne réponse)', lat: 45.01, lon: 5.01 },
+  ];
+  assert.strictEqual(pickFeature(feats, 'X', near).label, 'valide et proche (bonne réponse)');
+});
+
 test('sans commune candidate, le premier résultat est conservé', () => {
   const feats = [{ label: 'Lieu-dit X', type: 'locality', score: 0.5 }];
   assert.strictEqual(pickFeature(feats, 'X').label, 'Lieu-dit X');
   assert.strictEqual(pickFeature([], 'X'), null);
+});
+
+// Trouvaille en générant en masse avec un vrai accès réseau (26/08/2026) :
+// géocoder "Butte Montmartre" biaisé près de Mantes-la-Ville (near envoyé à
+// l'API en lat/lon) renvoyait la vraie colline parisienne en DERNIÈRE
+// position — candidats et scores reproduits ici tels qu'observés en direct
+// sur https://data.geopf.fr/geocodage/search. Résultat concret sans ce
+// correctif : une étape Mantes-la-Ville → Paris reconstituée à 1580 km via
+// un aller-retour fantôme vers Marseille.
+test('near départage par distance réelle, pas par le score texte de l\'API (homonymie « Butte Montmartre »)', () => {
+  const nearMantesLaVille = { lat: 49.0, lon: 1.7 };
+  const feats = [
+    { label: 'Traverse butte montmartre 13015 Marseille', score: 0.636, lat: 43.372178, lon: 5.342956 },
+    { label: 'Route de la Butte Montmartre 49390 Vernantes', score: 0.621, lat: 47.409756, lon: 0.061404 },
+    { label: 'la Butte Montmartre 44460 Fégréac', score: 0.614, lat: 47.590035, lon: -1.998083 },
+    { label: 'Place de la Butte Montmartre 77750 Saint-Cyr-sur-Morin', score: 0.613, lat: 48.906768, lon: 3.183067 },
+    { label: undefined, score: 0.575, lat: 48.887019, lon: 2.341472 }, // la vraie Montmartre, sans label (POI sans adresse)
+  ];
+  const picked = pickFeature(feats, 'Butte Montmartre', nearMantesLaVille);
+  assert.strictEqual(picked.lat, 48.887019, 'doit choisir le point le plus proche de near, pas le score texte le plus haut');
+  assert.strictEqual(picked.lon, 2.341472);
+});
+
+test('sans near, le comportement existant (commune > score) reste inchangé', () => {
+  const feats = [
+    { label: 'Vienne (département)', type: 'department', score: 0.95 },
+    { label: 'Vienne (38200)', type: 'municipality', score: 0.9 },
+  ];
+  assert.strictEqual(pickFeature(feats, 'Vienne', null).type, 'municipality', 'near=null ne doit rien changer au comportement déjà testé');
 });
 
 test('isColQuery reconnaît les libellés de sommets', () => {

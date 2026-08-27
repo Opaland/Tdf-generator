@@ -6,6 +6,7 @@
 const { httpJson, isOffline } = require('./http');
 const { cached } = require('./cache');
 const { simGeocode, simReverseGeocode, simElevation } = require('./simulator');
+const { haversine } = require('./geo');
 
 const FRANCE_BBOX = { latMin: 41.0, latMax: 51.5, lonMin: -5.5, lonMax: 10.0 };
 
@@ -24,9 +25,49 @@ function isColQuery(q) {
  * Choisit le meilleur résultat de géocodage : pour une ville/lieu de passage,
  * une commune bat une rue ou un département homonyme (« Vienne » ne doit pas
  * résoudre sur le département de la Vienne quand on trace Lyon → Marseille).
+ *
+ * `near`, quand fourni, décide seul par distance réelle plutôt que par le
+ * classement de l'API — trouvaille en générant en masse avec un vrai accès
+ * réseau (26/08/2026) : géocoder « Butte Montmartre » biaisé près de
+ * Mantes-la-Ville (lat/lon envoyés à l'API) renvoyait la vraie colline
+ * parisienne en DERNIÈRE position (score texte le plus faible), classée
+ * derrière trois rues homonymes sans rapport — dont une à Marseille,
+ * à 700 km — parce que le paramètre lat/lon de la Géoplateforme n'est
+ * qu'une préférence pour son propre classement, jamais un filtre garanti.
+ * Résultat concret avant ce correctif : une étape à 1580 km reconstituée
+ * pour un aller-retour Paris-Marseille inexistant sur le vrai parcours.
+ *
+ * Choix délibéré (relecture adverse, 26/08/2026) : `near`, quand fourni,
+ * prime aussi sur la règle « pour un col, on garde le classement POI »
+ * ci-dessous — les mêmes homonymies lointaines existent pour les cols
+ * (« Col du Télégraphe », « Col de Toses » résolus à des centaines de km
+ * du bon massif dans des étapes réelles générées cette session) et le
+ * proche du waypoint précédent reste le signal le plus fiable, même pour
+ * un sommet. Testé explicitement (contrairement à avant ce correctif, où
+ * cette interaction n'était exercée par aucun test alors que
+ * pipeline/generate.js l'exerce systématiquement en production).
+ *
+ * Limite connue, non corrigeable par ce même mécanisme : le tout premier
+ * waypoint d'une étape (kind: 'start') n'a jamais de `near` — aucun
+ * waypoint précédent pour l'ancrer — donc reste exposé à une homonymie
+ * lointaine sur le point de départ, exactement le type de requête le plus
+ * exposé (une ville, cherchée sans aucun contexte géographique).
  */
-function pickFeature(feats, query) {
+function pickFeature(feats, query, near) {
   if (!feats.length) return null;
+  if (near) {
+    // Ignore les candidats sans coordonnées exploitables : une comparaison
+    // haversine impliquant NaN est toujours fausse, donc feats.reduce()
+    // sans ce filtre garderait le tout premier candidat malformé quels que
+    // soient les suivants, même valides et proches (relecture adverse,
+    // 26/08/2026) — jamais rencontré en pratique sur l'API Géoplateforme
+    // (coordinates toujours deux nombres finis dans les réponses observées),
+    // mais un garde-fou peu coûteux contre une réponse dégradée.
+    const withCoords = feats.filter((f) => Number.isFinite(f.lat) && Number.isFinite(f.lon));
+    if (withCoords.length) {
+      return withCoords.reduce((best, f) => (haversine(near, f) < haversine(near, best) ? f : best));
+    }
+  }
   if (!isColQuery(query)) {
     const commune = feats.find((f) => f.type === 'municipality' || f.type === 'city');
     if (commune) return commune;
@@ -59,7 +100,7 @@ async function geocode(query, { countryHint = 'fr', near = null, summit = false 
         score: f.properties.score,
         provider: 'geopf',
       }));
-      return pickFeature(feats, query);
+      return pickFeature(feats, query, near);
     };
     // Un sommet déclaré (waypoint « col ») se cherche d'abord dans l'index POI
     // seul : « Hautacam » n'a aucun mot-clé de col et sinon une adresse
