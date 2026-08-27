@@ -404,6 +404,21 @@ et mise en garde sur ce que ça mesure (calcul + SQLite, pas la latence des
 APIs réelles) dans **[`docs/PERF-PIPELINE.md`](./docs/PERF-PIPELINE.md)**.
 Comme le monkey testing et les tests de mutation, exploratoire et hors CI.
 
+## Parité réel vs simulateur (`npm run parity`)
+
+```bash
+npm run parity   # nécessite un accès réseau réel
+```
+
+Génère la **même** étape (Pau → Lourdes → Col du Soulor → Argelès-Gazost →
+Hautacam) une fois avec le simulateur hors-ligne, une fois avec les vraies
+APIs (Géoplateforme, OSRM, opentopodata), et diffuse les écarts — distance,
+D+, côtes détectées. Pas un test pass/fail : le simulateur est un profil
+synthétique documenté comme tel, aucune égalité exacte n'est attendue —
+l'objectif est de mesurer l'ampleur réelle de l'écart plutôt que de la
+supposer. Comme le monkey testing et les tests de mutation, exploratoire et
+hors CI (sa moitié « en ligne » n'a pas de repli hors-ligne).
+
 ## Roadmap / contribuer
 
 Ce README décrit ce qui existe. Pour ce qui est envisagé mais pas encore fait,
