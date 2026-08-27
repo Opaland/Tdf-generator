@@ -79,7 +79,32 @@ function parseCourse(text) {
   // « Paris to Lyon », « Paris – Lyon », « Paris > Lyon »
   const m = String(text).match(/^(.*?)\s+(?:to|à|a|>|–|—|-)\s+(.*)$/i);
   if (!m) return null;
-  const clean = (s) => s.replace(/\s*\([^)]*\)\s*/g, ' ').replace(/\s+/g, ' ').trim();
+  // Trouvaille en générant en masse avec un vrai accès réseau (27/08/2026) :
+  // « Brussels (Belgium) to Brussels (Belgium) via Charleroi (Belgium) »
+  // (Tour 2019, étape 1, un circuit qui part et revient à Brussels) donnait
+  // finish = "Brussels via Charleroi" — un géocodage sans résultat, ce nom
+  // composé n'étant pas un vrai lieu. « via X » décrit un point de passage
+  // du trajet, jamais la ville de départ/arrivée elle-même. \s+via\b (pas
+  // juste "via") exige un espace avant pour ne jamais tronquer une ville
+  // dont le nom contiendrait « via » comme sous-chaîne collée (aucun cas
+  // réel connu, mais coûte rien) ; \b (pas \s+ après) plutôt que .+ pour
+  // couvrir aussi un « via » qui se retrouve seul en fin de chaîne.
+  //
+  // Le retrait de « via » se fait volontairement APRÈS le retrait des
+  // parenthèses et la normalisation des espaces, pas avant : un point de
+  // passage entièrement entre parenthèses (« Lyon via (Melun) ») laissait
+  // sinon un « via » orphelin — les parenthèses disparaissaient d'abord, ne
+  // laissant plus de texte après « via » pour que l'ancien \s+via\s+.+$
+  // (qui exigeait au moins un caractère après) puisse matcher (trouvaille
+  // de relecture adverse sur ce même correctif ; aucune fixture connue de
+  // ce dépôt ne déclenche ce format aujourd'hui, mais rien ne garantit
+  // qu'un futur import Wikipédia ne le produise pas).
+  const clean = (s) => s
+    .replace(/\s*\([^)]*\)\s*/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .replace(/\s+via\b.*$/i, '')
+    .trim();
   return { start: clean(m[1]), finish: clean(m[2]) };
 }
 
