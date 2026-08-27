@@ -172,6 +172,47 @@ test('Géoplateforme et Nominatim sans résultat : rejette avec un message clair
   await assert.rejects(() => geocode('IntrouvablePartout-test-echec'), /Géocodage sans résultat/);
 });
 
+// Trouvaille en générant en masse avec un vrai accès réseau (27/08/2026,
+// Tour 1996 étape 2, « 's-Hertogenbosch ») : la Géoplateforme rejette
+// carrément certaines requêtes en HTTP 400 (« must ... start with a
+// number or a letter », vérifié contre l'API réelle) plutôt que de
+// répondre 0 résultat — httpJson() marque ce 4xx `nonRetryable` et le
+// laisse remonter tel quel. Sans garde-fou, cette exception plantait toute
+// la génération de l'étape au lieu de retomber sur Nominatim comme le fait
+// déjà le cas « 0 résultat » ci-dessus.
+test('repli Géoplateforme → Nominatim quand la Géoplateforme REJETTE la requête (400), pas seulement quand elle ne trouve rien', async () => {
+  mock = {
+    geopf: async () => jsonResponse(
+      { code: 400, message: 'Failed parsing query', detail: ['q: must contain between 3 and 200 chars and start with a number or a letter'] },
+      400
+    ),
+    nominatim: async () => jsonResponse([
+      { display_name: "'s-Hertogenbosch, Noord-Brabant, Netherlands", lat: '51.69', lon: '5.30', type: 'city' },
+    ]),
+  };
+  const r = await geocode("'s-Hertogenbosch-test-400");
+  assert.strictEqual(r.provider, 'nominatim');
+  assert.strictEqual(r.lat, 51.69);
+});
+
+// Trouvaille de relecture adverse sur le test précédent : cached() ne
+// mémorise que le retour RÉUSSI de fn() — un rejet 400 n'était jamais mis
+// en cache (contrairement à un vrai « 0 résultat »), donc chaque
+// régénération future de la même étape recontactait inutilement la
+// Géoplateforme pour un résultat déjà connu d'avance.
+test('un rejet 400 de la Géoplateforme est mis en cache comme un « 0 résultat » (pas de rappel réseau au 2e géocodage identique)', async () => {
+  let geopfCalls = 0;
+  mock = {
+    geopf: async () => { geopfCalls++; return jsonResponse({ code: 400, message: 'Failed parsing query' }, 400); },
+    nominatim: async () => jsonResponse([
+      { display_name: "'s-Hertogenbosch, Noord-Brabant, Netherlands", lat: '51.69', lon: '5.30', type: 'city' },
+    ]),
+  };
+  await geocode("'s-Hertogenbosch-test-cache");
+  await geocode("'s-Hertogenbosch-test-cache");
+  assert.strictEqual(geopfCalls, 1, 'le 2e appel doit être servi par le cache, pas recontacter la Géoplateforme');
+});
+
 test('countryHint hors France : saute directement la Géoplateforme', async () => {
   mock = {
     geopf: neverCalled('la Géoplateforme'),
@@ -193,6 +234,25 @@ test('reverseGeocode en France : Géoplateforme trouve, Nominatim jamais appelé
   const r = await reverseGeocode(43.31, -0.001);
   assert.strictEqual(r.provider, 'geopf');
   assert.strictEqual(r.label, 'Pau');
+});
+
+// Trouvaille de relecture adverse sur le correctif geocode() (400
+// Géoplateforme) : le même grep exhaustif sur `data.geopf.fr` montre que
+// reverseGeocode() (route /api/reverse, clic sur la carte) avait le même
+// trou — non protégée, un 400 y remontait comme une exception non gérée
+// par wrap() (backend/server.js), donc un 500 générique au lieu du repli
+// Nominatim déjà prévu pour le cas « aucun résultat ».
+test('reverseGeocode en France : repli Nominatim quand la Géoplateforme REJETTE la requête (400)', async () => {
+  mock = {
+    geopf: async () => jsonResponse({ code: 400, message: 'Failed parsing query' }, 400),
+    nominatim: async () => jsonResponse({ display_name: 'Quelque part, France' }),
+  };
+  // Coordonnées distinctes de toute autre utilisée ailleurs dans ce fichier
+  // — le cache SQLite persiste entre les tests (même fichier, même process),
+  // réutiliser une paire (lat, lon) déjà géocodée avec succès plus haut
+  // servirait ce résultat en cache sans jamais rappeler le mock ci-dessus.
+  const r = await reverseGeocode(43.314159, -0.004);
+  assert.strictEqual(r.provider, 'nominatim');
 });
 
 test('reverseGeocode hors bbox France : saute directement Nominatim', async () => {
@@ -254,6 +314,17 @@ test('geocodeSuggest (en ligne) : kind = col si le libellé matche isColQuery, v
 test('geocodeSuggest (en ligne) : aucun résultat → tableau vide, pas d\'exception', async () => {
   mock = { geopf: async () => jsonResponse({ features: [] }) };
   assert.deepStrictEqual(await geocodeSuggest('IntrouvableSuggest-test'), []);
+});
+
+// Trouvaille de relecture adverse sur le correctif geocode() (400
+// Géoplateforme) : geocodeSuggest() (route GET /api/geocode, autocomplétion
+// de l'éditeur) avait le même trou — un 400 y plantait avec un 500 générique
+// (wrap(), backend/server.js, ne gère que err.status, pas err.nonRetryable)
+// au lieu de renvoyer un tableau vide comme le cas « 0 résultat » ci-dessus.
+// Reproduit exactement l'entrée qui a motivé ce correctif ('s-Hertogenbosch).
+test('geocodeSuggest (en ligne) : la Géoplateforme REJETTE la requête (400) → tableau vide, pas d\'exception', async () => {
+  mock = { geopf: async () => jsonResponse({ code: 400, message: 'Failed parsing query' }, 400) };
+  assert.deepStrictEqual(await geocodeSuggest("'s-Hertogenbosch-test-suggest-400"), []);
 });
 
 test('geocodeSuggest (hors ligne) : trouve dans le gazetier — kind col pour un sommet, via pour une ville', async () => {

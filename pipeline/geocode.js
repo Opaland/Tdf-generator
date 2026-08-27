@@ -4,7 +4,7 @@
 // En mode hors-ligne : simulateur déterministe (fournisseur 'simulateur').
 
 const { httpJson, isOffline } = require('./http');
-const { cached } = require('./cache');
+const { cached, cachePut } = require('./cache');
 const { simGeocode, simReverseGeocode, simElevation } = require('./simulator');
 const { haversine } = require('./geo');
 
@@ -75,6 +75,47 @@ function pickFeature(feats, query, near) {
   return feats[0];
 }
 
+// La Géoplateforme rejette carrément certaines requêtes en HTTP 400 (ex. un
+// nom de ville néerlandaise commençant par une apostrophe, "'s-Hertogen-
+// bosch" — leur validation exige « must ... start with a number or a
+// letter », vérifié en interrogeant l'API réelle, pas une supposition
+// d'encodage) plutôt que de répondre 0 résultat comme pour toute requête
+// simplement hors de son référentiel français. httpJson() marque un tel 4xx
+// `nonRetryable` et le laisse remonter tel quel — sans ce filet, l'exception
+// plantait toute la génération de l'étape (via geocode()) ou renvoyait un
+// 500 générique sur les routes interactives (via reverseGeocode()/
+// geocodeSuggest(), backend/server.js) au lieu de retomber sur le même
+// repli « aucun résultat » déjà prévu partout ailleurs dans ce fichier
+// (trouvaille en générant en masse avec un vrai accès réseau, 27/08/2026 —
+// puis grep exhaustif sur `data.geopf.fr` via relecture adverse : les trois
+// autres appels Géoplateforme du fichier avaient le même trou, pas
+// seulement celui de `geocode()`, CLAUDE.md règle 1).
+//
+// Seule une erreur 4xx de la Géoplateforme elle-même est avalée ici — une
+// vraie panne réseau/5xx (déjà épuisé ses retries dans httpJson) continue
+// de remonter normalement. `cachePut` explicite sur le catch : `cached()`
+// ne mémorise que le retour RÉUSSI de `fn()`, donc sans cette écriture
+// manuelle un rejet 4xx permanent (ex. un nom de lieu que la Géoplateforme
+// refusera toujours) redéclencherait un vrai appel réseau à chaque
+// régénération future de la même étape, contrairement au cas « 0 résultat »
+// qui reste en cache indéfiniment (trouvaille de relecture adverse). Le
+// `console.warn` est le seul signal restant si un futur bug de construction
+// de requête dans notre propre code (jamais rencontré à ce jour, vérifié
+// par relecture adverse) se dégradait aussi silencieusement vers Nominatim.
+async function geopfOrNull(kind, request, fn) {
+  try {
+    const { value } = await cached('geocode', kind, request, fn);
+    return value;
+  } catch (err) {
+    if (err.nonRetryable) {
+      console.warn(`[geocode] Géoplateforme a rejeté la requête (${kind}) : ${err.message}`);
+      cachePut('geocode', kind, request, null);
+      return null;
+    }
+    throw err;
+  }
+}
+
 /**
  * Géocode un libellé. `countryHint` ('fr' par défaut) choisit le fournisseur.
  * `near` ({lat, lon}) biaise vers la proximité — indispensable pour lever les
@@ -104,16 +145,15 @@ async function geocode(query, { countryHint = 'fr', near = null, summit = false 
     };
     // Un sommet déclaré (waypoint « col ») se cherche d'abord dans l'index POI
     // seul : « Hautacam » n'a aucun mot-clé de col et sinon une adresse
-    // homonyme lointaine peut l'emporter.
+    // homonyme lointaine peut l'emporter. geopfOrNull() (voir plus haut) avale
+    // un rejet 4xx de la Géoplateforme comme un « 0 résultat ».
     if (summit) {
-      const { value } = await cached('geocode', 'geopf-poi', { q: query, near: nearKey }, () => geopfSearch('poi'));
+      const value = await geopfOrNull('geopf-poi', { q: query, near: nearKey }, () => geopfSearch('poi'));
       if (value) return value;
     }
-    const { value } = await cached('geocode', 'geopf', { q: query, near: nearKey }, () =>
-      geopfSearch('address,poi')
-    );
+    const value = await geopfOrNull('geopf', { q: query, near: nearKey }, () => geopfSearch('address,poi'));
     if (value) return value;
-    // Repli : Nominatim si la Géoplateforme ne trouve rien.
+    // Repli : Nominatim si la Géoplateforme ne trouve rien (ou rejette la requête).
   }
   const { value } = await cached('geocode', 'nominatim', { q: query }, async () => {
     const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=jsonv2&limit=5&accept-language=fr`;
@@ -160,7 +200,7 @@ async function reverseGeocode(lat, lon) {
     return value;
   }
   if (looksLikeFrance(lat, lon)) {
-    const { value } = await cached('geocode', 'geopf-reverse', { lat, lon }, async () => {
+    const value = await geopfOrNull('geopf-reverse', { lat, lon }, async () => {
       const url = `https://data.geopf.fr/geocodage/reverse?lat=${lat}&lon=${lon}&limit=1`;
       const json = await httpJson(url, { minDelayMs: 120 });
       const f = (json.features || [])[0];
@@ -201,7 +241,7 @@ async function geocodeSuggest(query) {
     const s = simGeocode(query);
     return [{ label: s.label, lat: s.lat, lon: s.lon, ele: s.ele, kind: 'via', provider: 'simulateur' }];
   }
-  const { value } = await cached('geocode', 'geopf-suggest', { q: query }, async () => {
+  const value = await geopfOrNull('geopf-suggest', { q: query }, async () => {
     const url = `https://data.geopf.fr/geocodage/search?q=${encodeURIComponent(query)}&limit=5&index=address,poi`;
     const json = await httpJson(url, { minDelayMs: 120 });
     return (json.features || []).map((f) => ({
@@ -212,7 +252,12 @@ async function geocodeSuggest(query) {
       provider: 'geopf',
     }));
   });
-  return value;
+  // value peut être `null` (requête rejetée par geopfOrNull) autant que [],
+  // jamais laissé remonter tel quel : le contrat de geocodeSuggest() est un
+  // tableau, jamais null (autocomplétion — un null ferait planter le .map()
+  // ou le rendu côté frontend, contrairement à geocode()/reverseGeocode()
+  // qui ont chacun un repli explicite sur `null`).
+  return value || [];
 }
 
 module.exports = { geocode, geocodeCol, reverseGeocode, geocodeSuggest, looksLikeFrance, isColQuery, pickFeature };
