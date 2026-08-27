@@ -211,9 +211,24 @@ async function nameClimbs(climbs, waypointsOnTrack, samples, reverseGeocodeFn) {
     }
     try {
       const r = await reverseGeocodeFn(samples[si].lat, samples[si].lon);
-      c.name = r && r.label ? `Côte de ${r.label}` : `Côte du km ${(c.endM / 1000).toFixed(0)}`;
-      c.nameSource = 'reverse-geocode';
-      if (r && r.label) c.rawLabel = r.label;
+      if (r && r.label) {
+        c.name = `Côte de ${r.label}`;
+        c.nameSource = 'reverse-geocode';
+        c.rawLabel = r.label;
+      } else {
+        // Requête résolue sans exception, mais sans label exploitable (ex.
+        // feature Géoplateforme sans city/label/name — pipeline/geocode.js
+        // reverseGeocode() peut renvoyer ce cas sans passer par le repli
+        // Nominatim, qui lui garantit toujours un label). Même repli
+        // générique que l'échec réseau ci-dessous — même 'defaut' :
+        // trouvaille de relecture adverse (27/08/2026) sur un correctif
+        // frontend qui distinguait 'reverse-geocode' de 'defaut' pour
+        // l'affichage : avant ce correctif, ce cas précis (résolution sans
+        // label) portait à tort 'reverse-geocode', comme si un vrai
+        // toponyme avait été trouvé.
+        c.name = `Côte du km ${(c.endM / 1000).toFixed(0)}`;
+        c.nameSource = 'defaut';
+      }
     } catch {
       c.name = `Côte du km ${(c.endM / 1000).toFixed(0)}`;
       c.nameSource = 'defaut';

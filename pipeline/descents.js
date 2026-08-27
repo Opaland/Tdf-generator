@@ -91,8 +91,17 @@ async function nameDescents(descents, climbs, waypointsOnTrack, samples, reverse
     }
     try {
       const r = await reverseGeocodeFn(samples[si].lat, samples[si].lon);
-      d.name = r && r.label ? `Descente de ${r.label}` : `Descente du km ${(d.startM / 1000).toFixed(0)}`;
-      d.nameSource = 'reverse-geocode';
+      if (r && r.label) {
+        d.name = `Descente de ${r.label}`;
+        d.nameSource = 'reverse-geocode';
+      } else {
+        // Même repli générique que l'échec réseau ci-dessous — même
+        // motif que pipeline/climbs.js (relecture adverse, 27/08/2026) :
+        // une requête résolue sans exception mais sans label exploitable
+        // n'est pas un géocodage réussi.
+        d.name = `Descente du km ${(d.startM / 1000).toFixed(0)}`;
+        d.nameSource = 'defaut';
+      }
     } catch {
       d.name = `Descente du km ${(d.startM / 1000).toFixed(0)}`;
       d.nameSource = 'defaut';

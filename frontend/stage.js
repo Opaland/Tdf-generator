@@ -235,7 +235,7 @@ function renderFiche() {
       `<p class="meta-line">km ${c.start_km} → ${c.end_km} · du pied (${c.start_ele_m} m) au sommet (${c.summit_ele_m} m) · ` +
       `score ${c.score} → catégorie ${c.category}` +
       `${c.irregularity_index != null ? ` · indice d'irrégularité ${c.irregularity_index} (écart-type des pentes par km — un mur peut noyer dans la moyenne)` : ''}` +
-      ` · nom : ${EF.esc(c.name_source === 'waypoint' ? 'waypoint' : 'toponyme géocodé inverse')} ${sourceBadge}${approxBadge}</p>`;
+      ` · ${climbNameSourceLabel(c.name_source)} ${sourceBadge}${approxBadge}</p>`;
     climbsBox.appendChild(div);
   }
 
@@ -418,6 +418,25 @@ function setup3D(payload) {
   window.addEventListener('pointerup', () => { dragging = false; box3d.style.cursor = 'grab'; });
 }
 
+// Libellé de l'ORIGINE du nom affiché pour une côte, pas le nom lui-même —
+// trouvaille de revue-personas (27/08/2026) : rendu tel quel comme
+// "nom : waypoint", ça se lisait comme si le col s'appelait littéralement
+// « waypoint ». Fonction pure, testée directement (voir
+// test/climbNameSourceLabel.test.js), même schéma que similarItemHtml
+// ci-dessous.
+function climbNameSourceLabel(nameSource) {
+  if (nameSource === 'waypoint') return 'nom : point de passage explicitement marqué';
+  if (nameSource === 'reverse-geocode') return 'nom : déduit par géocodage inverse (position approximative)';
+  // 'defaut' (pipeline/climbs.js) : aucun nom exploitable n'a pu être
+  // déterminé — géocodage inverse en échec (panne réseau/API) OU résolu
+  // sans label utilisable (ex. point sans toponyme connu) — repli sur
+  // "Côte du km N" dans les deux cas, aucune vraie source de nom.
+  // Trouvaille de relecture adverse sur une première version de cette
+  // fonction, qui affichait par erreur "déduit par géocodage inverse" pour
+  // ce(s) cas aussi — l'exact contraire de ce qui s'est passé.
+  return 'nom : repli générique (aucun nom identifié)';
+}
+
 // Étapes similaires (backlog #10, section D) : requête séparée de la fiche
 // principale — non essentielle, ne doit jamais bloquer ni casser le reste
 // de la page si elle échoue (backend injoignable, mode statique, etc.).
@@ -493,4 +512,4 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 }
 
-if (typeof module !== 'undefined' && module.exports) module.exports = { similarItemHtml, poll };
+if (typeof module !== 'undefined' && module.exports) module.exports = { similarItemHtml, poll, climbNameSourceLabel };

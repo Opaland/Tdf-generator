@@ -201,3 +201,15 @@ test('nameDescents : géocodage inverse en échec → repli sur un libellé par 
   assert.strictEqual(descents[0].name, 'Descente du km 10');
   assert.strictEqual(descents[0].nameSource, 'defaut');
 });
+
+// Même motif que pipeline/climbs.js (relecture adverse, 27/08/2026) : une
+// requête résolue SANS exception mais sans label exploitable n'est pas un
+// géocodage réussi — avant ce correctif, nameSource restait 'reverse-geocode'
+// pour ce cas, comme si un vrai toponyme avait été trouvé.
+test('nameDescents : géocodage résolu sans label exploitable → repli générique, nameSource "defaut" (pas "reverse-geocode")', async () => {
+  const descents = [{ startM: 10000, endM: 18000 }];
+  const samples = [{ dist: 10000, lat: 45, lon: 1 }];
+  await nameDescents(descents, [], [], samples, async () => ({ label: null }));
+  assert.strictEqual(descents[0].name, 'Descente du km 10');
+  assert.strictEqual(descents[0].nameSource, 'defaut');
+});
