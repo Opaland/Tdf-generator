@@ -19,7 +19,7 @@ EF.TOUR_STEPS = [
   },
   {
     title: 'Fiche côte par côte',
-    body: "Le tableau des cols recense chaque côte détectée : altitude au sommet, longueur, pente moyenne et maximale, catégorie, et un score de pénibilité façon VeloViewer — cliquez une ligne pour déplier son profil.",
+    body: "Le tableau des cols recense chaque côte détectée : altitude au sommet, longueur, pente moyenne et maximale, catégorie (approximation façon ASO) et un score longueur × pente — cliquez une ligne pour déplier son profil.",
     href: '/cols.html',
     cta: 'Voir les cols',
   },
