@@ -61,6 +61,65 @@ function gpxWithoutElevation() {
   return `<?xml version="1.0"?><gpx><trk><name>Sortie sans altitude</name><trkseg>${pts.join('')}</trkseg></trk></gpx>`;
 }
 
+// Trouvaille en relecture adverse du correctif plausibleEle (26/08/2026,
+// pipeline/elevation.js) : ce filtre ne couvrait que les altitudes venant
+// des fournisseurs API (Géoplateforme/opentopodata). Le CHEMIN OPPOSÉ —
+// altitude déjà embarquée dans le fichier importé (≥ 80 % des points,
+// branche qui n'appelle jamais sampleElevations) — réinterpolait les
+// `<ele>` brutes sans aucun filtre de plausibilité. Un capteur GPS/FIT peut
+// écrire un sentinel « pas de fix » hors de toute plage physique
+// (ex. -32768) directement dans le fichier ; sans filtre, une seule valeur
+// aberrante réinterpolait un D+ fantôme de plusieurs milliers de mètres sur
+// les points voisins — même classe de bug que le sentinel -99999 du
+// Géoplateforme, vecteur différent (import de trace, pas API).
+function gpxAvecSentinelCapteur() {
+  const pts = [];
+  const lat0 = 43.0;
+  const lon0 = 0.5;
+  const mPerDegLat = 110540;
+  const N = 40;
+  for (let i = 0; i <= N; i++) {
+    const m = i * 100;
+    const lat = lat0 + m / mPerDegLat;
+    // Montée régulière 800 -> ~995 m, un seul point capteur cassé au milieu.
+    const ele = i === 20 ? -32768 : 800 + i * 5;
+    pts.push(`<trkpt lat="${lat.toFixed(6)}" lon="${lon0}"><ele>${ele}</ele></trkpt>`);
+  }
+  return `<?xml version="1.0"?><gpx><trk><name>Sortie capteur cassé</name><trkseg>${pts.join('')}</trkseg></trk></gpx>`;
+}
+
+function gpxSansSentinel() {
+  const pts = [];
+  const lat0 = 43.0;
+  const lon0 = 0.5;
+  const mPerDegLat = 110540;
+  const N = 40;
+  for (let i = 0; i <= N; i++) {
+    const m = i * 100;
+    const lat = lat0 + m / mPerDegLat;
+    const ele = 800 + i * 5;
+    pts.push(`<trkpt lat="${lat.toFixed(6)}" lon="${lon0}"><ele>${ele}</ele></trkpt>`);
+  }
+  return `<?xml version="1.0"?><gpx><trk><name>Sortie propre</name><trkseg>${pts.join('')}</trkseg></trk></gpx>`;
+}
+
+test('importTrackAsStage : un sentinel capteur (-32768) dans l\'altitude embarquée de la trace ne gonfle pas le D+', async () => {
+  const { points: withSentinel } = parseGpx(gpxAvecSentinelCapteur());
+  const idWith = await importTrackAsStage(withSentinel, { name: 'Trace capteur cassé', source: 'test' });
+  const fullWith = loadStageFull(idWith);
+
+  const { points: clean } = parseGpx(gpxSansSentinel());
+  const idClean = await importTrackAsStage(clean, { name: 'Trace propre', source: 'test' });
+  const fullClean = loadStageFull(idClean);
+
+  assert.ok(
+    Math.abs(fullWith.stage.total_ascent_m - fullClean.stage.total_ascent_m) <= 10,
+    `D+ avec sentinel (${fullWith.stage.total_ascent_m} m) doit rester proche du D+ propre (${fullClean.stage.total_ascent_m} m), pas gonflé de plusieurs milliers de mètres`
+  );
+  const badSample = fullWith.samples.find((s) => s.ele_raw_m != null && (s.ele_raw_m < -500 || s.ele_raw_m > 6000));
+  assert.strictEqual(badSample, undefined, 'aucun échantillon ne doit porter le sentinel ou une valeur interpolée aberrante');
+});
+
 test('importTrackAsStage : un trou d\'altimétrie du repli réseau reste null (pas coercé en 0 m)', async () => {
   const { points } = parseGpx(gpxWithoutElevation());
   const N_POINTS = 21; // vérifié empiriquement pour ce tracé de 2 km rééchantillonné tous les 100 m

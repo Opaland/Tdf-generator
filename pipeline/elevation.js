@@ -69,7 +69,14 @@ async function geopfBatch(points) {
       if (eles.length !== points.length) throw new Error('Altimétrie Géoplateforme : réponse incomplète');
       return eles;
     });
-    return value;
+    // Revalidé même sur un coup de cache (trouvaille de relecture adverse,
+    // 26/08/2026) : `cached()` sert la valeur telle qu'écrite en base sans
+    // jamais repasser par plausibleEle — une entrée déjà en cache AVANT ce
+    // correctif (ou un futur resserrement des bornes) continuerait sinon à
+    // renvoyer une fausse mesure jusqu'à expiration du TTL (180 jours par
+    // défaut), silencieusement, malgré le code corrigé et déployé.
+    // Idempotent sur une valeur déjà filtrée : coût négligeable.
+    return value.map(plausibleEle);
   } catch (err) {
     // URL trop longue ou paquet refusé : on scinde récursivement.
     if (points.length > 25) {
@@ -96,7 +103,9 @@ async function opentopodataBatch(points) {
     // invisible à l'audit de checks.js.
     return json.results.map((r) => plausibleEle(r.elevation));
   });
-  return value;
+  // Revalidé même sur un coup de cache — voir le commentaire équivalent
+  // dans geopfBatch ci-dessus (relecture adverse, 26/08/2026).
+  return value.map(plausibleEle);
 }
 
 /**
@@ -225,4 +234,4 @@ function fillNearestValid(eles) {
   return filled;
 }
 
-module.exports = { sampleElevations, buildProfile, fillNearestValid, GEOPF_BATCH, OTD_BATCH };
+module.exports = { sampleElevations, buildProfile, fillNearestValid, plausibleEle, GEOPF_BATCH, OTD_BATCH };

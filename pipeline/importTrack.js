@@ -5,7 +5,7 @@
 
 const { getDb } = require('../backend/db');
 const { resamplePolyline, movingAverageByDistance } = require('./geo');
-const { sampleElevations, fillNearestValid } = require('./elevation');
+const { sampleElevations, fillNearestValid, plausibleEle } = require('./elevation');
 const { detectClimbs, nameClimbs } = require('./climbs');
 const { analyzeByKm } = require('./kmanalysis');
 const { runChecks } = require('./checks');
@@ -87,8 +87,15 @@ async function importTrackAsStage(points, meta = {}) {
       const { cum } = cumulativeDistances(points);
       // comble les trous d'altitude par le voisin le plus proche (fonction
       // partagée avec pipeline/elevation.js — même idiome que
-      // fillInvalidElevations, pipeline/climbs.js)
-      const eles = fillNearestValid(points.map((p) => p.ele));
+      // fillInvalidElevations, pipeline/climbs.js). plausibleEle() d'abord :
+      // un capteur GPS/FIT peut écrire un sentinel « pas de fix » hors de
+      // toute plage physique (ex. -32768) directement dans le fichier
+      // importé — même classe de bug que le sentinel -99999 du Géoplateforme
+      // (relecture adverse, 26/08/2026), mais côté import de trace plutôt
+      // que côté API : sans ce filtre, une seule valeur aberrante dans un
+      // GPX/FIT réinterpolait un D+ fantôme de plusieurs milliers de mètres
+      // sur les points voisins.
+      const eles = fillNearestValid(points.map((p) => plausibleEle(p.ele)));
       let si = 0;
       raw = resampled.map((q) => {
         while (si < points.length - 2 && cum[si + 1] < q.dist) si++;
