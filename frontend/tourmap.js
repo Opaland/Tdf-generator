@@ -195,13 +195,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     : '<option value="">— aucun tour : importez une édition dans Archives —</option>';
   sel.addEventListener('change', () => sel.value && loadEdition(sel.value));
   document.getElementById('btn-anim').addEventListener('click', animate);
-  document.querySelectorAll('#tour-stages th').forEach((th) =>
-    th.addEventListener('click', () => {
-      const k = th.dataset.k;
-      if (statSort.k === k) statSort.asc = !statSort.asc;
-      else statSort = { k, asc: true };
+  EF.sortableHeaders(
+    '#tour-stages th',
+    () => statSort,
+    (prev, k) => (prev.k === k ? { k, asc: !prev.asc } : { k, asc: true }),
+    (next) => {
+      statSort = next;
       renderStageList();
-    })
+    }
   );
 
   const wanted = EF.qs('edition');
