@@ -29,6 +29,19 @@ function normLabel(s) {
   return String(s || '').trim().toLowerCase();
 }
 
+// Index POI de la Géoplateforme (sommets, communes atteintes sans numéro de
+// voie) : pas de `properties.label` (un tableau `name` à la place) —
+// schéma différent de l'index adresse. Partagé entre geopfSearch() (via
+// geocode()) et geocodeSuggest() — même endpoint, même `index=address,poi`,
+// même risque de label resté un tableau JS brut plutôt qu'une chaîne
+// (trouvaille de relecture adverse, 28/08/2026 : le correctif POI initial
+// de ce fichier n'avait normalisé que l'appelant geocode(), pas
+// geocodeSuggest(), qui interroge pourtant le même endpoint).
+function geopfLabel(props, fallback) {
+  const name = Array.isArray(props.name) ? props.name[0] : props.name;
+  return props.label || name || fallback;
+}
+
 /**
  * Choisit le meilleur résultat de géocodage : pour une ville/lieu de passage,
  * une commune bat une rue ou un département homonyme (« Vienne » ne doit pas
@@ -78,14 +91,24 @@ function normLabel(s) {
  * Limite connue, non corrigeable par ce même mécanisme : le tout premier
  * waypoint d'une étape (kind: 'start') n'a jamais de `near` — aucun
  * waypoint précédent pour l'ancrer — donc reste exposé à une homonymie
- * lointaine sur le point de départ si aucune des deux communes candidates
- * ne correspond EXACTEMENT à la requête (accent inclus).
+ * lointaine sur le point de départ si aucune des communes candidates ne
+ * correspond EXACTEMENT à la requête (accent inclus).
+ *
+ * La préférence « correspondance exacte » retient TOUS les candidats à
+ * égalité, jamais un seul via `.find()` — trouvaille de relecture adverse
+ * (28/08/2026) sur une version antérieure de ce correctif : la France a de
+ * vrais homonymes de communes strictement distinctes qui matchent TOUTES LES
+ * DEUX exactement la requête (ex. « Neuville », Dordogne et Puy-de-Dôme,
+ * vérifié en direct sur data.geopf.fr) — s'arrêter au premier via `.find()`
+ * empêchait `near` de départager ensuite ces deux candidats par distance
+ * réelle, rouvrant une couche plus loin exactement le bug que ce correctif
+ * ferme pour Moûtiers.
  */
 function pickFeature(feats, query, near) {
   if (!feats.length) return null;
   const communes = !isColQuery(query) ? feats.filter(isCommuneFeat) : [];
-  const exact = communes.find((f) => normLabel(f.label) === normLabel(query));
-  const preferred = exact ? [exact] : communes;
+  const exactMatches = communes.filter((f) => normLabel(f.label) === normLabel(query));
+  const preferred = exactMatches.length ? exactMatches : communes;
   if (near) {
     // Ignore les candidats sans coordonnées exploitables : une comparaison
     // haversine impliquant NaN est toujours fausse, donc feats.reduce()
@@ -219,11 +242,10 @@ async function geocode(query, { countryHint = 'fr', near = null, summit = false 
         // correctif contre les vraies données après régénération complète,
         // 28/08/2026 : « Moûtiers », Savoie, battue par un homonyme de
         // Meurthe-et-Moselle, les deux exclusivement trouvés via l'index POI).
-        const name = Array.isArray(props.name) ? props.name[0] : props.name;
         const category = Array.isArray(props.category) ? props.category : [];
         const type = props.type || (category.includes('commune') ? 'municipality' : undefined);
         return {
-          label: props.label || name || query,
+          label: geopfLabel(props, query),
           lat: f.geometry.coordinates[1],
           lon: f.geometry.coordinates[0],
           type,
@@ -355,13 +377,22 @@ async function geocodeSuggest(query) {
   const value = await geopfOrNull('geopf-suggest', { q: query }, async () => {
     const url = `https://data.geopf.fr/geocodage/search?q=${encodeURIComponent(query)}&limit=5&index=address,poi`;
     const json = await httpJson(url, { minDelayMs: 120 });
-    return (json.features || []).map((f) => ({
-      label: f.properties.label || f.properties.name,
-      lat: f.geometry.coordinates[1],
-      lon: f.geometry.coordinates[0],
-      kind: isColQuery(f.properties.label || '') ? 'col' : 'via',
-      provider: 'geopf',
-    }));
+    return (json.features || []).map((f) => {
+      // Même repli que geopfSearch() (geocode()) ci-dessus : un résultat
+      // trouvé uniquement via l'index POI a `properties.name` en tableau,
+      // jamais `properties.label` — sans geopfLabel(), `label` restait un
+      // tableau JS brut (assigné tel quel au waypoint côté éditeur) et
+      // isColQuery() ne reconnaissait jamais un sommet POI-only comme un col
+      // (trouvaille de relecture adverse, 28/08/2026).
+      const label = geopfLabel(f.properties, '');
+      return {
+        label,
+        lat: f.geometry.coordinates[1],
+        lon: f.geometry.coordinates[0],
+        kind: isColQuery(label) ? 'col' : 'via',
+        provider: 'geopf',
+      };
+    });
   });
   // value peut être `null` (requête rejetée par geopfOrNull) autant que [],
   // jamais laissé remonter tel quel : le contrat de geocodeSuggest() est un

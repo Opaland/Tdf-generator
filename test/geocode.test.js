@@ -192,6 +192,24 @@ test('near ne départage plus par pure distance dès qu\'une commune candidate e
   assert.strictEqual(picked.lon, 7.761454);
 });
 
+// Trouvaille de relecture adverse (28/08/2026) sur une version antérieure du
+// correctif ci-dessus : la préférence « correspondance exacte » retenait
+// alors un SEUL candidat via `.find()`, court-circuitant `near` avant même
+// qu'il ait pu départager deux vrais homonymes de communes qui matchent
+// TOUS LES DEUX exactement la requête (fréquent en France : Neuville,
+// Villeneuve, Saint-Martin…). Reproduit avec des données réelles observées
+// en direct sur data.geopf.fr (deux communes « Neuville » distinctes,
+// Dordogne et Puy-de-Dôme, score identique).
+test('near départage toujours deux vrais homonymes de communes qui matchent TOUS LES DEUX exactement la requête', () => {
+  const nearPuyDeDome = { lat: 45.75, lon: 3.44 };
+  const feats = [
+    { label: 'Neuville', type: 'municipality', score: 0.9727272727272727, lat: 45.109664, lon: 1.848879 }, // Dordogne, loin
+    { label: 'Neuville', type: 'municipality', score: 0.9727272727272727, lat: 45.750029, lon: 3.44391 }, // Puy-de-Dôme, proche
+  ];
+  const picked = pickFeature(feats, 'Neuville', nearPuyDeDome);
+  assert.strictEqual(picked.lat, 45.750029, 'doit choisir la commune la plus proche du waypoint précédent, pas la première dans l\'ordre de l\'API');
+});
+
 test('isColQuery reconnaît les libellés de sommets', () => {
   assert.ok(isColQuery('Col du Tourmalet'));
   assert.ok(isColQuery('Mont Ventoux'));
@@ -532,6 +550,29 @@ test('geocodeSuggest (en ligne) : kind = col si le libellé matche isColQuery, v
   assert.strictEqual(suggestions[0].kind, 'col');
   assert.strictEqual(suggestions[0].provider, 'geopf');
   assert.strictEqual(suggestions[1].kind, 'via');
+});
+
+// Trouvaille de relecture adverse (28/08/2026) : le correctif POI de
+// geopfSearch() (geocode()) n'avait pas été appliqué à geocodeSuggest(),
+// pourtant un second appelant du même endpoint avec le même schéma —
+// reproduit ici la forme BRUTE d'un résultat trouvé exclusivement via
+// l'index POI (`name`/`category` en tableaux, ni `label` ni `properties`
+// exploitable pour isColQuery avant ce correctif).
+test('geocodeSuggest (en ligne) : résultat trouvé uniquement via l\'index POI (name en tableau) → libellé en chaîne, kind reconnu', async () => {
+  mock = {
+    geopf: async () => jsonResponse({
+      features: [
+        {
+          properties: { name: ['Col du Tourmalet'], category: ['poi', 'sommet'], score: 0.9 },
+          geometry: { coordinates: [0.15, 42.91] },
+        },
+      ],
+    }),
+  };
+  const suggestions = await geocodeSuggest('Tourmalet-test-suggest-index-poi');
+  assert.strictEqual(suggestions.length, 1);
+  assert.strictEqual(suggestions[0].label, 'Col du Tourmalet', 'le libellé doit être une chaîne (name[0]), pas le tableau brut');
+  assert.strictEqual(suggestions[0].kind, 'col', 'isColQuery doit reconnaître le libellé même trouvé uniquement via l\'index POI');
 });
 
 test('geocodeSuggest (en ligne) : aucun résultat → tableau vide, pas d\'exception', async () => {
