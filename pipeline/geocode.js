@@ -21,12 +21,30 @@ function isColQuery(q) {
   return /\b(col|cote|côte|montee|montée|pic|puy|mont|alpe|plateau|station)\b/i.test(q);
 }
 
+function isCommuneFeat(f) {
+  return f.type === 'municipality' || f.type === 'city';
+}
+
+function normLabel(s) {
+  return String(s || '').trim().toLowerCase();
+}
+
 /**
  * Choisit le meilleur résultat de géocodage : pour une ville/lieu de passage,
  * une commune bat une rue ou un département homonyme (« Vienne » ne doit pas
  * résoudre sur le département de la Vienne quand on trace Lyon → Marseille).
  *
- * `near`, quand fourni, décide seul par distance réelle plutôt que par le
+ * Deux communes homonymes peuvent partager un score Géoplateforme strictement
+ * identique (ex. « Moûtiers », Savoie, vs son homonyme sans accent de
+ * Meurthe-et-Moselle) — l'ordre de l'API sur une égalité de score n'est pas
+ * garanti stable. Parmi les communes candidates, on préfère celle dont le
+ * libellé correspond EXACTEMENT (accent compris) à la requête, plutôt que de
+ * s'en remettre à cet ordre — trouvaille en vérifiant ce correctif contre les
+ * vraies données après régénération complète (28/08/2026) : la commune
+ * savoyarde, portée par l'étape réelle (Tour 1994, étape 18), perdait contre
+ * son homonyme lorrain sur cette seule ambiguïté d'ordre.
+ *
+ * `near`, quand fourni, décide par distance réelle plutôt que par le
  * classement de l'API — trouvaille en générant en masse avec un vrai accès
  * réseau (26/08/2026) : géocoder « Butte Montmartre » biaisé près de
  * Mantes-la-Ville (lat/lon envoyés à l'API) renvoyait la vraie colline
@@ -36,6 +54,16 @@ function isColQuery(q) {
  * qu'une préférence pour son propre classement, jamais un filtre garanti.
  * Résultat concret avant ce correctif : une étape à 1580 km reconstituée
  * pour un aller-retour Paris-Marseille inexistant sur le vrai parcours.
+ *
+ * Restriction ajoutée au même correctif (28/08/2026) : la distance réelle ne
+ * départage plus TOUS les candidats sans distinction dès qu'une commune
+ * candidate existe — sinon une rue homonyme plus proche du waypoint précédent
+ * bat la vraie ville (ex. « Impasse Strasbourg », 40 km, bat la vraie
+ * Strasbourg, 180 km, pourtant la bonne réponse pour un enchaînement Tour
+ * 1992 Luxembourg City → Strasbourg). Sans commune candidate (ex. « Butte
+ * Montmartre », un POI, jamais une commune), comportement inchangé : la plus
+ * proche parmi TOUS les candidats l'emporte toujours, ce qui préserve le
+ * correctif Montmartre ci-dessus.
  *
  * Choix délibéré (relecture adverse, 26/08/2026) : `near`, quand fourni,
  * prime aussi sur la règle « pour un col, on garde le classement POI »
@@ -50,11 +78,14 @@ function isColQuery(q) {
  * Limite connue, non corrigeable par ce même mécanisme : le tout premier
  * waypoint d'une étape (kind: 'start') n'a jamais de `near` — aucun
  * waypoint précédent pour l'ancrer — donc reste exposé à une homonymie
- * lointaine sur le point de départ, exactement le type de requête le plus
- * exposé (une ville, cherchée sans aucun contexte géographique).
+ * lointaine sur le point de départ si aucune des deux communes candidates
+ * ne correspond EXACTEMENT à la requête (accent inclus).
  */
 function pickFeature(feats, query, near) {
   if (!feats.length) return null;
+  const communes = !isColQuery(query) ? feats.filter(isCommuneFeat) : [];
+  const exact = communes.find((f) => normLabel(f.label) === normLabel(query));
+  const preferred = exact ? [exact] : communes;
   if (near) {
     // Ignore les candidats sans coordonnées exploitables : une comparaison
     // haversine impliquant NaN est toujours fausse, donc feats.reduce()
@@ -65,13 +96,12 @@ function pickFeature(feats, query, near) {
     // mais un garde-fou peu coûteux contre une réponse dégradée.
     const withCoords = feats.filter((f) => Number.isFinite(f.lat) && Number.isFinite(f.lon));
     if (withCoords.length) {
-      return withCoords.reduce((best, f) => (haversine(near, f) < haversine(near, best) ? f : best));
+      const communesWithCoords = preferred.filter((f) => Number.isFinite(f.lat) && Number.isFinite(f.lon));
+      const pool = communesWithCoords.length ? communesWithCoords : withCoords;
+      return pool.reduce((best, f) => (haversine(near, f) < haversine(near, best) ? f : best));
     }
   }
-  if (!isColQuery(query)) {
-    const commune = feats.find((f) => f.type === 'municipality' || f.type === 'city');
-    if (commune) return commune;
-  }
+  if (preferred.length) return preferred[0];
   return feats[0];
 }
 
@@ -175,14 +205,32 @@ async function geocode(query, { countryHint = 'fr', near = null, summit = false 
       let url = `https://data.geopf.fr/geocodage/search?q=${encodeURIComponent(query)}&limit=5&index=${index}`;
       if (near) url += `&lat=${near.lat.toFixed(4)}&lon=${near.lon.toFixed(4)}`;
       const json = await httpJson(url, { minDelayMs: 120 });
-      const feats = (json.features || []).map((f) => ({
-        label: f.properties.label || f.properties.name || query,
-        lat: f.geometry.coordinates[1],
-        lon: f.geometry.coordinates[0],
-        type: f.properties.type,
-        score: f.properties.score,
-        provider: 'geopf',
-      }));
+      const feats = (json.features || []).map((f) => {
+        const props = f.properties || {};
+        // Index POI (sommets, communes atteintes sans numéro de voie) : pas
+        // de `properties.label` (un tableau `name` à la place) ni de
+        // `properties.type` (un tableau `category`, ex. ["administratif",
+        // "commune"]) — schéma différent de l'index adresse. Sans cette
+        // lecture, une commune trouvée seulement via l'index POI n'était
+        // jamais reconnue comme telle par pickFeature() (ni `label` en
+        // chaîne exploitable, ni `type` reconnu), qui retombait alors sur
+        // l'ordre brut de l'API — non garanti en cas d'égalité de score
+        // entre deux communes homonymes (trouvaille en vérifiant ce
+        // correctif contre les vraies données après régénération complète,
+        // 28/08/2026 : « Moûtiers », Savoie, battue par un homonyme de
+        // Meurthe-et-Moselle, les deux exclusivement trouvés via l'index POI).
+        const name = Array.isArray(props.name) ? props.name[0] : props.name;
+        const category = Array.isArray(props.category) ? props.category : [];
+        const type = props.type || (category.includes('commune') ? 'municipality' : undefined);
+        return {
+          label: props.label || name || query,
+          lat: f.geometry.coordinates[1],
+          lon: f.geometry.coordinates[0],
+          type,
+          score: props.score,
+          provider: 'geopf',
+        };
+      });
       return pickFeature(feats, query, near);
     };
     // Un sommet déclaré (waypoint « col ») se cherche d'abord dans l'index POI
