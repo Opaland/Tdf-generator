@@ -16,6 +16,28 @@ const { isOffline } = require('./http');
 const { stageConfidence } = require('./wikipedia');
 const { consecutiveMountainDays, painIndex } = require('./pain');
 
+/**
+ * Options de géocodage pour un waypoint : `near` (biais de proximité, point
+ * précédent) et `countryHint` seulement si `wp.country_hint` (colonne DB,
+ * indice de pays hors France extrait d'une annotation Wikipédia entre
+ * parenthèses côté import — pipeline/wikipedia.js) est renseigné.
+ *
+ * `countryHint` n'est ajouté à `opts` QUE quand il est vrai (jamais posé à
+ * `null` explicitement) : geocode() (pipeline/geocode.js) déstructure
+ * `{ countryHint = 'fr' }` — cette valeur par défaut ne s'applique qu'à
+ * `undefined`, jamais à `null`. Passer `country_hint: null` (le cas de
+ * loin le plus fréquent, toute étape sans indice de pays) ferait donc
+ * sauter la Géoplateforme pour aller direct à Nominatim sur CHAQUE
+ * étape existante — régression massive, trouvaille en écrivant ce
+ * correctif, jamais rencontrée en pratique puisque aucun appelant ne le
+ * faisait avant l'ajout de ce champ.
+ */
+function geocodeOptsFor(wp, prevPos) {
+  const opts = { near: prevPos };
+  if (wp.country_hint) opts.countryHint = wp.country_hint;
+  return opts;
+}
+
 function setProgress(stageId, progress) {
   const db = getDb();
   db.prepare(`UPDATE stages SET progress = ?, updated_at = datetime('now') WHERE id = ?`).run(
@@ -55,7 +77,7 @@ async function generateStage(stageId, { onProgress } = {}) {
       if (i === 0) kind = 'start';
       if (i === waypoints.length - 1 && kind !== 'col') kind = 'finish';
       if (wp.lat == null || wp.lon == null) {
-        const opts = { near: prevPos };
+        const opts = geocodeOptsFor(wp, prevPos);
         const res = kind === 'col' ? await geocodeCol(wp.label, opts) : await geocode(wp.label, opts);
         // Le géocodeur sait parfois qu'un lieu est un sommet (ex. « Hautacam ») :
         // on le traite alors comme un col, même en position d'arrivée.
@@ -260,4 +282,4 @@ function loadStageFull(stageId) {
   };
 }
 
-module.exports = { generateStage, loadStageFull, setProgress };
+module.exports = { generateStage, loadStageFull, setProgress, geocodeOptsFor };

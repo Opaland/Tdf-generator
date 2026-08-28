@@ -12,6 +12,7 @@ const {
   parseDate,
   reconstructionWaypoints,
   extractTables,
+  extractTablesRich,
 } = require('../pipeline/wikipedia');
 
 const FIXTURES = path.join(__dirname, '..', 'pipeline', 'fixtures');
@@ -59,6 +60,25 @@ test('waypoints de reconstruction 1903 étape 2 : col de la République (premier
   assert.ok(col, 'le col de la République figure dans le parcours curé de l\'étape 2');
   assert.strictEqual(col.label, 'Col de la République');
   assert.strictEqual(col.altitude_hint_m, 1161);
+});
+
+test('reconstructionWaypoints() : country_hint propagé au départ/arrivée non curés, jamais aux parcours curés', () => {
+  const stage = {
+    number: 99, start: 'Dover', finish: 'Brighton',
+    startCountry: 'United Kingdom', finishCountry: null,
+  };
+  const wps = reconstructionWaypoints(1994, stage); // 1994 étape 99 : aucun curatif connu
+  assert.strictEqual(wps[0].label, 'Dover');
+  assert.strictEqual(wps[0].country_hint, 'United Kingdom');
+  assert.strictEqual(wps[wps.length - 1].label, 'Brighton');
+  assert.strictEqual(wps[wps.length - 1].country_hint, null, 'aucune annotation de pays pour Brighton dans ce test');
+});
+
+test('reconstructionWaypoints() : country_hint absent quand aucune annotation de pays', () => {
+  const stage = { number: 1, start: 'Paris', finish: 'Lyon', startCountry: null, finishCountry: null };
+  const wps = reconstructionWaypoints(2000, stage);
+  assert.strictEqual(wps[0].country_hint, null);
+  assert.strictEqual(wps[wps.length - 1].country_hint, null);
 });
 
 test('parse le tableau des étapes du Tour 2025 (format moderne)', () => {
@@ -137,9 +157,15 @@ test('parseStagesFromHtml : réaligne une ligne avec une cellule vide en trop, j
 });
 
 test('fonctions unitaires du parseur', () => {
-  assert.deepStrictEqual(parseCourse('Paris to Lyon'), { start: 'Paris', finish: 'Lyon' });
-  assert.deepStrictEqual(parseCourse('Pau – Hautacam'), { start: 'Pau', finish: 'Hautacam' });
-  assert.deepStrictEqual(parseCourse('Paris (Montgeron) to Lyon'), { start: 'Paris', finish: 'Lyon' });
+  assert.deepStrictEqual(parseCourse('Paris to Lyon'), { start: 'Paris', finish: 'Lyon', startCountry: null, finishCountry: null });
+  assert.deepStrictEqual(parseCourse('Pau – Hautacam'), { start: 'Pau', finish: 'Hautacam', startCountry: null, finishCountry: null });
+  // « Montgeron » n'est pas un pays reconnu : precision de lieu française
+  // pure (le vrai point de départ 1903, dans cette commune), pas une
+  // annotation de pays — countryHint doit rester 'fr' par défaut pour elle.
+  assert.deepStrictEqual(
+    parseCourse('Paris (Montgeron) to Lyon'),
+    { start: 'Paris', finish: 'Lyon', startCountry: null, finishCountry: null }
+  );
   assert.strictEqual(parseDistanceKm('467 km (290 mi)'), 467);
   assert.strictEqual(parseDistanceKm('2,428 km'), 2428, 'séparateur de milliers anglo-saxon');
   assert.strictEqual(parseDistanceKm('467,5 km'), 467.5, 'décimale française');
@@ -157,9 +183,36 @@ test('fonctions unitaires du parseur', () => {
 test('parseCourse() : « via <ville> » est un point de passage du trajet, jamais retenu dans start/finish', () => {
   assert.deepStrictEqual(
     parseCourse('Brussels (Belgium) to Brussels (Belgium) via Charleroi (Belgium)'),
-    { start: 'Brussels', finish: 'Brussels' }
+    { start: 'Brussels', finish: 'Brussels', startCountry: 'Belgium', finishCountry: 'Belgium' }
   );
-  assert.deepStrictEqual(parseCourse('Paris via Melun to Lyon'), { start: 'Paris', finish: 'Lyon' });
+  assert.deepStrictEqual(
+    parseCourse('Paris via Melun to Lyon'),
+    { start: 'Paris', finish: 'Lyon', startCountry: null, finishCountry: null }
+  );
+});
+
+// Trouvaille en creusant un signalement utilisateur sur le site publié
+// (28/08/2026) : deux étapes historiques réelles mal placées sur la carte —
+// Tour 1992 étape 10 (Luxembourg City → Strasbourg) et Tour 1994 étape 4
+// (Dover → Brighton, le passage du Tour en Angleterre). Cause racine :
+// pipeline/geocode.js interroge toujours la Géoplateforme (base FRANCE
+// uniquement) en premier, quel que soit le pays réel de la ville — une ville
+// étrangère y trouve quand même une correspondance textuelle plausible mais
+// fausse (ex. une rue « Cité du Luxembourg » à Bury, Oise, pour « Luxembourg
+// City »), qui sert ensuite d'ancre de proximité pour la ville suivante et la
+// fait dérailler à son tour. Le texte Wikipédia annote pourtant déjà le pays
+// entre parenthèses pour ces villes précises — jeté à la trappe par clean()
+// jusqu'ici. startCountry/finishCountry permettent à pipeline/generate.js de
+// sauter directement Nominatim (couverture mondiale) pour ces waypoints.
+test('parseCourse() : extrait le pays annoté entre parenthèses pour une ville hors de France', () => {
+  assert.deepStrictEqual(
+    parseCourse('Dover (United Kingdom) to Brighton'),
+    { start: 'Dover', finish: 'Brighton', startCountry: 'United Kingdom', finishCountry: null }
+  );
+  assert.deepStrictEqual(
+    parseCourse('Luxembourg City (Luxembourg) to Strasbourg'),
+    { start: 'Luxembourg City', finish: 'Strasbourg', startCountry: 'Luxembourg', finishCountry: null }
+  );
 });
 
 // Trouvaille de relecture adverse sur le test précédent : si le nom de la
@@ -169,10 +222,16 @@ test('parseCourse() : « via <ville> » est un point de passage du trajet, jamai
 // pas déclenchée par les fixtures connues de ce dépôt, mais un futur format
 // Wikipédia pourrait la reproduire silencieusement.
 test('parseCourse() : « via » retiré même quand le point de passage est entièrement entre parenthèses', () => {
-  assert.deepStrictEqual(parseCourse('Paris to Lyon via (Melun)'), { start: 'Paris', finish: 'Lyon' });
+  assert.deepStrictEqual(
+    parseCourse('Paris to Lyon via (Melun)'),
+    { start: 'Paris', finish: 'Lyon', startCountry: null, finishCountry: null }
+  );
+  // « France » explicite ne compte jamais comme étranger (countryHint 'fr'
+  // par défaut déjà correct) — vérifié distinctement de « aucune parenthèse
+  // reconnue » ci-dessus, pas juste les deux confondus en un même null.
   assert.deepStrictEqual(
     parseCourse('Paris to Lyon (France) via (Melun) (une note)'),
-    { start: 'Paris', finish: 'Lyon' }
+    { start: 'Paris', finish: 'Lyon', startCountry: null, finishCountry: 'France' }
   );
 });
 
@@ -185,6 +244,23 @@ test('parseCourse() : « via » retiré même quand le point de passage est enti
 // (colonne étape + colonne distance), verrouillés ici explicitement — rien
 // ne les couvrait directement avant, seulement en creux via les fixtures
 // réelles à une seule table candidate.
+// Trouvaille en vérifiant ce correctif contre le vrai HTML de la page
+// « 1994 Tour de France » (pas seulement les fixtures locales) : une ligne
+// « Total » (résumé, moins de cellules que l'en-tête, ex. 3 cellules pour un
+// en-tête à 6 colonnes) faisait planter parseStagesFromHtml — row[iDist]
+// hors bornes vaut `undefined`, et `undefined.text` lève une exception,
+// alors que l'ancien code (String(undefined) sur une valeur brute, pas un
+// objet {text,titledText}) tolérait ça et retombait sur le rejet normal de
+// la ligne (distance/numéro introuvable → continue).
+test('parseStagesFromHtml : une ligne plus courte que l\'en-tête (ligne « Total ») est rejetée, pas une exception', () => {
+  const html = '<table class="wikitable"><tr><th>Stage</th><th>Date</th><th>Course</th><th>Distance</th><th>Type</th><th>Winner</th></tr>' +
+    '<tr><td>1</td><td>1 July</td><td>Paris to Lyon</td><td>100 km</td><td>Flat stage</td><td>Rider X</td></tr>' +
+    '<tr><td>2</td><td>2 July</td><td>Lyon to Marseille</td><td>120 km</td><td>Hilly stage</td><td>Rider Y</td></tr>' +
+    '<tr><td></td><td>Total</td><td>220 km</td></tr></table>';
+  const stages = parseStagesFromHtml(html, 2000);
+  assert.strictEqual(stages.length, 2, 'la ligne Total est ignorée, pas plantée dessus');
+});
+
 test('parseStagesFromHtml : ignore un tableau sans colonne étape ou sans colonne distance', () => {
   // Décoys seuls (aucune table candidate ne passe looksRight) : la fonction
   // rejette explicitement plutôt que de renvoyer [] en silence.
@@ -243,6 +319,69 @@ test('extractTables : décode les entités HTML au-delà du tableau fixe de l\'a
   const html = '<table class="wikitable"><tr><td>L&#39;étape&hellip; &#233;tape</td></tr></table>';
   const cell = extractTables(html)[0][0][0];
   assert.strictEqual(cell, "L'étape… étape");
+});
+
+// Trouvaille en creusant le signalement utilisateur du 28/08/2026 (voir
+// parseCourse ci-dessus) : le HTML réel de la page « 1994 Tour de France »
+// affiche le lien vers Moûtiers avec le texte « Moutiers » (sans accent)
+// mais title="Moûtiers" (le vrai titre de la page, canonique) — vérifié en
+// récupérant la page réelle. Sans l'accent, la Géoplateforme trouve un
+// homonyme sans rapport (commune de la Meuse) à égalité de score avec la
+// vraie Moûtiers (Savoie), et prend la mauvaise.
+//
+// extractTables() (texte affiché, contrat historique) ne doit JAMAIS
+// préférer le title= — seul extractTablesRich() (.titledText) le fait,
+// et seule la colonne course de parseStagesFromHtml le lit (voir plus bas).
+// Trouvaille de relecture adverse (28/08/2026) sur une première version de
+// ce correctif qui appliquait la préférence à extractTables() lui-même,
+// donc à TOUTE cellule (numéro d'étape, vainqueur…) — vérifié avec du HTML
+// Wikipédia réel : le lien du numéro d'étape pointe vers un sous-article
+// dont le title commence par l'année (« 1994 Tour de France, Stage 11 to
+// Stage 21 »), faisant confondre le numéro d'étape avec l'année ; la
+// cellule vainqueur contient une icône de drapeau (title = nom de pays,
+// aucun texte affiché) qui polluait le champ. Ce test verrouille que
+// extractTables() reste inchangé.
+test('extractTables (texte affiché) : ignore le title= d\'un lien, contrairement à extractTablesRich', () => {
+  const html = '<table class="wikitable"><tr><td>' +
+    '<a href="./Mo%C3%BBtiers" title="Moûtiers">Moutiers</a> to ' +
+    '<a href="./Cluses" title="Cluses">Cluses</a></td></tr></table>';
+  assert.deepStrictEqual(extractTables(html), [[['Moutiers to Cluses']]]);
+});
+
+test('extractTablesRich : .titledText préfère le title= d\'un lien, .text garde le texte affiché', () => {
+  const html = '<table class="wikitable"><tr><td>' +
+    '<a href="./Mo%C3%BBtiers" title="Moûtiers">Moutiers</a> to ' +
+    '<a href="./Cluses" title="Cluses">Cluses</a></td></tr></table>';
+  const cell = extractTablesRich(html)[0][0][0];
+  assert.strictEqual(cell.text, 'Moutiers to Cluses');
+  assert.strictEqual(cell.titledText, 'Moûtiers to Cluses');
+});
+
+test('extractTablesRich : un lien sans title= garde son texte affiché dans les deux champs', () => {
+  const html = '<table class="wikitable"><tr><td><a href="./Paris">Paris</a></td></tr></table>';
+  const cell = extractTablesRich(html)[0][0][0];
+  assert.deepStrictEqual(cell, { text: 'Paris', titledText: 'Paris' });
+});
+
+// Reproduction directe de la régression trouvée par relecture adverse
+// (28/08/2026) sur la première version de ce correctif : numéro d'étape et
+// vainqueur (dont les liens portent un title sans rapport avec leur usage
+// dans ce tableau) doivent rester lus depuis le texte affiché — seule la
+// colonne course doit refléter le title= du lien.
+test('parseStagesFromHtml : le title= d\'un lien de la colonne numéro/vainqueur n\'altère jamais le numéro d\'étape ni le vainqueur', () => {
+  const html = '<table class="wikitable"><tr><th>Stage</th><th>Course</th><th>Distance</th><th>Winner</th></tr>' +
+    '<tr><td><a title="1994 Tour de France, Stage 11 to Stage 21">18</a></td>' +
+    '<td><a title="Moûtiers">Moutiers</a> to <a title="Cluses">Cluses</a></td>' +
+    '<td>174.5 km</td>' +
+    '<td><a title="Italy"></a> Mario Cipollini</td></tr>' +
+    '<tr><td><a title="1994 Tour de France, Stage 11 to Stage 21">19</a></td>' +
+    '<td>Cluses to Avoriaz</td><td>47.5 km</td><td>Rider X</td></tr></table>';
+  const stages = parseStagesFromHtml(html, 1994);
+  assert.strictEqual(stages[0].number, 18, 'le numéro d\'étape reste 18, pas 1994 (l\'année du title du lien)');
+  assert.strictEqual(stages[0].start, 'Moûtiers', 'la colonne course reflète bien le title= (correctif visé)');
+  assert.strictEqual(stages[0].finish, 'Cluses');
+  assert.strictEqual(stages[0].winner, 'Mario Cipollini', 'le vainqueur reste le texte affiché, pas le title= du drapeau');
+  assert.strictEqual(stages[1].number, 19);
 });
 
 test('extractTables : balisage légèrement malformé (attribut non fermé) ne casse pas le parseur', () => {

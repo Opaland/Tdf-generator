@@ -33,30 +33,70 @@ const KNOWN_COLS = JSON.parse(
 // 2025/2026 modernes) avant remplacement, pas seulement testée sur un
 // nouveau cas inventé.
 
-function cellText(cell) {
+/**
+ * Extrait le texte d'une cellule sous deux formes : `text` (texte affiché,
+ * comportement historique inchangé) et `titledText` (identique, sauf que le
+ * texte affiché de tout lien wiki portant un attribut `title` est remplacé
+ * par ce `title` — le nom de page Wikipédia canonique).
+ *
+ * Utile car le texte AFFICHÉ d'un lien peut perdre un diacritique que porte
+ * le titre réel de la page ciblée — trouvaille sur la génération réelle du
+ * 28/08/2026, Tour 1994 étape 18 : le tableau affiche « Moutiers » (texte du
+ * lien) alors que title="Moûtiers" (le vrai nom de la commune savoyarde).
+ * Sans l'accent, la Géoplateforme (pipeline/geocode.js) trouve une commune
+ * homonyme sans rapport (Meuse) à égalité de score avec la vraie Moûtiers,
+ * et retient la mauvaise faute d'un signal de désambiguïsation.
+ *
+ * `titledText` n'est PAS utilisé partout (relecture adverse, 28/08/2026) :
+ * un premier correctif l'appliquait à `cellText()` pour toute cellule, donc
+ * aussi la colonne numéro d'étape (dont le lien pointe vers un sous-article
+ * dont le title commence par l'année, ex. « 1994 Tour de France, Stage 11 to
+ * Stage 21 » pour l'étape 18 — le numéro devenait l'année, cassant en
+ * cascade stage_order, la curation historic_routes.json et le calcul des
+ * jours de montagne consécutifs) et la colonne vainqueur (icône de drapeau
+ * sans texte affiché, dont le title — un nom de pays — polluait le champ).
+ * `titledText` n'est donc lu que pour la colonne course (parseStagesFromHtml).
+ */
+function cellTexts(cell) {
   const clone = cell.clone();
   clone.querySelectorAll('sup, style').forEach((n) => n.remove()); // appels de référence [1]
   clone.querySelectorAll('br').forEach((n) => n.replaceWith(' '));
-  return clone.text // .text décode les entités HTML (via node-html-parser)
+  const finalize = (raw) => raw // .text décode les entités HTML (via node-html-parser)
     .replace(/\[[^\]]*\]/g, '')
     .replace(/\s+/g, ' ')
     .trim();
+  const text = finalize(clone.text);
+  const titledClone = clone.clone();
+  titledClone.querySelectorAll('a').forEach((a) => {
+    const title = a.getAttribute('title');
+    if (title) a.set_content(title);
+  });
+  return { text, titledText: finalize(titledClone.text) };
 }
 
-/** Extrait toutes les tables wikitable d'une page HTML → [ [ [cell,…], … ], … ]. */
-function extractTables(html) {
+/**
+ * Extrait toutes les tables wikitable d'une page HTML → [ [ [{text,
+ * titledText},…], … ], … ] — variante « riche » de extractTables() (voir
+ * cellTexts ci-dessus), réservée à parseStagesFromHtml.
+ */
+function extractTablesRich(html) {
   const root = parseHtml(html);
   const tables = [];
   for (const table of root.querySelectorAll('table')) {
     if (!/wikitable/i.test(table.getAttribute('class') || '')) continue;
     const rows = [];
     for (const tr of table.querySelectorAll('tr')) {
-      const cells = tr.querySelectorAll('th, td').map(cellText);
+      const cells = tr.querySelectorAll('th, td').map(cellTexts);
       if (cells.length) rows.push(cells);
     }
     if (rows.length) tables.push(rows);
   }
   return tables;
+}
+
+/** Extrait toutes les tables wikitable d'une page HTML → [ [ [cell,…], … ], … ]. */
+function extractTables(html) {
+  return extractTablesRich(html).map((rows) => rows.map((row) => row.map((c) => c.text)));
 }
 
 const MONTHS = {
@@ -73,6 +113,40 @@ function parseDate(text, year) {
   if (!m || !MONTHS[m[2]]) return null;
   const d = parseInt(m[1], 10);
   return `${year}-${String(MONTHS[m[2]]).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+}
+
+// Wikipédia annote entre parenthèses le PAYS d'une ville de départ/arrivée
+// uniquement quand elle est hors de France (convention observée sur les
+// pages réelles « <année> Tour de France », ex. « Dover (United Kingdom) »,
+// « Luxembourg City (Luxembourg) ») — jamais pour une précision purement
+// française (ex. « Paris (Montgeron) », le point de départ réel dans la
+// commune parisienne en 1903). Liste fermée plutôt que « toute parenthèse
+// vaut annotation de pays » : sans elle, « Montgeron » serait pris à tort
+// pour un pays. Couvre les pays européens plausibles pour un Grand Départ,
+// pas une liste exhaustive mondiale — un pays absent de cette liste retombe
+// simplement sur le comportement par défaut (countryHint 'fr' inchangé),
+// dégradation sûre plutôt que fausse détection.
+const KNOWN_COUNTRIES = new Set([
+  'france', 'belgium', 'netherlands', 'luxembourg', 'germany', 'switzerland',
+  'italy', 'spain', 'monaco', 'andorra', 'united kingdom', 'england',
+  'scotland', 'wales', 'ireland', 'northern ireland', 'denmark', 'san marino',
+  'portugal', 'austria', 'liechtenstein', 'slovenia', 'czech republic', 'poland',
+]);
+
+/**
+ * Pays annoté entre parenthèses juste après le nom de ville (avant un
+ * éventuel « via », qui décrit un point de passage, jamais la ville elle-
+ * même — voir parseCourse). `null` si aucune parenthèse ne correspond à un
+ * pays reconnu (précision de lieu française, ex. « Paris (Montgeron) »).
+ */
+function extractCountry(text) {
+  const beforeVia = String(text).replace(/\s+via\b.*$/i, '');
+  const matches = [...beforeVia.matchAll(/\(([^)]*)\)/g)];
+  for (let i = matches.length - 1; i >= 0; i--) {
+    const candidate = matches[i][1].trim();
+    if (KNOWN_COUNTRIES.has(candidate.toLowerCase())) return candidate;
+  }
+  return null;
 }
 
 function parseCourse(text) {
@@ -105,7 +179,12 @@ function parseCourse(text) {
     .trim()
     .replace(/\s+via\b.*$/i, '')
     .trim();
-  return { start: clean(m[1]), finish: clean(m[2]) };
+  return {
+    start: clean(m[1]),
+    finish: clean(m[2]),
+    startCountry: extractCountry(m[1]),
+    finishCountry: extractCountry(m[2]),
+  };
 }
 
 function parseDistanceKm(text) {
@@ -130,9 +209,9 @@ function normalizeType(text) {
  * Retourne [{ number, dateText, dateIso, start, finish, distanceKm, type, winner, sourceRow }]
  */
 function parseStagesFromHtml(html, year) {
-  const tables = extractTables(html);
+  const tables = extractTablesRich(html);
   for (const rows of tables) {
-    const header = rows[0].map((h) => h.toLowerCase());
+    const header = rows[0].map((h) => h.text.toLowerCase());
     // Un 3e critère (colonne « course/parcours/route/itinéraire ») avait été
     // introduit ici mais avec un `|| true` qui le rendait tautologique — donc
     // mort depuis son introduction (trouvaille de sprint dédié, survivant de
@@ -180,25 +259,45 @@ function parseStagesFromHtml(html, year) {
       // wikipedia_2026_en.html, étapes non courues).
       let row = rawRow;
       if (rawRow.length > header.length) {
-        const nonEmpty = rawRow.filter((c) => String(c).trim() !== '');
+        // Décision de réalignement basée UNIQUEMENT sur `.text` (jamais
+        // `.titledText`) : une icône sans texte affiché mais avec un `title`
+        // (ex. drapeau de pays) deviendrait « non vide » sous titledText,
+        // ce qui déclencherait le réalignement à tort — `.text` reproduit
+        // exactement le comportement historique (avant l'ajout de
+        // titledText), garanti insensible à ce nouveau champ.
+        const nonEmpty = rawRow.filter((c) => String(c.text).trim() !== '');
         if (nonEmpty.length === header.length) row = nonEmpty;
       }
-      const distanceKm = parseDistanceKm(row[iDist]);
-      const numM = String(row[iStage]).match(/\d+/);
+      // `row[i]?.text` (jamais `row[i].text`) : une ligne plus courte que
+      // l'en-tête (ligne « Total », résumé sans toutes les colonnes — ligne
+      // rencontrée sur du HTML Wikipédia réel, 1994) laisse `row[iDist]`
+      // `undefined` — l'ancien code tolérait ça via `String(undefined)`
+      // (coercion silencieuse, jamais une exception) pour retomber sur le
+      // rejet normal juste en dessous (`!distanceKm || !numM`) ; un accès
+      // direct `.text` plante avant d'y arriver (trouvaille en vérifiant ce
+      // correctif contre le vrai HTML de la page 1994, pas seulement les
+      // fixtures locales qui n'ont pas ce genre de ligne).
+      const distanceKm = parseDistanceKm(row[iDist]?.text);
+      const numM = String(row[iStage]?.text).match(/\d+/);
       if (!distanceKm || !numM) continue; // jour de repos, ligne « Total »…
-      const courseText = iCourse >= 0 ? row[iCourse] : '';
+      // Seule la colonne course lit `titledText` (nom de ville canonique,
+      // diacritiques compris) — toutes les autres colonnes gardent `text`
+      // (comportement historique inchangé, voir cellTexts()).
+      const courseText = iCourse >= 0 ? row[iCourse]?.titledText : '';
       const course = parseCourse(courseText);
       if (!course) continue;
       stages.push({
         number: parseInt(numM[0], 10),
-        dateText: iDate >= 0 ? row[iDate] : null,
-        dateIso: iDate >= 0 ? parseDate(row[iDate], year) : null,
+        dateText: iDate >= 0 ? row[iDate]?.text ?? null : null,
+        dateIso: iDate >= 0 ? parseDate(row[iDate]?.text, year) : null,
         start: course.start,
         finish: course.finish,
+        startCountry: course.startCountry,
+        finishCountry: course.finishCountry,
         distanceKm,
-        type: iType >= 0 ? normalizeType(row[iType]) : null,
-        winner: iWinner >= 0 ? row[iWinner] : null,
-        sourceRow: row.join(' | '),
+        type: iType >= 0 ? normalizeType(row[iType]?.text) : null,
+        winner: iWinner >= 0 ? row[iWinner]?.text ?? null : null,
+        sourceRow: row.map((c) => c.text).join(' | '),
       });
     }
     if (stages.length >= 2) return stages;
@@ -255,7 +354,17 @@ function reconstructionWaypoints(year, stage, category = 'hommes') {
   const wps = [];
   const startLabel = curated?.start || stage.start;
   const finishLabel = curated?.finish || stage.finish;
-  wps.push({ label: startLabel, kind: 'start', bonus_sec: null, source: curated?.start ? 'parcours curé' : 'wikipedia' });
+  // country_hint seulement pour un départ/arrivée NON curé (issu tel quel du
+  // texte Wikipédia) : un parcours curé (historic_routes.json) porte déjà un
+  // libellé choisi à la main, sans indice de pays associé — countryHint reste
+  // 'fr' par défaut pour lui, comportement inchangé. « France » explicite
+  // (ex. « Lyon (France) via (Melun) ») ne compte jamais comme étranger.
+  const foreignCountry = (country) => (country && !/^france$/i.test(country) ? country : null);
+  wps.push({
+    label: startLabel, kind: 'start', bonus_sec: null,
+    source: curated?.start ? 'parcours curé' : 'wikipedia',
+    country_hint: curated?.start ? null : foreignCountry(stage.startCountry),
+  });
   for (const via of curated?.vias || []) {
     if (typeof via === 'string') wps.push({ label: via, kind: 'via', bonus_sec: null, source: 'parcours curé' });
     else {
@@ -274,6 +383,7 @@ function reconstructionWaypoints(year, stage, category = 'hommes') {
     kind: isColQuery(finishLabel) ? 'col' : 'finish',
     bonus_sec: curated?.finish_bonus_sec || null,
     source: curated?.finish ? 'parcours curé' : 'wikipedia',
+    country_hint: curated?.finish ? null : foreignCountry(stage.finishCountry),
   });
   return wps;
 }
@@ -320,6 +430,7 @@ function stageConfidence(year, stageNumber, category = 'hommes') {
 module.exports = {
   parseStagesFromHtml,
   extractTables,
+  extractTablesRich,
   parseCourse,
   parseDistanceKm,
   parseDate,
