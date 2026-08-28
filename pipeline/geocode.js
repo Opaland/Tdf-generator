@@ -337,11 +337,22 @@ async function reverseGeocode(lat, lon) {
       const url = `https://data.geopf.fr/geocodage/reverse?lat=${lat}&lon=${lon}&limit=1`;
       const json = await httpJson(url, { minDelayMs: 120 });
       const f = (json.features || [])[0];
+      if (!f) return null;
       // Commune de préférence : pour nommer une côte, « Aucun » vaut mieux
       // que « 16 Rue des Pyrénées 65400 Aucun ».
-      return f
-        ? { label: f.properties.city || f.properties.label || f.properties.name, provider: 'geopf' }
-        : null;
+      //
+      // Cette requête n'envoie aujourd'hui aucun paramètre `index` (contrairement
+      // à geopfSearch()/geocodeSuggest() ci-dessus), donc l'API ne renvoie en
+      // pratique que le schéma adresse (`city`/`label` en chaînes) — vérifié en
+      // direct sur plusieurs points réels (sommets pyrénéens, zones rurales
+      // isolées), jamais le schéma POI (`city`/`name` en tableaux). geopfLabel()
+      // et la normalisation de `city` ci-dessous restent un garde-fou déjà en
+      // place plutôt qu'à ajouter le jour où cette route demanderait aussi
+      // l'index POI (ex. nommer un sommet cliqué sur la carte) — trouvaille de
+      // relecture adverse (28/08/2026) : les trois autres appels Géoplateforme
+      // de ce fichier avaient le même trou avant d'être corrigés.
+      const city = Array.isArray(f.properties.city) ? f.properties.city[0] : f.properties.city;
+      return { label: city || geopfLabel(f.properties, undefined), provider: 'geopf' };
     });
     if (value) return value;
   }

@@ -477,6 +477,25 @@ test('reverseGeocode en France : Géoplateforme trouve, Nominatim jamais appelé
   assert.strictEqual(r.label, 'Pau');
 });
 
+// Trouvaille de relecture adverse (deuxième tour, 28/08/2026) sur le
+// correctif Moûtiers/Strasbourg : reverseGeocode() n'envoie aujourd'hui
+// aucun paramètre `index` à la Géoplateforme, donc ne reçoit en pratique
+// jamais le schéma POI (city/name en tableaux, vérifié en direct sur
+// plusieurs points réels) — mais rien n'empêchait le code de planter
+// silencieusement en label-tableau si ce comportement changeait un jour
+// (ex. demander aussi l'index POI pour nommer un sommet cliqué sur la
+// carte). Ce test verrouille le garde-fou ajouté par précaution, pas un bug
+// actuellement déclenchable par l'API réelle.
+test('reverseGeocode en France : normalise un schéma POI (city en tableau) si jamais reçu, même si l\'API réelle ne l\'envoie pas aujourd\'hui', async () => {
+  mock = {
+    geopf: async () => jsonResponse({ features: [{ properties: { city: ['Sers'], name: ['Sers'] } }] }),
+    nominatim: neverCalled('Nominatim'),
+  };
+  const r = await reverseGeocode(42.9098, 0.144);
+  assert.strictEqual(r.provider, 'geopf');
+  assert.strictEqual(r.label, 'Sers', 'le libellé doit être une chaîne (city[0]), pas le tableau brut');
+});
+
 // Trouvaille de relecture adverse sur le correctif geocode() (400
 // Géoplateforme) : le même grep exhaustif sur `data.geopf.fr` montre que
 // reverseGeocode() (route /api/reverse, clic sur la carte) avait le même
