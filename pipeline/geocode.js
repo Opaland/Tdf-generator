@@ -75,6 +75,48 @@ function pickFeature(feats, query, near) {
   return feats[0];
 }
 
+// Types d'adresse Nominatim correspondant à un vrai lieu administratif
+// (commune, région, pays…) — jamais une ambassade, une rue ou un
+// restaurant homonyme, qui peuvent pourtant arriver en tête du classement
+// textuel brut de l'API (trouvaille en vérifiant ce correctif contre les
+// vraies données après régénération complète, 28/08/2026 : « Luxembourg
+// City » renvoyait l'ambassade du Luxembourg à Londres, premier résultat
+// du classement textuel, jamais un lieu administratif).
+const NOMINATIM_PLACE_TYPES = new Set([
+  'country', 'state', 'region', 'county', 'city', 'town', 'village',
+  'municipality', 'suburb', 'city_district', 'borough',
+]);
+
+/**
+ * Choisit, parmi les résultats Nominatim, le premier candidat de type
+ * administratif reconnu, DANS L'ORDRE DÉJÀ FOURNI PAR L'API — jamais une
+ * ambassade, une rue ou un restaurant homonyme. `null` si aucun candidat
+ * n'est de type administratif (l'appelant retombe alors sur le premier
+ * résultat brut, comportement historique).
+ *
+ * Ne réordonne JAMAIS les candidats entre eux — seule opération : un
+ * filtre, jamais un tri. Deux tentatives précédentes de « mieux classer »
+ * les candidats administratifs entre eux (préférer le plus spécifique ;
+ * puis, après une première relecture adverse, préférer le plus spécifique
+ * seulement s'il est géographiquement imbriqué dans le premier) ont chacune
+ * été cassées par une relecture adverse suivante avec des données réelles :
+ * la préférence de spécificité brute plaçait « San Marino, Californie »
+ * devant la République de Saint-Marin ; la version « imbriquée » plaçait
+ * ensuite « Orange, Comté d'Orange, Californie » devant la vraie Orange
+ * (Vaucluse, France) dès que ce comté californien — lui-même un faux
+ * homonyme — arrivait en PREMIER dans le classement Nominatim : l'ancrage
+ * sur le premier candidat ne se corrige jamais s'il est déjà le mauvais
+ * homonyme, un résultat dépendant de l'ordre de l'API plutôt que du lieu
+ * réel. Se contenter de FILTRER les types non pertinents, sans jamais
+ * réordonner les candidats retenus, ferme la seule classe de bug vérifiée
+ * (une ambassade/rue/restaurant en tête de liste) sans en rouvrir une
+ * autre : on fait confiance au classement de pertinence de Nominatim
+ * lui-même dès qu'il s'agit de départager deux lieux administratifs.
+ */
+function pickNominatimFeature(results) {
+  return (results || []).find((r) => r && NOMINATIM_PLACE_TYPES.has(r.addresstype)) || null;
+}
+
 // La Géoplateforme rejette carrément certaines requêtes en HTTP 400 (ex. un
 // nom de ville néerlandaise commençant par une apostrophe, "'s-Hertogen-
 // bosch" — leur validation exige « must ... start with a number or a
@@ -156,10 +198,31 @@ async function geocode(query, { countryHint = 'fr', near = null, summit = false 
     // Repli : Nominatim si la Géoplateforme ne trouve rien (ou rejette la requête).
   }
   const { value } = await cached('geocode', 'nominatim', { q: query }, async () => {
-    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=jsonv2&limit=5&accept-language=fr`;
-    const json = await httpJson(url, { minDelayMs: 1100 }); // max 1 req/s
-    if (!json.length) return null;
-    const r = json[0];
+    const search = async (q) => {
+      const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=jsonv2&limit=5&accept-language=fr`;
+      return httpJson(url, { minDelayMs: 1100 }); // max 1 req/s
+    };
+    const first = await search(query);
+    let r = pickNominatimFeature(first);
+    if (!r) {
+      // Repli : le titre Wikipédia d'une ville peut porter un qualificatif
+      // absent du nom réel dans OpenStreetMap — trouvaille en vérifiant ce
+      // correctif contre les vraies données après régénération complète
+      // (28/08/2026) : « Luxembourg City » (nom de l'article Wikipédia
+      // anglais) ne renvoie AUCUN résultat administratif chez Nominatim,
+      // seulement des homonymes sans rapport (une ambassade du Luxembourg à
+      // Londres, en tête, des rues « Luxembourg » sur plusieurs continents)
+      // — le vrai nom OSM de la ville est juste « Luxembourg », partagé
+      // avec le pays. Sans ce repli, la ville de départ d'une étape se
+      // retrouvait à Londres.
+      const stripped = String(query).replace(/\s+city$/i, '').trim();
+      if (stripped && stripped.toLowerCase() !== String(query).trim().toLowerCase()) {
+        const retry = await search(stripped);
+        r = pickNominatimFeature(retry) || retry[0];
+      }
+    }
+    if (!r) r = first[0];
+    if (!r) return null;
     return {
       label: r.display_name.split(',').slice(0, 2).join(','),
       lat: parseFloat(r.lat),
@@ -260,4 +323,4 @@ async function geocodeSuggest(query) {
   return value || [];
 }
 
-module.exports = { geocode, geocodeCol, reverseGeocode, geocodeSuggest, looksLikeFrance, isColQuery, pickFeature };
+module.exports = { geocode, geocodeCol, reverseGeocode, geocodeSuggest, looksLikeFrance, isColQuery, pickFeature, pickNominatimFeature };
