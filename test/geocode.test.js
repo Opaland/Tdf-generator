@@ -132,6 +132,84 @@ test('sans near, le comportement existant (commune > score) reste inchangé', ()
   assert.strictEqual(pickFeature(feats, 'Vienne', null).type, 'municipality', 'near=null ne doit rien changer au comportement déjà testé');
 });
 
+// Reproduction directe du bug trouvé après la régénération complète du
+// 28/08/2026 (Tour 1994, étape 18, Moûtiers → Cluses affichée entre Metz et
+// Nancy) : les deux communes homonymes ne sont trouvées que via l'index POI
+// de la Géoplateforme (aucune n'a de numéro de voie), qui n'expose ni
+// `properties.type` ni `properties.label` — reproduit ici tel qu'observé en
+// direct sur https://data.geopf.fr/geocodage/search?q=Mo%C3%BBtiers, avec un
+// score de recherche STRICTEMENT identique entre les deux communes (l'ordre
+// de l'API sur une égalité n'est jamais garanti stable).
+// L'homonyme incorrect est placé EN PREMIER dans ce fixture, exprès :
+// l'ancien code (feats.find du premier type municipality/city) choisirait
+// silencieusement le premier élément du tableau quel qu'il soit, donc un
+// fixture qui place la bonne réponse en premier ne testerait rien (trouvaille
+// de l'agent verificateur-de-tests sur une version antérieure de ce test,
+// 28/08/2026) — seul cet ordre-ci exerce vraiment la branche « préférer la
+// correspondance exacte » ajoutée par le correctif.
+test('deux communes homonymes de score identique (index POI) : la requête accentuée préfère celle qui garde l\'accent', () => {
+  const feats = [
+    // Meurthe-et-Moselle (54391) — homonyme sans accent, même score,
+    // arrivé en PREMIER ici pour vérifier qu'il ne l'emporte pas par défaut.
+    { label: 'Moutiers', type: 'municipality', score: 0.9818181818181818, lat: 49.235158, lon: 5.963352 },
+    // Savoie (73181) — la bonne réponse, garde l'accent de la requête.
+    { label: 'Moûtiers', type: 'municipality', score: 0.9818181818181818, lat: 45.490782, lon: 6.538109 },
+  ];
+  const picked = pickFeature(feats, 'Moûtiers');
+  assert.strictEqual(picked.lat, 45.490782, 'doit choisir la commune savoyarde, pas l\'homonyme lorrain arrivé en premier');
+  assert.strictEqual(picked.lon, 6.538109);
+});
+
+// Même bug, sens inverse : sans candidat correspondant exactement à la
+// requête (aucun accent en jeu ici, juste deux communes homonymes), le
+// premier candidat commune reste le choix — comportement inchangé, pas une
+// régression du correctif ci-dessus.
+test('deux communes homonymes sans correspondance exacte : le premier candidat commune reste le choix', () => {
+  const feats = [
+    { label: 'Vienne', type: 'municipality', score: 0.9, lat: 45.52, lon: 4.87 },
+    { label: 'Vienne', type: 'municipality', score: 0.9, lat: 46.6, lon: 0.54 },
+  ];
+  assert.strictEqual(pickFeature(feats, 'Vienne-test-homonymes-sans-accent').lat, 45.52);
+});
+
+// Reproduction directe du second bug trouvé le même jour (Tour 1992, étape
+// 10, Luxembourg City → Strasbourg absente de la carte) : `near` (biais du
+// waypoint précédent, ici Luxembourg City) départageait auparavant TOUS les
+// candidats par pure distance, y compris une rue homonyme (« Impasse
+// Strasbourg », Meurthe-et-Moselle, ~40 km) plus proche que la vraie ville
+// (Bas-Rhin, ~180 km) — pourtant la bonne réponse pour cet enchaînement réel.
+// Données reproduites telles qu'observées en direct sur data.geopf.fr avec
+// lat/lon de Luxembourg City en biais.
+test('near ne départage plus par pure distance dès qu\'une commune candidate existe (homonymie « Strasbourg »)', () => {
+  const nearLuxembourgCity = { lat: 49.8159, lon: 6.1297 };
+  const feats = [
+    { label: 'Strasbourg', type: 'municipality', score: 0.88, lat: 48.579831, lon: 7.761454 },
+    { label: 'Impasse Strasbourg 54350 Mont-Saint-Martin', type: 'street', score: 0.67, lat: 49.54005, lon: 5.785876 },
+    { label: 'Rue de Strasbourg 57100 Thionville', type: 'street', score: 0.67, lat: 49.356147, lon: 6.161157 },
+  ];
+  const picked = pickFeature(feats, 'Strasbourg', nearLuxembourgCity);
+  assert.strictEqual(picked.lat, 48.579831, 'doit choisir la vraie ville, pas la rue homonyme plus proche du waypoint précédent');
+  assert.strictEqual(picked.lon, 7.761454);
+});
+
+// Trouvaille de relecture adverse (28/08/2026) sur une version antérieure du
+// correctif ci-dessus : la préférence « correspondance exacte » retenait
+// alors un SEUL candidat via `.find()`, court-circuitant `near` avant même
+// qu'il ait pu départager deux vrais homonymes de communes qui matchent
+// TOUS LES DEUX exactement la requête (fréquent en France : Neuville,
+// Villeneuve, Saint-Martin…). Reproduit avec des données réelles observées
+// en direct sur data.geopf.fr (deux communes « Neuville » distinctes,
+// Dordogne et Puy-de-Dôme, score identique).
+test('near départage toujours deux vrais homonymes de communes qui matchent TOUS LES DEUX exactement la requête', () => {
+  const nearPuyDeDome = { lat: 45.75, lon: 3.44 };
+  const feats = [
+    { label: 'Neuville', type: 'municipality', score: 0.9727272727272727, lat: 45.109664, lon: 1.848879 }, // Dordogne, loin
+    { label: 'Neuville', type: 'municipality', score: 0.9727272727272727, lat: 45.750029, lon: 3.44391 }, // Puy-de-Dôme, proche
+  ];
+  const picked = pickFeature(feats, 'Neuville', nearPuyDeDome);
+  assert.strictEqual(picked.lat, 45.750029, 'doit choisir la commune la plus proche du waypoint précédent, pas la première dans l\'ordre de l\'API');
+});
+
 test('isColQuery reconnaît les libellés de sommets', () => {
   assert.ok(isColQuery('Col du Tourmalet'));
   assert.ok(isColQuery('Mont Ventoux'));
@@ -231,6 +309,30 @@ test('Géoplateforme trouve directement : Nominatim jamais appelé', async () =>
   const r = await geocode('Pau-test-geopf-direct');
   assert.strictEqual(r.provider, 'geopf');
   assert.strictEqual(r.label, 'Pau (64000)');
+});
+
+// Intégration bout-en-bout du correctif POI ci-dessus, cette fois via
+// geocode() lui-même : reproduit la forme BRUTE de la réponse Géoplateforme
+// pour un résultat trouvé exclusivement via l'index POI (`name`/`category`
+// en tableaux, ni `label` ni `type` — schéma différent de l'index adresse
+// utilisé par les autres tests de ce fichier), pas seulement la forme déjà
+// normalisée que pickFeature() reçoit dans les tests unitaires ci-dessus.
+test('geocode() : commune trouvée uniquement via l\'index POI (name/category en tableaux) reconnue comme telle', async () => {
+  mock = {
+    geopf: async () => jsonResponse({
+      features: [
+        {
+          properties: { name: ['Moûtiers'], category: ['administratif', 'commune'], score: 0.98 },
+          geometry: { coordinates: [6.538109, 45.490782] },
+        },
+      ],
+    }),
+    nominatim: neverCalled('Nominatim'),
+  };
+  const r = await geocode('Moûtiers-test-index-poi');
+  assert.strictEqual(r.provider, 'geopf');
+  assert.strictEqual(r.label, 'Moûtiers', 'le libellé doit être une chaîne (name[0]), pas le tableau brut');
+  assert.strictEqual(r.lat, 45.490782);
 });
 
 test('repli Géoplateforme → Nominatim quand la Géoplateforme ne trouve rien', async () => {
@@ -375,6 +477,25 @@ test('reverseGeocode en France : Géoplateforme trouve, Nominatim jamais appelé
   assert.strictEqual(r.label, 'Pau');
 });
 
+// Trouvaille de relecture adverse (deuxième tour, 28/08/2026) sur le
+// correctif Moûtiers/Strasbourg : reverseGeocode() n'envoie aujourd'hui
+// aucun paramètre `index` à la Géoplateforme, donc ne reçoit en pratique
+// jamais le schéma POI (city/name en tableaux, vérifié en direct sur
+// plusieurs points réels) — mais rien n'empêchait le code de planter
+// silencieusement en label-tableau si ce comportement changeait un jour
+// (ex. demander aussi l'index POI pour nommer un sommet cliqué sur la
+// carte). Ce test verrouille le garde-fou ajouté par précaution, pas un bug
+// actuellement déclenchable par l'API réelle.
+test('reverseGeocode en France : normalise un schéma POI (city en tableau) si jamais reçu, même si l\'API réelle ne l\'envoie pas aujourd\'hui', async () => {
+  mock = {
+    geopf: async () => jsonResponse({ features: [{ properties: { city: ['Sers'], name: ['Sers'] } }] }),
+    nominatim: neverCalled('Nominatim'),
+  };
+  const r = await reverseGeocode(42.9098, 0.144);
+  assert.strictEqual(r.provider, 'geopf');
+  assert.strictEqual(r.label, 'Sers', 'le libellé doit être une chaîne (city[0]), pas le tableau brut');
+});
+
 // Trouvaille de relecture adverse sur le correctif geocode() (400
 // Géoplateforme) : le même grep exhaustif sur `data.geopf.fr` montre que
 // reverseGeocode() (route /api/reverse, clic sur la carte) avait le même
@@ -448,6 +569,29 @@ test('geocodeSuggest (en ligne) : kind = col si le libellé matche isColQuery, v
   assert.strictEqual(suggestions[0].kind, 'col');
   assert.strictEqual(suggestions[0].provider, 'geopf');
   assert.strictEqual(suggestions[1].kind, 'via');
+});
+
+// Trouvaille de relecture adverse (28/08/2026) : le correctif POI de
+// geopfSearch() (geocode()) n'avait pas été appliqué à geocodeSuggest(),
+// pourtant un second appelant du même endpoint avec le même schéma —
+// reproduit ici la forme BRUTE d'un résultat trouvé exclusivement via
+// l'index POI (`name`/`category` en tableaux, ni `label` ni `properties`
+// exploitable pour isColQuery avant ce correctif).
+test('geocodeSuggest (en ligne) : résultat trouvé uniquement via l\'index POI (name en tableau) → libellé en chaîne, kind reconnu', async () => {
+  mock = {
+    geopf: async () => jsonResponse({
+      features: [
+        {
+          properties: { name: ['Col du Tourmalet'], category: ['poi', 'sommet'], score: 0.9 },
+          geometry: { coordinates: [0.15, 42.91] },
+        },
+      ],
+    }),
+  };
+  const suggestions = await geocodeSuggest('Tourmalet-test-suggest-index-poi');
+  assert.strictEqual(suggestions.length, 1);
+  assert.strictEqual(suggestions[0].label, 'Col du Tourmalet', 'le libellé doit être une chaîne (name[0]), pas le tableau brut');
+  assert.strictEqual(suggestions[0].kind, 'col', 'isColQuery doit reconnaître le libellé même trouvé uniquement via l\'index POI');
 });
 
 test('geocodeSuggest (en ligne) : aucun résultat → tableau vide, pas d\'exception', async () => {
