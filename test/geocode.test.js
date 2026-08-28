@@ -19,7 +19,7 @@ process.env.ETAPEFORGE_DATA_DIR = path.join(os.tmpdir(), `etapeforge-geocode-tes
 
 const { test, before, after } = require('node:test');
 const assert = require('node:assert');
-const { geocode, reverseGeocode, pickFeature, isColQuery, geocodeSuggest } = require('../pipeline/geocode');
+const { geocode, reverseGeocode, pickFeature, pickNominatimFeature, isColQuery, geocodeSuggest } = require('../pipeline/geocode');
 const { setOffline } = require('../pipeline/http');
 
 let realFetch;
@@ -138,6 +138,87 @@ test('isColQuery reconnaît les libellés de sommets', () => {
   assert.ok(!isColQuery('Pau'));
 });
 
+// pickNominatimFeature() : trouvaille en vérifiant le correctif geocode.js
+// (bugs #150/#153) contre les vraies données après régénération complète
+// du 28/08/2026 — « Luxembourg City » routé vers Nominatim (countryHint
+// hors France) renvoyait l'AMBASSADE du Luxembourg à Londres (51.50, -0.15),
+// premier résultat brut du classement textuel de l'API, jamais un lieu
+// administratif.
+//
+// pickNominatimFeature() FILTRE seulement (jamais ne réordonne) : deux
+// tentatives de réordonnancement (préférer le plus spécifique ; puis,
+// après une relecture adverse, seulement s'il est géographiquement imbriqué
+// dans le premier) ont chacune été cassées par une relecture adverse
+// suivante avec des données Nominatim réelles — la première plaçait « San
+// Marino, Californie » devant la République homonyme ; la seconde plaçait
+// ensuite « Orange, Comté d'Orange, Californie » devant la vraie Orange
+// (Vaucluse, France) dès que ce comté californien arrivait en PREMIER dans
+// le classement Nominatim (l'ancrage sur le premier candidat ne se corrige
+// jamais s'il est déjà le mauvais homonyme). Les tests ci-dessous verrouillent
+// donc explicitement : filtrer ne remplace jamais le classement de Nominatim.
+test('pickNominatimFeature : préfère un lieu administratif à une ambassade/rue/restaurant homonyme', () => {
+  const results = [
+    { addresstype: 'office', display_name: 'Ambassade du Luxembourg, Londres' },
+    { addresstype: 'road', display_name: 'Luxembourg Avenue, Las Vegas' },
+    { addresstype: 'country', display_name: 'Luxembourg' },
+  ];
+  assert.strictEqual(pickNominatimFeature(results).addresstype, 'country');
+});
+
+test('pickNominatimFeature : garde le PREMIER candidat administratif dans l\'ordre Nominatim, ne le réordonne jamais par spécificité', () => {
+  // Le pays (moins spécifique) est ici en tête, comme le renvoie réellement
+  // Nominatim pour la requête « Luxembourg » — doit rester le choix, la
+  // ville plus spécifique qui suit ne doit jamais le détrôner.
+  const results = [
+    { addresstype: 'country', display_name: 'Luxembourg' },
+    { addresstype: 'city', display_name: 'Luxembourg, Canton Luxembourg, Luxembourg' },
+    { addresstype: 'state', display_name: 'Luxembourg, Wallonie, Belgique' },
+  ];
+  assert.strictEqual(pickNominatimFeature(results).display_name, 'Luxembourg');
+});
+
+// Trouvaille de relecture adverse (28/08/2026) sur une version antérieure de
+// ce correctif (spécificité brute, puis imbrication géographique) : « San
+// Marino » (countryHint hors France, KNOWN_COUNTRIES) cassait dans les deux
+// cas — le pays (Saint-Marin, Europe), déjà bien classé en tête par
+// Nominatim, se faisait détrôner par un homonyme sans rapport (San Marino,
+// Californie). Données réelles (API Nominatim) : le pays est bien EN TÊTE
+// dans la vraie réponse — ce test verrouille qu'il le reste.
+test('pickNominatimFeature : ne détrône JAMAIS le premier résultat administratif par un homonyme plus "spécifique" (San Marino, pays vs. Californie)', () => {
+  const results = [
+    { addresstype: 'country', display_name: 'Saint-Marin' },
+    { addresstype: 'town', display_name: 'San Marino, Los Angeles County, Californie, États-Unis d\'Amérique' },
+  ];
+  assert.strictEqual(pickNominatimFeature(results).addresstype, 'country');
+});
+
+// Trouvaille de relecture adverse (28/08/2026) sur la version « imbrication
+// géographique » : quand le PREMIER candidat administratif de Nominatim
+// est LUI-MÊME le mauvais homonyme (ex. « Orange, Comté d'Orange,
+// Californie » pour la requête « Orange », avant la vraie Orange, Vaucluse,
+// France, plus bas dans la liste), aucune heuristique de ce fichier ne
+// tente de « corriger » ce choix — on fait confiance au classement de
+// Nominatim. Documente une limite connue et acceptée (voir le commentaire
+// de pickNominatimFeature) plutôt que de la cacher derrière une heuristique
+// qui casserait un autre cas réel.
+test('pickNominatimFeature : limite connue et acceptée — ne corrige pas un premier candidat administratif qui est un mauvais homonyme', () => {
+  const results = [
+    { addresstype: 'county', display_name: 'Orange, Orange County, Californie, États-Unis d\'Amérique' },
+    { addresstype: 'town', display_name: 'Orange, Carpentras, Vaucluse, France' },
+  ];
+  assert.strictEqual(pickNominatimFeature(results).display_name, 'Orange, Orange County, Californie, États-Unis d\'Amérique');
+});
+
+test('pickNominatimFeature : aucun candidat administratif → null (repli sur le comportement historique)', () => {
+  const results = [
+    { addresstype: 'office', display_name: 'Ambassade du Luxembourg, Londres' },
+    { addresstype: 'road', display_name: 'Luxembourg Avenue, Las Vegas' },
+  ];
+  assert.strictEqual(pickNominatimFeature(results), null);
+  assert.strictEqual(pickNominatimFeature([]), null);
+  assert.strictEqual(pickNominatimFeature(undefined), null);
+});
+
 // ---------------------------------------------------------------- geocode()
 
 test('Géoplateforme trouve directement : Nominatim jamais appelé', async () => {
@@ -211,6 +292,64 @@ test('un rejet 400 de la Géoplateforme est mis en cache comme un « 0 résultat
   await geocode("'s-Hertogenbosch-test-cache");
   await geocode("'s-Hertogenbosch-test-cache");
   assert.strictEqual(geopfCalls, 1, 'le 2e appel doit être servi par le cache, pas recontacter la Géoplateforme');
+});
+
+// Reproduction directe du bug trouvé après régénération complète (28/08/2026,
+// PR de suivi #150/#153) : « Luxembourg City » (titre Wikipédia anglais) ne
+// correspond à aucun lieu administratif chez Nominatim — seulement des
+// homonymes sans rapport (ambassade, rues) — alors que « Luxembourg » seul
+// (nom réel de la ville dans OpenStreetMap, partagé avec le pays) en trouve.
+// Le repli renvoie ici le PAYS (premier candidat administratif dans l'ordre
+// Nominatim), pas la ville — pickNominatimFeature() ne réordonne jamais les
+// candidats entre eux (voir son commentaire) : le pays reste une bien
+// meilleure approximation que Londres (~500 km d'écart avant ce correctif),
+// à une vingtaine de km du centre-ville réel, pour un très petit pays.
+test('geocode() : repli "Luxembourg City" → "Luxembourg" quand aucun lieu administratif ne correspond au nom complet', async () => {
+  let nominatimCalls = [];
+  mock = {
+    geopf: neverCalled('la Géoplateforme'),
+    nominatim: async (url) => {
+      nominatimCalls.push(url);
+      if (/q=Luxembourg%20City/.test(url)) {
+        return jsonResponse([
+          { display_name: 'Ambassade du Luxembourg, Londres', lat: '51.50', lon: '-0.15', type: 'diplomatic', addresstype: 'office' },
+          { display_name: 'Luxembourg Avenue, Las Vegas', lat: '36.16', lon: '-115.32', type: 'residential', addresstype: 'road' },
+        ]);
+      }
+      if (/q=Luxembourg(?!%20City)/.test(url)) {
+        return jsonResponse([
+          { display_name: 'Luxembourg', lat: '49.8158683', lon: '6.1296751', type: 'administrative', addresstype: 'country' },
+          { display_name: 'Luxembourg, Canton Luxembourg, Luxembourg', lat: '49.6112768', lon: '6.1297990', type: 'administrative', addresstype: 'city' },
+        ]);
+      }
+      throw new Error(`URL Nominatim inattendue dans ce test : ${url}`);
+    },
+  };
+  // « Luxembourg City » (sans suffixe de test) : le repli teste précisément
+  // le retrait du suffixe " City" en fin de chaîne (voir geocode.js) — un
+  // suffixe de désambiguïsation de cache ajouté après « City » casserait
+  // cette condition. Aucun autre test de ce fichier n'utilise cette requête
+  // exacte, donc aucun risque de collision de cache SQLite entre tests.
+  const r = await geocode('Luxembourg City', { countryHint: 'lu' });
+  assert.strictEqual(nominatimCalls.length, 2, 'doit avoir tenté le nom complet, puis le repli sans "City"');
+  assert.strictEqual(r.lat, 49.8158683, 'un lieu administratif du bon pays, pas l\'ambassade de Londres');
+  assert.strictEqual(r.lon, 6.1296751);
+});
+
+test('geocode() : pas de repli "City" quand le premier résultat Nominatim est déjà un lieu administratif', async () => {
+  let nominatimCalls = 0;
+  mock = {
+    geopf: neverCalled('la Géoplateforme'),
+    nominatim: async () => {
+      nominatimCalls++;
+      return jsonResponse([
+        { display_name: 'Edinburgh, Scotland, UK', lat: '55.9', lon: '-3.2', type: 'city', addresstype: 'city' },
+      ]);
+    },
+  };
+  const r = await geocode('Edinburgh-test-pas-de-repli', { countryHint: 'uk' });
+  assert.strictEqual(nominatimCalls, 1, 'un seul appel réseau : le premier résultat suffisait déjà');
+  assert.strictEqual(r.lat, 55.9);
 });
 
 test('countryHint hors France : saute directement la Géoplateforme', async () => {
