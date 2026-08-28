@@ -22,9 +22,27 @@
 // Usage : node scripts/import-all-and-generate.js
 // Variables : GEN_CONCURRENCY (défaut 8)
 
-const { getDb } = require('../backend/db');
+const fs = require('fs');
+const path = require('path');
+const { getDb, DATA_DIR } = require('../backend/db');
 const { importAllEditions } = require('../pipeline/importer');
 const { generateStage } = require('../pipeline/generate');
+
+// Marqueur de fin de passe complète (voir .github/workflows/pages.yml,
+// step "Vérifier si le catalogue complet restauré est réellement terminé") :
+// trouvaille en production (28/08/2026, relecture adverse sur ce même
+// workflow) — sans ce marqueur, un cache "full" restauré par un push
+// ordinaire serait indiscernable, par son seul préfixe de clé, d'un run
+// interrompu à mi-parcours (annulé, timeout) qui a quand même sauvegardé sa
+// progression partielle (le workflow sauvegarde toujours le cache, même en
+// échec — voir plus haut). Supprimé au tout début de ce script, réécrit
+// seulement si toute la passe (import + génération) se termine sans lever
+// d'exception — les échecs individuels d'étapes (voir genFailed plus bas)
+// restent tolérés, comme déjà le cas pour generateAllRemaining() : ce
+// marqueur atteste juste que la PASSE a fini, pas que chaque étape a
+// réussi (scripts/build-site.js ne publie de toute façon que les étapes à
+// l'état 'done').
+const COMPLETE_MARKER = path.join(DATA_DIR, '.full-complete');
 
 const CONCURRENCY = parseInt(process.env.GEN_CONCURRENCY || '8', 10);
 
@@ -96,8 +114,10 @@ async function generateAllRemaining(db) {
 
 async function main() {
   const db = getDb();
+  fs.rmSync(COMPLETE_MARKER, { force: true });
   await importAll();
   await generateAllRemaining(db);
+  fs.writeFileSync(COMPLETE_MARKER, new Date().toISOString());
 }
 
 main().then(() => process.exit(0)).catch((err) => {
