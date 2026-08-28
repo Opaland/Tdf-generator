@@ -2,7 +2,11 @@ name: Démo interactive GitHub Pages
 
 # Publie l'application interactive complète (frontend + données JSON
 # pré-générées, en ligne quand possible sinon via le simulateur hors-ligne)
-# sur GitHub Pages à chaque push sur main.
+# sur GitHub Pages à chaque push sur main. Si un catalogue complet
+# (workflow_dispatch, input `full`) a déjà été publié une fois, un push
+# ordinaire republie ce catalogue tel quel plutôt que de régresser vers la
+# petite démo habituelle (voir le commentaire du step « Restaurer le cache
+# de données » — trouvaille en production du 28/08/2026).
 on:
   push:
     branches: [main]
@@ -29,7 +33,7 @@ permissions:
 # redéclenché deux fois (comportement voulu), mais un push ordinaire vers la
 # petite démo ne l'interrompt plus.
 concurrency:
-  group: pages-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full' || 'demo' }}
+  group: pages-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full-v2' || 'demo' }}
   cancel-in-progress: true
 
 jobs:
@@ -69,16 +73,103 @@ jobs:
       # illimité : si l'upload du cache n'y tient pas, la reprise décrite
       # plus bas reste perdue malgré ce correctif. Réduit le risque de round
       # 1, ne le ferme pas totalement.
+      #
+      # Préfixe "full-v2" (pas juste "full") : trouvaille en production
+      # (28/08/2026, même jour que les deux points ci-dessous) — le cache
+      # SQLite "full" accumulé depuis le tout premier run complet de cette
+      # session contenait des réponses de géocodage mises en cache AVANT les
+      # correctifs sur pipeline/geocode.js (PR #153/#154). `cached()`
+      # (pipeline/cache.js) ne réexécute jamais fn() sur un cache-hit — pour
+      # une requête dont le TEXTE n'a pas changé (« Luxembourg City »,
+      # « Strasbourg »), seul le TRAITEMENT du résultat avait changé côté
+      # code, donc chaque run "full" suivant continuait de servir la même
+      # mauvaise réponse mise en cache, malgré des correctifs vérifiés un par
+      # un contre l'API réelle (avec un cache local isolé, jamais rencontré
+      # ce problème). Un simple correctif de code ne suffit donc pas à
+      # corriger une donnée déjà mise en cache : il faut aussi invalider
+      # explicitement le cache qui la porte. "-v2" abandonne l'ancienne
+      # lignée de cache (jamais supprimée, juste devenue inatteignable — pas
+      # d'accès à une suppression directe du cache GitHub Actions depuis cet
+      # environnement) : le prochain run "full" repart sans aucun cache,
+      # donc sans raccourci réseau, mesuré à nouveau ~2-3h en conditions
+      # réelles.
+      # Trouvaille en production (28/08/2026) : un push ordinaire sur main
+      # (ex. le merge d'une PR) déclenche AUSSI ce workflow en mode démo
+      # (`on: push`, en parallèle d'un déclenchement manuel `full`, groupe de
+      # concurrence différent exprès — voir plus haut). La démo en ligne a
+      # échoué ses propres audits qualité sur une reconstruction 1903 (écart
+      # de distance, sans rapport avec ce fichier), déclenchant son repli
+      # documenté (`rm -rf data && npm run demo`, mode hors-ligne) — mode
+      # démo à 2 étapes, jamais un bug en soi. Le vrai problème : ce run démo
+      # a fini son déploiement PLUS TARD qu'un run complet manuel lancé juste
+      # avant, écrasant silencieusement le catalogue complet fraîchement
+      # publié par cette petite démo — sans qu'aucun des deux runs n'ait
+      # échoué. GitHub Pages n'a qu'une seule cible de déploiement : rien
+      # n'empêchait un déploiement « pire » de gagner simplement parce qu'il
+      # finissait après.
+      #
+      # Correctif : restore-keys essaie D'ABORD le cache "full" (préfixe
+      # etapeforge-data-full-v2-), même en mode démo — si un catalogue complet a
+      # déjà été publié une fois, un push ordinaire ne doit plus jamais le
+      # faire régresser vers la petite démo. `id` sur ce step expose
+      # `cache-matched-key` (vérifié sur restore/action.yml officiel
+      # d'actions/cache) pour que les steps suivants sachent CE QUI a été
+      # restauré, pas seulement QUE quelque chose l'a été.
       - name: Restaurer le cache de données
+        id: restore_data_cache
         uses: actions/cache/restore@v4
         with:
           path: data
-          key: etapeforge-data-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full' || 'demo' }}-${{ github.run_id }}
+          key: etapeforge-data-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full-v2' || 'demo' }}-${{ github.run_id }}
           restore-keys: |
-            etapeforge-data-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full' || 'demo' }}-
-      - name: Générer la démo avec les APIs réelles (routes et altimétrie vraies)
-        if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.full) }}
+            etapeforge-data-full-v2-
+            etapeforge-data-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full-v2' || 'demo' }}-
+      # Trouvaille de relecture adverse sur le correctif ci-dessus : le
+      # préfixe de clé seul ("full-v2") ne dit rien de la COMPLÉTUDE du
+      # cache restauré — un run "full" annulé ou en timeout sauvegarde quand
+      # même sa progression partielle (if: always(), voir plus haut), sous
+      # ce même préfixe. Sans ce garde-fou, un push ordinaire suivant
+      # republierait ce catalogue tronqué comme s'il était complet, sans
+      # jamais régénérer ni ré-auditer — silencieusement, indéfiniment,
+      # jusqu'à ce qu'un humain relance et termine un run "full" à la main.
+      # `.full-complete` (scripts/import-all-and-generate.js) n'est réécrit
+      # QUE si toute la passe (import + génération) va à son terme sans
+      # exception — supprimé en tout début de script, donc absent de tout
+      # cache issu d'un run interrompu en cours de route.
+      - name: Vérifier si le catalogue complet restauré est réellement terminé
+        id: full_complete
         run: |
+          if [ -f data/.full-complete ]; then
+            echo "complete=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "complete=false" >> "$GITHUB_OUTPUT"
+          fi
+      # `!startsWith(..., 'etapeforge-data-full-v2-')` : si le cache restauré
+      # ci-dessus est déjà un catalogue complet ET RÉELLEMENT TERMINÉ (voir
+      # les deux steps précédents), ce run "démo" ne doit ni le régénérer ni
+      # l'écraser — juste republier tel quel (aucun appel réseau
+      # supplémentaire, cohérent avec l'intention documentée en tête de
+      # fichier : ne pas solliciter les APIs publiques à chaque push).
+      #
+      # WIPE_PARTIAL_FULL_CACHE (trouvaille de relecture adverse, round 2,
+      # 28/08/2026) : si le cache restauré porte le préfixe "full-v2-" mais
+      # N'EST PAS marqué complet (run "full" précédent interrompu), ce step
+      # s'exécute quand même (condition ci-dessus) — mais scripts/demo.js
+      # n'efface JAMAIS data/ avant de générer (seul le repli d'échec réseau,
+      # plus bas, le fait). Sans ce nettoyage explicite, les quelques
+      # centaines d'étapes déjà à l'état 'done' dans ce catalogue partiel
+      # restent en base, et scripts/build-site.js (qui publie tout ce qui
+      # est 'done') publierait un mélange catalogue-partiel + petite démo —
+      # ni l'un ni l'autre, jamais ce que documente ce fichier.
+      - name: Générer la démo avec les APIs réelles (routes et altimétrie vraies)
+        if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.full) && !(startsWith(steps.restore_data_cache.outputs.cache-matched-key, 'etapeforge-data-full-v2-') && steps.full_complete.outputs.complete == 'true') }}
+        env:
+          WIPE_PARTIAL_FULL_CACHE: ${{ startsWith(steps.restore_data_cache.outputs.cache-matched-key, 'etapeforge-data-full-v2-') && steps.full_complete.outputs.complete != 'true' }}
+        run: |
+          if [ "$WIPE_PARTIAL_FULL_CACHE" = "true" ]; then
+            echo "::warning::Cache complet restauré mais incomplet (run précédent interrompu) — repli propre sur la petite démo plutôt qu'un mélange partiel";
+            rm -rf data;
+          fi
           node scripts/demo.js --online || {
             echo "::warning::APIs externes indisponibles — repli sur le simulateur hors-ligne";
             rm -rf data && npm run demo;
@@ -86,21 +177,43 @@ jobs:
       # Pas de repli hors-ligne silencieux ici (contrairement à la démo
       # ci-dessus) : si les APIs réelles échouent en cours de route complète,
       # mieux vaut un job rouge explicite qu'un « catalogue complet » publié
-      # qui serait en fait le simulateur (CLAUDE.md règle 9). Reprend
-      # automatiquement là où un run précédent s'était arrêté (state !=
-      # 'done' dans le script) — à condition que ce run précédent ait
-      # atteint l'étape de sauvegarde du cache ci-dessous, donc réussi OU
-      # échoué/annulé APRÈS son démarrage (if: always() plus bas), pas
-      # avant.
+      # qui serait en fait le simulateur (CLAUDE.md règle 9).
+      #
+      # Correction d'une affirmation inexacte de ce commentaire (relecture
+      # adverse, round 3, 28/08/2026, CLAUDE.md règle 9) : ce script ne
+      # « reprend » PAS un run interrompu au sens strict — pipeline/
+      # importer.js (importEdition) fait DELETE + réinsertion intégrale de
+      # CHAQUE édition à CHAQUE appel (toutes ses étapes reviennent à
+      # 'draft'), donc un deuxième run "full" repart d'un import entièrement
+      # frais, jamais d'un état 'done' hérité du run précédent. Ce qui EST
+      # bien réutilisé, c'est le cache fin par requête de pipeline/cache.js
+      # (géocodage, routage, altimétrie — une entrée par appel réseau, pas
+      # par étape), ce qui rend un deuxième run rapide sans jamais sauter la
+      # régénération d'une étape déjà correcte. Risque connu, non fermé par
+      # ce fichier : si CE deuxième run "full" échoue/est annulé après avoir
+      # atteint la sauvegarde du cache ci-dessous (if: always()), le
+      # catalogue complet du run précédent — pourtant bon — devient
+      # inatteignable (restore-keys ne renvoie que le cache le plus récent)
+      # et un push ordinaire suivant republie la petite démo plutôt que ce
+      # catalogue complet, jusqu'à ce qu'un humain relance et termine un
+      # troisième run "full". Mitigation actuelle : purement opérationnelle
+      # (surveiller un run "full" jusqu'à son terme avant d'en redéclencher
+      # un autre), pas un garde-fou dans ce fichier.
       - name: Importer et générer le catalogue complet (113 éditions, ~2-3h, déclenchement manuel)
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.full }}
         run: node scripts/import-all-and-generate.js
+      # Même condition de repli que le step "Générer la démo" ci-dessus : si
+      # ce run "démo" a republié un catalogue complet déjà restauré tel
+      # quel (rien généré, rien modifié), inutile de le dupliquer sous une
+      # nouvelle clé "demo-<run_id>" — le cache "full" existant suffit déjà,
+      # et une telle duplication gonflerait le cache du dépôt (10 Go
+      # partagés, limite documentée GitHub) sans aucun bénéfice.
       - name: Sauvegarder le cache de données (même en cas d'échec/timeout, pour reprendre au prochain run)
-        if: always()
+        if: ${{ always() && (github.event_name == 'workflow_dispatch' && inputs.full || !(startsWith(steps.restore_data_cache.outputs.cache-matched-key, 'etapeforge-data-full-v2-') && steps.full_complete.outputs.complete == 'true')) }}
         uses: actions/cache/save@v4
         with:
           path: data
-          key: etapeforge-data-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full' || 'demo' }}-${{ github.run_id }}
+          key: etapeforge-data-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full-v2' || 'demo' }}-${{ github.run_id }}
       - name: Construire la démo statique
         run: node scripts/build-site.js
       # Taille du site généré, en clair dans les logs : GitHub Pages refuse
