@@ -12,6 +12,7 @@ const {
   parseDate,
   reconstructionWaypoints,
   extractTables,
+  extractTablesRich,
 } = require('../pipeline/wikipedia');
 
 const FIXTURES = path.join(__dirname, '..', 'pipeline', 'fixtures');
@@ -243,6 +244,23 @@ test('parseCourse() : « via » retiré même quand le point de passage est enti
 // (colonne étape + colonne distance), verrouillés ici explicitement — rien
 // ne les couvrait directement avant, seulement en creux via les fixtures
 // réelles à une seule table candidate.
+// Trouvaille en vérifiant ce correctif contre le vrai HTML de la page
+// « 1994 Tour de France » (pas seulement les fixtures locales) : une ligne
+// « Total » (résumé, moins de cellules que l'en-tête, ex. 3 cellules pour un
+// en-tête à 6 colonnes) faisait planter parseStagesFromHtml — row[iDist]
+// hors bornes vaut `undefined`, et `undefined.text` lève une exception,
+// alors que l'ancien code (String(undefined) sur une valeur brute, pas un
+// objet {text,titledText}) tolérait ça et retombait sur le rejet normal de
+// la ligne (distance/numéro introuvable → continue).
+test('parseStagesFromHtml : une ligne plus courte que l\'en-tête (ligne « Total ») est rejetée, pas une exception', () => {
+  const html = '<table class="wikitable"><tr><th>Stage</th><th>Date</th><th>Course</th><th>Distance</th><th>Type</th><th>Winner</th></tr>' +
+    '<tr><td>1</td><td>1 July</td><td>Paris to Lyon</td><td>100 km</td><td>Flat stage</td><td>Rider X</td></tr>' +
+    '<tr><td>2</td><td>2 July</td><td>Lyon to Marseille</td><td>120 km</td><td>Hilly stage</td><td>Rider Y</td></tr>' +
+    '<tr><td></td><td>Total</td><td>220 km</td></tr></table>';
+  const stages = parseStagesFromHtml(html, 2000);
+  assert.strictEqual(stages.length, 2, 'la ligne Total est ignorée, pas plantée dessus');
+});
+
 test('parseStagesFromHtml : ignore un tableau sans colonne étape ou sans colonne distance', () => {
   // Décoys seuls (aucune table candidate ne passe looksRight) : la fonction
   // rejette explicitement plutôt que de renvoyer [] en silence.
@@ -310,16 +328,60 @@ test('extractTables : décode les entités HTML au-delà du tableau fixe de l\'a
 // récupérant la page réelle. Sans l'accent, la Géoplateforme trouve un
 // homonyme sans rapport (commune de la Meuse) à égalité de score avec la
 // vraie Moûtiers (Savoie), et prend la mauvaise.
-test('extractTables : préfère le titre canonique (title=) d\'un lien au texte affiché, s\'il diffère', () => {
+//
+// extractTables() (texte affiché, contrat historique) ne doit JAMAIS
+// préférer le title= — seul extractTablesRich() (.titledText) le fait,
+// et seule la colonne course de parseStagesFromHtml le lit (voir plus bas).
+// Trouvaille de relecture adverse (28/08/2026) sur une première version de
+// ce correctif qui appliquait la préférence à extractTables() lui-même,
+// donc à TOUTE cellule (numéro d'étape, vainqueur…) — vérifié avec du HTML
+// Wikipédia réel : le lien du numéro d'étape pointe vers un sous-article
+// dont le title commence par l'année (« 1994 Tour de France, Stage 11 to
+// Stage 21 »), faisant confondre le numéro d'étape avec l'année ; la
+// cellule vainqueur contient une icône de drapeau (title = nom de pays,
+// aucun texte affiché) qui polluait le champ. Ce test verrouille que
+// extractTables() reste inchangé.
+test('extractTables (texte affiché) : ignore le title= d\'un lien, contrairement à extractTablesRich', () => {
   const html = '<table class="wikitable"><tr><td>' +
     '<a href="./Mo%C3%BBtiers" title="Moûtiers">Moutiers</a> to ' +
     '<a href="./Cluses" title="Cluses">Cluses</a></td></tr></table>';
-  assert.deepStrictEqual(extractTables(html), [[['Moûtiers to Cluses']]]);
+  assert.deepStrictEqual(extractTables(html), [[['Moutiers to Cluses']]]);
 });
 
-test('extractTables : un lien sans title= garde son texte affiché tel quel', () => {
+test('extractTablesRich : .titledText préfère le title= d\'un lien, .text garde le texte affiché', () => {
+  const html = '<table class="wikitable"><tr><td>' +
+    '<a href="./Mo%C3%BBtiers" title="Moûtiers">Moutiers</a> to ' +
+    '<a href="./Cluses" title="Cluses">Cluses</a></td></tr></table>';
+  const cell = extractTablesRich(html)[0][0][0];
+  assert.strictEqual(cell.text, 'Moutiers to Cluses');
+  assert.strictEqual(cell.titledText, 'Moûtiers to Cluses');
+});
+
+test('extractTablesRich : un lien sans title= garde son texte affiché dans les deux champs', () => {
   const html = '<table class="wikitable"><tr><td><a href="./Paris">Paris</a></td></tr></table>';
-  assert.deepStrictEqual(extractTables(html), [[['Paris']]]);
+  const cell = extractTablesRich(html)[0][0][0];
+  assert.deepStrictEqual(cell, { text: 'Paris', titledText: 'Paris' });
+});
+
+// Reproduction directe de la régression trouvée par relecture adverse
+// (28/08/2026) sur la première version de ce correctif : numéro d'étape et
+// vainqueur (dont les liens portent un title sans rapport avec leur usage
+// dans ce tableau) doivent rester lus depuis le texte affiché — seule la
+// colonne course doit refléter le title= du lien.
+test('parseStagesFromHtml : le title= d\'un lien de la colonne numéro/vainqueur n\'altère jamais le numéro d\'étape ni le vainqueur', () => {
+  const html = '<table class="wikitable"><tr><th>Stage</th><th>Course</th><th>Distance</th><th>Winner</th></tr>' +
+    '<tr><td><a title="1994 Tour de France, Stage 11 to Stage 21">18</a></td>' +
+    '<td><a title="Moûtiers">Moutiers</a> to <a title="Cluses">Cluses</a></td>' +
+    '<td>174.5 km</td>' +
+    '<td><a title="Italy"></a> Mario Cipollini</td></tr>' +
+    '<tr><td><a title="1994 Tour de France, Stage 11 to Stage 21">19</a></td>' +
+    '<td>Cluses to Avoriaz</td><td>47.5 km</td><td>Rider X</td></tr></table>';
+  const stages = parseStagesFromHtml(html, 1994);
+  assert.strictEqual(stages[0].number, 18, 'le numéro d\'étape reste 18, pas 1994 (l\'année du title du lien)');
+  assert.strictEqual(stages[0].start, 'Moûtiers', 'la colonne course reflète bien le title= (correctif visé)');
+  assert.strictEqual(stages[0].finish, 'Cluses');
+  assert.strictEqual(stages[0].winner, 'Mario Cipollini', 'le vainqueur reste le texte affiché, pas le title= du drapeau');
+  assert.strictEqual(stages[1].number, 19);
 });
 
 test('extractTables : balisage légèrement malformé (attribut non fermé) ne casse pas le parseur', () => {

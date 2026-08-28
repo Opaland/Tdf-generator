@@ -33,44 +33,70 @@ const KNOWN_COLS = JSON.parse(
 // 2025/2026 modernes) avant remplacement, pas seulement testée sur un
 // nouveau cas inventé.
 
-function cellText(cell) {
+/**
+ * Extrait le texte d'une cellule sous deux formes : `text` (texte affiché,
+ * comportement historique inchangé) et `titledText` (identique, sauf que le
+ * texte affiché de tout lien wiki portant un attribut `title` est remplacé
+ * par ce `title` — le nom de page Wikipédia canonique).
+ *
+ * Utile car le texte AFFICHÉ d'un lien peut perdre un diacritique que porte
+ * le titre réel de la page ciblée — trouvaille sur la génération réelle du
+ * 28/08/2026, Tour 1994 étape 18 : le tableau affiche « Moutiers » (texte du
+ * lien) alors que title="Moûtiers" (le vrai nom de la commune savoyarde).
+ * Sans l'accent, la Géoplateforme (pipeline/geocode.js) trouve une commune
+ * homonyme sans rapport (Meuse) à égalité de score avec la vraie Moûtiers,
+ * et retient la mauvaise faute d'un signal de désambiguïsation.
+ *
+ * `titledText` n'est PAS utilisé partout (relecture adverse, 28/08/2026) :
+ * un premier correctif l'appliquait à `cellText()` pour toute cellule, donc
+ * aussi la colonne numéro d'étape (dont le lien pointe vers un sous-article
+ * dont le title commence par l'année, ex. « 1994 Tour de France, Stage 11 to
+ * Stage 21 » pour l'étape 18 — le numéro devenait l'année, cassant en
+ * cascade stage_order, la curation historic_routes.json et le calcul des
+ * jours de montagne consécutifs) et la colonne vainqueur (icône de drapeau
+ * sans texte affiché, dont le title — un nom de pays — polluait le champ).
+ * `titledText` n'est donc lu que pour la colonne course (parseStagesFromHtml).
+ */
+function cellTexts(cell) {
   const clone = cell.clone();
   clone.querySelectorAll('sup, style').forEach((n) => n.remove()); // appels de référence [1]
   clone.querySelectorAll('br').forEach((n) => n.replaceWith(' '));
-  // Le texte AFFICHÉ d'un lien wiki peut perdre un diacritique que porte le
-  // titre RÉEL de la page ciblée (attribut title, toujours le nom canonique
-  // de la page) — trouvaille sur la génération réelle du 28/08/2026, Tour
-  // 1994 étape 18 : le tableau affiche « Moutiers » (texte du lien) alors que
-  // title="Moûtiers" (le vrai nom de la commune savoyarde). Sans l'accent, la
-  // Géoplateforme trouve une commune homonyme sans rapport (Meuse) à égalité
-  // de score avec la vraie Moûtiers, et retient la mauvaise faute d'un signal
-  // de désambiguïsation. On préfère systématiquement `title` quand il existe :
-  // c'est le nom de page Wikipédia canonique, jamais tronqué/mal saisi par
-  // l'éditeur qui a rédigé le texte du lien.
-  clone.querySelectorAll('a').forEach((a) => {
-    const title = a.getAttribute('title');
-    if (title) a.set_content(title);
-  });
-  return clone.text // .text décode les entités HTML (via node-html-parser)
+  const finalize = (raw) => raw // .text décode les entités HTML (via node-html-parser)
     .replace(/\[[^\]]*\]/g, '')
     .replace(/\s+/g, ' ')
     .trim();
+  const text = finalize(clone.text);
+  const titledClone = clone.clone();
+  titledClone.querySelectorAll('a').forEach((a) => {
+    const title = a.getAttribute('title');
+    if (title) a.set_content(title);
+  });
+  return { text, titledText: finalize(titledClone.text) };
 }
 
-/** Extrait toutes les tables wikitable d'une page HTML → [ [ [cell,…], … ], … ]. */
-function extractTables(html) {
+/**
+ * Extrait toutes les tables wikitable d'une page HTML → [ [ [{text,
+ * titledText},…], … ], … ] — variante « riche » de extractTables() (voir
+ * cellTexts ci-dessus), réservée à parseStagesFromHtml.
+ */
+function extractTablesRich(html) {
   const root = parseHtml(html);
   const tables = [];
   for (const table of root.querySelectorAll('table')) {
     if (!/wikitable/i.test(table.getAttribute('class') || '')) continue;
     const rows = [];
     for (const tr of table.querySelectorAll('tr')) {
-      const cells = tr.querySelectorAll('th, td').map(cellText);
+      const cells = tr.querySelectorAll('th, td').map(cellTexts);
       if (cells.length) rows.push(cells);
     }
     if (rows.length) tables.push(rows);
   }
   return tables;
+}
+
+/** Extrait toutes les tables wikitable d'une page HTML → [ [ [cell,…], … ], … ]. */
+function extractTables(html) {
+  return extractTablesRich(html).map((rows) => rows.map((row) => row.map((c) => c.text)));
 }
 
 const MONTHS = {
@@ -183,9 +209,9 @@ function normalizeType(text) {
  * Retourne [{ number, dateText, dateIso, start, finish, distanceKm, type, winner, sourceRow }]
  */
 function parseStagesFromHtml(html, year) {
-  const tables = extractTables(html);
+  const tables = extractTablesRich(html);
   for (const rows of tables) {
-    const header = rows[0].map((h) => h.toLowerCase());
+    const header = rows[0].map((h) => h.text.toLowerCase());
     // Un 3e critère (colonne « course/parcours/route/itinéraire ») avait été
     // introduit ici mais avec un `|| true` qui le rendait tautologique — donc
     // mort depuis son introduction (trouvaille de sprint dédié, survivant de
@@ -233,27 +259,45 @@ function parseStagesFromHtml(html, year) {
       // wikipedia_2026_en.html, étapes non courues).
       let row = rawRow;
       if (rawRow.length > header.length) {
-        const nonEmpty = rawRow.filter((c) => String(c).trim() !== '');
+        // Décision de réalignement basée UNIQUEMENT sur `.text` (jamais
+        // `.titledText`) : une icône sans texte affiché mais avec un `title`
+        // (ex. drapeau de pays) deviendrait « non vide » sous titledText,
+        // ce qui déclencherait le réalignement à tort — `.text` reproduit
+        // exactement le comportement historique (avant l'ajout de
+        // titledText), garanti insensible à ce nouveau champ.
+        const nonEmpty = rawRow.filter((c) => String(c.text).trim() !== '');
         if (nonEmpty.length === header.length) row = nonEmpty;
       }
-      const distanceKm = parseDistanceKm(row[iDist]);
-      const numM = String(row[iStage]).match(/\d+/);
+      // `row[i]?.text` (jamais `row[i].text`) : une ligne plus courte que
+      // l'en-tête (ligne « Total », résumé sans toutes les colonnes — ligne
+      // rencontrée sur du HTML Wikipédia réel, 1994) laisse `row[iDist]`
+      // `undefined` — l'ancien code tolérait ça via `String(undefined)`
+      // (coercion silencieuse, jamais une exception) pour retomber sur le
+      // rejet normal juste en dessous (`!distanceKm || !numM`) ; un accès
+      // direct `.text` plante avant d'y arriver (trouvaille en vérifiant ce
+      // correctif contre le vrai HTML de la page 1994, pas seulement les
+      // fixtures locales qui n'ont pas ce genre de ligne).
+      const distanceKm = parseDistanceKm(row[iDist]?.text);
+      const numM = String(row[iStage]?.text).match(/\d+/);
       if (!distanceKm || !numM) continue; // jour de repos, ligne « Total »…
-      const courseText = iCourse >= 0 ? row[iCourse] : '';
+      // Seule la colonne course lit `titledText` (nom de ville canonique,
+      // diacritiques compris) — toutes les autres colonnes gardent `text`
+      // (comportement historique inchangé, voir cellTexts()).
+      const courseText = iCourse >= 0 ? row[iCourse]?.titledText : '';
       const course = parseCourse(courseText);
       if (!course) continue;
       stages.push({
         number: parseInt(numM[0], 10),
-        dateText: iDate >= 0 ? row[iDate] : null,
-        dateIso: iDate >= 0 ? parseDate(row[iDate], year) : null,
+        dateText: iDate >= 0 ? row[iDate]?.text ?? null : null,
+        dateIso: iDate >= 0 ? parseDate(row[iDate]?.text, year) : null,
         start: course.start,
         finish: course.finish,
         startCountry: course.startCountry,
         finishCountry: course.finishCountry,
         distanceKm,
-        type: iType >= 0 ? normalizeType(row[iType]) : null,
-        winner: iWinner >= 0 ? row[iWinner] : null,
-        sourceRow: row.join(' | '),
+        type: iType >= 0 ? normalizeType(row[iType]?.text) : null,
+        winner: iWinner >= 0 ? row[iWinner]?.text ?? null : null,
+        sourceRow: row.map((c) => c.text).join(' | '),
       });
     }
     if (stages.length >= 2) return stages;
@@ -386,6 +430,7 @@ function stageConfidence(year, stageNumber, category = 'hommes') {
 module.exports = {
   parseStagesFromHtml,
   extractTables,
+  extractTablesRich,
   parseCourse,
   parseDistanceKm,
   parseDate,
