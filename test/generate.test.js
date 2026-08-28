@@ -12,7 +12,7 @@ process.env.ETAPEFORGE_OFFLINE = '1';
 const { test, after } = require('node:test');
 const assert = require('node:assert');
 const { getDb } = require('../backend/db');
-const { generateStage, loadStageFull } = require('../pipeline/generate');
+const { generateStage, loadStageFull, geocodeOptsFor } = require('../pipeline/generate');
 const { importTrackAsStage, parseGpx } = require('../pipeline/importTrack');
 const { stageConfidence } = require('../pipeline/wikipedia');
 
@@ -22,6 +22,28 @@ after(() => {
 
 test('generateStage : étape introuvable → erreur explicite', async () => {
   await assert.rejects(() => generateStage(999999), /introuvable/);
+});
+
+// Trouvaille en corrigeant un signalement utilisateur (28/08/2026, étapes mal
+// placées sur la carte) : geocode() (pipeline/geocode.js) déstructure
+// `{ countryHint = 'fr' }` — cette valeur par défaut ne s'applique QU'à
+// `undefined`, jamais à `null`. Un waypoint SQLite sans country_hint renvoie
+// `country_hint: null` (jamais `undefined`) — passer ça tel quel comme
+// `countryHint` aurait fait sauter la Géoplateforme pour Nominatim sur
+// TOUTE étape existante, une régression massive plutôt qu'un correctif.
+test('geocodeOptsFor() : countryHint absent de opts si country_hint est null (jamais posé à null explicitement)', () => {
+  assert.deepStrictEqual(geocodeOptsFor({ country_hint: null }, null), { near: null });
+  assert.deepStrictEqual(
+    geocodeOptsFor({ country_hint: null }, { lat: 45, lon: 5 }),
+    { near: { lat: 45, lon: 5 } }
+  );
+});
+
+test('geocodeOptsFor() : countryHint posé quand country_hint est renseigné', () => {
+  assert.deepStrictEqual(
+    geocodeOptsFor({ country_hint: 'United Kingdom' }, null),
+    { near: null, countryHint: 'United Kingdom' }
+  );
 });
 
 test('loadStageFull : expose les réserves de confiance de l\'édition/étape (backlog #10, section D)', () => {

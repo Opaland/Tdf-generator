@@ -61,6 +61,25 @@ test('waypoints de reconstruction 1903 étape 2 : col de la République (premier
   assert.strictEqual(col.altitude_hint_m, 1161);
 });
 
+test('reconstructionWaypoints() : country_hint propagé au départ/arrivée non curés, jamais aux parcours curés', () => {
+  const stage = {
+    number: 99, start: 'Dover', finish: 'Brighton',
+    startCountry: 'United Kingdom', finishCountry: null,
+  };
+  const wps = reconstructionWaypoints(1994, stage); // 1994 étape 99 : aucun curatif connu
+  assert.strictEqual(wps[0].label, 'Dover');
+  assert.strictEqual(wps[0].country_hint, 'United Kingdom');
+  assert.strictEqual(wps[wps.length - 1].label, 'Brighton');
+  assert.strictEqual(wps[wps.length - 1].country_hint, null, 'aucune annotation de pays pour Brighton dans ce test');
+});
+
+test('reconstructionWaypoints() : country_hint absent quand aucune annotation de pays', () => {
+  const stage = { number: 1, start: 'Paris', finish: 'Lyon', startCountry: null, finishCountry: null };
+  const wps = reconstructionWaypoints(2000, stage);
+  assert.strictEqual(wps[0].country_hint, null);
+  assert.strictEqual(wps[wps.length - 1].country_hint, null);
+});
+
 test('parse le tableau des étapes du Tour 2025 (format moderne)', () => {
   const stages = parseStagesFromHtml(load('wikipedia_2025_en.html'), 2025);
   assert.strictEqual(stages.length, 21, '21 étapes en 2025 (repos et Total ignorés)');
@@ -137,9 +156,15 @@ test('parseStagesFromHtml : réaligne une ligne avec une cellule vide en trop, j
 });
 
 test('fonctions unitaires du parseur', () => {
-  assert.deepStrictEqual(parseCourse('Paris to Lyon'), { start: 'Paris', finish: 'Lyon' });
-  assert.deepStrictEqual(parseCourse('Pau – Hautacam'), { start: 'Pau', finish: 'Hautacam' });
-  assert.deepStrictEqual(parseCourse('Paris (Montgeron) to Lyon'), { start: 'Paris', finish: 'Lyon' });
+  assert.deepStrictEqual(parseCourse('Paris to Lyon'), { start: 'Paris', finish: 'Lyon', startCountry: null, finishCountry: null });
+  assert.deepStrictEqual(parseCourse('Pau – Hautacam'), { start: 'Pau', finish: 'Hautacam', startCountry: null, finishCountry: null });
+  // « Montgeron » n'est pas un pays reconnu : precision de lieu française
+  // pure (le vrai point de départ 1903, dans cette commune), pas une
+  // annotation de pays — countryHint doit rester 'fr' par défaut pour elle.
+  assert.deepStrictEqual(
+    parseCourse('Paris (Montgeron) to Lyon'),
+    { start: 'Paris', finish: 'Lyon', startCountry: null, finishCountry: null }
+  );
   assert.strictEqual(parseDistanceKm('467 km (290 mi)'), 467);
   assert.strictEqual(parseDistanceKm('2,428 km'), 2428, 'séparateur de milliers anglo-saxon');
   assert.strictEqual(parseDistanceKm('467,5 km'), 467.5, 'décimale française');
@@ -157,9 +182,36 @@ test('fonctions unitaires du parseur', () => {
 test('parseCourse() : « via <ville> » est un point de passage du trajet, jamais retenu dans start/finish', () => {
   assert.deepStrictEqual(
     parseCourse('Brussels (Belgium) to Brussels (Belgium) via Charleroi (Belgium)'),
-    { start: 'Brussels', finish: 'Brussels' }
+    { start: 'Brussels', finish: 'Brussels', startCountry: 'Belgium', finishCountry: 'Belgium' }
   );
-  assert.deepStrictEqual(parseCourse('Paris via Melun to Lyon'), { start: 'Paris', finish: 'Lyon' });
+  assert.deepStrictEqual(
+    parseCourse('Paris via Melun to Lyon'),
+    { start: 'Paris', finish: 'Lyon', startCountry: null, finishCountry: null }
+  );
+});
+
+// Trouvaille en creusant un signalement utilisateur sur le site publié
+// (28/08/2026) : deux étapes historiques réelles mal placées sur la carte —
+// Tour 1992 étape 10 (Luxembourg City → Strasbourg) et Tour 1994 étape 4
+// (Dover → Brighton, le passage du Tour en Angleterre). Cause racine :
+// pipeline/geocode.js interroge toujours la Géoplateforme (base FRANCE
+// uniquement) en premier, quel que soit le pays réel de la ville — une ville
+// étrangère y trouve quand même une correspondance textuelle plausible mais
+// fausse (ex. une rue « Cité du Luxembourg » à Bury, Oise, pour « Luxembourg
+// City »), qui sert ensuite d'ancre de proximité pour la ville suivante et la
+// fait dérailler à son tour. Le texte Wikipédia annote pourtant déjà le pays
+// entre parenthèses pour ces villes précises — jeté à la trappe par clean()
+// jusqu'ici. startCountry/finishCountry permettent à pipeline/generate.js de
+// sauter directement Nominatim (couverture mondiale) pour ces waypoints.
+test('parseCourse() : extrait le pays annoté entre parenthèses pour une ville hors de France', () => {
+  assert.deepStrictEqual(
+    parseCourse('Dover (United Kingdom) to Brighton'),
+    { start: 'Dover', finish: 'Brighton', startCountry: 'United Kingdom', finishCountry: null }
+  );
+  assert.deepStrictEqual(
+    parseCourse('Luxembourg City (Luxembourg) to Strasbourg'),
+    { start: 'Luxembourg City', finish: 'Strasbourg', startCountry: 'Luxembourg', finishCountry: null }
+  );
 });
 
 // Trouvaille de relecture adverse sur le test précédent : si le nom de la
@@ -169,10 +221,16 @@ test('parseCourse() : « via <ville> » est un point de passage du trajet, jamai
 // pas déclenchée par les fixtures connues de ce dépôt, mais un futur format
 // Wikipédia pourrait la reproduire silencieusement.
 test('parseCourse() : « via » retiré même quand le point de passage est entièrement entre parenthèses', () => {
-  assert.deepStrictEqual(parseCourse('Paris to Lyon via (Melun)'), { start: 'Paris', finish: 'Lyon' });
+  assert.deepStrictEqual(
+    parseCourse('Paris to Lyon via (Melun)'),
+    { start: 'Paris', finish: 'Lyon', startCountry: null, finishCountry: null }
+  );
+  // « France » explicite ne compte jamais comme étranger (countryHint 'fr'
+  // par défaut déjà correct) — vérifié distinctement de « aucune parenthèse
+  // reconnue » ci-dessus, pas juste les deux confondus en un même null.
   assert.deepStrictEqual(
     parseCourse('Paris to Lyon (France) via (Melun) (une note)'),
-    { start: 'Paris', finish: 'Lyon' }
+    { start: 'Paris', finish: 'Lyon', startCountry: null, finishCountry: 'France' }
   );
 });
 
@@ -243,6 +301,25 @@ test('extractTables : décode les entités HTML au-delà du tableau fixe de l\'a
   const html = '<table class="wikitable"><tr><td>L&#39;étape&hellip; &#233;tape</td></tr></table>';
   const cell = extractTables(html)[0][0][0];
   assert.strictEqual(cell, "L'étape… étape");
+});
+
+// Trouvaille en creusant le signalement utilisateur du 28/08/2026 (voir
+// parseCourse ci-dessus) : le HTML réel de la page « 1994 Tour de France »
+// affiche le lien vers Moûtiers avec le texte « Moutiers » (sans accent)
+// mais title="Moûtiers" (le vrai titre de la page, canonique) — vérifié en
+// récupérant la page réelle. Sans l'accent, la Géoplateforme trouve un
+// homonyme sans rapport (commune de la Meuse) à égalité de score avec la
+// vraie Moûtiers (Savoie), et prend la mauvaise.
+test('extractTables : préfère le titre canonique (title=) d\'un lien au texte affiché, s\'il diffère', () => {
+  const html = '<table class="wikitable"><tr><td>' +
+    '<a href="./Mo%C3%BBtiers" title="Moûtiers">Moutiers</a> to ' +
+    '<a href="./Cluses" title="Cluses">Cluses</a></td></tr></table>';
+  assert.deepStrictEqual(extractTables(html), [[['Moûtiers to Cluses']]]);
+});
+
+test('extractTables : un lien sans title= garde son texte affiché tel quel', () => {
+  const html = '<table class="wikitable"><tr><td><a href="./Paris">Paris</a></td></tr></table>';
+  assert.deepStrictEqual(extractTables(html), [[['Paris']]]);
 });
 
 test('extractTables : balisage légèrement malformé (attribut non fermé) ne casse pas le parseur', () => {

@@ -37,6 +37,20 @@ function cellText(cell) {
   const clone = cell.clone();
   clone.querySelectorAll('sup, style').forEach((n) => n.remove()); // appels de référence [1]
   clone.querySelectorAll('br').forEach((n) => n.replaceWith(' '));
+  // Le texte AFFICHÉ d'un lien wiki peut perdre un diacritique que porte le
+  // titre RÉEL de la page ciblée (attribut title, toujours le nom canonique
+  // de la page) — trouvaille sur la génération réelle du 28/08/2026, Tour
+  // 1994 étape 18 : le tableau affiche « Moutiers » (texte du lien) alors que
+  // title="Moûtiers" (le vrai nom de la commune savoyarde). Sans l'accent, la
+  // Géoplateforme trouve une commune homonyme sans rapport (Meuse) à égalité
+  // de score avec la vraie Moûtiers, et retient la mauvaise faute d'un signal
+  // de désambiguïsation. On préfère systématiquement `title` quand il existe :
+  // c'est le nom de page Wikipédia canonique, jamais tronqué/mal saisi par
+  // l'éditeur qui a rédigé le texte du lien.
+  clone.querySelectorAll('a').forEach((a) => {
+    const title = a.getAttribute('title');
+    if (title) a.set_content(title);
+  });
   return clone.text // .text décode les entités HTML (via node-html-parser)
     .replace(/\[[^\]]*\]/g, '')
     .replace(/\s+/g, ' ')
@@ -75,6 +89,40 @@ function parseDate(text, year) {
   return `${year}-${String(MONTHS[m[2]]).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
 }
 
+// Wikipédia annote entre parenthèses le PAYS d'une ville de départ/arrivée
+// uniquement quand elle est hors de France (convention observée sur les
+// pages réelles « <année> Tour de France », ex. « Dover (United Kingdom) »,
+// « Luxembourg City (Luxembourg) ») — jamais pour une précision purement
+// française (ex. « Paris (Montgeron) », le point de départ réel dans la
+// commune parisienne en 1903). Liste fermée plutôt que « toute parenthèse
+// vaut annotation de pays » : sans elle, « Montgeron » serait pris à tort
+// pour un pays. Couvre les pays européens plausibles pour un Grand Départ,
+// pas une liste exhaustive mondiale — un pays absent de cette liste retombe
+// simplement sur le comportement par défaut (countryHint 'fr' inchangé),
+// dégradation sûre plutôt que fausse détection.
+const KNOWN_COUNTRIES = new Set([
+  'france', 'belgium', 'netherlands', 'luxembourg', 'germany', 'switzerland',
+  'italy', 'spain', 'monaco', 'andorra', 'united kingdom', 'england',
+  'scotland', 'wales', 'ireland', 'northern ireland', 'denmark', 'san marino',
+  'portugal', 'austria', 'liechtenstein', 'slovenia', 'czech republic', 'poland',
+]);
+
+/**
+ * Pays annoté entre parenthèses juste après le nom de ville (avant un
+ * éventuel « via », qui décrit un point de passage, jamais la ville elle-
+ * même — voir parseCourse). `null` si aucune parenthèse ne correspond à un
+ * pays reconnu (précision de lieu française, ex. « Paris (Montgeron) »).
+ */
+function extractCountry(text) {
+  const beforeVia = String(text).replace(/\s+via\b.*$/i, '');
+  const matches = [...beforeVia.matchAll(/\(([^)]*)\)/g)];
+  for (let i = matches.length - 1; i >= 0; i--) {
+    const candidate = matches[i][1].trim();
+    if (KNOWN_COUNTRIES.has(candidate.toLowerCase())) return candidate;
+  }
+  return null;
+}
+
 function parseCourse(text) {
   // « Paris to Lyon », « Paris – Lyon », « Paris > Lyon »
   const m = String(text).match(/^(.*?)\s+(?:to|à|a|>|–|—|-)\s+(.*)$/i);
@@ -105,7 +153,12 @@ function parseCourse(text) {
     .trim()
     .replace(/\s+via\b.*$/i, '')
     .trim();
-  return { start: clean(m[1]), finish: clean(m[2]) };
+  return {
+    start: clean(m[1]),
+    finish: clean(m[2]),
+    startCountry: extractCountry(m[1]),
+    finishCountry: extractCountry(m[2]),
+  };
 }
 
 function parseDistanceKm(text) {
@@ -195,6 +248,8 @@ function parseStagesFromHtml(html, year) {
         dateIso: iDate >= 0 ? parseDate(row[iDate], year) : null,
         start: course.start,
         finish: course.finish,
+        startCountry: course.startCountry,
+        finishCountry: course.finishCountry,
         distanceKm,
         type: iType >= 0 ? normalizeType(row[iType]) : null,
         winner: iWinner >= 0 ? row[iWinner] : null,
@@ -255,7 +310,17 @@ function reconstructionWaypoints(year, stage, category = 'hommes') {
   const wps = [];
   const startLabel = curated?.start || stage.start;
   const finishLabel = curated?.finish || stage.finish;
-  wps.push({ label: startLabel, kind: 'start', bonus_sec: null, source: curated?.start ? 'parcours curé' : 'wikipedia' });
+  // country_hint seulement pour un départ/arrivée NON curé (issu tel quel du
+  // texte Wikipédia) : un parcours curé (historic_routes.json) porte déjà un
+  // libellé choisi à la main, sans indice de pays associé — countryHint reste
+  // 'fr' par défaut pour lui, comportement inchangé. « France » explicite
+  // (ex. « Lyon (France) via (Melun) ») ne compte jamais comme étranger.
+  const foreignCountry = (country) => (country && !/^france$/i.test(country) ? country : null);
+  wps.push({
+    label: startLabel, kind: 'start', bonus_sec: null,
+    source: curated?.start ? 'parcours curé' : 'wikipedia',
+    country_hint: curated?.start ? null : foreignCountry(stage.startCountry),
+  });
   for (const via of curated?.vias || []) {
     if (typeof via === 'string') wps.push({ label: via, kind: 'via', bonus_sec: null, source: 'parcours curé' });
     else {
@@ -274,6 +339,7 @@ function reconstructionWaypoints(year, stage, category = 'hommes') {
     kind: isColQuery(finishLabel) ? 'col' : 'finish',
     bonus_sec: curated?.finish_bonus_sec || null,
     source: curated?.finish ? 'parcours curé' : 'wikipedia',
+    country_hint: curated?.finish ? null : foreignCountry(stage.finishCountry),
   });
   return wps;
 }
