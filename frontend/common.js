@@ -116,10 +116,23 @@ const EF = {
   },
 
   // Fonds de carte : IGN PLANIGNV2 (WMTS Géoplateforme) en France, OSM sinon.
+  //
+  // `LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2`, jamais `LAYER=PLANIGNV2` seul :
+  // trouvaille en vérifiant en direct contre l'API réelle (29/08/2026,
+  // signalement utilisateur « fond de carte gris ») — le GetCapabilities de
+  // data.geopf.fr/wmts liste l'identifiant complet sous l'espace de noms
+  // `GEOGRAPHICALGRIDSYSTEMS.*`, jamais le nom court seul. Sans ce préfixe,
+  // CHAQUE tuile IGN (n'importe quel point, y compris en plein territoire
+  // français — testé sur Pau) répondait 400 « Layer PLANIGNV2 unknown » :
+  // le fond de carte grisé n'était donc pas un problème de couverture aux
+  // frontières (hypothèse initiale, infirmée : la même couche, avec le bon
+  // identifiant, renvoie une vraie tuile même juste hors de France), mais
+  // une URL cassée depuis le début pour absolument toutes les étapes
+  // françaises.
   ignLayer() {
     return L.tileLayer(
       'https://data.geopf.fr/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0' +
-        '&LAYER=PLANIGNV2&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/png' +
+        '&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/png' +
         '&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
       { attribution: '© IGN/Géoplateforme', maxZoom: 18 }
     );
