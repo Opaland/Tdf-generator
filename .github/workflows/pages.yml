@@ -33,7 +33,7 @@ permissions:
 # redéclenché deux fois (comportement voulu), mais un push ordinaire vers la
 # petite démo ne l'interrompt plus.
 concurrency:
-  group: pages-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full-v2' || 'demo' }}
+  group: pages-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full-v3' || 'demo' }}
   cancel-in-progress: true
 
 jobs:
@@ -74,7 +74,7 @@ jobs:
       # plus bas reste perdue malgré ce correctif. Réduit le risque de round
       # 1, ne le ferme pas totalement.
       #
-      # Préfixe "full-v2" (pas juste "full") : trouvaille en production
+      # Préfixe "full-v3" (pas juste "full") : trouvaille en production
       # (28/08/2026, même jour que les deux points ci-dessous) — le cache
       # SQLite "full" accumulé depuis le tout premier run complet de cette
       # session contenait des réponses de géocodage mises en cache AVANT les
@@ -93,6 +93,26 @@ jobs:
       # environnement) : le prochain run "full" repart sans aucun cache,
       # donc sans raccourci réseau, mesuré à nouveau ~2-3h en conditions
       # réelles.
+      #
+      # "-v3" (29/08/2026, ~17h après "-v2") : LA MÊME classe de
+      # bug s'est reproduite, pas seulement une fois — le premier run "full"
+      # sous "full-v2" (aucun cache à restaurer) a corrigé « Luxembourg
+      # City » comme prévu, mais un correctif de code SUIVANT sur
+      # pickFeature() (PR #156, deux homonymies distinctes trouvées en
+      # vérifiant CE run "full-v2" contre le site publié : « Moûtiers »,
+      # Savoie vs Meurthe-et-Moselle ; « Strasbourg » vs une rue homonyme) a
+      # de nouveau été neutralisé par le cache "full-v2" désormais peuplé —
+      # exactement le même mécanisme (cached() ne réexécute jamais fn() sur
+      # un cache-hit), constaté cette fois en 90 secondes de run "full" au
+      # lieu des ~2-3h attendues (import + génération de 2200 étapes toutes
+      # servies par le cache fin de pipeline/cache.js, aucun appel réseau).
+      # Leçon retenue : CE préfixe doit être bumpé à CHAQUE correctif de
+      # pipeline/geocode.js qui change le TRAITEMENT d'une réponse déjà en
+      # cache (pickFeature, pickNominatimFeature, geopfLabel…) — pas
+      # seulement au premier incident. Un run "full" qui termine en moins de
+      # quelques dizaines de minutes après un correctif de géocodage est en
+      # soi un signal qu'aucun appel réseau n'a eu lieu, donc que le
+      # correctif n'a rien pu vérifier de neuf.
       # Trouvaille en production (28/08/2026) : un push ordinaire sur main
       # (ex. le merge d'une PR) déclenche AUSSI ce workflow en mode démo
       # (`on: push`, en parallèle d'un déclenchement manuel `full`, groupe de
@@ -109,7 +129,7 @@ jobs:
       # finissait après.
       #
       # Correctif : restore-keys essaie D'ABORD le cache "full" (préfixe
-      # etapeforge-data-full-v2-), même en mode démo — si un catalogue complet a
+      # etapeforge-data-full-v3-), même en mode démo — si un catalogue complet a
       # déjà été publié une fois, un push ordinaire ne doit plus jamais le
       # faire régresser vers la petite démo. `id` sur ce step expose
       # `cache-matched-key` (vérifié sur restore/action.yml officiel
@@ -120,12 +140,12 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: data
-          key: etapeforge-data-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full-v2' || 'demo' }}-${{ github.run_id }}
+          key: etapeforge-data-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full-v3' || 'demo' }}-${{ github.run_id }}
           restore-keys: |
-            etapeforge-data-full-v2-
-            etapeforge-data-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full-v2' || 'demo' }}-
+            etapeforge-data-full-v3-
+            etapeforge-data-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full-v3' || 'demo' }}-
       # Trouvaille de relecture adverse sur le correctif ci-dessus : le
-      # préfixe de clé seul ("full-v2") ne dit rien de la COMPLÉTUDE du
+      # préfixe de clé seul ("full-v3") ne dit rien de la COMPLÉTUDE du
       # cache restauré — un run "full" annulé ou en timeout sauvegarde quand
       # même sa progression partielle (if: always(), voir plus haut), sous
       # ce même préfixe. Sans ce garde-fou, un push ordinaire suivant
@@ -144,7 +164,7 @@ jobs:
           else
             echo "complete=false" >> "$GITHUB_OUTPUT"
           fi
-      # `!startsWith(..., 'etapeforge-data-full-v2-')` : si le cache restauré
+      # `!startsWith(..., 'etapeforge-data-full-v3-')` : si le cache restauré
       # ci-dessus est déjà un catalogue complet ET RÉELLEMENT TERMINÉ (voir
       # les deux steps précédents), ce run "démo" ne doit ni le régénérer ni
       # l'écraser — juste republier tel quel (aucun appel réseau
@@ -152,7 +172,7 @@ jobs:
       # fichier : ne pas solliciter les APIs publiques à chaque push).
       #
       # WIPE_PARTIAL_FULL_CACHE (trouvaille de relecture adverse, round 2,
-      # 28/08/2026) : si le cache restauré porte le préfixe "full-v2-" mais
+      # 28/08/2026) : si le cache restauré porte le préfixe "full-v3-" mais
       # N'EST PAS marqué complet (run "full" précédent interrompu), ce step
       # s'exécute quand même (condition ci-dessus) — mais scripts/demo.js
       # n'efface JAMAIS data/ avant de générer (seul le repli d'échec réseau,
@@ -162,9 +182,9 @@ jobs:
       # est 'done') publierait un mélange catalogue-partiel + petite démo —
       # ni l'un ni l'autre, jamais ce que documente ce fichier.
       - name: Générer la démo avec les APIs réelles (routes et altimétrie vraies)
-        if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.full) && !(startsWith(steps.restore_data_cache.outputs.cache-matched-key, 'etapeforge-data-full-v2-') && steps.full_complete.outputs.complete == 'true') }}
+        if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.full) && !(startsWith(steps.restore_data_cache.outputs.cache-matched-key, 'etapeforge-data-full-v3-') && steps.full_complete.outputs.complete == 'true') }}
         env:
-          WIPE_PARTIAL_FULL_CACHE: ${{ startsWith(steps.restore_data_cache.outputs.cache-matched-key, 'etapeforge-data-full-v2-') && steps.full_complete.outputs.complete != 'true' }}
+          WIPE_PARTIAL_FULL_CACHE: ${{ startsWith(steps.restore_data_cache.outputs.cache-matched-key, 'etapeforge-data-full-v3-') && steps.full_complete.outputs.complete != 'true' }}
         run: |
           if [ "$WIPE_PARTIAL_FULL_CACHE" = "true" ]; then
             echo "::warning::Cache complet restauré mais incomplet (run précédent interrompu) — repli propre sur la petite démo plutôt qu'un mélange partiel";
@@ -209,11 +229,11 @@ jobs:
       # et une telle duplication gonflerait le cache du dépôt (10 Go
       # partagés, limite documentée GitHub) sans aucun bénéfice.
       - name: Sauvegarder le cache de données (même en cas d'échec/timeout, pour reprendre au prochain run)
-        if: ${{ always() && (github.event_name == 'workflow_dispatch' && inputs.full || !(startsWith(steps.restore_data_cache.outputs.cache-matched-key, 'etapeforge-data-full-v2-') && steps.full_complete.outputs.complete == 'true')) }}
+        if: ${{ always() && (github.event_name == 'workflow_dispatch' && inputs.full || !(startsWith(steps.restore_data_cache.outputs.cache-matched-key, 'etapeforge-data-full-v3-') && steps.full_complete.outputs.complete == 'true')) }}
         uses: actions/cache/save@v4
         with:
           path: data
-          key: etapeforge-data-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full-v2' || 'demo' }}-${{ github.run_id }}
+          key: etapeforge-data-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full-v3' || 'demo' }}-${{ github.run_id }}
       - name: Construire la démo statique
         run: node scripts/build-site.js
       # Taille du site généré, en clair dans les logs : GitHub Pages refuse
