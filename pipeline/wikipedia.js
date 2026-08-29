@@ -131,6 +131,14 @@ const KNOWN_COUNTRIES = new Set([
   'italy', 'spain', 'monaco', 'andorra', 'united kingdom', 'england',
   'scotland', 'wales', 'ireland', 'northern ireland', 'denmark', 'san marino',
   'portugal', 'austria', 'liechtenstein', 'slovenia', 'czech republic', 'poland',
+  // Guerre froide : le Tour a démarré à Cologne en 1965 avant la réunification
+  // allemande — le texte Wikipédia de l'époque annote « (West Germany) »,
+  // jamais « (Germany) » — trouvaille en vérifiant le wikitexte brut réel de
+  // la page « 1965 Tour de France » (29/08/2026, mission tracés historiques) :
+  // sans cette entrée, « Cologne » (aucune commune française homonyme
+  // plausible) partait sur la Géoplateforme par défaut et résolvait sur un
+  // homonyme du Gers, à ~750 km de la vraie ville allemande.
+  'west germany', 'east germany',
 ]);
 
 /**
@@ -145,6 +153,17 @@ function extractCountry(text) {
   for (let i = matches.length - 1; i >= 0; i--) {
     const candidate = matches[i][1].trim();
     if (KNOWN_COUNTRIES.has(candidate.toLowerCase())) return candidate;
+    // Nom alternatif + pays dans la même parenthèse, ex. « Woluwe-Saint-Pierre
+    // (Sint-Pieters-Woluwe, Belgium) » (wikitexte réel, Tour 1969) — le pays
+    // reste conventionnellement le DERNIER segment séparé par une virgule.
+    // Sans ce repli, la parenthèse entière ("sint-pieters-woluwe, belgium")
+    // ne correspond jamais telle quelle à KNOWN_COUNTRIES et le pays annoté
+    // par Wikipédia est perdu — trouvaille en vérifiant le wikitexte brut réel
+    // (29/08/2026, mission tracés historiques).
+    const parts = candidate.split(',').map((p) => p.trim());
+    if (parts.length > 1 && KNOWN_COUNTRIES.has(parts[parts.length - 1].toLowerCase())) {
+      return parts[parts.length - 1];
+    }
   }
   return null;
 }

@@ -215,6 +215,34 @@ test('parseCourse() : extrait le pays annoté entre parenthèses pour une ville 
   );
 });
 
+// Reproduction directe de deux bugs trouvés en vérifiant le wikitexte brut
+// réel (29/08/2026, mission tracés historiques — étapes reconstruites avec
+// une distance délirante, ex. « Cologne → Liège » 1965 reconstruite à
+// +600 % de la distance officielle) :
+test('parseCourse() : « West Germany »/« East Germany » reconnus (Guerre froide, absents de Germany)', () => {
+  // Wikitexte réel, page « 1965 Tour de France » : « [[Cologne]] (West
+  // Germany) to [[Liège]] (Belgium) » — sans cette entrée, « Cologne » (aucun
+  // pays détecté) partait sur la Géoplateforme par défaut et résolvait sur un
+  // homonyme du Gers (France), à ~750 km de la vraie Cologne allemande.
+  assert.deepStrictEqual(
+    parseCourse('Cologne (West Germany) to Liège (Belgium)'),
+    { start: 'Cologne', finish: 'Liège', startCountry: 'West Germany', finishCountry: 'Belgium' }
+  );
+});
+
+test('parseCourse() : pays annoté avec un nom alternatif dans la même parenthèse (« Ville, Pays »)', () => {
+  // Wikitexte réel, page « 1969 Tour de France » : « [[Woluwe-Saint-Pierre]]
+  // (Sint-Pieters-Woluwe, Belgium) » — la parenthèse entière ne correspond
+  // jamais telle quelle à KNOWN_COUNTRIES ; sans repli sur le dernier segment
+  // séparé par une virgule, le pays annoté est perdu et « Woluwe-Saint-Pierre »
+  // (sans indice) résolvait à La Réunion (homonymie « Saint-Pierre », un
+  // référentiel légitimement français) au lieu de Belgique.
+  assert.deepStrictEqual(
+    parseCourse('Roubaix to Woluwe-Saint-Pierre (Sint-Pieters-Woluwe, Belgium)'),
+    { start: 'Roubaix', finish: 'Woluwe-Saint-Pierre', startCountry: null, finishCountry: 'Belgium' }
+  );
+});
+
 // Trouvaille de relecture adverse sur le test précédent : si le nom de la
 // ville-via est ENTIÈREMENT entre parenthèses, l'ancien ordre (parenthèses
 // retirées avant « via ») laissait un « via » orphelin (« Lyon via (Melun) »
