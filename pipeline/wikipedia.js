@@ -230,33 +230,37 @@ function parseCourse(text) {
   // réel connu, mais coûte rien) ; \b (pas \s+ après) plutôt que .+ pour
   // couvrir aussi un « via » qui se retrouve seul en fin de chaîne.
   //
-  // Le retrait de « via » se fait volontairement APRÈS le retrait des
-  // parenthèses et la normalisation des espaces, pas avant : un point de
-  // passage entièrement entre parenthèses (« Lyon via (Melun) ») laissait
-  // sinon un « via » orphelin — les parenthèses disparaissaient d'abord, ne
-  // laissant plus de texte après « via » pour que l'ancien \s+via\s+.+$
-  // (qui exigeait au moins un caractère après) puisse matcher (trouvaille
-  // de relecture adverse sur ce même correctif ; aucune fixture connue de
-  // ce dépôt ne déclenche ce format aujourd'hui, mais rien ne garantit
-  // qu'un futur import Wikipédia ne le produise pas).
-  // Qualificatif de département (« Bonneval, Eure-et-Loir ») retiré de la
-  // requête envoyée au géocodeur — voir extractDepartment() — mais calculé
-  // AVANT clean() sur le texte encore porteur de la virgule (comme
-  // extractCountry() ci-dessous, sur m[1]/m[2] bruts) : clean() lui-même
-  // retire ensuite exactement ce même segment, jamais un autre.
+  // Le retrait de « via » se fait maintenant EN PREMIER, avant les
+  // parenthèses et le qualificatif de département — \s+via\b.*$ retire tout
+  // le reste de la chaîne dès le premier « via » rencontré (le .* final
+  // couvre aussi bien un « via » suivi de texte nu que d'une parenthèse ou
+  // d'une virgule de département), donc l'ordre avec le retrait des
+  // parenthèses n'a plus d'importance (vérifié explicitement : « Lyon via
+  // (Melun) » et « Brussels (Belgium) via Charleroi (Belgium) » donnent le
+  // même résultat qu'avant ce changement d'ordre).
+  //
+  // Trouvaille de relecture adverse (30/08/2026, sur l'ajout du retrait de
+  // département ci-dessous) : le retrait du département, ancré en fin de
+  // chaîne (`,\s*${dept}\s*$`), échouait SILENCIEUSEMENT dès qu'un « via »
+  // suivait dans le même segment (ex. « Bergerac, Dordogne via
+  // Sarlat-la-Canéda ») — le département n'était alors plus en fin de
+  // chaîne au moment du retrait, rouvrant exactement le bug que ce
+  // correctif entier visait à fermer. extractDepartment() retirait déjà le
+  // « via » avant de chercher le département (voir son propre `beforeVia`) ;
+  // clean() ne le faisait pas, d'où le décalage. Retirer le « via » en
+  // premier ici aussi aligne les deux et ferme ce trou.
   const startDepartment = extractDepartment(m[1]);
   const finishDepartment = extractDepartment(m[2]);
   const clean = (s, dept) => {
     let out = s
+      .replace(/\s+via\b.*$/i, '')
       .replace(/\s*\([^)]*\)\s*/g, ' ')
       .replace(/\s+/g, ' ')
       .trim();
     if (dept) {
       out = out.replace(new RegExp(`,\\s*${escapeRegExp(dept)}\\s*$`, 'i'), '').trim();
     }
-    return out
-      .replace(/\s+via\b.*$/i, '')
-      .trim();
+    return out;
   };
   return {
     start: clean(m[1], startDepartment),
@@ -557,6 +561,7 @@ module.exports = {
   fetchEditionHtml,
   reconstructionWaypoints,
   resolveViaCoords,
+  FRENCH_DEPARTMENTS,
   editionNotes,
   historicHighlights,
   stageConfidence,

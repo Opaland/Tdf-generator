@@ -146,6 +146,26 @@ test('parseCourse() : extrait et retire le qualificatif de département d\'une c
   );
 });
 
+// Trouvaille de relecture adverse (30/08/2026) sur le test précédent : le
+// retrait du département, ancré en fin de chaîne, échouait SILENCIEUSEMENT
+// dès qu'un « via » suivait dans le même segment — le département n'était
+// alors plus en fin de chaîne au moment du retrait, rouvrant exactement le
+// bug que ce correctif visait à fermer (vérifié en direct sur data.geopf.fr :
+// « Bergerac, Dordogne » non stripé retombe à un score de 0.399, hors des 5
+// premiers résultats côté index POI). Corrigé en retirant le « via » avant
+// le département dans clean(), pour que la regex de fin-de-chaîne retrouve
+// toujours le département en dernière position.
+test('parseCourse() : le qualificatif de département est retiré même quand un « via » suit dans le même segment', () => {
+  assert.deepStrictEqual(
+    parseCourse('Périgueux to Bergerac, Dordogne via Sarlat-la-Canéda'),
+    { start: 'Périgueux', finish: 'Bergerac', startCountry: null, finishCountry: null, startDepartment: null, finishDepartment: 'Dordogne' }
+  );
+  assert.deepStrictEqual(
+    parseCourse('Bonneval, Eure-et-Loir via Chartres to Lyon'),
+    { start: 'Bonneval', finish: 'Lyon', startCountry: null, finishCountry: null, startDepartment: 'Eure-et-Loir', finishDepartment: null }
+  );
+});
+
 test('resolveViaCoords() : la paire complète du via l\'emporte sur known_cols.json', () => {
   const via = { label: 'Test', lat: 1, lon: 2 };
   const known = { ele: 999, lat: 9, lon: 9 };
