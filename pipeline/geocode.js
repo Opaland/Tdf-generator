@@ -3,10 +3,22 @@
 // (User-Agent dédié, max 1 req/s). Tout passe par le cache SQLite geocode_cache.
 // En mode hors-ligne : simulateur déterministe (fournisseur 'simulateur').
 
+const fs = require('fs');
+const path = require('path');
 const { httpJson, isOffline } = require('./http');
 const { cached, cachePut } = require('./cache');
 const { simGeocode, simReverseGeocode, simElevation } = require('./simulator');
 const { haversine } = require('./geo');
+
+// Copie indépendante de pipeline/data/french_departments.json (même fichier
+// que celui chargé par pipeline/wikipedia.js pour extractDepartment(), mais
+// requis séparément ici — même philosophie que COUNTRY_TO_ISO ci-dessous,
+// jamais un require croisé entre les deux modules : reconstructionWaypoints()
+// (wikipedia.js) require('./geocode') à la demande précisément pour éviter
+// un cycle, un require au niveau module dans l'autre sens le rouvrirait).
+const FRENCH_DEPARTMENT_CODES = JSON.parse(
+  fs.readFileSync(path.join(__dirname, 'data', 'french_departments.json'), 'utf8')
+);
 
 const FRANCE_BBOX = { latMin: 41.0, latMax: 51.5, lonMin: -5.5, lonMax: 10.0 };
 
@@ -103,10 +115,36 @@ function geopfLabel(props, fallback) {
  * empêchait `near` de départager ensuite ces deux candidats par distance
  * réelle, rouvrant une couche plus loin exactement le bug que ce correctif
  * ferme pour Moûtiers.
+ *
+ * `regionHint` (nom de département français, ex. « Eure-et-Loir ») réduit
+ * `communes` à celles dont le `depcode` Géoplateforme correspond, AVANT
+ * `exactMatches` — narrow-down pur, jamais un filtre qui viderait la liste :
+ * si aucune commune candidate ne porte ce département, `communes` reste
+ * inchangée (dégradation sûre). Comble précisément la limite documentée
+ * ci-dessus (le premier waypoint n'a jamais de `near`) : « Bonneval »
+ * (Eure-et-Loir ET Haute-Loire, deux communes réelles homonymes) et surtout
+ * « Les Angles » (Gard, Hautes-Pyrénées ET Pyrénées-Orientales — vérifié en
+ * direct sur data.geopf.fr, 30/08/2026 : les deux derniers partagent un
+ * score strictement identique, 0.9727..., la même classe de non-déterminisme
+ * qu'ailleurs dans ce fichier) — sans `regionHint`, `near` absent sur le
+ * premier waypoint laissait le choix à un ordre d'API non garanti sur ces
+ * égalités. Le nom de département provient de extractDepartment()
+ * (pipeline/wikipedia.js) sur le qualificatif « Ville, Département » que
+ * porte le titre Wikipédia anglais d'une commune française homonyme — la
+ * requête envoyée au géocodeur, elle, ne porte JAMAIS ce qualificatif
+ * (dégrade le classement au lieu de l'affiner, vérifié en direct : voir
+ * extractDepartment()).
  */
-function pickFeature(feats, query, near, { summit = false } = {}) {
+function pickFeature(feats, query, near, { summit = false, regionHint = null } = {}) {
   if (!feats.length) return null;
-  const communes = !isColQuery(query) ? feats.filter(isCommuneFeat) : [];
+  let communes = !isColQuery(query) ? feats.filter(isCommuneFeat) : [];
+  if (regionHint) {
+    const code = FRENCH_DEPARTMENT_CODES[regionHint];
+    if (code) {
+      const regionMatches = communes.filter((f) => f.depcode === code);
+      if (regionMatches.length) communes = regionMatches;
+    }
+  }
   const exactMatches = communes.filter((f) => normLabel(f.label) === normLabel(query));
   let preferred = exactMatches.length ? exactMatches : communes;
   // Recherche de sommet (geocodeCol(), index POI) sans commune candidate :
@@ -275,9 +313,17 @@ async function geopfOrNull(kind, request, fn) {
  * Géocode un libellé. `countryHint` ('fr' par défaut) choisit le fournisseur.
  * `near` ({lat, lon}) biaise vers la proximité — indispensable pour lever les
  * homonymies quand on géocode les waypoints d'une étape de proche en proche.
+ * `regionHint` (nom de département français) départage des communes
+ * homonymes de départements différents — voir pickFeature(). `regionHint`
+ * fait partie de la clé de cache SQLite (comme `isoCode` pour le chemin
+ * Nominatim ci-dessous) : sans ça, deux appels au même libellé avec un
+ * regionHint différent (ou absent) partageraient un cache-hit et l'un des
+ * deux servirait silencieusement le résultat de l'autre — même classe de
+ * bug que documentée ailleurs dans ce fichier (cache par clé, jamais par
+ * ricochet).
  * Retourne { label, lat, lon, ele?, provider, raw? }.
  */
-async function geocode(query, { countryHint = 'fr', near = null, summit = false } = {}) {
+async function geocode(query, { countryHint = 'fr', near = null, summit = false, regionHint = null } = {}) {
   if (isOffline()) {
     const { value } = await cached('geocode', 'simulateur', { q: query }, async () => simGeocode(query));
     return value;
@@ -307,26 +353,31 @@ async function geocode(query, { countryHint = 'fr', near = null, summit = false 
           || (category.includes('commune') ? 'municipality'
             : category.includes('sommet') ? 'summit'
               : undefined);
+        // depcode : chaîne côté index adresse, tableau côté index POI — même
+        // repli que city/name ci-dessus. Alimente uniquement le départage par
+        // regionHint (pickFeature()), jamais utilisé pour construire l'URL.
+        const depcode = Array.isArray(props.depcode) ? props.depcode[0] : props.depcode;
         return {
           label: geopfLabel(props, query),
           lat: f.geometry.coordinates[1],
           lon: f.geometry.coordinates[0],
           type,
+          depcode,
           score: props.score,
           provider: 'geopf',
         };
       });
-      return pickFeature(feats, query, near, { summit });
+      return pickFeature(feats, query, near, { summit, regionHint });
     };
     // Un sommet déclaré (waypoint « col ») se cherche d'abord dans l'index POI
     // seul : « Hautacam » n'a aucun mot-clé de col et sinon une adresse
     // homonyme lointaine peut l'emporter. geopfOrNull() (voir plus haut) avale
     // un rejet 4xx de la Géoplateforme comme un « 0 résultat ».
     if (summit) {
-      const value = await geopfOrNull('geopf-poi', { q: query, near: nearKey }, () => geopfSearch('poi'));
+      const value = await geopfOrNull('geopf-poi', { q: query, near: nearKey, region: regionHint }, () => geopfSearch('poi'));
       if (value) return value;
     }
-    const value = await geopfOrNull('geopf', { q: query, near: nearKey }, () => geopfSearch('address,poi'));
+    const value = await geopfOrNull('geopf', { q: query, near: nearKey, region: regionHint }, () => geopfSearch('address,poi'));
     if (value) return value;
     // Repli : Nominatim si la Géoplateforme ne trouve rien (ou rejette la requête).
   }

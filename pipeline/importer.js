@@ -71,8 +71,8 @@ async function importEdition(year, { category = 'hommes', onProgress } = {}) {
        VALUES (?, ?, ?, ?, ?, ?, ?, 'draft', ?)`
     );
     const insWp = db.prepare(
-      `INSERT INTO waypoints (stage_id, idx, label, kind, lat, lon, altitude_hint_m, bonus_sec, source, country_hint)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+      `INSERT INTO waypoints (stage_id, idx, label, kind, lat, lon, altitude_hint_m, bonus_sec, source, country_hint, region_hint)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
     );
 
     const stages = [];
@@ -93,7 +93,7 @@ async function importEdition(year, { category = 'hommes', onProgress } = {}) {
       const stageId = r.lastInsertRowid;
       const wps = reconstructionWaypoints(year, s, category);
       wps.forEach((wp, i) => {
-        insWp.run(stageId, i, wp.label, wp.kind, wp.lat ?? null, wp.lon ?? null, wp.altitude_hint_m ?? null, wp.bonus_sec ? JSON.stringify(wp.bonus_sec) : null, wp.source, wp.country_hint ?? null);
+        insWp.run(stageId, i, wp.label, wp.kind, wp.lat ?? null, wp.lon ?? null, wp.altitude_hint_m ?? null, wp.bonus_sec ? JSON.stringify(wp.bonus_sec) : null, wp.source, wp.country_hint ?? null, wp.region_hint ?? null);
       });
       stages.push({ id: stageId, number: s.number, name, distanceKm: s.distanceKm });
     }

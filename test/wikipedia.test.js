@@ -82,6 +82,70 @@ test('reconstructionWaypoints() : country_hint absent quand aucune annotation de
   assert.strictEqual(wps[wps.length - 1].country_hint, null);
 });
 
+// region_hint : même mécanisme que country_hint ci-dessus, pour le
+// qualificatif de département (« Bonneval, Eure-et-Loir ») — trouvaille du
+// 30/08/2026 (mission tracés historiques) : plusieurs étapes réelles de
+// l'édition 2026 en portent un (« Périgueux → Bergerac, Dordogne », « Pau,
+// Pyrénées-Atlantiques », « Dole, Jura », « Gap, Hautes-Alpes »…), jamais
+// exploité jusqu'ici — envoyé tel quel au géocodeur, il dégrade le
+// classement au lieu de l'affiner (voir extractDepartment()).
+test('reconstructionWaypoints() : region_hint propagé au départ/arrivée non curés, jamais aux parcours curés', () => {
+  const stage = {
+    number: 99, start: 'Bonneval', finish: 'Chartres',
+    startDepartment: 'Eure-et-Loir', finishDepartment: null,
+  };
+  const wps = reconstructionWaypoints(1994, stage); // 1994 étape 99 : aucun curatif connu
+  assert.strictEqual(wps[0].label, 'Bonneval');
+  assert.strictEqual(wps[0].region_hint, 'Eure-et-Loir');
+  assert.strictEqual(wps[wps.length - 1].label, 'Chartres');
+  assert.strictEqual(wps[wps.length - 1].region_hint, null, 'aucune annotation de département pour Chartres dans ce test');
+});
+
+test('reconstructionWaypoints() : region_hint absent quand aucune annotation de département', () => {
+  const stage = { number: 1, start: 'Paris', finish: 'Lyon', startDepartment: null, finishDepartment: null };
+  const wps = reconstructionWaypoints(2000, stage);
+  assert.strictEqual(wps[0].region_hint, null);
+  assert.strictEqual(wps[wps.length - 1].region_hint, null);
+});
+
+test('reconstructionWaypoints() : region_hint jamais propagé pour un départ/arrivée CURÉ, même si stage porte une annotation', () => {
+  // Même garde-fou que country_hint (curated?.start ? null : ...) : un
+  // parcours curé (historic_routes.json) porte un libellé choisi à la main,
+  // jamais une annotation de département devinée depuis le Wikipédia brut.
+  // 1903 étape 1 (Paris → Lyon) est entièrement curée dans ce dépôt.
+  const stage = {
+    number: 1, start: 'Paris', finish: 'Lyon',
+    startDepartment: 'Ne devrait jamais apparaître', finishDepartment: 'Ne devrait jamais apparaître',
+  };
+  const wps = reconstructionWaypoints(1903, stage);
+  assert.strictEqual(wps[0].region_hint, null);
+  assert.strictEqual(wps[wps.length - 1].region_hint, null);
+});
+
+test('parseCourse() : extrait et retire le qualificatif de département d\'une commune française homonyme', () => {
+  // Trouvaille en interrogeant l'API Géoplateforme réelle (30/08/2026) :
+  // envoyer la requête AVEC ce qualificatif dégrade le classement au lieu de
+  // l'affiner — « Bonneval, Eure-et-Loir » ne retrouve la vraie commune dans
+  // AUCUN des 5 premiers résultats (seulement des rues homonymes), alors que
+  // la requête nue « Bonneval » la retrouve en tête (score 0.98).
+  assert.deepStrictEqual(
+    parseCourse('Bonneval, Eure-et-Loir to Chartres'),
+    { start: 'Bonneval', finish: 'Chartres', startCountry: null, finishCountry: null, startDepartment: 'Eure-et-Loir', finishDepartment: null }
+  );
+  assert.deepStrictEqual(
+    parseCourse('Périgueux to Bergerac, Dordogne'),
+    { start: 'Périgueux', finish: 'Bergerac', startCountry: null, finishCountry: null, startDepartment: null, finishDepartment: 'Dordogne' }
+  );
+  // Un segment après virgule qui n'est PAS un département français reconnu
+  // (précision non départementale, ou pays étranger déjà couvert par
+  // extractCountry) n'est jamais confondu avec un département — dégradation
+  // sûre (comportement inchangé), même philosophie que KNOWN_COUNTRIES.
+  assert.deepStrictEqual(
+    parseCourse('Paris, Montgeron to Lyon'),
+    { start: 'Paris, Montgeron', finish: 'Lyon', startCountry: null, finishCountry: null, startDepartment: null, finishDepartment: null }
+  );
+});
+
 test('resolveViaCoords() : la paire complète du via l\'emporte sur known_cols.json', () => {
   const via = { label: 'Test', lat: 1, lon: 2 };
   const known = { ele: 999, lat: 9, lon: 9 };
@@ -206,14 +270,14 @@ test('parseStagesFromHtml : réaligne une ligne avec une cellule vide en trop, j
 });
 
 test('fonctions unitaires du parseur', () => {
-  assert.deepStrictEqual(parseCourse('Paris to Lyon'), { start: 'Paris', finish: 'Lyon', startCountry: null, finishCountry: null });
-  assert.deepStrictEqual(parseCourse('Pau – Hautacam'), { start: 'Pau', finish: 'Hautacam', startCountry: null, finishCountry: null });
+  assert.deepStrictEqual(parseCourse('Paris to Lyon'), { start: 'Paris', finish: 'Lyon', startCountry: null, finishCountry: null, startDepartment: null, finishDepartment: null });
+  assert.deepStrictEqual(parseCourse('Pau – Hautacam'), { start: 'Pau', finish: 'Hautacam', startCountry: null, finishCountry: null, startDepartment: null, finishDepartment: null });
   // « Montgeron » n'est pas un pays reconnu : precision de lieu française
   // pure (le vrai point de départ 1903, dans cette commune), pas une
   // annotation de pays — countryHint doit rester 'fr' par défaut pour elle.
   assert.deepStrictEqual(
     parseCourse('Paris (Montgeron) to Lyon'),
-    { start: 'Paris', finish: 'Lyon', startCountry: null, finishCountry: null }
+    { start: 'Paris', finish: 'Lyon', startCountry: null, finishCountry: null, startDepartment: null, finishDepartment: null }
   );
   assert.strictEqual(parseDistanceKm('467 km (290 mi)'), 467);
   assert.strictEqual(parseDistanceKm('2,428 km'), 2428, 'séparateur de milliers anglo-saxon');
@@ -232,11 +296,11 @@ test('fonctions unitaires du parseur', () => {
 test('parseCourse() : « via <ville> » est un point de passage du trajet, jamais retenu dans start/finish', () => {
   assert.deepStrictEqual(
     parseCourse('Brussels (Belgium) to Brussels (Belgium) via Charleroi (Belgium)'),
-    { start: 'Brussels', finish: 'Brussels', startCountry: 'Belgium', finishCountry: 'Belgium' }
+    { start: 'Brussels', finish: 'Brussels', startCountry: 'Belgium', finishCountry: 'Belgium', startDepartment: null, finishDepartment: null }
   );
   assert.deepStrictEqual(
     parseCourse('Paris via Melun to Lyon'),
-    { start: 'Paris', finish: 'Lyon', startCountry: null, finishCountry: null }
+    { start: 'Paris', finish: 'Lyon', startCountry: null, finishCountry: null, startDepartment: null, finishDepartment: null }
   );
 });
 
@@ -256,11 +320,11 @@ test('parseCourse() : « via <ville> » est un point de passage du trajet, jamai
 test('parseCourse() : extrait le pays annoté entre parenthèses pour une ville hors de France', () => {
   assert.deepStrictEqual(
     parseCourse('Dover (United Kingdom) to Brighton'),
-    { start: 'Dover', finish: 'Brighton', startCountry: 'United Kingdom', finishCountry: null }
+    { start: 'Dover', finish: 'Brighton', startCountry: 'United Kingdom', finishCountry: null, startDepartment: null, finishDepartment: null }
   );
   assert.deepStrictEqual(
     parseCourse('Luxembourg City (Luxembourg) to Strasbourg'),
-    { start: 'Luxembourg City', finish: 'Strasbourg', startCountry: 'Luxembourg', finishCountry: null }
+    { start: 'Luxembourg City', finish: 'Strasbourg', startCountry: 'Luxembourg', finishCountry: null, startDepartment: null, finishDepartment: null }
   );
 });
 
@@ -275,7 +339,7 @@ test('parseCourse() : « West Germany »/« East Germany » reconnus (Guerre fro
   // homonyme du Gers (France), à ~750 km de la vraie Cologne allemande.
   assert.deepStrictEqual(
     parseCourse('Cologne (West Germany) to Liège (Belgium)'),
-    { start: 'Cologne', finish: 'Liège', startCountry: 'West Germany', finishCountry: 'Belgium' }
+    { start: 'Cologne', finish: 'Liège', startCountry: 'West Germany', finishCountry: 'Belgium', startDepartment: null, finishDepartment: null }
   );
 });
 
@@ -288,7 +352,7 @@ test('parseCourse() : pays annoté avec un nom alternatif dans la même parenth�
   // référentiel légitimement français) au lieu de Belgique.
   assert.deepStrictEqual(
     parseCourse('Roubaix to Woluwe-Saint-Pierre (Sint-Pieters-Woluwe, Belgium)'),
-    { start: 'Roubaix', finish: 'Woluwe-Saint-Pierre', startCountry: null, finishCountry: 'Belgium' }
+    { start: 'Roubaix', finish: 'Woluwe-Saint-Pierre', startCountry: null, finishCountry: 'Belgium', startDepartment: null, finishDepartment: null }
   );
 });
 
@@ -301,14 +365,14 @@ test('parseCourse() : pays annoté avec un nom alternatif dans la même parenth�
 test('parseCourse() : « via » retiré même quand le point de passage est entièrement entre parenthèses', () => {
   assert.deepStrictEqual(
     parseCourse('Paris to Lyon via (Melun)'),
-    { start: 'Paris', finish: 'Lyon', startCountry: null, finishCountry: null }
+    { start: 'Paris', finish: 'Lyon', startCountry: null, finishCountry: null, startDepartment: null, finishDepartment: null }
   );
   // « France » explicite ne compte jamais comme étranger (countryHint 'fr'
   // par défaut déjà correct) — vérifié distinctement de « aucune parenthèse
   // reconnue » ci-dessus, pas juste les deux confondus en un même null.
   assert.deepStrictEqual(
     parseCourse('Paris to Lyon (France) via (Melun) (une note)'),
-    { start: 'Paris', finish: 'Lyon', startCountry: null, finishCountry: 'France' }
+    { start: 'Paris', finish: 'Lyon', startCountry: null, finishCountry: 'France', startDepartment: null, finishDepartment: null }
   );
 });
 

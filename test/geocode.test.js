@@ -118,6 +118,78 @@ test('sans commune candidate, si le meilleur résultat est une rue, on retombe s
   assert.strictEqual(pickFeature(feats, 'Cambridge'), null);
 });
 
+// Trouvaille en interrogeant l'API réelle (30/08/2026, mission tracés
+// historiques) : « Bonneval » est le nom de DEUX communes françaises réelles
+// (Eure-et-Loir ET Haute-Loire), et « Les Angles » de TROIS (Gard,
+// Hautes-Pyrénées ET Pyrénées-Orientales — les deux derniers à score
+// Géoplateforme STRICTEMENT identique, 0.9727..., vérifié en direct).
+// regionHint (nom de département extrait du qualificatif Wikipédia « Ville,
+// Département », voir extractDepartment() pipeline/wikipedia.js) départage
+// via depcode — jamais deviné, jamais un filtre qui viderait la liste si
+// aucun candidat ne correspond. Données ci-dessous reprises telles quelles
+// des réponses réelles (data.geopf.fr, index address,poi).
+test('regionHint départage des communes homonymes de départements différents (« Bonneval »)', () => {
+  const feats = [
+    { label: 'Bonneval', type: 'municipality', lat: 48.177291, lon: 1.380475, depcode: '28', score: 0.9818 },
+    { label: 'Bonneval', type: 'municipality', lat: 45.310089, lon: 3.738892, depcode: '43', score: 0.9727 },
+    { label: 'Bonneval 33260 La Teste-de-Buch', type: 'street', depcode: '33', score: 0.9594 },
+    { label: 'Bonneval 44660 Ruffigné', type: 'street', depcode: '44', score: 0.9459 },
+    { label: 'Bonneval', type: undefined, depcode: '28', score: 0.9454 },
+  ];
+  const r = pickFeature(feats, 'Bonneval', null, { regionHint: 'Eure-et-Loir' });
+  assert.strictEqual(r.depcode, '28');
+  assert.strictEqual(r.lat, 48.177291);
+  // Discriminance : sans regionHint (ou avec un mauvais), le meilleur score
+  // (28) l'emporterait déjà « par accident » — ce cas vérifie explicitement
+  // que regionHint FAIT la différence en demandant le candidat au score LE
+  // PLUS BAS des deux communes (43, Haute-Loire), qui ne gagnerait jamais
+  // sans le départage par département.
+  const r2 = pickFeature(feats, 'Bonneval', null, { regionHint: 'Haute-Loire' });
+  assert.strictEqual(r2.depcode, '43');
+  assert.strictEqual(r2.lat, 45.310089);
+});
+
+// Le cas critique : deux candidats à score STRICTEMENT identique (0.9727),
+// l'ordre entre eux non garanti stable par l'API (même classe de
+// non-déterminisme que Bristol/Martinique, documentée ailleurs cette
+// session) — testé dans les DEUX ordres possibles pour prouver que
+// regionHint départage par depcode, jamais par la position dans le tableau.
+test('regionHint départage un VRAI score-tie entre deux communes homonymes, quel que soit l\'ordre reçu (« Les Angles »)', () => {
+  const gard = { label: 'Les Angles', type: 'municipality', lat: 43.9636, lon: 4.7908, depcode: '30', score: 0.9818 };
+  const hautesPyrenees = { label: 'Les Angles', type: 'municipality', lat: 42.9092, lon: 0.1497, depcode: '65', score: 0.9727 };
+  const pyreneesOrientales = { label: 'Les Angles', type: 'municipality', lat: 42.5637, lon: 2.0725, depcode: '66', score: 0.9727 };
+  const street = { label: 'Les Angles 27480 Le Tronquay', type: 'street', depcode: '27', score: 0.9455 };
+
+  const r1 = pickFeature([gard, hautesPyrenees, pyreneesOrientales, street], 'Les Angles', null, { regionHint: 'Pyrénées-Orientales' });
+  assert.strictEqual(r1.depcode, '66');
+
+  // Ordre des deux candidats à égalité de score inversé — même résultat.
+  const r2 = pickFeature([gard, pyreneesOrientales, hautesPyrenees, street], 'Les Angles', null, { regionHint: 'Pyrénées-Orientales' });
+  assert.strictEqual(r2.depcode, '66');
+});
+
+test('regionHint sans candidat correspondant : dégradation sûre, comportement inchangé (jamais de liste vidée à tort)', () => {
+  const feats = [
+    { label: 'Bonneval', type: 'municipality', lat: 48.177291, lon: 1.380475, depcode: '28', score: 0.9818 },
+    { label: 'Bonneval', type: 'municipality', lat: 45.310089, lon: 3.738892, depcode: '43', score: 0.9727 },
+  ];
+  // « Savoie » ne correspond à aucun candidat ici : communes reste inchangée,
+  // le résultat est identique à un appel sans regionHint (premier candidat,
+  // meilleur score).
+  const withUnmatchedHint = pickFeature(feats, 'Bonneval', null, { regionHint: 'Savoie' });
+  const withoutHint = pickFeature(feats, 'Bonneval', null, {});
+  assert.deepStrictEqual(withUnmatchedHint, withoutHint);
+  assert.strictEqual(withoutHint.depcode, '28');
+});
+
+test('regionHint : un nom qui n\'est pas un département français reconnu n\'a aucun effet (jamais un crash ni un filtre inventé)', () => {
+  const feats = [
+    { label: 'Bonneval', type: 'municipality', lat: 48.177291, lon: 1.380475, depcode: '28', score: 0.9818 },
+  ];
+  const r = pickFeature(feats, 'Bonneval', null, { regionHint: 'Pas un département' });
+  assert.strictEqual(r.depcode, '28');
+});
+
 // Non-régression : une VRAIE petite ville française dont le meilleur
 // candidat est un lieu-dit (locality), pas une rue, reste traitée comme
 // avant — seul `type: 'street'` déclenche le repli vers Nominatim, jamais
@@ -517,6 +589,42 @@ test('un rejet 400 de la Géoplateforme est mis en cache comme un « 0 résultat
   await geocode("'s-Hertogenbosch-test-cache");
   await geocode("'s-Hertogenbosch-test-cache");
   assert.strictEqual(geopfCalls, 1, 'le 2e appel doit être servi par le cache, pas recontacter la Géoplateforme');
+});
+
+// regionHint fait partie de la clé de cache SQLite (comme isoCode pour le
+// chemin Nominatim ailleurs dans ce fichier) — sans ça, deux appels au même
+// libellé avec un regionHint différent partageraient un cache-hit et l'un
+// des deux servirait silencieusement le résultat de l'autre. Même classe de
+// bug que documentée à plusieurs reprises cette session (cache par clé,
+// jamais par ricochet) — vérifié ici au niveau réseau, pas seulement au
+// niveau de la fonction pure pickFeature().
+test('regionHint fait partie de la clé de cache Géoplateforme : deux régions différentes pour le même libellé ne partagent jamais un cache-hit', async () => {
+  let geopfCalls = 0;
+  mock = {
+    geopf: async () => {
+      geopfCalls++;
+      return jsonResponse({
+        features: [
+          {
+            type: 'Feature',
+            geometry: { type: 'Point', coordinates: [1.380475, 48.177291] },
+            properties: { label: 'Bonneval', type: 'municipality', depcode: '28', score: 0.9818 },
+          },
+          {
+            type: 'Feature',
+            geometry: { type: 'Point', coordinates: [3.738892, 45.310089] },
+            properties: { label: 'Bonneval', type: 'municipality', depcode: '43', score: 0.9727 },
+          },
+        ],
+      });
+    },
+    nominatim: neverCalled('Nominatim'),
+  };
+  const r1 = await geocode('Bonneval-test-region', { regionHint: 'Eure-et-Loir' });
+  const r2 = await geocode('Bonneval-test-region', { regionHint: 'Haute-Loire' });
+  assert.strictEqual(r1.lat, 48.177291, 'regionHint Eure-et-Loir doit résoudre la commune du 28');
+  assert.strictEqual(r2.lat, 45.310089, 'regionHint Haute-Loire doit résoudre la commune du 43, pas réutiliser le cache du premier appel');
+  assert.strictEqual(geopfCalls, 2, 'chaque regionHint distinct doit recontacter la Géoplateforme, jamais un cache-hit croisé');
 });
 
 // Reproduction directe du bug trouvé après régénération complète (28/08/2026,
