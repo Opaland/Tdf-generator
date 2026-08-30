@@ -84,6 +84,34 @@ test('done_count compte les étapes distinctes, pas les lignes de la jointure wa
   assert.strictEqual(ed.done_count, 1, `done_count doit rester 1 (une étape 'done'), pas ${wpCount} (nb de waypoints)`);
 });
 
+test('import 2026 : le waypoint « Col de Toses » (étape 3) est persisté avec lat/lon curés en base, court-circuitant le géocodage', async () => {
+  // Trouvaille du 30/08/2026 (mission tracés historiques) : « Col de Toses »
+  // (col espagnol) ne se géocode correctement ni via data.geopf.fr ni via
+  // Nominatim sous ce libellé français — known_cols.json porte désormais des
+  // coordonnées vérifiées, propagées par reconstructionWaypoints()
+  // (pipeline/wikipedia.js) jusqu'à l'INSERT waypoints (pipeline/importer.js).
+  // Vérifie ici le chemin complet import → base, pas seulement la fonction pure.
+  const { edition, stages } = await importYear(2026);
+  assert.ok(edition, 'édition 2026 attendue (fixture hors-ligne disponible)');
+  const stage3 = stages.find((s) => s.number === 3);
+  assert.ok(stage3, 'étape 3 (Granollers → Les Angles) attendue');
+  const { getDb } = require('../backend/db');
+  const db = getDb();
+  const toses = db.prepare('SELECT lat, lon, altitude_hint_m FROM waypoints WHERE stage_id = ? AND label = ?')
+    .get(stage3.id, 'Col de Toses');
+  assert.ok(toses, 'le waypoint Col de Toses doit exister en base');
+  assert.strictEqual(toses.lat, 42.336);
+  assert.strictEqual(toses.lon, 1.9911);
+  assert.strictEqual(toses.altitude_hint_m, 1790);
+  // Non-régression : un via sans coordonnées curées (même étape) reste NULL
+  // en base, pas une valeur héritée par erreur du waypoint précédent.
+  const calvaire = db.prepare('SELECT lat, lon FROM waypoints WHERE stage_id = ? AND label = ?')
+    .get(stage3.id, 'Col du Calvaire');
+  assert.ok(calvaire, 'le waypoint Col du Calvaire doit exister en base');
+  assert.strictEqual(calvaire.lat, null);
+  assert.strictEqual(calvaire.lon, null);
+});
+
 test('GET /api/editions/highlights : liste triée des éditions mythiques, sans besoin d\'import préalable', async () => {
   // Route servie directement depuis historic_routes.json (pipeline/wikipedia.js),
   // aucune dépendance à la base — vérifie ça explicitement en n'important aucune

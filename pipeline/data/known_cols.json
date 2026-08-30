@@ -54,7 +54,9 @@
   },
   "Col de Toses": {
     "ele": 1790,
-    "source": "valeur reprise telle quelle des occurrences déjà présentes dans historic_routes.json (cohérentes entre elles) ; sourcing détaillé par édition dans le champ notes de chaque année du fichier d'origine"
+    "lat": 42.336,
+    "lon": 1.9911,
+    "source": "altitude : valeur reprise telle quelle des occurrences déjà présentes dans historic_routes.json (cohérentes entre elles) ; sourcing détaillé par édition dans le champ notes de chaque année du fichier d'origine. Coordonnées ajoutées le 30/08/2026 (mission tracés historiques) : col espagnol (frontière Ripollès/Cerdanya, Catalogne) hors du référentiel IGN — ni data.geopf.fr (index POI vide, index adresse ne renvoie que des rues françaises homonymes sans rapport, ex. Toulon) ni Nominatim sous le libellé français \"Col de Toses\" (0 résultat) ne le résolvent ; geocode() retombait donc sur un mauvais homonyme français. Coordonnées vérifiées par recoupement de 3 sources indépendantes le même jour : recherche web (Viquipèdia catalane + 1001puertos.com, ~1800 m, sur la N-260 entre Ripollès et Cerdanya) ; requête Nominatim directe pour le libellé catalan/espagnol \"Collada de Toses\" (résultat trouvé : nœud OSM 297419274, category mountain_pass, 42.3360289/1.9911180) ; vérification d'altitude croisée (opentopodata, dataset eudem25m, à ces coordonnées : 1793 m, à 3 m de la valeur ele ci-dessus). lat/lon court-circuitent le géocodage pour ce waypoint (pipeline/generate.js : un waypoint déjà pourvu de lat/lon n'est jamais géocodé) plutôt que de tenter de deviner un mécanisme de repli générique — non vérifié pour un autre col étranger, voir pipeline/wikipedia.js reconstructionWaypoints()."
   },
   "Col de Turini": {
     "ele": 1607,

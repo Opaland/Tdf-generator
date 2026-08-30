@@ -118,6 +118,34 @@ test('known_cols.json : chaque entrée a une altitude numérique positive et une
   assert.deepStrictEqual(offenders, []);
 });
 
+test('known_cols.json : lat/lon, quand présents, sont toujours fournis en paire et dans des bornes géographiques valides', () => {
+  // Trouvaille de relecture adverse (30/08/2026, correctif « Col de Toses ») :
+  // rien ne vérifiait jusqu'ici qu'une future coordonnée curée erronée (ex.
+  // lat: 420.336, faute de frappe) échouerait — le test précédent ne couvre
+  // que ele/source. lat/lon restent optionnels (la grande majorité des
+  // entrées n'en ont pas, seuls les cols non géocodables par les deux
+  // fournisseurs en ont besoin), mais quand présents doivent être une paire
+  // complète et plausible.
+  const offenders = [];
+  for (const [label, entry] of Object.entries(KNOWN_COLS)) {
+    if (label === '_notes') continue;
+    const hasLat = entry.lat != null;
+    const hasLon = entry.lon != null;
+    if (hasLat !== hasLon) {
+      offenders.push(`"${label}" : lat/lon partiel (lat=${entry.lat}, lon=${entry.lon}) — doit être les deux ou aucun`);
+      continue;
+    }
+    if (!hasLat) continue;
+    if (typeof entry.lat !== 'number' || entry.lat < -90 || entry.lat > 90) {
+      offenders.push(`"${label}" : lat hors bornes (${entry.lat})`);
+    }
+    if (typeof entry.lon !== 'number' || entry.lon < -180 || entry.lon > 180) {
+      offenders.push(`"${label}" : lon hors bornes (${entry.lon})`);
+    }
+  }
+  assert.deepStrictEqual(offenders, []);
+});
+
 test('historic_routes.json : toutes les occurrences d\'un même col résolvent la même altitude (backlog #10 section A)', () => {
   // Le bug que le référentiel centralisé prévient : « Tourmalet 2115 m »
   // retapé dans huit éditions différentes, avec un risque de faute de frappe
@@ -198,6 +226,34 @@ test('reconstructionWaypoints : le col du Tourmalet résout son altitude via kno
   const wps = reconstructionWaypoints(2021, { number: 18, start: stage.start, finish: stage.finish });
   const wp = wps.find((w) => w.label === 'Col du Tourmalet');
   assert.strictEqual(wp.altitude_hint_m, 2115, 'résolu via known_cols.json malgré l\'absence de ele local');
+  assert.strictEqual(wp.lat, null, 'un col normalement géocodable ne porte pas de coordonnées curées');
+  assert.strictEqual(wp.lon, null, 'un col normalement géocodable ne porte pas de coordonnées curées');
+});
+
+test('reconstructionWaypoints : « Col de Toses » (2026 étape 3) résout lat/lon via known_cols.json — repli pour un col étranger non géocodable', () => {
+  // Trouvaille du 30/08/2026 (mission tracés historiques) : ni data.geopf.fr
+  // ni Nominatim ne résolvent correctement le libellé français « Col de
+  // Toses » (col espagnol, hors référentiel IGN — vérifié en direct sur les
+  // deux API). known_cols.json porte désormais des coordonnées vérifiées
+  // (voir sa `source`) qui court-circuitent le géocodage pour ce seul
+  // waypoint, sans toucher au mécanisme de géocodage général.
+  const stage = HISTORIC_ROUTES['2026'].stages['3'];
+  assert.ok(stage, 'édition 2026, étape 3 attendue dans la fixture de test');
+  const toses = (stage.vias || []).find((v) => typeof v === 'object' && v.label === 'Col de Toses');
+  assert.ok(toses, 'le Col de Toses doit être un via de cette étape');
+  assert.strictEqual(toses.lat, undefined, 'ne doit pas porter ses propres lat/lon locaux (repris de known_cols.json sinon)');
+  const wps = reconstructionWaypoints(2026, { number: 3, start: stage.start, finish: stage.finish });
+  const wp = wps.find((w) => w.label === 'Col de Toses');
+  assert.strictEqual(wp.lat, 42.336);
+  assert.strictEqual(wp.lon, 1.9911);
+  assert.strictEqual(wp.altitude_hint_m, 1790);
+  // Non-régression : le second col de la même étape n'a pas de coordonnées
+  // curées dans known_cols.json — ne doit RIEN hériter de Col de Toses ni
+  // se voir attribuer des coordonnées inventées.
+  const calvaire = wps.find((w) => w.label === 'Col du Calvaire');
+  assert.ok(calvaire, 'le Col du Calvaire doit être un via de cette étape');
+  assert.strictEqual(calvaire.lat, null);
+  assert.strictEqual(calvaire.lon, null);
 });
 
 test('reconstructionWaypoints : propage bonus_sec du via sprint et de l\'arrivée (2023 étape 9, Puy de Dôme)', () => {

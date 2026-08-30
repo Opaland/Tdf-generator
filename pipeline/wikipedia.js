@@ -363,6 +363,34 @@ function historicRoutesKey(year, category) {
 }
 
 /**
+ * Résout les coordonnées curées d'un `via` PAR PAIRE, jamais champ par
+ * champ : `via.lat`/`via.lon` (explicite dans historic_routes.json) l'emporte
+ * seulement si les DEUX sont fournis, sinon on retombe sur la paire complète
+ * de `known` (known_cols.json) ou `{ lat: null, lon: null }` — jamais un
+ * mélange des deux sources pour un même point. Repli exceptionnel, jamais
+ * deviné : sert un col dont le libellé curé ne se résout correctement chez
+ * AUCUN des deux géocodeurs (ex. « Col de Toses », un col espagnol hors du
+ * référentiel IGN — trouvaille du 30/08/2026, voir la source détaillée dans
+ * known_cols.json). Un waypoint déjà pourvu de lat/lon court-circuite tout
+ * géocodage (pipeline/generate.js).
+ *
+ * Fonction séparée (pas inlinée dans reconstructionWaypoints()) : trouvaille
+ * de relecture adverse sur le premier correctif (30/08/2026), qui résolvait
+ * `lat` et `lon` indépendamment (`via.lat ?? known?.lat ?? null` /
+ * `via.lon ?? known?.lon ?? null`) — un `via` hypothétique ne portant QUE
+ * `lat` explicite aurait pu se voir compléter avec le `lon` de known_cols.json,
+ * pour un lieu potentiellement différent, sans jamais planter. Aucun `via`
+ * actuel de historic_routes.json ne porte lat/lon local (vérifié par grep),
+ * donc jamais rencontré en pratique — corrigé avant qu'un futur via partiel
+ * ne le déclenche silencieusement.
+ */
+function resolveViaCoords(via, known) {
+  if (via.lat != null && via.lon != null) return { lat: via.lat, lon: via.lon };
+  if (known && known.lat != null && known.lon != null) return { lat: known.lat, lon: known.lon };
+  return { lat: null, lon: null };
+}
+
+/**
  * Waypoints de reconstruction d'une étape historique : villes officielles
  * (Wikipédia) + points de passage curés (historic_routes.json) quand ils existent.
  * Retourne [{label, kind, altitude_hint_m?, bonus_sec?, source}]
@@ -387,9 +415,12 @@ function reconstructionWaypoints(year, stage, category = 'hommes') {
   for (const via of curated?.vias || []) {
     if (typeof via === 'string') wps.push({ label: via, kind: 'via', bonus_sec: null, source: 'parcours curé' });
     else {
-      const ele = via.ele ?? KNOWN_COLS[via.label]?.ele ?? null;
+      const known = KNOWN_COLS[via.label];
+      const ele = via.ele ?? known?.ele ?? null;
+      const { lat, lon } = resolveViaCoords(via, known);
       wps.push({
         label: via.label, kind: via.kind || 'via', altitude_hint_m: ele,
+        lat, lon,
         bonus_sec: via.bonus_sec || null,
         source: 'parcours curé',
       });
@@ -455,6 +486,7 @@ module.exports = {
   parseDate,
   fetchEditionHtml,
   reconstructionWaypoints,
+  resolveViaCoords,
   editionNotes,
   historicHighlights,
   stageConfidence,
