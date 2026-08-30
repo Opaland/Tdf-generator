@@ -125,6 +125,23 @@ function pickFeature(feats, query, near) {
     }
   }
   if (preferred.length) return preferred[0];
+  // Aucune commune candidate ET le meilleur résultat brut est une rue (jamais
+  // une commune, jamais même un lieu-dit) : signal fort que le lieu cherché
+  // n'est pas un lieu français répertorié, plutôt qu'une vraie ville qui
+  // manquerait juste de numéro de voie. Vérifié en direct sur data.geopf.fr
+  // (29/08/2026) pour « Cambridge » (Royaume-Uni) et « Granollers »
+  // (Espagne) — chacun ne renvoie QUE des rues homonymes françaises
+  // (« Rue de Cambridge », Montpellier ; « Rue de Granollers », Perpignan),
+  // menant à un aller-retour France↔pays réel de plusieurs centaines/milliers
+  // de km sur l'étape reconstituée. `null` fait retomber geocode() sur
+  // Nominatim (repli déjà en place, testé), au lieu d'ancrer le waypoint sur
+  // une rue homonyme sans rapport. Restreint à `type === 'street'` seul (pas
+  // `locality`, un hameau français réel étant une réponse légitime — test
+  // « sans commune candidate, le premier résultat est conservé ») et à
+  // `!near` (avec near, le mécanisme de distance réelle ci-dessus reste seul
+  // juge, comme pour Montmartre) et pas un col (jamais de country_hint pour
+  // un col, l'index POI reste la seule source).
+  if (!near && !isColQuery(query) && feats[0].type === 'street') return null;
   return feats[0];
 }
 
@@ -197,6 +214,31 @@ function pickNominatimFeature(results) {
 // `console.warn` est le seul signal restant si un futur bug de construction
 // de requête dans notre propre code (jamais rencontré à ce jour, vérifié
 // par relecture adverse) se dégradait aussi silencieusement vers Nominatim.
+// Nom de pays annoté par Wikipédia (extractCountry(), pipeline/wikipedia.js,
+// KNOWN_COUNTRIES) → code ISO 3166-1 alpha-2, pour restreindre la recherche
+// Nominatim au bon pays. Sans cette restriction, Nominatim classe par pure
+// pertinence textuelle mondiale : un nom de lieu court peut matcher un mot
+// isolé dans un POI sans rapport à l'autre bout du monde — trouvaille en
+// régénérant tout le catalogue en ligne (29/08/2026) : « El Pas de la Casa »
+// (country_hint « Andorra ») renvoyait en tête un centre culturel de La Paz,
+// Bolivie (aucun des 5 premiers résultats d'un type administratif reconnu
+// par pickNominatimFeature(), donc repli sur le tout premier — un homonyme
+// partiel de « Casa » à 10 000 km ; l'étape 2021/16 se reconstituait à
+// 9953 km au lieu de 169). Couvre exactement les entrées de KNOWN_COUNTRIES
+// — jamais 'fr' (valeur par défaut de countryHint, jamais un nom de pays
+// annoté par Wikipédia), donc aucun risque de restreindre par erreur le
+// repli Nominatim déjà utilisé pour une requête France sans résultat
+// Géoplateforme (comportement inchangé pour ce chemin).
+const COUNTRY_TO_ISO = {
+  france: 'fr', belgium: 'be', netherlands: 'nl', luxembourg: 'lu',
+  germany: 'de', switzerland: 'ch', italy: 'it', spain: 'es', monaco: 'mc',
+  andorra: 'ad', 'united kingdom': 'gb', england: 'gb', scotland: 'gb',
+  wales: 'gb', ireland: 'ie', 'northern ireland': 'gb', denmark: 'dk',
+  'san marino': 'sm', portugal: 'pt', austria: 'at', liechtenstein: 'li',
+  slovenia: 'si', 'czech republic': 'cz', poland: 'pl',
+  'west germany': 'de', 'east germany': 'de',
+};
+
 async function geopfOrNull(kind, request, fn) {
   try {
     const { value } = await cached('geocode', kind, request, fn);
@@ -267,9 +309,11 @@ async function geocode(query, { countryHint = 'fr', near = null, summit = false 
     if (value) return value;
     // Repli : Nominatim si la Géoplateforme ne trouve rien (ou rejette la requête).
   }
-  const { value } = await cached('geocode', 'nominatim', { q: query }, async () => {
+  const isoCode = COUNTRY_TO_ISO[String(countryHint).toLowerCase()];
+  const { value } = await cached('geocode', 'nominatim', { q: query, isoCode: isoCode || null }, async () => {
     const search = async (q) => {
-      const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=jsonv2&limit=5&accept-language=fr`;
+      let url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=jsonv2&limit=5&accept-language=fr`;
+      if (isoCode) url += `&countrycodes=${isoCode}`;
       return httpJson(url, { minDelayMs: 1100 }); // max 1 req/s
     };
     const first = await search(query);

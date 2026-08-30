@@ -103,6 +103,48 @@ test('sans commune candidate, le premier résultat est conservé', () => {
   assert.strictEqual(pickFeature([], 'X'), null);
 });
 
+// Trouvaille en générant en masse avec un vrai accès réseau (29/08/2026) :
+// « Cambridge » (Royaume-Uni, pas de commune française homonyme réelle) ne
+// renvoie QUE des rues homonymes chez la Géoplateforme — reproduit ici tel
+// qu'observé en direct sur https://data.geopf.fr/geocodage/search?q=Cambridge.
+// Sans ce correctif, l'étape 2014/3 Cambridge → London se reconstituait à
+// 1301 km (aller-retour France↔Royaume-Uni fantôme) au lieu de 155 km.
+test('sans commune candidate, si le meilleur résultat est une rue, on retombe sur Nominatim (null)', () => {
+  const feats = [
+    { label: 'Rue de Cambridge 34080 Montpellier', type: 'street', score: 0.704 },
+    { label: 'allée de l\'université cambridge 97300 Cayenne', type: 'street', score: 0.693 },
+    { label: 'Cour de Cambridge 67000 Strasbourg', type: 'locality', score: 0.692 },
+  ];
+  assert.strictEqual(pickFeature(feats, 'Cambridge'), null);
+});
+
+// Non-régression : une VRAIE petite ville française dont le meilleur
+// candidat est un lieu-dit (locality), pas une rue, reste traitée comme
+// avant — seul `type: 'street'` déclenche le repli vers Nominatim, jamais
+// `locality` (un hameau réel est une réponse géocodable légitime).
+test('sans commune candidate, un lieu-dit (locality) en tête reste conservé (pas de repli Nominatim)', () => {
+  const feats = [{ label: 'Lieu-dit X', type: 'locality', score: 0.9 }];
+  assert.strictEqual(pickFeature(feats, 'X').label, 'Lieu-dit X');
+});
+
+// Non-régression : le repli « rue en tête → null » ne doit rien changer pour
+// un col SANS near — le classement de l'index POI reste seul juge (déjà
+// testé ci-dessus), même si son premier résultat n'a pas de `type` reconnu.
+test('un col dont le meilleur résultat est une rue (type street) : pas de repli, comportement col inchangé', () => {
+  const feats = [{ label: 'Rue du Col X 12345 Ville', type: 'street', score: 0.9 }];
+  assert.strictEqual(pickFeature(feats, 'Col du Test').label, 'Rue du Col X 12345 Ville');
+});
+
+// Non-régression : avec `near`, même si aucune commune n'existe et que le
+// meilleur résultat brut est une rue, le mécanisme de distance réelle
+// (Montmartre) reste seul juge — pas de repli vers Nominatim ici.
+test('avec near, une rue en tête sans commune candidate n\'est pas rejetée (mécanisme distance réelle inchangé)', () => {
+  const near = { lat: 45.0, lon: 5.0 };
+  const feats = [{ label: 'Rue Homonyme 12345 Ville', type: 'street', score: 0.9, lat: 45.01, lon: 5.01 }];
+  const picked = pickFeature(feats, 'X', near);
+  assert.strictEqual(picked.label, 'Rue Homonyme 12345 Ville');
+});
+
 // Trouvaille en générant en masse avec un vrai accès réseau (26/08/2026) :
 // géocoder "Butte Montmartre" biaisé près de Mantes-la-Ville (near envoyé à
 // l'API en lat/lon) renvoyait la vraie colline parisienne en DERNIÈRE
@@ -463,6 +505,47 @@ test('countryHint hors France : saute directement la Géoplateforme', async () =
   };
   const r = await geocode('Edinburgh-test-hors-france', { countryHint: 'uk' });
   assert.strictEqual(r.provider, 'nominatim');
+});
+
+// Trouvaille en régénérant tout le catalogue en ligne (29/08/2026) :
+// « El Pas de la Casa » (country_hint « Andorra », un nom de pays annoté par
+// Wikipédia, jamais utilisé jusqu'ici pour restreindre la recherche
+// Nominatim) renvoyait en tête un centre culturel de La Paz, Bolivie —
+// reproduit ici : un pays annoté et reconnu (KNOWN_COUNTRIES) doit ajouter
+// `countrycodes=<iso>` à la requête Nominatim.
+test('geocode() : un countryHint reconnu (KNOWN_COUNTRIES) restreint Nominatim au bon pays', async () => {
+  let nominatimUrl = null;
+  mock = {
+    geopf: neverCalled('la Géoplateforme'),
+    nominatim: async (url) => {
+      nominatimUrl = url;
+      return jsonResponse([
+        { display_name: 'Pas de la Case, Andorre', lat: '42.54', lon: '1.73', type: 'town', addresstype: 'town' },
+      ]);
+    },
+  };
+  await geocode('El Pas de la Casa-test-countrycodes', { countryHint: 'Andorra' });
+  assert.ok(/[?&]countrycodes=ad(&|$)/.test(nominatimUrl), `attendu countrycodes=ad dans l'URL : ${nominatimUrl}`);
+});
+
+// Non-régression : un countryHint qui n'est PAS un nom de pays reconnu par
+// KNOWN_COUNTRIES (ex. un code déjà court comme dans les fixtures de tests
+// ci-dessus, 'uk'/'lu') ne doit ajouter aucune restriction — comportement
+// historique inchangé pour tout appelant qui ne passerait pas un nom de pays
+// complet en countryHint.
+test('geocode() : un countryHint non reconnu (pas un nom KNOWN_COUNTRIES) n\'ajoute aucun countrycodes', async () => {
+  let nominatimUrl = null;
+  mock = {
+    geopf: neverCalled('la Géoplateforme'),
+    nominatim: async (url) => {
+      nominatimUrl = url;
+      return jsonResponse([
+        { display_name: 'Quelque part', lat: '10', lon: '20', type: 'city', addresstype: 'city' },
+      ]);
+    },
+  };
+  await geocode('X-test-countryhint-non-reconnu', { countryHint: 'uk' });
+  assert.ok(!/countrycodes=/.test(nominatimUrl), `ne doit pas restreindre : ${nominatimUrl}`);
 });
 
 // ----------------------------------------------------------- reverseGeocode()
