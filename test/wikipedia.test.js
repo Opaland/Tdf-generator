@@ -184,6 +184,29 @@ test('parseCourse() : un « via » à l\'intérieur d\'une parenthèse (précéd
   );
 });
 
+// Trouvaille de relecture adverse (30/08/2026, 3e tour) : même avec clean()
+// corrigé (parenthèses puis via, test ci-dessus), extractDepartment()
+// gardait sa PROPRE implémentation « via puis parenthèses » — un « via » à
+// l'intérieur d'une parenthèse faisait donc échouer la DÉTECTION du
+// département avant même que clean() ait la moindre chance de le retirer :
+// les deux fonctions étaient chacune correctes isolément mais désynchroni-
+// sées l'une de l'autre. Fermé en extrayant l'ordre commun dans
+// stripParensThenVia(), partagée par les deux — élimine la classe de bug
+// par construction plutôt qu'un 4e correctif ponctuel.
+test('parseCourse() : un « via » à l\'intérieur d\'une parenthèse n\'empêche jamais la détection ET le retrait d\'un département qui suit', () => {
+  assert.deepStrictEqual(
+    parseCourse('Paris to Bergerac, Dordogne (une note via ancien tracé)'),
+    { start: 'Paris', finish: 'Bergerac', startCountry: null, finishCountry: null, startDepartment: null, finishDepartment: 'Dordogne' }
+  );
+  // Cas combiné (via-dans-parenthèse ET département ET via de trajet, tous
+  // dans le même segment) — le plus adversarial des trois trouvés cette
+  // session sur cette fonction.
+  assert.deepStrictEqual(
+    parseCourse('Périgueux to Bergerac (une note historique via ancien tracé), Dordogne via Sarlat-la-Canéda'),
+    { start: 'Périgueux', finish: 'Bergerac', startCountry: null, finishCountry: null, startDepartment: null, finishDepartment: 'Dordogne' }
+  );
+});
+
 test('resolveViaCoords() : la paire complète du via l\'emporte sur known_cols.json', () => {
   const via = { label: 'Test', lat: 1, lon: 2 };
   const known = { ele: 999, lat: 9, lon: 9 };
