@@ -118,6 +118,34 @@ test('known_cols.json : chaque entrée a une altitude numérique positive et une
   assert.deepStrictEqual(offenders, []);
 });
 
+test('known_cols.json : lat/lon, quand présents, sont toujours fournis en paire et dans des bornes géographiques valides', () => {
+  // Trouvaille de relecture adverse (30/08/2026, correctif « Col de Toses ») :
+  // rien ne vérifiait jusqu'ici qu'une future coordonnée curée erronée (ex.
+  // lat: 420.336, faute de frappe) échouerait — le test précédent ne couvre
+  // que ele/source. lat/lon restent optionnels (la grande majorité des
+  // entrées n'en ont pas, seuls les cols non géocodables par les deux
+  // fournisseurs en ont besoin), mais quand présents doivent être une paire
+  // complète et plausible.
+  const offenders = [];
+  for (const [label, entry] of Object.entries(KNOWN_COLS)) {
+    if (label === '_notes') continue;
+    const hasLat = entry.lat != null;
+    const hasLon = entry.lon != null;
+    if (hasLat !== hasLon) {
+      offenders.push(`"${label}" : lat/lon partiel (lat=${entry.lat}, lon=${entry.lon}) — doit être les deux ou aucun`);
+      continue;
+    }
+    if (!hasLat) continue;
+    if (typeof entry.lat !== 'number' || entry.lat < -90 || entry.lat > 90) {
+      offenders.push(`"${label}" : lat hors bornes (${entry.lat})`);
+    }
+    if (typeof entry.lon !== 'number' || entry.lon < -180 || entry.lon > 180) {
+      offenders.push(`"${label}" : lon hors bornes (${entry.lon})`);
+    }
+  }
+  assert.deepStrictEqual(offenders, []);
+});
+
 test('historic_routes.json : toutes les occurrences d\'un même col résolvent la même altitude (backlog #10 section A)', () => {
   // Le bug que le référentiel centralisé prévient : « Tourmalet 2115 m »
   // retapé dans huit éditions différentes, avec un risque de faute de frappe

@@ -11,6 +11,7 @@ const {
   parseDistanceKm,
   parseDate,
   reconstructionWaypoints,
+  resolveViaCoords,
   extractTables,
   extractTablesRich,
 } = require('../pipeline/wikipedia');
@@ -79,6 +80,54 @@ test('reconstructionWaypoints() : country_hint absent quand aucune annotation de
   const wps = reconstructionWaypoints(2000, stage);
   assert.strictEqual(wps[0].country_hint, null);
   assert.strictEqual(wps[wps.length - 1].country_hint, null);
+});
+
+test('resolveViaCoords() : la paire complète du via l\'emporte sur known_cols.json', () => {
+  const via = { label: 'Test', lat: 1, lon: 2 };
+  const known = { ele: 999, lat: 9, lon: 9 };
+  assert.deepStrictEqual(resolveViaCoords(via, known), { lat: 1, lon: 2 });
+});
+
+test('resolveViaCoords() : sans coordonnées locales, retombe sur la paire complète de known_cols.json', () => {
+  const via = { label: 'Test' };
+  const known = { ele: 999, lat: 9, lon: 9 };
+  assert.deepStrictEqual(resolveViaCoords(via, known), { lat: 9, lon: 9 });
+});
+
+test('resolveViaCoords() : ni via ni known_cols.json n\'ont de coordonnées → null/null', () => {
+  const via = { label: 'Test' };
+  const known = { ele: 999 };
+  assert.deepStrictEqual(resolveViaCoords(via, known), { lat: null, lon: null });
+  assert.deepStrictEqual(resolveViaCoords(via, undefined), { lat: null, lon: null });
+});
+
+test('resolveViaCoords() : un via avec SEULEMENT lat (jamais lon) ne se complète JAMAIS avec le lon de known_cols.json — jamais de mélange de sources', () => {
+  // Trouvaille de relecture adverse (30/08/2026) sur le premier correctif
+  // « Col de Toses » : une résolution champ par champ (via.lat ?? known?.lat,
+  // via.lon ?? known?.lon, indépendamment) aurait ici combiné lat=1 (via) et
+  // lon=9 (known) — deux sources différentes pour un même point, un point
+  // fabriqué qui n'existe nulle part, sans jamais planter. Un via partiel
+  // comme celui-ci n'existe dans aucune entrée réelle de historic_routes.json
+  // à ce jour (voir le test dédié plus bas) — ce test couvre la fonction pure
+  // en isolation, avant qu'un futur via partiel ne le déclenche en pratique.
+  const via = { label: 'Test', lat: 1 };
+  const known = { ele: 999, lat: 9, lon: 9 };
+  assert.deepStrictEqual(resolveViaCoords(via, known), { lat: 9, lon: 9 }, 'retombe sur la paire COMPLÈTE de known_cols.json, jamais un mélange avec via.lat');
+});
+
+test('historic_routes.json : aucun via ne porte de lat/lon partiel (l\'un sans l\'autre) — sinon resolveViaCoords() ignorerait silencieusement la moitié fournie', () => {
+  const offenders = [];
+  for (const [year, edition] of Object.entries(require('../pipeline/wikipedia').HISTORIC_ROUTES)) {
+    for (const [stageNum, stage] of Object.entries(edition.stages || {})) {
+      for (const via of stage.vias || []) {
+        if (typeof via === 'string') continue;
+        if ((via.lat == null) !== (via.lon == null)) {
+          offenders.push(`${year} étape ${stageNum} "${via.label}" : lat/lon partiel (lat=${via.lat}, lon=${via.lon})`);
+        }
+      }
+    }
+  }
+  assert.deepStrictEqual(offenders, []);
 });
 
 test('parse le tableau des étapes du Tour 2025 (format moderne)', () => {
