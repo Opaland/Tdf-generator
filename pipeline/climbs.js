@@ -187,14 +187,44 @@ function detectClimbs(rawSamples) {
 
 /**
  * Nomme chaque côte : waypoint de type col le plus proche du sommet (< 1 km le
- * long du tracé), sinon géocodage inverse du point sommet.
+ * long du tracé), sinon un col/sommet plus loin en avant sur le tracé dont
+ * l'altitude connue correspond au sommet détecté (voir plus bas), sinon
+ * géocodage inverse du point sommet.
  */
 async function nameClimbs(climbs, waypointsOnTrack, samples, reverseGeocodeFn) {
   const ele = (s) => (s.eleSmooth != null ? s.eleSmooth : s.ele);
   for (const c of climbs) {
-    const summitWp = (waypointsOnTrack || []).find(
+    let summitWp = (waypointsOnTrack || []).find(
       (w) => (w.kind === 'col' || w.kind === 'peak') && Math.abs(w.alongM - c.endM) < 1500
     );
+    // Repli altitude (trouvaille en générant en ligne, 30/08/2026, Tour
+    // 1903 étape 1) : un col réel peut avoir un faux-plat/plateau final sous
+    // MIN_AVG_GRADIENT après la fin « officielle » (ASO) de la côte détectée
+    // ci-dessus — vérifié en direct sur le vrai profil du Col du Pin-Bouchain
+    // (Tarare → col, OSRM + RGE ALTI réels) : la côte catégorisée s'arrête à
+    // 12,6 km (pente moyenne encore ≥ 3 % jusque-là), mais le point du col
+    // lui-même n'est qu'à 14,6 km — 2,0 km plus loin, hors de la fenêtre de
+    // 1500 m ci-dessus, alors que l'altitude mesurée au sommet de la côte
+    // (761 m) correspond quasi exactement à l'altitude connue du col (759 m,
+    // known_cols.json). Repli restreint : uniquement un waypoint PLUS LOIN
+    // sur le tracé que la fin de la côte (jamais en arrière — un faux
+    // rattachement à un col déjà dépassé serait pire que l'absence de nom),
+    // à moins de 5 km (un faux-plat isolé, pas une étape entière), et dont
+    // l'altitude connue (`altitude_hint_m`, curatée ou mesurée au
+    // géocodage — voir generate.js) est à moins de 40 m de l'altitude
+    // mesurée du sommet détecté (`c.summitEle`) — une tolérance resserrée
+    // exprès pour rester discriminante en haute montagne, où plusieurs cols
+    // peuvent partager une gamme d'altitude proche sur une même étape.
+    if (!summitWp) {
+      summitWp = (waypointsOnTrack || []).find(
+        (w) =>
+          (w.kind === 'col' || w.kind === 'peak') &&
+          w.alongM > c.endM &&
+          w.alongM - c.endM < 5000 &&
+          w.altitude_hint_m != null &&
+          Math.abs(w.altitude_hint_m - c.summitEle) < 40
+      );
+    }
     if (summitWp) {
       c.name = summitWp.label;
       c.nameSource = 'waypoint';
