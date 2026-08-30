@@ -125,23 +125,42 @@ function pickFeature(feats, query, near) {
     }
   }
   if (preferred.length) return preferred[0];
-  // Aucune commune candidate ET le meilleur résultat brut est une rue (jamais
-  // une commune, jamais même un lieu-dit) : signal fort que le lieu cherché
-  // n'est pas un lieu français répertorié, plutôt qu'une vraie ville qui
-  // manquerait juste de numéro de voie. Vérifié en direct sur data.geopf.fr
-  // (29/08/2026) pour « Cambridge » (Royaume-Uni) et « Granollers »
-  // (Espagne) — chacun ne renvoie QUE des rues homonymes françaises
-  // (« Rue de Cambridge », Montpellier ; « Rue de Granollers », Perpignan),
-  // menant à un aller-retour France↔pays réel de plusieurs centaines/milliers
-  // de km sur l'étape reconstituée. `null` fait retomber geocode() sur
-  // Nominatim (repli déjà en place, testé), au lieu d'ancrer le waypoint sur
-  // une rue homonyme sans rapport. Restreint à `type === 'street'` seul (pas
-  // `locality`, un hameau français réel étant une réponse légitime — test
-  // « sans commune candidate, le premier résultat est conservé ») et à
-  // `!near` (avec near, le mécanisme de distance réelle ci-dessus reste seul
-  // juge, comme pour Montmartre) et pas un col (jamais de country_hint pour
-  // un col, l'index POI reste la seule source).
-  if (!near && !isColQuery(query) && feats[0].type === 'street') return null;
+  // Aucune commune candidate ET le meilleur résultat brut n'est pas un lieu-
+  // dit (jamais une commune, jamais un hameau reconnu) : signal fort que le
+  // lieu cherché n'est pas un lieu français répertorié, plutôt qu'une vraie
+  // ville qui manquerait juste de numéro de voie. Vérifié en direct sur
+  // data.geopf.fr (29/08/2026) pour « Cambridge » (Royaume-Uni) et
+  // « Granollers » (Espagne) — chacun ne renvoie QUE des rues homonymes
+  // françaises en tête (« Rue de Cambridge », Montpellier ; « Rue de
+  // Granollers », Perpignan), menant à un aller-retour France↔pays réel de
+  // plusieurs centaines/milliers de km sur l'étape reconstituée. `null` fait
+  // retomber geocode() sur Nominatim (repli déjà en place, testé), au lieu
+  // d'ancrer le waypoint sur un résultat sans rapport.
+  //
+  // Élargi de `type === 'street'` seul à « tout sauf locality » (relecture
+  // adverse, 30/08/2026) : le premier correctif ne couvrait pas les
+  // résultats de l'index POI sans `properties.type` reconnu (un tableau
+  // `category` sans « commune » ET sans « lieu-dit habité » — bois, quartier,
+  // cimetière, usine, monument…), qui restaient `type: undefined`, jamais
+  // égal à `'street'`, donc jamais rejetés. Vérifié en direct sur
+  // data.geopf.fr : « Bristol » (Royaume-Uni) renvoie en tête un lieu-dit
+  // NON habité (catégorie « bois »/élément topographique) en Martinique,
+  // « York » un cimetière puis le quartier « Yorkshire » (France) — même
+  // dégât que Cambridge, non couvert par le filtre street-only. Puisque ce
+  // point du code n'est atteint QUE si `communes.length === 0` (aucun
+  // élément de `feats` n'est de type commune, voir `preferred` ci-dessus),
+  // `feats[0]` ne peut déjà plus être `municipality`/`city` ici — la seule
+  // exception à préserver reste `locality`, un hameau français réel étant
+  // une réponse géocodable légitime (test « sans commune candidate, le
+  // premier résultat est conservé »). Un lieu-dit HABITÉ de l'index POI
+  // (category incluant « lieu-dit habité », voir geopfSearch() ci-dessous)
+  // est désormais normalisé vers ce même `type: 'locality'`, pour rester
+  // aussi légitime qu'un hameau trouvé via l'index adresse.
+  //
+  // Restreint à `!near` (avec near, le mécanisme de distance réelle
+  // ci-dessus reste seul juge, comme pour Montmartre) et pas un col (jamais
+  // de country_hint pour un col, l'index POI reste la seule source).
+  if (!near && !isColQuery(query) && feats[0].type !== 'locality') return null;
   return feats[0];
 }
 
@@ -285,7 +304,21 @@ async function geocode(query, { countryHint = 'fr', near = null, summit = false 
         // 28/08/2026 : « Moûtiers », Savoie, battue par un homonyme de
         // Meurthe-et-Moselle, les deux exclusivement trouvés via l'index POI).
         const category = Array.isArray(props.category) ? props.category : [];
-        const type = props.type || (category.includes('commune') ? 'municipality' : undefined);
+        // « lieu-dit habité » (hameau réel, catégorie POI) → normalisé vers
+        // le même `type: 'locality'` que l'index adresse, pour rester une
+        // réponse légitime au même titre qu'un hameau trouvé via l'index
+        // adresse — trouvaille de relecture adverse (30/08/2026) : sans
+        // cette normalisation, un hameau réel trouvé UNIQUEMENT via l'index
+        // POI restait `type: undefined`, indiscernable d'un « lieu-dit non
+        // habité » (bois, élément topographique) ou de toute autre
+        // catégorie POI sans rapport (quartier, cimetière, usine,
+        // monument…) — voir pickFeature() ci-dessus, dont le repli
+        // Nominatim rejette désormais tout `feats[0]` qui n'est ni commune
+        // ni `locality`.
+        const type = props.type
+          || (category.includes('commune') ? 'municipality'
+            : category.includes('lieu-dit habité') ? 'locality'
+              : undefined);
         return {
           label: geopfLabel(props, query),
           lat: f.geometry.coordinates[1],

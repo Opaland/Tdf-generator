@@ -145,6 +145,24 @@ test('avec near, une rue en tête sans commune candidate n\'est pas rejetée (m�
   assert.strictEqual(picked.label, 'Rue Homonyme 12345 Ville');
 });
 
+// Trouvaille de relecture adverse (30/08/2026) sur le correctif Cambridge
+// ci-dessus : restreint à `type === 'street'`, il ne couvrait pas les
+// résultats de l'index POI sans `type` reconnu (catégorie sans « commune »
+// ni « lieu-dit habité » — bois, quartier, cimetière, usine, monument…),
+// qui valent `type: undefined`, jamais égal à `'street'`. Reproduit ici tel
+// qu'observé en direct sur data.geopf.fr pour « Bristol » (Royaume-Uni) :
+// le meilleur résultat est un lieu-dit NON habité (catégorie « bois »,
+// élément topographique) en Martinique — même dégât que Cambridge (un
+// aller-retour France↔pays réel de plusieurs milliers de km), non couvert
+// par le filtre street-only.
+test('sans commune candidate, un résultat POI sans type reconnu (ni commune ni lieu-dit habité) retombe aussi sur Nominatim (null)', () => {
+  const feats = [
+    { label: undefined, type: undefined, score: 0.8545 }, // "Bristol", lieu-dit NON habité, Martinique
+    { label: 'Rue de Bristol 62400 Béthune', type: 'street', score: 0.69 },
+  ];
+  assert.strictEqual(pickFeature(feats, 'Bristol'), null);
+});
+
 // Trouvaille en générant en masse avec un vrai accès réseau (26/08/2026) :
 // géocoder "Butte Montmartre" biaisé près de Mantes-la-Ville (near envoyé à
 // l'API en lat/lon) renvoyait la vraie colline parisienne en DERNIÈRE
@@ -375,6 +393,30 @@ test('geocode() : commune trouvée uniquement via l\'index POI (name/category en
   assert.strictEqual(r.provider, 'geopf');
   assert.strictEqual(r.label, 'Moûtiers', 'le libellé doit être une chaîne (name[0]), pas le tableau brut');
   assert.strictEqual(r.lat, 45.490782);
+});
+
+// Trouvaille de relecture adverse (30/08/2026) : un hameau français réel
+// trouvé UNIQUEMENT via l'index POI (catégorie « lieu-dit habité », jamais
+// « commune ») doit rester une réponse geopf légitime — désormais normalisé
+// vers `type: 'locality'`, au même titre qu'un hameau trouvé via l'index
+// adresse (voir pickFeature()). Sans cette normalisation, le nouvel
+// élargissement du repli Nominatim (ci-dessus, « tout sauf locality ») aurait
+// aussi rejeté ce cas légitime, pas seulement Bristol/Cambridge.
+test('geocode() : lieu-dit HABITÉ trouvé uniquement via l\'index POI reste une réponse geopf légitime (pas de repli Nominatim)', async () => {
+  mock = {
+    geopf: async () => jsonResponse({
+      features: [
+        {
+          properties: { name: ['Le Hameau Test'], category: ['lieu-dit habité', "zone d'habitation"], score: 0.85 },
+          geometry: { coordinates: [3.0, 46.0] },
+        },
+      ],
+    }),
+    nominatim: neverCalled('Nominatim'),
+  };
+  const r = await geocode('Le Hameau Test-lieu-dit-habite');
+  assert.strictEqual(r.provider, 'geopf', 'ne doit pas retomber sur Nominatim pour un lieu-dit habité réel');
+  assert.strictEqual(r.label, 'Le Hameau Test');
 });
 
 test('repli Géoplateforme → Nominatim quand la Géoplateforme ne trouve rien', async () => {
