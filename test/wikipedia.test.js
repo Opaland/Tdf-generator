@@ -166,6 +166,24 @@ test('parseCourse() : le qualificatif de département est retiré même quand un
   );
 });
 
+// Trouvaille de relecture adverse (30/08/2026, 2e tour) sur une première
+// tentative de correctif du test précédent : réordonner clean() en retirant
+// « via » AVANT les parenthèses cassait ce cas-ci — \s+via\b.*$ ne sait pas
+// distinguer un « via » séparateur de trajet d'un « via » simplement présent
+// À L'INTÉRIEUR d'une parenthèse pas encore retirée, et tronque au milieu
+// (« Lyon (something » au lieu de « Lyon after », parenthèse non fermée
+// envoyée telle quelle au géocodeur). Aucun cas réel connu de ce dépôt ne
+// déclenche ce motif à ce jour (aucune occurrence de « via » dans les
+// fixtures Wikipédia locales), mais rien ne garantit qu'un futur import ne
+// le produise pas — même esprit que le test « via retiré même entièrement
+// entre parenthèses » plus haut dans ce fichier.
+test('parseCourse() : un « via » à l\'intérieur d\'une parenthèse (précédé d\'un autre mot) ne tronque jamais le texte qui suit cette parenthèse', () => {
+  assert.deepStrictEqual(
+    parseCourse('Paris to Lyon (something via Melun) after'),
+    { start: 'Paris', finish: 'Lyon after', startCountry: null, finishCountry: null, startDepartment: null, finishDepartment: null }
+  );
+});
+
 test('resolveViaCoords() : la paire complète du via l\'emporte sur known_cols.json', () => {
   const via = { label: 'Test', lat: 1, lon: 2 };
   const known = { ele: 999, lat: 9, lon: 9 };

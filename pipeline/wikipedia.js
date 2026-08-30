@@ -230,32 +230,42 @@ function parseCourse(text) {
   // réel connu, mais coûte rien) ; \b (pas \s+ après) plutôt que .+ pour
   // couvrir aussi un « via » qui se retrouve seul en fin de chaîne.
   //
-  // Le retrait de « via » se fait maintenant EN PREMIER, avant les
-  // parenthèses et le qualificatif de département — \s+via\b.*$ retire tout
-  // le reste de la chaîne dès le premier « via » rencontré (le .* final
-  // couvre aussi bien un « via » suivi de texte nu que d'une parenthèse ou
-  // d'une virgule de département), donc l'ordre avec le retrait des
-  // parenthèses n'a plus d'importance (vérifié explicitement : « Lyon via
-  // (Melun) » et « Brussels (Belgium) via Charleroi (Belgium) » donnent le
-  // même résultat qu'avant ce changement d'ordre).
+  // Le retrait de « via » reste APRÈS le retrait des parenthèses et la
+  // normalisation des espaces, exactement comme avant l'ajout du retrait de
+  // département ci-dessous (voir « Lyon via (Melun) » plus haut) — un
+  // réordonnancement « via avant parenthèses » a été tenté puis reverté
+  // (relecture adverse, 30/08/2026, 2e tour) : \s+via\b.*$ ne sait pas
+  // distinguer un « via » séparateur de trajet d'un « via » simplement
+  // présent À L'INTÉRIEUR d'une parenthèse encore non retirée (ex. « Lyon
+  // (something via Melun) after ») — appliqué avant le retrait des
+  // parenthèses, il tronque au milieu de la parenthèse et laisse une
+  // parenthèse non fermée dans le résultat (« Lyon (something » au lieu de
+  // « Lyon after »). Retirer d'abord les parenthèses ferme cette classe de
+  // bug : leur contenu (« via » compris s'il s'y trouve) disparaît en bloc,
+  // donc le retrait de « via » qui suit ne voit plus que les VRAIS
+  // séparateurs de trajet, jamais un mot interne à une parenthèse déjà
+  // retirée.
   //
-  // Trouvaille de relecture adverse (30/08/2026, sur l'ajout du retrait de
-  // département ci-dessous) : le retrait du département, ancré en fin de
-  // chaîne (`,\s*${dept}\s*$`), échouait SILENCIEUSEMENT dès qu'un « via »
-  // suivait dans le même segment (ex. « Bergerac, Dordogne via
-  // Sarlat-la-Canéda ») — le département n'était alors plus en fin de
+  // Trouvaille de relecture adverse (30/08/2026, 1er tour, sur l'ajout du
+  // retrait de département ci-dessous) : le retrait du département, ancré
+  // en fin de chaîne (`,\s*${dept}\s*$`), échouait SILENCIEUSEMENT dès
+  // qu'un « via » suivait dans le même segment (ex. « Bergerac, Dordogne
+  // via Sarlat-la-Canéda ») — le département n'était alors plus en fin de
   // chaîne au moment du retrait, rouvrant exactement le bug que ce
-  // correctif entier visait à fermer. extractDepartment() retirait déjà le
-  // « via » avant de chercher le département (voir son propre `beforeVia`) ;
-  // clean() ne le faisait pas, d'où le décalage. Retirer le « via » en
-  // premier ici aussi aligne les deux et ferme ce trou.
+  // correctif entier visait à fermer. Fermé en retirant le département en
+  // DERNIER (après le retrait de « via », qui garde son ordre d'origine
+  // après les parenthèses) plutôt qu'en réordonnant via/parenthèses — les
+  // deux bugs sont indépendants, une seule ligne de correctif (déplacer le
+  // retrait de département en fin de chaîne d'opérations) ferme le premier
+  // sans rouvrir le second.
   const startDepartment = extractDepartment(m[1]);
   const finishDepartment = extractDepartment(m[2]);
   const clean = (s, dept) => {
     let out = s
-      .replace(/\s+via\b.*$/i, '')
       .replace(/\s*\([^)]*\)\s*/g, ' ')
       .replace(/\s+/g, ' ')
+      .trim()
+      .replace(/\s+via\b.*$/i, '')
       .trim();
     if (dept) {
       out = out.replace(new RegExp(`,\\s*${escapeRegExp(dept)}\\s*$`, 'i'), '').trim();
