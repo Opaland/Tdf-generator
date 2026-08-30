@@ -104,11 +104,29 @@ function geopfLabel(props, fallback) {
  * réelle, rouvrant une couche plus loin exactement le bug que ce correctif
  * ferme pour Moûtiers.
  */
-function pickFeature(feats, query, near) {
+function pickFeature(feats, query, near, { summit = false } = {}) {
   if (!feats.length) return null;
   const communes = !isColQuery(query) ? feats.filter(isCommuneFeat) : [];
   const exactMatches = communes.filter((f) => normLabel(f.label) === normLabel(query));
-  const preferred = exactMatches.length ? exactMatches : communes;
+  let preferred = exactMatches.length ? exactMatches : communes;
+  // Recherche de sommet (geocodeCol(), index POI) sans commune candidate :
+  // un candidat de catégorie « sommet » doit battre tout candidat d'une
+  // autre catégorie, même plus proche du waypoint précédent — la proximité
+  // ne doit jamais l'emporter sur « être effectivement le sommet demandé ».
+  // Trouvaille en régénérant en ligne (30/08/2026, mission tracés
+  // historiques) : « Hautacam » (Tour, démo Pau→Hautacam) renvoyait un
+  // camping homonyme (« le Hautacam »), plus proche du waypoint précédent
+  // (Argelès-Gazost) que le vrai sommet (« Hautacam ou Soum de Dabant
+  // Aygue », catégorie POI « sommet ») — vérifié en direct sur
+  // data.geopf.fr (5 candidats réels, mécanisme near déjà en place
+  // choisissait le camping, à 442 m d'altitude, quasi identique à
+  // Argelès-Gazost, 440 m). Le tracé jusqu'à ce point n'avait presque
+  // aucun dénivelé (routé + RGE ALTI réels : ~2,5 m sur 3,3 km), donc
+  // aucune côte détectée du tout — pas seulement mal nommée.
+  if (summit && !preferred.length) {
+    const summits = feats.filter((f) => f.type === 'summit');
+    if (summits.length) preferred = summits;
+  }
   if (near) {
     // Ignore les candidats sans coordonnées exploitables : une comparaison
     // haversine impliquant NaN est toujours fausse, donc feats.reduce()
@@ -119,8 +137,8 @@ function pickFeature(feats, query, near) {
     // mais un garde-fou peu coûteux contre une réponse dégradée.
     const withCoords = feats.filter((f) => Number.isFinite(f.lat) && Number.isFinite(f.lon));
     if (withCoords.length) {
-      const communesWithCoords = preferred.filter((f) => Number.isFinite(f.lat) && Number.isFinite(f.lon));
-      const pool = communesWithCoords.length ? communesWithCoords : withCoords;
+      const preferredWithCoords = preferred.filter((f) => Number.isFinite(f.lat) && Number.isFinite(f.lon));
+      const pool = preferredWithCoords.length ? preferredWithCoords : withCoords;
       return pool.reduce((best, f) => (haversine(near, f) < haversine(near, best) ? f : best));
     }
   }
@@ -285,7 +303,10 @@ async function geocode(query, { countryHint = 'fr', near = null, summit = false 
         // 28/08/2026 : « Moûtiers », Savoie, battue par un homonyme de
         // Meurthe-et-Moselle, les deux exclusivement trouvés via l'index POI).
         const category = Array.isArray(props.category) ? props.category : [];
-        const type = props.type || (category.includes('commune') ? 'municipality' : undefined);
+        const type = props.type
+          || (category.includes('commune') ? 'municipality'
+            : category.includes('sommet') ? 'summit'
+              : undefined);
         return {
           label: geopfLabel(props, query),
           lat: f.geometry.coordinates[1],
@@ -295,7 +316,7 @@ async function geocode(query, { countryHint = 'fr', near = null, summit = false 
           provider: 'geopf',
         };
       });
-      return pickFeature(feats, query, near);
+      return pickFeature(feats, query, near, { summit });
     };
     // Un sommet déclaré (waypoint « col ») se cherche d'abord dans l'index POI
     // seul : « Hautacam » n'a aucun mot-clé de col et sinon une adresse

@@ -145,6 +145,59 @@ test('avec near, une rue en tête sans commune candidate n\'est pas rejetée (m�
   assert.strictEqual(picked.label, 'Rue Homonyme 12345 Ville');
 });
 
+// Trouvaille en régénérant en ligne (30/08/2026, démo Pau → Hautacam) :
+// « Hautacam » (recherche de sommet, geocodeCol()/summit:true, index POI
+// seul) renvoyait un camping homonyme (« le Hautacam »), plus proche du
+// waypoint précédent (Argelès-Gazost, ~440 m) que le vrai sommet
+// (« Hautacam ou Soum de Dabant Aygue », catégorie POI « sommet »,
+// normalisée ici en type: 'summit') — reproduit avec les 5 candidats réels
+// observés sur data.geopf.fr et le `near` exact d'Argelès-Gazost. Le tracé
+// routé jusqu'au camping (442 m) n'avait presque aucun dénivelé (~2,5 m sur
+// 3,3 km, vérifié avec OSRM + RGE ALTI réels) : aucune côte détectée du
+// tout, pas seulement mal nommée — d'où « Hautacam détecté et catégorisé —
+// non détecté » dans scripts/demo.js.
+test('avec near ET summit:true, un candidat catégorie "sommet" bat un homonyme plus proche mais sans rapport (camping « Hautacam »)', () => {
+  const near = { lat: 43.005398, lon: -0.094273 }; // Argelès-Gazost, résolu
+  const feats = [
+    { label: undefined, type: 'summit', score: 0.8554175477037271, lat: 43.002389, lon: -0.014748 }, // Hautacam ou Soum de Dabant Aygue
+    { label: undefined, type: undefined, score: 0.7770119543870856, lat: 42.991999, lon: -0.07136 }, // le Hautacam (camping) — plus proche de near
+    { label: undefined, type: undefined, score: 0.7692270198510784, lat: 42.99366, lon: -0.01149 }, // Altisurface d'Hautacam
+    { label: undefined, type: undefined, score: 0.7661924046949563, lat: 42.971721, lon: -0.007942 }, // Station de Hautacam
+    { label: undefined, type: undefined, score: 0.6184579581852837, lat: 43.256183, lon: 0.098381 }, // Lotissement le Hautacam
+  ];
+  const picked = pickFeature(feats, 'Hautacam', near, { summit: true });
+  assert.strictEqual(picked.lat, 43.002389, 'doit choisir le vrai sommet, pas le camping plus proche du waypoint précédent');
+  assert.strictEqual(picked.lon, -0.014748);
+});
+
+// Non-régression : sans `summit: true` (ex. une recherche de ville
+// ordinaire), un candidat catégorie "sommet" ne doit PAS être artificiellement
+// préféré — comportement de distance réelle inchangé pour tout appelant qui
+// ne passe pas explicitement `summit`.
+test('sans summit:true, un candidat "sommet" n\'est pas préféré — comportement near inchangé', () => {
+  const near = { lat: 43.005398, lon: -0.094273 };
+  const feats = [
+    { label: undefined, type: 'summit', score: 0.85, lat: 43.002389, lon: -0.014748 },
+    { label: undefined, type: undefined, score: 0.77, lat: 42.991999, lon: -0.07136 },
+  ];
+  const picked = pickFeature(feats, 'Hautacam', near);
+  assert.strictEqual(picked.lat, 42.991999, 'sans summit:true, le plus proche de near l\'emporte, comme avant ce correctif');
+});
+
+// Non-régression : avec `summit: true` mais AUCUN candidat de catégorie
+// "sommet" parmi les résultats, le comportement near existant (plus proche
+// l'emporte) reste inchangé — le repli ne doit jamais forcer une préférence
+// sur un pool vide.
+test('avec summit:true mais aucun candidat "sommet", le comportement near existant reste inchangé', () => {
+  const near = { lat: 43.005398, lon: -0.094273 };
+  const feats = [
+    { label: undefined, type: undefined, score: 0.85, lat: 43.002389, lon: -0.014748 },
+    { label: undefined, type: undefined, score: 0.77, lat: 42.991999, lon: -0.07136 },
+  ];
+  const picked = pickFeature(feats, 'Hautacam', near, { summit: true });
+  assert.strictEqual(picked.lat, 42.991999, 'sans aucun candidat sommet, le plus proche de near reste choisi');
+});
+
 // Trouvaille en générant en masse avec un vrai accès réseau (26/08/2026) :
 // géocoder "Butte Montmartre" biaisé près de Mantes-la-Ville (near envoyé à
 // l'API en lat/lon) renvoyait la vraie colline parisienne en DERNIÈRE
@@ -375,6 +428,34 @@ test('geocode() : commune trouvée uniquement via l\'index POI (name/category en
   assert.strictEqual(r.provider, 'geopf');
   assert.strictEqual(r.label, 'Moûtiers', 'le libellé doit être une chaîne (name[0]), pas le tableau brut');
   assert.strictEqual(r.lat, 45.490782);
+});
+
+// Intégration bout-en-bout du correctif « sommet » ci-dessus : reproduit la
+// forme BRUTE de la réponse Géoplateforme (category en tableau incluant
+// "sommet", pas seulement la forme déjà normalisée que pickFeature() reçoit
+// dans les tests unitaires) pour vérifier que le type dérivé est bien
+// propagé jusqu'au choix final via geocode()/geocodeCol().
+test('geocode() : un candidat POI catégorie "sommet" bat un homonyme plus proche sans rapport (summit:true, forme brute)', async () => {
+  mock = {
+    geopf: async () => jsonResponse({
+      features: [
+        {
+          properties: { name: ['le Hautacam'], category: ['camping', "zone d'activité ou d'intérêt"], score: 0.78 },
+          geometry: { coordinates: [-0.07136, 42.991999] },
+        },
+        {
+          properties: { name: ['Hautacam ou Soum de Dabant Aygue'], category: ['sommet', 'élément topographique ou forestier'], score: 0.85 },
+          geometry: { coordinates: [-0.014748, 43.002389] },
+        },
+      ],
+    }),
+    nominatim: neverCalled('Nominatim'),
+  };
+  const near = { lat: 43.005398, lon: -0.094273 };
+  const r = await geocode('Hautacam-test-sommet-brut', { near, summit: true });
+  assert.strictEqual(r.provider, 'geopf');
+  assert.strictEqual(r.lat, 43.002389, 'doit choisir le vrai sommet malgré le camping plus proche de near');
+  assert.strictEqual(r.lon, -0.014748);
 });
 
 test('repli Géoplateforme → Nominatim quand la Géoplateforme ne trouve rien', async () => {
