@@ -33,7 +33,7 @@ permissions:
 # redéclenché deux fois (comportement voulu), mais un push ordinaire vers la
 # petite démo ne l'interrompt plus.
 concurrency:
-  group: pages-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full-v4' || 'demo' }}
+  group: pages-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full-v5' || 'demo' }}
   cancel-in-progress: true
 
 jobs:
@@ -74,7 +74,7 @@ jobs:
       # plus bas reste perdue malgré ce correctif. Réduit le risque de round
       # 1, ne le ferme pas totalement.
       #
-      # Préfixe "full-v4" (pas juste "full") : trouvaille en production
+      # Préfixe "full-v5" (pas juste "full") : trouvaille en production
       # (28/08/2026, même jour que les deux points ci-dessous) — le cache
       # SQLite "full" accumulé depuis le tout premier run complet de cette
       # session contenait des réponses de géocodage mises en cache AVANT les
@@ -125,6 +125,29 @@ jobs:
       # découlent) calculés AVANT ce correctif pour « Cologne » (Tour 1965)
       # et « Woluwe-Saint-Pierre » (Tour 1969) — mauvais, sans le hint. Même
       # mécanisme, même remède : bump plutôt que correctif de code seul.
+      #
+      # "-v5" (30/08/2026, mission tracés historiques) : quatrième occurrence,
+      # et cette fois trouvée alors même que le correctif (PR #161,
+      # pickFeature() — un résultat Géoplateforme de type 'street' sans
+      # commune candidate retombe désormais sur Nominatim) avait déjà ajouté
+      # `isoCode` à la clé de cache du chemin NOMINATIM pour un correctif
+      # voisin dans le même commit (countrycodes) — une invalidation
+      # partielle, pas oubliée mais insuffisante : `geopfSearch()`
+      # (pipeline/geocode.js) appelle pickFeature() À L'INTÉRIEUR de la
+      # fonction mise en cache par `cached('geocode', 'geopf', { q, near },
+      # …)`, donc c'est le résultat DÉJÀ CHOISI (post-pickFeature) qui est
+      # mis en cache sous cette clé — inchangée par ce correctif. Un
+      # cache-hit sur "full-v4" pour « Cambridge » continuait donc de servir
+      # la même mauvaise rue homonyme qu'avant PR #161, sans jamais
+      # ré-exécuter pickFeature(). Constaté en production : le premier run
+      # "full" sous "full-v4" après le merge de la PR #161 s'est terminé en
+      # ~4 minutes au lieu des ~2-4h attendues, et « Cambridge → London »
+      # restait reconstituée à 1301 km sur le site publié. Leçon affinée :
+      # un correctif qui touche pickFeature()/pickNominatimFeature() (le
+      # TRAITEMENT post-fetch) exige un bump MÊME quand un autre correctif
+      # du même commit a déjà changé une clé de cache ailleurs dans le même
+      # fichier — chaque chemin de cache (ici geopf vs nominatim) s'invalide
+      # indépendamment, jamais par ricochet.
       # Trouvaille en production (28/08/2026) : un push ordinaire sur main
       # (ex. le merge d'une PR) déclenche AUSSI ce workflow en mode démo
       # (`on: push`, en parallèle d'un déclenchement manuel `full`, groupe de
@@ -141,7 +164,7 @@ jobs:
       # finissait après.
       #
       # Correctif : restore-keys essaie D'ABORD le cache "full" (préfixe
-      # etapeforge-data-full-v4-), même en mode démo — si un catalogue complet a
+      # etapeforge-data-full-v5-), même en mode démo — si un catalogue complet a
       # déjà été publié une fois, un push ordinaire ne doit plus jamais le
       # faire régresser vers la petite démo. `id` sur ce step expose
       # `cache-matched-key` (vérifié sur restore/action.yml officiel
@@ -152,12 +175,12 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: data
-          key: etapeforge-data-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full-v4' || 'demo' }}-${{ github.run_id }}
+          key: etapeforge-data-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full-v5' || 'demo' }}-${{ github.run_id }}
           restore-keys: |
-            etapeforge-data-full-v4-
-            etapeforge-data-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full-v4' || 'demo' }}-
+            etapeforge-data-full-v5-
+            etapeforge-data-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full-v5' || 'demo' }}-
       # Trouvaille de relecture adverse sur le correctif ci-dessus : le
-      # préfixe de clé seul ("full-v4") ne dit rien de la COMPLÉTUDE du
+      # préfixe de clé seul ("full-v5") ne dit rien de la COMPLÉTUDE du
       # cache restauré — un run "full" annulé ou en timeout sauvegarde quand
       # même sa progression partielle (if: always(), voir plus haut), sous
       # ce même préfixe. Sans ce garde-fou, un push ordinaire suivant
@@ -176,7 +199,7 @@ jobs:
           else
             echo "complete=false" >> "$GITHUB_OUTPUT"
           fi
-      # `!startsWith(..., 'etapeforge-data-full-v4-')` : si le cache restauré
+      # `!startsWith(..., 'etapeforge-data-full-v5-')` : si le cache restauré
       # ci-dessus est déjà un catalogue complet ET RÉELLEMENT TERMINÉ (voir
       # les deux steps précédents), ce run "démo" ne doit ni le régénérer ni
       # l'écraser — juste republier tel quel (aucun appel réseau
@@ -184,7 +207,7 @@ jobs:
       # fichier : ne pas solliciter les APIs publiques à chaque push).
       #
       # WIPE_PARTIAL_FULL_CACHE (trouvaille de relecture adverse, round 2,
-      # 28/08/2026) : si le cache restauré porte le préfixe "full-v4-" mais
+      # 28/08/2026) : si le cache restauré porte le préfixe "full-v5-" mais
       # N'EST PAS marqué complet (run "full" précédent interrompu), ce step
       # s'exécute quand même (condition ci-dessus) — mais scripts/demo.js
       # n'efface JAMAIS data/ avant de générer (seul le repli d'échec réseau,
@@ -194,9 +217,9 @@ jobs:
       # est 'done') publierait un mélange catalogue-partiel + petite démo —
       # ni l'un ni l'autre, jamais ce que documente ce fichier.
       - name: Générer la démo avec les APIs réelles (routes et altimétrie vraies)
-        if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.full) && !(startsWith(steps.restore_data_cache.outputs.cache-matched-key, 'etapeforge-data-full-v4-') && steps.full_complete.outputs.complete == 'true') }}
+        if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.full) && !(startsWith(steps.restore_data_cache.outputs.cache-matched-key, 'etapeforge-data-full-v5-') && steps.full_complete.outputs.complete == 'true') }}
         env:
-          WIPE_PARTIAL_FULL_CACHE: ${{ startsWith(steps.restore_data_cache.outputs.cache-matched-key, 'etapeforge-data-full-v4-') && steps.full_complete.outputs.complete != 'true' }}
+          WIPE_PARTIAL_FULL_CACHE: ${{ startsWith(steps.restore_data_cache.outputs.cache-matched-key, 'etapeforge-data-full-v5-') && steps.full_complete.outputs.complete != 'true' }}
         run: |
           if [ "$WIPE_PARTIAL_FULL_CACHE" = "true" ]; then
             echo "::warning::Cache complet restauré mais incomplet (run précédent interrompu) — repli propre sur la petite démo plutôt qu'un mélange partiel";
@@ -241,11 +264,11 @@ jobs:
       # et une telle duplication gonflerait le cache du dépôt (10 Go
       # partagés, limite documentée GitHub) sans aucun bénéfice.
       - name: Sauvegarder le cache de données (même en cas d'échec/timeout, pour reprendre au prochain run)
-        if: ${{ always() && (github.event_name == 'workflow_dispatch' && inputs.full || !(startsWith(steps.restore_data_cache.outputs.cache-matched-key, 'etapeforge-data-full-v4-') && steps.full_complete.outputs.complete == 'true')) }}
+        if: ${{ always() && (github.event_name == 'workflow_dispatch' && inputs.full || !(startsWith(steps.restore_data_cache.outputs.cache-matched-key, 'etapeforge-data-full-v5-') && steps.full_complete.outputs.complete == 'true')) }}
         uses: actions/cache/save@v4
         with:
           path: data
-          key: etapeforge-data-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full-v4' || 'demo' }}-${{ github.run_id }}
+          key: etapeforge-data-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full-v5' || 'demo' }}-${{ github.run_id }}
       - name: Construire la démo statique
         run: node scripts/build-site.js
       # Taille du site généré, en clair dans les logs : GitHub Pages refuse
