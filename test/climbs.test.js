@@ -188,6 +188,52 @@ test('nameClimbs : côte nommée par un waypoint → rawLabel = label du waypoin
   assert.strictEqual(climbs[0].rawLabel, 'Col du Tourmalet');
 });
 
+// Trouvaille en générant en ligne (30/08/2026, Tour 1903 étape 1, Col du
+// Pin-Bouchain) : reproduit avec les vraies données mesurées (OSRM + RGE
+// ALTI réels, Tarare → Col du Pin-Bouchain). La côte catégorisée (pente
+// moyenne ≥ 3 %) s'arrête à 12 602 m ; le point du col est à 14 602,56 m
+// (2000,56 m plus loin, hors de la fenêtre de 1500 m) — un faux-plat final
+// (<3 % mais toujours en montée) sépare les deux. Sans repli, `check('Col du
+// Pin-Bouchain détecté', …)` échouait dans scripts/demo.js (nom retombé sur
+// le géocodage inverse, jamais "Col du Pin-Bouchain").
+test('nameClimbs : repli altitude quand le col est plus loin sur le tracé qu\'un faux-plat final (Col du Pin-Bouchain, données réelles)', async () => {
+  const climbs = [{ endM: 12602, summitEle: 761 }];
+  const waypointsOnTrack = [{ label: 'Col du Pin Bouchain', kind: 'col', alongM: 14602.56, altitude_hint_m: 759 }];
+  await nameClimbs(climbs, waypointsOnTrack, [], async () => { throw new Error('ne doit pas être appelé : le repli altitude doit suffire'); });
+  assert.strictEqual(climbs[0].name, 'Col du Pin Bouchain');
+  assert.strictEqual(climbs[0].nameSource, 'waypoint');
+});
+
+// Non-régression : le repli altitude ne doit JAMAIS rattacher un col déjà
+// dépassé (en arrière sur le tracé) — seul un col PLUS LOIN que la fin de la
+// côte est un candidat légitime pour un faux-plat final.
+test('nameClimbs : repli altitude n\'attrape jamais un col en arrière sur le tracé', async () => {
+  const climbs = [{ endM: 12602, summitEle: 761 }];
+  const waypointsOnTrack = [{ label: 'Col déjà passé', kind: 'col', alongM: 10000, altitude_hint_m: 761 }];
+  await nameClimbs(climbs, waypointsOnTrack, [{ dist: 12602, lat: 45, lon: 1 }], async () => ({ label: null }));
+  assert.notStrictEqual(climbs[0].name, 'Col déjà passé');
+});
+
+// Non-régression : le repli altitude reste borné à 5 km — un col bien plus
+// loin sur le tracé (une étape entière, pas un simple faux-plat final) ne
+// doit pas être rattaché même à altitude identique.
+test('nameClimbs : repli altitude n\'attrape jamais un col à plus de 5 km de la fin de côte', async () => {
+  const climbs = [{ endM: 12602, summitEle: 761 }];
+  const waypointsOnTrack = [{ label: 'Col bien plus loin', kind: 'col', alongM: 20000, altitude_hint_m: 761 }];
+  await nameClimbs(climbs, waypointsOnTrack, [{ dist: 12602, lat: 45, lon: 1 }], async () => ({ label: null }));
+  assert.notStrictEqual(climbs[0].name, 'Col bien plus loin');
+});
+
+// Non-régression : le repli altitude exige une correspondance resserrée
+// (< 40 m) — un col plus loin sur le tracé mais d'altitude nettement
+// différente (un sommet sans rapport) ne doit pas être rattaché.
+test('nameClimbs : repli altitude n\'attrape jamais un col d\'altitude trop différente', async () => {
+  const climbs = [{ endM: 12602, summitEle: 761 }];
+  const waypointsOnTrack = [{ label: 'Col sans rapport', kind: 'col', alongM: 14602, altitude_hint_m: 1200 }];
+  await nameClimbs(climbs, waypointsOnTrack, [{ dist: 12602, lat: 45, lon: 1 }], async () => ({ label: null }));
+  assert.notStrictEqual(climbs[0].name, 'Col sans rapport');
+});
+
 test('nameClimbs : côte nommée par géocodage inverse → rawLabel = toponyme nu, name porte le préfixe "Côte de"', async () => {
   const climbs = [{ endM: 10000 }];
   const samples = [{ dist: 10000, lat: 45, lon: 1 }];
