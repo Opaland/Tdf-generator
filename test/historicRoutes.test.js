@@ -198,6 +198,34 @@ test('reconstructionWaypoints : le col du Tourmalet résout son altitude via kno
   const wps = reconstructionWaypoints(2021, { number: 18, start: stage.start, finish: stage.finish });
   const wp = wps.find((w) => w.label === 'Col du Tourmalet');
   assert.strictEqual(wp.altitude_hint_m, 2115, 'résolu via known_cols.json malgré l\'absence de ele local');
+  assert.strictEqual(wp.lat, null, 'un col normalement géocodable ne porte pas de coordonnées curées');
+  assert.strictEqual(wp.lon, null, 'un col normalement géocodable ne porte pas de coordonnées curées');
+});
+
+test('reconstructionWaypoints : « Col de Toses » (2026 étape 3) résout lat/lon via known_cols.json — repli pour un col étranger non géocodable', () => {
+  // Trouvaille du 30/08/2026 (mission tracés historiques) : ni data.geopf.fr
+  // ni Nominatim ne résolvent correctement le libellé français « Col de
+  // Toses » (col espagnol, hors référentiel IGN — vérifié en direct sur les
+  // deux API). known_cols.json porte désormais des coordonnées vérifiées
+  // (voir sa `source`) qui court-circuitent le géocodage pour ce seul
+  // waypoint, sans toucher au mécanisme de géocodage général.
+  const stage = HISTORIC_ROUTES['2026'].stages['3'];
+  assert.ok(stage, 'édition 2026, étape 3 attendue dans la fixture de test');
+  const toses = (stage.vias || []).find((v) => typeof v === 'object' && v.label === 'Col de Toses');
+  assert.ok(toses, 'le Col de Toses doit être un via de cette étape');
+  assert.strictEqual(toses.lat, undefined, 'ne doit pas porter ses propres lat/lon locaux (repris de known_cols.json sinon)');
+  const wps = reconstructionWaypoints(2026, { number: 3, start: stage.start, finish: stage.finish });
+  const wp = wps.find((w) => w.label === 'Col de Toses');
+  assert.strictEqual(wp.lat, 42.336);
+  assert.strictEqual(wp.lon, 1.9911);
+  assert.strictEqual(wp.altitude_hint_m, 1790);
+  // Non-régression : le second col de la même étape n'a pas de coordonnées
+  // curées dans known_cols.json — ne doit RIEN hériter de Col de Toses ni
+  // se voir attribuer des coordonnées inventées.
+  const calvaire = wps.find((w) => w.label === 'Col du Calvaire');
+  assert.ok(calvaire, 'le Col du Calvaire doit être un via de cette étape');
+  assert.strictEqual(calvaire.lat, null);
+  assert.strictEqual(calvaire.lon, null);
 });
 
 test('reconstructionWaypoints : propage bonus_sec du via sprint et de l\'arrivée (2023 étape 9, Puy de Dôme)', () => {

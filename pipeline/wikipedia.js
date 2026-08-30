@@ -387,9 +387,21 @@ function reconstructionWaypoints(year, stage, category = 'hommes') {
   for (const via of curated?.vias || []) {
     if (typeof via === 'string') wps.push({ label: via, kind: 'via', bonus_sec: null, source: 'parcours curé' });
     else {
-      const ele = via.ele ?? KNOWN_COLS[via.label]?.ele ?? null;
+      const known = KNOWN_COLS[via.label];
+      const ele = via.ele ?? known?.ele ?? null;
+      // lat/lon : repli exceptionnel, jamais deviné — seulement quand
+      // historic_routes.json ou known_cols.json le porte explicitement.
+      // Un waypoint déjà pourvu de lat/lon court-circuite tout géocodage
+      // (pipeline/generate.js) : sert un col dont le libellé français
+      // curé ici ne se résout correctement chez AUCUN des deux
+      // géocodeurs (ex. « Col de Toses », un col espagnol hors du
+      // référentiel IGN — trouvaille du 30/08/2026, voir la source
+      // détaillée dans known_cols.json).
+      const lat = via.lat ?? known?.lat ?? null;
+      const lon = via.lon ?? known?.lon ?? null;
       wps.push({
         label: via.label, kind: via.kind || 'via', altitude_hint_m: ele,
+        lat, lon,
         bonus_sec: via.bonus_sec || null,
         source: 'parcours curé',
       });
