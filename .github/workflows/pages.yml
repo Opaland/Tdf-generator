@@ -33,7 +33,7 @@ permissions:
 # redéclenché deux fois (comportement voulu), mais un push ordinaire vers la
 # petite démo ne l'interrompt plus.
 concurrency:
-  group: pages-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full-v5' || 'demo' }}
+  group: pages-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full-v6' || 'demo' }}
   cancel-in-progress: true
 
 jobs:
@@ -74,7 +74,7 @@ jobs:
       # plus bas reste perdue malgré ce correctif. Réduit le risque de round
       # 1, ne le ferme pas totalement.
       #
-      # Préfixe "full-v5" (pas juste "full") : trouvaille en production
+      # Préfixe "full-v6" (pas juste "full") : trouvaille en production
       # (28/08/2026, même jour que les deux points ci-dessous) — le cache
       # SQLite "full" accumulé depuis le tout premier run complet de cette
       # session contenait des réponses de géocodage mises en cache AVANT les
@@ -148,6 +148,38 @@ jobs:
       # du même commit a déjà changé une clé de cache ailleurs dans le même
       # fichier — chaque chemin de cache (ici geopf vs nominatim) s'invalide
       # indépendamment, jamais par ricochet.
+      #
+      # "-v6" (31/08/2026, mission tracés historiques) : cinquième occurrence,
+      # et cette fois le cache en cause n'est ni geopf ni nominatim mais
+      # l'ALTIMÉTRIE (pipeline/elevation.js, cached('elevation',
+      # 'geopf-rge-alti', { pts }, …)) — clé par POINT (lat/lon arrondis),
+      # pas par étape ni par requête de géocodage, donc invisible aux leçons
+      # précédentes. PR #167 (31/08/2026) a ajouté 4 vias curés à l'étape 13
+      # du Tour 1992 (Saint-Gervais → Sestriere), remplaçant un tracé OSRM
+      # direct non guidé par un tracé passant par les vrais cols (Saisies,
+      # Cormet de Roselend, Iseran, Mont-Cenis). Après le premier run "full"
+      # suivant ce merge, le site publié affichait toujours un point
+      # aberrant (« Côte de Bonneval-sur-Arc, Saint-Jean-de-Maurienne »,
+      # 3012 m, pente moyenne 36 %, jusqu'à 64 % — même signature que le
+      # « Bardonnèche » 2956 m d'origine que PR #167 était censé corriger)
+      # entre l'Iseran et le Mont-Cenis, faisant encore passer un artefact
+      # pour le « toit du tour » 1992 au lieu du col de l'Iseran (2764 m).
+      # Vérifié en reproduisant EXACTEMENT ce leg (mêmes coordonnées
+      # géocodées, même appel OSRM, même appel altimétrie RGE ALTI, en
+      # direct, hors cache local) le 31/08/2026 : aucune anomalie, profil
+      # d'altitude parfaitement lisse. Le tracé direct (pré-PR #167) entre
+      # Saint-Gervais et Sestriere traversait vraisemblablement la même
+      # vallée (Haute-Maurienne, seule route carrossable de la zone) et a pu
+      # peupler cette même plage de points sous "full-v5" AVANT que les vias
+      # n'existent — non prouvé faute d'accès à la base SQLite du run
+      # incriminé (conteneur éphémère, déjà recyclé), mais cohérent avec le
+      # fait qu'une requête fraîche ne reproduit rien. Leçon affinée : un
+      # changement de TRACÉ (nouveaux vias, réordonnancement de waypoints)
+      # peut faire retomber une portion de route sur des points DÉJÀ
+      # présents dans le cache d'altimétrie sous l'ancien tracé — même sans
+      # toucher pipeline/geocode.js ni pipeline/elevation.js, un bump reste
+      # nécessaire dès qu'une PR change quels points géographiques sont
+      # échantillonnés pour une étape déjà générée sous le préfixe courant.
       # Trouvaille en production (28/08/2026) : un push ordinaire sur main
       # (ex. le merge d'une PR) déclenche AUSSI ce workflow en mode démo
       # (`on: push`, en parallèle d'un déclenchement manuel `full`, groupe de
@@ -164,7 +196,7 @@ jobs:
       # finissait après.
       #
       # Correctif : restore-keys essaie D'ABORD le cache "full" (préfixe
-      # etapeforge-data-full-v5-), même en mode démo — si un catalogue complet a
+      # etapeforge-data-full-v6-), même en mode démo — si un catalogue complet a
       # déjà été publié une fois, un push ordinaire ne doit plus jamais le
       # faire régresser vers la petite démo. `id` sur ce step expose
       # `cache-matched-key` (vérifié sur restore/action.yml officiel
@@ -175,12 +207,12 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: data
-          key: etapeforge-data-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full-v5' || 'demo' }}-${{ github.run_id }}
+          key: etapeforge-data-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full-v6' || 'demo' }}-${{ github.run_id }}
           restore-keys: |
-            etapeforge-data-full-v5-
-            etapeforge-data-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full-v5' || 'demo' }}-
+            etapeforge-data-full-v6-
+            etapeforge-data-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full-v6' || 'demo' }}-
       # Trouvaille de relecture adverse sur le correctif ci-dessus : le
-      # préfixe de clé seul ("full-v5") ne dit rien de la COMPLÉTUDE du
+      # préfixe de clé seul ("full-v6") ne dit rien de la COMPLÉTUDE du
       # cache restauré — un run "full" annulé ou en timeout sauvegarde quand
       # même sa progression partielle (if: always(), voir plus haut), sous
       # ce même préfixe. Sans ce garde-fou, un push ordinaire suivant
@@ -199,7 +231,7 @@ jobs:
           else
             echo "complete=false" >> "$GITHUB_OUTPUT"
           fi
-      # `!startsWith(..., 'etapeforge-data-full-v5-')` : si le cache restauré
+      # `!startsWith(..., 'etapeforge-data-full-v6-')` : si le cache restauré
       # ci-dessus est déjà un catalogue complet ET RÉELLEMENT TERMINÉ (voir
       # les deux steps précédents), ce run "démo" ne doit ni le régénérer ni
       # l'écraser — juste republier tel quel (aucun appel réseau
@@ -207,7 +239,7 @@ jobs:
       # fichier : ne pas solliciter les APIs publiques à chaque push).
       #
       # WIPE_PARTIAL_FULL_CACHE (trouvaille de relecture adverse, round 2,
-      # 28/08/2026) : si le cache restauré porte le préfixe "full-v5-" mais
+      # 28/08/2026) : si le cache restauré porte le préfixe "full-v6-" mais
       # N'EST PAS marqué complet (run "full" précédent interrompu), ce step
       # s'exécute quand même (condition ci-dessus) — mais scripts/demo.js
       # n'efface JAMAIS data/ avant de générer (seul le repli d'échec réseau,
@@ -217,9 +249,9 @@ jobs:
       # est 'done') publierait un mélange catalogue-partiel + petite démo —
       # ni l'un ni l'autre, jamais ce que documente ce fichier.
       - name: Générer la démo avec les APIs réelles (routes et altimétrie vraies)
-        if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.full) && !(startsWith(steps.restore_data_cache.outputs.cache-matched-key, 'etapeforge-data-full-v5-') && steps.full_complete.outputs.complete == 'true') }}
+        if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.full) && !(startsWith(steps.restore_data_cache.outputs.cache-matched-key, 'etapeforge-data-full-v6-') && steps.full_complete.outputs.complete == 'true') }}
         env:
-          WIPE_PARTIAL_FULL_CACHE: ${{ startsWith(steps.restore_data_cache.outputs.cache-matched-key, 'etapeforge-data-full-v5-') && steps.full_complete.outputs.complete != 'true' }}
+          WIPE_PARTIAL_FULL_CACHE: ${{ startsWith(steps.restore_data_cache.outputs.cache-matched-key, 'etapeforge-data-full-v6-') && steps.full_complete.outputs.complete != 'true' }}
         run: |
           if [ "$WIPE_PARTIAL_FULL_CACHE" = "true" ]; then
             echo "::warning::Cache complet restauré mais incomplet (run précédent interrompu) — repli propre sur la petite démo plutôt qu'un mélange partiel";
@@ -264,11 +296,11 @@ jobs:
       # et une telle duplication gonflerait le cache du dépôt (10 Go
       # partagés, limite documentée GitHub) sans aucun bénéfice.
       - name: Sauvegarder le cache de données (même en cas d'échec/timeout, pour reprendre au prochain run)
-        if: ${{ always() && (github.event_name == 'workflow_dispatch' && inputs.full || !(startsWith(steps.restore_data_cache.outputs.cache-matched-key, 'etapeforge-data-full-v5-') && steps.full_complete.outputs.complete == 'true')) }}
+        if: ${{ always() && (github.event_name == 'workflow_dispatch' && inputs.full || !(startsWith(steps.restore_data_cache.outputs.cache-matched-key, 'etapeforge-data-full-v6-') && steps.full_complete.outputs.complete == 'true')) }}
         uses: actions/cache/save@v4
         with:
           path: data
-          key: etapeforge-data-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full-v5' || 'demo' }}-${{ github.run_id }}
+          key: etapeforge-data-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full-v6' || 'demo' }}-${{ github.run_id }}
       - name: Construire la démo statique
         run: node scripts/build-site.js
       # Taille du site généré, en clair dans les logs : GitHub Pages refuse
