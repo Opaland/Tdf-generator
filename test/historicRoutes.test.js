@@ -318,6 +318,32 @@ test('1951 étape 17 : première ascension du Ventoux par le Tour — montée pa
   assert.strictEqual(ventoux.altitude_hint_m, 1909, 'altitude résolue via known_cols.json');
 });
 
+// Trouvaille du 30/08/2026 (mission tracés historiques) : cette étape
+// n'avait AUCUN point de passage curé — start/finish seuls. Sans via pour
+// guider le tracé, le trajet voiture direct calculé entre Saint-Gervais et
+// Sestriere (haute montagne franco-italienne) produisait une « côte »
+// aberrante (2956 m, pente 36 %, artefact de routage/échantillonnage —
+// aucune route réelle n'a une pente soutenue pareille), faussement
+// classée comme le point culminant de l'étape ; le vrai col de l'Iseran
+// (2764 m, hors catégorie, franchi ce jour-là — bikeraceinfo.com) n'appa-
+// raissait nulle part.
+test('1992 étape 13 : l\'échappée de Chiappucci — Saisies, Cormet de Roselend, Iseran, Mont-Cenis dans l\'ordre', () => {
+  const wps = reconstructionWaypoints(1992, { number: 13, start: 'Saint-Gervais-les-Bains', finish: 'Sestriere' });
+  const labels = wps.map((w) => w.label);
+  assert.deepStrictEqual(labels, [
+    'Saint-Gervais-les-Bains', 'Col des Saisies', 'Cormet de Roselend', "Col de l'Iseran", 'Col du Mont-Cenis', 'Sestriere',
+  ]);
+  const iseran = wps.find((w) => w.label === "Col de l'Iseran");
+  assert.strictEqual(iseran.kind, 'col');
+  assert.strictEqual(iseran.altitude_hint_m, 2764, 'point culminant réel de l\'étape, résolu via known_cols.json');
+  // Non-régression : une autre étape 1992 sans curation propre reste non
+  // curée (repli sur le seul couple départ/arrivée Wikipédia) — la
+  // curation de l'étape 13 ne doit fuiter sur aucune autre étape de la
+  // même édition.
+  const uncurated = reconstructionWaypoints(1992, { number: 10, start: 'Luxembourg City', finish: 'Strasbourg' });
+  assert.deepStrictEqual(uncurated.map((w) => w.label), ['Luxembourg City', 'Strasbourg']);
+});
+
 test('historicHighlights : toute édition pré-2020 curée porte un highlight non vide, aucune édition 2020+ n\'en porte (backlog #10, section D)', () => {
   // Les vignettes cliquables de l'écran Archives (frontend/archives.js)
   // s'appuient sur ce champ — une édition mythique pré-2020 sans highlight
