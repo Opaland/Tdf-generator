@@ -480,8 +480,14 @@ function reconstructionWaypoints(year, stage, category = 'hommes') {
   const { isColQuery } = require('./geocode');
   const curated = HISTORIC_ROUTES[historicRoutesKey(year, category)]?.stages?.[String(stage.number)];
   const wps = [];
-  const startLabel = curated?.start || stage.start;
-  const finishLabel = curated?.finish || stage.finish;
+  // start/finish curés peuvent être une simple chaîne (cas courant) ou un
+  // objet { label, region } quand le libellé seul est ambigu entre plusieurs
+  // communes homonymes (ex. 2026 étape 3, "Les Angles" Gard vs
+  // Pyrénées-Orientales) — même schéma que les vias objets (via.label).
+  const curatedLabel = (entry) => (typeof entry === 'string' ? entry : entry?.label);
+  const curatedRegion = (entry) => (entry && typeof entry === 'object' ? entry.region || null : null);
+  const startLabel = curatedLabel(curated?.start) || stage.start;
+  const finishLabel = curatedLabel(curated?.finish) || stage.finish;
   // country_hint seulement pour un départ/arrivée NON curé (issu tel quel du
   // texte Wikipédia) : un parcours curé (historic_routes.json) porte déjà un
   // libellé choisi à la main, sans indice de pays associé — countryHint reste
@@ -489,14 +495,15 @@ function reconstructionWaypoints(year, stage, category = 'hommes') {
   // (ex. « Lyon (France) via (Melun) ») ne compte jamais comme étranger.
   const foreignCountry = (country) => (country && !/^france$/i.test(country) ? country : null);
   // region_hint : même logique que country_hint ci-dessus, mais pour le
-  // qualificatif de département (« Bonneval, Eure-et-Loir ») — seulement
-  // pour un départ/arrivée NON curé, jamais deviné pour un libellé choisi à
-  // la main (historic_routes.json).
+  // qualificatif de département (« Bonneval, Eure-et-Loir ») — pour un
+  // départ/arrivée NON curé, jamais deviné automatiquement (issu du texte
+  // Wikipédia). Pour un départ/arrivée curé, `region_hint` reste null sauf si
+  // la forme objet { label, region } le précise explicitement à la main.
   wps.push({
     label: startLabel, kind: 'start', bonus_sec: null,
     source: curated?.start ? 'parcours curé' : 'wikipedia',
     country_hint: curated?.start ? null : foreignCountry(stage.startCountry),
-    region_hint: curated?.start ? null : stage.startDepartment || null,
+    region_hint: curated?.start ? curatedRegion(curated.start) : stage.startDepartment || null,
   });
   for (const via of curated?.vias || []) {
     if (typeof via === 'string') wps.push({ label: via, kind: 'via', bonus_sec: null, source: 'parcours curé' });
@@ -520,7 +527,7 @@ function reconstructionWaypoints(year, stage, category = 'hommes') {
     bonus_sec: curated?.finish_bonus_sec || null,
     source: curated?.finish ? 'parcours curé' : 'wikipedia',
     country_hint: curated?.finish ? null : foreignCountry(stage.finishCountry),
-    region_hint: curated?.finish ? null : stage.finishDepartment || null,
+    region_hint: curated?.finish ? curatedRegion(curated.finish) : stage.finishDepartment || null,
   });
   return wps;
 }

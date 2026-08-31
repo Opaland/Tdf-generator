@@ -100,7 +100,9 @@
   },
   "Col du Calvaire": {
     "ele": 1836,
-    "source": "valeur reprise telle quelle des occurrences déjà présentes dans historic_routes.json (cohérentes entre elles) ; sourcing détaillé par édition dans le champ notes de chaque année du fichier d'origine"
+    "lat": 42.5115538,
+    "lon": 2.0499232,
+    "source": "AMBIGU — deux cols homonymes existent en France sous ce seul nom : celui des Vosges (Orbey, Haut-Rhin, ~1144 m réel — c'est le SEUL que l'index POI Géoplateforme connaît, une réponse unique score 0,88, vérifié en direct le 31/08/2026) et celui des Pyrénées-Orientales (Font-Romeu/Estavar, 1836 m, emprunté par le Tour 2026 étape 3). Sans coordonnées curées, le géocodage tombe systématiquement sur l'homonyme vosgien, faisant passer la distance générée de l'étape de 195,9 km officiels à 1788 km. lat/lon ci-dessus = nœud OSM mountain_pass 653720105 (42.5115538, 2.0499232), recoupé par échantillonnage RGE ALTI au même point (data.geopf.fr) : 1835,53 m, à 0,47 m de la valeur ele ci-dessus (elle-même issue de cyclingstage.com/cols-cyclisme.com, cohérente avec ce point). Un futur historic_routes.json qui référencerait un jour le VRAI col vosgien sous ce même nom hériterait à tort de ces coordonnées pyrénéennes — non rencontré en pratique (une seule occurrence de « Col du Calvaire » dans tout historic_routes.json au 31/08/2026, vérifié par grep) mais à surveiller si un cas Vosges apparaît."
   },
   "Col du Galibier": {
     "ele": 2642,
