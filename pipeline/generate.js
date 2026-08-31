@@ -18,9 +18,12 @@ const { consecutiveMountainDays, painIndex } = require('./pain');
 
 /**
  * Options de géocodage pour un waypoint : `near` (biais de proximité, point
- * précédent) et `countryHint` seulement si `wp.country_hint` (colonne DB,
+ * précédent), `countryHint` seulement si `wp.country_hint` (colonne DB,
  * indice de pays hors France extrait d'une annotation Wikipédia entre
- * parenthèses côté import — pipeline/wikipedia.js) est renseigné.
+ * parenthèses côté import — pipeline/wikipedia.js) est renseigné, et
+ * `regionHint` de la même façon depuis `wp.region_hint` (colonne DB, nom de
+ * département français extrait d'un qualificatif Wikipédia « Ville,
+ * Département » — voir extractDepartment(), pipeline/wikipedia.js).
  *
  * `countryHint` n'est ajouté à `opts` QUE quand il est vrai (jamais posé à
  * `null` explicitement) : geocode() (pipeline/geocode.js) déstructure
@@ -30,11 +33,15 @@ const { consecutiveMountainDays, painIndex } = require('./pain');
  * sauter la Géoplateforme pour aller direct à Nominatim sur CHAQUE
  * étape existante — régression massive, trouvaille en écrivant ce
  * correctif, jamais rencontrée en pratique puisque aucun appelant ne le
- * faisait avant l'ajout de ce champ.
+ * faisait avant l'ajout de ce champ. `regionHint` n'a pas cette régression
+ * possible (sa valeur par défaut dans geocode() est déjà `null`), mais le
+ * même garde-fou (n'ajouter la clé que si vraie) reste appliqué par
+ * cohérence.
  */
 function geocodeOptsFor(wp, prevPos) {
   const opts = { near: prevPos };
   if (wp.country_hint) opts.countryHint = wp.country_hint;
+  if (wp.region_hint) opts.regionHint = wp.region_hint;
   return opts;
 }
 

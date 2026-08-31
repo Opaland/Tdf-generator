@@ -10,7 +10,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert');
 const {
-  HISTORIC_ROUTES, KNOWN_COLS, reconstructionWaypoints,
+  HISTORIC_ROUTES, KNOWN_COLS, FRENCH_DEPARTMENTS, reconstructionWaypoints,
   stageConfidence, CONFIDENCE_STATUSES, CONFIDENCE_LEVELS, historicHighlights,
 } = require('../pipeline/wikipedia');
 
@@ -144,6 +144,27 @@ test('known_cols.json : lat/lon, quand présents, sont toujours fournis en paire
     }
   }
   assert.deepStrictEqual(offenders, []);
+});
+
+test('french_departments.json : 101 départements réels (96 métropolitains + 5 DROM), code INSEE valide à 2-3 caractères, hors _notes', () => {
+  // Trouvaille de relecture adverse (30/08/2026, correctif qualificatif de
+  // département) : rien ne verrouillait la forme du fichier — même piège
+  // que known_cols.json ci-dessus (une future entrée mal formée passerait
+  // silencieusement), avec un risque supplémentaire propre à ce fichier :
+  // la clé `_notes` (documentation, pas une donnée de la source
+  // geo.api.gouv.fr) doit rester explicitement exclue de toute itération,
+  // jamais suppposée absente.
+  const offenders = [];
+  let realCount = 0;
+  for (const [name, code] of Object.entries(FRENCH_DEPARTMENTS)) {
+    if (name === '_notes') continue;
+    realCount++;
+    if (typeof code !== 'string' || !/^(\d{2,3}|2[AB])$/.test(code)) {
+      offenders.push(`"${name}" : code INSEE invalide (${code})`);
+    }
+  }
+  assert.deepStrictEqual(offenders, []);
+  assert.strictEqual(realCount, 101, '96 départements métropolitains + 5 DROM');
 });
 
 test('historic_routes.json : toutes les occurrences d\'un même col résolvent la même altitude (backlog #10 section A)', () => {

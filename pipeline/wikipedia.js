@@ -21,6 +21,14 @@ const HISTORIC_ROUTES = JSON.parse(
 const KNOWN_COLS = JSON.parse(
   fs.readFileSync(path.join(__dirname, 'data', 'known_cols.json'), 'utf8')
 );
+// Nom de département français → code INSEE (source geo.api.gouv.fr,
+// 30/08/2026 — voir pipeline/data/french_departments.json). Sert à
+// reconnaître le qualificatif « Ville, Département » que porte le titre
+// Wikipédia anglais d'une commune française homonyme (ex. « Bonneval,
+// Eure-et-Loir »), jamais à valider une adresse complète.
+const FRENCH_DEPARTMENTS = JSON.parse(
+  fs.readFileSync(path.join(__dirname, 'data', 'french_departments.json'), 'utf8')
+);
 
 // --- Parseur HTML (tableaux Wikipédia) -----------------------------------------
 // node-html-parser (backlog #10, section F) : un vrai DOM plutôt qu'un mini-
@@ -168,6 +176,77 @@ function extractCountry(text) {
   return null;
 }
 
+/**
+ * Département français annoté après une virgule, juste après le nom de
+ * ville (avant un éventuel « via ») — convention de titre Wikipédia anglais
+ * pour une commune française homonyme (ex. « Bonneval, Eure-et-Loir »),
+ * jamais pour un pays (voir extractCountry, entre parenthèses). `null` si
+ * aucun segment après la dernière virgule ne correspond à un département
+ * reconnu (FRENCH_DEPARTMENTS, liste fermée — même philosophie que
+ * KNOWN_COUNTRIES : une précision de lieu qui n'est pas un département
+ * connu retombe simplement sur le comportement par défaut, jamais une
+ * fausse détection).
+ *
+ * Trouvaille en interrogeant l'API Géoplateforme réelle (30/08/2026,
+ * mission tracés historiques) : envoyer la requête AVEC ce qualificatif
+ * dégrade le classement au lieu de l'affiner — « Bonneval, Eure-et-Loir »
+ * ne retrouve la vraie commune dans AUCUN des 5 premiers résultats
+ * (seulement des rues homonymes de Bonneval elle-même, noyées par le texte
+ * du département), alors que la requête nue « Bonneval » la retrouve en
+ * tête (commune réelle, score 0.98). Le qualificatif est donc retiré de la
+ * requête envoyée au géocodeur (voir clean() ci-dessous) — mais conservé
+ * séparément ici comme indice de département : retirer la requête nue seule
+ * ne suffit pas dans tous les cas, deux communes françaises peuvent
+ * légitimement partager le même nom (ex. « Les Angles », Gard ET Pyrénées-
+ * Orientales, vérifié en direct : score Géoplateforme quasi identique,
+ * 0.9727 pour les deux, ordre non garanti sur une égalité — même classe de
+ * fragilité que Bristol/Martinique cette session).
+ */
+function extractDepartment(text) {
+  const cleaned = stripParensThenVia(text);
+  const m = cleaned.match(/,\s*([^,]+)\s*$/);
+  if (!m) return null;
+  const candidate = m[1].trim();
+  return Object.prototype.hasOwnProperty.call(FRENCH_DEPARTMENTS, candidate) ? candidate : null;
+}
+
+function escapeRegExp(s) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+/**
+ * Retire les parenthèses (en bloc, contenu compris) PUIS le « via » de
+ * trajet — dans cet ordre précis, partagé par extractDepartment() et
+ * clean() ci-dessous (parseCourse()). Extraite en fonction unique après 3
+ * tours de relecture adverse (30/08/2026) qui ont trouvé, coup sur coup, un
+ * bug d'ordre à chaque fois que ces deux retraits étaient réimplémentés
+ * séparément :
+ * - 1er tour : le retrait du département dans clean() (ancré en fin de
+ *   chaîne) échouait quand un « via » suivait dans le même segment.
+ * - 2e tour : réordonner clean() en « via avant parenthèses » pour fermer
+ *   le point précédent cassait « Lyon (something via Melun) after » — un
+ *   « via » à l'intérieur d'une parenthèse pas encore retirée tronquait le
+ *   résultat au milieu.
+ * - 3e tour : même avec clean() corrigé (parenthèses puis via), extractDe-
+ *   partment() gardait sa PROPRE logique « via puis parenthèses », donc un
+ *   « via » à l'intérieur d'une parenthèse (ex. « Bergerac, Dordogne (une
+ *   note via ancien tracé) ») faisait échouer la DÉTECTION du département
+ *   avant même que clean() ait la moindre chance de le retirer — les deux
+ *   fonctions étaient chacune correctes isolément, mais désynchronisées
+ *   l'une de l'autre (CLAUDE.md règle 1 : une faille corrigée à une couche
+ *   ne l'est pas forcément à une autre).
+ * Partager cette unique fonction élimine la classe de bug par construction :
+ * les deux appelants ne peuvent plus diverger silencieusement sur l'ordre.
+ */
+function stripParensThenVia(text) {
+  return String(text)
+    .replace(/\s*\([^)]*\)\s*/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .replace(/\s+via\b.*$/i, '')
+    .trim();
+}
+
 function parseCourse(text) {
   // « Paris to Lyon », « Paris – Lyon », « Paris > Lyon »
   const m = String(text).match(/^(.*?)\s+(?:to|à|a|>|–|—|-)\s+(.*)$/i);
@@ -183,26 +262,26 @@ function parseCourse(text) {
   // réel connu, mais coûte rien) ; \b (pas \s+ après) plutôt que .+ pour
   // couvrir aussi un « via » qui se retrouve seul en fin de chaîne.
   //
-  // Le retrait de « via » se fait volontairement APRÈS le retrait des
-  // parenthèses et la normalisation des espaces, pas avant : un point de
-  // passage entièrement entre parenthèses (« Lyon via (Melun) ») laissait
-  // sinon un « via » orphelin — les parenthèses disparaissaient d'abord, ne
-  // laissant plus de texte après « via » pour que l'ancien \s+via\s+.+$
-  // (qui exigeait au moins un caractère après) puisse matcher (trouvaille
-  // de relecture adverse sur ce même correctif ; aucune fixture connue de
-  // ce dépôt ne déclenche ce format aujourd'hui, mais rien ne garantit
-  // qu'un futur import Wikipédia ne le produise pas).
-  const clean = (s) => s
-    .replace(/\s*\([^)]*\)\s*/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim()
-    .replace(/\s+via\b.*$/i, '')
-    .trim();
+  // Parenthèses puis « via » : voir stripParensThenVia() ci-dessus, partagée
+  // avec extractDepartment() — trois tours de relecture adverse ont montré
+  // qu'une réimplémentation séparée dans clean() et extractDepartment()
+  // finissait toujours par diverger d'une façon ou d'une autre.
+  const startDepartment = extractDepartment(m[1]);
+  const finishDepartment = extractDepartment(m[2]);
+  const clean = (s, dept) => {
+    let out = stripParensThenVia(s);
+    if (dept) {
+      out = out.replace(new RegExp(`,\\s*${escapeRegExp(dept)}\\s*$`, 'i'), '').trim();
+    }
+    return out;
+  };
   return {
-    start: clean(m[1]),
-    finish: clean(m[2]),
+    start: clean(m[1], startDepartment),
+    finish: clean(m[2], finishDepartment),
     startCountry: extractCountry(m[1]),
     finishCountry: extractCountry(m[2]),
+    startDepartment,
+    finishDepartment,
   };
 }
 
@@ -313,6 +392,8 @@ function parseStagesFromHtml(html, year) {
         finish: course.finish,
         startCountry: course.startCountry,
         finishCountry: course.finishCountry,
+        startDepartment: course.startDepartment,
+        finishDepartment: course.finishDepartment,
         distanceKm,
         type: iType >= 0 ? normalizeType(row[iType]?.text) : null,
         winner: iWinner >= 0 ? row[iWinner]?.text ?? null : null,
@@ -407,10 +488,15 @@ function reconstructionWaypoints(year, stage, category = 'hommes') {
   // 'fr' par défaut pour lui, comportement inchangé. « France » explicite
   // (ex. « Lyon (France) via (Melun) ») ne compte jamais comme étranger.
   const foreignCountry = (country) => (country && !/^france$/i.test(country) ? country : null);
+  // region_hint : même logique que country_hint ci-dessus, mais pour le
+  // qualificatif de département (« Bonneval, Eure-et-Loir ») — seulement
+  // pour un départ/arrivée NON curé, jamais deviné pour un libellé choisi à
+  // la main (historic_routes.json).
   wps.push({
     label: startLabel, kind: 'start', bonus_sec: null,
     source: curated?.start ? 'parcours curé' : 'wikipedia',
     country_hint: curated?.start ? null : foreignCountry(stage.startCountry),
+    region_hint: curated?.start ? null : stage.startDepartment || null,
   });
   for (const via of curated?.vias || []) {
     if (typeof via === 'string') wps.push({ label: via, kind: 'via', bonus_sec: null, source: 'parcours curé' });
@@ -434,6 +520,7 @@ function reconstructionWaypoints(year, stage, category = 'hommes') {
     bonus_sec: curated?.finish_bonus_sec || null,
     source: curated?.finish ? 'parcours curé' : 'wikipedia',
     country_hint: curated?.finish ? null : foreignCountry(stage.finishCountry),
+    region_hint: curated?.finish ? null : stage.finishDepartment || null,
   });
   return wps;
 }
@@ -487,6 +574,7 @@ module.exports = {
   fetchEditionHtml,
   reconstructionWaypoints,
   resolveViaCoords,
+  FRENCH_DEPARTMENTS,
   editionNotes,
   historicHighlights,
   stageConfidence,

@@ -54,7 +54,8 @@ CREATE TABLE IF NOT EXISTS waypoints (
   approximated INTEGER NOT NULL DEFAULT 0,
   source TEXT,
   bonus_sec TEXT,                -- JSON : bonifications en secondes à ce point (ex. "[3,2,1]")
-  country_hint TEXT              -- pays hors France si connu (import Wikipédia) — voir ensureColumn ci-dessous
+  country_hint TEXT,             -- pays hors France si connu (import Wikipédia) — voir ensureColumn ci-dessous
+  region_hint TEXT               -- département français si connu (import Wikipédia) — voir ensureColumn ci-dessous
 );
 CREATE INDEX IF NOT EXISTS idx_waypoints_stage ON waypoints(stage_id, idx);
 
@@ -181,6 +182,7 @@ function getDb() {
   ensureColumn(db, 'climbs', 'irregularity_index', 'irregularity_index REAL');
   ensureColumn(db, 'waypoints', 'bonus_sec', 'bonus_sec TEXT');
   ensureColumn(db, 'waypoints', 'country_hint', 'country_hint TEXT');
+  ensureColumn(db, 'waypoints', 'region_hint', 'region_hint TEXT');
   // Chantier L, Tour de France Femmes : `year` seul comme clé d'édition
   // aurait fait écraser silencieusement l'un des deux tours par
   // importEdition() (DELETE + INSERT sur la même année) dès qu'Hommes et
