@@ -103,13 +103,18 @@ test('import 2026 : le waypoint « Col de Toses » (étape 3) est persisté avec
   assert.strictEqual(toses.lat, 42.336);
   assert.strictEqual(toses.lon, 1.9911);
   assert.strictEqual(toses.altitude_hint_m, 1790);
-  // Non-régression : un via sans coordonnées curées (même étape) reste NULL
-  // en base, pas une valeur héritée par erreur du waypoint précédent.
+  // Le second via de la même étape a lui aussi des coordonnées curées
+  // (ajoutées le 31/08/2026 : « Col du Calvaire » désigne deux cols français
+  // homonymes — Vosges et Pyrénées-Orientales — et l'index POI Géoplateforme
+  // ne connaît que celui des Vosges, faisant générer un trajet à 1788 km au
+  // lieu de 195,9 km officiels sans ce repli) — distinctes de celles de Col
+  // de Toses, pas une valeur héritée par erreur du waypoint précédent.
   const calvaire = db.prepare('SELECT lat, lon FROM waypoints WHERE stage_id = ? AND label = ?')
     .get(stage3.id, 'Col du Calvaire');
   assert.ok(calvaire, 'le waypoint Col du Calvaire doit exister en base');
-  assert.strictEqual(calvaire.lat, null);
-  assert.strictEqual(calvaire.lon, null);
+  assert.strictEqual(calvaire.lat, 42.5115538);
+  assert.strictEqual(calvaire.lon, 2.0499232);
+  assert.notStrictEqual(calvaire.lat, toses.lat, 'ne doit pas hériter des coordonnées du Col de Toses');
 });
 
 test('GET /api/editions/highlights : liste triée des éditions mythiques, sans besoin d\'import préalable', async () => {

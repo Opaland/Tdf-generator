@@ -108,11 +108,12 @@ test('reconstructionWaypoints() : region_hint absent quand aucune annotation de 
   assert.strictEqual(wps[wps.length - 1].region_hint, null);
 });
 
-test('reconstructionWaypoints() : region_hint jamais propagé pour un départ/arrivée CURÉ, même si stage porte une annotation', () => {
+test('reconstructionWaypoints() : region_hint jamais deviné automatiquement pour un départ/arrivée CURÉ (forme chaîne), même si stage porte une annotation', () => {
   // Même garde-fou que country_hint (curated?.start ? null : ...) : un
   // parcours curé (historic_routes.json) porte un libellé choisi à la main,
   // jamais une annotation de département devinée depuis le Wikipédia brut.
-  // 1903 étape 1 (Paris → Lyon) est entièrement curée dans ce dépôt.
+  // 1903 étape 1 (Paris → Lyon) est entièrement curée dans ce dépôt, sous
+  // forme chaîne simple (pas d'ambiguïté connue sur ces deux noms).
   const stage = {
     number: 1, start: 'Paris', finish: 'Lyon',
     startDepartment: 'Ne devrait jamais apparaître', finishDepartment: 'Ne devrait jamais apparaître',
@@ -120,6 +121,26 @@ test('reconstructionWaypoints() : region_hint jamais propagé pour un départ/ar
   const wps = reconstructionWaypoints(1903, stage);
   assert.strictEqual(wps[0].region_hint, null);
   assert.strictEqual(wps[wps.length - 1].region_hint, null);
+});
+
+test('reconstructionWaypoints() : region_hint explicite propagé pour un départ/arrivée curé en forme objet { label, region }', () => {
+  // Trouvaille du 31/08/2026 (vérification du run complet post-PR #167) :
+  // 2026 étape 3 (Granollers → Les Angles) génère 1788 km au lieu de 195,9 km
+  // officiels — l'arrivée "Les Angles" (chaîne simple) géocodait au mauvais
+  // homonyme (Gard, score 0,9818 sur l'index address,poi réellement utilisé
+  // par geocode() pour une arrivée) au lieu du bon (Pyrénées-Orientales,
+  // score 0,9727 — à égalité stricte avec Hautes-Pyrénées, vrai quasi-tie
+  // Géoplateforme) faute de tout indice de région pour un libellé curé.
+  // Contrairement au qualificatif Wikipédia (jamais deviné
+  // pour un parcours curé — test ci-dessus), une forme objet explicite
+  // { label, region } écrite à la main dans historic_routes.json DOIT
+  // pouvoir fournir ce region_hint : c'est un choix humain, pas une
+  // supposition automatique.
+  const stage = { number: 3, start: 'ignoré (curé)', finish: 'ignoré (curé)' };
+  const wps = reconstructionWaypoints(2026, stage);
+  const finish = wps[wps.length - 1];
+  assert.strictEqual(finish.label, 'Les Angles');
+  assert.strictEqual(finish.region_hint, 'Pyrénées-Orientales');
 });
 
 test('parseCourse() : extrait et retire le qualificatif de département d\'une commune française homonyme', () => {

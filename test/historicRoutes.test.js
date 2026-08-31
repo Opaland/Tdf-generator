@@ -24,6 +24,13 @@ function viaLabel(via) {
   return typeof via === 'string' ? via : via.label;
 }
 
+// start/finish curés partagent le même schéma chaîne-ou-objet que les vias
+// (voir pipeline/wikipedia.js reconstructionWaypoints()) depuis l'ajout du
+// region_hint curé (2026 étape 3, "Les Angles" Gard vs Pyrénées-Orientales).
+function entryLabel(entry) {
+  return entry == null ? entry : typeof entry === 'string' ? entry : entry.label;
+}
+
 test('historic_routes.json : deux points de passage consécutifs ne partagent jamais le même label', () => {
   // Vérifie l'ADJACENCE dans toute la séquence start→vias→finish, pas
   // n'importe quelle occurrence répétée du même label : une étape peut
@@ -50,7 +57,7 @@ test('historic_routes.json : deux points de passage consécutifs ne partagent ja
     for (const [stageNum, stage] of Object.entries(edition.stages || {})) {
       const vias = stage.vias || [];
       if (!vias.length) continue;
-      const sequence = [stage.start, ...vias.map(viaLabel), stage.finish].filter(Boolean);
+      const sequence = [entryLabel(stage.start), ...vias.map(viaLabel), entryLabel(stage.finish)].filter(Boolean);
       for (let i = 1; i < sequence.length; i++) {
         if (sequence[i] === sequence[i - 1]) {
           offenders.push(`${year} étape ${stageNum} : "${sequence[i]}" apparaît deux fois de suite (position ${i - 1}/${i})`);
@@ -268,13 +275,17 @@ test('reconstructionWaypoints : « Col de Toses » (2026 étape 3) résout lat/l
   assert.strictEqual(wp.lat, 42.336);
   assert.strictEqual(wp.lon, 1.9911);
   assert.strictEqual(wp.altitude_hint_m, 1790);
-  // Non-régression : le second col de la même étape n'a pas de coordonnées
-  // curées dans known_cols.json — ne doit RIEN hériter de Col de Toses ni
-  // se voir attribuer des coordonnées inventées.
+  // Le second col de la même étape a ses PROPRES coordonnées curées dans
+  // known_cols.json (ajoutées le 31/08/2026 — deux cols homonymes "Col du
+  // Calvaire" existent en France, Vosges et Pyrénées-Orientales ; sans lat/lon
+  // curées, le géocodage tombe sur l'homonyme vosgien, seul connu de l'index
+  // POI Géoplateforme) — distinctes de celles de Col de Toses, jamais
+  // héritées ni inventées.
   const calvaire = wps.find((w) => w.label === 'Col du Calvaire');
   assert.ok(calvaire, 'le Col du Calvaire doit être un via de cette étape');
-  assert.strictEqual(calvaire.lat, null);
-  assert.strictEqual(calvaire.lon, null);
+  assert.strictEqual(calvaire.lat, 42.5115538);
+  assert.strictEqual(calvaire.lon, 2.0499232);
+  assert.notStrictEqual(calvaire.lat, wp.lat, 'ne doit pas hériter des coordonnées du Col de Toses');
 });
 
 test('reconstructionWaypoints : propage bonus_sec du via sprint et de l\'arrivée (2023 étape 9, Puy de Dôme)', () => {
