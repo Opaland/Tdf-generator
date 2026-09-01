@@ -480,9 +480,9 @@
         "confidence": [
           {
             "claim": "altitude du col du Noyer",
-            "status": "UNSURE",
-            "level": "basse",
-            "detail": "non vérifiée à ce jour, absente de known_cols.json"
+            "status": "OK",
+            "level": "haute",
+            "detail": "vérifiée le 01/09/2026 (correctif issue #108) : 1664 m (Wikipédia anglaise, https://en.wikipedia.org/wiki/Col_du_Noyer, recoupée par provence-alpes-cotedazur.com), désormais dans known_cols.json avec coordonnées curées — l'absence d'altitude connue laissait aussi passer sans alerte un géocodage erroné de ce waypoint (voir known_cols.json)."
           }
         ]
       },
