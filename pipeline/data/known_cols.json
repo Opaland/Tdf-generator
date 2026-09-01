@@ -14,7 +14,9 @@
   },
   "Col d'Allos": {
     "ele": 2250,
-    "source": "recoupé via recherche web (article Wikipedia Col d'Allos + fiches Provence-Alpes-Côte d'Azur Tourisme) lors de l'ajout de l'édition 1922"
+    "lat": 44.297809,
+    "lon": 6.595726,
+    "source": "altitude : recoupé via recherche web (article Wikipedia Col d'Allos + fiches Provence-Alpes-Côte d'Azur Tourisme) lors de l'ajout de l'édition 1922. Coordonnées ajoutées le 01/09/2026 (correctif issue #108, classe de bug « Col du Mont-Cenis » — même mécanisme, cols distincts) : avec le `near` réel de l'étape 1922/10 (Colle Saint-Michel, waypoint précédent), pickFeature() (pipeline/geocode.js) résolvait ce waypoint sur un point sans rapport à 34 km (« Basse de l'Aigle », 43,99/6,60, altitude mesurée 1480 m) au lieu du vrai col — vérifié en rejouant geocodeCol() avec le near réel de la production, pas seulement en isolation. Coordonnées reprises du meilleur candidat Géoplateforme (index POI, requête isolée sans near, score 0,70) : « Refuge du Col d'Allos » (aucun POI catégorie 'col' distinct pour ce nom dans l'index IGN, seul un refuge situé au col lui-même) — altitude réelle à ce point (RGE ALTI) : 2228 m, à 22 m de la valeur déjà documentée ci-dessus, marge cohérente avec celle déjà acceptée pour Cormet de Roselend."
   },
   "Col d'Aspin": {
     "ele": 1490,
@@ -42,7 +44,9 @@
   },
   "Col de Portet-d'Aspet": {
     "ele": 1069,
-    "source": "valeur reprise telle quelle des occurrences déjà présentes dans historic_routes.json (cohérentes entre elles) ; sourcing détaillé par édition dans le champ notes de chaque année du fichier d'origine"
+    "lat": 42.944785,
+    "lon": 0.854002,
+    "source": "altitude : valeur reprise telle quelle des occurrences déjà présentes dans historic_routes.json (cohérentes entre elles) ; sourcing détaillé par édition dans le champ notes de chaque année du fichier d'origine. Coordonnées ajoutées le 01/09/2026 (correctif issue #108, classe de bug « Col du Mont-Cenis ») : avec le `near` réel de l'étape 2024/15 (Col de Menté, waypoint précédent), pickFeature() résolvait ce waypoint sur un col voisin sans rapport, « Col de la Bène » (1,75 km plus proche du near, altitude mesurée 1205 m) au lieu du vrai col — vérifié en rejouant geocodeCol() avec le near réel de la production. Coordonnées reprises du meilleur candidat Géoplateforme (index POI, requête isolée sans near, score 0,88, nom quasi identique à la requête) : altitude réelle à ce point (RGE ALTI) 1068 m, à 1 m de la valeur déjà documentée ci-dessus."
   },
   "Col de Sarenne": {
     "ele": 1999,
@@ -64,7 +68,9 @@
   },
   "Col de Vars": {
     "ele": 2108,
-    "source": "recoupé via recherche web (article Wikipedia Col de Vars + fiches Provence-Alpes-Côte d'Azur Tourisme) lors de l'ajout de l'édition 1922"
+    "lat": 44.538877,
+    "lon": 6.702828,
+    "source": "altitude : recoupé via recherche web (article Wikipedia Col de Vars + fiches Provence-Alpes-Côte d'Azur Tourisme) lors de l'ajout de l'édition 1922. Coordonnées ajoutées le 01/09/2026 (correctif issue #108, classe de bug « Col du Mont-Cenis ») : avec le `near` réel de l'étape 1922/10 (Col d'Allos, lui-même déjà mal résolu avant son propre correctif ci-dessus — l'erreur se propageait en cascade au col suivant), pickFeature() résolvait ce waypoint sur un col voisin sans rapport, « Baisse de Thièry » (69 km, altitude mesurée 858 m) au lieu du vrai col — vérifié en rejouant geocodeCol() avec le near réel de la production. Coordonnées reprises du meilleur candidat Géoplateforme (index POI, requête isolée sans near, score 0,89, nom exact) : altitude réelle à ce point (RGE ALTI) 2110 m, à 2 m de la valeur déjà documentée ci-dessus."
   },
   "Col de la Colmiane": {
     "ele": 1500,
@@ -114,7 +120,15 @@
   },
   "Col du Mont-Cenis": {
     "ele": 2085,
-    "source": "Wikipédia française (infobox, sourcée IGN), 30/08/2026 : https://fr.wikipedia.org/wiki/Col_du_Mont-Cenis — recoupé par échantillonnage RGE ALTI au point géocodé réel (data.geopf.fr, index POI) : 2082,82 m, à environ 2 m de la valeur IGN. Passage confirmé au Tour 1992, étape 13 (Saint-Gervais-les-Bains → Sestriere) via bikeraceinfo.com."
+    "lat": 45.259852,
+    "lon": 6.900833,
+    "source": "Wikipédia française (infobox, sourcée IGN), 30/08/2026 : https://fr.wikipedia.org/wiki/Col_du_Mont-Cenis — recoupé par échantillonnage RGE ALTI au point géocodé réel (data.geopf.fr, index POI) : 2082,82 m, à environ 2 m de la valeur IGN. Passage confirmé au Tour 1992, étape 13 (Saint-Gervais-les-Bains → Sestriere) via bikeraceinfo.com. Coordonnées ajoutées le 01/09/2026 (correctif issue #108, artefact « Côte de Bonneval-sur-Arc ») : cette altitude avait été recoupée SANS near (geocode() isolé), donc juste — mais pipeline/generate.js chaîne toujours un `near` (waypoint précédent, ici le col de l'Iseran). Vérifié en rejouant le pipeline réel (reconstructionWaypoints() + generateStage(), cache vide) : avec ce near, pickFeature() résout « Col du Mont-Cenis » sur un AUTRE col de l'index POI, « Col du Pisset » (45.375932/6.974389, ~14,5 km au nord du vrai col, altitude réelle 2958 m — la signature exacte de l'artefact « Bonneval-sur-Arc » 2953 m/36 % observé en production). Cause : pour une requête de col, `near` départage par pure distance TOUS les candidats POI dès qu'aucun n'est classé type='summit' (la catégorie IGN des cols est 'col', jamais 'sommet' — le garde-fou summit de pickFeature() ne s'applique donc jamais ici), sans jamais tenir compte du score de pertinence textuelle ni du nom — « Col du Pisset » (score 0,61) bat « Col du Mont Cenis » (score 0,79, nom quasi identique à la requête) simplement parce qu'il est plus proche de l'Iseran. Coordonnées du vrai col reprises du candidat POI au score le plus élevé (data.geopf.fr, index=poi, requête « Col du Mont-Cenis ») : altitude resondée à ce point, 2082,85 m, à 0,03 m de la valeur déjà documentée ci-dessus — confirme qu'il s'agit bien du même point que le recoupement initial. lat/lon court-circuitent le géocodage pour ce waypoint (même mécanisme que Col de Toses ci-dessus) plutôt que de corriger l'algorithme général de pickFeature() — plus sûr : les autres cols de cette étape (Saisies, Roselend, Iseran) résolvent déjà correctement avec le mécanisme near existant, un changement d'algorithme risquerait de les régresser pour corriger un seul cas déjà bien identifié."
+  },
+  "Col du Noyer": {
+    "ele": 1664,
+    "lat": 44.691547,
+    "lon": 5.985707,
+    "source": "Ajouté le 01/09/2026 (correctif issue #108, classe de bug « Col du Mont-Cenis »). Cette entrée n'existait pas dans known_cols.json — l'édition 2026, étape 19 (Gap → L'Alpe d'Huez) portait un `confidence: UNSURE` explicite sur l'altitude de ce col (historic_routes.json), jamais résolu depuis. Avec le `near` réel de l'étape (Gap, ville de départ), pickFeature() résolvait ce waypoint sur un point sans rapport à ~9 km (2037 m mesurés, aucun garde-fou d'altitude pour le détecter puisque `ele` était absent de ce référentiel — donc le check qualité correspondant, pipeline/checks.js, était silencieusement sauté) — vérifié en rejouant geocodeCol() avec le near réel de la production. Altitude officielle : 1664 m (Wikipédia anglaise, https://en.wikipedia.org/wiki/Col_du_Noyer, recoupée par provence-alpes-cotedazur.com). Coordonnées reprises du meilleur (et seul) candidat Géoplateforme pour ce nom (index POI, requête isolée sans near, score 0,89, nom exact) : altitude réelle à ce point (RGE ALTI) 1656 m, à 8 m de la valeur Wikipédia — marge cohérente avec celle déjà acceptée pour Cormet de Roselend."
   },
   "Col du Pin-Bouchain": {
     "ele": 759,
@@ -138,7 +152,9 @@
   },
   "Hourquette d'Ancizan": {
     "ele": 1564,
-    "source": "valeur reprise telle quelle des occurrences déjà présentes dans historic_routes.json (cohérentes entre elles) ; sourcing détaillé par édition dans le champ notes de chaque année du fichier d'origine"
+    "lat": 42.899891,
+    "lon": 0.305907,
+    "source": "altitude : valeur reprise telle quelle des occurrences déjà présentes dans historic_routes.json (cohérentes entre elles) ; sourcing détaillé par édition dans le champ notes de chaque année du fichier d'origine. Coordonnées ajoutées le 01/09/2026 (correctif issue #108, classe de bug « Col du Mont-Cenis ») : avec le `near` réel de l'étape 2024/14 (Col du Tourmalet, waypoint précédent), pickFeature() résolvait ce waypoint sur un lieu-dit voisin sans rapport, « Hourquet de Bern » (4,5 km plus proche du near, altitude mesurée 1130 m) au lieu du vrai col — vérifié en rejouant geocodeCol() avec le near réel de la production. Coordonnées reprises du meilleur candidat Géoplateforme (index POI, requête isolée sans near, score 0,88, nom exact) : altitude réelle à ce point (RGE ALTI) 1564 m, identique à la valeur déjà documentée ci-dessus."
   },
   "Mont Ventoux": {
     "ele": 1909,

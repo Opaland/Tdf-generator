@@ -236,10 +236,14 @@ test('stageConfidence : renvoie [] pour une étape sans réserve connue, le dét
   assert.ok(puyDeDome.every((c) => c.status === 'UNSURE'));
   assert.match(puyDeDome[0].claim, /1415|1 415/);
 
+  // Passée UNSURE → OK le 01/09/2026 (correctif issue #108) : altitude du
+  // Col du Noyer désormais vérifiée (Wikipédia) et curée dans
+  // known_cols.json — voir le test dédié à la classe de bug « Col du
+  // Mont-Cenis » plus haut dans ce fichier.
   const colDuNoyer = stageConfidence(2026, 19);
   assert.strictEqual(colDuNoyer.length, 1);
-  assert.strictEqual(colDuNoyer[0].status, 'UNSURE');
-  assert.strictEqual(colDuNoyer[0].level, 'basse');
+  assert.strictEqual(colDuNoyer[0].status, 'OK');
+  assert.strictEqual(colDuNoyer[0].level, 'haute');
 });
 
 test('reconstructionWaypoints : le col du Tourmalet résout son altitude via known_cols.json sans ele local', () => {
@@ -286,6 +290,123 @@ test('reconstructionWaypoints : « Col de Toses » (2026 étape 3) résout lat/l
   assert.strictEqual(calvaire.lat, 42.5115538);
   assert.strictEqual(calvaire.lon, 2.0499232);
   assert.notStrictEqual(calvaire.lat, wp.lat, 'ne doit pas hériter des coordonnées du Col de Toses');
+});
+
+test('reconstructionWaypoints : « Col du Mont-Cenis » (1992 étape 13) résout lat/lon via known_cols.json — repli pour un near-hint qui résolvait un mauvais col voisin', () => {
+  // Trouvaille du 01/09/2026 (correctif issue #108, artefact « Côte de
+  // Bonneval-sur-Arc »). Contrairement à Col de Toses/Calvaire ci-dessus (col
+  // hors du référentiel IGN, ou deux vrais homonymes français), ce col EST
+  // correctement résolu par un geocode() isolé (score de pertinence textuelle
+  // le plus haut, 0,79) — le bug n'apparaît qu'avec le `near` que
+  // pipeline/generate.js chaîne toujours depuis le waypoint précédent (ici le
+  // col de l'Iseran) : pickFeature() départage alors TOUS les candidats POI
+  // « col » par pure distance, sans jamais tenir compte du nom ni du score,
+  // et un col voisin sans rapport (« Col du Pisset », ~14,5 km plus proche de
+  // l'Iseran, 2958 m) l'emporte sur le vrai « Col du Mont Cenis » (2083 m) —
+  // vérifié en rejouant le pipeline réel (reconstructionWaypoints() +
+  // generateStage(), cache vide, hors mock) avant et après ce correctif.
+  const stage = HISTORIC_ROUTES['1992'].stages['13'];
+  assert.ok(stage, 'édition 1992, étape 13 attendue dans la fixture de test');
+  const montCenis = (stage.vias || []).find((v) => typeof v === 'object' && v.label === 'Col du Mont-Cenis');
+  assert.ok(montCenis, 'le Col du Mont-Cenis doit être un via de cette étape');
+  assert.strictEqual(montCenis.lat, undefined, 'ne doit pas porter ses propres lat/lon locaux (repris de known_cols.json sinon)');
+  const wps = reconstructionWaypoints(1992, { number: 13, start: stage.start, finish: stage.finish });
+  const wp = wps.find((w) => w.label === 'Col du Mont-Cenis');
+  assert.strictEqual(wp.lat, 45.259852);
+  assert.strictEqual(wp.lon, 6.900833);
+  assert.strictEqual(wp.altitude_hint_m, 2085);
+  // Les cols voisins de la même étape (Iseran, Saisies, Roselend) résolvent
+  // déjà correctement via le mécanisme near existant, sans coordonnées
+  // curées — le correctif ne doit toucher que Col du Mont-Cenis.
+  const iseran = wps.find((w) => w.label === "Col de l'Iseran");
+  assert.ok(iseran, "le col de l'Iseran doit être un via de cette étape");
+  assert.strictEqual(iseran.lat, null, "l'Iseran n'est pas affecté par ce correctif, pas de coordonnées curées");
+});
+
+test('reconstructionWaypoints : classe de bug « Col du Mont-Cenis » retrouvée sur 4 autres cols déjà présents dans historic_routes.json', () => {
+  // Trouvaille de relecture adverse (01/09/2026, issue #108) : le mécanisme
+  // qui a produit l'artefact « Côte de Bonneval-sur-Arc » (near-hint
+  // départageant tous les candidats POI d'une requête de col par pure
+  // distance, sans jamais tenir compte du score de pertinence textuelle ni
+  // du nom — voir pickFeature(), pipeline/geocode.js) n'est pas propre au
+  // Col du Mont-Cenis. Rejoué avec le vrai `near` de production
+  // (geocodeCol() chaîné exactement comme pipeline/generate.js) pour
+  // chacun de ces 4 cols : chacun résout correctement en isolation mais sur
+  // un col voisin sans rapport une fois chaîné avec le waypoint précédent
+  // réel de son étape — vérifié en direct sur data.geopf.fr avant ce
+  // correctif, pas seulement supposé par analogie avec Mont-Cenis.
+
+  // 1922 étape 10 : Colle Saint-Michel → Col d'Allos → Col de Vars → Col d'Izoard
+  // Col d'Allos seul : « Basse de l'Aigle » (34 km, 1480 m) l'emportait sur le
+  // vrai col (2250 m) avec near=Colle Saint-Michel.
+  // Col de Vars : « Baisse de Thièry » (69 km, 858 m) l'emportait sur le vrai
+  // col (2108 m) avec near=Col d'Allos — une cascade, puisque Col d'Allos
+  // était lui-même déjà mal résolu avant son propre correctif.
+  {
+    const stage = HISTORIC_ROUTES['1922'].stages['10'];
+    assert.ok(stage, 'édition 1922, étape 10 attendue dans la fixture de test');
+    const wps = reconstructionWaypoints(1922, { number: 10, start: stage.start, finish: stage.finish });
+    const allos = wps.find((w) => w.label === "Col d'Allos");
+    assert.ok(allos, "le Col d'Allos doit être un via de cette étape");
+    assert.strictEqual(allos.lat, 44.297809);
+    assert.strictEqual(allos.lon, 6.595726);
+    assert.strictEqual(allos.altitude_hint_m, 2250);
+    const vars = wps.find((w) => w.label === 'Col de Vars');
+    assert.ok(vars, 'le Col de Vars doit être un via de cette étape');
+    assert.strictEqual(vars.lat, 44.538877);
+    assert.strictEqual(vars.lon, 6.702828);
+    assert.strictEqual(vars.altitude_hint_m, 2108);
+  }
+
+  // 2024 étape 14 : Col du Tourmalet → Hourquette d'Ancizan
+  // « Hourquet de Bern » (4,5 km, 1130 m) l'emportait sur le vrai col
+  // (1564 m) avec near=Col du Tourmalet.
+  {
+    const stage = HISTORIC_ROUTES['2024'].stages['14'];
+    assert.ok(stage, 'édition 2024, étape 14 attendue dans la fixture de test');
+    const wps = reconstructionWaypoints(2024, { number: 14, start: stage.start, finish: stage.finish });
+    const hourquette = wps.find((w) => w.label === "Hourquette d'Ancizan");
+    assert.ok(hourquette, "la Hourquette d'Ancizan doit être un via de cette étape");
+    assert.strictEqual(hourquette.lat, 42.899891);
+    assert.strictEqual(hourquette.lon, 0.305907);
+    assert.strictEqual(hourquette.altitude_hint_m, 1564);
+  }
+
+  // 2024 étape 15 : Peyresourde → Menté → Col de Portet-d'Aspet → Agnès
+  // « Col de la Bène » (1,75 km, 1205 m) l'emportait sur le vrai col
+  // (1069 m) avec near=Col de Menté.
+  {
+    const stage = HISTORIC_ROUTES['2024'].stages['15'];
+    assert.ok(stage, 'édition 2024, étape 15 attendue dans la fixture de test');
+    const wps = reconstructionWaypoints(2024, { number: 15, start: stage.start, finish: stage.finish });
+    const portet = wps.find((w) => w.label === "Col de Portet-d'Aspet");
+    assert.ok(portet, "le Col de Portet-d'Aspet doit être un via de cette étape");
+    assert.strictEqual(portet.lat, 42.944785);
+    assert.strictEqual(portet.lon, 0.854002);
+    assert.strictEqual(portet.altitude_hint_m, 1069);
+    // Menté n'est pas affecté par ce correctif (résout déjà correctement
+    // avec near=Peyresourde) : pas de coordonnées curées.
+    const mente = wps.find((w) => w.label === 'Col de Menté');
+    assert.ok(mente, 'le Col de Menté doit être un via de cette étape');
+    assert.strictEqual(mente.lat, null, "Menté n'est pas affecté par ce correctif, pas de coordonnées curées");
+  }
+
+  // 2026 étape 19 : Gap → Col du Noyer → L'Alpe d'Huez
+  // Aucune entrée known_cols.json avant ce correctif (confidence: UNSURE
+  // sur l'altitude) : un point sans rapport (~9 km, 2037 m) l'emportait sur
+  // le vrai col (1664 m) avec near=Gap, sans aucun garde-fou d'altitude
+  // pour le détecter (pipeline/checks.js saute le check si `ele` est
+  // absent de known_cols.json).
+  {
+    const stage = HISTORIC_ROUTES['2026'].stages['19'];
+    assert.ok(stage, 'édition 2026, étape 19 attendue dans la fixture de test');
+    const wps = reconstructionWaypoints(2026, { number: 19, start: stage.start, finish: stage.finish });
+    const noyer = wps.find((w) => w.label === 'Col du Noyer');
+    assert.ok(noyer, 'le Col du Noyer doit être un via de cette étape');
+    assert.strictEqual(noyer.lat, 44.691547);
+    assert.strictEqual(noyer.lon, 5.985707);
+    assert.strictEqual(noyer.altitude_hint_m, 1664);
+  }
 });
 
 test('reconstructionWaypoints : propage bonus_sec du via sprint et de l\'arrivée (2023 étape 9, Puy de Dôme)', () => {
