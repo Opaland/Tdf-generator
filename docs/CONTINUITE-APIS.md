@@ -5,7 +5,8 @@
 | Service | Usage | Hôte |
 |---|---|---|
 | IGN Géoplateforme | géocodage + altimétrie (France) | `data.geopf.fr` |
-| OSRM public (projet OSRM) | routage sur route (partout) | `router.project-osrm.org` |
+| BRouter public | routage vélo (partout, **primaire** depuis le 31/08/2026, issue #169) | `brouter.de` |
+| OSRM public (projet OSRM) | routage voiture — **repli seulement** si BRouter échoue (voir issue #169 : le service public OSRM ignore le profil demandé, toujours voiture) | `router.project-osrm.org` |
 | Nominatim (OpenStreetMap) | géocodage (hors France) | `nominatim.openstreetmap.org` |
 | opentopodata (EU-DEM) | altimétrie (hors France) | `api.opentopodata.org` |
 | Wikipédia | listes d'étapes historiques (mode archives) | `en.wikipedia.org` |
@@ -38,14 +39,17 @@ pour un kit pensé pour tourner en continu (Synology, Raspberry Pi).
   sonde chaque service en une requête, avec latence et statut — le point de
   départ pour tout dépannage ou alerting externe (voir plus bas).
 
-## Auto-hébergement d'OSRM
+## Auto-hébergement d'OSRM (routage de repli)
 
-Le routage est le seul des cinq services ci-dessus pour lequel
-l'auto-hébergement est aujourd'hui câblé dans le code : `pipeline/routing.js`
-lit l'URL de base depuis `ETAPEFORGE_OSRM` (repli sur le service public si
-absente). Auto-héberger le géocodage/l'altimétrie IGN ou Nominatim/opentopodata
-n'est **pas** pris en charge actuellement — hors scope de ce document, à
-traiter séparément si le besoin se confirme.
+Le routage voiture de repli est, pour l'instant, le seul des six services
+ci-dessus pour lequel l'auto-hébergement est câblé dans le code :
+`pipeline/routing.js` lit l'URL de base depuis `ETAPEFORGE_OSRM` (repli sur
+le service public si absente). Auto-héberger BRouter (le routeur désormais
+primaire), le géocodage/l'altimétrie IGN ou Nominatim/opentopodata n'est
+**pas** pris en charge actuellement — hors scope de ce document, à traiter
+séparément si le besoin se confirme (`ETAPEFORGE_BROUTER` existe déjà côté
+code pour pointer vers une instance BRouter auto-hébergée le jour où ce
+guide sera écrit, mais aucune procédure n'est documentée ici à ce jour).
 
 ### Docker (extrait France, profil vélo)
 

@@ -1,21 +1,23 @@
 'use strict';
 // Revue de code globale de fin de session : GET /api/diagnostic enchaînait
-// ses 6 sondes de connectivité (Géoplateforme géocodage/altimétrie, OSRM,
-// Nominatim, opentopodata, Wikipédia — 6 hôtes indépendants, chacun avec son
+// ses sondes de connectivité (Géoplateforme géocodage/altimétrie, OSRM,
+// Nominatim, opentopodata, Wikipédia — hôtes indépendants, chacun avec son
 // propre timeout de 8 s) en série (`results.push(await probe(...))`) au lieu
 // de les lancer en parallèle — un seul service lent ajoutait son délai
 // complet au total plutôt que d'être masqué par les autres, jusqu'à ~48 s
 // pour une page censée être un diagnostic rapide. Passé à `Promise.all`.
+// BRouter ajouté le 31/08/2026 (issue #169) comme 7ᵉ hôte, fournisseur de
+// routage désormais primaire (OSRM en repli seulement).
 //
 // Vérifie deux choses que seul un vrai timing peut prouver (une simple
 // vérification du JSON retourné passerait aussi bien avec l'ancien code
 // séquentiel) :
-//  1. le temps total est borné par le plus lent des 6 délais simulés, pas
+//  1. le temps total est borné par le plus lent des 7 délais simulés, pas
 //     leur somme ;
 //  2. l'ordre des résultats dans le tableau reste l'ordre fixe attendu
-//     (Géoplateforme géocodage, Géoplateforme altimétrie, OSRM, Nominatim,
-//     opentopodata, Wikipédia) même quand les délais simulés les font
-//     résoudre dans l'ordre exactement inverse — `Promise.all` préserve
+//     (Géoplateforme géocodage, Géoplateforme altimétrie, BRouter, OSRM,
+//     Nominatim, opentopodata, Wikipédia) même quand les délais simulés les
+//     font résoudre dans l'ordre exactement inverse — `Promise.all` préserve
 //     l'ordre du tableau d'entrée, pas l'ordre de résolution.
 
 const os = require('os');
@@ -34,17 +36,19 @@ const assert = require('node:assert');
 // plutôt que l'ordre du tableau d'entrée, ce test le détecterait (le premier
 // résultat ne serait plus Géoplateforme géocodage).
 const HOST_DELAYS = [
-  { host: 'data.geopf.fr/geocodage', delayMs: 220, body: { features: [{}] } },
-  { host: 'data.geopf.fr/altimetrie', delayMs: 180, body: { elevations: [{ z: 100 }] } },
-  { host: 'router.project-osrm.org', delayMs: 140, body: { code: 'Ok' } },
-  { host: 'nominatim.openstreetmap.org', delayMs: 100, body: [{}] },
-  { host: 'api.opentopodata.org', delayMs: 60, body: { status: 'OK' } },
+  { host: 'data.geopf.fr/geocodage', delayMs: 240, body: { features: [{}] } },
+  { host: 'data.geopf.fr/altimetrie', delayMs: 200, body: { elevations: [{ z: 100 }] } },
+  { host: 'brouter.de', delayMs: 160, body: { type: 'FeatureCollection', features: [{ geometry: { type: 'LineString', coordinates: [[0, 0, 0], [1, 1, 1]] }, properties: { 'track-length': '1000' } }] } }, // chaîne, pas un nombre (vérifié en direct, issue #169)
+  { host: 'router.project-osrm.org', delayMs: 120, body: { code: 'Ok' } },
+  { host: 'nominatim.openstreetmap.org', delayMs: 90, body: [{}] },
+  { host: 'api.opentopodata.org', delayMs: 50, body: { status: 'OK' } },
   { host: 'en.wikipedia.org', delayMs: 20, body: { title: 'Tour de France' } },
 ];
 const EXPECTED_ORDER = [
   'Géoplateforme — géocodage',
   'Géoplateforme — altimétrie (RGE ALTI)',
-  'OSRM — routage',
+  'BRouter — routage (profil vélo, primaire)',
+  'OSRM — routage (profil voiture, repli seulement)',
   'Nominatim — géocodage hors France',
   'opentopodata — altimétrie hors France',
   'Wikipédia — archives',
@@ -58,7 +62,7 @@ before(async () => {
   realFetch = global.fetch;
   global.fetch = async (url, opts) => {
     const entry = HOST_DELAYS.find((h) => String(url).includes(h.host));
-    // Ne simule que les 6 hôtes du diagnostic ; tout le reste (dont les
+    // Ne simule que les 7 hôtes du diagnostic ; tout le reste (dont les
     // requêtes de test vers le serveur local 127.0.0.1) passe par le vrai fetch.
     if (!entry) return realFetch(url, opts);
     await new Promise((r) => setTimeout(r, entry.delayMs));
@@ -77,9 +81,9 @@ after(() => {
   fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true });
 });
 
-test('GET /api/diagnostic : les 6 sondes tournent en parallèle (temps borné par la plus lente, pas leur somme)', async () => {
-  const sumOfDelays = HOST_DELAYS.reduce((a, h) => a + h.delayMs, 0); // 720 ms si séquentiel
-  const maxDelay = Math.max(...HOST_DELAYS.map((h) => h.delayMs)); // 220 ms si parallèle
+test('GET /api/diagnostic : les 7 sondes tournent en parallèle (temps borné par la plus lente, pas leur somme)', async () => {
+  const sumOfDelays = HOST_DELAYS.reduce((a, h) => a + h.delayMs, 0); // 880 ms si séquentiel
+  const maxDelay = Math.max(...HOST_DELAYS.map((h) => h.delayMs)); // 240 ms si parallèle
 
   const t0 = Date.now();
   const res = await fetch(`${base}/api/diagnostic`);
@@ -99,7 +103,7 @@ test('GET /api/diagnostic : les 6 sondes tournent en parallèle (temps borné pa
 test('GET /api/diagnostic : l\'ordre des résultats suit l\'ordre du tableau de probes, pas l\'ordre de résolution', async () => {
   const { results } = await (await fetch(`${base}/api/diagnostic`)).json();
   assert.deepStrictEqual(results.map((r) => r.name), EXPECTED_ORDER);
-  // Les délais simulés sont décroissants dans cet ordre (220 ms → 20 ms) :
+  // Les délais simulés sont décroissants dans cet ordre (240 ms → 20 ms) :
   // si l'ordre suivait la résolution, Wikipédia (20 ms) serait en tête.
   assert.ok(results.every((r) => r.ok), `toutes les sondes doivent réussir avec les réponses simulées : ${JSON.stringify(results)}`);
 });

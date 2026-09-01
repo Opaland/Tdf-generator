@@ -10,9 +10,17 @@
 // consommateurs d'approxSegments (checks/profile/elevationGaps) fabriquent
 // ce tableau à la main plutôt que de le recevoir du vrai producteur.
 //
-// Pour exercer réellement ces branches il faut simuler un routeur (OSRM) qui
+// Pour exercer réellement ces branches il faut simuler un routeur qui
 // s'arrête avant le sommet — mode EN LIGNE avec global.fetch mocké, comme
 // test/diagnosticParallel.test.js et test/geocode.test.js.
+//
+// Migration OSRM → BRouter (31/08/2026, issue #169) : routeLeg() interroge
+// BRouter en premier, jamais OSRM directement (OSRM reste un repli si
+// BRouter échoue) — le mock cible donc brouter.de par défaut
+// (mockBrouterRoute()), au format GeoJSON réel de BRouter (LineString 3D
+// [lon,lat,ele], `properties['track-length']` en mètres), pas le format
+// OSRM. Un test dédié plus bas (mockOsrmOnly + BRouter en échec) vérifie
+// spécifiquement le repli.
 
 const os = require('os');
 const path = require('path');
@@ -46,16 +54,20 @@ after(() => {
   fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true });
 });
 
+/** Mock BRouter (chemin primaire de routeLeg()) — jamais OSRM (repli seulement, voir plus bas). */
 function mockOsrmRoute(points) {
   global.fetch = async (url) => {
-    if (!String(url).includes('router.project-osrm.org')) return realFetch(url);
+    if (!String(url).includes('brouter.de')) return realFetch(url);
     return {
       ok: true,
       status: 200,
       json: async () => ({
-        code: 'Ok',
-        routes: [{ geometry: { coordinates: points.map((p) => [p.lon, p.lat]) }, distance: 1000 }],
-        waypoints: [{ distance: 0 }, { distance: 0 }],
+        type: 'FeatureCollection',
+        features: [{
+          type: 'Feature',
+          geometry: { type: 'LineString', coordinates: points.map((p) => [p.lon, p.lat, 0]) },
+          properties: { 'track-length': '1000' }, // BRouter renvoie une CHAÎNE, pas un nombre (vérifié en direct, issue #169)
+        }],
       }),
     };
   };
@@ -126,4 +138,69 @@ test('routeStage() : écart sous la tolérance sur un waypoint "via" (pas un col
   assert.strictEqual(result.approxSegments.length, 0, 'un waypoint "via" contourné ne doit jamais déclencher d\'interpolation, seul un col/peak le fait');
   assert.strictEqual(result.waypointsOnTrack[1].approximated, false);
   assert.ok(result.waypointsOnTrack[1].offTrackM > COL_TOLERANCE_M * 0.9, 'l\'écart réel doit rester visible dans offTrackM plutôt que masqué par une interpolation');
+});
+
+// Migration OSRM → BRouter (issue #169) : BRouter reste un service public
+// tiers qui peut échouer (pas de tracé trouvé, indisponibilité...) — OSRM
+// doit alors prendre le relais de façon transparente pour l'appelant,
+// jamais faire échouer routeStage() entier tant qu'OSRM répond.
+test('routeLeg()/routeStage() : repli sur OSRM quand BRouter échoue, jamais un échec total', async () => {
+  const a = { lat: 45.1, lon: 6.1, kind: 'via', label: 'A' };
+  const b = { lat: 45.12, lon: 6.1, kind: 'via', label: 'B' };
+  global.fetch = async (url) => {
+    if (String(url).includes('brouter.de')) {
+      return { ok: false, status: 400, json: async () => { throw new Error('pas de JSON sur un 400 BRouter'); } };
+    }
+    if (String(url).includes('router.project-osrm.org')) {
+      return {
+        ok: true,
+        status: 200,
+        json: async () => ({
+          code: 'Ok',
+          routes: [{ geometry: { coordinates: [[a.lon, a.lat], [b.lon, b.lat]] }, distance: 2200 }],
+          waypoints: [{ distance: 0 }, { distance: 0 }],
+        }),
+      };
+    }
+    return realFetch(url);
+  };
+
+  const result = await routeStage([a, b]);
+
+  assert.strictEqual(result.router, 'osrm', 'le repli doit être visible dans le champ router, pas masqué en "brouter"');
+  assert.strictEqual(result.legs[0].roadM, 2200, 'la distance du leg vient bien de la réponse OSRM de repli, pas d\'un échec silencieux à 0');
+});
+
+// Trouvaille de relecture adverse avant tout commit : BRouter renvoie
+// track-length sous forme de CHAÎNE (vérifié en direct sur brouter.de,
+// ex. "2477"), pas de nombre. Number.isFinite() (contrairement à
+// isFinite() global) ne coerce pas les chaînes — sans coercion explicite,
+// routeLegBrouter() rejetterait CHAQUE réponse réelle de BRouter et
+// retomberait silencieusement sur OSRM à chaque appel, rendant la
+// migration inopérante en production malgré des tests tous verts.
+test('routeLeg() : track-length de BRouter en chaîne (format réel de l\'API) est bien accepté, pas rejeté comme invalide', async () => {
+  const a = { lat: 45.2, lon: 6.2, kind: 'via', label: 'A' };
+  const b = { lat: 45.22, lon: 6.2, kind: 'via', label: 'B' };
+  global.fetch = async (url) => {
+    if (String(url).includes('brouter.de')) {
+      return {
+        ok: true,
+        status: 200,
+        json: async () => ({
+          type: 'FeatureCollection',
+          features: [{
+            type: 'Feature',
+            geometry: { type: 'LineString', coordinates: [[a.lon, a.lat, 0], [b.lon, b.lat, 0]] },
+            properties: { 'track-length': '2477' }, // chaîne, comme la vraie API
+          }],
+        }),
+      };
+    }
+    return realFetch(url);
+  };
+
+  const result = await routeStage([a, b]);
+
+  assert.strictEqual(result.router, 'brouter', 'une réponse BRouter valide (même avec track-length en chaîne) ne doit jamais déclencher le repli OSRM');
+  assert.strictEqual(result.legs[0].roadM, 2477);
 });
