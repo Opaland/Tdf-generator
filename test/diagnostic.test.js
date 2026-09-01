@@ -41,7 +41,7 @@ test('runDiagnostic() : le timer d\'abandon est bien annulé même quand fetch()
   global.fetch = async () => { throw new Error('rejet immédiat (simulation de test)'); };
   try {
     await runDiagnostic();
-    assert.strictEqual(armed, 6, 'un timer d\'abandon par sonde');
+    assert.strictEqual(armed, 7, 'un timer d\'abandon par sonde');
     assert.strictEqual(cleared, armed, 'chaque timer armé doit être annulé, même sur un fetch() qui rejette');
   } finally {
     global.fetch = realFetch;
@@ -50,13 +50,13 @@ test('runDiagnostic() : le timer d\'abandon est bien annulé même quand fetch()
   }
 });
 
-test('runDiagnostic() : 6 hôtes, tous en échec → allOk false, chaque résultat garde name/ok/detail/ms', async () => {
+test('runDiagnostic() : 7 hôtes, tous en échec → allOk false, chaque résultat garde name/ok/detail/ms', async () => {
   const realFetch = global.fetch;
   global.fetch = async () => { throw new Error('réseau coupé (simulation de test)'); };
   try {
     const { allOk, results } = await runDiagnostic();
     assert.strictEqual(allOk, false);
-    assert.strictEqual(results.length, 6);
+    assert.strictEqual(results.length, 7);
     for (const r of results) {
       assert.strictEqual(r.ok, false);
       assert.match(r.detail, /réseau coupé/);
@@ -72,6 +72,7 @@ test('runDiagnostic() : tous les hôtes répondent correctement → allOk true',
   const BODIES = {
     'data.geopf.fr/geocodage': { features: [{}] },
     'data.geopf.fr/altimetrie': { elevations: [{ z: 100 }] },
+    'brouter.de': { type: 'FeatureCollection', features: [{ geometry: { type: 'LineString', coordinates: [[0, 0, 0], [1, 1, 1]] }, properties: { 'track-length': '1000' } }] }, // chaîne, pas un nombre (vérifié en direct, issue #169)
     'router.project-osrm.org': { code: 'Ok' },
     'nominatim.openstreetmap.org': [{}],
     'api.opentopodata.org': { status: 'OK' },

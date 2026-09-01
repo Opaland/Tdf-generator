@@ -7,6 +7,11 @@
 // Nominatim et opentopodata, tous deux "hors France", n'étaient jamais
 // sondés en CI). Toujours un vrai appel réseau, quel que soit
 // ETAPEFORGE_OFFLINE — à n'appeler qu'en mode en ligne volontaire.
+//
+// BRouter ajouté le 31/08/2026 (issue #169, migration du routage vers un
+// profil vélo réel) : désormais le fournisseur de routage PRIMAIRE, OSRM
+// n'étant plus qu'un repli — les deux restent sondés séparément, un échec
+// de l'un ne dit rien de l'autre.
 
 const { USER_AGENT } = require('./http');
 
@@ -38,22 +43,32 @@ async function probe(name, url, check) {
 }
 
 /**
- * Sonde les 6 hôtes externes du projet en parallèle (Promise.all préserve
+ * Sonde les 7 hôtes externes du projet en parallèle (Promise.all préserve
  * l'ordre du tableau, pas l'ordre de résolution — un service lent ne doit
  * jamais faire remonter son résultat en tête). Retourne { allOk, results }.
  */
 async function runDiagnostic() {
-  // OSRM_BASE respecte ETAPEFORGE_OSRM (backlog issue #10, section E, "plan
-  // de continuité") : sur un déploiement avec OSRM auto-hébergé, ce test
-  // sonde l'instance réellement utilisée, pas systématiquement le service
-  // public.
-  const { OSRM_BASE } = require('./routing');
+  // OSRM_BASE/BROUTER_BASE respectent ETAPEFORGE_OSRM/ETAPEFORGE_BROUTER
+  // (backlog issue #10, section E, "plan de continuité") : sur un
+  // déploiement avec l'un des deux auto-hébergé, ce test sonde l'instance
+  // réellement utilisée, pas systématiquement le service public.
+  const { OSRM_BASE, BROUTER_BASE, BROUTER_PROFILE } = require('./routing');
   const results = await Promise.all([
     probe('Géoplateforme — géocodage',
       'https://data.geopf.fr/geocodage/search?q=Paris&limit=1', (b) => (b.features || []).length > 0),
     probe('Géoplateforme — altimétrie (RGE ALTI)',
       'https://data.geopf.fr/altimetrie/1.0/calcul/alti/rest/elevation.json?lon=2.35&lat=48.85&resource=ign_rge_alti_wld&zonly=true', (b) => (b.elevations || []).length > 0),
-    probe(`OSRM — routage${OSRM_BASE !== 'https://router.project-osrm.org' ? ' (auto-hébergé)' : ''}`,
+    probe(`BRouter — routage (profil vélo, primaire)${BROUTER_BASE !== 'https://brouter.de/brouter' ? ' (auto-hébergé)' : ''}`,
+      `${BROUTER_BASE}?lonlats=2.35,48.85|2.37,48.86&profile=${BROUTER_PROFILE}&format=geojson`,
+      // Vérifie aussi track-length (pas seulement la géométrie) : BRouter la
+      // renvoie sous forme de chaîne, et pipeline/routing.js la coerce avec
+      // Number() avant de la valider — un vrai bug de ce type (trouvé par
+      // relecture adverse avant tout commit, jamais expédié) serait resté
+      // invisible ici si la sonde ne regardait que la géométrie, alors que
+      // routeLeg() basculerait déjà silencieusement sur OSRM à chaque appel.
+      (b) => Array.isArray(b.features) && b.features.length > 0 && b.features[0].geometry?.type === 'LineString'
+        && Number.isFinite(Number(b.features[0].properties?.['track-length']))),
+    probe(`OSRM — routage (profil voiture, repli seulement)${OSRM_BASE !== 'https://router.project-osrm.org' ? ' (auto-hébergé)' : ''}`,
       `${OSRM_BASE}/route/v1/driving/2.35,48.85;2.37,48.86?overview=false`, (b) => b.code === 'Ok'),
     probe('Nominatim — géocodage hors France',
       'https://nominatim.openstreetmap.org/search?q=Barcelona&format=jsonv2&limit=1', (b) => Array.isArray(b) && b.length > 0),
