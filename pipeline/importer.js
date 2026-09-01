@@ -77,7 +77,15 @@ async function importEdition(year, { category = 'hommes', onProgress } = {}) {
 
     const stages = [];
     for (const s of parsed) {
-      const name = `Étape ${s.number} : ${s.start} → ${s.finish}`;
+      // Prologue (numéroté 0, voir wikipedia.js) : jamais « Étape 0 », son
+      // propre libellé. Un circuit non-Prologue (contre-la-montre par
+      // équipes en boucle, départ = arrivée) garde son numéro mais évite la
+      // flèche redondante vers la même ville (voir parseCircuitCourse()).
+      const name = s.isPrologue
+        ? `Prologue : ${s.start}`
+        : s.start === s.finish
+          ? `Étape ${s.number} : ${s.start} (circuit)`
+          : `Étape ${s.number} : ${s.start} → ${s.finish}`;
       const stageSource = {
         villes: 'wikipedia',
         distance_officielle: 'wikipedia',

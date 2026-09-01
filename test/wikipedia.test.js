@@ -351,6 +351,68 @@ test('parseStagesFromHtml : réaligne une ligne avec une cellule vide en trop, j
   assert.strictEqual(stages2[1].type, 'accidentée');
 });
 
+// Trouvaille du 31/08/2026, en vérifiant en direct pourquoi le Tour 1989
+// (infobox Wikipédia : « 21 + Prologue ») n'importait que 19 étapes :
+// - le Prologue est numéroté « P » dans la colonne étape, jamais un
+//   chiffre, donc invisible à l'ancienne regex /\d+/ (traité comme jour de
+//   repos) ;
+// - le Prologue et les étapes 1/2 de 1989 sont des CIRCUITS (départ =
+//   arrivée à Luxembourg City) : le texte Wikipédia ne porte alors aucun
+//   séparateur « to », que parseCourse() exigeait pour ne pas renvoyer
+//   null ;
+// - l'étape 2 (contre-la-montre par équipes) partage en plus son jour avec
+//   l'étape 1 : sa cellule Date est omise (rowspan HTML), décalant Course/
+//   Distance/Type d'une position vers la gauche — la ligne entière était
+//   rejetée faute de distance exploitable à la bonne position.
+// Les trois causes sont corrigées ensemble ici, sur une reconstitution
+// minimale de la vraie structure de table 1989 (vérifiée en direct le même
+// jour, pas inventée).
+test('parseStagesFromHtml : Prologue, circuit (départ = arrivée) et cellule Date omise (rowspan, même jour)', () => {
+  const html = '<table class="wikitable">' +
+    '<tr><th>Stage</th><th>Date</th><th>Course</th><th>Distance</th><th>Type</th><th>Winner</th></tr>' +
+    '<tr><td>P</td><td>1 July</td><td>Testville</td><td>7.8 km</td><td></td><td>Individual time trial</td><td>Rider A</td></tr>' +
+    '<tr><td>1</td><td>2 July</td><td>Testville</td><td>135.5 km</td><td></td><td>Plain stage</td><td>Rider B</td></tr>' +
+    '<tr><td>2</td><td>Testville</td><td>46 km</td><td></td><td>Team time trial</td><td>Team C</td></tr>' +
+    '<tr><td>3</td><td>3 July</td><td>Testville to Otherville</td><td>241 km</td><td></td><td>Plain stage</td><td>Rider D</td></tr>' +
+    '</table>';
+  const stages = parseStagesFromHtml(html, 1989);
+  assert.strictEqual(stages.length, 4, 'Prologue + 2 circuits + 1 étape normale, aucune perdue');
+
+  const prologue = stages.find((s) => s.number === 0);
+  assert.ok(prologue, 'le Prologue doit être importé, numéroté 0');
+  assert.strictEqual(prologue.isPrologue, true);
+  assert.strictEqual(prologue.start, 'Testville');
+  assert.strictEqual(prologue.finish, 'Testville', 'circuit : départ = arrivée, jamais rejeté faute de "to"');
+  assert.strictEqual(prologue.type, 'clm');
+  assert.strictEqual(prologue.distanceKm, 7.8);
+
+  const stage1 = stages.find((s) => s.number === 1);
+  assert.ok(stage1, 'étape 1 (circuit, numérotée) ne doit pas disparaître avec le Prologue');
+  assert.strictEqual(stage1.isPrologue, false);
+  assert.strictEqual(stage1.start, 'Testville');
+  assert.strictEqual(stage1.finish, 'Testville');
+
+  const stage2 = stages.find((s) => s.number === 2);
+  assert.ok(stage2, 'étape 2 (CLM par équipes, cellule Date omise) doit être importée');
+  assert.strictEqual(stage2.type, 'clm par équipes');
+  assert.strictEqual(stage2.distanceKm, 46);
+  assert.strictEqual(stage2.dateText, '2 July', 'date reprise de la ligne précédente (même jour), jamais devinée autrement');
+  assert.strictEqual(stage2.dateIso, '1989-07-02');
+
+  const stage3 = stages.find((s) => s.number === 3);
+  assert.strictEqual(stage3.start, 'Testville');
+  assert.strictEqual(stage3.finish, 'Otherville', 'étape normale (avec "to") non affectée par ces correctifs');
+});
+
+test('parseCourse() : un lieu unique sans séparateur "to" est un circuit (départ = arrivée), jamais null', () => {
+  assert.deepStrictEqual(
+    parseCourse('Luxembourg City (Luxembourg)'),
+    { start: 'Luxembourg City', finish: 'Luxembourg City', startCountry: 'Luxembourg', finishCountry: 'Luxembourg', startDepartment: null, finishDepartment: null }
+  );
+  assert.strictEqual(parseCourse(''), null, 'texte vide : toujours rejeté, pas un circuit');
+  assert.strictEqual(parseCourse('   '), null, 'texte blanc : toujours rejeté');
+});
+
 test('fonctions unitaires du parseur', () => {
   assert.deepStrictEqual(parseCourse('Paris to Lyon'), { start: 'Paris', finish: 'Lyon', startCountry: null, finishCountry: null, startDepartment: null, finishDepartment: null });
   assert.deepStrictEqual(parseCourse('Pau – Hautacam'), { start: 'Pau', finish: 'Hautacam', startCountry: null, finishCountry: null, startDepartment: null, finishDepartment: null });

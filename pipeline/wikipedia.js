@@ -250,7 +250,7 @@ function stripParensThenVia(text) {
 function parseCourse(text) {
   // « Paris to Lyon », « Paris – Lyon », « Paris > Lyon »
   const m = String(text).match(/^(.*?)\s+(?:to|à|a|>|–|—|-)\s+(.*)$/i);
-  if (!m) return null;
+  if (!m) return parseCircuitCourse(text);
   // Trouvaille en générant en masse avec un vrai accès réseau (27/08/2026) :
   // « Brussels (Belgium) to Brussels (Belgium) via Charleroi (Belgium) »
   // (Tour 2019, étape 1, un circuit qui part et revient à Brussels) donnait
@@ -282,6 +282,35 @@ function parseCourse(text) {
     finishCountry: extractCountry(m[2]),
     startDepartment,
     finishDepartment,
+  };
+}
+
+/**
+ * Étape en circuit (départ = arrivée) : le Prologue et certains contre-la-
+ * montre par équipes sont annoncés par Wikipédia comme un lieu unique, sans
+ * séparateur « to »/« à » (ex. « Luxembourg City (Luxembourg) », Tour 1989,
+ * Prologue et étapes 1/2) — jamais une ligne à rejeter, un vrai circuit.
+ * Trouvaille du 31/08/2026 (vérifié en direct sur le Tour 1989) :
+ * parseCourse() renvoyait null faute de "to", perdant silencieusement ces
+ * étapes en plus du Prologue lui-même (voir aussi le correctif sur le
+ * numéro d'étape dans parseStagesFromHtml() ci-dessous). Même normalisation
+ * que parseCourse() (parenthèses/via/département) appliquée une seule fois,
+ * au même texte utilisé pour départ et arrivée.
+ */
+function parseCircuitCourse(text) {
+  const trimmed = String(text).trim();
+  if (!trimmed) return null;
+  const department = extractDepartment(trimmed);
+  let label = stripParensThenVia(trimmed);
+  if (department) {
+    label = label.replace(new RegExp(`,\\s*${escapeRegExp(department)}\\s*$`, 'i'), '').trim();
+  }
+  if (!label) return null;
+  const country = extractCountry(trimmed);
+  return {
+    start: label, finish: label,
+    startCountry: country, finishCountry: country,
+    startDepartment: department, finishDepartment: department,
   };
 }
 
@@ -335,6 +364,8 @@ function parseStagesFromHtml(html, year) {
     if (iStage < 0 || iDist < 0) continue;
 
     const stages = [];
+    let lastDateText = null;
+    let lastDateIso = null;
     for (const rawRow of rows.slice(1)) {
       if (rawRow.length < 3) continue; // lignes de repos / totaux
       // Certains tableaux (ex. Tour de France Femmes 2022) portent une
@@ -366,6 +397,53 @@ function parseStagesFromHtml(html, year) {
         const nonEmpty = rawRow.filter((c) => String(c.text).trim() !== '');
         if (nonEmpty.length === header.length) row = nonEmpty;
       }
+      // Date omise (rowspan HTML) : un jour partagé par deux étapes (ex. un
+      // contre-la-montre par équipes le même jour que l'étape précédente,
+      // Tour 1989 étape 2) n'a pas de cellule Date propre sur SA ligne — la
+      // cellule Date de la ligne précédente s'étend dessus via `rowspan`,
+      // que node-html-parser n'expose pas comme une cellule dupliquée : la
+      // ligne compte alors une cellule de MOINS que l'en-tête, décalant tout
+      // ce qui suit Date (Course, Distance, Type…) d'une position vers la
+      // gauche — Distance atterrissait dans Course, la vraie Distance
+      // devenait vide, la ligne entière rejetée faute de distance
+      // exploitable (trouvaille du 31/08/2026, Tour 1989 étape 2, en
+      // vérifiant pourquoi seules 21 des 22 étapes annoncées par l'infobox
+      // Wikipédia — « 21 + Prologue » — étaient importées même après le
+      // correctif Prologue/circuit ci-dessus). Réinsère une cellule Date
+      // vide à sa position pour réaligner tout le reste ; la vraie date est
+      // reprise de la ligne précédente (lastDateText/lastDateIso plus bas),
+      // jamais devinée autrement.
+      //
+      // Une ligne Date-omise porte AUSSI, la plupart du temps, la cellule
+      // icône vide déjà gérée ci-dessus (ex. Tour 1989 étape 2 : 6 cellules
+      // pour un en-tête à 6 colonnes — compte identique, donc invisible au
+      // seul test de longueur — mais ce sont ["2", Course, Distance, icône
+      // vide, Type, Winner], pas ["2", Date, Course, Distance, Type,
+      // Winner]). Retirer d'abord les cellules réellement vides (jamais un
+      // « — », qui reste du texte non-vide par convention Wikipédia — voir
+      // plus haut) donne le même déficit d'une cellule qu'une ligne DÉJÀ
+      // alignée qui porterait juste une case légitimement vide ailleurs
+      // (Winner ou Type pas encore connu, ex. « Alpha to Beta » avec Winner
+      // vide) — le seul compte ne suffit donc PAS à distinguer les deux
+      // (trouvaille de relecture adverse, 31/08/2026 : le premier correctif,
+      // basé sur le compte seul, faisait perdre silencieusement CETTE
+      // deuxième forme de ligne — exactement la classe de bug visée).
+      // Deuxième signal, indépendant, exigé EN PLUS : la cellule à la
+      // position Date sur la ligne BRUTE ne ressemble pas à une date
+      // (`parseDate()` échoue) alors qu'elle porte du texte — c'est-à-dire
+      // que ce qui s'y trouve est en réalité le début de Course, jamais une
+      // vraie date mal formée. Sur une ligne réellement alignée, la cellule
+      // Date s'y trouve pour de vrai et `parseDate()` y réussit, quelle que
+      // soit une autre case vide ailleurs — le garde-fou ne se déclenche
+      // alors jamais.
+      if (row === rawRow && iDate >= 0) {
+        const nonEmpty = rawRow.filter((c) => String(c.text).trim() !== '');
+        const rawDateCellText = String(rawRow[iDate]?.text || '').trim();
+        const dateCellLooksLikeDate = !rawDateCellText || !!parseDate(rawDateCellText, year);
+        if (nonEmpty.length === header.length - 1 && !dateCellLooksLikeDate) {
+          row = [...nonEmpty.slice(0, iDate), { text: '', titledText: '' }, ...nonEmpty.slice(iDate)];
+        }
+      }
       // `row[i]?.text` (jamais `row[i].text`) : une ligne plus courte que
       // l'en-tête (ligne « Total », résumé sans toutes les colonnes — ligne
       // rencontrée sur du HTML Wikipédia réel, 1994) laisse `row[iDist]`
@@ -376,18 +454,41 @@ function parseStagesFromHtml(html, year) {
       // correctif contre le vrai HTML de la page 1994, pas seulement les
       // fixtures locales qui n'ont pas ce genre de ligne).
       const distanceKm = parseDistanceKm(row[iDist]?.text);
-      const numM = String(row[iStage]?.text).match(/\d+/);
-      if (!distanceKm || !numM) continue; // jour de repos, ligne « Total »…
+      // Le Prologue est numéroté « P » (parfois « Prologue » en toutes
+      // lettres) dans la colonne étape des tableaux Wikipédia — jamais un
+      // chiffre — donc invisible à /\d+/ ; traité comme jour de repos et
+      // silencieusement perdu avant ce correctif (vérifié en direct sur le
+      // Tour 1989 : infobox « 21 + Prologue », seules 19 étapes importées —
+      // le Prologue ET les étapes 1/2, pourtant numérotées, disparaissaient
+      // via un second mécanisme, voir parseCourse() ci-dessus). Numéroté 0,
+      // convention reprise du cyclisme (avant l'étape 1), jamais entré en
+      // collision avec une vraie étape 1 (stage_order est un entier libre,
+      // aucune contrainte d'unicité vérifiée cassée par 0).
+      const stageCellText = String(row[iStage]?.text || '').trim();
+      const isPrologue = /^p(rologue)?$/i.test(stageCellText);
+      const numM = stageCellText.match(/\d+/);
+      if (!distanceKm || (!numM && !isPrologue)) continue; // jour de repos, ligne « Total »…
+      const stageNumber = isPrologue ? 0 : parseInt(numM[0], 10);
       // Seule la colonne course lit `titledText` (nom de ville canonique,
       // diacritiques compris) — toutes les autres colonnes gardent `text`
       // (comportement historique inchangé, voir cellTexts()).
       const courseText = iCourse >= 0 ? row[iCourse]?.titledText : '';
       const course = parseCourse(courseText);
       if (!course) continue;
+      // Cellule Date réelle sur cette ligne (jamais celle réinsérée vide
+      // ci-dessus) : sinon reprend la dernière date rencontrée (même jour).
+      const rowDateText = iDate >= 0 ? row[iDate]?.text : '';
+      const dateText = rowDateText || lastDateText;
+      const dateIso = rowDateText ? parseDate(rowDateText, year) : lastDateIso;
+      if (rowDateText) {
+        lastDateText = rowDateText;
+        lastDateIso = dateIso;
+      }
       stages.push({
-        number: parseInt(numM[0], 10),
-        dateText: iDate >= 0 ? row[iDate]?.text ?? null : null,
-        dateIso: iDate >= 0 ? parseDate(row[iDate]?.text, year) : null,
+        number: stageNumber,
+        isPrologue,
+        dateText,
+        dateIso,
         start: course.start,
         finish: course.finish,
         startCountry: course.startCountry,
