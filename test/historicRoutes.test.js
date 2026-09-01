@@ -288,6 +288,37 @@ test('reconstructionWaypoints : « Col de Toses » (2026 étape 3) résout lat/l
   assert.notStrictEqual(calvaire.lat, wp.lat, 'ne doit pas hériter des coordonnées du Col de Toses');
 });
 
+test('reconstructionWaypoints : « Col du Mont-Cenis » (1992 étape 13) résout lat/lon via known_cols.json — repli pour un near-hint qui résolvait un mauvais col voisin', () => {
+  // Trouvaille du 01/09/2026 (correctif issue #108, artefact « Côte de
+  // Bonneval-sur-Arc »). Contrairement à Col de Toses/Calvaire ci-dessus (col
+  // hors du référentiel IGN, ou deux vrais homonymes français), ce col EST
+  // correctement résolu par un geocode() isolé (score de pertinence textuelle
+  // le plus haut, 0,79) — le bug n'apparaît qu'avec le `near` que
+  // pipeline/generate.js chaîne toujours depuis le waypoint précédent (ici le
+  // col de l'Iseran) : pickFeature() départage alors TOUS les candidats POI
+  // « col » par pure distance, sans jamais tenir compte du nom ni du score,
+  // et un col voisin sans rapport (« Col du Pisset », ~14,5 km plus proche de
+  // l'Iseran, 2958 m) l'emporte sur le vrai « Col du Mont Cenis » (2083 m) —
+  // vérifié en rejouant le pipeline réel (reconstructionWaypoints() +
+  // generateStage(), cache vide, hors mock) avant et après ce correctif.
+  const stage = HISTORIC_ROUTES['1992'].stages['13'];
+  assert.ok(stage, 'édition 1992, étape 13 attendue dans la fixture de test');
+  const montCenis = (stage.vias || []).find((v) => typeof v === 'object' && v.label === 'Col du Mont-Cenis');
+  assert.ok(montCenis, 'le Col du Mont-Cenis doit être un via de cette étape');
+  assert.strictEqual(montCenis.lat, undefined, 'ne doit pas porter ses propres lat/lon locaux (repris de known_cols.json sinon)');
+  const wps = reconstructionWaypoints(1992, { number: 13, start: stage.start, finish: stage.finish });
+  const wp = wps.find((w) => w.label === 'Col du Mont-Cenis');
+  assert.strictEqual(wp.lat, 45.259852);
+  assert.strictEqual(wp.lon, 6.900833);
+  assert.strictEqual(wp.altitude_hint_m, 2085);
+  // Les cols voisins de la même étape (Iseran, Saisies, Roselend) résolvent
+  // déjà correctement via le mécanisme near existant, sans coordonnées
+  // curées — le correctif ne doit toucher que Col du Mont-Cenis.
+  const iseran = wps.find((w) => w.label === "Col de l'Iseran");
+  assert.ok(iseran, "le col de l'Iseran doit être un via de cette étape");
+  assert.strictEqual(iseran.lat, null, "l'Iseran n'est pas affecté par ce correctif, pas de coordonnées curées");
+});
+
 test('reconstructionWaypoints : propage bonus_sec du via sprint et de l\'arrivée (2023 étape 9, Puy de Dôme)', () => {
   // Backlog issue #14, "marqueurs sprint / bonification" — vérifie que le
   // bonus_sec curé dans historic_routes.json (via de type sprint + arrivée)
