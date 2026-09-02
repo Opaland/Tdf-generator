@@ -143,6 +143,35 @@ test('reconstructionWaypoints() : region_hint explicite propagé pour un départ
   assert.strictEqual(finish.region_hint, 'Pyrénées-Orientales');
 });
 
+test('reconstructionWaypoints() : country_hint explicite propagé pour un via curé en forme objet { label, country }', () => {
+  // Trouvaille du 02/09/2026 (curation du Tour 1992, suite issue #108) :
+  // sans indice de pays, geocode() essaie TOUJOURS la Géoplateforme (France)
+  // en premier, même pour un via manifestement étranger — et le repli
+  // Nominatim qui suit n'a alors aucune restriction de pays. Rejoué contre
+  // le pipeline réel : des vias belges/néerlandais/allemands curés à la main
+  // sans country_hint résolvaient sur des homonymes français lointains,
+  // faisant exploser une étape de 167 km à plus de 2000 km générés. Une
+  // forme objet explicite { label, kind, country } écrite à la main dans
+  // historic_routes.json doit pouvoir fournir ce country_hint, même schéma
+  // que { label, region } pour un départ/arrivée curé (test ci-dessus).
+  const stage = { number: 6, start: 'ignoré (curé)', finish: 'ignoré (curé)' };
+  const wps = reconstructionWaypoints(1992, stage);
+  const enclus = wps.find((w) => w.label === "Mont de l'Enclus");
+  assert.ok(enclus, 'le via de test (Tour 1992, étape 6) doit être présent');
+  assert.strictEqual(enclus.country_hint, 'belgium');
+});
+
+test('reconstructionWaypoints() : country_hint absent d\'un via curé qui ne le précise pas (comportement inchangé)', () => {
+  // Garde-fou de non-régression : l'ajout de via.country ne doit rien changer
+  // pour les vias existants qui ne le renseignent pas (la grande majorité du
+  // corpus, ex. l'étape 13 du même Tour 1992, cols français sans ambiguïté).
+  const stage = { number: 13, start: 'ignoré (curé)', finish: 'ignoré (curé)' };
+  const wps = reconstructionWaypoints(1992, stage);
+  const iseran = wps.find((w) => w.label === "Col de l'Iseran");
+  assert.ok(iseran, "le col de l'Iseran doit être un via de cette étape");
+  assert.strictEqual(iseran.country_hint, null);
+});
+
 test('parseCourse() : extrait et retire le qualificatif de département d\'une commune française homonyme', () => {
   // Trouvaille en interrogeant l'API Géoplateforme réelle (30/08/2026) :
   // envoyer la requête AVEC ce qualificatif dégrade le classement au lieu de

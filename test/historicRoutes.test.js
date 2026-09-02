@@ -105,11 +105,18 @@ test('historic_routes.json : chaque édition a des notes sourcées et au moins u
   assert.deepStrictEqual(offenders, []);
 });
 
-test('historic_routes.json : les clés d\'étape sont des numéros d\'étape positifs', () => {
+test('historic_routes.json : les clés d\'étape sont des numéros d\'étape positifs ou nuls (0 = Prologue)', () => {
+  // `0` est la convention établie pour un Prologue (PR #172, parseStagesFromHtml())
+  // — pas d'étape numérotée négativement, mais 0 est une clé légitime, pas une
+  // erreur de saisie. Trouvaille en curant le Tour 1992 (issue #108, suite) :
+  // ce test rejetait la clé "0" du Prologue fraîchement récupéré par ce même
+  // correctif, alors que stage.number = 0 est explicitement supporté partout
+  // ailleurs dans le pipeline (aucune arithmétique -1/+1 sur les numéros
+  // d'étape, ORDER BY stage_order trie 0 en premier naturellement).
   const offenders = [];
   for (const [year, edition] of Object.entries(HISTORIC_ROUTES)) {
     for (const stageNum of Object.keys(edition.stages || {})) {
-      if (!/^\d+$/.test(stageNum) || parseInt(stageNum, 10) < 1) offenders.push(`${year} : clé d'étape invalide "${stageNum}"`);
+      if (!/^\d+$/.test(stageNum) || parseInt(stageNum, 10) < 0) offenders.push(`${year} : clé d'étape invalide "${stageNum}"`);
     }
   }
   assert.deepStrictEqual(offenders, []);
@@ -195,11 +202,45 @@ test('historic_routes.json : toutes les occurrences d\'un même col résolvent l
       }
     }
   }
+  // Exception documentée et scopée aux deux SEULES valeurs légitimes, jamais
+  // une tolérance générale sur le label entier : deux VRAIES montagnes
+  // françaises distinctes partagent ce nom (« Col du Calvaire » des Vosges,
+  // 1150 m, curé pour le Tour 1992 étape 11 ; « Col du Calvaire » des
+  // Pyrénées-Orientales, 1836 m, curé pour le Tour 2026 étape 3, issue #109)
+  // — ce n'est pas une faute de frappe à corriger mais une homonymie réelle,
+  // déjà traitée par des coordonnées lat/lon explicites sur chaque via pour
+  // éviter que l'un n'hérite silencieusement des coordonnées de l'autre (voir
+  // pipeline/wikipedia.js resolveViaCoords()). Trouvaille de relecture
+  // adverse (02/09/2026) sur une version antérieure de ce garde-fou :
+  // exempter le label ENTIER (`Set` de labels) aurait aussi masqué une VRAIE
+  // faute de frappe sur une 3ᵉ occurrence future — n'autoriser QUE les deux
+  // valeurs déjà vérifiées ferme ce trou tout en gardant l'exception.
+  const KNOWN_HOMONYM_EXCEPTIONS = new Map([['Col du Calvaire', new Set([1150, 1836])]]);
   const offenders = [];
   for (const [label, values] of byLabel) {
+    const allowed = KNOWN_HOMONYM_EXCEPTIONS.get(label);
+    if (allowed && [...values].every((v) => allowed.has(v))) continue;
     if (values.size > 1) offenders.push(`"${label}" résout des altitudes différentes selon l'occurrence : ${[...values].join(', ')}`);
   }
   assert.deepStrictEqual(offenders, []);
+});
+
+test('historic_routes.json : l\'exception d\'homonymie "Col du Calvaire" reste scopée aux deux valeurs connues, pas au label entier', () => {
+  // Trouvaille de relecture adverse (02/09/2026) sur une version antérieure
+  // de ce garde-fou : exempter le label ENTIER (`Set` de labels, pas de
+  // valeurs) aurait aussi masqué une VRAIE faute de frappe sur une 3ᵉ
+  // occurrence future de « Col du Calvaire » — reproduit ici la même logique
+  // de correspondance que le test précédent, sur des données synthétiques,
+  // pour prouver qu'une 3ᵉ valeur (jamais l'une des deux déjà connues)
+  // resterait bien détectée plutôt que silencieusement absorbée.
+  const KNOWN_HOMONYM_EXCEPTIONS = new Map([['Col du Calvaire', new Set([1150, 1836])]]);
+  const isException = (label, values) => {
+    const allowed = KNOWN_HOMONYM_EXCEPTIONS.get(label);
+    return !!allowed && [...values].every((v) => allowed.has(v));
+  };
+  assert.strictEqual(isException('Col du Calvaire', new Set([1150, 1836])), true, 'les deux vraies valeurs restent exemptées');
+  assert.strictEqual(isException('Col du Calvaire', new Set([1150, 1836, 1200])), false, 'une 3e valeur (faute de frappe) n\'est plus exemptée');
+  assert.strictEqual(isException('Col du Calvaire', new Set([1150, 1200])), false, 'une vraie valeur mêlée à une fausse n\'est pas exemptée');
 });
 
 test('historic_routes.json : chaque affirmation confidence est bien formée (backlog #10, section A)', () => {
@@ -471,9 +512,11 @@ test('1992 étape 13 : l\'échappée de Chiappucci — Saisies, Cormet de Rosele
   // Non-régression : une autre étape 1992 sans curation propre reste non
   // curée (repli sur le seul couple départ/arrivée Wikipédia) — la
   // curation de l'étape 13 ne doit fuiter sur aucune autre étape de la
-  // même édition.
-  const uncurated = reconstructionWaypoints(1992, { number: 10, start: 'Luxembourg City', finish: 'Strasbourg' });
-  assert.deepStrictEqual(uncurated.map((w) => w.label), ['Luxembourg City', 'Strasbourg']);
+  // même édition. Étape 10 utilisée à l'origine ici (Luxembourg City →
+  // Strasbourg) est depuis elle-même curée (issue #108, suite — voir test
+  // dédié plus bas) : remplacée par l'étape 3, restée non curée.
+  const uncurated = reconstructionWaypoints(1992, { number: 3, start: 'Pau', finish: 'Bordeaux' });
+  assert.deepStrictEqual(uncurated.map((w) => w.label), ['Pau', 'Bordeaux']);
 });
 
 test('historicHighlights : toute édition pré-2020 curée porte un highlight non vide, aucune édition 2020+ n\'en porte (backlog #10, section D)', () => {
