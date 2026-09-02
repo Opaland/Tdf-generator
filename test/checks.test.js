@@ -51,6 +51,37 @@ test('distance : hors tolérance ±25 % → fail', () => {
   assert.strictEqual(ok, false);
 });
 
+// Trouvaille en vérifiant le Tour 1992 (issue #108 suite, 01/09/2026) : une
+// étape en circuit (départ = arrivée) sans aucun via curé géocode aux deux
+// mêmes coordonnées, donc routeStage() route entre deux points identiques —
+// distance ~0, pas juste « hors tolérance » comme un tracé mal deviné. Le
+// message générique noyait ce cas qualitativement différent (fiche
+// pratiquement vide, aucun profil réel) dans le même libellé qu'un simple
+// écart de tracé.
+test('distance : reconstitution quasi nulle (< 10 % de l\'officielle) → message dédié, pas le message générique', () => {
+  const { items, ok } = runChecks({
+    stage: { official_distance_km: 194.5 }, distanceM: 100,
+    waypointsOnTrack: [], approxSegments: [], climbs: [], samples: [], legs: [],
+  });
+  const d = find(items, 'distance');
+  assert.strictEqual(d.status, 'fail');
+  assert.strictEqual(ok, false);
+  assert.match(d.detail, /quasi nulle/);
+  assert.match(d.detail, /circuit/);
+  assert.doesNotMatch(d.detail, /tolérance ±25/, 'ne doit pas afficher le message générique pour ce cas');
+});
+
+test('distance : reconstitution nettement insuffisante mais pas quasi nulle (>= 10 % de l\'officielle) → message générique', () => {
+  const { items } = runChecks({
+    stage: { official_distance_km: 100 }, distanceM: 30000,
+    waypointsOnTrack: [], approxSegments: [], climbs: [], samples: [], legs: [],
+  });
+  const d = find(items, 'distance');
+  assert.strictEqual(d.status, 'fail');
+  assert.match(d.detail, /tolérance ±25/);
+  assert.doesNotMatch(d.detail, /quasi nulle/);
+});
+
 test('distance : pas de distance officielle (étape créée) → ok, pas de comparaison', () => {
   const { items } = runChecks({
     stage: {}, distanceM: 42000, waypointsOnTrack: [], approxSegments: [], climbs: [], samples: [], legs: [],
