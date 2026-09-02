@@ -617,6 +617,19 @@ function reconstructionWaypoints(year, stage, category = 'hommes') {
         lat, lon,
         bonus_sec: via.bonus_sec || null,
         source: 'parcours curé',
+        // `via.country` (ex. « belgium », « netherlands » — mêmes clés que
+        // COUNTRY_TO_ISO, pipeline/geocode.js) : trouvaille en curant le Tour
+        // 1992 (issue #108, suite) — sans indice de pays, geocode() essaie
+        // TOUJOURS la Géoplateforme (France) en premier même pour un via
+        // manifestement étranger, et le repli Nominatim qui suit n'a alors
+        // aucune restriction de pays. Résultat observé en rejouant le
+        // pipeline réel : des vias belges/néerlandais/allemands/luxembour-
+        // geois curés à la main (« Wavre », « Jodoigne », « Rheinbach »,
+        // « Ahn »…) résolvaient sur des homonymes français lointains,
+        // faisant exploser une étape de 167 km à plus de 2000 km générés.
+        // N'affecte QUE les vias qui le précisent explicitement (absent =
+        // comportement inchangé, `countryHint` par défaut 'fr' comme avant).
+        country_hint: via.country || null,
       });
     }
   }
