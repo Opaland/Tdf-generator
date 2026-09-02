@@ -34,13 +34,27 @@ function runChecks({ stage, distanceM, waypointsOnTrack, approxSegments, climbs,
     const target = stage.official_distance_km;
     const deltaPct = ((kmGen - target) / target) * 100;
     const ok = Math.abs(deltaPct) <= 25;
+    // Distance quasi nulle (< 10 % de l'officielle) : signal qualitativement
+    // différent d'un simple écart de tracé. Cas typique — trouvaille en
+    // vérifiant le Tour 1992 (issue #108 suite) : une étape en circuit
+    // (départ = arrivée) sans aucun via curé géocode les deux extrémités au
+    // même point, donc routeStage() route entre deux points identiques —
+    // ~0 m, pas juste « mal routé ». Le profil résultant n'a quasiment aucun
+    // point échantillonné (aucune vraie polyligne à échantillonner), donc la
+    // fiche d'étape est essentiellement vide plutôt que juste imprécise — un
+    // message dédié évite de noyer ce cas dans le même libellé générique
+    // qu'un tracé simplement mal deviné.
+    const nearZero = kmGen < target * 0.1;
     items.push({
       id: 'distance',
       label: 'Distance reconstituée vs cible',
       status: ok ? 'ok' : 'fail',
-      detail:
-        `officielle ${target} km / reconstitution ${kmGen.toFixed(1)} km ` +
-        `(écart ${deltaPct >= 0 ? '+' : ''}${deltaPct.toFixed(1)} %, tolérance ±25 %)`,
+      detail: nearZero
+        ? `reconstitution quasi nulle (${kmGen.toFixed(1)} km pour ${target} km officiels) — ` +
+          `probablement une étape en circuit (départ = arrivée) sans aucun point de passage curé : ` +
+          `impossible de reconstruire un tracé réel sans via, voir pipeline/data/historic_routes.json`
+        : `officielle ${target} km / reconstitution ${kmGen.toFixed(1)} km ` +
+          `(écart ${deltaPct >= 0 ? '+' : ''}${deltaPct.toFixed(1)} %, tolérance ±25 %)`,
     });
   } else {
     items.push({
