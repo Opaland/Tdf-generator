@@ -143,6 +143,38 @@ test('reconstructionWaypoints() : region_hint explicite propagé pour un départ
   assert.strictEqual(finish.region_hint, 'Pyrénées-Orientales');
 });
 
+test('reconstructionWaypoints() : country_hint explicite propagé pour un départ/arrivée curé en forme objet { label, country }', () => {
+  // Trouvaille du 03/09/2026 (palier 1, batch 2) en rejouant le pipeline réel
+  // sur 2026 étape 1 (Barcelone) : un départ/arrivée curé en chaîne simple
+  // ("Barcelona") repassait par défaut en géocodage France (countryHint 'fr',
+  // même bug de fond que via.country avant son ajout) — la Géoplateforme
+  // matchait à tort « Barcelonne » (Drôme, score 0,64), faisant exploser
+  // l'étape de 19,6 km à plus de 1100 km générés. Même schéma objet que
+  // { label, region } (test ci-dessus) : { label, country } écrit à la main
+  // dans historic_routes.json DOIT pouvoir fournir ce country_hint. 2026
+  // étape 3 (Granollers, Espagne) porte ce correctif dans le dépôt réel.
+  const stage = { number: 3, start: 'ignoré (curé)', finish: 'ignoré (curé)' };
+  const wps = reconstructionWaypoints(2026, stage);
+  const start = wps[0];
+  assert.strictEqual(start.label, 'Granollers');
+  assert.strictEqual(start.country_hint, 'spain');
+});
+
+test('reconstructionWaypoints() : country_hint absent d\'un départ/arrivée curé qui ne le précise pas (jamais deviné depuis le Wikipédia brut)', () => {
+  // Garde-fou de non-régression, même esprit que le test region_hint
+  // équivalent : un départ/arrivée curé en forme chaîne simple ne doit
+  // jamais recevoir de country_hint deviné depuis startCountry/finishCountry
+  // — seule une forme objet explicite { label, country } le peut (test
+  // ci-dessus). 1903 étape 1 (Paris → Lyon) est curée en forme chaîne.
+  const stage = {
+    number: 1, start: 'Paris', finish: 'Lyon',
+    startCountry: 'Ne devrait jamais apparaître', finishCountry: 'Ne devrait jamais apparaître',
+  };
+  const wps = reconstructionWaypoints(1903, stage);
+  assert.strictEqual(wps[0].country_hint, null);
+  assert.strictEqual(wps[wps.length - 1].country_hint, null);
+});
+
 test('reconstructionWaypoints() : country_hint explicite propagé pour un via curé en forme objet { label, country }', () => {
   // Trouvaille du 02/09/2026 (curation du Tour 1992, suite issue #108) :
   // sans indice de pays, geocode() essaie TOUJOURS la Géoplateforme (France)
