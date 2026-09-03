@@ -582,19 +582,34 @@ function reconstructionWaypoints(year, stage, category = 'hommes') {
   const curated = HISTORIC_ROUTES[historicRoutesKey(year, category)]?.stages?.[String(stage.number)];
   const wps = [];
   // start/finish curés peuvent être une simple chaîne (cas courant) ou un
-  // objet { label, region } quand le libellé seul est ambigu entre plusieurs
-  // communes homonymes (ex. 2026 étape 3, "Les Angles" Gard vs
-  // Pyrénées-Orientales) — même schéma que les vias objets (via.label).
+  // objet { label, region, country } quand le libellé seul est ambigu entre
+  // plusieurs communes homonymes (ex. 2026 étape 3, "Les Angles" Gard vs
+  // Pyrénées-Orientales) ou désigne une ville étrangère — même schéma que les
+  // vias objets (via.label / via.country).
   const curatedLabel = (entry) => (typeof entry === 'string' ? entry : entry?.label);
   const curatedRegion = (entry) => (entry && typeof entry === 'object' ? entry.region || null : null);
+  // country_hint : pour un départ/arrivée NON curé (issu tel quel du texte
+  // Wikipédia), déduit automatiquement de startCountry/finishCountry. Pour un
+  // départ/arrivée curé (historic_routes.json), JAMAIS deviné depuis le
+  // Wikipédia brut (le libellé choisi à la main peut désigner un lieu
+  // différent) — mais explicitement fourni si la forme objet { label, country
+  // } le précise. Sans repli explicite, une ville étrangère curée en chaîne
+  // simple (ex. « Barcelona ») repassait par défaut en géocodage France
+  // (countryHint 'fr') : trouvaille du 03/09/2026 (palier 1, batch 2) en
+  // rejouant le pipeline réel sur 2026 étape 1 — « Barcelona » matchait à tort
+  // « Barcelonne » (Drôme, score Géoplateforme 0,64), faisant exploser
+  // l'étape de 19,6 km à plus de 1100 km générés. « France » explicite
+  // (ex. « Lyon (France) via (Melun) », ou un futur { label, country: "France"
+  // } curé) ne compte jamais comme étranger — foreignCountry() neutralise ce
+  // cas pour les DEUX sources (Wikipédia brut et curation objet), trouvaille
+  // de la relecture adverse du 03/09/2026 : une première version ne
+  // l'appliquait qu'au Wikipédia brut, laissant un piège latent pour un futur
+  // { label, country: "France" } curé par erreur (aucune donnée actuelle du
+  // dépôt ne le déclenche).
+  const foreignCountry = (country) => (country && !/^france$/i.test(country) ? country : null);
+  const curatedCountry = (entry) => (entry && typeof entry === 'object' ? foreignCountry(entry.country) : null);
   const startLabel = curatedLabel(curated?.start) || stage.start;
   const finishLabel = curatedLabel(curated?.finish) || stage.finish;
-  // country_hint seulement pour un départ/arrivée NON curé (issu tel quel du
-  // texte Wikipédia) : un parcours curé (historic_routes.json) porte déjà un
-  // libellé choisi à la main, sans indice de pays associé — countryHint reste
-  // 'fr' par défaut pour lui, comportement inchangé. « France » explicite
-  // (ex. « Lyon (France) via (Melun) ») ne compte jamais comme étranger.
-  const foreignCountry = (country) => (country && !/^france$/i.test(country) ? country : null);
   // region_hint : même logique que country_hint ci-dessus, mais pour le
   // qualificatif de département (« Bonneval, Eure-et-Loir ») — pour un
   // départ/arrivée NON curé, jamais deviné automatiquement (issu du texte
@@ -603,7 +618,7 @@ function reconstructionWaypoints(year, stage, category = 'hommes') {
   wps.push({
     label: startLabel, kind: 'start', bonus_sec: null,
     source: curated?.start ? 'parcours curé' : 'wikipedia',
-    country_hint: curated?.start ? null : foreignCountry(stage.startCountry),
+    country_hint: curated?.start ? curatedCountry(curated.start) : foreignCountry(stage.startCountry),
     region_hint: curated?.start ? curatedRegion(curated.start) : stage.startDepartment || null,
   });
   for (const via of curated?.vias || []) {
@@ -640,7 +655,7 @@ function reconstructionWaypoints(year, stage, category = 'hommes') {
     kind: isColQuery(finishLabel) ? 'col' : 'finish',
     bonus_sec: curated?.finish_bonus_sec || null,
     source: curated?.finish ? 'parcours curé' : 'wikipedia',
-    country_hint: curated?.finish ? null : foreignCountry(stage.finishCountry),
+    country_hint: curated?.finish ? curatedCountry(curated.finish) : foreignCountry(stage.finishCountry),
     region_hint: curated?.finish ? curatedRegion(curated.finish) : stage.finishDepartment || null,
   });
   return wps;

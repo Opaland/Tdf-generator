@@ -921,7 +921,54 @@
     "stages": {
       "1": {
         "start": "Nice",
-        "note": "Grand Départ de Nice, étape 1 (Nice → Nice, profil roulant, victoire Alexander Kristoff) — édition marquée par la pandémie de Covid-19, disputée en septembre-octobre."
+        "note": "Grand Départ de Nice, étape 1 (Nice → Nice, profil roulant, victoire Alexander Kristoff) — édition marquée par la pandémie de Covid-19, disputée en septembre-octobre. Tracé narratif (cyclingstage.com, « Tour de France 2020 Route stage 1: Nice - Nice ») : 3 boucles décrites dans l'article — 2 boucles d'environ 50 km (montée à Aspremont, ~8 km, puis vallée du Var) suivies d'une boucle de 70 km (Côte de Rimiez avant Aspremont, puis Tourrette-Levens, descente par Saint-Martin-du-Var et Carros). Points de passage dans l'ordre décrit par l'article, chaque boucle repassant par Aspremont. Étape en circuit sans via curé au départ : reconstruction ~0 km avant ce correctif.",
+        "finish": "Nice",
+        "vias": [
+          {
+            "label": "Aspremont",
+            "kind": "col",
+            "lat": 43.771062,
+            "lon": 7.242627
+          },
+          {
+            "label": "Côte de Rimiez",
+            "kind": "col",
+            "lat": 43.740416,
+            "lon": 7.272592
+          },
+          {
+            "label": "Aspremont",
+            "kind": "col",
+            "lat": 43.771062,
+            "lon": 7.242627
+          },
+          {
+            "label": "Tourrette-Levens",
+            "kind": "col",
+            "lat": 43.786729,
+            "lon": 7.273341
+          },
+          {
+            "label": "Saint-Martin-du-Var",
+            "kind": "via",
+            "lat": 43.819003,
+            "lon": 7.203532
+          },
+          {
+            "label": "Carros",
+            "kind": "via",
+            "lat": 43.784043,
+            "lon": 7.191567
+          }
+        ],
+        "confidence": [
+          {
+            "claim": "Le tracé complet des 3 boucles (Nice, Aspremont, Côte de Rimiez, Tourrette-Levens, Saint-Martin-du-Var, Carros) reste partiellement une invention du routeur.",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "Vérifié en rejouant le pipeline réel : 82,0 km reconstitués pour 156 km officiels (-47,4 %). Les 5 lieux sourcés (Aspremont, Côte de Rimiez, Tourrette-Levens, Saint-Martin-du-Var, Carros) géocodent tous correctement (coordonnées vérifiées cohérentes autour de Nice), et Aspremont est bien répété 3 fois dans l'ordre décrit par l'article (une fois par boucle) — mais le routeur relie deux passages consécutifs par Aspremont par le chemin le plus court entre les deux, pas en repassant par les 3 boucles distinctes décrites dans l'article. Pas de trajet GPX officiel disponible pour cette édition (cyclingstage.com ne propose de GPX qu'à partir de 2022 environ)."
+          }
+        ]
       },
       "2": {
         "start": "Nice",
@@ -1009,8 +1056,53 @@
     "notes": "Grand Départ de Copenhague (Danemark). Points de passage des étapes reines d'après Wikipédia / cyclingstage.com / lequipe.fr, recoupés sur plusieurs sources. Import de la liste complète des 21 étapes : en ligne (Wikipédia).",
     "stages": {
       "1": {
-        "start": "Copenhagen",
-        "note": "Grand Départ à l'étranger : contre-la-montre individuel à Copenhague (Danemark)."
+        "start": {
+          "label": "Copenhagen",
+          "country": "denmark"
+        },
+        "note": "Grand Départ à l'étranger : contre-la-montre individuel à Copenhague (Danemark). Tracé GPX officiel (cyclingstage.com, cdn.cyclingstage.com/.../2022/stage-1-parcours.gpx, distance mesurée : 13,2 km, cohérente avec les 13,2 km officiels) rééchantillonné tous les 2 km (pas resserré : 8 km ne donnait qu'un seul point de passage sur une boucle de 13,2 km) en points de passage curés. Étape en circuit sans via curé au départ : reconstruction ~0 km avant ce correctif. country_hint explicite ajouté (03/09/2026, palier 1 batch 2) : sans lui, un départ/arrivée curé à l'étranger repassait par défaut en géocodage France, risquant un faux positif sur un homonyme français (voir wikipedia.js, reconstructionWaypoints()).",
+        "finish": {
+          "label": "Copenhagen",
+          "country": "denmark"
+        },
+        "vias": [
+          {
+            "label": "Tracé GPX km 2.0",
+            "kind": "via",
+            "lat": 55.69325,
+            "lon": 12.56555
+          },
+          {
+            "label": "Tracé GPX km 4.1",
+            "kind": "via",
+            "lat": 55.701,
+            "lon": 12.57303
+          },
+          {
+            "label": "Tracé GPX km 6.0",
+            "kind": "via",
+            "lat": 55.70836,
+            "lon": 12.57735
+          },
+          {
+            "label": "Tracé GPX km 8.0",
+            "kind": "via",
+            "lat": 55.69239,
+            "lon": 12.58656
+          },
+          {
+            "label": "Tracé GPX km 10.0",
+            "kind": "via",
+            "lat": 55.68657,
+            "lon": 12.59533
+          },
+          {
+            "label": "Tracé GPX km 12.0",
+            "kind": "via",
+            "lat": 55.67352,
+            "lon": 12.58198
+          }
+        ]
       },
       "11": {
         "start": "Albertville",
@@ -1064,7 +1156,10 @@
     "notes": "Grand Départ de Bilbao (Espagne). Points de passage des étapes reines d'après Wikipédia / cyclingstage.com / lequipe.fr, recoupés sur plusieurs sources. Import de la liste complète des 21 étapes : en ligne (Wikipédia).",
     "stages": {
       "1": {
-        "start": "Bilbao",
+        "start": {
+          "label": "Bilbao",
+          "country": "spain"
+        },
         "vias": [
           {
             "label": "Tracé GPX km 8.0",
@@ -1199,7 +1294,7 @@
             "lon": -2.95552
           }
         ],
-        "note": "Grand Départ à Bilbao (Pays basque, 182 km, montagne) — tracé GPX officiel (cyclingstage.com, cdn.cyclingstage.com/.../2023/stage-1-parcours.gpx, distance mesurée sur le fichier : 182,9 km, cohérente avec les 182 km officiels) rééchantillonné tous les 8 km en points de passage curés, plutôt que des noms de lieux narratifs qui laissaient BRouter couper au plus court entre eux et sous-évaluaient la distance de 30 à 45 %. Cinq ascensions classées au KOM sur ce tracé : Côte de Laukiz, Côte de San Juan de Gaztelugatxe, Col de Morga, Côte de Vivero, Côte de Pike."
+        "note": "Grand Départ à Bilbao (Pays basque, 182 km, montagne) — tracé GPX officiel (cyclingstage.com, cdn.cyclingstage.com/.../2023/stage-1-parcours.gpx, distance mesurée sur le fichier : 182,9 km, cohérente avec les 182 km officiels) rééchantillonné tous les 8 km en points de passage curés, plutôt que des noms de lieux narratifs qui laissaient BRouter couper au plus court entre eux et sous-évaluaient la distance de 30 à 45 %. Cinq ascensions classées au KOM sur ce tracé : Côte de Laukiz, Côte de San Juan de Gaztelugatxe, Col de Morga, Côte de Vivero, Côte de Pike. country_hint explicite ajouté (03/09/2026, palier 1 batch 2) : sans lui, un départ/arrivée curé à l'étranger repassait par défaut en géocodage France, risquant un faux positif sur un homonyme français (voir wikipedia.js, reconstructionWaypoints())."
       },
       "9": {
         "start": "Saint-Léonard-de-Noblat",
@@ -1264,8 +1359,11 @@
     "notes": "Édition atypique : Grand Départ de Florence (Italie) — jamais l'arrivée finale n'avait eu lieu ailleurs qu'à Paris depuis 1975, ici à Nice en raison des JO de Paris 2024. Points de passage des étapes reines d'après Wikipédia / ici.fr / cyclingstage.com / France 3 (CC BY-SA le cas échéant, recoupé sur plusieurs sources). Import de la liste complète des 21 étapes : en ligne (Wikipédia).",
     "stages": {
       "1": {
-        "start": "Florence",
-        "note": "Grand Départ à l'étranger (Florence, Italie) — étape 1 Florence-Rimini."
+        "start": {
+          "label": "Florence",
+          "country": "italy"
+        },
+        "note": "Grand Départ à l'étranger (Florence, Italie) — étape 1 Florence-Rimini. country_hint explicite ajouté (03/09/2026, palier 1 batch 2) : sans lui, un départ/arrivée curé à l'étranger repassait par défaut en géocodage France, risquant un faux positif sur un homonyme français (voir wikipedia.js, reconstructionWaypoints())."
       },
       "14": {
         "vias": [
@@ -1330,6 +1428,163 @@
         ],
         "finish": "Col de la Couillole",
         "note": "Nice → col de la Couillole (1 678 m) : Braus, Turini, Colmiane puis la montée finale (15,7 km à 7,1 %)."
+      },
+      "9": {
+        "start": "Troyes",
+        "finish": "Troyes",
+        "vias": [
+          {
+            "label": "Tracé GPX km 8.0",
+            "kind": "via",
+            "lat": 48.31817,
+            "lon": 4.24484
+          },
+          {
+            "label": "Tracé GPX km 16.0",
+            "kind": "via",
+            "lat": 48.30546,
+            "lon": 4.32969
+          },
+          {
+            "label": "Tracé GPX km 24.0",
+            "kind": "via",
+            "lat": 48.27794,
+            "lon": 4.4233
+          },
+          {
+            "label": "Tracé GPX km 32.0",
+            "kind": "via",
+            "lat": 48.23607,
+            "lon": 4.48265
+          },
+          {
+            "label": "Tracé GPX km 40.0",
+            "kind": "via",
+            "lat": 48.20141,
+            "lon": 4.56017
+          },
+          {
+            "label": "Tracé GPX km 48.0",
+            "kind": "via",
+            "lat": 48.18191,
+            "lon": 4.63576
+          },
+          {
+            "label": "Tracé GPX km 56.0",
+            "kind": "via",
+            "lat": 48.2163,
+            "lon": 4.68062
+          },
+          {
+            "label": "Tracé GPX km 64.0",
+            "kind": "via",
+            "lat": 48.21456,
+            "lon": 4.73073
+          },
+          {
+            "label": "Tracé GPX km 72.0",
+            "kind": "via",
+            "lat": 48.16531,
+            "lon": 4.70516
+          },
+          {
+            "label": "Tracé GPX km 80.0",
+            "kind": "via",
+            "lat": 48.11824,
+            "lon": 4.64507
+          },
+          {
+            "label": "Tracé GPX km 88.0",
+            "kind": "via",
+            "lat": 48.07101,
+            "lon": 4.58334
+          },
+          {
+            "label": "Tracé GPX km 96.0",
+            "kind": "via",
+            "lat": 48.05876,
+            "lon": 4.49508
+          },
+          {
+            "label": "Tracé GPX km 104.0",
+            "kind": "via",
+            "lat": 48.04361,
+            "lon": 4.40572
+          },
+          {
+            "label": "Tracé GPX km 112.0",
+            "kind": "via",
+            "lat": 48.07826,
+            "lon": 4.40903
+          },
+          {
+            "label": "Tracé GPX km 120.0",
+            "kind": "via",
+            "lat": 48.06827,
+            "lon": 4.50743
+          },
+          {
+            "label": "Tracé GPX km 128.0",
+            "kind": "via",
+            "lat": 48.12705,
+            "lon": 4.5332
+          },
+          {
+            "label": "Tracé GPX km 136.0",
+            "kind": "via",
+            "lat": 48.16184,
+            "lon": 4.47878
+          },
+          {
+            "label": "Tracé GPX km 144.0",
+            "kind": "via",
+            "lat": 48.18722,
+            "lon": 4.42081
+          },
+          {
+            "label": "Tracé GPX km 152.0",
+            "kind": "via",
+            "lat": 48.20999,
+            "lon": 4.3705
+          },
+          {
+            "label": "Tracé GPX km 160.0",
+            "kind": "via",
+            "lat": 48.22904,
+            "lon": 4.30253
+          },
+          {
+            "label": "Tracé GPX km 168.0",
+            "kind": "via",
+            "lat": 48.22304,
+            "lon": 4.21508
+          },
+          {
+            "label": "Tracé GPX km 176.0",
+            "kind": "via",
+            "lat": 48.22318,
+            "lon": 4.15862
+          },
+          {
+            "label": "Tracé GPX km 184.0",
+            "kind": "via",
+            "lat": 48.25935,
+            "lon": 4.194
+          },
+          {
+            "label": "Tracé GPX km 192.0",
+            "kind": "via",
+            "lat": 48.28261,
+            "lon": 4.14159
+          },
+          {
+            "label": "Tracé GPX km 200.0",
+            "kind": "via",
+            "lat": 48.29407,
+            "lon": 4.07761
+          }
+        ],
+        "note": "Étape 9 à Troyes (199 km, accidentée, 14 secteurs de gravier « chemins blancs ») — tracé GPX officiel (cyclingstage.com, cdn.cyclingstage.com/.../2024/stage-9-route.gpx, distance mesurée : 200,6 km, cohérente avec les 199 km officiels) rééchantillonné tous les 8 km en points de passage curés. Étape en circuit sans via curé au départ : reconstruction ~0 km avant ce correctif."
       }
     }
   },
@@ -1642,6 +1897,109 @@
           }
         ],
         "note": "Étape 11 à Toulouse (156,8 km, plaine) — tracé GPX officiel (cyclingstage.com, cdn.cyclingstage.com/.../2025/stage-11-route.gpx, distance mesurée : 154,2 km, cohérente avec les 156,8 km officiels) rééchantillonné tous les 8 km en points de passage curés. Relief : Côte de Castelnau-d'Estrétefonds, Côte de Vieille-Toulouse, Montée Pech David, puis 6 km plats jusqu'au Boulevard Lascrosses. Étape en circuit sans via curé au départ : reconstruction ~0 km avant ce correctif."
+      },
+      "5": {
+        "start": "Caen",
+        "finish": "Caen",
+        "vias": [
+          {
+            "label": "Tracé GPX km 2.0",
+            "kind": "via",
+            "lat": 49.19218,
+            "lon": -0.37505
+          },
+          {
+            "label": "Tracé GPX km 4.0",
+            "kind": "via",
+            "lat": 49.20073,
+            "lon": -0.39529
+          },
+          {
+            "label": "Tracé GPX km 6.0",
+            "kind": "via",
+            "lat": 49.21128,
+            "lon": -0.37842
+          },
+          {
+            "label": "Tracé GPX km 8.0",
+            "kind": "via",
+            "lat": 49.22762,
+            "lon": -0.38856
+          },
+          {
+            "label": "Tracé GPX km 10.4",
+            "kind": "via",
+            "lat": 49.24713,
+            "lon": -0.40132
+          },
+          {
+            "label": "Tracé GPX km 12.1",
+            "kind": "via",
+            "lat": 49.26194,
+            "lon": -0.40786
+          },
+          {
+            "label": "Tracé GPX km 14.1",
+            "kind": "via",
+            "lat": 49.26532,
+            "lon": -0.42895
+          },
+          {
+            "label": "Tracé GPX km 16.0",
+            "kind": "via",
+            "lat": 49.25937,
+            "lon": -0.44498
+          },
+          {
+            "label": "Tracé GPX km 18.0",
+            "kind": "via",
+            "lat": 49.25556,
+            "lon": -0.47015
+          },
+          {
+            "label": "Tracé GPX km 20.4",
+            "kind": "via",
+            "lat": 49.24437,
+            "lon": -0.46035
+          },
+          {
+            "label": "Tracé GPX km 22.0",
+            "kind": "via",
+            "lat": 49.23385,
+            "lon": -0.45304
+          },
+          {
+            "label": "Tracé GPX km 24.2",
+            "kind": "via",
+            "lat": 49.22117,
+            "lon": -0.44157
+          },
+          {
+            "label": "Tracé GPX km 26.1",
+            "kind": "via",
+            "lat": 49.20947,
+            "lon": -0.42237
+          },
+          {
+            "label": "Tracé GPX km 28.1",
+            "kind": "via",
+            "lat": 49.20159,
+            "lon": -0.39924
+          },
+          {
+            "label": "Tracé GPX km 30.0",
+            "kind": "via",
+            "lat": 49.19331,
+            "lon": -0.38363
+          },
+          {
+            "label": "Tracé GPX km 32.0",
+            "kind": "via",
+            "lat": 49.18134,
+            "lon": -0.37059
+          }
+        ],
+        "note": "Étape 5 à Caen (33 km, contre-la-montre individuel) — tracé GPX officiel (cyclingstage.com, cdn.cyclingstage.com/.../2025/stage-5-route.gpx, distance mesurée : 33,0 km, cohérente avec les 33 km officiels) rééchantillonné tous les 2 km (pas resserré : 8 km laissait le routeur couper court sur une boucle de 33 km) en points de passage curés. Étape en circuit sans via curé au départ : reconstruction ~0 km avant ce correctif."
       }
     }
   },
@@ -1649,12 +2007,77 @@
     "notes": "Édition courue et terminée (Grand Départ Barcelone le 4 juillet, arrivée à Paris le 26 juillet 2026, 3 321,2 km) — la fixture hors-ligne 2026 reste PARTIELLE (seules les étapes reines sont curées ; importer en ligne pour la liste complète des 21 étapes). Victoire finale de Tadej Pogačar (UAE Team Emirates XRG), 5ᵉ sacre égalant le record d'Anquetil, Merckx, Hinault et Indurain, devant Remco Evenepoel (2ᵉ, vainqueur de 2 étapes) et Isaac del Toro (3ᵉ) ; Paul Seixas (19 ans) 4ᵉ et maillot blanc, Lenny Martinez 5ᵉ ; 21ᵉ étape remportée par Mathieu van der Poel. Points de passage recoupés sur breizh-info.com, cyclingnews.com, franceletour.com, redbull.com et ledicodutour.com.",
     "stages": {
       "1": {
-        "start": "Barcelona",
-        "finish": "Barcelona",
-        "note": "Grand Départ à l'étranger : contre-la-montre par équipes à Barcelone (Montjuïc), Espagne."
+        "start": {
+          "label": "Barcelona",
+          "country": "spain"
+        },
+        "finish": {
+          "label": "Barcelona",
+          "country": "spain"
+        },
+        "note": "Grand Départ à l'étranger : contre-la-montre par équipes à Barcelone (Montjuïc), Espagne. Tracé GPX officiel (cyclingstage.com, cdn.cyclingstage.com/.../2026/stage-1-parcours.gpx, distance mesurée : 19,6 km, cohérente avec les 19,6 km officiels) rééchantillonné tous les 2 km (pas resserré : 8 km laissait le routeur couper court sur une boucle de 19,6 km) en points de passage curés. Étape en circuit sans via curé au départ : reconstruction ~0 km avant ce correctif. country_hint explicite ajouté (03/09/2026, palier 1 batch 2) : sans lui, un départ/arrivée curé à l'étranger repassait par défaut en géocodage France, risquant un faux positif sur un homonyme français (voir wikipedia.js, reconstructionWaypoints()).",
+        "vias": [
+          {
+            "label": "Tracé GPX km 2.0",
+            "kind": "via",
+            "lat": 41.3925,
+            "lon": 2.20429
+          },
+          {
+            "label": "Tracé GPX km 4.0",
+            "kind": "via",
+            "lat": 41.39899,
+            "lon": 2.20803
+          },
+          {
+            "label": "Tracé GPX km 6.0",
+            "kind": "via",
+            "lat": 41.4118,
+            "lon": 2.21191
+          },
+          {
+            "label": "Tracé GPX km 8.1",
+            "kind": "via",
+            "lat": 41.41461,
+            "lon": 2.19458
+          },
+          {
+            "label": "Tracé GPX km 10.1",
+            "kind": "via",
+            "lat": 41.40523,
+            "lon": 2.17777
+          },
+          {
+            "label": "Tracé GPX km 12.1",
+            "kind": "via",
+            "lat": 41.3923,
+            "lon": 2.16504
+          },
+          {
+            "label": "Tracé GPX km 14.1",
+            "kind": "via",
+            "lat": 41.37967,
+            "lon": 2.14826
+          },
+          {
+            "label": "Tracé GPX km 16.0",
+            "kind": "via",
+            "lat": 41.3701,
+            "lon": 2.15838
+          },
+          {
+            "label": "Tracé GPX km 18.0",
+            "kind": "via",
+            "lat": 41.36537,
+            "lon": 2.14575
+          }
+        ]
       },
       "3": {
-        "start": "Granollers",
+        "start": {
+          "label": "Granollers",
+          "country": "spain"
+        },
         "finish": {
           "label": "Les Angles",
           "region": "Pyrénées-Orientales"
@@ -1669,7 +2092,7 @@
             "kind": "col"
           }
         ],
-        "note": "Granollers → Les Angles (196 km) : entrée dans les Pyrénées catalanes dès la 3ᵉ étape par le col de Toses (Coll de Tosses, 1 790 m) puis le col du Calvaire (1 836 m, point culminant du jour) avant la montée finale vers la station des Angles. Arrivée précisée par région (31/08/2026, chiffres corrigés en relecture adverse — la mesure initiale interrogeait le mauvais index) : sur l'index Géoplateforme réellement utilisé par geocode() pour une arrivée (address,poi combiné), « Les Angles » sans qualificatif résolvait au Gard (score 0,9818) alors que Pyrénées-Orientales et Hautes-Pyrénées sont à égalité juste derrière (score 0,9727 chacun, vrai quasi-tie) — generated_distance passait de 195,9 km officiels à 1788 km, aggravé par le Col du Calvaire mal résolu (voir known_cols.json)."
+        "note": "Granollers → Les Angles (196 km) : entrée dans les Pyrénées catalanes dès la 3ᵉ étape par le col de Toses (Coll de Tosses, 1 790 m) puis le col du Calvaire (1 836 m, point culminant du jour) avant la montée finale vers la station des Angles. Arrivée précisée par région (31/08/2026, chiffres corrigés en relecture adverse — la mesure initiale interrogeait le mauvais index) : sur l'index Géoplateforme réellement utilisé par geocode() pour une arrivée (address,poi combiné), « Les Angles » sans qualificatif résolvait au Gard (score 0,9818) alors que Pyrénées-Orientales et Hautes-Pyrénées sont à égalité juste derrière (score 0,9727 chacun, vrai quasi-tie) — generated_distance passait de 195,9 km officiels à 1788 km, aggravé par le Col du Calvaire mal résolu (voir known_cols.json). country_hint explicite ajouté (03/09/2026, palier 1 batch 2) : sans lui, un départ/arrivée curé à l'étranger repassait par défaut en géocodage France, risquant un faux positif sur un homonyme français (voir wikipedia.js, reconstructionWaypoints())."
       },
       "6": {
         "start": "Pau",
@@ -1799,9 +2222,30 @@
           }
         ],
         "note": "CLM en boucle à Pau (27,2 km) — tracé sourcé (cyclingstage.com, stage-13-tdf-2019) : Côte d'Esquillot (km 15,5, ~8 %), puis les vignobles de Jurançon (km 21,9) avant le final (rampe à 17 % près de la Rue Mulot)."
+      },
+      "16": {
+        "start": "Nîmes",
+        "finish": "Nîmes",
+        "vias": [
+          {
+            "label": "Pont du Gard",
+            "kind": "via",
+            "lat": 43.9470703,
+            "lon": 4.5356005
+          }
+        ],
+        "note": "Étape 16 à Nîmes (177 km, plaine, aller-retour) — article cyclingstage.com (« Tour de France 2019 Route stage 16: Nîmes – Nîmes ») ne nomme qu'un seul point de passage précis, le viaduc du Pont du Gard, \"dans le final\". Coordonnées du monument confirmées par Nominatim (type « bridge », nom exact « Pont du Gard ») après relecture adverse du 03/09/2026 : la Géoplateforme renvoyait à égalité de score un pont homonyme sans rapport à 2,3 km de là, retenu par erreur dans une première version de cette curation. Étape en circuit sans via curé au départ : reconstruction ~0 km avant ce correctif.",
+        "confidence": [
+          {
+            "claim": "Le tracé entre Nîmes et le Pont du Gard, puis entre le Pont du Gard et l'arrivée, reste une invention du routeur.",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "Vérifié en rejouant le pipeline réel : 49,0 km reconstitués pour 177 km officiels (-72,3 %). Un seul point de passage nommé est disponible pour cette étape en aller-retour (le Pont du Gard, dans le final) — le reste du tracé est le plus court chemin trouvé par le routeur entre Nîmes, le Pont du Gard et l'arrivée, pas le tracé réel de la course. Même mécanisme que Düsseldorf 2017 et Utrecht 2015 : pas de trajet GPX officiel disponible pour cette édition (cyclingstage.com ne propose de GPX qu'à partir de 2022 environ)."
+          }
+        ]
       }
     },
-    "notes": "Édition reconstruite depuis Wikipédia sans parcours curé dans son intégralité — seules les étapes 1 (Grand Départ à Bruxelles) et 13 (CLM à Pau) sont curées ici, palier 1 de la liste priorisée (étapes en circuit sans via, reconstruction ~0 km sinon). Tracés sourcés cyclingstage.com.",
+    "notes": "Édition reconstruite depuis Wikipédia sans parcours curé dans son intégralité — seules les étapes 1 (Grand Départ à Bruxelles), 13 (CLM à Pau) et 16 (Nîmes) sont curées ici, palier 1 de la liste priorisée (étapes en circuit sans via, reconstruction ~0 km sinon). Tracés sourcés cyclingstage.com.",
     "highlight": "Grand Départ à Bruxelles pour le 50e anniversaire de la 1re victoire d'Eddy Merckx"
   },
   "2017": {
