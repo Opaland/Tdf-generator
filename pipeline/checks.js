@@ -1,7 +1,6 @@
 'use strict';
 // Bloc « checks » : audits qualité d'une étape générée.
-// - distance reconstituée vs distance cible (tolérance à paliers, voir
-//   GPX_TOLERANCE_PCT/NON_GPX_TOLERANCE_PCT ci-dessous)
+// - distance reconstituée vs distance cible (tolérance ±10 %)
 // - cols atteints (tracé < 500 m du sommet)
 // - altitudes de sommets vs valeurs connues
 // - segments/points approximés listés
@@ -11,28 +10,26 @@ const { COL_TOLERANCE_M } = require('./routing');
 
 const ALT_TOLERANCE_M = 120;
 
-// Tolérance de distance à deux paliers (03-04/09/2026, suite signalement
-// utilisateur Nidervisse/Porcelette, Tour 1992 étape 10) : une tolérance
-// unique à ±25 % masquait la différence entre une étape reconstruite à partir
-// d'un trajet GPX officiel rééchantillonné et une étape reconstruite à partir
-// de points de passage nommés sans GPX, où même un road book COMPLET peut
-// rester loin de la cible (le routeur suit des routes réelles plus sinueuses
-// que celles empruntées par la course — vérifié sur 1992 étape 10 après
-// sourcing complet des 53 points du road book ET correction du géocodage du
-// départ : 257.3 km reconstitués pour 217 km officiels, soit +18.6 %, encore
-// hors tolérance ±15 %).
+// Écart maximal accepté entre la distance officielle d'une étape et celle du
+// tracé reconstitué. Décidé par Cédric le 04/09/2026 : ±10 %, contre ±25 %
+// jusque-là. Un seuil qui change ce qui est *vérifié* ne s'invente pas — il
+// vient d'une décision, elle est datée ici, et le nombre n'existe qu'en un
+// seul endroit : le message affiché, les tests et `scripts/demo.js` le lisent
+// tous d'ici plutôt que de le réécrire (une valeur recopiée dérive).
 //
-// ±5 % côté GPX reste néanmoins un seuil serré : relecture adverse du
-// 04/09/2026 a montré que Lille (2025 étape 1, tracé GPX rééchantillonné tous
-// les 8 km, palier 1 batch 1) reconstruit à -7,9 % — donc en dehors de ±5 %
-// bien que la source soit un GPX officiel fidèle (écart mesuré 184.7 km GPX
-// brut / 184.9 km officiels avant routage). Le sinuosité introduite par le
-// routage entre points rééchantillonnés peut donc dépasser ±5 % même sur une
-// étape bien sourcée ; Copenhague/Troyes/Caen/Barcelone (mêmes palier 1,
-// même convention de label) n'ont pas été revérifiées contre ce nouveau seuil
-// à ce jour — voir PR d'introduction de ce fichier pour le suivi.
-const GPX_TOLERANCE_PCT = 5;
-const NON_GPX_TOLERANCE_PCT = 15;
+// Conséquence assumée et mesurée sur la démo 1903 hors ligne : les étapes 4
+// (-10,5 %) et 6 (-21,8 %) passent d'« ok » à « fail ». C'est le but — un
+// tracé reconstitué qui s'écarte d'un cinquième de la distance officielle
+// n'est pas une reconstitution fidèle, et le badge de l'étape doit le dire.
+const DIST_TOLERANCE_PCT = 10;
+
+// Part de la distance officielle en dessous de laquelle la reconstitution
+// n'est plus « imprécise » mais absente (étape en circuit sans via curé, voir
+// plus bas). Volontairement indépendant de DIST_TOLERANCE_PCT : les deux
+// valent 10 depuis le 04/09/2026, mais l'un est un écart en pourcentage et
+// l'autre une fraction de la cible — les confondre en un seul nombre ferait
+// bouger le message dédié chaque fois qu'on resserre la tolérance.
+const QUASI_NUL_RATIO = 0.1;
 
 // Écart maximal (vol d'oiseau) entre deux points de passage curés consécutifs
 // avant avertissement : au-delà, le routeur peut improviser un chemin
@@ -44,19 +41,6 @@ const NON_GPX_TOLERANCE_PCT = 15;
 // déjà signalée par le check distance (quasi nulle ou générique), pas besoin
 // d'un second avertissement redondant sur son unique leg départ→arrivée.
 const VIA_GAP_WARN_M = 12000;
-
-/** Une étape est considérée « tracé GPX officiel » si la majorité de ses
- * waypoints portent le label conventionnel posé par la rééchantillonnage GPX
- * (voir historic_routes.json, ex. « Tracé GPX km 8.0 ») — même convention que
- * celle déjà utilisée pour les étapes du palier 1 (Troyes, Caen, Barcelone,
- * Copenhague…). Une étape sans aucun waypoint labellisé (tests, track import)
- * n'est jamais considérée GPX-sourcée. */
-function isGpxSourced(waypointsOnTrack) {
-  const labeled = (waypointsOnTrack || []).filter((w) => w.label);
-  if (!labeled.length) return false;
-  const gpxCount = labeled.filter((w) => /^Tracé GPX km/.test(w.label)).length;
-  return gpxCount / labeled.length >= 0.5;
-}
 
 /**
  * @returns { ok, items: [{id, label, status: 'ok'|'warn'|'fail', detail}] }
@@ -105,9 +89,7 @@ function runChecks({ stage, distanceM, waypointsOnTrack, approxSegments, climbs,
   if (stage.official_distance_km) {
     const target = stage.official_distance_km;
     const deltaPct = ((kmGen - target) / target) * 100;
-    const gpxSourced = isGpxSourced(waypointsOnTrack);
-    const tolerancePct = gpxSourced ? GPX_TOLERANCE_PCT : NON_GPX_TOLERANCE_PCT;
-    const ok = Math.abs(deltaPct) <= tolerancePct;
+    const ok = Math.abs(deltaPct) <= DIST_TOLERANCE_PCT;
     // Distance quasi nulle (< 10 % de l'officielle) : signal qualitativement
     // différent d'un simple écart de tracé. Cas typique — trouvaille en
     // vérifiant le Tour 1992 (issue #108 suite) : une étape en circuit
@@ -118,7 +100,7 @@ function runChecks({ stage, distanceM, waypointsOnTrack, approxSegments, climbs,
     // fiche d'étape est essentiellement vide plutôt que juste imprécise — un
     // message dédié évite de noyer ce cas dans le même libellé générique
     // qu'un tracé simplement mal deviné.
-    const nearZero = kmGen < target * 0.1;
+    const nearZero = kmGen < target * QUASI_NUL_RATIO;
     items.push({
       id: 'distance',
       label: 'Distance reconstituée vs cible',
@@ -128,8 +110,7 @@ function runChecks({ stage, distanceM, waypointsOnTrack, approxSegments, climbs,
           `probablement une étape en circuit (départ = arrivée) sans aucun point de passage curé : ` +
           `impossible de reconstruire un tracé réel sans via, voir pipeline/data/historic_routes.json`
         : `officielle ${target} km / reconstitution ${kmGen.toFixed(1)} km ` +
-          `(écart ${deltaPct >= 0 ? '+' : ''}${deltaPct.toFixed(1)} %, tolérance ±${tolerancePct} % — ` +
-          `${gpxSourced ? 'tracé GPX officiel' : 'points de passage sans GPX'})`,
+          `(écart ${deltaPct >= 0 ? '+' : ''}${deltaPct.toFixed(1)} %, tolérance ±${DIST_TOLERANCE_PCT} %)`,
     });
   } else {
     items.push({
@@ -220,11 +201,4 @@ function runChecks({ stage, distanceM, waypointsOnTrack, approxSegments, climbs,
   return { ok, items };
 }
 
-module.exports = {
-  runChecks,
-  ALT_TOLERANCE_M,
-  GPX_TOLERANCE_PCT,
-  NON_GPX_TOLERANCE_PCT,
-  VIA_GAP_WARN_M,
-  isGpxSourced,
-};
+module.exports = { runChecks, ALT_TOLERANCE_M, DIST_TOLERANCE_PCT, VIA_GAP_WARN_M };

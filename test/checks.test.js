@@ -5,7 +5,29 @@
 
 const { test } = require('node:test');
 const assert = require('node:assert');
-const { runChecks } = require('../pipeline/checks');
+const fs = require('node:fs');
+const path = require('node:path');
+const { runChecks, DIST_TOLERANCE_PCT } = require('../pipeline/checks');
+
+// Les cas de distance se déduisent de DIST_TOLERANCE_PCT au lieu de réécrire
+// le nombre : le 04/09/2026, le passage de ±25 % à ±10 % a demandé de
+// retoucher quatre littéraux dans ce fichier, dont deux dans des libellés de
+// test qui auraient continué d'annoncer « ±25 % » en vert. Un test qui décrit
+// un seuil autrement que le code ne le lit finit par mentir sur ce qu'il
+// mesure.
+const CIBLE_KM = 100;
+// Une étape juste sous la tolérance, et une juste au-dessus : c'est la
+// frontière qui discrimine, pas un écart confortable de part et d'autre.
+// Écrit `(cible + cible * pct / 100)` et non `cible * (1 + pct / 100)` : la
+// seconde forme ne tombe pas sur la borne. Mesuré en écrivant ce test —
+// 100 * (1 + 10 / 100) rend 110.00000000000001, soit un écart de
+// 10.000000000000012 % que le `<=` rejette. La borne exacte n'est donc
+// atteignable qu'en gardant le produit avant la somme.
+const ecartKm = (pct) => CIBLE_KM + (CIBLE_KM * pct) / 100;
+const SOUS_LE_SEUIL_M = ecartKm(DIST_TOLERANCE_PCT - 1) * 1000;
+const AU_SEUIL_M = ecartKm(DIST_TOLERANCE_PCT) * 1000;
+const AU_DESSUS_M = ecartKm(DIST_TOLERANCE_PCT + 1) * 1000;
+const MOTIF_TOLERANCE = new RegExp(`tolérance ±${DIST_TOLERANCE_PCT} %`);
 
 function find(items, id) {
   return items.find((i) => i.id === id);
@@ -79,61 +101,45 @@ test('points de passage espacés : jamais signalé si déjà couvert par le chec
   assert.strictEqual(find(items, 'via-gap-Via-Arrivée'), undefined, 'pas de doublon avec le leg déjà signalé en fail');
 });
 
-// Tolérance à deux paliers (03/09/2026, suite signalement utilisateur
-// Nidervisse/Porcelette, Tour 1992 étape 10) : ±5 % pour une étape reconstruite
-// à partir d'un tracé GPX officiel (waypoints labellisés « Tracé GPX km X »,
-// voir isGpxSourced()), ±15 % sinon — une étape sans aucun waypoint
-// labellisé (comme ici, waypointsOnTrack: []) n'est jamais GPX-sourcée.
-test('distance : dans la tolérance ±15 % (non GPX) → ok', () => {
+test(`distance : dans la tolérance ±${DIST_TOLERANCE_PCT} % → ok`, () => {
   const { items } = runChecks({
-    stage: { official_distance_km: 100 }, distanceM: 110000,
+    stage: { official_distance_km: CIBLE_KM }, distanceM: SOUS_LE_SEUIL_M,
     waypointsOnTrack: [], approxSegments: [], climbs: [], samples: [], legs: [],
   });
   assert.strictEqual(find(items, 'distance').status, 'ok');
-  assert.match(find(items, 'distance').detail, /tolérance ±15 %/);
+  assert.match(find(items, 'distance').detail, MOTIF_TOLERANCE);
 });
 
-test('distance : hors tolérance ±15 % (non GPX) → fail', () => {
+// La comparaison est un `<=` : l'écart exactement égal à la tolérance passe.
+// Sans ce cas, remplacer `<=` par `<` laisserait toute la suite verte.
+test(`distance : écart exactement égal à ±${DIST_TOLERANCE_PCT} % → ok (borne incluse)`, () => {
+  const { items } = runChecks({
+    stage: { official_distance_km: CIBLE_KM }, distanceM: AU_SEUIL_M,
+    waypointsOnTrack: [], approxSegments: [], climbs: [], samples: [], legs: [],
+  });
+  assert.strictEqual(find(items, 'distance').status, 'ok');
+});
+
+test(`distance : un point au-dessus de ±${DIST_TOLERANCE_PCT} % → fail`, () => {
   const { items, ok } = runChecks({
-    stage: { official_distance_km: 100 }, distanceM: 120000,
+    stage: { official_distance_km: CIBLE_KM }, distanceM: AU_DESSUS_M,
     waypointsOnTrack: [], approxSegments: [], climbs: [], samples: [], legs: [],
   });
   assert.strictEqual(find(items, 'distance').status, 'fail');
   assert.strictEqual(ok, false);
 });
 
-test('distance : tracé GPX officiel (waypoints labellisés) → tolérance resserrée à ±5 %', () => {
-  const gpxWaypoints = [
-    { label: 'Tracé GPX km 0' }, { label: 'Tracé GPX km 8.0' }, { label: 'Tracé GPX km 16.0' },
-  ];
-  const withinTight = runChecks({
-    stage: { official_distance_km: 100 }, distanceM: 104000,
-    waypointsOnTrack: gpxWaypoints, approxSegments: [], climbs: [], samples: [], legs: [],
+// Un écart négatif franchit la même frontière : la tolérance est symétrique
+// (`Math.abs`), et le tracé trop court est le cas le plus fréquent sur les
+// reconstitutions historiques (démo 1903, étape 6 à -21,8 %).
+test(`distance : hors tolérance par défaut (-${DIST_TOLERANCE_PCT + 1} %) → fail`, () => {
+  const { items, ok } = runChecks({
+    stage: { official_distance_km: CIBLE_KM },
+    distanceM: ecartKm(-(DIST_TOLERANCE_PCT + 1)) * 1000,
+    waypointsOnTrack: [], approxSegments: [], climbs: [], samples: [], legs: [],
   });
-  assert.strictEqual(find(withinTight.items, 'distance').status, 'ok');
-  assert.match(find(withinTight.items, 'distance').detail, /tolérance ±5 %/);
-  assert.match(find(withinTight.items, 'distance').detail, /tracé GPX officiel/);
-
-  // Un écart qui passerait la tolérance non-GPX (±15 %) échoue désormais à ±5 %.
-  const outsideTight = runChecks({
-    stage: { official_distance_km: 100 }, distanceM: 110000,
-    waypointsOnTrack: gpxWaypoints, approxSegments: [], climbs: [], samples: [], legs: [],
-  });
-  assert.strictEqual(find(outsideTight.items, 'distance').status, 'fail');
-});
-
-test('isGpxSourced() : majorité de labels « Tracé GPX km » → true ; sinon → false', () => {
-  const { isGpxSourced } = require('../pipeline/checks');
-  assert.strictEqual(isGpxSourced([{ label: 'Tracé GPX km 0' }, { label: 'Tracé GPX km 8.0' }]), true);
-  assert.strictEqual(isGpxSourced([{ label: 'Bouzonville' }, { label: 'Boulay-Moselle' }, { label: 'Tracé GPX km 8.0' }]), false, 'minorité de labels GPX');
-  assert.strictEqual(isGpxSourced([{ label: 'Bouzonville' }, { label: 'Boulay-Moselle' }]), false);
-  assert.strictEqual(isGpxSourced([]), false);
-  assert.strictEqual(isGpxSourced([{ kind: 'start' }]), false, 'waypoint sans label');
-  assert.strictEqual(
-    isGpxSourced([{ label: 'Tracé GPX km 0' }, { label: 'Boulay-Moselle' }]),
-    true,
-    'égalité stricte 50/50 → true (seuil >= 0.5)',
-  );
+  assert.strictEqual(find(items, 'distance').status, 'fail');
+  assert.strictEqual(ok, false);
 });
 
 // Trouvaille en vérifiant le Tour 1992 (issue #108 suite, 01/09/2026) : une
@@ -153,7 +159,7 @@ test('distance : reconstitution quasi nulle (< 10 % de l\'officielle) → messag
   assert.strictEqual(ok, false);
   assert.match(d.detail, /quasi nulle/);
   assert.match(d.detail, /circuit/);
-  assert.doesNotMatch(d.detail, /tolérance ±25/, 'ne doit pas afficher le message générique pour ce cas');
+  assert.doesNotMatch(d.detail, MOTIF_TOLERANCE, 'ne doit pas afficher le message générique pour ce cas');
 });
 
 test('distance : reconstitution nettement insuffisante mais pas quasi nulle (>= 10 % de l\'officielle) → message générique', () => {
@@ -163,7 +169,7 @@ test('distance : reconstitution nettement insuffisante mais pas quasi nulle (>= 
   });
   const d = find(items, 'distance');
   assert.strictEqual(d.status, 'fail');
-  assert.match(d.detail, /tolérance ±15 %/);
+  assert.match(d.detail, MOTIF_TOLERANCE);
   assert.doesNotMatch(d.detail, /quasi nulle/);
 });
 
@@ -289,4 +295,23 @@ test('ok global : true seulement si aucun item en fail (warn accepté)', () => {
     approxSegments: [], climbs: [], samples: [], legs: [],
   });
   assert.strictEqual(oneFail.ok, false);
+});
+
+// Le README annonce la tolérance dans sa section « Garde-fous et qualité ».
+// C'est la même règle écrite à deux endroits qui ne changent jamais ensemble :
+// le 04/09/2026, passer de ±25 % à ±10 % dans le code laissait le README
+// annoncer l'ancien chiffre à quiconque arrive sur le dépôt, et aucun diff du
+// code ne pouvait l'attraper. Ce test relie les deux ; il échoue en nommant
+// les deux valeurs plutôt qu'en disant seulement « non trouvé ».
+test('README : la tolérance annoncée est celle que le code applique', () => {
+  const readme = fs.readFileSync(path.join(__dirname, '..', 'README.md'), 'utf8');
+  const ligne = readme.split('\n').find((l) => l.includes('distance reconstituée vs cible'));
+  assert.ok(ligne, 'la puce « distance reconstituée vs cible » a disparu du README : ce test ne garde plus rien, le remettre ou le réécrire');
+  const m = /±\s*(\d+(?:[.,]\d+)?)\s*%/.exec(ligne);
+  assert.ok(m, `la puce du README n'annonce plus de tolérance chiffrée : « ${ligne.trim()} »`);
+  assert.strictEqual(
+    Number(m[1].replace(',', '.')),
+    DIST_TOLERANCE_PCT,
+    `le README annonce ±${m[1]} % là où pipeline/checks.js applique ±${DIST_TOLERANCE_PCT} %`,
+  );
 });

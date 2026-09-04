@@ -18,6 +18,7 @@ if (!process.argv.includes('--online')) setOffline(true);
 const { getDb } = require('../backend/db');
 const { generateStage, loadStageFull } = require('../pipeline/generate');
 const { importEdition, importAllEditions } = require('../pipeline/importer');
+const { DIST_TOLERANCE_PCT } = require('../pipeline/checks');
 
 const results = [];
 function check(label, ok, detail) {
@@ -86,7 +87,7 @@ async function demo1903(db) {
   const full1 = loadStageFull(st1.id);
   check('Étape 1 : distance officielle 467 km', full1.stage.official_distance_km === 467);
   const delta1 = ((full1.stage.generated_distance_km - 467) / 467) * 100;
-  check('Étape 1 : écart de reconstitution affiché et ≤ 25 %', Math.abs(delta1) <= 25,
+  check(`Étape 1 : écart de reconstitution affiché et ≤ ${DIST_TOLERANCE_PCT} %`, Math.abs(delta1) <= DIST_TOLERANCE_PCT,
     `officielle 467 km / reconstitution ${full1.stage.generated_distance_km} km (${delta1 >= 0 ? '+' : ''}${delta1.toFixed(1)} %)`);
   // Étape 1 : col du Pin-Bouchain (759 m, entre Tarare et Roanne) — tout premier
   // col franchi dans l'histoire du Tour. Le col de la République (1 161 m,
