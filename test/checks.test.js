@@ -5,7 +5,29 @@
 
 const { test } = require('node:test');
 const assert = require('node:assert');
-const { runChecks } = require('../pipeline/checks');
+const fs = require('node:fs');
+const path = require('node:path');
+const { runChecks, DIST_TOLERANCE_PCT } = require('../pipeline/checks');
+
+// Les cas de distance se déduisent de DIST_TOLERANCE_PCT au lieu de réécrire
+// le nombre : le 04/09/2026, le passage de ±25 % à ±10 % a demandé de
+// retoucher quatre littéraux dans ce fichier, dont deux dans des libellés de
+// test qui auraient continué d'annoncer « ±25 % » en vert. Un test qui décrit
+// un seuil autrement que le code ne le lit finit par mentir sur ce qu'il
+// mesure.
+const CIBLE_KM = 100;
+// Une étape juste sous la tolérance, et une juste au-dessus : c'est la
+// frontière qui discrimine, pas un écart confortable de part et d'autre.
+// Écrit `(cible + cible * pct / 100)` et non `cible * (1 + pct / 100)` : la
+// seconde forme ne tombe pas sur la borne. Mesuré en écrivant ce test —
+// 100 * (1 + 10 / 100) rend 110.00000000000001, soit un écart de
+// 10.000000000000012 % que le `<=` rejette. La borne exacte n'est donc
+// atteignable qu'en gardant le produit avant la somme.
+const ecartKm = (pct) => CIBLE_KM + (CIBLE_KM * pct) / 100;
+const SOUS_LE_SEUIL_M = ecartKm(DIST_TOLERANCE_PCT - 1) * 1000;
+const AU_SEUIL_M = ecartKm(DIST_TOLERANCE_PCT) * 1000;
+const AU_DESSUS_M = ecartKm(DIST_TOLERANCE_PCT + 1) * 1000;
+const MOTIF_TOLERANCE = new RegExp(`tolérance ±${DIST_TOLERANCE_PCT} %`);
 
 function find(items, id) {
   return items.find((i) => i.id === id);
@@ -34,17 +56,40 @@ test('leg normal (route proche du vol d\'oiseau) : aucun item leg-suspect', () =
   assert.strictEqual(items.some((i) => i.id.startsWith('leg-')), false);
 });
 
-test('distance : dans la tolérance ±25 % → ok', () => {
+test(`distance : dans la tolérance ±${DIST_TOLERANCE_PCT} % → ok`, () => {
   const { items } = runChecks({
-    stage: { official_distance_km: 100 }, distanceM: 110000,
+    stage: { official_distance_km: CIBLE_KM }, distanceM: SOUS_LE_SEUIL_M,
     waypointsOnTrack: [], approxSegments: [], climbs: [], samples: [], legs: [],
   });
   assert.strictEqual(find(items, 'distance').status, 'ok');
 });
 
-test('distance : hors tolérance ±25 % → fail', () => {
+// La comparaison est un `<=` : l'écart exactement égal à la tolérance passe.
+// Sans ce cas, remplacer `<=` par `<` laisserait toute la suite verte.
+test(`distance : écart exactement égal à ±${DIST_TOLERANCE_PCT} % → ok (borne incluse)`, () => {
+  const { items } = runChecks({
+    stage: { official_distance_km: CIBLE_KM }, distanceM: AU_SEUIL_M,
+    waypointsOnTrack: [], approxSegments: [], climbs: [], samples: [], legs: [],
+  });
+  assert.strictEqual(find(items, 'distance').status, 'ok');
+});
+
+test(`distance : un point au-dessus de ±${DIST_TOLERANCE_PCT} % → fail`, () => {
   const { items, ok } = runChecks({
-    stage: { official_distance_km: 100 }, distanceM: 160000,
+    stage: { official_distance_km: CIBLE_KM }, distanceM: AU_DESSUS_M,
+    waypointsOnTrack: [], approxSegments: [], climbs: [], samples: [], legs: [],
+  });
+  assert.strictEqual(find(items, 'distance').status, 'fail');
+  assert.strictEqual(ok, false);
+});
+
+// Un écart négatif franchit la même frontière : la tolérance est symétrique
+// (`Math.abs`), et le tracé trop court est le cas le plus fréquent sur les
+// reconstitutions historiques (démo 1903, étape 6 à -21,8 %).
+test(`distance : hors tolérance par défaut (-${DIST_TOLERANCE_PCT + 1} %) → fail`, () => {
+  const { items, ok } = runChecks({
+    stage: { official_distance_km: CIBLE_KM },
+    distanceM: ecartKm(-(DIST_TOLERANCE_PCT + 1)) * 1000,
     waypointsOnTrack: [], approxSegments: [], climbs: [], samples: [], legs: [],
   });
   assert.strictEqual(find(items, 'distance').status, 'fail');
@@ -68,7 +113,7 @@ test('distance : reconstitution quasi nulle (< 10 % de l\'officielle) → messag
   assert.strictEqual(ok, false);
   assert.match(d.detail, /quasi nulle/);
   assert.match(d.detail, /circuit/);
-  assert.doesNotMatch(d.detail, /tolérance ±25/, 'ne doit pas afficher le message générique pour ce cas');
+  assert.doesNotMatch(d.detail, MOTIF_TOLERANCE, 'ne doit pas afficher le message générique pour ce cas');
 });
 
 test('distance : reconstitution nettement insuffisante mais pas quasi nulle (>= 10 % de l\'officielle) → message générique', () => {
@@ -78,7 +123,7 @@ test('distance : reconstitution nettement insuffisante mais pas quasi nulle (>= 
   });
   const d = find(items, 'distance');
   assert.strictEqual(d.status, 'fail');
-  assert.match(d.detail, /tolérance ±25/);
+  assert.match(d.detail, MOTIF_TOLERANCE);
   assert.doesNotMatch(d.detail, /quasi nulle/);
 });
 
@@ -204,4 +249,23 @@ test('ok global : true seulement si aucun item en fail (warn accepté)', () => {
     approxSegments: [], climbs: [], samples: [], legs: [],
   });
   assert.strictEqual(oneFail.ok, false);
+});
+
+// Le README annonce la tolérance dans sa section « Garde-fous et qualité ».
+// C'est la même règle écrite à deux endroits qui ne changent jamais ensemble :
+// le 04/09/2026, passer de ±25 % à ±10 % dans le code laissait le README
+// annoncer l'ancien chiffre à quiconque arrive sur le dépôt, et aucun diff du
+// code ne pouvait l'attraper. Ce test relie les deux ; il échoue en nommant
+// les deux valeurs plutôt qu'en disant seulement « non trouvé ».
+test('README : la tolérance annoncée est celle que le code applique', () => {
+  const readme = fs.readFileSync(path.join(__dirname, '..', 'README.md'), 'utf8');
+  const ligne = readme.split('\n').find((l) => l.includes('distance reconstituée vs cible'));
+  assert.ok(ligne, 'la puce « distance reconstituée vs cible » a disparu du README : ce test ne garde plus rien, le remettre ou le réécrire');
+  const m = /±\s*(\d+(?:[.,]\d+)?)\s*%/.exec(ligne);
+  assert.ok(m, `la puce du README n'annonce plus de tolérance chiffrée : « ${ligne.trim()} »`);
+  assert.strictEqual(
+    Number(m[1].replace(',', '.')),
+    DIST_TOLERANCE_PCT,
+    `le README annonce ±${m[1]} % là où pipeline/checks.js applique ±${DIST_TOLERANCE_PCT} %`,
+  );
 });

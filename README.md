@@ -183,7 +183,7 @@ npm run generate -- --import 1903       # import seul
 
 - Rate limits respectés (files d'attente par hôte) ; progression affichée pour
   les longues générations (une étape de 467 km ≈ 1 900 points d'altimétrie).
-- Bloc **checks** par étape : distance reconstituée vs cible (±25 %), cols
+- Bloc **checks** par étape : distance reconstituée vs cible (±10 %), cols
   atteints (< 500 m), altitudes de sommets vs valeurs connues, segments
   approximés listés, échantillons manquants.
 - **Attributions affichées** dans l'application et les exports :
