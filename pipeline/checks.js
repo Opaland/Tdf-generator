@@ -1,6 +1,6 @@
 'use strict';
 // Bloc « checks » : audits qualité d'une étape générée.
-// - distance reconstituée vs distance cible (tolérance ±25 %)
+// - distance reconstituée vs distance cible (tolérance ±10 %)
 // - cols atteints (tracé < 500 m du sommet)
 // - altitudes de sommets vs valeurs connues
 // - segments/points approximés listés
@@ -8,6 +8,27 @@
 const { COL_TOLERANCE_M } = require('./routing');
 
 const ALT_TOLERANCE_M = 120;
+
+// Écart maximal accepté entre la distance officielle d'une étape et celle du
+// tracé reconstitué. Décidé par Cédric le 04/09/2026 : ±10 %, contre ±25 %
+// jusque-là. Un seuil qui change ce qui est *vérifié* ne s'invente pas — il
+// vient d'une décision, elle est datée ici, et le nombre n'existe qu'en un
+// seul endroit : le message affiché, les tests et `scripts/demo.js` le lisent
+// tous d'ici plutôt que de le réécrire (une valeur recopiée dérive).
+//
+// Conséquence assumée et mesurée sur la démo 1903 hors ligne : les étapes 4
+// (-10,5 %) et 6 (-21,8 %) passent d'« ok » à « fail ». C'est le but — un
+// tracé reconstitué qui s'écarte d'un cinquième de la distance officielle
+// n'est pas une reconstitution fidèle, et le badge de l'étape doit le dire.
+const DIST_TOLERANCE_PCT = 10;
+
+// Part de la distance officielle en dessous de laquelle la reconstitution
+// n'est plus « imprécise » mais absente (étape en circuit sans via curé, voir
+// plus bas). Volontairement indépendant de DIST_TOLERANCE_PCT : les deux
+// valent 10 depuis le 04/09/2026, mais l'un est un écart en pourcentage et
+// l'autre une fraction de la cible — les confondre en un seul nombre ferait
+// bouger le message dédié chaque fois qu'on resserre la tolérance.
+const QUASI_NUL_RATIO = 0.1;
 
 /**
  * @returns { ok, items: [{id, label, status: 'ok'|'warn'|'fail', detail}] }
@@ -33,7 +54,7 @@ function runChecks({ stage, distanceM, waypointsOnTrack, approxSegments, climbs,
   if (stage.official_distance_km) {
     const target = stage.official_distance_km;
     const deltaPct = ((kmGen - target) / target) * 100;
-    const ok = Math.abs(deltaPct) <= 25;
+    const ok = Math.abs(deltaPct) <= DIST_TOLERANCE_PCT;
     // Distance quasi nulle (< 10 % de l'officielle) : signal qualitativement
     // différent d'un simple écart de tracé. Cas typique — trouvaille en
     // vérifiant le Tour 1992 (issue #108 suite) : une étape en circuit
@@ -44,7 +65,7 @@ function runChecks({ stage, distanceM, waypointsOnTrack, approxSegments, climbs,
     // fiche d'étape est essentiellement vide plutôt que juste imprécise — un
     // message dédié évite de noyer ce cas dans le même libellé générique
     // qu'un tracé simplement mal deviné.
-    const nearZero = kmGen < target * 0.1;
+    const nearZero = kmGen < target * QUASI_NUL_RATIO;
     items.push({
       id: 'distance',
       label: 'Distance reconstituée vs cible',
@@ -54,7 +75,7 @@ function runChecks({ stage, distanceM, waypointsOnTrack, approxSegments, climbs,
           `probablement une étape en circuit (départ = arrivée) sans aucun point de passage curé : ` +
           `impossible de reconstruire un tracé réel sans via, voir pipeline/data/historic_routes.json`
         : `officielle ${target} km / reconstitution ${kmGen.toFixed(1)} km ` +
-          `(écart ${deltaPct >= 0 ? '+' : ''}${deltaPct.toFixed(1)} %, tolérance ±25 %)`,
+          `(écart ${deltaPct >= 0 ? '+' : ''}${deltaPct.toFixed(1)} %, tolérance ±${DIST_TOLERANCE_PCT} %)`,
     });
   } else {
     items.push({
@@ -145,4 +166,4 @@ function runChecks({ stage, distanceM, waypointsOnTrack, approxSegments, climbs,
   return { ok, items };
 }
 
-module.exports = { runChecks, ALT_TOLERANCE_M };
+module.exports = { runChecks, ALT_TOLERANCE_M, DIST_TOLERANCE_PCT };
