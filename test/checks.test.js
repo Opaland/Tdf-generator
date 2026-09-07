@@ -56,12 +56,58 @@ test('leg normal (route proche du vol d\'oiseau) : aucun item leg-suspect', () =
   assert.strictEqual(items.some((i) => i.id.startsWith('leg-')), false);
 });
 
+// Points de passage espacés (03/09/2026, suite signalement utilisateur
+// Nidervisse/Porcelette, Tour 1992 étape 10) : un trou > 12 km entre deux
+// points curés consécutifs risque de laisser le routeur halluciner un chemin
+// plausible mais faux — voir VIA_GAP_WARN_M dans pipeline/checks.js.
+test('points de passage espacés : leg > 12 km à vol d\'oiseau sur une étape partiellement curée → warn', () => {
+  const { items, ok } = runChecks({
+    stage: {}, distanceM: 30000,
+    waypointsOnTrack: [{ label: 'Départ' }, { label: 'Via' }, { label: 'Arrivée' }],
+    approxSegments: [], climbs: [], samples: [],
+    legs: [
+      { from: 'Départ', to: 'Via', roadM: 5000, straightM: 4500 },
+      { from: 'Via', to: 'Arrivée', roadM: 18000, straightM: 15000 },
+    ],
+  });
+  const gap = find(items, 'via-gap-Via-Arrivée');
+  assert.ok(gap, 'le leg de 15 km à vol d\'oiseau doit être signalé');
+  assert.strictEqual(gap.status, 'warn');
+  assert.strictEqual(ok, true, 'un warn ne fait pas échouer le bloc global');
+  assert.strictEqual(find(items, 'via-gap-Départ-Via'), undefined, 'le leg de 4,5 km ne doit pas être signalé');
+});
+
+test('points de passage espacés : n\'est jamais signalé sur une étape entièrement non curée (départ+arrivée seuls)', () => {
+  const { items } = runChecks({
+    stage: {}, distanceM: 200000,
+    waypointsOnTrack: [{ label: 'Départ' }, { label: 'Arrivée' }],
+    approxSegments: [], climbs: [], samples: [],
+    legs: [{ from: 'Départ', to: 'Arrivée', roadM: 200000, straightM: 180000 }],
+  });
+  assert.strictEqual(items.some((i) => i.id.startsWith('via-gap-')), false);
+});
+
+test('points de passage espacés : jamais signalé si déjà couvert par le check leg suspect (fail)', () => {
+  const { items } = runChecks({
+    stage: {}, distanceM: 130000,
+    waypointsOnTrack: [{ label: 'Départ' }, { label: 'Via' }, { label: 'Arrivée' }],
+    approxSegments: [], climbs: [], samples: [],
+    legs: [
+      { from: 'Départ', to: 'Via', roadM: 5000, straightM: 4500 },
+      { from: 'Via', to: 'Arrivée', roadM: 120000, straightM: 20000 },
+    ],
+  });
+  assert.strictEqual(find(items, 'leg-Via-Arrivée').status, 'fail');
+  assert.strictEqual(find(items, 'via-gap-Via-Arrivée'), undefined, 'pas de doublon avec le leg déjà signalé en fail');
+});
+
 test(`distance : dans la tolérance ±${DIST_TOLERANCE_PCT} % → ok`, () => {
   const { items } = runChecks({
     stage: { official_distance_km: CIBLE_KM }, distanceM: SOUS_LE_SEUIL_M,
     waypointsOnTrack: [], approxSegments: [], climbs: [], samples: [], legs: [],
   });
   assert.strictEqual(find(items, 'distance').status, 'ok');
+  assert.match(find(items, 'distance').detail, MOTIF_TOLERANCE);
 });
 
 // La comparaison est un `<=` : l'écart exactement égal à la tolérance passe.

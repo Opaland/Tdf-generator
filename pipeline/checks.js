@@ -4,6 +4,7 @@
 // - cols atteints (tracé < 500 m du sommet)
 // - altitudes de sommets vs valeurs connues
 // - segments/points approximés listés
+// - points de passage curés trop espacés (risque de détour halluciné)
 
 const { COL_TOLERANCE_M } = require('./routing');
 
@@ -30,6 +31,17 @@ const DIST_TOLERANCE_PCT = 10;
 // bouger le message dédié chaque fois qu'on resserre la tolérance.
 const QUASI_NUL_RATIO = 0.1;
 
+// Écart maximal (vol d'oiseau) entre deux points de passage curés consécutifs
+// avant avertissement : au-delà, le routeur peut improviser un chemin
+// plausible mais faux entre les deux — trouvaille concrète sur le Tour 1992
+// étape 10 (10 km sans via entre Boulay-Moselle et Boucheporn, comblés par un
+// détour halluciné passant par Nidervisse et Porcelette, jamais empruntés par
+// la course). Ne s'applique qu'aux étapes déjà partiellement curées (plus de
+// 2 waypoints, donc au moins un via) : une étape entièrement non curée est
+// déjà signalée par le check distance (quasi nulle ou générique), pas besoin
+// d'un second avertissement redondant sur son unique leg départ→arrivée.
+const VIA_GAP_WARN_M = 12000;
+
 /**
  * @returns { ok, items: [{id, label, status: 'ok'|'warn'|'fail', detail}] }
  */
@@ -47,6 +59,29 @@ function runChecks({ stage, distanceM, waypointsOnTrack, approxSegments, climbs,
         status: 'fail',
         detail: `${(l.roadM / 1000).toFixed(0)} km routés pour ${(l.straightM / 1000).toFixed(0)} km à vol d'oiseau — waypoint probablement mal géocodé`,
       });
+    }
+  }
+
+  // 0b) Points de passage espacés : entre deux points curés distants de plus
+  // de VIA_GAP_WARN_M à vol d'oiseau, le routeur choisit lui-même la route —
+  // et peut halluciner un détour plausible mais faux (voir constante
+  // ci-dessus). Ne s'applique qu'aux étapes déjà partiellement curées (plus
+  // de 2 waypoints) : une étape non curée (départ+arrivée seuls) est déjà
+  // signalée par le check distance, pas besoin d'un avertissement redondant.
+  if ((waypointsOnTrack || []).length > 2) {
+    for (const l of legs || []) {
+      const alreadyFlaggedAsSuspect = l.roadM > 50000 && l.roadM > 5 * Math.max(1, l.straightM);
+      if (l.straightM > VIA_GAP_WARN_M && !alreadyFlaggedAsSuspect) {
+        items.push({
+          id: `via-gap-${l.from}-${l.to}`,
+          label: `Points de passage espacés : ${l.from} → ${l.to}`,
+          status: 'warn',
+          detail: `${(l.straightM / 1000).toFixed(1)} km à vol d'oiseau sans point de passage intermédiaire — ` +
+            `au-delà de ~${VIA_GAP_WARN_M / 1000} km, le routeur peut improviser un chemin plausible mais faux ` +
+            `entre les deux (trouvaille Tour 1992 étape 10 : détour par Nidervisse/Porcelette, jamais empruntés ` +
+            `par la course). Envisager un point de passage supplémentaire si une source existe.`,
+        });
+      }
     }
   }
 
@@ -166,4 +201,4 @@ function runChecks({ stage, distanceM, waypointsOnTrack, approxSegments, climbs,
   return { ok, items };
 }
 
-module.exports = { runChecks, ALT_TOLERANCE_M, DIST_TOLERANCE_PCT };
+module.exports = { runChecks, ALT_TOLERANCE_M, DIST_TOLERANCE_PCT, VIA_GAP_WARN_M };
