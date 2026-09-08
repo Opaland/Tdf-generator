@@ -194,6 +194,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   const dz = document.getElementById('dropzone');
   const input = document.getElementById('gpx-file');
   dz.addEventListener('click', () => input.click());
+  dz.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    e.preventDefault();
+    input.click();
+  });
   input.addEventListener('change', () => importGpxFiles([...input.files]));
   dz.addEventListener('dragover', (e) => { e.preventDefault(); dz.style.background = '#f3ecd9'; });
   dz.addEventListener('dragleave', () => { dz.style.background = ''; });
