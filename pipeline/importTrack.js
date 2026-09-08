@@ -6,7 +6,7 @@
 const { getDb } = require('../backend/db');
 const { resamplePolyline, movingAverageByDistance } = require('./geo');
 const { sampleElevations, fillNearestValid, plausibleEle } = require('./elevation');
-const { detectClimbs, nameClimbs } = require('./climbs');
+const { detectClimbs, nameClimbs, detectBacktrackZones } = require('./climbs');
 const { analyzeByKm } = require('./kmanalysis');
 const { runChecks } = require('./checks');
 const { reverseGeocode } = require('./geocode');
@@ -134,8 +134,15 @@ async function importTrackAsStage(points, meta = {}) {
     const climbs = detectClimbs(full.map((s) => ({ dist: s.dist, eleRaw: s.eleRaw, eleSmooth: s.eleSmooth })));
     await nameClimbs(climbs, [], full, reverseGeocode);
     const kmRows = analyzeByKm(full.map((s) => ({ dist: s.dist, eleRaw: s.eleRaw, eleSmooth: s.eleSmooth })));
+    // detectBacktrackZones() a besoin de lat/lon (contrairement à
+    // detectClimbs/analyzeByKm ci-dessus) : `full` les porte déjà, même
+    // branchement que generate.js (trouvaille de relecture adverse, ce
+    // fichier avait été oublié lors de l'ajout du check).
+    const backtrackZones = detectBacktrackZones(full);
     const stage = db.prepare('SELECT * FROM stages WHERE id = ?').get(stageId);
-    const checks = runChecks({ stage, distanceM: totalM, waypointsOnTrack: [], approxSegments: [], climbs, samples: full });
+    const checks = runChecks({
+      stage, distanceM: totalM, waypointsOnTrack: [], approxSegments: [], climbs, samples: full, backtrackZones,
+    });
 
     const geojson = {
       type: 'Feature',

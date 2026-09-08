@@ -4,9 +4,98 @@
 // Catégorisation approx ASO : score = longueur_km × pente_moyenne_%.
 //   > 80 → HC ; > 32 → cat.1 ; > 16 → cat.2 ; > 6 → cat.3 ; sinon cat.4.
 
+const { haversine, bearing, bearingDiff } = require('./geo');
+
 const MIN_LENGTH_M = 1500;
 const MIN_AVG_GRADIENT = 3; // %
 const MERGE_GAP_M = 500;
+
+// Détection des allers-retours du tracé (03-09/2026, suite signalement
+// utilisateur Tour 1992 étape 10 : le point de passage curé « Côte de
+// Buckwald » force un aller-retour réel sur ~4-5 km — vérifié en traçant les
+// coordonnées échantillon par échantillon, la portion de retour recopie
+// quasi exactement (à quelques dizaines de mètres près) la portion aller, en
+// sens inverse). Un aller-retour de ce type fausse le détecteur de côtes :
+// la montée de retour, séparée de la vraie montée par une descente qui
+// « efface » le profil net, se recompose parfois en une côte fantôme sur un
+// segment déjà grimpé (trouvaille concrète : « Côte de Ferme Saint-Henri,
+// Denting », immédiatement après le point de rebroussement).
+//
+// Trois conditions cumulatives pour retenir un couple de points comme
+// rebroussement (pas juste « proche à vol d'oiseau ») :
+// 1) proximité géographique (< BACKTRACK_PROXIMITY_M) ;
+// 2) altitude quasi identique (< BACKTRACK_ELEVATION_TOLERANCE_M) — écarte
+//    les lacets de montagne (Alpe d'Huez, Tourmalet…), où deux virages en
+//    épingle peuvent être géographiquement proches en plan mais à des
+//    altitudes différentes puisque la route continue de grimper ;
+// 3) cap inversé (> BACKTRACK_BEARING_REVERSAL_MIN°) — écarte un circuit
+//    répété dans le même sens (ex. les 3 boucles de Nice 2020) : deux
+//    passages au même endroit, dans le même sens, ne sont pas un
+//    rebroussement.
+// Séparation minimale en distance parcourue (BACKTRACK_MIN_SEPARATION_M)
+// pour ignorer les échantillons simplement adjacents.
+//
+// BACKTRACK_ELEVATION_TOLERANCE_M resserré de 20 à 10 m (relecture adverse
+// du 04/09/2026) : un replat local sur un lacet de montagne (un col a
+// souvent un court palier à chaque épingle) peut suffire à passer sous 20 m
+// alors que la route continue bel et bien de grimper — le garde-fou de
+// l'altitude visait à écarter CE cas précisément, mais 20 m laissait passer
+// un replat plausible. Vérifié sur les 3 jeux de données réels déjà
+// utilisés pour calibrer ce détecteur (Tour 1992 étape 10, Tour 2021 étape
+// 11, Tour 2020 étape 1) : toutes les zones connues survivent à 10 m avec
+// une marge large (la plus petite passe de 1,0 à 1,0 km, aucune ne
+// disparaît) — l'écart d'altitude réel entre les deux bras d'un aller-retour
+// authentique (même route parcourue deux fois) est bien plus resserré qu'un
+// simple replat de lacet.
+const BACKTRACK_PROXIMITY_M = 150;
+const BACKTRACK_ELEVATION_TOLERANCE_M = 10;
+const BACKTRACK_BEARING_REVERSAL_MIN = 140;
+const BACKTRACK_MIN_SEPARATION_M = 1000;
+// Taille de cellule de la grille spatiale : évite une comparaison O(n²) de
+// tous les échantillons entre eux sur une étape à profil long (jusqu'à
+// quelques milliers de points) — seuls les échantillons proches en plan
+// (même cellule ou voisine) sont comparés entre eux.
+//
+// Trouvaille de relecture adverse (04/09/2026) : la valeur initiale
+// (0,0013°, ≈145 m en latitude mais seulement 93-107 m en longitude aux
+// latitudes françaises, cos(lat) oblige) était PLUS PETITE que
+// BACKTRACK_PROXIMITY_M — avec une marge de recherche de ±1 cellule
+// seulement, deux points à moins de 150 m réels pouvaient tomber dans des
+// cellules distantes de 2 crans et être totalement ratés (reproduit : deux
+// points à 149 m réels, zéro zone détectée). Sur une étape à pas
+// d'échantillonnage large (250 m, pipeline/elevation.js) et un aller-retour
+// court, cette perte n'est pas rattrapée par la fusion de zones adjacentes
+// — un vrai aller-retour peut disparaître entièrement plutôt que d'être
+// simplement filtré par BACKTRACK_MIN_ZONE_LENGTH_M.
+//
+// Corrigé sur les deux axes : la cellule fait maintenant ≥150 m même dans
+// le pire cas (longitude à 51°N, latitude la plus haute du corpus TdF ;
+// cos(51°) ≈ 0,629) ET la marge de recherche passe de ±1 à ±2 cellules —
+// double garde-fou plutôt qu'un seul calcul à la limite exacte.
+const BACKTRACK_CELL_DEG = 0.0022;
+const BACKTRACK_CELL_MARGIN = 2;
+// Longueur minimale d'une zone retenue (04/09/2026, vérifié en direct sur le
+// Tour 2021 étape 11, double ascension du Ventoux — la SEULE double ascension
+// intentionnelle déjà présente dans le corpus) : les deux passages au vrai
+// sommet (même point géographique, sens de progression opposé après chacun)
+// déclenchent chacun une correspondance isolée, sur un seul échantillon
+// (zone de longueur ~0 m) — le sommet est un point unique, pas une route
+// repassant sur elle-même. Un vrai aller-retour (point de passage forçant un
+// détour, trouvaille Tour 1992 étape 10) couvre au contraire plusieurs
+// centaines de mètres à plusieurs km d'échantillons consécutifs (vérifié :
+// 3-3,5 km sur le Tour 1992 étape 10 ET sur un aller-retour non documenté
+// jusqu'ici trouvé sur le Tour 2021 étape 11, ~km 61-70, sans rapport avec le
+// Ventoux). Ce seuil élimine la coïncidence géographique ponctuelle d'un
+// sommet visité deux fois sans toucher aux vrais aller-retours.
+//
+// Relevé de 300 à 600 m (relecture adverse du 04/09/2026, en défense
+// supplémentaire du resserrement de BACKTRACK_ELEVATION_TOLERANCE_M
+// ci-dessus) : un faux positif ponctuel (replat de lacet, coïncidence de
+// cap) est nettement moins probable sur 600 m consécutifs que sur 300 m.
+// Toutes les zones réelles connues restent trouvées à 600 m (la plus courte
+// des 10 zones observées sur les 3 étapes de calibrage fait 1,0 km) — cette
+// marge reste large.
+const BACKTRACK_MIN_ZONE_LENGTH_M = 600;
 
 function categorize(score) {
   if (score > 80) return 'HC';
@@ -186,6 +275,77 @@ function detectClimbs(rawSamples) {
 }
 
 /**
+ * Détecte les zones où le tracé fait un aller-retour sur lui-même (voir
+ * commentaire des constantes BACKTRACK_* ci-dessus). Grille spatiale pour
+ * éviter une comparaison O(n²) : chaque échantillon n'est comparé qu'aux
+ * échantillons tombant dans la même cellule ou une cellule adjacente.
+ * @param samples [{dist, lat, lon, eleRaw?, eleSmooth?}] triés par dist (m)
+ * @returns [{ startM, endM }] zones fusionnées (échantillons marqués à moins
+ *          de 3 crans d'écart les uns des autres regroupés ensemble)
+ */
+function detectBacktrackZones(samples) {
+  const pts = (samples || []).filter((s) => s.lat != null && s.lon != null);
+  if (pts.length < 4) return [];
+  const ele = (s) => (s.eleSmooth != null ? s.eleSmooth : s.eleRaw != null ? s.eleRaw : s.ele);
+
+  // Cap local en chaque point : segment vers le point suivant (le dernier
+  // point reprend le cap du segment précédent, faute de point suivant).
+  const bearings = pts.map((p, i) => {
+    const next = i < pts.length - 1 ? pts[i + 1] : pts[i - 1];
+    const from = i < pts.length - 1 ? p : pts[i - 1];
+    const to = i < pts.length - 1 ? next : p;
+    return bearing(from, to);
+  });
+
+  const cellKey = (lat, lon) => `${Math.round(lat / BACKTRACK_CELL_DEG)}:${Math.round(lon / BACKTRACK_CELL_DEG)}`;
+  const grid = new Map();
+  pts.forEach((p, i) => {
+    const latCell = Math.round(p.lat / BACKTRACK_CELL_DEG);
+    const lonCell = Math.round(p.lon / BACKTRACK_CELL_DEG);
+    for (let dlat = -BACKTRACK_CELL_MARGIN; dlat <= BACKTRACK_CELL_MARGIN; dlat++) {
+      for (let dlon = -BACKTRACK_CELL_MARGIN; dlon <= BACKTRACK_CELL_MARGIN; dlon++) {
+        const k = `${latCell + dlat}:${lonCell + dlon}`;
+        if (!grid.has(k)) grid.set(k, []);
+        grid.get(k).push(i);
+      }
+    }
+  });
+
+  const flagged = new Set();
+  for (let i = 0; i < pts.length; i++) {
+    const candidates = grid.get(cellKey(pts[i].lat, pts[i].lon)) || [];
+    for (const j of candidates) {
+      if (j <= i || flagged.has(i)) continue;
+      if (pts[j].dist - pts[i].dist < BACKTRACK_MIN_SEPARATION_M) continue;
+      if (haversine(pts[i], pts[j]) > BACKTRACK_PROXIMITY_M) continue;
+      const ei = ele(pts[i]);
+      const ej = ele(pts[j]);
+      if (ei != null && ej != null && Math.abs(ei - ej) > BACKTRACK_ELEVATION_TOLERANCE_M) continue;
+      if (bearingDiff(bearings[i], bearings[j]) < BACKTRACK_BEARING_REVERSAL_MIN) continue;
+      flagged.add(i);
+      flagged.add(j);
+    }
+  }
+  if (!flagged.size) return [];
+
+  const idxs = [...flagged].sort((a, b) => a - b);
+  const zones = [];
+  let zs = idxs[0];
+  let ze = idxs[0];
+  for (let k = 1; k < idxs.length; k++) {
+    if (idxs[k] - ze <= 3) {
+      ze = idxs[k];
+    } else {
+      zones.push({ startM: Math.round(pts[zs].dist), endM: Math.round(pts[ze].dist) });
+      zs = idxs[k];
+      ze = idxs[k];
+    }
+  }
+  zones.push({ startM: Math.round(pts[zs].dist), endM: Math.round(pts[ze].dist) });
+  return zones.filter((z) => z.endM - z.startM >= BACKTRACK_MIN_ZONE_LENGTH_M);
+}
+
+/**
  * Nomme chaque côte : waypoint de type col le plus proche du sommet (< 1 km le
  * long du tracé), sinon un col/sommet plus loin en avant sur le tracé dont
  * l'altitude connue correspond au sommet détecté (voir plus bas), sinon
@@ -269,6 +429,8 @@ async function nameClimbs(climbs, waypointsOnTrack, samples, reverseGeocodeFn) {
 }
 
 module.exports = {
-  detectClimbs, nameClimbs, categorize, irregularityIndex,
+  detectClimbs, nameClimbs, categorize, irregularityIndex, detectBacktrackZones,
   MIN_LENGTH_M, MIN_AVG_GRADIENT, MERGE_GAP_M,
+  BACKTRACK_PROXIMITY_M, BACKTRACK_ELEVATION_TOLERANCE_M, BACKTRACK_BEARING_REVERSAL_MIN, BACKTRACK_MIN_SEPARATION_M,
+  BACKTRACK_MIN_ZONE_LENGTH_M,
 };

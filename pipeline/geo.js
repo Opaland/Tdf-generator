@@ -15,6 +15,22 @@ function haversine(a, b) {
   return 2 * R_EARTH * Math.asin(Math.sqrt(s));
 }
 
+/** Cap initial en degrés (0-360, 0 = nord) du segment a→b. */
+function bearing(a, b) {
+  const dLon = toRad(b.lon - a.lon);
+  const y = Math.sin(dLon) * Math.cos(toRad(b.lat));
+  const x =
+    Math.cos(toRad(a.lat)) * Math.sin(toRad(b.lat)) -
+    Math.sin(toRad(a.lat)) * Math.cos(toRad(b.lat)) * Math.cos(dLon);
+  return (Math.atan2(y, x) * 180) / Math.PI + (Math.atan2(y, x) < 0 ? 360 : 0);
+}
+
+/** Écart angulaire entre deux caps, toujours dans [0, 180]. */
+function bearingDiff(a, b) {
+  const d = Math.abs(a - b) % 360;
+  return d > 180 ? 360 - d : d;
+}
+
 /** Interpolation linéaire entre deux points (suffisant aux échelles routières). */
 function lerpPoint(a, b, t) {
   return { lat: a.lat + (b.lat - a.lat) * t, lon: a.lon + (b.lon - a.lon) * t };
@@ -80,6 +96,8 @@ function movingAverageByDistance(samples, windowM) {
 
 module.exports = {
   haversine,
+  bearing,
+  bearingDiff,
   lerpPoint,
   cumulativeDistances,
   resamplePolyline,
