@@ -3,7 +3,7 @@
 
 const { test } = require('node:test');
 const assert = require('node:assert');
-const { detectClimbs, categorize, irregularityIndex, nameClimbs } = require('../pipeline/climbs');
+const { detectClimbs, categorize, irregularityIndex, nameClimbs, detectBacktrackZones } = require('../pipeline/climbs');
 
 /** Construit un profil échantillonné tous les 100 m depuis des segments [lengthM, gradientPct]. */
 function buildProfile(segments, startEle = 200) {
@@ -262,4 +262,101 @@ test('nameClimbs : géocodage inverse en échec ou sans résultat → repli gén
   assert.strictEqual(climbsEmpty[0].name, 'Côte du km 10');
   assert.strictEqual(climbsEmpty[0].rawLabel, undefined);
   assert.strictEqual(climbsEmpty[0].nameSource, 'defaut', 'un géocodage résolu sans label exploitable doit être traité comme le repli générique, pas comme un géocodage réussi');
+});
+
+// detectBacktrackZones (04/09/2026, suite signalement utilisateur Tour 1992
+// étape 10) : le point de passage curé « Côte de Buckwald » force un
+// aller-retour réel de ~5 km sur la même route (vérifié en traçant les
+// coordonnées échantillon par échantillon sur les données réelles), qui
+// fait apparaître une côte fantôme sur le trajet de retour. Calibré et
+// vérifié sur trois jeux de données réels avant d'écrire ces tests
+// synthétiques : Tour 1992 étape 10 (2 zones trouvées, 2,25-3 km chacune,
+// confirmées manuellement) ; Tour 2021 étape 11 — double ascension
+// INTENTIONNELLE du Ventoux, seul cas réel de repassage légitime déjà
+// présent dans le corpus — les deux passages au sommet (même point
+// géographique, sens de progression opposé après chacun) ne déclenchent
+// qu'une correspondance isolée sur un seul échantillon (zone ~0 m,
+// éliminée par BACKTRACK_MIN_ZONE_LENGTH_M), tandis que deux aller-retours
+// RÉELS et jusqu'ici inconnus sur la même étape (~km 61-70 et ~km 116-120,
+// sans rapport avec le Ventoux) sont eux bien détectés (zones 3-3,75 km).
+function eastPoint(lon0, i, step = 0.0013) {
+  return { lat: 45, lon: lon0 + i * step };
+}
+
+test('detectBacktrackZones : aller-retour réel (même route en sens inverse, altitude en miroir) → zone détectée', () => {
+  const samples = [];
+  let dist = 0;
+  // aller : 3 km vers l'est en montant
+  for (let i = 0; i <= 30; i++) {
+    samples.push({ dist, ...eastPoint(6, i), eleRaw: 200 + i * 2, eleSmooth: 200 + i * 2 });
+    dist += 100;
+  }
+  // retour : mêmes coordonnées en sens inverse, même altitude à chaque point miroir
+  for (let i = 29; i >= 0; i--) {
+    samples.push({ dist, ...eastPoint(6, i), eleRaw: 200 + i * 2, eleSmooth: 200 + i * 2 });
+    dist += 100;
+  }
+  // repart ensuite dans une direction jamais reparcourue
+  for (let i = 1; i <= 15; i++) {
+    samples.push({ dist, lat: 45 + i * 0.0009, lon: 6, eleRaw: 200, eleSmooth: 200 });
+    dist += 100;
+  }
+  const zones = detectBacktrackZones(samples);
+  // Le point de rebroussement lui-même (au sommet du aller) n'est jamais
+  // flaggé (aucun point plus loin n'est à la fois assez proche ET assez
+  // espacé en distance parcourue pour lui correspondre) — un aller-retour
+  // symétrique produit donc typiquement 2 zones (le bras aller, le bras
+  // retour), pas une seule continue. Vérifié à l'identique sur les
+  // données réelles du Tour 1992 étape 10 (2 zones pour l'aller-retour de
+  // Buckwald).
+  assert.ok(zones.length >= 1, 'au moins une zone de rebroussement détectée');
+  const totalLength = zones.reduce((a, z) => a + (z.endM - z.startM), 0);
+  assert.ok(totalLength >= 2000, `longueur totale des zones assez importante (${totalLength} m)`);
+});
+
+test('detectBacktrackZones : même endroit repassé dans le MÊME sens (boucle légitime, ex. plusieurs tours) → aucune zone', () => {
+  const samples = [];
+  let dist = 0;
+  // premier passage : 3 km vers l'est
+  for (let i = 0; i <= 30; i++) { samples.push({ dist, ...eastPoint(6, i), eleRaw: 200, eleSmooth: 200 }); dist += 100; }
+  // grande boucle ailleurs, jamais proche géographiquement de l'aller
+  for (let i = 1; i <= 150; i++) { samples.push({ dist, lat: 46 + i * 0.001, lon: 7, eleRaw: 200, eleSmooth: 200 }); dist += 100; }
+  // second passage au même endroit, MÊME direction (est, pas un retour)
+  for (let i = 0; i <= 30; i++) { samples.push({ dist, ...eastPoint(6, i), eleRaw: 200, eleSmooth: 200 }); dist += 100; }
+  const zones = detectBacktrackZones(samples);
+  assert.strictEqual(zones.length, 0, 'même sens de progression : ce n\'est pas un rebroussement');
+});
+
+test('detectBacktrackZones : points géographiquement proches mais altitude nettement différente (ex. lacet de montagne en montée continue) → aucune zone', () => {
+  const samples = [];
+  let dist = 0;
+  for (let i = 0; i <= 30; i++) { samples.push({ dist, ...eastPoint(6, i), eleRaw: 200 + i * 2, eleSmooth: 200 + i * 2 }); dist += 100; }
+  // « retour » géographique aux mêmes coordonnées, mais l'altitude continue à
+  // monter au lieu de redescendre en miroir — signe d'une route différente
+  // (ex. deux niveaux d'un lacet), pas d'un aller-retour sur la même route.
+  for (let i = 29; i >= 0; i--) { samples.push({ dist, ...eastPoint(6, i), eleRaw: 400 + (30 - i) * 2, eleSmooth: 400 + (30 - i) * 2 }); dist += 100; }
+  const zones = detectBacktrackZones(samples);
+  assert.strictEqual(zones.length, 0, 'écart d\'altitude > tolérance : pas retenu comme rebroussement');
+});
+
+test('detectBacktrackZones : coïncidence géographique isolée sur un seul point (ex. même sommet visité deux fois, Tour 2021 étape 11 Ventoux) → filtrée, zone trop courte', () => {
+  const samples = [];
+  let dist = 0;
+  // approche du « sommet » par l'est
+  for (let i = 0; i <= 20; i++) { samples.push({ dist, ...eastPoint(6, i), eleRaw: 200 + i * 10, eleSmooth: 200 + i * 10 }); dist += 100; }
+  // s'éloigne longuement ailleurs
+  for (let i = 1; i <= 100; i++) { samples.push({ dist, lat: 45 + i * 0.001, lon: 6.026, eleRaw: 400, eleSmooth: 400 }); dist += 100; }
+  // repasse exactement par le même point sommet (venant du nord cette fois), une seule fois
+  samples.push({ dist, lat: 45, lon: 6.026, eleRaw: 400, eleSmooth: 400 });
+  dist += 100;
+  // puis repart dans une direction encore différente (jamais reparcourue)
+  for (let i = 1; i <= 20; i++) { samples.push({ dist, lat: 45 - i * 0.0009, lon: 6.026, eleRaw: 400 - i * 5, eleSmooth: 400 - i * 5 }); dist += 100; }
+  const zones = detectBacktrackZones(samples);
+  assert.strictEqual(zones.length, 0, 'une coïncidence ponctuelle (< 300 m) est filtrée, pas un vrai aller-retour');
+});
+
+test('detectBacktrackZones : profil vide, trop court ou sans lat/lon → aucune zone, pas d\'exception', () => {
+  assert.deepStrictEqual(detectBacktrackZones([]), []);
+  assert.deepStrictEqual(detectBacktrackZones([{ dist: 0 }, { dist: 100 }]), []);
+  assert.deepStrictEqual(detectBacktrackZones([{ dist: 0, eleRaw: 200 }, { dist: 100, eleRaw: 210 }]), []);
 });

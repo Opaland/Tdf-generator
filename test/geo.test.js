@@ -17,6 +17,8 @@ const { test } = require('node:test');
 const assert = require('node:assert');
 const {
   haversine,
+  bearing,
+  bearingDiff,
   lerpPoint,
   cumulativeDistances,
   resamplePolyline,
@@ -35,6 +37,23 @@ test('haversine : 1° de latitude (méridien) ≈ 111,2 km, symétrique à la lo
 
 test('haversine : distance nulle entre un point et lui-même', () => {
   assert.strictEqual(haversine({ lat: 45.5, lon: 6.1 }, { lat: 45.5, lon: 6.1 }), 0);
+});
+
+// bearing/bearingDiff (04/09/2026) : ajoutés pour pipeline/climbs.js
+// detectBacktrackZones() — distinguer un aller-retour réel (cap inversé)
+// d'un simple passage répété dans le même sens (circuit).
+test('bearing : plein nord (0°), plein est (90°), plein sud (180°), plein ouest (270°)', () => {
+  assert.ok(Math.abs(bearing({ lat: 0, lon: 0 }, { lat: 1, lon: 0 }) - 0) < 1, 'nord ≈ 0°');
+  assert.ok(Math.abs(bearing({ lat: 0, lon: 0 }, { lat: 0, lon: 1 }) - 90) < 1, 'est ≈ 90°');
+  assert.ok(Math.abs(bearing({ lat: 1, lon: 0 }, { lat: 0, lon: 0 }) - 180) < 1, 'sud ≈ 180°');
+  assert.ok(Math.abs(bearing({ lat: 0, lon: 1 }, { lat: 0, lon: 0 }) - 270) < 1, 'ouest ≈ 270°');
+});
+
+test('bearingDiff : toujours dans [0, 180], symétrique, nul entre deux caps identiques', () => {
+  assert.strictEqual(bearingDiff(10, 10), 0);
+  assert.strictEqual(bearingDiff(0, 180), 180);
+  assert.strictEqual(bearingDiff(350, 10), 20, 'traverse 0°/360° sans exploser');
+  assert.strictEqual(bearingDiff(10, 350), bearingDiff(350, 10), 'symétrique');
 });
 
 test('lerpPoint : t=0 renvoie a, t=1 renvoie b, t=0.5 le milieu', () => {

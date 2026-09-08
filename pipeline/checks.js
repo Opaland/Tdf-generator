@@ -5,6 +5,7 @@
 // - altitudes de sommets vs valeurs connues
 // - segments/points approximés listés
 // - points de passage curés trop espacés (risque de détour halluciné)
+// - le tracé repasse sur lui-même en sens inverse (aller-retour halluciné)
 
 const { COL_TOLERANCE_M } = require('./routing');
 
@@ -45,7 +46,7 @@ const VIA_GAP_WARN_M = 12000;
 /**
  * @returns { ok, items: [{id, label, status: 'ok'|'warn'|'fail', detail}] }
  */
-function runChecks({ stage, distanceM, waypointsOnTrack, approxSegments, climbs, samples, legs }) {
+function runChecks({ stage, distanceM, waypointsOnTrack, approxSegments, climbs, samples, legs, backtrackZones }) {
   const items = [];
   const kmGen = distanceM / 1000;
 
@@ -196,7 +197,40 @@ function runChecks({ stage, distanceM, waypointsOnTrack, approxSegments, climbs,
     });
   }
 
-  void climbs;
+  // 6) Rebroussement du tracé : le routeur repasse sur lui-même en sens
+  // inverse (voir detectBacktrackZones, pipeline/climbs.js — proximité
+  // géographique + altitude quasi identique + cap inversé, pour écarter les
+  // lacets de montagne et les circuits répétés dans le même sens). Trouvaille
+  // concrète Tour 1992 étape 10 : le point de passage curé « Côte de
+  // Buckwald » force un aller-retour de ~4-5 km sur la même route, qui gonfle
+  // la distance ET fait apparaître une côte fantôme juste après le point de
+  // rebroussement (« Côte de Ferme Saint-Henri, Denting ») pendant que la
+  // vraie côte de Buckwald n'est classée nulle part.
+  //
+  // Message volontairement formulé en hypothèse (« peut signaler »), pas en
+  // fait établi (relecture adverse du 04/09/2026) : un vrai aller-retour
+  // existe aussi dans certains parcours réels (ex. un contre-la-montre qui
+  // repart en sens inverse depuis un rond-point de retournement) — le check
+  // ne peut pas distinguer ce cas légitime d'un point de passage mal placé,
+  // seulement signaler la géométrie observée.
+  for (const z of backtrackZones || []) {
+    const nearbyClimbs = (climbs || []).filter((c) => c.startM <= z.endM + 2000 && c.endM >= z.startM - 2000);
+    items.push({
+      id: `backtrack-${z.startM}-${z.endM}`,
+      label: `Aller-retour détecté : km ${(z.startM / 1000).toFixed(1)}–${(z.endM / 1000).toFixed(1)}`,
+      status: 'warn',
+      detail:
+        `le tracé repasse sur lui-même en sens inverse sur cette portion — peut signaler un point de passage ` +
+        `qui force un détour plutôt qu'un vrai passage (trouvaille Tour 1992 étape 10, Côte de Buckwald), ou un ` +
+        `aller-retour réel du parcours (ex. contre-la-montre avec demi-tour) — à vérifier au cas par cas. Si ` +
+        `c'est un artefact, la distance est gonflée d'autant, et une côte détectée juste après peut être un ` +
+        `artefact du rebroussement plutôt qu'un vrai relief` +
+        (nearbyClimbs.length
+          ? ` : ${nearbyClimbs.map((c) => c.name || `côte du km ${(c.endM / 1000).toFixed(0)}`).join(', ')}.`
+          : '.'),
+    });
+  }
+
   const ok = !items.some((i) => i.status === 'fail');
   return { ok, items };
 }

@@ -8,7 +8,7 @@ const { getDb } = require('../backend/db');
 const { geocode, geocodeCol, reverseGeocode, isColQuery } = require('./geocode');
 const { routeStage } = require('./routing');
 const { buildProfile } = require('./elevation');
-const { detectClimbs, nameClimbs } = require('./climbs');
+const { detectClimbs, nameClimbs, detectBacktrackZones } = require('./climbs');
 const { detectDescents, nameDescents, reconcileDescentSummits } = require('./descents');
 const { analyzeByKm, detectFauxPlats } = require('./kmanalysis');
 const { runChecks } = require('./checks');
@@ -135,6 +135,7 @@ async function generateStage(stageId, { onProgress } = {}) {
     const kmRows = analyzeByKm(profile.samples.map((s) => ({ dist: s.dist, eleRaw: s.eleRaw, eleSmooth: s.eleSmooth })));
 
     // --- 6. Audits qualité ------------------------------------------------
+    const backtrackZones = detectBacktrackZones(profile.samples);
     const checks = runChecks({
       stage,
       distanceM: routed.distanceM,
@@ -143,6 +144,7 @@ async function generateStage(stageId, { onProgress } = {}) {
       climbs,
       samples: profile.samples,
       legs: routed.legs,
+      backtrackZones,
     });
 
     // --- Persistance ------------------------------------------------------

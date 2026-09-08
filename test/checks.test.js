@@ -101,6 +101,47 @@ test('points de passage espacés : jamais signalé si déjà couvert par le chec
   assert.strictEqual(find(items, 'via-gap-Via-Arrivée'), undefined, 'pas de doublon avec le leg déjà signalé en fail');
 });
 
+// Aller-retour du tracé (04/09/2026, suite signalement utilisateur Tour
+// 1992 étape 10 : « Côte de Buckwald » force un aller-retour réel de ~5 km,
+// qui fait apparaître une côte fantôme sur le trajet de retour — voir
+// pipeline/climbs.js detectBacktrackZones()). runChecks() ne calcule pas les
+// zones lui-même (coûteux, déjà fait une fois par generate.js) : il reçoit
+// backtrackZones tel quel et se contente de les rapporter, éventuellement
+// recoupées avec les côtes détectées à proximité.
+test('aller-retour du tracé : une zone détectée → warn, ok global reste true', () => {
+  const { items, ok } = runChecks({
+    stage: {}, distanceM: 50000, waypointsOnTrack: [], approxSegments: [], climbs: [], samples: [], legs: [],
+    backtrackZones: [{ startM: 87000, endM: 90000 }],
+  });
+  const item = find(items, 'backtrack-87000-90000');
+  assert.ok(item, 'un item est créé pour la zone');
+  assert.strictEqual(item.status, 'warn');
+  assert.strictEqual(ok, true, 'un warn ne fait pas échouer le bloc global');
+  assert.match(item.detail, /Tour 1992 étape 10/);
+});
+
+test('aller-retour du tracé : cite la côte détectée à proximité de la zone, quand il y en a une', () => {
+  const { items } = runChecks({
+    stage: {}, distanceM: 50000, waypointsOnTrack: [], approxSegments: [], samples: [], legs: [],
+    climbs: [{ startM: 94240, endM: 97240, name: 'Côte de Ferme Saint-Henri, Denting' }],
+    // Écart de 1750 m entre la fin de la zone et le début de la côte : dans
+    // la fenêtre de 2 km — même ordre de grandeur que le cas réel Tour
+    // 1992 étape 10 (zone de retour finissant à 94 240 m, côte fantôme
+    // débutant exactement là).
+    backtrackZones: [{ startM: 91990, endM: 92490 }],
+  });
+  const item = find(items, 'backtrack-91990-92490');
+  assert.match(item.detail, /Côte de Ferme Saint-Henri, Denting/, 'la côte proche (dans les 2 km) est citée par son nom');
+});
+
+test('aller-retour du tracé : aucune zone → aucun item, pas de bruit sur une étape normale', () => {
+  const { items } = runChecks({
+    stage: {}, distanceM: 50000, waypointsOnTrack: [], approxSegments: [], climbs: [], samples: [], legs: [],
+    backtrackZones: [],
+  });
+  assert.strictEqual(items.some((i) => i.id.startsWith('backtrack-')), false);
+});
+
 test(`distance : dans la tolérance ±${DIST_TOLERANCE_PCT} % → ok`, () => {
   const { items } = runChecks({
     stage: { official_distance_km: CIBLE_KM }, distanceM: SOUS_LE_SEUIL_M,
