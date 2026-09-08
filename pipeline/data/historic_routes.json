@@ -2354,6 +2354,14 @@
             "lat": 41.36537,
             "lon": 2.14575
           }
+        ],
+        "confidence": [
+          {
+            "claim": "Distance reconstituée fidèle au CLM par équipes réel malgré le tracé GPX officiel.",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "Vérifié en rejouant le pipeline réel (régénération complète du 07/09/2026) : 22,8 km reconstitués pour 19,6 km officiels (+16,5 %, hors tolérance ±10 %). Le GPX brut mesure 19,6 km, exactement la distance officielle — l'écart apparaît uniquement au routage. Les 9 points rééchantillonnés tous les 2 km géocodent tous à leurs coordonnées GPX attendues (aucun homonyme lointain) : le routeur (profil vélo BRouter) emprunte, entre deux points consécutifs pourtant proches, des voies du parc de Montjuïc plus longues que le tracé réel du contre-la-montre (routes fermées à la circulation le jour de course, non forcément le chemin le plus direct en circulation normale). Densifier encore l'échantillonnage (2 km → moins) réduirait probablement l'écart sans le fermer complètement (même mécanisme que 1992/10) ; non tenté ici faute de justifier le coût réseau pour un gain incertain."
+          }
         ]
       },
       "3": {
