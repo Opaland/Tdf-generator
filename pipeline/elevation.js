@@ -153,6 +153,34 @@ async function sampleElevations(points, { onProgress } = {}) {
     const idxs = frIdx.slice(i, i + GEOPF_BATCH);
     const eles = await geopfBatch(idxs.map((k) => points[k]));
     idxs.forEach((k, j) => (out[k] = eles[j]));
+    // Ne crédite `done` que pour les points réellement résolus ici — un point
+    // sans couverture (out[k] encore null) passe par le repli ci-dessous,
+    // pas encore « fait » (trouvaille de relecture adverse, 09/09/2026 : sans
+    // cette distinction, `done` atteignait déjà points.length à la fin de
+    // cette boucle sur une étape entièrement mal classée France, faisant
+    // afficher 100 % avant même que le repli n'ait interrogé le réseau —
+    // la barre de progression semblait figée pendant tout le repli réel).
+    done += idxs.filter((k) => out[k] != null).length;
+    report();
+  }
+  // Repli opentopodata pour tout point classé « France » par looksLikeFrance()
+  // (bbox volontairement large, latMin 41.0/lonMax 10.0, pour couvrir la
+  // Corse) mais hors de la vraie couverture Géoplateforme RGE ALTI —
+  // trouvaille en régénérant à froid le Tour 1992 (08/09/2026) : San
+  // Sebastián, Bruxelles, Valkenburg et Koblenz tombent tous dans cette
+  // bbox sans être en France, et Géoplateforme y renvoie -99999 sur 100 %
+  // des points (vérifié en direct, `elevation.json?...&resource=
+  // ign_rge_alti_wld` sur ces 4 villes) — zéro côte détectée sur des cols
+  // pourtant curés (ex. Cauberg, 1992/7). Un vrai trou de couverture
+  // français (rare, littoral/offshore) profite du même repli plutôt que de
+  // rester `null` sans alternative.
+  const noCoverageIdx = frIdx.filter((k) => out[k] == null);
+  for (let i = 0; i < noCoverageIdx.length; i += OTD_BATCH) {
+    const idxs = noCoverageIdx.slice(i, i + OTD_BATCH);
+    const eles = await opentopodataBatch(idxs.map((k) => points[k]));
+    idxs.forEach((k, j) => (out[k] = eles[j]));
+    // Ces points sont désormais traités (couverts ou non) — même logique de
+    // progression que la boucle otherIdx ci-dessous.
     done += idxs.length;
     report();
   }

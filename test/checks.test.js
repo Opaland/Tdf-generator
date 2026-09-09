@@ -284,13 +284,16 @@ test('altitude de sommet : un trou d\'altimétrie (eleRaw null) dans la fenêtre
   assert.match(find(items, 'alt-Proche').detail, /mesurée -50 m/);
 });
 
-test('altitude de sommet : sans mesure autour du sommet → pas d\'item', () => {
+test('altitude de sommet : sans mesure autour du sommet → item "warn" explicite, non vérifiable (pas un continue silencieux)', () => {
   const { items } = runChecks({
     stage: {}, distanceM: 10000,
     waypointsOnTrack: [{ kind: 'col', label: 'Isolé', altitude_hint_m: 2000, alongM: 999999, offTrackM: 10 }],
     approxSegments: [], climbs: [], samples: [{ dist: 0, eleRaw: 400 }], legs: [],
   });
-  assert.strictEqual(find(items, 'alt-Isolé'), undefined);
+  const item = find(items, 'alt-Isolé');
+  assert.ok(item, 'un col curé sans données autour du sommet doit quand même produire un item — pas de silence');
+  assert.strictEqual(item.status, 'warn');
+  assert.match(item.detail, /non vérifiable/);
 });
 
 test('segments approximés : présents → warn (global ok reste true, warn n\'échoue pas) ; absents → ok', () => {
@@ -320,6 +323,25 @@ test('échantillons altimétriques : trous détectés → warn ; profil complet 
     samples: [{ eleRaw: 100 }, { eleRaw: 110 }],
   });
   assert.strictEqual(find(clean.items, 'profil').status, 'ok');
+});
+
+test('échantillons altimétriques : plus de 50 % manquants → fail (D+/côtes non fiables, pas juste warn) — trouvaille 1992 étapes 0/7/8, 100 % manquants', () => {
+  const majorityHoles = runChecks({
+    stage: {}, distanceM: 1000, waypointsOnTrack: [], approxSegments: [], climbs: [], legs: [],
+    samples: [{ eleRaw: null }, { eleRaw: null }, { eleRaw: 120 }],
+  });
+  const item = find(majorityHoles.items, 'profil');
+  assert.strictEqual(item.status, 'fail');
+  assert.match(item.detail, /67 %/);
+  assert.strictEqual(majorityHoles.ok, false, 'un profil majoritairement troué doit faire échouer le bloc global');
+
+  // Exactement à la limite (50 %) : reste warn, pas fail — le seuil est un
+  // strict > pour ne pas basculer un profil moitié-moitié en échec dur.
+  const halfHoles = runChecks({
+    stage: {}, distanceM: 1000, waypointsOnTrack: [], approxSegments: [], climbs: [], legs: [],
+    samples: [{ eleRaw: null }, { eleRaw: 120 }],
+  });
+  assert.strictEqual(find(halfHoles.items, 'profil').status, 'warn');
 });
 
 test('ok global : true seulement si aucun item en fail (warn accepté)', () => {
