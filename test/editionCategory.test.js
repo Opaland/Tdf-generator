@@ -6,13 +6,15 @@
 // catégorie. Documenté comme bloquant dans docs/PRESENTATION.md avant
 // d'être corrigé ici (pipeline/importer.js, backend/db.js, pipeline/wikipedia.js).
 //
-// Aucune fixture Wikipédia ni parcours curé Femmes n'existe dans ce dépôt
-// (accès réseau nécessaire pour la scraper, indisponible dans ce sandbox —
-// CLAUDE.md règle 9 : ne jamais fabriquer une donnée historique non
-// vérifiée). Ces tests prouvent donc la non-collision au niveau base et le
+// Une fixture Wikipédia Femmes existe désormais pour 2022 seulement
+// (pipeline/fixtures/wikipedia_2022_femmes_en.html, ajoutée après ce
+// fichier) ; aucun parcours curé Femmes n'existe encore dans
+// historic_routes.json, quelle que soit l'année. Ces tests utilisent 2025
+// (sans fixture) pour prouver la non-collision au niveau base et le
 // comportement d'échec propre sans fixture, pas un import Femmes réel
 // bout-en-bout — mêmes garanties que importAllEditions() pour les années
-// Hommes sans fixture (test/importAll.test.js).
+// Hommes sans fixture (test/importAll.test.js). CLAUDE.md règle 9 : ne
+// jamais fabriquer une donnée historique non vérifiée.
 
 const os = require('os');
 const path = require('path');
