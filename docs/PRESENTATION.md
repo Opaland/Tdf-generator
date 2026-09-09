@@ -150,11 +150,14 @@ confondre :
   Le Tour de France Femmes n'a plus ce blocage d'architecture : `editions`
   porte désormais une colonne `category` (hommes | femmes), et
   `importEdition(year, { category })` écrase l'édition existante de la même
-  année **et catégorie**, jamais l'autre catégorie. Reste bloqué par le même
-  obstacle réseau que le reste de cette liste : aucune fixture Wikipédia ni
-  parcours curé Femmes n'existe encore dans ce dépôt (rien à scraper depuis
-  ce sandbox) — l'import y échoue proprement, sans donnée inventée, en
-  attendant un accès réseau pour le peupler. Le **vrai parcours 2027**
+  année **et catégorie**, jamais l'autre catégorie. Une fixture Wikipédia
+  existe pour 2022 (`pipeline/fixtures/wikipedia_2022_femmes_en.html`) —
+  l'import 2022 fonctionne même hors-ligne (vérifié en direct : 8 étapes
+  parsées). Aucune autre année Femmes n'a de fixture, et aucune n'a de
+  parcours curé (`historic_routes.json` ne porte encore aucune clé
+  `-femmes`) : ces imports restent bloqués par le même obstacle réseau que
+  le reste de cette liste, et échouent proprement, sans donnée inventée, en
+  attendant un accès réseau pour les peupler. Le **vrai parcours 2027**
   (`scripts/demo-2027.js` reste hypothétique) attend l'annonce officielle
   ASO, pas encore sortie — pas un blocage technique, un calendrier externe.
 - **Décision volontairement laissée à l'utilisateur, pas prise en autonome**
