@@ -26,14 +26,25 @@ const http = require('../pipeline/http');
 const originalHttpJson = http.httpJson;
 let mockElevations = null;
 
+// opentopodata est désormais aussi appelé pour tout point sans couverture
+// Géoplateforme (repli ajouté dans pipeline/elevation.js, sampleElevations()
+// — trouvaille 1992 étapes 0/7/8) : simuler qu'il n'a pas non plus de
+// donnée à ces points garde ce test fidèle à son intention (voir le même
+// commentaire dans test/elevationGaps.test.js).
 http.httpJson = async (url) => {
-  if (String(url).includes('data.geopf.fr/altimetrie')) {
-    const lonsParam = String(url).match(/lon=([^&]*)/)[1];
+  const u = String(url);
+  if (u.includes('data.geopf.fr/altimetrie')) {
+    const lonsParam = u.match(/lon=([^&]*)/)[1];
     const count = lonsParam.split('|').length;
     if (!mockElevations || mockElevations.length !== count) {
       throw new Error(`mockElevations doit avoir exactement ${count} entrées (reçu ${mockElevations?.length})`);
     }
     return { elevations: mockElevations };
+  }
+  if (u.includes('api.opentopodata.org')) {
+    const locs = u.match(/locations=([^&]*)/)[1];
+    const count = locs.split('|').length;
+    return { status: 'OK', results: Array.from({ length: count }, () => ({ elevation: null })) };
   }
   return originalHttpJson(url);
 };

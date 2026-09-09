@@ -10,6 +10,16 @@
 const { COL_TOLERANCE_M } = require('./routing');
 
 const ALT_TOLERANCE_M = 120;
+// Au-delà de ce taux d'échantillons manquants, le profil (D+, côtes
+// détectées) n'est plus seulement incomplet, il n'est plus fiable du tout —
+// mérite un `fail` explicite plutôt qu'un `warn` identique à 5 % de trous.
+// Trouvaille en régénérant le Tour 1992 à froid (08/09/2026) : les étapes
+// 0, 7 et 8 avaient 100 % d'échantillons manquants (0 côte détectée malgré
+// des cols curés, ex. le Cauberg) et remontaient le même `warn` qu'un trou
+// isolé de quelques points — corrigé en amont dans pipeline/elevation.js
+// (repli opentopodata sur la bbox France), ce seuil reste un garde-fou pour
+// le cas résiduel où même le repli échoue.
+const PROFIL_HOLE_FAIL_RATIO = 0.5;
 
 // Écart maximal accepté entre la distance officielle d'une étape et celle du
 // tracé reconstitué. Décidé par Cédric le 04/09/2026 : ±10 %, contre ±25 %
@@ -162,7 +172,20 @@ function runChecks({ stage, distanceM, waypointsOnTrack, approxSegments, climbs,
         measured = measured == null ? s.eleRaw : Math.max(measured, s.eleRaw);
       }
     }
-    if (measured == null) continue;
+    if (measured == null) {
+      // Aucun échantillon exploitable autour du sommet (trou de couverture
+      // altimétrique, voir le check « Échantillons altimétriques » ci-dessous)
+      // — un `continue` silencieux ici laissait ce col sans item du tout,
+      // indiscernable d'un col jamais vérifié. Le badge de confiance ne doit
+      // jamais reposer sur une case cochée par défaut faute de donnée.
+      items.push({
+        id: `alt-${c.label}`,
+        label: `Altitude du sommet : ${c.label}`,
+        status: 'warn',
+        detail: 'non vérifiable : aucun échantillon altimétrique autour du sommet (trou de couverture)',
+      });
+      continue;
+    }
     const diff = Math.abs(measured - hint);
     items.push({
       id: `alt-${c.label}`,
@@ -189,11 +212,16 @@ function runChecks({ stage, distanceM, waypointsOnTrack, approxSegments, climbs,
   // 5) Sanité du profil.
   if (samples && samples.length) {
     const holes = samples.filter((s) => s.eleRaw == null).length;
+    const holeRatio = holes / samples.length;
     items.push({
       id: 'profil',
       label: 'Échantillons altimétriques',
-      status: holes ? 'warn' : 'ok',
-      detail: `${samples.length} points${holes ? `, ${holes} manquants` : ''}`,
+      status: holeRatio > PROFIL_HOLE_FAIL_RATIO ? 'fail' : holes ? 'warn' : 'ok',
+      detail:
+        `${samples.length} points${holes ? `, ${holes} manquants (${Math.round(holeRatio * 100)} %)` : ''}` +
+        (holeRatio > PROFIL_HOLE_FAIL_RATIO
+          ? ' — D+ et côtes détectées non fiables sur cette étape'
+          : ''),
     });
   }
 

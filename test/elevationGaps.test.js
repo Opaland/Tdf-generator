@@ -28,20 +28,35 @@ const assert = require('node:assert');
 const http = require('../pipeline/http');
 const originalHttpJson = http.httpJson;
 let mockElevations = null; // tableau d'altitudes (ou null/objets {z}) à renvoyer, dans l'ordre demandé
+let mockOpentopoElevation = null; // altitude (ou null) renvoyée par le repli opentopodata pour CHAQUE point demandé
 
-// Mock minimal : intercepte uniquement les requêtes vers data.geopf.fr
-// (altimétrie RGE ALTI) — tout le reste (aucun autre appel attendu dans ce
-// test) retomberait sur le vrai httpJson, mais échouerait faute de réseau
-// dans ce bac à sable ; ce test ne construit que des points en France pour
-// n'exercer que ce chemin.
+// Mock minimal : intercepte les requêtes vers data.geopf.fr (altimétrie RGE
+// ALTI) et api.opentopodata.org — tout le reste (aucun autre appel attendu
+// dans ce test) retomberait sur le vrai httpJson, mais échouerait faute de
+// réseau dans ce bac à sable ; ce test ne construit que des points en
+// France pour n'exercer que ce chemin.
+//
+// opentopodata est désormais aussi appelé pour tout point sans couverture
+// Géoplateforme (repli ajouté dans pipeline/elevation.js, sampleElevations()
+// — trouvaille 1992 étapes 0/7/8, la bbox France couvre des villes belges/
+// néerlandaises/espagnoles hors de la vraie couverture RGE ALTI). Simuler
+// qu'il n'a pas non plus de donnée à ces points garde ces tests fidèles à
+// leur intention (un vrai trou reste un vrai trou après le repli, pas une
+// altitude venue de nulle part).
 http.httpJson = async (url) => {
-  if (String(url).includes('data.geopf.fr/altimetrie')) {
-    const lonsParam = String(url).match(/lon=([^&]*)/)[1];
+  const u = String(url);
+  if (u.includes('data.geopf.fr/altimetrie')) {
+    const lonsParam = u.match(/lon=([^&]*)/)[1];
     const count = lonsParam.split('|').length;
     if (!mockElevations || mockElevations.length !== count) {
       throw new Error(`mockElevations doit avoir exactement ${count} entrées (reçu ${mockElevations?.length})`);
     }
     return { elevations: mockElevations };
+  }
+  if (u.includes('api.opentopodata.org')) {
+    const locs = u.match(/locations=([^&]*)/)[1];
+    const count = locs.split('|').length;
+    return { status: 'OK', results: Array.from({ length: count }, () => ({ elevation: mockOpentopoElevation })) };
   }
   return originalHttpJson(url);
 };
@@ -146,6 +161,59 @@ test('buildProfile : -99999 (sentinel numérique Géoplateforme hors couverture)
   const profile = await buildProfile(makeTrack());
   assert.strictEqual(profile.samples[10].eleRaw, null, 'le sentinel -99999 ne doit jamais devenir une eleRaw valide');
   assert.strictEqual(profile.samples[9].eleRaw, 245, 'les voisins ne doivent pas être affectés');
+});
+
+// Trouvaille en régénérant à froid le Tour 1992 (08/09/2026) : looksLikeFrance()
+// (pipeline/geocode.js, bbox volontairement large pour couvrir la Corse)
+// classe San Sebastián, Bruxelles, Valkenburg et Koblenz comme « France »
+// alors qu'ils sont hors de la vraie couverture Géoplateforme RGE ALTI —
+// Géoplateforme y renvoie -99999 sur 100 % des points (vérifié en direct),
+// et SANS repli ça restait un trou permanent (zéro côte détectée, ex. le
+// Cauberg sur l'étape 1992/7). sampleElevations() bascule désormais ces
+// points sans couverture sur opentopodata plutôt que de les laisser `null`
+// — ce test le prouve en distinguant sa mock du "vrai trou" ci-dessus :
+// ici, opentopodata A une donnée pour ce point (repli réussi).
+test('buildProfile : sentinel Géoplateforme (-99999) récupéré par le repli opentopodata quand celui-ci a une donnée — pas un trou permanent', async () => {
+  mockElevations = Array.from({ length: N_POINTS }, (_, i) => 200 + i * 5);
+  mockElevations[10] = -99999; // ex. San Sebastián, Bruxelles… classés France par la bbox, non couverts par RGE ALTI
+  mockOpentopoElevation = 210; // opentopodata, lui, couvre ce point
+  try {
+    const profile = await buildProfile(makeTrack());
+    assert.strictEqual(profile.samples[10].eleRaw, 210, 'le repli opentopodata doit combler le trou Géoplateforme, pas le laisser null');
+  } finally {
+    mockOpentopoElevation = null; // état par défaut pour les tests suivants (vrai trou, cf. ci-dessous)
+  }
+});
+
+// Trouvaille de relecture adverse sur le correctif ci-dessus (09/09/2026) :
+// la boucle geopf créditait `done` pour TOUS les points d'un lot, y compris
+// ceux encore `null` en attente du repli — sur une étape mal classée France
+// à 100 % (le cas réel de l'issue #185), `onProgress` atteignait `percent:
+// 100` avant même que le repli opentopodata n'ait fait le moindre appel
+// réseau. Ce champ est propagé jusqu'à la barre de progression de la fiche
+// étape (pipeline/generate.js -> stages.progress -> frontend/stage.js) :
+// l'utilisateur voyait « 100 % » figé pendant toute la durée réelle du
+// repli. Ce test prouve que `percent` ne peut PAS valoir 100 tant qu'un
+// point du lot attend encore le repli.
+test('buildProfile : la progression (onProgress) n\'atteint 100 % qu\'après le repli opentopodata, jamais avant', async () => {
+  mockElevations = Array.from({ length: N_POINTS }, (_, i) => 200 + i * 5);
+  mockElevations[10] = -99999; // déclenche le repli sur ce point
+  mockOpentopoElevation = 210;
+  const events = [];
+  try {
+    await buildProfile(makeTrack(), { onProgress: (p) => events.push(p) });
+  } finally {
+    mockOpentopoElevation = null;
+  }
+  const altimetrieEvents = events.filter((e) => e.step === 'altimétrie');
+  assert.ok(altimetrieEvents.length >= 2, 'au moins un événement pendant geopf et un pendant le repli');
+  const last = altimetrieEvents[altimetrieEvents.length - 1];
+  assert.strictEqual(last.percent, 100, 'le dernier événement, lui, doit bien atteindre 100 % (tous les points traités)');
+  const beforeFallback = altimetrieEvents.slice(0, -1);
+  assert.ok(
+    beforeFallback.every((e) => e.percent < 100),
+    `aucun événement avant le dernier ne doit annoncer 100 % tant que le point en repli n'est pas résolu (reçu : ${beforeFallback.map((e) => e.percent)})`
+  );
 });
 
 test('buildProfile : -99999 sous la forme objet {z: -99999} traité de la même façon', async () => {
