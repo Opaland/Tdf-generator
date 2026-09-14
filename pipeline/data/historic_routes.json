@@ -1205,6 +1205,218 @@
       }
     }
   },
+  "2002": {
+    "highlight": "Tour le plus court de l'histoire moderne — victoire d'Armstrong déclassée rétroactivement en 2012",
+    "notes": "Édition entièrement reconstruite depuis Wikipédia sans aucune curation avant ce correctif (issue #188, trouvaille de l'audit du 08/09/2026) : 13 des 21 étapes affichaient un écart de distance hors tolérance (±10 %), toutes imputables à cette absence de points de passage plutôt qu'à des bugs indépendants. Cols/côtes sourcés : bikeraceinfo.com (« The rated climbs », liste et kilométrage par étape — même source déjà utilisée pour curer le Tour 1992). Recoupement du calendrier et des distances officielles : Wikipédia (anglais, « 2002 Tour de France, Prologue to Stage 10 » et « Stage 11 to Stage 20 ») et ledicodutour.com. L'étape 9 (Lanester → Lorient) était documentée comme une hypothèse de contre-la-montre PAR ÉQUIPES dans l'audit initial (issue #189) — infirmé ici par recoupement de trois sources indépendantes (Wikipédia FR « 9e étape du Tour de France 2002 », procyclingstats.com, lorientlejour.com) : c'était un contre-la-montre INDIVIDUEL, remporté par Santiago Botero devant Armstrong (11 s). Restent sans point de passage sourcé, documentés comme trous de couverture volontairement non comblés plutôt qu'inventés : le prologue (étape 0), l'étape 4 (CLM par équipes Épernay → Château-Thierry), le tracé exact de l'étape 9, et la majorité de l'approche Melun → Paris de l'étape 20.",
+    "stages": {
+      "0": {
+        "confidence": [
+          {
+            "claim": "points de passage du prologue (rues/quartier de Luxembourg-Ville)",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "aucune source consultée ne nomme de rue ou de quartier pour ce contre-la-montre individuel de 7 km (Wikipédia FR et EN : section parcours vide ; bikeraceinfo.com mentionne une « côte cat.4 à 5,3 km » sans nom exploitable pour le géocodage). Trou de couverture non comblé plutôt qu'inventé."
+          }
+        ],
+        "note": "Prologue individuel à Luxembourg-Ville (7 km, 6 juillet 2002), remporté par Lance Armstrong. Un col de 4e catégorie est franchi au km 5,3 (bikeraceinfo.com) mais sans nom exploitable pour un point de passage. Aucun point de passage sourcé : la reconstruction reste un simple aller direct (départ=arrivée, quasi nulle) en attendant une source détaillant le tracé réel dans la ville."
+      },
+      "1": {
+        "vias": [
+          { "label": "Hoscheid", "kind": "col", "country": "luxembourg" },
+          { "label": "Vianden", "kind": "col", "country": "luxembourg" },
+          { "label": "Wormeldange", "kind": "col", "country": "luxembourg" },
+          { "label": "Hostert", "kind": "col", "country": "luxembourg" }
+        ],
+        "confidence": [
+          {
+            "claim": "parcours complet de la boucle autour de Luxembourg-Ville (192,5 km)",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "seuls les 4 cols classés sont sourcés (bikeraceinfo.com, kilométrage km 69,5/87,0/148,5/182,0) — le tracé entre eux reste une reconstruction du routeur, pas un road book complet."
+          }
+        ],
+        "note": "Grande boucle autour du Grand-Duché de Luxembourg, départ et arrivée à Luxembourg-Ville (192,5 km, 7 juillet 2002, victoire de Rubens Bertogliati). Quatre côtes classées dans l'ordre : Côte de Hoscheid (km 69,5, 4,2 km à 5,9 %, 3e cat.), Côte de Vianden (km 87,0, 2,7 km à 5,7 %, 4e cat.), Côte de Wormeldange (km 148,5, 0,8 km à 9,5 %, 3e cat.), Côte de Hostert (km 182,0, 1,8 km à 6,9 %, 4e cat.). Sourcé : bikeraceinfo.com (« The rated climbs »)."
+      },
+      "2": {
+        "vias": [
+          { "label": "Perl", "kind": "col", "country": "germany" },
+          { "label": "Alsweiler", "kind": "col", "country": "germany" }
+        ],
+        "confidence": [
+          {
+            "claim": "parcours complet Luxembourg-Ville → Saarbrücken (181 km)",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "seuls deux cols allemands sont sourcés (bikeraceinfo.com, km 60,0 et 132,5) sur 181 km — le reste du tracé (sortie du Luxembourg, traversée de la Sarre) n'est pas détaillé par une source consultée."
+          }
+        ],
+        "note": "Luxembourg-Ville → Saarbrücken (181 km, 8 juillet 2002), traverse l'Allemagne (Sarre). Deux côtes classées sourcées : Côte de Perl (km 60,0, 4,8 km à 4,8 %, 4e cat., commune de Perl, Sarre), Côte d'Alsweiler-Heid (km 132,5, 1,4 km à 6,4 %, 4e cat.). Sourcé : bikeraceinfo.com."
+      },
+      "4": {
+        "confidence": [
+          {
+            "claim": "tracé du contre-la-montre par équipes Épernay → Château-Thierry (67,5 km)",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "aucun point de passage nommé trouvé — bikeraceinfo.com mentionne seulement « a 200 meter climb in the middle of the stage » sans toponyme. Trou de couverture non comblé plutôt qu'inventé."
+          }
+        ],
+        "note": "Contre-la-montre par équipes Épernay → Château-Thierry (67,5 km, 10 juillet 2002). Aucun point de passage intermédiaire sourcé."
+      },
+      "7": {
+        "vias": [
+          { "label": "Mont Pinçon", "kind": "col" },
+          { "label": "La Chapelle-Urée", "kind": "col" }
+        ],
+        "confidence": [
+          {
+            "claim": "parcours complet Bagnoles-de-l'Orne → Avranches (176 km)",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "seuls deux cols sont sourcés (bikeraceinfo.com, km 57,0 et 154,0) sur 176 km — le reste du tracé normand n'est pas détaillé par une source consultée."
+          }
+        ],
+        "note": "Bagnoles-de-l'Orne → Avranches (176 km, 13 juillet 2002). Deux côtes classées sourcées : Côte du Mont-Pinçon (km 57,0, 1,1 km à 6,1 %, 4e cat.), côte de L'Embranchement à La Chapelle-Urée (km 154,0, 6,5 km à 2,7 %, 4e cat.). Sourcé : bikeraceinfo.com."
+      },
+      "9": {
+        "confidence": [
+          {
+            "claim": "type d'épreuve de l'étape 9 (Lanester → Lorient, 52 km)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "contre-la-montre INDIVIDUEL (pas par équipes, contrairement à l'hypothèse de l'audit initial, issue #189) — confirmé par trois sources indépendantes concordantes : fr.wikipedia.org/wiki/9e_étape_du_Tour_de_France_2002, procyclingstats.com/race/tour-de-france/2002/stage-9, lorientlejour.com (article du 15/07/2002, Santiago Botero vainqueur, Armstrong 2e à 11 secondes)."
+          },
+          {
+            "claim": "tracé du contre-la-montre Lanester → Lorient",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "Lanester et Lorient sont deux communes distinctes mais adjacentes (quelques km à vol d'oiseau) — un parcours de 52 km entre les deux implique nécessairement une boucle, mais aucune source consultée (Wikipédia FR/EN, bikeraceinfo.com, lagrandeboucle.com — page inaccessible, erreur 503) ne nomme de commune intermédiaire. Trou de couverture non comblé plutôt qu'inventé — voir issue #189 pour le correctif côté message d'audit (checks.js)."
+          }
+        ],
+        "note": "Lanester → Lorient, contre-la-montre individuel (52 km, 15 juillet 2002, vitesse moyenne 50,066 km/h). Vainqueur : Santiago Botero, devant Armstrong (11 s) et Gontchar (18 s). Aucun point de passage intermédiaire sourcé malgré plusieurs sources consultées."
+      },
+      "12": {
+        "vias": [
+          { "label": "Col de Menté", "kind": "col" },
+          { "label": "Col de Portet-d'Aspet", "kind": "col" },
+          { "label": "Col de la Core", "kind": "col" },
+          { "label": "Col de Port", "kind": "col" }
+        ],
+        "confidence": [
+          {
+            "claim": "enchaînement des 4 cols pyrénéens avant l'arrivée à Plateau-de-Beille",
+            "status": "OK",
+            "level": "haute",
+            "detail": "enchaînement classique et documenté (bikeraceinfo.com, « The rated climbs ») : col de Menté (km 56,0, 9,4 km à 9,0 %, 1re cat.), col de Portet-d'Aspet (km 71,5, 4,3 km à 9,9 %, 2e cat.), col de la Core (km 107,5, 14,3 km à 5,8 %, 1re cat.), col de Port (km 155,5, 12,6 km à 4,9 %, 2e cat.), avant l'ascension finale de Plateau-de-Beille (15,9 km à 7,8 %, hors catégorie)."
+          }
+        ],
+        "note": "Lannemezan → Plateau-de-Beille (199,5 km, 19 juillet 2002), étape pyrénéenne classique. Quatre cols avant l'ascension finale hors catégorie de Plateau-de-Beille : col de Menté, col de Portet-d'Aspet, col de la Core, col de Port. Sourcé : bikeraceinfo.com."
+      },
+      "13": {
+        "vias": [
+          { "label": "Col de Montségur", "kind": "col" },
+          { "label": "Col de la Badourade", "kind": "col" },
+          { "label": "Col de Saint-Benoît", "kind": "col" }
+        ],
+        "confidence": [
+          {
+            "claim": "parcours complet Lavelanet → Béziers (171 km)",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "les 3 cols sourcés (bikeraceinfo.com, km 8,5 à 48,5) ne couvrent que le premier quart de l'étape — les ~122 km restants jusqu'à Béziers ne sont documentés par aucune source consultée."
+          }
+        ],
+        "note": "Lavelanet → Béziers (171 km, 20 juillet 2002). Trois cols classés en début d'étape : col de Montségur (km 8,5, 4,3 km à 8,3 %, 3e cat.), col de la Badourade (km 31,0, 6,7 km à 2,4 %, 4e cat.), col de Saint-Benoît (km 48,5, 4,9 km à 4,7 %, 3e cat.). Sourcé : bikeraceinfo.com."
+      },
+      "15": {
+        "vias": [
+          { "label": "Col de Prémol", "kind": "col" },
+          { "label": "Col de Grimone", "kind": "col" },
+          { "label": "Col de la Croix-Haute", "kind": "col" },
+          { "label": "Col du Banchet", "kind": "col" },
+          { "label": "Ponsonas", "kind": "col" },
+          { "label": "Col d'Ornon", "kind": "col" }
+        ],
+        "confidence": [
+          {
+            "claim": "enchaînement des cols de l'étape Vaison-la-Romaine → Les Deux Alpes",
+            "status": "OK",
+            "level": "haute",
+            "detail": "6 cols sourcés dans l'ordre (bikeraceinfo.com, km 68,5 à 190,0), couvrant l'essentiel du massif du Vercors/Trièves avant l'ascension finale des Deux Alpes."
+          }
+        ],
+        "note": "Vaison-la-Romaine → Les Deux Alpes (226,5 km, 23 juillet 2002). Six cols avant l'arrivée : col de Prémol (km 68,5, 3e cat.), col de Grimone (km 116,0, 2e cat.), col de la Croix-Haute (km 123,5, 3e cat.), col du Banchet (km 136,5, 3e cat.), côte de Ponsonas (km 160,0, 3e cat.), col d'Ornon (km 190,0, 2e cat.), puis ascension finale des Deux Alpes (11,2 km à 6,4 %, 1re cat.). Sourcé : bikeraceinfo.com."
+      },
+      "17": {
+        "vias": [
+          { "label": "Cormet de Roselend", "kind": "col" },
+          { "label": "Col des Saisies", "kind": "col" },
+          { "label": "Col des Aravis", "kind": "col" },
+          { "label": "Col de la Colombière", "kind": "col" }
+        ],
+        "confidence": [
+          {
+            "claim": "enchaînement des 4 cols de l'étape Aime → Cluses",
+            "status": "OK",
+            "level": "haute",
+            "detail": "enchaînement alpin classique et documenté (bikeraceinfo.com, km 31,5 à 121,5) : Cormet de Roselend (19,1 km à 5,9 %, 1re cat.), col des Saisies (15,3 km à 6,0 %, 1re cat.), col des Aravis (11,7 km à 4,9 %, 2e cat.), col de la Colombière (11,8 km à 5,6 %, 1re cat.) — les deux premiers cols sont les mêmes que ceux de l'étape reine du Tour 1992 (Saint-Gervais → Sestriere), voir l'entrée 1992/13."
+          }
+        ],
+        "note": "Aime → Cluses (142 km, 24 juillet 2002). Quatre cols de 1re/2e catégorie enchaînés : Cormet de Roselend, col des Saisies, col des Aravis, col de la Colombière. Sourcé : bikeraceinfo.com."
+      },
+      "18": {
+        "vias": [
+          { "label": "Bois de Serves", "kind": "col" },
+          { "label": "Marlioz", "kind": "col" },
+          { "label": "Sémine", "kind": "col" },
+          { "label": "Col de Richemont", "kind": "col" },
+          { "label": "Col de la Cheminée", "kind": "col" },
+          { "label": "Giriat", "kind": "col" },
+          { "label": "Col du Berthiand", "kind": "col" }
+        ],
+        "confidence": [
+          {
+            "claim": "enchaînement des 7 cols/côtes de l'étape Cluses → Bourg-en-Bresse",
+            "status": "OK",
+            "level": "haute",
+            "detail": "7 cols/côtes sourcés dans l'ordre (bikeraceinfo.com, km 41,0 à 147,5), couvrant l'essentiel du massif du Jura avant l'arrivée à Bourg-en-Bresse."
+          }
+        ],
+        "note": "Cluses → Bourg-en-Bresse (176,5 km, 25 juillet 2002). Sept cols/côtes classés dans l'ordre : côte des Bois de Serves (3e cat.), côte de Marlioz (4e cat.), côte de la Sémine (4e cat.), col de Richemont (1re cat.), col de la Cheminée (3e cat.), côte de Giriat (4e cat.), col du Berthiand (2e cat.). Sourcé : bikeraceinfo.com."
+      },
+      "19": {
+        "vias": [
+          { "label": "Fût d'Avenas", "kind": "col" }
+        ],
+        "confidence": [
+          {
+            "claim": "parcours complet du contre-la-montre Régnié-Durette → Mâcon (50 km)",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "un seul col sourcé (bikeraceinfo.com, km 10,5) sur 50 km — les ~40 km restants jusqu'à Mâcon sont décrits par la source comme « relativement plats » mais sans commune intermédiaire nommée."
+          }
+        ],
+        "note": "Régnié-Durette → Mâcon, contre-la-montre individuel (50 km, 27 juillet 2002). Un seul col classé en début d'épreuve : côte du Fût d'Avenas (km 10,5, 7,2 km à 4,4 %, 3e cat.). Sourcé : bikeraceinfo.com."
+      },
+      "20": {
+        "confidence": [
+          {
+            "claim": "circuit final des Champs-Élysées",
+            "status": "OK",
+            "level": "haute",
+            "detail": "tracé du circuit des Champs-Élysées confirmé inchangé de 1975 à 2012 (avant le passage par la place Charles-de-Gaulle introduit en 2013) — même source déjà utilisée pour l'entrée 1992/21 : fr.wikipedia.org/wiki/Étape_des_Champs-Élysées_du_Tour_de_France. Nombre de tours effectués en 2002 non retrouvé par une source consultée (contrairement à 1992, où 10 tours sont sourcés)."
+          },
+          {
+            "claim": "parcours d'approche Melun → Paris (~144 km, avant le circuit)",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "aucune commune intermédiaire sourcée (ledicodutour.com/villes-etapes/villes_etapes_m/melun.html renvoie vers des cartes non accessibles ici plutôt qu'un texte exploitable). Trou de couverture non comblé plutôt qu'inventé."
+          }
+        ],
+        "note": "Melun → Paris/Champs-Élysées, étape finale (144 km, 28 juillet 2002, victoire de Robbie McEwen). Circuit final identique à celui documenté pour 1992 (voir 1992/21) mais sans point de passage intermédiaire sourcé pour l'approche Melun → Paris ni nombre de tours confirmé pour cette édition précise."
+      }
+    }
+  },
   "2020": {
     "notes": "Grand Départ de Nice (initialement prévu ainsi avant même la crise sanitaire ; Copenhague, reporté, deviendra le Grand Départ 2022). Points de passage des étapes reines d'après Wikipédia / cyclingstage.com / lequipe.fr, recoupés sur plusieurs sources. Import de la liste complète des 21 étapes : en ligne (Wikipédia).",
     "stages": {
