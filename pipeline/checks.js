@@ -8,6 +8,7 @@
 // - le tracé repasse sur lui-même en sens inverse (aller-retour halluciné)
 
 const { COL_TOLERANCE_M } = require('./routing');
+const { haversine } = require('./geo');
 
 const ALT_TOLERANCE_M = 120;
 // Au-delà de ce taux d'échantillons manquants, le profil (D+, côtes
@@ -52,6 +53,16 @@ const QUASI_NUL_RATIO = 0.1;
 // déjà signalée par le check distance (quasi nulle ou générique), pas besoin
 // d'un second avertissement redondant sur son unique leg départ→arrivée.
 const VIA_GAP_WARN_M = 12000;
+
+// Distance à vol d'oiseau en dessous de laquelle départ et arrivée géocodés
+// sont considérés comme « le même point » (vrai circuit) plutôt que deux
+// communes distinctes rapprochées. Trouvaille Tour 2002 étape 9 (Lanester →
+// Lorient, ~2,5 km à vol d'oiseau, issue #189) : le message « probablement un
+// circuit (départ = arrivée) » était affiché alors que Lanester et Lorient
+// sont deux communes bien distinctes, jamais géocodées au même point — un
+// vrai circuit (même ville en départ et en arrivée) géocode les deux
+// extrémités exactement au même point, distance ~0.
+const CIRCUIT_SAME_POINT_M = 500;
 
 /**
  * @returns { ok, items: [{id, label, status: 'ok'|'warn'|'fail', detail}] }
@@ -112,16 +123,32 @@ function runChecks({ stage, distanceM, waypointsOnTrack, approxSegments, climbs,
     // message dédié évite de noyer ce cas dans le même libellé générique
     // qu'un tracé simplement mal deviné.
     const nearZero = kmGen < target * QUASI_NUL_RATIO;
+    // Distinguer un vrai circuit (départ et arrivée géocodés au même point)
+    // de deux communes distinctes mais proches : les deux produisent le même
+    // symptôme (distance reconstituée quasi nulle) sans être la même
+    // situation — voir CIRCUIT_SAME_POINT_M ci-dessus (issue #189).
+    const first = (waypointsOnTrack || [])[0];
+    const last = (waypointsOnTrack || [])[(waypointsOnTrack || []).length - 1];
+    const bothGeocoded =
+      first && last && first.lat != null && first.lon != null && last.lat != null && last.lon != null;
+    const straightM = bothGeocoded ? haversine(first, last) : null;
+    const distinctCloseCities = straightM != null && straightM > CIRCUIT_SAME_POINT_M;
     items.push({
       id: 'distance',
       label: 'Distance reconstituée vs cible',
       status: ok ? 'ok' : 'fail',
-      detail: nearZero
+      detail: !nearZero
+        ? `officielle ${target} km / reconstitution ${kmGen.toFixed(1)} km ` +
+          `(écart ${deltaPct >= 0 ? '+' : ''}${deltaPct.toFixed(1)} %, tolérance ±${DIST_TOLERANCE_PCT} %)`
+        : distinctCloseCities
         ? `reconstitution quasi nulle (${kmGen.toFixed(1)} km pour ${target} km officiels) — ` +
+          `${first.label} et ${last.label} sont deux communes distinctes mais proches ` +
+          `(${(straightM / 1000).toFixed(1)} km à vol d'oiseau), pas un circuit : sans point de passage ` +
+          `intermédiaire curé, le routeur trace un aller direct au lieu du tracé réel — vérifier s'il ` +
+          `manque des points de passage, voir pipeline/data/historic_routes.json`
+        : `reconstitution quasi nulle (${kmGen.toFixed(1)} km pour ${target} km officiels) — ` +
           `probablement une étape en circuit (départ = arrivée) sans aucun point de passage curé : ` +
-          `impossible de reconstruire un tracé réel sans via, voir pipeline/data/historic_routes.json`
-        : `officielle ${target} km / reconstitution ${kmGen.toFixed(1)} km ` +
-          `(écart ${deltaPct >= 0 ? '+' : ''}${deltaPct.toFixed(1)} %, tolérance ±${DIST_TOLERANCE_PCT} %)`,
+          `impossible de reconstruire un tracé réel sans via, voir pipeline/data/historic_routes.json`,
     });
   } else {
     items.push({

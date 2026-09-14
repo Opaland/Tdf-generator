@@ -203,6 +203,45 @@ test('distance : reconstitution quasi nulle (< 10 % de l\'officielle) → messag
   assert.doesNotMatch(d.detail, MOTIF_TOLERANCE, 'ne doit pas afficher le message générique pour ce cas');
 });
 
+// Issue #189 : deux communes distinctes mais proches (ex. Lanester → Lorient,
+// Tour 2002 étape 9, ~2,5 km à vol d'oiseau) produisent le même symptôme
+// qu'un vrai circuit (distance reconstituée quasi nulle, départ et arrivée
+// géocodés à quelques km l'un de l'autre) sans en être un — le message ne
+// doit pas affirmer « départ = arrivée » dans ce cas.
+test('distance : reconstitution quasi nulle avec départ/arrivée distincts mais proches → message dédié, pas « circuit »', () => {
+  const { items } = runChecks({
+    stage: { official_distance_km: 52 }, distanceM: 5100,
+    waypointsOnTrack: [
+      { label: 'Lanester', lat: 47.7647, lon: -3.3517 },
+      { label: 'Lorient', lat: 47.7482, lon: -3.3702 },
+    ],
+    approxSegments: [], climbs: [], samples: [], legs: [],
+  });
+  const d = find(items, 'distance');
+  assert.strictEqual(d.status, 'fail');
+  assert.match(d.detail, /quasi nulle/);
+  assert.match(d.detail, /Lanester et Lorient sont deux communes distinctes/);
+  assert.match(d.detail, /à vol d'oiseau/);
+  assert.doesNotMatch(d.detail, /départ = arrivée/);
+});
+
+// Contrôle négatif du test précédent : mêmes coordonnées pour départ et
+// arrivée (vrai circuit) doit garder le message d'origine — sinon le nouveau
+// message dédié s'afficherait aussi pour un vrai circuit, perdant
+// l'information qu'aucune curation ne pourra jamais donner de via distinct.
+test('distance : reconstitution quasi nulle avec départ = arrivée (mêmes coordonnées) → message « circuit » inchangé', () => {
+  const { items } = runChecks({
+    stage: { official_distance_km: 194.5 }, distanceM: 100,
+    waypointsOnTrack: [
+      { label: 'Luxembourg', lat: 49.6116, lon: 6.1319 },
+      { label: 'Luxembourg', lat: 49.6116, lon: 6.1319 },
+    ],
+    approxSegments: [], climbs: [], samples: [], legs: [],
+  });
+  const d = find(items, 'distance');
+  assert.match(d.detail, /probablement une étape en circuit \(départ = arrivée\)/);
+});
+
 test('distance : reconstitution nettement insuffisante mais pas quasi nulle (>= 10 % de l\'officielle) → message générique', () => {
   const { items } = runChecks({
     stage: { official_distance_km: 100 }, distanceM: 30000,
