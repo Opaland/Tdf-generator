@@ -1084,6 +1084,37 @@
         ],
         "note": "Strasbourg → Obernai (sprint km 19,5) → Barr → Le Hohwald → col du Kreuzweg (GPM3, km 49) → Villé → col de Fouchy (GPM3, km 67,5) → Sainte-Marie-aux-Mines → col des Bagenelles (GPM2, 915 m, km 94,5) → Le Bonhomme (ravitaillement) → col du Bonhomme → col du Calvaire (GPM3, 1150 m, km 111) → col du Wettstein → col de la Schlucht (GPM2, 1150 m, km 129) → Grand Ballon (GPM1, 1360 m, sommet à plus de 50 km de l'arrivée) → Mulhouse (249,5). Sourcé : memoire-du-cyclisme.eu/eta_tdf_1990_1999 (road book officiel, ville par ville avec bornes km)/tdf1992_11.php (itinéraire + GPM) et lagrandeboucle.com/spip.php?article452 (7 cols des Vosges, Grand Ballon) et ledicodutour.com/cols/cols_par_annees/cols_1992.html (catégories/altitudes). Coordonnées explicites sur le via « Col du Calvaire » (48.136229/7.088724, Vosges, altitude mesurée 1144 m à 6 m de la valeur documentée ci-dessus, 1150 m) : ce nom existe DEUX FOIS dans le référentiel known_cols.json — l'entrée déjà curée là-bas (issue #109) est un col différent en Pyrénées-Orientales, pour l'édition 2026, étape 3. Sans cette précision locale, resolveViaCoords() (pipeline/wikipedia.js) aurait silencieusement hérité du mauvais col par pure coïncidence de nom — vérifié en rejouant le pipeline réel avant ce correctif."
       },
+      "12": {
+        "vias": [
+          { "label": "Lons-le-Saunier", "kind": "via" },
+          { "label": "Montaigu", "kind": "col" },
+          { "label": "Orgelet", "kind": "via" },
+          { "label": "Onoz", "kind": "col" },
+          { "label": "Oyonnax", "kind": "via" },
+          { "label": "Échallon", "kind": "col" },
+          { "label": "Bellegarde-sur-Valserine", "kind": "via" },
+          { "label": "Mont Salève", "kind": "col" },
+          { "label": "La Roche-sur-Foron", "kind": "via" },
+          { "label": "Bonneville", "kind": "via" },
+          { "label": "Cluses", "kind": "via" },
+          { "label": "Sallanches", "kind": "via" }
+        ],
+        "confidence": [
+          {
+            "claim": "les deux cols classés de l'étape (Échallon, Mont Salève)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "confirmés mot pour mot par bikeraceinfo.com (« Major Ascents: d'Echalon, Salève »), reproductible par une requête directe sur bikeraceinfo.com/tdf/tdf1992.html."
+          },
+          {
+            "claim": "les 10 communes retenues comme vias (Lons-le-Saunier, Montaigu, Orgelet, Onoz, Oyonnax, Bellegarde-sur-Valserine, La Roche-sur-Foron, Bonneville, Cluses, Sallanches)",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "une page memoire-du-cyclisme (road book kilométrique détaillé, ville par ville) a été consultée pour construire cette liste, mais l'URL exacte retenue ensuite ne résout plus (domaine mort) et ne correspond à aucune archive Wayback — contenu non re-vérifiable tel quel, à traiter comme une hypothèse plutôt qu'une source confirmée (CLAUDE.md règle 9). Ce qui EST vérifié indépendamment : chacune de ces communes est réelle, correctement située sur le corridor géographique direct Jura → Ain → Haute-Savoie entre Dole et Saint-Gervais (coordonnées cohérentes, aucun homonyme lointain), et Charly Mottet a bien abandonné à cette étape (Wikipédia FR, tableau des engagés du Tour 1992) — cohérent avec, sans confirmer précisément, la mention d'un ravitaillement à Orgelet. Même situation que l'étape 1992/2 (via « Saint-Jean-Pied-de-Port » : « géographiquement quasi obligée sur cet itinéraire mais pas confirmée par un road book »)."
+          }
+        ],
+        "note": "Dole → Lons-le-Saunier → Montaigu → Orgelet → Oyonnax → Échallon (col) → Bellegarde-sur-Valserine → Mont Salève (col) → La Roche-sur-Foron → Bonneville → Cluses → Sallanches → Saint-Gervais-les-Bains (267,5 km, la plus longue étape de l'édition, 17 juillet 1992, victoire de Rolf Järmann ; Charly Mottet a abandonné pendant cette étape). Corridor géographique direct entre le Jura et le Mont-Blanc — voir les entrées confidence pour le détail de ce qui est confirmé (les deux cols, via bikeraceinfo.com) et de ce qui reste une hypothèse non re-vérifiable (l'ordre exact des communes, dont la source citée à l'origine ne résout plus)."
+      },
       "14": {
         "vias": [
           {
