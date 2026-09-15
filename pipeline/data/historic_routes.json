@@ -338,6 +338,12 @@
             "status": "UNSURE",
             "level": "moyenne",
             "detail": "road book complet trouvé (memoire-du-cyclisme.eu/eta_tdf_1990_1999/tdf1992_p.php) mais ce sont des rues, pas des communes — géocodage Nominatim/POI non garanti pour ce niveau de précision en Espagne. Arrivée officielle Paseo de la República Argentina."
+          },
+          {
+            "claim": "zones de rebroussement détectées sur ce prologue",
+            "status": "OK",
+            "level": "haute",
+            "detail": "balayage issue #194 : 2 zones mineures (km 1,1-2,3 et km 3,4-4,4, ~2 km cumulés) sur ce prologue urbain de 6,1 km reconstitué. Aucune côte concernée (étape plate, aucune côte détectée). Classées (c) sans impact notable : probablement des variations de rues dans le centre de Donostia, cohérentes avec le trou de couverture déjà documenté ci-dessus (rues sans localisation garantie)."
           }
         ],
         "note": "Prologue individuel dans Donostia/San Sebastián : Miraconcha → sortie/entrée N1 → Calle de San Martín → Paseo de los Fueros → arrivée Paseo de la República Argentina (8 km). Sourcé : memoire-du-cyclisme.eu/eta_tdf_1990_1999 (road book officiel, ville par ville avec bornes km)/tdf1992_p.php."
@@ -366,6 +372,12 @@
             "status": "UNSURE",
             "level": "basse",
             "detail": "seuls le col de Jaizkibel (via Pasaia, descente sur Hondarribia) et le col de Gurutze (~25 km de l'arrivée, non géocodé faute de localisation précise trouvée) sont sourcés — la majorité de la boucle (~150 km sur 194,5) reste non documentée par une source consultée (page memoire-du-cyclisme de cette étape non indexée). Le tracé entre les points curés ci-dessus et l'arrivée reste une invention du routeur."
+          },
+          {
+            "claim": "zones de rebroussement détectées sur cette étape",
+            "status": "OK",
+            "level": "haute",
+            "detail": "balayage issue #194 : 3 zones, km 1,2-7,0 (5,8 km), km 15,1-15,7 (0,6 km) et km 39,9-45,3 (5,4 km), ~11,8 km cumulés sur les 46,6 km reconstitués. La 1re zone chevauche le début de la côte du Jaizkibel détectée (km 6,1-16,1) — sa longueur mesurée est probablement surestimée par ce rebroussement. La 3e tombe dans le grand tronçon non sourcé déjà signalé ci-dessus (Hondarribia → arrivée, ~20 km sans via). Classées (b)/(c) : corrélat de l'absence de road book déjà documentée pour cette étape, pas un artefact isolé nouveau à corriger séparément."
           }
         ],
         "note": "Circuit autour de San Sebastián/Donostia : Alto de Jaizkibel (cat. 2, 460 m, versant Pasaia) puis descente sur Hondarribia, puis alto de Gurutze avant le retour (~25 km de l'arrivée, non localisé précisément). Sourcé partiellement : lepuncheur.com (grand départ 1992) et https://en.wikipedia.org/wiki/1992_Tour_de_France,_Prologue_to_Stage_10 (catégorie/altitude Jaizkibel). (via géocodé sous le libellé « Jaizkibel » seul — « Alto de Jaizkibel » ne retourne aucun résultat sur Nominatim restreint à l'Espagne.)"
@@ -391,6 +403,12 @@
             "status": "UNSURE",
             "level": "basse",
             "detail": "seuls deux cols sont sourcés (Ispéguy, Marie-Blanque, deux sources indépendantes concordantes) sur 255 km — la ville de passage entre les deux (Saint-Jean-Pied-de-Port) est géographiquement quasi obligée sur cet itinéraire mais n'est pas elle-même confirmée par un road book. Le reste du tracé (Irún, Elizondo, Mauléon, Oloron) n'est PAS sourcé, volontairement absent d'ici plutôt qu'inventé."
+          },
+          {
+            "claim": "zones de rebroussement détectées sur cette étape",
+            "status": "OK",
+            "level": "haute",
+            "detail": "balayage issue #194 : 4 zones regroupées km 86,7-104,5 (~14,5 km cumulés), autour et après le col d'Ispéguy (côte détectée km 86,98-95,48, correctement rattachée au via). Classées (c) : pas de côte dupliquée ni mal nommée, mais la longueur mesurée de la côte d'Ispéguy est probablement gonflée par ce rebroussement — cohérent avec le grand vide sans via signalé ci-dessus entre Ispéguy et Saint-Jean-Pied-de-Port."
           }
         ],
         "note": "San Sebastián → Pau via le col d'Ispéguy (690 m, cat. 2, frontière, versant Baztan → Saint-Étienne-de-Baïgorry) puis le col de Marie-Blanque (1035 m, cat. 1, Béarn) avant Pau. Sourcé : ledicodutour.com/cols/cols_par_annees/cols_1992.html et https://en.wikipedia.org/wiki/1992_Tour_de_France,_Prologue_to_Stage_10."
@@ -487,6 +505,12 @@
             "status": "UNSURE",
             "level": "moyenne",
             "detail": "source unique (lagrandeboucle.com) citant les difficultés dans cet ordre et un sprint à Schepdaal (km 141) remporté par Chiappucci, plus la position du groupe à Braine-l'Alleud (~km 95) tirée du récit de course, pas d'un road book officiel. Un mont cité par la source sous le nom « Kreusberg » n'a pas pu être identifié avec certitude (probablement Kruisberg à Ronse, non confirmé) — omis plutôt que deviné."
+          },
+          {
+            "claim": "zones de rebroussement détectées sur cette étape",
+            "status": "OK",
+            "level": "haute",
+            "detail": "balayage issue #194 : 2 petites zones (km 33,0-33,8 et km 34,8-35,5, 1,5 km cumulés) encadrant le via Oude Kwaremont (km 34,3). La côte détectée juste avant (« Côte de Quaremont, Kluisbergen », km 29,5-32,3) est nommée par géocodage inverse plutôt que rattachée au via Kwaremont (à 2 km, hors fenêtre de nommage de nameClimbs()) — near-miss possible du même mécanisme que Bonhomme (1992/11, issue #193), mais zones trop petites pour en être clairement la cause. Classé (c) : impact négligeable sur la distance, sans côte dupliquée."
           }
         ],
         "note": "Roubaix → Bruxelles via des difficultés du Tour des Flandres : Mont de l'Enclus (km 22), Oude Kwaremont, Mur de Grammont (Muur van Geraardsbergen), Bosberg, puis sprint à Schepdaal (km 141, remporté par Chiappucci). Sourcé : lagrandeboucle.com/article.php3?id_article=435."
@@ -552,6 +576,12 @@
             "status": "UNSURE",
             "level": "moyenne",
             "detail": "road book sourcé en détail du km 0 à 114 (Bruxelles → Glons) et de la finale (Savelsbos km 155,5 → Cauberg km 194,5 → Valkenburg), mais trou km 114-155 (passage de la Meuse / entrée aux Pays-Bas, probablement via Maastricht — non confirmé, volontairement omis)."
+          },
+          {
+            "claim": "zones de rebroussement détectées sur cette étape",
+            "status": "OK",
+            "level": "haute",
+            "detail": "balayage issue #194 : 2 zones (km 150,7-153,2 et km 154,4-156,7, ~4,75 km cumulés) entre les vias Vijlen et Wittem — aucune côte détectée dans cette plage. Classé (c) : sans impact sur le nommage des côtes."
           }
         ],
         "note": "Bruxelles (Woluwe-Saint-Pierre) → Tervuren → Wavre (sprint km 23) → Jodoigne → Hannut → Liège (Loncin, sprint km 99) → [trou km 114-155, Meuse/Pays-Bas non sourcé] → côte de Savelsbos (Gronsveld, km 155,5) → côte de Loorberg (Slenaken) → côte de Camerig (Vijlen) → Wittem (sprint km 187,5) → Cauberg (km 194,5) → Valkenburg (196,5). Sourcé : memoire-du-cyclisme.eu/eta_tdf_1990_1999 (road book officiel, ville par ville avec bornes km)/tdf1992_7.html. Toponymes corrigés par recoupement : « Savelbos »→Savelsbos, « Loorberg »/« Camerig » = graphies néerlandaises correctes (Slenaken/Vijlen), « Etenaken »→hameau de Wittem/Gulpen-Wittem."
@@ -1188,6 +1218,12 @@
             "status": "OK",
             "level": "haute",
             "detail": "road book détaillé du départ jusqu'à Saint-Sorlin-d'Arves (km 124,5), confirmé par 3 sources indépendantes concordantes : ordre Montgenèvre → Lautaret → Galibier (versant sud depuis Briançon, PAS l'inverse) → descente du Télégraphe → Croix de Fer par Saint-Sorlin-d'Arves, échappée décisive formée à la Croix de Fer (lagrandeboucle.com). Micro-toponymes de la descente de la Croix de Fer (Le Rivier-d'Allemont, Allemond) non sourcés, omis — seul Le Bourg-d'Oisans (route unique vers l'Alpe d'Huez) est ajouté en complément géographique évident."
+          },
+          {
+            "claim": "zones de rebroussement détectées sur cette étape, dont un doublon Montgenèvre",
+            "status": "OK",
+            "level": "haute",
+            "detail": "balayage issue #194 : 5 zones détectées. Trouvaille substantielle — artefact confirmé (a), même mécanisme que Bonhomme (1992/11, issue #193) : deux zones km 20,3-22,3 et km 23,3-25,0 (3,75 km cumulés) encadrent le col de Montgenèvre (via alongM 22,8 km). Deux côtes sont détectées à cet endroit — « Côte de Montgenèvre » (sommet mesuré 1850 m, géocodage inverse) et « Col de Montgenèvre » (sommet mesuré 2013 m, rattachée au via) — vraisemblablement LE MÊME col détecté deux fois. L'altitude sourcée du col (voir `note` ci-dessus : 1860 m) correspond presque exactement à la 1re détection (1850 m, écart 10 m) et PAS à la 2e (2013 m, écart +153 m) : c'est ici la version rattachée au via, normalement la plus fiable, qui porte l'altitude faussée par le rebroussement — inverse de ce qu'on observe d'habitude. Deux autres zones distinctes, mal caractérisées dans une première version de cette entrée puis corrigées après relecture adverse : la zone km 115,8-121,5 (5,75 km) tombe en réalité ENTIÈREMENT dans la plage de la côte déjà détectée « Côte de Saint-Michel-de-Maurienne » (km 114,04-122,05, géocodage inverse — Saint-Michel-de-Maurienne est un via de type ville, pas un col, donc pas de rattachement possible) : sa longueur mesurée est donc probablement en grande partie un artefact de rebroussement plutôt qu'une vraie ascension, même schéma que la côte d'Ispéguy (étape 2) — classée (c), impact sur la longueur mesurée sans côte dupliquée. La zone km 122,8-128,5 (5,75 km), elle, tombe bien dans le grand vide sans via entre Saint-Michel-de-Maurienne (alongM 122,2 km) et Saint-Jean-de-Maurienne (alongM 143,3 km, 21 km d'écart) — cohérent avec le mécanisme documenté pour l'étape 9 (issue #192) : sans point de passage, BRouter improvise un tracé qui boucle, classée (b)/(c). Cohérent aussi avec l'écart de distance déjà en excès de cette étape (+20,2 %, 224,1 km générés pour 186,5 km officiels). Dernière zone (km 38,3-39,5, 1,25 km, près de Briançon, un via sans catégorie de col) sans côte concernée, classée (c). Pas de correctif de données proposé ici pour le doublon Montgenèvre : les deux cols sont réellement traversés par le tracé (même limite algorithmique que Bonhomme, hors périmètre d'un correctif de données — voir pipeline/climbs.js)."
           }
         ],
         "note": "Sestriere → Cesana Torinese → Clavière → col de Montgenèvre (GPM2, 1860 m, km 7,5) → Briançon (20) → Le Monêtier-les-Bains → col du Lautaret (46,5) → col du Galibier (HC, 2640 m, km 55, versant sud depuis Briançon/Lautaret) → col du Télégraphe (en descente, km 78) → Saint-Michel-de-Maurienne → Saint-Jean-de-Maurienne (ravitaillement, km 103) → Saint-Jean-d'Arves → Saint-Sorlin-d'Arves (124,5) → col de la Croix de Fer (HC, 2067 m — échappée décisive de Chiappucci formée ici) → Le Bourg-d'Oisans → Alpe d'Huez (HC, 186,5). Étape reine emblématique du Tour 1992. Sourcé : memoire-du-cyclisme.eu/eta_tdf_1990_1999 (road book officiel, ville par ville avec bornes km)/tdf1992_14.html (itinéraire km par km), ledicodutour.com/cols/cols_par_annees/cols_1992.html (catégories), lagrandeboucle.com/spip.php?article455 (Montgenèvre/Galibier-Lautaret/Croix de Fer/Alpe d'Huez, échappée décisive à la Croix de Fer)."
@@ -1209,6 +1245,12 @@
             "status": "UNSURE",
             "level": "basse",
             "detail": "un seul point de passage réellement sourcé : la descente de la côte de Confolent-Port-Dieu (Corrèze), dans les 50 premiers km, où le maillot jaune (Stephens) est repris. Ce point implique une boucle vers le sud-ouest (direction Bort-les-Orgues, ajouté comme repère géographique plausible mais NON confirmé par une source directe) avant de remonter vers Montluçon — cohérent avec 189 km reconstitués pour ~110 km à vol d'oiseau. Aucune autre ville intermédiaire confirmée ; road book de cette étape non accessible (page non indexée)."
+          },
+          {
+            "claim": "zones de rebroussement détectées sur cette étape",
+            "status": "OK",
+            "level": "haute",
+            "detail": "balayage issue #194 : 2 zones (km 64,0-66,7 et km 68,0-70,5, ~5,25 km cumulés) autour du via Confolent-Port-Dieu (km 67,3, une ville pas un col) — aucune côte concernée. Classé (c) : sans impact sur le nommage, étape déjà dans la tolérance de distance (178,5 km générés pour 189 km officiels, -5,6 %)."
           }
         ],
         "note": "La Bourboule → [boucle sud-ouest non détaillée, direction Bort-les-Orgues] → côte de Confolent-Port-Dieu (Corrèze, descente où le maillot jaune reprend Stephens, dans les 50 premiers km) → [reste du tracé vers Montluçon non sourcé] → Montluçon (189 km). Sourcé : lagrandeboucle.com/spip.php?article458 (seul point confirmé)."
