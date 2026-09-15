@@ -2974,5 +2974,53 @@
     },
     "notes": "Édition reconstruite depuis Wikipédia sans parcours curé dans son intégralité — seule l'étape 1 (CLM en boucle à Utrecht) est curée ici, palier 1 de la liste priorisée (étape en circuit sans via, reconstruction ~0 km sinon). Tracé sourcé cyclingstage.com.",
     "highlight": "Grand Départ à Utrecht, CLM inaugural remporté par Rohan Dennis"
+  },
+  "2022-femmes": {
+    "notes": "Première édition moderne du Tour de France Femmes, arrivée décisive à la Super Planche des Belles Filles. Édition reconstruite depuis Wikipédia (fixture pipeline/fixtures/wikipedia_2022_femmes_en.html) sans aucune curation avant ce correctif (backlog #10 section B, Chantier L Tour de France Femmes) : les 8 étapes affichaient un écart de distance sévèrement hors tolérance (de -50,9 % à -97,8 %, cette dernière pour l'étape 1, circuit parisien sans via). Cols/côtes sourcés : cyclingstage.com (descriptions de parcours détaillées par étape, même type de source déjà utilisé pour l'édition 2015 de ce fichier). Ce correctif ajoute les cols principaux des deux étapes de montagne (7 et 8), les plus emblématiques de l'édition — réduit sensiblement l'écart de distance sur ces deux étapes mais ne les ramène pas dans la tolérance ±10 % (voir les entrées confidence dédiées, curation volontairement partielle plutôt que vias inventés) ; les étapes 1 à 6 restent entièrement à curer.",
+    "stages": {
+      "7": {
+        "vias": [
+          { "label": "Petit Ballon", "kind": "col" },
+          { "label": "Col du Platzerwasel", "kind": "col" },
+          { "label": "Grand Ballon", "kind": "col" }
+        ],
+        "confidence": [
+          {
+            "claim": "enchaînement des 3 cols de l'étape Sélestat → Le Markstein",
+            "status": "OK",
+            "level": "haute",
+            "detail": "3 cols sourcés dans l'ordre (cyclingstage.com, description de parcours de l'étape 7) : Petit Ballon (9,3 km à 8,1 %), col du Platzerwasel (7,1 km à 8,3 %), Grand Ballon (13,5 km à 6,7 %) — puis la route des Crêtes jusqu'au Markstein sans redescendre après le dernier col. Altitudes de sommet non citées ici : absentes de la source (vérifié par relecture directe des deux pages cyclingstage.com) et absentes de known_cols.json pour ces trois labels — à ne pas confondre avec l'entrée équivalente de l'étape 8 (Ballon d'Alsace), où l'altitude vient bien de known_cols.json."
+          },
+          {
+            "claim": "écart résiduel de distance de l'étape après curation (généré 91,9 km vs officiel 127,1 km, -27,7 %)",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "curation partielle : vérifié par régénération réelle que l'ajout des 3 cols ci-dessus réduit l'écart de -50,9 % (aucun via) à -27,7 %, mais reste hors tolérance ±10 %. Deux zones de rebroussement détectées (detectBacktrackZones, km 75-83 et km 84-91) autour du Grand Ballon et de l'approche du Markstein — cause non investiguée plus avant (route des Crêtes mal reconstituée par le routeur, ou via « Le Markstein » imprécis). De nombreuses côtes plus courtes mentionnées par la source (traversée de Munster, faux-plats de la route des Crêtes) n'ont pas été curées, contribuant probablement aussi à l'écart."
+          }
+        ],
+        "note": "Sélestat → Le Markstein (127,1 km, 30 juillet 2022), entièrement en Alsace. 35 km de plaine avant le Petit Ballon (via Munster), puis le col du Platzerwasel, une descente vers Oderen, et le Grand Ballon (déjà franchi par le Tour hommes en 1992, étape 11) avant les 7 derniers km sur la route des Crêtes jusqu'à l'arrivée. Sourcé : cyclingstage.com."
+      },
+      "8": {
+        "vias": [
+          { "label": "Côte d'Esmoulières", "kind": "col" },
+          { "label": "Ballon d'Alsace", "kind": "col" }
+        ],
+        "confidence": [
+          {
+            "claim": "enchaînement des cols de l'étape Lure → La Super Planche des Belles Filles",
+            "status": "OK",
+            "level": "haute",
+            "detail": "cols sourcés dans l'ordre (cyclingstage.com, description de parcours de l'étape 8) : côte d'Esmoulières (2,3 km à 8,5 %), Ballon d'Alsace (9 km à 6,9 %, sommet 1178 m, déjà référencé dans known_cols.json), avant l'arrivée à la Super Planche des Belles Filles (7 km à 8,7 %, dernier km à 9,5 % sur piste gravel, rampe finale à 24 %)."
+          },
+          {
+            "claim": "écart résiduel de distance de l'étape après curation (généré 74,4 km vs officiel 123,3 km, -39,7 %)",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "curation partielle : vérifié par régénération réelle que l'ajout des 2 cols ci-dessus réduit l'écart de -71,7 % (aucun via) à -39,7 %, mais reste hors tolérance ±10 %. Aucune zone de rebroussement détectée cette fois — l'écart vient donc vraisemblablement d'une couverture de vias encore trop clairsemée (seuls 2 points de passage sur 123 km) plutôt que d'un artefact de tracé, cohérent avec les nombreux segments plus courts mentionnés par la source (Plancher-les-Mines notamment) qui n'ont pas été curés ici."
+          }
+        ],
+        "note": "Lure → La Super Planche des Belles Filles (123,3 km, 31 juillet 2022), dernière étape et arrivée décisive de la première édition moderne (victoire finale d'Annemiek van Vleuten). Côte d'Esmoulières puis Ballon d'Alsace (premier grand col historique du Tour, franchi dès 1905 — voir édition 1905 de ce fichier) avant l'ascension finale de la Super Planche des Belles Filles, piste gravel — distincte de la Planche « classique » goudronnée utilisée par le Tour hommes (voir note de l'édition 2024, étape 16). Sourcé : cyclingstage.com."
+      }
+    }
   }
 }
