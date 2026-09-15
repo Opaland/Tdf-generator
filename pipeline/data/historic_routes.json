@@ -1417,6 +1417,12 @@
             "status": "UNSURE",
             "level": "basse",
             "detail": "les 3 cols sourcés (bikeraceinfo.com, km 8,5 à 48,5) ne couvrent que le premier quart de l'étape — les ~122 km restants jusqu'à Béziers ne sont documentés par aucune source consultée."
+          },
+          {
+            "claim": "écart résiduel de distance de l'étape (généré 189,1 km vs officiel 171 km, +10,6 %)",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "deux zones de rebroussement détectées (detectBacktrackZones, aux alentours de km 0-7 et km 27-34) totalisent de l'ordre de 14 à 15 km, soit la majorité de l'écart de +18,1 km. Les coordonnées de fin de la première zone et de début de la seconde sont quasi identiques (à quelques dizaines de mètres près, ~800 m d'altitude, reverse-géocodées « Montferrier », Ariège) : le tracé repasse deux fois par le même point, une première fois en montant de Lavelanet vers le col de Montségur (curé à ~6,6 km au sud), une seconde fois en redescendant du col de la Badourade (curé plus au sud-ouest, sommet HC à 1634 m) avant de repartir vers le col de Saint-Benoît, situé à l'inverse au nord-est de Lavelanet. Géométriquement cohérent avec un aller-retour réel par une route en impasse/antenne desservant ces deux cols reculés (Montségur est un village-étape isolé) plutôt qu'avec un artefact de curation — hypothèse la plus probable au vu des coordonnées et de l'altitude mesurées, non confirmée par une carte satellite ou une source du tracé réel. Note méthodologique : deux régénérations indépendantes de cette étape donnent des bornes de zones et des coordonnées de quelques centaines de mètres différentes l'une de l'autre sur cette portion précise (plusieurs itinéraires de coût proche pour le routeur BRouter dans ce secteur montagneux) — la conclusion qualitative (aller-retour réel expliquant l'essentiel de l'écart) est reproductible, pas les chiffres au mètre/à la coordonnée près, volontairement arrondis ici plutôt que cités avec une précision qu'ils n'ont pas."
           }
         ],
         "note": "Lavelanet → Béziers (171 km, 20 juillet 2002). Trois cols classés en début d'étape : col de Montségur (km 8,5, 4,3 km à 8,3 %, 3e cat.), col de la Badourade (km 31,0, 6,7 km à 2,4 %, 4e cat.), col de Saint-Benoît (km 48,5, 4,9 km à 4,7 %, 3e cat.). Sourcé : bikeraceinfo.com."
