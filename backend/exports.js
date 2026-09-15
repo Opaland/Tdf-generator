@@ -10,6 +10,20 @@ function esc(s) {
   return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
+// Équivalent client-side de esc() ci-dessus, injecté tel quel dans le
+// <script> des deux mini-sites autonomes (tour et étape) : chacun est un
+// fichier HTML self-contained sans dépendance JS externe, donc la fonction
+// doit être dupliquée dans le HTML généré — mais sa source n'existe qu'ici,
+// à un seul endroit (issue #198). Ne pas diverger de esc().
+// Ne protège que le sink DOM (innerHTML/bindPopup, XSS de PR #11) — ne pas
+// confondre avec l'évasion </script> (XSS distincte de PR #15), neutralisée
+// séparément par l'échappement `<` du JSON TOUR/STAGE embarqué plus bas
+// (.replace(/</g, '\\u003c')) : les deux mécanismes sont indépendants,
+// modifier l'un ne couvre pas l'autre.
+const ESC_HTML_JS = `function escHtml(s) {
+  return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}`;
+
 // Vitesse conventionnelle utilisée partout où ÉtapeForge synthétise un temps
 // (TCX, roadbook) faute de données de sortie réellement enregistrée — à ne
 // jamais présenter comme un horaire réel (voir CLAUDE.md règle 9).
@@ -491,9 +505,7 @@ function tourToStandaloneHtml(editionId) {
 <script>
 const TOUR = ${JSON.stringify({ edition: { id: edition.id, name: edition.name, year: edition.year }, stages: payloads }).replace(/</g, '\\u003c')};
 const TYPE_COLORS = { plaine:'#2e8b57', 'accidentée':'#e67e22', montagne:'#c0392b', clm:'#2980b9', 'clm par équipes':'#8e44ad' };
-function escHtml(s) {
-  return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-}
+${ESC_HTML_JS}
 document.addEventListener('DOMContentLoaded', () => {
   // La carte dépend d'un CDN externe (unpkg.com) : si Leaflet ne charge pas
   // (réseau restreint, CDN indisponible), on ne veut pas perdre le profil et
@@ -604,9 +616,7 @@ function stageToStandaloneHtml(stageId) {
 <script>${profileJs}</script>
 <script>
 const STAGE = ${JSON.stringify(payload).replace(/</g, '\\u003c')};
-function escHtml(s) {
-  return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-}
+${ESC_HTML_JS}
 document.addEventListener('DOMContentLoaded', () => {
   // Voir le try/catch équivalent dans tourToStandaloneHtml : ne pas laisser
   // un échec de chargement de Leaflet (CDN externe) empêcher le rendu du
