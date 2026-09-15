@@ -114,8 +114,9 @@ d'étape, jamais masqué pour paraître plus précis que la donnée ne l'est
 (CLAUDE.md règle 12).
 
 **C'est testé comment ?**
-530 tests au moment d'écrire ces lignes (`npm test`, bloquant avant chaque
-commit) — pipeline, sécurité
+Voir `npm test` pour le nombre à jour (chiffre volontairement non figé ici,
+il dérive à chaque ajout de test — bloquant avant chaque commit) — pipeline,
+sécurité
 (pas de dialogue navigateur natif, secrets Suunto jamais renvoyés par
 l'API — le stockage en base reste une limite connue, voir la question sur
 ce qui manque encore — contraste WCAG AA vérifié par calcul réel, pas
