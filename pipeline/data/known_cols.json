@@ -161,5 +161,9 @@
   "Mont Ventoux": {
     "ele": 1909,
     "source": "valeur reprise telle quelle des occurrences déjà présentes dans historic_routes.json (cohérentes entre elles) ; sourcing détaillé par édition dans le champ notes de chaque année du fichier d'origine"
+  },
+  "Plateau de Beille": {
+    "ele": 1780,
+    "source": "issue #195 : altitude de la ligne d'arrivée officielle du Tour de France, confirmée par Wikipédia (en) « Plateau de Beille » — 1790 m pour la station, 1780 m pour la ligne d'arrivée depuis 2002 (1747 m en 1998 uniquement), sommet du domaine skiable à 2000 m. Le point géocodé actuel pour ce nom (« Plateau de Beille », Géoplateforme) mesure 1937-1962 m — vraisemblablement un point plus haut sur le plateau (proche du domaine skiable) que la vraie ligne d'arrivée, pas une erreur de saisie. Sans effet sur l'étape 2002/12 tant que known_cols.json n'est consulté que pour les vias curés (voir confidence de cette étape dans historic_routes.json) — ajouté ici pour référence et pour un usage futur si l'arrivée est curée explicitement."
   }
 }
