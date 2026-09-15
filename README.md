@@ -451,8 +451,9 @@ cousin dont plusieurs idées de ce README/backlog sont directement reprises).
 Pour qui développe ici avec Claude Code : trois skills (`/porte` avant PR,
 `/revue-sprint` après chaque tâche, `/revue-globale` en fin de session) et
 trois agents (`relecteur-adverse` : technique, cherche ce qu'un diff a cassé ;
-`revue-personas` : six personas produit, dont chef de projet et spécialiste
-TDF ; `verificateur-de-tests` : vérifie qu'un test ajouté échoue bien sans
+`revue-personas` : 37 personas réparties en 5 familles (produit, domaine
+cyclisme/TDF, développement, QA, utilisateurs finaux) ;
+`verificateur-de-tests` : vérifie qu'un test ajouté échoue bien sans
 son correctif) — détaillés dans `CLAUDE.md` et `.claude/`. Un hook
 `PreToolUse` lance `npm test` avant chaque `git commit` ; un hook
 `SessionStart` rapporte l'état de la CI sur `main` au démarrage.
