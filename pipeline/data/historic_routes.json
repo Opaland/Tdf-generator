@@ -1485,6 +1485,12 @@
             "status": "OK",
             "level": "haute",
             "detail": "7 cols/côtes sourcés dans l'ordre (bikeraceinfo.com, km 41,0 à 147,5), couvrant l'essentiel du massif du Jura avant l'arrivée à Bourg-en-Bresse."
+          },
+          {
+            "claim": "écart résiduel de distance de l'étape (généré 203,3 km vs officiel 176,5 km, +15,2 %)",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "issue #188 : deux petites zones de rebroussement détectées (detectBacktrackZones, km 50-52 et 53-55, ~4 km cumulés) n'expliquent qu'une fraction mineure de l'écart de +26,8 km — cause principale non identifiée. Investigué un possible mauvais géocodage du via « Bois de Serves » (premier col de l'étape, sourcé bikeraceinfo.com au km 41,0), par analogie avec la classe de bug déjà corrigée sur le Col de Grimone (même issue). Le point géocodé (46,246071/6,047812, Prévessin-Moëns, Pays de Gex, département 01, à la frontière suisse) est le seul lieu-dit nommé « Bois de Serves » dans l'index POI national (data.geopf.fr, recherche non biaisée reproduisant la requête réelle de geocodeCol() : score 0,85, sans concurrent proche) — ce n'est donc pas un homonyme sans rapport comme pour Grimone. Mais il est géométriquement incompatible avec sa position officielle : la distance à vol d'oiseau Cluses→Bois de Serves mesure 46,3 km alors que bikeraceinfo.com le place à 41,0 km par la route (impossible, une route ne peut jamais être plus courte qu'une ligne droite) ; de même pour le segment suivant Bois de Serves→Marlioz, 24,6 km à vol d'oiseau contre 16,5 km annoncés par la route. Les 6 autres segments de l'étape passent ce même test sans anomalie. Donc le nom « Bois de Serves » cité par la source désigne vraisemblablement un lieu-dit local distinct de ce toponyme national (ou la source elle-même comporte une erreur de kilométrage) — mais aucune coordonnée alternative fiable n'a été trouvée pour le confirmer, donc pas de correction appliquée plutôt que de deviner une coordonnée non sourcée."
           }
         ],
         "note": "Cluses → Bourg-en-Bresse (176,5 km, 25 juillet 2002). Sept cols/côtes classés dans l'ordre : côte des Bois de Serves (3e cat.), côte de Marlioz (4e cat.), côte de la Sémine (4e cat.), col de Richemont (1re cat.), col de la Cheminée (3e cat.), côte de Giriat (4e cat.), col du Berthiand (2e cat.). Sourcé : bikeraceinfo.com."
