@@ -9,9 +9,11 @@ chantiers est dans [issue #10](https://github.com/Opaland/Tdf-generator/issues/1
 
 Un chantier n'est livré que si :
 
-1. **`npm test` passe** (530 tests au moment d'écrire ces lignes — pipeline,
-   parseur historique, régressions de sécurité) et **`npm run demo` passe**
-   (10 vérifications de bout en bout, mode hors-ligne, reproductible partout).
+1. **`npm test` passe** (voir la sortie de la commande pour le nombre à jour
+   — pipeline, parseur historique, régressions de sécurité ; ne pas figer ce
+   chiffre dans la doc, il dérive à chaque ajout de test) et **`npm run demo`
+   passe** (10 vérifications de bout en bout, mode hors-ligne, reproductible
+   partout).
 2. **Une trouvaille de test manuel/exploratoire devient un test permanent**
    avant de fermer le sujet — jamais juste corrigée puis oubliée. Précédent :
    les deux bugs trouvés en monkey testing (validation d'entrée, évasion XSS
