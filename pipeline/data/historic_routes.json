@@ -1430,7 +1430,7 @@
       "15": {
         "vias": [
           { "label": "Col de Prémol", "kind": "col" },
-          { "label": "Col de Grimone", "kind": "col" },
+          { "label": "Col de Grimone", "kind": "col", "lat": 44.69167, "lon": 5.65389 },
           { "label": "Col de la Croix-Haute", "kind": "col" },
           { "label": "Col du Banchet", "kind": "col" },
           { "label": "Ponsonas", "kind": "col" },
@@ -1442,6 +1442,12 @@
             "status": "OK",
             "level": "haute",
             "detail": "6 cols sourcés dans l'ordre (bikeraceinfo.com, km 68,5 à 190,0), couvrant l'essentiel du massif du Vercors/Trièves avant l'ascension finale des Deux Alpes."
+          },
+          {
+            "claim": "coordonnées géocodées du col de Grimone",
+            "status": "FIX",
+            "level": "haute",
+            "detail": "issue #188 : le géocodage automatique du seul libellé « Col de Grimone » (sans coordonnées curées) retombait sur « Pas de Brame-Vache » (data.geopf.fr, score 0,51), un point homonyme sans rapport à ~26 km du vrai col — repéré par 4 zones de rebroussement détectées (detectBacktrackZones) autour de ce via, cumulant ~20 km en aller-retour vers ce faux point avant que le tracé ne rejoigne péniblement le vrai col plus loin (reverse-géocodé « Côte de Grimone, Glandage » à km 116-142 dans l'ancienne génération). Coordonnées corrigées (44,69167/5,65389, infobox Wikipédia fr.wikipedia.org/wiki/Col_de_Grimone, 1319 m, confirmé par reverse-géocodage sur « Glandage ») et ajoutées à known_cols.json. Après correction, vérifié par régénération réelle : écart de distance passe de +18,9 % (269,4 km) à +8,1 % (244,9 km, dans la tolérance ±10 %), zéro zone de rebroussement restante, le col de Grimone est maintenant détecté comme sa propre côte nommée (1311 m mesuré, cohérent avec les 1319 m sourcés) au lieu de deux détections parasites."
           }
         ],
         "note": "Vaison-la-Romaine → Les Deux Alpes (226,5 km, 23 juillet 2002). Six cols avant l'arrivée : col de Prémol (km 68,5, 3e cat.), col de Grimone (km 116,0, 2e cat.), col de la Croix-Haute (km 123,5, 3e cat.), col du Banchet (km 136,5, 3e cat.), côte de Ponsonas (km 160,0, 3e cat.), col d'Ornon (km 190,0, 2e cat.), puis ascension finale des Deux Alpes (11,2 km à 6,4 %, 1re cat.). Sourcé : bikeraceinfo.com."

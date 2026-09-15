@@ -34,6 +34,12 @@
     "ele": 1002,
     "source": "valeur reprise telle quelle des occurrences déjà présentes dans historic_routes.json (cohérentes entre elles) ; sourcing détaillé par édition dans le champ notes de chaque année du fichier d'origine"
   },
+  "Col de Grimone": {
+    "ele": 1319,
+    "lat": 44.69167,
+    "lon": 5.65389,
+    "source": "issue #188 (curation Tour 2002, étape 15) : le géocodage automatique du seul libellé « Col de Grimone » (sans coordonnées curées) retombait sur « Pas de Brame-Vache » (data.geopf.fr, score 0,51), un point homonyme sans rapport à ~26 km du vrai col — vérifié en rejouant geocodeCol() avec le near réel du pipeline. Coordonnées reprises de l'infobox Wikipédia (fr.wikipedia.org/wiki/Col_de_Grimone, 44°41′30″N 5°39′14″E, 1319 m) : le point reverse-géocode bien sur « Glandage » (data.geopf.fr), cohérent avec la description du col (relie Châtillon-en-Diois à Lus-la-Croix-Haute par la N75) et avec la côte « Côte de Grimone, Glandage » déjà détectée plus loin sur cette même étape par reverse-géocodage du profil réel."
+  },
   "Col de Menté": {
     "ele": 1349,
     "source": "valeur reprise telle quelle des occurrences déjà présentes dans historic_routes.json (cohérentes entre elles) ; sourcing détaillé par édition dans le champ notes de chaque année du fichier d'origine"
