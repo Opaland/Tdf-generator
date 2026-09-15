@@ -1395,6 +1395,12 @@
             "status": "OK",
             "level": "haute",
             "detail": "enchaînement classique et documenté (bikeraceinfo.com, « The rated climbs ») : col de Menté (km 56,0, 9,4 km à 9,0 %, 1re cat.), col de Portet-d'Aspet (km 71,5, 4,3 km à 9,9 %, 2e cat.), col de la Core (km 107,5, 14,3 km à 5,8 %, 1re cat.), col de Port (km 155,5, 12,6 km à 4,9 %, 2e cat.), avant l'ascension finale de Plateau-de-Beille (15,9 km à 7,8 %, hors catégorie)."
+          },
+          {
+            "claim": "altitude du sommet de l'ascension finale (Plateau de Beille)",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "écart confirmé (issue #195) : le point mesuré par le pipeline pour l'arrivée (altitude_hint_m au géocodage 1937 m, altitude de sommet mesurée sur le profil 1962 m) est nettement plus haut que l'altitude officielle de la ligne d'arrivée du Tour à Plateau de Beille — 1780 m depuis 2002 (1747 m en 1998 uniquement), source : en.wikipedia.org/wiki/Plateau_de_Beille, qui cite aussi la station à 1790 m et le domaine skiable culminant à 2000 m. Le géocodage du seul libellé « Plateau de Beille » (issu tel quel de Wikipédia, non curé comme arrivée explicite dans cette entrée) retombe vraisemblablement sur un point plus haut du plateau (proche du domaine skiable) plutôt que sur la ligne d'arrivée exacte — pas une erreur de saisie, mais une imprécision de géocodage sur un nom de lieu qui désigne toute une zone plutôt qu'un point précis. Valeur de référence ajoutée à known_cols.json (1780 m, sourcée) : actuellement sans effet sur cette étape (le référentiel n'est consulté que pour les vias curés, pas pour les arrivées non curées — pipeline/wikipedia.js), correction du géocodage hors périmètre de ce correctif de données."
           }
         ],
         "note": "Lannemezan → Plateau-de-Beille (199,5 km, 19 juillet 2002), étape pyrénéenne classique. Quatre cols avant l'ascension finale hors catégorie de Plateau-de-Beille : col de Menté, col de Portet-d'Aspet, col de la Core, col de Port. Sourcé : bikeraceinfo.com."
