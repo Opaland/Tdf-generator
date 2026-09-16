@@ -12,7 +12,7 @@
 
 const express = require('express');
 const { getDb } = require('./db');
-const { importTrackAsStage, pointsFromFitRecords } = require('../pipeline/importTrack');
+const { importTrackAsStage, parseFit } = require('../pipeline/importTrack');
 const { fetchWithTimeout } = require('../pipeline/http');
 
 // Surchargeables pour les tests d'intégration (serveur Suunto simulé en local).
@@ -232,13 +232,7 @@ router.post('/import', async (req, res) => {
     // /api/import/link sur exactement le même champ.
     const validName = optionalString(name, 'name');
     const fit = await apiGet(`/v2/workout/exportFit/${encodeURIComponent(key)}`, { binary: true });
-
-    const FitParser = require('fit-file-parser').default || require('fit-file-parser');
-    const parser = new FitParser({ force: true, elapsedRecordField: true, mode: 'list' });
-    const data = await new Promise((resolve, reject) =>
-      parser.parse(fit, (err, d) => (err ? reject(new Error(String(err))) : resolve(d)))
-    );
-    const points = pointsFromFitRecords(data.records);
+    const points = await parseFit(fit);
     const stageId = await importTrackAsStage(points, {
       name: validName || `Sortie Suunto ${key}`,
       source: 'suunto',

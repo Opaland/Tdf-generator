@@ -47,6 +47,21 @@ function pointsFromFitRecords(records) {
 }
 
 /**
+ * Parse un fichier FIT (Buffer) → [{lat, lon, ele?}]. Partagé entre l'import
+ * direct (POST /api/import/fit) et le connecteur Suunto (backend/suunto.js,
+ * qui télécharge le FIT depuis cloudapi.suunto.com) — même logique
+ * d'instanciation de FitParser dans les deux cas, pour ne pas la dupliquer.
+ */
+async function parseFit(buffer) {
+  const FitParser = require('fit-file-parser').default || require('fit-file-parser');
+  const parser = new FitParser({ force: true, elapsedRecordField: true, mode: 'list' });
+  const data = await new Promise((resolve, reject) =>
+    parser.parse(buffer, (err, d) => (err ? reject(new Error(String(err))) : resolve(d)))
+  );
+  return pointsFromFitRecords(data.records);
+}
+
+/**
  * Crée une étape depuis une trace et exécute le pipeline aval.
  * @param points [{lat, lon, ele?}] bruts (≥ 2)
  * @param meta { name, source, date?, stage_type?, status? }
@@ -185,4 +200,4 @@ async function importTrackAsStage(points, meta = {}) {
   }
 }
 
-module.exports = { parseGpx, pointsFromFitRecords, importTrackAsStage };
+module.exports = { parseGpx, pointsFromFitRecords, parseFit, importTrackAsStage };

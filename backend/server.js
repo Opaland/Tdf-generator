@@ -14,7 +14,7 @@ const { isOffline, setOffline, httpText } = require('../pipeline/http');
 const { stageToGpx, stageToTcx, stageToKml, stagePayload, tourToStandaloneHtml, stageToStandaloneHtml, stageToRoadbookHtml, ATTRIBUTIONS } = require('./exports');
 
 const { suuntoRouter } = require('./suunto');
-const { parseGpx, importTrackAsStage } = require('../pipeline/importTrack');
+const { parseGpx, parseFit, importTrackAsStage } = require('../pipeline/importTrack');
 const { authRouter, requireAuth, AUTH_REQUIRED } = require('./auth');
 const { startScheduledBackups, getBackupStatus } = require('./backup');
 const notify = require('./notify');
@@ -42,8 +42,20 @@ if (AUTH_REQUIRED) app.set('trust proxy', 1);
 // standard application/json, la seule route ici qui a besoin d'un gros
 // body, donc pas de raison de complexifier les autres avec une limite plus
 // large qu'elles ne portent jamais.
-app.use(express.json({ limit: '20mb' }));
+// /api/import/gpx et /api/import/fit AVANT express.json() global ci-dessous :
+// body-parser marque req._body = true dès qu'un parseur dont le `type`
+// matche a lu le corps, et tout parseur suivant (même scopé, même avec
+// type: '*/*') saute silencieusement si req._body est déjà vrai. Un client
+// qui poserait Content-Type: application/json sur un import GPX/FIT (le
+// front ne le fait pas — application/gpx+xml / application/octet-stream —
+// mais rien ne l'empêche) se ferait sinon intercepter par express.json(),
+// qui plante sur un corps non-JSON avec un message de body-parser brut, ou
+// pire, parse un JSON quelconque et retombe sur "corps de requête vide"
+// (relecture adverse, 16/09/2026 — même mécanisme déjà documenté juste
+// au-dessus pour /api/backup/import, cette fois côté ordre plutôt que taille).
 app.use('/api/import/gpx', express.text({ type: '*/*', limit: '30mb' }));
+app.use('/api/import/fit', express.raw({ type: '*/*', limit: '30mb' }));
+app.use(express.json({ limit: '20mb' }));
 app.use((req, res, next) => {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-Frame-Options', 'DENY');
@@ -427,6 +439,27 @@ app.post('/api/import/gpx', wrap(async (req, res) => {
   const id = await importTrackAsStage(points, {
     name: req.query.name || name || 'Trace GPX importée',
     source: 'gpx',
+  });
+  res.json({ id, points: points.length });
+}));
+
+// FIT brut dans le corps de la requête → étape « trace » (même pipeline aval
+// que l'import GPX ci-dessus ; parseFit() est partagé avec le connecteur
+// Suunto, qui télécharge lui aussi un FIT mais depuis cloudapi.suunto.com).
+app.post('/api/import/fit', wrap(async (req, res) => {
+  if (!Buffer.isBuffer(req.body) || !req.body.length) {
+    throw httpError(400, 'FIT illisible : corps de requête vide');
+  }
+  let points;
+  try {
+    points = await parseFit(req.body);
+  } catch (err) {
+    throw httpError(400, `FIT illisible : ${err.message}`);
+  }
+  if (points.length < 2) return res.status(400).json({ error: 'FIT illisible : aucun point de trace (position_lat/position_long)' });
+  const id = await importTrackAsStage(points, {
+    name: req.query.name || 'Trace FIT importée',
+    source: 'fit',
   });
   res.json({ id, points: points.length });
 }));
