@@ -1335,6 +1335,12 @@
             "status": "UNSURE",
             "level": "basse",
             "detail": "seuls deux cols allemands sont sourcés (bikeraceinfo.com, km 60,0 et 132,5) sur 181 km — le reste du tracé (sortie du Luxembourg, traversée de la Sarre) n'est pas détaillé par une source consultée."
+          },
+          {
+            "claim": "écart de distance de l'étape (généré 159,4 km vs officiel 181 km, -11,9 %, légèrement hors tolérance ±10 %)",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "Investigué le 16/09/2026 (issue #188). bikeraceinfo.com donne un tracé sommaire (sud depuis Luxembourg, virage est au km 17 le long de la frontière française, entrée en Allemagne au col de Perl, puis Saint-Wendel au km 137 avant le sud vers l'arrivée) sans liste de villages exploitable. Une recherche web a identifié un tracé détaillé (23 localités : Leudelange, Pontpierre, Schifflange, Esch-sur-Alzette, Kayl, Hellange, Aspelt, Altwies, Mondorf-les-Bains, Burmerange, Schengen, Perl, Merzig, Losheim am See, Weiskirchen, Theley, Tholey, Alsweiler, Sankt Wendel, Mainzweiler, Uchtelfangen) attribué à memoire-du-cyclisme.org, mais ce domaine (et son miroir .eu, et une recherche Wayback Machine) reste inaccessible depuis cet environnement — déjà documenté ailleurs dans ce même fichier pour d'autres étapes (échec réseau, pas un choix). N'ayant pas pu vérifier ce tracé contre la source primaire, testé néanmoins comme hypothèse empirique (régénération réelle, base isolée) plutôt que rejeté sans mesure : résultat -> 224,0 km (+23,8 %), PIRE que la curation actuelle (2 cols, -11,9 %) — donc non retenu, quelle que soit la fiabilité de la liste de villages elle-même. Deux tentatives de densification échouent donc sur cette étape (contrairement à la plupart des autres étapes calibrées ce tour) ; l'écart restant n'est pas résolu."
           }
         ],
         "note": "Luxembourg-Ville → Saarbrücken (181 km, 8 juillet 2002), traverse l'Allemagne (Sarre). Deux côtes classées sourcées : Côte de Perl (km 60,0, 4,8 km à 4,8 %, 4e cat., commune de Perl, Sarre), Côte d'Alsweiler-Heid (km 132,5, 1,4 km à 6,4 %, 4e cat.). Sourcé : bikeraceinfo.com."
