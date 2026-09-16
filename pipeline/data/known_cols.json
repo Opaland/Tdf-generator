@@ -84,7 +84,9 @@
   },
   "Col de la Croix de Fer": {
     "ele": 2067,
-    "source": "valeur reprise telle quelle des occurrences déjà présentes dans historic_routes.json (cohérentes entre elles) ; sourcing détaillé par édition dans le champ notes de chaque année du fichier d'origine"
+    "lat": 45.227482,
+    "lon": 6.203515,
+    "source": "altitude : valeur reprise telle quelle des occurrences déjà présentes dans historic_routes.json (cohérentes entre elles) ; sourcing détaillé par édition dans le champ notes de chaque année du fichier d'origine. Coordonnées ajoutées le 16/09/2026 (revue adverse, calibration GPX 2026/20) : l'index POI de data.geopf.fr renvoie deux candidats à score strictement égal pour la requête exacte « Col de la Croix de Fer » sans near/regionHint — un homonyme sans rapport à Labruguière (Tarn, 899 m) et le vrai col alpin (Savoie, 2067 m) — sans garde-fou de départage (pickFeature(), pipeline/geocode.js) pour la catégorie 'col', l'ordre renvoyé par l'API n'est pas garanti stable d'un appel à l'autre. Coordonnées reprises de la valeur déjà committée dans historic_routes.json (étape 2026/20), elle-même vérifiée sur le tracé GPX officiel (cdn.cyclingstage.com) à 0,00 km d'écart."
   },
   "Col de la Loze": {
     "ele": 2304,

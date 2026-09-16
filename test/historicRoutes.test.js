@@ -280,11 +280,12 @@ test('stageConfidence : renvoie [] pour une étape sans réserve connue, le dét
   // Passée UNSURE → OK le 01/09/2026 (correctif issue #108) : altitude du
   // Col du Noyer désormais vérifiée (Wikipédia) et curée dans
   // known_cols.json — voir le test dédié à la classe de bug « Col du
-  // Mont-Cenis » plus haut dans ce fichier.
+  // Mont-Cenis » plus haut dans ce fichier. Deuxième entrée ajoutée le
+  // 16/09/2026 (calibration GPX officielle, scripts/calibrate-gpx-stage.js) :
+  // l'écart de distance mesuré après recalibration, toujours OK/haute.
   const colDuNoyer = stageConfidence(2026, 19);
-  assert.strictEqual(colDuNoyer.length, 1);
-  assert.strictEqual(colDuNoyer[0].status, 'OK');
-  assert.strictEqual(colDuNoyer[0].level, 'haute');
+  assert.strictEqual(colDuNoyer.length, 2);
+  assert.ok(colDuNoyer.every((c) => c.status === 'OK' && c.level === 'haute'));
 });
 
 test('reconstructionWaypoints : le col du Tourmalet résout son altitude via known_cols.json sans ele local', () => {

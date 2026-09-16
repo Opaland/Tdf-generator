@@ -19,14 +19,35 @@
 // volontairement hors de `npm test`, à lancer à part avec `npm run
 // calibrate-gpx`, même logique que scripts/parity-check.js.
 //
+// --named-cols "Col A,Col B" (optionnel) : fusionne ces cols déjà curés
+// (kind:'col') dans la liste ré-échantillonnée à chaque pas testé, au lieu
+// de les remplacer — sinon on perd le nommage et l'altitude connue
+// (known_cols.json) d'un col célèbre au profit de la seule précision de
+// distance. Coordonnée reprise telle quelle de known_cols.json si connue
+// (jamais re-arrondie — ces valeurs sourcées portent parfois 6-7 décimales),
+// sinon géocodée normalement (pipeline/geocode.js). Le col est ensuite situé
+// dans la séquence par son point le plus proche sur le tracé GPX brut — ce
+// « snap » sert uniquement au tri et au retrait des points ré-échantillonnés
+// trop proches (micro-segment redondant), jamais à modifier sa coordonnée.
+// Un col dont le snap dépasse 3× --snap-tolerance-km (défaut 2 km, donc 6 km)
+// est ignoré avec un avertissement plutôt qu'inséré à un mauvais endroit —
+// signe probable d'un géocodage erroné (nom absent de known_cols.json ET
+// homonyme sans rapport le plus proche du `near` par défaut).
+//
 // Usage :
 //   node scripts/calibrate-gpx-stage.js <gpx> <officialKm> <year> <stage> \
 //     --start "Label:countryCode" --finish "Label:countryCode" \
-//     [--category hommes] [--steps 8,4,2] [--out vias.json]
+//     [--category hommes] [--steps 8,4,2] [--out vias.json] \
+//     [--named-cols "Col A,Col B"] [--snap-tolerance-km 2]
 //
 // Exemple (étape 2, Tour 2026, Tarragone → Barcelone, 168,5 km officiels) :
 //   node scripts/calibrate-gpx-stage.js stage2.gpx 168.5 2026 2 \
 //     --start "Tarragona:spain" --finish "Barcelona:spain" --steps 8,4,2
+//
+// Exemple avec cols nommés (étape 6, via col d'Aspin et col du Tourmalet) :
+//   node scripts/calibrate-gpx-stage.js stage6.gpx 186.2 2026 6 \
+//     --start Pau --finish "Gavarnie-Gèdre" --steps 8,4,2 \
+//     --named-cols "Col d'Aspin,Col du Tourmalet"
 
 const fs = require('fs');
 const path = require('path');
@@ -57,7 +78,7 @@ async function main() {
   const [gpxPath, officialKmStr, yearStr, stageStr] = positional;
   if (!gpxPath || !officialKmStr || !yearStr || !stageStr) {
     console.error(
-      'Usage: node scripts/calibrate-gpx-stage.js <gpx> <officialKm> <year> <stage> --start "Label:country" --finish "Label:country" [--category hommes] [--steps 8,4,2] [--out vias.json]'
+      'Usage: node scripts/calibrate-gpx-stage.js <gpx> <officialKm> <year> <stage> --start "Label:country" --finish "Label:country" [--category hommes] [--steps 8,4,2] [--out vias.json] [--named-cols "Col A,Col B"] [--snap-tolerance-km 2]'
     );
     process.exit(1);
   }
@@ -84,11 +105,55 @@ async function main() {
   const { importEdition } = require('../pipeline/importer');
   const { generateStage } = require('../pipeline/generate');
   const wp = require('../pipeline/wikipedia');
-  const { resamplePolyline } = require('../pipeline/geo');
+  const { resamplePolyline, haversine } = require('../pipeline/geo');
   const { parseGpx } = require('../pipeline/importTrack');
+  const { geocodeCol } = require('../pipeline/geocode');
+  const KNOWN_COLS = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'pipeline', 'data', 'known_cols.json'), 'utf8'));
 
   const { points } = parseGpx(fs.readFileSync(gpxPath, 'utf8'));
   console.log(`Points GPX bruts : ${points.length}`);
+
+  const namedCols = flags['named-cols'] ? flags['named-cols'].split(',').map((s) => s.trim()) : [];
+  const snapToleranceM = parseFloat(flags['snap-tolerance-km'] || '2') * 1000;
+
+  // Distances cumulées le long du tracé brut (indépendantes du pas testé) :
+  // sert à situer chaque col nommé dans la séquence des points ré-échantillonnés.
+  let cum = 0;
+  const withDist = points.length ? [{ ...points[0], dist: 0 }] : [];
+  for (let i = 1; i < points.length; i++) {
+    cum += haversine(points[i - 1], points[i]);
+    withDist.push({ ...points[i], dist: cum });
+  }
+
+  // Résout chaque col nommé une seule fois (indépendant du pas testé) :
+  // known_cols.json prioritaire sur le géocodage à la volée, exactement
+  // comme reconstructionWaypoints() (pipeline/wikipedia.js) en production —
+  // sinon on retombe sur un homonyme déjà connu et déjà corrigé dans ce
+  // référentiel (ex. Col du Télégraphe, Savoie vs faux résultat près
+  // d'Aix-en-Provence).
+  const resolvedCols = [];
+  for (const label of namedCols) {
+    const known = KNOWN_COLS[label];
+    const res = known && known.lat != null
+      ? { lat: known.lat, lon: known.lon, source: 'known_cols.json' }
+      : await geocodeCol(label, {});
+    if (!res || res.lat == null) {
+      console.log(`AVERTISSEMENT : ${label} non géocodé, ignoré`);
+      continue;
+    }
+    let best = null;
+    let bestD = Infinity;
+    for (const p of withDist) {
+      const d = haversine(res, p);
+      if (d < bestD) { bestD = d; best = p; }
+    }
+    console.log(`${label} -> ${res.source === 'known_cols.json' ? 'known_cols.json' : 'géocodé'} (${res.lat},${res.lon}), snap à ${(bestD / 1000).toFixed(2)}km du tracé, km ${(best.dist / 1000).toFixed(1)}`);
+    if (bestD > snapToleranceM * 3) {
+      console.log(`  *** ATTENTION : snap > ${(snapToleranceM * 3 / 1000)}km, probable mauvais géocodage, col ignoré ***`);
+      continue;
+    }
+    resolvedCols.push({ label, lat: res.lat, lon: res.lon, dist: best.dist, roundLat: res.source !== 'known_cols.json' });
+  }
 
   const db = getDb();
   const results = [];
@@ -96,12 +161,38 @@ async function main() {
 
   for (const stepKm of steps) {
     const resampled = resamplePolyline(points, stepKm * 1000).slice(1, -1);
-    const vias = resampled.map((p) => ({
+    const items = resampled.map((p) => ({
       label: `Tracé GPX km ${(p.dist / 1000).toFixed(1)}`,
       kind: 'via',
       lat: Math.round(p.lat * 1e5) / 1e5,
       lon: Math.round(p.lon * 1e5) / 1e5,
+      dist: p.dist,
     }));
+    for (const col of resolvedCols) {
+      // Retire les points RÉ-ÉCHANTILLONNÉS (kind:'via') trop proches, pour
+      // éviter un micro-segment redondant — mais jamais un col déjà fusionné
+      // (kind:'col') : sans ce garde-fou, deux cols nommés à moins de
+      // --snap-tolerance-km l'un de l'autre (double ascension, lacets
+      // serrés) se supprimeraient silencieusement entre eux au fil de cette
+      // boucle — trouvaille de revue adverse (16/09/2026), non déclenchée
+      // sur les étapes déjà curées (tous les cols nommés y sont espacés de
+      // plus de 8 km) mais un vrai bug latent pour un usage futur.
+      for (let i = items.length - 1; i >= 0; i--) {
+        if (items[i].kind === 'via' && Math.abs(items[i].dist - col.dist) < snapToleranceM) items.splice(i, 1);
+      }
+      items.push({
+        label: col.label,
+        kind: 'col',
+        // Ne jamais ré-arrondir une coordonnée déjà sourcée (known_cols.json
+        // porte parfois 6-7 décimales) — seules les coordonnées fraîchement
+        // géocodées ici sont arrondies à 5 décimales, comme les points GPX.
+        lat: col.roundLat ? Math.round(col.lat * 1e5) / 1e5 : col.lat,
+        lon: col.roundLat ? Math.round(col.lon * 1e5) / 1e5 : col.lon,
+        dist: col.dist,
+      });
+    }
+    items.sort((a, b) => a.dist - b.dist);
+    const vias = items.map((it) => ({ label: it.label, kind: it.kind, lat: it.lat, lon: it.lon }));
 
     // reconstructionWaypoints() (pipeline/wikipedia.js) n'est consultée
     // qu'AU MOMENT DE L'IMPORT (pipeline/importer.js) : les waypoints sont
@@ -131,7 +222,7 @@ async function main() {
     // moins de requêtes au routeur) : sans la condition `stepKm >
     // bestVias.stepKm`, un pas plus fin testé après un pas plus grossier qui
     // passait déjà écraserait `bestVias` sans raison — trouvaille de revue
-    // adverse (25/08/2026) sur la première version de ce script, qui
+    // adverse (16/09/2026) sur la première version de ce script, qui
     // recommandait silencieusement le pas le plus FIN passant la tolérance
     // (le dernier testé dans l'ordre par défaut --steps 8,4,2), l'inverse
     // de ce que le message affiché prétendait.
