@@ -2689,7 +2689,7 @@
             "claim": "Distance reconstituée fidèle au CLM par équipes réel malgré le tracé GPX officiel.",
             "status": "UNSURE",
             "level": "moyenne",
-            "detail": "Vérifié en rejouant le pipeline réel (régénération complète du 07/09/2026) : 22,8 km reconstitués pour 19,6 km officiels (+16,5 %, hors tolérance ±10 %). Le GPX brut mesure 19,6 km, exactement la distance officielle — l'écart apparaît uniquement au routage. Les 9 points rééchantillonnés tous les 2 km géocodent tous à leurs coordonnées GPX attendues (aucun homonyme lointain) : le routeur (profil vélo BRouter) emprunte, entre deux points consécutifs pourtant proches, des voies du parc de Montjuïc plus longues que le tracé réel du contre-la-montre (routes fermées à la circulation le jour de course, non forcément le chemin le plus direct en circulation normale). Densifier encore l'échantillonnage (2 km → moins) réduirait probablement l'écart sans le fermer complètement (même mécanisme que 1992/10) ; non tenté ici faute de justifier le coût réseau pour un gain incertain."
+            "detail": "Vérifié en rejouant le pipeline réel (dernière mesure 16/09/2026, scripts/calibrate-gpx-stage.js) : 21,4 km reconstitués pour 19,6 km officiels au pas de 2 km retenu ici (+9,2 %, mesure du jour ; une régénération antérieure du 07/09/2026 avait donné +16,5 % — écart entre les deux dû au routage BRouter non-déterministe d'un jour à l'autre sur ce tracé en circuit, déjà documenté ailleurs dans ce fichier, pas une régression). Le GPX brut mesure 19,6 km, exactement la distance officielle — l'écart apparaît uniquement au routage : le routeur (profil vélo BRouter) emprunte, entre deux points consécutifs pourtant proches, des voies du parc de Montjuïc plus longues que le tracé réel du contre-la-montre (routes fermées à la circulation le jour de course, non forcément le chemin le plus direct en circulation normale). Hypothèse infirmée par la mesure (16/09/2026) : densifier encore l'échantillonnage ne réduit PAS l'écart, contrairement à ce que ce champ affirmait auparavant sans l'avoir testé — au pas de 1 km (19 vias), écart de +39,3 % ; au pas de 0,5 km (38 vias), +56,6 %. Plus le maillage est dense sur ce circuit précis, plus le détour du routeur dans le parc se multiplie (un micro-détour par point ajouté), au lieu de se réduire comme sur un tracé plus classique. Le pas de 2 km actuel (9 vias) est donc le meilleur résultat obtenu par cette méthode, pas un point de départ à améliorer."
           }
         ]
       },
@@ -2986,32 +2986,268 @@
         "finish": "Gavarnie-Gèdre",
         "vias": [
           {
+            "label": "Tracé GPX km 8.1",
+            "kind": "via",
+            "lat": 43.25135,
+            "lon": -0.28079
+          },
+          {
+            "label": "Tracé GPX km 16.2",
+            "kind": "via",
+            "lat": 43.19039,
+            "lon": -0.24049
+          },
+          {
+            "label": "Tracé GPX km 24.3",
+            "kind": "via",
+            "lat": 43.12484,
+            "lon": -0.20747
+          },
+          {
+            "label": "Tracé GPX km 32.4",
+            "kind": "via",
+            "lat": 43.10152,
+            "lon": -0.12596
+          },
+          {
+            "label": "Tracé GPX km 40.5",
+            "kind": "via",
+            "lat": 43.09386,
+            "lon": -0.04209
+          },
+          {
+            "label": "Tracé GPX km 48.6",
+            "kind": "via",
+            "lat": 43.11225,
+            "lon": 0.04398
+          },
+          {
+            "label": "Tracé GPX km 56.7",
+            "kind": "via",
+            "lat": 43.10168,
+            "lon": 0.12109
+          },
+          {
+            "label": "Tracé GPX km 64.8",
+            "kind": "via",
+            "lat": 43.08725,
+            "lon": 0.17218
+          },
+          {
+            "label": "Tracé GPX km 72.9",
+            "kind": "via",
+            "lat": 43.11065,
+            "lon": 0.24489
+          },
+          {
+            "label": "Tracé GPX km 81.0",
+            "kind": "via",
+            "lat": 43.10237,
+            "lon": 0.3186
+          },
+          {
+            "label": "Tracé GPX km 89.1",
+            "kind": "via",
+            "lat": 43.05005,
+            "lon": 0.36205
+          },
+          {
+            "label": "Tracé GPX km 97.2",
+            "kind": "via",
+            "lat": 42.98286,
+            "lon": 0.3756
+          },
+          {
+            "label": "Tracé GPX km 105.2",
+            "kind": "via",
+            "lat": 42.91488,
+            "lon": 0.36015
+          },
+          {
+            "label": "Tracé GPX km 113.3",
+            "kind": "via",
+            "lat": 42.92789,
+            "lon": 0.35116
+          },
+          {
             "label": "Col d'Aspin",
-            "kind": "col"
+            "kind": "col",
+            "lat": 42.94255,
+            "lon": 0.32783
+          },
+          {
+            "label": "Tracé GPX km 121.4",
+            "kind": "via",
+            "lat": 42.94186,
+            "lon": 0.29323
+          },
+          {
+            "label": "Tracé GPX km 129.5",
+            "kind": "via",
+            "lat": 42.9806,
+            "lon": 0.23787
+          },
+          {
+            "label": "Tracé GPX km 137.6",
+            "kind": "via",
+            "lat": 42.93196,
+            "lon": 0.20436
+          },
+          {
+            "label": "Tracé GPX km 145.7",
+            "kind": "via",
+            "lat": 42.9065,
+            "lon": 0.15472
           },
           {
             "label": "Col du Tourmalet",
-            "kind": "col"
+            "kind": "col",
+            "lat": 42.90894,
+            "lon": 0.14537
+          },
+          {
+            "label": "Tracé GPX km 153.8",
+            "kind": "via",
+            "lat": 42.90788,
+            "lon": 0.11561
+          },
+          {
+            "label": "Tracé GPX km 161.9",
+            "kind": "via",
+            "lat": 42.88629,
+            "lon": 0.04448
+          },
+          {
+            "label": "Tracé GPX km 170.0",
+            "kind": "via",
+            "lat": 42.84803,
+            "lon": -0.00678
+          },
+          {
+            "label": "Tracé GPX km 178.1",
+            "kind": "via",
+            "lat": 42.78654,
+            "lon": 0.02093
           }
         ],
-        "note": "Pau → Gavarnie-Gèdre (186,2 km), via le col d'Aspin et le col du Tourmalet — seule étape des Pyrénées centrales/françaises de l'édition (les Pyrénées catalanes avaient déjà été traversées à l'étape 3)."
+        "note": "Pau → Gavarnie-Gèdre (186,2 km), via le col d'Aspin et le col du Tourmalet — seule étape des Pyrénées centrales/françaises de l'édition (les Pyrénées catalanes avaient déjà été traversées à l'étape 3). Tracé GPX officiel (cyclingstage.com, cdn.cyclingstage.com/.../2026/stage-6-parcours.gpx, distance mesurée : 186,2 km, exactement l'officiel) rééchantillonné tous les 8 km (scripts/calibrate-gpx-stage.js) en points de passage, fusionné avec les deux cols nommés déjà curés (coordonnées géocodées normalement, snappées uniquement pour situer leur position dans la séquence — voir confidence).",
+        "confidence": [
+          {
+            "claim": "écart de distance de l'étape après recalibration (généré 180,2 km vs officiel 186,2 km, -3,2 %)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "Calibré par mesure réelle (scripts/calibrate-gpx-stage.js) : sans via -21,6 %, pas 8 km (22 vias) -3,2 % (retenu, dans la tolérance ±10 %), pas 4 km (46 vias) +3,7 %, pas 2 km (92 vias) +2,8 %. Les deux cols nommés (Aspin, Tourmalet) ont été conservés et fusionnés dans la liste ré-échantillonnée plutôt que remplacés : chacun géocodé normalement (pipeline/geocode.js, coordonnée conservée telle quelle) puis situé dans la séquence par son point le plus proche sur le tracé GPX officiel (0,03 km pour Aspin, 0,05 km pour Tourmalet — confirme un géocodage correct), pour ne pas perdre le nommage/l'altitude connue (known_cols.json) au profit de la seule précision de distance."
+          }
+        ]
       },
       "19": {
         "start": "Gap",
         "finish": "L'Alpe d'Huez",
         "vias": [
           {
+            "label": "Tracé GPX km 8.0",
+            "kind": "via",
+            "lat": 44.63942,
+            "lon": 6.08519
+          },
+          {
+            "label": "Tracé GPX km 16.0",
+            "kind": "via",
+            "lat": 44.6937,
+            "lon": 6.03969
+          },
+          {
             "label": "Col du Noyer",
-            "kind": "col"
+            "kind": "col",
+            "lat": 44.691547,
+            "lon": 5.985707
+          },
+          {
+            "label": "Tracé GPX km 32.1",
+            "kind": "via",
+            "lat": 44.68226,
+            "lon": 5.94942
+          },
+          {
+            "label": "Tracé GPX km 40.1",
+            "kind": "via",
+            "lat": 44.7337,
+            "lon": 5.89567
+          },
+          {
+            "label": "Tracé GPX km 48.1",
+            "kind": "via",
+            "lat": 44.78421,
+            "lon": 5.90863
+          },
+          {
+            "label": "Tracé GPX km 56.1",
+            "kind": "via",
+            "lat": 44.82019,
+            "lon": 5.94633
+          },
+          {
+            "label": "Tracé GPX km 64.1",
+            "kind": "via",
+            "lat": 44.83801,
+            "lon": 5.87794
+          },
+          {
+            "label": "Tracé GPX km 72.1",
+            "kind": "via",
+            "lat": 44.87977,
+            "lon": 5.82869
+          },
+          {
+            "label": "Tracé GPX km 80.1",
+            "kind": "via",
+            "lat": 44.89857,
+            "lon": 5.89827
+          },
+          {
+            "label": "Tracé GPX km 88.2",
+            "kind": "via",
+            "lat": 44.92543,
+            "lon": 5.96661
+          },
+          {
+            "label": "Tracé GPX km 96.2",
+            "kind": "via",
+            "lat": 44.988,
+            "lon": 5.96862
+          },
+          {
+            "label": "Tracé GPX km 104.2",
+            "kind": "via",
+            "lat": 45.03762,
+            "lon": 5.97523
+          },
+          {
+            "label": "Tracé GPX km 112.2",
+            "kind": "via",
+            "lat": 45.05999,
+            "lon": 6.02725
+          },
+          {
+            "label": "Tracé GPX km 120.2",
+            "kind": "via",
+            "lat": 45.07635,
+            "lon": 6.04779
           }
         ],
-        "note": "Gap → L'Alpe d'Huez, via le col du Noyer (7,2 km à 8,5 %) puis la montée par les 21 virages historiques.",
+        "note": "Gap → L'Alpe d'Huez, via le col du Noyer (7,2 km à 8,5 %) puis la montée par les 21 virages historiques. Tracé GPX officiel (cyclingstage.com, cdn.cyclingstage.com/.../2026/stage-19-parcours.gpx, distance mesurée : 128,2 km, cohérente avec les 127,9 km officiels) rééchantillonné tous les 8 km (scripts/calibrate-gpx-stage.js) en points de passage, fusionné avec le col du Noyer déjà curé (coordonnées known_cols.json inchangées, situées dans la séquence à 0,02 km du tracé officiel).",
         "confidence": [
           {
             "claim": "altitude du col du Noyer",
             "status": "OK",
             "level": "haute",
             "detail": "vérifiée le 01/09/2026 (correctif issue #108) : 1664 m (Wikipédia anglaise, https://en.wikipedia.org/wiki/Col_du_Noyer, recoupée par provence-alpes-cotedazur.com), désormais dans known_cols.json avec coordonnées curées — l'absence d'altitude connue laissait aussi passer sans alerte un géocodage erroné de ce waypoint (voir known_cols.json)."
+          },
+          {
+            "claim": "écart de distance de l'étape après recalibration (généré 126,3 km vs officiel 127,9 km, -1,3 %)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "Calibré par mesure réelle (scripts/calibrate-gpx-stage.js) : sans via -5,7 %, pas 8 km (15 vias) -1,3 % (retenu), pas 4 km (31 vias) -0,8 %, pas 2 km (63 vias) +3,4 % — tous dans la tolérance ±10 %, le pas de 8 km retenu car le plus grossier testé qui reste très précis."
           }
         ]
       },
@@ -3020,23 +3256,147 @@
         "finish": "L'Alpe d'Huez",
         "vias": [
           {
+            "label": "Tracé GPX km 8.2",
+            "kind": "via",
+            "lat": 45.14457,
+            "lon": 6.05217
+          },
+          {
+            "label": "Tracé GPX km 16.4",
+            "kind": "via",
+            "lat": 45.20909,
+            "lon": 6.0453
+          },
+          {
+            "label": "Tracé GPX km 24.6",
+            "kind": "via",
+            "lat": 45.20791,
+            "lon": 6.11384
+          },
+          {
             "label": "Col de la Croix de Fer",
-            "kind": "col"
+            "kind": "col",
+            "lat": 45.22748,
+            "lon": 6.20352
+          },
+          {
+            "label": "Tracé GPX km 40.9",
+            "kind": "via",
+            "lat": 45.22094,
+            "lon": 6.23604
+          },
+          {
+            "label": "Tracé GPX km 49.1",
+            "kind": "via",
+            "lat": 45.20462,
+            "lon": 6.30732
+          },
+          {
+            "label": "Tracé GPX km 57.3",
+            "kind": "via",
+            "lat": 45.24231,
+            "lon": 6.31566
+          },
+          {
+            "label": "Tracé GPX km 65.5",
+            "kind": "via",
+            "lat": 45.26642,
+            "lon": 6.37993
+          },
+          {
+            "label": "Tracé GPX km 73.7",
+            "kind": "via",
+            "lat": 45.22277,
+            "lon": 6.45176
+          },
+          {
+            "label": "Tracé GPX km 81.9",
+            "kind": "via",
+            "lat": 45.20353,
+            "lon": 6.46233
           },
           {
             "label": "Col du Télégraphe",
-            "kind": "col"
+            "kind": "col",
+            "lat": 45.2026999,
+            "lon": 6.4446143
+          },
+          {
+            "label": "Tracé GPX km 90.1",
+            "kind": "via",
+            "lat": 45.18383,
+            "lon": 6.43849
+          },
+          {
+            "label": "Tracé GPX km 98.2",
+            "kind": "via",
+            "lat": 45.12335,
+            "lon": 6.41849
+          },
+          {
+            "label": "Tracé GPX km 106.4",
+            "kind": "via",
+            "lat": 45.07871,
+            "lon": 6.4239
           },
           {
             "label": "Col du Galibier",
-            "kind": "col"
+            "kind": "col",
+            "lat": 45.06412,
+            "lon": 6.40794
+          },
+          {
+            "label": "Tracé GPX km 114.6",
+            "kind": "via",
+            "lat": 45.0533,
+            "lon": 6.39773
+          },
+          {
+            "label": "Tracé GPX km 122.8",
+            "kind": "via",
+            "lat": 45.03635,
+            "lon": 6.37012
+          },
+          {
+            "label": "Tracé GPX km 131.0",
+            "kind": "via",
+            "lat": 45.04455,
+            "lon": 6.29859
+          },
+          {
+            "label": "Tracé GPX km 139.2",
+            "kind": "via",
+            "lat": 45.0377,
+            "lon": 6.19983
+          },
+          {
+            "label": "Tracé GPX km 147.4",
+            "kind": "via",
+            "lat": 45.06206,
+            "lon": 6.14879
           },
           {
             "label": "Col de Sarenne",
-            "kind": "col"
+            "kind": "col",
+            "lat": 45.0877,
+            "lon": 6.14824
+          },
+          {
+            "label": "Tracé GPX km 163.7",
+            "kind": "via",
+            "lat": 45.08917,
+            "lon": 6.08691
           }
         ],
-        "note": "Étape reine, 2ᵉ passage par L'Alpe d'Huez en deux jours — une première dans l'histoire du Tour : Bourg-d'Oisans → col de la Croix-de-Fer → Télégraphe → Galibier → col de Sarenne, puis descente et ascension finale de l'Alpe d'Huez."
+        "note": "Étape reine, 2ᵉ passage par L'Alpe d'Huez en deux jours — une première dans l'histoire du Tour : Bourg-d'Oisans → col de la Croix-de-Fer → Télégraphe → Galibier → col de Sarenne, puis descente et ascension finale de l'Alpe d'Huez. Tracé GPX officiel (cyclingstage.com, cdn.cyclingstage.com/.../2026/stage-20-parcours.gpx, distance mesurée : 171,9 km, cohérente avec les 170,9 km officiels) rééchantillonné tous les 8 km (scripts/calibrate-gpx-stage.js) en points de passage, fusionné avec les 4 cols nommés déjà curés.",
+        "confidence": [
+          {
+            "claim": "écart de distance de l'étape après recalibration (généré 180,1 km vs officiel 170,9 km, +5,4 %)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "Calibré par mesure réelle (scripts/calibrate-gpx-stage.js) : sans via +7,7 %, pas 8 km (20 points ré-échantillonnés, +4 cols nommés fusionnés = 22 vias au total dans la liste ci-dessus) +5,4 % (retenu, meilleur résultat), pas 4 km (42 points ré-échantillonnés) +9,4 %, pas 2 km (85 points ré-échantillonnés) +10,2 % (hors tolérance) — contrairement aux autres étapes calibrées ce tour, ici plus dense est PIRE, pas mieux (même phénomène observé et déjà documenté sur l'étape 1, probablement lié aux nombreux lacets du final vers l'Alpe d'Huez : un ré-échantillonnage plus fin sur une route en épingles multiplie les micro-détours du routeur plutôt que de les réduire). Les 4 cols nommés (Croix de Fer, Télégraphe, Galibier, Sarenne) ont été conservés et fusionnés dans l'ordre, situés dans la séquence à 0,00-0,06 km du tracé officiel. Deux d'entre eux résolvent désormais via known_cols.json plutôt que re-géocodés à la volée (Col du Télégraphe : homonyme connu près d'Aix-en-Provence ; Col de la Croix de Fer : homonyme trouvé et corrigé le 16/09/2026 par la revue adverse — un candidat sans rapport à Labruguière, Tarn, à score de pertinence strictement égal au vrai col alpin dans l'index Géoplateforme, sans tie-break dans pickFeature() pour la catégorie 'col' — coordonnées ajoutées à known_cols.json le jour même). Galibier et Sarenne restent géocodés à la volée (sans near/regionHint dans scripts/calibrate-gpx-stage.js), un risque du même ordre non exclu pour d'autres cols non encore ajoutés à known_cols.json."
+          }
+        ]
       }
     }
   },
