@@ -1,18 +1,38 @@
 'use strict';
-// Écran « Mes traces » : import GPX universel + connecteur Suunto Cloud API.
+// Écran « Mes traces » : import GPX/FIT universel + connecteur Suunto Cloud API.
 
-async function importGpxFiles(files) {
+async function importTraceFiles(files) {
   const msg = document.getElementById('gpx-msg');
   if (window.EF_STATIC) { msg.textContent = EF.STATIC_MSG; return; }
+  if (!files.length) {
+    msg.textContent = 'Aucun fichier reconnu — formats acceptés : .gpx et .fit.';
+    return;
+  }
   for (const file of files) {
+    const isFit = /\.fit$/i.test(file.name);
+    const isGpx = /\.gpx$/i.test(file.name);
+    if (!isFit && !isGpx) {
+      msg.textContent = `${file.name} ignoré : formats acceptés .gpx et .fit.`;
+      continue;
+    }
     msg.textContent = `Import de ${file.name}…`;
     try {
-      const text = await file.text();
-      const res = await fetch(`/api/import/gpx?name=${encodeURIComponent(file.name.replace(/\.gpx$/i, ''))}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/gpx+xml' },
-        body: text,
-      });
+      let res;
+      if (isFit) {
+        const buf = await file.arrayBuffer();
+        res = await fetch(`/api/import/fit?name=${encodeURIComponent(file.name.replace(/\.fit$/i, ''))}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/octet-stream' },
+          body: buf,
+        });
+      } else {
+        const text = await file.text();
+        res = await fetch(`/api/import/gpx?name=${encodeURIComponent(file.name.replace(/\.gpx$/i, ''))}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/gpx+xml' },
+          body: text,
+        });
+      }
       const json = await res.json();
       if (!res.ok) throw new Error(json.error || `HTTP ${res.status}`);
       msg.innerHTML = `✔ ${EF.esc(file.name)} importé (${json.points} points) — ` +
@@ -199,13 +219,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     e.preventDefault();
     input.click();
   });
-  input.addEventListener('change', () => importGpxFiles([...input.files]));
+  input.addEventListener('change', () => importTraceFiles([...input.files]));
   dz.addEventListener('dragover', (e) => { e.preventDefault(); dz.style.background = '#f3ecd9'; });
   dz.addEventListener('dragleave', () => { dz.style.background = ''; });
   dz.addEventListener('drop', (e) => {
     e.preventDefault();
     dz.style.background = '';
-    importGpxFiles([...e.dataTransfer.files].filter((f) => /\.gpx$/i.test(f.name)));
+    importTraceFiles([...e.dataTransfer.files]);
   });
 
   document.getElementById('link-import').addEventListener('click', importFromLink);
