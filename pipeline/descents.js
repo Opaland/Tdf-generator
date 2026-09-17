@@ -92,7 +92,11 @@ async function nameDescents(descents, climbs, waypointsOnTrack, samples, reverse
     try {
       const r = await reverseGeocodeFn(samples[si].lat, samples[si].lon);
       if (r && r.label) {
-        d.name = `Descente de ${r.label}`;
+        // r.department : même qualificatif de désambiguïsation que
+        // pipeline/climbs.js nameClimbs() ci-dessus (issue #182) — même
+        // raison de ne jamais le mettre dans r.label lui-même (voir
+        // reverseGeocode(), pipeline/geocode.js).
+        d.name = `Descente de ${r.department ? `${r.label}, ${r.department}` : r.label}`;
         d.nameSource = 'reverse-geocode';
       } else {
         // Même repli générique que l'échec réseau ci-dessous — même

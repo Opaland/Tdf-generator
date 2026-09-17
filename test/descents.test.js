@@ -194,6 +194,16 @@ test('nameDescents : sans côte ni waypoint, géocodage inverse du point de dép
   assert.strictEqual(descents[0].nameSource, 'reverse-geocode');
 });
 
+// Issue #182 : même qualificatif de désambiguïsation que nameClimbs()
+// (pipeline/climbs.js) sur ce chemin de repli direct (pas celui qui chaîne
+// depuis une côte, déjà couvert par le rawLabel de la côte ci-dessus).
+test('nameDescents : sans côte ni waypoint, géocodage inverse avec department → qualificatif ajouté au nom', async () => {
+  const descents = [{ startM: 10000, endM: 18000 }];
+  const samples = [{ dist: 10000, lat: 45, lon: 1 }];
+  await nameDescents(descents, [], [], samples, async () => ({ label: 'Saint-Louis', department: 'Moselle' }));
+  assert.strictEqual(descents[0].name, 'Descente de Saint-Louis, Moselle');
+});
+
 test('nameDescents : géocodage inverse en échec → repli sur un libellé par défaut, pas de crash', async () => {
   const descents = [{ startM: 10000, endM: 18000 }];
   const samples = [{ dist: 10000, lat: 45, lon: 1 }];
