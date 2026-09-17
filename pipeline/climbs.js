@@ -402,9 +402,15 @@ async function nameClimbs(climbs, waypointsOnTrack, samples, reverseGeocodeFn) {
     try {
       const r = await reverseGeocodeFn(samples[si].lat, samples[si].lon);
       if (r && r.label) {
-        c.name = `Côte de ${r.label}`;
+        // r.department (issue #182, pipeline/geocode.js reverseGeocode()) :
+        // qualificatif de désambiguïsation ("Côte de Saint-Louis, Moselle"
+        // plutôt que l'homonyme du Haut-Rhin), sur le nom d'AFFICHAGE
+        // uniquement — jamais dans r.label lui-même, qui doit rester
+        // regéocodable tel quel ailleurs (voir le commentaire détaillé dans
+        // reverseGeocode()).
+        c.rawLabel = r.department ? `${r.label}, ${r.department}` : r.label;
+        c.name = `Côte de ${c.rawLabel}`;
         c.nameSource = 'reverse-geocode';
-        c.rawLabel = r.label;
       } else {
         // Requête résolue sans exception, mais sans label exploitable (ex.
         // feature Géoplateforme sans city/label/name — pipeline/geocode.js

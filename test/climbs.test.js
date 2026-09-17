@@ -242,6 +242,20 @@ test('nameClimbs : côte nommée par géocodage inverse → rawLabel = toponyme 
   assert.strictEqual(climbs[0].rawLabel, 'Pin-Bouchain');
 });
 
+// Issue #182 : reverseGeocode() (pipeline/geocode.js) peut renvoyer un
+// department à part de label (ex. "Moselle" pour désambiguïser Saint-Louis
+// de son homonyme du Haut-Rhin) — nameClimbs() doit l'ajouter au nom
+// d'affichage ET à rawLabel (repris tel quel par nameDescents() pour
+// "Descente de X" quand elle chaîne depuis cette côte), jamais dans le
+// label lui-même (qui doit rester regéocodable, voir reverseGeocode()).
+test('nameClimbs : géocodage inverse avec department → qualificatif ajouté à name ET rawLabel', async () => {
+  const climbs = [{ endM: 10000 }];
+  const samples = [{ dist: 10000, lat: 45, lon: 1 }];
+  await nameClimbs(climbs, [], samples, async () => ({ label: 'Saint-Louis', department: 'Moselle' }));
+  assert.strictEqual(climbs[0].name, 'Côte de Saint-Louis, Moselle');
+  assert.strictEqual(climbs[0].rawLabel, 'Saint-Louis, Moselle');
+});
+
 test('nameClimbs : géocodage inverse en échec ou sans résultat → repli générique, aucun rawLabel', async () => {
   const climbsFail = [{ endM: 10000 }];
   const samples = [{ dist: 10000, lat: 45, lon: 1 }];

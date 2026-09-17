@@ -55,6 +55,30 @@ function geopfLabel(props, fallback) {
 }
 
 /**
+ * Nom de département depuis `properties.context` (schéma adresse
+ * Géoplateforme, format « DEPCODE, DEPNOM, RÉGION » — ex. « 57, Moselle,
+ * Grand Est », vérifié en direct sur plusieurs points réels avant d'écrire
+ * ce parseur). Même convention de qualificatif « Ville, Département » que
+ * les libellés curatés du dépôt (ex. « Buhl-Lorraine », « Bonneval,
+ * Eure-et-Loir » — extractDepartment(), pipeline/wikipedia.js), appliquée
+ * ici en sens inverse : désambiguïser un toponyme trouvé par géocodage
+ * plutôt qu'orienter une recherche.
+ */
+function departmentFromContext(context) {
+  if (typeof context !== 'string') return null;
+  // .trim() AVANT le test de troncature, pas après (une version précédente
+  // testait `dept ? dept.trim() : null`) : un composant présent mais
+  // vide/blanc ("57, , Grand Est") donne sinon une chaîne non vide avant
+  // trim (" "), donc truthy — la fonction renvoyait "" plutôt que null.
+  // Trouvaille de relecture adverse (16/09/2026), sans impact réel constaté
+  // (tout appelant teste `r.department ? ... : ...`, où "" et null sont
+  // également falsy) mais un contrat `string | null` qui, sans ce
+  // correctif, ne l'était pas vraiment.
+  const dept = (context.split(',')[1] || '').trim();
+  return dept || null;
+}
+
+/**
  * Choisit le meilleur résultat de géocodage : pour une ville/lieu de passage,
  * une commune bat une rue ou un département homonyme (« Vienne » ne doit pas
  * résoudre sur le département de la Vienne quand on trace Lyon → Marseille).
@@ -468,7 +492,27 @@ async function reverseGeocode(lat, lon) {
       // relecture adverse (28/08/2026) : les trois autres appels Géoplateforme
       // de ce fichier avaient le même trou avant d'être corrigés.
       const city = Array.isArray(f.properties.city) ? f.properties.city[0] : f.properties.city;
-      return { label: city || geopfLabel(f.properties, undefined), provider: 'geopf' };
+      const label = city || geopfLabel(f.properties, undefined);
+      // department (issue #182, « Côte de Saint-Louis » — hameau de
+      // Sarrebourg-Château-Salins, Moselle, confondu avec le vrai Saint-Louis
+      // du Haut-Rhin) : renvoyé à PART de `label`, jamais concaténé dedans.
+      // `label`, lui, doit rester le toponyme nu — trouvaille de relecture
+      // adverse (16/09/2026) sur une première version de ce correctif qui
+      // suffixait directement `label` : un waypoint placé par clic carte
+      // (frontend/editor.js) récupère ce label via GET /api/reverse, puis
+      // toute édition manuelle du champ efface lat/lon (editor.js:100-104) —
+      // au clic « Générer », pipeline/generate.js regéocode le texte du
+      // label via geocode()/pickFeature(), qui ne reconnaît un homonyme
+      // exact que sur le toponyme NU (`normLabel(f.label) === normLabel(query)`,
+      // aucune réponse Géoplateforme ne porte jamais "Ville, Département"
+      // comme label littéral) — un label suffixé y perdait tout net
+      // (vérifié en direct : "Bonneval, Eure-et-Loir" résolvait sur
+      // Bonneval-sur-Arc, Savoie, à ~480 km, alors que "Bonneval" nu résout
+      // correctement sur pickFeature() avec near). Seuls nameClimbs()/
+      // nameDescents() (pipeline/climbs.js, pipeline/descents.js), qui
+      // construisent un nom d'AFFICHAGE jamais regéocodé, consomment ce
+      // champ pour désambiguïser "Côte de X"/"Descente de X".
+      return { label, department: departmentFromContext(f.properties.context), provider: 'geopf' };
     });
     if (value) return value;
   }

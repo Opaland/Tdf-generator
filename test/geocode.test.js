@@ -815,6 +815,46 @@ test('reverseGeocode : aucun résultat nulle part → repli sur les coordonnées
   assert.strictEqual(r.label, '(43.330, -0.003)');
 });
 
+// Issue #182 : le géocodage inverse d'une côte détectée automatiquement
+// avait trouvé « Côte de Saint-Louis » sur un hameau de Sarrebourg-
+// Château-Salins (Moselle) — confondu par quiconque connaît le Tour avec le
+// vrai Saint-Louis (Haut-Rhin, frontière suisse), à 380 km de là. Les
+// libellés de waypoints curatés à la main portent déjà un qualificatif
+// (« Buhl-Lorraine ») ; le géocodage inverse automatique n'en avait aucun.
+//
+// r.label reste NU (pas de département dedans) — trouvaille de relecture
+// adverse : un waypoint placé par clic carte (frontend/editor.js) récupère
+// ce label via GET /api/reverse, et toute édition manuelle du champ efface
+// lat/lon ; au clic « Générer », pipeline/generate.js regéocode le TEXTE du
+// label via geocode()/pickFeature(), qui ne reconnaît un homonyme exact que
+// sur le toponyme nu — un label suffixé y perdait tout net (vérifié en
+// direct : "Bonneval, Eure-et-Loir" résolvait sur Bonneval-sur-Arc, Savoie,
+// à ~480 km). Le département est donc un champ séparé, consommé seulement
+// par nameClimbs()/nameDescents() pour le nom d'affichage.
+test('reverseGeocode en France : renvoie le département (properties.context) à part de label, sans jamais l\'y concaténer — cas réel Saint-Louis (Moselle)', async () => {
+  mock = {
+    geopf: async () => jsonResponse({
+      features: [{ properties: { city: 'Saint-Louis', context: '57, Moselle, Grand Est' } }],
+    }),
+    nominatim: neverCalled('Nominatim'),
+  };
+  const r = await reverseGeocode(48.715, 7.18);
+  assert.strictEqual(r.provider, 'geopf');
+  assert.strictEqual(r.label, 'Saint-Louis', 'label doit rester le toponyme nu, regéocodable tel quel');
+  assert.strictEqual(r.department, 'Moselle');
+});
+
+test('reverseGeocode en France : sans properties.context, department est null (dégradation silencieuse, pas d\'erreur)', async () => {
+  mock = {
+    geopf: async () => jsonResponse({ features: [{ properties: { city: 'Pau' } }] }),
+    nominatim: neverCalled('Nominatim'),
+  };
+  const r = await reverseGeocode(43.315, -0.005);
+  assert.strictEqual(r.provider, 'geopf');
+  assert.strictEqual(r.label, 'Pau');
+  assert.strictEqual(r.department, null);
+});
+
 // ----------------------------------------------------------- geocodeSuggest()
 // Autocomplétion de l'éditeur (GET /api/geocode) — zéro couverture jusqu'ici
 // (trouvaille de sprint dédié, survivants de mutation testing sur les
