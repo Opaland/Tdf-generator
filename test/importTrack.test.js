@@ -14,15 +14,18 @@ const { loadStageFull } = require('../pipeline/generate');
 after(() => fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true }));
 
 /** GPX synthétique : 10 km plat à 400 m puis 6 km à 7 % vers le nord. */
-function syntheticGpx() {
+function syntheticGpx({ withTime = false } = {}) {
   const pts = [];
   const lat0 = 43.0;
   const lon0 = 0.5;
   const mPerDegLat = 110540;
+  let i = 0;
   for (let m = 0; m <= 16000; m += 100) {
     const lat = lat0 + m / mPerDegLat;
     const ele = m <= 10000 ? 400 : 400 + (m - 10000) * 0.07;
-    pts.push(`<trkpt lat="${lat.toFixed(6)}" lon="${lon0}"><ele>${ele.toFixed(1)}</ele></trkpt>`);
+    const time = withTime ? `<time>${new Date(Date.UTC(2026, 8, 9, 8, 0, i * 15)).toISOString()}</time>` : '';
+    pts.push(`<trkpt lat="${lat.toFixed(6)}" lon="${lon0}"><ele>${ele.toFixed(1)}</ele>${time}</trkpt>`);
+    i++;
   }
   return `<?xml version="1.0"?><gpx><trk><name>Sortie test</name><trkseg>${pts.join('')}</trkseg></trk></gpx>`;
 }
@@ -50,4 +53,65 @@ test("importTrackAsStage : la montée de la trace est détectée et catégorisé
   assert.strictEqual(c.category, '1', 'score ≈ 42 → cat. 1');
   assert.ok(full.kmAnalysis.length >= 16 && full.kmAnalysis.length <= 17, 'analyse km par km présente (16-17 lignes)');
   assert.ok(full.track && full.track.router === 'trace');
+});
+
+test('parseGpx extrait <time> par trkpt quand présent', () => {
+  const { points } = parseGpx(syntheticGpx({ withTime: true }));
+  assert.ok(points[0].time instanceof Date);
+  assert.strictEqual(points[0].time.toISOString(), '2026-09-09T08:00:00.000Z');
+  assert.strictEqual(points[points.length - 1].time.toISOString(), '2026-09-09T08:40:00.000Z');
+});
+
+test('parseGpx : <time> absent → points[].time reste null, pas de plantage', () => {
+  const { points } = parseGpx(syntheticGpx({ withTime: false }));
+  assert.strictEqual(points[0].time, null);
+});
+
+test('importTrackAsStage : date et durée écoulée dérivées des timestamps GPX', async () => {
+  const { points } = parseGpx(syntheticGpx({ withTime: true }));
+  const id = await importTrackAsStage(points, { name: 'Trace avec horodatage', source: 'test' });
+  const full = loadStageFull(id);
+  assert.strictEqual(full.stage.date, '2026-09-09');
+  // 160 intervalles de 15 s (161 points, indices 0..160) = 2400 s.
+  assert.strictEqual(full.stage.elapsed_time_s, 2400);
+});
+
+test('importTrackAsStage : sans <time> sur la trace, date et durée restent null (pas 0, pas de plantage)', async () => {
+  const { points } = parseGpx(syntheticGpx({ withTime: false }));
+  const id = await importTrackAsStage(points, { name: 'Trace sans horodatage', source: 'test' });
+  const full = loadStageFull(id);
+  assert.strictEqual(full.stage.date, null);
+  assert.strictEqual(full.stage.elapsed_time_s, null);
+});
+
+// Trouvaille de relecture adverse (18/09/2026) : parseGpx() capture tous les
+// <trkpt> d'un document par une seule regex globale, sans respecter les
+// frontières <trk>/<trkseg> — un GPX à plusieurs pistes non triées
+// chronologiquement (export à la main de deux sorties fusionnées dans un
+// seul fichier) donnait un elapsed_time_s de 0 trompeur (last - first
+// négatif, écrasé par Math.max(0, …)) au lieu de refléter le vrai
+// intervalle ou de rester null.
+test('importTrackAsStage : timestamps non triés (GPX multi-piste fusionné) → durée réelle (min/max), pas 0', async () => {
+  const late = Array.from({ length: 5 }, (_, i) =>
+    `<trkpt lat="${(43 + i * 0.001).toFixed(6)}" lon="0.5"><ele>${400 + i}</ele><time>${new Date(Date.UTC(2026, 8, 9, 12, 0, i * 10)).toISOString()}</time></trkpt>`
+  ).join('');
+  const early = Array.from({ length: 5 }, (_, i) =>
+    `<trkpt lat="${(43.1 + i * 0.001).toFixed(6)}" lon="0.5"><ele>${400 + i}</ele><time>${new Date(Date.UTC(2026, 8, 9, 8, 0, i * 10)).toISOString()}</time></trkpt>`
+  ).join('');
+  const gpx = `<?xml version="1.0"?><gpx><trk><name>Fusion</name><trkseg>${late}</trkseg></trk><trk><trkseg>${early}</trkseg></trk></gpx>`;
+  const { points } = parseGpx(gpx);
+  const id = await importTrackAsStage(points, { name: 'Trace multi-piste', source: 'test' });
+  const full = loadStageFull(id);
+  // Vrai intervalle chronologique : 08:00:00 → 12:00:40 = 4h00m40s = 14440 s.
+  assert.strictEqual(full.stage.elapsed_time_s, 14440);
+  assert.strictEqual(full.stage.date, '2026-09-09');
+});
+
+test('importTrackAsStage : un seul point daté sur toute la trace → date/durée restent null (un "écoulé" n\'a pas de sens sur un seul point)', async () => {
+  const { points } = parseGpx(syntheticGpx({ withTime: false }));
+  points[10].time = new Date('2026-09-09T08:00:00Z');
+  const id = await importTrackAsStage(points, { name: 'Trace un seul point daté', source: 'test' });
+  const full = loadStageFull(id);
+  assert.strictEqual(full.stage.date, null);
+  assert.strictEqual(full.stage.elapsed_time_s, null);
 });

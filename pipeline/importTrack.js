@@ -12,7 +12,7 @@ const { runChecks } = require('./checks');
 const { reverseGeocode } = require('./geocode');
 const { isOffline } = require('./http');
 
-/** Parse un GPX (texte) → [{lat, lon, ele?}] (trkpt, ou rtept à défaut). */
+/** Parse un GPX (texte) → [{lat, lon, ele?, time?}] (trkpt, ou rtept à défaut). */
 function parseGpx(text) {
   const points = [];
   const re = /<(trkpt|rtept)\b[^>]*\blat="(-?[\d.]+)"[^>]*\blon="(-?[\d.]+)"[^>]*>([\s\S]*?)<\/\1>|<(trkpt|rtept)\b[^>]*\blat="(-?[\d.]+)"[^>]*\blon="(-?[\d.]+)"[^>]*\/>/g;
@@ -22,17 +22,27 @@ function parseGpx(text) {
     const lon = parseFloat(m[3] ?? m[7]);
     if (!Number.isFinite(lat) || !Number.isFinite(lon)) continue;
     let ele = null;
+    let time = null;
     if (m[4]) {
       const em = m[4].match(/<ele>\s*(-?[\d.]+)\s*<\/ele>/);
       if (em) ele = parseFloat(em[1]);
+      // <time> (trkpt, format ISO 8601 UTC standard GPX) : absent d'un
+      // rtept ou d'un export minimal — jamais supposé présent (voir
+      // dateAndDurationFromPoints() ci-dessous, qui tolère son absence sur
+      // tout ou partie des points, plutôt que de planter l'import entier).
+      const tm = m[4].match(/<time>\s*([^<\s][^<]*?)\s*<\/time>/);
+      if (tm) {
+        const d = new Date(tm[1]);
+        if (!Number.isNaN(d.getTime())) time = d;
+      }
     }
-    points.push({ lat, lon, ele });
+    points.push({ lat, lon, ele, time });
   }
   const nameM = text.match(/<name>([\s\S]*?)<\/name>/);
   return { points, name: nameM ? nameM[1].trim().slice(0, 120) : null };
 }
 
-/** Points FIT (fit-file-parser) → [{lat, lon, ele?}]. */
+/** Points FIT (fit-file-parser) → [{lat, lon, ele?, time?}]. */
 function pointsFromFitRecords(records) {
   const points = [];
   for (const r of records || []) {
@@ -41,9 +51,50 @@ function pointsFromFitRecords(records) {
     if (typeof lat !== 'number' || typeof lon !== 'number') continue;
     const ele = typeof r.enhanced_altitude === 'number' ? r.enhanced_altitude
       : typeof r.altitude === 'number' ? r.altitude : null;
-    points.push({ lat, lon, ele });
+    const time = r.timestamp instanceof Date && !Number.isNaN(r.timestamp.getTime()) ? r.timestamp : null;
+    points.push({ lat, lon, ele, time });
   }
   return points;
+}
+
+/**
+ * Date (YYYY-MM-DD) et durée écoulée (secondes, dernier timestamp - premier)
+ * d'une trace, depuis les `point.time` optionnels de parseGpx()/
+ * pointsFromFitRecords() — jamais garantis présents (un export minimal ou un
+ * rtept GPX n'en porte pas) : { date: null, elapsedTimeS: null } dès qu'il y
+ * a moins de deux points datés, plutôt qu'un plantage ou un 0 trompeur (voir
+ * CLAUDE.md règle 10 : un 0 silencieux se lirait comme une vraie sortie de
+ * durée nulle). C'est un temps ÉCOULÉ (premier au dernier timestamp
+ * CHRONOLOGIQUE, pas premier/dernier du tableau), pas un temps "roulé" (qui
+ * exclurait les arrêts) — nommé ainsi explicitement plutôt que de laisser
+ * croire à une mesure plus fine que celle réellement faite.
+ *
+ * min()/max() plutôt que times[0]/times[times.length-1] (trouvaille de
+ * relecture adverse, 18/09/2026) : parseGpx() capture tous les <trkpt> du
+ * document par une seule regex globale, sans respecter les frontières
+ * <trk>/<trkseg> — un GPX à plusieurs pistes non triées chronologiquement
+ * (export à la main de plusieurs sorties fusionnées dans un seul fichier)
+ * donnerait sinon un `last - first` négatif, écrasé en 0 par un
+ * Math.max(0, …) — exactement le 0 trompeur que ce garde-fou est censé
+ * exclure. `times.length < 2` (pas seulement `=== 0`) est le même garde-fou
+ * pour un seul point daté isolé, où un « écoulé » n'a pas de sens.
+ */
+function dateAndDurationFromPoints(points) {
+  const times = (points || []).map((p) => p.time).filter((t) => t instanceof Date);
+  if (times.length < 2) return { date: null, elapsedTimeS: null };
+  // Boucle plutôt que Math.min/max(...times.map(...)) : un spread sur un
+  // tableau de plusieurs dizaines de milliers de points (traces réelles
+  // longues, voir la limite 30 Mo des routes d'import) risquerait la limite
+  // d'arguments du moteur JS — jamais vérifié comme un plantage réel ici,
+  // mais pas la peine de le découvrir en production.
+  let firstMs = times[0].getTime();
+  let lastMs = firstMs;
+  for (let i = 1; i < times.length; i++) {
+    const ms = times[i].getTime();
+    if (ms < firstMs) firstMs = ms;
+    if (ms > lastMs) lastMs = ms;
+  }
+  return { date: new Date(firstMs).toISOString().slice(0, 10), elapsedTimeS: (lastMs - firstMs) / 1000 };
 }
 
 /**
@@ -63,7 +114,7 @@ async function parseFit(buffer) {
 
 /**
  * Crée une étape depuis une trace et exécute le pipeline aval.
- * @param points [{lat, lon, ele?}] bruts (≥ 2)
+ * @param points [{lat, lon, ele?, time?}] bruts (≥ 2)
  * @param meta { name, source, date?, stage_type?, status? }
  * @returns stageId
  */
@@ -71,17 +122,23 @@ async function importTrackAsStage(points, meta = {}) {
   if (!points || points.length < 2) throw new Error('Trace vide ou illisible (aucun point)');
   const db = getDb();
 
+  // meta.date (rare, fourni explicitement par un appelant) prévaut toujours
+  // sur celle déduite des points — dateAndDurationFromPoints() ne sert que
+  // de repli quand la trace elle-même porte des timestamps exploitables.
+  const { date: dateFromPoints, elapsedTimeS } = dateAndDurationFromPoints(points);
+
   const r = db
     .prepare(
-      `INSERT INTO stages (name, date, stage_type, status, state, source)
-       VALUES (?, ?, ?, ?, 'generating', ?)`
+      `INSERT INTO stages (name, date, stage_type, status, state, source, elapsed_time_s)
+       VALUES (?, ?, ?, ?, 'generating', ?, ?)`
     )
     .run(
       meta.name || 'Trace importée',
-      meta.date || null,
+      meta.date || dateFromPoints,
       meta.stage_type || 'trace',
       meta.status || 'importée',
-      JSON.stringify({ trace: meta.source || 'import', points_bruts: points.length })
+      JSON.stringify({ trace: meta.source || 'import', points_bruts: points.length }),
+      elapsedTimeS
     );
   const stageId = r.lastInsertRowid;
 
