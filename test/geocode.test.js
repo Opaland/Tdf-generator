@@ -855,6 +855,54 @@ test('reverseGeocode en France : sans properties.context, department est null (d
   assert.strictEqual(r.department, null);
 });
 
+// country (backlog #228, « Exploration ») : la Géoplateforme ne géocode que
+// la France, donc tout résultat qu'elle renvoie l'est aussi — jamais besoin
+// de le déduire d'un champ de la réponse.
+test('reverseGeocode en France (Géoplateforme) : country vaut toujours "France"', async () => {
+  mock = {
+    geopf: async () => jsonResponse({ features: [{ properties: { city: 'Pau' } }] }),
+    nominatim: neverCalled('Nominatim'),
+  };
+  const r = await reverseGeocode(43.316, -0.006);
+  assert.strictEqual(r.country, 'France');
+});
+
+// Forme réelle vérifiée en direct sur Nominatim (18/09/2026, deux points hors
+// France : Édimbourg/Royaume-Uni, Florence/Italie) : address.country est
+// présent sans même demander addressdetails=1 en format=jsonv2.
+test('reverseGeocode hors bbox France : country vient de address.country (forme Nominatim réelle)', async () => {
+  mock = {
+    geopf: neverCalled('la Géoplateforme'),
+    nominatim: async () => jsonResponse({
+      display_name: 'Old Town, Édimbourg, Écosse, Royaume-Uni',
+      address: { city: 'Édimbourg', state: 'Écosse', country: 'Royaume-Uni', country_code: 'gb' },
+    }),
+  };
+  const r = await reverseGeocode(55.96, -3.2);
+  assert.strictEqual(r.provider, 'nominatim');
+  assert.strictEqual(r.country, 'Royaume-Uni');
+});
+
+test('reverseGeocode hors bbox France : sans address structuré, country retombe sur le dernier segment de display_name', async () => {
+  mock = {
+    geopf: neverCalled('la Géoplateforme'),
+    nominatim: async () => jsonResponse({ display_name: 'Quartiere 1, Florence, Firenze, Toscane, Italie' }),
+  };
+  const r = await reverseGeocode(43.77, 11.26);
+  assert.strictEqual(r.provider, 'nominatim');
+  assert.strictEqual(r.country, 'Italie');
+});
+
+test('reverseGeocode : aucun résultat nulle part → pas de country (jamais un pays inventé)', async () => {
+  mock = {
+    geopf: async () => jsonResponse({ features: [] }),
+    nominatim: async () => jsonResponse({}),
+  };
+  const r = await reverseGeocode(43.34, -0.007);
+  assert.strictEqual(r.provider, 'aucun');
+  assert.strictEqual(r.country, undefined);
+});
+
 // ----------------------------------------------------------- geocodeSuggest()
 // Autocomplétion de l'éditeur (GET /api/geocode) — zéro couverture jusqu'ici
 // (trouvaille de sprint dédié, survivants de mutation testing sur les

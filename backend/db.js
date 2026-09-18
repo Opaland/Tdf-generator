@@ -33,6 +33,9 @@ CREATE TABLE IF NOT EXISTS stages (
   generated_distance_km REAL,
   total_ascent_m REAL,
   elapsed_time_s REAL,         -- trace importée seulement : dernier - premier timestamp GPX/FIT — voir ensureColumn ci-dessous
+  city_hint TEXT,               -- trace importée seulement : géocodage inverse du point de départ — voir ensureColumn ci-dessous
+  region_hint TEXT,             -- idem, département/région (France uniquement)
+  country_hint TEXT,            -- idem, pays
   state TEXT NOT NULL DEFAULT 'draft',  -- draft | generating | done | error
   progress TEXT,               -- JSON : {step, detail, percent}
   checks TEXT,                 -- JSON : bloc d'audits qualité
@@ -185,6 +188,9 @@ function getDb() {
   ensureColumn(db, 'waypoints', 'country_hint', 'country_hint TEXT');
   ensureColumn(db, 'waypoints', 'region_hint', 'region_hint TEXT');
   ensureColumn(db, 'stages', 'elapsed_time_s', 'elapsed_time_s REAL');
+  ensureColumn(db, 'stages', 'city_hint', 'city_hint TEXT');
+  ensureColumn(db, 'stages', 'region_hint', 'region_hint TEXT');
+  ensureColumn(db, 'stages', 'country_hint', 'country_hint TEXT');
   // Chantier L, Tour de France Femmes : `year` seul comme clé d'édition
   // aurait fait écraser silencieusement l'un des deux tours par
   // importEdition() (DELETE + INSERT sur la même année) dès qu'Hommes et

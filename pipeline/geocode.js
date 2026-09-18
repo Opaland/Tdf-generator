@@ -512,7 +512,12 @@ async function reverseGeocode(lat, lon) {
       // nameDescents() (pipeline/climbs.js, pipeline/descents.js), qui
       // construisent un nom d'AFFICHAGE jamais regéocodé, consomment ce
       // champ pour désambiguïser "Côte de X"/"Descente de X".
-      return { label, department: departmentFromContext(f.properties.context), provider: 'geopf' };
+      // country (bilan personnel, backlog #228, « Exploration ») : la
+      // Géoplateforme est un géocodeur exclusivement français — tout résultat
+      // qu'elle renvoie via looksLikeFrance() est en France, jamais besoin de
+      // le déduire d'un champ de la réponse (contrairement à department,
+      // qui vient bien de properties.context ci-dessous).
+      return { label, department: departmentFromContext(f.properties.context), country: 'France', provider: 'geopf' };
     });
     if (value) return value;
   }
@@ -520,9 +525,40 @@ async function reverseGeocode(lat, lon) {
     const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=jsonv2&accept-language=fr&zoom=14`;
     const json = await httpJson(url, { minDelayMs: 1100 });
     if (!json || !json.display_name) return null;
-    return { label: json.display_name.split(',').slice(0, 2).join(','), provider: 'nominatim' };
+    return { label: json.display_name.split(',').slice(0, 2).join(','), country: countryFromNominatim(json), provider: 'nominatim' };
   });
   return value || { label: `(${lat.toFixed(3)}, ${lon.toFixed(3)})`, provider: 'aucun' };
+}
+
+/**
+ * Nom de pays depuis une réponse Nominatim (bilan personnel, backlog #228,
+ * « Exploration » — compter les pays visités sur les traces importées).
+ * `address.country` d'abord (structuré, vérifié en direct sur deux points
+ * réels hors France — Édimbourg/Royaume-Uni, Florence/Italie — présent sans
+ * même demander `addressdetails=1` en format=jsonv2) ; à défaut, dernier
+ * segment de `display_name`.
+ *
+ * Risque identifié par relecture adverse (18/09/2026), jamais reproduit :
+ * un `display_name` à un seul segment (sans virgule) rendrait ce repli
+ * indiscernable d'un vrai nom de mer/zone maritime non administrative. Trois
+ * points réels vérifiés en direct pour couvrir ce cas (18/09/2026) : un
+ * point administratif terrestre (`display_name: "France"`, un seul
+ * segment — address.country le confirme, cas géré par la branche
+ * prioritaire ci-dessus), un point maritime proche des eaux territoriales
+ * françaises (43.0, 6.0 — même résultat qu'au-dessus, jamais de nom de mer),
+ * et un point en pleine mer (0.0, -30.0 — `{"error":"Unable to geocode"}`,
+ * aucun `display_name`, jamais atteint cette fonction). Aucun des trois n'a
+ * produit de nom de mer/golfe comme repli — mais seulement trois points
+ * vérifiés, pas une garantie exhaustive : si un futur signalement montre un
+ * nom de zone maritime dans un `country_hint`, il faudra soit une liste
+ * d'exclusion, soit se limiter à `address.country` sans repli display_name.
+ */
+function countryFromNominatim(json) {
+  const fromAddress = json.address && typeof json.address.country === 'string' ? json.address.country.trim() : '';
+  if (fromAddress) return fromAddress;
+  const parts = String(json.display_name || '').split(',');
+  const last = (parts[parts.length - 1] || '').trim();
+  return last || null;
 }
 
 /** Suggestions pour l'autocomplétion de l'éditeur (jusqu'à 5 résultats). */

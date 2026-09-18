@@ -211,6 +211,37 @@ async function importTrackAsStage(points, meta = {}) {
     // branchement que generate.js (trouvaille de relecture adverse, ce
     // fichier avait été oublié lors de l'ajout du check).
     const backtrackZones = detectBacktrackZones(full);
+
+    // Ville/région/pays de départ (bilan personnel, backlog #228,
+    // « Exploration ») : un seul géocodage inverse sur le premier point de
+    // la trace, jamais bloquant — un import réussit même si ce géocodage
+    // échoue (panne réseau transitoire), mêmes principes que nameClimbs()
+    // ci-dessus, qui tolère déjà l'échec de reverseGeocodeFn par côte.
+    let locationHints = { city: null, region: null, country: null };
+    try {
+      const r = await reverseGeocode(full[0].lat, full[0].lon);
+      // Un label de repli « coordonnées brutes » (jamais une vraie ville)
+      // prend deux formes selon le chemin qui l'a produit : reverseGeocode()
+      // en mode réseau (`(lat, lon)`, provider 'aucun') ou
+      // simReverseGeocode() en mode hors-ligne (`Lieu (lat, lon)`, provider
+      // 'simulateur' — LE MÊME provider que pour un vrai lieu du gazetier
+      // trouvé, donc `provider` seul ne suffit pas à distinguer les deux).
+      // Trouvaille de relecture adverse (18/09/2026) : une première version
+      // de ce garde ne testait que `provider !== 'aucun'`, couvrant le
+      // repli réseau mais pas le repli hors-ligne (pourtant un chemin de
+      // production réel et documenté, README.md — pas qu'un artefact de
+      // test) — reproduit en direct (ETAPEFORGE_OFFLINE=1, point hors du
+      // corridor du gazetier simulé) : city_hint stockait littéralement
+      // "Lieu (0.000, 0.000)".
+      const isCoordinateLabel = /^(Lieu )?\(-?\d+\.\d+, -?\d+\.\d+\)$/.test(r.label || '');
+      if (r.provider !== 'aucun' && !isCoordinateLabel) {
+        locationHints = { city: r.label || null, region: r.department || null, country: r.country || null };
+      }
+    } catch {
+      // dégradation silencieuse : les tuiles/compteurs d'exploration
+      // ignoreront simplement cette trace, jamais de fausse localisation.
+    }
+
     const stage = db.prepare('SELECT * FROM stages WHERE id = ?').get(stageId);
     const checks = runChecks({
       stage, distanceM: totalM, waypointsOnTrack: [], approxSegments: [], climbs, samples: full, backtrackZones,
@@ -246,8 +277,10 @@ async function importTrackAsStage(points, meta = {}) {
       );
       for (const row of kmRows) insKm.run(stageId, row.km, row.eleStart, row.eleEnd, row.avgGradient, row.maxGradient100, row.ascent, row.cumAscent);
       db.prepare(
-        `UPDATE stages SET state = 'done', generated_distance_km = ?, total_ascent_m = ?, checks = ?, updated_at = datetime('now') WHERE id = ?`
-      ).run(Math.round((totalM / 1000) * 10) / 10, Math.round(ascent), JSON.stringify({ ...checks, offline: isOffline(), imported: true }), stageId);
+        `UPDATE stages SET state = 'done', generated_distance_km = ?, total_ascent_m = ?, checks = ?,
+           city_hint = ?, region_hint = ?, country_hint = ?, updated_at = datetime('now') WHERE id = ?`
+      ).run(Math.round((totalM / 1000) * 10) / 10, Math.round(ascent), JSON.stringify({ ...checks, offline: isOffline(), imported: true }),
+        locationHints.city, locationHints.region, locationHints.country, stageId);
     })();
 
     return stageId;
