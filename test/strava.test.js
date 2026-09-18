@@ -180,12 +180,13 @@ test('import par flux (streams) → étape complète, côte détectée, statisti
   assert.strictEqual(full.climbs.length, 1, 'la montée de 6 km à 7 % est détectée');
   assert.strictEqual(full.climbs[0].category, '1');
   // Le flux `time` de la simulation ci-dessus correspond à 20 km/h constant :
-  // vérifie que rideStats.js reçoit bien des timeMs exploitables de bout en
-  // bout à travers la route (le choix précis de la date de départ, lui, est
-  // vérifié séparément sur pointsFromStreams() ci-dessus — une vitesse
-  // moyenne ne dépend que des écarts entre points, pas de leur origine, donc
-  // ce test-ci ne peut pas discriminer une mauvaise date, seulement une
-  // absence totale d'horodatage).
+  // vérifie que rideStats.js reçoit bien des `time` (Date) exploitables de
+  // bout en bout à travers la route (le choix précis de la date de départ,
+  // lui, est vérifié séparément sur pointsFromStreams(), dans
+  // test/stravaPointsFromStreams.test.js — une vitesse moyenne ne dépend que
+  // des écarts entre points, pas de leur origine, donc ce test-ci ne peut
+  // pas discriminer une mauvaise date, seulement une absence totale
+  // d'horodatage).
   assert.ok(Math.abs(full.stage.avg_speed_kmh - 20) < 1, `vitesse moyenne ${full.stage.avg_speed_kmh} ≈ 20 km/h`);
 });
 
