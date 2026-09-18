@@ -451,6 +451,85 @@ test('reconstructionWaypoints : classe de bug « Col du Mont-Cenis » retrouvée
   }
 });
 
+test('reconstructionWaypoints : même classe de bug (near change le jeu de candidats renvoyé par l\'API, pas seulement leur tri) retrouvée sur Col de la Madeleine, Col de la Loze et Col du Bonhomme', () => {
+  // Trouvaille du 18/09/2026 (audit issue #170, scripts/audit-col-homonyms.js).
+  // Contrairement à Col du Mont-Cenis ci-dessus (near départage des candidats
+  // déjà renvoyés par pure distance), ici `near` change la REQUÊTE elle-même
+  // envoyée à data.geopf.fr (`&lat=...&lon=...` dans l'URL), qui l'utilise
+  // pour changer son propre jeu de candidats — un near éloigné peut donc
+  // faire disparaître le bon candidat de la liste et en faire apparaître un
+  // autre absent d'une requête sans near (vérifié en direct sur les deux
+  // requêtes, avec et sans near, avant ce correctif).
+
+  // 2020 étape 17 : Grenoble → Col de la Madeleine → Col de la Loze (finish)
+  // Sans coordonnées curées, near=Grenoble (Isère) faisait dériver la
+  // requête « Col de la Madeleine » (8 homonymes exacts en France) sur un
+  // homonyme isérois (~1160 m) au lieu du vrai col savoyard (1993 m, le plus
+  // haut score, 0,882, sans near) — puis, en cascade, near=cet homonyme
+  // isérois faisait dériver « Col de la Loze » sur « Pas de la Lose », un nom
+  // différent du tout (score 0,50). Distance générée mesurée avant correctif :
+  // 82 km au lieu des ~170 km officiels.
+  {
+    const stage = HISTORIC_ROUTES['2020'].stages['17'];
+    assert.ok(stage, 'édition 2020, étape 17 attendue dans la fixture de test');
+    const wps = reconstructionWaypoints(2020, { number: 17, start: stage.start, finish: stage.finish });
+    const madeleine = wps.find((w) => w.label === 'Col de la Madeleine');
+    assert.ok(madeleine, 'le Col de la Madeleine doit être un via de cette étape');
+    assert.strictEqual(madeleine.lat, 45.434905);
+    assert.strictEqual(madeleine.lon, 6.37553);
+    assert.strictEqual(madeleine.altitude_hint_m, 1993);
+    // Le finish (Col de la Loze) n'est PAS couvert par ce correctif :
+    // reconstructionWaypoints() ne consulte KNOWN_COLS que pour les vias,
+    // jamais pour start/finish (lacune déjà documentée sur l'entrée
+    // "Plateau de Beille" de known_cols.json) — il continue de dépendre du
+    // géocodage en direct, qui fonctionne aujourd'hui uniquement parce que
+    // near=Madeleine (désormais correct) suffit à orienter l'API vers le bon
+    // candidat. Ce test verrouille l'état actuel, pas une garantie structurelle.
+    const finish = wps[wps.length - 1];
+    assert.strictEqual(finish.label, 'Col de la Loze');
+    assert.strictEqual(finish.lat, undefined, 'le finish ne reçoit pas de lat/lon pré-rempli par KNOWN_COLS (lacune connue, pas ce correctif)');
+  }
+
+  // 2023 étape 17 : Saint-Gervais Mont-Blanc → Col de la Loze → Courchevel
+  // Ici Col de la Loze EST un via (pas un finish) : bénéficie donc bien de
+  // known_cols.json.
+  {
+    const stage = HISTORIC_ROUTES['2023'].stages['17'];
+    assert.ok(stage, 'édition 2023, étape 17 attendue dans la fixture de test');
+    const wps = reconstructionWaypoints(2023, { number: 17, start: stage.start, finish: stage.finish });
+    const loze = wps.find((w) => w.label === 'Col de la Loze');
+    assert.ok(loze, 'le Col de la Loze doit être un via de cette étape');
+    assert.strictEqual(loze.lat, 45.407512);
+    assert.strictEqual(loze.lon, 6.602731);
+    assert.strictEqual(loze.altitude_hint_m, 2304);
+  }
+
+  // 1992 étape 11 : Strasbourg → Col des Bagenelles → Col du Bonhomme →
+  // Col du Calvaire → Mulhouse. Sans coordonnées curées, near=Col des
+  // Bagenelles faisait dériver la requête « Col du Bonhomme » sur un
+  // résultat étiqueté « Col des Bagenelles » lui-même (score 0,60, quasi les
+  // mêmes coordonnées que le waypoint précédent) — pas un homonyme, un nom
+  // complètement différent de la requête. Sans near, le vrai col (Vosges)
+  // sort en premier (score 0,891) parmi 3 homonymes/quasi-homonymes exacts.
+  {
+    const stage = HISTORIC_ROUTES['1992'].stages['11'];
+    assert.ok(stage, 'édition 1992, étape 11 attendue dans la fixture de test');
+    const wps = reconstructionWaypoints(1992, { number: 11, start: stage.start, finish: stage.finish });
+    const bonhomme = wps.find((w) => w.label === 'Col du Bonhomme');
+    assert.ok(bonhomme, 'le Col du Bonhomme doit être un via de cette étape');
+    assert.strictEqual(bonhomme.lat, 48.16489);
+    assert.strictEqual(bonhomme.lon, 7.079442);
+    assert.strictEqual(bonhomme.altitude_hint_m, 949);
+    // Col du Calvaire (même étape) porte ses propres coordonnées locales sur
+    // le via lui-même (voir historic_routes.json) — n'est pas affecté par ce
+    // correctif, vérifié pour ne pas casser cette distinction déjà testée
+    // ailleurs dans ce fichier.
+    const calvaire = wps.find((w) => w.label === 'Col du Calvaire');
+    assert.ok(calvaire, 'le Col du Calvaire doit être un via de cette étape');
+    assert.strictEqual(calvaire.altitude_hint_m, 1150, 'le Col du Calvaire de cette étape garde son propre ele local (1150), pas celui du référentiel partagé (1836, Pyrénées-Orientales)');
+  }
+});
+
 test('reconstructionWaypoints : propage bonus_sec du via sprint et de l\'arrivée (2023 étape 9, Puy de Dôme)', () => {
   // Backlog issue #14, "marqueurs sprint / bonification" — vérifie que le
   // bonus_sec curé dans historic_routes.json (via de type sprint + arrivée)
