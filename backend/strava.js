@@ -23,12 +23,16 @@
 // Streams et non export FIT : Strava n'offre pas de téléchargement de
 // fichier natif par l'API — /activities/{id}/streams rend des tableaux
 // parallèles (latlng, altitude, time) qu'il faut recomposer en points
-// {lat, lon, ele, timeMs}. `time` est un décalage en secondes depuis le
-// départ de l'activité, pas un horodatage absolu : la date de départ
-// (`start_date`, ISO) vient d'un appel séparé à /activities/{id}, jamais
-// du client (name est la seule valeur que l'import Suunto voisin laisse
-// le client fournir, et seulement pour l'affichage — la date, elle,
-// détermine directement la vitesse calculée par rideStats.js).
+// {lat, lon, ele, time}. Le `time` du flux Strava est un décalage en
+// secondes depuis le départ de l'activité, pas un horodatage absolu : la
+// date de départ (`start_date`, ISO) vient d'un appel séparé à
+// /activities/{id}, jamais du client (name est la seule valeur que
+// l'import Suunto voisin laisse le client fournir, et seulement pour
+// l'affichage — la date, elle, détermine directement la vitesse calculée
+// par rideStats.js). `point.time` reste un objet `Date`, comme celui que
+// parseGpx()/pointsFromFitRecords() produisent (pipeline/importTrack.js) —
+// une seule convention de représentation du temps pour tout le pipeline
+// d'import, quelle que soit la source.
 
 const express = require('express');
 const { getSetting, setSetting } = require('./settings');
@@ -138,10 +142,12 @@ function redirectUri(req) {
 }
 
 /**
- * Reconstruit [{lat, lon, ele, timeMs}] depuis la réponse de
+ * Reconstruit [{lat, lon, ele, time}] depuis la réponse de
  * /activities/{id}/streams (tableaux parallèles keyed by type) et la date
  * de départ ISO de l'activité. `latlng` est le seul flux indispensable —
- * sans lui, il n'y a pas de tracé à importer.
+ * sans lui, il n'y a pas de tracé à importer. `time` (sortie) est un objet
+ * `Date`, même convention que parseGpx()/pointsFromFitRecords()
+ * (pipeline/importTrack.js) — pas les secondes relatives du flux Strava.
  */
 function pointsFromStreams(streams, startDateIso) {
   const latlng = streams.latlng?.data;
@@ -149,14 +155,15 @@ function pointsFromStreams(streams, startDateIso) {
     throw new Error("Cette activité n'a pas de tracé GPS exploitable (pas de flux latlng)");
   }
   const altitude = streams.altitude?.data;
-  const time = streams.time?.data;
+  const timeOffsetsS = streams.time?.data;
   const startMs = Date.parse(startDateIso);
   const hasStart = Number.isFinite(startMs);
   return latlng.map((pair, i) => ({
     lat: pair[0],
     lon: pair[1],
     ele: Array.isArray(altitude) && typeof altitude[i] === 'number' ? altitude[i] : null,
-    timeMs: hasStart && Array.isArray(time) && typeof time[i] === 'number' ? startMs + time[i] * 1000 : null,
+    time: hasStart && Array.isArray(timeOffsetsS) && typeof timeOffsetsS[i] === 'number'
+      ? new Date(startMs + timeOffsetsS[i] * 1000) : null,
   }));
 }
 
