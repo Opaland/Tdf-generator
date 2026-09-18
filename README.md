@@ -210,6 +210,12 @@ exports) — la trace remplace le routage, le reste du pipeline est identique :
   (gratuite) enregistrée sur [apizone.suunto.com](https://apizone.suunto.com) ;
   **guide pas-à-pas : [docs/SUUNTO.md](docs/SUUNTO.md)**. Les identifiants
   restent dans votre base locale.
+- **Statistiques de la sortie**, façon VeloViewer, quand le fichier importé
+  porte un horodatage par point (`<time>` GPX ou `timestamp` FIT) : durée
+  totale, vitesse moyenne, vitesse maximale (lissée sur 30 s pour absorber le
+  bruit GPS). Absente pour un parcours planifié sans horodatage ou une étape
+  reconstruite par routage — rien n'est deviné à la place d'une mesure qui
+  n'existe pas.
 
 ## Éditer une étape existante
 

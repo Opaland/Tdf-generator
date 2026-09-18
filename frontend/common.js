@@ -115,6 +115,15 @@ const EF = {
     return `${delta >= 0 ? '+' : ''}${delta.toFixed(1)} %`;
   },
 
+  // "2h34" / "45min" — durée d'une sortie (stage.elapsed_time_s), utilisée
+  // par la carte "Statistiques de la sortie" de stage.js.
+  formatDuration(totalSeconds) {
+    const s = Math.round(totalSeconds);
+    const h = Math.floor(s / 3600);
+    const m = Math.floor((s % 3600) / 60);
+    return h > 0 ? `${h}h${String(m).padStart(2, '0')}` : `${m}min`;
+  },
+
   // Fonds de carte : IGN PLANIGNV2 (WMTS Géoplateforme) en France, OSM sinon.
   //
   // `LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2`, jamais `LAYER=PLANIGNV2` seul :
