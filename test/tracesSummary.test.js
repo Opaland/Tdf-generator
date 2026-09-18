@@ -46,10 +46,10 @@ beforeEach(() => {
 
 // router: 'trace' (import réel), 'osrm'/'simulateur' (routage standard), ou
 // null (aucune ligne tracks — ex. un brouillon jamais généré).
-function insertStage(db, { name, stageType = 'trace', router = 'trace', state = 'done', distanceKm = 0, ascentM = 0, climbs = [] }) {
+function insertStage(db, { name, stageType = 'trace', router = 'trace', state = 'done', distanceKm = 0, ascentM = 0, date = null, elapsedTimeS = null, climbs = [] }) {
   const r = db.prepare(
-    `INSERT INTO stages (name, stage_type, state, generated_distance_km, total_ascent_m) VALUES (?, ?, ?, ?, ?)`
-  ).run(name, stageType, state, distanceKm, ascentM);
+    `INSERT INTO stages (name, stage_type, state, generated_distance_km, total_ascent_m, date, elapsed_time_s) VALUES (?, ?, ?, ?, ?, ?, ?)`
+  ).run(name, stageType, state, distanceKm, ascentM, date, elapsedTimeS);
   const stageId = r.lastInsertRowid;
   if (router != null) {
     db.prepare(`INSERT INTO tracks (stage_id, geojson, distance_m, router) VALUES (?, '{}', 0, ?)`).run(stageId, router);
@@ -67,7 +67,10 @@ async function summary() {
 
 test('aucune trace importée → bilan vide, pas d\'erreur', async () => {
   const s = await summary();
-  assert.deepStrictEqual(s, { traceCount: 0, totalDistanceKm: 0, totalAscentM: 0, highestSummit: null, climbs: [] });
+  assert.deepStrictEqual(s, {
+    traceCount: 0, totalDistanceKm: 0, totalAscentM: 0, totalElapsedTimeS: null, tracesWithTimeCount: 0,
+    highestSummit: null, climbs: [], daily: [], recent: [],
+  });
 });
 
 test('n\'inclut jamais une étape officielle/historique (routage OSRM/simulateur standard)', async () => {
@@ -156,4 +159,78 @@ test('une trace sans aucune côte détectée ne casse rien (climbs vide reste va
   assert.strictEqual(s.traceCount, 1);
   assert.strictEqual(s.highestSummit, null);
   assert.deepStrictEqual(s.climbs, []);
+});
+
+// PR #227 (capture date/durée à l'import) : ces trois champs restent absents
+// pour toute trace important antérieure, ou dont le GPX/FIT source ne
+// portait aucun horodatage — jamais coercés en 0/liste vide trompeuse.
+test('totalElapsedTimeS reste null si AUCUNE trace n\'a de durée connue (pas 0)', async () => {
+  const db = getDb();
+  insertStage(db, { name: 'Sortie sans horodatage', distanceKm: 40, ascentM: 500 });
+  const s = await summary();
+  assert.strictEqual(s.totalElapsedTimeS, null);
+  assert.strictEqual(s.tracesWithTimeCount, 0);
+});
+
+test('totalElapsedTimeS additionne uniquement les traces qui ont une durée connue, tracesWithTimeCount les compte', async () => {
+  const db = getDb();
+  insertStage(db, { name: 'Avec durée 1', distanceKm: 40, ascentM: 500, date: '2026-09-01', elapsedTimeS: 3600 });
+  insertStage(db, { name: 'Avec durée 2', distanceKm: 20, ascentM: 200, date: '2026-09-02', elapsedTimeS: 1800 });
+  insertStage(db, { name: 'Sans durée', distanceKm: 10, ascentM: 100 });
+  const s = await summary();
+  assert.strictEqual(s.totalElapsedTimeS, 5400);
+  assert.strictEqual(s.tracesWithTimeCount, 2, 'sur 3 traces au total (traceCount)');
+  assert.strictEqual(s.traceCount, 3);
+});
+
+test('daily agrège plusieurs traces du même jour, ignore les traces sans date, trie par date croissante', async () => {
+  const db = getDb();
+  insertStage(db, { name: 'Matin', distanceKm: 20, ascentM: 300, date: '2026-09-02', elapsedTimeS: 1800 });
+  insertStage(db, { name: 'Après-midi (même jour)', distanceKm: 15, ascentM: 200, date: '2026-09-02', elapsedTimeS: 1200 });
+  insertStage(db, { name: 'Veille', distanceKm: 50, ascentM: 800, date: '2026-09-01', elapsedTimeS: 5400 });
+  insertStage(db, { name: 'Sans date', distanceKm: 5, ascentM: 50 });
+  const s = await summary();
+  assert.strictEqual(s.daily.length, 2, 'une seule entrée par jour calendaire, la trace sans date exclue');
+  assert.strictEqual(s.daily[0].date, '2026-09-01');
+  assert.strictEqual(s.daily[1].date, '2026-09-02');
+  assert.strictEqual(s.daily[1].distanceKm, 35, '20 + 15, les deux sorties du même jour additionnées');
+  assert.strictEqual(s.daily[1].ascentM, 500);
+  assert.strictEqual(s.daily[1].elapsedTimeS, 3000, '1800 + 1200');
+});
+
+test('daily : un jour dont AUCUNE trace n\'a de durée connue garde elapsedTimeS à null (pas 0)', async () => {
+  const db = getDb();
+  insertStage(db, { name: 'Sans durée', distanceKm: 20, ascentM: 300, date: '2026-09-02' });
+  const s = await summary();
+  assert.strictEqual(s.daily.length, 1);
+  assert.strictEqual(s.daily[0].elapsedTimeS, null);
+});
+
+test('recent : trie par date décroissante, tronque à 20, place les traces sans date en dernier (par id décroissant)', async () => {
+  const db = getDb();
+  insertStage(db, { name: 'Plus ancienne', distanceKm: 10, ascentM: 100, date: '2026-01-01' });
+  insertStage(db, { name: 'Plus récente', distanceKm: 20, ascentM: 200, date: '2026-09-01' });
+  insertStage(db, { name: 'Sans date', distanceKm: 5, ascentM: 50 });
+  const s = await summary();
+  assert.strictEqual(s.recent.length, 3);
+  assert.strictEqual(s.recent[0].name, 'Plus récente');
+  assert.strictEqual(s.recent[1].name, 'Plus ancienne');
+  assert.strictEqual(s.recent[2].name, 'Sans date', 'une trace sans date connue va en dernier, jamais mélangée arbitrairement');
+});
+
+// Trouvaille de relecture adverse (18/09/2026, CLAUDE.md règle 3) : PUT
+// /api/stages/:id (route générique, non scopée aux traces) ne valide que le
+// TYPE de `date` (optionalString), jamais son format — une date au format
+// JJ/MM/AAAA écrite par cette voie se triait lexicographiquement au mauvais
+// endroit dans daily/recent (« 01/01/2026 » < « 2025-12-31 » car '0' < '2'),
+// silencieusement, sans qu'aucune exception ne le signale.
+test('date au format inattendu (écrite via PUT générique, pas l\'import) : traitée comme absente, pas de tri faussé', async () => {
+  const db = getDb();
+  insertStage(db, { name: 'Réveillon', distanceKm: 10, ascentM: 100, date: '2025-12-31' });
+  insertStage(db, { name: 'MalFormee', distanceKm: 20, ascentM: 200, date: '01/01/2026' });
+  const s = await summary();
+  assert.strictEqual(s.daily.length, 1, 'seule la date bien formée alimente daily, la mal formée est traitée comme absente');
+  assert.strictEqual(s.daily[0].date, '2025-12-31');
+  assert.strictEqual(s.recent.find((r) => r.name === 'MalFormee').date, null, 'jamais affichée telle quelle, même logique qu\'une date absente');
+  assert.strictEqual(s.recent[0].name, 'Réveillon', 'la trace mal formée retombe en fin de liste comme une trace sans date, ne casse pas le tri des dates valides');
 });
