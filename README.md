@@ -194,7 +194,7 @@ npm run generate -- --import 1903       # import seul
   du pipeline est strictement identique ; les fiches portent l'avertissement
   « données simulées ».
 
-## Mes traces : import GPX et connexion Suunto
+## Mes traces : import GPX et connexions Suunto / Strava
 
 L'écran **« Mes traces »** (`/traces.html`) transforme vos sorties réelles en
 étapes ÉtapeForge complètes (profil, côtes détectées/catégorisées, km par km,
@@ -210,10 +210,18 @@ exports) — la trace remplace le routage, le reste du pipeline est identique :
   (gratuite) enregistrée sur [apizone.suunto.com](https://apizone.suunto.com) ;
   **guide pas-à-pas : [docs/SUUNTO.md](docs/SUUNTO.md)**. Les identifiants
   restent dans votre base locale.
-- **Statistiques de la sortie**, façon VeloViewer, quand le fichier importé
-  porte un horodatage par point (`<time>` GPX ou `timestamp` FIT) : durée
-  totale, vitesse moyenne, vitesse maximale (lissée sur 30 s pour absorber le
-  bruit GPS). Absente pour un parcours planifié sans horodatage ou une étape
+- **Connexion Strava** (optionnelle, même principe) : OAuth2 vers votre
+  compte Strava, liste de vos sorties, import en un clic (reconstruction du
+  tracé depuis les flux GPS de l'API, avec horodatage par point). Nécessite
+  une application (gratuite) enregistrée sur
+  [strava.com/settings/api](https://www.strava.com/settings/api) ;
+  **guide pas-à-pas : [docs/STRAVA.md](docs/STRAVA.md)**. Les identifiants
+  restent dans votre base locale.
+- **Statistiques de la sortie**, façon VeloViewer, quand la trace importée
+  porte un horodatage par point (`<time>` GPX, `timestamp` FIT, ou flux
+  `time` Strava) : durée totale, vitesse moyenne, vitesse maximale (lissée
+  sur 30 s pour absorber le bruit GPS). Absente pour un parcours planifié
+  sans horodatage, un export GPX Strava (qui n'en porte pas) ou une étape
   reconstruite par routage — rien n'est deviné à la place d'une mesure qui
   n'existe pas.
 
