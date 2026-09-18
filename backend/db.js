@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS stages (
   official_distance_km REAL,   -- distance officielle (mode archives)
   generated_distance_km REAL,
   total_ascent_m REAL,
+  elapsed_time_s REAL,         -- trace importée seulement : dernier - premier timestamp GPX/FIT — voir ensureColumn ci-dessous
   state TEXT NOT NULL DEFAULT 'draft',  -- draft | generating | done | error
   progress TEXT,               -- JSON : {step, detail, percent}
   checks TEXT,                 -- JSON : bloc d'audits qualité
@@ -183,6 +184,7 @@ function getDb() {
   ensureColumn(db, 'waypoints', 'bonus_sec', 'bonus_sec TEXT');
   ensureColumn(db, 'waypoints', 'country_hint', 'country_hint TEXT');
   ensureColumn(db, 'waypoints', 'region_hint', 'region_hint TEXT');
+  ensureColumn(db, 'stages', 'elapsed_time_s', 'elapsed_time_s REAL');
   // Chantier L, Tour de France Femmes : `year` seul comme clé d'édition
   // aurait fait écraser silencieusement l'un des deux tours par
   // importEdition() (DELETE + INSERT sur la même année) dès qu'Hommes et
