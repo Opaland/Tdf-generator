@@ -23,7 +23,7 @@ module.exports = [
     // l'autre ne doit se voir imposer sa propre déclaration comme un global
     // externe, sinon no-redeclare se déclenche sur le fichier qui la crée).
     files: ['frontend/**/*.js'],
-    ignores: ['frontend/common.js', 'frontend/profile.js', 'frontend/compare.js', 'frontend/editor.js', 'frontend/stage.js', 'frontend/archives.js'],
+    ignores: ['frontend/common.js', 'frontend/profile.js', 'frontend/compare.js', 'frontend/editor.js', 'frontend/stage.js', 'frontend/archives.js', 'frontend/traces.js'],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'script',
@@ -93,6 +93,20 @@ module.exports = [
     // compare.js/editor.js/stage.js — sprint dédié, panne réseau transitoire
     // pendant le sondage de génération.
     files: ['frontend/archives.js'],
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: 'script',
+      globals: { ...globals.browser, ...globals.node, EF: 'readonly' },
+    },
+  },
+  {
+    // traces.js : servi tel quel au navigateur ET require()-able côté test
+    // (computeAwards/buildCumulativeChart/buildWeeklyBarChart, testées
+    // directement — voir test/tracesDashboard.test.js) grâce à la garde
+    // `typeof document`/`typeof module`, même schéma que
+    // compare.js/editor.js/stage.js/archives.js — bilan personnel façon
+    // VeloViewer (backlog #228).
+    files: ['frontend/traces.js'],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'script',
