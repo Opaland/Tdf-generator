@@ -345,6 +345,115 @@ function buildWeeklyBarChart(daily, W, H) {
 // jour/semaine/mois/année, distance cumulée, distance/semaine, cols gravis,
 // sorties récentes. Non essentiel : n'affiche rien si aucune trace n'est
 // encore importée, plutôt qu'un bilan vide qui aurait l'air cassé.
+
+async function renderStrava() {
+  const box = document.getElementById('strava-box');
+  let st;
+  try {
+    st = await EF.api('/api/strava/status');
+  } catch (err) {
+    box.innerHTML = `<p class="meta-line">Erreur : ${EF.esc(err.message)}</p>`;
+    return;
+  }
+
+  if (!st.configured) {
+    box.innerHTML = `
+      <p class="meta-line"><b>Pas indispensable :</b> l'export GPX ci-dessus donne le même résultat
+        sans aucune configuration. La connexion directe ajoute seulement la liste automatique
+        de vos sorties.</p>
+      <p>L'API Strava nécessite une application (gratuite) enregistrée sur
+        <a href="https://www.strava.com/settings/api" target="_blank" rel="noopener">strava.com/settings/api</a> :
+        déclarez l'URL de rappel ci-dessous, puis saisissez le Client ID et le Client Secret ici
+        (stockés uniquement dans votre base locale).
+        <a href="https://github.com/Opaland/Tdf-generator/blob/main/docs/STRAVA.md" target="_blank" rel="noopener">Guide pas-à-pas détaillé</a>.</p>
+      <p class="meta-line">URL de rappel (« Authorization Callback Domain ») à déclarer : <code>${EF.esc(st.redirect_uri)}</code></p>
+      <div class="row">
+        <label class="field">Client ID<input id="st-id" autocomplete="off"></label>
+        <label class="field">Client secret<input id="st-secret" type="password" autocomplete="off"></label>
+      </div>
+      <button id="st-save">Enregistrer la configuration</button>`;
+    document.getElementById('st-save').addEventListener('click', async () => {
+      await EF.api('/api/strava/config', {
+        method: 'POST',
+        body: {
+          client_id: document.getElementById('st-id').value.trim(),
+          client_secret: document.getElementById('st-secret').value.trim(),
+        },
+      });
+      renderStrava();
+    });
+    return;
+  }
+
+  if (!st.connected) {
+    box.innerHTML = `
+      <p class="meta-line">Application configurée. Connectez votre compte Strava pour lister vos sorties.</p>
+      <a class="btn" href="/api/strava/connect">Se connecter à Strava</a>`;
+    return;
+  }
+
+  box.innerHTML = `
+    <p class="meta-line">Connecté${st.user ? ` en tant que <b>${EF.esc(st.user)}</b>` : ''}.
+      <button id="st-refresh" class="secondary">↻ Rafraîchir</button>
+      <button id="st-disconnect" class="secondary">Déconnecter</button></p>
+    <div id="st-list"><p class="meta-line">chargement des sorties…</p></div>`;
+  document.getElementById('st-disconnect').addEventListener('click', async () => {
+    await EF.api('/api/strava/disconnect', { method: 'POST' });
+    renderStrava();
+  });
+  document.getElementById('st-refresh').addEventListener('click', renderStrava);
+
+  const list = document.getElementById('st-list');
+  try {
+    const activities = await EF.api('/api/strava/activities?limit=50');
+    if (!activities.length) {
+      list.innerHTML = '<p class="meta-line">Aucune sortie trouvée.</p>';
+      return;
+    }
+    list.innerHTML = `<table class="stats"><thead><tr>
+        <th>Date</th><th>Nom</th><th>Distance</th><th>D+</th><th></th>
+      </tr></thead><tbody>` +
+      activities.map((a, i) => `<tr>
+        <td>${a.startDate ? new Date(a.startDate).toLocaleDateString('fr-FR') : '—'}</td>
+        <td>${EF.esc(a.name || 'Sortie ' + (i + 1))}</td>
+        <td>${a.distance_m ? (a.distance_m / 1000).toFixed(1) + ' km' : '—'}</td>
+        <td>${a.ascent_m ? Math.round(a.ascent_m) + ' m' : '—'}</td>
+        <td><button data-id="${EF.esc(String(a.id))}" data-name="${EF.esc(a.name || '')}">Importer</button></td>
+      </tr>`).join('') + '</tbody></table>';
+    list.querySelectorAll('button[data-id]').forEach((b) =>
+      b.addEventListener('click', async () => {
+        b.disabled = true;
+        b.textContent = 'import…';
+        try {
+          // Même famille que l'import Suunto ci-dessus (aller-retour réseau
+          // externe côté serveur — rafraîchissement de jeton OAuth puis
+          // téléchargement des flux depuis l'API Strava) : même délai étendu.
+          const r = await EF.api('/api/strava/import', {
+            method: 'POST',
+            body: { id: b.dataset.id, name: b.dataset.name || undefined },
+            timeoutMs: 60000,
+          });
+          location.href = `/stage.html?id=${r.id}`;
+        } catch (err) {
+          b.textContent = 'échec';
+          b.title = err.message;
+          b.disabled = false;
+          let msg = b.nextElementSibling;
+          if (!msg || !msg.classList.contains('err-msg')) {
+            msg = document.createElement('span');
+            msg.className = 'err-msg meta-line';
+            msg.style.cssText = 'display:block;margin:4px 0 0';
+            b.after(msg);
+          }
+          msg.textContent = 'Erreur : ' + err.message;
+        }
+      })
+    );
+  } catch (err) {
+    list.innerHTML = `<p class="meta-line">Erreur : ${EF.esc(err.message)}</p>`;
+  }
+}
+
 async function loadSummary() {
   if (window.EF_STATIC) return;
   const box = document.getElementById('summary-box');
@@ -426,6 +535,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     setTimeout(renderSuunto, 2500);
   } else {
     renderSuunto();
+  }
+
+  const stravaFlag = EF.qs('strava');
+  if (stravaFlag && stravaFlag !== 'ok') {
+    document.getElementById('strava-box').innerHTML = `<p class="meta-line">Connexion échouée : ${EF.esc(stravaFlag)}</p>`;
+    setTimeout(renderStrava, 2500);
+  } else {
+    renderStrava();
   }
 });
 }

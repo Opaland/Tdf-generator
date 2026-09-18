@@ -14,6 +14,7 @@ const { isOffline, setOffline, httpText } = require('../pipeline/http');
 const { stageToGpx, stageToTcx, stageToKml, stagePayload, tourToStandaloneHtml, stageToStandaloneHtml, stageToRoadbookHtml, ATTRIBUTIONS } = require('./exports');
 
 const { suuntoRouter } = require('./suunto');
+const { stravaRouter } = require('./strava');
 const { parseGpx, parseFit, importTrackAsStage } = require('../pipeline/importTrack');
 const { authRouter, requireAuth, AUTH_REQUIRED } = require('./auth');
 const { startScheduledBackups, getBackupStatus } = require('./backup');
@@ -566,6 +567,9 @@ app.post('/api/import/link', wrap(async (req, res) => {
 
 // Connecteur Suunto (OAuth2, liste des sorties, import FIT).
 app.use('/api/suunto', suuntoRouter);
+
+// Connecteur Strava (OAuth2, liste des activités, import par flux GPS).
+app.use('/api/strava', stravaRouter);
 
 // ---------------------------------------------------------------- catalogue des cols
 // Toutes les côtes détectées, toutes étapes confondues (liste dense façon VeloViewer).

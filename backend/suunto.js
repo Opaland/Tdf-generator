@@ -11,7 +11,7 @@
 //        → /api/suunto/import (export FIT du workout → pipeline d'import de trace).
 
 const express = require('express');
-const { getDb } = require('./db');
+const { getSetting, setSetting } = require('./settings');
 const { importTrackAsStage, parseFit } = require('../pipeline/importTrack');
 const { fetchWithTimeout } = require('../pipeline/http');
 
@@ -24,23 +24,6 @@ const API_BASE = process.env.SUUNTO_API_BASE || 'https://cloudapi.suunto.com';
 // Surchageable comme OAUTH_BASE/API_BASE ci-dessus, pour un test qui vérifie
 // l'abandon réel sans attendre 15 s.
 const SUUNTO_TIMEOUT_MS = parseInt(process.env.SUUNTO_TIMEOUT_MS || '15000', 10);
-
-// --- petit stockage clé/valeur local -------------------------------------------
-function ensureSettings(db) {
-  db.exec('CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT)');
-}
-function getSetting(key) {
-  const db = getDb();
-  ensureSettings(db);
-  const row = db.prepare('SELECT value FROM settings WHERE key = ?').get(key);
-  return row ? row.value : null;
-}
-function setSetting(key, value) {
-  const db = getDb();
-  ensureSettings(db);
-  if (value == null) db.prepare('DELETE FROM settings WHERE key = ?').run(key);
-  else db.prepare('INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)').run(key, String(value));
-}
 
 // Contrairement aux routes d'écriture de backend/server.js (requireString/
 // optionalString), POST /config n'appliquait aucune validation de type :
