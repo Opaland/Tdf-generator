@@ -386,13 +386,32 @@ app.get('/api/traces/summary', wrap(async (req, res) => {
   const db = getDb();
   const traces = db
     .prepare(
-      `SELECT s.id, s.generated_distance_km, s.total_ascent_m
+      `SELECT s.id, s.name, s.date, s.generated_distance_km, s.total_ascent_m, s.elapsed_time_s
        FROM stages s JOIN tracks t ON t.stage_id = s.id
        WHERE t.router = 'trace' AND s.state = 'done'`
     )
     .all();
   if (!traces.length) {
-    return res.json({ traceCount: 0, totalDistanceKm: 0, totalAscentM: 0, highestSummit: null, climbs: [] });
+    return res.json({
+      traceCount: 0, totalDistanceKm: 0, totalAscentM: 0, totalElapsedTimeS: null, tracesWithTimeCount: 0,
+      highestSummit: null, climbs: [], daily: [], recent: [],
+    });
+  }
+  // stages.date n'est PAS garanti au format YYYY-MM-DD ici : posé ainsi par
+  // dateAndDurationFromPoints() (pipeline/importTrack.js) à l'import, mais
+  // PUT /api/stages/:id (route générique, non scopée aux traces) ne valide
+  // que le TYPE de `date` (optionalString), jamais son format — un appel API
+  // direct peut donc y écrire n'importe quelle chaîne. `daily`/`recent`
+  // ci-dessous trient lexicographiquement sur ce champ : un format différent
+  // (ex. JJ/MM/AAAA) s'y intercalerait silencieusement au mauvais endroit
+  // plutôt que de lever une erreur (trouvaille de relecture adverse,
+  // 18/09/2026 — CLAUDE.md règle 3, format supposé compatible entre deux
+  // couches sans vérification). Normalisé une seule fois ici, plutôt que
+  // vérifié à chaque site d'usage plus bas : un format inattendu est traité
+  // exactement comme une date absente (jamais affiché tel quel, jamais
+  // utilisé pour trier), même garde que frontend/editor.js:239.
+  for (const t of traces) {
+    if (t.date != null && !/^\d{4}-\d{2}-\d{2}$/.test(t.date)) t.date = null;
   }
   const traceIds = new Set(traces.map((t) => t.id));
   const allClimbs = db.prepare('SELECT stage_id, name, category, summit_ele_m FROM climbs').all();
@@ -423,12 +442,61 @@ app.get('/api/traces/summary', wrap(async (req, res) => {
     byName.set(c.name, entry);
   }
 
+  // elapsed_time_s : null pour toute trace importée avant PR #227, ou dont le
+  // GPX/FIT source ne portait aucun horodatage exploitable (voir
+  // dateAndDurationFromPoints(), pipeline/importTrack.js) — jamais traité
+  // comme 0, qui se lirait comme une sortie réellement chronométrée à zéro
+  // seconde (CLAUDE.md règle 10). tracesWithTimeCount permet au frontend
+  // d'afficher honnêtement "X sur Y sorties chronométrées" plutôt que de
+  // laisser croire que totalElapsedTimeS couvre traceCount sorties.
+  const withTime = traces.filter((t) => t.elapsed_time_s != null);
+  const totalElapsedTimeS = withTime.length ? Math.round(withTime.reduce((sum, t) => sum + t.elapsed_time_s, 0)) : null;
+
+  // Agrégats par jour calendaire (date de DÉPART de la sortie, voir
+  // dateAndDurationFromPoints — UTC) : base commune pour le graphique cumul/
+  // barres hebdomadaires et pour tout calcul d'award (meilleur jour/semaine/
+  // mois/année) fait côté frontend, plutôt que de dupliquer cette logique de
+  // regroupement calendaire ici ET côté client. Une trace sans date connue
+  // (GPX/FIT sans horodatage, ou import antérieur à PR #227) est comptée
+  // dans les totaux ci-dessus mais absente de `daily` — elle ne peut pas
+  // être rattachée à un jour, jamais approximée.
+  const dailyMap = new Map();
+  for (const t of traces) {
+    if (!t.date) continue;
+    const entry = dailyMap.get(t.date) || { date: t.date, distanceKm: 0, ascentM: 0, elapsedTimeS: null };
+    entry.distanceKm += t.generated_distance_km || 0;
+    entry.ascentM += t.total_ascent_m || 0;
+    if (t.elapsed_time_s != null) entry.elapsedTimeS = (entry.elapsedTimeS || 0) + t.elapsed_time_s;
+    dailyMap.set(t.date, entry);
+  }
+  const daily = [...dailyMap.values()]
+    .map((d) => ({ ...d, distanceKm: Math.round(d.distanceKm * 10) / 10, ascentM: Math.round(d.ascentM) }))
+    .sort((a, b) => a.date.localeCompare(b.date));
+
+  // Sorties récentes : les traces sans date connue n'ont pas d'ordre
+  // chronologique significatif — reléguées en fin de liste (par id
+  // décroissant, un repli raisonnable : plus récemment importées d'abord)
+  // plutôt que mélangées arbitrairement parmi les traces datées.
+  const recent = [...traces]
+    .sort((a, b) => (b.date || '').localeCompare(a.date || '') || b.id - a.id)
+    .slice(0, 20)
+    .map((t) => ({
+      id: t.id, name: t.name, date: t.date,
+      distanceKm: Math.round((t.generated_distance_km || 0) * 10) / 10,
+      ascentM: Math.round(t.total_ascent_m || 0),
+      elapsedTimeS: t.elapsed_time_s,
+    }));
+
   res.json({
     traceCount: traces.length,
     totalDistanceKm: Math.round(traces.reduce((sum, t) => sum + (t.generated_distance_km || 0), 0) * 10) / 10,
     totalAscentM: Math.round(traces.reduce((sum, t) => sum + (t.total_ascent_m || 0), 0)),
+    totalElapsedTimeS,
+    tracesWithTimeCount: withTime.length,
     highestSummit,
     climbs: [...byName.values()].sort((a, b) => b.maxSummitM - a.maxSummitM),
+    daily,
+    recent,
   });
 }));
 
