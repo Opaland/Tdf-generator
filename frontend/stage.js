@@ -132,6 +132,24 @@ function renderFiche() {
   ].filter(Boolean).join(' · ');
   document.getElementById('st-meta').textContent = meta;
 
+  // Statistiques de la sortie — durée, vitesse moyenne/max (pipeline/rideStats.js) —
+  // uniquement pour une trace importée avec horodatage exploitable (GPX <time> ou
+  // FIT timestamp) : `elapsed_time_s` reste NULL pour toute étape reconstruite par
+  // routage, et pour une trace sans horodatage, jamais un 0 qui se ferait passer
+  // pour une vraie mesure. Même gabarit de tuiles que #tour-stats (tourmap.js) :
+  // inspiré de l'habillage VeloViewer, cité au même titre dans le README.
+  if (st.elapsed_time_s != null) {
+    const tiles = [
+      { v: EF.formatDuration(st.elapsed_time_s), l: 'durée totale' },
+      { v: `${st.avg_speed_kmh} km/h`, l: 'vitesse moyenne' },
+      { v: `${st.max_speed_kmh} km/h`, l: 'vitesse maximale (lissée 30 s)' },
+    ];
+    document.getElementById('ride-stats').innerHTML = tiles
+      .map((t) => `<div class="stat"><div class="v">${t.v}</div><div class="l">${EF.esc(t.l)}</div></div>`)
+      .join('');
+    document.getElementById('ride-stats-section').style.display = '';
+  }
+
   // Bandeau reconstruction historique.
   const delta = EF.distanceDelta(st.official_distance_km, st.generated_distance_km);
   if (delta != null) {
