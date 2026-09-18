@@ -9,9 +9,10 @@
 // garantissait qu'un `next` reçu de l'URL le reste. Exécute le vrai code de
 // login.js dans un bac à sable minimal (même motif que
 // test/apiTimeout.test.js pour common.js) — login.js exécute son
-// initialisation DOM au chargement du script, donc un `document` factice
-// suffisant pour ne pas planter est nécessaire avant de pouvoir récupérer
-// `safeNext`.
+// initialisation DOM au chargement du script (dont, depuis le support PWA,
+// EF.registerServiceWorker()), donc un `document` et un `EF` factices
+// suffisants pour ne pas planter sont nécessaires avant de pouvoir
+// récupérer `safeNext`.
 
 const { test } = require('node:test');
 const assert = require('node:assert');
@@ -33,8 +34,9 @@ function fakeEl() {
 function loadSafeNext() {
   const doc = { getElementById: () => fakeEl() };
   const loc = { origin: 'https://etapeforge.example' };
-  const run = new Function('document', 'location', src + '\nreturn safeNext;');
-  return run(doc, loc);
+  const ef = { registerServiceWorker() {} };
+  const run = new Function('document', 'location', 'EF', src + '\nreturn safeNext;');
+  return run(doc, loc, ef);
 }
 
 const safeNext = loadSafeNext();

@@ -3,6 +3,11 @@
 
 let mode = 'login'; // 'login' | 'register'
 
+// login.html est la seule page qui n'appelle pas EF.initChrome() (pas de nav
+// chrome sur l'écran de connexion) — appel dédié pour que l'installabilité
+// PWA ne dépende pas d'être passé par une autre page d'abord.
+EF.registerServiceWorker();
+
 // EF.requireAuthOrRedirect() (common.js) ne génère jamais que des chemins
 // relatifs same-origin (`location.pathname + location.search`) — mais rien
 // n'empêche un lien fabriqué à la main (phishing : "session expirée,

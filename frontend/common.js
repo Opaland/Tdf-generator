@@ -167,7 +167,22 @@ const EF = {
     return res.json();
   },
 
+  /**
+   * Enregistre le service worker PWA (installabilité — voir frontend/sw.js,
+   * qui ne met délibérément rien en cache). Appelé depuis initChrome() ET
+   * login.js (seule page qui n'appelle pas initChrome) pour couvrir toutes
+   * les pages d'entrée. `'serviceWorker' in navigator` absent sur un
+   * navigateur trop ancien ou un contexte non sécurisé (http:// hors
+   * localhost) : dégradation silencieuse, l'appli reste utilisable en onglet
+   * classique, jamais bloquante.
+   */
+  registerServiceWorker() {
+    if (window.EF_STATIC) return; // GitHub Pages : pas de /sw.js servi par ce dépôt
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(() => {});
+  },
+
   async initChrome(active) {
+    EF.registerServiceWorker();
     // La nav ne dépend d'aucun appel réseau (les liens sont statiques) — on
     // la construit et l'insère en tout premier, avant tout `await`, pour
     // qu'elle s'affiche sans attendre la vérification d'auth ni le statut

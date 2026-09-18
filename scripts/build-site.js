@@ -129,12 +129,38 @@ function main() {
   writeJson('data/climbs.json', climbs);
 
   // --- 2. Frontend copié avec chemins réécrits ---------------------------------
-  for (const f of fs.readdirSync(FRONTEND)) {
-    const src = fs.readFileSync(path.join(FRONTEND, f), 'utf8');
-    if (f === 'index.html') write('editeur.html', rewrite(src, { html: true }));
-    else if (f.endsWith('.html')) write(f, rewrite(src, { html: true }));
-    else if (f.endsWith('.js')) write(f, rewrite(src));
-    else write(f, src);
+  // `withFileTypes` : sans ça, un sous-dossier (ex. icons/, PWA) fait planter
+  // le readFileSync ci-dessous (EISDIR, « illegal operation on a directory »)
+  // — copié récursivement tel quel à la place, jamais réécrit (que des
+  // binaires, aucune URL absolue à corriger dedans).
+  for (const f of fs.readdirSync(FRONTEND, { withFileTypes: true })) {
+    if (f.isDirectory()) {
+      fs.cpSync(path.join(FRONTEND, f.name), path.join(DIST, f.name), { recursive: true });
+      continue;
+    }
+    const srcPath = path.join(FRONTEND, f.name);
+    if (f.name === 'index.html') write('editeur.html', rewrite(fs.readFileSync(srcPath, 'utf8'), { html: true }));
+    else if (f.name.endsWith('.html')) write(f.name, rewrite(fs.readFileSync(srcPath, 'utf8'), { html: true }));
+    else if (f.name.endsWith('.js')) write(f.name, rewrite(fs.readFileSync(srcPath, 'utf8')));
+    else if (f.name === 'manifest.json') {
+      // PWA (backlog utilisateur, 18/09/2026) : start_url/scope et les
+      // chemins d'icônes sont absolus (corrects pour le serveur Express, qui
+      // sert tout depuis la racine) — la démo GitHub Pages, elle, est servie
+      // sous un sous-chemin (opaland.github.io/Tdf-generator/), d'où ce
+      // réécrivage dédié plutôt que la simple copie du else ci-dessous.
+      const manifest = JSON.parse(fs.readFileSync(srcPath, 'utf8'));
+      manifest.start_url = '.';
+      manifest.scope = './';
+      for (const icon of manifest.icons) icon.src = icon.src.replace(/^\//, '');
+      write(f.name, JSON.stringify(manifest));
+    } else {
+      // Binaire (icônes PNG…) ou texte non HTML/JS sans URL absolue à
+      // réécrire (style.css) : lu et réécrit en Buffer brut, jamais décodé
+      // en utf8 — un décodage texte corromprait tout contenu binaire
+      // (trouvaille anticipée en ajoutant les icônes PWA, ce dépôt n'avait
+      // jamais eu de fichier binaire sous frontend/ jusqu'ici).
+      write(f.name, fs.readFileSync(srcPath));
+    }
   }
   // Leaflet vendorisé.
   const leafletSrc = path.join(ROOT, 'node_modules', 'leaflet', 'dist');
@@ -155,6 +181,10 @@ function main() {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#141414">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
 <title>ÉtapeForge — démo interactive</title>
 <link rel="stylesheet" href="style.css">
 <style>
