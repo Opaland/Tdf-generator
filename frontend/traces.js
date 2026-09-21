@@ -340,6 +340,69 @@ function buildWeeklyBarChart(daily, W, H) {
   </svg>`;
 }
 
+/** Couleur d'une case de la heatmap : même paire silhouette/trait que les
+ * autres graphiques de ce fichier (#ead9b0 clair → #7a5c2e foncé),
+ * interpolée sur 4 niveaux d'intensité (1 = faible, 4 = fort) — jamais un
+ * nouvel indice de couleur pour rester cohérent avec la charte déjà en
+ * place. Niveau 0 (aucune sortie) : un gris neutre clairement distinct des
+ * niveaux actifs, pas juste le niveau 1 le plus pâle (GitHub distingue de
+ * la même façon "aucune contribution" du niveau d'activité le plus bas). */
+function heatmapColor(level) {
+  if (level <= 0) return '#ece7d8';
+  const light = [0xea, 0xd9, 0xb0];
+  const dark = [0x7a, 0x5c, 0x2e];
+  const t = Math.min(1, level / 4);
+  const rgb = light.map((c, i) => Math.round(c + (dark[i] - c) * t));
+  return `#${rgb.map((c) => c.toString(16).padStart(2, '0')).join('')}`;
+}
+
+/**
+ * Heatmap calendaire façon GitHub (backlog #228, phase « Exploration ») :
+ * une case par jour, semaines en colonnes (lundi en haut, dimanche en bas —
+ * même convention ISO que isoWeekKey ci-dessus), intensité = distance du
+ * jour relative au jour le plus actif de la période affichée (jamais une
+ * échelle absolue en km, qui n'aurait aucun sens comparée d'un utilisateur
+ * à l'autre). `today` injectable (tests) — par défaut la date réelle, pour
+ * que la fenêtre affichée se termine toujours sur la semaine en cours,
+ * comme GitHub.
+ */
+function buildCalendarHeatmap(daily, { weeks = 52, today = new Date() } = {}) {
+  const byDate = new Map(daily.map((d) => [d.date, d.distanceKm]));
+  const maxDistance = Math.max(0, ...daily.map((d) => d.distanceKm));
+  const todayKey = today.toISOString().slice(0, 10);
+  const mondayOfCurrentWeek = new Date(isoWeekKey(todayKey) + 'T00:00:00Z');
+  const startMonday = new Date(mondayOfCurrentWeek.getTime() - (weeks - 1) * 7 * 86400000);
+
+  const cell = 11;
+  const gap = 3;
+  const step = cell + gap;
+  const M = { l: 4, t: 16, r: 4, b: 4 };
+  const W = M.l + weeks * step - gap + M.r;
+  const H = M.t + 7 * step - gap + M.b;
+
+  let cells = '';
+  let labels = '';
+  let lastMonth = null;
+  for (let w = 0; w < weeks; w++) {
+    const colStart = new Date(startMonday.getTime() + w * 7 * 86400000);
+    const month = colStart.getUTCMonth();
+    if (month !== lastMonth) {
+      labels += `<text x="${M.l + w * step}" y="${M.t - 5}" font-size="9" fill="#8a7a58">${EF.esc(colStart.toLocaleDateString('fr-FR', { month: 'short', timeZone: 'UTC' }))}</text>`;
+      lastMonth = month;
+    }
+    for (let d = 0; d < 7; d++) {
+      const day = new Date(colStart.getTime() + d * 86400000);
+      const dateKey = day.toISOString().slice(0, 10);
+      if (day > today) continue; // jamais de case pour un jour futur
+      const distanceKm = byDate.get(dateKey) || 0;
+      const level = distanceKm > 0 && maxDistance > 0 ? Math.max(1, Math.ceil((distanceKm / maxDistance) * 4)) : 0;
+      const label = `${EF.esc(new Date(dateKey + 'T00:00:00Z').toLocaleDateString('fr-FR'))} : ${distanceKm > 0 ? Math.round(distanceKm * 10) / 10 + ' km' : 'aucune sortie'}`;
+      cells += `<rect x="${M.l + w * step}" y="${M.t + d * step}" width="${cell}" height="${cell}" rx="2" fill="${heatmapColor(level)}"><title>${label}</title></rect>`;
+    }
+  }
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Calendrier des sorties, ${weeks} dernières semaines">${labels}${cells}</svg>`;
+}
+
 // Bilan personnel façon VeloViewer (backlog #228, phase fondations) : agrège
 // les traces déjà importées (GPX/lien/Suunto) — tuiles stats, records
 // jour/semaine/mois/année, distance cumulée, distance/semaine, cols gravis,
@@ -370,6 +433,21 @@ async function loadSummary() {
     const chartW = Math.max(320, Math.min(900, (document.getElementById('summary-chart-cumul').clientWidth || 700)));
     document.getElementById('summary-chart-cumul').innerHTML = buildCumulativeChart(s.daily, chartW, 160);
     document.getElementById('summary-chart-weekly').innerHTML = buildWeeklyBarChart(s.daily, chartW, 160);
+
+    const exploration = s.exploration || { countries: [], regions: [], cities: [] };
+    const explorationTiles = [
+      { v: exploration.countries.length, l: `pays visité${exploration.countries.length > 1 ? 's' : ''}` },
+      { v: exploration.regions.length, l: `région${exploration.regions.length > 1 ? 's' : ''} visitée${exploration.regions.length > 1 ? 's' : ''}` },
+      { v: exploration.cities.length, l: `ville${exploration.cities.length > 1 ? 's' : ''} visitée${exploration.cities.length > 1 ? 's' : ''}` },
+    ];
+    document.getElementById('summary-exploration-tiles').innerHTML = explorationTiles
+      .map((t) => `<div class="stat"><div class="v">${EF.esc(String(t.v))}</div><div class="l">${EF.esc(t.l)}</div></div>`)
+      .join('');
+    document.getElementById('summary-heatmap').innerHTML = buildCalendarHeatmap(s.daily);
+    const citiesList = document.getElementById('summary-cities');
+    citiesList.innerHTML = exploration.cities
+      .map((c) => `<li class="fauxplat-item">${EF.esc(c.name)}${c.count > 1 ? ` — ${c.count} sorties` : ''}</li>`)
+      .join('') || '<li class="fauxplat-item meta-line">Aucune ville identifiée (géocodage indisponible au moment de l\'import).</li>';
 
     const list = document.getElementById('summary-climbs');
     list.innerHTML = s.climbs.map((c) => {
@@ -431,5 +509,5 @@ document.addEventListener('DOMContentLoaded', async () => {
 }
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { isoWeekKey, formatPeriodLabel, formatDuration, computeAwards, buildCumulativeChart, buildWeeklyBarChart };
+  module.exports = { isoWeekKey, formatPeriodLabel, formatDuration, computeAwards, buildCumulativeChart, buildWeeklyBarChart, buildCalendarHeatmap, heatmapColor };
 }

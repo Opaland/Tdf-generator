@@ -15,6 +15,7 @@ global.EF = { esc: (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '
 
 const {
   isoWeekKey, formatPeriodLabel, formatDuration, computeAwards, buildCumulativeChart, buildWeeklyBarChart,
+  buildCalendarHeatmap, heatmapColor,
 } = require('../frontend/traces.js');
 
 function day(date, distanceKm, ascentM, elapsedTimeS) {
@@ -107,4 +108,38 @@ test('buildWeeklyBarChart : semaines sans sortie insérées à 0, jamais de NaN,
 
 test('buildWeeklyBarChart : daily vide → message, pas de plantage', () => {
   assert.ok(!buildWeeklyBarChart([], 700, 160).includes('<svg'));
+});
+
+test('heatmapColor : niveau 0 distinct des niveaux actifs, intensité croissante et monotone de 1 à 4', () => {
+  const zero = heatmapColor(0);
+  const levels = [1, 2, 3, 4].map(heatmapColor);
+  assert.notStrictEqual(zero, levels[0], 'le niveau "aucune sortie" doit être visuellement distinct du niveau actif le plus faible');
+  // Luminosité (somme RGB) strictement décroissante : clair (faible activité) → foncé (forte activité).
+  const luminance = (hex) => hex.slice(1).match(/../g).reduce((sum, h) => sum + parseInt(h, 16), 0);
+  for (let i = 1; i < levels.length; i++) {
+    assert.ok(luminance(levels[i]) < luminance(levels[i - 1]), `niveau ${i + 1} doit être plus foncé que le niveau ${i}`);
+  }
+});
+
+test('buildCalendarHeatmap : daily vide → grille de 52 semaines toutes au niveau "aucune sortie", pas de plantage', () => {
+  const svg = buildCalendarHeatmap([], { today: new Date('2026-09-21T00:00:00Z') });
+  assert.ok(svg.includes('<svg'));
+  assert.ok(!svg.includes('NaN'));
+  assert.ok(svg.includes('aucune sortie'));
+});
+
+test('buildCalendarHeatmap : un jour connu apparaît avec sa distance dans l\'infobulle, jamais de case pour un jour futur', () => {
+  const today = new Date('2026-09-21T00:00:00Z');
+  const daily = [day('2026-09-15', 45.2, 300, 3600)];
+  const svg = buildCalendarHeatmap(daily, { today, weeks: 4 });
+  assert.ok(svg.includes('45.2 km'), `la distance du jour connu doit apparaître : ${svg}`);
+  // Le dernier jour de la grille (dimanche de la semaine en cours) est le 2026-09-20
+  // (dimanche) ou avant — jamais le 21 (aujourd'hui, un lundi) ni au-delà : la grille
+  // s'arrête au lundi de la semaine courante inclus, jamais un jour futur.
+  assert.ok(!svg.includes('22/09/2026') && !svg.includes('23/09/2026'), 'aucune case pour un jour après "today"');
+});
+
+test('buildCalendarHeatmap : distance totale nulle (toutes les sorties à 0 km) → jamais de division par zéro (NaN)', () => {
+  const svg = buildCalendarHeatmap([day('2026-09-15', 0, 0, 0)], { today: new Date('2026-09-21T00:00:00Z'), weeks: 4 });
+  assert.ok(!svg.includes('NaN'));
 });
