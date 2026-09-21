@@ -67,6 +67,14 @@ const GAZETTEER = [
   { name: 'Bagnères-de-Bigorre', lat: 43.0640, lon: 0.1494, ele: 550, kind: 'city' },
   { name: "L'Alpe d'Huez", lat: 45.0920, lon: 6.0700, ele: 1850, kind: 'peak' },
   { name: 'Bourg-d\'Oisans', lat: 45.0553, lon: 6.0290, ele: 720, kind: 'city' },
+  // Coordonnées vérifiées en direct (Nominatim + Géoplateforge, écart <3 km
+  // entre les deux, 21/09/2026), altitude vérifiée via l'échantillonneur RGE
+  // ALTI réel du dépôt (738 m). Absent jusqu'ici : « Gap » (départ curé de
+  // l'étape 2026/19, historic_routes.json) résolvait en géocodage simulé
+  // (aucune entrée du gazetier à moins de 25 km) sur une position dérivée du
+  // hash du nom — 45.98/1.79, à ~470 km du vrai Gap — gonflant la distance
+  // reconstituée hors-ligne de l'étape à 670 km au lieu des 128 km réels.
+  { name: 'Gap', lat: 44.5608, lon: 6.0816, ele: 738, kind: 'city' },
   { name: 'Mont Ventoux', lat: 44.1741, lon: 5.2789, ele: 1910, kind: 'peak' },
   { name: 'Sault', lat: 44.0919, lon: 5.4080, ele: 765, kind: 'city' },
   { name: 'Bédoin', lat: 44.1240, lon: 5.1805, ele: 300, kind: 'city' },
