@@ -387,7 +387,8 @@ app.get('/api/traces/summary', wrap(async (req, res) => {
   const db = getDb();
   const traces = db
     .prepare(
-      `SELECT s.id, s.name, s.date, s.generated_distance_km, s.total_ascent_m, s.elapsed_time_s
+      `SELECT s.id, s.name, s.date, s.generated_distance_km, s.total_ascent_m, s.elapsed_time_s,
+              s.city_hint, s.region_hint, s.country_hint
        FROM stages s JOIN tracks t ON t.stage_id = s.id
        WHERE t.router = 'trace' AND s.state = 'done'`
     )
@@ -396,6 +397,7 @@ app.get('/api/traces/summary', wrap(async (req, res) => {
     return res.json({
       traceCount: 0, totalDistanceKm: 0, totalAscentM: 0, totalElapsedTimeS: null, tracesWithTimeCount: 0,
       highestSummit: null, climbs: [], daily: [], recent: [],
+      exploration: { countries: [], regions: [], cities: [] },
     });
   }
   // stages.date n'est PAS garanti au format YYYY-MM-DD ici : posé ainsi par
@@ -478,6 +480,31 @@ app.get('/api/traces/summary', wrap(async (req, res) => {
   // chronologique significatif — reléguées en fin de liste (par id
   // décroissant, un repli raisonnable : plus récemment importées d'abord)
   // plutôt que mélangées arbitrairement parmi les traces datées.
+  // Exploration (backlog #228, phase 3) : compte les pays/régions/villes
+  // distincts parmi les traces qui en portent un (city_hint/region_hint/
+  // country_hint — géocodage inverse du point de départ à l'import, voir
+  // pipeline/importTrack.js, PR #231). Une trace sans hint connu (import
+  // hors-ligne, panne réseau au moment de l'import, trace antérieure à
+  // PR #231) est simplement absente de ces trois listes — jamais comptée
+  // comme un pays/ville "inconnu", qui gonflerait artificiellement les
+  // compteurs sans rien dire de réel sur les lieux visités.
+  function countBy(field) {
+    const counts = new Map();
+    for (const t of traces) {
+      const v = t[field];
+      if (!v) continue;
+      counts.set(v, (counts.get(v) || 0) + 1);
+    }
+    return [...counts.entries()]
+      .map(([name, count]) => ({ name, count }))
+      .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
+  }
+  const exploration = {
+    countries: countBy('country_hint'),
+    regions: countBy('region_hint'),
+    cities: countBy('city_hint'),
+  };
+
   const recent = [...traces]
     .sort((a, b) => (b.date || '').localeCompare(a.date || '') || b.id - a.id)
     .slice(0, 20)
@@ -496,6 +523,7 @@ app.get('/api/traces/summary', wrap(async (req, res) => {
     tracesWithTimeCount: withTime.length,
     highestSummit,
     climbs: [...byName.values()].sort((a, b) => b.maxSummitM - a.maxSummitM),
+    exploration,
     daily,
     recent,
   });

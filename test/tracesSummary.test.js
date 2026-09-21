@@ -46,10 +46,10 @@ beforeEach(() => {
 
 // router: 'trace' (import réel), 'osrm'/'simulateur' (routage standard), ou
 // null (aucune ligne tracks — ex. un brouillon jamais généré).
-function insertStage(db, { name, stageType = 'trace', router = 'trace', state = 'done', distanceKm = 0, ascentM = 0, date = null, elapsedTimeS = null, climbs = [] }) {
+function insertStage(db, { name, stageType = 'trace', router = 'trace', state = 'done', distanceKm = 0, ascentM = 0, date = null, elapsedTimeS = null, cityHint = null, regionHint = null, countryHint = null, climbs = [] }) {
   const r = db.prepare(
-    `INSERT INTO stages (name, stage_type, state, generated_distance_km, total_ascent_m, date, elapsed_time_s) VALUES (?, ?, ?, ?, ?, ?, ?)`
-  ).run(name, stageType, state, distanceKm, ascentM, date, elapsedTimeS);
+    `INSERT INTO stages (name, stage_type, state, generated_distance_km, total_ascent_m, date, elapsed_time_s, city_hint, region_hint, country_hint) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+  ).run(name, stageType, state, distanceKm, ascentM, date, elapsedTimeS, cityHint, regionHint, countryHint);
   const stageId = r.lastInsertRowid;
   if (router != null) {
     db.prepare(`INSERT INTO tracks (stage_id, geojson, distance_m, router) VALUES (?, '{}', 0, ?)`).run(stageId, router);
@@ -70,6 +70,7 @@ test('aucune trace importée → bilan vide, pas d\'erreur', async () => {
   assert.deepStrictEqual(s, {
     traceCount: 0, totalDistanceKm: 0, totalAscentM: 0, totalElapsedTimeS: null, tracesWithTimeCount: 0,
     highestSummit: null, climbs: [], daily: [], recent: [],
+    exploration: { countries: [], regions: [], cities: [] },
   });
 });
 
@@ -233,4 +234,33 @@ test('date au format inattendu (écrite via PUT générique, pas l\'import) : tr
   assert.strictEqual(s.daily[0].date, '2025-12-31');
   assert.strictEqual(s.recent.find((r) => r.name === 'MalFormee').date, null, 'jamais affichée telle quelle, même logique qu\'une date absente');
   assert.strictEqual(s.recent[0].name, 'Réveillon', 'la trace mal formée retombe en fin de liste comme une trace sans date, ne casse pas le tri des dates valides');
+});
+
+// Exploration (backlog #228, phase 3) : compteurs pays/région/ville depuis
+// city_hint/region_hint/country_hint (capturés à l'import, PR #231).
+test('exploration : compte les pays/régions/villes distincts, triés par nombre de sorties décroissant', async () => {
+  const db = getDb();
+  insertStage(db, { name: 'Pau 1', distanceKm: 10, ascentM: 100, cityHint: 'Pau', regionHint: 'Pyrénées-Atlantiques', countryHint: 'France' });
+  insertStage(db, { name: 'Pau 2', distanceKm: 15, ascentM: 150, cityHint: 'Pau', regionHint: 'Pyrénées-Atlantiques', countryHint: 'France' });
+  insertStage(db, { name: 'Lyon', distanceKm: 20, ascentM: 200, cityHint: 'Lyon', regionHint: 'Rhône', countryHint: 'France' });
+  insertStage(db, { name: 'Édimbourg', distanceKm: 5, ascentM: 50, cityHint: 'Édimbourg', regionHint: 'Écosse', countryHint: 'Royaume-Uni' });
+  const s = await summary();
+  assert.deepStrictEqual(s.exploration.countries, [{ name: 'France', count: 3 }, { name: 'Royaume-Uni', count: 1 }]);
+  assert.deepStrictEqual(s.exploration.regions, [
+    { name: 'Pyrénées-Atlantiques', count: 2 },
+    { name: 'Écosse', count: 1 },
+    { name: 'Rhône', count: 1 },
+  ]);
+  assert.deepStrictEqual(s.exploration.cities, [
+    { name: 'Pau', count: 2 },
+    { name: 'Édimbourg', count: 1 },
+    { name: 'Lyon', count: 1 },
+  ]);
+});
+
+test('exploration : une trace sans hint connu n\'est jamais comptée comme un lieu "inconnu"', async () => {
+  const db = getDb();
+  insertStage(db, { name: 'Sans géocodage', distanceKm: 10, ascentM: 100 }); // cityHint/regionHint/countryHint tous null par défaut
+  const s = await summary();
+  assert.deepStrictEqual(s.exploration, { countries: [], regions: [], cities: [] });
 });
