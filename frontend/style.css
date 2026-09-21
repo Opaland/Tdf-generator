@@ -292,3 +292,18 @@ table.stats tfoot td { font-weight: 700; background: #f3ecd9; }
   cursor: pointer; padding: 0;
 }
 .tour-close-btn:hover { background: var(--bord); color: var(--texte); }
+
+/* Bandeau « Quoi de neuf » (backlog #234) : même famille visuelle que
+   .note (fond sable clair), avec un bouton de fermeture façon
+   .tour-close-btn — jamais de nouvelle palette pour ce genre de bloc. */
+.whats-new { position: relative; margin: 10px 20px; padding-right: 40px; }
+.whats-new p { margin: 0 0 4px; }
+.whats-new ul { margin: 0 0 8px; padding-left: 20px; }
+.whats-new ul:last-child { margin-bottom: 0; }
+.whats-new-close {
+  position: absolute; top: 8px; right: 10px;
+  background: none; border: none; color: var(--texte2);
+  width: 26px; height: 26px; border-radius: 6px; font-size: 1.1em; line-height: 1;
+  cursor: pointer; padding: 0;
+}
+.whats-new-close:hover { background: var(--bord); color: var(--texte); }

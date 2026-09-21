@@ -168,6 +168,85 @@ const EF = {
   },
 
   /**
+   * Compare deux numéros de version « major.minor.patch » (jamais une
+   * comparaison de chaînes : "1.10.0" < "1.9.0" lexicographiquement mais
+   * PAS en semver — trouvaille anticipée en concevant les notes de version,
+   * avant qu'elle ne devienne un vrai bug une fois la 2ᵉ ou 10ᵉ version
+   * publiée). Renvoie <0 si a<b, 0 si égales, >0 si a>b. Segment manquant
+   * ou non numérique traité comme 0 — jamais de NaN qui casserait le tri.
+   */
+  compareVersions(a, b) {
+    const pa = String(a).split('.').map((n) => parseInt(n, 10) || 0);
+    const pb = String(b).split('.').map((n) => parseInt(n, 10) || 0);
+    for (let i = 0; i < Math.max(pa.length, pb.length); i++) {
+      const d = (pa[i] || 0) - (pb[i] || 0);
+      if (d !== 0) return d;
+    }
+    return 0;
+  },
+
+  /**
+   * Bandeau « Quoi de neuf » (backlog #234) : comparé à la dernière version
+   * vue (localStorage, par navigateur/appareil — jamais une donnée serveur,
+   * un changement d'appareil montre à nouveau le bandeau une fois, sans
+   * conséquence). Rien à la toute première visite (aucune version stockée
+   * encore) : on pose juste le jalon, on n'inonde pas un nouvel utilisateur
+   * de notes sur des fonctionnalités qu'il découvre déjà en marchant dessus.
+   * Le jalon n'avance qu'à la fermeture du bandeau (pas à son affichage) :
+   * une visite qui quitte la page sans le fermer le retrouve au chargement
+   * suivant plutôt que de le perdre silencieusement.
+   * `header` : élément après lequel insérer le bandeau (même schéma que la
+   * bannière EF_STATIC ci-dessus).
+   */
+  async checkReleaseNotes(header, currentVersion) {
+    if (window.EF_STATIC || !currentVersion) return;
+    // Tout, y compris la première lecture de localStorage, part du même
+    // try : checkReleaseNotes() est appelée SANS await depuis initChrome()
+    // (fire-and-forget, pour ne jamais retarder le reste de l'init d'une
+    // page) — une exception SYNCHRONE avant le premier await (ex. Safari en
+    // navigation privée avec le storage désactivé) ne serait alors rattrapée
+    // ni par l'appelant (qui n'attend pas cette promesse) ni par un catch
+    // placé après cette exception. Trouvaille de relecture adverse
+    // (18/09/2026), reproduite : rejet de promesse non géré sur CHAQUE page.
+    try {
+      // lastSeen vérifié AVANT tout fetch : sur une toute première visite,
+      // rien à comparer, donc pas la peine d'aller chercher
+      // release-notes.json — et surtout, sans ce garde en tête, un fetch qui
+      // échoue empêcherait de poser le jalon, faisant réapparaître le même
+      // « première visite » (donc aucun bandeau, mais aussi jamais de jalon
+      // posé) à chaque chargement suivant tant que le réseau ne répond pas.
+      const lastSeen = localStorage.getItem('ef-last-seen-version');
+      if (!lastSeen) {
+        localStorage.setItem('ef-last-seen-version', currentVersion);
+        return;
+      }
+      const notes = await (await fetch('/release-notes.json')).json();
+      // Trié par version croissante puis affiché à l'envers (plus récent en
+      // haut) plutôt que de faire confiance à l'ordre du fichier JSON —
+      // trouvaille de relecture adverse : rien ne garantissait qu'une
+      // future entrée ajoutée au mauvais endroit du fichier s'affiche quand
+      // même dans le bon ordre.
+      const unseen = notes
+        .filter((n) => EF.compareVersions(n.version, lastSeen) > 0)
+        .sort((a, b) => EF.compareVersions(b.version, a.version));
+      if (!unseen.length) return;
+      const box = document.createElement('div');
+      box.className = 'note whats-new';
+      box.innerHTML =
+        `<button class="whats-new-close" type="button" aria-label="Fermer">×</button>` +
+        unseen.map((n) => `<p><b>Quoi de neuf — v${EF.esc(n.version)}${n.title ? ' : ' + EF.esc(n.title) : ''}</b></p>` +
+          `<ul>${(n.items || []).map((it) => `<li>${EF.esc(it)}</li>`).join('')}</ul>`).join('');
+      box.querySelector('.whats-new-close').addEventListener('click', () => {
+        localStorage.setItem('ef-last-seen-version', currentVersion);
+        box.remove();
+      });
+      header.after(box);
+    } catch {
+      // Non essentiel : l'écran reste utilisable sans le bandeau.
+    }
+  },
+
+  /**
    * Enregistre le service worker PWA (installabilité — voir frontend/sw.js,
    * qui ne met délibérément rien en cache). Appelé depuis initChrome() ET
    * login.js (seule page qui n'appelle pas initChrome) pour couvrir toutes
@@ -252,6 +331,7 @@ const EF = {
         : `${EF.esc(st.attributions)} · <a href="/diag.html">diagnostic APIs</a>`;
       if (st.offline) document.getElementById('offline-badge').style.display = 'inline-block';
       EF.status = st;
+      EF.checkReleaseNotes(header, st.version);
     } catch {
       footer.textContent = 'ÉtapeForge';
     }

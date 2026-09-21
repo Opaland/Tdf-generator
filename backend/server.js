@@ -20,6 +20,7 @@ const { startScheduledBackups, getBackupStatus } = require('./backup');
 const notify = require('./notify');
 const { notifyGenerationFailure } = notify;
 const { getUsageStats: getApiUsageStats } = require('../pipeline/apiUsage');
+const { version: APP_VERSION } = require('../package.json');
 
 const PORT = parseInt(process.env.PORT || '4567', 10);
 const SERVER_START_TIME = new Date().toISOString();
@@ -126,7 +127,7 @@ app.get('/api/status', (req, res) => {
   };
   res.json({
     offline: isOffline(), authRequired: AUTH_REQUIRED, db: DB_PATH, counts,
-    attributions: ATTRIBUTIONS, backup: getBackupStatus(),
+    attributions: ATTRIBUTIONS, backup: getBackupStatus(), version: APP_VERSION,
     notify: { enabled: !!notify.WEBHOOK_URL, format: notify.FORMAT },
   });
 });
