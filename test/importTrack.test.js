@@ -53,6 +53,41 @@ test("importTrackAsStage : la montée de la trace est détectée et catégorisé
   assert.strictEqual(c.category, '1', 'score ≈ 42 → cat. 1');
   assert.ok(full.kmAnalysis.length >= 16 && full.kmAnalysis.length <= 17, 'analyse km par km présente (16-17 lignes)');
   assert.ok(full.track && full.track.router === 'trace');
+  // syntheticGpx() ne porte aucun <time> : les statistiques de vitesse
+  // (pipeline/rideStats.js) doivent rester NULL, jamais un 0 qui se ferait
+  // passer pour une mesure de temps qui n'a jamais existé.
+  assert.strictEqual(full.stage.elapsed_time_s, null);
+  assert.strictEqual(full.stage.avg_speed_kmh, null);
+  assert.strictEqual(full.stage.max_speed_kmh, null);
+});
+
+/** Même profil que syntheticGpx(), avec un <time> par point (1 point/5 s, 20 km/h). */
+function syntheticGpxWithTime() {
+  const pts = [];
+  const lat0 = 43.0;
+  const lon0 = 0.5;
+  const mPerDegLat = 110540;
+  const speedMps = (20 * 1000) / 3600; // 20 km/h
+  const startMs = Date.parse('2026-06-01T09:00:00Z');
+  for (let m = 0; m <= 16000; m += 100) {
+    const lat = lat0 + m / mPerDegLat;
+    const ele = m <= 10000 ? 400 : 400 + (m - 10000) * 0.07;
+    const timeS = m / speedMps;
+    const time = new Date(startMs + timeS * 1000).toISOString();
+    pts.push(`<trkpt lat="${lat.toFixed(6)}" lon="${lon0}"><ele>${ele.toFixed(1)}</ele><time>${time}</time></trkpt>`);
+  }
+  return `<?xml version="1.0"?><gpx><trk><name>Sortie horodatée</name><trkseg>${pts.join('')}</trkseg></trk></gpx>`;
+}
+
+test('importTrackAsStage : une trace horodatée persiste durée et vitesses', async () => {
+  const { points } = parseGpx(syntheticGpxWithTime());
+  const id = await importTrackAsStage(points, { name: 'Trace horodatée test', source: 'test' });
+  const full = loadStageFull(id);
+  assert.strictEqual(full.stage.state, 'done');
+  // 16 000 m à 20 km/h (5,555… m/s) → 2 880 s.
+  assert.ok(Math.abs(full.stage.elapsed_time_s - 2880) < 2, `durée ${full.stage.elapsed_time_s} ≈ 2880 s`);
+  assert.ok(Math.abs(full.stage.avg_speed_kmh - 20) < 0.5, `vitesse moyenne ${full.stage.avg_speed_kmh} ≈ 20 km/h`);
+  assert.ok(Math.abs(full.stage.max_speed_kmh - 20) < 0.5, `vitesse max ${full.stage.max_speed_kmh} ≈ 20 km/h`);
 });
 
 test('parseGpx extrait <time> par trkpt quand présent', () => {
