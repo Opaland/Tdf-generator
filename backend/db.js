@@ -197,6 +197,12 @@ function getDb() {
   // Femmes partagent une année — trouvaille documentée dans
   // docs/PRESENTATION.md avant d'être corrigée ici.
   ensureColumn(db, 'editions', 'category', "category TEXT NOT NULL DEFAULT 'hommes'");
+  // Vitesse moyenne/max d'une trace importée horodatée (pipeline/rideStats.js,
+  // qui calcule aussi elapsed_time_s ci-dessus désormais). NULL pour toute
+  // étape reconstruite par routage, ou une trace sans <time>/timestamp
+  // exploitable — jamais un 0 qui se ferait passer pour une vraie mesure.
+  ensureColumn(db, 'stages', 'avg_speed_kmh', 'avg_speed_kmh REAL');
+  ensureColumn(db, 'stages', 'max_speed_kmh', 'max_speed_kmh REAL');
   return db;
 }
 
