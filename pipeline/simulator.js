@@ -156,6 +156,29 @@ const GAZETTEER = [
   { name: 'Hagetmau', lat: 43.6558, lon: -0.5928, ele: 60, kind: 'city' },
   { name: 'Bergerac', lat: 44.8508, lon: 0.4815, ele: 50, kind: 'city' },
   { name: "Le Bourg-d'Oisans", lat: 45.0553, lon: 6.0290, ele: 720, kind: 'city' },
+  // Tour 2026, étapes 9-18 (complétées le 22/09/2026) : coordonnées/altitudes
+  // vérifiées via le pipeline réel de l'appli (pipeline/geocode.js +
+  // pipeline/elevation.js, Géoplateforme, accès réseau), même méthode que
+  // pour Gap (étape 19). Villes-étapes en 'city' ; arrivées en altitude
+  // (stations/cols) en 'peak' pour calibrer le relief simulé local, comme
+  // Courchevel/La Plagne/Hautacam.
+  { name: 'Malemort-sur-Corrèze', lat: 45.1711, lon: 1.5687, ele: 116, kind: 'city' },
+  { name: 'Ussel', lat: 45.5549, lon: 2.3046, ele: 666, kind: 'city' },
+  { name: 'Aurillac', lat: 44.9270, lon: 2.4476, ele: 620, kind: 'city' },
+  { name: 'Le Lioran', lat: 45.0896, lon: 2.7485, ele: 1175, kind: 'peak' },
+  { name: 'Vichy', lat: 46.1290, lon: 3.4293, ele: 260, kind: 'city' },
+  { name: 'Magny-Cours', lat: 46.8942, lon: 3.1633, ele: 210, kind: 'city' },
+  { name: 'Chalon-sur-Saône', lat: 46.7906, lon: 4.8438, ele: 187, kind: 'city' },
+  { name: 'Dole', lat: 47.0780, lon: 5.4900, ele: 203, kind: 'city' },
+  { name: 'Mulhouse', lat: 47.7485, lon: 7.3278, ele: 240, kind: 'city' },
+  { name: 'Le Markstein', lat: 47.9261, lon: 7.0301, ele: 1187, kind: 'peak' },
+  { name: 'Champagnole', lat: 46.7409, lon: 5.8930, ele: 526, kind: 'city' },
+  { name: 'Plateau de Solaison', lat: 46.0343, lon: 6.4248, ele: 1511, kind: 'peak' },
+  { name: 'Évian-les-Bains', lat: 46.3948, lon: 6.5898, ele: 486, kind: 'city' },
+  { name: 'Thonon-les-Bains', lat: 46.3665, lon: 6.4717, ele: 432, kind: 'city' },
+  { name: 'Chambéry', lat: 45.5803, lon: 5.9125, ele: 264, kind: 'city' },
+  { name: 'Voiron', lat: 45.3746, lon: 5.5845, ele: 365, kind: 'city' },
+  { name: 'Orcières-Merlette', lat: 44.6949, lon: 6.3228, ele: 1766, kind: 'peak' },
 ];
 
 function normalize(s) {

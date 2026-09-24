@@ -354,13 +354,16 @@ test('parse le tableau des étapes du Tour 2025 (format moderne)', () => {
   assert.strictEqual(bretagne.finish, 'Mûr-de-Bretagne', 'entités HTML accentuées décodées');
 });
 
-test('parse la fixture 2026 (parcours annoncé, partielle)', () => {
+test('parse la fixture 2026 (parcours annoncé, complète — 21 étapes)', () => {
   const stages = parseStagesFromHtml(load('wikipedia_2026_en.html'), 2026);
-  assert.ok(stages.length >= 10);
+  assert.strictEqual(stages.length, 21, 'fixture complétée le 22/09/2026 (étapes 9-18 ajoutées)');
   assert.strictEqual(stages[0].type, 'clm par équipes', 'étape 1 : CLM par équipes à Barcelone');
   assert.strictEqual(stages[0].start, 'Barcelona');
   const alpe = stages.filter((s) => s.finish === "Alpe d'Huez");
   assert.strictEqual(alpe.length, 2, "doublé de l'Alpe d'Huez");
+  const itt = stages.find((s) => s.number === 16);
+  assert.strictEqual(itt.type, 'clm', 'étape 16 : contre-la-montre individuel Évian-les-Bains → Thonon-les-Bains');
+  assert.strictEqual(itt.finish, 'Thonon-les-Bains');
 });
 
 // Trouvaille en testant l'import Femmes avec un vrai accès réseau (26/08/2026,
