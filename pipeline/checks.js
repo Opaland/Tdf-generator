@@ -1,6 +1,6 @@
 'use strict';
 // Bloc « checks » : audits qualité d'une étape générée.
-// - distance reconstituée vs distance cible (tolérance ±10 %)
+// - distance reconstituée vs distance cible (tolérance ±5 %)
 // - cols atteints (tracé < 500 m du sommet)
 // - altitudes de sommets vs valeurs connues
 // - segments/points approximés listés
@@ -23,24 +23,35 @@ const ALT_TOLERANCE_M = 120;
 const PROFIL_HOLE_FAIL_RATIO = 0.5;
 
 // Écart maximal accepté entre la distance officielle d'une étape et celle du
-// tracé reconstitué. Décidé par Cédric le 04/09/2026 : ±10 %, contre ±25 %
-// jusque-là. Un seuil qui change ce qui est *vérifié* ne s'invente pas — il
-// vient d'une décision, elle est datée ici, et le nombre n'existe qu'en un
-// seul endroit : le message affiché, les tests et `scripts/demo.js` le lisent
-// tous d'ici plutôt que de le réécrire (une valeur recopiée dérive).
+// tracé reconstitué. Décidé par Cédric le 24/09/2026 : ±5 %, contre ±10 %
+// jusque-là (elle-même contre ±25 % avant le 04/09/2026). Un seuil qui
+// change ce qui est *vérifié* ne s'invente pas — il vient d'une décision,
+// elle est datée ici, et le nombre n'existe qu'en un seul endroit : le
+// message affiché, les tests et `scripts/demo.js` le lisent tous d'ici
+// plutôt que de le réécrire (une valeur recopiée dérive).
 //
-// Conséquence assumée et mesurée sur la démo 1903 hors ligne : les étapes 4
-// (-10,5 %) et 6 (-21,8 %) passent d'« ok » à « fail ». C'est le but — un
-// tracé reconstitué qui s'écarte d'un cinquième de la distance officielle
-// n'est pas une reconstitution fidèle, et le badge de l'étape doit le dire.
-const DIST_TOLERANCE_PCT = 10;
+// Conséquence mesurée avant ce resserrement (audit du 24/09/2026, régénération
+// à froid en accès réseau réel des 93 étapes déjà curées de `historic_routes.
+// json`, 28 éditions, résultats non committés — non reproductible depuis ce
+// commentaire seul) : à ±10 %, 37/93 étaient dans la tolérance ; à ±5 %,
+// seules 25/93 le restent. Les 68 étapes concernées sont corrigées une par
+// une dans des PR séparées qui suivent celle-ci — chacune est la preuve
+// vérifiable de son propre écart mesuré, pas ce commentaire. Conséquence
+// *aussi* mesurée sur la démo 1903 hors ligne (simulateur, pas le réseau
+// réel, celle-ci reproductible par `npm run demo`) : seule l'étape 1
+// (-1,4 %) reste « ok », les étapes 2 à 6 passent à « fail » (+7,8 % à
+// -21,8 %) — le simulateur hors-ligne n'a jamais été calibré pour ±5 %,
+// c'est un chantier séparé de la correction des points de passage curés
+// (qui, eux, pilotent la reconstitution en ligne), pas traité ici.
+const DIST_TOLERANCE_PCT = 5;
 
 // Part de la distance officielle en dessous de laquelle la reconstitution
 // n'est plus « imprécise » mais absente (étape en circuit sans via curé, voir
-// plus bas). Volontairement indépendant de DIST_TOLERANCE_PCT : les deux
-// valent 10 depuis le 04/09/2026, mais l'un est un écart en pourcentage et
-// l'autre une fraction de la cible — les confondre en un seul nombre ferait
-// bouger le message dédié chaque fois qu'on resserre la tolérance.
+// plus bas). Volontairement indépendant de DIST_TOLERANCE_PCT (l'un est un
+// écart en pourcentage, l'autre une fraction de la cible — les confondre en
+// un seul nombre ferait bouger le message dédié chaque fois qu'on resserre
+// la tolérance, comme le 24/09/2026 où DIST_TOLERANCE_PCT est passé à 5
+// sans toucher celui-ci).
 const QUASI_NUL_RATIO = 0.1;
 
 // Écart maximal (vol d'oiseau) entre deux points de passage curés consécutifs
