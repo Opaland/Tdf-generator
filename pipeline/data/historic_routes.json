@@ -224,9 +224,27 @@
     "highlight": "Premier contre-la-montre individuel",
     "notes": "Premier contre-la-montre individuel de l'histoire du Tour (deuxième partie de l'étape 21, étape scindée en deux : La Roche-sur-Yon → Nantes, 90 km, 27 juillet). Antonin Magne, maillot jaune depuis la deuxième étape, remporte ce chrono inédit et consolide sa victoire finale — son deuxième Tour de France — devançant son coéquipier Roger Lapébie de plus d'une minute et l'Italien Giuseppe Martano de 8 minutes. Points de passage d'après Wikipédia (CC BY-SA) / bikeraceinfo.com / memoire-du-cyclisme.eu (résultats et étape recoupés). Import de la liste des étapes : en ligne.",
     "stages": {
-      "21": {
+      "21a": {
+        "confidence": [
+          {
+            "claim": "distance reconstituée en ligne vs 81 km officiels (La Rochelle → La Roche-sur-Yon)",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "vérifié le 25/09/2026 : 74,8 km reconstitués sans via (départ/arrivée bruts Wikipédia), soit -7,7 %, hors tolérance. Aucun road book trouvé pour cette étape (bikeraceinfo.com, georges11.pagesperso-orange.fr indisponible, memosport.fr : aucun ne détaille de localité intermédiaire). Testé deux villes réelles sur le corridor direct : Luçon seul → 75,3 km (-7,1 %, toujours hors tolérance) ; Marans + Luçon → 88,3 km (+9,0 %, dépasse maintenant dans l'autre sens) — instabilité du même type que documentée sur 1903/2 et 1903/3 (chaque via ajouté donne au routeur une occasion de dévier plutôt que de le contraindre), pas de convergence trouvée. Aucun via ajouté pour ne pas deviner un tracé non sourcé."
+          }
+        ]
+      },
+      "21b": {
         "start": "La Roche-sur-Yon",
-        "finish": "Nantes"
+        "finish": "Nantes",
+        "confidence": [
+          {
+            "claim": "distance reconstituée en ligne vs 90 km officiels (La Roche-sur-Yon → Nantes, contre-la-montre)",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "vérifié le 25/09/2026 : 74,8 km reconstitués sans via, soit -16,9 %, hors tolérance. Aucun road book trouvé (memosport.fr, dédié à ce contre-la-montre, confirme n'avoir que les deux villes terminales). Testé Montaigu-Vendée (ville réelle sur le corridor direct — attention, « Montaigu » seul géocode à tort sur un homonyme d'Ille-et-Vilaine à 190 km, même avec biais de proximité) : 78,4 km (-12,9 %), amélioration insuffisante, toujours largement hors tolérance. Aucun via ajouté pour ne pas deviner un tracé non sourcé."
+          }
+        ]
       }
     }
   },

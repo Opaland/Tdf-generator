@@ -105,7 +105,7 @@ test('historic_routes.json : chaque édition a des notes sourcées et au moins u
   assert.deepStrictEqual(offenders, []);
 });
 
-test('historic_routes.json : les clés d\'étape sont des numéros d\'étape positifs ou nuls (0 = Prologue)', () => {
+test('historic_routes.json : les clés d\'étape sont des numéros d\'étape positifs ou nuls (0 = Prologue), suffixés d\'une lettre pour une étape scindée', () => {
   // `0` est la convention établie pour un Prologue (PR #172, parseStagesFromHtml())
   // — pas d'étape numérotée négativement, mais 0 est une clé légitime, pas une
   // erreur de saisie. Trouvaille en curant le Tour 1992 (issue #108, suite) :
@@ -113,10 +113,17 @@ test('historic_routes.json : les clés d\'étape sont des numéros d\'étape pos
   // correctif, alors que stage.number = 0 est explicitement supporté partout
   // ailleurs dans le pipeline (aucune arithmétique -1/+1 sur les numéros
   // d'étape, ORDER BY stage_order trie 0 en premier naturellement).
+  //
+  // Suffixe lettre ("21a"/"21b") : convention introduite le 25/09/2026
+  // (stageCurationKey(), pipeline/wikipedia.js) pour une étape scindée en
+  // deux journées partageant le même numéro Wikipédia (ex. 1934 étape 21) —
+  // sans ce suffixe, une entrée curée pour l'une s'appliquait aussi à
+  // l'autre (même clé numérique).
   const offenders = [];
   for (const [year, edition] of Object.entries(HISTORIC_ROUTES)) {
     for (const stageNum of Object.keys(edition.stages || {})) {
-      if (!/^\d+$/.test(stageNum) || parseInt(stageNum, 10) < 0) offenders.push(`${year} : clé d'étape invalide "${stageNum}"`);
+      const match = /^(\d+)([a-z]?)$/.exec(stageNum);
+      if (!match || parseInt(match[1], 10) < 0) offenders.push(`${year} : clé d'étape invalide "${stageNum}"`);
     }
   }
   assert.deepStrictEqual(offenders, []);
@@ -664,11 +671,52 @@ test('1975 étape 22 : première arrivée aux Champs-Élysées — circuit ferm�
   assert.ok(wps.every((w) => w.source === 'parcours curé'), 'les deux extrémités sont explicitement sourcées, pas seulement Wikipédia');
 });
 
-test('1934 étape 21 : premier contre-la-montre individuel — La Roche-sur-Yon → Nantes, sourcé', () => {
-  const wps = reconstructionWaypoints(1934, { number: 21, start: 'La Roche-sur-Yon', finish: 'Nantes' });
+test('1934 étape 21b : premier contre-la-montre individuel — La Roche-sur-Yon → Nantes, sourcé', () => {
+  // Étape scindée en deux journées, toutes deux numérotées 21 par Wikipédia
+  // (21a : La Rochelle → La Roche-sur-Yon, en ligne ; 21b : le
+  // contre-la-montre reconstitué ici) — occurrenceIndex=1/occurrenceCount=2
+  // sélectionne la clé curée "21b" (stageCurationKey(), pipeline/wikipedia.js),
+  // pas "21" seul. Sans ce distinguo (trouvaille du 25/09/2026, issue de
+  // curation 1934/21), la même entrée curée s'appliquait aussi à 21a.
+  const wps = reconstructionWaypoints(1934, { number: 21, start: 'La Roche-sur-Yon', finish: 'Nantes' }, 'hommes', 1, 2);
   const labels = wps.map((w) => w.label);
   assert.deepStrictEqual(labels, ['La Roche-sur-Yon', 'Nantes']);
   assert.ok(wps.every((w) => w.source === 'parcours curé'), 'les deux extrémités sont explicitement sourcées, pas seulement Wikipédia');
+});
+
+test('1934 étape 21a : sans occurrenceIndex/Count, la clé "21b" (contre-la-montre) ne s\'applique pas — repli sur Wikipédia brut', () => {
+  // Le même appel que ci-dessus, mais pour la PREMIÈRE occurrence du numéro
+  // 21 (La Rochelle → La Roche-sur-Yon, en ligne) : doit rester sur les
+  // libellés bruts Wikipédia passés en argument, jamais hérite du départ/
+  // arrivée curés de l'autre moitié de l'étape scindée.
+  const wps = reconstructionWaypoints(1934, { number: 21, start: 'La Rochelle', finish: 'La Roche sur Yon' }, 'hommes', 0, 2);
+  const labels = wps.map((w) => w.label);
+  assert.deepStrictEqual(labels, ['La Rochelle', 'La Roche sur Yon']);
+  assert.ok(wps.every((w) => w.source === 'wikipedia'), 'aucune curation "21b" ne doit fuiter vers cette occurrence');
+});
+
+test('reconstructionWaypoints : collision de curation entre étapes scindées, indépendamment de la forme actuelle des données 1934/21', () => {
+  // Les deux tests 1934/21a et 21b ci-dessus ne discriminent la régression
+  // (relecture adverse du 25/09/2026, agent verificateur-de-tests) que tant
+  // que "21a" reste sans start/finish curés dans historic_routes.json — le
+  // jour où quelqu'un curera aussi 21a, ils passeraient même avec
+  // stageCurationKey() cassé. Ce test construit sa propre collision, sur une
+  // année fictive (1899, jamais un vrai Tour) plutôt que sur les données de
+  // production, pour rester probant quelle que soit leur évolution future.
+  const fakeYear = '1899';
+  assert.ok(!HISTORIC_ROUTES[fakeYear], 'année fictive : ne doit collisionner avec aucune vraie édition');
+  HISTORIC_ROUTES[fakeYear] = {
+    notes: 'Édition fictive — test uniquement, jamais un vrai Tour.',
+    stages: { 12: { start: 'Ville B', finish: 'Ville C' } },
+  };
+  try {
+    const first = reconstructionWaypoints(1899, { number: 12, start: 'Ville A', finish: 'Ville B' }, 'hommes', 0, 2);
+    assert.deepStrictEqual(first.map((w) => w.label), ['Ville A', 'Ville B'],
+      'sans clé "12a" dans les données, la 1re occurrence retombe sur Wikipédia brut, jamais sur la curation nue "12" (celle de la 2e occurrence)');
+    assert.ok(first.every((w) => w.source === 'wikipedia'));
+  } finally {
+    delete HISTORIC_ROUTES[fakeYear];
+  }
 });
 
 test('1926 étape 3 : la plus longue étape de cette édition — Metz → Dunkerque, sourcé', () => {
