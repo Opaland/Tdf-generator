@@ -257,7 +257,22 @@ function loadStageFull(stageId) {
   // Réserves de confiance (backlog #10, section A/D) : rattachées à un couple
   // (année, numéro d'étape) dans historic_routes.json, pas à l'id de base — se
   // résout donc via l'édition importée, pas via une colonne dédiée sur `stages`.
-  const confidence = edition && edition.year ? stageConfidence(edition.year, stage.stage_order, edition.category) : [];
+  // occurrenceIndex/occurrenceCount (voir stageCurationKey(), pipeline/wikipedia.js)
+  // : `stage_order` seul ne distingue pas deux étapes d'une même édition qui
+  // partagent le même numéro officiel (étape scindée en deux journées, ex.
+  // 1934 étape 21) — reconstitués ici depuis l'ordre d'insertion (`id`) des
+  // lignes `stages` partageant ce (edition_id, stage_order), le même ordre que
+  // celui utilisé à l'import (pipeline/importer.js) pour calculer ces mêmes
+  // valeurs, donc cohérent avec la clé choisie par reconstructionWaypoints().
+  let confidence = [];
+  if (edition && edition.year) {
+    const siblingStages = db
+      .prepare('SELECT id FROM stages WHERE edition_id = ? AND stage_order = ? ORDER BY id')
+      .all(stage.edition_id, stage.stage_order);
+    const occurrenceIndex = Math.max(0, siblingStages.findIndex((s) => s.id === stage.id));
+    const occurrenceCount = siblingStages.length || 1;
+    confidence = stageConfidence(edition.year, stage.stage_order, edition.category, occurrenceIndex, occurrenceCount);
+  }
   // Indice de pénibilité cumulée (backlog issue #10, section C) : dérivé à la
   // lecture comme fauxPlats ci-dessus, pas persisté (bon marché à recalculer,
   // dépend de l'état d'autres étapes de l'édition qui peut changer).

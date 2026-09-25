@@ -11,6 +11,7 @@ const {
   parseDistanceKm,
   parseDate,
   reconstructionWaypoints,
+  stageCurationKey,
   resolveViaCoords,
   extractTables,
   extractTablesRich,
@@ -738,4 +739,30 @@ test('extractTables : balisage légèrement malformé (attribut non fermé) ne c
 test('extractTables : HTML vide ou sans aucune table → tableau vide, pas d\'exception', () => {
   assert.deepStrictEqual(extractTables(''), []);
   assert.deepStrictEqual(extractTables('<p>rien ici</p>'), []);
+});
+
+test('stageCurationKey : sans occurrence multiple, la clé reste le numéro seul (comportement inchangé)', () => {
+  assert.strictEqual(stageCurationKey(9), '9');
+  assert.strictEqual(stageCurationKey(9, 0, 1), '9');
+  assert.strictEqual(stageCurationKey(0, 0, 1), '0', 'Prologue : numéro 0, pas de suffixe');
+});
+
+test('stageCurationKey : étape scindée (occurrenceCount > 1) — suffixe lettre selon occurrenceIndex', () => {
+  assert.strictEqual(stageCurationKey(21, 0, 2), '21a');
+  assert.strictEqual(stageCurationKey(21, 1, 2), '21b');
+});
+
+test('reconstructionWaypoints : une étape scindée ne récupère la curation de l\'autre moitié qu\'avec le bon occurrenceIndex', () => {
+  // Reproduit le bug trouvé en curant 1934/21 (25/09/2026) : deux étapes
+  // distinctes partagent le même numéro Wikipédia (1934 étape 21a et 21b) ;
+  // avant stageCurationKey(), la seule entrée curée "21" (départ/arrivée de
+  // 21b, La Roche-sur-Yon → Nantes) s'appliquait aussi à 21a, écrasant
+  // silencieusement son vrai départ/arrivée (La Rochelle → La Roche-sur-Yon).
+  const wpsA = reconstructionWaypoints(1934, { number: 21, start: 'La Rochelle', finish: 'La Roche sur Yon' }, 'hommes', 0, 2);
+  assert.deepStrictEqual(wpsA.map((w) => w.label), ['La Rochelle', 'La Roche sur Yon']);
+  assert.ok(wpsA.every((w) => w.source === 'wikipedia'));
+
+  const wpsB = reconstructionWaypoints(1934, { number: 21, start: 'La Roche-sur-Yon', finish: 'Nantes' }, 'hommes', 1, 2);
+  assert.deepStrictEqual(wpsB.map((w) => w.label), ['La Roche-sur-Yon', 'Nantes']);
+  assert.ok(wpsB.every((w) => w.source === 'parcours curé'));
 });

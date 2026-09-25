@@ -545,6 +545,29 @@ function historicRoutesKey(year, category) {
 }
 
 /**
+ * Clé de curation d'une étape dans historic_routes.json : le numéro officiel
+ * seul (`"9"`) pour la quasi-totalité des étapes, mais suffixé d'une lettre
+ * (`"21a"`, `"21b"`) quand ce numéro est partagé par plusieurs étapes
+ * distinctes de la même édition — étape scindée en deux journées (ex. 1934
+ * étape 21 : La Rochelle → La Roche-sur-Yon puis La Roche-sur-Yon → Nantes,
+ * toutes deux numérotées 21 par Wikipédia). Sans ce suffixe, une entrée
+ * curée pour l'une des deux s'appliquait aussi à l'autre (même clé
+ * numérique) : trouvaille du 25/09/2026 en curant 1934/21 — La Rochelle →
+ * La Roche-sur-Yon (81 km officiels) se voyait silencieusement remplacée par
+ * le départ/arrivée curés de l'étape suivante, donnant un écart de distance
+ * qui n'avait rien à voir avec la vraie étape mesurée.
+ *
+ * `occurrenceCount` = 1 (la quasi-totalité des cas) → pas de suffixe, clé
+ * inchangée pour toute donnée déjà curée. `occurrenceCount` > 1 → suffixe
+ * 'a', 'b', 'c'… selon `occurrenceIndex` (0-based, ordre d'apparition dans
+ * la liste Wikipédia de l'édition).
+ */
+function stageCurationKey(number, occurrenceIndex = 0, occurrenceCount = 1) {
+  if (occurrenceCount <= 1) return String(number);
+  return `${number}${String.fromCharCode(97 + occurrenceIndex)}`;
+}
+
+/**
  * Résout les coordonnées curées d'un `via` PAR PAIRE, jamais champ par
  * champ : `via.lat`/`via.lon` (explicite dans historic_routes.json) l'emporte
  * seulement si les DEUX sont fournis, sinon on retombe sur la paire complète
@@ -575,11 +598,14 @@ function resolveViaCoords(via, known) {
 /**
  * Waypoints de reconstruction d'une étape historique : villes officielles
  * (Wikipédia) + points de passage curés (historic_routes.json) quand ils existent.
+ * `occurrenceIndex`/`occurrenceCount` : voir stageCurationKey() — à fournir
+ * seulement pour une étape scindée (numéro Wikipédia partagé par plusieurs
+ * étapes de la même édition), sans quoi la clé de curation reste `stage.number`.
  * Retourne [{label, kind, altitude_hint_m?, bonus_sec?, source}]
  */
-function reconstructionWaypoints(year, stage, category = 'hommes') {
+function reconstructionWaypoints(year, stage, category = 'hommes', occurrenceIndex = 0, occurrenceCount = 1) {
   const { isColQuery } = require('./geocode');
-  const curated = HISTORIC_ROUTES[historicRoutesKey(year, category)]?.stages?.[String(stage.number)];
+  const curated = HISTORIC_ROUTES[historicRoutesKey(year, category)]?.stages?.[stageCurationKey(stage.number, occurrenceIndex, occurrenceCount)];
   const wps = [];
   // start/finish curés peuvent être une simple chaîne (cas courant) ou un
   // objet { label, region, country } quand le libellé seul est ambigu entre
@@ -694,9 +720,12 @@ const CONFIDENCE_LEVELS = ['haute', 'moyenne', 'basse'];
  * `confidence` par étape — [{claim, status: OK|FIX|UNSURE, level: haute|
  * moyenne|basse, detail?}]. Absent = aucune réserve connue sur cette étape,
  * pas une affirmation « tout est vérifié à 100 % ».
+ *
+ * `occurrenceIndex`/`occurrenceCount` : voir stageCurationKey() — même
+ * disambiguïsation que reconstructionWaypoints() pour une étape scindée.
  */
-function stageConfidence(year, stageNumber, category = 'hommes') {
-  const stage = HISTORIC_ROUTES[historicRoutesKey(year, category)]?.stages?.[String(stageNumber)];
+function stageConfidence(year, stageNumber, category = 'hommes', occurrenceIndex = 0, occurrenceCount = 1) {
+  const stage = HISTORIC_ROUTES[historicRoutesKey(year, category)]?.stages?.[stageCurationKey(stageNumber, occurrenceIndex, occurrenceCount)];
   return stage?.confidence || [];
 }
 
@@ -709,6 +738,7 @@ module.exports = {
   parseDate,
   fetchEditionHtml,
   reconstructionWaypoints,
+  stageCurationKey,
   resolveViaCoords,
   FRENCH_DEPARTMENTS,
   editionNotes,
