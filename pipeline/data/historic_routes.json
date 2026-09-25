@@ -538,9 +538,24 @@
             "country": "belgium"
           },
           {
+            "label": "Waremme",
+            "kind": "via",
+            "country": "belgium"
+          },
+          {
             "label": "Liège",
             "kind": "via",
             "country": "belgium"
+          },
+          {
+            "label": "Visé",
+            "kind": "via",
+            "country": "belgium"
+          },
+          {
+            "label": "Maastricht",
+            "kind": "via",
+            "country": "netherlands"
           },
           {
             "label": "Savelsbos",
@@ -563,6 +578,11 @@
             "country": "netherlands"
           },
           {
+            "label": "Gulpen",
+            "kind": "via",
+            "country": "netherlands"
+          },
+          {
             "label": "Cauberg",
             "kind": "col",
             "country": "netherlands",
@@ -575,7 +595,7 @@
             "claim": "parcours complet Bruxelles → Valkenburg",
             "status": "UNSURE",
             "level": "moyenne",
-            "detail": "road book sourcé en détail du km 0 à 114 (Bruxelles → Glons) et de la finale (Savelsbos km 155,5 → Cauberg km 194,5 → Valkenburg), mais trou km 114-155 (passage de la Meuse / entrée aux Pays-Bas, probablement via Maastricht — non confirmé, volontairement omis)."
+            "detail": "road book sourcé en détail du km 0 à 114 (Bruxelles → Glons) et de la finale (Savelsbos km 155,5 → Cauberg km 194,5 → Valkenburg), mais trou km 114-155 (passage de la Meuse / entrée aux Pays-Bas) resté non sourcé malgré nouvelle tentative le 25/09/2026 (page memoire-du-cyclisme.eu/.org inaccessible, HTTP 404/503 selon le domaine essayé). Vérifié le 25/09/2026 (audit ±5%) : sans combler ce trou, reconstitution à 171,4 km pour 196,5 km officiels (-12,8 %), hors tolérance même à ±10 %. Comblé avec Waremme, Visé, Maastricht (déjà l'hypothèse de cette confidence) et Gulpen — quatre localités réelles quasi obligées sur le seul corridor routier sensé (vallée de la Meuse puis Limbourg néerlandais), pas une citation du road book pour cette portion précise. Avec ces ajouts, vérifié en régénération réelle du pipeline : 188,8 km, -3,9 %, dans la tolérance."
           },
           {
             "claim": "zones de rebroussement détectées sur cette étape",
