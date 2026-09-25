@@ -123,10 +123,12 @@
     "stages": {
       "5": {
         "vias": [
+          "Les Houches",
           {
             "label": "Col des Aravis",
             "kind": "col"
           },
+          "Saint-Michel-de-Maurienne",
           {
             "label": "Col du Télégraphe",
             "kind": "col"
@@ -134,8 +136,13 @@
           {
             "label": "Col du Galibier",
             "kind": "col"
+          },
+          {
+            "label": "Col du Lautaret",
+            "kind": "col"
           }
-        ]
+        ],
+        "note": "Parcours complété le 25/09/2026 : avec les seuls Aravis/Télégraphe/Galibier déjà curés, la reconstitution en ligne donnait 340,5 km pour 366 km officiels (-7,0 %) — déjà « ok » avec l'ancien seuil ±10 % encore actif sur main à cette date (la PR #240 qui resserre à ±5 % n'est pas mergée), mais hors de la cible ±5 % de l'audit en cours. bikeraceinfo.com liste explicitement les 4 ascensions de l'étape comme « Aravis, Télégraphe, Lautaret, Galibier » — le Lautaret (col voisin du Galibier côté descente vers Grenoble) manquait. katiejaneendurance.com (récit d'une reconstitution à vélo du parcours historique) cite en plus Les Houches (juste après le départ de Chamonix) et Saint-Michel-de-Maurienne, en réalité le point de départ classique de l'ascension du Télégraphe avant Valloire (la source dit « base of Col du Galibier », formulation imprécise reprise ici avec la bonne position dans l'ordre des vias). Avec ces 3 ajouts, vérifié en régénération réelle du pipeline : 361,3 km, -1,3 %, dans les deux tolérances."
       }
     }
   },
