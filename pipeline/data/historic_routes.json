@@ -275,7 +275,15 @@
     "stages": {
       "22": {
         "start": "Paris",
-        "finish": "Paris"
+        "finish": "Paris",
+        "confidence": [
+          {
+            "claim": "distance reconstituée du circuit fermé (27 tours × 6,05 km = 163,35 km officiels)",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "vérifié le 25/09/2026 en régénérant réellement le pipeline : 0,0 km généré (`reconstitution quasi nulle`, checks.distance) — départ = arrivée sans via ne donne au routeur aucun trajet à calculer. Limitation structurelle, pas un manque de curation : même un via list traçant fidèlement UNE boucle complète et sourcée du circuit historique des Champs-Élysées (celui déjà documenté pour 1992/21, confirmé inchangé de 1975 à 2012) ne donnerait que ~6 km, pas 163,35 km — l'app n'a aucun mécanisme pour répéter un trajet N fois (`laps`). Corriger nécessiterait une vraie fonctionnalité de schéma/pipeline, hors scope d'une curation par étape — voir issue de suivi #251."
+          }
+        ]
       }
     }
   },
