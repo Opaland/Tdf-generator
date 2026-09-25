@@ -43,6 +43,14 @@
           "Narbonne",
           "Carcassonne",
           "Castelnaudary"
+        ],
+        "confidence": [
+          {
+            "claim": "distance reconstituée en ligne vs 423 km officiels",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "vérifié le 24/09/2026 (audit tolérance ±5%) : 448,7 km reconstitués en accès réseau réel avec le profil BRouter fastbike de l'appli (+6,1 %), hors tolérance de peu. Testé 4 vias intermédiaires réels supplémentaires entre Marseille et Arles/Montpellier (Martigues, Salon-de-Provence, Istres, Fos-sur-Mer, Nîmes) : chacun AGGRAVE le résultat (+7,7 % à +13,4 %), même diagnostic que l'étape 2 de cette édition — chaque via ajouté donne au routeur une occasion de dévier. Piste concrète non appliquée ici (changerait le comportement de TOUTES les étapes, hors scope d'une curation par étape) : le profil BRouter « shortest » sur ces mêmes vias (sans en ajouter aucun) donne 425,5 km, soit +0,6 % — dans la tolérance. Voir issue de suivi pour une éventuelle option de profil de routage par étape."
+          }
         ]
       },
       "4": {
