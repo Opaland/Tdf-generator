@@ -552,11 +552,13 @@ test('reconstructionWaypoints : bonus_sec absent (aucune donnée curée) donne n
   for (const w of wps) assert.strictEqual(w.bonus_sec, null);
 });
 
-test('1913 étape 6 : la fourche cassée d\'Eugène Christophe — Aubisque, Tourmalet, Sainte-Marie-de-Campan, Aspin dans l\'ordre', () => {
+test('1913 étape 6 : la fourche cassée d\'Eugène Christophe — Aubisque, Tourmalet, Sainte-Marie-de-Campan, Aspin, Peyresourde dans l\'ordre', () => {
   const wps = reconstructionWaypoints(1913, { number: 6, start: 'Bayonne', finish: 'Bagnères-de-Luchon' });
   const labels = wps.map((w) => w.label);
   assert.deepStrictEqual(labels, [
-    'Bayonne', "Col d'Aubisque", 'Col du Tourmalet', 'Sainte-Marie-de-Campan', "Col d'Aspin", 'Bagnères-de-Luchon',
+    'Bayonne', 'Orthez', 'Pau', 'Laruns', "Col d'Aubisque", 'Argelès-Gazost', 'Luz-Saint-Sauveur',
+    'Col du Tourmalet', 'Sainte-Marie-de-Campan', "Col d'Aspin", 'Arreau', 'Col de Peyresourde',
+    'Bagnères-de-Luchon',
   ]);
   const tourmalet = wps.find((w) => w.label === 'Col du Tourmalet');
   assert.strictEqual(tourmalet.altitude_hint_m, 2115, 'altitude résolue via known_cols.json');
