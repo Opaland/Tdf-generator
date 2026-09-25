@@ -337,7 +337,7 @@
             "claim": "points de passage du prologue (rues de Donostia)",
             "status": "UNSURE",
             "level": "moyenne",
-            "detail": "road book complet trouvé (memoire-du-cyclisme.eu/eta_tdf_1990_1999/tdf1992_p.php) mais ce sont des rues, pas des communes — géocodage Nominatim/POI non garanti pour ce niveau de précision en Espagne. Arrivée officielle Paseo de la República Argentina."
+            "detail": "road book complet trouvé (memoire-du-cyclisme.eu/eta_tdf_1990_1999/tdf1992_p.php) mais ce sont des rues, pas des communes — géocodage Nominatim/POI non garanti pour ce niveau de précision en Espagne. Vérifié le 25/09/2026 : reconstitution à 6,1 km pour 8 km officiels (-24,2 %), hors tolérance (±10% comme ±5%). Testé la requête exacte « Calle de San Martín, San Sebastián » citée par le road book : géocode à tort à ~480 km de Donostia (région de Madrid/Ávila) — c'est pourquoi le via list retient « Avenida Zumalakarregi » comme repli, une rue réelle de Donostia mais pas celle du road book. Testé aussi une arrivée explicite « Paseo de la République Argentina » (nom officiel de l'arrivée) : géocode correctement mais RAPPROCHE le dernier via plutôt que de l'éloigner (-29,5 %, pire) — laissé sur le « San Sebastián » générique du départ/arrivée Wikipédia, qui donne le meilleur résultat malgré son imprécision. Écart diffus sur tous les legs (ratios 1,2-1,45, aucun segment isolé anormal), pas un via mal placé isolé."
           },
           {
             "claim": "zones de rebroussement détectées sur ce prologue",
@@ -346,7 +346,7 @@
             "detail": "balayage issue #194 : 2 zones mineures (km 1,1-2,3 et km 3,4-4,4, ~2 km cumulés) sur ce prologue urbain de 6,1 km reconstitué. Aucune côte concernée (étape plate, aucune côte détectée). Classées (c) sans impact notable : probablement des variations de rues dans le centre de Donostia, cohérentes avec le trou de couverture déjà documenté ci-dessus (rues sans localisation garantie)."
           }
         ],
-        "note": "Prologue individuel dans Donostia/San Sebastián : Miraconcha → sortie/entrée N1 → Calle de San Martín → Paseo de los Fueros → arrivée Paseo de la República Argentina (8 km). Sourcé : memoire-du-cyclisme.eu/eta_tdf_1990_1999 (road book officiel, ville par ville avec bornes km)/tdf1992_p.php."
+        "note": "Prologue individuel dans Donostia/San Sebastián : road book officiel (Miraconcha → sortie/entrée N1 → Calle de San Martín → Paseo de los Fueros → arrivée Paseo de la République Argentina, 8 km) sourcé sur memoire-du-cyclisme.eu/eta_tdf_1990_1999/tdf1992_p.php, mais « Calle de San Martín » ne géocode pas de façon fiable (voir confidence) — remplacée par « Avenida Zumalakarregi », une rue réelle de Donostia sur un axe comparable, pas une citation du road book pour ce point précis."
       },
       "1": {
         "vias": [
