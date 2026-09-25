@@ -474,6 +474,11 @@
             "country": "belgium"
           },
           {
+            "label": "Oude Kruisberg",
+            "kind": "col",
+            "country": "belgium"
+          },
+          {
             "label": "Oude Kwaremont",
             "kind": "col",
             "country": "belgium"
@@ -494,6 +499,11 @@
             "country": "belgium"
           },
           {
+            "label": "Halle, Belgium",
+            "kind": "via",
+            "country": "belgium"
+          },
+          {
             "label": "Schepdaal",
             "kind": "via",
             "country": "belgium"
@@ -504,16 +514,16 @@
             "claim": "parcours Roubaix → Bruxelles, ordre et localisation des monts flandriens",
             "status": "UNSURE",
             "level": "moyenne",
-            "detail": "source unique (lagrandeboucle.com) citant les difficultés dans cet ordre et un sprint à Schepdaal (km 141) remporté par Chiappucci, plus la position du groupe à Braine-l'Alleud (~km 95) tirée du récit de course, pas d'un road book officiel. Un mont cité par la source sous le nom « Kreusberg » n'a pas pu être identifié avec certitude (probablement Kruisberg à Ronse, non confirmé) — omis plutôt que deviné."
+            "detail": "source unique (lagrandeboucle.com) citant les difficultés dans cet ordre et un sprint à Schepdaal (km 141) remporté par Chiappucci, plus la position du groupe à Braine-l'Alleud (~km 95) tirée du récit de course, pas d'un road book officiel. Un mont cité par la source sous le nom « Kreusberg » reste non identifié avec certitude comme LE mont cité (la source primaire est restée inaccessible pour re-vérification directe le 25/09/2026, HTTP 503 persistant) — mais ajouté le 25/09/2026 sous le nom « Oude Kruisberg » (Ronse), un mont bien réel et indépendamment sourcé (Wikipédia anglais, climbfinder.com) comme faisant partie du Tour des Flandres à cet emplacement précis de la séquence (juste avant Kwaremont), géographiquement et historiquement cohérent avec la mention d'origine. Attention à l'homonymie : « Kruisberg » seul géocode à tort près de Liège (~150 km) — nécessite le qualificatif « Oude Kruisberg » ou « Kruisberg, Ronse »."
           },
           {
             "claim": "zones de rebroussement détectées sur cette étape",
             "status": "OK",
             "level": "haute",
-            "detail": "balayage issue #194 : 2 petites zones (km 33,0-33,8 et km 34,8-35,5, 1,5 km cumulés) encadrant le via Oude Kwaremont (km 34,3). La côte détectée juste avant (« Côte de Quaremont, Kluisbergen », km 29,5-32,3) est nommée par géocodage inverse plutôt que rattachée au via Kwaremont (à 2 km, hors fenêtre de nommage de nameClimbs()) — near-miss possible du même mécanisme que Bonhomme (1992/11, issue #193), mais zones trop petites pour en être clairement la cause. Classé (c) : impact négligeable sur la distance, sans côte dupliquée."
+            "detail": "balayage issue #194 : 2 petites zones (km 33,0-33,8 et km 34,8-35,5, 1,5 km cumulés) encadrant le via Oude Kwaremont (km 34,3). La côte détectée juste avant (« Côte de Quaremont, Kluisbergen », km 29,5-32,3) est nommée par géocodage inverse plutôt que rattachée au via Kwaremont (à 2 km, hors fenêtre de nommage de nameClimbs()) — near-miss possible du même mécanisme que Bonhomme (1992/11, issue #193), mais zones trop petites pour en être clairement la cause. Classé (c) : impact négligeable sur la distance, sans côte dupliquée. Zones mesurées avant l'ajout d'Oude Kruisberg/Halle le 25/09/2026, non revérifiées depuis."
           }
         ],
-        "note": "Roubaix → Bruxelles via des difficultés du Tour des Flandres : Mont de l'Enclus (km 22), Oude Kwaremont, Mur de Grammont (Muur van Geraardsbergen), Bosberg, puis sprint à Schepdaal (km 141, remporté par Chiappucci). Sourcé : lagrandeboucle.com/article.php3?id_article=435."
+        "note": "Roubaix → Bruxelles via des difficultés du Tour des Flandres : Mont de l'Enclus (km 22), Oude Kwaremont, Mur de Grammont (Muur van Geraardsbergen), Bosberg, puis sprint à Schepdaal (km 141, remporté par Chiappucci). Sourcé : lagrandeboucle.com/article.php3?id_article=435. Parcours complété le 25/09/2026 (audit ±5%) : sans via supplémentaire, reconstitution à 147,1 km pour 167 km officiels (-11,9 %), hors tolérance même à ±10 %. Oude Kruisberg (voir confidence) et Halle (ville réelle quasi obligée entre Braine-l'Alleud et Schepdaal sur ce corridor, pas une citation de la source primaire — attention, « Halle » seul géocode à tort sur la ville allemande de Saxe-Anhalt, nécessite « Halle, Belgium ») ajoutés. Avec ces ajouts, vérifié en régénération réelle du pipeline : 160,5 km, -3,9 %, dans la tolérance."
       },
       "7": {
         "vias": [
