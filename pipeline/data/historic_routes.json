@@ -33,7 +33,15 @@
           "Avignon",
           "Arles"
         ],
-        "note": "Passage par Saint-Étienne et le col de la République (1 161 m, dit aussi col du Grand Bois, à la sortie de Saint-Étienne) — premier col à plus de 1 000 m de l'histoire du Tour."
+        "note": "Passage par Saint-Étienne et le col de la République (1 161 m, dit aussi col du Grand Bois, à la sortie de Saint-Étienne) — premier col à plus de 1 000 m de l'histoire du Tour.",
+        "confidence": [
+          {
+            "claim": "distance reconstituée en ligne vs 374 km officiels",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "vérifié le 24/09/2026 (audit tolérance ±5%) : 449,6 km reconstitués en accès réseau réel avec le profil BRouter fastbike de l'appli (+20,3 %), hors tolérance. Les 6 vias sourcés (Wikipédia/bikeraceinfo.com/cols-cyclisme.com) sont géographiquement corrects — pas un waypoint mal placé. Testé aussi le profil BRouter « shortest » (420,3 km, +12,4 %, le plus direct que BRouter propose) et OSRM voiture (474,7 km, +27,0 %, encore pire) : aucun des trois moteurs de routage réels disponibles ne rentre dans ±5 % avec ces vias, ni même en densifiant (essai avec 7 vias intermédiaires supplémentaires le long du corridor N7 historique : 500,2 km, encore plus long — chaque nouveau point de passage donne au routeur une occasion de dévier). Même diagnostic diffus que 1992 étape 4 (surcoût routier réparti sur la quasi-totalité des legs, ratio route/vol d'oiseau 1,15 à 1,47 selon le tronçon) : le réseau routier/profil vélo modernes ne suivent plus le tracé quasi direct emprunté en 1903 (contournements, sécurité cycliste), pas un trou de road book à combler par plus de points de passage."
+          }
+        ]
       },
       "3": {
         "vias": [
