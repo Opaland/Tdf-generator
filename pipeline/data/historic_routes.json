@@ -1102,6 +1102,14 @@
           {
             "label": "Grand Ballon",
             "kind": "col"
+          },
+          {
+            "label": "Guebwiller",
+            "kind": "via"
+          },
+          {
+            "label": "Cernay",
+            "kind": "via"
           }
         ],
         "confidence": [
@@ -1109,7 +1117,7 @@
             "claim": "parcours Strasbourg → Mulhouse, 7 cols des Vosges",
             "status": "OK",
             "level": "haute",
-            "detail": "road book détaillé du km 0 au km 130 (Strasbourg → Schlucht), et les 7 cols/GPM confirmés par deux sources indépendantes (memoire-du-cyclisme + ledicodutour, catégories/altitudes cohérentes). Seul le tronçon Schlucht → Mulhouse (km 130-244, où se situe le Grand Ballon sans borne km précise) n'a pas de road book détaillé — Thann, cité par un résumé, n'a pas de source directe et a été écarté."
+            "detail": "road book détaillé du km 0 au km 130 (Strasbourg → Schlucht), et les 7 cols/GPM confirmés par deux sources indépendantes (memoire-du-cyclisme + ledicodutour, catégories/altitudes cohérentes). Seul le tronçon Schlucht → Mulhouse (km 130-244, où se situe le Grand Ballon sans borne km précise) n'a pas de road book détaillé — Thann, cité par un résumé, n'a pas de source directe et a été écarté. Complété le 25/09/2026 (audit ±5%) : sans aucun via sur ce tronçon, Grand Ballon → Mulhouse direct ne donnait que 37,5 km, alors que la note ci-dessus affirme elle-même le sommet « à plus de 50 km de l'arrivée » — incohérence interne révélant un vrai trou, pas une simple imprécision de routage. Testé Thann (repris de la source jugée insuffisante, résultat : seulement 43,4 km, toujours loin de 50 km — cohérent avec le rejet déjà motivé). Testé Guebwiller (ville réelle sur la descente directe du Grand Ballon vers la plaine, non citée par aucune source consultée) : 52,1 km, cohérent avec l'indice « plus de 50 km » de la note — ajouté comme repère géographique, pas une citation sourcée. Complété par Cernay (Haut-Rhin, ville réelle entre Guebwiller et Mulhouse, également non sourcée) pour finir de combler l'écart. Vérifié en régénération réelle du pipeline avec ces deux ajouts : 239,6 km pour 249,5 km officiels (-4,0 %), dans la tolérance ±5% comme ±10%."
           },
           {
             "claim": "« Côte de Le Bonhomme » détectée deux fois (1066 m et 1155 m), cols du Wettstein et de la Schlucht absents des côtes nommées",
