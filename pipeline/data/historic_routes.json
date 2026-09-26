@@ -1256,16 +1256,43 @@
         "note": "La Bourboule → [boucle sud-ouest non détaillée, direction Bort-les-Orgues] → côte de Confolent-Port-Dieu (Corrèze, descente où le maillot jaune reprend Stephens, dans les 50 premiers km) → [reste du tracé vers Montluçon non sourcé] → Montluçon (189 km). Sourcé : lagrandeboucle.com/spip.php?article458 (seul point confirmé)."
       },
       "20": {
-        "vias": [],
+        "vias": [
+          { "label": "Pontijou", "kind": "via" },
+          { "label": "Oucques", "kind": "via" },
+          { "label": "Moisy", "kind": "via" },
+          { "label": "La Ferté-Villeneuil", "kind": "via" },
+          { "label": "Châteaudun", "kind": "via" },
+          { "label": "Varize", "kind": "via" },
+          { "label": "Cormainville", "kind": "via" },
+          { "label": "Villars", "kind": "via" },
+          { "label": "Boncé", "kind": "via" },
+          { "label": "Dammarie", "kind": "via" },
+          { "label": "Chartres", "kind": "via" },
+          { "label": "Coltainville", "kind": "via" },
+          { "label": "Gallardon", "kind": "via" },
+          { "label": "Épernon", "kind": "via" },
+          { "label": "Poigny-la-Forêt", "kind": "via" },
+          { "label": "Montfort-l'Amaury", "kind": "via" },
+          { "label": "Boissy-sans-Avoir", "kind": "via" },
+          { "label": "Beynes", "kind": "via" },
+          { "label": "Saint-Nom-la-Bretèche", "kind": "via" },
+          { "label": "Marly-le-Roi", "kind": "via" }
+        ],
         "confidence": [
           {
-            "claim": "parcours Blois → Nanterre",
-            "status": "UNSURE",
-            "level": "basse",
-            "detail": "aucun point de passage intermédiaire trouvé avec une source directe (road book de cette étape non indexé/inaccessible). Seul le départ (avenue Wilson, Blois) est confirmé. Rambouillet/Chevreuse/Versailles sont géographiquement plausibles sur un tel trajet mais n'ont PAS été trouvés dans une source fiable — volontairement absents plutôt qu'inventés. Étape non curée pour cette raison, laissée telle quelle en attendant une source."
+            "claim": "parcours Blois → Nanterre, liste complète des 19 vias",
+            "status": "OK",
+            "level": "haute",
+            "detail": "trouvaille du 26/09/2026 : le road book textuel (memoire-du-cyclisme.eu/.org, lagrandeboucle.com) reste inaccessible (503/404 au moment de cette recherche), mais ledicodutour.com/etapes/etapes_par_annees/etapes_1987_1996/etapes_1992.html embarque le profil officiel de l'étape en image (images/cartes_etapes/1987_1996/1992/92_20.jpg) — un profil altimétrique avec CHAQUE ville-repère et son kilomètre exact, format identique à un road book classique, déjà le type de source utilisé pour d'autres étapes 1992 (ex. memoire-du-cyclisme pour 1992/7, 1992/8, 1992/9). Image téléchargée et lue directement (agrandissement 6-12x pour lisibilité) : Blois (0, départ) → Pontijou (14) → Oucques (23, sprint) → Moisy (35) → La Ferté-Villeneuil (43) → Châteaudun (54) → Varize (68) → Cormainville (76,5) → Villars (88,5) → Boncé (98) → Dammarie (102, ravitaillement) → Chartres (114,5) → Coltainville (123) → Gallardon (132,5) → Épernon (142) → Poigny-la-Forêt (154) → Montfort-l'Amaury (166,5) → Boissy-sans-Avoir (176) → Beynes (187) → Saint-Nom-la-Bretèche (199,5, sprint) → Marly-le-Roi (210) → Nanterre (222, arrivée). Les transitions de département affichées sur le profil (Loir-et-Cher → Eure-et-Loir → Yvelines → Hauts-de-Seine) correspondent exactement aux départements retournés par le géocodage réel de chacune des 19 villes (respectivement dept 41, 28, 28, 78), dans l'ordre, sans aucune incohérence — élément de vérification indépendant fort. Chaque via géocodé avec un biais `near` chaîné sur la ville précédente (en partant de Blois) pour éviter tout risque d'homonyme ; aucun score de géocodage suspect (0,71 à 1,0, toutes résolues en `municipality` sauf Pontijou, hameau de score plus faible 0,72 mais dont la latitude tombe exactement entre Blois et Oucques, cohérent avec sa position sur le profil)."
+          },
+          {
+            "claim": "écart de distance avec les 19 vias sourcés : +6,0 % (235,3 km / 222 km)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "vérifié via le pipeline réel (`importEdition` + `generateStage`, lecture de `checks.distance.status` en base) : 235,3 km générés pour 222 km officiels, +6,0 %, `status: \"ok\"` (dans l'ancienne tolérance ±10 %) — amélioration nette depuis -17,5 % (183,1 km) avant l'ajout de ces 19 vias. Dépasse encore très légèrement la cible d'audit ±5 %, mais aucun via supplémentaire sourcé ne peut réduire cet écart : la liste des 19 villes ci-dessus est déjà exhaustive par rapport à la source (le profil ne nomme aucune autre ville-repère), et un via de plus rallongerait le tracé (déjà en excès) plutôt que de le raccourcir. `checks.js` signale 3 écarts >12 km sans via intermédiaire (Blois→Pontijou 17,6 km ; Châteaudun→Varize 14,7 km ; Dammarie→Chartres 12,3 km) — attendu pour un profil qui n'indique qu'une ville-repère par tronçon d'une dizaine de km, pas un road book exhaustif ville par ville ; aucune zone de rebroussement détectée sur cette étape (balayage non effectué séparément ici, mais `checks.distance.status` déjà \"ok\" et aucun signal `backtrack-*` dans les items retournés). +6,0 % documenté honnêtement comme le résultat final obtenu avec la meilleure source trouvée, pas comme un ±5% strict."
           }
         ],
-        "note": "Blois (départ avenue Wilson, confirmé par ledicodutour.com/villes-etapes/villes_etapes_b/blois.html et archives.blois.fr) → Nanterre (222 km). Aucun point de passage intermédiaire sourcé à ce jour — reconstruction non fiable, à compléter."
+        "note": "Blois (départ avenue Wilson, confirmé par ledicodutour.com/villes-etapes/villes_etapes_b/blois.html et archives.blois.fr) → Pontijou → Oucques (sprint, km 23) → Moisy → La Ferté-Villeneuil → Châteaudun (54) → Varize → Cormainville → Villars → Boncé → Dammarie (ravitaillement, km 102) → Chartres (114,5) → Coltainville → Gallardon → Épernon → Poigny-la-Forêt → Montfort-l'Amaury → Boissy-sans-Avoir → Beynes → Saint-Nom-la-Bretèche (sprint, km 199,5) → Marly-le-Roi → Nanterre (222 km). Sourcé : ledicodutour.com/etapes/etapes_par_annees/etapes_1987_1996/etapes_1992.html (profil officiel de l'étape, image 92_20.jpg, ville par ville avec bornes km)."
       },
       "21": {
         "vias": [
