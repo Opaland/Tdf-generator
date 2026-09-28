@@ -1316,7 +1316,7 @@
           { "label": "Heiderscheid", "kind": "via", "country": "luxembourg" },
           { "label": "Hoscheid", "kind": "col", "country": "luxembourg" },
           { "label": "Vianden", "kind": "col", "country": "luxembourg" },
-          { "label": "Bettendorf, Luxembourg", "kind": "via", "country": "luxembourg" },
+          { "label": "Bettendorf", "kind": "via", "country": "luxembourg" },
           { "label": "Echternach", "kind": "via", "country": "luxembourg" },
           { "label": "Mertert", "kind": "via", "country": "luxembourg" },
           { "label": "Wormeldange", "kind": "col", "country": "luxembourg" },
@@ -1328,7 +1328,7 @@
             "claim": "parcours complet de la boucle autour de Luxembourg-Ville (192,5 km)",
             "status": "OK",
             "level": "haute",
-            "detail": "trouvaille du 28/09/2026 : ledicodutour.com/etapes/etapes_par_annees/etapes_1997_2006/etapes_2002.html embarque le profil altimétrique complet de l'étape (images/cartes_etapes/2002/2002-1a.jpg), avec chaque ville-repère et son kilomètre — même type de source que pour 1992/20 et 1992/21. Ajoute 7 villes réelles entre les 4 cols déjà sourcés (bikeraceinfo.com, kilométrage inchangé) : Tuntange → Colmar-Berg → Heiderscheid → [Côte de Hoscheid] → [Côte de Vianden] → Bettendorf → Echternach → Mertert → [Côte de Wormeldange] → Remich → [Côte de Hostert] → retour Luxembourg — cohérent avec une boucle complète autour du pays (NW puis NE puis SE puis S puis retour), confirmé géographiquement par les coordonnées réelles de chaque ville (near chaîné depuis Luxembourg, aucune dérive lointaine détectée)."
+            "detail": "trouvaille du 28/09/2026 : ledicodutour.com/etapes/etapes_par_annees/etapes_1997_2006/etapes_2002.html embarque le profil altimétrique complet de l'étape (images/cartes_etapes/2002/2002-1a.jpg), avec chaque ville-repère et son kilomètre — même type de source que pour 1992/20 et 1992/21. Ajoute 7 villes réelles entre les 4 cols déjà sourcés (bikeraceinfo.com, kilométrage inchangé) : Tuntange → Colmar-Berg → Heiderscheid → [Côte de Hoscheid] → [Côte de Vianden] → Bettendorf → Echternach → Mertert → [Côte de Wormeldange] → Remich → [Côte de Hostert] → retour Luxembourg — cohérent avec une boucle complète autour du pays (NW puis NE puis SE puis S puis retour), confirmé géographiquement par les coordonnées réelles de chaque ville, toutes dans la bounding box du Luxembourg — le garde-fou réel n'est pas un biais `near` (ce chemin de code, Nominatim, n'en applique aucun, contrairement à la Géoplateforme — même trouvaille déjà documentée pour 2002/0) mais la restriction pays `countrycodes=lu` (`country_hint: \"luxembourg\"`), qui exclut structurellement tout homonyme hors du pays."
           },
           {
             "claim": "écart de distance avec les 11 vias (7 villes + 4 cols)",
