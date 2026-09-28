@@ -1297,15 +1297,28 @@
     "notes": "Édition entièrement reconstruite depuis Wikipédia sans aucune curation avant ce correctif (issue #188, trouvaille de l'audit du 08/09/2026) : 13 des 21 étapes affichaient un écart de distance hors tolérance (±10 %), toutes imputables à cette absence de points de passage plutôt qu'à des bugs indépendants. Cols/côtes sourcés : bikeraceinfo.com (« The rated climbs », liste et kilométrage par étape — même source déjà utilisée pour curer le Tour 1992). Recoupement du calendrier et des distances officielles : Wikipédia (anglais, « 2002 Tour de France, Prologue to Stage 10 » et « Stage 11 to Stage 20 ») et ledicodutour.com. L'étape 9 (Lanester → Lorient) était documentée comme une hypothèse de contre-la-montre PAR ÉQUIPES dans l'audit initial (issue #189) — infirmé ici par recoupement de trois sources indépendantes (Wikipédia FR « 9e étape du Tour de France 2002 », procyclingstats.com, lorientlejour.com) : c'était un contre-la-montre INDIVIDUEL, remporté par Santiago Botero devant Armstrong (11 s). Restent sans point de passage sourcé, documentés comme trous de couverture volontairement non comblés plutôt qu'inventés : le prologue (étape 0), l'étape 4 (CLM par équipes Épernay → Château-Thierry), le tracé exact de l'étape 9, et la majorité de l'approche Melun → Paris de l'étape 20.",
     "stages": {
       "0": {
+        "start": { "label": "La Porte Neuve, Luxembourg", "country": "luxembourg" },
+        "finish": { "label": "La Porte Neuve, Luxembourg", "country": "luxembourg" },
+        "vias": [
+          { "label": "Rue Vauban, Luxembourg", "kind": "via", "country": "luxembourg" },
+          { "label": "Grund, Luxembourg", "kind": "via", "country": "luxembourg" },
+          { "label": "Avenue de la Liberté, Luxembourg", "kind": "via", "country": "luxembourg" }
+        ],
         "confidence": [
           {
             "claim": "points de passage du prologue (rues/quartier de Luxembourg-Ville)",
-            "status": "UNSURE",
-            "level": "basse",
-            "detail": "aucune source consultée ne nomme de rue ou de quartier pour ce contre-la-montre individuel de 7 km (Wikipédia FR et EN : section parcours vide ; bikeraceinfo.com mentionne une « côte cat.4 à 5,3 km » sans nom exploitable pour le géocodage). Trou de couverture non comblé plutôt qu'inventé."
+            "status": "OK",
+            "level": "haute",
+            "detail": "trouvaille du 28/09/2026 : ledicodutour.com/etapes/etapes_par_annees/etapes_1997_2006/etapes_2002.html embarque un plan de circuit détaillé du prologue (images/cartes_etapes/2002/2002-00.gif) — carte des rues de Luxembourg-Ville avec le tracé complet et 3 bornes kilométriques. Départ/arrivée à La Porte Neuve, boucle par Rue Vauban/quartier Pfaffenthal (km 2), quartier du Grund (km 4), Avenue de la Liberté/quartier Centrum (km 6), retour à La Porte Neuve. Les 3 points intermédiaires géocodés via Nominatim (aucune couverture Géoplateforme pour le Luxembourg — cohérent avec les autres vias luxembourgeois déjà présents dans ce fichier, ex. 2002/1), restreints au pays via `countrycodes=lu` (`country_hint: \"luxembourg\"`) — ce chemin de code n'applique aucun biais `near`/proximité, contrairement à la Géoplateforme ; c'est la restriction pays qui exclut tout homonyme français/belge (\"Rue Vauban\" existe ailleurs), pas une proximité géographique. Tous dans un rayon de 2 km, cohérent avec une boucle urbaine de 7 km."
+          },
+          {
+            "claim": "écart de distance avec les 3 vias sourcés",
+            "status": "OK",
+            "level": "haute",
+            "detail": "vérifié via le pipeline réel (`importEdition` + `generateStage`) après curation complète (3 vias + départ/arrivée explicites) : 6,4 km générés pour 7 km officiels, -8,9 % (`status: \"ok\"`, ancienne tolérance ±10 %) — nette amélioration depuis la reconstruction quasi nulle (départ=arrivée sans via, ~0,1 km) précédant cette curation. Dépasse encore très légèrement la cible d'audit ±5 %, plausible pour un tracé urbain reconstruit à partir de 3 bornes kilométriques plutôt qu'un road book rue par rue complet — aucun via supplémentaire disponible dans la source. Trouvaille annexe en rejouant le pipeline réel : le libellé brut Wikipédia « Luxembourg City » géocode (Nominatim) sur le centroïde administratif du PAYS (49,8159/6,1297, à ~22 km au nord de la ville), gonflant l'étape à 56,8 km générés (+710,8 %) malgré les 3 vias corrects. Départ/arrivée curés explicitement en « La Porte Neuve, Luxembourg » (49,6159/6,1267, le point de départ réel indiqué par le plan de circuit) pour corriger ce point précis — pas un problème des vias eux-mêmes."
           }
         ],
-        "note": "Prologue individuel à Luxembourg-Ville (7 km, 6 juillet 2002), remporté par Lance Armstrong. Un col de 4e catégorie est franchi au km 5,3 (bikeraceinfo.com) mais sans nom exploitable pour un point de passage. Aucun point de passage sourcé : la reconstruction reste un simple aller direct (départ=arrivée, quasi nulle) en attendant une source détaillant le tracé réel dans la ville."
+        "note": "Prologue individuel à Luxembourg-Ville (7 km, 6 juillet 2002), remporté par Lance Armstrong. Un col de 4e catégorie est franchi au km 5,3 (bikeraceinfo.com) mais sans nom exploitable pour un point de passage. Boucle départ/arrivée à La Porte Neuve, par Rue Vauban/Pfaffenthal (km 2), le Grund (km 4), Avenue de la Liberté/Centrum (km 6). Sourcé : ledicodutour.com/etapes/etapes_par_annees/etapes_1997_2006/etapes_2002.html (plan de circuit détaillé, image 2002-00.gif)."
       },
       "1": {
         "vias": [
