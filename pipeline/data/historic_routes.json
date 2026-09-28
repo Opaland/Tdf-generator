@@ -1269,26 +1269,37 @@
       },
       "21": {
         "vias": [
-          {
-            "label": "Vallée de Chevreuse",
-            "kind": "via"
-          }
+          { "label": "Chatou", "kind": "via" },
+          { "label": "Bougival", "kind": "col" },
+          { "label": "Montigny-le-Bretonneux", "kind": "via" },
+          { "label": "Chevreuse", "kind": "via" },
+          { "label": "Saint-Rémy-lès-Chevreuse", "kind": "col" },
+          { "label": "Châteaufort", "kind": "col" },
+          { "label": "Versailles", "kind": "via" },
+          { "label": "Issy-les-Moulineaux", "kind": "via" },
+          { "label": "Place de la Concorde, Paris", "kind": "via" },
+          { "label": "Petit Palais, Paris", "kind": "via", "lat": 48.866013, "lon": 2.314966 },
+          { "label": "Rond-point des Champs-Élysées, Paris", "kind": "via" },
+          { "label": "Rue Arsène-Houssaye, Paris", "kind": "via" },
+          { "label": "Cours-la-Reine, Paris", "kind": "via" },
+          { "label": "Tunnel du Général-Lemonnier, Paris", "kind": "via" },
+          { "label": "Rue de Rivoli, Paris", "kind": "via" }
         ],
         "confidence": [
           {
-            "claim": "circuit final des Champs-Élysées (10 tours)",
-            "status": "OK",
-            "level": "haute",
-            "detail": "tracé du circuit des Champs-Élysées confirmé inchangé de 1975 à 2012 (avant le passage par la place Charles-de-Gaulle introduit en 2013) : Wikipédia français, article dédié « Étape des Champs-Élysées du Tour de France ». 10 tours × 6,5 km = 65 km, cohérent avec 141 km générés moins ~76 km d'approche."
-          },
-          {
-            "claim": "parcours d'approche La Défense → Paris (~76 km avant le circuit)",
+            "claim": "circuit final des Champs-Élysées (10 tours), un seul tour représentable",
             "status": "UNSURE",
             "level": "basse",
-            "detail": "seule la traversée de la « vallée de Chevreuse » est sourcée (lagrandeboucle.com/spip.php?article462), sans nom de commune précis — la reconstruction du parcours d'approche (76 km) reste approximative."
+            "detail": "tracé du circuit des Champs-Élysées confirmé inchangé de 1975 à 2012 (avant le passage par la place Charles-de-Gaulle introduit en 2013) : Wikipédia français, article dédié « Étape des Champs-Élysées du Tour de France » ; profil officiel ledicodutour.com (images/cartes_etapes/1987_1996/1992/92_21.jpg) confirme 10 « passages » espacés d'environ 6,5 km entre le km 78,5 et le km 135, avant l'arrivée au km 141 — cohérent avec 10 tours × 6,5 km = 65 km. Limitation structurelle déjà documentée pour 1975/22 (issue #251, aucun mécanisme `laps` dans l'app) : les vias ci-dessus ne tracent qu'UN SEUL tour du circuit (Petit Palais → rond-point → demi-tour rue Arsène-Houssaye → Cours-la-Reine → tunnel du Général-Lemonnier → rue de Rivoli), pas les 10 — ajouté pour que le tracé emprunte au moins une fois la vraie avenue d'arrivée plutôt que de s'arrêter à un point générique de Paris, mais ~58,5 km du circuit (9 tours sur 10) restent structurellement non représentables. `status: UNSURE` reflète cette limitation, pas un doute sur le tracé lui-même (haute confiance sur l'ordre et les rues, voir sources). Vérifié via le pipeline réel (`importEdition` + `generateStage`) : 89,8 km générés pour 141 km officiels, -36,3 % (`status: \"fail\"`, chiffre re-vérifié après le correctif de coordonnées du via Petit Palais ci-dessous) — nette amélioration depuis -82,2 % (25,2 km) avant cette curation, écart résiduel cohérent avec les ~58,5 km de tours manquants (89,8 + 58,5 ≈ 148, proche des 141 km officiels compte tenu de la marge de routage habituelle). Écart non réductible sans la fonctionnalité `laps` (issue #251), documenté honnêtement plutôt que forcé dans la tolérance. Relecture adverse (28/09/2026, pipeline réel relancé en conditions réelles) : le via « Petit Palais, Paris » se géocodait en réalité vers le Palais Bourbon (Assemblée nationale, rive gauche, ~500 m du vrai Petit Palais) — `pickFeature()` ne trouve aucun candidat de type commune pour cette requête (POI seulement), donc avec un `near` fourni la sélection se fait par pure proximité au waypoint précédent (Concorde) plutôt que par pertinence du nom, et Palais Bourbon s'est trouvé ~100 m plus proche. Corrigé par coordonnées explicites (`lat`/`lon` sur le via, mécanisme déjà utilisé ailleurs dans ce fichier pour Col du Télégraphe/known_cols.json) : 48,866013/2,314966, le vrai Petit Palais, vérifié indépendamment par requête Géoplateforme sans biais `near`. Les 5 autres vias du tour de circuit (rond-point, rue Arsène-Houssaye, Cours-la-Reine, tunnel du Général-Lemonnier, rue de Rivoli) ont été vérifiés tomber à des coordonnées cohérentes avec le lieu réel désigné, aucun autre correctif nécessaire. Altitudes/km des 3 GPM4 et des 10 passages du circuit re-vérifiés indépendamment sur l'image source par la relecture, exacts."
+          },
+          {
+            "claim": "parcours d'approche La Défense → Paris (~76 km avant le circuit), 9 vias sourcés",
+            "status": "OK",
+            "level": "haute",
+            "detail": "trouvaille du 28/09/2026 : le profil officiel de l'étape (ledicodutour.com, image 92_21.jpg, même type de source que 1992/20) détaille l'intégralité de l'approche avec villes et cols catégorisés : Chatou (8) → Côte de Bougival (17, GPM4, 200 m) → Montigny-le-Bretonneux (29,5, sprint) → Chevreuse (41,5) → Côte de Saint-Rémy-lès-Chevreuse (45, GPM4, 180 m) → Côte de Châteaufort (49, GPM4, 160 m) → Versailles (58,5) → Issy-les-Moulineaux (68) → Place de la Concorde (78, entrée dans Paris). Remplace l'ancien via unique et vague « Vallée de Chevreuse » (lagrandeboucle.com/spip.php?article462, sans nom de commune exploitable). Chaque ville géocodée avec un biais `near` chaîné ; aucune résolution suspecte (scores 0,90-0,97, tous dans les bons départements 78/92/75, transition Yvelines→Hauts-de-Seine→Seine cohérente avec le profil)."
           }
         ],
-        "note": "La Défense → traversée de la vallée de Chevreuse (~76 km, non détaillée) → Paris, 10 tours du circuit historique des Champs-Élysées (inchangé 1975-2012, PAS de passage par la place Charles-de-Gaulle/Arc de Triomphe — le demi-tour se fait rue Arsène-Houssaye) : Petit Palais → Champs-Élysées → rond-point → demi-tour rue Arsène-Houssaye → place de la Concorde → Cours-la-Reine → tunnel du Général-Lemonnier → rue de Rivoli → 2e passage Concorde → arrivée Champs-Élysées (boucle de 6,5 km). Sourcé : fr.wikipedia.org/wiki/Étape_des_Champs-Élysées_du_Tour_de_France, lagrandeboucle.com/spip.php?article462 (10 tours, attaque d'Ekimov)."
+        "note": "La Défense → Chatou → Côte de Bougival (GPM4) → Montigny-le-Bretonneux (sprint) → Chevreuse → Côte de Saint-Rémy-lès-Chevreuse (GPM4) → Côte de Châteaufort (GPM4) → Versailles → Issy-les-Moulineaux → Place de la Concorde (km 78) → 10 tours du circuit historique des Champs-Élysées (inchangé 1975-2012, PAS de passage par la place Charles-de-Gaulle/Arc de Triomphe — le demi-tour se fait rue Arsène-Houssaye) : Petit Palais → Champs-Élysées → rond-point → demi-tour rue Arsène-Houssaye → place de la Concorde → Cours-la-Reine → tunnel du Général-Lemonnier → rue de Rivoli → 2e passage Concorde → arrivée Champs-Élysées (boucle de 6,5 km, un seul tour tracé dans les vias, 9 non représentables — voir confidence). Sourcé : ledicodutour.com/etapes/etapes_par_annees/etapes_1987_1996/etapes_1992.html (profil officiel, image 92_21.jpg), fr.wikipedia.org/wiki/Étape_des_Champs-Élysées_du_Tour_de_France, lagrandeboucle.com/spip.php?article462 (10 tours, attaque d'Ekimov)."
       }
     }
   },
