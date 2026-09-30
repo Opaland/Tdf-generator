@@ -1358,18 +1358,33 @@
       },
       "7": {
         "vias": [
+          { "label": "La Ferrière-aux-Étangs", "kind": "via" },
+          { "label": "Saint-Georges-des-Groseillers", "kind": "sprint" },
+          { "label": "Proussy", "kind": "via" },
           { "label": "Mont Pinçon", "kind": "col" },
-          { "label": "La Chapelle-Urée", "kind": "col" }
+          { "label": "Aunay-sur-Odon", "kind": "sprint" },
+          { "label": "Caumont-l'Éventé", "kind": "via" },
+          { "label": "Saint-Amand-Villages", "kind": "via" },
+          { "label": "Tessy-Bocage", "kind": "sprint" },
+          { "label": "Villedieu-les-Poêles", "kind": "via" },
+          { "label": "La Chapelle-Urée", "kind": "col" },
+          { "label": "Saint-Quentin-sur-le-Homme", "kind": "via" }
         ],
         "confidence": [
           {
-            "claim": "parcours complet Bagnoles-de-l'Orne → Avranches (176 km)",
+            "claim": "tracé Bagnoles-de-l'Orne → Avranches (176 km) : 9 nouveaux points de passage (6 localités, dont 1 ravitaillement, + 3 sprints), en plus des 2 côtes déjà sourcées",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "localités et sprints extraits du profil d'étape publié sur ledicodutour.com (image cartes_etapes/2002/2002-7a.jpg : Bagnoles-de-l'Orne(0, 200 m) → La Ferrière-aux-Étangs(16, 291 m) → Saint-Georges-des-Groseillers(29,5, 250 m, icône sprint) → Proussy(44, 194 m) → Côte du Mont-Pinçon(57, 366 m, icône col 4e cat., déjà sourcée) → Aunay-sur-Odon(64, 132 m, icône sprint) → Caumont-l'Éventé(82, 250 m) → Saint-Amand(92, 156 m, icône ravitaillement) → Tessy-sur-Vire(107, 45 m, icône sprint) → Villedieu-les-Poêles(129,5, 129 m) → La Chapelle-Urée(154, 210 m, icône col 4e cat., déjà sourcée) → Saint-Quentin-sur-le-Homme(169, 56 m) → Avranches(176, 92 m), franchissant les limites de département Orne → Calvados → Manche marquées sur l'image. Trois des communes citées sur l'image ont fusionné depuis 2002 dans des « communes nouvelles » et ne géocodent plus proprement sous leur nom seul (Proussy reste toutefois exploitable via une adresse rattachée à Condé-en-Normandie) : Saint-Amand → Saint-Amand-Villages, Tessy-sur-Vire → Tessy-Bocage — noms de substitution utilisés pour le géocodage, coordonnées géométriquement cohérentes avec les distances de l'image (testé par routage réel, écart total +4,4 % vs l'image avant même la régénération officielle). Aucune source n'a été trouvée pour confirmer indépendamment ce tracé village par village."
+          },
+          {
+            "claim": "avertissements du pipeline réel sur cette reconstruction (écarts entre points de passage)",
             "status": "UNSURE",
             "level": "basse",
-            "detail": "seuls deux cols sont sourcés (bikeraceinfo.com, km 57,0 et 154,0) sur 176 km — le reste du tracé normand n'est pas détaillé par une source consultée."
+            "detail": "la régénération réelle (base isolée) signale 6 écarts « via-gap » (12,6 à 19,6 km à vol d'oiseau sans point de passage intermédiaire, le plus large entre Tessy-Bocage et Villedieu-les-Poêles) — le routeur peut improviser un chemin plausible mais faux sur ces portions peu densifiées. Aucune zone d'aller-retour détectée. L'écart final (+2,1 %) reste dans la cible d'audit ±5 %, mais sans source additionnelle ces points de passage ne permettent pas de garantir que chaque portion suit fidèlement le tracé réel de 2002."
           }
         ],
-        "note": "Bagnoles-de-l'Orne → Avranches (176 km, 13 juillet 2002). Deux côtes classées sourcées : Côte du Mont-Pinçon (km 57,0, 1,1 km à 6,1 %, 4e cat.), côte de L'Embranchement à La Chapelle-Urée (km 154,0, 6,5 km à 2,7 %, 4e cat.). Sourcé : bikeraceinfo.com."
+        "note": "Bagnoles-de-l'Orne → Avranches (176 km, 13 juillet 2002). Deux côtes classées sourcées : Côte du Mont-Pinçon (km 57,0, 1,1 km à 6,1 %, 4e cat.), côte de L'Embranchement à La Chapelle-Urée (km 154,0, 6,5 km à 2,7 %, 4e cat.) — sourcé bikeraceinfo.com. 6 localités intermédiaires et 3 sprints (Saint-Georges-des-Groseillers, Aunay-sur-Odon, Tessy-sur-Vire) ajoutés depuis le profil d'étape de ledicodutour.com. Traverse l'Orne, le Calvados puis la Manche."
       },
       "9": {
         "confidence": [
