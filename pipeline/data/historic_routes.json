@@ -1345,6 +1345,35 @@
         ],
         "note": "Luxembourg-Ville → Saarbrücken (181 km, 8 juillet 2002), traverse l'Allemagne (Sarre). Deux côtes classées sourcées : Côte de Perl (km 60,0, 4,8 km à 4,8 %, 4e cat., commune de Perl, Sarre), Côte d'Alsweiler-Heid (km 132,5, 1,4 km à 6,4 %, 4e cat.). Sourcé : bikeraceinfo.com."
       },
+      "3": {
+        "vias": [
+          { "label": "Gravelotte", "kind": "col" },
+          { "label": "Mars-la-Tour", "kind": "via" },
+          { "label": "Maizeray", "kind": "via" },
+          { "label": "Verdun", "kind": "sprint" },
+          { "label": "Clermont-en-Argonne", "kind": "via" },
+          { "label": "Côte de la Biesme", "kind": "col" },
+          { "label": "Sainte-Menehould", "kind": "via" },
+          { "label": "Valmy", "kind": "sprint" },
+          { "label": "Suippes", "kind": "sprint" },
+          { "label": "Prunay", "kind": "via" }
+        ],
+        "confidence": [
+          {
+            "claim": "parcours complet Metz → Reims (174,5 km)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "trouvaille du 28/09/2026 : ledicodutour.com/etapes/etapes_par_annees/etapes_1997_2006/etapes_2002.html embarque le profil altimétrique complet de l'étape (images/cartes_etapes/2002/2002-3a.jpg) — même type de source que pour les autres étapes 2002 déjà curées. Ville par ville : Metz (0) → Côte de Gravelotte (16, GPM4) → Mars-la-Tour (31) → Maizeray (position non mesurée dans la source — aucun trait de renvoi ni chiffre km propre, contrairement aux 9 autres points ; ordonnée seulement par la lecture gauche-à-droite du profil, entre les ticks 31 et 57,5) → Verdun (57,5, sprint) → Clermont-en-Argonne (86) → Côte de la Biesme (93,5, GPM4) → Sainte-Menehould (100,5) → Valmy (109,5, sprint) → Suippes (130, sprint) → Prunay (159) → Reims (174,5, arrivée) — un tracé cohérent traversant la Moselle, la Meuse puis la Marne d'est en ouest. « Côte de la Biesme » résout avec un score de géocodage plus bas (0,59, type non-commune, cohérent avec un lieu-dit/relief plutôt qu'une ville) mais à une position géographiquement cohérente avec son kilomètre annoncé (entre Clermont-en-Argonne et Sainte-Menehould). « Prunay » utilisé sans qualificatif de département : la forme qualifiée « Prunay, Marne » dégradait le score de géocodage (0,42 contre 0,98 sans qualificatif) sans changer la position résolue. Relecture adverse (28/09/2026) : le kilomètre imprimé par la source pour Verdun (57,5) ne passe pas un test de plausibilité géographique simple — la distance à vol d'oiseau Metz→Verdun mesurée sur les coordonnées réellement géocodées est de 60,4 km, DÉJÀ supérieure au 57,5 km annoncé comme distance routière cumulée, ce qui est géométriquement impossible (une route ne peut jamais être plus courte que la ligne droite). Écarts plus modestes du même type détectés sur Mars-la-Tour→Verdun, Clermont-en-Argonne→Côte de la Biesme et Sainte-Menehould→Valmy. Un des chiffres km imprimés par cette source (probablement celui de Verdun) est donc erroné dans la source elle-même, ou ne représente pas ce qu'on croit (distance cumulée routière) — sans impact sur le pipeline (qui ne consomme que les noms de lieux, pas les km, pour géocoder/router) mais à garder à l'esprit avant de citer ces chiffres km comme fiables ailleurs."
+          },
+          {
+            "claim": "écart de distance avec les 10 vias sourcés",
+            "status": "OK",
+            "level": "haute",
+            "detail": "vérifié via le pipeline réel (`importEdition` + `generateStage`) : 184,4 km générés pour 174,5 km officiels, +5,7 % (`status: \"ok\"`, ancienne tolérance ±10 %) — légère amélioration depuis +7,4 % (187,5 km, aucun via, pure reconstruction directe) et surtout donnée réelle et sourcée plutôt qu'un routage à l'aveugle. Reste légèrement au-dessus de la cible d'audit ±5 %, mais aucune ville supplémentaire disponible dans la source pour combler davantage."
+          }
+        ],
+        "note": "Metz → Côte de Gravelotte (km 16, GPM4) → Mars-la-Tour → Maizeray → Verdun (sprint, km 57,5 — chiffre suspect, voir confidence) → Clermont-en-Argonne → Côte de la Biesme (km 93,5, GPM4) → Sainte-Menehould → Valmy (sprint, km 109,5) → Suippes (sprint, km 130) → Prunay → Reims (174,5 km, 9 juillet 2002). Sourcé : ledicodutour.com/etapes/etapes_par_annees/etapes_1997_2006/etapes_2002.html (profil complet, image 2002-3a.jpg)."
+      },
       "4": {
         "confidence": [
           {
