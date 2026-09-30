@@ -1356,6 +1356,38 @@
         ],
         "note": "Contre-la-montre par équipes Épernay → Château-Thierry (67,5 km, 10 juillet 2002). Aucun point de passage intermédiaire sourcé."
       },
+      "5": {
+        "start": "Soissons",
+        "finish": "Rouen",
+        "vias": [
+          { "label": "Berneuil-sur-Aisne", "kind": "via" },
+          { "label": "Clairoix", "kind": "via" },
+          { "label": "Gournay-sur-Aronde", "kind": "via" },
+          { "label": "Brunvillers-la-Motte", "kind": "sprint" },
+          { "label": "Noyers-Saint-Martin", "kind": "via" },
+          { "label": "Crèvecœur-le-Grand", "kind": "via" },
+          { "label": "Grandvilliers", "kind": "sprint" },
+          { "label": "Formerie", "kind": "via" },
+          { "label": "Forges-les-Eaux", "kind": "sprint" },
+          { "label": "Buchy", "kind": "via" },
+          { "label": "Quincampoix", "kind": "via" }
+        ],
+        "confidence": [
+          {
+            "claim": "tracé Soissons → Rouen (195 km) via 8 localités intermédiaires + 3 sprints intermédiaires (11 points de passage au total)",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "localités et sprints extraits du profil d'étape publié sur ledicodutour.com (image cartes_etapes/2002/2002-5a.jpg : Soissons(0 km, 44 m) → Berneuil-sur-Aisne(24, 53 m) → Clairoix(36,5, 43 m) → Gournay-sur-Aronde(54,5, 71 m) → Brunvillers-la-Motte(74, 134 m, icône sprint) → Noyers-Saint-Martin(91, 179 m, icône ravitaillement à proximité) → Crèvecœur-le-Grand(104 ou 117, 187 m) → Grandvilliers(117 ou 134, 209 m, icône sprint) → Formerie(134 ou 150,5, 235 m) → Forges-les-Eaux(150,5 ou 165, 170 m, icône sprint) → Buchy(165 ou 180,5, 220 m) → Quincampoix(180,5 ou ~190, 190 m) → Rouen(195, 70 m), franchissant les limites de département Aisne → Oise → Seine-Maritime marquées sur l'image. Le libellé lu sur l'image pour la localité du km 91 (« Noyers-sur-Martin ») ne correspond à aucune commune : il s'agit vraisemblablement de Noyers-Saint-Martin (Oise) — hypothèse étayée par un géocodage direct propre (Géoplateforme, type municipality, score 0,876, coordonnées cohérentes avec les points voisins du corridor) contre un échec net pour la lecture littérale (score 0,395, type street, département 41, à ~400 km du corridor) — mais non confirmée par une source indépendante décrivant le tracé réel (la section « Profil et parcours » de l'article Wikipédia FR dédié à cette étape est vide) : possible lecture d'image corrigée, mais une approximation de la source elle-même n'est pas exclue. La densité de l'image ne permet pas de distinguer avec certitude à quel repère kilométrique précis chaque icône sprint/ravitaillement se rattache (deux graduations plausibles pour plusieurs points, notées ci-dessus) ; aucun impact sur le géocodage, qui ne consomme que les toponymes, pas les distances affichées."
+          },
+          {
+            "claim": "avertissements du pipeline réel sur cette reconstruction (écarts entre points de passage, zones d'aller-retour)",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "la régénération réelle (base isolée) signale 9 écarts « via-gap » (12,5 à 24,2 km à vol d'oiseau sans point de passage intermédiaire, le plus large entre Soissons et Berneuil-sur-Aisne) et 2 zones d'aller-retour détectées (km 55,5–56,2 et km 57,7–58,5, sur le segment Clairoix → Gournay-sur-Aronde, lui-même l'un des écarts via-gap signalés) — le routeur peut improviser un chemin plausible mais faux sur ces portions peu densifiées, et un aller-retour, si c'est un artefact du routage plutôt qu'un vrai rebroussement du parcours, gonfle d'autant la distance reconstituée. L'écart final (+2,8 %) reste dans la cible d'audit ±5 % même dans l'hypothèse où ces artefacts gonflent légèrement la distance, mais sans source additionnelle ces 11 points de passage ne permettent pas de garantir que chaque portion suit fidèlement le tracé réel de 2002."
+          }
+        ],
+        "note": "Soissons → Rouen (195 km, 11 juillet 2002). 8 localités intermédiaires et 3 sprints (Brunvillers-la-Motte, Grandvilliers, Forges-les-Eaux) sourcés depuis le profil d'étape de ledicodutour.com. Traverse l'Aisne, l'Oise puis la Seine-Maritime."
+      },
       "7": {
         "vias": [
           { "label": "Mont Pinçon", "kind": "col" },
