@@ -1654,8 +1654,62 @@
         ]
       },
       "17": {
-        "finish": "Col du Portet",
-        "note": "Muret → col du Portet, arrivée au sommet (16 km à 8,7 %, 2 215 m)."
+        "finish": "Col de Portet",
+        "vias": [
+          {
+            "label": "Bérat",
+            "kind": "via"
+          },
+          {
+            "label": "Pouy-de-Touges",
+            "kind": "via"
+          },
+          {
+            "label": "Aurignac",
+            "kind": "via"
+          },
+          {
+            "label": "Saint-Gaudens",
+            "kind": "via"
+          },
+          {
+            "label": "Barbazan",
+            "kind": "via"
+          },
+          {
+            "label": "Bagnères-de-Luchon",
+            "kind": "via"
+          },
+          {
+            "label": "Col de Peyresourde",
+            "kind": "col"
+          },
+          {
+            "label": "Loudenvielle",
+            "kind": "via"
+          },
+          {
+            "label": "Col d'Azet",
+            "kind": "col"
+          },
+          {
+            "label": "Saint-Lary-Soulan",
+            "kind": "via"
+          },
+          {
+            "label": "Vignec",
+            "kind": "via"
+          }
+        ],
+        "note": "Muret → col du Portet, arrivée au sommet (16 km à 8,7 %, 2 215 m). Tracé sourcé sur dicodusport.fr (« Tour de France 2021 - 17ème étape : parcours en détail ») : 116 km de plat via Bérat, Pouy-de-Touges, Aurignac, Saint-Gaudens, Barbazan, Bagnères-de-Luchon (sprint intermédiaire), puis 3 cols dans les 60 derniers km — col de Peyresourde (13,2 km à 7 %, départ à Bagnères-de-Luchon), descente sur Loudenvielle, col de Val Louron-Azet (7,4 km à 8,3 %), descente sur Saint-Lary-Soulan, puis l'ascension finale du col du Portet (16 km à 8,7 %, départ à Vignec). Le « col de Val Louron-Azet » officiel résout mal en géocodage direct (meilleur candidat « Val Louron », score 0,53) : remplacé par son autre nom courant « Col d'Azet » (score 0,86, altitude mesurée 1578,5 m — cohérente avec un col à environ 1580 m). « Col du Portet » (nom officiel de la course) résout vers « Col de Portet » (score 0,58, mais altitude mesurée 2207 m, à 8 m de l'altitude connue 2215 m citée dans la note d'origine — cohérence confirmée malgré le score faible) : libellé du finish ajusté en conséquence (« Col de Portet »), sans coordonnées fixées — seuls les vias curés supportent des lat/lon explicites dans ce schéma (le champ finish n'en lit que le libellé, vérifié dans pipeline/wikipedia.js::reconstructionWaypoints). Étape sans aucun via curé au départ : reconstruction ~52,5 km (trajet direct Muret-Portet) avant ce correctif.",
+        "confidence": [
+          {
+            "claim": "distance reconstituée de l'étape 17 (Muret → col du Portet via Luchon, Peyresourde, col d'Azet)",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "régénéré réellement avec les 11 vias ajoutés cette session (contre aucun, et -70,6 % auparavant) : 191,7 km reconstitués pour 178,4 km officiels (+7,4 %, dans la tolérance ±10 % mais au-dessus de la cible ±5 %). Cinq écarts de plus de 12 km entre vias consécutifs subsistent (Muret-Bérat 13,0 km, Pouy-de-Touges-Aurignac 19,2 km, Aurignac-Saint-Gaudens 15,7 km, Saint-Gaudens-Barbazan 13,5 km, Barbazan-Bagnères-de-Luchon 27,1 km) : aucune source trouvée ne nomme de point intermédiaire dans ces intervalles, malgré plusieurs recherches. Deux zones de rebroussement détectées (km 178,2-179,7 et km 181,2-182,9), toutes deux autour de Saint-Lary-Soulan/Vignec dans le final — plausible pour un enchaînement de deux descentes/ascensions rapprochées (col d'Azet puis col de Portet) sur une zone peu densifiée, non confirmé cartographiquement. Contrairement aux autres étapes de ce lot (sous-tolérance par manque de densité), celle-ci dépasse légèrement par excès — pas corrigé davantage cette session, faute de sourcing supplémentaire trouvé pour les 5 grands écarts."
+          }
+        ]
       },
       "18": {
         "start": "Pau",
