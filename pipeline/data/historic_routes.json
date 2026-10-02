@@ -3643,8 +3643,11 @@
       },
       "8": {
         "vias": [
+          { "label": "Mélisey", "kind": "via", "lat": 47.761255, "lon": 6.564513 },
           { "label": "Côte d'Esmoulières", "kind": "col" },
-          { "label": "Ballon d'Alsace", "kind": "col" }
+          { "label": "Haut-du-Them", "kind": "via" },
+          { "label": "Ballon d'Alsace", "kind": "col" },
+          { "label": "Plancher-les-Mines", "kind": "via" }
         ],
         "confidence": [
           {
@@ -3654,13 +3657,13 @@
             "detail": "cols sourcés dans l'ordre (cyclingstage.com, description de parcours de l'étape 8) : côte d'Esmoulières (2,3 km à 8,5 %), Ballon d'Alsace (9 km à 6,9 %, sommet 1178 m, déjà référencé dans known_cols.json), avant l'arrivée à la Super Planche des Belles Filles (7 km à 8,7 %, dernier km à 9,5 % sur piste gravel, rampe finale à 24 %)."
           },
           {
-            "claim": "écart résiduel de distance de l'étape après curation (généré 74,4 km vs officiel 123,3 km, -39,7 %)",
+            "claim": "écart résiduel de distance de l'étape après curation (généré 110,7 km vs officiel 123,3 km, -10,2 %)",
             "status": "UNSURE",
             "level": "basse",
-            "detail": "curation partielle : vérifié par régénération réelle que l'ajout des 2 cols ci-dessus réduit l'écart de -71,7 % (aucun via) à -39,7 %, mais reste hors tolérance ±10 %. Aucune zone de rebroussement détectée cette fois — l'écart vient donc vraisemblablement d'une couverture de vias encore trop clairsemée (seuls 2 points de passage sur 123 km) plutôt que d'un artefact de tracé, cohérent avec les nombreux segments plus courts mentionnés par la source (Plancher-les-Mines notamment) qui n'ont pas été curés ici."
+            "detail": "cette session a ajouté Plancher-les-Mines (sourcé par cyclingstage.com), Mélisey et Haut-du-Them-Château-Lambert (communes plausibles sur l'axe direct, non nommées par la source, voir note). Résultat : -10,2 % (contre -39,7 % avec seulement les 2 cols, et -71,7 % sans aucun via) — tout juste hors tolérance ±10 %. Mélisey, bien que géographiquement correctement placé (confirmé en ajoutant/retirant : la distance ne change pas, le routeur passait déjà par ce point), n'a pas réduit l'écart — seul Haut-du-Them l'a fait, en forçant un détour réel que le routeur ne prenait pas spontanément. Quatre zones de rebroussement détectées (km 43,0-45,2 et 47,0-49,2 autour du Thillot ; km 101,4-102,4 et 103,9-104,9 autour de Plancher-les-Mines) — non investiguées plus avant, aucune source supplémentaire trouvée cette session."
           }
         ],
-        "note": "Lure → La Super Planche des Belles Filles (123,3 km, 31 juillet 2022), dernière étape et arrivée décisive de la première édition moderne (victoire finale d'Annemiek van Vleuten). Côte d'Esmoulières puis Ballon d'Alsace (premier grand col historique du Tour, franchi dès 1905 — voir édition 1905 de ce fichier) avant l'ascension finale de la Super Planche des Belles Filles, piste gravel — distincte de la Planche « classique » goudronnée utilisée par le Tour hommes (voir note de l'édition 2024, étape 16). Sourcé : cyclingstage.com."
+        "note": "Lure → La Super Planche des Belles Filles (123,3 km, 31 juillet 2022), dernière étape et arrivée décisive de la première édition moderne (victoire finale d'Annemiek van Vleuten). Côte d'Esmoulières puis Ballon d'Alsace (premier grand col historique du Tour, franchi dès 1905 — voir édition 1905 de ce fichier), puis Plancher-les-Mines (ajouté cette session, sourcé par cyclingstage.com, « stage-8-tdf-2022-women », relu en HTML brut, confirmé mot pour mot en relecture adverse par un second accès direct : « an undulating section leads to Plancher-les-Mines » après la descente du Ballon d'Alsace, « 38 km restant à parcourir » au sommet) avant l'ascension finale de la Super Planche des Belles Filles, piste gravel — distincte de la Planche « classique » goudronnée utilisée par le Tour hommes (voir note de l'édition 2024, étape 16). « Mélisey » (entre Lure et la Côte d'Esmoulières) et « Haut-du-Them-Château-Lambert » (entre la Côte d'Esmoulières et le Ballon d'Alsace) également ajoutées cette session : communes évidentes sur l'axe direct, non sourcées nommément — les 50 km de plat/faux-plat puis les quelques km entre les deux cols décrits par la source ne nomment aucun point intermédiaire. Relecture adverse : seul Haut-du-Them réduit réellement l'écart de distance (vérifié en le retirant isolément, -6,5 km) ; Mélisey, bien que correctement placé, n'y change rien (déjà sur le plus court chemin). Coordonnées de Mélisey fixées en dur (lat/lon) par prudence : un homonyme dans l'Yonne existe à un score Géoplateforme presque identique (0,973 vs 0,982), même configuration que « Munster » sur l'étape 7 de cette même session. Sourcé : cyclingstage.com."
       }
     }
   }
