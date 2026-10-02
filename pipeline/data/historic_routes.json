@@ -3569,17 +3569,25 @@
       "3": {
         "vias": [
           {
+            "label": "Avenue Francis Bouët, Cholet",
+            "kind": "via"
+          },
+          {
             "label": "La Séguinière",
+            "kind": "via"
+          },
+          {
+            "label": "Rue de la Bastille, La Séguinière",
             "kind": "via"
           }
         ],
-        "note": "CLM par équipes en boucle près de Cholet (35,5 km) — tracé sourcé (cyclingstage.com, stage-3-tdf-2018) : passage confirmé par La Séguinière au km 25 avant la Rue de la Bastille (montée) et le retour à Cholet. Les rues intermédiaires citées par la source (Avenue Francis Bouet, Rue de la Bastille) ne sont pas ajoutées en via distinct — noms de rue, pas de point fiable pour un géocodeur à cette échelle.",
+        "note": "CLM par équipes en boucle près de Cholet (35,5 km) — tracé sourcé (cyclingstage.com, stage-3-tdf-2018) : départ sur l'avenue Francis Bouët (deux côtes de 700 m à 5 % dans les premiers km), passage par La Séguinière au km 25, montée de la Rue de la Bastille (1,5 km, 5 % puis 3 %), retour à Cholet. Les deux rues ont été ajoutées en via distinct cette session (contrairement à la curation précédente qui les jugeait trop risquées à géocoder) : qualifiées par leur commune (« Avenue Francis Bouët, Cholet » / « Rue de la Bastille, La Séguinière »), elles résolvent sans ambiguïté (score Géoplateforme >0,96, même département que Cholet/La Séguinière) — le nom de rue seul était risqué, qualifié par la commune il ne l'est plus.",
         "confidence": [
           {
             "claim": "distance reconstituée du CLM par équipes en boucle près de Cholet",
             "status": "UNSURE",
             "level": "moyenne",
-            "detail": "vérifié en rejouant le pipeline réel : 19,7 km reconstitués pour 35,5 km officiels (-44,5 %). Le seul via sourcé (La Séguinière) géocode correctement — l'écart vient de la faible densité de points de passage, même limite que Düsseldorf 2017 (pas de trajet GPX officiel disponible pour cette édition, et les rues intermédiaires citées par la source ne sont pas des points fiables pour un géocodeur à cette échelle)."
+            "detail": "écart initial (1 via, La Séguinière seule) : vérifié en rejouant le pipeline réel : 19,7 km reconstitués pour 35,5 km officiels (-44,5 %). Avec les deux rues ajoutées (qualifiées par leur commune) : vérifié par régénération réelle, écart réduit à -40,2 % (21,2 km) — amélioration réelle mais modeste. Six zones de rebroussement couvrant la quasi-totalité du tracé subsistent : même limite structurelle que Düsseldorf 2017 et Marseille 2017 (densité de points de passage insuffisante sans tracé GPX officiel, indisponible pour cette édition). Écart résiduel documenté comme irréductible avec les sources disponibles plutôt que forcé par des coordonnées non sourcées."
           }
         ]
       }
