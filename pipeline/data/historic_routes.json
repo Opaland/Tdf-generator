@@ -1390,26 +1390,41 @@
       },
       "12": {
         "vias": [
+          { "label": "Montréjeau", "kind": "via" },
+          { "label": "Loures-Barousse", "kind": "via" },
+          { "label": "Saint-Béat", "kind": "sprint" },
           { "label": "Col de Menté", "kind": "col" },
           { "label": "Col de Portet-d'Aspet", "kind": "col" },
+          { "label": "Orgibet", "kind": "sprint" },
+          { "label": "Argein", "kind": "via" },
+          { "label": "Les Bordes-sur-Lez", "kind": "via" },
           { "label": "Col de la Core", "kind": "col" },
-          { "label": "Col de Port", "kind": "col" }
+          { "label": "Oust", "kind": "via" },
+          { "label": "Massat", "kind": "via" },
+          { "label": "Col de Port", "kind": "col", "lat": 42.899142, "lon": 1.452787, "ele": 1249 },
+          { "label": "Les Cabannes", "kind": "via" }
         ],
         "confidence": [
           {
-            "claim": "enchaînement des 4 cols pyrénéens avant l'arrivée à Plateau-de-Beille",
+            "claim": "enchaînement des 4 cols pyrénéens avant l'arrivée à Plateau-de-Beille, avec 9 nouveaux points de passage (6 localités + 2 sprints + 1 ravitaillement) sourcés depuis ledicodutour.com",
             "status": "OK",
             "level": "haute",
-            "detail": "enchaînement classique et documenté (bikeraceinfo.com, « The rated climbs ») : col de Menté (km 56,0, 9,4 km à 9,0 %, 1re cat.), col de Portet-d'Aspet (km 71,5, 4,3 km à 9,9 %, 2e cat.), col de la Core (km 107,5, 14,3 km à 5,8 %, 1re cat.), col de Port (km 155,5, 12,6 km à 4,9 %, 2e cat.), avant l'ascension finale de Plateau-de-Beille (15,9 km à 7,8 %, hors catégorie)."
+            "detail": "enchaînement classique et documenté (bikeraceinfo.com, « The rated climbs ») : col de Menté (km 56,0, 9,4 km à 9,0 %, 1re cat.), col de Portet-d'Aspet (km 71,5, 4,3 km à 9,9 %, 2e cat.), col de la Core (km 107,5, 14,3 km à 5,8 %, 1re cat.), col de Port (km 155,5, 12,6 km à 4,9 %, 2e cat.), avant l'ascension finale de Plateau-de-Beille (15,9 km à 7,8 %, hors catégorie). Localités intermédiaires extraites du profil d'étape publié sur ledicodutour.com (image cartes_etapes/2002/2002-12a.jpg) : Montréjeau(19, 478 m) → Loures-Barousse(30, 430 m) → Saint-Béat(45, 496 m, icône sprint) → [Col de Menté] → [Col de Portet-d'Aspet] → Orgibet(81,5, 655 m, icône sprint) → Argein(87,5, 535 m, icône ravitaillement) → Les Bordes-sur-Lez(93, 557 m) → [Col de la Core] → Oust(123, 505 m) → Massat(141,5, 645 m) → [Col de Port] → Les Cabannes(183, 533 m), franchissant successivement les Hautes-Pyrénées (départ, Lannemezan), la Haute-Garonne (plusieurs allers-retours entre les deux avant km 40, marqués sur l'image) puis l'Ariège (à partir du col de Portet-d'Aspet). Trois des 4 cols (Menté, Portet-d'Aspet, la Core) géocodent proprement une fois les nouveaux points de passage intercalés (régénération réelle : « col atteint » à 1-62 m du sommet). « Col de Port » en revanche résout systématiquement vers un point homonyme différent selon le point de proximité utilisé (vérifié en rejouant directement geocodeCol() sur plusieurs biais : « Col de Portel » avec `near`=Massat, « Col des Portes » avec `near`=Oust, « Col de Portes » dans le Gard sans `near` — à chaque fois reproductible et stable, pas aléatoire d'un essai à l'autre comme affirmé dans une version antérieure de cette note, mais bien un vrai biais de proximité systématique selon le point précédent). Résolu par des coordonnées figées en dur (lat/lon explicites sur le via) : point vérifié indépendamment par échantillonnage d'altitude réel (1250 m mesurés contre 1249 m sourcé, écart 1 m) et par distance routée directe Massat→Col de Port (14,1 km, très proche des 14 km visés sur l'image — meilleure correspondance que ce qu'une estimation initiale par segments cumulés avait suggéré) et Col de Port→Les Cabannes (28,9 km contre 27,5 km visés)."
           },
           {
             "claim": "altitude du sommet de l'ascension finale (Plateau de Beille)",
             "status": "UNSURE",
             "level": "moyenne",
             "detail": "écart confirmé (issue #195) : le point mesuré par le pipeline pour l'arrivée (altitude_hint_m au géocodage 1937 m, altitude de sommet mesurée sur le profil 1962 m) est nettement plus haut que l'altitude officielle de la ligne d'arrivée du Tour à Plateau de Beille — 1780 m depuis 2002 (1747 m en 1998 uniquement), source : en.wikipedia.org/wiki/Plateau_de_Beille, qui cite aussi la station à 1790 m et le domaine skiable culminant à 2000 m. Le géocodage du seul libellé « Plateau de Beille » (issu tel quel de Wikipédia, non curé comme arrivée explicite dans cette entrée) retombe vraisemblablement sur un point plus haut du plateau (proche du domaine skiable) plutôt que sur la ligne d'arrivée exacte — pas une erreur de saisie, mais une imprécision de géocodage sur un nom de lieu qui désigne toute une zone plutôt qu'un point précis. Valeur de référence ajoutée à known_cols.json (1780 m, sourcée) : actuellement sans effet sur cette étape (le référentiel n'est consulté que pour les vias curés, pas pour les arrivées non curées — pipeline/wikipedia.js), correction du géocodage hors périmètre de ce correctif de données."
+          },
+          {
+            "claim": "avertissements du pipeline réel sur cette reconstruction (écarts entre points de passage, zones d'aller-retour)",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "la régénération réelle (base isolée) signale 3 écarts « via-gap » (14,7 à 22,8 km) et 2 petites zones d'aller-retour détectées (km 124,2–124,9 et km 126,4–127,2, ~1,5 km cumulés, autour du col de la Core) — le routeur peut improviser un chemin plausible mais faux sur ces portions peu densifiées. L'écart final (+5,0 %) atteint tout juste la cible d'audit ±5 %, marge faible : un petit changement de tracé réel pourrait faire basculer ce verdict dans un sens ou l'autre."
           }
         ],
-        "note": "Lannemezan → Plateau-de-Beille (199,5 km, 19 juillet 2002), étape pyrénéenne classique. Quatre cols avant l'ascension finale hors catégorie de Plateau-de-Beille : col de Menté, col de Portet-d'Aspet, col de la Core, col de Port. Sourcé : bikeraceinfo.com."
+        "note": "Lannemezan → Plateau-de-Beille (199,5 km, 19 juillet 2002), étape pyrénéenne classique. Quatre cols avant l'ascension finale hors catégorie de Plateau-de-Beille : col de Menté, col de Portet-d'Aspet, col de la Core, col de Port (sourcé bikeraceinfo.com). 7 localités intermédiaires et 2 sprints (Saint-Béat, Orgibet) ajoutés depuis le profil d'étape de ledicodutour.com. Traverse les Hautes-Pyrénées, la Haute-Garonne puis l'Ariège."
       },
       "13": {
         "vias": [
