@@ -1414,24 +1414,37 @@
       "13": {
         "vias": [
           { "label": "Col de Montségur", "kind": "col" },
-          { "label": "Col de la Badourade", "kind": "col" },
-          { "label": "Col de Saint-Benoît", "kind": "col" }
+          { "label": "Col de la Badourade", "kind": "col", "lat": 42.90933, "lon": 2.01912, "ele": 670 },
+          { "label": "Chalabre", "kind": "via" },
+          { "label": "Col de Saint-Benoît", "kind": "col" },
+          { "label": "Limoux", "kind": "sprint" },
+          { "label": "Carcassonne", "kind": "via" },
+          { "label": "Marseillette", "kind": "via" },
+          { "label": "Pouzols-Minervois", "kind": "sprint" },
+          { "label": "Capestang", "kind": "via" },
+          { "label": "Montady", "kind": "via" }
         ],
         "confidence": [
           {
-            "claim": "parcours complet Lavelanet → Béziers (171 km)",
-            "status": "UNSURE",
-            "level": "basse",
-            "detail": "les 3 cols sourcés (bikeraceinfo.com, km 8,5 à 48,5) ne couvrent que le premier quart de l'étape — les ~122 km restants jusqu'à Béziers ne sont documentés par aucune source consultée."
+            "claim": "localisation du col de la Badourade (km 31)",
+            "status": "FIX",
+            "level": "moyenne",
+            "detail": "une curation antérieure de cette session plaçait ce col sur la commune de Léran (42.98216, 1.92161, au nord-est de Lavelanet) — altitude mesurée alors 402 m contre 670 m sourcée (écart 268 m, alerte). Recherche web : la montée réelle se nomme « col/côte de la Babourade » (ou Badourade), référencée à 647 m sur cyclisme-amateur.com et localisée à Puivert (Aude) sur bikeclimbs.com (« Le Pamir, D117, Campsadourny, Puivert »). Le point exact a été retrouvé en traçant le profil d'altitude réel du tracé BRouter entre le col de Montségur et Puivert (échantillonnage tous les ~30 m) : un sommet local net à 655 m apparaît à 42.90933, 2.01912, à 21,6 km de Montségur et 10,9 km de Chalabre — cohérent avec les distances de l'image source (22,5 km / 12 km) et avec l'altitude sourcée (écart 15 m, avant 268 m). Coordonnées remplacées. Ancienne hypothèse du rebroussement par « route en impasse desservant des cols reculés » (sommet HC à 1634 m) : fausse — elle décrivait un artefact du mauvais point (Léran), pas un vrai dead-end ; corrigée par cette même preuve plutôt que supposée."
           },
           {
-            "claim": "écart résiduel de distance de l'étape (généré 189,1 km vs officiel 171 km, +10,6 %)",
+            "claim": "parcours complet Lavelanet → Béziers (171 km)",
+            "status": "OK",
+            "level": "moyenne",
+            "detail": "les 3 cols d'origine (bikeraceinfo.com, km 8,5 à 48,5) ne couvraient que le premier quart. Complété par lecture du profil ledicodutour.com (cartes_etapes/2002/2002-13a.jpg, image source du tracé officiel) : Limoux (km 67,5, sprint), Carcassonne (km 95, ravitaillement), Marseillette (km 108), Pouzols-Minervois (km 134,5, sprint), Capestang (km 153), Montady (km 160) jusqu'à Béziers (km 171). Chaque point géocodé puis validé par distance routée (routeLeg) contre l'écart kilométrique de l'image. Un point intermédiaire visible sur l'image (« Canal du Midi », km 127) a été omis : ce n'est pas un nom de village géocodable, seulement un repère géographique sur l'image — l'ajouter aurait exigé d'inventer des coordonnées non sourcées."
+          },
+          {
+            "claim": "écart résiduel de distance de l'étape (généré 187,7 km vs officiel 171 km, +9,8 %)",
             "status": "UNSURE",
             "level": "moyenne",
-            "detail": "deux zones de rebroussement détectées (detectBacktrackZones, aux alentours de km 0-7 et km 27-34) totalisent de l'ordre de 14 à 15 km, soit la majorité de l'écart de +18,1 km. Les coordonnées de fin de la première zone et de début de la seconde sont quasi identiques (à quelques dizaines de mètres près, ~800 m d'altitude, reverse-géocodées « Montferrier », Ariège) : le tracé repasse deux fois par le même point, une première fois en montant de Lavelanet vers le col de Montségur (curé à ~6,6 km au sud), une seconde fois en redescendant du col de la Badourade (curé plus au sud-ouest, sommet HC à 1634 m) avant de repartir vers le col de Saint-Benoît, situé à l'inverse au nord-est de Lavelanet. Géométriquement cohérent avec un aller-retour réel par une route en impasse/antenne desservant ces deux cols reculés (Montségur est un village-étape isolé) plutôt qu'avec un artefact de curation — hypothèse la plus probable au vu des coordonnées et de l'altitude mesurées, non confirmée par une carte satellite ou une source du tracé réel. Note méthodologique : deux régénérations indépendantes de cette étape donnent des bornes de zones et des coordonnées de quelques centaines de mètres différentes l'une de l'autre sur cette portion précise (plusieurs itinéraires de coût proche pour le routeur BRouter dans ce secteur montagneux) — la conclusion qualitative (aller-retour réel expliquant l'essentiel de l'écart) est reproductible, pas les chiffres au mètre/à la coordonnée près, volontairement arrondis ici plutôt que cités avec une précision qu'ils n'ont pas."
+            "detail": "après la correction de la Badourade et l'ajout des points ci-dessus, l'écart est passé de +10,6 % (état avant cette session) à +9,8 % (statut « ok », tolérance ±10 % en vigueur ; au-dessus de la cible d'audit ±5 %). Deux petits rebroussements résiduels subsistent (km 76,7-77,5 et km 78,7-79,5, ~0,8 km chacun), situés dans le grand vide Limoux→Carcassonne (19,7 km à vol d'oiseau, au-delà du seuil d'alerte ~12 km sans point intermédiaire — avertissement conservé, aucune source ne documente de point entre les deux). Six vides de ce type restent avertis (Montségur-Badourade 16,0 km, Saint-Benoît-Limoux 15,3 km, Limoux-Carcassonne 19,7 km, Carcassonne-Marseillette 15,4 km, Marseillette-Pouzols-Minervois 23,8 km, Pouzols-Minervois-Capestang 19,8 km) : aucun village intermédiaire nommé par la source image sur ces segments, un point inventé serait moins fiable qu'un vide documenté. Écart jugé irréductible avec les sources disponibles plutôt que forcé sous ±5 % par une coordonnée non sourcée."
           }
         ],
-        "note": "Lavelanet → Béziers (171 km, 20 juillet 2002). Trois cols classés en début d'étape : col de Montségur (km 8,5, 4,3 km à 8,3 %, 3e cat.), col de la Badourade (km 31,0, 6,7 km à 2,4 %, 4e cat.), col de Saint-Benoît (km 48,5, 4,9 km à 4,7 %, 3e cat.). Sourcé : bikeraceinfo.com."
+        "note": "Lavelanet → Béziers (171 km, 20 juillet 2002). Trois cols classés en début d'étape : col de Montségur (km 8,5, 4,3 km à 8,3 %, 3e cat.), col de la Badourade (km 31,0, 6,7 km à 2,4 %, 4e cat. — en réalité la côte de la Babourade, Puivert, Aude), col de Saint-Benoît (km 48,5, 4,9 km à 4,7 %, 3e cat.). Cols sourcés : bikeraceinfo.com. Suite du parcours (Limoux, Carcassonne, Marseillette, Pouzols-Minervois, Capestang, Montady, Béziers) sourcée : ledicodutour.com (profil d'étape 2002-13a.jpg)."
       },
       "15": {
         "vias": [
