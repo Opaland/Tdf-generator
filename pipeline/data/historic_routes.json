@@ -1757,16 +1757,32 @@
         "start": "Lourdes",
         "finish": "Hautacam",
         "vias": [
+          "Louvie-Juzon",
+          "Laruns",
           {
             "label": "Col d'Aubisque",
             "kind": "col"
           },
           {
+            "label": "Col du Soulor",
+            "kind": "col"
+          },
+          "Ferrières",
+          {
             "label": "Col de Spandelles",
             "kind": "col"
-          }
+          },
+          "Argelès-Gazost"
         ],
-        "note": "Lourdes → Hautacam (143,2 km), via le col d'Aubisque et le col de Spandelles (1 378 m, ascension peu fréquentée redécouverte par le Tour) avant la montée finale d'Hautacam."
+        "note": "Lourdes → Hautacam (143,2 km, cyclingstage.com, « stage-18-tdf-2022 », relu en HTML brut). Route quasiment plate de Lourdes à Laruns (~60 km) via Louvie-Juzon, puis col d'Aubisque (16,4 km à 7,1 %), descente par le col du Soulor jusqu'à Ferrières (base du col de Spandelles), col de Spandelles (10,3 km à 8,3 %, 1 378 m, ascension peu fréquentée redécouverte par le Tour), longue descente jusqu'à Argelès-Gazost (base de la montée finale), puis ascension d'Hautacam (13,6 km à 7,8 %, les km 8/9/11 les plus durs à 10,3/11,3/10,4 %). Laruns, Col du Soulor, Ferrières et Argelès-Gazost ajoutés cette session pour combler les écarts >12 km (avant correction : -31,7 %, deux zones de rebroussement autour du col d'Aubisque) ; Louvie-Juzon ajouté ensuite pour combler le reliquat Lourdes-Laruns (34 km à vol d'oiseau), seul point de passage de la session sans source nommée explicite — plausible géographiquement (sur l'axe D934 direct entre les deux, testé et gardé car il améliore nettement le résultat). Géocodage sans ambiguïté pour tous sauf Ferrières, homonyme mal résolu sans near-bias (retombait sur le département Hautes-Pyrénées lui-même, score 0,57) — corrigé avec un point de passage proche (col du Soulor/Spandelles) en biais, résolution correcte à 0,90 de score.",
+        "confidence": [
+          {
+            "claim": "distance reconstituée de l'étape 18 (Lourdes → Hautacam)",
+            "status": "OK",
+            "level": "moyenne",
+            "detail": "144,5 km reconstitués pour 143,5 km officiels (+0,7 %, dans la tolérance ±10 %), vérifié par le pipeline réel (import + génération). Avant cette session : 98,0 km (-31,7 %, largement hors tolérance), avec deux zones de rebroussement autour du col d'Aubisque — le routeur coupait au plus court entre Lourdes et le col d'Aubisque (25,8 km à vol d'oiseau, aucun point de passage) plutôt que de suivre la route réelle via Laruns. Cinq vias ajoutés cette session (Louvie-Juzon, Laruns, Col du Soulor, Ferrières, Argelès-Gazost) : quatre sourcés (cyclingstage.com), Louvie-Juzon plausible géographiquement mais sans source nommée, testé et gardé car il améliore le résultat de -10,5 % à +0,7 %. Des zones de rebroussement résiduelles subsistent (km 31,5-38,5, 39,5-46,5, 68,0-75,0, autour de Louvie-Juzon et Laruns) sans impact sur le statut global — non creusées davantage, le résultat global étant déjà largement dans la tolérance."
+          }
+        ]
       }
     }
   },
