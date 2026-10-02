@@ -1662,11 +1662,55 @@
         "finish": "Luz Ardiden",
         "vias": [
           {
+            "label": "Nay",
+            "kind": "via"
+          },
+          {
+            "label": "Lestelle-Bétharram",
+            "kind": "via"
+          },
+          {
+            "label": "Saint-Pé-de-Bigorre",
+            "kind": "via"
+          },
+          {
+            "label": "Lourdes",
+            "kind": "via"
+          },
+          {
+            "label": "Loucrup",
+            "kind": "via"
+          },
+          {
+            "label": "Bagnères-de-Bigorre",
+            "kind": "via"
+          },
+          {
             "label": "Col du Tourmalet",
             "kind": "col"
+          },
+          {
+            "label": "Barèges",
+            "kind": "via"
+          },
+          {
+            "label": "Pont Napoléon",
+            "kind": "via"
+          },
+          {
+            "label": "Luz-Saint-Sauveur",
+            "kind": "via"
           }
         ],
-        "note": "Pau → Luz Ardiden, via le col du Tourmalet (17,1 km à 7,3 %) puis l'ascension finale de Luz Ardiden (13,3 km à 7,4 %, sommet à 1 715 m — la route goudronnée s'arrête au parking de la station)."
+        "note": "Pau → Luz Ardiden, via le col du Tourmalet (17,1 km à 7,3 %) puis l'ascension finale de Luz Ardiden (13,3 km à 7,4 %, sommet à 1 715 m — la route goudronnée s'arrête au parking de la station). Tracé sourcé par recoupement de plusieurs sites (WebSearch, « Tour de France 2021 étape 18 ») : 40 km de plat via Nay, Lestelle-Bétharram, Saint-Pé-de-Bigorre, Lourdes, puis la côte de Loucrup (2 km à 7 %) et Bagnères-de-Bigorre avant l'ascension du Tourmalet par le versant est (La Mongie), puis descente par le versant ouest (Barèges) et 14 km de vallée via le Pont Napoléon et Luz-Saint-Sauveur avant l'ascension finale de Luz Ardiden. Étape sans aucun via intermédiaire curé (seul le Tourmalet était présent) : reconstruction ~107 km (-17,5 %) avant ce correctif.",
+        "confidence": [
+          {
+            "claim": "distance reconstituée de l'étape 18 (Pau → Luz Ardiden via Lourdes, Tourmalet, Barèges)",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "régénéré réellement avec les 9 vias ajoutés cette session (contre 1 seul, Col du Tourmalet, et -17,5 % auparavant) : 139,7 km reconstitués pour 129,7 km officiels (+7,7 %, dans la tolérance ±10 % mais au-dessus de la cible ±5 %). Premier essai avec l'ordre « Barèges → Luz-Saint-Sauveur → Pont Napoléon » donnait +23,6 % (hors tolérance) : erreur d'ordre trouvée en relisant la géographie réelle (Pont Napoléon, à 42,858°N, se situe entre Barèges, 42,875°N, et Luz-Saint-Sauveur, 42,827°N — pas après Luz-Saint-Sauveur), causant un aller-retour complet sur ce tronçon. Ordre corrigé en « Barèges → Pont Napoléon → Luz-Saint-Sauveur », qui ramène le résultat à +7,7 %. Deux écarts de plus de 12 km entre vias consécutifs subsistent (Pau-Nay 16,7 km, Loucrup-Bagnères-de-Bigorre 13,9 km) et deux zones de rebroussement résiduelles (km 78,0-80,5 et km 81,7-84,2, autour de Bagnères-de-Bigorre) — aucune source trouvée pour les combler davantage cette session."
+          }
+        ]
       }
     }
   },
