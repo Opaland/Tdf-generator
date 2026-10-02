@@ -1631,6 +1631,13 @@
         "start": "Sorgues",
         "finish": "Malaucène",
         "vias": [
+          "L'Isle-sur-la-Sorgue",
+          "Fontaine-de-Vaucluse",
+          "Gordes",
+          {
+            "label": "Col de la Liguière",
+            "kind": "col"
+          },
           "Sault",
           {
             "label": "Mont Ventoux",
@@ -1643,13 +1650,19 @@
             "kind": "col"
           }
         ],
-        "note": "Sorgues → Malaucène (198,9 km), avec une double ascension du mont Ventoux (1 909 m) dans la même étape — une première dans l'histoire du Tour. Première ascension par Sault (22 km à 5,1 %, la plus longue et la moins raide des trois routes), descente rapide sur Malaucène, puis deuxième ascension par Bédoin (15,7 km à environ 9 %, la plus courte et la plus raide) avant l'arrivée en descente sur Malaucène.",
+        "note": "Sorgues → Malaucène (198,9 km), avec une double ascension du mont Ventoux (1 909 m) dans la même étape — une première dans l'histoire du Tour. Tracé confirmé par cyclingstage.com (« stage-11-tdf-2021 », relu directement en HTML brut) : 30 km de plat, puis Côte de Fontaine-de-Vaucluse (1,9 km à 6 %), Côte de Gordes (2,5 km à 5,1 %), col de la Liguière (9,3 km à 6,7 %), descente 12,5 km sur Sault. Première ascension du Ventoux par Sault (22 km à 5,1 %, la plus longue et la moins raide des trois routes), descente rapide sur Malaucène, 12,5 km de roulant jusqu'à Bédoin, puis deuxième ascension par Bédoin (15,7 km à 8,8 %, la plus courte et la plus raide, via Chalet Reynard) avant l'arrivée en descente sur Malaucène. Fontaine-de-Vaucluse, Gordes et col de la Liguière ajoutés cette session, sourcés par cyclingstage.com, pour combler le grand écart Sorgues-Sault (45,7 km sans point intermédiaire auparavant). « L'Isle-sur-la-Sorgue » ajoutée en plus, entre Sorgues et Fontaine-de-Vaucluse : non nommée par cyclingstage.com, mais c'est la ville-étape évidente sur l'axe direct (vallée de la Sorgue, D938/D25) entre les deux — ajoutée pour densifier ce tronçon resté à 23,1 km sans point intermédiaire, non confirmée nommément par une source.",
         "confidence": [
           {
             "claim": "villes de départ des deux ascensions (Sault puis Bédoin) et sens de la descente intermédiaire par Malaucène",
             "status": "OK",
             "level": "haute",
             "detail": "confirmé par recoupement de plusieurs sites spécialisés (cyclingstage.com, ventouxprovence.fr, rouleur.cc) — corrige un point de passage qui répétait deux fois « Mont Ventoux » sans ville intermédiaire distincte entre les deux ascensions, ce qui faisait fusionner les deux montées en une seule lors de la génération du tracé (routage entre deux points identiques = distance nulle)."
+          },
+          {
+            "claim": "distance reconstituée de l'étape 11 (Sorgues → Malaucène, double ascension du Ventoux)",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "ce correctif historique (via-naming) laissait la distance encore hors tolérance (-14,4 %, 170,3 km reconstitués) : via-gaps Sorgues-Sault 45,7 km et Sault-Mont Ventoux 16,6 km. Cette session a ajouté L'Isle-sur-la-Sorgue, Fontaine-de-Vaucluse, Gordes et col de la Liguière (les 3 derniers sourcés par cyclingstage.com) pour combler le premier grand écart. Résultat : 180,2 km reconstitués pour 198,9 km officiels (-9,4 %, dans la tolérance ±10 % mais au-dessus de la cible ±5 %). Trois écarts de plus de 12 km subsistent (Sorgues-L'Isle-sur-la-Sorgue 18,8 km, Gordes-Col de la Liguière 17,4 km, Sault-Mont Ventoux 14,3 km) et une zone de rebroussement résiduelle (km 127,2-130,7) — aucune source supplémentaire trouvée pour les combler cette session."
           }
         ]
       },
