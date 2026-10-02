@@ -3489,19 +3489,59 @@
         "finish": "Nîmes",
         "vias": [
           {
+            "label": "Remoulins",
+            "kind": "via"
+          },
+          {
             "label": "Pont du Gard",
             "kind": "via",
             "lat": 43.9470703,
             "lon": 4.5356005
+          },
+          {
+            "label": "Connaux",
+            "kind": "via"
+          },
+          {
+            "label": "Vallérargues",
+            "kind": "via"
+          },
+          {
+            "label": "Alès",
+            "kind": "via"
+          },
+          {
+            "label": "Saint-Jean-du-Pin",
+            "kind": "col"
+          },
+          {
+            "label": "Anduze",
+            "kind": "via"
+          },
+          {
+            "label": "Lédignan",
+            "kind": "via"
+          },
+          {
+            "label": "Moussac",
+            "kind": "via"
+          },
+          {
+            "label": "Uzès",
+            "kind": "via"
+          },
+          {
+            "label": "Pont Saint-Nicolas",
+            "kind": "via"
           }
         ],
-        "note": "Étape 16 à Nîmes (177 km, plaine, aller-retour) — article cyclingstage.com (« Tour de France 2019 Route stage 16: Nîmes – Nîmes ») ne nomme qu'un seul point de passage précis, le viaduc du Pont du Gard, \"dans le final\". Coordonnées du monument confirmées par Nominatim (type « bridge », nom exact « Pont du Gard ») après relecture adverse du 03/09/2026 : la Géoplateforme renvoyait à égalité de score un pont homonyme sans rapport à 2,3 km de là, retenu par erreur dans une première version de cette curation. Étape en circuit sans via curé au départ : reconstruction ~0 km avant ce correctif.",
+        "note": "Étape 16 à Nîmes (177 km, plaine, boucle entière dans le Gard) — tracé sourcé sur Wikipédia FR (« 16e étape du Tour de France 2019 », avec bornes kilométriques), dont le paragraphe de parcours cite lui-même une seule source primaire (ledauphine.com, Aurélien Meazza, 23/07/2019) ; objectifgard.com (« Découvrez toutes les communes traversées ») donne la même liste de communes mais son contenu n'a pas pu être relu cette session (domaine redirigé/404 depuis, fusion vers objectifsud.fr) — la convergence entre les deux n'est donc vérifiée qu'à moitié, pas confirmée comme deux sources indépendantes. Tracé : Nîmes → Remoulins → Pont du Gard (« privilège exceptionnel » de passage routier) → Connaux → Vallérargues (sprint intermédiaire, km 65) → Alès → Côte de Saint-Jean-du-Pin (km 96, 1,8 km à 4,2 %, seule ascension classée) → Anduze → Lédignan → Moussac → Uzès (km 148,5) → Pont Saint-Nicolas (franchissement du Gardon, commune de Sainte-Anastasie) → Nîmes (km 177). 10 vias ajoutées cette session (Pont du Gard déjà curé). Deux noms de la source ne résolvent pas directement : « Côte de Saint-Jean-du-Pin » tombe sur un homonyme sans rapport (« Côte de Pinargues », score Géoplateforme 0,40) — remplacée par la commune « Saint-Jean-du-Pin » (score 0,90, à ~5 km d'Alès, cohérent avec un col routier mineur proche de la ville) ; « Pont Saint-Nicolas de Campagnac », nom exact de Wikipédia, résout moins bien (score 0,66) que la forme courante « Pont Saint-Nicolas » (score 0,94, type localité, commune de Sainte-Anastasie) — préférée.",
         "confidence": [
           {
-            "claim": "Le tracé entre Nîmes et le Pont du Gard, puis entre le Pont du Gard et l'arrivée, reste une invention du routeur.",
+            "claim": "distance reconstituée de l'étape 16 (boucle Nîmes–Nîmes via Pont du Gard, Alès, Uzès)",
             "status": "UNSURE",
             "level": "moyenne",
-            "detail": "Vérifié en rejouant le pipeline réel : 49,0 km reconstitués pour 177 km officiels (-72,3 %). Un seul point de passage nommé est disponible pour cette étape en aller-retour (le Pont du Gard, dans le final) — le reste du tracé est le plus court chemin trouvé par le routeur entre Nîmes, le Pont du Gard et l'arrivée, pas le tracé réel de la course. Même mécanisme que Düsseldorf 2017 et Utrecht 2015 : pas de trajet GPX officiel disponible pour cette édition (cyclingstage.com ne propose de GPX qu'à partir de 2022 environ)."
+            "detail": "régénéré réellement avec les 10 vias ajoutés cette session (contre un seul, Pont du Gard, et -72,3 % auparavant) : 183,2 km reconstitués pour 177 km officiels (+3,5 %, dans la tolérance ±10 % et sous la cible ±5 %). Six écarts de plus de 12 km entre vias consécutifs subsistent (Nîmes-Remoulins 20,4 km, Pont du Gard-Connaux 15,7 km, Connaux-Vallérargues 20,4 km, Vallérargues-Alès 21,1 km, Anduze-Lédignan 12,6 km, Moussac-Uzès 15,4 km) : aucune source trouvée ne nomme de point intermédiaire dans ces intervalles, donc le tracé du routeur y est non vérifié tronçon par tronçon même si la distance totale concorde — un bon résultat agrégé peut masquer des erreurs locales qui se compensent, pas seulement un tracé fidèle de bout en bout. Quatre zones de rebroussement détectées : km 0,3-2,0 (artefact mineur près du départ), km 22,0-25,7 et km 27,2-30,5 (vraisemblablement le détour d'accès/sortie du viaduc du Pont du Gard, situé en léger retrait de l'axe principal Remoulins-Connaux, non confirmé par une source cartographique précise), km 181,2-182,7 (artefact mineur en fin de parcours, après Pont Saint-Nicolas). Aucun trajet GPX officiel disponible pour cette édition (cyclingstage.com n'en propose qu'à partir de 2022 environ) ; ce tracé reste la meilleure reconstitution possible avec les sources textuelles disponibles."
           }
         ]
       }
