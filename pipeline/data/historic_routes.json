@@ -3514,7 +3514,7 @@
       "1": {
         "vias": [
           {
-            "label": "Tonhalle Düsseldorf",
+            "label": "Oberkasseler Brücke",
             "kind": "via",
             "country": "germany"
           },
@@ -3527,15 +3527,20 @@
             "label": "Königsallee",
             "kind": "via",
             "country": "germany"
+          },
+          {
+            "label": "Tonhalle Düsseldorf",
+            "kind": "via",
+            "country": "germany"
           }
         ],
-        "note": "CLM en boucle dans Düsseldorf (14 km) — tracé sourcé (cyclingstage.com, stage-1-tdf-2017) : rive est du Rhin vers le sud-est, Tonhalle, passage du Rhin par le Rheinkniebrücke, Königsallee, retour par la Tonhalle jusqu'au Düsseldorf Messe.",
+        "note": "CLM en boucle dans Düsseldorf (14 km) — tracé sourcé (cyclingstage.com, stage-1-tdf-2017, recoupé avec tour-magazin.de) : départ près du Messe Düsseldorf, rive droite (est) du Rhin vers le sud, passage du Rhin par l'Oberkasseler Brücke, repassage par le Rheinkniebrücke, pointage intermédiaire à la Königsallee, retour par la Tonhalle jusqu'au Messe.",
         "confidence": [
           {
             "claim": "distance reconstituée du CLM en boucle à Düsseldorf",
             "status": "UNSURE",
             "level": "moyenne",
-            "detail": "vérifié en rejouant le pipeline réel : 6,0 km reconstitués pour 14 km officiels (-57 %). Les 3 vias sourcés (Tonhalle, Rheinkniebrücke, Königsallee) géocodent tous correctement (coordonnées vérifiées cohérentes, groupées autour du centre de Düsseldorf) — l'écart vient de la faible densité de points de passage sur une boucle courte et sinueuse (deux traversées du Rhin par des rues différentes) : sans trajet GPX officiel disponible pour cette édition (cyclingstage.com ne propose de GPX qu'à partir de 2022 environ), le routeur relie les 3 points sourcés par le chemin le plus court plutôt que par le tracé réel de la course."
+            "detail": "écart initial (3 vias, sans l'Oberkasseler Brücke) : 6,0 km reconstitués pour 14 km officiels (-57 %). Un double passage du Rhin par deux ponts différents (Oberkasseler Brücke à l'aller, Rheinkniebrücke au retour) est confirmé par une source recoupée (tour-magazin.de) mais le premier pont n'avait pas été ajouté en via — sans lui, le routeur n'a aucune contrainte le forçant à passer par les deux ponts plutôt qu'un seul. Ajouté cette session (geocode() ne le résolvait pas sans `countryHint` explicite : sans lui il retombait sur un lieu-dit homonyme en Moselle, France, score 0,38). Vérifié par régénération réelle : écart réduit à -30,5 % (9,7 km), amélioration réelle mais encore loin de la cible. Six zones de rebroussement couvrant presque tout le tracé subsistent — les 4 points de passage sont tous à moins de 1 km les uns des autres dans le centre-ville, trop rapprochés pour qu'un routeur réel distingue un sens de circulation cohérent sans le tracé GPX officiel (indisponible pour cette édition). Une tentative de curer le départ/arrivée sur « Messe Düsseldorf » plutôt que le centroïde de la ville a été testée puis écartée : elle dégrade le résultat (+31,5 %, mêmes rebroussements) sans lever l'ambiguïté structurelle. Écart résiduel documenté comme irréductible avec les sources disponibles plutôt que forcé par des coordonnées non sourcées."
           }
         ]
       },
