@@ -1516,6 +1516,11 @@
         "note": "Régnié-Durette → Mâcon, contre-la-montre individuel (50 km, 27 juillet 2002). Un seul col classé en début d'épreuve : côte du Fût d'Avenas (km 10,5, 7,2 km à 4,4 %, 3e cat.). Sourcé : bikeraceinfo.com."
       },
       "20": {
+        "vias": [
+          { "label": "Lissy", "kind": "via" },
+          { "label": "Jossigny", "kind": "via" },
+          { "label": "Champs-sur-Marne", "kind": "sprint" }
+        ],
         "confidence": [
           {
             "claim": "circuit final des Champs-Élysées",
@@ -1524,13 +1529,19 @@
             "detail": "tracé du circuit des Champs-Élysées confirmé inchangé de 1975 à 2012 (avant le passage par la place Charles-de-Gaulle introduit en 2013) — même source déjà utilisée pour l'entrée 1992/21 : fr.wikipedia.org/wiki/Étape_des_Champs-Élysées_du_Tour_de_France. Nombre de tours effectués en 2002 non retrouvé par une source consultée (contrairement à 1992, où 10 tours sont sourcés)."
           },
           {
-            "claim": "parcours d'approche Melun → Paris (~144 km, avant le circuit)",
+            "claim": "parcours d'approche Melun → Champs-sur-Marne (km 0 à 54)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "sourcé cette session via le profil ledicodutour.com (2002-20a.jpg, désormais accessible) : Lissy (km 9,5), Jossigny (km 39,5), Champs-sur-Marne (km 54, sprint) — 3 communes sans homonyme lointain, distances routées cohérentes avec l'image (~10-13 km par leg, ordre de grandeur des écarts kilométriques image). Nuance trouvée en relecture adverse : pour chacune, la Géoplateforme renvoie deux candidats exact-match « commune » (un centroïde adresse, un doublon index POI, à 500-900 m l'un de l'autre) — pickFeature() retient systématiquement le plus proche du waypoint précédent, pas le mieux noté ; les deux restent dans la bonne commune (écart négligeable, <1 km cumulé), donc pas une vraie erreur, mais « sans ambiguïté » était une formulation trop forte. Un 4e point du profil, « Hauts des Champs » (km 80, sprint), a été omis : aucun résultat de géocodage plausible trouvé (testé en requête isolée et avec plusieurs `near` le long de la route réelle, en relecture adverse incluse) — semble être un nom descriptif plutôt qu'un toponyme officiel, aucune alternative fiable trouvée."
+          },
+          {
+            "claim": "écart résiduel de distance de l'étape (généré 74,8 km vs officiel 144 km, -48,0 %)",
             "status": "UNSURE",
             "level": "basse",
-            "detail": "aucune commune intermédiaire sourcée (ledicodutour.com/villes-etapes/villes_etapes_m/melun.html renvoie vers des cartes non accessibles ici plutôt qu'un texte exploitable). Trou de couverture non comblé plutôt qu'inventé."
+            "detail": "hors tolérance ±10 %, mais explicable par une limitation architecturale déjà documentée (issue #251, « pas de notion de nombre de tours », vérifiée réelle en relecture adverse) plutôt que par un trou de sourcing sur cette session : en ajoutant 10 tours × 6,5 km (65 km, chiffre sourcé pour 1992/21) à la distance brute reconstituée (74,835 km), on obtient 139,8 km contre 144 km officiels — écart de 2,9 %, dans la tolérance ±10 %, confirmé en relecture adverse par un calcul indépendant. L'arithmétique colle bien, ce qui rend peu probable qu'un autre via manquant ou mal positionné explique une part significative du déficit plutôt que les tours de circuit non modélisés. Avant cette session l'écart était de -66,4 % (point d'approche totalement absent) ; il reste hors tolérance après l'ajout des 3 points d'approche sourcés ci-dessus, pour une cause structurelle hors du périmètre d'une PR de curation de données (CLAUDE.md, « un item cohérent par PR » ; voir issue #251 pour le correctif d'architecture)."
           }
         ],
-        "note": "Melun → Paris/Champs-Élysées, étape finale (144 km, 28 juillet 2002, victoire de Robbie McEwen). Circuit final identique à celui documenté pour 1992 (voir 1992/21) mais sans point de passage intermédiaire sourcé pour l'approche Melun → Paris ni nombre de tours confirmé pour cette édition précise."
+        "note": "Melun → Paris/Champs-Élysées, étape finale (144 km, 28 juillet 2002, victoire de Robbie McEwen). Approche sourcée : Lissy (km 9,5), Jossigny (km 39,5), Champs-sur-Marne (km 54, sprint) — ledicodutour.com (profil d'étape 2002-20a.jpg). Circuit final identique à celui documenté pour 1992 (voir 1992/21) mais nombre de tours non confirmé pour cette édition précise, et non modélisé par le pipeline (issue #251)."
       }
     }
   },
