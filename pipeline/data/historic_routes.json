@@ -3519,6 +3519,11 @@
             "country": "germany"
           },
           {
+            "label": "Oberkasseler Brücke",
+            "kind": "via",
+            "country": "germany"
+          },
+          {
             "label": "Rheinkniebrücke",
             "kind": "via",
             "country": "germany"
@@ -3527,15 +3532,20 @@
             "label": "Königsallee",
             "kind": "via",
             "country": "germany"
+          },
+          {
+            "label": "Tonhalle Düsseldorf",
+            "kind": "via",
+            "country": "germany"
           }
         ],
-        "note": "CLM en boucle dans Düsseldorf (14 km) — tracé sourcé (cyclingstage.com, stage-1-tdf-2017) : rive est du Rhin vers le sud-est, Tonhalle, passage du Rhin par le Rheinkniebrücke, Königsallee, retour par la Tonhalle jusqu'au Düsseldorf Messe.",
+        "note": "CLM en boucle dans Düsseldorf (14 km) — tracé sourcé (cyclingstage.com, stage-1-tdf-2017, texte confirmé consultable cette session, recoupé avec tour-magazin.de) : « The starting ramp is in front of the Düsseldorf Messe. From there, the riders take off on the east side of the Rhine to head south-east, near the Tonhalle they cross the river for a short section on the left bank before the Rheinkniebrücke takes them to the Königsallee [...] and via the Tonhalle they storm in the opposite direction, once again along the Rhine, back to the Messe. » — la Tonhalle est donc passée deux fois (avant la 1re traversée, puis avant l'arrivée), le premier pont (traversée courte, « near the Tonhalle ») identifié comme l'Oberkasseler Brücke par tour-magazin.de.",
         "confidence": [
           {
             "claim": "distance reconstituée du CLM en boucle à Düsseldorf",
             "status": "UNSURE",
             "level": "moyenne",
-            "detail": "vérifié en rejouant le pipeline réel : 6,0 km reconstitués pour 14 km officiels (-57 %). Les 3 vias sourcés (Tonhalle, Rheinkniebrücke, Königsallee) géocodent tous correctement (coordonnées vérifiées cohérentes, groupées autour du centre de Düsseldorf) — l'écart vient de la faible densité de points de passage sur une boucle courte et sinueuse (deux traversées du Rhin par des rues différentes) : sans trajet GPX officiel disponible pour cette édition (cyclingstage.com ne propose de GPX qu'à partir de 2022 environ), le routeur relie les 3 points sourcés par le chemin le plus court plutôt que par le tracé réel de la course."
+            "detail": "écart initial (3 vias, sans l'Oberkasseler Brücke, Tonhalle passée une seule fois) : 6,0 km reconstitués pour 14 km officiels (-57 %). Le texte cyclingstage.com (consulté cette session, cité dans la note) confirme un double passage du Rhin par deux ponts différents et un double passage par la Tonhalle — ni le premier pont ni la répétition de la Tonhalle n'étaient curés. Pont ajouté (geocode() ne le résolvait pas sans `countryHint` explicite : sans lui il retombait sur un lieu-dit homonyme en Moselle, France, score 0,38, confirmé en relecture adverse y compris avec le `near` réel du pipeline). Vérifié par régénération réelle, par étapes : +pont seul → -30,5 % (9,7 km) ; +répétition de la Tonhalle → -26,0 % (10,4 km), amélioration réelle à chaque étape mais encore loin de la cible. Cinq zones de rebroussement couvrant la majorité du tracé subsistent — les points de passage sont tous à moins de 1 km les uns des autres dans le centre-ville, trop rapprochés pour qu'un routeur réel distingue un sens de circulation cohérent sans le tracé GPX officiel (indisponible pour cette édition). Une tentative de curer le départ/arrivée sur « Messe Düsseldorf » plutôt que le centroïde de la ville a été testée puis écartée (relecture adverse, worktree isolé) : elle dégrade le résultat (+31,5 %, mêmes rebroussements) sans lever l'ambiguïté structurelle. Une piste exploratoire (ajouter la Rheinturm, bien géocodée) a réduit l'écart à -25,2 % en test isolé mais n'est pas retenue : absente du texte source consulté, donc une coordonnée plausible non sourcée plutôt qu'une trouvaille vérifiée (CLAUDE.md, règle 9). Écart résiduel documenté comme irréductible avec les sources disponibles plutôt que forcé par des coordonnées non sourcées."
           }
         ]
       },
