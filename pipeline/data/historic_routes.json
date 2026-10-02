@@ -3480,9 +3480,21 @@
           {
             "label": "Jurançon",
             "kind": "via"
+          },
+          {
+            "label": "Rue Mulot, Pau",
+            "kind": "via"
           }
         ],
-        "note": "CLM en boucle à Pau (27,2 km) — tracé sourcé (cyclingstage.com, stage-13-tdf-2019) : Côte d'Esquillot (km 15,5, ~8 %), puis les vignobles de Jurançon (km 21,9) avant le final (rampe à 17 % près de la Rue Mulot)."
+        "note": "CLM en boucle à Pau (27,2 km) — tracé sourcé (cyclingstage.com, stage-13-tdf-2019) : Côte d'Esquillot (km 15,5, ~8 %), puis les vignobles de Jurançon (km 21,9) avant le final (rampe à 17 % juste après un virage serré sur la Rue Mulot, dans les derniers centaines de mètres). Rue Mulot ajoutée en via cette session, qualifiée par sa commune (même technique que Cholet 2018/3, Marseille 2017/20) : résout sans ambiguïté (score Géoplateforme 0,97, même département que Pau).",
+        "confidence": [
+          {
+            "claim": "distance reconstituée du CLM en boucle à Pau",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "première vérification de cette étape par régénération réelle cette session (jamais auditée depuis sa curation initiale) : avec les 2 vias d'origine (Côte d'Esquillot, Jurançon) seuls, 31,1 km reconstitués pour 27,2 km officiels (+14,3 %, hors tolérance ±10 %). Avec la Rue Mulot ajoutée (sourcée, voir note), le résultat ne s'améliore pas (31,4 km, +15,6 %) — conservée malgré tout car sourcée et fidèle au tracé décrit, même si elle ne corrige pas l'écart. Quatre zones de rebroussement détectées, deux explicitement autour de « Côte de Jurançon » (km 20,1-21,5 et km 22,4-23,7) : le point curé (centroïde de la commune de Jurançon) ne correspond peut-être pas précisément au passage réel « dans les vignobles de Jurançon » décrit par la source, sans alternative plus précise trouvée. Contrairement aux autres étapes de ce lot (sous-tolérance par manque de densité de points), celle-ci est déjà hors tolérance par excès, pour une cause différente (positionnement du via Jurançon, pas un vide de sourcing) — non résolue cette session, documentée honnêtement plutôt que forcée."
+          }
+        ]
       },
       "16": {
         "start": "Nîmes",
