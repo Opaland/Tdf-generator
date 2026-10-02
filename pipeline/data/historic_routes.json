@@ -3546,17 +3546,21 @@
             "kind": "col"
           },
           {
+            "label": "Corniche Kennedy, Marseille",
+            "kind": "via"
+          },
+          {
             "label": "Vieux Port de Marseille",
             "kind": "via"
           }
         ],
-        "note": "CLM en boucle à Marseille (22,5 km) — tracé sourcé (cyclingstage.com, stage-20-tdf-2017) : montée à Notre-Dame de la Garde (1,2 km à 9,1 %), puis retour par le Vieux Port jusqu'au Stade Vélodrome. La Corniche, mentionnée par la source comme route longée, n'est pas ajoutée en via distinct (nom de route, pas de point vérifiable sans risque de mauvaise résolution géographique).",
+        "note": "CLM en boucle à Marseille (22,5 km) — tracé sourcé (cyclingstage.com, stage-20-tdf-2017) : montée à Notre-Dame de la Garde (1,2 km à 9,1 %) ; descente de 2 km (route différente de la montée) ; retour par la Corniche (ajoutée cette session sous un nom vérifiable géographiquement, « Corniche Kennedy », plutôt que le nom générique « La Corniche » jugé trop risqué dans la curation précédente) puis le Vieux Port jusqu'au Stade Vélodrome.",
         "confidence": [
           {
             "claim": "distance reconstituée du CLM en boucle à Marseille",
             "status": "UNSURE",
             "level": "moyenne",
-            "detail": "vérifié en rejouant le pipeline réel : 7,8 km reconstitués pour 22,5 km officiels (-65 %). Les 2 vias sourcés (Notre-Dame de la Garde, Vieux Port) géocodent correctement — l'écart vient de la faible densité de points de passage sur cette boucle, même limite que Düsseldorf 2017 (pas de trajet GPX officiel disponible pour cette édition)."
+            "detail": "écart initial (2 vias) : vérifié en rejouant le pipeline réel : 7,8 km reconstitués pour 22,5 km officiels (-65 %). Les 2 vias sourcés (Notre-Dame de la Garde, Vieux Port) géocodaient correctement — l'écart venait de la faible densité de points de passage sur cette boucle, même limite que Düsseldorf 2017 (pas de trajet GPX officiel disponible pour cette édition). Tentative testée et ABANDONNÉE cette session : curer le départ/arrivée en objet { label: « Stade Vélodrome, Marseille » } plutôt que le libellé Wikipédia brut — catastrophique en régénération réelle (écart +6808 %, 1554 km générés) : sans country_hint (le champ n'existe que pour les lieux HORS France, jamais pour renforcer un hint France), geocodeOptsFor() (pipeline/generate.js) omet la clé countryHint, ce qui fait retomber geocode() sur sa valeur par défaut 'fr' (Géoplateforme) plutôt que Nominatim — et Géoplateforme résout « Stade Vélodrome, Marseille » vers un lieu-dit homonyme à Creil (Oise, score 0,56), à son tour faisant dériver par near-chain « Notre-Dame de la Garde » vers un autre homonyme (Tarn). Repéré en isolant la requête avec les mêmes options exactes que geocodeOptsFor() (pas une requête de test simplifiée) — même bug de fond que celui déjà trouvé sur l'Oberkasseler Brücke (2017/1), mais cette fois sans countryHint utilisable puisque le lieu est en France. Départ/arrivée laissés au libellé Wikipédia brut (« Marseille »), qui géocode correctement sans ce problème. Avec la Corniche Kennedy ajoutée en 3e via : vérifié par régénération réelle, écart réduit à -48,1 % (11,7 km) — amélioration réelle, trois zones de rebroussement subsistent (mêmes limites structurelles que Düsseldorf 2017 : densité de points de passage insuffisante sans tracé GPX officiel). Écart résiduel documenté comme irréductible avec les sources disponibles plutôt que forcé par des coordonnées non sourcées."
           }
         ]
       }
