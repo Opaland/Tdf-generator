@@ -1539,7 +1539,7 @@
     "stages": {
       "1": {
         "start": "Nice",
-        "note": "Grand Départ de Nice, étape 1 (Nice → Nice, profil roulant, victoire Alexander Kristoff) — édition marquée par la pandémie de Covid-19, disputée en septembre-octobre. Tracé narratif (cyclingstage.com, « Tour de France 2020 Route stage 1: Nice - Nice ») : 3 boucles décrites dans l'article — 2 boucles d'environ 50 km (montée à Aspremont, ~8 km, puis vallée du Var) suivies d'une boucle de 70 km (Côte de Rimiez avant Aspremont, puis Tourrette-Levens, descente par Saint-Martin-du-Var et Carros). Points de passage dans l'ordre décrit par l'article, chaque boucle repassant par Aspremont. Étape en circuit sans via curé au départ : reconstruction ~0 km avant ce correctif.",
+        "note": "Grand Départ de Nice, étape 1 (Nice → Nice, profil roulant, victoire Alexander Kristoff) — édition marquée par la pandémie de Covid-19, disputée en septembre-octobre. Tracé sourcé sur cyclingstage.com (« Tour de France 2020 Route stage 1: Nice - Nice », vérifié par 2 relectures séparées cette session, cohérentes) : 3 boucles — boucle 1 et boucle 2 identiques (~50 km chacune, montée à Aspremont puis vallée du Var), boucle 3 finale (~70 km, Côte de Rimiez puis Aspremont une 3e fois, Tourrette-Levens, descente par Saint-Martin-du-Var et Carros). Cette session a ajouté « Castagniers » (vallée du Var, entre Aspremont et Carros dans les boucles 1 et 2) et « Levens » (entre Tourrette-Levens et Saint-Martin-du-Var dans la boucle 3), ainsi qu'une répétition complète d'Aspremont→Castagniers→Carros pour matérialiser la boucle 2 (absente de la version précédente, qui ne comptait Aspremont que 2 fois au lieu de 3). Sourcé par recoupement de deux requêtes WebSearch indépendantes donnant des bornes kilométriques cohérentes entre elles (Aspremont km 17/67/117, Castagniers km 22/72, Carros km 30/80/150) — non confirmé par une relecture directe de page web (plusieurs tentatives de WebFetch sur des pages Wikipédia FR ont donné des chiffres incohérents d'un appel à l'autre pour cette étape, donc écartées comme non fiables cette fois-ci plutôt que citées). Aucun trajet GPX officiel disponible pour cette édition (cyclingstage.com n'en propose qu'à partir de 2022 environ).",
         "finish": "Nice",
         "vias": [
           {
@@ -1547,6 +1547,32 @@
             "kind": "col",
             "lat": 43.771062,
             "lon": 7.242627
+          },
+          {
+            "label": "Castagniers",
+            "kind": "via"
+          },
+          {
+            "label": "Carros",
+            "kind": "via",
+            "lat": 43.784043,
+            "lon": 7.191567
+          },
+          {
+            "label": "Aspremont",
+            "kind": "col",
+            "lat": 43.771062,
+            "lon": 7.242627
+          },
+          {
+            "label": "Castagniers",
+            "kind": "via"
+          },
+          {
+            "label": "Carros",
+            "kind": "via",
+            "lat": 43.784043,
+            "lon": 7.191567
           },
           {
             "label": "Côte de Rimiez",
@@ -1567,6 +1593,10 @@
             "lon": 7.273341
           },
           {
+            "label": "Levens",
+            "kind": "via"
+          },
+          {
             "label": "Saint-Martin-du-Var",
             "kind": "via",
             "lat": 43.819003,
@@ -1581,10 +1611,10 @@
         ],
         "confidence": [
           {
-            "claim": "Le tracé complet des 3 boucles (Nice, Aspremont, Côte de Rimiez, Tourrette-Levens, Saint-Martin-du-Var, Carros) reste partiellement une invention du routeur.",
+            "claim": "distance reconstituée des 3 boucles autour de Nice (Aspremont ×3, Castagniers, Carros ×3, Côte de Rimiez, Tourrette-Levens, Levens, Saint-Martin-du-Var)",
             "status": "UNSURE",
             "level": "moyenne",
-            "detail": "Vérifié en rejouant le pipeline réel : 82,0 km reconstitués pour 156 km officiels (-47,4 %). Les 5 lieux sourcés (Aspremont, Côte de Rimiez, Tourrette-Levens, Saint-Martin-du-Var, Carros) géocodent tous correctement (coordonnées vérifiées cohérentes autour de Nice), et Aspremont est bien répété 3 fois dans l'ordre décrit par l'article (une fois par boucle) — mais le routeur relie deux passages consécutifs par Aspremont par le chemin le plus court entre les deux, pas en repassant par les 3 boucles distinctes décrites dans l'article. Pas de trajet GPX officiel disponible pour cette édition (cyclingstage.com ne propose de GPX qu'à partir de 2022 environ)."
+            "detail": "Vérifié en rejouant le pipeline réel avec les 12 vias (contre 6 et -47,4 % auparavant) : 148,6 km reconstitués pour 156 km officiels (-4,7 %, dans la tolérance ±10 % et dans la cible ±5 %). 8 zones de rebroussement détectées, concentrées autour des passages répétés par Aspremont et Carros (boucles 1 et 2) : plausible pour une étape qui emprunte réellement la même boucle deux fois (les deux passages suivent forcément des routes proches), mais non confirmé par une carte précise — pourrait aussi gonfler légèrement la distance reconstituée. Les lieux ajoutés cette session (Castagniers, Levens) sont sourcés par recoupement de deux requêtes WebSearch indépendantes et cohérentes entre elles sur les bornes kilométriques, mais pas par une lecture directe de page web fiable (voir note) — niveau de confiance moyen plutôt qu'élevé pour cette raison. Aucun trajet GPX officiel disponible pour cette édition."
           }
         ]
       },
