@@ -1371,6 +1371,37 @@
         ],
         "note": "Bagnoles-de-l'Orne → Avranches (176 km, 13 juillet 2002). Deux côtes classées sourcées : Côte du Mont-Pinçon (km 57,0, 1,1 km à 6,1 %, 4e cat.), côte de L'Embranchement à La Chapelle-Urée (km 154,0, 6,5 km à 2,7 %, 4e cat.). Sourcé : bikeraceinfo.com."
       },
+      "8": {
+        "vias": [
+          { "label": "Saint-James", "kind": "via" },
+          { "label": "Bazouges-la-Pérouse", "kind": "via" },
+          { "label": "Combourg", "kind": "sprint" },
+          { "label": "Béchérel", "kind": "col" },
+          { "label": "Montauban-de-Bretagne", "kind": "sprint" },
+          { "label": "Saint-Méen-le-Grand", "kind": "via" },
+          { "label": "Illifaut", "kind": "via" },
+          { "label": "Plumieux", "kind": "via" },
+          { "label": "Bréhan", "kind": "via" },
+          { "label": "Noyal-Pontivy", "kind": "sprint" },
+          { "label": "Kervalan", "kind": "col", "lat": 47.974585, "lon": -3.140145, "ele": 140 },
+          { "label": "Ty-Marrec", "kind": "col" }
+        ],
+        "confidence": [
+          {
+            "claim": "tracé Saint-Martin-de-Landelles → Plouay (217,5 km) : 9 nouveaux points de passage (6 localités + 3 sprints), en plus de 3 côtes classées (Béchérel, Kervalan, Ty-Marrec)",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "localités, sprints et côtes extraits du profil d'étape publié sur ledicodutour.com (image cartes_etapes/2002/2002-8a.jpg : Saint-Martin-de-Landelles(0, 145 m) → Saint-James(10,5, 78 m) → Bazouges-la-Pérouse(35,5, 91 m) → Combourg(47,5, 71 m, icône sprint) → Côte de Béchérel(72, 142 m, icône col 4e cat.) → Montauban-de-Bretagne(86, 51 m, icône sprint) → Saint-Méen-le-Grand(102, 97 m, icône ravitaillement) → Illifaut(114, 101 m) → Plumieux(134,5, 110 m) → Bréhan(144,5, 49 m) → Noyal-Pontivy(160,5, 107 m, icône sprint) → Côte de Kervalan(187, 140 m, icône col 4e cat.) → Côte de Ty-Marrec(214, 128 m, icône col 4e cat.) → Plouay(217,5, 89 m), franchissant les limites de département Manche → Ille-et-Vilaine → Côtes-d'Armor → Morbihan marquées sur l'image. « Kervalan » seul géocode vers un hameau homonyme de Pluvigner (Morbihan), à ~25 km à vol d'oiseau du corridor réel (incohérent par routage réel : 41 km sur un segment que l'image donne à 26,5 km) — même département que Plouay, donc un indice de région ne permet pas de désambiguïser. Résolu par une requête qualifiée « Kervalan, Plouay » (résultat faible, score 0,515, type indéfini, mais géométriquement cohérent : 25,7 km puis 21,2 km par routage réel contre 26,5 km et 27 km sur l'image) ; coordonnées de ce résultat figées en dur (lat/lon explicites sur le via) plutôt que rejouées à chaque régénération, ce score restant trop faible pour une confiance dans la stabilité de ce choix par le géocodeur au fil du temps. Figer lat/lon court-circuite aussi le géocodage qui remplit normalement l'altitude de contrôle (altitude_hint_m) pour les deux autres côtes de cette étape — sans donnée explicite, le contrôle qualité d'altitude de ce col aurait été silencieusement sauté (classe de bug déjà documentée dans known_cols.json, cas « Col du Noyer ») ; l'altitude sourcée sur l'image (140 m) est donc explicitement fournie via le champ `ele` du via pour que ce contrôle s'applique. Aucune source n'a été trouvée pour confirmer indépendamment ce tracé village par village."
+          },
+          {
+            "claim": "avertissements du pipeline réel sur cette reconstruction (écarts entre points de passage, zones d'aller-retour)",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "la régénération réelle (base isolée) signale 9 écarts « via-gap » (13,1 à 21,0 km à vol d'oiseau sans point de passage intermédiaire, le plus large entre Noyal-Pontivy et Kervalan) et 2 zones d'aller-retour détectées (km 209,8–211,1 et km 212,1–213,3, toutes deux sur le segment Kervalan → Ty-Marrec, lui-même l'un des écarts via-gap signalés — cohérent avec un véritable relief de côte à cet endroit, mais non confirmé) — le routeur peut improviser un chemin plausible mais faux sur ces portions peu densifiées, et un aller-retour, si c'est un artefact du routage plutôt qu'un vrai rebroussement, gonfle d'autant la distance reconstituée. L'écart final (-1,1 %) reste dans la cible d'audit ±5 %, mais sans source additionnelle ces points de passage ne permettent pas de garantir que chaque portion suit fidèlement le tracé réel de 2002."
+          }
+        ],
+        "note": "Saint-Martin-de-Landelles → Plouay (217,5 km, 14 juillet 2002). 3 côtes de 4e catégorie (Béchérel km 72, Kervalan km 187, Ty-Marrec km 214), 6 localités intermédiaires et 3 sprints (Combourg, Montauban-de-Bretagne, Noyal-Pontivy) sourcés depuis le profil d'étape de ledicodutour.com. Traverse la Manche, l'Ille-et-Vilaine, les Côtes-d'Armor puis le Morbihan."
+      },
       "9": {
         "confidence": [
           {
