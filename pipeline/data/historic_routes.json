@@ -1625,7 +1625,54 @@
     "stages": {
       "1": {
         "start": "Brest",
-        "note": "Grand Départ de Brest (Bretagne)."
+        "finish": "Landerneau",
+        "vias": [
+          {
+            "label": "Le Faou",
+            "kind": "via"
+          },
+          {
+            "label": "Rosnoën",
+            "kind": "via"
+          },
+          {
+            "label": "Argol",
+            "kind": "via"
+          },
+          {
+            "label": "Locronan",
+            "kind": "via"
+          },
+          {
+            "label": "Quimper",
+            "kind": "via"
+          },
+          {
+            "label": "Briec",
+            "kind": "via"
+          },
+          {
+            "label": "Châteaulin",
+            "kind": "via"
+          },
+          {
+            "label": "Saint-Rivoal",
+            "kind": "via"
+          },
+          {
+            "label": "Brasparts",
+            "kind": "via"
+          }
+        ],
+        "note": "Grand Départ de Brest (Bretagne), étape 1 (197,8 km, victoire Julian Alaphilippe) — départ et arrivée à seulement 20 km l'un de l'autre à vol d'oiseau, mais tracé en grande boucle vers le sud puis retour par les Monts d'Arrée. Seule confirmation indépendante trouvée et vérifiée (cyclingstage.com, « stage-1-tdf-2021 », relu directement en HTML brut) : « The first part goes south and the riders move through places like Locronan and Quimper before returning via Monts d'Arrée » — confirme seulement Locronan et Quimper, sans borne kilométrique, et cite d'ailleurs la distance comme 187 km (pas 197,8 km). Un premier jet de cette session citait aussi « dicodusport.fr, 1ère étape : parcours en détail » pour détailler Le Faou, Rosnoën, Argol, Briec, Châteaulin, Saint-Rivoal, Brasparts — cette citation s'est révélée fausse en relecture adverse (dicodusport.fr est un dictionnaire du sport sans aucun contenu cyclisme, vérifié par sitemap et Wayback Machine ; le contenu détaillé venait d'une fabrication du fetch, jamais vérifié avant d'être cité). Ces 7 communes restent dans le tracé (géographiquement plausibles et bien placées sur l'itinéraire réel Brest↔Crozon↔Quimper puis Monts d'Arrée↔Landerneau, cf. confidence) mais ne sont confirmées par aucune source secondaire indépendante retrouvée cette session — à corriger si une source fiable est trouvée plus tard. Arrivée à Landerneau après la côte de la Fosse-aux-Loups (3 km, jusqu'à 14 %, confirmée par cyclingstage.com). Étape en circuit sans aucun via curé au départ : reconstruction ~20 km (trajet direct Brest-Landerneau) avant ce correctif.",
+        "confidence": [
+          {
+            "claim": "distance reconstituée de l'étape 1 (grande boucle Brest-Quimper-Landerneau par les Monts d'Arrée)",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "régénéré réellement avec les 9 vias ajoutés cette session (contre aucun, et -89,8 % auparavant) : 196,7 km reconstitués pour 197,8 km officiels (-0,6 %, dans la cible ±5 %). Bon résultat numérique, mais sourcing faible : seuls Locronan et Quimper sont confirmés par une source indépendante vérifiée (cyclingstage.com) ; les 7 autres vias (Le Faou, Rosnoën, Argol, Briec, Châteaulin, Saint-Rivoal, Brasparts) sont géographiquement plausibles (ordre cohérent le long de la presqu'île de Crozon puis des Monts d'Arrée, vérifié par géocodage réel) mais non confirmés par une source secondaire — une citation « dicodusport.fr » les concernant s'est révélée fausse en relecture adverse (voir note) et a été retirée. Niveau abaissé de « moyenne » à « basse » pour cette raison, malgré le bon résultat de distance : un bon résultat agrégé ne prouve pas que chaque point de passage est le bon. Six écarts de plus de 12 km entre vias consécutifs subsistent (Brest-Le Faou 27,2 km, Argol-Locronan 17,7 km, Locronan-Quimper 14,2 km, Briec-Châteaulin 13,6 km, Châteaulin-Saint-Rivoal 16,9 km, Brasparts-Landerneau 27,4 km). Deux zones de rebroussement détectées (km 147,7-152,7 et km 153,7-159,2), toutes deux dans le grand écart Brasparts-Landerneau — plausiblement un artefact du routeur sur ce tronçon peu densifié plutôt qu'un vrai aller-retour de la course, non confirmé cartographiquement."
+          }
+        ]
       },
       "11": {
         "start": "Sorgues",
