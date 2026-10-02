@@ -1662,11 +1662,55 @@
         "finish": "Luz Ardiden",
         "vias": [
           {
+            "label": "Nay",
+            "kind": "via"
+          },
+          {
+            "label": "Lestelle-Bétharram",
+            "kind": "via"
+          },
+          {
+            "label": "Saint-Pé-de-Bigorre",
+            "kind": "via"
+          },
+          {
+            "label": "Lourdes",
+            "kind": "via"
+          },
+          {
+            "label": "Loucrup",
+            "kind": "via"
+          },
+          {
+            "label": "Bagnères-de-Bigorre",
+            "kind": "via"
+          },
+          {
             "label": "Col du Tourmalet",
             "kind": "col"
+          },
+          {
+            "label": "Barèges",
+            "kind": "via"
+          },
+          {
+            "label": "Pont Napoléon",
+            "kind": "via"
+          },
+          {
+            "label": "Luz-Saint-Sauveur",
+            "kind": "via"
           }
         ],
-        "note": "Pau → Luz Ardiden, via le col du Tourmalet (17,1 km à 7,3 %) puis l'ascension finale de Luz Ardiden (13,3 km à 7,4 %, sommet à 1 715 m — la route goudronnée s'arrête au parking de la station)."
+        "note": "Pau → Luz Ardiden, via le col du Tourmalet (17,1 km à 7,3 %) puis l'ascension finale de Luz Ardiden (13,3 km à 7,4 %, sommet à 1 715 m — la route goudronnée s'arrête au parking de la station). Tracé confirmé indépendamment par Wikipédia FR (« 18e étape du Tour de France 2021 », relu en direct) : « Principales communes traversées » liste Nay, Lestelle-Bétharram, Saint-Pé-de-Bigorre, Lourdes, Loucrup, Bagnères-de-Bigorre (40 km de plat, avec la côte de Loucrup, 2 km à 7 %, avant l'ascension du Tourmalet par le versant est/La Mongie), puis Barèges, Luz-Saint-Sauveur, Grust, Luz-Ardiden (versant ouest, vallée, ascension finale) — confirme aussi la distance officielle 129,7 km. Le Pont Napoléon (pont/site d'escalade sur la D918, pas une commune, donc absent de cette liste officielle) a été intercalé entre Barèges et Luz-Saint-Sauveur sur la foi de sa position réelle sur cette route, pas d'une source nommée. Étape sans aucun via intermédiaire curé (seul le Tourmalet était présent) : reconstruction ~107 km (-17,5 %) avant ce correctif.",
+        "confidence": [
+          {
+            "claim": "distance reconstituée de l'étape 18 (Pau → Luz Ardiden via Lourdes, Tourmalet, Barèges)",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "régénéré réellement avec les 9 vias ajoutés cette session (contre 1 seul, Col du Tourmalet, et -17,5 % auparavant) : 139,7 km reconstitués pour 129,7 km officiels (+7,7 %, dans la tolérance ±10 % mais au-dessus de la cible ±5 %). Premier essai avec l'ordre « Barèges → Luz-Saint-Sauveur → Pont Napoléon » donnait +23,6 % (hors tolérance) : erreur d'ordre trouvée en reliant Pont Napoléon à sa vraie position sur la D918 (pont/site d'escalade des gorges de Luz, entre Barèges et Luz-Saint-Sauveur, confirmé par la liste « communes traversées » de Wikipédia FR qui place Luz-Saint-Sauveur juste après Barèges, Pont Napoléon n'étant pas une commune). Ordre corrigé en « Barèges → Pont Napoléon → Luz-Saint-Sauveur », qui ramène le résultat à +7,7 % — confirmé par relecture adverse (régénération indépendante reproduisant exactement 139,7 km/+7,7 % pour l'ordre corrigé et 160,3 km/+23,6 % pour l'ordre fautif). Une première version de ce texte justifiait l'ordre par les latitudes résolues (42,875°N / 42,858°N / 42,827°N) : la relecture adverse a trouvé que 42,827°N ne correspond pas à la latitude réellement utilisée par le pipeline pour Luz-Saint-Sauveur (42,857424°N, un candidat de géocodage différent, quasiment à la même latitude que Pont Napoléon) — corrigé ci-dessus pour ne plus s'appuyer sur un chiffre inexact (règle CLAUDE.md #9). Deux écarts de plus de 12 km entre vias consécutifs subsistent (Pau-Nay 16,7 km, Loucrup-Bagnères-de-Bigorre 13,9 km) et deux zones de rebroussement résiduelles (km 78,0-80,5 et km 81,7-84,2, autour de Bagnères-de-Bigorre) — aucune source trouvée pour les combler davantage cette session."
+          }
+        ]
       }
     }
   },
