@@ -1503,17 +1503,28 @@
       },
       "19": {
         "vias": [
-          { "label": "Fût d'Avenas", "kind": "col" }
+          { "label": "Villié-Morgon", "kind": "via" },
+          { "label": "Fût d'Avenas", "kind": "col" },
+          { "label": "Fleurie", "kind": "via" },
+          { "label": "Romanèche-Thorins", "kind": "via" },
+          { "label": "Chânes", "kind": "via" },
+          { "label": "Charnay-lès-Mâcon", "kind": "via" }
         ],
         "confidence": [
           {
             "claim": "parcours complet du contre-la-montre Régnié-Durette → Mâcon (50 km)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "complété avec 5 communes tirées du profil ledicodutour.com (2002-19a.jpg) : Villié-Morgon (km 4), Fleurie (km 18,5), Romanèche-Thorins (km 24,5), Chânes (km 33,5, ravitaillement), Charnay-lès-Mâcon (km 41,5) — toutes des communes viticoles du Beaujolais géocodées sans ambiguïté, progression géographique cohérente (Rhône → Saône-et-Loire, nord constant)."
+          },
+          {
+            "claim": "écart résiduel de distance de l'étape (généré 46,8 km vs officiel 50 km, -6,3 %)",
             "status": "UNSURE",
-            "level": "basse",
-            "detail": "un seul col sourcé (bikeraceinfo.com, km 10,5) sur 50 km — les ~40 km restants jusqu'à Mâcon sont décrits par la source comme « relativement plats » mais sans commune intermédiaire nommée."
+            "level": "moyenne",
+            "detail": "dans la tolérance ±10 % en vigueur, légèrement au-dessus de la cible d'audit ±5 %. Deux zones de rebroussement détectées autour de la côte du Fût d'Avenas (km 10,5-12,4 et km 13,5-15,5, toutes deux nommant ce col) — altitude mesurée au sommet quasi exacte (744 m contre 743 m connus, écart 0 m) et col-atteint à 26 m du sommet curé, donc pas un mauvais point au sens habituel (homonyme ou biais de near) : plus probablement une route de montée en impasse ou un aller-retour réel du parcours autour de ce col isolé du Beaujolais, non confirmé par une source du tracé réel. Non creusé davantage : l'écart résultant reste dans la tolérance et une tentative de coordonnée alternative sans source réelle risquerait de dégrader une altitude déjà quasi parfaite."
           }
         ],
-        "note": "Régnié-Durette → Mâcon, contre-la-montre individuel (50 km, 27 juillet 2002). Un seul col classé en début d'épreuve : côte du Fût d'Avenas (km 10,5, 7,2 km à 4,4 %, 3e cat.). Sourcé : bikeraceinfo.com."
+        "note": "Régnié-Durette → Mâcon, contre-la-montre individuel (50 km, 27 juillet 2002). Un seul col classé : côte du Fût d'Avenas (km 10,5, 7,2 km à 4,4 %, 3e cat., sourcé bikeraceinfo.com). Suite du parcours (Villié-Morgon, Fleurie, Romanèche-Thorins, Chânes, Charnay-lès-Mâcon) sourcée : ledicodutour.com (profil d'étape 2002-19a.jpg)."
       },
       "20": {
         "confidence": [
