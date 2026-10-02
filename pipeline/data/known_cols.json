@@ -30,6 +30,12 @@
     "ele": 2360,
     "source": "recoupé via recherche web (article Wikipedia Col d'Izoard, BikeRaceInfo, PJAMM Cycling) lors de l'ajout de l'édition 1922"
   },
+  "Col d'Ornon": {
+    "ele": 1360,
+    "lat": 45.00889,
+    "lon": 5.9675,
+    "source": "curation Tour 2002, étape 15 (revue adverse) : le géocodage automatique du seul libellé « Col d'Ornon » (sans coordonnées curées) retombait sur « Pic du Col d'Ornon » (data.geopf.fr, score 0,70), un sommet homonyme à 2866 m dans le massif du Taillefer (reverse-géocodé « Villard-Notre-Dame »), à ~4 km du vrai col routier — vérifié en rejouant geocodeCol() avec le near réel du pipeline, même mécanisme que le col de Grimone déjà corrigé plus haut sur la même étape (issue #188). Coordonnées reprises de Wikipédia (en.wikipedia.org/wiki/Col_d%27Ornon, 45°00′32″N 5°58′03″E, D526 entre Bourg-d'Oisans et La Mure) : le point reverse-géocode sur « Chantepérier » (data.geopf.fr), altitude réelle mesurée (RGE ALTI) 1369,88 m — cohérente avec les 1360 m sourcés et avec les 1371 m du profil ledicodutour.com (2002-15a.jpg)."
+  },
   "Col de Braus": {
     "ele": 1002,
     "source": "valeur reprise telle quelle des occurrences déjà présentes dans historic_routes.json (cohérentes entre elles) ; sourcing détaillé par édition dans le champ notes de chaque année du fichier d'origine"
