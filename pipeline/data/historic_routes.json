@@ -3590,6 +3590,14 @@
   "2015": {
     "stages": {
       "1": {
+        "start": {
+          "label": "Jaarbeurs, Utrecht",
+          "country": "netherlands"
+        },
+        "finish": {
+          "label": "Jaarbeurs, Utrecht",
+          "country": "netherlands"
+        },
         "vias": [
           {
             "label": "Vaartsche Rijn",
@@ -3602,13 +3610,13 @@
             "country": "netherlands"
           }
         ],
-        "note": "CLM en boucle à Utrecht (13,8 km, Grand Départ) — tracé sourcé (cyclingstage.com, stage-1-tdf-2015) : gare de Vaartsche Rijn, stade Galgenwaard (FC Utrecht), retour au Jaarbeurs (départ/arrivée).",
+        "note": "CLM en boucle à Utrecht (13,8 km, Grand Départ) — tracé sourcé (cyclingstage.com, stage-1-tdf-2015) : départ/arrivée au Jaarbeurs (centre d'exposition, curé explicitement cette session plutôt que le libellé Wikipédia générique « Utrecht »), gare de Vaartsche Rijn, stade Galgenwaard (FC Utrecht), retour au Jaarbeurs.",
         "confidence": [
           {
             "claim": "distance reconstituée du CLM en boucle à Utrecht",
             "status": "UNSURE",
             "level": "moyenne",
-            "detail": "vérifié en rejouant le pipeline réel : 8,5 km reconstitués pour 13,8 km officiels (-38,4 %). Les 2 vias sourcés (Vaartsche Rijn, Stadion Galgenwaard) géocodent correctement — l'écart vient de la faible densité de points de passage, même limite que Düsseldorf 2017 (pas de trajet GPX officiel disponible pour cette édition)."
+            "detail": "écart initial (départ/arrivée non curés, libellé Wikipédia générique « Utrecht ») : vérifié en rejouant le pipeline réel : 8,5 km reconstitués pour 13,8 km officiels (-38,4 %). Les 2 vias sourcés (Vaartsche Rijn, Stadion Galgenwaard) géocodaient correctement — l'écart venait de la faible densité de points de passage, même limite que Düsseldorf 2017 (pas de trajet GPX officiel disponible pour cette édition). Cette session : départ/arrivée curés sur le Jaarbeurs (le vrai point de départ/arrivée, à ~0,7 km du centroïde administratif d'Utrecht utilisé par défaut) — `country_hint` utilisable sans piège ici, contrairement au cas français de Marseille (2017/20) où ce champ n'existe que pour les lieux hors France. Vérifié par régénération réelle : écart réduit à -27,0 % (10,1 km), amélioration réelle. Quatre zones de rebroussement couvrant la majorité du tracé subsistent — même limite structurelle que les autres circuits urbains de ce lot (densité de points de passage insuffisante sans tracé GPX officiel). Écart résiduel documenté comme irréductible avec les sources disponibles."
           }
         ]
       }
