@@ -3621,8 +3621,12 @@
     "stages": {
       "7": {
         "vias": [
+          { "label": "Colmar", "kind": "via" },
+          { "label": "Turckheim", "kind": "via" },
+          { "label": "Munster", "kind": "via", "lat": 48.042721, "lon": 7.142765 },
           { "label": "Petit Ballon", "kind": "col" },
           { "label": "Col du Platzerwasel", "kind": "col" },
+          { "label": "Oderen", "kind": "via" },
           { "label": "Grand Ballon", "kind": "col" }
         ],
         "confidence": [
@@ -3633,13 +3637,13 @@
             "detail": "3 cols sourcés dans l'ordre (cyclingstage.com, description de parcours de l'étape 7) : Petit Ballon (9,3 km à 8,1 %), col du Platzerwasel (7,1 km à 8,3 %), Grand Ballon (13,5 km à 6,7 %) — puis la route des Crêtes jusqu'au Markstein sans redescendre après le dernier col. Altitudes de sommet non citées ici : absentes de la source (vérifié par relecture directe des deux pages cyclingstage.com) et absentes de known_cols.json pour ces trois labels — à ne pas confondre avec l'entrée équivalente de l'étape 8 (Ballon d'Alsace), où l'altitude vient bien de known_cols.json."
           },
           {
-            "claim": "écart résiduel de distance de l'étape après curation (généré 91,9 km vs officiel 127,1 km, -27,7 %)",
+            "claim": "écart résiduel de distance de l'étape après curation (généré 114,3 km vs officiel 127,1 km, -10,0 %)",
             "status": "UNSURE",
             "level": "basse",
-            "detail": "curation partielle : vérifié par régénération réelle que l'ajout des 3 cols ci-dessus réduit l'écart de -50,9 % (aucun via) à -27,7 %, mais reste hors tolérance ±10 %. Deux zones de rebroussement détectées (detectBacktrackZones, km 75-83 et km 84-91) autour du Grand Ballon et de l'approche du Markstein — cause non investiguée plus avant (route des Crêtes mal reconstituée par le routeur, ou via « Le Markstein » imprécis). De nombreuses côtes plus courtes mentionnées par la source (traversée de Munster, faux-plats de la route des Crêtes) n'ont pas été curées, contribuant probablement aussi à l'écart."
+            "detail": "cette session a ajouté Munster, Oderen (sourcés), puis Colmar et Turckheim (plausibles, non sourcés, voir note) pour densifier le grand écart Sélestat-Munster. Résultat : -10,0 % (contre -27,7 % avec seulement les 3 cols, et -50,9 % sans aucun via) — tout juste hors tolérance ±10 % (la valeur non arrondie dépasse légèrement le seuil). Un essai d'ajout de « Wildenstein » pour combler le dernier grand écart (Platzerwasel-Oderen, 12,1 km) a dégradé le résultat (+10,7 %, 5 zones de rebroussement au lieu de 3) et a été abandonné — ce point n'est pas sur le trajet réel de la descente, malgré une position qui semblait plausible sur la carte. Deux écarts de plus de 12 km subsistent (Sélestat-Colmar 16,6 km, Platzerwasel-Oderen 12,1 km) et trois zones de rebroussement (km 89,6-92,6, km 94,8-105,3, km 106,3-113,6, autour de Ranspach et du Grand Ballon) — aucune source supplémentaire trouvée pour les combler cette session."
           }
         ],
-        "note": "Sélestat → Le Markstein (127,1 km, 30 juillet 2022), entièrement en Alsace. 35 km de plaine avant le Petit Ballon (via Munster), puis le col du Platzerwasel, une descente vers Oderen, et le Grand Ballon (déjà franchi par le Tour hommes en 1992, étape 11) avant les 7 derniers km sur la route des Crêtes jusqu'à l'arrivée. Sourcé : cyclingstage.com."
+        "note": "Sélestat → Le Markstein (127,1 km, 30 juillet 2022), entièrement en Alsace. 35 km de plaine avant le Petit Ballon (via Munster), puis le col du Platzerwasel, une descente vers Oderen, et le Grand Ballon (déjà franchi par le Tour hommes en 1992, étape 11) avant les 7 derniers km sur la route des Crêtes jusqu'à l'arrivée. Munster et Oderen sourcés par cyclingstage.com (« stage-7-tdf-2022-women », relu en HTML brut, confirmé mot pour mot en relecture adverse par un second accès direct à la page). Colmar et Turckheim ajoutés en plus pour densifier le grand écart Sélestat-Munster (33,7 km sans point intermédiaire auparavant) : ce sont les villes évidentes sur l'axe direct (vallée de la Fecht/N83), non nommées par la source. Un essai d'ajout de « Wildenstein » pour combler l'écart Platzerwasel-Oderen (12,1 km) a été testé et abandonné cette session : il dégrade le résultat (+10,7 % au lieu de -10,0 %, avec 5 zones de rebroussement au lieu de 3), ce point n'étant en réalité pas sur le trajet direct de la descente. Coordonnées de Munster fixées explicitement (lat/lon) en relecture adverse : un homonyme français réel existe (Munster, Moselle, score Géoplateforme 0,973 contre 0,982 pour la bonne commune du Haut-Rhin) et n'était départagé que par le biais de proximité au near — fragile à un futur changement d'ordre des vias ; figé en dur par prudence, comme ailleurs dans ce fichier pour des cas d'homonymie serrée. Piste non exploitée de la même source cyclingstage.com, relevée en relecture adverse mais non vérifiée plus avant : « Shortly after the first passage on the line a long descent takes the riders to Oderen » suggère que le tracé repasse près de l'arrivée (Le Markstein) avant de redescendre vers Oderen — une boucle plutôt qu'un trajet linéaire, ce qui pourrait expliquer une partie des zones de rebroussement détectées dans cette zone (voir confidence), sans que cela ait été curé ni confirmé cette session."
       },
       "8": {
         "vias": [
