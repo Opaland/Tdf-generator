@@ -530,6 +530,40 @@ test('geocode() : un candidat POI catégorie "sommet" bat un homonyme plus proch
   assert.strictEqual(r.lon, -0.014748);
 });
 
+// Non-régression : un pic non catégorisé « sommet » par l'IGN (ex. un
+// volcan) doit quand même bénéficier de la protection summit:true via la
+// catégorie-parent « détail orographique », partagée par sommet/pic/volcan.
+// Reproduit la vraie réponse data.geopf.fr pour « Puy de Dôme » avec
+// near=lac de Vassivière (2023 étape 9) : sans ce correctif, le candidat le
+// plus proche de near (« Domaine du Bas », un hameau à ~65 km du vrai
+// sommet, catégorie 'lieu-dit habité') l'emportait à tort.
+test('geocode() : un candidat POI catégorie "volcan" (pas "sommet") bat quand même un homonyme plus proche sans rapport (summit:true)', async () => {
+  mock = {
+    geopf: async () => jsonResponse({
+      features: [
+        {
+          properties: { name: ['Puy-de-Dôme'], category: ['administratif', 'département'], score: 0.44 },
+          geometry: { coordinates: [3.118858, 45.708741] },
+        },
+        {
+          properties: { name: ['Puy de Dôme'], category: ['volcan', 'élément topographique ou forestier', 'détail orographique'], score: 0.41 },
+          geometry: { coordinates: [2.965154, 45.77294] },
+        },
+        {
+          properties: { name: ['Domaine du Bas'], category: ['lieu-dit habité', "zone d'habitation"], score: 0.34 },
+          geometry: { coordinates: [2.2145, 46.041308] },
+        },
+      ],
+    }),
+    nominatim: neverCalled('Nominatim'),
+  };
+  const near = { lat: 45.806847, lon: 1.843013 }; // Lac de Vassivière
+  const r = await geocode('Puy de Dôme-test-volcan-brut', { near, summit: true });
+  assert.strictEqual(r.provider, 'geopf');
+  assert.strictEqual(r.lat, 45.77294, 'doit choisir le vrai volcan malgré "Domaine du Bas" plus proche de near');
+  assert.strictEqual(r.lon, 2.965154);
+});
+
 test('repli Géoplateforme → Nominatim quand la Géoplateforme ne trouve rien', async () => {
   mock = {
     geopf: async () => jsonResponse({ features: [] }),

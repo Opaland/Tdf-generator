@@ -373,9 +373,27 @@ async function geocode(query, { countryHint = 'fr', near = null, summit = false,
         // 28/08/2026 : « Moûtiers », Savoie, battue par un homonyme de
         // Meurthe-et-Moselle, les deux exclusivement trouvés via l'index POI).
         const category = Array.isArray(props.category) ? props.category : [];
+        // « sommet » seul manquait les pics non classés comme tel par l'IGN
+        // sous leur propre libellé de catégorie (ex. « Puy de Dôme »,
+        // catégorie ['volcan', 'élément topographique ou forestier', 'détail
+        // orographique'] — jamais 'sommet'). pickFeature() (summit:true) ne
+        // le protégeait donc jamais contre un homonyme purement plus proche
+        // du waypoint précédent, même sans rapport (trouvaille en
+        // reconstituant 2023 étape 9 : géocodeCol('Puy de Dôme') retombait
+        // sur « Domaine du Bas », hameau proche du waypoint précédent mais
+        // à ~65 km du vrai sommet). « détail orographique » est la
+        // catégorie-parent IGN partagée par sommet/pic/volcan/col — vérifié
+        // en direct sur data.geopf.fr pour Mont Ventoux, Grand Ballon, Puy
+        // Mary, Pic du Midi (tous 'sommet' + 'détail orographique') et Puy
+        // de Dôme (seul 'volcan' + 'détail orographique', jamais 'sommet').
+        // Elle couvre aussi vallée/gorge/plaine (vérifié en direct) — plus
+        // large que les seuls reliefs type col/sommet, mais sans régression
+        // trouvée sur les 97 cols réels de historic_routes.json (revue
+        // adverse, 03/10/2026) : le near-bias déjà en place favorise
+        // largement le bon candidat dans tous les cas testés.
         const type = props.type
           || (category.includes('commune') ? 'municipality'
-            : category.includes('sommet') ? 'summit'
+            : category.includes('sommet') || category.includes('détail orographique') ? 'summit'
               : undefined);
         // depcode : chaîne côté index adresse, tableau côté index POI — même
         // repli que city/name ci-dessus. Alimente uniquement le départage par
