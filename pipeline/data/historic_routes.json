@@ -1960,11 +1960,38 @@
         "finish": "Courchevel",
         "vias": [
           {
+            "label": "Col des Saisies",
+            "kind": "col"
+          },
+          "Beaufort",
+          {
+            "label": "Cormet de Roselend",
+            "kind": "col"
+          },
+          {
+            "label": "Longefoy",
+            "kind": "via",
+            "lat": 45.537508,
+            "lon": 6.626571
+          },
+          "Notre-Dame-du-Pré",
+          "Moûtiers",
+          "Brides-les-Bains",
+          "Méribel",
+          {
             "label": "Col de la Loze",
             "kind": "col"
           }
         ],
-        "note": "Saint-Gervais Mont-Blanc → Courchevel (165,7 km), via le col de la Loze (2 304 m), point culminant du Tour 2023, avant la descente puis la montée finale vers Courchevel."
+        "note": "Saint-Gervais Mont-Blanc → Courchevel (165,6 km, cyclingstage.com, « stage-17-tdf-2023 », relu en HTML brut) : 15 km vallonnés, col des Saisies (13,4 km à 5,1 %, orthographe cyclingstage « Saises » corrigée — c'est bien le col des Saisies, vérifié sur data.geopf.fr), descente sur Beaufort, cormet de Roselend (19,9 km à 6 %), longue descente, côte de Longefoy (6,6 km à 7,5 %), puis pente douce jusqu'à Notre-Dame-du-Pré (55 km à parcourir), descente sur Moûtiers puis Brides-les-Bains, col de la Loze (presque 30 km au total via Méribel, premiers 7 % après Méribel, derniers 5 km à plus de 10 %, 2 304 m — point culminant du Tour 2023), descente de 6 km puis rampe finale de 600 m à 10,8 % vers Courchevel. « Longefoy » lat/lon fixées en dur : deux lieu-dits homonymes de même score dans l'index IGN (le vrai, près d'Aime, et un autre à 13 km du waypoint précédent contre 18 km pour le vrai) — le biais de proximité retombait sur le mauvais sans ce correctif. « Méribel » a aussi plusieurs homonymes (dont un en Haute-Savoie, près du départ) mais le biais de proximité séquentiel (depuis Brides-les-Bains) résout correctement sur Méribel Village, Savoie — vérifié par le pipeline réel, pas de correctif nécessaire.",
+        "confidence": [
+          {
+            "claim": "distance reconstituée de l'étape 17 (Saint-Gervais Mont-Blanc → Courchevel)",
+            "status": "OK",
+            "level": "moyenne",
+            "detail": "173,2 km reconstitués pour 166 km officiels (+4,3 %, dans la tolérance ±10 % et ±5 %), vérifié par le pipeline réel. Avant cette session : 103,2 km (-37,8 %, un seul via sur toute l'étape, écart de 54,6 km sans point de passage). Huit vias sourcés ajoutés (col des Saisies, Beaufort, cormet de Roselend, Longefoy, Notre-Dame-du-Pré, Moûtiers, Brides-les-Bains, Méribel)."
+          }
+        ]
       },
       "20": {
         "start": "Belfort",
