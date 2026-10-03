@@ -1926,6 +1926,13 @@
               2,
               1
             ]
+          },
+          "Felletin",
+          "Pontcharraud",
+          "Pontaumur",
+          {
+            "label": "Col de la Nugère",
+            "kind": "col"
           }
         ],
         "finish_bonus_sec": [
@@ -1933,8 +1940,14 @@
           6,
           4
         ],
-        "note": "Saint-Léonard-de-Noblat → Puy de Dôme (182,4 km) : première arrivée d'étape sur le Puy de Dôme depuis 1988, 4 derniers km fermés au public. Ligne d'arrivée à ~1 415 m (le sommet du puy, sous l'antenne, culmine lui à 1 465 m).",
+        "note": "Saint-Léonard-de-Noblat → Puy de Dôme (182,4 km) : première arrivée d'étape sur le Puy de Dôme depuis 1988, 4 derniers km fermés au public. Ligne d'arrivée à ~1 415 m (le sommet du puy, sous l'antenne, culmine lui à 1 465 m). Parcours détaillé (cyclingstage.com, « stage-9-tdf-2023 », relu en HTML brut) : 25 premiers km légèrement vallonnés, côte du lac de Vassivière (4,4 km à 4 %), puis côte de Felletin (2,1 km à 5,2 %), côte de Pontcharraud (1,8 km à 4,6 %), côte de Pontaumur (3,3 km à 5,3 %), col de la Nugère (faux-plat de 9,2 km à 2,8 %, 42 km avant l'arrivée), puis descente de 15 km jusqu'au pied du Puy de Dôme (13,3 km à 7,7 %). Felletin, Pontcharraud, Pontaumur et col de la Nugère ajoutés cette session (sourcés) pour réduire les écarts >12 km — amélioration partielle, pas une fermeture complète : le plus gros écart individuel passe de 38,8 km à 31,0 km (Pontcharraud → Pontaumur, désormais le plus grand), 4 des 6 segments restent signalés par le garde-fou >12 km, zone rurale clairsemée (plateau de Millevaches/Combrailles) où les communes sont par nature espacées. En chemin, trouvaille et correctif de code (PR séparée, règle 11 CLAUDE.md « un item cohérent par PR ») : le géocodage de l'arrivée « Puy de Dôme » lui-même retombait, sans ce correctif, sur un hameau à ~65 km du vrai sommet (catégorie IGN 'volcan', jamais reconnue comme un sommet par le géocodeur) — voir pipeline/geocode.js.",
         "confidence": [
+          {
+            "claim": "distance reconstituée de l'étape 9 (Saint-Léonard-de-Noblat → Puy de Dôme)",
+            "status": "OK",
+            "level": "moyenne",
+            "detail": "178,2 km reconstitués pour 182,5 km officiels (-2,3 % selon pipeline/checks.js, qui détermine le statut OK/FAIL ; -2,4 % sur l'arrondi affiché par pipeline/cli.js — écart préexistant entre deux calculs de précision différente, non introduit par cette session), dans la tolérance ±10 %. Vérifié par le pipeline réel, avec dépendance quantifiée au correctif de geocodage orographique (PR séparée) : sans aucun correctif, 89,7 km (-50,8 %, un seul via sprint) ; avec le correctif de geocodage seul mais sans les 4 vias, 151 km (-17,3 %, le point d'arrivée « Puy de Dôme » résolvait sinon à ~65 km du vrai sommet) ; avec les deux, -2,3 %. Note : la note narrative cite 182,4 km (cyclingstage.com) contre 182,5 km officiels (Wikipédia) utilisés par le pipeline — écart de 0,1 km entre deux sources, sans impact sur le calcul."
+          },
           {
             "claim": "altitude de la ligne d'arrivée ≈ 1415 m (le sommet du puy culmine à 1465 m)",
             "status": "UNSURE",
