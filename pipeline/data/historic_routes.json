@@ -1678,47 +1678,25 @@
           "label": "Copenhagen",
           "country": "denmark"
         },
-        "note": "Grand Départ à l'étranger : contre-la-montre individuel à Copenhague (Danemark). Tracé GPX officiel (cyclingstage.com, cdn.cyclingstage.com/.../2022/stage-1-parcours.gpx, distance mesurée : 13,2 km, cohérente avec les 13,2 km officiels) rééchantillonné tous les 2 km (pas resserré : 8 km ne donnait qu'un seul point de passage sur une boucle de 13,2 km) en points de passage curés. Étape en circuit sans via curé au départ : reconstruction ~0 km avant ce correctif. country_hint explicite ajouté (03/09/2026, palier 1 batch 2) : sans lui, un départ/arrivée curé à l'étranger repassait par défaut en géocodage France, risquant un faux positif sur un homonyme français (voir wikipedia.js, reconstructionWaypoints()).",
+        "note": "Grand Départ à l'étranger : contre-la-montre individuel à Copenhague (Danemark). Tracé GPX officiel (cyclingstage.com, téléchargé directement depuis cdn.cyclingstage.com/images/tour-de-france/2022/stage-1-parcours.gpx — l'URL précédemment notée ici, …/2022/stage-1-parcours.gpx sans le segment « tour-de-france », était fausse et renvoyait 404 ; corrigée cette session ; distance mesurée sur les 920 points du tracé réel : 13,23 km, cohérente avec les 13,2 km officiels) rééchantillonné via scripts/calibrate-gpx-stage.js (resamplePolyline, pas régulier). Trois densités testées avec le même algorithme : 2 km (6 points, -9,1 %, retenu — le plus grossier testé qui rentre dans la tolérance ±10 %, conformément à la recommandation du script et à la convention déjà appliquée ailleurs dans ce fichier, ex. 2026 étapes 6 et 19), 1,5 km (8 points, +3,8 %, également dans la tolérance mais plus de vias pour un gain de précision non retenu comme critère ici) et 1 km (12 points, +12,9 %, hors tolérance). Une première passe de cette session avait comparé par erreur les 6 vias déjà en place (générés par une méthode différente, « point le plus proche de chaque multiple rond de 2 km », curation antérieure du 03/09/2026) aux rééchantillonnages à 1 km/1,5 km produits cette session par calibrate-gpx-stage.js, faussant la comparaison (+17,2 %/+12,0 % rapportés initialement, tous deux non reproductibles) ; une deuxième passe a corrigé la comparaison mais avait retenu 1,5 km au lieu du pas le plus grossier passant (1,5 km est plus précis mais dévie sans le justifier de la convention « le plus grossier qui passe » suivie ailleurs dans ce fichier) — trouvé par une deuxième revue adverse, corrigé en revenant au pas de 2 km, cette fois généré par le même algorithme resamplePolyline (donc une vraie comparaison à méthode égale, pas les vias d'origine de la curation du 03/09/2026). Étape en circuit sans via curé au départ : reconstruction ~0 km avant le tout premier correctif GPX. country_hint explicite ajouté (03/09/2026, palier 1 batch 2) : sans lui, un départ/arrivée curé à l'étranger repassait par défaut en géocodage France, risquant un faux positif sur un homonyme français (voir wikipedia.js, reconstructionWaypoints()).",
         "finish": {
           "label": "Copenhagen",
           "country": "denmark"
         },
         "vias": [
+          { "label": "Tracé GPX km 1.9", "kind": "via", "lat": 55.69251, "lon": 12.56411 },
+          { "label": "Tracé GPX km 3.8", "kind": "via", "lat": 55.69943, "lon": 12.57635 },
+          { "label": "Tracé GPX km 5.7", "kind": "via", "lat": 55.70831, "lon": 12.57347 },
+          { "label": "Tracé GPX km 7.6", "kind": "via", "lat": 55.6951, "lon": 12.58155 },
+          { "label": "Tracé GPX km 9.4", "kind": "via", "lat": 55.69051, "lon": 12.59878 },
+          { "label": "Tracé GPX km 11.3", "kind": "via", "lat": 55.67806, "lon": 12.58602 }
+        ],
+        "confidence": [
           {
-            "label": "Tracé GPX km 2.0",
-            "kind": "via",
-            "lat": 55.69325,
-            "lon": 12.56555
-          },
-          {
-            "label": "Tracé GPX km 4.1",
-            "kind": "via",
-            "lat": 55.701,
-            "lon": 12.57303
-          },
-          {
-            "label": "Tracé GPX km 6.0",
-            "kind": "via",
-            "lat": 55.70836,
-            "lon": 12.57735
-          },
-          {
-            "label": "Tracé GPX km 8.0",
-            "kind": "via",
-            "lat": 55.69239,
-            "lon": 12.58656
-          },
-          {
-            "label": "Tracé GPX km 10.0",
-            "kind": "via",
-            "lat": 55.68657,
-            "lon": 12.59533
-          },
-          {
-            "label": "Tracé GPX km 12.0",
-            "kind": "via",
-            "lat": 55.67352,
-            "lon": 12.58198
+            "claim": "distance reconstituée du contre-la-montre de Copenhague (rééchantillonnage GPX)",
+            "status": "OK",
+            "level": "moyenne",
+            "detail": "12,0 km reconstitués pour 13,2 km officiels par le pipeline réel (import + génération) : -9,3 %, status \"ok\" (script de calibration isolé sur le même GPX : -9,1 %, écart mineur de variance/arrondi entre les deux environnements). Trois densités testées avec le même script et algorithme (scripts/calibrate-gpx-stage.js, resamplePolyline) sur le même fichier GPX : 2 km (6 points, -9,1 %, retenu), 1,5 km (8 points, +3,8 %) et 1 km (12 points, +12,9 %, hors tolérance). Le script lui-même recommande explicitement « le pas le plus grossier testé qui rentre dans la tolérance ±10 % » (scripts/calibrate-gpx-stage.js, commentaire de tête et logique de sélection) — soit 2 km ici, pas 1,5 km. Une version précédente de cette correction avait retenu 1,5 km (plus précis en valeur absolue) sans le justifier, déviant silencieusement de cette convention alors qu'elle est appliquée ailleurs dans ce même fichier même quand elle sacrifie de la précision brute (ex. 2026 étape 6 : pas 8 km retenu à -3,2 % plutôt que pas 2 km à +2,8 % malgré |2,8|<|3,2|). Trouvé par revue adverse, corrigé en revenant au pas de 2 km, vérifié par le pipeline réel avant commit."
           }
         ]
       },
