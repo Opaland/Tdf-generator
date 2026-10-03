@@ -270,12 +270,16 @@ test('historic_routes.json : chaque affirmation confidence est bien formée (bac
 test('stageConfidence : renvoie [] pour une étape sans réserve connue, le détail pour une étape marquée UNSURE', () => {
   assert.deepStrictEqual(stageConfidence(1903, 3), [], 'aucune réserve connue sur cette étape');
   const puyDeDome = stageConfidence(2023, 9);
-  // 3 réserves depuis l'ajout des marqueurs sprint/bonification (backlog
+  // 4 réserves : distance reconstituée (OK, ajoutée le 03/10/2026 après le
+  // correctif de geocodage orographique et l'ajout de 4 vias sourcés), puis
+  // les 3 réserves depuis l'ajout des marqueurs sprint/bonification (backlog
   // issue #14) : altitude d'arrivée, position du sprint intermédiaire,
   // barème de bonification — toutes UNSURE, aucune n'écrase les autres.
-  assert.strictEqual(puyDeDome.length, 3);
-  assert.ok(puyDeDome.every((c) => c.status === 'UNSURE'));
-  assert.match(puyDeDome[0].claim, /1415|1 415/);
+  assert.strictEqual(puyDeDome.length, 4);
+  assert.strictEqual(puyDeDome[0].status, 'OK');
+  assert.match(puyDeDome[0].claim, /distance/);
+  assert.ok(puyDeDome.slice(1).every((c) => c.status === 'UNSURE'));
+  assert.match(puyDeDome[1].claim, /1415|1 415/);
 
   // Passée UNSURE → OK le 01/09/2026 (correctif issue #108) : altitude du
   // Col du Noyer désormais vérifiée (Wikipédia) et curée dans
