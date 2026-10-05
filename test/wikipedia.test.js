@@ -14,6 +14,7 @@ const {
   resolveViaCoords,
   extractTables,
   extractTablesRich,
+  HISTORIC_ROUTES,
 } = require('../pipeline/wikipedia');
 
 const FIXTURES = path.join(__dirname, '..', 'pipeline', 'fixtures');
@@ -173,6 +174,52 @@ test('reconstructionWaypoints() : country_hint absent d\'un départ/arrivée cur
   const wps = reconstructionWaypoints(1903, stage);
   assert.strictEqual(wps[0].country_hint, null);
   assert.strictEqual(wps[wps.length - 1].country_hint, null);
+});
+
+test('reconstructionWaypoints() : lat/lon curés sur un départ/arrivée objet ({label, lat, lon}) ne sont plus ignorés (trouvaille Rimini, 2024 étape 1)', () => {
+  // Jusqu'ici, seule la boucle des vias appelait resolveViaCoords() — les
+  // deux push() start/finish ignoraient totalement lat/lon même quand le
+  // départ/arrivée curé les fournissait en objet (même schéma que via.lat/
+  // via.lon). Trouvaille en curant 2024 étape 1 (Florence → Rimini,
+  // 05/10/2026) : « Rimini » curé avec des coordonnées figées (ville réelle,
+  // 44.0594/12.5684) repassait quand même par un géocodage Nominatim plein
+  // au moment de la génération réelle, qui retombe sur le comté homonyme
+  // (43.9465/12.6307, ~13,5 km plus à l'intérieur des terres — limite
+  // documentée et volontaire de pickNominatimFeature(), voir geocode.js) au
+  // lieu de la coordonnée figée. Même trouvaille déjà rencontrée (et
+  // seulement documentée, jamais corrigée) sur Le Markstein (2023 étape 20,
+  // arrivée) — CLAUDE.md règle 1 : une trouvaille qui revient une deuxième
+  // fois se corrige à la racine. Année de test synthétique (9999, jamais une
+  // vraie édition) injectée directement dans HISTORIC_ROUTES puis retirée,
+  // pour ne pas fabriquer une fausse entrée dans le vrai jeu de données.
+  const year = 9999;
+  HISTORIC_ROUTES[String(year)] = {
+    stages: {
+      '1': {
+        start: { label: 'Ville de départ test', lat: 1.1, lon: 2.2 },
+        finish: { label: 'Ville d\'arrivée test', lat: 3.3, lon: 4.4 },
+      },
+    },
+  };
+  try {
+    const stage = { number: 1, start: 'ignoré (curé)', finish: 'ignoré (curé)' };
+    const wps = reconstructionWaypoints(year, stage);
+    assert.strictEqual(wps[0].lat, 1.1);
+    assert.strictEqual(wps[0].lon, 2.2);
+    assert.strictEqual(wps[wps.length - 1].lat, 3.3);
+    assert.strictEqual(wps[wps.length - 1].lon, 4.4);
+  } finally {
+    delete HISTORIC_ROUTES[String(year)];
+  }
+});
+
+test('reconstructionWaypoints() : départ/arrivée curé en chaîne simple (sans lat/lon) reste null/null, comportement inchangé', () => {
+  const stage = { number: 1, start: 'Paris', finish: 'Lyon' };
+  const wps = reconstructionWaypoints(1903, stage);
+  assert.strictEqual(wps[0].lat, null);
+  assert.strictEqual(wps[0].lon, null);
+  assert.strictEqual(wps[wps.length - 1].lat, null);
+  assert.strictEqual(wps[wps.length - 1].lon, null);
 });
 
 test('reconstructionWaypoints() : country_hint explicite propagé pour un via curé en forme objet { label, country }', () => {

@@ -610,6 +610,23 @@ function reconstructionWaypoints(year, stage, category = 'hommes') {
   const curatedCountry = (entry) => (entry && typeof entry === 'object' ? foreignCountry(entry.country) : null);
   const startLabel = curatedLabel(curated?.start) || stage.start;
   const finishLabel = curatedLabel(curated?.finish) || stage.finish;
+  // lat/lon : un départ/arrivée curé en objet { label, lat, lon } (même
+  // schéma que via.lat/via.lon) était jusqu'ici ignoré — seule la boucle des
+  // vias ci-dessous appelait resolveViaCoords(), jamais les deux push()
+  // start/finish. Trouvaille en curant 2024 étape 1 (Florence → Rimini,
+  // 05/10/2026) : « Rimini » resolveViaCoords-able en objet (coordonnées de
+  // la vraie ville, 44.0594/12.5684) continuait de repasser par un
+  // géocodage Nominatim plein, qui retombe sur le comté homonyme (43.9465/
+  // 12.6307, ~13,5 km plus à l'intérieur des terres — limite documentée et
+  // volontaire de pickNominatimFeature(), voir geocode.js) au lieu de la
+  // coordonnée figée. Même trouvaille déjà rencontrée (et seulement
+  // documentée, jamais corrigée) sur Le Markstein (2023 étape 20, arrivée) —
+  // CLAUDE.md règle 1 : une trouvaille qui revient une deuxième fois se
+  // corrige à la racine plutôt que de se redocumenter comme limite connue.
+  // `known` (KNOWN_COLS) n'a pas de sens pour un départ/arrivée (réservé aux
+  // vias cols, voir plus bas) — toujours `null` ici.
+  const startCoords = resolveViaCoords(curated?.start || {}, null);
+  const finishCoords = resolveViaCoords(curated?.finish || {}, null);
   // region_hint : même logique que country_hint ci-dessus, mais pour le
   // qualificatif de département (« Bonneval, Eure-et-Loir ») — pour un
   // départ/arrivée NON curé, jamais deviné automatiquement (issu du texte
@@ -617,6 +634,7 @@ function reconstructionWaypoints(year, stage, category = 'hommes') {
   // la forme objet { label, region } le précise explicitement à la main.
   wps.push({
     label: startLabel, kind: 'start', bonus_sec: null,
+    lat: startCoords.lat, lon: startCoords.lon,
     source: curated?.start ? 'parcours curé' : 'wikipedia',
     country_hint: curated?.start ? curatedCountry(curated.start) : foreignCountry(stage.startCountry),
     region_hint: curated?.start ? curatedRegion(curated.start) : stage.startDepartment || null,
@@ -653,6 +671,7 @@ function reconstructionWaypoints(year, stage, category = 'hommes') {
   wps.push({
     label: finishLabel,
     kind: isColQuery(finishLabel) ? 'col' : 'finish',
+    lat: finishCoords.lat, lon: finishCoords.lon,
     bonus_sec: curated?.finish_bonus_sec || null,
     source: curated?.finish ? 'parcours curé' : 'wikipedia',
     country_hint: curated?.finish ? curatedCountry(curated.finish) : foreignCountry(stage.finishCountry),
