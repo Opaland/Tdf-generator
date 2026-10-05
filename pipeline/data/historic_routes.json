@@ -1981,7 +1981,81 @@
           "label": "Florence",
           "country": "italy"
         },
-        "note": "Grand Départ à l'étranger (Florence, Italie) — étape 1 Florence-Rimini. country_hint explicite ajouté (03/09/2026, palier 1 batch 2) : sans lui, un départ/arrivée curé à l'étranger repassait par défaut en géocodage France, risquant un faux positif sur un homonyme français (voir wikipedia.js, reconstructionWaypoints())."
+        "finish": {
+          "label": "Rimini",
+          "country": "italy",
+          "lat": 44.0593886,
+          "lon": 12.5684371
+        },
+        "vias": [
+          { "label": "Pontassieve", "kind": "via", "country": "italy" },
+          { "label": "Rufina", "kind": "via", "country": "italy" },
+          { "label": "Dicomano", "kind": "via", "country": "italy" },
+          { "label": "San Godenzo", "kind": "via", "country": "italy" },
+          { "label": "Premilcuore", "kind": "via", "country": "italy" },
+          { "label": "Santa Sofia", "kind": "via", "country": "italy" },
+          { "label": "Passo del Carnaio", "kind": "col", "country": "italy" },
+          { "label": "San Piero in Bagno", "kind": "via", "country": "italy" },
+          { "label": "Sarsina", "kind": "via", "country": "italy" },
+          { "label": "Mercato Saraceno", "kind": "via", "country": "italy" },
+          {
+            "label": "Barbotto",
+            "kind": "col",
+            "country": "italy",
+            "lat": 43.9390641,
+            "lon": 12.2257287
+          },
+          { "label": "Novafeltria", "kind": "via", "country": "italy" },
+          {
+            "label": "San Leo",
+            "kind": "col",
+            "country": "italy",
+            "lat": 43.896961,
+            "lon": 12.343644
+          },
+          {
+            "label": "Montemaggio",
+            "kind": "col",
+            "country": "italy",
+            "lat": 43.9073495,
+            "lon": 12.4047607
+          },
+          {
+            "label": "Città di San Marino",
+            "kind": "col",
+            "country": "san marino",
+            "lat": 43.9363996,
+            "lon": 12.4466991
+          },
+          {
+            "label": "Cerasolo",
+            "kind": "via",
+            "country": "italy",
+            "lat": 43.9833058,
+            "lon": 12.5362383
+          }
+        ],
+        "confidence": [
+          {
+            "status": "OK",
+            "level": "haute",
+            "claim": "distance reconstituée (+4,7 %, dans la tolérance ±10 %) : 6 difficultés répertoriées géocodées comme vias/cols (Côte de Carnaio, Côte de Barbotto, San Leo, Montemaggio, Côte de San Marino, plus les localités traversées entre elles) sourcées sur cyclingstage.com/tour-de-france-2024-stage-1 et quibicisport.it (liste complète des localités de l'étape)",
+            "detail": "vérifié en direct via Nominatim avant curation : chaque nom hors des localités sans ambiguïté en Italie a un homonyme réel ailleurs dans le pays — Barbotto (Piémont, Lombardie), San Leo (Arezzo x2, Reggio Calabria), Montemaggio (Ligurie, Sienne), Cerasolo (Latium) — d'où les coordonnées figées sur ces vias/cols plutôt qu'un simple country_hint. Côte des Forche (2,5 km) reste sans point de passage dédié, trop proche de San Godenzo pour justifier un point distinct sans faire doublon."
+          },
+          {
+            "status": "OK",
+            "level": "haute",
+            "claim": "Col de Valico Tre Faggi (1er GPM officiel, 12,5 km à 5,1 %) n'est PAS géocodé comme via : la localité OSM « Tre Faggi » la plus proche du nom (Santa Sofia, 43,8857/11,7587) n'est pas sur la route réelle entre San Godenzo et Premilcuore",
+            "detail": "vérifié en rejouant routeLeg() en direct : San Godenzo → Premilcuore SANS point intermédiaire fait déjà 25,2 km par la route (BRouter, profil vélo) pour 13,9 km à vol d'oiseau — un seul tracé cohérent qui franchit bien le col. En passant PAR cette localité « Tre Faggi », le même trajet explose à 51,9 km (San Godenzo→Tre Faggi 26,4 km + Tre Faggi→Premilcuore 25,5 km, quasiment le double) : le point choisi est dans une vallée voisine, pas sur le tracé du col. Laisser le routeur franchir le col sans point intermédiaire donne une distance crédible ; le forcer par ce point précis la fait presque doubler. Le col reste malgré tout franchi (même route), juste sans étiquette dédiée — trouvaille similaire à Puy de Dôme/Le Markstein (PR #301, 2023 étape 20) mais ici un problème de point mal placé, pas de catégorie IGN ou de homonyme plus proche."
+          },
+          {
+            "status": "OK",
+            "level": "haute",
+            "claim": "l'arrivée (Rimini) est figée aux coordonnées de la ville réelle (44,0594 / 12,5684, type 'city' chez Nominatim), pas à la première réponse administrative de l'API (43,9465 / 12,6307, type 'county' — le centroïde de la province de Rimini, à ~13,5 km à l'intérieur des terres)",
+            "detail": "pickNominatimFeature() ne réordonne jamais par spécificité (limite documentée et verrouillée par trois tests dans test/geocode.test.js, trouvaille du 28/08/2026 sur le cas symétrique San Marino/Californie) — un homonyme administratif plus large qui arrive en tête chez Nominatim n'est jamais détrôné par un plus spécifique. Vérifié en direct (geocode('Rimini', {countryHint:'italy'})) : le comté arrive bien en tête chez Nominatim. Jusqu'au correctif PR #305 (reconstructionWaypoints()/resolveViaCoords() pour start/finish, même trouvaille déjà rencontrée et seulement documentée sur Le Markstein, 2023 étape 20), ces coordonnées figées sur l'arrivée étaient de toute façon silencieusement ignorées par le pipeline — vérifié par régénération réelle avant/après ce correctif (43,9465/12,6307 sans lui, 44,0594/12,5684 avec). Statut OK (pas UNSURE) car vérifié correctement appliqué en rejouant le pipeline réel sur cette branche, qui dépend de PR #305 (non encore mergée au moment d'écrire ces lignes — cette PR reste en brouillon jusqu'à son merge)."
+          }
+        ],
+        "note": "Grand Départ à l'étranger (Florence, Italie) — étape 1 Florence-Rimini (206 km officiels), traversée des Apennins tosco-romagnols. country_hint explicite ajouté (03/09/2026, palier 1 batch 2) : sans lui, un départ/arrivée curé à l'étranger repassait par défaut en géocodage France, risquant un faux positif sur un homonyme français (voir wikipedia.js, reconstructionWaypoints()). Vias/cols et arrivée ajoutés (05/10/2026) : sans eux, la reconstitution tombait à 178,5 km (-13,4 %, hors tolérance ±10 %) en coupant tout le détour par les Apennins entre Florence et San Marino. Résultat final : 215,6 km (+4,7 %, dans la tolérance)."
       },
       "14": {
         "vias": [
