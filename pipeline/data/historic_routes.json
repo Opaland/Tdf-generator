@@ -1988,7 +1988,11 @@
           "label": "Pinerolo",
           "country": "italy"
         },
-        "finish": "Valloire",
+        "finish": {
+          "label": "Valloire",
+          "lat": 45.165332,
+          "lon": 6.428961
+        },
         "vias": [
           { "label": "Perosa Argentina", "kind": "via", "country": "italy" },
           { "label": "Pragelato", "kind": "via", "country": "italy" },
@@ -2015,13 +2019,25 @@
             "detail": "trouvaille initiale : altitude mesurée à 2010,95 m au lieu des ~1850 m réels (Wikipédia française), et 3 avertissements « aller-retour » autour de ce waypoint (km 89–93,5). Coordonnée réelle du col identifiée par requête data.geopf.fr isolée sans near (score 0,89, nom exact) : 44,931665/6,725523, altitude resondée 1851,04 m (à ~1 m de Wikipédia). Ajouté à known_cols.json avec source complète. Vérifié après correctif : plus aucun avertissement aller-retour autour de ce point, altitude correcte (1850 m)."
           },
           {
-            "claim": "distance reconstituée : 156,4 km pour 139,6 km officiels (+12,0 %), hors tolérance ±10 % — vérifié comme un écart réel de sinuosité du profil de routage vélo (BRouter), pas un point de passage mal placé",
+            "claim": "l'arrivée (Valloire) est figée sur le vrai centre du village (place de l'Église, 45,165332/6,428961), pas le centroïde communal générique utilisé par défaut (45,133693/6,425209, à ~4,2 km par la route du vrai village)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "trouvaille de la relecture adverse (05/10/2026), vérifiée en direct : isCommuneFeat()/pickFeature() (pipeline/geocode.js) donne toujours priorité à un candidat 'commune' exact quand il existe, même si un lieu-dit habité du même nom (le vrai village, score texte équivalent) existe aussi dans l'index — le candidat lieu-dit n'est alors jamais considéré. Coordonnées réelles recoupées sur deux sources indépendantes : data.geopf.fr (adresse « Place de l'Église, Valloire », 45,165332/6,428961) et Wikipédia française infobox (45,16553/6,429285) — à ~150 m l'une de l'autre, cohérentes. Dépend de PR #305 pour que ces coordonnées figées soient effectivement appliquées à l'arrivée (même mécanisme que Rimini/Bologna, 2024 étapes 1/2). Limite connue de pickFeature() (comme pour Rimini), pas corrigée au niveau du code ici — contournée par donnée, comme ailleurs ce trimestre."
+          },
+          {
+            "claim": "distance reconstituée : 160,6 km pour 139,6 km officiels (+15,0 %), hors tolérance ±10 % — vérifié comme un écart réel de sinuosité diffuse du profil de routage vélo (BRouter) sur la quasi-totalité des legs, pas un point de passage isolé mal placé",
             "status": "UNSURE",
             "level": "basse",
-            "detail": "chaque leg à ratio élevé vérifié individuellement en rejouant routeLeg() en direct, sans trouver de point isolé hors du tracé réel (contrairement à Tre Faggi/Botteghino di Zocca, 2024 étapes 1/2) : Perosa Argentina → Pragelato (35,4 km) passe exactement par Fenestrelle (16,05+19,35 = 35,4 km, aucun raccourci alternatif) — route de fond de vallée (Val Chisone, SS23) réellement longue et sinueuse. Cesana Torinese → Montgenèvre via Clavière (8,26 km) est identique au direct sans Clavière (8,26 km) — aucun détour. Col du Lautaret → Col du Galibier (8,65 km) concorde avec la distance réelle connue de cette ascension (~8,5 km). La descente Galibier → Valloire (14,07 km) est même plus COURTE que les ~19 km cités par cyclingstage.com pour cette descente — exclut l'hypothèse d'un trajet artificiellement gonflé par un point mal placé, suggère plutôt que BRouter choisit un itinéraire réel mais différent de la route exacte de la course par endroits. Accepté comme écart honnête plutôt que de forcer un faux raccourci non vérifié — même esprit que d'autres étapes de montagne du dépôt où le surcoût routier vs vol d'oiseau est réparti sur la quasi-totalité des legs plutôt que concentré sur un seul segment aberrant."
+            "detail": "chaque leg à ratio élevé vérifié individuellement en rejouant routeLeg() en direct (y compris par la relecture adverse, indépendamment) : Perosa Argentina → Pragelato (35,4 km) passe exactement par Fenestrelle (16,05+19,35 = 35,4 km, aucun raccourci alternatif) — route de fond de vallée (Val Chisone, SS23) réellement longue. Cesana Torinese → Montgenèvre via Clavière (8,26 km) identique au direct sans Clavière — aucun détour. Pragelato → Sestriere testé avec un point de col précis (Colle del Sestriere, nœud OSM mountain_pass, 44,9591/6,8825) plutôt que le centroïde communal utilisé : 14,6+14,07 = 28,67 km, quasi identique au direct Pragelato→Cesana sans Sestriere (28,67 km) — le point communal déjà utilisé n'est pas moins bon. Col du Lautaret → Col du Galibier (8,65 km) concorde avec la distance réelle connue (~8,5 km). Col de Montgenèvre → Briançon testé via La Vachette (hameau réel sur la route, 211 m du tracé direct) : 14,52 km vs 14,37 km direct — cohérent. La première version de ce block citait la descente Galibier→Valloire (alors 14,07 km, plus courte que les ~19 km de cyclingstage.com) comme preuve contre un trajet gonflé — argument infirmé par la relecture adverse : ce chiffre reposait sur le mauvais point d'arrivée (centroïde communal, voir confidence précédent) ; corrigé, cette descente fait 18,2 km, cohérent avec les ~19 km de la source. Accepté comme écart honnête de sinuosité diffuse (répartie sur quasi tous les legs testés, aucun point isolé hors tracé trouvé) plutôt qu'un faux raccourci non vérifié — même précédent que Tour 1992 étape 4 (Libourne, +12,6 %, issue #190, UNSURE)."
+          },
+          {
+            "claim": "deux avertissements « aller-retour détecté » dans les checks réels (km 47,8–49,3 et km 59,0–60,5, zone Perosa Argentina → Pragelato → Sestriere) ne sont probablement pas des artefacts gonflant la distance",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "signalés par la relecture adverse (05/10/2026) : profil altimétrique inspecté pas à pas sur ces deux zones, montée monotone (1504 → ~1990 m) avec des épingles serrées typiques d'une route de montagne (SS23 vers Sestriere) — ressemble à un faux positif du détecteur de rebroussement (épingles proches en espace, cap inversé) plutôt qu'à un vrai aller-retour. Non prouvé formellement (pas de second routeur testé sur cette zone précise). Mentionné explicitement ici, non filtré, conformément à la pratique déjà établie dans ce fichier (Tour de France Femmes 2022, étape 7 : zones de rebroussement documentées sans cause identifiée plutôt que passées sous silence)."
           }
         ],
-        "note": "Pinerolo (Italie) → Valloire (139,6 km officiels), étape de montagne : Sestriere, Col de Montgenèvre (retour en France), Briançon, Col du Lautaret puis Col du Galibier (premier HC de l'édition, 2 642 m) avant la descente sur Valloire. Vias/cols ajoutés (05/10/2026) d'après cyclingstage.com et la presse locale (francebleu.fr, france3-regions). Résultat final : 156,4 km (+12,0 %, hors tolérance ±10 % — écart de sinuosité du routage vélo, pas un point mal placé, voir confidence)."
+        "note": "Pinerolo (Italie) → Valloire (139,6 km officiels), étape de montagne : Sestriere, Col de Montgenèvre (retour en France), Briançon, Col du Lautaret puis Col du Galibier (premier HC de l'édition, 2 642 m) avant la descente sur Valloire. Vias/cols ajoutés (05/10/2026) d'après cyclingstage.com et la presse locale (francebleu.fr, france3-regions). Résultat final : 160,6 km (+15,0 %, hors tolérance ±10 % — écart de sinuosité diffuse du routage vélo, vérifié leg par leg sans trouver de point isolé mal placé, voir confidence)."
       },
       "14": {
         "vias": [
