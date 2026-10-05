@@ -2037,21 +2037,21 @@
         ],
         "confidence": [
           {
+            "claim": "distance reconstituée (+4,7 %, dans la tolérance ±10 %) : 5 difficultés répertoriées géocodées comme vias/cols (Côte de Carnaio, Côte de Barbotto, San Leo, Montemaggio, Côte de San Marino, plus les localités traversées entre elles) sourcées sur cyclingstage.com/tour-de-france-2024-stage-1 et quibicisport.it (liste complète des localités de l'étape)",
             "status": "OK",
             "level": "haute",
-            "claim": "distance reconstituée (+4,7 %, dans la tolérance ±10 %) : 6 difficultés répertoriées géocodées comme vias/cols (Côte de Carnaio, Côte de Barbotto, San Leo, Montemaggio, Côte de San Marino, plus les localités traversées entre elles) sourcées sur cyclingstage.com/tour-de-france-2024-stage-1 et quibicisport.it (liste complète des localités de l'étape)",
-            "detail": "vérifié en direct via Nominatim avant curation : chaque nom hors des localités sans ambiguïté en Italie a un homonyme réel ailleurs dans le pays — Barbotto (Piémont, Lombardie), San Leo (Arezzo x2, Reggio Calabria), Montemaggio (Ligurie, Sienne), Cerasolo (Latium) — d'où les coordonnées figées sur ces vias/cols plutôt qu'un simple country_hint. Côte des Forche (2,5 km) reste sans point de passage dédié, trop proche de San Godenzo pour justifier un point distinct sans faire doublon."
+            "detail": "vérifié en direct via Nominatim avant curation : chaque nom hors des localités sans ambiguïté en Italie a un homonyme réel ailleurs dans le pays — Barbotto (Piémont, Lombardie), San Leo (Arezzo x2, Reggio Calabria), Montemaggio (Ligurie, Sienne), Cerasolo (Latium) — d'où les coordonnées figées sur ces vias/cols plutôt qu'un simple country_hint. Côte des Forche (2,5 km, km officiel 77,8) reste sans point de passage dédié, trop proche de Premilcuore (km officiel équivalent reconstitué ≈73 km) pour justifier un point distinct sans faire doublon."
           },
           {
-            "status": "OK",
-            "level": "haute",
             "claim": "Col de Valico Tre Faggi (1er GPM officiel, 12,5 km à 5,1 %) n'est PAS géocodé comme via : la localité OSM « Tre Faggi » la plus proche du nom (Santa Sofia, 43,8857/11,7587) n'est pas sur la route réelle entre San Godenzo et Premilcuore",
-            "detail": "vérifié en rejouant routeLeg() en direct : San Godenzo → Premilcuore SANS point intermédiaire fait déjà 25,2 km par la route (BRouter, profil vélo) pour 13,9 km à vol d'oiseau — un seul tracé cohérent qui franchit bien le col. En passant PAR cette localité « Tre Faggi », le même trajet explose à 51,9 km (San Godenzo→Tre Faggi 26,4 km + Tre Faggi→Premilcuore 25,5 km, quasiment le double) : le point choisi est dans une vallée voisine, pas sur le tracé du col. Laisser le routeur franchir le col sans point intermédiaire donne une distance crédible ; le forcer par ce point précis la fait presque doubler. Le col reste malgré tout franchi (même route), juste sans étiquette dédiée — trouvaille similaire à Puy de Dôme/Le Markstein (PR #301, 2023 étape 20) mais ici un problème de point mal placé, pas de catégorie IGN ou de homonyme plus proche."
-          },
-          {
             "status": "OK",
             "level": "haute",
+            "detail": "vérifié en rejouant routeLeg() en direct : San Godenzo → Premilcuore SANS point intermédiaire fait déjà 25,2 km par la route (BRouter, profil vélo) pour 13,9 km à vol d'oiseau — un seul tracé cohérent qui franchit bien le col. En passant PAR cette localité « Tre Faggi », le même trajet explose à 51,9 km (San Godenzo→Tre Faggi 26,4 km + Tre Faggi→Premilcuore 25,5 km, quasiment le double) : le point choisi est dans une vallée voisine, pas sur le tracé du col. Laisser le routeur franchir le col sans point intermédiaire donne une distance crédible ; le forcer par ce point précis la fait presque doubler. Le col reste malgré tout franchi et détecté par climb-detection (côte HC, km 37-58,5, 984 m au sommet — relecture adverse confirmée en rejouant le pipeline réel), juste sans étiquette dédiée — trouvaille similaire à Puy de Dôme/Le Markstein (PR #301, 2023 étape 20) mais ici un problème de point mal placé, pas de catégorie IGN ou de homonyme plus proche."
+          },
+          {
             "claim": "l'arrivée (Rimini) est figée aux coordonnées de la ville réelle (44,0594 / 12,5684, type 'city' chez Nominatim), pas à la première réponse administrative de l'API (43,9465 / 12,6307, type 'county' — le centroïde de la province de Rimini, à ~13,5 km à l'intérieur des terres)",
+            "status": "OK",
+            "level": "haute",
             "detail": "pickNominatimFeature() ne réordonne jamais par spécificité (limite documentée et verrouillée par trois tests dans test/geocode.test.js, trouvaille du 28/08/2026 sur le cas symétrique San Marino/Californie) — un homonyme administratif plus large qui arrive en tête chez Nominatim n'est jamais détrôné par un plus spécifique. Vérifié en direct (geocode('Rimini', {countryHint:'italy'})) : le comté arrive bien en tête chez Nominatim. Jusqu'au correctif PR #305 (reconstructionWaypoints()/resolveViaCoords() pour start/finish, même trouvaille déjà rencontrée et seulement documentée sur Le Markstein, 2023 étape 20), ces coordonnées figées sur l'arrivée étaient de toute façon silencieusement ignorées par le pipeline — vérifié par régénération réelle avant/après ce correctif (43,9465/12,6307 sans lui, 44,0594/12,5684 avec). Statut OK (pas UNSURE) car vérifié correctement appliqué en rejouant le pipeline réel sur cette branche, qui dépend de PR #305 (non encore mergée au moment d'écrire ces lignes — cette PR reste en brouillon jusqu'à son merge)."
           }
         ],
