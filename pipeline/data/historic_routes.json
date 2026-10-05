@@ -1983,6 +1983,68 @@
         },
         "note": "Grand Départ à l'étranger (Florence, Italie) — étape 1 Florence-Rimini. country_hint explicite ajouté (03/09/2026, palier 1 batch 2) : sans lui, un départ/arrivée curé à l'étranger repassait par défaut en géocodage France, risquant un faux positif sur un homonyme français (voir wikipedia.js, reconstructionWaypoints())."
       },
+      "4": {
+        "start": {
+          "label": "Pinerolo",
+          "country": "italy"
+        },
+        "finish": {
+          "label": "Valloire",
+          "lat": 45.165332,
+          "lon": 6.428961
+        },
+        "vias": [
+          { "label": "Perosa Argentina", "kind": "via", "country": "italy" },
+          {
+            "label": "Pragelato",
+            "kind": "via",
+            "country": "italy",
+            "lat": 45.016217,
+            "lon": 6.942453
+          },
+          { "label": "Sestriere", "kind": "col", "country": "italy" },
+          { "label": "Cesana Torinese", "kind": "via", "country": "italy" },
+          { "label": "Clavière", "kind": "via", "country": "italy" },
+          { "label": "Col de Montgenèvre", "kind": "col" },
+          { "label": "Briançon", "kind": "via" },
+          { "label": "Le Monêtier-les-Bains", "kind": "via" },
+          { "label": "Col du Lautaret", "kind": "col" },
+          { "label": "Col du Galibier", "kind": "col" }
+        ],
+        "confidence": [
+          {
+            "claim": "parcours sourcé sur cyclingstage.com/tour-de-france-2024-stage-4 (Sestriere, Col de Montgenèvre, Col du Galibier) et francebleu.fr/france3-regions (séquence complète des villes avec horaires de passage)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "chaque waypoint vérifié en direct via geocode()/geocodeCol() réels avec chaînage near comme le ferait le pipeline (pas une requête isolée) — aucun des 12 points ne dérive vers un homonyme lointain. Col du Lautaret est déjà dans known_cols.json (altitude seulement) : altitude géocodée en direct concorde exactement (2057,11 m vs 2058 m référencé). Cette vérification initiale n'a PAS suffi à elle seule : deux points (Col de Montgenèvre, Pragelato) résolvaient chacun sur un point incorrect du même nom/de la même entité administrative — pas un homonyme distant, mais un mauvais point à l'intérieur de la bonne commune/du bon col — trouvés ensuite par régénération réelle et relecture adverse, voir les entrées confidence suivantes."
+          },
+          {
+            "claim": "Col de Montgenèvre géocodait à tort sur « Col Bœuf » (un col sans rapport, score texte 0,42) à cause du near chaîné depuis Clavière — corrigé en ajoutant le col à known_cols.json (même mécanisme que Col du Mont-Cenis)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "trouvaille initiale : altitude mesurée à 2010,95 m au lieu des ~1850 m réels (Wikipédia française), et 3 avertissements « aller-retour » autour de ce waypoint (km 89–93,5). Coordonnée réelle du col identifiée par requête data.geopf.fr isolée sans near (score 0,89, nom exact) : 44,931665/6,725523, altitude resondée 1851,04 m (à ~1 m de Wikipédia). Ajouté à known_cols.json avec source complète. Vérifié après correctif : plus aucun avertissement aller-retour autour de ce point, altitude correcte (1850 m)."
+          },
+          {
+            "claim": "l'arrivée (Valloire) est figée sur le vrai centre du village (place de l'Église, 45,165332/6,428961), pas le centroïde communal générique utilisé par défaut (45,133693/6,425209, à ~4,2 km par la route du vrai village)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "trouvaille de la relecture adverse (05/10/2026), vérifiée en direct : isCommuneFeat()/pickFeature() (pipeline/geocode.js) donne toujours priorité à un candidat 'commune' exact quand il existe, même si un lieu-dit habité du même nom (le vrai village, score texte équivalent) existe aussi dans l'index — le candidat lieu-dit n'est alors jamais considéré. Coordonnées réelles recoupées sur deux sources indépendantes : data.geopf.fr (adresse « Place de l'Église, Valloire », 45,165332/6,428961) et Wikipédia française infobox (45,16553/6,429285) — à ~150 m l'une de l'autre, cohérentes. Dépend de PR #305 pour que ces coordonnées figées soient effectivement appliquées à l'arrivée (même mécanisme que Rimini/Bologna, 2024 étapes 1/2). Limite connue de pickFeature() (comme pour Rimini), pas corrigée au niveau du code ici — contournée par donnée, comme ailleurs ce trimestre."
+          },
+          {
+            "claim": "Pragelato géocodait sur le centroïde du polygone communal (44,9815/6,9392, ~2067 m mesuré) au lieu du vrai village (45,0162/6,9425, ~1580 m), même mécanisme que Valloire — corrigé en figeant lat/lon, ce qui explique à lui seul la quasi-totalité de l'écart hors tolérance",
+            "status": "OK",
+            "level": "haute",
+            "detail": "trouvaille de la relecture adverse (05/10/2026), en creusant deux avertissements « aller-retour » (km 47,8–49,3 et km 59,0–60,5) qu'une première version de ce confidence block avait classés UNSURE comme probables faux positifs du détecteur — ils ne l'étaient pas. Village réel recoupé sur deux sources indépendantes : Wikidata Q10201 (P625 = 45,016217/6,942453) et reverse-geocoding OSM du même point (« hamlet: La Ruà, village: Pragelato », exactement le capoluogo cité par l'infobox Wikipédia italienne, altitude ~1580 m). Altitude mesurée par le pipeline au point corrigé : 1508,79 m, cohérente. Impact vérifié en rejouant le pipeline réel avec le point corrigé : distance 147,4 km (+5,6 %, dans la tolérance ±10 %, contre 160,6 km/+15,0 % avant), et les deux avertissements aller-retour disparaissent entièrement. Cols/altitudes/segments approximés restent tous ok. Même classe de bug que Rimini/Valloire (pickFeature()/isCommuneFeat() préfère toujours un candidat « commune » exact, même géographiquement éloigné du lieu réel) — CLAUDE.md règle 1 : corriger un via ne garantit pas que le même mécanisme n'affecte pas un autre via de la même étape, vérifié ici après coup plutôt qu'anticipé."
+          },
+          {
+            "claim": "distance reconstituée : 147,4 km pour 139,6 km officiels (+5,6 %), dans la tolérance ±10 %",
+            "status": "OK",
+            "level": "haute",
+            "detail": "vérifié en rejouant le pipeline réel (importEdition + generateStage, base fraîche) avec le correctif Pragelato appliqué. Plus aucun avertissement aller-retour. Restent 3 avertissements via-gap informatifs (Pinerolo→Perosa Argentina 13,6 km, Perosa Argentina→Pragelato 20,6 km, Briançon→Monêtier-les-Bains 14,6 km), au-delà du seuil de 12 km mais non bloquants — la portion Perosa→Pragelato a été vérifiée séparément (routeLeg() direct) comme passant exactement par Fenestrelle, sans raccourci alternatif, cohérente avec une route de fond de vallée (Val Chisone, SS23) réellement longue."
+          }
+        ],
+        "note": "Pinerolo (Italie) → Valloire (139,6 km officiels), étape de montagne : Sestriere, Col de Montgenèvre (retour en France), Briançon, Col du Lautaret puis Col du Galibier (premier HC de l'édition, 2 642 m) avant la descente sur Valloire. Vias/cols ajoutés (05/10/2026) d'après cyclingstage.com et la presse locale (francebleu.fr, france3-regions). Résultat final : 147,4 km (+5,6 %, dans la tolérance ±10 %)."
+      },
       "14": {
         "vias": [
           {
