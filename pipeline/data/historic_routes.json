@@ -1983,6 +1983,122 @@
         },
         "note": "Grand Départ à l'étranger (Florence, Italie) — étape 1 Florence-Rimini. country_hint explicite ajouté (03/09/2026, palier 1 batch 2) : sans lui, un départ/arrivée curé à l'étranger repassait par défaut en géocodage France, risquant un faux positif sur un homonyme français (voir wikipedia.js, reconstructionWaypoints())."
       },
+      "2": {
+        "start": {
+          "label": "Cesenatico",
+          "country": "italy"
+        },
+        "finish": {
+          "label": "Bologna",
+          "country": "italy",
+          "lat": 44.5005823,
+          "lon": 11.3467453
+        },
+        "vias": [
+          {
+            "label": "Ravenna",
+            "kind": "via",
+            "country": "italy",
+            "lat": 44.4161414,
+            "lon": 12.2017617
+          },
+          { "label": "Russi", "kind": "via", "country": "italy" },
+          { "label": "Faenza", "kind": "via", "country": "italy" },
+          { "label": "Brisighella", "kind": "via", "country": "italy" },
+          {
+            "label": "Côte de Monticino",
+            "kind": "col",
+            "country": "italy",
+            "lat": 44.2253139,
+            "lon": 11.763784
+          },
+          { "label": "Riolo Terme", "kind": "via", "country": "italy" },
+          {
+            "label": "Côte de Gallisterna",
+            "kind": "col",
+            "country": "italy",
+            "lat": 44.2729333,
+            "lon": 11.6954816
+          },
+          { "label": "Imola", "kind": "via", "country": "italy" },
+          { "label": "Dozza", "kind": "via", "country": "italy" },
+          { "label": "Castel San Pietro Terme", "kind": "via", "country": "italy" },
+          { "label": "Ozzano dell'Emilia", "kind": "via", "country": "italy" },
+          { "label": "San Lazzaro di Savena", "kind": "via", "country": "italy" },
+          {
+            "label": "Rastignano",
+            "kind": "via",
+            "country": "italy",
+            "lat": 44.4429957,
+            "lon": 11.3561198
+          },
+          {
+            "label": "Côte de Montecalvo",
+            "kind": "col",
+            "country": "italy",
+            "lat": 44.4242753,
+            "lon": 11.3743365
+          },
+          {
+            "label": "Bologna (entrée)",
+            "kind": "via",
+            "country": "italy",
+            "lat": 44.4938203,
+            "lon": 11.3426327
+          },
+          {
+            "label": "Bologna (1er passage ligne d'arrivée)",
+            "kind": "via",
+            "lat": 44.5005823,
+            "lon": 11.3467453
+          },
+          {
+            "label": "Santuario della Madonna di San Luca",
+            "kind": "col",
+            "lat": 44.4790955,
+            "lon": 11.2981698
+          },
+          {
+            "label": "Bologna (2e passage ligne d'arrivée)",
+            "kind": "via",
+            "lat": 44.5005823,
+            "lon": 11.3467453
+          },
+          {
+            "label": "Côte de San Luca (2e ascension)",
+            "kind": "col",
+            "lat": 44.4790955,
+            "lon": 11.2981698
+          }
+        ],
+        "confidence": [
+          {
+            "claim": "distance reconstituée (-3,9 %, dans la tolérance ±10 %) : itinéraire horaire officiel ASO (cronotabella, provincia.ra.it) suivi km par km, avec le circuit final de Bologne (2 boucles de 18,3 km autour de la Côte de San Luca, gravie deux fois) reproduit par deux passages explicites sur la ligne d'arrivée (via Irnerio) avant l'arrivée réelle",
+            "status": "OK",
+            "level": "haute",
+            "detail": "document officiel ASO consulté directement (itinéraire horaire avec km exacts de chaque localité/difficulté), recoupé avec cyclingstage.com et quibicisport pour les noms de difficultés. Chaque nom géocodé vérifié en direct via Nominatim avant curation : Ravenna a le même piège que Rimini (2024 étape 1, PR #306) — la requête brute renvoie le comté homonyme en tête (44,36/12,06, ~13 km de la vraie ville) avant la ville elle-même (44,42/12,20) —, Monticino/Gallisterna/Monte Calvo sont des hameaux/lieux-dits à risque d'homonymie non vérifiée par country_hint seul, d'où les coordonnées figées sur ces vias/cols."
+          },
+          {
+            "claim": "Côte de Botteghino di Zocca n'est volontairement pas géocodée comme via : le hameau OSM du même nom (Pianoro, 44,3965/11,3991) n'est pas sur la route réelle entre San Lazzaro di Savena et Rastignano",
+            "status": "OK",
+            "level": "haute",
+            "detail": "vérifié en rejouant routeLeg() en direct : San Lazzaro → Rastignano SANS point intermédiaire fait 6,8 km par la route (BRouter, profil vélo) ; en passant PAR ce hameau, le même trajet explose à 25,9 km (San Lazzaro→Botteghino 10,4 km + Botteghino→Rastignano 15,5 km) — presque quadruplé. Même trouvaille que Tre Faggi (2024 étape 1, PR #306) : un nom de difficulté officielle dont le point OSM le plus proche n'est pas sur le vrai tracé. Contrairement à Tre Faggi, la difficulté N'EST PAS franchie par la route directe — vérifié par climb-detection (relecture adverse, 05/10/2026) : aucune côte détectée entre San Lazzaro (km 143,0) et Montecalvo (km 150,0), le profil y monte de 69 à 105 m sur 6,7 km (~0,5 % de moyenne), rien à voir avec les 1,9 km à 6,8 % officiels. C'est un vrai trou de couverture pour cette difficulté précise, accepté en échange d'une distance totale honnête plutôt que gonflée artificiellement d'un détour qui n'existe pas sur le vrai tracé de la course."
+          },
+          {
+            "claim": "l'arrivée (Bologna) est figée sur via Irnerio (44,5006 / 11,3467), le point réel de la ligne d'arrivée ASO, pas le centre-ville générique",
+            "status": "OK",
+            "level": "haute",
+            "detail": "dépend de PR #305 (reconstructionWaypoints()/resolveViaCoords() pour start/finish) pour que ces coordonnées figées soient effectivement appliquées, comme pour l'arrivée de 2024 étape 1 (Rimini, PR #306) — vérifié par régénération réelle sur cette branche (base = branche de PR #305)."
+          },
+          {
+            "claim": "plusieurs avertissements « aller-retour détecté » autour de la Côte de San Luca et de Dozza ne sont probablement pas des artefacts de routage",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "la route d'accès au Sanctuaire de San Luca (Via di San Luca) est un éperon en impasse — une montée suivie d'une redescente par la même route est la signature géographique attendue pour ce sommet, gravi deux fois dans l'étape, pas une erreur de point de passage. L'itinéraire horaire officiel ASO liste lui-même « DOZZA » à deux reprises (km 106,1 puis 108,1, via Toscanella entre les deux) : un aller-retour autour de Dozza est donc conforme à la source officielle, pas une invention du routeur. Hypothèse plausible appuyée par la source et la géographie, non vérifiée point par point (ex. via une comparaison avec un second routeur comme pour 2024 étape 1)."
+          }
+        ],
+        "note": "Cesenatico → Bologna (199 km officiels), étape vallonnée avec arrivée sur un circuit final autour de Bologne (2 boucles de 18,3 km, Côte de San Luca gravie deux fois). Vias/cols ajoutés (05/10/2026) d'après l'itinéraire horaire officiel ASO. Résultat final : 191,5 km (-3,9 %, dans la tolérance)."
+      },
       "14": {
         "vias": [
           {
