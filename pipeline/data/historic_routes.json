@@ -1983,6 +1983,46 @@
         },
         "note": "Grand Départ à l'étranger (Florence, Italie) — étape 1 Florence-Rimini. country_hint explicite ajouté (03/09/2026, palier 1 batch 2) : sans lui, un départ/arrivée curé à l'étranger repassait par défaut en géocodage France, risquant un faux positif sur un homonyme français (voir wikipedia.js, reconstructionWaypoints())."
       },
+      "4": {
+        "start": {
+          "label": "Pinerolo",
+          "country": "italy"
+        },
+        "finish": "Valloire",
+        "vias": [
+          { "label": "Perosa Argentina", "kind": "via", "country": "italy" },
+          { "label": "Pragelato", "kind": "via", "country": "italy" },
+          { "label": "Sestriere", "kind": "col", "country": "italy" },
+          { "label": "Cesana Torinese", "kind": "via", "country": "italy" },
+          { "label": "Clavière", "kind": "via", "country": "italy" },
+          { "label": "Col de Montgenèvre", "kind": "col" },
+          { "label": "Briançon", "kind": "via" },
+          { "label": "Le Monêtier-les-Bains", "kind": "via" },
+          { "label": "Col du Lautaret", "kind": "col" },
+          { "label": "Col du Galibier", "kind": "col" }
+        ],
+        "confidence": [
+          {
+            "claim": "parcours sourcé sur cyclingstage.com/tour-de-france-2024-stage-4 (Sestriere, Col de Montgenèvre, Col du Galibier) et francebleu.fr/france3-regions (séquence complète des villes avec horaires de passage)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "chaque waypoint vérifié en direct via geocode()/geocodeCol() réels avec chaînage near comme le ferait le pipeline (pas une requête isolée) — aucun des 12 points ne dérive vers un homonyme lointain. Col du Lautaret est déjà dans known_cols.json (altitude seulement) : altitude géocodée en direct concorde exactement (2057,11 m vs 2058 m référencé)."
+          },
+          {
+            "claim": "Col de Montgenèvre géocodait à tort sur « Col Bœuf » (un col sans rapport, score texte 0,42) à cause du near chaîné depuis Clavière — corrigé en ajoutant le col à known_cols.json (même mécanisme que Col du Mont-Cenis)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "trouvaille initiale : altitude mesurée à 2010,95 m au lieu des ~1850 m réels (Wikipédia française), et 3 avertissements « aller-retour » autour de ce waypoint (km 89–93,5). Coordonnée réelle du col identifiée par requête data.geopf.fr isolée sans near (score 0,89, nom exact) : 44,931665/6,725523, altitude resondée 1851,04 m (à ~1 m de Wikipédia). Ajouté à known_cols.json avec source complète. Vérifié après correctif : plus aucun avertissement aller-retour autour de ce point, altitude correcte (1850 m)."
+          },
+          {
+            "claim": "distance reconstituée : 156,4 km pour 139,6 km officiels (+12,0 %), hors tolérance ±10 % — vérifié comme un écart réel de sinuosité du profil de routage vélo (BRouter), pas un point de passage mal placé",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "chaque leg à ratio élevé vérifié individuellement en rejouant routeLeg() en direct, sans trouver de point isolé hors du tracé réel (contrairement à Tre Faggi/Botteghino di Zocca, 2024 étapes 1/2) : Perosa Argentina → Pragelato (35,4 km) passe exactement par Fenestrelle (16,05+19,35 = 35,4 km, aucun raccourci alternatif) — route de fond de vallée (Val Chisone, SS23) réellement longue et sinueuse. Cesana Torinese → Montgenèvre via Clavière (8,26 km) est identique au direct sans Clavière (8,26 km) — aucun détour. Col du Lautaret → Col du Galibier (8,65 km) concorde avec la distance réelle connue de cette ascension (~8,5 km). La descente Galibier → Valloire (14,07 km) est même plus COURTE que les ~19 km cités par cyclingstage.com pour cette descente — exclut l'hypothèse d'un trajet artificiellement gonflé par un point mal placé, suggère plutôt que BRouter choisit un itinéraire réel mais différent de la route exacte de la course par endroits. Accepté comme écart honnête plutôt que de forcer un faux raccourci non vérifié — même esprit que d'autres étapes de montagne du dépôt où le surcoût routier vs vol d'oiseau est réparti sur la quasi-totalité des legs plutôt que concentré sur un seul segment aberrant."
+          }
+        ],
+        "note": "Pinerolo (Italie) → Valloire (139,6 km officiels), étape de montagne : Sestriere, Col de Montgenèvre (retour en France), Briançon, Col du Lautaret puis Col du Galibier (premier HC de l'édition, 2 642 m) avant la descente sur Valloire. Vias/cols ajoutés (05/10/2026) d'après cyclingstage.com et la presse locale (francebleu.fr, france3-regions). Résultat final : 156,4 km (+12,0 %, hors tolérance ±10 % — écart de sinuosité du routage vélo, pas un point mal placé, voir confidence)."
+      },
       "14": {
         "vias": [
           {
