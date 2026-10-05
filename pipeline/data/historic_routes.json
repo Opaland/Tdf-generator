@@ -1969,7 +1969,50 @@
       "20": {
         "start": "Belfort",
         "finish": "Le Markstein",
-        "note": "Belfort → Le Markstein (133,5 km), six difficultés répertoriées dans les Vosges (dont le Grand Ballon) avant l'arrivée sur la crête du Markstein (~1 183 m, route des Crêtes)."
+        "vias": [
+          {
+            "label": "Ballon d'Alsace",
+            "kind": "col"
+          },
+          {
+            "label": "Col de la Croix des Moinats",
+            "kind": "col"
+          },
+          {
+            "label": "Col de Grosse-Pierre",
+            "kind": "col"
+          },
+          {
+            "label": "Col des Feignes",
+            "kind": "col",
+            "lat": 48.047618,
+            "lon": 6.975801
+          },
+          {
+            "label": "Col de la Schlucht",
+            "kind": "col"
+          },
+          "Munster",
+          {
+            "label": "Petit Ballon",
+            "kind": "col"
+          },
+          {
+            "label": "Col du Platzerwasel",
+            "kind": "col",
+            "lat": 47.96956,
+            "lon": 7.042854
+          }
+        ],
+        "note": "Belfort → Le Markstein (133,5 km, cyclingstage.com, « stage-20-tdf-2023 », relu en HTML brut) : dans les 80 premiers km, quatre difficultés classées (ballon d'Alsace 11,5 km à 5,2 %, col de la Croix des Moinats 5,2 km à 7 %, col de Grosse-Pierre 3,2 km à 8 %, col de la Schlucht 4,3 km à 5,4 %) et le col des Feignes (5,1 km à 2,5 %, non classé) — le Grand Ballon mentionné dans une version antérieure de cette note n'apparaît pas dans le récit de parcours cyclingstage.com pour cette étape précise (probablement confondu avec l'étape similaire du Tour Femmes 2022, Sélestat → Le Markstein, qui elle franchit bien le Grand Ballon), corrigé. Descente de 18 km dans la vallée de Munster (donc après les 80 premiers km) avant la remontée par le petit ballon (9,3 km à 8,1 %, classé) puis le col du Platzerwasel (7,1 km à 8,4 %, classé, dernier col — « zénith » du parcours), puis 8 km valonnés jusqu'à l'arrivée au Markstein (~1 183 m, route des Crêtes) — six difficultés classées en tout (les quatre des 80 premiers km plus ces deux-là), le col des Feignes restant non classé. Deux corrections de géocodage : « Col des Feignes » (lat/lon fixées en dur — un homonyme plus proche, « Col de la Basse des Feignes », l'emportait sinon) et « Col du Platzerwasel » (lat/lon fixées en dur sur l'orthographe IGN réelle « Platzerwaesel » — un col sans rapport, « Col du Strohberg », plus proche du waypoint précédent, l'emportait sinon).",
+        "confidence": [
+          {
+            "claim": "distance reconstituée de l'étape 20 (Belfort → Le Markstein)",
+            "status": "OK",
+            "level": "moyenne",
+            "detail": "140,4 km reconstitués pour 133,5 km officiels (+5,2 %, dans la tolérance ±10 %), vérifié par le pipeline réel. Avant cette session : 28,7 km (-78,5 %, aucun via du tout). Huit vias sourcés ajoutés. Point notable non bloquant : l'arrivée « Le Markstein » (non curable en lat/lon — un `finish` curé n'a jamais ses coordonnées lues par le pipeline, seul `.label` compte, voir pipeline/wikipedia.js) aurait résolu sur un homonyme sans rapport (« Rue du Markstein », une rue bien plus éloignée, type adresse) sans aucun via proche pour la biaiser par proximité — vérifié que sans vias du tout, ce risque se matérialise réellement (reproduit avec le JSON d'origine). Avec les 8 vias ajoutés, le dernier (col du Platzerwasel) est assez proche du vrai Markstein pour que le biais de proximité résolve correctement (vérifié : lat/lon résolues 47,926123/7,030094, à moins de 1 km du vrai lieu-dit IGN) — mais ce n'est qu'une conséquence favorable de la densité de vias, pas une correction du problème de fond. Piste de code pour une session future (hors périmètre de cette PR de données) : pipeline/geocode.js::pickFeature() ne protège un lieu-dit non-commune (type indéfini) contre un homonyme de type 'rue' que si near le favorise déjà — aucune préférence structurelle pour un lieu réel face à une rue homonyme, à la différence de la préférence déjà en place pour un sommet (voir le correctif 'détail orographique' de cette session)."
+          }
+        ]
       }
     }
   },
