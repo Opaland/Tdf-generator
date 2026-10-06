@@ -1976,6 +1976,45 @@
   "2024": {
     "notes": "Édition atypique : Grand Départ de Florence (Italie) — jamais l'arrivée finale n'avait eu lieu ailleurs qu'à Paris depuis 1975, ici à Nice en raison des JO de Paris 2024. Points de passage des étapes reines d'après Wikipédia / ici.fr / cyclingstage.com / France 3 (CC BY-SA le cas échéant, recoupé sur plusieurs sources). Import de la liste complète des 21 étapes : en ligne (Wikipédia).",
     "stages": {
+      "10": {
+        "start": "Orléans",
+        "finish": "Saint-Amand-Montrond",
+        "vias": [
+          { "label": "Tracé GPX km 4.0", "kind": "via", "lat": 47.79576, "lon": 1.87009 },
+          { "label": "Tracé GPX km 8.0", "kind": "via", "lat": 47.76816, "lon": 1.85344 },
+          { "label": "Tracé GPX km 16.0", "kind": "via", "lat": 47.71282, "lon": 1.79539 },
+          { "label": "Tracé GPX km 24.0", "kind": "via", "lat": 47.64576, "lon": 1.76543 },
+          { "label": "Tracé GPX km 32.0", "kind": "via", "lat": 47.58541, "lon": 1.77875 },
+          { "label": "Tracé GPX km 40.0", "kind": "via", "lat": 47.51877, "lon": 1.81397 },
+          { "label": "Tracé GPX km 48.0", "kind": "via", "lat": 47.45248, "lon": 1.77869 },
+          { "label": "Tracé GPX km 56.0", "kind": "via", "lat": 47.38704, "lon": 1.73837 },
+          { "label": "Tracé GPX km 64.0", "kind": "via", "lat": 47.3307, "lon": 1.75924 },
+          { "label": "Tracé GPX km 72.0", "kind": "via", "lat": 47.28608, "lon": 1.81603 },
+          { "label": "Tracé GPX km 80.0", "kind": "via", "lat": 47.26091, "lon": 1.91288 },
+          { "label": "Tracé GPX km 88.0", "kind": "via", "lat": 47.2407, "lon": 2.01224 },
+          { "label": "Tracé GPX km 96.0", "kind": "via", "lat": 47.19665, "lon": 2.05716 },
+          { "label": "Tracé GPX km 104.0", "kind": "via", "lat": 47.12741, "lon": 2.05877 },
+          { "label": "Tracé GPX km 112.0", "kind": "via", "lat": 47.06612, "lon": 2.0342 },
+          { "label": "Tracé GPX km 120.0", "kind": "via", "lat": 46.99956, "lon": 2.01321 },
+          { "label": "Tracé GPX km 128.0", "kind": "via", "lat": 46.93998, "lon": 2.00259 },
+          { "label": "Tracé GPX km 136.0", "kind": "via", "lat": 46.89222, "lon": 2.07724 },
+          { "label": "Tracé GPX km 144.0", "kind": "via", "lat": 46.87097, "lon": 2.17051 },
+          { "label": "Tracé GPX km 152.0", "kind": "via", "lat": 46.84508, "lon": 2.25766 },
+          { "label": "Tracé GPX km 160.0", "kind": "via", "lat": 46.85477, "lon": 2.35746 },
+          { "label": "Tracé GPX km 168.0", "kind": "via", "lat": 46.83715, "lon": 2.40022 },
+          { "label": "Tracé GPX km 176.0", "kind": "via", "lat": 46.77915, "lon": 2.43152 },
+          { "label": "Tracé GPX km 184.0", "kind": "via", "lat": 46.72966, "lon": 2.49672 }
+        ],
+        "confidence": [
+          {
+            "claim": "distance reconstituée vs officielle",
+            "status": "OK",
+            "level": "haute",
+            "detail": "pipeline réel rejoué (cache vide) : 190,6 km reconstitués contre 187,3 km officiels (écart +1,7 %, tolérance ±10 %), statut \"ok\". Un avertissement `via-gap` initial (13,3 km à vol d'oiseau entre Orléans et le premier via à km 8,0, au-delà du seuil ~12 km) a été fermé en ajoutant un point intermédiaire à km 4,0 (même tracé GPX officiel). Rejoué une seconde fois après ce correctif : mêmes 190,6 km/+1,7 %/\"ok\", et `checks.items` ne contient plus aucune entrée hors `distance`."
+          }
+        ],
+        "note": "Orléans → Saint-Amand-Montrond (187,3 km officiels), étape quasi plate (950 m de dénivelé), une difficulté non classée à moins de 10 km de l'arrivée. Tracé GPX officiel (cyclingstage.com, cdn.cyclingstage.com/.../2024/stage-10-route.gpx, distance mesurée : 185,9 km, cohérente avec les 187,3 km officiels) rééchantillonné tous les 8 km en points de passage curés, même méthode que les étapes 8 et 9 de la même édition. Un point intermédiaire à km 4,0 a été ajouté entre le départ et le premier point à km 8,0 pour fermer un avertissement `via-gap` (13,3 km à vol d'oiseau entre le centroïde géocodé d'Orléans et ce premier point, au-delà du seuil de ~12 km) — le point ajouté provient du même tracé GPX officiel, pas d'une estimation."
+      },
       "1": {
         "start": {
           "label": "Florence",
