@@ -1976,6 +1976,48 @@
   "2024": {
     "notes": "Édition atypique : Grand Départ de Florence (Italie) — jamais l'arrivée finale n'avait eu lieu ailleurs qu'à Paris depuis 1975, ici à Nice en raison des JO de Paris 2024. Points de passage des étapes reines d'après Wikipédia / ici.fr / cyclingstage.com / France 3 (CC BY-SA le cas échéant, recoupé sur plusieurs sources). Import de la liste complète des 21 étapes : en ligne (Wikipédia).",
     "stages": {
+      "11": {
+        "start": "Évaux-les-Bains",
+        "finish": "Le Lioran",
+        "vias": [
+          { "label": "Tracé GPX km 4.0", "kind": "via", "lat": 46.09232, "lon": 2.49736 },
+          { "label": "Tracé GPX km 8.0", "kind": "via", "lat": 46.05833, "lon": 2.50237 },
+          { "label": "Tracé GPX km 16.0", "kind": "via", "lat": 46.02234, "lon": 2.51992 },
+          { "label": "Tracé GPX km 24.0", "kind": "via", "lat": 45.96557, "lon": 2.56314 },
+          { "label": "Tracé GPX km 32.0", "kind": "via", "lat": 45.90064, "lon": 2.5793 },
+          { "label": "Tracé GPX km 40.0", "kind": "via", "lat": 45.83472, "lon": 2.56374 },
+          { "label": "Tracé GPX km 48.0", "kind": "via", "lat": 45.76739, "lon": 2.56553 },
+          { "label": "Tracé GPX km 56.0", "kind": "via", "lat": 45.70532, "lon": 2.56853 },
+          { "label": "Tracé GPX km 64.0", "kind": "via", "lat": 45.65345, "lon": 2.57067 },
+          { "label": "Tracé GPX km 72.0", "kind": "via", "lat": 45.61363, "lon": 2.55166 },
+          { "label": "Tracé GPX km 80.0", "kind": "via", "lat": 45.57529, "lon": 2.54875 },
+          { "label": "Tracé GPX km 88.0", "kind": "via", "lat": 45.52602, "lon": 2.53467 },
+          { "label": "Tracé GPX km 96.0", "kind": "via", "lat": 45.496, "lon": 2.5644 },
+          { "label": "Tracé GPX km 104.0", "kind": "via", "lat": 45.43855, "lon": 2.52563 },
+          { "label": "Tracé GPX km 112.0", "kind": "via", "lat": 45.38432, "lon": 2.48833 },
+          { "label": "Tracé GPX km 120.0", "kind": "via", "lat": 45.33505, "lon": 2.43076 },
+          { "label": "Tracé GPX km 128.0", "kind": "via", "lat": 45.28501, "lon": 2.39061 },
+          { "label": "Tracé GPX km 136.0", "kind": "via", "lat": 45.24412, "lon": 2.35348 },
+          { "label": "Tracé GPX km 144.0", "kind": "via", "lat": 45.22908, "lon": 2.41683 },
+          { "label": "Tracé GPX km 152.0", "kind": "via", "lat": 45.21406, "lon": 2.50378 },
+          { "label": "Tracé GPX km 160.0", "kind": "via", "lat": 45.18313, "lon": 2.5857 },
+          { "label": "Tracé GPX km 168.0", "kind": "via", "lat": 45.15113, "lon": 2.60284 },
+          { "label": "Tracé GPX km 176.0", "kind": "via", "lat": 45.11903, "lon": 2.64618 },
+          { "label": "Tracé GPX km 184.0", "kind": "via", "lat": 45.10302, "lon": 2.68072 },
+          { "label": "Tracé GPX km 192.0", "kind": "via", "lat": 45.06952, "lon": 2.65771 },
+          { "label": "Tracé GPX km 200.0", "kind": "via", "lat": 45.05166, "lon": 2.69661 },
+          { "label": "Tracé GPX km 208.0", "kind": "via", "lat": 45.08181, "lon": 2.73338 }
+        ],
+        "confidence": [
+          {
+            "claim": "distance reconstituée vs officielle",
+            "status": "OK",
+            "level": "haute",
+            "detail": "pipeline réel rejoué (cache vide) : 210,8 km reconstitués contre 211 km officiels (écart -0,1 %, tolérance ±10 %), statut \"ok\". Un avertissement `via-gap` initial (12,3 km à vol d'oiseau entre Évaux-les-Bains et le premier via à km 8,0) a été fermé en ajoutant un point intermédiaire à km 4,0 (même tracé GPX officiel). Rejoué une seconde fois après ce correctif : mêmes 210,8 km/-0,1 %/\"ok\", plus aucune entrée `warn`/`fail` dans `checks.items`."
+          }
+        ],
+        "note": "Évaux-les-Bains → Le Lioran (211 km officiels), étape de montagne dans le Massif Central, 4 350 m de dénivelé. Côte de Mouilloux et Côte de Larodde en première partie, puis dans les 60 derniers km : Col de Néronne, Pas de Peyrol/Puy Mary, Col de Pertus, Col de Font de Cère. Tracé GPX officiel (cyclingstage.com, cdn.cyclingstage.com/.../2024/stage-11-route.gpx, distance mesurée : 211,7 km, cohérente avec les 211 km officiels) rééchantillonné tous les 8 km en points de passage curés, même méthode que les étapes 8/9/10 de la même édition — préféré à un balisage par cols nommés sur une route de montagne aussi sinueuse (nombreux lacets), où le GPX capture la trajectoire réelle sans dépendre d'un géocodage de col par col — conséquence assumée : les côtes listées ci-dessus (Néronne, Puy Mary, Pertus, Font de Cère) ne portent pas ces noms sur la fiche générée, la détection automatique du profil (`detectClimbs`) les nomme par géocodage inverse du point le plus proche faute de waypoint `kind:\"col\"` dédié ; n'affecte que l'affichage, pas la distance ni la détection elle-même. Un point intermédiaire à km 4,0 a été ajouté entre le départ et le premier point à km 8,0 pour fermer un avertissement `via-gap` (12,3 km à vol d'oiseau entre le centroïde géocodé d'Évaux-les-Bains et ce premier point, au-delà du seuil de ~12 km) — même tracé GPX officiel, pas une estimation."
+      },
       "1": {
         "start": {
           "label": "Florence",
