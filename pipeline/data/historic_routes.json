@@ -1983,6 +1983,33 @@
         },
         "note": "Grand Départ à l'étranger (Florence, Italie) — étape 1 Florence-Rimini. country_hint explicite ajouté (03/09/2026, palier 1 batch 2) : sans lui, un départ/arrivée curé à l'étranger repassait par défaut en géocodage France, risquant un faux positif sur un homonyme français (voir wikipedia.js, reconstructionWaypoints())."
       },
+      "7": {
+        "start": "Nuits-Saint-Georges",
+        "finish": "Gevrey-Chambertin",
+        "vias": [
+          { "label": "Tracé GPX km 2.0", "kind": "via", "lat": 47.14296, "lon": 4.94377 },
+          { "label": "Tracé GPX km 4.0", "kind": "via", "lat": 47.14642, "lon": 4.91923 },
+          { "label": "Tracé GPX km 6.0", "kind": "via", "lat": 47.14606, "lon": 4.89417 },
+          { "label": "Tracé GPX km 8.0", "kind": "via", "lat": 47.16068, "lon": 4.88018 },
+          { "label": "Tracé GPX km 10.0", "kind": "via", "lat": 47.17745, "lon": 4.87776 },
+          { "label": "Tracé GPX km 12.0", "kind": "via", "lat": 47.18837, "lon": 4.89442 },
+          { "label": "Tracé GPX km 14.0", "kind": "via", "lat": 47.20279, "lon": 4.9077 },
+          { "label": "Tracé GPX km 16.0", "kind": "via", "lat": 47.19959, "lon": 4.92677 },
+          { "label": "Tracé GPX km 18.0", "kind": "via", "lat": 47.18875, "lon": 4.94247 },
+          { "label": "Tracé GPX km 20.0", "kind": "via", "lat": 47.19383, "lon": 4.96063 },
+          { "label": "Tracé GPX km 22.0", "kind": "via", "lat": 47.21076, "lon": 4.96601 },
+          { "label": "Tracé GPX km 24.0", "kind": "via", "lat": 47.22312, "lon": 4.97455 }
+        ],
+        "confidence": [
+          {
+            "claim": "distance reconstituée vs officielle",
+            "status": "OK",
+            "level": "haute",
+            "detail": "pipeline réel rejoué (cache vide) : 24,2 km reconstitués contre 25,3 km officiels (écart -4,2 %, tolérance ±10 %), statut \"ok\". Aucun avertissement (`checks.items` ne contient que l'entrée `distance`, aucun `backtrack-*`/`via-gap-*`/autre)."
+          }
+        ],
+        "note": "Nuits-Saint-Georges → Gevrey-Chambertin (25,3 km officiels), contre-la-montre individuel — Côte de Reulle-Vergy (km 10, 1,5 km à 6,5 %) puis faux plat jusqu'à la descente sur Chambolle-Musigny, puis plat jusqu'à l'arrivée. Tracé GPX officiel (cyclingstage.com, cdn.cyclingstage.com/.../2024/stage-7-route.gpx, distance mesurée : 25,2 km, cohérente avec les 25,3 km officiels) rééchantillonné tous les 2 km en points de passage curés — même méthode que l'étape 9 (tracé GPX trop sinueux/trop court pour un simple start/finish nommé)."
+      },
       "14": {
         "vias": [
           {
