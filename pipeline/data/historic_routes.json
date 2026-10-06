@@ -1983,6 +1983,50 @@
         },
         "note": "Grand Départ à l'étranger (Florence, Italie) — étape 1 Florence-Rimini. country_hint explicite ajouté (03/09/2026, palier 1 batch 2) : sans lui, un départ/arrivée curé à l'étranger repassait par défaut en géocodage France, risquant un faux positif sur un homonyme français (voir wikipedia.js, reconstructionWaypoints())."
       },
+      "6": {
+        "start": "Mâcon",
+        "finish": "Dijon",
+        "vias": [
+          { "label": "Col du Bois Clair", "kind": "col" },
+          "Cluny",
+          "Cormatin",
+          "Buxy",
+          "Saint-Désert",
+          "Givry",
+          "Mercurey",
+          "Rully",
+          "Chagny",
+          "Chassagne-Montrachet",
+          "Puligny-Montrachet",
+          "Meursault",
+          "Merceuil",
+          "Meursanges",
+          "Marigny-lès-Reullée",
+          "Corberon",
+          "Labergement-lès-Seurre",
+          "Auvillars-sur-Saône",
+          "Saint-Nicolas-lès-Cîteaux",
+          "Izeure",
+          "Longecourt-en-Plaine",
+          "Rouvres-en-Plaine",
+          "Sennecey-lès-Dijon"
+        ],
+        "confidence": [
+          {
+            "claim": "distance reconstituée : étape plate de Bourgogne (route des vins de la Côte-Chalonnaise puis Côte-de-Nuits), parcours sourcé sur cyclingstage.com/tour-de-france-2024-stage-6 et ici.fr (liste de 32 localités traversées, 23 retenues ici)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "chaque waypoint vérifié en direct via geocode()/geocodeCol() réels avec chaînage near comme le ferait le pipeline — tous les points résolvent en type 'municipality' (le bon niveau administratif, pas un centroïde de comté/canton plus large comme Rimini/Valloire/Pragelato, 2024 étapes 1/4) et suivent une progression de latitude cohérente sud→nord. Col du Bois Clair : altitude géocodée 394,7 m, cohérente avec un col de 4e catégorie en plaine bourguignonne. Ordre de passage corrigé en cours de curation : Col du Bois Clair est géographiquement entre Mâcon et Cluny (crête km 10), pas après Cluny — l'ordre initial inversé causait deux avertissements « aller-retour » qui ont disparu une fois corrigé."
+          },
+          {
+            "claim": "distance reconstituée : ~191-192 km pour 163,5 km officiels (+16,8 à +17,4 % selon la régénération, une variance mineure d'un run à l'autre observée sur les appels de routage réels), hors tolérance ±10 % — vérifié comme une sinuosité diffuse du routage vélo (BRouter) sur la quasi-totalité des legs, pas un point de passage isolé mal placé, et PAS améliorable en ajoutant davantage de localités intermédiaires de la source",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "chaque leg vérifiée individuellement : aucune n'affiche le ratio route/vol-d'oiseau extrême (>2x) caractéristique d'un point mal placé (Tre Faggi/Botteghino di Zocca/Pragelato, 2024 étapes 1/2/4) — tous les ratios restent entre 1,09 et 1,90, cohérents avec une sinuosité réelle de routes de campagne. Contre-essai : complété avec les 9 localités restantes de la source (Corpeau, Tailly, Pouilly-sur-Saône, Glanon, Broin, Thorey-en-Plaine, Fauverney, Neuilly-Crimolois, Longvic), rejoué sur le pipeline réel — résultat DÉGRADÉ à 202,4 km (+23,8 %), pas amélioré : plusieurs des localités ajoutées (notamment Corpeau, +1,9 km net) forcent un détour vers leur centre géométrique qui n'est pas exactement sur la route réelle, ajoutant un aller-retour local à chaque point plutôt que de resserrer le tracé. Deux legs de cet essai ont aussi vu BRouter échouer (HTTP 403, repli OSRM profil voiture) autour de Fauverney/Neuilly-Crimolois/Sennecey-lès-Dijon — un facteur de confusion supplémentaire écartant cette piste. Revenu à la version à 23 vias (celle-ci), qui reste la meilleure vérifiée. Seules Meursanges et Marigny-lès-Reullée ont été gardées de ce complément : elles comblaient le plus gros excès d'une seule leg (Merceuil→Corberon, +3,5 km) sans le dégrader. Accepté comme écart honnête de sinuosité diffuse, non réductible par plus de localités — même précédent que Tour 1992 étape 4 (Libourne, +12,6 %, issue #190, UNSURE)."
+          }
+        ],
+        "note": "Mâcon → Dijon (163,5 km officiels), étape plate à travers le vignoble bourguignon (Côte Chalonnaise puis Côte de Nuits) — seule difficulté le Col du Bois Clair (4e catégorie, km 10). Vias ajoutés (05/10/2026) d'après cyclingstage.com et ici.fr. Résultat final : ~191-192 km (+16,8 à +17,4 % selon la régénération, hors tolérance ±10 % — sinuosité diffuse du routage vélo, vérifiée leg par leg et par contre-essai, non réductible par plus de points de passage, voir confidence)."
+      },
       "14": {
         "vias": [
           {
