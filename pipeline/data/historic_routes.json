@@ -1976,6 +1976,43 @@
   "2024": {
     "notes": "Édition atypique : Grand Départ de Florence (Italie) — jamais l'arrivée finale n'avait eu lieu ailleurs qu'à Paris depuis 1975, ici à Nice en raison des JO de Paris 2024. Points de passage des étapes reines d'après Wikipédia / ici.fr / cyclingstage.com / France 3 (CC BY-SA le cas échéant, recoupé sur plusieurs sources). Import de la liste complète des 21 étapes : en ligne (Wikipédia).",
     "stages": {
+      "8": {
+        "start": "Semur-en-Auxois",
+        "finish": "Colombey-les-Deux-Églises",
+        "vias": [
+          { "label": "Tracé GPX km 8.0", "kind": "via", "lat": 47.50338, "lon": 4.48433 },
+          { "label": "Tracé GPX km 16.0", "kind": "via", "lat": 47.43658, "lon": 4.51487 },
+          { "label": "Tracé GPX km 24.0", "kind": "via", "lat": 47.39115, "lon": 4.57529 },
+          { "label": "Tracé GPX km 32.0", "kind": "via", "lat": 47.43419, "lon": 4.63093 },
+          { "label": "Tracé GPX km 40.0", "kind": "via", "lat": 47.44385, "lon": 4.70262 },
+          { "label": "Tracé GPX km 48.0", "kind": "via", "lat": 47.44278, "lon": 4.79319 },
+          { "label": "Tracé GPX km 56.0", "kind": "via", "lat": 47.5084, "lon": 4.81276 },
+          { "label": "Tracé GPX km 64.0", "kind": "via", "lat": 47.55964, "lon": 4.80283 },
+          { "label": "Tracé GPX km 72.0", "kind": "via", "lat": 47.61707, "lon": 4.83688 },
+          { "label": "Tracé GPX km 80.0", "kind": "via", "lat": 47.67289, "lon": 4.88784 },
+          { "label": "Tracé GPX km 88.0", "kind": "via", "lat": 47.68789, "lon": 4.97249 },
+          { "label": "Tracé GPX km 96.0", "kind": "via", "lat": 47.74002, "lon": 5.00323 },
+          { "label": "Tracé GPX km 104.0", "kind": "via", "lat": 47.7826, "lon": 5.0551 },
+          { "label": "Tracé GPX km 112.0", "kind": "via", "lat": 47.84279, "lon": 5.0625 },
+          { "label": "Tracé GPX km 120.0", "kind": "via", "lat": 47.89906, "lon": 5.077 },
+          { "label": "Tracé GPX km 128.0", "kind": "via", "lat": 47.94707, "lon": 5.1182 },
+          { "label": "Tracé GPX km 136.0", "kind": "via", "lat": 47.99614, "lon": 5.1564 },
+          { "label": "Tracé GPX km 144.0", "kind": "via", "lat": 48.05458, "lon": 5.14628 },
+          { "label": "Tracé GPX km 152.0", "kind": "via", "lat": 48.11073, "lon": 5.12337 },
+          { "label": "Tracé GPX km 160.0", "kind": "via", "lat": 48.13659, "lon": 5.05254 },
+          { "label": "Tracé GPX km 168.0", "kind": "via", "lat": 48.18339, "lon": 4.97874 },
+          { "label": "Tracé GPX km 176.0", "kind": "via", "lat": 48.22357, "lon": 4.89214 }
+        ],
+        "confidence": [
+          {
+            "claim": "distance reconstituée vs officielle",
+            "status": "OK",
+            "level": "haute",
+            "detail": "pipeline réel rejoué (cache vide) : 182,1 km reconstitués contre 183,4 km officiels (écart -0,7 %, tolérance ±10 %), statut \"ok\". Aucun avertissement dans `checks.items` autre que l'entrée `distance`. Le tracé GPX source mesurait seulement 176,6 km (-3,7 % vs officiel) mais le routage vélo réel entre les 22 points rééchantillonnés restitue la sinuosité locale manquante, d'où un résultat final plus proche de l'officiel que la source GPX elle-même."
+          }
+        ],
+        "note": "Semur-en-Auxois → Colombey-les-Deux-Églises (183,4 km officiels), profil irrégulier à nombreux changements de direction, 2 400 m de dénivelé, 5 côtes classées (Vitteaux, Villy-en-Auxois, Verrey-sous-Salmaise, Santenoge, Giey-sur-Aujon). Tracé GPX officiel (cyclingstage.com, cdn.cyclingstage.com/.../2024/stage-8-route.gpx, distance mesurée : 176,6 km, écart de -3,7 % avec les 183,4 km officiels — possiblement un tracé légèrement simplifié par rapport au parcours réel) rééchantillonné tous les 8 km en points de passage curés, même méthode que l'étape 9."
+      },
       "1": {
         "start": {
           "label": "Florence",
