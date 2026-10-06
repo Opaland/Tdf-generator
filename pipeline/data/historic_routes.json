@@ -1985,17 +1985,46 @@
       },
       "14": {
         "vias": [
-          {
-            "label": "Col du Tourmalet",
-            "kind": "col"
-          },
-          {
-            "label": "Hourquette d'Ancizan",
-            "kind": "col"
-          }
+          { "label": "Tracé GPX km 8.0", "kind": "via", "lat": 43.24917, "lon": -0.27833 },
+          { "label": "Tracé GPX km 16.0", "kind": "via", "lat": 43.18656, "lon": -0.24048 },
+          { "label": "Tracé GPX km 24.0", "kind": "via", "lat": 43.12395, "lon": -0.20704 },
+          { "label": "Tracé GPX km 32.0", "kind": "via", "lat": 43.10153, "lon": -0.12587 },
+          { "label": "Tracé GPX km 40.0", "kind": "via", "lat": 43.08941, "lon": -0.04614 },
+          { "label": "Tracé GPX km 48.0", "kind": "via", "lat": 43.0299, "lon": -0.07979 },
+          { "label": "Tracé GPX km 56.0", "kind": "via", "lat": 42.97793, "lon": -0.0816 },
+          { "label": "Tracé GPX km 64.0", "kind": "via", "lat": 42.92158, "lon": -0.04102 },
+          { "label": "Tracé GPX km 72.0", "kind": "via", "lat": 42.87796, "lon": 0.01236 },
+          { "label": "Tracé GPX km 80.0", "kind": "via", "lat": 42.90248, "lon": 0.08915 },
+          { "label": "Tracé GPX km 88.0", "kind": "via", "lat": 42.91108, "lon": 0.13954 },
+          { "label": "Col du Tourmalet", "kind": "col" },
+          { "label": "Tracé GPX km 96.0", "kind": "via", "lat": 42.92195, "lon": 0.19926 },
+          { "label": "Tracé GPX km 104.0", "kind": "via", "lat": 42.96425, "lon": 0.23032 },
+          { "label": "Tracé GPX km 112.0", "kind": "via", "lat": 42.95135, "lon": 0.2663 },
+          { "label": "Tracé GPX km 120.0", "kind": "via", "lat": 42.90618, "lon": 0.2866 },
+          { "label": "Hourquette d'Ancizan", "kind": "col" },
+          { "label": "Tracé GPX km 128.0", "kind": "via", "lat": 42.88519, "lon": 0.33726 },
+          { "label": "Tracé GPX km 136.0", "kind": "via", "lat": 42.84597, "lon": 0.34577 },
+          { "label": "Tracé GPX km 138.0", "kind": "via", "lat": 42.82896, "lon": 0.33633 },
+          { "label": "Tracé GPX km 140.0", "kind": "via", "lat": 42.81704, "lon": 0.32244 },
+          { "label": "Tracé GPX km 142.0", "kind": "via", "lat": 42.83125, "lon": 0.32075 },
+          { "label": "Tracé GPX km 144.0", "kind": "via", "lat": 42.83125, "lon": 0.31595 }
         ],
         "finish": "Saint-Lary-Soulan Pla d'Adet",
-        "note": "Pau → Saint-Lary-Soulan (Pla d'Adet), via le Tourmalet et la Hourquette d'Ancizan. Victoire Tadej Pogačar."
+        "confidence": [
+          {
+            "claim": "distance reconstituée vs officielle",
+            "status": "OK",
+            "level": "haute",
+            "detail": "pipeline réel rejoué (cache vide) : 150,3 km reconstitués contre 151,9 km officiels (écart -1,0 %, tolérance ±10 %), statut \"ok\"."
+          },
+          {
+            "claim": "deux avertissements backtrack résiduels (km 143,8-148,8)",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "persistent indépendamment de la densité de vias testée dans cette zone (138/140/142/144 vs 136/144 seul) — vraisemblablement une caractéristique réelle du réseau routier à l'approche de Saint-Lary-Soulan (le GPX officiel s'arrête en ville, avant le point géocodé « Pla d'Adet » sur la route de la station), pas un via isolé mal placé. Non vérifié davantage (statut `warn`, n'affecte pas `checks.ok`)."
+          }
+        ],
+        "note": "Pau → Saint-Lary-Soulan (Pla d'Adet), 151,9 km officiels, 4 000 m de dénivelé : Col du Tourmalet (19 km à 7,4 %), Hourquette d'Ancizan (8,2 km à 5,1 %), arrivée au sommet à Pla d'Adet (10,6 km à 7,9 %, hors catégorie). Victoire Tadej Pogačar. Reconstruction initiale (Pau + 2 cols nommés seulement) : 136,3 km (-10,3 %, hors tolérance), avec deux avertissements via-gap (60,3 km et 13,1 km à vol d'oiseau sans point intermédiaire). Première tentative de densification, insérant les 2 cols nommés à des positions arbitraires (entre les points GPX km 56/72 et km 96/104) au milieu d'un tracé GPX rééchantillonné tous les 8 km : a explosé à 206,1 km (+35,7 %) avec 8 zones de rebroussement — cause identifiée en mesurant la position cumulée réelle des deux cols le long du tracé GPX (Tourmalet à km 89,5, Hourquette d'Ancizan à km 123,5, tous deux à moins de 50 m du tracé officiel) : ils avaient été insérés largement en amont de leur position réelle, forçant le routeur à sauter en avant puis revenir en arrière. Corrigé en les replaçant à leur position réelle le long de la séquence (entre les points GPX km 88/96 pour le Tourmalet, km 120/128 pour la Hourquette d'Ancizan) — nécessaire aussi pour préserver `test/historicRoutes.test.js` (« classe de bug Col du Mont-Cenis »), qui verrouille la présence et le géocodage correct de la Hourquette d'Ancizan comme via nommé de cette étape spécifique (near-chaining depuis le Tourmalet, sinon résolution erronée vers « Hourquet de Bern »). Densifié davantage (km 136-144, pas de 2 km) pour fermer deux rebroussements qui apparaissaient dans cette zone quelle que soit la densité de vias testée (138/140/142/144 vs 136/144 seul) — persistant indépendamment du choix des vias, donc vraisemblablement une caractéristique réelle du réseau routier à l'approche de Saint-Lary-Soulan (le tracé GPX officiel s'arrête en ville, ~1,6 km à vol d'oiseau avant le point géocodé « Pla d'Adet », lui-même sur la route de la station), pas un artefact de point mal placé. Résultat final : 150,3 km (-1,0 %), statut \"ok\" ; deux avertissements `backtrack-*` résiduels (km 143,8-145,8 et 146,8-148,8, ~4 km cumulés sur 150 km) documentés ici plutôt que masqués, non bloquants (`warn`, pas `fail`)."
       },
       "15": {
         "vias": [
