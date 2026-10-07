@@ -1976,6 +1976,38 @@
   "2024": {
     "notes": "Édition atypique : Grand Départ de Florence (Italie) — jamais l'arrivée finale n'avait eu lieu ailleurs qu'à Paris depuis 1975, ici à Nice en raison des JO de Paris 2024. Points de passage des étapes reines d'après Wikipédia / ici.fr / cyclingstage.com / France 3 (CC BY-SA le cas échéant, recoupé sur plusieurs sources). Import de la liste complète des 21 étapes : en ligne (Wikipédia).",
     "stages": {
+      "21": {
+        "start": { "label": "Monaco", "country": "monaco" },
+        "finish": "Nice",
+        "vias": [
+          { "label": "Tracé GPX km 2.0", "kind": "via", "lat": 43.7473, "lon": 7.43441 },
+          { "label": "Tracé GPX km 4.0", "kind": "via", "lat": 43.74085, "lon": 7.42849 },
+          { "label": "Tracé GPX km 6.0", "kind": "via", "lat": 43.74633, "lon": 7.42626 },
+          { "label": "Tracé GPX km 8.0", "kind": "via", "lat": 43.74518, "lon": 7.41643 },
+          { "label": "Tracé GPX km 10.0", "kind": "via", "lat": 43.75031, "lon": 7.41429 },
+          { "label": "Tracé GPX km 12.0", "kind": "via", "lat": 43.7454, "lon": 7.399 },
+          { "label": "Tracé GPX km 14.0", "kind": "via", "lat": 43.7354, "lon": 7.38149 },
+          { "label": "Tracé GPX km 16.0", "kind": "via", "lat": 43.73076, "lon": 7.3633 },
+          { "label": "Tracé GPX km 18.0", "kind": "via", "lat": 43.73334, "lon": 7.34577 },
+          { "label": "Tracé GPX km 20.0", "kind": "via", "lat": 43.72422, "lon": 7.33684 },
+          { "label": "Tracé GPX km 22.0", "kind": "via", "lat": 43.71693, "lon": 7.31738 },
+          { "label": "Tracé GPX km 24.0", "kind": "via", "lat": 43.71163, "lon": 7.31926 },
+          { "label": "Tracé GPX km 26.0", "kind": "via", "lat": 43.70646, "lon": 7.30674 },
+          { "label": "Tracé GPX km 28.0", "kind": "via", "lat": 43.69915, "lon": 7.29386 },
+          { "label": "Tracé GPX km 30.0", "kind": "via", "lat": 43.69989, "lon": 7.28085 },
+          { "label": "Tracé GPX km 32.0", "kind": "via", "lat": 43.69496, "lon": 7.26792 },
+          { "label": "Tracé GPX km 34.0", "kind": "via", "lat": 43.69441, "lon": 7.25881 }
+        ],
+        "confidence": [
+          {
+            "claim": "distance reconstituée vs officielle",
+            "status": "OK",
+            "level": "haute",
+            "detail": "pipeline réel rejoué (cache vide) : 35,6 km reconstitués contre 33,7 km officiels (écart +5,8 %, tolérance ±10 %), statut \"ok\". Aucun avertissement dans `checks.items`. Départ (\"Monaco\") correctement résolu à 43,732349/7,427683 grâce au country_hint explicite."
+          }
+        ],
+        "note": "Monaco → Nice (Place Masséna), contre-la-montre individuel, étape 21 finale — pour la première fois depuis 35 ans, le Tour se termine par un chrono individuel plutôt que sur les Champs-Élysées (JO de Paris 2024). ~20 premiers km vallonnés/montants (La Turbie, Col d'Èze), puis descente et plat jusqu'à Nice. Victoire et sacre final de Tadej Pogačar. country_hint explicite sur le départ (Monaco, pays étranger). Tracé GPX officiel (cyclingstage.com, cdn.cyclingstage.com/.../2024/stage-21-route.gpx, distance mesurée : 35,2 km) rééchantillonné tous les 2 km en points de passage curés, même méthode que l'étape 7 (CLM) de la même édition."
+      },
       "1": {
         "start": {
           "label": "Florence",
