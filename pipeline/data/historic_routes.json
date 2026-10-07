@@ -2618,6 +2618,181 @@
           }
         ],
         "note": "Étape 5 à Caen (33 km, contre-la-montre individuel) — tracé GPX officiel (cyclingstage.com, cdn.cyclingstage.com/.../2025/stage-5-route.gpx, distance mesurée : 33,0 km, cohérente avec les 33 km officiels) rééchantillonné tous les 2 km (pas resserré : 8 km laissait le routeur couper court sur une boucle de 33 km) en points de passage curés. Étape en circuit sans via curé au départ : reconstruction ~0 km avant ce correctif."
+      },
+      "7": {
+        "start": "Saint-Malo",
+        "finish": {
+          "label": "Mûr-de-Bretagne Guerlédan",
+          "lat": 48.22814,
+          "lon": -2.99825
+        },
+        "vias": [
+          {
+            "label": "Tracé GPX km 8.0",
+            "kind": "via",
+            "lat": 48.60506,
+            "lon": -1.91378
+          },
+          {
+            "label": "Tracé GPX km 16.0",
+            "kind": "via",
+            "lat": 48.55448,
+            "lon": -1.93433
+          },
+          {
+            "label": "Tracé GPX km 24.0",
+            "kind": "via",
+            "lat": 48.49342,
+            "lon": -1.97482
+          },
+          {
+            "label": "Tracé GPX km 32.0",
+            "kind": "via",
+            "lat": 48.43909,
+            "lon": -1.95529
+          },
+          {
+            "label": "Tracé GPX km 40.0",
+            "kind": "via",
+            "lat": 48.38344,
+            "lon": -1.9306
+          },
+          {
+            "label": "Tracé GPX km 48.0",
+            "kind": "via",
+            "lat": 48.38481,
+            "lon": -2.01022
+          },
+          {
+            "label": "Tracé GPX km 56.0",
+            "kind": "via",
+            "lat": 48.44559,
+            "lon": -2.04433
+          },
+          {
+            "label": "Tracé GPX km 64.0",
+            "kind": "via",
+            "lat": 48.46726,
+            "lon": -2.1244
+          },
+          {
+            "label": "Tracé GPX km 72.0",
+            "kind": "via",
+            "lat": 48.50757,
+            "lon": -2.21133
+          },
+          {
+            "label": "Tracé GPX km 80.0",
+            "kind": "via",
+            "lat": 48.53673,
+            "lon": -2.29784
+          },
+          {
+            "label": "Tracé GPX km 88.0",
+            "kind": "via",
+            "lat": 48.56534,
+            "lon": -2.38601
+          },
+          {
+            "label": "Tracé GPX km 96.0",
+            "kind": "via",
+            "lat": 48.57084,
+            "lon": -2.48593
+          },
+          {
+            "label": "Tracé GPX km 104.0",
+            "kind": "via",
+            "lat": 48.57839,
+            "lon": -2.56316
+          },
+          {
+            "label": "Tracé GPX km 112.0",
+            "kind": "via",
+            "lat": 48.51825,
+            "lon": -2.59577
+          },
+          {
+            "label": "Tracé GPX km 120.0",
+            "kind": "via",
+            "lat": 48.48677,
+            "lon": -2.67741
+          },
+          {
+            "label": "Tracé GPX km 128.0",
+            "kind": "via",
+            "lat": 48.51784,
+            "lon": -2.73563
+          },
+          {
+            "label": "Tracé GPX km 136.0",
+            "kind": "via",
+            "lat": 48.46543,
+            "lon": -2.75281
+          },
+          {
+            "label": "Tracé GPX km 144.0",
+            "kind": "via",
+            "lat": 48.40127,
+            "lon": -2.73749
+          },
+          {
+            "label": "Tracé GPX km 152.0",
+            "kind": "via",
+            "lat": 48.34204,
+            "lon": -2.7616
+          },
+          {
+            "label": "Tracé GPX km 160.0",
+            "kind": "via",
+            "lat": 48.29024,
+            "lon": -2.82317
+          },
+          {
+            "label": "Tracé GPX km 168.0",
+            "kind": "via",
+            "lat": 48.23989,
+            "lon": -2.89041
+          },
+          {
+            "label": "Tracé GPX km 176.0",
+            "kind": "via",
+            "lat": 48.2021,
+            "lon": -2.9758
+          },
+          {
+            "label": "Tracé GPX km 184.0",
+            "kind": "via",
+            "lat": 48.25547,
+            "lon": -3.01077
+          },
+          {
+            "label": "Tracé GPX km 192.0",
+            "kind": "via",
+            "lat": 48.20909,
+            "lon": -2.97392
+          }
+        ],
+        "confidence": [
+          {
+            "claim": "écart de distance de l'étape (généré 193,2 km vs officiel 197 km, -1,9 %)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "Tracé GPX officiel (cdn.cyclingstage.com/.../2025/stage-7-route.gpx, distance mesurée 195,6 km, cohérente avec les 196,6-197 km officiels selon les sources) rééchantillonné tous les 8 km (24 points de passage)."
+          },
+          {
+            "claim": "finish pinné en objet {label, lat, lon} plutôt qu'en chaîne",
+            "status": "FIX",
+            "level": "haute",
+            "detail": "La chaîne \"Mûr-de-Bretagne Guerlédan\" géocode au centre-ville (48.201308, -2.992865, score 0.69) — à ~3 km du vrai sommet d'arrivée. Vérifié sur le tracé GPX officiel : l'altitude monte de façon monotone jusqu'au tout dernier point (48.22814, -2.99825, 287 m), cohérent avec les sources indépendantes citant 284-293 m pour le sommet de la côte — confirme que c'est la vraie ligne d'arrivée, pas une troncature de fichier. Même classe de bug que 2024 étapes 14/17 (finish sommet/côte mal géocodé). Fix nécessite la branche rebasée sur origin/claude/fix-reconstruction-start-finish-coords (PR #305) ; vérifié par run réel que le waypoint finish en base porte bien lat=48.22814/lon=-2.99825 (pas les coordonnées géocodées ignorées)."
+          },
+          {
+            "claim": "deux avertissements backtrack entre km 173,9 et km 189,2",
+            "status": "OK",
+            "level": "moyenne",
+            "detail": "Cohérent avec la montée de Mûr-de-Bretagne gravie deux fois dans les 20 derniers km (information de course confirmée par plusieurs sources : tour-magazin.de, domestiquecycling.com) : le tracé des vias passe près de la ville (km176), s'en éloigne (km184), y repasse (km192) puis remonte à l'arrivée (km195,6) — un aller-retour réel plutôt qu'un artefact de placement, mais non confirmé par une source indépendante donnant le tracé exact des deux ascensions (hedgehogcycling.co.uk ne fournit pas de coordonnées)."
+          }
+        ],
+        "note": "Étape 7 Saint-Malo → Mûr-de-Bretagne Guerlédan (197 km officiels) — Côte de Mûr-de-Bretagne gravie deux fois dans les 20 derniers km, finish sommet (2 km à 6,9 %). Aucune côte curée en kind:\"col\" ici — rien ne garantit que les noms officiels apparaîtront sur la page générée (detectClimbs() nomme les côtes depuis le seul profil altimétrique + géocodage inverse, jamais via wikipedia.js)."
       }
     }
   },
