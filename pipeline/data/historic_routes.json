@@ -2770,7 +2770,7 @@
             "detail": "Le pas de 8 km laissait 14,1 km à vol d'oiseau entre Amiens et le premier point (km8.0), au-delà du seuil VIA_GAP_WARN_M (12 km). Ajout d'un point intermédiaire réel km4.0 (même tracé GPX) : avertissement disparu, distance quasi inchangée (-6,3 % → -6,6 %)."
           }
         ],
-        "note": "Étape 4 Amiens → Rouen (174,2 km officiels) — étape vallonnée du Pays de Caux avec 5 côtes classées (Côte Jacques-Anquetil, Côte de Belbeuf, Côte de Bonsecours, Côte de la Grand'Mare, Rampe Saint-Hilaire, toutes 3ᵉ/4ᵉ catégorie), aucune curée en kind:\"col\" ici — comme pour les étapes précédentes sans via col curé, rien ne garantit que ces noms officiels apparaîtront sur la page générée (detectClimbs() nomme les côtes depuis le seul profil altimétrique + géocodage inverse)."
+        "note": "Étape 4 Amiens → Rouen (174,2 km officiels) — étape vallonnée du Pays de Caux avec 5 côtes classées (Côte Jacques-Anquetil, Côte de Belbeuf, Côte de Bonsecours, Côte de la Grand'Mare, Rampe Saint-Hilaire, toutes 3ᵉ/4ᵉ catégorie), aucune curée en kind:\"col\" ici — comme pour les étapes précédentes sans via col curé, rien ne garantit que ces noms officiels apparaîtront sur la page générée (detectClimbs() nomme les côtes depuis le seul profil altimétrique + géocodage inverse, jamais via wikipedia.js). Constaté sur le run de vérification réel : le géocodage inverse fait déjà apparaître « Côte de Bonsecours, Seine-Maritime » — coïncidence géocodique (la commune réelle s'appelle Bonsecours), pas une curation ; les 4 autres noms, eux, ne sont pas garantis."
       }
     }
   },
