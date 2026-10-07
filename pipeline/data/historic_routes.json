@@ -2209,6 +2209,47 @@
   "2025": {
     "notes": "Grand Départ de Lille. Liste des étapes d'après l'article « 2025 Tour de France » (en.wikipedia.org, CC BY-SA). Points de passage des étapes reines recoupés sur olympics.com, mon-sejour-en-montagne.com, pyrenees31.com et cyclingstage.com. En mode hors-ligne, une fixture locale reproduit le tableau des étapes (distances arrondies) ; importer en ligne pour les données certifiées.",
     "stages": {
+      "2": {
+        "start": "Lauwin-Planque",
+        "finish": "Boulogne-sur-Mer",
+        "vias": [
+          { "label": "Tracé GPX km 8.0", "kind": "via", "lat": 50.29191, "lon": 3.02761 },
+          { "label": "Tracé GPX km 16.0", "kind": "via", "lat": 50.31047, "lon": 2.94859 },
+          { "label": "Tracé GPX km 24.0", "kind": "via", "lat": 50.30045, "lon": 2.84704 },
+          { "label": "Tracé GPX km 32.0", "kind": "via", "lat": 50.30624, "lon": 2.75712 },
+          { "label": "Tracé GPX km 40.0", "kind": "via", "lat": 50.35601, "lon": 2.67649 },
+          { "label": "Tracé GPX km 48.0", "kind": "via", "lat": 50.37614, "lon": 2.58304 },
+          { "label": "Tracé GPX km 56.0", "kind": "via", "lat": 50.40368, "lon": 2.51286 },
+          { "label": "Tracé GPX km 64.0", "kind": "via", "lat": 50.39989, "lon": 2.42651 },
+          { "label": "Tracé GPX km 72.0", "kind": "via", "lat": 50.38158, "lon": 2.32655 },
+          { "label": "Tracé GPX km 80.0", "kind": "via", "lat": 50.42558, "lon": 2.26671 },
+          { "label": "Tracé GPX km 88.0", "kind": "via", "lat": 50.41637, "lon": 2.18151 },
+          { "label": "Tracé GPX km 96.0", "kind": "via", "lat": 50.4007, "lon": 2.09327 },
+          { "label": "Tracé GPX km 104.0", "kind": "via", "lat": 50.42802, "lon": 2.00254 },
+          { "label": "Tracé GPX km 112.0", "kind": "via", "lat": 50.49072, "lon": 1.9736 },
+          { "label": "Tracé GPX km 120.0", "kind": "via", "lat": 50.54785, "lon": 1.93477 },
+          { "label": "Tracé GPX km 128.0", "kind": "via", "lat": 50.53055, "lon": 1.88002 },
+          { "label": "Tracé GPX km 136.0", "kind": "via", "lat": 50.47824, "lon": 1.85918 },
+          { "label": "Tracé GPX km 144.0", "kind": "via", "lat": 50.47406, "lon": 1.77577 },
+          { "label": "Tracé GPX km 152.0", "kind": "via", "lat": 50.49082, "lon": 1.72413 },
+          { "label": "Tracé GPX km 160.0", "kind": "via", "lat": 50.5232, "lon": 1.65518 },
+          { "label": "Tracé GPX km 168.0", "kind": "via", "lat": 50.57692, "lon": 1.70332 },
+          { "label": "Tracé GPX km 176.0", "kind": "via", "lat": 50.62541, "lon": 1.66236 },
+          { "label": "Tracé GPX km 184.0", "kind": "via", "lat": 50.60697, "lon": 1.72976 },
+          { "label": "Tracé GPX km 192.0", "kind": "via", "lat": 50.65659, "lon": 1.70894 },
+          { "label": "Tracé GPX km 200.0", "kind": "via", "lat": 50.67697, "lon": 1.62212 },
+          { "label": "Tracé GPX km 208.0", "kind": "via", "lat": 50.72324, "lon": 1.60625 }
+        ],
+        "confidence": [
+          {
+            "claim": "distance reconstituée vs officielle",
+            "status": "OK",
+            "level": "haute",
+            "detail": "pipeline réel rejoué (cache vide) : 208,1 km reconstitués contre 209,1 km officiels (écart -0,5 %, tolérance ±10 %), statut \"ok\". Aucun avertissement dans `checks.items`."
+          }
+        ],
+        "note": "Lauwin-Planque → Boulogne-sur-Mer (209,1 km officiels), étape vallonnée (2 550 m de dénivelé), Côte de Saint-Étienne-au-Mont et Côte d'Outreau dans les 10 derniers km. Victoire Mathieu van der Poel. Tracé GPX officiel (cyclingstage.com, cdn.cyclingstage.com/.../2025/stage-2-route.gpx, distance mesurée : 208,9 km, cohérente avec les 209,1 km officiels) rééchantillonné tous les 8 km en points de passage curés, même méthode que les étapes GPX-densifiées du Tour 2024."
+      },
       "1": {
         "start": "Lille",
         "vias": [
