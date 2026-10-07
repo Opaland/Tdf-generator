@@ -2618,6 +2618,159 @@
           }
         ],
         "note": "Étape 5 à Caen (33 km, contre-la-montre individuel) — tracé GPX officiel (cyclingstage.com, cdn.cyclingstage.com/.../2025/stage-5-route.gpx, distance mesurée : 33,0 km, cohérente avec les 33 km officiels) rééchantillonné tous les 2 km (pas resserré : 8 km laissait le routeur couper court sur une boucle de 33 km) en points de passage curés. Étape en circuit sans via curé au départ : reconstruction ~0 km avant ce correctif."
+      },
+      "4": {
+        "start": "Amiens",
+        "finish": "Rouen",
+        "vias": [
+          {
+            "label": "Tracé GPX km 4.0",
+            "kind": "via",
+            "lat": 49.81385,
+            "lon": 2.22316
+          },
+          {
+            "label": "Tracé GPX km 8.0",
+            "kind": "via",
+            "lat": 49.7819,
+            "lon": 2.19914
+          },
+          {
+            "label": "Tracé GPX km 16.0",
+            "kind": "via",
+            "lat": 49.71241,
+            "lon": 2.17806
+          },
+          {
+            "label": "Tracé GPX km 24.0",
+            "kind": "via",
+            "lat": 49.65449,
+            "lon": 2.13249
+          },
+          {
+            "label": "Tracé GPX km 32.0",
+            "kind": "via",
+            "lat": 49.60571,
+            "lon": 2.06617
+          },
+          {
+            "label": "Tracé GPX km 40.0",
+            "kind": "via",
+            "lat": 49.57747,
+            "lon": 1.96503
+          },
+          {
+            "label": "Tracé GPX km 48.0",
+            "kind": "via",
+            "lat": 49.55254,
+            "lon": 1.87978
+          },
+          {
+            "label": "Tracé GPX km 56.0",
+            "kind": "via",
+            "lat": 49.51234,
+            "lon": 1.81546
+          },
+          {
+            "label": "Tracé GPX km 64.0",
+            "kind": "via",
+            "lat": 49.48258,
+            "lon": 1.72454
+          },
+          {
+            "label": "Tracé GPX km 72.0",
+            "kind": "via",
+            "lat": 49.43726,
+            "lon": 1.65183
+          },
+          {
+            "label": "Tracé GPX km 80.0",
+            "kind": "via",
+            "lat": 49.38578,
+            "lon": 1.59351
+          },
+          {
+            "label": "Tracé GPX km 88.0",
+            "kind": "via",
+            "lat": 49.33127,
+            "lon": 1.52605
+          },
+          {
+            "label": "Tracé GPX km 96.0",
+            "kind": "via",
+            "lat": 49.2764,
+            "lon": 1.46015
+          },
+          {
+            "label": "Tracé GPX km 104.0",
+            "kind": "via",
+            "lat": 49.26118,
+            "lon": 1.42113
+          },
+          {
+            "label": "Tracé GPX km 112.0",
+            "kind": "via",
+            "lat": 49.28269,
+            "lon": 1.36464
+          },
+          {
+            "label": "Tracé GPX km 120.0",
+            "kind": "via",
+            "lat": 49.3245,
+            "lon": 1.29223
+          },
+          {
+            "label": "Tracé GPX km 128.0",
+            "kind": "via",
+            "lat": 49.3578,
+            "lon": 1.25619
+          },
+          {
+            "label": "Tracé GPX km 136.0",
+            "kind": "via",
+            "lat": 49.3555,
+            "lon": 1.17839
+          },
+          {
+            "label": "Tracé GPX km 144.0",
+            "kind": "via",
+            "lat": 49.38229,
+            "lon": 1.12526
+          },
+          {
+            "label": "Tracé GPX km 152.0",
+            "kind": "via",
+            "lat": 49.42253,
+            "lon": 1.11894
+          },
+          {
+            "label": "Tracé GPX km 160.0",
+            "kind": "via",
+            "lat": 49.44221,
+            "lon": 1.13068
+          },
+          {
+            "label": "Tracé GPX km 168.0",
+            "kind": "via",
+            "lat": 49.44812,
+            "lon": 1.11131
+          }
+        ],
+        "confidence": [
+          {
+            "claim": "écart de distance de l'étape (généré 162,7 km vs officiel 174,2 km, -6,6 %)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "Tracé GPX officiel (cdn.cyclingstage.com/.../2025/stage-4-route.gpx, distance mesurée 173,8 km, cohérente avec les 174,2 km officiels) rééchantillonné tous les 8 km (22 points de passage). Aucune entrée warn/fail (distance, via-gap, backtrack) dans les checks après ajout d'un point km4.0 (voir ci-dessous)."
+          },
+          {
+            "claim": "avertissement via-gap entre le départ (Amiens) et le premier point de passage",
+            "status": "FIX",
+            "level": "haute",
+            "detail": "Le pas de 8 km laissait 14,1 km à vol d'oiseau entre Amiens et le premier point (km8.0), au-delà du seuil VIA_GAP_WARN_M (12 km). Ajout d'un point intermédiaire réel km4.0 (même tracé GPX) : avertissement disparu, distance quasi inchangée (-6,3 % → -6,6 %)."
+          }
+        ],
+        "note": "Étape 4 Amiens → Rouen (174,2 km officiels) — étape vallonnée du Pays de Caux avec 5 côtes classées (Côte Jacques-Anquetil, Côte de Belbeuf, Côte de Bonsecours, Côte de la Grand'Mare, Rampe Saint-Hilaire, toutes 3ᵉ/4ᵉ catégorie), aucune curée en kind:\"col\" ici — comme pour les étapes précédentes sans via col curé, rien ne garantit que ces noms officiels apparaîtront sur la page générée (detectClimbs() nomme les côtes depuis le seul profil altimétrique + géocodage inverse)."
       }
     }
   },
