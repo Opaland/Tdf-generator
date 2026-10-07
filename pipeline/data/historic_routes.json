@@ -2008,10 +2008,16 @@
             "claim": "distance reconstituée vs officielle",
             "status": "OK",
             "level": "haute",
-            "detail": "pipeline réel rejoué (cache vide) : 180,9 km reconstitués contre 177,8 km officiels (écart +1,7 %, tolérance ±10 %), statut \"ok\". Aucun avertissement dans `checks.items`."
+            "detail": "pipeline réel rejoué (cache vide), après rebase sur PR #305 (lat/lon sur un finish curé en objet, sans quoi ils sont silencieusement ignorés) : 181,9 km reconstitués contre 177,8 km officiels (écart +2,3 %, tolérance ±10 %), statut \"ok\". Aucun avertissement dans `checks.items`."
+          },
+          {
+            "claim": "finish corrigé : coordonnées réelles de la montée finale",
+            "status": "FIX",
+            "level": "haute",
+            "detail": "trouvaille de relecture adverse, même classe de bug que l'étape 14 (Pla d'Adet) : \"Superdévoluy\" (chaîne simple) géocodait vers une rue du village (score Géoplateforme 0,70, type \"street\", à ~1,5 km du vrai point d'arrivée), ce qui se traduisait dans le profil reconstitué par une descente de 64 m juste avant l'arrivée — impossible sur une arrivée au sommet. Corrigé en fixant lat/lon sur le point final du tracé GPX officiel (44,67828/5,92697, altitude 1497 m), cohérent avec l'altitude connue de la station (~1500 m). Les deux cols intermédiaires (Col Bayard ~1248 m détecté vs 1246 m officiel, Col du Noyer 1662,6 m détecté vs 1664 m `known_cols.json`) sont, eux, bien corroborés par le profil détecté malgré l'absence de waypoint `kind:\"col\"` curé — la prudence de la note sur ce point reste honnête mais s'est révélée plus conservatrice que nécessaire."
           }
         ],
-        "note": "Saint-Paul-Trois-Châteaux → Superdévoluy (177,8 km officiels), étape de moyenne montagne (Drôme → Hautes-Alpes). Course officielle : Col Bayard (1 246 m), La Fare-en-Champsaur, Col du Noyer (1 664 m), puis montée finale à Superdévoluy (3,8 km à 5,9 %, première apparition de cette arrivée au Tour) — comme pour l'étape 16 de la même édition, ces noms ne sont pas garantis correspondre au profil détecté sur le tracé reconstitué (aucun col curé comme waypoint ici, détection purement algorithmique sur l'altitude). Tracé GPX officiel (cyclingstage.com, cdn.cyclingstage.com/.../2024/stage-17-route.gpx, distance mesurée : 178,0 km, cohérente avec l'officielle) rééchantillonné tous les 8 km en points de passage curés, même méthode que les étapes 8/9/10/11/16 de la même édition."
+        "note": "Saint-Paul-Trois-Châteaux → Superdévoluy (177,8 km officiels), étape de moyenne montagne (Drôme → Hautes-Alpes) : Col Bayard (1 246 m), La Fare-en-Champsaur, Col du Noyer (1 664 m), puis montée finale à Superdévoluy (3,8 km à 5,9 %, première apparition de cette arrivée au Tour). Tracé GPX officiel (cyclingstage.com, cdn.cyclingstage.com/.../2024/stage-17-route.gpx, distance mesurée : 178,0 km, cohérente avec l'officielle) rééchantillonné tous les 8 km en points de passage curés, même méthode que les étapes 8/9/10/11/16 de la même édition. Finish fixé en lat/lon (voir confidence) sur le point réel de fin du tracé GPX plutôt que la rue de village résolue par défaut."
       },
       "1": {
         "start": {
