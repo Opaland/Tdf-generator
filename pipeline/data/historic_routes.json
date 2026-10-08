@@ -2390,6 +2390,135 @@
         "finish": "Mont Ventoux",
         "note": "Montpellier → Mont Ventoux (171,5 km), arrivée au sommet du Géant de Provence (15,7 km à 8,8 %, HC, 1 909 m)."
       },
+      "17": {
+        "start": "Bollène",
+        "finish": "Valence",
+        "vias": [
+          {
+            "label": "Tracé GPX km 8.0",
+            "kind": "via",
+            "lat": 44.23833,
+            "lon": 4.7979
+          },
+          {
+            "label": "Tracé GPX km 16.1",
+            "kind": "via",
+            "lat": 44.28358,
+            "lon": 4.8347
+          },
+          {
+            "label": "Tracé GPX km 24.1",
+            "kind": "via",
+            "lat": 44.34615,
+            "lon": 4.86561
+          },
+          {
+            "label": "Tracé GPX km 32.1",
+            "kind": "via",
+            "lat": 44.412,
+            "lon": 4.88923
+          },
+          {
+            "label": "Tracé GPX km 40.1",
+            "kind": "via",
+            "lat": 44.44344,
+            "lon": 4.96251
+          },
+          {
+            "label": "Tracé GPX km 48.2",
+            "kind": "via",
+            "lat": 44.47649,
+            "lon": 5.02845
+          },
+          {
+            "label": "Tracé GPX km 56.2",
+            "kind": "via",
+            "lat": 44.50975,
+            "lon": 5.09585
+          },
+          {
+            "label": "Tracé GPX km 64.2",
+            "kind": "via",
+            "lat": 44.55264,
+            "lon": 5.08748
+          },
+          {
+            "label": "Tracé GPX km 72.2",
+            "kind": "via",
+            "lat": 44.57909,
+            "lon": 5.12673
+          },
+          {
+            "label": "Tracé GPX km 80.3",
+            "kind": "via",
+            "lat": 44.62994,
+            "lon": 5.09012
+          },
+          {
+            "label": "Tracé GPX km 88.3",
+            "kind": "via",
+            "lat": 44.62528,
+            "lon": 5.01571
+          },
+          {
+            "label": "Tracé GPX km 96.3",
+            "kind": "via",
+            "lat": 44.61197,
+            "lon": 4.93851
+          },
+          {
+            "label": "Tracé GPX km 104.4",
+            "kind": "via",
+            "lat": 44.61024,
+            "lon": 4.83969
+          },
+          {
+            "label": "Tracé GPX km 112.4",
+            "kind": "via",
+            "lat": 44.65756,
+            "lon": 4.88549
+          },
+          {
+            "label": "Tracé GPX km 120.4",
+            "kind": "via",
+            "lat": 44.68713,
+            "lon": 4.93418
+          },
+          {
+            "label": "Tracé GPX km 128.4",
+            "kind": "via",
+            "lat": 44.7404,
+            "lon": 4.91865
+          },
+          {
+            "label": "Tracé GPX km 136.5",
+            "kind": "via",
+            "lat": 44.79933,
+            "lon": 4.94103
+          },
+          {
+            "label": "Tracé GPX km 144.5",
+            "kind": "via",
+            "lat": 44.84273,
+            "lon": 5.00681
+          },
+          {
+            "label": "Tracé GPX km 152.5",
+            "kind": "via",
+            "lat": 44.90361,
+            "lon": 5.00184
+          }
+        ],
+        "confidence": [
+          {
+            "claim": "pas d'échantillonnage GPX 8 km suffisant pour rester dans la tolérance",
+            "status": "FIX",
+            "level": "haute",
+            "detail": "tracé source : cdn.cyclingstage.com/images/tour-de-france/2025/stage-17-route.gpx (4593 points). `scripts/calibrate-gpx-stage.js --steps 8,4` sur l'ensemble du tracé : pas=8km (19 vias) → généré 159,6 km, écart -0,5 %, OK ; pas=4km (39 vias) → généré 162,0 km, écart +1,0 %, OK également mais pas plus grossier recommandé par l'outil. Pas=8km retenu. Vérifié par régénération réelle indépendante : 159,6 km vs 160,4 km officiels, écart -0,5 %, status OK, zéro avertissement de rebroussement ou d'écart via-gap. Géocodage de départ/arrivée vérifié sur les waypoints réellement persistés (pas en isolé) : « Bollène » → municipalité Vaucluse (depcode 84, score 0,99) et « Valence » → municipalité Drôme (depcode 26, score 0,96), aucun homonyme ; l'écart de ~6,5 km entre le point GPX réel de départ et le centroïde de la commune géocodée n'a causé aucun avertissement (départ réel hors centre-ville, cas courant, pas un bug de géocodage)."
+          }
+        ],
+        "note": "Bollène → Valence (160,4 km, 23 juillet 2025). Étape de transition dans la vallée du Rhône, entre Vaucluse et Drôme, sans difficulté répertoriée notable avant l'arrivée."
+      },
       "21": {
         "finish": "Paris",
         "vias": [
