@@ -2618,6 +2618,151 @@
           }
         ],
         "note": "Étape 5 à Caen (33 km, contre-la-montre individuel) — tracé GPX officiel (cyclingstage.com, cdn.cyclingstage.com/.../2025/stage-5-route.gpx, distance mesurée : 33,0 km, cohérente avec les 33 km officiels) rééchantillonné tous les 2 km (pas resserré : 8 km laissait le routeur couper court sur une boucle de 33 km) en points de passage curés. Étape en circuit sans via curé au départ : reconstruction ~0 km avant ce correctif."
+      },
+      "13": {
+        "start": {
+          "label": "Loudenvielle",
+          "lat": 42.79791,
+          "lon": 0.40835
+        },
+        "finish": "Peyragudes",
+        "vias": [
+          {
+            "label": "Tracé GPX km 0.5",
+            "kind": "via",
+            "lat": 42.80127,
+            "lon": 0.41116
+          },
+          {
+            "label": "Tracé GPX km 1.0",
+            "kind": "via",
+            "lat": 42.80558,
+            "lon": 0.41216
+          },
+          {
+            "label": "Tracé GPX km 1.5",
+            "kind": "via",
+            "lat": 42.80956,
+            "lon": 0.40973
+          },
+          {
+            "label": "Tracé GPX km 2.0",
+            "kind": "via",
+            "lat": 42.81155,
+            "lon": 0.40972
+          },
+          {
+            "label": "Tracé GPX km 2.5",
+            "kind": "via",
+            "lat": 42.81344,
+            "lon": 0.41325
+          },
+          {
+            "label": "Tracé GPX km 3.0",
+            "kind": "via",
+            "lat": 42.81721,
+            "lon": 0.41387
+          },
+          {
+            "label": "Tracé GPX km 3.5",
+            "kind": "via",
+            "lat": 42.82022,
+            "lon": 0.41534
+          },
+          {
+            "label": "Tracé GPX km 4.0",
+            "kind": "via",
+            "lat": 42.82386,
+            "lon": 0.4149
+          },
+          {
+            "label": "Tracé GPX km 4.5",
+            "kind": "via",
+            "lat": 42.82002,
+            "lon": 0.41797
+          },
+          {
+            "label": "Tracé GPX km 5.0",
+            "kind": "via",
+            "lat": 42.81606,
+            "lon": 0.42073
+          },
+          {
+            "label": "Tracé GPX km 5.5",
+            "kind": "via",
+            "lat": 42.81247,
+            "lon": 0.42327
+          },
+          {
+            "label": "Tracé GPX km 6.0",
+            "kind": "via",
+            "lat": 42.80903,
+            "lon": 0.42181
+          },
+          {
+            "label": "Tracé GPX km 6.5",
+            "kind": "via",
+            "lat": 42.81177,
+            "lon": 0.42621
+          },
+          {
+            "label": "Tracé GPX km 7.0",
+            "kind": "via",
+            "lat": 42.811,
+            "lon": 0.42742
+          },
+          {
+            "label": "Tracé GPX km 7.5",
+            "kind": "via",
+            "lat": 42.807,
+            "lon": 0.42489
+          },
+          {
+            "label": "Tracé GPX km 8.0",
+            "kind": "via",
+            "lat": 42.80267,
+            "lon": 0.4255
+          },
+          {
+            "label": "Tracé GPX km 8.5",
+            "kind": "via",
+            "lat": 42.80149,
+            "lon": 0.43131
+          },
+          {
+            "label": "Tracé GPX km 9.0",
+            "kind": "via",
+            "lat": 42.79975,
+            "lon": 0.42724
+          },
+          {
+            "label": "Tracé GPX km 9.5",
+            "kind": "via",
+            "lat": 42.79587,
+            "lon": 0.42679
+          },
+          {
+            "label": "Tracé GPX km 10.0",
+            "kind": "via",
+            "lat": 42.795,
+            "lon": 0.43258
+          },
+          {
+            "label": "Tracé GPX km 10.5",
+            "kind": "via",
+            "lat": 42.7966,
+            "lon": 0.43399
+          }
+        ],
+        "confidence": [
+          {
+            "claim": "écart de distance de l'étape (généré 11,7 km vs officiel 10,9 km, +7,2 %)",
+            "status": "FIX",
+            "level": "haute",
+            "detail": "Première reconstruction à +86,2 % (20,3 km), sans aucun avertissement via-gap/backtrack — densifier le pas de 2 km à 500 m (21 points) n'a rien changé (même +86,2 % au km près), ce qui a exclu un simple problème de pas trop grossier sur une route en lacets. Root cause réelle : la chaîne \"Loudenvielle\" géocode au centre administratif de la commune (42.744042, 0.426432, type municipality, score 0.97) — à 6,17 km du vrai point de départ GPX (42.79791, 0.40835), plus de la moitié de la longueur totale de l'étape (10,9 km). Cross-validé par deux sources indépendantes convergentes : le village de Loudenvielle est cité à ~42,798°N/0,412°E et le lac de Génos-Loudenvielle adjacent à ~42,803°N/0,410°E — toutes deux à moins de 1 km du point GPX réel, confirmant que la commune (vaste, en vallée) a un centroïde administratif très éloigné du vrai lieu de l'étape (allée Laurent Brochard, source : itinéraire horaire officiel du département des Hautes-Pyrénées). Fix : `start` pinné en objet {label, lat, lon} avec les coordonnées du premier point du tracé GPX officiel. Vérifié par run réel (après fix) : -0,2 % → +7,2 %, écart résiduel probablement dû aux lacets serrés du dernier km (16 % de pente) que même le pas de 500 m ne trace pas parfaitement. Pas de 500 m conservé (route en lacets sur une pente à 16 % dans les 2 derniers km) même si la densification n'était pas la cause du bug initial."
+          }
+        ],
+        "note": "Étape 13 Loudenvielle → Peyragudes (10,9 km officiels, contre-la-montre individuel en montagne) — ascension finale de 1ʳᵉ catégorie (8 km à 7,9 %, jusqu'à 16 % dans les 2 derniers km) jusqu'à l'altiport de Peyragudes-Balestas. Aucun col curé en kind:\"col\" parmi les vias ici."
       }
     }
   },
