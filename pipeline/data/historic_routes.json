@@ -2517,7 +2517,7 @@
             "detail": "tracé source : cdn.cyclingstage.com/images/tour-de-france/2025/stage-17-route.gpx (4593 points). `scripts/calibrate-gpx-stage.js --steps 8,4` sur l'ensemble du tracé : pas=8km (19 vias) → généré 159,6 km, écart -0,5 %, OK ; pas=4km (39 vias) → généré 162,0 km, écart +1,0 %, OK également mais pas plus grossier recommandé par l'outil. Pas=8km retenu. Vérifié par régénération réelle indépendante : 159,6 km vs 160,4 km officiels, écart -0,5 %, status OK, zéro avertissement de rebroussement ou d'écart via-gap. Géocodage de départ/arrivée vérifié sur les waypoints réellement persistés (pas en isolé) : « Bollène » → municipalité Vaucluse (depcode 84, score 0,99) et « Valence » → municipalité Drôme (depcode 26, score 0,96), aucun homonyme ; l'écart de ~6,5 km entre le point GPX réel de départ et le centroïde de la commune géocodée n'a causé aucun avertissement (départ réel hors centre-ville, cas courant, pas un bug de géocodage)."
           }
         ],
-        "note": "Bollène → Valence (160,4 km, 23 juillet 2025). Étape de transition dans la vallée du Rhône, entre Vaucluse et Drôme, sans difficulté répertoriée notable avant l'arrivée."
+        "note": "Bollène → Valence (160,4 km, 23 juillet 2025). Étape de transition dans la vallée du Rhône, entre Vaucluse et Drôme, classée « Flat stage » par Wikipédia, mais le tracé reconstitué détecte trois côtes avant l'arrivée (D+ 1 150 m) : côte de La Calade/La Patte (6,25 km à 3,9 %, cat. 2, sommet 638 m), côte de Marsanne (2 km à 3,1 %, cat. 3) et côte de Les Roches/Les Bessons (4,75 km à 3,3 %, cat. 3) — aucune ne remet en cause le classement « plat » de l'étape, mais la route n'est pas pour autant sans relief."
       },
       "21": {
         "finish": "Paris",
