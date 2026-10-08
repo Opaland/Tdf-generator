@@ -2390,6 +2390,129 @@
         "finish": "Mont Ventoux",
         "note": "Montpellier → Mont Ventoux (171,5 km), arrivée au sommet du Géant de Provence (15,7 km à 8,8 %, HC, 1 909 m)."
       },
+      "19": {
+        "start": "Albertville",
+        "finish": {
+          "label": "La Plagne",
+          "lat": 45.5042986,
+          "lon": 6.7049123
+        },
+        "vias": [
+          {
+            "label": "Queige",
+            "kind": "via",
+            "lat": 45.706712,
+            "lon": 6.470465
+          },
+          {
+            "label": "Tracé GPX km 0.0 (reprise du tracé initial après le contournement sanitaire, 1,39 km avant Beaufort)",
+            "kind": "via",
+            "lat": 45.71973,
+            "lon": 6.56249
+          },
+          {
+            "label": "Tracé GPX km 8.0 (après reprise, km 60.4 du tracé original)",
+            "kind": "via",
+            "lat": 45.68322,
+            "lon": 6.57696
+          },
+          {
+            "label": "Col du Pré",
+            "kind": "col",
+            "lat": 45.68816,
+            "lon": 6.60338,
+            "ele": 1703
+          },
+          {
+            "label": "Tracé GPX km 16.0 (après reprise, km 68.4 du tracé original)",
+            "kind": "via",
+            "lat": 45.68286,
+            "lon": 6.61593
+          },
+          {
+            "label": "Tracé GPX km 24.0 (après reprise, km 76.4 du tracé original)",
+            "kind": "via",
+            "lat": 45.69258,
+            "lon": 6.67089
+          },
+          {
+            "label": "Cormet de Roselend",
+            "kind": "col",
+            "lat": 45.69174,
+            "lon": 6.690411,
+            "ele": 1968
+          },
+          {
+            "label": "Tracé GPX km 32.0 (après reprise, km 84.4 du tracé original)",
+            "kind": "via",
+            "lat": 45.69217,
+            "lon": 6.73242
+          },
+          {
+            "label": "Tracé GPX km 40.0 (après reprise, km 92.4 du tracé original)",
+            "kind": "via",
+            "lat": 45.66077,
+            "lon": 6.78105
+          },
+          {
+            "label": "Tracé GPX km 48.0 (après reprise, km 100.4 du tracé original)",
+            "kind": "via",
+            "lat": 45.60601,
+            "lon": 6.75741
+          },
+          {
+            "label": "Tracé GPX km 56.0 (après reprise, km 108.4 du tracé original)",
+            "kind": "via",
+            "lat": 45.56461,
+            "lon": 6.68494
+          },
+          {
+            "label": "Tracé GPX km 64.0 (après reprise, km 116.4 du tracé original)",
+            "kind": "via",
+            "lat": 45.54565,
+            "lon": 6.67049
+          },
+          {
+            "label": "Tracé GPX km 72.0 (après reprise, km 124.4 du tracé original)",
+            "kind": "via",
+            "lat": 45.522,
+            "lon": 6.67972
+          }
+        ],
+        "confidence": [
+          {
+            "claim": "l'étape a été reroutée la veille de la course (contournement sanitaire du col des Saisies) et le tracé source de cyclingstage.com est le tracé ORIGINAL non couru, pas le tracé réellement couru",
+            "status": "FIX",
+            "level": "haute",
+            "detail": "tracé source téléchargé (cdn.cyclingstage.com/images/tour-de-france/2025/stage-19-route.gpx, 6976 points) : longueur cumulée mesurée en haversine 130,3 km — très différente des 93,1 km officiels (confirmés par Wikipédia, page de l'édition 2025). Échantillonnage direct de ce tracé à 8/4/2 km donne 219-232 km générés (+136 % à +150 %), HORS TOLÉRANCE à tout pas, signe que le problème n'est pas la densité d'échantillonnage mais le tracé source lui-même. Recherche web (tuttobiciweb.it, tour-magazin.de, bikeraceinfo.com/tdf/2025-TDF-Daily/tdf2025-stage-19.html, domestiquecycling.com, communiqué ASO sur letour.fr horodaté 24/07/2025 22:31, Wikipédia anglais : « modified the day before ») : l'étape a été reroutée la veille de la course (annonce ASO le 24 juillet 2025 au soir, course courue le 25 juillet) après la découverte d'un foyer de dermatose nodulaire contagieuse (maladie bovine) impliquant l'abattage d'un troupeau sur le col des Saisies — l'ASO a fait emprunter directement la route depuis la sortie d'Albertville (après 7 km de parade neutralisée) jusqu'à la reprise du tracé initial « shortly before Beaufort, at km 52.4 of the original schedule » (bikeraceinfo.com), contournant le col des Saisies et la côte d'Héry-sur-Ugine. Col du Pré et Cormet de Roselend restent franchis, arrivée inchangée à La Plagne. Distance officielle course réelle : 93,1 km (confirmé Wikipédia ; une dépêche ASO citait aussi 95 km, écart non résolu par les sources, retenu 93,1 km car c'est la valeur du tableau d'étapes Wikipédia déjà utilisée par l'import de ce dépôt). Le tracé téléchargé est donc le parcours ORIGINAL (pré-reroutage, jamais couru en totalité) : fabriquer un tracé complet à partir de lui aurait inventé une course qui n'a jamais eu lieu (interdiction CLAUDE.md de fabriquer des données historiques)."
+          },
+          {
+            "claim": "point de reprise du tracé original vérifié à 1,39 km de Beaufort, cohérent avec la source",
+            "status": "OK",
+            "level": "haute",
+            "detail": "le point du GPX original à une distance cumulée de 52,4 km depuis son propre départ (lat 45,71973/lon 6,56249) est à 1,39 km de Beaufort (calcul haversine direct) — cohérent avec « shortly before Beaufort » de bikeraceinfo.com. Le tracé a donc été tronqué à partir de ce point (GPX re-découpé, 77,9 km restants jusqu'à l'arrivée) plutôt que reconstruit à la main, pour ne garder que la portion réellement empruntée par la course (Beaufort → col du Pré → Cormet de Roselend → La Plagne, jamais modifiée par le reroutage). Revue adverse : le libellé initial de ce via mentionnait « col des Saisies » dans sa parenthèse explicative, ce qui déclenchait `isColQuery()` (pipeline/geocode.js) et faisait basculer son `kind` en `'col'` à la génération (pipeline/generate.js:83, qui écrase `kind:'via'` sur tout libellé contenant le mot « col », quelle que soit l'intention curée) — polluant le rapport de contrôle (« Col atteint ») et l'icône affichée dans l'éditeur pour un simple point de reprise de route (altitude ~712 m, pas un sommet). Libellé reformulé sans le mot « col » pour éviter ce faux positif ; le bug générique de `generate.js` qui ignore `kind` déjà explicite dans le JSON curé reste non corrigé (changement de code, hors périmètre d'une PR de données)."
+          },
+          {
+            "claim": "col du Pré et Cormet de Roselend localisés et vérifiés par croisement altimétrique, pas par géocodage de nom seul",
+            "status": "FIX",
+            "level": "haute",
+            "detail": "le géocodage isolé de « Col du Pré » retombe sur un homonyme sans rapport (44,385814/3,903655, Gard, ou 48,199382/7,107257, Alsace, selon la requête) — snap >278 km du tracé dans les deux cas, correctement écarté par le garde-fou de `scripts/calibrate-gpx-stage.js`. Les deux cols ont donc été localisés par recherche de pics d'altitude dans le profil GPX brut (fenêtre de recherche ±40 points) : un pic à 1735 m (km 66,2 absolu du tracé original) correspond exactement au point de chronométrage officiel du col du Pré (1735 m selon routedesgrandesalpes.com, le col proprement dit étant à 1703 m — source Wikipédia) ; un pic à 1966 m (km 78,9 absolu) est à 2 m de l'altitude sourcée du Cormet de Roselend (known_cols.json, 1968 m) et son géocodage normal (sans near) le confirme indépendamment (45,69174/6,690411, snap 0,05 km du tracé). Coordonnées retenues : géométrie du pic GPX (cross-validée par l'altitude), pas une coordonnée inventée."
+          },
+          {
+            "claim": "géocodage isolé de « La Plagne » non représentatif du chemin de production réel (leçon de l'étape 12/2025)",
+            "status": "FIX",
+            "level": "haute",
+            "detail": "un test isolé de `geocode(\"La Plagne\", {})` (sans `near`) retombe correctement sur le bon candidat Nominatim (45,5042986/6,7049123, « La Plagne, La Plagne-Tarentaise », type winter_sports — à 1,7 km du point final du tracé GPX réel). Mais en régénérant réellement l'étape (process isolé, `near` chaîné depuis le dernier via, comme le fait toujours `geocodeOptsFor()` en production), le candidat retenu était un distinct et lointain homonyme : « La Plagne 74170 Saint-Gervais-les-Bains » (45,884196/6,713458, Haute-Savoie, à plus de 40 km au nord du vrai point), provoquant un détour mesuré de près de 100 km (190,6 km générés au lieu de ~96 km attendus). Quatrième occurrence de cette classe de bug ce trimestre (après les étapes 7, 10 et 13/2025) et deuxième fois où seul un test sur les waypoints réellement persistés (pas un `geocode()` isolé) l'a révélée (après l'étape 12/2025). `finish` épinglé sur la coordonnée Nominatim vérifiée. Nécessite le correctif de PR #305 pour que ce pinning prenne effet — branche rebasée dessus."
+          },
+          {
+            "claim": "distance et avertissements vérifiés sur le tracé final (départ réel + contournement + portion couue + cols nommés + arrivée épinglée)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "un avertissement via-gap (13,2 km à vol d'oiseau, Albertville → point de reprise) est apparu une fois le `finish` corrigé ; résolu en ajoutant un point de passage réel (« Queige », commune savoyarde sur la route directe D925 entre Albertville et Beaufort, géocodée sans ambiguïté, score 0,97). Vérifié par régénération réelle finale (process isolé, `ETAPEFORGE_DATA_DIR` fraîche) : 99,8 km vs 93,1 km officiels, écart +7,2 %, OK, zéro avertissement de rebroussement ou via-gap restant. Le départ réel (D925, après 7 km de parade neutralisée depuis la sortie d'Albertville) n'a pas été pinné séparément — « Albertville » (centre-ville, score 1,0) reste la meilleure approximation disponible, cette route étant la même route D925 qu'empruntait de toute façon la parade neutralisée ; biais résiduel estimé faible et non mesurable indépendamment."
+          }
+        ],
+        "note": "Albertville → La Plagne (93,1 km réels, 25 juillet 2025 — 129,9 km et cinq ascensions catégorisées prévues à l'origine). Étape reroutée la veille de la course (annonce ASO le 24 juillet 2025 au soir) suite à un foyer de dermatose nodulaire contagieuse ayant entraîné l'abattage d'un troupeau sur le col des Saisies : les coureurs ont rejoint directement la route initiale peu avant Beaufort (contournant le col des Saisies et la côte d'Héry-sur-Ugine), avant d'enchaîner col du Pré (12,6 km à 7,7 %, HC) et Cormet de Roselend (5,9 km à 6,3 %, cat. 2), puis l'arrivée au sommet de La Plagne (19,1 km à 7,2 %, HC)."
+      },
       "21": {
         "finish": "Paris",
         "vias": [
