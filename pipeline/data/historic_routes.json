@@ -2353,6 +2353,171 @@
         ],
         "note": "Grand Départ de Lille (184,9 km, plaine) — tracé GPX officiel (cyclingstage.com, cdn.cyclingstage.com/.../2025/stage-1-route.gpx, distance mesurée : 184,7 km, cohérente avec les 184,9 km officiels) rééchantillonné tous les 8 km en points de passage curés. Relief : Côte de Notre-Dame-de-Lorette, Côte de Cassel, Mont Noir, puis un final plat jusqu'au Boulevard Vauban."
       },
+      "2": {
+        "start": "Lauwin-Planque",
+        "finish": "Boulogne-sur-Mer",
+        "vias": [
+          {
+            "label": "Tracé GPX km 8.0",
+            "kind": "via",
+            "lat": 50.29192,
+            "lon": 3.02805
+          },
+          {
+            "label": "Tracé GPX km 16.1",
+            "kind": "via",
+            "lat": 50.31093,
+            "lon": 2.94819
+          },
+          {
+            "label": "Tracé GPX km 24.1",
+            "kind": "via",
+            "lat": 50.30066,
+            "lon": 2.84603
+          },
+          {
+            "label": "Tracé GPX km 32.1",
+            "kind": "via",
+            "lat": 50.30714,
+            "lon": 2.75584
+          },
+          {
+            "label": "Tracé GPX km 40.2",
+            "kind": "via",
+            "lat": 50.35697,
+            "lon": 2.67492
+          },
+          {
+            "label": "Tracé GPX km 48.2",
+            "kind": "via",
+            "lat": 50.37579,
+            "lon": 2.58147
+          },
+          {
+            "label": "Tracé GPX km 56.2",
+            "kind": "via",
+            "lat": 50.40573,
+            "lon": 2.51272
+          },
+          {
+            "label": "Tracé GPX km 64.3",
+            "kind": "via",
+            "lat": 50.40155,
+            "lon": 2.42425
+          },
+          {
+            "label": "Tracé GPX km 72.3",
+            "kind": "via",
+            "lat": 50.38368,
+            "lon": 2.32381
+          },
+          {
+            "label": "Tracé GPX km 80.3",
+            "kind": "via",
+            "lat": 50.42435,
+            "lon": 2.26419
+          },
+          {
+            "label": "Tracé GPX km 88.4",
+            "kind": "via",
+            "lat": 50.41821,
+            "lon": 2.17807
+          },
+          {
+            "label": "Tracé GPX km 96.4",
+            "kind": "via",
+            "lat": 50.40144,
+            "lon": 2.08796
+          },
+          {
+            "label": "Tracé GPX km 104.4",
+            "kind": "via",
+            "lat": 50.43153,
+            "lon": 2.00034
+          },
+          {
+            "label": "Tracé GPX km 112.5",
+            "kind": "via",
+            "lat": 50.49051,
+            "lon": 1.96935
+          },
+          {
+            "label": "Tracé GPX km 120.5",
+            "kind": "via",
+            "lat": 50.55048,
+            "lon": 1.93054
+          },
+          {
+            "label": "Tracé GPX km 128.6",
+            "kind": "via",
+            "lat": 50.52803,
+            "lon": 1.8808
+          },
+          {
+            "label": "Tracé GPX km 136.6",
+            "kind": "via",
+            "lat": 50.48269,
+            "lon": 1.85534
+          },
+          {
+            "label": "Tracé GPX km 144.6",
+            "kind": "via",
+            "lat": 50.46998,
+            "lon": 1.77023
+          },
+          {
+            "label": "Tracé GPX km 152.7",
+            "kind": "via",
+            "lat": 50.49322,
+            "lon": 1.71627
+          },
+          {
+            "label": "Tracé GPX km 160.7",
+            "kind": "via",
+            "lat": 50.52839,
+            "lon": 1.65719
+          },
+          {
+            "label": "Tracé GPX km 168.7",
+            "kind": "via",
+            "lat": 50.58295,
+            "lon": 1.70151
+          },
+          {
+            "label": "Tracé GPX km 176.8",
+            "kind": "via",
+            "lat": 50.62698,
+            "lon": 1.67242
+          },
+          {
+            "label": "Tracé GPX km 184.8",
+            "kind": "via",
+            "lat": 50.60704,
+            "lon": 1.74028
+          },
+          {
+            "label": "Tracé GPX km 192.8",
+            "kind": "via",
+            "lat": 50.65921,
+            "lon": 1.70032
+          },
+          {
+            "label": "Tracé GPX km 200.9",
+            "kind": "via",
+            "lat": 50.67605,
+            "lon": 1.61057
+          }
+        ],
+        "confidence": [
+          {
+            "claim": "pas d'échantillonnage GPX 8 km suffisant pour rester dans la tolérance",
+            "status": "FIX",
+            "level": "haute",
+            "detail": "tracé source : cdn.cyclingstage.com/images/tour-de-france/2025/stage-2-route.gpx (3823 points, longueur brute 208,9 km, cohérente avec les 209,1 km officiels). `scripts/calibrate-gpx-stage.js --steps 8,4` sur l'ensemble du tracé : pas=8km (25 vias) → généré 220,5 km, écart +5,5 %, OK ; pas=4km (51 vias) → +4,9 %, OK également mais pas plus grossier recommandé par l'outil. Pas=8km retenu. Vérifié par régénération réelle indépendante : 207,7 km vs 209,1 km officiels, écart -0,7 %, status OK, zéro avertissement de rebroussement ou via-gap. Géocodage de départ/arrivée vérifié sur les waypoints réellement persistés : « Lauwin-Planque » → municipalité Nord (depcode 59, score 0,98) et « Boulogne-sur-Mer » → municipalité Pas-de-Calais (depcode 62, score 0,96), aucun homonyme."
+          }
+        ],
+        "note": "Lauwin-Planque → Boulogne-sur-Mer (209,1 km, 6 juillet 2025). Étape vallonnée du Nord/Pas-de-Calais, deuxième jour du Tour après le Grand Départ de Lille."
+      },
       "12": {
         "vias": [
           "Tarbes",
