@@ -2625,7 +2625,11 @@
           "lat": 42.79791,
           "lon": 0.40835
         },
-        "finish": "Peyragudes",
+        "finish": {
+          "label": "Peyragudes",
+          "lat": 42.796535,
+          "lon": 0.437913
+        },
         "vias": [
           {
             "label": "Tracé GPX km 0.5",
@@ -2756,10 +2760,10 @@
         ],
         "confidence": [
           {
-            "claim": "écart de distance de l'étape (généré 11,7 km vs officiel 10,9 km, +7,2 %)",
+            "claim": "écart de distance de l'étape (généré 11,1 km vs officiel 10,9 km, +2,3 %)",
             "status": "FIX",
             "level": "haute",
-            "detail": "Première reconstruction à +86,2 % (20,3 km), sans aucun avertissement via-gap/backtrack — densifier le pas de 2 km à 500 m (21 points) n'a rien changé (même +86,2 % au km près), ce qui a exclu un simple problème de pas trop grossier sur une route en lacets. Root cause réelle : la chaîne \"Loudenvielle\" géocode au centre administratif de la commune (42.744042, 0.426432, type municipality, score 0.97) — à 6,17 km du vrai point de départ GPX (42.79791, 0.40835), plus de la moitié de la longueur totale de l'étape (10,9 km). Cross-validé par deux sources indépendantes convergentes : le village de Loudenvielle est cité à ~42,798°N/0,412°E et le lac de Génos-Loudenvielle adjacent à ~42,803°N/0,410°E — toutes deux à moins de 1 km du point GPX réel, confirmant que la commune (vaste, en vallée) a un centroïde administratif très éloigné du vrai lieu de l'étape (allée Laurent Brochard, source : itinéraire horaire officiel du département des Hautes-Pyrénées). Fix : `start` pinné en objet {label, lat, lon} avec les coordonnées du premier point du tracé GPX officiel. Vérifié par run réel (après fix) : -0,2 % → +7,2 %, écart résiduel probablement dû aux lacets serrés du dernier km (16 % de pente) que même le pas de 500 m ne trace pas parfaitement. Pas de 500 m conservé (route en lacets sur une pente à 16 % dans les 2 derniers km) même si la densification n'était pas la cause du bug initial."
+            "detail": "Même classe de bug trouvée et corrigée sur deux waypoints : (1) start \"Loudenvielle\" géocodait au centre administratif de la commune (42.744042, 0.426432, type municipality, score 0.97) — à 6,17 km du vrai point de départ GPX (42.79791, 0.40835), plus de la moitié de la longueur de l'étape. Cross-validé par deux sources indépendantes (village et lac de Génos-Loudenvielle adjacent, toutes deux à moins de 1 km du point GPX réel) et par une contre-épreuve sur le code pré-PR#305 reproduisant exactement le +86,2 % initial. Fix : start pinné en objet {label, lat, lon}, coordonnées du premier point du tracé GPX officiel — ramène l'écart à +7,2 %. (2) finish \"Peyragudes\" géocodait vers \"Résidence les Hauts de Peyragudes\" (quartier, score 0.78, aucun candidat correspondant au vrai altiport dans l'index Géoplateforme) — relevé par relecture adverse, qui a identifié par analyse leg-par-leg que le résidu de +7,2 % venait presque entièrement d'un seul leg en excès de 589 m vers ce point, pas des lacets du dernier km comme je l'avais supposé sans le vérifier (corrigé ici, règle 9 CLAUDE.md). Fix : finish pinné en objet {label, lat, lon}, coordonnées de l'aérodrome de Peyresourde-Balestas (Nominatim, 42.796535/0.437913, 83,5 m du point GPX officiel — plus fiable que le point GPX seul, 257 m). Pas de rééchantillonnage à 500 m conservé : vérifié par analyse leg-par-leg que 21 legs sur 22 restent fidèles au tracé réel à ±1 m, donc ni nuisible ni la cause du résidu."
           }
         ],
         "note": "Étape 13 Loudenvielle → Peyragudes (10,9 km officiels, contre-la-montre individuel en montagne) — ascension finale de 1ʳᵉ catégorie (8 km à 7,9 %, jusqu'à 16 % dans les 2 derniers km) jusqu'à l'altiport de Peyragudes-Balestas. Aucun col curé en kind:\"col\" parmi les vias ici."
