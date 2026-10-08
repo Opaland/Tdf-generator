@@ -2771,9 +2771,9 @@
           },
           {
             "claim": "finish \"Hautacam\" géocodé en chaîne, pas pinné en objet",
-            "status": "OK",
-            "level": "haute",
-            "detail": "Vérifié avant curation (contrairement à l'étape 10/2025 « Le Mont-Dore ») : géocoder \"Hautacam\" seul résout à (42.9705197, -0.0049768, type winter_sports, provider nominatim) — à 595 m du dernier point du tracé GPX officiel (42.97451, -0.00985, altitude 1519 m, cohérente avec les « environ 1 520 m » cités par plusieurs sources pour l'arrivée). Aucun piège d'homonyme détecté ici, pas de pin nécessaire."
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "Première vérification faite avec geocode(\"Hautacam\") isolé (sans near) — ne reproduit pas le chemin réellement exercé par pipeline/generate.js, qui chaîne toujours near=waypoint précédent. Relecture adverse + run réel (import+génération, process isolé) ont montré que le waypoint finish réellement persisté en base résout via Géoplateforme (avec near) à \"Station de Hautacam\" (42.971721, -0.007942, type quartier, score 0.78) — à 347 m du dernier point du tracé GPX officiel (42.97451, -0.00985, 1519 m), donc en pratique un résultat correct, plus proche même que le POI \"sommet\" nommé (3125 m, hors ligne d'arrivée réelle). Mais isColQuery(\"Hautacam\") renvoie false (aucun mot-clé col/côte/mont/puy/station...), donc ce finish échappe au garde-fou \"recherche POI-only\" que pipeline/wikipedia.js applique aux arrivées au sommet reconnues (ex. \"L'Alpe d'Huez\") — contrairement à ce que suggère le commentaire de wikipedia.js. Le résultat est bon ici par chance de geocoding, pas par une protection structurelle ; aucun mécanisme de pin par lat/lon n'existe pour start/finish sur la branche non rebasée sur PR #305 (seul {label,region,country} est lu). Statut UNSURE : correct en pratique sur ce run, mais pas garanti robuste si le tracé/near différait."
           }
         ],
         "note": "Étape 12 Auch → Hautacam (180,6 km officiels) — étape de montagne avec Col du Soulor (1ʳᵉ catégorie), Col des Bordères (2ᵉ catégorie) et arrivée HC à Hautacam (13,5 km à 7,8 %, ~1 520 m). Aucun col curé en kind:\"col\" parmi les vias ici — rien ne garantit que les noms officiels des cols apparaîtront sur la page générée (detectClimbs() nomme les côtes depuis le seul profil altimétrique + géocodage inverse, jamais via wikipedia.js)."
