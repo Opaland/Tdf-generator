@@ -2618,6 +2618,157 @@
           }
         ],
         "note": "Étape 5 à Caen (33 km, contre-la-montre individuel) — tracé GPX officiel (cyclingstage.com, cdn.cyclingstage.com/.../2025/stage-5-route.gpx, distance mesurée : 33,0 km, cohérente avec les 33 km officiels) rééchantillonné tous les 2 km (pas resserré : 8 km laissait le routeur couper court sur une boucle de 33 km) en points de passage curés. Étape en circuit sans via curé au départ : reconstruction ~0 km avant ce correctif."
+      },
+      "10": {
+        "start": "Ennezat",
+        "finish": {
+          "label": "Le Mont-Dore",
+          "lat": 45.54207,
+          "lon": 2.81551
+        },
+        "vias": [
+          {
+            "label": "Tracé GPX km 4.0",
+            "kind": "via",
+            "lat": 45.90777,
+            "lon": 3.09466
+          },
+          {
+            "label": "Tracé GPX km 8.0",
+            "kind": "via",
+            "lat": 45.91953,
+            "lon": 3.05402
+          },
+          {
+            "label": "Tracé GPX km 16.0",
+            "kind": "via",
+            "lat": 45.91528,
+            "lon": 3.00441
+          },
+          {
+            "label": "Tracé GPX km 24.0",
+            "kind": "via",
+            "lat": 45.8956,
+            "lon": 3.05057
+          },
+          {
+            "label": "Tracé GPX km 32.0",
+            "kind": "via",
+            "lat": 45.86033,
+            "lon": 3.02317
+          },
+          {
+            "label": "Tracé GPX km 40.0",
+            "kind": "via",
+            "lat": 45.81587,
+            "lon": 3.03251
+          },
+          {
+            "label": "Tracé GPX km 48.0",
+            "kind": "via",
+            "lat": 45.78186,
+            "lon": 3.07154
+          },
+          {
+            "label": "Tracé GPX km 56.0",
+            "kind": "via",
+            "lat": 45.77125,
+            "lon": 3.0099
+          },
+          {
+            "label": "Tracé GPX km 64.0",
+            "kind": "via",
+            "lat": 45.75569,
+            "lon": 3.05197
+          },
+          {
+            "label": "Tracé GPX km 72.0",
+            "kind": "via",
+            "lat": 45.74848,
+            "lon": 3.05057
+          },
+          {
+            "label": "Tracé GPX km 80.0",
+            "kind": "via",
+            "lat": 45.72154,
+            "lon": 3.03421
+          },
+          {
+            "label": "Tracé GPX km 88.0",
+            "kind": "via",
+            "lat": 45.74236,
+            "lon": 2.97588
+          },
+          {
+            "label": "Tracé GPX km 96.0",
+            "kind": "via",
+            "lat": 45.72492,
+            "lon": 2.88473
+          },
+          {
+            "label": "Tracé GPX km 104.0",
+            "kind": "via",
+            "lat": 45.69399,
+            "lon": 2.81767
+          },
+          {
+            "label": "Tracé GPX km 112.0",
+            "kind": "via",
+            "lat": 45.63271,
+            "lon": 2.81502
+          },
+          {
+            "label": "Tracé GPX km 120.0",
+            "kind": "via",
+            "lat": 45.59018,
+            "lon": 2.82265
+          },
+          {
+            "label": "Tracé GPX km 128.0",
+            "kind": "via",
+            "lat": 45.58496,
+            "lon": 2.89193
+          },
+          {
+            "label": "Tracé GPX km 136.0",
+            "kind": "via",
+            "lat": 45.57539,
+            "lon": 2.93481
+          },
+          {
+            "label": "Tracé GPX km 144.0",
+            "kind": "via",
+            "lat": 45.54823,
+            "lon": 2.89561
+          },
+          {
+            "label": "Tracé GPX km 152.0",
+            "kind": "via",
+            "lat": 45.56127,
+            "lon": 2.86489
+          },
+          {
+            "label": "Tracé GPX km 160.0",
+            "kind": "via",
+            "lat": 45.57703,
+            "lon": 2.81282
+          }
+        ],
+        "confidence": [
+          {
+            "claim": "écart de distance de l'étape (généré 162,9 km vs officiel 165,3 km, -1,5 %)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "Tracé GPX officiel (cdn.cyclingstage.com/.../2025/stage-10-route.gpx, distance mesurée 165,45 km, cohérente avec les 165,3 km officiels) rééchantillonné tous les 8 km (21 points de passage + un km4.0 ajouté pour corriger un avertissement via-gap départ→premier point, 12,9 km à vol d'oiseau). Aucune autre entrée warn/fail après ce correctif."
+          },
+          {
+            "claim": "finish pinné en objet {label, lat, lon} plutôt qu'en chaîne",
+            "status": "FIX",
+            "level": "haute",
+            "detail": "La chaîne \"Le Mont-Dore\" géocode vers une commune de Nouvelle-Calédonie (lat -22.25, lon 166.57, depcode 98, score 0.95 — homonyme réel, piège identique aux cas San Marino/Monaco déjà documentés dans ce dépôt), pas la station auvergnate. Fix : dernier point du tracé GPX officiel (45.54207, 2.81551, altitude 1324 m), vérifié cohérent avec le sommet du Puy de Sancy (45.52833, 2.81417, 1886 m, source Wikipédia) — l'écart d'altitude et de position correspond à une arrivée « au pied » du sommet, pas au sommet lui-même, conforme aux sources décrivant l'ascension finale comme menant au pied du Puy de Sancy. Vérifié par run réel que le waypoint finish en base porte bien lat=45.54207/lon=2.81551 (pas les coordonnées néo-calédoniennes ignorées)."
+          }
+        ],
+        "note": "Étape 10 Ennezat → Le Mont-Dore (165,3 km officiels) — étape de montagne avec 7 côtes/cols classés (dont Côte de Loubeyrat, Côte de Guéry, Côte de la Croix Saint-Robert) et une arrivée en 2ᵉ catégorie au pied du Puy de Sancy (3,3 km à 8 %). Aucun curé en kind:\"col\" parmi les vias ici — rien ne garantit que les noms officiels des cols apparaîtront sur la page générée (detectClimbs() nomme les côtes depuis le seul profil altimétrique + géocodage inverse, jamais via wikipedia.js)."
       }
     }
   },
