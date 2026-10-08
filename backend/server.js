@@ -895,6 +895,19 @@ function tableColumns(db, table) {
   return db.prepare(`PRAGMA table_info(${table})`).all().map((c) => c.name);
 }
 
+// isBindable() ne vérifie que le type *bindable* par better-sqlite3
+// (string | number | bigint | null), jamais le type *sémantique* attendu par
+// la colonne SQLite elle-même. Une chaîne HTML dans une colonne REAL/INTEGER
+// (ex. climbs.summit_ele_m, climbs.length_km) passait donc cette garde et
+// s'écrivait telle quelle, ressortant non échappée dans les exports GPX/TCX/
+// KML/HTML et plusieurs sinks DOM frontend (trouvaille de revue adverse,
+// reproduite par exploitation réelle — voir CLAUDE.md règle 1 : fermer le
+// vecteur trouvé ne suffit pas, toute colonne numérique de toutes les tables
+// de sauvegarde est concernée, pas seulement climbs).
+function tableColumnTypes(db, table) {
+  return new Map(db.prepare(`PRAGMA table_info(${table})`).all().map((c) => [c.name, c.type]));
+}
+
 app.get('/api/backup/export', (req, res) => {
   const db = getDb();
   const tables = {};
@@ -928,6 +941,7 @@ app.post('/api/backup/import', (req, res) => {
     const rows = Array.isArray(body.tables[t]) ? body.tables[t] : [];
     if (!rows.length) { perTable[t] = { cols: [], rows: [] }; continue; }
     const allowed = new Set(tableColumns(db, t));
+    const colTypes = tableColumnTypes(db, t);
     const cols = Object.keys(rows[0]);
     for (const c of cols) {
       if (!allowed.has(c)) return res.status(400).json({ error: `${t}.${c} : colonne inconnue, fichier incompatible avec ce schéma` });
@@ -939,7 +953,12 @@ app.post('/api/backup/import', (req, res) => {
         return res.status(400).json({ error: `${t}[${i}] : colonnes incohérentes avec les autres lignes de cette table` });
       }
       for (const c of cols) {
-        if (!isBindable(row[c])) return res.status(400).json({ error: `${t}[${i}].${c} : type non pris en charge (${typeof row[c]})` });
+        const v = row[c];
+        if (!isBindable(v)) return res.status(400).json({ error: `${t}[${i}].${c} : type non pris en charge (${typeof v})` });
+        const declared = colTypes.get(c);
+        if (v !== null && (declared === 'REAL' || declared === 'INTEGER') && typeof v !== 'number' && typeof v !== 'bigint') {
+          return res.status(400).json({ error: `${t}[${i}].${c} : colonne numérique (${declared}), valeur reçue de type ${typeof v}` });
+        }
       }
     }
     perTable[t] = { cols, rows };

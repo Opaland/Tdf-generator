@@ -96,7 +96,7 @@ function overlaySVG(fa, fb, axis, alignStart) {
       .map((c) => {
         const xx = x(c.end_km * 1000, len);
         const s = pts.reduce((a, b) => (Math.abs(b.dist_m - c.end_km * 1000) < Math.abs(a.dist_m - c.end_km * 1000) ? b : a));
-        return `<circle cx="${xx.toFixed(1)}" cy="${y(s.ele_smooth_m).toFixed(1)}" r="4" fill="${color}" stroke="#fff" stroke-width="1.2"><title>${EF.esc(c.name)} (cat. ${c.category})</title></circle>`;
+        return `<circle cx="${xx.toFixed(1)}" cy="${y(s.ele_smooth_m).toFixed(1)}" r="4" fill="${color}" stroke="#fff" stroke-width="1.2"><title>${EF.esc(c.name)} (cat. ${EF.esc(c.category)})</title></circle>`;
       })
       .join('');
 
