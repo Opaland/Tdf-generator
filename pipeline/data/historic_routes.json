@@ -2390,6 +2390,171 @@
         "finish": "Mont Ventoux",
         "note": "Montpellier → Mont Ventoux (171,5 km), arrivée au sommet du Géant de Provence (15,7 km à 8,8 %, HC, 1 909 m)."
       },
+      "20": {
+        "start": "Nantua",
+        "finish": "Pontarlier",
+        "vias": [
+          {
+            "label": "Tracé GPX km 8.0",
+            "kind": "via",
+            "lat": 46.16734,
+            "lon": 5.71553
+          },
+          {
+            "label": "Tracé GPX km 16.1",
+            "kind": "via",
+            "lat": 46.22411,
+            "lon": 5.7438
+          },
+          {
+            "label": "Tracé GPX km 24.1",
+            "kind": "via",
+            "lat": 46.28259,
+            "lon": 5.79161
+          },
+          {
+            "label": "Tracé GPX km 32.2",
+            "kind": "via",
+            "lat": 46.34312,
+            "lon": 5.83118
+          },
+          {
+            "label": "Tracé GPX km 40.2",
+            "kind": "via",
+            "lat": 46.39634,
+            "lon": 5.86329
+          },
+          {
+            "label": "Tracé GPX km 48.2",
+            "kind": "via",
+            "lat": 46.457,
+            "lon": 5.87071
+          },
+          {
+            "label": "Tracé GPX km 56.3",
+            "kind": "via",
+            "lat": 46.5008,
+            "lon": 5.90704
+          },
+          {
+            "label": "Tracé GPX km 64.3",
+            "kind": "via",
+            "lat": 46.5495,
+            "lon": 5.91908
+          },
+          {
+            "label": "Tracé GPX km 72.4",
+            "kind": "via",
+            "lat": 46.59747,
+            "lon": 5.90179
+          },
+          {
+            "label": "Tracé GPX km 80.4",
+            "kind": "via",
+            "lat": 46.63617,
+            "lon": 5.91442
+          },
+          {
+            "label": "Tracé GPX km 88.4",
+            "kind": "via",
+            "lat": 46.68902,
+            "lon": 5.92994
+          },
+          {
+            "label": "Tracé GPX km 96.5",
+            "kind": "via",
+            "lat": 46.74877,
+            "lon": 5.90726
+          },
+          {
+            "label": "Tracé GPX km 104.5",
+            "kind": "via",
+            "lat": 46.81256,
+            "lon": 5.91462
+          },
+          {
+            "label": "Tracé GPX km 112.6",
+            "kind": "via",
+            "lat": 46.87823,
+            "lon": 5.90004
+          },
+          {
+            "label": "Tracé GPX km 120.6",
+            "kind": "via",
+            "lat": 46.9187,
+            "lon": 5.89704
+          },
+          {
+            "label": "Tracé GPX km 122.0",
+            "kind": "via",
+            "lat": 46.91766,
+            "lon": 5.91011
+          },
+          {
+            "label": "Tracé GPX km 124.0",
+            "kind": "via",
+            "lat": 46.91441,
+            "lon": 5.9272
+          },
+          {
+            "label": "Tracé GPX km 126.0",
+            "kind": "via",
+            "lat": 46.91989,
+            "lon": 5.9456
+          },
+          {
+            "label": "Tracé GPX km 128.6",
+            "kind": "via",
+            "lat": 46.92526,
+            "lon": 5.97507
+          },
+          {
+            "label": "Tracé GPX km 136.7",
+            "kind": "via",
+            "lat": 46.96669,
+            "lon": 6.03924
+          },
+          {
+            "label": "Tracé GPX km 144.7",
+            "kind": "via",
+            "lat": 47.01257,
+            "lon": 6.0757
+          },
+          {
+            "label": "Tracé GPX km 152.8",
+            "kind": "via",
+            "lat": 47.01991,
+            "lon": 6.16902
+          },
+          {
+            "label": "Tracé GPX km 160.8",
+            "kind": "via",
+            "lat": 47.01703,
+            "lon": 6.2317
+          },
+          {
+            "label": "Tracé GPX km 168.8",
+            "kind": "via",
+            "lat": 46.9682,
+            "lon": 6.23953
+          },
+          {
+            "label": "Tracé GPX km 176.9",
+            "kind": "via",
+            "lat": 46.92127,
+            "lon": 6.2966
+          }
+        ],
+        "confidence": [
+          {
+            "claim": "pas d'échantillonnage GPX 8 km suffisant pour la distance ; deux avertissements de rebroussement investigués, non résolus par la densification",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "tracé source : cdn.cyclingstage.com/images/tour-de-france/2025/stage-20-route.gpx (6906 points, longueur brute 184,9 km, cohérente avec les 184,2 km officiels — pas de signe de reroutage, contrairement à l'étape 19/2025). `scripts/calibrate-gpx-stage.js --steps 8,4` : pas=8km (22 vias) → généré 187,2 km, écart +1,7 %, OK ; pas=4km → +2,6 %, OK également mais pas plus grossier recommandé par l'outil. Pas=8km retenu. Deux avertissements de rebroussement sont apparus vers km 122,7-124,2 et km 125,5-126,7 (« Côte de Thésy, Jura »). Inspection du GPX brut dans cette zone : la latitude oscille sur une faible amplitude (46,91-46,93) pendant que la longitude progresse régulièrement — cohérent avec une route de montagne sinueuse (lacets), pas un aller-retour franc. Trois points supplémentaires ajoutés dans la zone (km 122,0/124,0/126,0, interpolés depuis le GPX brut) : AUCUN changement dans le résultat (mêmes avertissements, mêmes bornes km, même écart de distance +1,7 %) — même signature que l'étape 6/2025, où une densification locale identique n'avait rien changé non plus, signe qu'il s'agit d'une caractéristique réelle du terrain (vrais lacets) plutôt que d'un artefact d'échantillonnage. Non élevé à OK par prudence (pas de source tierce consultée pour confirmer un vrai lacet à cet endroit précis), mais pas traité comme un bug à corriger davantage non plus. Géocodage de départ/arrivée vérifié sur les waypoints réellement persistés : « Nantua » → municipalité Ain (depcode 01, score 0,99) et « Pontarlier » → municipalité Doubs (depcode 25, score 0,95), aucun homonyme."
+          }
+        ],
+        "note": "Nantua → Pontarlier (184,2 km, 26 juillet 2025). Étape vallonnée du Jura, avec une ascension notable vers la Côte de Thésy (Jura) avant l'arrivée à Pontarlier."
+      },
       "21": {
         "finish": "Paris",
         "vias": [
