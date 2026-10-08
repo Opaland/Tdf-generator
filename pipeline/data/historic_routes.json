@@ -2618,6 +2618,165 @@
           }
         ],
         "note": "Étape 5 à Caen (33 km, contre-la-montre individuel) — tracé GPX officiel (cyclingstage.com, cdn.cyclingstage.com/.../2025/stage-5-route.gpx, distance mesurée : 33,0 km, cohérente avec les 33 km officiels) rééchantillonné tous les 2 km (pas resserré : 8 km laissait le routeur couper court sur une boucle de 33 km) en points de passage curés. Étape en circuit sans via curé au départ : reconstruction ~0 km avant ce correctif."
+      },
+      "12": {
+        "start": "Auch",
+        "finish": "Hautacam",
+        "vias": [
+          {
+            "label": "Tracé GPX km 4.0",
+            "kind": "via",
+            "lat": 43.58515,
+            "lon": 0.54435
+          },
+          {
+            "label": "Tracé GPX km 8.0",
+            "kind": "via",
+            "lat": 43.56315,
+            "lon": 0.51363
+          },
+          {
+            "label": "Tracé GPX km 16.0",
+            "kind": "via",
+            "lat": 43.53365,
+            "lon": 0.43327
+          },
+          {
+            "label": "Tracé GPX km 24.0",
+            "kind": "via",
+            "lat": 43.4939,
+            "lon": 0.36888
+          },
+          {
+            "label": "Tracé GPX km 32.0",
+            "kind": "via",
+            "lat": 43.44598,
+            "lon": 0.31372
+          },
+          {
+            "label": "Tracé GPX km 40.0",
+            "kind": "via",
+            "lat": 43.41833,
+            "lon": 0.24122
+          },
+          {
+            "label": "Tracé GPX km 48.0",
+            "kind": "via",
+            "lat": 43.38879,
+            "lon": 0.15676
+          },
+          {
+            "label": "Tracé GPX km 56.0",
+            "kind": "via",
+            "lat": 43.38698,
+            "lon": 0.05937
+          },
+          {
+            "label": "Tracé GPX km 64.0",
+            "kind": "via",
+            "lat": 43.34409,
+            "lon": 0.00213
+          },
+          {
+            "label": "Tracé GPX km 72.0",
+            "kind": "via",
+            "lat": 43.28899,
+            "lon": -0.03988
+          },
+          {
+            "label": "Tracé GPX km 80.0",
+            "kind": "via",
+            "lat": 43.22588,
+            "lon": -0.0718
+          },
+          {
+            "label": "Tracé GPX km 88.0",
+            "kind": "via",
+            "lat": 43.18555,
+            "lon": -0.13274
+          },
+          {
+            "label": "Tracé GPX km 96.0",
+            "kind": "via",
+            "lat": 43.19101,
+            "lon": -0.21714
+          },
+          {
+            "label": "Tracé GPX km 104.0",
+            "kind": "via",
+            "lat": 43.14403,
+            "lon": -0.24299
+          },
+          {
+            "label": "Tracé GPX km 112.0",
+            "kind": "via",
+            "lat": 43.08546,
+            "lon": -0.25569
+          },
+          {
+            "label": "Tracé GPX km 120.0",
+            "kind": "via",
+            "lat": 43.02471,
+            "lon": -0.25613
+          },
+          {
+            "label": "Tracé GPX km 128.0",
+            "kind": "via",
+            "lat": 42.99224,
+            "lon": -0.27678
+          },
+          {
+            "label": "Tracé GPX km 136.0",
+            "kind": "via",
+            "lat": 42.96305,
+            "lon": -0.24111
+          },
+          {
+            "label": "Tracé GPX km 144.0",
+            "kind": "via",
+            "lat": 42.95012,
+            "lon": -0.20806
+          },
+          {
+            "label": "Tracé GPX km 152.0",
+            "kind": "via",
+            "lat": 42.96724,
+            "lon": -0.15475
+          },
+          {
+            "label": "Tracé GPX km 160.0",
+            "kind": "via",
+            "lat": 42.99492,
+            "lon": -0.12227
+          },
+          {
+            "label": "Tracé GPX km 168.0",
+            "kind": "via",
+            "lat": 42.99982,
+            "lon": -0.06287
+          },
+          {
+            "label": "Tracé GPX km 176.0",
+            "kind": "via",
+            "lat": 42.97924,
+            "lon": -0.02899
+          }
+        ],
+        "confidence": [
+          {
+            "claim": "écart de distance de l'étape (généré 183,2 km vs officiel 180,6 km, +1,4 %)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "Tracé GPX officiel (cdn.cyclingstage.com/.../2025/stage-12-route.gpx, distance mesurée 180,42 km, cohérente avec les 180,6 km officiels) rééchantillonné tous les 8 km (22 points de passage + un km4.0 ajouté pour corriger un avertissement via-gap départ→premier point, 12,1 km à vol d'oiseau). Aucune autre entrée warn/fail après ce correctif."
+          },
+          {
+            "claim": "finish \"Hautacam\" géocodé en chaîne, pas pinné en objet",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "Première vérification faite avec geocode(\"Hautacam\") isolé (sans near) — ne reproduit pas le chemin réellement exercé par pipeline/generate.js, qui chaîne toujours near=waypoint précédent. Relecture adverse + run réel (import+génération, process isolé) ont montré que le waypoint finish réellement persisté en base résout via Géoplateforme (avec near) à \"Station de Hautacam\" (42.971721, -0.007942, type quartier, score 0.78) — à 347 m du dernier point du tracé GPX officiel (42.97451, -0.00985, 1519 m), donc en pratique un résultat correct, plus proche même que le POI \"sommet\" nommé (3125 m, hors ligne d'arrivée réelle). Mais isColQuery(\"Hautacam\") renvoie false (aucun mot-clé col/côte/mont/puy/station...), donc ce finish échappe au garde-fou \"recherche POI-only\" que pipeline/wikipedia.js applique aux arrivées au sommet reconnues (ex. \"L'Alpe d'Huez\") — contrairement à ce que suggère le commentaire de wikipedia.js. Le résultat est bon ici par chance de geocoding, pas par une protection structurelle ; aucun mécanisme de pin par lat/lon n'existe pour start/finish sur la branche non rebasée sur PR #305 (seul {label,region,country} est lu). Statut UNSURE : correct en pratique sur ce run, mais pas garanti robuste si le tracé/near différait."
+          }
+        ],
+        "note": "Étape 12 Auch → Hautacam (180,6 km officiels) — étape de montagne avec Col du Soulor (1ʳᵉ catégorie), Col des Bordères (2ᵉ catégorie) et arrivée HC à Hautacam (13,5 km à 7,8 %, ~1 520 m). Aucun col curé en kind:\"col\" parmi les vias ici — rien ne garantit que les noms officiels des cols apparaîtront sur la page générée (detectClimbs() nomme les côtes depuis le seul profil altimétrique + géocodage inverse, jamais via wikipedia.js)."
       }
     }
   },
