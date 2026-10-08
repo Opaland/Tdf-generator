@@ -2390,6 +2390,157 @@
         "finish": "Mont Ventoux",
         "note": "Montpellier → Mont Ventoux (171,5 km), arrivée au sommet du Géant de Provence (15,7 km à 8,8 %, HC, 1 909 m)."
       },
+      "18": {
+        "start": "Vif",
+        "finish": {
+          "label": "Col de la Loze",
+          "lat": 45.407512,
+          "lon": 6.602731
+        },
+        "vias": [
+          {
+            "label": "Tracé GPX km 7.8",
+            "kind": "via",
+            "lat": 45.07544,
+            "lon": 5.76628
+          },
+          {
+            "label": "Tracé GPX km 15.6",
+            "kind": "via",
+            "lat": 45.05156,
+            "lon": 5.83395
+          },
+          {
+            "label": "Tracé GPX km 23.5",
+            "kind": "via",
+            "lat": 45.09133,
+            "lon": 5.90289
+          },
+          {
+            "label": "Tracé GPX km 31.3",
+            "kind": "via",
+            "lat": 45.11637,
+            "lon": 5.98835
+          },
+          {
+            "label": "Tracé GPX km 39.1",
+            "kind": "via",
+            "lat": 45.14367,
+            "lon": 6.05088
+          },
+          {
+            "label": "Tracé GPX km 46.9",
+            "kind": "via",
+            "lat": 45.20497,
+            "lon": 6.043
+          },
+          {
+            "label": "Tracé GPX km 54.8",
+            "kind": "via",
+            "lat": 45.20587,
+            "lon": 6.10335
+          },
+          {
+            "label": "Col du Glandon",
+            "kind": "col",
+            "lat": 45.23959,
+            "lon": 6.17556
+          },
+          {
+            "label": "Tracé GPX km 70.4",
+            "kind": "via",
+            "lat": 45.27953,
+            "lon": 6.2104
+          },
+          {
+            "label": "Tracé GPX km 78.2",
+            "kind": "via",
+            "lat": 45.31373,
+            "lon": 6.2652
+          },
+          {
+            "label": "Tracé GPX km 86.1",
+            "kind": "via",
+            "lat": 45.36143,
+            "lon": 6.30304
+          },
+          {
+            "label": "Tracé GPX km 93.9",
+            "kind": "via",
+            "lat": 45.39177,
+            "lon": 6.33602
+          },
+          {
+            "label": "Tracé GPX km 101.7",
+            "kind": "via",
+            "lat": 45.42437,
+            "lon": 6.36605
+          },
+          {
+            "label": "Col de la Madeleine",
+            "kind": "col",
+            "lat": 45.434905,
+            "lon": 6.37553
+          },
+          {
+            "label": "Tracé GPX km 109.5",
+            "kind": "via",
+            "lat": 45.45075,
+            "lon": 6.39678
+          },
+          {
+            "label": "Tracé GPX km 117.4",
+            "kind": "via",
+            "lat": 45.49064,
+            "lon": 6.42797
+          },
+          {
+            "label": "Tracé GPX km 125.2",
+            "kind": "via",
+            "lat": 45.53244,
+            "lon": 6.46302
+          },
+          {
+            "label": "Tracé GPX km 133.0",
+            "kind": "via",
+            "lat": 45.52061,
+            "lon": 6.48423
+          },
+          {
+            "label": "Tracé GPX km 140.8",
+            "kind": "via",
+            "lat": 45.47078,
+            "lon": 6.52739
+          },
+          {
+            "label": "Tracé GPX km 148.7",
+            "kind": "via",
+            "lat": 45.44306,
+            "lon": 6.60235
+          },
+          {
+            "label": "Tracé GPX km 156.5",
+            "kind": "via",
+            "lat": 45.42856,
+            "lon": 6.63305
+          },
+          {
+            "label": "Tracé GPX km 164.3",
+            "kind": "via",
+            "lat": 45.4102,
+            "lon": 6.63777
+          }
+        ],
+        "confidence": [
+          {
+            "claim": "pas d'échantillonnage GPX 8 km suffisant pour rester dans la tolérance, et les trois cols HC réellement franchis sont nommés",
+            "status": "FIX",
+            "level": "haute",
+            "detail": "tracé source : cdn.cyclingstage.com/images/tour-de-france/2025/stage-18-route.gpx (9620 points). `scripts/calibrate-gpx-stage.js --steps 8,4,2` : pas=8km (21 vias génériques) → généré 170,0 km, écart -0,9 %, OK ; pas=4km → +1,4 %, OK ; pas=2km → +4,3 %, OK — pas=8km retenu. Revue adverse : la curation initiale (vias génériques uniquement) laissait un faux négatif sur le contrôle qualité « cols déclarés » (aucun `kind:\"col\"` dans les waypoints), alors que le profil régénéré détectait une ascension HC de 20,75 km à 7,3 % culminant à 1991 m — à 2 m de l'altitude sourcée du Col de la Madeleine (known_cols.json, 1993 m) et à 1,39 km du tracé. Confirmé par une source indépendante (Wikipédia, page de l'édition 2025) : l'étape comporte bien trois ascensions hors catégorie — col du Glandon, col de la Madeleine, puis arrivée au sommet du col de la Loze. Les trois ont donc été nommées via `scripts/calibrate-gpx-stage.js --named-cols \"Col du Glandon,Col de la Madeleine,Col de la Loze\"` : Madeleine et Loze résolues depuis known_cols.json (snap 0,01 km du tracé), Glandon géocodé normalement (snap 0,00 km). Premier essai (Col de la Loze comme simple via avant un `finish:\"Courchevel\"` géocodé séparément) : 181,1 km, écart +5,6 %, OK, MAIS deux avertissements de rebroussement sont apparus entre le col pinné (2304 m) et le centroïde de la commune de Courchevel (45,399104/6,632705) — le routeur fait un vrai aller-retour entre les deux points, qui ne sont pas sur le même itinéraire direct. Corrigé en pinnant directement `finish` sur les coordonnées du col de la Loze (45,407512/6,602731, source known_cols.json/Wikipédia infobox, 2304 m) et en retirant le via « Col de la Loze » devenu redondant. Nécessite le correctif de PR #305 (`resolveViaCoords` ne lit les lat/lon d'un `finish` objet qu'après ce correctif) — branche rebasée dessus. Vérifié par régénération réelle sur cette branche rebasée : 175,3 km vs 171,5 km officiels, écart +2,2 %, OK, zéro avertissement de rebroussement ou via-gap (le pinning du finish a aussi amélioré l'écart par rapport au +5,6 % intermédiaire). Géocodage de « Vif » inchangé (municipalité Isère, score 0,98)."
+          }
+        ],
+        "note": "Vif → Courchevel (171,5 km, 24 juillet 2025). Étape de montagne dans le Beaumont, l'Oisans, la Combe de Savoie et la Tarentaise, avec trois ascensions hors catégorie : col du Glandon, col de la Madeleine (1993 m), puis arrivée au sommet du col de la Loze (2304 m), au-dessus de la station de Courchevel."
+      },
       "21": {
         "finish": "Paris",
         "vias": [
