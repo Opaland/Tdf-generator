@@ -485,9 +485,15 @@ test('reconstructionWaypoints : même classe de bug (near change le jeu de candi
     // géocodage en direct, qui fonctionne aujourd'hui uniquement parce que
     // near=Madeleine (désormais correct) suffit à orienter l'API vers le bon
     // candidat. Ce test verrouille l'état actuel, pas une garantie structurelle.
+    // `lat` vaut désormais `null` (pas `undefined`) depuis le correctif
+    // reconstructionWaypoints()/resolveViaCoords() pour start/finish (trouvaille
+    // Rimini, 2024 étape 1) : la clé est maintenant toujours posée (comme pour
+    // un via objet), simplement sans valeur faute de lat/lon curés ICI — ce
+    // correctif couvre un départ/arrivée curé en objet { label, lat, lon },
+    // pas le repli KNOWN_COLS, qui reste la lacune documentée ci-dessus.
     const finish = wps[wps.length - 1];
     assert.strictEqual(finish.label, 'Col de la Loze');
-    assert.strictEqual(finish.lat, undefined, 'le finish ne reçoit pas de lat/lon pré-rempli par KNOWN_COLS (lacune connue, pas ce correctif)');
+    assert.strictEqual(finish.lat, null, 'le finish ne reçoit pas de lat/lon pré-rempli par KNOWN_COLS (lacune connue, pas ce correctif)');
   }
 
   // 2023 étape 17 : Saint-Gervais Mont-Blanc → Col de la Loze → Courchevel
