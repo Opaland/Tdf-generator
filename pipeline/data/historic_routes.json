@@ -291,7 +291,7 @@
   },
   "1992": {
     "highlight": "Chiappucci s'échappe à 125 km de l'arrivée",
-    "notes": "Édition reconstruite depuis Wikipédia sans parcours curé dans son intégralité — seule l'étape reine 13 (Saint-Gervais-les-Bains → Sestriere) est curée ici. Trouvaille du 30/08/2026 (mission tracés historiques) : sans aucun point de passage curé, le trajet voiture direct calculé entre les deux villes traverse une zone de haute montagne franco-italienne où le profil d'altitude échantillonné produisait une « côte » aberrante (pente soutenue de 36 %, un artefact de routage/échantillonnage, pas une vraie route) faussement classée comme le point culminant de l'étape — le vrai col de l'Iseran, pourtant franchi ce jour-là, n'apparaissait nulle part. Points de passage sourcés (bikeraceinfo.com, liste des ascensions majeures de l'étape, recoupés avec les fiches Wikipédia françaises IGN de chaque col).",
+    "notes": "Note mise à jour le 28/09/2026 (série de curation « ±5 % », PR #240-265, certaines encore en cours de revue au moment de cette note — voir l'état réel de chaque étape ci-dessous plutôt que cette note pour le détail à jour) — remplace une version périmée qui affirmait que seule l'étape 13 était curée. 16 des 22 étapes ont fait l'objet d'une curation, sous l'une des deux formes suivantes : un tableau `vias` sourcé, ou — quand aucune source fiable n'a été trouvée — une entrée `confidence` documentant honnêtement le trou de couverture plutôt qu'un via inventé (0, 1, 2, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 17, 20, 21 — le détail par étape, y compris lesquelles ont un `vias` non vide, est vérifiable directement dans `stages`). Les 6 restantes (3, 5, 15, 16, 18, 19) n'ont pas eu besoin de curation : la reconstruction directe départ/arrivée tombe déjà dans la tolérance. Sourcing principal : bikeraceinfo.com (liste des ascensions majeures par étape) recoupé avec les fiches IGN de chaque col pour les étapes de montagne (dont l'étape reine 13, Saint-Gervais-les-Bains → Sestriere — trouvaille du 30/08/2026 : sans via, le trajet direct traversait une zone de haute montagne franco-italienne où un artefact de routage/échantillonnage produisait une « côte » à 36 % faussement classée point culminant, le vrai col de l'Iseran n'apparaissant nulle part). Pour le détail exact des sources et des vias de nécessité géographique explicitement non sourcés (documentés comme tels, jamais présentés comme une citation de road book), voir la `confidence` de chaque étape individuellement — ne pas se fier à des exemples cités ici, une première version de cette note en citait deux qui se sont révélés faux à la relecture (mauvaise année, mauvaise étape). L'étape 21 (circuit final des Champs-Élysées) reste structurellement limitée par l'absence d'un mécanisme de répétition de boucle (`laps`) dans le pipeline — voir issue #251, qui documente aussi 1975/22 dans le même cas ; ce n'est PAS le blocage de l'étape 1 (boucle San Sebastián, un seul passage), dont le statut UNSURE tient uniquement à un manque de sourcing sur l'essentiel du tracé. Le chiffre exact vérifié pour chaque étape est dans sa propre entrée `confidence`, pas répété ici pour éviter qu'il devienne périmé à son tour (cicatrice CLAUDE.md n°9 : 1905/2 et 1911/5 avaient déjà ce problème).",
     "stages": {
       "13": {
         "vias": [
@@ -1102,6 +1102,14 @@
           {
             "label": "Grand Ballon",
             "kind": "col"
+          },
+          {
+            "label": "Guebwiller",
+            "kind": "via"
+          },
+          {
+            "label": "Cernay",
+            "kind": "via"
           }
         ],
         "confidence": [
@@ -1109,7 +1117,7 @@
             "claim": "parcours Strasbourg → Mulhouse, 7 cols des Vosges",
             "status": "OK",
             "level": "haute",
-            "detail": "road book détaillé du km 0 au km 130 (Strasbourg → Schlucht), et les 7 cols/GPM confirmés par deux sources indépendantes (memoire-du-cyclisme + ledicodutour, catégories/altitudes cohérentes). Seul le tronçon Schlucht → Mulhouse (km 130-244, où se situe le Grand Ballon sans borne km précise) n'a pas de road book détaillé — Thann, cité par un résumé, n'a pas de source directe et a été écarté."
+            "detail": "road book détaillé du km 0 au km 130 (Strasbourg → Schlucht), et les 7 cols/GPM confirmés par deux sources indépendantes (memoire-du-cyclisme + ledicodutour, catégories/altitudes cohérentes). Seul le tronçon Schlucht → Mulhouse (km 130-244, où se situe le Grand Ballon sans borne km précise) n'a pas de road book détaillé — Thann, cité par un résumé, n'a pas de source directe et a été écarté. Complété le 25/09/2026 (audit ±5%) : sans aucun via sur ce tronçon, Grand Ballon → Mulhouse direct ne donnait que 37,5 km, alors que la note ci-dessus affirme elle-même le sommet « à plus de 50 km de l'arrivée » — incohérence interne révélant un vrai trou, pas une simple imprécision de routage. Testé Thann (repris de la source jugée insuffisante, résultat : seulement 43,4 km, toujours loin de 50 km — cohérent avec le rejet déjà motivé). Testé Guebwiller (ville réelle sur la descente directe du Grand Ballon vers la plaine, non citée par aucune source consultée) : 52,1 km, cohérent avec l'indice « plus de 50 km » de la note — ajouté comme repère géographique, pas une citation sourcée. Complété par Cernay (Haut-Rhin, ville réelle entre Guebwiller et Mulhouse, également non sourcée) pour finir de combler l'écart. Vérifié en régénération réelle du pipeline avec ces deux ajouts : 239,6 km pour 249,5 km officiels (-4,0 %), dans la tolérance ±5% comme ±10%."
           },
           {
             "claim": "« Côte de Le Bonhomme » détectée deux fois (1066 m et 1155 m), cols du Wettstein et de la Schlucht absents des côtes nommées",
@@ -1223,7 +1231,13 @@
             "claim": "zones de rebroussement détectées sur cette étape, dont un doublon Montgenèvre",
             "status": "OK",
             "level": "haute",
-            "detail": "balayage issue #194 : 5 zones détectées. Trouvaille substantielle — artefact confirmé (a), même mécanisme que Bonhomme (1992/11, issue #193) : deux zones km 20,3-22,3 et km 23,3-25,0 (3,75 km cumulés) encadrent le col de Montgenèvre (via alongM 22,8 km). Deux côtes sont détectées à cet endroit — « Côte de Montgenèvre » (sommet mesuré 1850 m, géocodage inverse) et « Col de Montgenèvre » (sommet mesuré 2013 m, rattachée au via) — vraisemblablement LE MÊME col détecté deux fois. L'altitude sourcée du col (voir `note` ci-dessus : 1860 m) correspond presque exactement à la 1re détection (1850 m, écart 10 m) et PAS à la 2e (2013 m, écart +153 m) : c'est ici la version rattachée au via, normalement la plus fiable, qui porte l'altitude faussée par le rebroussement — inverse de ce qu'on observe d'habitude. Deux autres zones distinctes, mal caractérisées dans une première version de cette entrée puis corrigées après relecture adverse : la zone km 115,8-121,5 (5,75 km) tombe en réalité ENTIÈREMENT dans la plage de la côte déjà détectée « Côte de Saint-Michel-de-Maurienne » (km 114,04-122,05, géocodage inverse — Saint-Michel-de-Maurienne est un via de type ville, pas un col, donc pas de rattachement possible) : sa longueur mesurée est donc probablement en grande partie un artefact de rebroussement plutôt qu'une vraie ascension, même schéma que la côte d'Ispéguy (étape 2) — classée (c), impact sur la longueur mesurée sans côte dupliquée. La zone km 122,8-128,5 (5,75 km), elle, tombe bien dans le grand vide sans via entre Saint-Michel-de-Maurienne (alongM 122,2 km) et Saint-Jean-de-Maurienne (alongM 143,3 km, 21 km d'écart) — cohérent avec le mécanisme documenté pour l'étape 9 (issue #192) : sans point de passage, BRouter improvise un tracé qui boucle, classée (b)/(c). Cohérent aussi avec l'écart de distance déjà en excès de cette étape (+20,2 %, 224,1 km générés pour 186,5 km officiels). Dernière zone (km 38,3-39,5, 1,25 km, près de Briançon, un via sans catégorie de col) sans côte concernée, classée (c). Pas de correctif de données proposé ici pour le doublon Montgenèvre : les deux cols sont réellement traversés par le tracé (même limite algorithmique que Bonhomme, hors périmètre d'un correctif de données — voir pipeline/climbs.js)."
+            "detail": "balayage issue #194 : 5 zones détectées. Trouvaille substantielle — artefact confirmé (a), même mécanisme que Bonhomme (1992/11, issue #193) : deux zones km 20,3-22,3 et km 23,3-25,0 (3,75 km cumulés) encadrent le col de Montgenèvre (via alongM 22,8 km). Deux côtes sont détectées à cet endroit — « Côte de Montgenèvre » (sommet mesuré 1850 m, géocodage inverse) et « Col de Montgenèvre » (sommet mesuré 2013 m, rattachée au via) — vraisemblablement LE MÊME col détecté deux fois. L'altitude sourcée du col (voir `note` ci-dessus : 1860 m) correspond presque exactement à la 1re détection (1850 m, écart 10 m) et PAS à la 2e (2013 m, écart +153 m) : c'est ici la version rattachée au via, normalement la plus fiable, qui porte l'altitude faussée par le rebroussement — inverse de ce qu'on observe d'habitude. Deux autres zones distinctes, mal caractérisées dans une première version de cette entrée puis corrigées après relecture adverse : la zone km 115,8-121,5 (5,75 km) tombe en réalité ENTIÈREMENT dans la plage de la côte déjà détectée « Côte de Saint-Michel-de-Maurienne » (km 114,04-122,05, géocodage inverse — Saint-Michel-de-Maurienne est un via de type ville, pas un col, donc pas de rattachement possible) : sa longueur mesurée est donc probablement en grande partie un artefact de rebroussement plutôt qu'une vraie ascension, même schéma que la côte d'Ispéguy (étape 2) — classée (c), impact sur la longueur mesurée sans côte dupliquée. La zone km 122,8-128,5 (5,75 km), elle, tombe bien dans le grand vide sans via entre Saint-Michel-de-Maurienne (alongM 122,2 km) et Saint-Jean-de-Maurienne (alongM 143,3 km, 21 km d'écart) — cohérent avec le mécanisme documenté pour l'étape 9 (issue #192) : sans point de passage, BRouter improvise un tracé qui boucle, classée (b)/(c). Cohérent aussi avec l'écart de distance déjà en excès de cette étape (+20,2 %, 224,1 km générés pour 186,5 km officiels). Hypothèse testée et non confirmée (même démarche que l'étape 9, issue #192, où l'hypothèse symétrique avait déjà été réfutée) : un via candidat réel et géographiquement plausible dans ce vide, Saint-Julien-Mont-Denis (village existant sur la D1006 entre les deux, géocodé 45,244046/6,425612), inséré à titre de test (jamais commité) ne change quasiment rien à la distance — Saint-Michel-de-Maurienne → Saint-Julien-Mont-Denis 15,73 km + Saint-Julien-Mont-Denis → Saint-Jean-de-Maurienne 8,96 km = 24,69 km, contre 24,14 km en direct (`routeLeg`), soit +554 m seulement (test via script, pas par PR — voir historique de session). Le tracé BRouter direct suit donc déjà, sans aide, un chemin proche de celui qui passerait par ce village : la zone de rebroussement km 122,8-128,5 n'est donc pas due à l'absence de ce via précis, et rien n'indique qu'un autre point intermédiaire ferait mieux sur ce tronçon — classée (c), pas de correctif proposé ici. Dernière zone (km 38,3-39,5, 1,25 km, près de Briançon, un via sans catégorie de col) sans côte concernée, classée (c). Pas de correctif de données proposé ici pour le doublon Montgenèvre : les deux cols sont réellement traversés par le tracé (même limite algorithmique que Bonhomme, hors périmètre d'un correctif de données — voir pipeline/climbs.js)."
+          },
+          {
+            "claim": "écart de distance +20,2 % (224,1 km / 186,5 km), au-delà même de l'ancienne tolérance ±10 %, non réductible par ajout de via testé",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "en plus du grand vide Saint-Michel-de-Maurienne → Saint-Jean-de-Maurienne (voir l'entrée ci-dessus), `checks.js` signale trois autres écarts de plus de 12 km sans point de passage intermédiaire : Briançon → Le Monêtier-les-Bains (14,6 km), Col du Galibier → Col du Télégraphe (15,7 km) et Col de la Croix de Fer → Le Bourg-d'Oisans (23,3 km, le plus grand des quatre) — aucun des trois ne tombe dans une zone de rebroussement détectée par le balayage issue #194 (contrairement au vide de Maurienne), donc pas de signal fort d'artefact BRouter à cet endroit précis. Testé quand même le plus grand des trois par géographie évidente (mêmes précédents que Langon/1903-4, Guebwiller-Cernay/1992-11) : Allemond, village réel sur la D926 entre le col et Le Bourg-d'Oisans (le road book source mentionne aussi Le Rivier-d'Allemont, non géocodé séparément — voir l'entrée confidence ci-dessus). Géocodage isolé du col lui-même (script de test, sans le contexte du pipeline) : sans biais `near` explicite, « Col de la Croix de Fer » retombe sur un homonyme dans le Tarn (dept 81, ~43,47/2,26) — même classe de risque qu'issue #248 (Lautaret). Ce risque ne se pose PAS pour le pipeline réel, mais pas grâce à un `near` bien choisi : `pipeline/data/known_cols.json` porte déjà des coordonnées curées pour ce col (45,227482/6,203515, ajoutées le 16/09/2026) qui court-circuitent tout géocodage en direct pour ce via (`resolveViaCoords()` dans wikipedia.js, avant que `generate.js` n'invoque le géocodage live) — contrairement à Lautaret (#248), qui n'a pas encore cette entrée et reste donc exposé au même risque. Avec le bon point (45,227/6,204, Savoie) : Croix de Fer → Bourg-d'Oisans direct 49,35 km ; Croix de Fer → Allemond 22,43 km + Allemond → Bourg-d'Oisans 28,77 km = 51,20 km, soit +1,85 km — dans le mauvais sens (aggrave légèrement l'excès plutôt que le réduire), cohérent avec l'absence de rebroussement détecté sur ce tronçon. Hypothèse « via manquant → excès de distance » donc non confirmée sur cette leg non plus, comme pour Saint-Julien-Mont-Denis ci-dessus. Aucun candidat testé n'explique la majeure partie des +37,6 km d'excès : le mystère reste entier au-delà de ce qui est déjà documenté (doublon Montgenèvre, artefact de côte Saint-Michel-de-Maurienne) — possibilité non vérifiée que le profil BRouter vélo (`fastbike`) choisisse systématiquement, sur ce terrain de haute montagne à lacets multiples (4 cols HC/GPM2 consécutifs), un tracé plus long que la distance de course officielle (motif déjà rencontré, non résolu, issue #243). Écart documenté honnêtement comme non réductible par les moyens déjà essayés, pas comme résolu."
           }
         ],
         "note": "Sestriere → Cesana Torinese → Clavière → col de Montgenèvre (GPM2, 1860 m, km 7,5) → Briançon (20) → Le Monêtier-les-Bains → col du Lautaret (46,5) → col du Galibier (HC, 2640 m, km 55, versant sud depuis Briançon/Lautaret) → col du Télégraphe (en descente, km 78) → Saint-Michel-de-Maurienne → Saint-Jean-de-Maurienne (ravitaillement, km 103) → Saint-Jean-d'Arves → Saint-Sorlin-d'Arves (124,5) → col de la Croix de Fer (HC, 2067 m — échappée décisive de Chiappucci formée ici) → Le Bourg-d'Oisans → Alpe d'Huez (HC, 186,5). Étape reine emblématique du Tour 1992. Sourcé : memoire-du-cyclisme.eu/eta_tdf_1990_1999 (road book officiel, ville par ville avec bornes km)/tdf1992_14.html (itinéraire km par km), ledicodutour.com/cols/cols_par_annees/cols_1992.html (catégories), lagrandeboucle.com/spip.php?article455 (Montgenèvre/Galibier-Lautaret/Croix de Fer/Alpe d'Huez, échappée décisive à la Croix de Fer)."
@@ -1250,45 +1264,89 @@
             "claim": "zones de rebroussement détectées sur cette étape",
             "status": "OK",
             "level": "haute",
-            "detail": "balayage issue #194 : 2 zones (km 64,0-66,7 et km 68,0-70,5, ~5,25 km cumulés) autour du via Confolent-Port-Dieu (km 67,3, une ville pas un col) — aucune côte concernée. Classé (c) : sans impact sur le nommage, étape déjà dans la tolérance de distance (178,5 km générés pour 189 km officiels, -5,6 %)."
+            "detail": "balayage issue #194 : 2 zones (km 64,0-66,7 et km 68,0-70,5, ~5,25 km cumulés) autour du via Confolent-Port-Dieu (km 67,3, une ville pas un col) — aucune côte concernée. Classé (c) : sans impact sur le nommage. Étape dans l'ancienne tolérance de distance ±10 % (178,5 km générés pour 189 km officiels, -5,6 %), mais PAS dans la cible d'audit ±5 % — voir l'entrée confidence suivante."
+          },
+          {
+            "claim": "écart de distance -5,6 % (178,5 km / 189 km), dans l'ancienne tolérance ±10 % mais hors de la cible d'audit ±5 %, aucun via supplémentaire ajouté",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "re-recherché (25/09/2026) : lagrandeboucle.com/spip.php?article458 (déjà cité comme seule source du point Confolent-Port-Dieu) renvoie HTTP 503 au moment de cette vérification — probablement temporaire, à reformuler en hypothèse plutôt qu'en fait (CLAUDE.md règle 9), non ré-essayé une deuxième fois pour ne pas insister sur un service indisponible. en.wikipedia.org (page « 1992 Tour de France, Stage 11 to Stage 21 »), ledicodutour.com (page ville-étape La Bourboule) et une recherche générale (forum vélo-club, etc.) ne donnent aucun détail de parcours au-delà de ce qui est déjà dans la `note`. Contrairement aux précédents où un point intermédiaire était géographiquement nécessaire (une seule route de vallée ou de col plausible — Langon/1903-4, Guebwiller-Cernay/1992-11, Waremme-Visé-Maastricht-Gulpen/1992-7), le grand vide non sourcé ici (Confolent-Port-Dieu → Montluçon, ~90 km à vol d'oiseau à travers un relief vallonné du Puy-de-Dôme/Allier, PAS un col ou une vallée resserrée) n'a pas de corridor unique évident : à titre illustratif, non vérifié par géocodage au moment de la rédaction (Pontaumur, Herment, Giat) semblaient plausibles sans qu'aucune ne s'impose plus qu'une autre — Néris-les-Bains, cité initialement dans la même liste, en a été retiré après relecture adverse : à ~7 km de Montluçon elle n'est pas un point médian du vide comme les trois autres (24-39 km du départ du vide) mais une entrée d'agglomération, pas comparable. En ajouter une reviendrait à choisir arbitrairement un point pour faire remonter la distance au-dessus du seuil, pas à corriger une inexactitude géographique identifiée. Aucun via ajouté ici pour cette raison : l'écart -5,6 % reste documenté honnêtement comme non réductible par les moyens déjà essayés, pas comme résolu ni comme nécessitant une invention de tracé."
           }
         ],
         "note": "La Bourboule → [boucle sud-ouest non détaillée, direction Bort-les-Orgues] → côte de Confolent-Port-Dieu (Corrèze, descente où le maillot jaune reprend Stephens, dans les 50 premiers km) → [reste du tracé vers Montluçon non sourcé] → Montluçon (189 km). Sourcé : lagrandeboucle.com/spip.php?article458 (seul point confirmé)."
       },
       "20": {
-        "vias": [],
+        "vias": [
+          { "label": "Pontijou", "kind": "via" },
+          { "label": "Oucques", "kind": "via" },
+          { "label": "Moisy", "kind": "via" },
+          { "label": "La Ferté-Villeneuil", "kind": "via" },
+          { "label": "Châteaudun", "kind": "via" },
+          { "label": "Varize", "kind": "via" },
+          { "label": "Cormainville", "kind": "via" },
+          { "label": "Villars", "kind": "via" },
+          { "label": "Boncé", "kind": "via" },
+          { "label": "Dammarie", "kind": "via" },
+          { "label": "Chartres", "kind": "via" },
+          { "label": "Coltainville", "kind": "via" },
+          { "label": "Gallardon", "kind": "via" },
+          { "label": "Épernon", "kind": "via" },
+          { "label": "Poigny-la-Forêt", "kind": "via" },
+          { "label": "Montfort-l'Amaury", "kind": "via" },
+          { "label": "Boissy-sans-Avoir", "kind": "via" },
+          { "label": "Beynes", "kind": "via" },
+          { "label": "Saint-Nom-la-Bretèche", "kind": "via" },
+          { "label": "Marly-le-Roi", "kind": "via" }
+        ],
         "confidence": [
           {
-            "claim": "parcours Blois → Nanterre",
-            "status": "UNSURE",
-            "level": "basse",
-            "detail": "aucun point de passage intermédiaire trouvé avec une source directe (road book de cette étape non indexé/inaccessible). Seul le départ (avenue Wilson, Blois) est confirmé. Rambouillet/Chevreuse/Versailles sont géographiquement plausibles sur un tel trajet mais n'ont PAS été trouvés dans une source fiable — volontairement absents plutôt qu'inventés. Étape non curée pour cette raison, laissée telle quelle en attendant une source."
+            "claim": "parcours Blois → Nanterre, liste complète des 20 vias",
+            "status": "OK",
+            "level": "haute",
+            "detail": "trouvaille du 26/09/2026 : le road book textuel (memoire-du-cyclisme.eu/.org, lagrandeboucle.com) reste inaccessible (503/404 au moment de cette recherche), mais ledicodutour.com/etapes/etapes_par_annees/etapes_1987_1996/etapes_1992.html embarque le profil officiel de l'étape en image (images/cartes_etapes/1987_1996/1992/92_20.jpg) — un profil altimétrique avec CHAQUE ville-repère et son kilomètre exact, format identique à un road book classique, déjà le type de source utilisé pour d'autres étapes 1992 (ex. memoire-du-cyclisme pour 1992/7, 1992/8, 1992/9). Image téléchargée et lue directement (agrandissement 6-12x pour lisibilité) : Blois (0, départ) → Pontijou (14) → Oucques (23, sprint) → Moisy (35) → La Ferté-Villeneuil (43) → Châteaudun (54) → Varize (68) → Cormainville (76,5) → Villars (88,5) → Boncé (98) → Dammarie (102, ravitaillement) → Chartres (114,5) → Coltainville (123) → Gallardon (132,5) → Épernon (142) → Poigny-la-Forêt (154) → Montfort-l'Amaury (166,5) → Boissy-sans-Avoir (176) → Beynes (187) → Saint-Nom-la-Bretèche (199,5, sprint) → Marly-le-Roi (210) → Nanterre (222, arrivée). Les transitions de département affichées sur le profil (Loir-et-Cher → Eure-et-Loir → Yvelines → Hauts-de-Seine) correspondent exactement aux départements retournés par le géocodage réel de chacune des 20 villes (respectivement dept 41, 28, 28, 78), dans l'ordre, sans aucune incohérence — élément de vérification indépendant fort. Chaque via géocodé avec un biais `near` chaîné sur la ville précédente (en partant de Blois) pour éviter tout risque d'homonyme ; aucun score de géocodage suspect (0,71 à 1,0). Relecture adverse (28/09/2026, pipeline réel relancé en process isolé) : deux corrections à cette affirmation initiale — (1) ce ne sont pas 19 mais bien 20 vias (erreur de comptage répétée dans le commit d'origine, sans conséquence sur les données elles-mêmes) ; (2) « toutes résolues en municipality sauf Pontijou » était inexact, La Ferté-Villeneuil résout aussi en `type: street` (rue de Cloyes-les-Trois-Rivières, score 0,71) plutôt qu'en lieu-dit — écart de ~357 m par rapport au vrai hameau selon une requête Géoplateforme sans biais, négligeable à l'échelle de l'étape mais non signalé initialement. Risque d'homonymie testé explicitement par la relecture pour \"Villars\" (candidat homonyme dept 42/Loire mieux classé que le bon dept 28 sans biais `near`) : confirmé réel en théorie, mais neutralisé en production par le chaînage `near` de `pipeline/generate.js`, vérifié en relançant `generateStage` en conditions réelles (résultat correct, dept 28, coordonnées attendues)."
+          },
+          {
+            "claim": "écart de distance avec les 20 vias sourcés : +6,0 % (235,3 km / 222 km)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "vérifié via le pipeline réel (`importEdition` + `generateStage`, lecture de `checks.distance.status` en base) : 235,3 km générés pour 222 km officiels, +6,0 %, `status: \"ok\"` (dans l'ancienne tolérance ±10 %) — amélioration nette depuis -17,5 % (183,1 km) avant l'ajout de ces 20 vias, chiffres re-confirmés indépendamment par relecture adverse (régénération réelle avec/sans vias en process isolé). Dépasse encore très légèrement la cible d'audit ±5 %, mais aucun via supplémentaire sourcé ne peut réduire cet écart : la liste des 20 villes ci-dessus est déjà exhaustive par rapport à la source (le profil ne nomme aucune autre ville-repère), et un via de plus rallongerait le tracé (déjà en excès) plutôt que de le raccourcir. `checks.js` signale 3 écarts >12 km sans via intermédiaire (Blois→Pontijou 17,6 km ; Châteaudun→Varize 14,7 km ; Dammarie→Chartres 12,3 km) — attendu pour un profil qui n'indique qu'une ville-repère par tronçon d'une dizaine de km, pas un road book exhaustif ville par ville ; aucune zone de rebroussement détectée sur cette étape (balayage non effectué séparément ici, mais `checks.distance.status` déjà \"ok\" et aucun signal `backtrack-*` dans les items retournés). +6,0 % documenté honnêtement comme le résultat final obtenu avec la meilleure source trouvée, pas comme un ±5% strict."
           }
         ],
-        "note": "Blois (départ avenue Wilson, confirmé par ledicodutour.com/villes-etapes/villes_etapes_b/blois.html et archives.blois.fr) → Nanterre (222 km). Aucun point de passage intermédiaire sourcé à ce jour — reconstruction non fiable, à compléter."
+        "note": "Blois (départ avenue Wilson, confirmé par ledicodutour.com/villes-etapes/villes_etapes_b/blois.html et archives.blois.fr) → Pontijou → Oucques (sprint, km 23) → Moisy → La Ferté-Villeneuil → Châteaudun (54) → Varize → Cormainville → Villars → Boncé → Dammarie (ravitaillement, km 102) → Chartres (114,5) → Coltainville → Gallardon → Épernon → Poigny-la-Forêt → Montfort-l'Amaury → Boissy-sans-Avoir → Beynes → Saint-Nom-la-Bretèche (sprint, km 199,5) → Marly-le-Roi → Nanterre (222 km). Sourcé : ledicodutour.com/etapes/etapes_par_annees/etapes_1987_1996/etapes_1992.html (profil officiel de l'étape, image 92_20.jpg, ville par ville avec bornes km)."
       },
       "21": {
         "vias": [
-          {
-            "label": "Vallée de Chevreuse",
-            "kind": "via"
-          }
+          { "label": "Chatou", "kind": "via" },
+          { "label": "Bougival", "kind": "col" },
+          { "label": "Montigny-le-Bretonneux", "kind": "via" },
+          { "label": "Chevreuse", "kind": "via" },
+          { "label": "Saint-Rémy-lès-Chevreuse", "kind": "col" },
+          { "label": "Châteaufort", "kind": "col" },
+          { "label": "Versailles", "kind": "via" },
+          { "label": "Issy-les-Moulineaux", "kind": "via" },
+          { "label": "Place de la Concorde, Paris", "kind": "via" },
+          { "label": "Petit Palais, Paris", "kind": "via", "lat": 48.866013, "lon": 2.314966 },
+          { "label": "Rond-point des Champs-Élysées, Paris", "kind": "via" },
+          { "label": "Rue Arsène-Houssaye, Paris", "kind": "via" },
+          { "label": "Cours-la-Reine, Paris", "kind": "via" },
+          { "label": "Tunnel du Général-Lemonnier, Paris", "kind": "via" },
+          { "label": "Rue de Rivoli, Paris", "kind": "via" }
         ],
         "confidence": [
           {
-            "claim": "circuit final des Champs-Élysées (10 tours)",
-            "status": "OK",
-            "level": "haute",
-            "detail": "tracé du circuit des Champs-Élysées confirmé inchangé de 1975 à 2012 (avant le passage par la place Charles-de-Gaulle introduit en 2013) : Wikipédia français, article dédié « Étape des Champs-Élysées du Tour de France ». 10 tours × 6,5 km = 65 km, cohérent avec 141 km générés moins ~76 km d'approche."
-          },
-          {
-            "claim": "parcours d'approche La Défense → Paris (~76 km avant le circuit)",
+            "claim": "circuit final des Champs-Élysées (10 tours), un seul tour représentable",
             "status": "UNSURE",
             "level": "basse",
-            "detail": "seule la traversée de la « vallée de Chevreuse » est sourcée (lagrandeboucle.com/spip.php?article462), sans nom de commune précis — la reconstruction du parcours d'approche (76 km) reste approximative."
+            "detail": "tracé du circuit des Champs-Élysées confirmé inchangé de 1975 à 2012 (avant le passage par la place Charles-de-Gaulle introduit en 2013) : Wikipédia français, article dédié « Étape des Champs-Élysées du Tour de France » ; profil officiel ledicodutour.com (images/cartes_etapes/1987_1996/1992/92_21.jpg) confirme 10 « passages » espacés d'environ 6,5 km entre le km 78,5 et le km 135, avant l'arrivée au km 141 — cohérent avec 10 tours × 6,5 km = 65 km. Limitation structurelle déjà documentée pour 1975/22 (issue #251, aucun mécanisme `laps` dans l'app) : les vias ci-dessus ne tracent qu'UN SEUL tour du circuit (Petit Palais → rond-point → demi-tour rue Arsène-Houssaye → Cours-la-Reine → tunnel du Général-Lemonnier → rue de Rivoli), pas les 10 — ajouté pour que le tracé emprunte au moins une fois la vraie avenue d'arrivée plutôt que de s'arrêter à un point générique de Paris, mais ~58,5 km du circuit (9 tours sur 10) restent structurellement non représentables. `status: UNSURE` reflète cette limitation, pas un doute sur le tracé lui-même (haute confiance sur l'ordre et les rues, voir sources). Vérifié via le pipeline réel (`importEdition` + `generateStage`) : 89,8 km générés pour 141 km officiels, -36,3 % (`status: \"fail\"`, chiffre re-vérifié après le correctif de coordonnées du via Petit Palais ci-dessous) — nette amélioration depuis -82,2 % (25,2 km) avant cette curation, écart résiduel cohérent avec les ~58,5 km de tours manquants (89,8 + 58,5 ≈ 148, proche des 141 km officiels compte tenu de la marge de routage habituelle). Écart non réductible sans la fonctionnalité `laps` (issue #251), documenté honnêtement plutôt que forcé dans la tolérance. Relecture adverse (28/09/2026, pipeline réel relancé en conditions réelles) : le via « Petit Palais, Paris » se géocodait en réalité vers le Palais Bourbon (Assemblée nationale, rive gauche, ~500 m du vrai Petit Palais) — `pickFeature()` ne trouve aucun candidat de type commune pour cette requête (POI seulement), donc avec un `near` fourni la sélection se fait par pure proximité au waypoint précédent (Concorde) plutôt que par pertinence du nom, et Palais Bourbon s'est trouvé ~100 m plus proche. Corrigé par coordonnées explicites (`lat`/`lon` sur le via, mécanisme déjà utilisé ailleurs dans ce fichier pour Col du Télégraphe/known_cols.json) : 48,866013/2,314966, le vrai Petit Palais, vérifié indépendamment par requête Géoplateforme sans biais `near`. Les 5 autres vias du tour de circuit (rond-point, rue Arsène-Houssaye, Cours-la-Reine, tunnel du Général-Lemonnier, rue de Rivoli) ont été vérifiés tomber à des coordonnées cohérentes avec le lieu réel désigné, aucun autre correctif nécessaire. Altitudes/km des 3 GPM4 et des 10 passages du circuit re-vérifiés indépendamment sur l'image source par la relecture, exacts."
+          },
+          {
+            "claim": "parcours d'approche La Défense → Paris (~76 km avant le circuit), 9 vias sourcés",
+            "status": "OK",
+            "level": "haute",
+            "detail": "trouvaille du 28/09/2026 : le profil officiel de l'étape (ledicodutour.com, image 92_21.jpg, même type de source que 1992/20) détaille l'intégralité de l'approche avec villes et cols catégorisés : Chatou (8) → Côte de Bougival (17, GPM4, 200 m) → Montigny-le-Bretonneux (29,5, sprint) → Chevreuse (41,5) → Côte de Saint-Rémy-lès-Chevreuse (45, GPM4, 180 m) → Côte de Châteaufort (49, GPM4, 160 m) → Versailles (58,5) → Issy-les-Moulineaux (68) → Place de la Concorde (78, entrée dans Paris). Remplace l'ancien via unique et vague « Vallée de Chevreuse » (lagrandeboucle.com/spip.php?article462, sans nom de commune exploitable). Chaque ville géocodée avec un biais `near` chaîné ; aucune résolution suspecte (scores 0,90-0,97, tous dans les bons départements 78/92/75, transition Yvelines→Hauts-de-Seine→Seine cohérente avec le profil)."
           }
         ],
-        "note": "La Défense → traversée de la vallée de Chevreuse (~76 km, non détaillée) → Paris, 10 tours du circuit historique des Champs-Élysées (inchangé 1975-2012, PAS de passage par la place Charles-de-Gaulle/Arc de Triomphe — le demi-tour se fait rue Arsène-Houssaye) : Petit Palais → Champs-Élysées → rond-point → demi-tour rue Arsène-Houssaye → place de la Concorde → Cours-la-Reine → tunnel du Général-Lemonnier → rue de Rivoli → 2e passage Concorde → arrivée Champs-Élysées (boucle de 6,5 km). Sourcé : fr.wikipedia.org/wiki/Étape_des_Champs-Élysées_du_Tour_de_France, lagrandeboucle.com/spip.php?article462 (10 tours, attaque d'Ekimov)."
+        "note": "La Défense → Chatou → Côte de Bougival (GPM4) → Montigny-le-Bretonneux (sprint) → Chevreuse → Côte de Saint-Rémy-lès-Chevreuse (GPM4) → Côte de Châteaufort (GPM4) → Versailles → Issy-les-Moulineaux → Place de la Concorde (km 78) → 10 tours du circuit historique des Champs-Élysées (inchangé 1975-2012, PAS de passage par la place Charles-de-Gaulle/Arc de Triomphe — le demi-tour se fait rue Arsène-Houssaye) : Petit Palais → Champs-Élysées → rond-point → demi-tour rue Arsène-Houssaye → place de la Concorde → Cours-la-Reine → tunnel du Général-Lemonnier → rue de Rivoli → 2e passage Concorde → arrivée Champs-Élysées (boucle de 6,5 km, un seul tour tracé dans les vias, 9 non représentables — voir confidence). Sourcé : ledicodutour.com/etapes/etapes_par_annees/etapes_1987_1996/etapes_1992.html (profil officiel, image 92_21.jpg), fr.wikipedia.org/wiki/Étape_des_Champs-Élysées_du_Tour_de_France, lagrandeboucle.com/spip.php?article462 (10 tours, attaque d'Ekimov)."
       }
     }
   },
@@ -1297,79 +1355,236 @@
     "notes": "Édition entièrement reconstruite depuis Wikipédia sans aucune curation avant ce correctif (issue #188, trouvaille de l'audit du 08/09/2026) : 13 des 21 étapes affichaient un écart de distance hors tolérance (±10 %), toutes imputables à cette absence de points de passage plutôt qu'à des bugs indépendants. Cols/côtes sourcés : bikeraceinfo.com (« The rated climbs », liste et kilométrage par étape — même source déjà utilisée pour curer le Tour 1992). Recoupement du calendrier et des distances officielles : Wikipédia (anglais, « 2002 Tour de France, Prologue to Stage 10 » et « Stage 11 to Stage 20 ») et ledicodutour.com. L'étape 9 (Lanester → Lorient) était documentée comme une hypothèse de contre-la-montre PAR ÉQUIPES dans l'audit initial (issue #189) — infirmé ici par recoupement de trois sources indépendantes (Wikipédia FR « 9e étape du Tour de France 2002 », procyclingstats.com, lorientlejour.com) : c'était un contre-la-montre INDIVIDUEL, remporté par Santiago Botero devant Armstrong (11 s). Restent sans point de passage sourcé, documentés comme trous de couverture volontairement non comblés plutôt qu'inventés : le prologue (étape 0), l'étape 4 (CLM par équipes Épernay → Château-Thierry), le tracé exact de l'étape 9, et la majorité de l'approche Melun → Paris de l'étape 20.",
     "stages": {
       "0": {
+        "start": { "label": "La Porte Neuve, Luxembourg", "country": "luxembourg" },
+        "finish": { "label": "La Porte Neuve, Luxembourg", "country": "luxembourg" },
+        "vias": [
+          { "label": "Rue Vauban, Luxembourg", "kind": "via", "country": "luxembourg" },
+          { "label": "Grund, Luxembourg", "kind": "via", "country": "luxembourg" },
+          { "label": "Avenue de la Liberté, Luxembourg", "kind": "via", "country": "luxembourg" }
+        ],
         "confidence": [
           {
             "claim": "points de passage du prologue (rues/quartier de Luxembourg-Ville)",
-            "status": "UNSURE",
-            "level": "basse",
-            "detail": "aucune source consultée ne nomme de rue ou de quartier pour ce contre-la-montre individuel de 7 km (Wikipédia FR et EN : section parcours vide ; bikeraceinfo.com mentionne une « côte cat.4 à 5,3 km » sans nom exploitable pour le géocodage). Trou de couverture non comblé plutôt qu'inventé."
+            "status": "OK",
+            "level": "haute",
+            "detail": "trouvaille du 28/09/2026 : ledicodutour.com/etapes/etapes_par_annees/etapes_1997_2006/etapes_2002.html embarque un plan de circuit détaillé du prologue (images/cartes_etapes/2002/2002-00.gif) — carte des rues de Luxembourg-Ville avec le tracé complet et 3 bornes kilométriques. Départ/arrivée à La Porte Neuve, boucle par Rue Vauban/quartier Pfaffenthal (km 2), quartier du Grund (km 4), Avenue de la Liberté/quartier Centrum (km 6), retour à La Porte Neuve. Les 3 points intermédiaires géocodés via Nominatim (aucune couverture Géoplateforme pour le Luxembourg — cohérent avec les autres vias luxembourgeois déjà présents dans ce fichier, ex. 2002/1), restreints au pays via `countrycodes=lu` (`country_hint: \"luxembourg\"`) — ce chemin de code n'applique aucun biais `near`/proximité, contrairement à la Géoplateforme ; c'est la restriction pays qui exclut tout homonyme français/belge (\"Rue Vauban\" existe ailleurs), pas une proximité géographique. Tous dans un rayon de 2 km, cohérent avec une boucle urbaine de 7 km."
+          },
+          {
+            "claim": "écart de distance avec les 3 vias sourcés",
+            "status": "OK",
+            "level": "haute",
+            "detail": "vérifié via le pipeline réel (`importEdition` + `generateStage`) après curation complète (3 vias + départ/arrivée explicites) : 6,4 km générés pour 7 km officiels, -8,9 % (`status: \"ok\"`, ancienne tolérance ±10 %) — nette amélioration depuis la reconstruction quasi nulle (départ=arrivée sans via, ~0,1 km) précédant cette curation. Dépasse encore très légèrement la cible d'audit ±5 %, plausible pour un tracé urbain reconstruit à partir de 3 bornes kilométriques plutôt qu'un road book rue par rue complet — aucun via supplémentaire disponible dans la source. Trouvaille annexe en rejouant le pipeline réel : le libellé brut Wikipédia « Luxembourg City » géocode (Nominatim) sur le centroïde administratif du PAYS (49,8159/6,1297, à ~22 km au nord de la ville), gonflant l'étape à 56,8 km générés (+710,8 %) malgré les 3 vias corrects. Départ/arrivée curés explicitement en « La Porte Neuve, Luxembourg » (49,6159/6,1267, le point de départ réel indiqué par le plan de circuit) pour corriger ce point précis — pas un problème des vias eux-mêmes."
           }
         ],
-        "note": "Prologue individuel à Luxembourg-Ville (7 km, 6 juillet 2002), remporté par Lance Armstrong. Un col de 4e catégorie est franchi au km 5,3 (bikeraceinfo.com) mais sans nom exploitable pour un point de passage. Aucun point de passage sourcé : la reconstruction reste un simple aller direct (départ=arrivée, quasi nulle) en attendant une source détaillant le tracé réel dans la ville."
+        "note": "Prologue individuel à Luxembourg-Ville (7 km, 6 juillet 2002), remporté par Lance Armstrong. Un col de 4e catégorie est franchi au km 5,3 (bikeraceinfo.com) mais sans nom exploitable pour un point de passage. Boucle départ/arrivée à La Porte Neuve, par Rue Vauban/Pfaffenthal (km 2), le Grund (km 4), Avenue de la Liberté/Centrum (km 6). Sourcé : ledicodutour.com/etapes/etapes_par_annees/etapes_1997_2006/etapes_2002.html (plan de circuit détaillé, image 2002-00.gif)."
       },
       "1": {
+        "start": { "label": "Luxembourg-Ville", "country": "luxembourg" },
+        "finish": { "label": "Luxembourg-Ville", "country": "luxembourg" },
         "vias": [
+          { "label": "Tuntange", "kind": "via", "country": "luxembourg" },
+          { "label": "Colmar-Berg", "kind": "via", "country": "luxembourg" },
+          { "label": "Heiderscheid", "kind": "via", "country": "luxembourg" },
           { "label": "Hoscheid", "kind": "col", "country": "luxembourg" },
           { "label": "Vianden", "kind": "col", "country": "luxembourg" },
+          { "label": "Bettendorf", "kind": "via", "country": "luxembourg" },
+          { "label": "Echternach", "kind": "via", "country": "luxembourg" },
+          { "label": "Mertert", "kind": "via", "country": "luxembourg" },
           { "label": "Wormeldange", "kind": "col", "country": "luxembourg" },
+          { "label": "Remich", "kind": "via", "country": "luxembourg" },
           { "label": "Hostert", "kind": "col", "country": "luxembourg" }
         ],
         "confidence": [
           {
             "claim": "parcours complet de la boucle autour de Luxembourg-Ville (192,5 km)",
-            "status": "UNSURE",
-            "level": "moyenne",
-            "detail": "seuls les 4 cols classés sont sourcés (bikeraceinfo.com, kilométrage km 69,5/87,0/148,5/182,0) — le tracé entre eux reste une reconstruction du routeur, pas un road book complet."
+            "status": "OK",
+            "level": "haute",
+            "detail": "trouvaille du 28/09/2026 : ledicodutour.com/etapes/etapes_par_annees/etapes_1997_2006/etapes_2002.html embarque le profil altimétrique complet de l'étape (images/cartes_etapes/2002/2002-1a.jpg), avec chaque ville-repère et son kilomètre — même type de source que pour 1992/20 et 1992/21. Ajoute 7 villes réelles entre les 4 cols déjà sourcés (bikeraceinfo.com, kilométrage inchangé) : Tuntange → Colmar-Berg → Heiderscheid → [Côte de Hoscheid] → [Côte de Vianden] → Bettendorf → Echternach → Mertert → [Côte de Wormeldange] → Remich → [Côte de Hostert] → retour Luxembourg — cohérent avec une boucle complète autour du pays (NW puis NE puis SE puis S puis retour), confirmé géographiquement par les coordonnées réelles de chaque ville, toutes dans la bounding box du Luxembourg — le garde-fou réel n'est pas un biais `near` (ce chemin de code, Nominatim, n'en applique aucun, contrairement à la Géoplateforme — même trouvaille déjà documentée pour 2002/0) mais la restriction pays `countrycodes=lu` (`country_hint: \"luxembourg\"`), qui exclut structurellement tout homonyme hors du pays."
+          },
+          {
+            "claim": "écart de distance avec les 11 vias (7 villes + 4 cols)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "vérifié via le pipeline réel (`importEdition` + `generateStage`) : 195,3 km générés pour 192,5 km officiels, +1,4 % (`status: \"ok\"`, dans la cible d'audit ±5 %) — nette amélioration depuis -29,2 % (136,2 km) avant l'ajout des 7 villes. Départ/arrivée curés explicitement en « Luxembourg-Ville » (même trouvaille que 2002/0 : le libellé brut Wikipédia « Luxembourg City » géocode sur le centroïde administratif du pays, à ~22 km de la vraie ville)."
           }
         ],
-        "note": "Grande boucle autour du Grand-Duché de Luxembourg, départ et arrivée à Luxembourg-Ville (192,5 km, 7 juillet 2002, victoire de Rubens Bertogliati). Quatre côtes classées dans l'ordre : Côte de Hoscheid (km 69,5, 4,2 km à 5,9 %, 3e cat.), Côte de Vianden (km 87,0, 2,7 km à 5,7 %, 4e cat.), Côte de Wormeldange (km 148,5, 0,8 km à 9,5 %, 3e cat.), Côte de Hostert (km 182,0, 1,8 km à 6,9 %, 4e cat.). Sourcé : bikeraceinfo.com (« The rated climbs »)."
+        "note": "Grande boucle autour du Grand-Duché de Luxembourg, départ et arrivée à Luxembourg-Ville (192,5 km, 7 juillet 2002, victoire de Rubens Bertogliati) : Tuntange → Colmar-Berg → Heiderscheid → Côte de Hoscheid (km 69,5, 4,2 km à 5,9 %, 3e cat.) → Côte de Vianden (km 87,0, 2,7 km à 5,7 %, 4e cat.) → Bettendorf → Echternach → Mertert → Côte de Wormeldange (km 148,5, 0,8 km à 9,5 %, 3e cat.) → Remich → Côte de Hostert (km 182,0, 1,8 km à 6,9 %, 4e cat.) → Luxembourg-Ville. Sourcé : bikeraceinfo.com (« The rated climbs », cols et kilométrage), ledicodutour.com/etapes/etapes_par_annees/etapes_1997_2006/etapes_2002.html (profil complet, image 2002-1a.jpg, villes intermédiaires)."
       },
       "2": {
+        "start": { "label": "Luxembourg-Ville", "country": "luxembourg" },
         "vias": [
+          { "label": "Esch-sur-Alzette", "kind": "via", "country": "luxembourg" },
+          { "label": "Bettembourg", "kind": "via", "country": "luxembourg" },
+          { "label": "Mondorf-les-Bains", "kind": "via", "country": "luxembourg" },
           { "label": "Perl", "kind": "col", "country": "germany" },
-          { "label": "Alsweiler", "kind": "col", "country": "germany" }
+          { "label": "Merzig", "kind": "via", "country": "germany" },
+          { "label": "Losheim am See", "kind": "via", "country": "germany" },
+          { "label": "Primstal", "kind": "via", "country": "germany" },
+          { "label": "Alsweiler", "kind": "col", "country": "germany" },
+          { "label": "Uchtelfangen", "kind": "via", "country": "germany" },
+          { "label": "Riegelsberg", "kind": "via", "country": "germany" }
         ],
         "confidence": [
           {
             "claim": "parcours complet Luxembourg-Ville → Saarbrücken (181 km)",
-            "status": "UNSURE",
-            "level": "basse",
-            "detail": "seuls deux cols allemands sont sourcés (bikeraceinfo.com, km 60,0 et 132,5) sur 181 km — le reste du tracé (sortie du Luxembourg, traversée de la Sarre) n'est pas détaillé par une source consultée."
+            "status": "OK",
+            "level": "haute",
+            "detail": "trouvaille du 28/09/2026 : ledicodutour.com/etapes/etapes_par_annees/etapes_1997_2006/etapes_2002.html embarque le profil altimétrique complet de l'étape (images/cartes_etapes/2002/2002-2a.jpg) — même type de source que 1992/20, 1992/21, 2002/0, 2002/1. Ville par ville : Luxembourg (0) → Esch-sur-Alzette (17) → Bettembourg (29) → Mondorf-les-Bains (45, sprint) → Côte de Perl (60, GPM4 — kilomètre EXACTEMENT identique au col déjà sourcé par bikeraceinfo.com, confirmation croisée indépendante forte) → Merzig (85, ravitaillement) → Losheim (95, sprint — qualifié « Losheim am See » ici pour éviter toute ambiguïté avec un autre Losheim) → Primstal (117) → Côte d'Alsweiler-Heid (132,5, GPM4 — de nouveau kilomètre identique à la source bikeraceinfo.com déjà en place) → Uchtelfangen (155,5) → Riegelsberg (166, sprint) → Sarrebruck (181, arrivée). Remplace une tentative précédente (23 localités attribuées à memoire-du-cyclisme.org, jamais vérifiée contre la source primo — domaine inaccessible — et testée empiriquement le 16/09/2026 : résultat +23,8 %, pire que sans elle) par une source directement consultée et deux fois recoupée avec les cols déjà en place."
           },
           {
-            "claim": "écart de distance de l'étape (généré 159,4 km vs officiel 181 km, -11,9 %, légèrement hors tolérance ±10 %)",
-            "status": "UNSURE",
-            "level": "basse",
-            "detail": "Investigué le 16/09/2026 (issue #188). bikeraceinfo.com donne un tracé sommaire (sud depuis Luxembourg, virage est au km 17 le long de la frontière française, entrée en Allemagne au col de Perl, puis Saint-Wendel au km 137 avant le sud vers l'arrivée) sans liste de villages exploitable. Une recherche web a identifié un tracé détaillé (23 localités : Leudelange, Pontpierre, Schifflange, Esch-sur-Alzette, Kayl, Hellange, Aspelt, Altwies, Mondorf-les-Bains, Burmerange, Schengen, Perl, Merzig, Losheim am See, Weiskirchen, Theley, Tholey, Alsweiler, Sankt Wendel, Mainzweiler, Uchtelfangen) attribué à memoire-du-cyclisme.org, mais ce domaine (et son miroir .eu, et une recherche Wayback Machine) reste inaccessible depuis cet environnement — déjà documenté ailleurs dans ce même fichier pour d'autres étapes (échec réseau, pas un choix). N'ayant pas pu vérifier ce tracé contre la source primaire, testé néanmoins comme hypothèse empirique (régénération réelle, base isolée) plutôt que rejeté sans mesure : résultat -> 224,0 km (+23,8 %), PIRE que la curation actuelle (2 cols, -11,9 %) — donc non retenu, quelle que soit la fiabilité de la liste de villages elle-même. Deux tentatives de densification échouent donc sur cette étape (contrairement à la plupart des autres étapes calibrées ce tour) ; l'écart restant n'est pas résolu."
+            "claim": "écart de distance avec les 8 nouvelles villes",
+            "status": "OK",
+            "level": "haute",
+            "detail": "vérifié via le pipeline réel (`importEdition` + `generateStage`) : 171,9 km générés pour 181 km officiels, -5,0 % (`status: \"ok\"`, tout juste à la limite de la cible d'audit ±5 %) — très nette amélioration depuis -11,9 % (159,4 km, curation à 2 cols seulement) et depuis la tentative ratée à +23,8 %. Départ curé explicitement en « Luxembourg-Ville » (même trouvaille que 2002/0 et 2002/1 : le libellé brut Wikipédia géocode sur le centroïde du pays). Relecture adverse (28/09/2026) : `checks.js` signale 2 zones de rebroussement (km 16,7-18,5 et km 19,7-21,5, niveau `warn`, n'affecte pas `status: ok`) et 2 écarts >12 km sans via (16,6 km et 12,2 km) sur le tronçon Luxembourg-Ville → Esch-sur-Alzette → Bettembourg — même mécanisme que celui déjà documenté pour 1992/10 (Buckwald) : une partie du kilométrage de ce tronçon précis pourrait être un artefact de routage plutôt qu'un vrai tracé. Sans impact sur le statut global (`ok`), mais à garder en tête si une source vient un jour combler spécifiquement ce trou."
           }
         ],
-        "note": "Luxembourg-Ville → Saarbrücken (181 km, 8 juillet 2002), traverse l'Allemagne (Sarre). Deux côtes classées sourcées : Côte de Perl (km 60,0, 4,8 km à 4,8 %, 4e cat., commune de Perl, Sarre), Côte d'Alsweiler-Heid (km 132,5, 1,4 km à 6,4 %, 4e cat.). Sourcé : bikeraceinfo.com."
+        "note": "Luxembourg-Ville → Esch-sur-Alzette → Bettembourg → Mondorf-les-Bains → Côte de Perl (km 60,0, 4,8 km à 4,8 %, 4e cat.) → Merzig (ravitaillement) → Losheim am See → Primstal → Côte d'Alsweiler-Heid (km 132,5, 1,4 km à 6,4 %, 4e cat.) → Uchtelfangen → Riegelsberg → Saarbrücken (181 km, 8 juillet 2002), traverse l'Allemagne (Sarre). Sourcé : bikeraceinfo.com (cols et kilométrage), ledicodutour.com/etapes/etapes_par_annees/etapes_1997_2006/etapes_2002.html (profil complet, image 2002-2a.jpg, villes intermédiaires)."
+      },
+      "3": {
+        "vias": [
+          { "label": "Gravelotte", "kind": "col" },
+          { "label": "Mars-la-Tour", "kind": "via" },
+          { "label": "Maizeray", "kind": "via" },
+          { "label": "Verdun", "kind": "sprint" },
+          { "label": "Clermont-en-Argonne", "kind": "via" },
+          { "label": "Côte de la Biesme", "kind": "col" },
+          { "label": "Sainte-Menehould", "kind": "via" },
+          { "label": "Valmy", "kind": "sprint" },
+          { "label": "Suippes", "kind": "sprint" },
+          { "label": "Prunay", "kind": "via" }
+        ],
+        "confidence": [
+          {
+            "claim": "parcours complet Metz → Reims (174,5 km)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "trouvaille du 28/09/2026 : ledicodutour.com/etapes/etapes_par_annees/etapes_1997_2006/etapes_2002.html embarque le profil altimétrique complet de l'étape (images/cartes_etapes/2002/2002-3a.jpg) — même type de source que pour les autres étapes 2002 déjà curées. Ville par ville : Metz (0) → Côte de Gravelotte (16, GPM4) → Mars-la-Tour (31) → Maizeray (position non mesurée dans la source — aucun trait de renvoi ni chiffre km propre, contrairement aux 9 autres points ; ordonnée seulement par la lecture gauche-à-droite du profil, entre les ticks 31 et 57,5) → Verdun (57,5, sprint) → Clermont-en-Argonne (86) → Côte de la Biesme (93,5, GPM4) → Sainte-Menehould (100,5) → Valmy (109,5, sprint) → Suippes (130, sprint) → Prunay (159) → Reims (174,5, arrivée) — un tracé cohérent traversant la Moselle, la Meuse puis la Marne d'est en ouest. « Côte de la Biesme » résout avec un score de géocodage plus bas (0,59, type non-commune, cohérent avec un lieu-dit/relief plutôt qu'une ville) mais à une position géographiquement cohérente avec son kilomètre annoncé (entre Clermont-en-Argonne et Sainte-Menehould). « Prunay » utilisé sans qualificatif de département : la forme qualifiée « Prunay, Marne » dégradait le score de géocodage (0,42 contre 0,98 sans qualificatif) sans changer la position résolue. Relecture adverse (28/09/2026) : le kilomètre imprimé par la source pour Verdun (57,5) ne passe pas un test de plausibilité géographique simple — la distance à vol d'oiseau Metz→Verdun mesurée sur les coordonnées réellement géocodées est de 60,4 km, DÉJÀ supérieure au 57,5 km annoncé comme distance routière cumulée, ce qui est géométriquement impossible (une route ne peut jamais être plus courte que la ligne droite). Écarts plus modestes du même type détectés sur Mars-la-Tour→Verdun, Clermont-en-Argonne→Côte de la Biesme et Sainte-Menehould→Valmy. Un des chiffres km imprimés par cette source (probablement celui de Verdun) est donc erroné dans la source elle-même, ou ne représente pas ce qu'on croit (distance cumulée routière) — sans impact sur le pipeline (qui ne consomme que les noms de lieux, pas les km, pour géocoder/router) mais à garder à l'esprit avant de citer ces chiffres km comme fiables ailleurs."
+          },
+          {
+            "claim": "écart de distance avec les 10 vias sourcés",
+            "status": "OK",
+            "level": "haute",
+            "detail": "vérifié via le pipeline réel (`importEdition` + `generateStage`) : 184,4 km générés pour 174,5 km officiels, +5,7 % (`status: \"ok\"`, ancienne tolérance ±10 %) — légère amélioration depuis +7,4 % (187,5 km, aucun via, pure reconstruction directe) et surtout donnée réelle et sourcée plutôt qu'un routage à l'aveugle. Reste légèrement au-dessus de la cible d'audit ±5 %, mais aucune ville supplémentaire disponible dans la source pour combler davantage."
+          }
+        ],
+        "note": "Metz → Côte de Gravelotte (km 16, GPM4) → Mars-la-Tour → Maizeray → Verdun (sprint, km 57,5 — chiffre suspect, voir confidence) → Clermont-en-Argonne → Côte de la Biesme (km 93,5, GPM4) → Sainte-Menehould → Valmy (sprint, km 109,5) → Suippes (sprint, km 130) → Prunay → Reims (174,5 km, 9 juillet 2002). Sourcé : ledicodutour.com/etapes/etapes_par_annees/etapes_1997_2006/etapes_2002.html (profil complet, image 2002-3a.jpg)."
       },
       "4": {
+        "vias": [
+          { "label": "Mareuil-le-Port", "kind": "via" },
+          { "label": "Igny-Comblizy", "kind": "via" },
+          { "label": "Condé-en-Brie", "kind": "via" },
+          { "label": "Crézancy", "kind": "via" },
+          { "label": "Mont-Saint-Père", "kind": "via" }
+        ],
         "confidence": [
           {
             "claim": "tracé du contre-la-montre par équipes Épernay → Château-Thierry (67,5 km)",
-            "status": "UNSURE",
-            "level": "basse",
-            "detail": "aucun point de passage nommé trouvé — bikeraceinfo.com mentionne seulement « a 200 meter climb in the middle of the stage » sans toponyme. Trou de couverture non comblé plutôt qu'inventé."
+            "status": "OK",
+            "level": "haute",
+            "detail": "trouvaille du 30/09/2026 : ledicodutour.com/etapes/etapes_par_annees/etapes_1997_2006/etapes_2002.html embarque le profil altimétrique complet de l'étape (images/cartes_etapes/2002/2002-4a.jpg), même type de source que les autres étapes 2002 déjà curées. Ville par ville sur le profil : Épernay (0) → La Chaussée (5,5) → La Cave (10,5) → Mareuil-le-Port (16) → Try (21,5) → Igny-le-Jard (33, 212 m — cohérent avec le « 200 meter climb » déjà cité par bikeraceinfo.com, sans confirmation par le relief réel reconstruit : les échantillons d'altitude réels du pipeline situent le vrai sommet plus tôt sur le tracé, km ~30, 233,6 m, coïncidant avec une côte formellement détectée — les deux sources d'époque se recoupent entre elles mais pas avec le DEM) → Le Breuil (40,5, ravitaillement) → Condé-en-Brie (48) → Crézancy (54) → Mont-Saint-Père (58,5) → Château-Thierry (67,5, arrivée). Quatre de ces neuf points intermédiaires (La Chaussée, La Cave, Try, Le Breuil) sont de très petits hameaux qui ne géocodent pas de façon fiable (scores <0,7 ou dérive vers un homonyme sans rapport, ex. « Le Breuil » retombant sur Thiers, Puy-de-Dôme) — délibérément omis plutôt qu'ajoutés avec des coordonnées douteuses. « Igny-le-Jard » est un ancien hameau aujourd'hui rattaché à la commune d'Igny-Comblizy (vérifié via une recherche indépendante, archives de la Marne) : géocodé sous ce nom de commune actuel, à une position cohérente avec le km 33 annoncé. Les 5 points restants (Mareuil-le-Port, Igny-Comblizy, Condé-en-Brie, Crézancy, Mont-Saint-Père) résolvent tous sans ambiguïté (scores 0,86-0,94, type municipality, bon département)."
+          },
+          {
+            "claim": "écart de distance avec les 5 vias sourcés",
+            "status": "OK",
+            "level": "haute",
+            "detail": "vérifié via le pipeline réel (`importEdition` + `generateStage`) : 65,1 km générés pour 67,5 km officiels, -3,5 % (`status: \"ok\"`, ancienne tolérance ±10 %, dans la cible d'audit ±5 %) — très nette amélioration depuis -25,0 % (50,6 km, aucun via). Test préliminaire via `routeLeg()` direct (chaîne des 7 points, hors pipeline) donnait 67,4 km (-0,1 %) ; l'écart avec le chiffre du pipeline réel vient du reclassement automatique de « Mont-Saint-Père » en `kind: \"col\"` par `generateStage` (détection de sommet sur le profil altimétrique, comportement existant de l'app, pas une action de cette curation) qui affecte légèrement le calcul de la distance. Le chiffre du pipeline réel fait foi. Relecture adverse (30/09/2026) : `checks.js` signale aussi un écart >12 km sans via entre Épernay et Mareuil-le-Port (14 km, conséquence attendue de l'omission de La Chaussée/La Cave) — niveau `warn`, sans impact sur `checks.ok`."
           }
         ],
-        "note": "Contre-la-montre par équipes Épernay → Château-Thierry (67,5 km, 10 juillet 2002). Aucun point de passage intermédiaire sourcé."
+        "note": "Contre-la-montre par équipes Épernay → Mareuil-le-Port → Igny-Comblizy (ancien Igny-le-Jard, sommet du col à 212 m, km 33) → Condé-en-Brie → Crézancy → Mont-Saint-Père → Château-Thierry (67,5 km, 10 juillet 2002). Sourcé : bikeraceinfo.com (le col), ledicodutour.com/etapes/etapes_par_annees/etapes_1997_2006/etapes_2002.html (profil complet, image 2002-4a.jpg)."
       },
-      "7": {
+      "5": {
+        "start": "Soissons",
+        "finish": "Rouen",
         "vias": [
-          { "label": "Mont Pinçon", "kind": "col" },
-          { "label": "La Chapelle-Urée", "kind": "col" }
+          { "label": "Berneuil-sur-Aisne", "kind": "via" },
+          { "label": "Clairoix", "kind": "via" },
+          { "label": "Gournay-sur-Aronde", "kind": "via" },
+          { "label": "Brunvillers-la-Motte", "kind": "sprint" },
+          { "label": "Noyers-Saint-Martin", "kind": "via" },
+          { "label": "Crèvecœur-le-Grand", "kind": "via" },
+          { "label": "Grandvilliers", "kind": "sprint" },
+          { "label": "Formerie", "kind": "via" },
+          { "label": "Forges-les-Eaux", "kind": "sprint" },
+          { "label": "Buchy", "kind": "via" },
+          { "label": "Quincampoix", "kind": "via" }
         ],
         "confidence": [
           {
-            "claim": "parcours complet Bagnoles-de-l'Orne → Avranches (176 km)",
+            "claim": "tracé Soissons → Rouen (195 km) via 8 localités intermédiaires + 3 sprints intermédiaires (11 points de passage au total)",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "localités et sprints extraits du profil d'étape publié sur ledicodutour.com (image cartes_etapes/2002/2002-5a.jpg : Soissons(0 km, 44 m) → Berneuil-sur-Aisne(24, 53 m) → Clairoix(36,5, 43 m) → Gournay-sur-Aronde(54,5, 71 m) → Brunvillers-la-Motte(74, 134 m, icône sprint) → Noyers-Saint-Martin(91, 179 m, icône ravitaillement à proximité) → Crèvecœur-le-Grand(104 ou 117, 187 m) → Grandvilliers(117 ou 134, 209 m, icône sprint) → Formerie(134 ou 150,5, 235 m) → Forges-les-Eaux(150,5 ou 165, 170 m, icône sprint) → Buchy(165 ou 180,5, 220 m) → Quincampoix(180,5 ou ~190, 190 m) → Rouen(195, 70 m), franchissant les limites de département Aisne → Oise → Seine-Maritime marquées sur l'image. Le libellé lu sur l'image pour la localité du km 91 (« Noyers-sur-Martin ») ne correspond à aucune commune : il s'agit vraisemblablement de Noyers-Saint-Martin (Oise) — hypothèse étayée par un géocodage direct propre (Géoplateforme, type municipality, score 0,876, coordonnées cohérentes avec les points voisins du corridor) contre un échec net pour la lecture littérale (score 0,395, type street, département 41, à ~400 km du corridor) — mais non confirmée par une source indépendante décrivant le tracé réel (la section « Profil et parcours » de l'article Wikipédia FR dédié à cette étape est vide) : possible lecture d'image corrigée, mais une approximation de la source elle-même n'est pas exclue. La densité de l'image ne permet pas de distinguer avec certitude à quel repère kilométrique précis chaque icône sprint/ravitaillement se rattache (deux graduations plausibles pour plusieurs points, notées ci-dessus) ; aucun impact sur le géocodage, qui ne consomme que les toponymes, pas les distances affichées."
+          },
+          {
+            "claim": "avertissements du pipeline réel sur cette reconstruction (écarts entre points de passage, zones d'aller-retour)",
             "status": "UNSURE",
             "level": "basse",
-            "detail": "seuls deux cols sont sourcés (bikeraceinfo.com, km 57,0 et 154,0) sur 176 km — le reste du tracé normand n'est pas détaillé par une source consultée."
+            "detail": "la régénération réelle (base isolée) signale 9 écarts « via-gap » (12,5 à 24,2 km à vol d'oiseau sans point de passage intermédiaire, le plus large entre Soissons et Berneuil-sur-Aisne) et 2 zones d'aller-retour détectées (km 55,5–56,2 et km 57,7–58,5, sur le segment Clairoix → Gournay-sur-Aronde, lui-même l'un des écarts via-gap signalés) — le routeur peut improviser un chemin plausible mais faux sur ces portions peu densifiées, et un aller-retour, si c'est un artefact du routage plutôt qu'un vrai rebroussement du parcours, gonfle d'autant la distance reconstituée. L'écart final (+2,8 %) reste dans la cible d'audit ±5 % même dans l'hypothèse où ces artefacts gonflent légèrement la distance, mais sans source additionnelle ces 11 points de passage ne permettent pas de garantir que chaque portion suit fidèlement le tracé réel de 2002."
           }
         ],
-        "note": "Bagnoles-de-l'Orne → Avranches (176 km, 13 juillet 2002). Deux côtes classées sourcées : Côte du Mont-Pinçon (km 57,0, 1,1 km à 6,1 %, 4e cat.), côte de L'Embranchement à La Chapelle-Urée (km 154,0, 6,5 km à 2,7 %, 4e cat.). Sourcé : bikeraceinfo.com."
+        "note": "Soissons → Rouen (195 km, 11 juillet 2002). 8 localités intermédiaires et 3 sprints (Brunvillers-la-Motte, Grandvilliers, Forges-les-Eaux) sourcés depuis le profil d'étape de ledicodutour.com. Traverse l'Aisne, l'Oise puis la Seine-Maritime."
+      },
+      "7": {
+        "vias": [
+          { "label": "La Ferrière-aux-Étangs", "kind": "via" },
+          { "label": "Saint-Georges-des-Groseillers", "kind": "sprint" },
+          { "label": "Proussy", "kind": "via" },
+          { "label": "Mont Pinçon", "kind": "col" },
+          { "label": "Aunay-sur-Odon", "kind": "sprint" },
+          { "label": "Caumont-l'Éventé", "kind": "via" },
+          { "label": "Saint-Amand-Villages", "kind": "via" },
+          { "label": "Tessy-Bocage", "kind": "sprint" },
+          { "label": "Villedieu-les-Poêles", "kind": "via" },
+          { "label": "La Chapelle-Urée", "kind": "col" },
+          { "label": "Saint-Quentin-sur-le-Homme", "kind": "via" }
+        ],
+        "confidence": [
+          {
+            "claim": "tracé Bagnoles-de-l'Orne → Avranches (176 km) : 9 nouveaux points de passage (6 localités, dont 1 ravitaillement, + 3 sprints), en plus des 2 côtes déjà sourcées",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "localités et sprints extraits du profil d'étape publié sur ledicodutour.com (image cartes_etapes/2002/2002-7a.jpg : Bagnoles-de-l'Orne(0, 200 m) → La Ferrière-aux-Étangs(16, 291 m) → Saint-Georges-des-Groseillers(29,5, 250 m, icône sprint) → Proussy(44, 194 m) → Côte du Mont-Pinçon(57, 366 m, icône col 4e cat., déjà sourcée) → Aunay-sur-Odon(64, 132 m, icône sprint) → Caumont-l'Éventé(82, 250 m) → Saint-Amand(92, 156 m, icône ravitaillement) → Tessy-sur-Vire(107, 45 m, icône sprint) → Villedieu-les-Poêles(129,5, 129 m) → La Chapelle-Urée(154, 210 m, icône col 4e cat., déjà sourcée) → Saint-Quentin-sur-le-Homme(169, 56 m) → Avranches(176, 92 m), franchissant les limites de département Orne → Calvados → Manche marquées sur l'image. Cinq des communes citées sur l'image ont fusionné depuis 2002 dans des « communes nouvelles » : Proussy et Aunay-sur-Odon (→ Valdallière), Caumont-l'Éventé (→ Caumont-sur-Aure), Saint-Amand (→ Saint-Amand-Villages), Tessy-sur-Vire (→ Tessy-Bocage). Un premier essai a utilisé les noms des communes nouvelles pour toutes : pour Saint-Amand-Villages et Tessy-Bocage, le résultat est un match propre (municipality, score >0,93) géométriquement cohérent avec les distances de l'image (testé par routage réel). Pour Valdallière et Caumont-sur-Aure en revanche, le point renvoyé est le centroïde administratif de la commune nouvelle, à plusieurs kilomètres du bourg d'origine (Aunay-sur-Odon, Caumont-l'Éventé) — un test par routage réel donnait un saut de 36,6 km là où l'image en indique 18, nettement incohérent. Ces deux vias sont donc restés sous leur nom d'origine (« Aunay-sur-Odon », « Caumont-l'Éventé »), qui résout vers un point POI/adresse précis mais de type imprécis (score 0,735–0,766, cohérent par routage réel : écart total +4,4 % vs l'image avant même la régénération officielle). Proussy suit le même choix (nom d'origine conservé) mais avec un résultat plus fragile que les deux précédents : adresse « Rue de la Blare, Condé-en-Normandie », type street, score 0,708 — juste au-dessus du seuil de rejet informel (<0,7) qui a mené à omettre d'autres hameaux ailleurs dans ce fichier (2002 étape 4). Conservé malgré tout car son omission créerait un vide de 27,5 km entre Saint-Georges-des-Groseillers et Mont-Pinçon (aucun autre point de passage disponible dans cet intervalle) ; c'est le point le moins fiable des 9 ajoutés ici. Aucune source n'a été trouvée pour confirmer indépendamment ce tracé village par village."
+          },
+          {
+            "claim": "avertissements du pipeline réel sur cette reconstruction (écarts entre points de passage)",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "la régénération réelle (base isolée) signale 6 écarts « via-gap » (12,6 à 19,6 km à vol d'oiseau sans point de passage intermédiaire, le plus large entre Tessy-Bocage et Villedieu-les-Poêles) — le routeur peut improviser un chemin plausible mais faux sur ces portions peu densifiées. Aucune zone d'aller-retour détectée. L'écart final (+2,1 %) reste dans la cible d'audit ±5 %, mais sans source additionnelle ces points de passage ne permettent pas de garantir que chaque portion suit fidèlement le tracé réel de 2002."
+          }
+        ],
+        "note": "Bagnoles-de-l'Orne → Avranches (176 km, 13 juillet 2002). Deux côtes classées sourcées : Côte du Mont-Pinçon (km 57,0, 1,1 km à 6,1 %, 4e cat.), côte de L'Embranchement à La Chapelle-Urée (km 154,0, 6,5 km à 2,7 %, 4e cat.) — sourcé bikeraceinfo.com. 6 localités intermédiaires et 3 sprints (Saint-Georges-des-Groseillers, Aunay-sur-Odon, Tessy-Bocage ex-Tessy-sur-Vire) ajoutés depuis le profil d'étape de ledicodutour.com. Traverse l'Orne, le Calvados puis la Manche."
+      },
+      "8": {
+        "vias": [
+          { "label": "Saint-James", "kind": "via" },
+          { "label": "Bazouges-la-Pérouse", "kind": "via" },
+          { "label": "Combourg", "kind": "sprint" },
+          { "label": "Béchérel", "kind": "col" },
+          { "label": "Montauban-de-Bretagne", "kind": "sprint" },
+          { "label": "Saint-Méen-le-Grand", "kind": "via" },
+          { "label": "Illifaut", "kind": "via" },
+          { "label": "Plumieux", "kind": "via" },
+          { "label": "Bréhan", "kind": "via" },
+          { "label": "Noyal-Pontivy", "kind": "sprint" },
+          { "label": "Kervalan", "kind": "col", "lat": 47.974585, "lon": -3.140145, "ele": 140 },
+          { "label": "Ty-Marrec", "kind": "col" }
+        ],
+        "confidence": [
+          {
+            "claim": "tracé Saint-Martin-de-Landelles → Plouay (217,5 km) : 9 nouveaux points de passage (6 localités + 3 sprints), en plus de 3 côtes classées (Béchérel, Kervalan, Ty-Marrec)",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "localités, sprints et côtes extraits du profil d'étape publié sur ledicodutour.com (image cartes_etapes/2002/2002-8a.jpg : Saint-Martin-de-Landelles(0, 145 m) → Saint-James(10,5, 78 m) → Bazouges-la-Pérouse(35,5, 91 m) → Combourg(47,5, 71 m, icône sprint) → Côte de Béchérel(72, 142 m, icône col 4e cat.) → Montauban-de-Bretagne(86, 51 m, icône sprint) → Saint-Méen-le-Grand(102, 97 m, icône ravitaillement) → Illifaut(114, 101 m) → Plumieux(134,5, 110 m) → Bréhan(144,5, 49 m) → Noyal-Pontivy(160,5, 107 m, icône sprint) → Côte de Kervalan(187, 140 m, icône col 4e cat.) → Côte de Ty-Marrec(214, 128 m, icône col 4e cat.) → Plouay(217,5, 89 m), franchissant les limites de département Manche → Ille-et-Vilaine → Côtes-d'Armor → Morbihan marquées sur l'image. « Kervalan » seul géocode vers un hameau homonyme de Pluvigner (Morbihan), à ~25 km à vol d'oiseau du corridor réel (incohérent par routage réel : 41 km sur un segment que l'image donne à 26,5 km) — même département que Plouay, donc un indice de région ne permet pas de désambiguïser. Résolu par une requête qualifiée « Kervalan, Plouay » (résultat faible, score 0,515, type indéfini, mais géométriquement cohérent : 25,7 km puis 21,2 km par routage réel contre 26,5 km et 27 km sur l'image) ; coordonnées de ce résultat figées en dur (lat/lon explicites sur le via) plutôt que rejouées à chaque régénération, ce score restant trop faible pour une confiance dans la stabilité de ce choix par le géocodeur au fil du temps. Figer lat/lon court-circuite aussi le géocodage qui remplit normalement l'altitude de contrôle (altitude_hint_m) pour les deux autres côtes de cette étape — sans donnée explicite, le contrôle qualité d'altitude de ce col aurait été silencieusement sauté (classe de bug déjà documentée dans known_cols.json, cas « Col du Noyer ») ; l'altitude sourcée sur l'image (140 m) est donc explicitement fournie via le champ `ele` du via pour que ce contrôle s'applique. Aucune source n'a été trouvée pour confirmer indépendamment ce tracé village par village."
+          },
+          {
+            "claim": "avertissements du pipeline réel sur cette reconstruction (écarts entre points de passage, zones d'aller-retour)",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "la régénération réelle (base isolée) signale 9 écarts « via-gap » (13,1 à 21,0 km à vol d'oiseau sans point de passage intermédiaire, le plus large entre Noyal-Pontivy et Kervalan) et 2 zones d'aller-retour détectées (km 209,8–211,1 et km 212,1–213,3, toutes deux sur le segment Kervalan → Ty-Marrec, lui-même l'un des écarts via-gap signalés — cohérent avec un véritable relief de côte à cet endroit, mais non confirmé) — le routeur peut improviser un chemin plausible mais faux sur ces portions peu densifiées, et un aller-retour, si c'est un artefact du routage plutôt qu'un vrai rebroussement, gonfle d'autant la distance reconstituée. L'écart final (-1,1 %) reste dans la cible d'audit ±5 %, mais sans source additionnelle ces points de passage ne permettent pas de garantir que chaque portion suit fidèlement le tracé réel de 2002."
+          }
+        ],
+        "note": "Saint-Martin-de-Landelles → Plouay (217,5 km, 14 juillet 2002). 3 côtes de 4e catégorie (Béchérel km 72, Kervalan km 187, Ty-Marrec km 214), 6 localités intermédiaires et 3 sprints (Combourg, Montauban-de-Bretagne, Noyal-Pontivy) sourcés depuis le profil d'étape de ledicodutour.com. Traverse la Manche, l'Ille-et-Vilaine, les Côtes-d'Armor puis le Morbihan."
       },
       "9": {
         "confidence": [
@@ -1388,59 +1603,118 @@
         ],
         "note": "Lanester → Lorient, contre-la-montre individuel (52 km, 15 juillet 2002, vitesse moyenne 50,066 km/h). Vainqueur : Santiago Botero, devant Armstrong (11 s) et Gontchar (18 s). Aucun point de passage intermédiaire sourcé malgré plusieurs sources consultées."
       },
-      "12": {
+      "11": {
+        "start": "Pau",
+        "finish": "La Mongie, Bagnères-de-Bigorre",
         "vias": [
-          { "label": "Col de Menté", "kind": "col" },
-          { "label": "Col de Portet-d'Aspet", "kind": "col" },
-          { "label": "Col de la Core", "kind": "col" },
-          { "label": "Col de Port", "kind": "col" }
+          { "label": "Nay", "kind": "via" },
+          { "label": "Col d'Aubisque", "kind": "col" },
+          { "label": "Col du Soulor", "kind": "col" },
+          { "label": "Ayros-Arbouix", "kind": "via" },
+          { "label": "Lugagnan", "kind": "via" },
+          { "label": "Sainte-Marie-de-Campan", "kind": "via" }
         ],
         "confidence": [
           {
-            "claim": "enchaînement des 4 cols pyrénéens avant l'arrivée à Plateau-de-Beille",
+            "claim": "tracé Pau → La Mongie (158 km) via 4 localités intermédiaires, 2 cols sourcés (Aubisque, Soulor) + arrivée au sommet",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "localités et côtes extraites du profil d'étape publié sur ledicodutour.com (image cartes_etapes/2002/2002-11a.jpg : Pau(0, 198 m) → Nay-Bourdettes(13,5, 240 m) → Côte de Louvié-Juzon(35, 501 m, icône col 4e cat.) → Laruns(48, 505 m, icône sprint ; texte partiellement masqué par l'icône sur l'image, lu par déduction géographique — commune bien connue au pied du versant Aubisque) → Col d'Aubisque(66,5, 1709 m, icône col HC) → Col du Soulor(76,5, 1474 m, sans icône de catégorie visible sur l'image mais nommé et coté) → Ayros-Arbouix(99, 420 m, icône ravitaillement) → Lugagnan(107,5, 396 m) → Bagnères-de-Bigorre(132, 515 m) → Sainte-Marie-de-Campan(145, 830 m) → La Mongie(158, 1715 m, arrivée au sommet, icône col 1ère cat.), franchissant les Pyrénées-Atlantiques puis les Hautes-Pyrénées. « Nay-Bourdettes » (nom composé lu sur l'image) ne géocode pas proprement (score 0,49, mauvaise commune) : utilisé « Nay » seul (score 0,94), la commune principale de ce nom composé. Trois localités citées sur l'image sont OMISES du tracé final (testé par routage réel sur la régénération complète, pas seulement par segment, à chaque étape) : « Côte de Louvié-Juzon » et « Bagnères-de-Bigorre », dont le centroïde administratif, testé par routage réel, introduisait un détour majeur par rapport au trajet direct entre les points voisins — avec les deux : +25,8 % (vérifié deux fois, reproductible à l'identique) ; Bagnères-de-Bigorre seul (Louvié-Juzon déjà omis) : +15,4 % ; sans aucun des deux : +9,3 %. Même classe de problème que les communes nouvelles déjà rencontrées (2002 étape 7), mais ici sans fusion de commune en cause, juste un centroïde excentré de la route réelle. « Laruns » (sprint sourcé, voir ci-dessus) est omis pour la même raison, mais le compromis est documenté à part (item suivant) car moins net que les deux précédents. « La Mongie » seul géocode vers un homonyme à Cazats (Gironde, score 0,86 trompeusement élevé) : résolu par une requête qualifiée « La Mongie, Bagnères-de-Bigorre » curée sur le champ `finish` lui-même, qui ne supporte pas de lat/lon explicite contrairement à un `via` — seule option disponible avec le schéma actuel (voir issue #224, known_cols.json non consulté pour départ/arrivée)."
+          },
+          {
+            "claim": "omission du sprint « Laruns » malgré sa source directe, et avertissements résiduels du pipeline réel",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "Laruns, bien que directement sourcé sur l'image (icône sprint), a été testé puis omis : le garder donnait +9,3 % avec 2 zones d'aller-retour étroites (km 55,5–58,5 et 59,7–62,7, ~6 km cumulés, autour de Laruns/Aubisque) ; l'omettre (régénération réelle complète, pas une estimation par segment) donne -0,3 % — dans la cible d'audit ±5 % — mais fait apparaître 2 zones d'aller-retour bien plus larges (km 54,2–63,0 et 64,5–73,2, ~17,5 km cumulés, autour d'Arbéost/Aubisque/Soulor). Le meilleur score global sans Laruns peut donc masquer un tracé moins fidèle localement (deux erreurs qui se compensent plutôt qu'une absence d'erreur) plutôt qu'une vraie amélioration de la reconstruction — mais la distance reconstituée, seul critère vérifiable objectivement sans plus de source, est meilleure sans Laruns, donc retenu. 4 écarts « via-gap » subsistent (16,3 à 23,4 km, le plus large entre Nay et Col d'Aubisque, l'intervalle Laruns ayant disparu avec le via). Non résolu davantage faute de points de passage sourcés supplémentaires sur ces intervalles."
+          }
+        ],
+        "note": "Pau → La Mongie (158 km, 16 juillet 2002). Grande étape pyrénéenne : Col d'Aubisque (km 66,5, 1709 m, HC), Col du Soulor (km 76,5, 1474 m), arrivée au sommet à La Mongie (km 158, 1715 m). 4 localités intermédiaires sourcées depuis le profil d'étape de ledicodutour.com ; Louvié-Juzon, Bagnères-de-Bigorre et Laruns, cités sur l'image, omis du tracé final (centroïde administratif excentré de la route réelle, testé par routage réel — voir confidence pour le compromis sur Laruns). Traverse les Pyrénées-Atlantiques puis les Hautes-Pyrénées."
+      },
+      "12": {
+        "vias": [
+          { "label": "Montréjeau", "kind": "via" },
+          { "label": "Loures-Barousse", "kind": "via" },
+          { "label": "Saint-Béat", "kind": "sprint" },
+          { "label": "Col de Menté", "kind": "col" },
+          { "label": "Col de Portet-d'Aspet", "kind": "col" },
+          { "label": "Orgibet", "kind": "sprint" },
+          { "label": "Argein", "kind": "via" },
+          { "label": "Les Bordes-sur-Lez", "kind": "via" },
+          { "label": "Col de la Core", "kind": "col" },
+          { "label": "Oust", "kind": "via" },
+          { "label": "Massat", "kind": "via" },
+          { "label": "Col de Port", "kind": "col", "lat": 42.899142, "lon": 1.452787, "ele": 1249 },
+          { "label": "Les Cabannes", "kind": "via" }
+        ],
+        "confidence": [
+          {
+            "claim": "enchaînement des 4 cols pyrénéens avant l'arrivée à Plateau-de-Beille, avec 9 nouveaux points de passage (6 localités + 2 sprints + 1 ravitaillement) sourcés depuis ledicodutour.com",
             "status": "OK",
             "level": "haute",
-            "detail": "enchaînement classique et documenté (bikeraceinfo.com, « The rated climbs ») : col de Menté (km 56,0, 9,4 km à 9,0 %, 1re cat.), col de Portet-d'Aspet (km 71,5, 4,3 km à 9,9 %, 2e cat.), col de la Core (km 107,5, 14,3 km à 5,8 %, 1re cat.), col de Port (km 155,5, 12,6 km à 4,9 %, 2e cat.), avant l'ascension finale de Plateau-de-Beille (15,9 km à 7,8 %, hors catégorie)."
+            "detail": "enchaînement classique et documenté (bikeraceinfo.com, « The rated climbs ») : col de Menté (km 56,0, 9,4 km à 9,0 %, 1re cat.), col de Portet-d'Aspet (km 71,5, 4,3 km à 9,9 %, 2e cat.), col de la Core (km 107,5, 14,3 km à 5,8 %, 1re cat.), col de Port (km 155,5, 12,6 km à 4,9 %, 2e cat.), avant l'ascension finale de Plateau-de-Beille (15,9 km à 7,8 %, hors catégorie). Localités intermédiaires extraites du profil d'étape publié sur ledicodutour.com (image cartes_etapes/2002/2002-12a.jpg) : Montréjeau(19, 478 m) → Loures-Barousse(30, 430 m) → Saint-Béat(45, 496 m, icône sprint) → [Col de Menté] → [Col de Portet-d'Aspet] → Orgibet(81,5, 655 m, icône sprint) → Argein(87,5, 535 m, icône ravitaillement) → Les Bordes-sur-Lez(93, 557 m) → [Col de la Core] → Oust(123, 505 m) → Massat(141,5, 645 m) → [Col de Port] → Les Cabannes(183, 533 m), franchissant successivement les Hautes-Pyrénées (départ, Lannemezan), la Haute-Garonne (plusieurs allers-retours entre les deux avant km 40, marqués sur l'image) puis l'Ariège (à partir du col de Portet-d'Aspet). Trois des 4 cols (Menté, Portet-d'Aspet, la Core) géocodent proprement une fois les nouveaux points de passage intercalés (régénération réelle : « col atteint » à 1-62 m du sommet). « Col de Port » en revanche résout systématiquement vers un point homonyme différent selon le point de proximité utilisé (vérifié en rejouant directement geocodeCol() sur plusieurs biais : « Col de Portel » avec `near`=Massat, « Col des Portes » avec `near`=Oust, « Col de Portes » dans le Gard sans `near` — à chaque fois reproductible et stable, pas aléatoire d'un essai à l'autre comme affirmé dans une version antérieure de cette note, mais bien un vrai biais de proximité systématique selon le point précédent). Résolu par des coordonnées figées en dur (lat/lon explicites sur le via) : point vérifié indépendamment par échantillonnage d'altitude réel (1250 m mesurés contre 1249 m sourcé, écart 1 m) et par distance routée directe Massat→Col de Port (14,1 km, très proche des 14 km visés sur l'image — meilleure correspondance que ce qu'une estimation initiale par segments cumulés avait suggéré) et Col de Port→Les Cabannes (28,9 km contre 27,5 km visés)."
           },
           {
             "claim": "altitude du sommet de l'ascension finale (Plateau de Beille)",
             "status": "UNSURE",
             "level": "moyenne",
             "detail": "écart confirmé (issue #195) : le point mesuré par le pipeline pour l'arrivée (altitude_hint_m au géocodage 1937 m, altitude de sommet mesurée sur le profil 1962 m) est nettement plus haut que l'altitude officielle de la ligne d'arrivée du Tour à Plateau de Beille — 1780 m depuis 2002 (1747 m en 1998 uniquement), source : en.wikipedia.org/wiki/Plateau_de_Beille, qui cite aussi la station à 1790 m et le domaine skiable culminant à 2000 m. Le géocodage du seul libellé « Plateau de Beille » (issu tel quel de Wikipédia, non curé comme arrivée explicite dans cette entrée) retombe vraisemblablement sur un point plus haut du plateau (proche du domaine skiable) plutôt que sur la ligne d'arrivée exacte — pas une erreur de saisie, mais une imprécision de géocodage sur un nom de lieu qui désigne toute une zone plutôt qu'un point précis. Valeur de référence ajoutée à known_cols.json (1780 m, sourcée) : actuellement sans effet sur cette étape (le référentiel n'est consulté que pour les vias curés, pas pour les arrivées non curées — pipeline/wikipedia.js), correction du géocodage hors périmètre de ce correctif de données."
+          },
+          {
+            "claim": "avertissements du pipeline réel sur cette reconstruction (écarts entre points de passage, zones d'aller-retour)",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "la régénération réelle (base isolée) signale 3 écarts « via-gap » (14,7 à 22,8 km) et 2 petites zones d'aller-retour détectées (km 124,2–124,9 et km 126,4–127,2, ~1,5 km cumulés, autour du col de la Core) — le routeur peut improviser un chemin plausible mais faux sur ces portions peu densifiées. L'écart final (+5,0 %) atteint tout juste la cible d'audit ±5 %, marge faible : un petit changement de tracé réel pourrait faire basculer ce verdict dans un sens ou l'autre."
           }
         ],
-        "note": "Lannemezan → Plateau-de-Beille (199,5 km, 19 juillet 2002), étape pyrénéenne classique. Quatre cols avant l'ascension finale hors catégorie de Plateau-de-Beille : col de Menté, col de Portet-d'Aspet, col de la Core, col de Port. Sourcé : bikeraceinfo.com."
+        "note": "Lannemezan → Plateau-de-Beille (199,5 km, 19 juillet 2002), étape pyrénéenne classique. Quatre cols avant l'ascension finale hors catégorie de Plateau-de-Beille : col de Menté, col de Portet-d'Aspet, col de la Core, col de Port (sourcé bikeraceinfo.com). 7 localités intermédiaires et 2 sprints (Saint-Béat, Orgibet) ajoutés depuis le profil d'étape de ledicodutour.com. Traverse les Hautes-Pyrénées, la Haute-Garonne puis l'Ariège."
       },
       "13": {
         "vias": [
           { "label": "Col de Montségur", "kind": "col" },
-          { "label": "Col de la Badourade", "kind": "col" },
-          { "label": "Col de Saint-Benoît", "kind": "col" }
+          { "label": "Col de la Badourade", "kind": "col", "lat": 42.90933, "lon": 2.01912, "ele": 670 },
+          { "label": "Chalabre", "kind": "via" },
+          { "label": "Col de Saint-Benoît", "kind": "col" },
+          { "label": "Limoux", "kind": "sprint" },
+          { "label": "Carcassonne", "kind": "via" },
+          { "label": "Marseillette", "kind": "via" },
+          { "label": "Pouzols-Minervois", "kind": "sprint" },
+          { "label": "Capestang", "kind": "via" },
+          { "label": "Montady", "kind": "via" }
         ],
         "confidence": [
           {
-            "claim": "parcours complet Lavelanet → Béziers (171 km)",
-            "status": "UNSURE",
-            "level": "basse",
-            "detail": "les 3 cols sourcés (bikeraceinfo.com, km 8,5 à 48,5) ne couvrent que le premier quart de l'étape — les ~122 km restants jusqu'à Béziers ne sont documentés par aucune source consultée."
+            "claim": "localisation du col de la Badourade (km 31)",
+            "status": "FIX",
+            "level": "moyenne",
+            "detail": "une curation antérieure de cette session plaçait ce col sur la commune de Léran (42.98216, 1.92161, au nord-est de Lavelanet) — altitude mesurée alors 402 m contre 670 m sourcée (écart 268 m, alerte). Recherche web : la montée réelle se nomme « col/côte de la Babourade » (ou Badourade), référencée à 647 m sur cyclisme-amateur.com et localisée à Puivert (Aude) sur bikeclimbs.com (« Le Pamir, D117, Campsadourny, Puivert »). Le point exact a été retrouvé en traçant le profil d'altitude réel du tracé BRouter entre le col de Montségur et Puivert (échantillonnage tous les ~30 m) : un sommet local net à 655 m apparaît à 42.90933, 2.01912, à 21,6 km de Montségur et 10,9 km de Chalabre — cohérent avec les distances de l'image source (22,5 km / 12 km) et avec l'altitude sourcée (écart 15 m, avant 268 m). Coordonnées remplacées. Confirmation indépendante (relecture adverse) : geocodeCol('Col de la Badourade', { near: <nouveau point> }) retombe de lui-même sur « Col de la Babourade » au référentiel Géoplateforme, à 42.909454, 2.019096, 654,74 m — à ~30 m du point curé : un vrai point nommé du référentiel officiel, pas un artefact de lissage du profil BRouter. Ancienne hypothèse du rebroussement par « route en impasse desservant des cols reculés » (sommet HC à 1634 m) : fausse — elle décrivait un artefact du mauvais point (Léran), pas un vrai dead-end ; corrigée par cette même preuve plutôt que supposée."
           },
           {
-            "claim": "écart résiduel de distance de l'étape (généré 189,1 km vs officiel 171 km, +10,6 %)",
+            "claim": "parcours complet Lavelanet → Béziers (171 km)",
+            "status": "OK",
+            "level": "moyenne",
+            "detail": "les 3 cols d'origine (bikeraceinfo.com, km 8,5 à 48,5) ne couvraient que le premier quart. Complété par lecture du profil ledicodutour.com (cartes_etapes/2002/2002-13a.jpg, image source du tracé officiel) : Limoux (km 67,5, sprint), Carcassonne (km 95, ravitaillement), Marseillette (km 108), Pouzols-Minervois (km 134,5, sprint), Capestang (km 153), Montady (km 160) jusqu'à Béziers (km 171). Chaque point géocodé puis validé par distance routée (routeLeg) contre l'écart kilométrique de l'image. Un point intermédiaire visible sur l'image (« Canal du Midi », km 127) a été omis : ce n'est pas un nom de village géocodable, seulement un repère géographique sur l'image — l'ajouter aurait exigé d'inventer des coordonnées non sourcées."
+          },
+          {
+            "claim": "écart résiduel de distance de l'étape (généré 187,7 km vs officiel 171 km, +9,8 %)",
             "status": "UNSURE",
             "level": "moyenne",
-            "detail": "deux zones de rebroussement détectées (detectBacktrackZones, aux alentours de km 0-7 et km 27-34) totalisent de l'ordre de 14 à 15 km, soit la majorité de l'écart de +18,1 km. Les coordonnées de fin de la première zone et de début de la seconde sont quasi identiques (à quelques dizaines de mètres près, ~800 m d'altitude, reverse-géocodées « Montferrier », Ariège) : le tracé repasse deux fois par le même point, une première fois en montant de Lavelanet vers le col de Montségur (curé à ~6,6 km au sud), une seconde fois en redescendant du col de la Badourade (curé plus au sud-ouest, sommet HC à 1634 m) avant de repartir vers le col de Saint-Benoît, situé à l'inverse au nord-est de Lavelanet. Géométriquement cohérent avec un aller-retour réel par une route en impasse/antenne desservant ces deux cols reculés (Montségur est un village-étape isolé) plutôt qu'avec un artefact de curation — hypothèse la plus probable au vu des coordonnées et de l'altitude mesurées, non confirmée par une carte satellite ou une source du tracé réel. Note méthodologique : deux régénérations indépendantes de cette étape donnent des bornes de zones et des coordonnées de quelques centaines de mètres différentes l'une de l'autre sur cette portion précise (plusieurs itinéraires de coût proche pour le routeur BRouter dans ce secteur montagneux) — la conclusion qualitative (aller-retour réel expliquant l'essentiel de l'écart) est reproductible, pas les chiffres au mètre/à la coordonnée près, volontairement arrondis ici plutôt que cités avec une précision qu'ils n'ont pas."
+            "detail": "après la correction de la Badourade et l'ajout des points ci-dessus, l'écart est passé de +10,6 % (état avant cette session) à +9,8 % (statut « ok », tolérance ±10 % en vigueur ; au-dessus de la cible d'audit ±5 %). Deux petits rebroussements résiduels subsistent (~0,8 km chacun), vérifiés contre les alongM réels des vias sur le tracé généré (Saint-Benoît 52,9 km, Limoux 78,1 km, Carcassonne 105,5 km) : le premier (km 76,7-77,5) est dans le vide Saint-Benoît→Limoux (15,3 km à vol d'oiseau), le second (km 78,7-79,5) dans le vide Limoux→Carcassonne (19,7 km) — tous deux au-delà du seuil d'alerte ~12 km sans point intermédiaire, avertissements conservés, aucune source ne documente de village entre ces points. Six vides de ce type restent avertis (Montségur-Badourade 16,0 km, Saint-Benoît-Limoux 15,3 km, Limoux-Carcassonne 19,7 km, Carcassonne-Marseillette 15,4 km, Marseillette-Pouzols-Minervois 23,8 km, Pouzols-Minervois-Capestang 19,8 km) : aucun village intermédiaire nommé par la source image sur ces segments, un point inventé serait moins fiable qu'un vide documenté. Écart jugé irréductible avec les sources disponibles plutôt que forcé sous ±5 % par une coordonnée non sourcée."
           }
         ],
-        "note": "Lavelanet → Béziers (171 km, 20 juillet 2002). Trois cols classés en début d'étape : col de Montségur (km 8,5, 4,3 km à 8,3 %, 3e cat.), col de la Badourade (km 31,0, 6,7 km à 2,4 %, 4e cat.), col de Saint-Benoît (km 48,5, 4,9 km à 4,7 %, 3e cat.). Sourcé : bikeraceinfo.com."
+        "note": "Lavelanet → Béziers (171 km, 20 juillet 2002). Trois cols classés en début d'étape : col de Montségur (km 8,5, 4,3 km à 8,3 %, 3e cat.), col de la Badourade (km 31,0, 6,7 km à 2,4 %, 4e cat. — en réalité la côte de la Babourade, Puivert, Aude), col de Saint-Benoît (km 48,5, 4,9 km à 4,7 %, 3e cat.). Cols sourcés : bikeraceinfo.com. Suite du parcours (Limoux, Carcassonne, Marseillette, Pouzols-Minervois, Capestang, Montady, Béziers) sourcée : ledicodutour.com (profil d'étape 2002-13a.jpg)."
       },
       "15": {
         "vias": [
+          { "label": "Sahune", "kind": "via", "lat": 44.4147018, "lon": 5.2678549 },
+          { "label": "La Motte-Chalançon", "kind": "via", "lat": 44.4853515, "lon": 5.3794919 },
           { "label": "Col de Prémol", "kind": "col" },
+          { "label": "Luc-en-Diois", "kind": "sprint", "lat": 44.6152, "lon": 5.4517754 },
+          { "label": "Châtillon-en-Diois", "kind": "via", "lat": 44.6951492, "lon": 5.4851785 },
           { "label": "Col de Grimone", "kind": "col", "lat": 44.69167, "lon": 5.65389 },
           { "label": "Col de la Croix-Haute", "kind": "col" },
           { "label": "Col du Banchet", "kind": "col" },
           { "label": "Ponsonas", "kind": "col" },
-          { "label": "Col d'Ornon", "kind": "col" }
+          { "label": "Col d'Ornon", "kind": "col", "lat": 45.00889, "lon": 5.9675, "ele": 1360 }
         ],
         "confidence": [
           {
@@ -1454,9 +1728,21 @@
             "status": "FIX",
             "level": "haute",
             "detail": "issue #188 : le géocodage automatique du seul libellé « Col de Grimone » (sans coordonnées curées) retombait sur « Pas de Brame-Vache » (data.geopf.fr, score 0,51), un point homonyme sans rapport à ~26 km du vrai col — repéré par 4 zones de rebroussement détectées (detectBacktrackZones) autour de ce via, cumulant ~20 km en aller-retour vers ce faux point avant que le tracé ne rejoigne péniblement le vrai col plus loin (reverse-géocodé « Côte de Grimone, Glandage » à km 116-142 dans l'ancienne génération). Coordonnées corrigées (44,69167/5,65389, infobox Wikipédia fr.wikipedia.org/wiki/Col_de_Grimone, 1319 m, confirmé par reverse-géocodage sur « Glandage ») et ajoutées à known_cols.json. Après correction, vérifié par régénération réelle : écart de distance passe de +18,9 % (269,4 km) à +8,1 % (244,9 km, dans la tolérance ±10 %), zéro zone de rebroussement restante, le col de Grimone est maintenant détecté comme sa propre côte nommée (1311 m mesuré, cohérent avec les 1319 m sourcés) au lieu de deux détections parasites."
+          },
+          {
+            "claim": "points de passage ajoutés entre Vaison-la-Romaine et le col de Grimone (km 29 à 97,5)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "les 4 vides >12 km signalés dans cette portion (Vaison-Prémol 44,2 km, Prémol-Grimone 24,6 km) ont été comblés par 4 points tirés du profil ledicodutour.com (2002-15a.jpg) : Sahune (km 29), La Motte-Chalançon (km 50,5), Luc-en-Diois (km 81,5, sprint), Châtillon-en-Diois (km 97,5, ravitaillement). Coordonnées curées en dur (near-bias confirmé à la régénération réelle : sans coordonnées explicites, Châtillon-en-Diois et le point suivant dérivaient vers d'autres communes, même mécanisme que les cols 2002/8, 2002/12, 2002/13). Chaque point validé par distance routée (routeLeg) contre l'écart kilométrique de l'image, à 1-4 km près. Un 5e point candidat, Le Bourg-d'Oisans (km 203, entre le col d'Ornon et l'arrivée), a été testé en plus de ces 4 points puis écarté : son ajout ne comblait aucun vide signalé (vide Ornon-arrivée déjà sous le seuil d'alerte en vol d'oiseau) et dégradait le résultat par rapport à l'état avec seulement les 4 points retenus (+9,1 % avec lui contre +9,2 % sans lui sur la distance — quasi neutre — mais avec deux nouvelles zones de rebroussement apparaissant près du col d'Ornon) — non retenu."
+          },
+          {
+            "claim": "coordonnées géocodées du col d'Ornon",
+            "status": "FIX",
+            "level": "haute",
+            "detail": "trouvaille de relecture adverse sur cette tâche : le libellé « Col d'Ornon » sans coordonnées curées (présent depuis l'introduction de cette étape, non lié aux 4 points ajoutés ci-dessus) retombait sur « Pic du Col d'Ornon » (data.geopf.fr, score 0,70), un sommet homonyme à 2866 m dans le massif du Taillefer (reverse-géocodé « Villard-Notre-Dame »), à ~4 km du vrai col routier — vérifié en rejouant geocodeCol() avec le near réel du pipeline, exactement le même mécanisme que le col de Grimone déjà corrigé sur cette même étape (issue #188) : une faille corrigée à un endroit du fichier et laissée béante à un autre endroit de la même étape (CLAUDE.md, règle 1). C'est ce mauvais point, pas un choix de tracé du routeur, qui expliquait les deux zones de rebroussement observées en première version de ce commit entre le col d'Ornon et l'arrivée (km 199,6-204,6 et km 205,9-210,9) — l'affirmation initiale (« comportement du routeur, pas une régression ») était incorrecte : la régénération isolée du seul leg Ornon→arrivée confirmait bien la distance (42,2 km) mais pas les zones de rebroussement elles-mêmes, qui n'apparaissent qu'avec la chaîne complète de l'étape (sensibilité du détecteur au nombre d'échantillons, non creusée au niveau du code). Coordonnées corrigées (45,00889/5,9675, Wikipédia en.wikipedia.org/wiki/Col_d%27Ornon, D526 entre Bourg-d'Oisans et La Mure, 1360 m) et ajoutées à known_cols.json : le point reverse-géocode sur « Chantepérier » (data.geopf.fr), altitude réelle mesurée (RGE ALTI) 1369,88 m, cohérente avec les 1360 m sourcés et avec les 1371 m du profil ledicodutour.com. Après correction, vérifié par régénération réelle : écart de distance passe de +9,2 % (247,4 km) à +3,0 % (233,2 km, sous la cible d'audit ±5 %), zéro zone de rebroussement restante, altitude du col d'Ornon mesurée à 1370 m (écart 10 m)."
           }
         ],
-        "note": "Vaison-la-Romaine → Les Deux Alpes (226,5 km, 23 juillet 2002). Six cols avant l'arrivée : col de Prémol (km 68,5, 3e cat.), col de Grimone (km 116,0, 2e cat.), col de la Croix-Haute (km 123,5, 3e cat.), col du Banchet (km 136,5, 3e cat.), côte de Ponsonas (km 160,0, 3e cat.), col d'Ornon (km 190,0, 2e cat.), puis ascension finale des Deux Alpes (11,2 km à 6,4 %, 1re cat.). Sourcé : bikeraceinfo.com."
+        "note": "Vaison-la-Romaine → Les Deux Alpes (226,5 km, 23 juillet 2002). Six cols avant l'arrivée : col de Prémol (km 68,5, 3e cat.), col de Grimone (km 116,0, 2e cat.), col de la Croix-Haute (km 123,5, 3e cat.), col du Banchet (km 136,5, 3e cat.), côte de Ponsonas (km 160,0, 3e cat.), col d'Ornon (km 190,0, 2e cat.), puis ascension finale des Deux Alpes (11,2 km à 6,4 %, 1re cat.). Cols sourcés : bikeraceinfo.com. Points intermédiaires (Sahune, La Motte-Chalançon, Luc-en-Diois, Châtillon-en-Diois) sourcés : ledicodutour.com (profil d'étape 2002-15a.jpg)."
       },
       "17": {
         "vias": [
@@ -1477,13 +1763,19 @@
       },
       "18": {
         "vias": [
-          { "label": "Bois de Serves", "kind": "col" },
+          { "label": "La Roche-sur-Foron", "kind": "via" },
+          { "label": "Le Chaumet", "kind": "via", "lat": 46.052991, "lon": 6.21037 },
+          { "label": "Bois de Serves", "kind": "col", "lat": 46.043961, "lon": 6.125448, "ele": 830 },
+          { "label": "Cruseilles", "kind": "sprint" },
           { "label": "Marlioz", "kind": "col" },
           { "label": "Sémine", "kind": "col" },
+          { "label": "Génissiat", "kind": "via" },
           { "label": "Col de Richemont", "kind": "col" },
+          { "label": "Le Petit Abergement", "kind": "sprint", "lat": 46.066514, "lon": 5.6510956 },
           { "label": "Col de la Cheminée", "kind": "col" },
-          { "label": "Giriat", "kind": "col" },
-          { "label": "Col du Berthiand", "kind": "col" }
+          { "label": "Giriat", "kind": "col", "lat": 46.149774, "lon": 5.51605, "ele": 685 },
+          { "label": "Col du Berthiand", "kind": "col" },
+          { "label": "Ceyzériat", "kind": "via" }
         ],
         "confidence": [
           {
@@ -1493,29 +1785,63 @@
             "detail": "7 cols/côtes sourcés dans l'ordre (bikeraceinfo.com, km 41,0 à 147,5), couvrant l'essentiel du massif du Jura avant l'arrivée à Bourg-en-Bresse."
           },
           {
-            "claim": "écart résiduel de distance de l'étape (généré 203,3 km vs officiel 176,5 km, +15,2 %)",
-            "status": "UNSURE",
-            "level": "basse",
-            "detail": "issue #188 : deux petites zones de rebroussement détectées (detectBacktrackZones, km 50-52 et 53-55, ~4 km cumulés) n'expliquent qu'une fraction mineure de l'écart de +26,8 km — cause principale non identifiée. Investigué un possible mauvais géocodage du via « Bois de Serves » (premier col de l'étape, sourcé bikeraceinfo.com au km 41,0), par analogie avec la classe de bug déjà corrigée sur le Col de Grimone (même issue). Le point géocodé (46,246071/6,047812, Prévessin-Moëns, Pays de Gex, département 01, à la frontière suisse) est le seul lieu-dit nommé « Bois de Serves » dans l'index POI national (data.geopf.fr, recherche non biaisée reproduisant la requête réelle de geocodeCol() : score 0,85, sans concurrent proche) — ce n'est donc pas un homonyme sans rapport comme pour Grimone. Mais il est géométriquement incompatible avec sa position officielle : la distance à vol d'oiseau Cluses→Bois de Serves mesure 46,3 km alors que bikeraceinfo.com le place à 41,0 km par la route (impossible, une route ne peut jamais être plus courte qu'une ligne droite) ; de même pour le segment suivant Bois de Serves→Marlioz, 24,6 km à vol d'oiseau contre 16,5 km annoncés par la route. Les 6 autres segments de l'étape passent ce même test sans anomalie. Donc le nom « Bois de Serves » cité par la source désigne vraisemblablement un lieu-dit local distinct de ce toponyme national (ou la source elle-même comporte une erreur de kilométrage) — mais aucune coordonnée alternative fiable n'a été trouvée pour le confirmer, donc pas de correction appliquée plutôt que de deviner une coordonnée non sourcée."
+            "claim": "localisation de la côte des Bois de Serves (km 41)",
+            "status": "FIX",
+            "level": "haute",
+            "detail": "la curation précédente avait déjà établi, par un test géométrique (distance à vol d'oiseau Cluses→Bois de Serves 46,3 km supérieure aux 41,0 km annoncés par la route — impossible), que le seul « Bois de Serves » de l'index POI national (46,246071/6,047812, Prévessin-Moëns, département 01, frontière suisse, score 0,85 en requête isolée) ne pouvait pas être le bon point, sans trouver d'alternative. Cette session : la requête « Serves » seule (sans « Bois de » ni « Côte des »), avec un `near` fixé sur Cruseilles, retombe sur « la Serve » (46,043961/6,125448, data.geopf.fr, score 0,56) — corrigé en relecture adverse : Cruseilles vient APRÈS Bois de Serves dans l'ordre des vias, donc n'est jamais le `near` réellement utilisé par le pipeline (`geocodeOptsFor()` ne fournit que le waypoint précédent) ; avec le near réel (La Roche-sur-Foron, ajoutée ci-dessous), la même requête retombe sur un point différent et géométriquement faux (« les Serves », 27,6 km de Cluses contre 41 km visés) — les coordonnées de « la Serve » restent correctes et ont été figées en dur (court-circuitant tout re-géocodage), mais uniquement parce qu'un test isolé avec un `near` non atteignable en production les a trouvées, pas par un mécanisme reproductible du pipeline réel. Distances vérifiées sur la chaîne complète réellement routée (routeStage, pas des legs isolés) : Cluses→Bois de Serves 46,6 km cumulés (cible 41 km), Bois de Serves→Cruseilles 1,36 km (cible 2 km) ; altitude mesurée 788 m contre 830 m sourcée par l'image (écart 42 m, dans la tolérance). Coordonnées remplacées."
+          },
+          {
+            "claim": "localisation de la côte de Giriat (km 137)",
+            "status": "FIX",
+            "level": "haute",
+            "detail": "la requête « Côte de Giriat » (telle que libellée dans la source) retombe sur un point sans rapport (« la Côte », score ~0,50-0,55, altitude mesurée 576 m contre 685 m sourcée par l'image — écart de 109 m, vérifié en relecture adverse par appel direct à l'API data.geopf.fr). La requête « Giriat » seule retombe sur un point bien mieux noté (score 0,82-0,85, stable que le `near` soit Nantua ou le vrai waypoint précédent du pipeline, Col de la Cheminée) à 46,149774/5,51605, altitude mesurée 653 m (écart 32 m avec les 685 m sourcés). Libellé et coordonnées remplacés."
+          },
+          {
+            "claim": "points de passage ajoutés le long de l'étape (La Roche-sur-Foron, Le Chaumet, Cruseilles, Génissiat, Le Petit Abergement, Ceyzériat)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "tirés du profil ledicodutour.com (2002-18a.jpg) pour combler les vides >12 km et fiabiliser le near-chain de géocodage autour des deux cols corrigés ci-dessus. Trouvaille en régénérant le pipeline réel après leur ajout : « Le Petit Abergement » (sprint, km 111,5) dérivait vers un point à ~93 km au nord (46,90/5,70, homonyme ou biais de near sans rapport), gonflant l'étape à 404 km (+129 %) — coordonnées curées en dur (46,066514/5,6510956, Le Petit-Abergement, Ain) pour corriger, même mécanisme de dérive que les autres étapes de cette session. « Le Chaumet » (km 31, non catégorisé) avait d'abord été omis (seul résultat de géocodage isolé : « Le Chaumet, Fley », Saône-et-Loire, ~150 km, homonyme sans rapport) — corrigé en relecture adverse : avec un `near` fixé sur La Roche-sur-Foron (son vrai waypoint précédent dans l'ordre des vias), la même requête retombe sur un bon candidat (46,052991/6,21037, data.geopf.fr, score 0,85, Haute-Savoie), quasiment sur le tracé déjà routé entre La Roche-sur-Foron et Bois de Serves (20,9 km cumulés via ce point contre 20,9 km directs, aucun détour), altitude mesurée 887 m contre 920 m sourcée par l'image (écart 33 m). Coordonnées curées en dur et ajoutées."
+          },
+          {
+            "claim": "écart résiduel de distance de l'étape (généré 171,6 km vs officiel 176,5 km, -2,8 %)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "après les deux corrections de localisation et les 5 points ajoutés, l'écart passe de +15,2 % (203,3 km) à -2,8 % (171,6 km), sous la cible d'audit ±5 %. Zéro zone de rebroussement restante (il y en avait deux, mineures, avant cette session — issue #188). Tous les checks col-atteint et altitude-sommet sont « ok », y compris Bois de Serves et Giriat après correction."
           }
         ],
-        "note": "Cluses → Bourg-en-Bresse (176,5 km, 25 juillet 2002). Sept cols/côtes classés dans l'ordre : côte des Bois de Serves (3e cat.), côte de Marlioz (4e cat.), côte de la Sémine (4e cat.), col de Richemont (1re cat.), col de la Cheminée (3e cat.), côte de Giriat (4e cat.), col du Berthiand (2e cat.). Sourcé : bikeraceinfo.com."
+        "note": "Cluses → Bourg-en-Bresse (176,5 km, 25 juillet 2002). Sept cols/côtes classés dans l'ordre : côte des Bois de Serves (3e cat., en réalité la Serve, Cruseilles), côte de Marlioz (4e cat.), côte de la Sémine (4e cat.), col de Richemont (1re cat.), col de la Cheminée (3e cat.), côte de Giriat (4e cat.), col du Berthiand (2e cat.). Cols sourcés : bikeraceinfo.com. Points intermédiaires (La Roche-sur-Foron, Cruseilles, Génissiat, Le Petit Abergement, Ceyzériat) sourcés : ledicodutour.com (profil d'étape 2002-18a.jpg)."
       },
       "19": {
         "vias": [
-          { "label": "Fût d'Avenas", "kind": "col" }
+          { "label": "Villié-Morgon", "kind": "via" },
+          { "label": "Fût d'Avenas", "kind": "col" },
+          { "label": "Fleurie", "kind": "via" },
+          { "label": "Romanèche-Thorins", "kind": "via" },
+          { "label": "Chânes", "kind": "via" },
+          { "label": "Charnay-lès-Mâcon", "kind": "via" }
         ],
         "confidence": [
           {
             "claim": "parcours complet du contre-la-montre Régnié-Durette → Mâcon (50 km)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "complété avec 5 communes tirées du profil ledicodutour.com (2002-19a.jpg) : Villié-Morgon (km 4), Fleurie (km 18,5), Romanèche-Thorins (km 24,5), Chânes (km 33,5, ravitaillement), Charnay-lès-Mâcon (km 41,5) — toutes des communes viticoles du Beaujolais géocodées sans ambiguïté, progression géographique cohérente (Rhône → Saône-et-Loire, nord constant)."
+          },
+          {
+            "claim": "écart résiduel de distance de l'étape (généré 46,8 km vs officiel 50 km, -6,3 %)",
             "status": "UNSURE",
-            "level": "basse",
-            "detail": "un seul col sourcé (bikeraceinfo.com, km 10,5) sur 50 km — les ~40 km restants jusqu'à Mâcon sont décrits par la source comme « relativement plats » mais sans commune intermédiaire nommée."
+            "level": "moyenne",
+            "detail": "dans la tolérance ±10 % en vigueur, légèrement au-dessus de la cible d'audit ±5 %, mais ce chiffre global masque des écarts locaux plus importants qui se compensent (vérifié en relecture adverse, routeLeg direct par segment comparé aux écarts kilométriques image) : Villié-Morgon→Fût d'Avenas +2,1 km, Fût d'Avenas→Fleurie +3,7 km (l'aller-retour ci-dessous), Fleurie→Romanèche-Thorins -2,2 km, Charnay-lès-Mâcon→Mâcon -5,4 km (la commune de Charnay-lès-Mâcon n'est qu'à 2,3 km à vol d'oiseau de Mâcon alors que l'image lui attribue le km 41,5 sur 50 — le centroïde communal géocodé n'est vraisemblablement pas le point par lequel passait le CLM, sans alternative sourcée trouvée). Deux zones de rebroussement détectées autour de la côte du Fût d'Avenas (km 10,5-12,4 et km 13,5-15,5) : confirmé en relecture adverse au niveau brut du routeur (BRouter route réellement vers ce point par une voie en impasse puis revient par la même route, points identiques au 1e-5° entre l'aller et le retour) — un vrai aller-retour routier, pas un artefact du pipeline. La côte détectée dans le profil généré mesure en conséquence 9,7 km (3,2→12,9) contre 7,2 km sourcés par bikeraceinfo.com, l'excédent correspondant à peu près à cet aller-retour. L'altitude mesurée au sommet (744 m contre 743 m « connue », écart 0 m) n'est pas une validation indépendante du point : cette valeur « connue » est elle-même dérivée du même appel d'altitude que celui qui géocode le via (`pipeline/generate.js`), pas d'une source curatée — elle confirme seulement la cohérence interne de l'API d'altitude, pas que le point géocodé est le bon sommet. Non creusé davantage : l'écart global résultant reste dans la tolérance et une tentative de coordonnée alternative sans source réelle risquerait d'être moins fiable que le point actuel."
           }
         ],
-        "note": "Régnié-Durette → Mâcon, contre-la-montre individuel (50 km, 27 juillet 2002). Un seul col classé en début d'épreuve : côte du Fût d'Avenas (km 10,5, 7,2 km à 4,4 %, 3e cat.). Sourcé : bikeraceinfo.com."
+        "note": "Régnié-Durette → Mâcon, contre-la-montre individuel (50 km, 27 juillet 2002). Un seul col classé : côte du Fût d'Avenas (km 10,5, 7,2 km à 4,4 %, 3e cat., sourcé bikeraceinfo.com). Suite du parcours (Villié-Morgon, Fleurie, Romanèche-Thorins, Chânes, Charnay-lès-Mâcon) sourcée : ledicodutour.com (profil d'étape 2002-19a.jpg)."
       },
       "20": {
+        "vias": [
+          { "label": "Lissy", "kind": "via" },
+          { "label": "Jossigny", "kind": "via" },
+          { "label": "Champs-sur-Marne", "kind": "sprint" }
+        ],
         "confidence": [
           {
             "claim": "circuit final des Champs-Élysées",
@@ -1524,13 +1850,19 @@
             "detail": "tracé du circuit des Champs-Élysées confirmé inchangé de 1975 à 2012 (avant le passage par la place Charles-de-Gaulle introduit en 2013) — même source déjà utilisée pour l'entrée 1992/21 : fr.wikipedia.org/wiki/Étape_des_Champs-Élysées_du_Tour_de_France. Nombre de tours effectués en 2002 non retrouvé par une source consultée (contrairement à 1992, où 10 tours sont sourcés)."
           },
           {
-            "claim": "parcours d'approche Melun → Paris (~144 km, avant le circuit)",
+            "claim": "parcours d'approche Melun → Champs-sur-Marne (km 0 à 54)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "sourcé cette session via le profil ledicodutour.com (2002-20a.jpg, désormais accessible) : Lissy (km 9,5), Jossigny (km 39,5), Champs-sur-Marne (km 54, sprint) — 3 communes sans homonyme lointain, distances routées cohérentes avec l'image (~10-13 km par leg, ordre de grandeur des écarts kilométriques image). Nuance trouvée en relecture adverse : pour chacune, la Géoplateforme renvoie deux candidats exact-match « commune » (un centroïde adresse, un doublon index POI, à 500-900 m l'un de l'autre) — pickFeature() retient systématiquement le plus proche du waypoint précédent, pas le mieux noté ; les deux restent dans la bonne commune (écart négligeable, <1 km cumulé), donc pas une vraie erreur, mais « sans ambiguïté » était une formulation trop forte. Un 4e point du profil, « Hauts des Champs » (km 80, sprint), a été omis : aucun résultat de géocodage plausible trouvé (testé en requête isolée et avec plusieurs `near` le long de la route réelle, en relecture adverse incluse) — semble être un nom descriptif plutôt qu'un toponyme officiel, aucune alternative fiable trouvée."
+          },
+          {
+            "claim": "écart résiduel de distance de l'étape (généré 74,8 km vs officiel 144 km, -48,0 %)",
             "status": "UNSURE",
             "level": "basse",
-            "detail": "aucune commune intermédiaire sourcée (ledicodutour.com/villes-etapes/villes_etapes_m/melun.html renvoie vers des cartes non accessibles ici plutôt qu'un texte exploitable). Trou de couverture non comblé plutôt qu'inventé."
+            "detail": "hors tolérance ±10 %, mais explicable par une limitation architecturale déjà documentée (issue #251, « pas de notion de nombre de tours », vérifiée réelle en relecture adverse) plutôt que par un trou de sourcing sur cette session : en ajoutant 10 tours × 6,5 km (65 km, chiffre sourcé pour 1992/21) à la distance brute reconstituée (74,835 km), on obtient 139,8 km contre 144 km officiels — écart de 2,9 %, dans la tolérance ±10 %, confirmé en relecture adverse par un calcul indépendant. L'arithmétique colle bien, ce qui rend peu probable qu'un autre via manquant ou mal positionné explique une part significative du déficit plutôt que les tours de circuit non modélisés. Avant cette session l'écart était de -66,4 % (point d'approche totalement absent) ; il reste hors tolérance après l'ajout des 3 points d'approche sourcés ci-dessus, pour une cause structurelle hors du périmètre d'une PR de curation de données (CLAUDE.md, « un item cohérent par PR » ; voir issue #251 pour le correctif d'architecture)."
           }
         ],
-        "note": "Melun → Paris/Champs-Élysées, étape finale (144 km, 28 juillet 2002, victoire de Robbie McEwen). Circuit final identique à celui documenté pour 1992 (voir 1992/21) mais sans point de passage intermédiaire sourcé pour l'approche Melun → Paris ni nombre de tours confirmé pour cette édition précise."
+        "note": "Melun → Paris/Champs-Élysées, étape finale (144 km, 28 juillet 2002, victoire de Robbie McEwen). Approche sourcée : Lissy (km 9,5), Jossigny (km 39,5), Champs-sur-Marne (km 54, sprint) — ledicodutour.com (profil d'étape 2002-20a.jpg). Circuit final identique à celui documenté pour 1992 (voir 1992/21) mais nombre de tours non confirmé pour cette édition précise, et non modélisé par le pipeline (issue #251)."
       }
     }
   },
@@ -1539,7 +1871,7 @@
     "stages": {
       "1": {
         "start": "Nice",
-        "note": "Grand Départ de Nice, étape 1 (Nice → Nice, profil roulant, victoire Alexander Kristoff) — édition marquée par la pandémie de Covid-19, disputée en septembre-octobre. Tracé narratif (cyclingstage.com, « Tour de France 2020 Route stage 1: Nice - Nice ») : 3 boucles décrites dans l'article — 2 boucles d'environ 50 km (montée à Aspremont, ~8 km, puis vallée du Var) suivies d'une boucle de 70 km (Côte de Rimiez avant Aspremont, puis Tourrette-Levens, descente par Saint-Martin-du-Var et Carros). Points de passage dans l'ordre décrit par l'article, chaque boucle repassant par Aspremont. Étape en circuit sans via curé au départ : reconstruction ~0 km avant ce correctif.",
+        "note": "Grand Départ de Nice, étape 1 (Nice → Nice, profil roulant, victoire Alexander Kristoff) — édition marquée par la pandémie de Covid-19, disputée en septembre-octobre. Tracé sourcé sur cyclingstage.com (« Tour de France 2020 Route stage 1: Nice - Nice », vérifié par 2 relectures séparées cette session, cohérentes) : 3 boucles — boucle 1 et boucle 2 identiques (~50 km chacune, montée à Aspremont puis vallée du Var), boucle 3 finale (~70 km, Côte de Rimiez puis Aspremont une 3e fois, Tourrette-Levens, descente par Saint-Martin-du-Var et Carros). Cette session a ajouté « Castagniers » (vallée du Var, entre Aspremont et Carros dans les boucles 1 et 2) et « Levens » (entre Tourrette-Levens et Saint-Martin-du-Var dans la boucle 3), ainsi qu'une répétition complète d'Aspremont→Castagniers→Carros pour matérialiser la boucle 2 (absente de la version précédente, qui ne comptait Aspremont que 2 fois au lieu de 3). Sourcé par recoupement de deux requêtes WebSearch indépendantes donnant des bornes kilométriques cohérentes entre elles (Aspremont km 17/67/117, Castagniers km 22/72, Carros km 30/80/150) — non confirmé par une relecture directe de page web (plusieurs tentatives de WebFetch sur des pages Wikipédia FR ont donné des chiffres incohérents d'un appel à l'autre pour cette étape, donc écartées comme non fiables cette fois-ci plutôt que citées). Aucun trajet GPX officiel disponible pour cette édition (cyclingstage.com n'en propose qu'à partir de 2022 environ).",
         "finish": "Nice",
         "vias": [
           {
@@ -1547,6 +1879,32 @@
             "kind": "col",
             "lat": 43.771062,
             "lon": 7.242627
+          },
+          {
+            "label": "Castagniers",
+            "kind": "via"
+          },
+          {
+            "label": "Carros",
+            "kind": "via",
+            "lat": 43.784043,
+            "lon": 7.191567
+          },
+          {
+            "label": "Aspremont",
+            "kind": "col",
+            "lat": 43.771062,
+            "lon": 7.242627
+          },
+          {
+            "label": "Castagniers",
+            "kind": "via"
+          },
+          {
+            "label": "Carros",
+            "kind": "via",
+            "lat": 43.784043,
+            "lon": 7.191567
           },
           {
             "label": "Côte de Rimiez",
@@ -1567,6 +1925,10 @@
             "lon": 7.273341
           },
           {
+            "label": "Levens",
+            "kind": "via"
+          },
+          {
             "label": "Saint-Martin-du-Var",
             "kind": "via",
             "lat": 43.819003,
@@ -1581,10 +1943,10 @@
         ],
         "confidence": [
           {
-            "claim": "Le tracé complet des 3 boucles (Nice, Aspremont, Côte de Rimiez, Tourrette-Levens, Saint-Martin-du-Var, Carros) reste partiellement une invention du routeur.",
+            "claim": "distance reconstituée des 3 boucles autour de Nice (Aspremont ×3, Castagniers, Carros ×3, Côte de Rimiez, Tourrette-Levens, Levens, Saint-Martin-du-Var)",
             "status": "UNSURE",
             "level": "moyenne",
-            "detail": "Vérifié en rejouant le pipeline réel : 82,0 km reconstitués pour 156 km officiels (-47,4 %). Les 5 lieux sourcés (Aspremont, Côte de Rimiez, Tourrette-Levens, Saint-Martin-du-Var, Carros) géocodent tous correctement (coordonnées vérifiées cohérentes autour de Nice), et Aspremont est bien répété 3 fois dans l'ordre décrit par l'article (une fois par boucle) — mais le routeur relie deux passages consécutifs par Aspremont par le chemin le plus court entre les deux, pas en repassant par les 3 boucles distinctes décrites dans l'article. Pas de trajet GPX officiel disponible pour cette édition (cyclingstage.com ne propose de GPX qu'à partir de 2022 environ)."
+            "detail": "Vérifié en rejouant le pipeline réel avec les 12 vias (contre 6 et -47,4 % auparavant) : 148,6 km reconstitués pour 156 km officiels (-4,7 %, dans la tolérance ±10 % et dans la cible ±5 %). 8 zones de rebroussement détectées : les 6 premières (km 10,5-13,3 à 54,5-58,5) se situent bien dans le corridor Aspremont-Castagniers-Carros parcouru deux fois pour les boucles 1 et 2 ; les 2 dernières (km 124,8-126,6 et 127,6-128,6) sont en réalité dans la boucle 3 (3e passage par Carros après Saint-Martin-du-Var), mais empruntent le même corridor routier — plausible pour une étape qui emprunte réellement la même boucle deux fois puis recroise ce corridor une 3e fois (les passages suivent forcément des routes proches), mais non confirmé par une carte précise — pourrait aussi gonfler légèrement la distance reconstituée. Les lieux ajoutés cette session (Castagniers, Levens) sont sourcés par recoupement de deux requêtes WebSearch indépendantes et cohérentes entre elles sur les bornes kilométriques, mais pas par une lecture directe de page web fiable (voir note) — niveau de confiance moyen plutôt qu'élevé pour cette raison. Aucun trajet GPX officiel disponible pour cette édition."
           }
         ]
       },
@@ -3753,28 +4115,80 @@
           {
             "label": "Jurançon",
             "kind": "via"
+          },
+          {
+            "label": "Rue Mulot, Pau",
+            "kind": "via"
           }
         ],
-        "note": "CLM en boucle à Pau (27,2 km) — tracé sourcé (cyclingstage.com, stage-13-tdf-2019) : Côte d'Esquillot (km 15,5, ~8 %), puis les vignobles de Jurançon (km 21,9) avant le final (rampe à 17 % près de la Rue Mulot)."
+        "note": "CLM en boucle à Pau (27,2 km) — tracé sourcé (cyclingstage.com, stage-13-tdf-2019) : Côte d'Esquillot (km 15,5, ~8 %), puis les vignobles de Jurançon (km 21,9) avant le final (rampe à 17 % juste après un virage serré sur la Rue Mulot, dans les derniers centaines de mètres). Rue Mulot ajoutée en via cette session, qualifiée par sa commune (même technique que Cholet 2018/3, Marseille 2017/20) : en requête isolée, résout sans ambiguïté vers « rue Mulot » (score Géoplateforme 0,97) ; mais dans la chaîne réelle de génération (near = Jurançon résolu), le point retenu par pickFeature() est en fait « place Mulot » (score 0,60, départagé par proximité pure au near, 91 m plus proche que « rue Mulot ») — sans impact pratique (même carrefour, cohérent avec le virage serré décrit par la source), mais à ne pas confondre avec la requête isolée.",
+        "confidence": [
+          {
+            "claim": "distance reconstituée du CLM en boucle à Pau",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "première vérification de cette étape par régénération réelle cette session (jamais auditée depuis sa curation initiale) : avec les 2 vias d'origine (Côte d'Esquillot, Jurançon) seuls, 31,1 km reconstitués pour 27,2 km officiels (+14,3 %, hors tolérance ±10 %). Avec la Rue Mulot ajoutée (sourcée, voir note), le résultat ne s'améliore pas (31,4 km, +15,6 %) — conservée malgré tout car sourcée et fidèle au tracé décrit, même si elle ne corrige pas l'écart. Cinq zones de rebroussement détectées : deux explicitement autour de « Côte de Jurançon » (km 20,1-21,5 et km 22,4-23,7) — le point curé (centroïde de la commune de Jurançon) ne correspond peut-être pas précisément au passage réel « dans les vignobles de Jurançon » décrit par la source, sans alternative plus précise trouvée — et trois autres sans lien avec Jurançon (km 0,0-4,9 près du départ, km 26,3-27,3 et km 27,9-31,3, ces deux dernières dans le final). Contrairement aux autres étapes de ce lot (sous-tolérance par manque de densité de points), celle-ci est déjà hors tolérance par excès, pour une cause différente (positionnement du via Jurançon, pas un vide de sourcing) — non résolue cette session, documentée honnêtement plutôt que forcée."
+          }
+        ]
       },
       "16": {
         "start": "Nîmes",
         "finish": "Nîmes",
         "vias": [
           {
+            "label": "Remoulins",
+            "kind": "via"
+          },
+          {
             "label": "Pont du Gard",
             "kind": "via",
             "lat": 43.9470703,
             "lon": 4.5356005
+          },
+          {
+            "label": "Connaux",
+            "kind": "via"
+          },
+          {
+            "label": "Vallérargues",
+            "kind": "via"
+          },
+          {
+            "label": "Alès",
+            "kind": "via"
+          },
+          {
+            "label": "Saint-Jean-du-Pin",
+            "kind": "col"
+          },
+          {
+            "label": "Anduze",
+            "kind": "via"
+          },
+          {
+            "label": "Lédignan",
+            "kind": "via"
+          },
+          {
+            "label": "Moussac",
+            "kind": "via"
+          },
+          {
+            "label": "Uzès",
+            "kind": "via"
+          },
+          {
+            "label": "Pont Saint-Nicolas",
+            "kind": "via"
           }
         ],
-        "note": "Étape 16 à Nîmes (177 km, plaine, aller-retour) — article cyclingstage.com (« Tour de France 2019 Route stage 16: Nîmes – Nîmes ») ne nomme qu'un seul point de passage précis, le viaduc du Pont du Gard, \"dans le final\". Coordonnées du monument confirmées par Nominatim (type « bridge », nom exact « Pont du Gard ») après relecture adverse du 03/09/2026 : la Géoplateforme renvoyait à égalité de score un pont homonyme sans rapport à 2,3 km de là, retenu par erreur dans une première version de cette curation. Étape en circuit sans via curé au départ : reconstruction ~0 km avant ce correctif.",
+        "note": "Étape 16 à Nîmes (177 km, plaine, boucle entière dans le Gard) — tracé sourcé sur Wikipédia FR (« 16e étape du Tour de France 2019 », avec bornes kilométriques), dont le paragraphe de parcours cite lui-même une seule source primaire (ledauphine.com, Aurélien Meazza, 23/07/2019) ; objectifgard.com (« Découvrez toutes les communes traversées ») donne la même liste de communes mais son contenu n'a pas pu être relu cette session (domaine redirigé/404 depuis, fusion vers objectifsud.fr) — la convergence entre les deux n'est donc vérifiée qu'à moitié, pas confirmée comme deux sources indépendantes. Tracé : Nîmes → Remoulins → Pont du Gard (« privilège exceptionnel » de passage routier) → Connaux → Vallérargues (sprint intermédiaire, km 65) → Alès → Côte de Saint-Jean-du-Pin (km 96, 1,8 km à 4,2 %, seule ascension classée) → Anduze → Lédignan → Moussac → Uzès (km 148,5) → Pont Saint-Nicolas (franchissement du Gardon, commune de Sainte-Anastasie) → Nîmes (km 177). 10 vias ajoutées cette session (Pont du Gard déjà curé). Deux noms de la source ne résolvent pas directement : « Côte de Saint-Jean-du-Pin » tombe sur un homonyme sans rapport (« Côte de Pinargues », score Géoplateforme 0,40) — remplacée par la commune « Saint-Jean-du-Pin » (score 0,90, à ~5 km d'Alès, cohérent avec un col routier mineur proche de la ville) ; « Pont Saint-Nicolas de Campagnac », nom exact de Wikipédia, résout moins bien (score 0,66) que la forme courante « Pont Saint-Nicolas » (score 0,94, type localité, commune de Sainte-Anastasie) — préférée.",
         "confidence": [
           {
-            "claim": "Le tracé entre Nîmes et le Pont du Gard, puis entre le Pont du Gard et l'arrivée, reste une invention du routeur.",
+            "claim": "distance reconstituée de l'étape 16 (boucle Nîmes–Nîmes via Pont du Gard, Alès, Uzès)",
             "status": "UNSURE",
             "level": "moyenne",
-            "detail": "Vérifié en rejouant le pipeline réel : 49,0 km reconstitués pour 177 km officiels (-72,3 %). Un seul point de passage nommé est disponible pour cette étape en aller-retour (le Pont du Gard, dans le final) — le reste du tracé est le plus court chemin trouvé par le routeur entre Nîmes, le Pont du Gard et l'arrivée, pas le tracé réel de la course. Même mécanisme que Düsseldorf 2017 et Utrecht 2015 : pas de trajet GPX officiel disponible pour cette édition (cyclingstage.com ne propose de GPX qu'à partir de 2022 environ)."
+            "detail": "régénéré réellement avec les 10 vias ajoutés cette session (contre un seul, Pont du Gard, et -72,3 % auparavant) : 183,2 km reconstitués pour 177 km officiels (+3,5 %, dans la tolérance ±10 % et sous la cible ±5 %). Six écarts de plus de 12 km entre vias consécutifs subsistent (Nîmes-Remoulins 20,4 km, Pont du Gard-Connaux 15,7 km, Connaux-Vallérargues 20,4 km, Vallérargues-Alès 21,1 km, Anduze-Lédignan 12,6 km, Moussac-Uzès 15,4 km) : aucune source trouvée ne nomme de point intermédiaire dans ces intervalles, donc le tracé du routeur y est non vérifié tronçon par tronçon même si la distance totale concorde — un bon résultat agrégé peut masquer des erreurs locales qui se compensent, pas seulement un tracé fidèle de bout en bout. Quatre zones de rebroussement détectées : km 0,3-2,0 (artefact mineur près du départ), km 22,0-25,7 et km 27,2-30,5 (vraisemblablement le détour d'accès/sortie du viaduc du Pont du Gard, situé en léger retrait de l'axe principal Remoulins-Connaux, non confirmé par une source cartographique précise), km 181,2-182,7 (artefact mineur en fin de parcours, après Pont Saint-Nicolas). Aucun trajet GPX officiel disponible pour cette édition (cyclingstage.com n'en propose qu'à partir de 2022 environ) ; ce tracé reste la meilleure reconstitution possible avec les sources textuelles disponibles."
           }
         ]
       }
@@ -3792,6 +4206,11 @@
             "country": "germany"
           },
           {
+            "label": "Oberkasseler Brücke",
+            "kind": "via",
+            "country": "germany"
+          },
+          {
             "label": "Rheinkniebrücke",
             "kind": "via",
             "country": "germany"
@@ -3800,15 +4219,20 @@
             "label": "Königsallee",
             "kind": "via",
             "country": "germany"
+          },
+          {
+            "label": "Tonhalle Düsseldorf",
+            "kind": "via",
+            "country": "germany"
           }
         ],
-        "note": "CLM en boucle dans Düsseldorf (14 km) — tracé sourcé (cyclingstage.com, stage-1-tdf-2017) : rive est du Rhin vers le sud-est, Tonhalle, passage du Rhin par le Rheinkniebrücke, Königsallee, retour par la Tonhalle jusqu'au Düsseldorf Messe.",
+        "note": "CLM en boucle dans Düsseldorf (14 km) — tracé sourcé (cyclingstage.com, stage-1-tdf-2017, texte confirmé consultable cette session, recoupé avec tour-magazin.de) : « The starting ramp is in front of the Düsseldorf Messe. From there, the riders take off on the east side of the Rhine to head south-east, near the Tonhalle they cross the river for a short section on the left bank before the Rheinkniebrücke takes them to the Königsallee [...] and via the Tonhalle they storm in the opposite direction, once again along the Rhine, back to the Messe. » — la Tonhalle est donc passée deux fois (avant la 1re traversée, puis avant l'arrivée), le premier pont (traversée courte, « near the Tonhalle ») identifié comme l'Oberkasseler Brücke par tour-magazin.de.",
         "confidence": [
           {
             "claim": "distance reconstituée du CLM en boucle à Düsseldorf",
             "status": "UNSURE",
             "level": "moyenne",
-            "detail": "vérifié en rejouant le pipeline réel : 6,0 km reconstitués pour 14 km officiels (-57 %). Les 3 vias sourcés (Tonhalle, Rheinkniebrücke, Königsallee) géocodent tous correctement (coordonnées vérifiées cohérentes, groupées autour du centre de Düsseldorf) — l'écart vient de la faible densité de points de passage sur une boucle courte et sinueuse (deux traversées du Rhin par des rues différentes) : sans trajet GPX officiel disponible pour cette édition (cyclingstage.com ne propose de GPX qu'à partir de 2022 environ), le routeur relie les 3 points sourcés par le chemin le plus court plutôt que par le tracé réel de la course."
+            "detail": "écart initial (3 vias, sans l'Oberkasseler Brücke, Tonhalle passée une seule fois) : 6,0 km reconstitués pour 14 km officiels (-57 %). Le texte cyclingstage.com (consulté cette session, cité dans la note) confirme un double passage du Rhin par deux ponts différents et un double passage par la Tonhalle — ni le premier pont ni la répétition de la Tonhalle n'étaient curés. Pont ajouté (geocode() ne le résolvait pas sans `countryHint` explicite : sans lui il retombait sur un lieu-dit homonyme en Moselle, France, score 0,38, confirmé en relecture adverse y compris avec le `near` réel du pipeline). Vérifié par régénération réelle, par étapes : +pont seul → -30,5 % (9,7 km) ; +répétition de la Tonhalle → -26,0 % (10,4 km), amélioration réelle à chaque étape mais encore loin de la cible. Cinq zones de rebroussement couvrant la majorité du tracé subsistent — les points de passage sont tous à moins de 1 km les uns des autres dans le centre-ville, trop rapprochés pour qu'un routeur réel distingue un sens de circulation cohérent sans le tracé GPX officiel (indisponible pour cette édition). Une tentative de curer le départ/arrivée sur « Messe Düsseldorf » plutôt que le centroïde de la ville a été testée puis écartée (relecture adverse, worktree isolé) : elle dégrade le résultat (+31,5 %, mêmes rebroussements) sans lever l'ambiguïté structurelle. Une piste exploratoire (ajouter la Rheinturm, bien géocodée) a réduit l'écart à -25,2 % en test isolé mais n'est pas retenue : absente du texte source consulté, donc une coordonnée plausible non sourcée plutôt qu'une trouvaille vérifiée (CLAUDE.md, règle 9). Écart résiduel documenté comme irréductible avec les sources disponibles plutôt que forcé par des coordonnées non sourcées."
           }
         ]
       },
@@ -3819,17 +4243,21 @@
             "kind": "col"
           },
           {
+            "label": "Corniche Kennedy, Marseille",
+            "kind": "via"
+          },
+          {
             "label": "Vieux Port de Marseille",
             "kind": "via"
           }
         ],
-        "note": "CLM en boucle à Marseille (22,5 km) — tracé sourcé (cyclingstage.com, stage-20-tdf-2017) : montée à Notre-Dame de la Garde (1,2 km à 9,1 %), puis retour par le Vieux Port jusqu'au Stade Vélodrome. La Corniche, mentionnée par la source comme route longée, n'est pas ajoutée en via distinct (nom de route, pas de point vérifiable sans risque de mauvaise résolution géographique).",
+        "note": "CLM en boucle à Marseille (22,5 km) — tracé sourcé (cyclingstage.com, stage-20-tdf-2017) : montée à Notre-Dame de la Garde (1,2 km à 9,1 %) ; descente de 2 km (route différente de la montée) ; retour par la Corniche (ajoutée cette session sous un nom vérifiable géographiquement, « Corniche Kennedy », plutôt que le nom générique « La Corniche » jugé trop risqué dans la curation précédente) puis le Vieux Port jusqu'au Stade Vélodrome.",
         "confidence": [
           {
             "claim": "distance reconstituée du CLM en boucle à Marseille",
             "status": "UNSURE",
             "level": "moyenne",
-            "detail": "vérifié en rejouant le pipeline réel : 7,8 km reconstitués pour 22,5 km officiels (-65 %). Les 2 vias sourcés (Notre-Dame de la Garde, Vieux Port) géocodent correctement — l'écart vient de la faible densité de points de passage sur cette boucle, même limite que Düsseldorf 2017 (pas de trajet GPX officiel disponible pour cette édition)."
+            "detail": "écart initial (2 vias) : vérifié en rejouant le pipeline réel : 7,8 km reconstitués pour 22,5 km officiels (-65 %). Les 2 vias sourcés (Notre-Dame de la Garde, Vieux Port) géocodaient correctement — l'écart venait de la faible densité de points de passage sur cette boucle, même limite que Düsseldorf 2017 (pas de trajet GPX officiel disponible pour cette édition). Tentative testée et ABANDONNÉE cette session : curer le départ/arrivée en objet { label: « Stade Vélodrome, Marseille » } plutôt que le libellé Wikipédia brut — catastrophique en régénération réelle (écart +6808 %, 1554 km générés) : sans country_hint (le champ n'existe que pour les lieux HORS France, jamais pour renforcer un hint France), geocodeOptsFor() (pipeline/generate.js) omet la clé countryHint, ce qui fait retomber geocode() sur sa valeur par défaut 'fr' (Géoplateforme) plutôt que Nominatim — et Géoplateforme résout « Stade Vélodrome, Marseille » vers un lieu-dit homonyme à Creil (Oise, score 0,56), à son tour faisant dériver par near-chain « Notre-Dame de la Garde » vers un autre homonyme (Côtes-d'Armor, 48,623646/-2,240905, le candidat le plus proche du near erroné par haversine, pas le mieux noté). Repéré en isolant la requête avec les mêmes options exactes que geocodeOptsFor() (pas une requête de test simplifiée) — même bug de fond que celui déjà trouvé sur l'Oberkasseler Brücke (2017/1), mais cette fois sans countryHint utilisable puisque le lieu est en France. Départ/arrivée laissés au libellé Wikipédia brut (« Marseille »), qui géocode correctement sans ce problème. Avec la Corniche Kennedy ajoutée en 3e via : vérifié par régénération réelle, écart réduit à -48,1 % (11,7 km) — amélioration réelle, trois zones de rebroussement subsistent (mêmes limites structurelles que Düsseldorf 2017 : densité de points de passage insuffisante sans tracé GPX officiel). Écart résiduel documenté comme irréductible avec les sources disponibles plutôt que forcé par des coordonnées non sourcées."
           }
         ]
       }
@@ -3842,17 +4270,25 @@
       "3": {
         "vias": [
           {
+            "label": "Avenue Francis Bouët, Cholet",
+            "kind": "via"
+          },
+          {
             "label": "La Séguinière",
+            "kind": "via"
+          },
+          {
+            "label": "Rue de la Bastille, La Séguinière",
             "kind": "via"
           }
         ],
-        "note": "CLM par équipes en boucle près de Cholet (35,5 km) — tracé sourcé (cyclingstage.com, stage-3-tdf-2018) : passage confirmé par La Séguinière au km 25 avant la Rue de la Bastille (montée) et le retour à Cholet. Les rues intermédiaires citées par la source (Avenue Francis Bouet, Rue de la Bastille) ne sont pas ajoutées en via distinct — noms de rue, pas de point fiable pour un géocodeur à cette échelle.",
+        "note": "CLM par équipes en boucle près de Cholet (35,5 km) — tracé sourcé (cyclingstage.com, stage-3-tdf-2018) : départ sur l'avenue Francis Bouët (côte de 700 m à 5 %), rues resserrées au km 7 sur 2 km, une 2e côte de 700 m à 5 % au km 16 (point distinct, non nommé par la source), passage par La Séguinière au km 25, montée de la Rue de la Bastille (1,5 km, 5 % puis 3 %), retour à Cholet. Les deux rues nommées ont été ajoutées en via distinct cette session (contrairement à la curation précédente qui les jugeait trop risquées à géocoder) : qualifiées par leur commune (« Avenue Francis Bouët, Cholet » / « Rue de la Bastille, La Séguinière »), elles résolvent sans ambiguïté (score Géoplateforme >0,96, même département que Cholet/La Séguinière) — le nom de rue seul était risqué, qualifié par la commune il ne l'est plus. La 2e côte (km 16) reste sans via : aucun nom de lieu associé dans la source.",
         "confidence": [
           {
             "claim": "distance reconstituée du CLM par équipes en boucle près de Cholet",
             "status": "UNSURE",
             "level": "moyenne",
-            "detail": "vérifié en rejouant le pipeline réel : 19,7 km reconstitués pour 35,5 km officiels (-44,5 %). Le seul via sourcé (La Séguinière) géocode correctement — l'écart vient de la faible densité de points de passage, même limite que Düsseldorf 2017 (pas de trajet GPX officiel disponible pour cette édition, et les rues intermédiaires citées par la source ne sont pas des points fiables pour un géocodeur à cette échelle)."
+            "detail": "écart initial (1 via, La Séguinière seule) : vérifié en rejouant le pipeline réel : 19,7 km reconstitués pour 35,5 km officiels (-44,5 %). Avec les deux rues ajoutées (qualifiées par leur commune) : vérifié par régénération réelle, écart réduit à -40,2 % (21,2 km) — amélioration réelle mais modeste. Six zones de rebroussement couvrant la quasi-totalité du tracé subsistent : même limite structurelle que Düsseldorf 2017 et Marseille 2017 (densité de points de passage insuffisante sans tracé GPX officiel, indisponible pour cette édition). Vérifié en relecture adverse : inverser l'ordre « La Séguinière » / « Rue de la Bastille, La Séguinière » réduirait les rebroussements à 4 et l'écart à -38,9 % — mais contredit la source (cyclingstage.com situe La Séguinière au km 25, avant la sortie vers la Rue de la Bastille) ; l'ordre chronologique correct a été conservé plutôt qu'une amélioration numérique obtenue en falsifiant le tracé. Écart résiduel documenté comme irréductible avec les sources disponibles plutôt que forcé par un ordre non sourcé."
           }
         ]
       }
@@ -3863,6 +4299,14 @@
   "2015": {
     "stages": {
       "1": {
+        "start": {
+          "label": "Jaarbeurs, Utrecht",
+          "country": "netherlands"
+        },
+        "finish": {
+          "label": "Jaarbeurs, Utrecht",
+          "country": "netherlands"
+        },
         "vias": [
           {
             "label": "Vaartsche Rijn",
@@ -3875,13 +4319,13 @@
             "country": "netherlands"
           }
         ],
-        "note": "CLM en boucle à Utrecht (13,8 km, Grand Départ) — tracé sourcé (cyclingstage.com, stage-1-tdf-2015) : gare de Vaartsche Rijn, stade Galgenwaard (FC Utrecht), retour au Jaarbeurs (départ/arrivée).",
+        "note": "CLM en boucle à Utrecht (13,8 km, Grand Départ) — tracé sourcé (cyclingstage.com, stage-1-tdf-2015) : départ/arrivée au Jaarbeurs (centre d'exposition, curé explicitement cette session plutôt que le libellé Wikipédia générique « Utrecht »), gare de Vaartsche Rijn, stade Galgenwaard (FC Utrecht), retour au Jaarbeurs.",
         "confidence": [
           {
             "claim": "distance reconstituée du CLM en boucle à Utrecht",
             "status": "UNSURE",
             "level": "moyenne",
-            "detail": "vérifié en rejouant le pipeline réel : 8,5 km reconstitués pour 13,8 km officiels (-38,4 %). Les 2 vias sourcés (Vaartsche Rijn, Stadion Galgenwaard) géocodent correctement — l'écart vient de la faible densité de points de passage, même limite que Düsseldorf 2017 (pas de trajet GPX officiel disponible pour cette édition)."
+            "detail": "écart initial (départ/arrivée non curés, libellé Wikipédia générique « Utrecht ») : vérifié en rejouant le pipeline réel : 8,5 km reconstitués pour 13,8 km officiels (-38,4 %). Les 2 vias sourcés (Vaartsche Rijn, Stadion Galgenwaard) géocodaient correctement — l'écart venait de la faible densité de points de passage, même limite que Düsseldorf 2017 (pas de trajet GPX officiel disponible pour cette édition). Cette session : départ/arrivée curés sur le Jaarbeurs (le vrai point de départ/arrivée, à ~0,7 km du centroïde administratif d'Utrecht utilisé par défaut) — `country_hint` utilisable sans piège ici, contrairement au cas français de Marseille (2017/20) où ce champ n'existe que pour les lieux hors France. Vérifié par régénération réelle : écart réduit à -27,0 % (10,1 km), amélioration réelle. Quatre zones de rebroussement couvrant la majorité du tracé subsistent — même limite structurelle que les autres circuits urbains de ce lot (densité de points de passage insuffisante sans tracé GPX officiel). Écart résiduel documenté comme irréductible avec les sources disponibles."
           }
         ]
       }
