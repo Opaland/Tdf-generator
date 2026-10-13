@@ -190,6 +190,20 @@ récente mérite d'être rejouée, le second pour vérifier qu'un test ajouté
 discrimine vraiment (même esprit que l'agent `verificateur-de-tests`, à
 l'échelle du fichier plutôt que d'un seul test).
 
+**Revue adverse (`relecteur-adverse`) — à calibrer selon ce qui change,
+pas systématique (12/10/2026).** Un agent dédié coûte réellement cher
+(50k-200k tokens par passage, constaté) ; en lancer un par PR quel que soit
+son contenu a vidé le quota hebdomadaire avant la fin de la semaine alors
+qu'une bonne partie du travail restait de la curation de données déjà
+vérifiée par le pipeline réel. Règle : un agent dédié reste obligatoire pour
+tout changement de code/logique/sécurité (pipeline, backend, frontend) —
+c'est lui qui a trouvé la XSS de `/api/backup/import`, entre autres. Pour
+une curation de données pure (`historic_routes.json`) déjà vérifiée une fois
+à sa création (régénération réelle + géocodage croisé), fusionner sans
+relancer un agent dédié — juste CI verte et absence de conflit. Si un doute
+réapparaît sur une donnée déjà mergée, revenir à une vérification normale,
+pas sauter l'étape par habitude.
+
 ## 12. Ce qui vaut arrêt
 
 - `main` rouge (CI en échec) : ne rien empiler dessus, corriger d'abord.
