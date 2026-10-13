@@ -4,7 +4,8 @@
 // étape dont on a un tracé GPX officiel/fiable (ex. cdn.cyclingstage.com),
 // mesure l'écart de distance reconstituée selon la densité de points de
 // passage injectés, et recommande le pas le plus grossier qui rentre dans
-// la tolérance ±10 % — plutôt que de deviner un nombre de vias au hasard.
+// la tolérance ±DIST_TOLERANCE_PCT % (pipeline/checks.js) — plutôt que de
+// deviner un nombre de vias au hasard.
 //
 // Ce n'est pas un « modèle mathématique » au sens paramétrique (le pipeline
 // n'a pas de coefficient à ajuster) : les deux seules causes d'écart connues
@@ -51,6 +52,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { DIST_TOLERANCE_PCT } = require('../pipeline/checks');
 
 function parseArgs(argv) {
   const positional = [];
@@ -213,7 +215,7 @@ async function main() {
     const row = db.prepare('SELECT generated_distance_km FROM stages WHERE id = ?').get(stage.id);
     const km = row.generated_distance_km;
     const err = ((km - officialKm) / officialKm) * 100;
-    const ok = Math.abs(err) <= 10;
+    const ok = Math.abs(err) <= DIST_TOLERANCE_PCT;
     results.push({ stepKm, vias: vias.length, km, err, ok, dtS });
     console.log(
       `pas=${stepKm}km  vias=${vias.length}  généré=${km.toFixed(1)}km  écart=${err.toFixed(1)}%  ${ok ? 'OK' : '*** HORS TOLERANCE ***'}  (${dtS}s)`
@@ -231,13 +233,13 @@ async function main() {
 
   console.log('');
   if (bestVias) {
-    console.log(`Recommandation : pas=${bestVias.stepKm}km (le plus grossier testé qui rentre dans ±10%).`);
+    console.log(`Recommandation : pas=${bestVias.stepKm}km (le plus grossier testé qui rentre dans ±${DIST_TOLERANCE_PCT}%).`);
     if (flags.out) {
       fs.writeFileSync(flags.out, JSON.stringify(bestVias.vias, null, 2));
       console.log(`Vias écrits dans ${flags.out} — à coller dans pipeline/data/historic_routes.json.`);
     }
   } else {
-    console.log('Aucun pas testé ne rentre dans la tolérance ±10% — tester un pas plus fin ou vérifier le GPX/officialKm.');
+    console.log(`Aucun pas testé ne rentre dans la tolérance ±${DIST_TOLERANCE_PCT}% — tester un pas plus fin ou vérifier le GPX/officialKm.`);
   }
 
   fs.rmSync(dataDir, { recursive: true, force: true });
