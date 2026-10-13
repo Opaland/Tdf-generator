@@ -1388,6 +1388,33 @@
         ],
         "note": "Lanester → Lorient, contre-la-montre individuel (52 km, 15 juillet 2002, vitesse moyenne 50,066 km/h). Vainqueur : Santiago Botero, devant Armstrong (11 s) et Gontchar (18 s). Aucun point de passage intermédiaire sourcé malgré plusieurs sources consultées."
       },
+      "11": {
+        "start": "Pau",
+        "finish": "La Mongie, Bagnères-de-Bigorre",
+        "vias": [
+          { "label": "Nay", "kind": "via" },
+          { "label": "Col d'Aubisque", "kind": "col" },
+          { "label": "Col du Soulor", "kind": "col" },
+          { "label": "Ayros-Arbouix", "kind": "via" },
+          { "label": "Lugagnan", "kind": "via" },
+          { "label": "Sainte-Marie-de-Campan", "kind": "via" }
+        ],
+        "confidence": [
+          {
+            "claim": "tracé Pau → La Mongie (158 km) via 4 localités intermédiaires, 2 cols sourcés (Aubisque, Soulor) + arrivée au sommet",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "localités et côtes extraites du profil d'étape publié sur ledicodutour.com (image cartes_etapes/2002/2002-11a.jpg : Pau(0, 198 m) → Nay-Bourdettes(13,5, 240 m) → Côte de Louvié-Juzon(35, 501 m, icône col 4e cat.) → Laruns(48, 505 m, icône sprint ; texte partiellement masqué par l'icône sur l'image, lu par déduction géographique — commune bien connue au pied du versant Aubisque) → Col d'Aubisque(66,5, 1709 m, icône col HC) → Col du Soulor(76,5, 1474 m, sans icône de catégorie visible sur l'image mais nommé et coté) → Ayros-Arbouix(99, 420 m, icône ravitaillement) → Lugagnan(107,5, 396 m) → Bagnères-de-Bigorre(132, 515 m) → Sainte-Marie-de-Campan(145, 830 m) → La Mongie(158, 1715 m, arrivée au sommet, icône col 1ère cat.), franchissant les Pyrénées-Atlantiques puis les Hautes-Pyrénées. « Nay-Bourdettes » (nom composé lu sur l'image) ne géocode pas proprement (score 0,49, mauvaise commune) : utilisé « Nay » seul (score 0,94), la commune principale de ce nom composé. Trois localités citées sur l'image sont OMISES du tracé final (testé par routage réel sur la régénération complète, pas seulement par segment, à chaque étape) : « Côte de Louvié-Juzon » et « Bagnères-de-Bigorre », dont le centroïde administratif, testé par routage réel, introduisait un détour majeur par rapport au trajet direct entre les points voisins — avec les deux : +25,8 % (vérifié deux fois, reproductible à l'identique) ; Bagnères-de-Bigorre seul (Louvié-Juzon déjà omis) : +15,4 % ; sans aucun des deux : +9,3 %. Même classe de problème que les communes nouvelles déjà rencontrées (2002 étape 7), mais ici sans fusion de commune en cause, juste un centroïde excentré de la route réelle. « Laruns » (sprint sourcé, voir ci-dessus) est omis pour la même raison, mais le compromis est documenté à part (item suivant) car moins net que les deux précédents. « La Mongie » seul géocode vers un homonyme à Cazats (Gironde, score 0,86 trompeusement élevé) : résolu par une requête qualifiée « La Mongie, Bagnères-de-Bigorre » curée sur le champ `finish` lui-même, qui ne supporte pas de lat/lon explicite contrairement à un `via` — seule option disponible avec le schéma actuel (voir issue #224, known_cols.json non consulté pour départ/arrivée)."
+          },
+          {
+            "claim": "omission du sprint « Laruns » malgré sa source directe, et avertissements résiduels du pipeline réel",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "Laruns, bien que directement sourcé sur l'image (icône sprint), a été testé puis omis : le garder donnait +9,3 % avec 2 zones d'aller-retour étroites (km 55,5–58,5 et 59,7–62,7, ~6 km cumulés, autour de Laruns/Aubisque) ; l'omettre (régénération réelle complète, pas une estimation par segment) donne -0,3 % — dans la cible d'audit ±5 % — mais fait apparaître 2 zones d'aller-retour bien plus larges (km 54,2–63,0 et 64,5–73,2, ~17,5 km cumulés, autour d'Arbéost/Aubisque/Soulor). Le meilleur score global sans Laruns peut donc masquer un tracé moins fidèle localement (deux erreurs qui se compensent plutôt qu'une absence d'erreur) plutôt qu'une vraie amélioration de la reconstruction — mais la distance reconstituée, seul critère vérifiable objectivement sans plus de source, est meilleure sans Laruns, donc retenu. 4 écarts « via-gap » subsistent (16,3 à 23,4 km, le plus large entre Nay et Col d'Aubisque, l'intervalle Laruns ayant disparu avec le via). Non résolu davantage faute de points de passage sourcés supplémentaires sur ces intervalles."
+          }
+        ],
+        "note": "Pau → La Mongie (158 km, 16 juillet 2002). Grande étape pyrénéenne : Col d'Aubisque (km 66,5, 1709 m, HC), Col du Soulor (km 76,5, 1474 m), arrivée au sommet à La Mongie (km 158, 1715 m). 4 localités intermédiaires sourcées depuis le profil d'étape de ledicodutour.com ; Louvié-Juzon, Bagnères-de-Bigorre et Laruns, cités sur l'image, omis du tracé final (centroïde administratif excentré de la route réelle, testé par routage réel — voir confidence pour le compromis sur Laruns). Traverse les Pyrénées-Atlantiques puis les Hautes-Pyrénées."
+      },
       "12": {
         "vias": [
           { "label": "Col de Menté", "kind": "col" },
