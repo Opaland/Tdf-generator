@@ -2757,6 +2757,88 @@
         ],
         "note": "Gruissan → Nîmes (188,6 km officiels), étape quasi plate (Aude, Hérault, Gard). Course officielle : une seule difficulté classée (Côte de Fambetou, 4e catégorie, km 112,6, sommet 242 m, source : Wikipédia). Tracé GPX officiel (cyclingstage.com, cdn.cyclingstage.com/.../2024/stage-16-route.gpx, distance mesurée : 189,5 km, cohérente avec les 188,6 km officiels) rééchantillonné tous les 8 km en points de passage curés, même méthode que les étapes 8/9/10/11 de la même édition. Attention : la reconstruction routière (BRouter/OSRM entre vias espacés de 8 km) ne suit pas forcément la route réelle dans le détail — le profil détecté sur ce tracé reconstitué montre en pratique deux côtes (Béziers cat. 4 km 38, Mas de Cournon/Argelliers cat. 2 km 98-105, sommet 297 m), ni l'une ni l'autre ne correspondant à Fambetou (nom, catégorie, kilomètre et altitude tous différents) — vérifié en rejouant le pipeline réel, pas supposé. Pas une erreur de donnée (aucun col n'est curé comme waypoint, donc rien à corriger dans ce fichier), mais la fiche générée affichera ce profil reconstitué, pas la liste officielle ci-dessus."
       },
+      "17": {
+        "start": "Saint-Paul-Trois-Châteaux",
+        "finish": { "label": "Superdévoluy", "lat": 44.67828, "lon": 5.92697 },
+        "vias": [
+          { "label": "Tracé GPX km 8.0", "kind": "via", "lat": 44.2856, "lon": 4.87155 },
+          { "label": "Tracé GPX km 16.0", "kind": "via", "lat": 44.28981, "lon": 4.96144 },
+          { "label": "Tracé GPX km 24.0", "kind": "via", "lat": 44.31462, "lon": 5.05278 },
+          { "label": "Tracé GPX km 32.0", "kind": "via", "lat": 44.35672, "lon": 5.12645 },
+          { "label": "Tracé GPX km 40.0", "kind": "via", "lat": 44.3792, "lon": 5.19001 },
+          { "label": "Tracé GPX km 48.0", "kind": "via", "lat": 44.41084, "lon": 5.25705 },
+          { "label": "Tracé GPX km 56.0", "kind": "via", "lat": 44.42926, "lon": 5.31537 },
+          { "label": "Tracé GPX km 64.0", "kind": "via", "lat": 44.38973, "lon": 5.37443 },
+          { "label": "Tracé GPX km 72.0", "kind": "via", "lat": 44.38497, "lon": 5.45628 },
+          { "label": "Tracé GPX km 80.0", "kind": "via", "lat": 44.40642, "lon": 5.52843 },
+          { "label": "Tracé GPX km 88.0", "kind": "via", "lat": 44.41647, "lon": 5.61931 },
+          { "label": "Tracé GPX km 96.0", "kind": "via", "lat": 44.42183, "lon": 5.70747 },
+          { "label": "Tracé GPX km 104.0", "kind": "via", "lat": 44.47394, "lon": 5.75728 },
+          { "label": "Tracé GPX km 112.0", "kind": "via", "lat": 44.52829, "lon": 5.81102 },
+          { "label": "Tracé GPX km 120.0", "kind": "via", "lat": 44.56193, "lon": 5.89752 },
+          { "label": "Tracé GPX km 128.0", "kind": "via", "lat": 44.54546, "lon": 5.98833 },
+          { "label": "Tracé GPX km 136.0", "kind": "via", "lat": 44.55751, "lon": 6.05768 },
+          { "label": "Tracé GPX km 144.0", "kind": "via", "lat": 44.59776, "lon": 6.08325 },
+          { "label": "Tracé GPX km 152.0", "kind": "via", "lat": 44.66573, "lon": 6.08173 },
+          { "label": "Tracé GPX km 160.0", "kind": "via", "lat": 44.69781, "lon": 6.01213 },
+          { "label": "Tracé GPX km 168.0", "kind": "via", "lat": 44.69721, "lon": 5.96954 },
+          { "label": "Tracé GPX km 176.0", "kind": "via", "lat": 44.68076, "lon": 5.94137 }
+        ],
+        "confidence": [
+          {
+            "claim": "distance reconstituée vs officielle",
+            "status": "OK",
+            "level": "haute",
+            "detail": "pipeline réel rejoué (cache vide), après rebase sur PR #305 (lat/lon sur un finish curé en objet, sans quoi ils sont silencieusement ignorés) : 181,9 km reconstitués contre 177,8 km officiels (écart +2,3 %, tolérance ±10 %), statut \"ok\". Aucun avertissement dans `checks.items`."
+          },
+          {
+            "claim": "finish corrigé : coordonnées réelles de la montée finale",
+            "status": "FIX",
+            "level": "haute",
+            "detail": "trouvaille de relecture adverse, même classe de bug que l'étape 14 (Pla d'Adet) : \"Superdévoluy\" (chaîne simple) géocodait vers une rue du village (score Géoplateforme 0,70, type \"street\", à ~1,5 km du vrai point d'arrivée), ce qui se traduisait dans le profil reconstitué par une descente de 64 m juste avant l'arrivée — impossible sur une arrivée au sommet. Corrigé en fixant lat/lon sur le point final du tracé GPX officiel (44,67828/5,92697, altitude 1497 m), cohérent avec l'altitude connue de la station (~1500 m). Les deux cols intermédiaires (Col Bayard ~1248 m détecté vs 1246 m officiel, Col du Noyer 1662,6 m détecté vs 1664 m `known_cols.json`) sont, eux, bien corroborés par le profil détecté malgré l'absence de waypoint `kind:\"col\"` curé — la prudence de la note sur ce point reste honnête mais s'est révélée plus conservatrice que nécessaire."
+          }
+        ],
+        "note": "Saint-Paul-Trois-Châteaux → Superdévoluy (177,8 km officiels), étape de moyenne montagne (Drôme → Hautes-Alpes) : Col Bayard (1 246 m), La Fare-en-Champsaur, Col du Noyer (1 664 m), puis montée finale à Superdévoluy (3,8 km à 5,9 %, première apparition de cette arrivée au Tour). Tracé GPX officiel (cyclingstage.com, cdn.cyclingstage.com/.../2024/stage-17-route.gpx, distance mesurée : 178,0 km, cohérente avec l'officielle) rééchantillonné tous les 8 km en points de passage curés, même méthode que les étapes 8/9/10/11/16 de la même édition. Finish fixé en lat/lon (voir confidence) sur le point réel de fin du tracé GPX plutôt que la rue de village résolue par défaut."
+      },
+      "10": {
+        "start": "Orléans",
+        "finish": "Saint-Amand-Montrond",
+        "vias": [
+          { "label": "Tracé GPX km 4.0", "kind": "via", "lat": 47.79576, "lon": 1.87009 },
+          { "label": "Tracé GPX km 8.0", "kind": "via", "lat": 47.76816, "lon": 1.85344 },
+          { "label": "Tracé GPX km 16.0", "kind": "via", "lat": 47.71282, "lon": 1.79539 },
+          { "label": "Tracé GPX km 24.0", "kind": "via", "lat": 47.64576, "lon": 1.76543 },
+          { "label": "Tracé GPX km 32.0", "kind": "via", "lat": 47.58541, "lon": 1.77875 },
+          { "label": "Tracé GPX km 40.0", "kind": "via", "lat": 47.51877, "lon": 1.81397 },
+          { "label": "Tracé GPX km 48.0", "kind": "via", "lat": 47.45248, "lon": 1.77869 },
+          { "label": "Tracé GPX km 56.0", "kind": "via", "lat": 47.38704, "lon": 1.73837 },
+          { "label": "Tracé GPX km 64.0", "kind": "via", "lat": 47.3307, "lon": 1.75924 },
+          { "label": "Tracé GPX km 72.0", "kind": "via", "lat": 47.28608, "lon": 1.81603 },
+          { "label": "Tracé GPX km 80.0", "kind": "via", "lat": 47.26091, "lon": 1.91288 },
+          { "label": "Tracé GPX km 88.0", "kind": "via", "lat": 47.2407, "lon": 2.01224 },
+          { "label": "Tracé GPX km 96.0", "kind": "via", "lat": 47.19665, "lon": 2.05716 },
+          { "label": "Tracé GPX km 104.0", "kind": "via", "lat": 47.12741, "lon": 2.05877 },
+          { "label": "Tracé GPX km 112.0", "kind": "via", "lat": 47.06612, "lon": 2.0342 },
+          { "label": "Tracé GPX km 120.0", "kind": "via", "lat": 46.99956, "lon": 2.01321 },
+          { "label": "Tracé GPX km 128.0", "kind": "via", "lat": 46.93998, "lon": 2.00259 },
+          { "label": "Tracé GPX km 136.0", "kind": "via", "lat": 46.89222, "lon": 2.07724 },
+          { "label": "Tracé GPX km 144.0", "kind": "via", "lat": 46.87097, "lon": 2.17051 },
+          { "label": "Tracé GPX km 152.0", "kind": "via", "lat": 46.84508, "lon": 2.25766 },
+          { "label": "Tracé GPX km 160.0", "kind": "via", "lat": 46.85477, "lon": 2.35746 },
+          { "label": "Tracé GPX km 168.0", "kind": "via", "lat": 46.83715, "lon": 2.40022 },
+          { "label": "Tracé GPX km 176.0", "kind": "via", "lat": 46.77915, "lon": 2.43152 },
+          { "label": "Tracé GPX km 184.0", "kind": "via", "lat": 46.72966, "lon": 2.49672 }
+        ],
+        "confidence": [
+          {
+            "claim": "distance reconstituée vs officielle",
+            "status": "OK",
+            "level": "haute",
+            "detail": "pipeline réel rejoué (cache vide) : 190,6 km reconstitués contre 187,3 km officiels (écart +1,7 %, tolérance ±10 %), statut \"ok\". Un avertissement `via-gap` initial (13,3 km à vol d'oiseau entre Orléans et le premier via à km 8,0, au-delà du seuil ~12 km) a été fermé en ajoutant un point intermédiaire à km 4,0 (même tracé GPX officiel). Rejoué une seconde fois après ce correctif : mêmes 190,6 km/+1,7 %/\"ok\", et plus aucune entrée `warn`/`fail` dans `checks.items` (les 3 autres entrées, `cols`/`approx`/`profil`, sont `ok` par défaut comme sur toute étape sans col ni trou de couverture)."
+          }
+        ],
+        "note": "Orléans → Saint-Amand-Montrond (187,3 km officiels), étape quasi plate (950 m de dénivelé), une difficulté non classée à moins de 10 km de l'arrivée. Tracé GPX officiel (cyclingstage.com, cdn.cyclingstage.com/.../2024/stage-10-route.gpx, distance mesurée : 185,9 km, cohérente avec les 187,3 km officiels) rééchantillonné tous les 8 km en points de passage curés, même méthode que les étapes 8 et 9 de la même édition. Un point intermédiaire à km 4,0 a été ajouté entre le départ et le premier point à km 8,0 pour fermer un avertissement `via-gap` (13,3 km à vol d'oiseau entre le centroïde géocodé d'Orléans et ce premier point, au-delà du seuil de ~12 km) — le point ajouté provient du même tracé GPX officiel, pas d'une estimation."
+      },
       "8": {
         "start": "Semur-en-Auxois",
         "finish": "Colombey-les-Deux-Églises",
