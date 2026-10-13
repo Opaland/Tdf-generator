@@ -75,8 +75,22 @@ async function importEdition(year, { category = 'hommes', onProgress } = {}) {
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
     );
 
+    // Occurrences par numéro officiel : la quasi-totalité des numéros
+    // n'apparaissent qu'une fois, mais une étape scindée en deux journées
+    // (ex. 1934 étape 21) partage le même numéro Wikipédia entre deux étapes
+    // distinctes — stageCurationKey() (pipeline/wikipedia.js) a besoin de
+    // savoir combien d'occurrences existent et laquelle celle-ci est pour
+    // choisir la bonne entrée curée (suffixe 'a'/'b'/…) sans jamais appliquer
+    // la même curation aux deux à la fois.
+    const numberOccurrenceCounts = new Map();
+    for (const s of parsed) numberOccurrenceCounts.set(s.number, (numberOccurrenceCounts.get(s.number) || 0) + 1);
+    const numberOccurrenceSeen = new Map();
+
     const stages = [];
     for (const s of parsed) {
+      const occurrenceCount = numberOccurrenceCounts.get(s.number);
+      const occurrenceIndex = numberOccurrenceSeen.get(s.number) || 0;
+      numberOccurrenceSeen.set(s.number, occurrenceIndex + 1);
       // Prologue (numéroté 0, voir wikipedia.js) : jamais « Étape 0 », son
       // propre libellé. Un circuit non-Prologue (contre-la-montre par
       // équipes en boucle, départ = arrivée) garde son numéro mais évite la
@@ -99,7 +113,7 @@ async function importEdition(year, { category = 'hommes', onProgress } = {}) {
         'historique', s.distanceKm, JSON.stringify(stageSource)
       );
       const stageId = r.lastInsertRowid;
-      const wps = reconstructionWaypoints(year, s, category);
+      const wps = reconstructionWaypoints(year, s, category, occurrenceIndex, occurrenceCount);
       wps.forEach((wp, i) => {
         insWp.run(stageId, i, wp.label, wp.kind, wp.lat ?? null, wp.lon ?? null, wp.altitude_hint_m ?? null, wp.bonus_sec ? JSON.stringify(wp.bonus_sec) : null, wp.source, wp.country_hint ?? null, wp.region_hint ?? null);
       });
