@@ -251,7 +251,7 @@ function renderFiche() {
     div.innerHTML =
       EFProfile.renderClimbSVG({ ...c }, { width: 1040, height: 300 }) +
       `<p class="meta-line">km ${c.start_km} → ${c.end_km} · du pied (${c.start_ele_m} m) au sommet (${c.summit_ele_m} m) · ` +
-      `score ${c.score} → catégorie ${c.category}` +
+      `score ${c.score} → catégorie ${EF.esc(c.category)}` +
       `${c.irregularity_index != null ? ` · indice d'irrégularité ${c.irregularity_index} (écart-type des pentes par km — un mur peut noyer dans la moyenne)` : ''}` +
       ` · ${climbNameSourceLabel(c.name_source)} ${sourceBadge}${approxBadge}</p>`;
     climbsBox.appendChild(div);
@@ -363,7 +363,7 @@ function renderFiche() {
       // passant par EFProfile.catStyle(), le seul endroit qui connaît
       // CAT_COLORS/CAT_TEXT et leur repli — pas une nouvelle copie locale.
       const { color: cc, text: tc } = EFProfile.catStyle(c.category);
-      L.marker([s.lat, s.lon], { icon: icon(`<div style="background:${cc};color:${tc};border-radius:50%;width:22px;height:22px;font-size:10px;font-weight:700;text-align:center;line-height:22px;border:2px solid #fff">${c.category}</div>`) })
+      L.marker([s.lat, s.lon], { icon: icon(`<div style="background:${cc};color:${tc};border-radius:50%;width:22px;height:22px;font-size:10px;font-weight:700;text-align:center;line-height:22px;border:2px solid #fff">${EF.esc(c.category)}</div>`) })
         .bindTooltip(`${EF.esc(c.name)} — ${c.summit_ele_m} m`).addTo(map);
     }
   }
