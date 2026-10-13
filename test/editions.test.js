@@ -46,10 +46,14 @@ test('1903 (chaque étape a des points de passage curés) : entièrement sourcé
   assert.strictEqual(ed.curated_stage_count, 6, 'toutes les étapes 1903 ont un point de passage curé');
 });
 
-test('2025 (étapes reines seulement) : reconstruction partielle', async () => {
-  await importYear(2025);
+test('2026 (étapes reines seulement) : reconstruction partielle', async () => {
+  // 2025 a fini par être entièrement curée au fil de cette session (toutes les
+  // étapes désormais sourcées) — 2026 reste volontairement partielle (seules
+  // les étapes 1/2/3/6/19/20 ont un tracé curé point par point, voir la note
+  // de pipeline/data/historic_routes.json), donc un meilleur sujet pour ce test.
+  await importYear(2026);
   const editions = await (await fetch(`${base}/api/editions`)).json();
-  const ed = editions.find((e) => e.year === 2025);
+  const ed = editions.find((e) => e.year === 2026);
   assert.strictEqual(ed.stage_count, 21);
   assert.ok(ed.curated_stage_count > 0, 'au moins les étapes reines sont curées');
   assert.ok(ed.curated_stage_count < ed.stage_count, 'pas toutes les étapes — reconstruction partielle');
