@@ -2718,6 +2718,191 @@
   "2024": {
     "notes": "Édition atypique : Grand Départ de Florence (Italie) — jamais l'arrivée finale n'avait eu lieu ailleurs qu'à Paris depuis 1975, ici à Nice en raison des JO de Paris 2024. Points de passage des étapes reines d'après Wikipédia / ici.fr / cyclingstage.com / France 3 (CC BY-SA le cas échéant, recoupé sur plusieurs sources). Import de la liste complète des 21 étapes : en ligne (Wikipédia).",
     "stages": {
+      "11": {
+        "start": "Évaux-les-Bains",
+        "finish": "Le Lioran",
+        "vias": [
+          { "label": "Tracé GPX km 4.0", "kind": "via", "lat": 46.09232, "lon": 2.49736 },
+          { "label": "Tracé GPX km 8.0", "kind": "via", "lat": 46.05833, "lon": 2.50237 },
+          { "label": "Tracé GPX km 16.0", "kind": "via", "lat": 46.02234, "lon": 2.51992 },
+          { "label": "Tracé GPX km 24.0", "kind": "via", "lat": 45.96557, "lon": 2.56314 },
+          { "label": "Tracé GPX km 32.0", "kind": "via", "lat": 45.90064, "lon": 2.5793 },
+          { "label": "Tracé GPX km 40.0", "kind": "via", "lat": 45.83472, "lon": 2.56374 },
+          { "label": "Tracé GPX km 48.0", "kind": "via", "lat": 45.76739, "lon": 2.56553 },
+          { "label": "Tracé GPX km 56.0", "kind": "via", "lat": 45.70532, "lon": 2.56853 },
+          { "label": "Tracé GPX km 64.0", "kind": "via", "lat": 45.65345, "lon": 2.57067 },
+          { "label": "Tracé GPX km 72.0", "kind": "via", "lat": 45.61363, "lon": 2.55166 },
+          { "label": "Tracé GPX km 80.0", "kind": "via", "lat": 45.57529, "lon": 2.54875 },
+          { "label": "Tracé GPX km 88.0", "kind": "via", "lat": 45.52602, "lon": 2.53467 },
+          { "label": "Tracé GPX km 96.0", "kind": "via", "lat": 45.496, "lon": 2.5644 },
+          { "label": "Tracé GPX km 104.0", "kind": "via", "lat": 45.43855, "lon": 2.52563 },
+          { "label": "Tracé GPX km 112.0", "kind": "via", "lat": 45.38432, "lon": 2.48833 },
+          { "label": "Tracé GPX km 120.0", "kind": "via", "lat": 45.33505, "lon": 2.43076 },
+          { "label": "Tracé GPX km 128.0", "kind": "via", "lat": 45.28501, "lon": 2.39061 },
+          { "label": "Tracé GPX km 136.0", "kind": "via", "lat": 45.24412, "lon": 2.35348 },
+          { "label": "Tracé GPX km 144.0", "kind": "via", "lat": 45.22908, "lon": 2.41683 },
+          { "label": "Tracé GPX km 152.0", "kind": "via", "lat": 45.21406, "lon": 2.50378 },
+          { "label": "Tracé GPX km 160.0", "kind": "via", "lat": 45.18313, "lon": 2.5857 },
+          { "label": "Tracé GPX km 168.0", "kind": "via", "lat": 45.15113, "lon": 2.60284 },
+          { "label": "Tracé GPX km 176.0", "kind": "via", "lat": 45.11903, "lon": 2.64618 },
+          { "label": "Tracé GPX km 184.0", "kind": "via", "lat": 45.10302, "lon": 2.68072 },
+          { "label": "Tracé GPX km 192.0", "kind": "via", "lat": 45.06952, "lon": 2.65771 },
+          { "label": "Tracé GPX km 200.0", "kind": "via", "lat": 45.05166, "lon": 2.69661 },
+          { "label": "Tracé GPX km 208.0", "kind": "via", "lat": 45.08181, "lon": 2.73338 }
+        ],
+        "confidence": [
+          {
+            "claim": "distance reconstituée vs officielle",
+            "status": "OK",
+            "level": "haute",
+            "detail": "pipeline réel rejoué (cache vide) : 210,8 km reconstitués contre 211 km officiels (écart -0,1 %, tolérance ±10 %), statut \"ok\". Un avertissement `via-gap` initial (12,3 km à vol d'oiseau entre Évaux-les-Bains et le premier via à km 8,0) a été fermé en ajoutant un point intermédiaire à km 4,0 (même tracé GPX officiel). Rejoué une seconde fois après ce correctif : mêmes 210,8 km/-0,1 %/\"ok\", plus aucune entrée `warn`/`fail` dans `checks.items`."
+          }
+        ],
+        "note": "Évaux-les-Bains → Le Lioran (211 km officiels), étape de montagne dans le Massif Central, 4 350 m de dénivelé. Côte de Mouilloux et Côte de Larodde en première partie, puis dans les 60 derniers km : Col de Néronne, Pas de Peyrol/Puy Mary, Col de Pertus, Col de Font de Cère. Tracé GPX officiel (cyclingstage.com, cdn.cyclingstage.com/.../2024/stage-11-route.gpx, distance mesurée : 211,7 km, cohérente avec les 211 km officiels) rééchantillonné tous les 8 km en points de passage curés, même méthode que les étapes 8/9/10 de la même édition — préféré à un balisage par cols nommés sur une route de montagne aussi sinueuse (nombreux lacets), où le GPX capture la trajectoire réelle sans dépendre d'un géocodage de col par col — conséquence assumée : les côtes listées ci-dessus (Néronne, Puy Mary, Pertus, Font de Cère) ne portent pas ces noms sur la fiche générée, la détection automatique du profil (`detectClimbs`) les nomme par géocodage inverse du point le plus proche faute de waypoint `kind:\"col\"` dédié ; n'affecte que l'affichage, pas la distance ni la détection elle-même. Un point intermédiaire à km 4,0 a été ajouté entre le départ et le premier point à km 8,0 pour fermer un avertissement `via-gap` (12,3 km à vol d'oiseau entre le centroïde géocodé d'Évaux-les-Bains et ce premier point, au-delà du seuil de ~12 km) — même tracé GPX officiel, pas une estimation."
+      },
+      "21": {
+        "start": { "label": "Monaco", "country": "monaco" },
+        "finish": "Nice",
+        "vias": [
+          { "label": "Tracé GPX km 2.0", "kind": "via", "lat": 43.7473, "lon": 7.43441 },
+          { "label": "Tracé GPX km 4.0", "kind": "via", "lat": 43.74085, "lon": 7.42849 },
+          { "label": "Tracé GPX km 6.0", "kind": "via", "lat": 43.74633, "lon": 7.42626 },
+          { "label": "Tracé GPX km 8.0", "kind": "via", "lat": 43.74518, "lon": 7.41643 },
+          { "label": "Tracé GPX km 10.0", "kind": "via", "lat": 43.75031, "lon": 7.41429 },
+          { "label": "Tracé GPX km 12.0", "kind": "via", "lat": 43.7454, "lon": 7.399 },
+          { "label": "Tracé GPX km 14.0", "kind": "via", "lat": 43.7354, "lon": 7.38149 },
+          { "label": "Tracé GPX km 16.0", "kind": "via", "lat": 43.73076, "lon": 7.3633 },
+          { "label": "Tracé GPX km 18.0", "kind": "via", "lat": 43.73334, "lon": 7.34577 },
+          { "label": "Tracé GPX km 20.0", "kind": "via", "lat": 43.72422, "lon": 7.33684 },
+          { "label": "Tracé GPX km 22.0", "kind": "via", "lat": 43.71693, "lon": 7.31738 },
+          { "label": "Tracé GPX km 24.0", "kind": "via", "lat": 43.71163, "lon": 7.31926 },
+          { "label": "Tracé GPX km 26.0", "kind": "via", "lat": 43.70646, "lon": 7.30674 },
+          { "label": "Tracé GPX km 28.0", "kind": "via", "lat": 43.69915, "lon": 7.29386 },
+          { "label": "Tracé GPX km 30.0", "kind": "via", "lat": 43.69989, "lon": 7.28085 },
+          { "label": "Tracé GPX km 32.0", "kind": "via", "lat": 43.69496, "lon": 7.26792 },
+          { "label": "Tracé GPX km 34.0", "kind": "via", "lat": 43.69441, "lon": 7.25881 }
+        ],
+        "confidence": [
+          {
+            "claim": "distance reconstituée vs officielle",
+            "status": "OK",
+            "level": "haute",
+            "detail": "pipeline réel rejoué (cache vide) : 35,6 km reconstitués contre 33,7 km officiels (écart +5,8 %, tolérance ±10 %), statut \"ok\". Aucun avertissement dans `checks.items`. Départ (\"Monaco\") correctement résolu à 43,732349/7,427683 grâce au country_hint explicite."
+          }
+        ],
+        "note": "Monaco → Nice (Place Masséna), contre-la-montre individuel, étape 21 finale — pour la première fois depuis 35 ans, le Tour se termine par un chrono individuel plutôt que sur les Champs-Élysées (JO de Paris 2024). ~20 premiers km vallonnés/montants (La Turbie, Col d'Èze), puis descente et plat jusqu'à Nice. Victoire et sacre final de Tadej Pogačar. country_hint explicite sur le départ (Monaco, pays étranger). Tracé GPX officiel (cyclingstage.com, cdn.cyclingstage.com/.../2024/stage-21-route.gpx, distance mesurée : 35,2 km) rééchantillonné tous les 2 km en points de passage curés, même méthode que l'étape 7 (CLM) de la même édition."
+      },
+      "18": {
+        "start": "Gap",
+        "finish": "Barcelonnette",
+        "vias": [
+          { "label": "Tracé GPX km 8.0", "kind": "via", "lat": 44.55297, "lon": 5.96305 },
+          { "label": "Tracé GPX km 16.0", "kind": "via", "lat": 44.55488, "lon": 5.8723 },
+          { "label": "Tracé GPX km 24.0", "kind": "via", "lat": 44.61327, "lon": 5.8575 },
+          { "label": "Tracé GPX km 32.0", "kind": "via", "lat": 44.67328, "lon": 5.86711 },
+          { "label": "Tracé GPX km 40.0", "kind": "via", "lat": 44.7294, "lon": 5.89714 },
+          { "label": "Tracé GPX km 48.0", "kind": "via", "lat": 44.77984, "lon": 5.90779 },
+          { "label": "Tracé GPX km 56.0", "kind": "via", "lat": 44.8192, "lon": 5.94149 },
+          { "label": "Tracé GPX km 64.0", "kind": "via", "lat": 44.77779, "lon": 5.99471 },
+          { "label": "Tracé GPX km 72.0", "kind": "via", "lat": 44.74287, "lon": 6.02832 },
+          { "label": "Tracé GPX km 80.0", "kind": "via", "lat": 44.70058, "lon": 6.07022 },
+          { "label": "Tracé GPX km 88.0", "kind": "via", "lat": 44.65366, "lon": 6.12694 },
+          { "label": "Tracé GPX km 96.0", "kind": "via", "lat": 44.60938, "lon": 6.1406 },
+          { "label": "Tracé GPX km 104.0", "kind": "via", "lat": 44.56475, "lon": 6.19847 },
+          { "label": "Tracé GPX km 112.0", "kind": "via", "lat": 44.54392, "lon": 6.28812 },
+          { "label": "Tracé GPX km 120.0", "kind": "via", "lat": 44.55726, "lon": 6.36827 },
+          { "label": "Tracé GPX km 128.0", "kind": "via", "lat": 44.53909, "lon": 6.37904 },
+          { "label": "Tracé GPX km 136.0", "kind": "via", "lat": 44.50698, "lon": 6.351 },
+          { "label": "Tracé GPX km 144.0", "kind": "via", "lat": 44.47165, "lon": 6.32654 },
+          { "label": "Tracé GPX km 152.0", "kind": "via", "lat": 44.4479, "lon": 6.40343 },
+          { "label": "Tracé GPX km 160.0", "kind": "via", "lat": 44.40007, "lon": 6.47054 },
+          { "label": "Tracé GPX km 168.0", "kind": "via", "lat": 44.39327, "lon": 6.56049 },
+          { "label": "Tracé GPX km 176.0", "kind": "via", "lat": 44.38295, "lon": 6.63519 }
+        ],
+        "note": "Gap → Barcelonnette (179,5 km officiels), étape de moyenne montagne (Hautes-Alpes → Alpes-de-Haute-Provence), ~3 100 m de dénivelé. Course officielle : Col du Festre, Côte de Corps, Col de Manse, Côte de Saint-Apollinaire, Côte des Demoiselles Coiffées — comme pour les étapes 16/17 de la même édition, ces noms ne sont pas garantis correspondre au profil détecté sur le tracé reconstitué (aucun col curé comme waypoint ici, détection purement algorithmique sur l'altitude). Tracé GPX officiel (cyclingstage.com, cdn.cyclingstage.com/.../2024/stage-18-route.gpx, distance mesurée : 177,5 km, cohérente avec les 179,5 km officiels) rééchantillonné tous les 8 km en points de passage curés, même méthode que les étapes 8/9/10/11/16/17 de la même édition."
+      },
+      "16": {
+        "start": "Gruissan",
+        "finish": "Nîmes",
+        "vias": [
+          { "label": "Tracé GPX km 4.0", "kind": "via", "lat": 43.19962, "lon": 3.15719 },
+          { "label": "Tracé GPX km 8.0", "kind": "via", "lat": 43.22536, "lon": 3.13241 },
+          { "label": "Tracé GPX km 16.0", "kind": "via", "lat": 43.28042, "lon": 3.1796 },
+          { "label": "Tracé GPX km 24.0", "kind": "via", "lat": 43.33928, "lon": 3.21078 },
+          { "label": "Tracé GPX km 32.0", "kind": "via", "lat": 43.39977, "lon": 3.23261 },
+          { "label": "Tracé GPX km 40.0", "kind": "via", "lat": 43.4514, "lon": 3.2908 },
+          { "label": "Tracé GPX km 48.0", "kind": "via", "lat": 43.47143, "lon": 3.3754 },
+          { "label": "Tracé GPX km 56.0", "kind": "via", "lat": 43.47466, "lon": 3.45358 },
+          { "label": "Tracé GPX km 64.0", "kind": "via", "lat": 43.53508, "lon": 3.48528 },
+          { "label": "Tracé GPX km 72.0", "kind": "via", "lat": 43.59977, "lon": 3.50154 },
+          { "label": "Tracé GPX km 80.0", "kind": "via", "lat": 43.65537, "lon": 3.55508 },
+          { "label": "Tracé GPX km 88.0", "kind": "via", "lat": 43.71132, "lon": 3.60776 },
+          { "label": "Tracé GPX km 96.0", "kind": "via", "lat": 43.73185, "lon": 3.68485 },
+          { "label": "Tracé GPX km 104.0", "kind": "via", "lat": 43.7861, "lon": 3.73 },
+          { "label": "Tracé GPX km 112.0", "kind": "via", "lat": 43.78828, "lon": 3.80407 },
+          { "label": "Tracé GPX km 120.0", "kind": "via", "lat": 43.77443, "lon": 3.8808 },
+          { "label": "Tracé GPX km 128.0", "kind": "via", "lat": 43.76897, "lon": 3.96622 },
+          { "label": "Tracé GPX km 136.0", "kind": "via", "lat": 43.77957, "lon": 4.05735 },
+          { "label": "Tracé GPX km 144.0", "kind": "via", "lat": 43.78807, "lon": 4.11741 },
+          { "label": "Tracé GPX km 152.0", "kind": "via", "lat": 43.77143, "lon": 4.19981 },
+          { "label": "Tracé GPX km 160.0", "kind": "via", "lat": 43.72653, "lon": 4.2421 },
+          { "label": "Tracé GPX km 168.0", "kind": "via", "lat": 43.74658, "lon": 4.30142 },
+          { "label": "Tracé GPX km 176.0", "kind": "via", "lat": 43.7917, "lon": 4.37286 },
+          { "label": "Tracé GPX km 184.0", "kind": "via", "lat": 43.83422, "lon": 4.41742 }
+        ],
+        "confidence": [
+          {
+            "claim": "distance reconstituée vs officielle",
+            "status": "OK",
+            "level": "haute",
+            "detail": "pipeline réel rejoué (cache vide) : 202,1 km reconstitués contre 188,6 km officiels (écart +7,1 %, tolérance ±10 %), statut \"ok\". Un avertissement `via-gap` initial (13,9 km à vol d'oiseau entre Gruissan et le premier via à km 8,0) a été fermé en ajoutant un point intermédiaire à km 4,0 (même tracé GPX officiel). Rejoué une seconde fois : mêmes 202,1 km/+7,1 %/\"ok\", plus aucun avertissement."
+          }
+        ],
+        "note": "Gruissan → Nîmes (188,6 km officiels), étape quasi plate (Aude, Hérault, Gard). Course officielle : une seule difficulté classée (Côte de Fambetou, 4e catégorie, km 112,6, sommet 242 m, source : Wikipédia). Tracé GPX officiel (cyclingstage.com, cdn.cyclingstage.com/.../2024/stage-16-route.gpx, distance mesurée : 189,5 km, cohérente avec les 188,6 km officiels) rééchantillonné tous les 8 km en points de passage curés, même méthode que les étapes 8/9/10/11 de la même édition. Attention : la reconstruction routière (BRouter/OSRM entre vias espacés de 8 km) ne suit pas forcément la route réelle dans le détail — le profil détecté sur ce tracé reconstitué montre en pratique deux côtes (Béziers cat. 4 km 38, Mas de Cournon/Argelliers cat. 2 km 98-105, sommet 297 m), ni l'une ni l'autre ne correspondant à Fambetou (nom, catégorie, kilomètre et altitude tous différents) — vérifié en rejouant le pipeline réel, pas supposé. Pas une erreur de donnée (aucun col n'est curé comme waypoint, donc rien à corriger dans ce fichier), mais la fiche générée affichera ce profil reconstitué, pas la liste officielle ci-dessus."
+      },
+      "17": {
+        "start": "Saint-Paul-Trois-Châteaux",
+        "finish": { "label": "Superdévoluy", "lat": 44.67828, "lon": 5.92697 },
+        "vias": [
+          { "label": "Tracé GPX km 8.0", "kind": "via", "lat": 44.2856, "lon": 4.87155 },
+          { "label": "Tracé GPX km 16.0", "kind": "via", "lat": 44.28981, "lon": 4.96144 },
+          { "label": "Tracé GPX km 24.0", "kind": "via", "lat": 44.31462, "lon": 5.05278 },
+          { "label": "Tracé GPX km 32.0", "kind": "via", "lat": 44.35672, "lon": 5.12645 },
+          { "label": "Tracé GPX km 40.0", "kind": "via", "lat": 44.3792, "lon": 5.19001 },
+          { "label": "Tracé GPX km 48.0", "kind": "via", "lat": 44.41084, "lon": 5.25705 },
+          { "label": "Tracé GPX km 56.0", "kind": "via", "lat": 44.42926, "lon": 5.31537 },
+          { "label": "Tracé GPX km 64.0", "kind": "via", "lat": 44.38973, "lon": 5.37443 },
+          { "label": "Tracé GPX km 72.0", "kind": "via", "lat": 44.38497, "lon": 5.45628 },
+          { "label": "Tracé GPX km 80.0", "kind": "via", "lat": 44.40642, "lon": 5.52843 },
+          { "label": "Tracé GPX km 88.0", "kind": "via", "lat": 44.41647, "lon": 5.61931 },
+          { "label": "Tracé GPX km 96.0", "kind": "via", "lat": 44.42183, "lon": 5.70747 },
+          { "label": "Tracé GPX km 104.0", "kind": "via", "lat": 44.47394, "lon": 5.75728 },
+          { "label": "Tracé GPX km 112.0", "kind": "via", "lat": 44.52829, "lon": 5.81102 },
+          { "label": "Tracé GPX km 120.0", "kind": "via", "lat": 44.56193, "lon": 5.89752 },
+          { "label": "Tracé GPX km 128.0", "kind": "via", "lat": 44.54546, "lon": 5.98833 },
+          { "label": "Tracé GPX km 136.0", "kind": "via", "lat": 44.55751, "lon": 6.05768 },
+          { "label": "Tracé GPX km 144.0", "kind": "via", "lat": 44.59776, "lon": 6.08325 },
+          { "label": "Tracé GPX km 152.0", "kind": "via", "lat": 44.66573, "lon": 6.08173 },
+          { "label": "Tracé GPX km 160.0", "kind": "via", "lat": 44.69781, "lon": 6.01213 },
+          { "label": "Tracé GPX km 168.0", "kind": "via", "lat": 44.69721, "lon": 5.96954 },
+          { "label": "Tracé GPX km 176.0", "kind": "via", "lat": 44.68076, "lon": 5.94137 }
+        ],
+        "confidence": [
+          {
+            "claim": "distance reconstituée vs officielle",
+            "status": "OK",
+            "level": "haute",
+            "detail": "pipeline réel rejoué (cache vide), après rebase sur PR #305 (lat/lon sur un finish curé en objet, sans quoi ils sont silencieusement ignorés) : 181,9 km reconstitués contre 177,8 km officiels (écart +2,3 %, tolérance ±10 %), statut \"ok\". Aucun avertissement dans `checks.items`."
+          },
+          {
+            "claim": "finish corrigé : coordonnées réelles de la montée finale",
+            "status": "FIX",
+            "level": "haute",
+            "detail": "trouvaille de relecture adverse, même classe de bug que l'étape 14 (Pla d'Adet) : \"Superdévoluy\" (chaîne simple) géocodait vers une rue du village (score Géoplateforme 0,70, type \"street\", à ~1,5 km du vrai point d'arrivée), ce qui se traduisait dans le profil reconstitué par une descente de 64 m juste avant l'arrivée — impossible sur une arrivée au sommet. Corrigé en fixant lat/lon sur le point final du tracé GPX officiel (44,67828/5,92697, altitude 1497 m), cohérent avec l'altitude connue de la station (~1500 m). Les deux cols intermédiaires (Col Bayard ~1248 m détecté vs 1246 m officiel, Col du Noyer 1662,6 m détecté vs 1664 m `known_cols.json`) sont, eux, bien corroborés par le profil détecté malgré l'absence de waypoint `kind:\"col\"` curé — la prudence de la note sur ce point reste honnête mais s'est révélée plus conservatrice que nécessaire."
+          }
+        ],
+        "note": "Saint-Paul-Trois-Châteaux → Superdévoluy (177,8 km officiels), étape de moyenne montagne (Drôme → Hautes-Alpes) : Col Bayard (1 246 m), La Fare-en-Champsaur, Col du Noyer (1 664 m), puis montée finale à Superdévoluy (3,8 km à 5,9 %, première apparition de cette arrivée au Tour). Tracé GPX officiel (cyclingstage.com, cdn.cyclingstage.com/.../2024/stage-17-route.gpx, distance mesurée : 178,0 km, cohérente avec l'officielle) rééchantillonné tous les 8 km en points de passage curés, même méthode que les étapes 8/9/10/11/16 de la même édition. Finish fixé en lat/lon (voir confidence) sur le point réel de fin du tracé GPX plutôt que la rue de village résolue par défaut."
+      },
       "10": {
         "start": "Orléans",
         "finish": "Saint-Amand-Montrond",
@@ -3540,6 +3725,796 @@
           }
         ],
         "note": "Étape 10 Ennezat → Le Mont-Dore (165,3 km officiels) — étape de montagne avec 7 côtes/cols classés (dont Côte de Loubeyrat, Col de Guéry, Col de la Croix Saint-Robert) et une arrivée en 2ᵉ catégorie au pied du Puy de Sancy (3,3 km à 8 %). Aucun curé en kind:\"col\" parmi les vias ici — rien ne garantit que les noms officiels des cols apparaîtront sur la page générée (detectClimbs() nomme les côtes depuis le seul profil altimétrique + géocodage inverse, jamais via wikipedia.js) : sur les 12 côtes/cols détectés par le pipeline, un seul (Côte de Loubeyrat) coïncide par coïncidence géocodique avec un nom officiel, confirmé par run réel."
+      },
+      "9": {
+        "start": "Chinon",
+        "finish": "Châteauroux",
+        "vias": [
+          {
+            "label": "Tracé GPX km 4.0",
+            "kind": "via",
+            "lat": 47.0962,
+            "lon": 0.31404
+          },
+          {
+            "label": "Tracé GPX km 8.0",
+            "kind": "via",
+            "lat": 47.06124,
+            "lon": 0.31845
+          },
+          {
+            "label": "Tracé GPX km 16.0",
+            "kind": "via",
+            "lat": 46.99598,
+            "lon": 0.32188
+          },
+          {
+            "label": "Tracé GPX km 24.0",
+            "kind": "via",
+            "lat": 46.93467,
+            "lon": 0.3066
+          },
+          {
+            "label": "Tracé GPX km 32.0",
+            "kind": "via",
+            "lat": 46.87565,
+            "lon": 0.34157
+          },
+          {
+            "label": "Tracé GPX km 40.0",
+            "kind": "via",
+            "lat": 46.84427,
+            "lon": 0.43161
+          },
+          {
+            "label": "Tracé GPX km 48.0",
+            "kind": "via",
+            "lat": 46.81891,
+            "lon": 0.52338
+          },
+          {
+            "label": "Tracé GPX km 56.0",
+            "kind": "via",
+            "lat": 46.82361,
+            "lon": 0.6046
+          },
+          {
+            "label": "Tracé GPX km 64.0",
+            "kind": "via",
+            "lat": 46.81506,
+            "lon": 0.70351
+          },
+          {
+            "label": "Tracé GPX km 72.0",
+            "kind": "via",
+            "lat": 46.79236,
+            "lon": 0.8004
+          },
+          {
+            "label": "Tracé GPX km 80.0",
+            "kind": "via",
+            "lat": 46.82865,
+            "lon": 0.87613
+          },
+          {
+            "label": "Tracé GPX km 88.0",
+            "kind": "via",
+            "lat": 46.83932,
+            "lon": 0.95786
+          },
+          {
+            "label": "Tracé GPX km 96.0",
+            "kind": "via",
+            "lat": 46.80798,
+            "lon": 1.04368
+          },
+          {
+            "label": "Tracé GPX km 104.0",
+            "kind": "via",
+            "lat": 46.85237,
+            "lon": 1.10938
+          },
+          {
+            "label": "Tracé GPX km 112.0",
+            "kind": "via",
+            "lat": 46.82262,
+            "lon": 1.20046
+          },
+          {
+            "label": "Tracé GPX km 120.0",
+            "kind": "via",
+            "lat": 46.83921,
+            "lon": 1.29678
+          },
+          {
+            "label": "Tracé GPX km 128.0",
+            "kind": "via",
+            "lat": 46.87226,
+            "lon": 1.38678
+          },
+          {
+            "label": "Tracé GPX km 136.0",
+            "kind": "via",
+            "lat": 46.91086,
+            "lon": 1.47275
+          },
+          {
+            "label": "Tracé GPX km 144.0",
+            "kind": "via",
+            "lat": 46.86173,
+            "lon": 1.53029
+          },
+          {
+            "label": "Tracé GPX km 152.0",
+            "kind": "via",
+            "lat": 46.89353,
+            "lon": 1.58394
+          },
+          {
+            "label": "Tracé GPX km 160.0",
+            "kind": "via",
+            "lat": 46.90077,
+            "lon": 1.64722
+          },
+          {
+            "label": "Tracé GPX km 168.0",
+            "kind": "via",
+            "lat": 46.83226,
+            "lon": 1.67862
+          }
+        ],
+        "confidence": [
+          {
+            "claim": "écart de distance de l'étape (généré 179,8 km vs officiel 174,1 km, +3,3 %)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "Tracé GPX officiel (cdn.cyclingstage.com/.../2025/stage-9-route.gpx, distance mesurée 173,7 km, cohérente avec les 174,1 km officiels) rééchantillonné tous les 8 km (21 points de passage), avec un point km4.0 ajouté pour corriger un avertissement via-gap (13,5 km à vol d'oiseau entre Chinon et le premier point km8.0). Aucune autre entrée warn/fail après ce correctif."
+          }
+        ],
+        "note": "Étape 9 Chinon → Châteauroux (174,1 km officiels) — étape plate sans côte classée, arrivée en ligne droite sur l'Avenue de la Châtre (« avenue Cavendish »). Aucun point de passage curé en kind:\"col\"/\"peak\", conforme à une étape sans relief notable."
+      },
+      "8": {
+        "start": "Saint-Méen-le-Grand",
+        "finish": "Laval",
+        "vias": [
+          {
+            "label": "Tracé GPX km 8.0",
+            "kind": "via",
+            "lat": 48.17688,
+            "lon": -2.05077
+          },
+          {
+            "label": "Tracé GPX km 16.0",
+            "kind": "via",
+            "lat": 48.2008,
+            "lon": -1.98944
+          },
+          {
+            "label": "Tracé GPX km 24.0",
+            "kind": "via",
+            "lat": 48.21624,
+            "lon": -1.88784
+          },
+          {
+            "label": "Tracé GPX km 32.0",
+            "kind": "via",
+            "lat": 48.22311,
+            "lon": -1.78283
+          },
+          {
+            "label": "Tracé GPX km 40.0",
+            "kind": "via",
+            "lat": 48.21204,
+            "lon": -1.69739
+          },
+          {
+            "label": "Tracé GPX km 48.0",
+            "kind": "via",
+            "lat": 48.21404,
+            "lon": -1.60924
+          },
+          {
+            "label": "Tracé GPX km 56.0",
+            "kind": "via",
+            "lat": 48.23388,
+            "lon": -1.53528
+          },
+          {
+            "label": "Tracé GPX km 64.0",
+            "kind": "via",
+            "lat": 48.19212,
+            "lon": -1.45735
+          },
+          {
+            "label": "Tracé GPX km 72.0",
+            "kind": "via",
+            "lat": 48.16073,
+            "lon": -1.37355
+          },
+          {
+            "label": "Tracé GPX km 80.0",
+            "kind": "via",
+            "lat": 48.13749,
+            "lon": -1.27639
+          },
+          {
+            "label": "Tracé GPX km 88.0",
+            "kind": "via",
+            "lat": 48.11077,
+            "lon": -1.20061
+          },
+          {
+            "label": "Tracé GPX km 96.0",
+            "kind": "via",
+            "lat": 48.05447,
+            "lon": -1.15051
+          },
+          {
+            "label": "Tracé GPX km 104.0",
+            "kind": "via",
+            "lat": 47.98518,
+            "lon": -1.12301
+          },
+          {
+            "label": "Tracé GPX km 112.0",
+            "kind": "via",
+            "lat": 47.92499,
+            "lon": -1.07105
+          },
+          {
+            "label": "Tracé GPX km 120.0",
+            "kind": "via",
+            "lat": 47.87238,
+            "lon": -1.00291
+          },
+          {
+            "label": "Tracé GPX km 128.0",
+            "kind": "via",
+            "lat": 47.84666,
+            "lon": -0.93552
+          },
+          {
+            "label": "Tracé GPX km 136.0",
+            "kind": "via",
+            "lat": 47.84234,
+            "lon": -0.82852
+          },
+          {
+            "label": "Tracé GPX km 144.0",
+            "kind": "via",
+            "lat": 47.90429,
+            "lon": -0.81238
+          },
+          {
+            "label": "Tracé GPX km 152.0",
+            "kind": "via",
+            "lat": 47.96737,
+            "lon": -0.78921
+          },
+          {
+            "label": "Tracé GPX km 160.0",
+            "kind": "via",
+            "lat": 48.03261,
+            "lon": -0.75978
+          },
+          {
+            "label": "Tracé GPX km 168.0",
+            "kind": "via",
+            "lat": 48.09087,
+            "lon": -0.77159
+          }
+        ],
+        "confidence": [
+          {
+            "claim": "écart de distance de l'étape (généré 171,4 km vs officiel 171,4 km, -0,0 %)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "Tracé GPX officiel (cdn.cyclingstage.com/.../2025/stage-8-route.gpx, distance mesurée 171,44 km, quasi identique aux 171,4 km officiels) rééchantillonné tous les 8 km (21 points de passage)."
+          },
+          {
+            "claim": "deux avertissements backtrack entre km 164,1 et km 171,4 (dans les derniers km, à l'arrivée)",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "Vérifié sur le tracé GPX brut (haute résolution) entre km162 et km172 : le tracé officiel montre un vrai zigzag de rues/relief entre km164-168 (cohérent avec les « deux petites côtes non classées dans les 5-6 derniers km » et la Côte de Nuillé-sur-Vicoin citées par plusieurs sources), puis un profil non monotone entre km168,9 et l'arrivée — un pic à ~78 m (km168,9), un creux à ~55-57 m (km170), puis la remontée finale jusqu'à 93-96 m à la ligne (km171,4) — cohérent avec le « faux plat montant sur le dernier km » décrit pour l'arrivée à Laval tout en confirmant un relief réel plus accidenté qu'une simple montée continue. Probable caractéristique réelle du réseau routier plutôt qu'un artefact de placement des vias, mais non confirmé par une source indépendante donnant le tracé exact rue par rue — même réserve que 2025 étapes 6 et 7."
+          }
+        ],
+        "note": "Étape 8 Saint-Méen-le-Grand → Laval (171,4 km officiels) — étape globalement plate, une seule côte classée (Côte de Nuillé-sur-Vicoin, 4ᵉ catégorie, ~16 km avant l'arrivée) et deux petites côtes non classées dans les 5-6 derniers km, finish sur un faux plat montant d'environ 1 km. Aucune côte curée en kind:\"col\" ici — rien ne garantit que les noms officiels apparaîtront sur la page générée (detectClimbs() nomme les côtes depuis le seul profil altimétrique + géocodage inverse, jamais via wikipedia.js)."
+      },
+      "7": {
+        "start": "Saint-Malo",
+        "finish": {
+          "label": "Mûr-de-Bretagne Guerlédan",
+          "lat": 48.22814,
+          "lon": -2.99825
+        },
+        "vias": [
+          {
+            "label": "Tracé GPX km 8.0",
+            "kind": "via",
+            "lat": 48.60506,
+            "lon": -1.91378
+          },
+          {
+            "label": "Tracé GPX km 16.0",
+            "kind": "via",
+            "lat": 48.55448,
+            "lon": -1.93433
+          },
+          {
+            "label": "Tracé GPX km 24.0",
+            "kind": "via",
+            "lat": 48.49342,
+            "lon": -1.97482
+          },
+          {
+            "label": "Tracé GPX km 32.0",
+            "kind": "via",
+            "lat": 48.43909,
+            "lon": -1.95529
+          },
+          {
+            "label": "Tracé GPX km 40.0",
+            "kind": "via",
+            "lat": 48.38344,
+            "lon": -1.9306
+          },
+          {
+            "label": "Tracé GPX km 48.0",
+            "kind": "via",
+            "lat": 48.38481,
+            "lon": -2.01022
+          },
+          {
+            "label": "Tracé GPX km 56.0",
+            "kind": "via",
+            "lat": 48.44559,
+            "lon": -2.04433
+          },
+          {
+            "label": "Tracé GPX km 64.0",
+            "kind": "via",
+            "lat": 48.46726,
+            "lon": -2.1244
+          },
+          {
+            "label": "Tracé GPX km 72.0",
+            "kind": "via",
+            "lat": 48.50757,
+            "lon": -2.21133
+          },
+          {
+            "label": "Tracé GPX km 80.0",
+            "kind": "via",
+            "lat": 48.53673,
+            "lon": -2.29784
+          },
+          {
+            "label": "Tracé GPX km 88.0",
+            "kind": "via",
+            "lat": 48.56534,
+            "lon": -2.38601
+          },
+          {
+            "label": "Tracé GPX km 96.0",
+            "kind": "via",
+            "lat": 48.57084,
+            "lon": -2.48593
+          },
+          {
+            "label": "Tracé GPX km 104.0",
+            "kind": "via",
+            "lat": 48.57839,
+            "lon": -2.56316
+          },
+          {
+            "label": "Tracé GPX km 112.0",
+            "kind": "via",
+            "lat": 48.51825,
+            "lon": -2.59577
+          },
+          {
+            "label": "Tracé GPX km 120.0",
+            "kind": "via",
+            "lat": 48.48677,
+            "lon": -2.67741
+          },
+          {
+            "label": "Tracé GPX km 128.0",
+            "kind": "via",
+            "lat": 48.51784,
+            "lon": -2.73563
+          },
+          {
+            "label": "Tracé GPX km 136.0",
+            "kind": "via",
+            "lat": 48.46543,
+            "lon": -2.75281
+          },
+          {
+            "label": "Tracé GPX km 144.0",
+            "kind": "via",
+            "lat": 48.40127,
+            "lon": -2.73749
+          },
+          {
+            "label": "Tracé GPX km 152.0",
+            "kind": "via",
+            "lat": 48.34204,
+            "lon": -2.7616
+          },
+          {
+            "label": "Tracé GPX km 160.0",
+            "kind": "via",
+            "lat": 48.29024,
+            "lon": -2.82317
+          },
+          {
+            "label": "Tracé GPX km 168.0",
+            "kind": "via",
+            "lat": 48.23989,
+            "lon": -2.89041
+          },
+          {
+            "label": "Tracé GPX km 176.0",
+            "kind": "via",
+            "lat": 48.2021,
+            "lon": -2.9758
+          },
+          {
+            "label": "Tracé GPX km 184.0",
+            "kind": "via",
+            "lat": 48.25547,
+            "lon": -3.01077
+          },
+          {
+            "label": "Tracé GPX km 192.0",
+            "kind": "via",
+            "lat": 48.20909,
+            "lon": -2.97392
+          }
+        ],
+        "confidence": [
+          {
+            "claim": "écart de distance de l'étape (généré 193,2 km vs officiel 197 km, -1,9 %)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "Tracé GPX officiel (cdn.cyclingstage.com/.../2025/stage-7-route.gpx, distance mesurée 195,6 km, cohérente avec les 196,6-197 km officiels selon les sources) rééchantillonné tous les 8 km (24 points de passage)."
+          },
+          {
+            "claim": "finish pinné en objet {label, lat, lon} plutôt qu'en chaîne",
+            "status": "FIX",
+            "level": "haute",
+            "detail": "La chaîne \"Mûr-de-Bretagne Guerlédan\" géocode au centre-ville (48.201308, -2.992865, score 0.69) — à ~3 km du vrai sommet d'arrivée. Vérifié sur le tracé GPX officiel : l'altitude monte de façon monotone jusqu'au tout dernier point (48.22814, -2.99825, 287 m), cohérent avec les sources indépendantes citant 284-293 m pour le sommet de la côte — confirme que c'est la vraie ligne d'arrivée, pas une troncature de fichier. Même classe de bug que 2024 étapes 14/17 (finish sommet/côte mal géocodé). Fix nécessite la branche rebasée sur origin/claude/fix-reconstruction-start-finish-coords (PR #305) ; vérifié par run réel que le waypoint finish en base porte bien lat=48.22814/lon=-2.99825 (pas les coordonnées géocodées ignorées)."
+          },
+          {
+            "claim": "deux avertissements backtrack entre km 173,9 et km 189,2",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "Cohérent avec la montée de Mûr-de-Bretagne gravie deux fois dans les 20 derniers km (information de course confirmée par plusieurs sources : tour-magazin.de, domestiquecycling.com) : le tracé des vias passe près de la ville (km176), s'en éloigne (km184), y repasse (km192) puis remonte à l'arrivée (km195,6) — un aller-retour réel plutôt qu'un artefact de placement, mais non confirmé par une source indépendante donnant le tracé exact des deux ascensions (hedgehogcycling.co.uk ne fournit pas de coordonnées) — même réserve que 2025 étape 6 (km 192-196 à Vire Normandie), documentée UNSURE pour la même raison."
+          }
+        ],
+        "note": "Étape 7 Saint-Malo → Mûr-de-Bretagne Guerlédan (197 km officiels) — Côte de Mûr-de-Bretagne gravie deux fois dans les 20 derniers km, finish sommet (2 km à 6,9 %). Aucune côte curée en kind:\"col\" ici — rien ne garantit que les noms officiels apparaîtront sur la page générée (detectClimbs() nomme les côtes depuis le seul profil altimétrique + géocodage inverse, jamais via wikipedia.js)."
+      },
+      "6": {
+        "start": "Bayeux",
+        "finish": "Vire Normandie",
+        "vias": [
+          {
+            "label": "Tracé GPX km 4.0",
+            "kind": "via",
+            "lat": 49.20652,
+            "lon": -0.71902
+          },
+          {
+            "label": "Tracé GPX km 8.0",
+            "kind": "via",
+            "lat": 49.17225,
+            "lon": -0.72657
+          },
+          {
+            "label": "Tracé GPX km 12.0",
+            "kind": "via",
+            "lat": 49.13942,
+            "lon": -0.73378
+          },
+          {
+            "label": "Tracé GPX km 16.0",
+            "kind": "via",
+            "lat": 49.10957,
+            "lon": -0.70613
+          },
+          {
+            "label": "Tracé GPX km 20.0",
+            "kind": "via",
+            "lat": 49.08678,
+            "lon": -0.67494
+          },
+          {
+            "label": "Tracé GPX km 24.0",
+            "kind": "via",
+            "lat": 49.05789,
+            "lon": -0.65828
+          },
+          {
+            "label": "Tracé GPX km 28.0",
+            "kind": "via",
+            "lat": 49.02798,
+            "lon": -0.63427
+          },
+          {
+            "label": "Tracé GPX km 32.0",
+            "kind": "via",
+            "lat": 48.99579,
+            "lon": -0.63297
+          },
+          {
+            "label": "Tracé GPX km 36.0",
+            "kind": "via",
+            "lat": 48.96668,
+            "lon": -0.61375
+          },
+          {
+            "label": "Tracé GPX km 40.0",
+            "kind": "via",
+            "lat": 48.9738,
+            "lon": -0.57077
+          },
+          {
+            "label": "Tracé GPX km 44.0",
+            "kind": "via",
+            "lat": 48.95194,
+            "lon": -0.53226
+          },
+          {
+            "label": "Tracé GPX km 48.0",
+            "kind": "via",
+            "lat": 48.9444,
+            "lon": -0.5004
+          },
+          {
+            "label": "Tracé GPX km 52.0",
+            "kind": "via",
+            "lat": 48.91897,
+            "lon": -0.48771
+          },
+          {
+            "label": "Tracé GPX km 56.0",
+            "kind": "via",
+            "lat": 48.91445,
+            "lon": -0.4467
+          },
+          {
+            "label": "Tracé GPX km 60.0",
+            "kind": "via",
+            "lat": 48.91062,
+            "lon": -0.40639
+          },
+          {
+            "label": "Tracé GPX km 64.0",
+            "kind": "via",
+            "lat": 48.8842,
+            "lon": -0.41739
+          },
+          {
+            "label": "Tracé GPX km 68.0",
+            "kind": "via",
+            "lat": 48.85831,
+            "lon": -0.40988
+          },
+          {
+            "label": "Tracé GPX km 72.0",
+            "kind": "via",
+            "lat": 48.83789,
+            "lon": -0.44718
+          },
+          {
+            "label": "Tracé GPX km 76.0",
+            "kind": "via",
+            "lat": 48.82131,
+            "lon": -0.48984
+          },
+          {
+            "label": "Tracé GPX km 80.0",
+            "kind": "via",
+            "lat": 48.79119,
+            "lon": -0.51425
+          },
+          {
+            "label": "Tracé GPX km 84.0",
+            "kind": "via",
+            "lat": 48.76242,
+            "lon": -0.5438
+          },
+          {
+            "label": "Tracé GPX km 88.0",
+            "kind": "via",
+            "lat": 48.73971,
+            "lon": -0.5726
+          },
+          {
+            "label": "Tracé GPX km 92.0",
+            "kind": "via",
+            "lat": 48.71423,
+            "lon": -0.60111
+          },
+          {
+            "label": "Tracé GPX km 96.0",
+            "kind": "via",
+            "lat": 48.68273,
+            "lon": -0.62529
+          },
+          {
+            "label": "Tracé GPX km 100.0",
+            "kind": "via",
+            "lat": 48.6672,
+            "lon": -0.667
+          },
+          {
+            "label": "Tracé GPX km 104.0",
+            "kind": "via",
+            "lat": 48.6433,
+            "lon": -0.70412
+          },
+          {
+            "label": "Tracé GPX km 108.0",
+            "kind": "via",
+            "lat": 48.65688,
+            "lon": -0.74686
+          },
+          {
+            "label": "Tracé GPX km 112.0",
+            "kind": "via",
+            "lat": 48.67958,
+            "lon": -0.78426
+          },
+          {
+            "label": "Tracé GPX km 116.0",
+            "kind": "via",
+            "lat": 48.65231,
+            "lon": -0.7854
+          },
+          {
+            "label": "Tracé GPX km 120.0",
+            "kind": "via",
+            "lat": 48.6202,
+            "lon": -0.80577
+          },
+          {
+            "label": "Tracé GPX km 124.0",
+            "kind": "via",
+            "lat": 48.60275,
+            "lon": -0.84291
+          },
+          {
+            "label": "Tracé GPX km 128.0",
+            "kind": "via",
+            "lat": 48.62031,
+            "lon": -0.88834
+          },
+          {
+            "label": "Tracé GPX km 132.0",
+            "kind": "via",
+            "lat": 48.63908,
+            "lon": -0.93472
+          },
+          {
+            "label": "Tracé GPX km 136.0",
+            "kind": "via",
+            "lat": 48.64366,
+            "lon": -0.95332
+          },
+          {
+            "label": "Tracé GPX km 140.0",
+            "kind": "via",
+            "lat": 48.65774,
+            "lon": -0.92692
+          },
+          {
+            "label": "Tracé GPX km 144.0",
+            "kind": "via",
+            "lat": 48.68107,
+            "lon": -0.95263
+          },
+          {
+            "label": "Tracé GPX km 148.0",
+            "kind": "via",
+            "lat": 48.6987,
+            "lon": -0.98313
+          },
+          {
+            "label": "Tracé GPX km 152.0",
+            "kind": "via",
+            "lat": 48.70023,
+            "lon": -1.02244
+          },
+          {
+            "label": "Tracé GPX km 156.0",
+            "kind": "via",
+            "lat": 48.68144,
+            "lon": -1.03852
+          },
+          {
+            "label": "Tracé GPX km 160.0",
+            "kind": "via",
+            "lat": 48.70234,
+            "lon": -1.07429
+          },
+          {
+            "label": "Tracé GPX km 164.0",
+            "kind": "via",
+            "lat": 48.70965,
+            "lon": -1.03403
+          },
+          {
+            "label": "Tracé GPX km 168.0",
+            "kind": "via",
+            "lat": 48.73411,
+            "lon": -1.03747
+          },
+          {
+            "label": "Tracé GPX km 172.0",
+            "kind": "via",
+            "lat": 48.75349,
+            "lon": -1.0554
+          },
+          {
+            "label": "Tracé GPX km 176.0",
+            "kind": "via",
+            "lat": 48.77238,
+            "lon": -1.01393
+          },
+          {
+            "label": "Tracé GPX km 180.0",
+            "kind": "via",
+            "lat": 48.80096,
+            "lon": -0.99125
+          },
+          {
+            "label": "Tracé GPX km 184.0",
+            "kind": "via",
+            "lat": 48.82302,
+            "lon": -0.95355
+          },
+          {
+            "label": "Tracé GPX km 188.0",
+            "kind": "via",
+            "lat": 48.83337,
+            "lon": -0.90803
+          },
+          {
+            "label": "Tracé GPX km 192.0",
+            "kind": "via",
+            "lat": 48.84822,
+            "lon": -0.87912
+          },
+          {
+            "label": "Tracé GPX km 196.0",
+            "kind": "via",
+            "lat": 48.85461,
+            "lon": -0.8474
+          },
+          {
+            "label": "Tracé GPX km 200.0",
+            "kind": "via",
+            "lat": 48.85108,
+            "lon": -0.8612
+          }
+        ],
+        "confidence": [
+          {
+            "claim": "écart de distance de l'étape (généré 201,6 km vs officiel 201,5 km, +0,1 %)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "Tracé GPX officiel (cdn.cyclingstage.com/.../2025/stage-6-route.gpx, distance mesurée 202,2 km, cohérente avec les 201,5 km officiels) rééchantillonné tous les 4 km (50 points de passage). Calibré par mesure réelle (scripts/calibrate-gpx-stage.js) : pas 8 km -8,7 % (marge trop fine, 1,3 point), pas 4 km (retenu) +2,0 % à +0,1 % selon l'exécution, pas 2 km +3,9 % — le pas de 4 km retenu pour sa marge plus robuste, cohérent avec le correctif appliqué sur 2025 étape 3."
+          },
+          {
+            "claim": "deux avertissements backtrack entre km 192 et km 196 (juste avant l'arrivée à Vire Normandie)",
+            "status": "UNSURE",
+            "level": "haute",
+            "detail": "Vérifié sur le tracé GPX brut (haute résolution, pas seulement les points rééchantillonnés) : la trace réelle fait un looping (sud puis nord) entre km 193 et km 198 avant la ligne — probablement un circuit en ville avant la Côte de Vaudry/l'arrivée en côte, pas un artefact de placement des vias. Tentative de densifier spécifiquement cette zone (pas 1 km, km189-201) : n'a pas supprimé l'avertissement et a dégradé le résultat (+5,0 %, backtrack élargi à km199-205), parce que la rafale de légs supplémentaires déclenche le rate-limit BRouter (HTTP 403) et bascule plusieurs tronçons sur le repli OSRM (profil voiture), qui prend des routes différentes dans cette zone urbaine. Le pas de 4 km (sans densification locale) reproduit systématiquement les deux mêmes avertissements sur des runs répétés avec un écart de distance stable (+0,1 % / -0,2 % selon le repli BRouter→OSRM) — cohérent avec un vrai aller-retour du parcours plutôt qu'un artefact, mais non confirmé par une source indépendante (plan officiel ville par ville)."
+          }
+        ],
+        "note": "Étape 6 Bayeux → Vire Normandie (201,5 km officiels) — étape vallonnée avec 6 côtes classées, la dernière (Côte de Vaudry) à quelques km de la ligne, arrivée courte en côte (700 m à 10,2 %). Aucune côte curée en kind:\"col\" ici — rien ne garantit que les noms officiels apparaîtront sur la page générée (detectClimbs() nomme les côtes depuis le seul profil altimétrique + géocodage inverse, jamais via wikipedia.js)."
       },
       "2": {
         "start": "Lauwin-Planque",
