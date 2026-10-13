@@ -201,6 +201,51 @@ test('POST /api/backup/import : 1e999 (Infinity après JSON.parse) sur un champ 
   assert.ok(stillThere, 'un champ Infinity ne doit rien écrire, même partiellement');
 });
 
+// Trouvaille de revue adverse, reproduite par exploitation réelle : isBindable()
+// ne vérifie que le type *bindable* par better-sqlite3 (string accepté),
+// jamais le type *sémantique* de la colonne SQLite (REAL pour climbs.summit_ele_m
+// /length_km/avg_gradient/max_gradient). Une chaîne HTML passait donc cette
+// garde et ressortait non échappée dans les exports GPX/TCX/KML/roadbook et
+// plusieurs sinks DOM frontend (cols.js, stage.js, compare.js) — CLAUDE.md
+// règle 1 : le correctif valide maintenant le type déclaré de la colonne,
+// pas seulement sa « bindabilité ».
+test('POST /api/backup/import : chaîne HTML sur une colonne REAL (climbs.summit_ele_m) → 400, pas écrite', async () => {
+  const editionId = await createEdition('Pour côte', 2018);
+  const stageId = await createStage('Étape avec côte', editionId);
+  const res = await importBackup({
+    confirm: true,
+    tables: {
+      climbs: [{
+        id: 1, stage_id: stageId, name: 'Col test', category: 'HC',
+        summit_ele_m: '<script>alert(1)</script>',
+      }],
+    },
+  });
+  assert.strictEqual(res.status, 400);
+  assert.match((await res.json()).error, /colonne numérique/);
+  const count = getDb().prepare('SELECT COUNT(*) n FROM climbs').get().n;
+  assert.strictEqual(count, 0, 'rien ne doit être écrit, même partiellement');
+});
+
+test('POST /api/backup/import : nombre légitime sur une colonne REAL → accepté normalement', async () => {
+  // L'import remplace TOUTES les tables de sauvegarde (pas seulement celles
+  // listées dans le payload, voir le test round-trip ci-dessus) : stages et
+  // editions doivent donc figurer dans ce payload pour que climbs.stage_id
+  // référence une ligne qui existe encore après le DELETE global.
+  const res = await importBackup({
+    confirm: true,
+    tables: {
+      editions: [{ id: 1, year: 2017, name: 'Pour côte légitime', is_custom: 0, category: 'hommes', source: null, created_at: '2017-01-01 00:00:00' }],
+      stages: [{ id: 1, edition_id: 1, stage_order: 1, name: 'Étape avec vraie côte', date: null, stage_type: null, status: null, official_distance_km: null, generated_distance_km: null, total_ascent_m: null, elapsed_time_s: null, city_hint: null, region_hint: null, country_hint: null, state: 'draft', progress: null, checks: null, source: null, error: null, is_transfer: 0, created_at: '2017-01-01 00:00:00', updated_at: '2017-01-01 00:00:00' }],
+      climbs: [{ id: 1, stage_id: 1, name: 'Col légitime', category: 'HC', summit_ele_m: 2642.5 }],
+    },
+  });
+  const json = await res.json();
+  assert.strictEqual(res.status, 200, `réponse inattendue : ${res.status} ${JSON.stringify(json)}`);
+  const row = getDb().prepare('SELECT summit_ele_m FROM climbs WHERE id = 1').get();
+  assert.strictEqual(row.summit_ele_m, 2642.5);
+});
+
 test('POST /api/backup/import : lignes aux colonnes incohérentes entre elles dans une même table → 400', async () => {
   const res = await importBackup({
     confirm: true,
