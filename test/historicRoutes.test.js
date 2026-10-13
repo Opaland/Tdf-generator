@@ -268,7 +268,10 @@ test('historic_routes.json : chaque affirmation confidence est bien formée (bac
 });
 
 test('stageConfidence : renvoie [] pour une étape sans réserve connue, le détail pour une étape marquée UNSURE', () => {
-  assert.deepStrictEqual(stageConfidence(1903, 3), [], 'aucune réserve connue sur cette étape');
+  // Étape 1 plutôt que 3 (utilisée jusqu'au 24/09/2026) : la 3 porte
+  // désormais sa propre réserve UNSURE (écart de distance en ligne, voir
+  // pipeline/data/historic_routes.json).
+  assert.deepStrictEqual(stageConfidence(1903, 1), [], 'aucune réserve connue sur cette étape');
   const puyDeDome = stageConfidence(2023, 9);
   // 3 réserves depuis l'ajout des marqueurs sprint/bonification (backlog
   // issue #14) : altitude d'arrivée, position du sprint intermédiaire,
