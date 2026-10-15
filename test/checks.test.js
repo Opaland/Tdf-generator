@@ -84,6 +84,50 @@ test('routeur uniforme (tous les legs sur BRouter) : aucun item router-mixed', (
   assert.strictEqual(items.some((i) => i.id === 'router-mixed'), false);
 });
 
+// Relecture adverse du 15/10/2026 : une première version calculait le
+// « majoritaire » avec `.find(r => r !== 'osrm')` sur l'ensemble des
+// routeurs DISTINCTS, pas un vrai vote par occurrence — dès qu'un seul leg
+// BRouter coexistait avec plusieurs legs OSRM (la vraie majorité), le
+// message désignait les legs OSRM comme « différents des autres » et ne
+// mentionnait jamais le seul leg BRouter réellement atypique. Ce test est
+// volontairement déséquilibré (2 OSRM contre 1 BRouter) : un calcul par
+// valeurs distinctes et un vrai vote par occurrence donnent le même
+// résultat sur un cas 1-contre-1 (le test précédent), seul un cas déséquilibré
+// les distingue.
+test('routeur mixte déséquilibré (2 legs OSRM, 1 seul BRouter) : désigne le BRouter isolé, pas la vraie majorité OSRM', () => {
+  const { items } = runChecks({
+    stage: {}, distanceM: 30000, waypointsOnTrack: [], approxSegments: [], climbs: [], samples: [],
+    legs: [
+      { from: 'A', to: 'B', roadM: 10000, straightM: 9500, router: 'osrm' },
+      { from: 'B', to: 'C', roadM: 10000, straightM: 9500, router: 'brouter' },
+      { from: 'C', to: 'D', roadM: 10000, straightM: 9500, router: 'osrm' },
+    ],
+  });
+  const mixed = find(items, 'router-mixed');
+  assert.match(mixed.detail, /majoritaire : osrm/, 'la vraie majorité (2 legs) est OSRM, pas BRouter');
+  assert.match(mixed.detail, /B → C \(brouter\)/, 'le seul leg atypique (BRouter) doit être nommé, pas les deux legs OSRM majoritaires');
+  assert.doesNotMatch(mixed.detail, /A → B/, 'un leg qui fait partie de la majorité ne doit jamais être listé comme "différent"');
+  assert.doesNotMatch(mixed.detail, /C → D/, 'idem pour le second leg OSRM majoritaire');
+});
+
+// Relecture adverse du 15/10/2026 : le message était câblé en dur sur
+// « repli OSRM », même quand OSRM n'est pas en cause — ex. un mélange
+// brouter+simulateur, atteignable si ETAPEFORGE_AUTO_OFFLINE bascule
+// forcedOffline en cours de génération (pipeline/http.js) après qu'un leg a
+// déjà réussi sur BRouter.
+test('routeur mixte sans OSRM impliqué (brouter + simulateur) : le message ne doit jamais mentionner OSRM à tort', () => {
+  const { items } = runChecks({
+    stage: {}, distanceM: 20000, waypointsOnTrack: [], approxSegments: [], climbs: [], samples: [],
+    legs: [
+      { from: 'A', to: 'B', roadM: 10000, straightM: 9500, router: 'brouter' },
+      { from: 'B', to: 'C', roadM: 10000, straightM: 9500, router: 'simulateur' },
+    ],
+  });
+  const mixed = find(items, 'router-mixed');
+  assert.doesNotMatch(mixed.detail, /osrm/i, 'aucun OSRM dans ce mélange — le message ne doit pas l\'affirmer quand même');
+  assert.match(mixed.detail, /B → C \(simulateur\)/);
+});
+
 // Points de passage espacés (03/09/2026, suite signalement utilisateur
 // Nidervisse/Porcelette, Tour 1992 étape 10) : un trou > 12 km entre deux
 // points curés consécutifs risque de laisser le routeur halluciner un chemin

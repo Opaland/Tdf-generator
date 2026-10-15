@@ -120,23 +120,40 @@ function runChecks({ stage, distanceM, waypointsOnTrack, approxSegments, climbs,
 
   // 0c) Routeur mixte : un ou plusieurs legs ont basculé sur un autre routeur
   // que les autres (ex. BRouter indisponible ou sans itinéraire sur ce seul
-  // leg, repli OSRM profil voiture — voir routeLeg(), pipeline/routing.js).
-  // Jusqu'ici ce repli partiel n'était signalé que par un `console.warn`,
-  // invisible dans la fiche d'étape dès qu'il ne touchait pas le premier leg
-  // (trouvaille sprint fiabilité du routage, 15/10/2026) : le champ `router`
-  // de l'étape reflétait alors le premier leg, masquant qu'un autre leg avait
-  // basculé sur un profil différent.
+  // leg, repli OSRM profil voiture — voir routeLeg(), pipeline/routing.js ;
+  // ou repli simulateur si ETAPEFORGE_AUTO_OFFLINE bascule forcedOffline en
+  // cours de route, pipeline/http.js). Jusqu'ici ce repli partiel n'était
+  // signalé que par un `console.warn`, invisible dans la fiche d'étape dès
+  // qu'il ne touchait pas le premier leg (trouvaille sprint fiabilité du
+  // routage, 15/10/2026) : le champ `router` de l'étape reflétait alors le
+  // premier leg, masquant qu'un autre leg avait basculé sur un profil
+  // différent.
+  //
+  // Le routeur « majoritaire » est un vrai vote par occurrence (compte des
+  // legs par routeur, pas des valeurs distinctes) — trouvaille de relecture
+  // adverse (15/10/2026) sur une première version qui excluait juste 'osrm'
+  // du choix (`.find(r => r !== 'osrm')`), donc désignait à tort les legs
+  // réellement majoritaires comme « différents des autres » dès qu'OSRM et
+  // un autre routeur coexistaient, quel que soit le nombre réel de legs sur
+  // chacun. Le message ne nomme plus OSRM en dur non plus (même relecture) :
+  // un mélange brouter+simulateur n'implique aucun OSRM, et l'ancien texte
+  // l'affirmait quand même.
   const legRouters = new Set((legs || []).map((l) => l.router).filter(Boolean));
   if (legRouters.size > 1) {
-    const majority = [...legRouters].find((r) => r !== 'osrm') || [...legRouters][0];
+    const counts = new Map();
+    for (const l of legs || []) {
+      if (l.router) counts.set(l.router, (counts.get(l.router) || 0) + 1);
+    }
+    const maxCount = Math.max(...counts.values());
+    const majority = (legs || []).find((l) => counts.get(l.router) === maxCount).router;
     const switched = (legs || []).filter((l) => l.router !== majority);
     items.push({
       id: 'router-mixed',
       label: 'Routeur mixte sur cette étape',
       status: 'warn',
-      detail: `routeurs utilisés : ${[...legRouters].join(', ')} — ${switched.length} leg(s) sur un profil ` +
-        `différent des autres : ${switched.map((l) => `${l.from} → ${l.to}`).join(', ')}. Probablement un repli ` +
-        `OSRM (profil voiture, moins fidèle) après échec de BRouter sur ce seul leg.`,
+      detail: `routeurs utilisés : ${[...legRouters].join(', ')} — routeur majoritaire : ${majority}. ` +
+        `${switched.length} leg(s) sur un routeur différent : ` +
+        `${switched.map((l) => `${l.from} → ${l.to} (${l.router})`).join(', ')}.`,
     });
   }
 
