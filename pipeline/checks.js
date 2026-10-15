@@ -118,6 +118,28 @@ function runChecks({ stage, distanceM, waypointsOnTrack, approxSegments, climbs,
     }
   }
 
+  // 0c) Routeur mixte : un ou plusieurs legs ont basculé sur un autre routeur
+  // que les autres (ex. BRouter indisponible ou sans itinéraire sur ce seul
+  // leg, repli OSRM profil voiture — voir routeLeg(), pipeline/routing.js).
+  // Jusqu'ici ce repli partiel n'était signalé que par un `console.warn`,
+  // invisible dans la fiche d'étape dès qu'il ne touchait pas le premier leg
+  // (trouvaille sprint fiabilité du routage, 15/10/2026) : le champ `router`
+  // de l'étape reflétait alors le premier leg, masquant qu'un autre leg avait
+  // basculé sur un profil différent.
+  const legRouters = new Set((legs || []).map((l) => l.router).filter(Boolean));
+  if (legRouters.size > 1) {
+    const majority = [...legRouters].find((r) => r !== 'osrm') || [...legRouters][0];
+    const switched = (legs || []).filter((l) => l.router !== majority);
+    items.push({
+      id: 'router-mixed',
+      label: 'Routeur mixte sur cette étape',
+      status: 'warn',
+      detail: `routeurs utilisés : ${[...legRouters].join(', ')} — ${switched.length} leg(s) sur un profil ` +
+        `différent des autres : ${switched.map((l) => `${l.from} → ${l.to}`).join(', ')}. Probablement un repli ` +
+        `OSRM (profil voiture, moins fidèle) après échec de BRouter sur ce seul leg.`,
+    });
+  }
+
   // 1) Distance vs cible.
   if (stage.official_distance_km) {
     const target = stage.official_distance_km;

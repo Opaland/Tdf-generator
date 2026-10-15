@@ -56,6 +56,34 @@ test('leg normal (route proche du vol d\'oiseau) : aucun item leg-suspect', () =
   assert.strictEqual(items.some((i) => i.id.startsWith('leg-')), false);
 });
 
+// Sprint fiabilité du routage (15/10/2026) : un repli OSRM isolé (BRouter
+// indisponible sur un seul leg) n'était jusqu'ici signalé que par un
+// `console.warn` (pipeline/routing.js), invisible dans la fiche d'étape.
+test('routeur mixte (un leg basculé sur OSRM, les autres sur BRouter) : warn dédié', () => {
+  const { items, ok } = runChecks({
+    stage: {}, distanceM: 20000, waypointsOnTrack: [], approxSegments: [], climbs: [], samples: [],
+    legs: [
+      { from: 'A', to: 'B', roadM: 10000, straightM: 9500, router: 'brouter' },
+      { from: 'B', to: 'C', roadM: 10000, straightM: 9500, router: 'osrm' },
+    ],
+  });
+  const mixed = find(items, 'router-mixed');
+  assert.strictEqual(mixed.status, 'warn');
+  assert.match(mixed.detail, /B → C/);
+  assert.strictEqual(ok, true, 'un routeur mixte est un warn, pas un fail — ne doit pas faire échouer la fiche');
+});
+
+test('routeur uniforme (tous les legs sur BRouter) : aucun item router-mixed', () => {
+  const { items } = runChecks({
+    stage: {}, distanceM: 20000, waypointsOnTrack: [], approxSegments: [], climbs: [], samples: [],
+    legs: [
+      { from: 'A', to: 'B', roadM: 10000, straightM: 9500, router: 'brouter' },
+      { from: 'B', to: 'C', roadM: 10000, straightM: 9500, router: 'brouter' },
+    ],
+  });
+  assert.strictEqual(items.some((i) => i.id === 'router-mixed'), false);
+});
+
 // Points de passage espacés (03/09/2026, suite signalement utilisateur
 // Nidervisse/Porcelette, Tour 1992 étape 10) : un trou > 12 km entre deux
 // points curés consécutifs risque de laisser le routeur halluciner un chemin
