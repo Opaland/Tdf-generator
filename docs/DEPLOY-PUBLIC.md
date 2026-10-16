@@ -22,7 +22,7 @@ compte), donc :
 - gardez à l'esprit qu'un compte malveillant peut tout supprimer — voir la
   sauvegarde SQLite ci-dessous ;
 - l'inscription libre consomme aussi les quotas des APIs externes gratuites
-  (Nominatim 1 req/s, OSRM public…) partagés par tous les comptes — un afflux
+  (Nominatim 1 req/s, BRouter/OSRM public…) partagés par tous les comptes — un afflux
   d'inscriptions peut dégrader la génération pour tout le monde.
 
 Si ce modèle ne convient pas (besoin d'isolation par utilisateur ou
