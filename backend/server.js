@@ -5,7 +5,7 @@
 
 const path = require('path');
 const express = require('express');
-const { getDb, DB_PATH } = require('./db');
+const { getDb, DB_PATH, SCHEMA_VERSION } = require('./db');
 const { generateStage, loadStageFull } = require('../pipeline/generate');
 const { importEdition, importAllEditions, CATEGORIES } = require('../pipeline/importer');
 const { historicHighlights } = require('../pipeline/wikipedia');
@@ -914,7 +914,10 @@ app.get('/api/backup/export', (req, res) => {
   for (const t of BACKUP_TABLES) tables[t] = db.prepare(`SELECT * FROM ${t}`).all();
   const stamp = new Date().toISOString().slice(0, 10);
   res.setHeader('Content-Disposition', `attachment; filename="etapeforge-sauvegarde-${stamp}.json"`);
-  res.json({ version: 1, exported_at: db.prepare(`SELECT datetime('now') d`).get().d, tables });
+  // `version` = format du fichier de sauvegarde (inchangé) ; `schema_version`
+  // = migration SQLite de la base source (backend/db.js), pour diagnostiquer
+  // une restauration entre deux versions du code.
+  res.json({ version: 1, schema_version: SCHEMA_VERSION, exported_at: db.prepare(`SELECT datetime('now') d`).get().d, tables });
 });
 
 /**
