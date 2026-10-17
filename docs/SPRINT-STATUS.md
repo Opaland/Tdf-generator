@@ -117,12 +117,7 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
       lieu de `fail`) par régénération réelle du pipeline (réseau live, pas
       supposé depuis le texte) et corrigées : 1992/20, 2024/4, 2024/16,
       2024/21, 2025/19 — PR #351
-- [ ] 4.7 **backlog** — ~45 occurrences restantes du même motif, non
-      re-vérifiées une à une par régénération réelle ; l'essentiel semble
-      déjà correctement contextualisé (référence explicite à « l'ancienne
-      tolérance », ou écart hors tolérance sous les deux seuils) mais ça
-      reste à confirmer stage par stage, pas supposé
-
+- [x] 4.7 Seconde passe (17/10/2026) : toutes les entrées encore marquées `OK` qui citent l'ancien seuil ±10 % passées en revue d'après leur pourcentage déclaré, et chaque cas déclarant plus de ±5 % re-mesuré par régénération réelle — 3 de plus réellement en échec (2002/0 -8,7 %, 2002/3 +5,6 %, 2022/1 -9,3 %), ajoutées à la PR #351 (8 au total) ; 2023/20 re-mesurée à +0,4 % (texte « +5,2 % » périmé, statut OK confirmé). Les ~15 autres entrées `OK` déclarent toutes moins de ±5 % : statut cohérent avec le seuil actuel, mais **non re-mesurées** une à une (la dérive dans le temps d'une donnée reste possible, comme l'a montré 2023/20 dans le sens favorable). Les entrées `UNSURE` qui citent ±10 % sont déjà classées hors tolérance — seule la formulation date.
 ## Epic 5 — Sprint 4 : performance
 
 - [x] 5.1 Mesurer `EXPLAIN QUERY PLAN` sur `stages.edition_id` avant correctif
