@@ -7849,57 +7849,379 @@
     "highlight": "Grand Départ à Utrecht, CLM inaugural remporté par Rohan Dennis"
   },
   "2022-femmes": {
-    "notes": "Première édition moderne du Tour de France Femmes, arrivée décisive à la Super Planche des Belles Filles. Édition reconstruite depuis Wikipédia (fixture pipeline/fixtures/wikipedia_2022_femmes_en.html) sans aucune curation avant ce correctif (backlog #10 section B, Chantier L Tour de France Femmes) : les 8 étapes affichaient un écart de distance sévèrement hors tolérance (de -50,9 % à -97,8 %, cette dernière pour l'étape 1, circuit parisien sans via). Cols/côtes sourcés : cyclingstage.com (descriptions de parcours détaillées par étape, même type de source déjà utilisé pour l'édition 2015 de ce fichier). Ce correctif ajoute les cols principaux des deux étapes de montagne (7 et 8), les plus emblématiques de l'édition — réduit sensiblement l'écart de distance sur ces deux étapes mais ne les ramène pas dans la tolérance ±10 % (voir les entrées confidence dédiées, curation volontairement partielle plutôt que vias inventés) ; les étapes 1 à 6 restent entièrement à curer.",
+    "notes": "Première édition moderne du Tour de France Femmes, arrivée décisive à la Super Planche des Belles Filles. Édition reconstruite depuis Wikipédia (fixture pipeline/fixtures/wikipedia_2022_femmes_en.html) ; sans curation, les 8 étapes affichaient un écart de distance de -50,9 % à -97,8 % (backlog #10 section B, Chantier L). Curation du 17/10/2026, étapes 2 à 8, depuis le roadbook ASO kilométré de chaque étape (reproduit par dimensionsvelo.com, « source : ASO ») : communes du roadbook retenues comme vias puis géocodées et figées, départ fixé au km 0 réel (fin de zone neutralisée), chaque étape vérifiée par régénération réelle (l'étape 3 avec un repli OSRM sur 3 ou 4 legs, d'où une fourchette de mesures) — détail, mesures et vias écartés dans la confidence de chaque étape. Bilan : 6 étapes dans la tolérance ±5 % (étape 2 -3,5 %, étape 3 -1,1 à -0,3 %, étape 4 +3,0 %, étape 5 -0,4 %, étape 7 +4,3 %, étape 8 +3,6 %) ; étape 6 encore hors tolérance (-9,8 %, UNSURE : fidèle à 0,3 km près jusqu'au km 106,7, écart entièrement localisé dans la boucle finale autour de Rosheim). Étape 1 non curée : circuit parisien à 12 tours, bloqué sur le mécanisme « laps » absent (issue #251, Epic 8) — pas une curation de vias ordinaire.",
     "stages": {
-      "7": {
+      "3": {
+        "start": { "label": "Cormontreuil", "lat": 49.2234466, "lon": 4.0534118 },
         "vias": [
-          { "label": "Colmar", "kind": "via" },
-          { "label": "Turckheim", "kind": "via" },
+          { "label": "Chigny-les-Roses", "kind": "via", "lat": 49.1565861, "lon": 4.062423 },
+          { "label": "Ludes", "kind": "via", "lat": 49.1551929, "lon": 4.0803069 },
+          { "label": "Mailly-Champagne", "kind": "via", "lat": 49.157657, "lon": 4.1112769 },
+          { "label": "Verzenay", "kind": "via", "lat": 49.1593602, "lon": 4.1443389 },
+          { "label": "Verzy", "kind": "via", "lat": 49.14707, "lon": 4.1638626 },
+          { "label": "Villers-Marmery", "kind": "via", "lat": 49.134704, "lon": 4.1961214 },
+          { "label": "Trépail", "kind": "col", "lat": 49.1064396, "lon": 4.1821589 },
+          { "label": "Ambonnay", "kind": "via", "lat": 49.0772894, "lon": 4.1723887 },
+          { "label": "Bouzy", "kind": "via", "lat": 49.0815257, "lon": 4.1476967 },
+          { "label": "Mutry", "kind": "via", "lat": 49.0853586, "lon": 4.0929103 },
+          { "label": "Fontaine-sur-Ay", "kind": "via", "lat": 49.0808692, "lon": 4.0775129 },
+          { "label": "Tours-sur-Marne", "kind": "via", "lat": 49.0484724, "lon": 4.1203277 },
+          { "label": "Condé-sur-Marne", "kind": "via", "lat": 49.0437143, "lon": 4.1796065 },
+          { "label": "Jâlons", "kind": "via", "lat": 49.01047, "lon": 4.1838 },
+          { "label": "Champigneul-Champagne", "kind": "via", "lat": 48.97197, "lon": 4.16653 },
+          { "label": "Saint-Mard-lès-Rouffy", "kind": "via", "lat": 48.9405026, "lon": 4.1140631 },
+          { "label": "Rouffy", "kind": "via", "lat": 48.934303, "lon": 4.101182 },
+          { "label": "Voipreux", "kind": "via", "lat": 48.9010021, "lon": 4.0437882 },
+          { "label": "Le Mesnil-sur-Oger", "kind": "col", "lat": 48.94631, "lon": 4.02123 },
+          { "label": "Gionges", "kind": "via", "lat": 48.9403411, "lon": 3.9651067 },
+          { "label": "Oger", "kind": "via", "lat": 48.9544652, "lon": 4.0088696 },
+          { "label": "Avize", "kind": "via", "lat": 48.9722072, "lon": 4.0100647 },
+          { "label": "Cramant", "kind": "via", "lat": 48.9876509, "lon": 3.9921169 },
+          { "label": "Cuis", "kind": "via", "lat": 48.9964897, "lon": 3.9653776 },
+          { "label": "Chouilly", "kind": "via", "lat": 49.0260648, "lon": 4.0094589 },
+          { "label": "Épernay", "kind": "via" },
+          { "label": "Aÿ", "kind": "via", "lat": 49.0621668, "lon": 3.9970886 },
+          { "label": "Mutigny", "kind": "col", "lat": 49.0660152, "lon": 4.0261983 },
+          { "label": "Mareuil-sur-Ay", "kind": "via", "lat": 49.0449239, "lon": 4.0391006 },
+          { "label": "Chouilly", "kind": "via", "lat": 49.0260648, "lon": 4.0094589 },
+          { "label": "Mont Bernon", "kind": "via", "lat": 49.0319971, "lon": 3.96945 }
+        ],
+        "confidence": [
+          {
+            "claim": "tracé reconstitué depuis le roadbook ASO complet (57 points kilométrés, reproduit par dimensionsvelo.com, « source : ASO »)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "remplace une première curation (même session) construite sur les seules prévisualisations (cyclingstage.com, rouleur.cc), qui donnait -25,5 % : il lui manquait tout le détour par la vallée de la Marne (Mutry, Fontaine-sur-Ay, Tours-sur-Marne, Condé-sur-Marne, Jâlons) puis la descente vers Rouffy et Voipreux avant Vertus, qu'aucune prévisualisation ne mentionnait. 31 communes du roadbook retenues comme vias, toutes géocodées (Nominatim, restreint à la Marne) puis figées. Départ réel figé à Cormontreuil (le roadbook met Reims rue de Mars, Cormontreuil et la D9 tous à km 0, zone neutralisée)."
+          },
+          {
+            "claim": "8 entrées du roadbook écartées : elles désignent un carrefour en bordure de commune, pas le village",
+            "status": "OK",
+            "level": "moyenne",
+            "detail": "Rilly-la-Montagne (D409-D26), Vaudemange (D219-D19), Avenay-Val-d'Or, Bisseuil (D9-D1), Pocancy, Villeneuve-Renneville-Chevigny (D37-D9-D36), Vertus (« Les Blancs Coteaux », D37-D9-D36-Vc-D36-Vc) et Oiry (D9-D3). Mesuré avec les 39 entrées : chaque centre de village visé ajoutait +1,7 à +3,6 km par rapport au roadbook, pour +14,8 % au total et 4 rebroussements — la course longe ces villages sur la départementale, le routeur va jusqu'au nœud du village. Même mécanisme que l'étape 4 de cette édition (Piney, Chacenay, Bergères)."
+          },
+          {
+            "claim": "distance reconstituée 132,2-133,2 km vs officiel 133,6 km (-1,1 % à -0,3 % selon la régénération), dans la tolérance ±5 %",
+            "status": "OK",
+            "level": "haute",
+            "detail": "vérifié par régénération réelle (import + generate, base isolée), 4 régénérations indépendantes : 133,1 / 132,2 / 133,2 / 133,2 km (-1,1 % à -0,3 %), status ok à chaque fois. La variance vient de BRouter, qui a renvoyé HTTP 403 par intermittence sur 3-4 legs pendant cette session (repli OSRM profil voiture leg par leg, vraisemblablement une limite de débit atteinte par les régénérations répétées) — une future régénération peut donc retomber un peu en dehors de cette plage selon l'état du service, sans que ce soit une régression des données (même réserve que 2024/6). Ce repli n'apparaît pas dans le champ router persisté (« brouter ») ni dans les checks tant que la PR #340 (routeur mixte sur un leg non premier) n'est pas mergée — constaté ici en conditions réelles. Contrairement aux étapes 4 et 5 de cette édition, ce total n'est pas le produit d'une compensation : l'écart cumulé mesuré point par point contre le roadbook reste sous ±3,5 km sur tout le parcours (pire point : Le Mesnil-sur-Oger, km 81,2 reconstitué contre 84,7). Quatre zones de rebroussement courtes subsistent (km 70-76 autour de Rouffy/Voipreux, km 84-90 autour de Gionges) : le roadbook va bien du Mesnil-sur-Oger à Gionges (à l'ouest) puis revient vers Oger (à l'est), vraisemblablement par deux routes différentes (D238 puis D38) que le routeur confond en partie — non résolu, faute de point intermédiaire nommé sur ces deux tronçons."
+          }
+        ],
+        "note": "Reims → Épernay (133,6 km, 26 juillet 2022). Traverse les trois terroirs viticoles de Champagne : Montagne de Reims (Chigny-les-Roses, Verzenay, côte de Trépail), vallée de la Marne (Tours-sur-Marne, Condé-sur-Marne), plaine jusqu'à Voipreux puis Côte des Blancs (côtes de Vertus et du Mesnil-sur-Oger, Avize, Cramant), premier passage sur la ligne à Épernay au km 109,4, puis boucle finale par Aÿ, la côte de Mutigny, Mareuil-sur-Ay, Chouilly et le Mont Bernon. Reconstitué depuis le roadbook ASO. Résultat : 132,2-133,2 km selon la régénération (-1,1 % à -0,3 %, dans la tolérance, dérive intermédiaire ≤ 3,5 km)."
+      },
+      "7": {
+        "start": { "label": "Kintzheim", "lat": 48.2550027, "lon": 7.396165 },
+        "finish": { "label": "Le Markstein", "lat": 47.9233312, "lon": 7.0318064 },
+        "vias": [
+          { "label": "Saint-Hippolyte", "kind": "via", "lat": 48.2326964, "lon": 7.3698232 },
+          { "label": "Ribeauvillé", "kind": "via", "lat": 48.1924602, "lon": 7.3248871 },
+          { "label": "Bennwihr", "kind": "via", "lat": 48.1437763, "lon": 7.3260346 },
+          { "label": "Ammerschwihr", "kind": "via", "lat": 48.1261389, "lon": 7.2825373 },
+          { "label": "Turckheim", "kind": "via", "lat": 48.0878217, "lon": 7.278011 },
+          { "label": "Gunsbach", "kind": "via", "lat": 48.0466071, "lon": 7.1751197 },
           { "label": "Munster", "kind": "via", "lat": 48.042721, "lon": 7.142765 },
           { "label": "Petit Ballon", "kind": "col" },
-          { "label": "Col du Platzerwasel", "kind": "col" },
-          { "label": "Oderen", "kind": "via" },
+          { "label": "Sondernach", "kind": "via", "lat": 47.9975751, "lon": 7.0741713 },
+          { "label": "Col du Platzerwasel", "kind": "col", "lat": 47.9694963, "lon": 7.0428914 },
+          { "label": "Le Markstein", "kind": "via", "lat": 47.9233312, "lon": 7.0318064 },
+          { "label": "Kruth", "kind": "via", "lat": 47.930557, "lon": 6.9645918 },
+          { "label": "Oderen", "kind": "via", "lat": 47.909675, "lon": 6.9756051 },
+          { "label": "Fellering", "kind": "via", "lat": 47.8965061, "lon": 6.9858441 },
+          { "label": "Saint-Amarin", "kind": "via", "lat": 47.8730323, "lon": 7.0316956 },
+          { "label": "Willer-sur-Thur", "kind": "via", "lat": 47.8437216, "lon": 7.0706242 },
+          { "label": "Goldbach-Altenbach", "kind": "via", "lat": 47.8738655, "lon": 7.1045446 },
+          { "label": "Col Amic", "kind": "col", "lat": 47.8754863, "lon": 7.1273463, "ele": 828 },
           { "label": "Grand Ballon", "kind": "col" }
         ],
         "confidence": [
           {
-            "claim": "enchaînement des 3 cols de l'étape Sélestat → Le Markstein",
+            "claim": "tracé reconstitué depuis le roadbook ASO complet (53 points kilométrés, reproduit par dimensionsvelo.com, « source : ASO »)",
             "status": "OK",
             "level": "haute",
-            "detail": "3 cols sourcés dans l'ordre (cyclingstage.com, description de parcours de l'étape 7) : Petit Ballon (9,3 km à 8,1 %), col du Platzerwasel (7,1 km à 8,3 %), Grand Ballon (13,5 km à 6,7 %) — puis la route des Crêtes jusqu'au Markstein sans redescendre après le dernier col. Altitudes de sommet non citées ici : absentes de la source (vérifié par relecture directe des deux pages cyclingstage.com) et absentes de known_cols.json pour ces trois labels — à ne pas confondre avec l'entrée équivalente de l'étape 8 (Ballon d'Alsace), où l'altitude vient bien de known_cols.json."
+            "detail": "remplace une curation antérieure construite sur la seule description de parcours de cyclingstage.com, qui donnait -10,0 % avec 3 zones de rebroussement : elle passait par Colmar (absent du roadbook — la course suit la route des vins par Saint-Hippolyte, Ribeauvillé, Bennwihr et Ammerschwihr) et ignorait le premier passage sur la ligne au Markstein (km 73,2) puis la vallée de la Thur (Kruth, Oderen, Fellering, Saint-Amarin, Willer-sur-Thur, Goldbach-Altenbach) et le Col Amic avant le Grand Ballon. La boucle par le Markstein, seulement soupçonnée par la curation précédente (« piste non exploitée »), est confirmée par le roadbook. 20 points retenus, figés (Nominatim, Bas-Rhin/Haut-Rhin), départ réel à Kintzheim (km 0 du roadbook), arrivée figée au Markstein (même point que le premier passage)."
           },
           {
-            "claim": "écart résiduel de distance de l'étape après curation (généré 114,3 km vs officiel 127,1 km, -10,0 %)",
-            "status": "UNSURE",
-            "level": "basse",
-            "detail": "cette session a ajouté Munster, Oderen (sourcés), puis Colmar et Turckheim (plausibles, non sourcés, voir note) pour densifier le grand écart Sélestat-Munster. Résultat : -10,0 % (contre -27,7 % avec seulement les 3 cols, et -50,9 % sans aucun via) — tout juste hors tolérance ±10 % (la valeur non arrondie dépasse légèrement le seuil). Un essai d'ajout de « Wildenstein » pour combler le dernier grand écart (Platzerwasel-Oderen, 12,1 km) a dégradé le résultat (+10,7 %, 5 zones de rebroussement au lieu de 3) et a été abandonné — ce point n'est pas sur le trajet réel de la descente, malgré une position qui semblait plausible sur la carte. Deux écarts de plus de 12 km subsistent (Sélestat-Colmar 16,6 km, Platzerwasel-Oderen 12,1 km) et trois zones de rebroussement (km 89,6-92,6, km 94,8-105,3, km 106,3-113,6, autour de Ranspach et du Grand Ballon) — aucune source supplémentaire trouvée pour les combler cette session."
+            "claim": "Col du Platzerwasel : le géocodage automatique le résolvait sur un autre col (Col du Hilsenfirst, ~4 km à l'est)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "trouvé en inspectant le tracé entre le Platzerwasel et le Markstein (+5,2 km et des zones de rebroussement inexpliqués) : la Géoplateforme renvoie « Col du Hilsenfirst » (sommet, score 0,55) avant « Col du Platzerwaesel » (graphie IGN, score 0,46) pour la requête « Col du Platzerwasel ». Le check « col atteint » passait quand même (le tracé allait bien au point résolu, simplement pas au bon col) — l'erreur existait déjà dans la curation précédente sur cette étape. Figé sur le nœud OSM mountain_pass (Nominatim, 47,9694963/7,0428914, ele 1183), recoupé par le candidat Géoplateforme « Col du Platzerwaesel » (47,96956/7,042854, à ~5 m). Altitude mesurée au tracé : 1203 m (écart 20 m avec l'ele OSM). Coordonnées figées localement sans ele, même schéma que l'étape 20 du Tour 2023 qui avait déjà rencontré et corrigé ce même homonyme (lat/lon 47,96956/7,042854, sans altitude) — fixer une altitude ici seulement ferait diverger les deux occurrences du même col (garde-fou test/historicRoutes.test.js) ; la centraliser dans known_cols.json reste une piste séparée. Petit Ballon (résolu sur le col routier « Col du Petit Ballon », 1163 m, mesuré 1164 m) et Grand Ballon (1423 m, mesuré 1419 m) vérifiés corrects."
+          },
+          {
+            "claim": "points du roadbook écartés après mesure",
+            "status": "OK",
+            "level": "moyenne",
+            "detail": "avec les 33 points retenus au premier essai (presque toutes les communes du roadbook), chaque petit tronçon de la route des vins (1 à 3 km) ajoutait ~+1 km (centres de village hors de la D1bis) : +8,7 km de dérive cumulée dès Munster. Retirés : Orschwiller, Rorschwihr, Bergheim, Zellenberg, Beblenheim, Mittelwihr, Ingersheim (codé « D10-D1bis-D10 »), Zimmerbach, Walbach, Wihr-au-Val, Luttenbach-près-Munster, Husseren-Wesserling, Ranspach, Moosch. « Le Breitfirst » (km 68,7, nommé par le roadbook) testé puis retiré : le seul point trouvé (Nominatim/IGN) est le sommet, hors route — l'atteindre ajoutait +14 km. « Le Treh » et « Le Haag » non retenus (introuvables comme points routiers)."
+          },
+          {
+            "claim": "distance reconstituée 132,6 km vs officiel 127,1 km (+4,3 %), dans la tolérance ±5 %",
+            "status": "OK",
+            "level": "haute",
+            "detail": "vérifié par régénération réelle (import + generate, base isolée), sans repli OSRM, aucune zone de rebroussement. Écart cumulé mesuré point par point contre le roadbook : +1,6 km dès Saint-Hippolyte (départ figé au centre de Kintzheim, le km 0 réel est au carrefour D159-D35), +5,6 km à Munster, puis stable entre +4,9 et +5,5 km jusqu'à l'arrivée (premier passage au Markstein : km 78,7 contre 73,2) — un décalage constant acquis sur la route des vins, pas une compensation entre tronçons. Col Amic (figé sur le nœud OSM, ele 828) mesuré à 904 m au tracé, écart de 76 m inexpliqué (dans la tolérance du check, non creusé)."
           }
         ],
-        "note": "Sélestat → Le Markstein (127,1 km, 30 juillet 2022), entièrement en Alsace. 35 km de plaine avant le Petit Ballon (via Munster), puis le col du Platzerwasel, une descente vers Oderen, et le Grand Ballon (déjà franchi par le Tour hommes en 1992, étape 11) avant les 7 derniers km sur la route des Crêtes jusqu'à l'arrivée. Munster et Oderen sourcés par cyclingstage.com (« stage-7-tdf-2022-women », relu en HTML brut, confirmé mot pour mot en relecture adverse par un second accès direct à la page). Colmar et Turckheim ajoutés en plus pour densifier le grand écart Sélestat-Munster (33,7 km sans point intermédiaire auparavant) : ce sont les villes évidentes sur l'axe direct (vallée de la Fecht/N83), non nommées par la source. Un essai d'ajout de « Wildenstein » pour combler l'écart Platzerwasel-Oderen (12,1 km) a été testé et abandonné cette session : il dégrade le résultat (+10,7 % au lieu de -10,0 %, avec 5 zones de rebroussement au lieu de 3), ce point n'étant en réalité pas sur le trajet direct de la descente. Coordonnées de Munster fixées explicitement (lat/lon) en relecture adverse : un homonyme français réel existe (Munster, Moselle, score Géoplateforme 0,973 contre 0,982 pour la bonne commune du Haut-Rhin) et n'était départagé que par le biais de proximité au near — fragile à un futur changement d'ordre des vias ; figé en dur par prudence, comme ailleurs dans ce fichier pour des cas d'homonymie serrée. Piste non exploitée de la même source cyclingstage.com, relevée en relecture adverse mais non vérifiée plus avant : « Shortly after the first passage on the line a long descent takes the riders to Oderen » suggère que le tracé repasse près de l'arrivée (Le Markstein) avant de redescendre vers Oderen — une boucle plutôt qu'un trajet linéaire, ce qui pourrait expliquer une partie des zones de rebroussement détectées dans cette zone (voir confidence), sans que cela ait été curé ni confirmé cette session."
+        "note": "Sélestat → Le Markstein (127,1 km, 30 juillet 2022) : route des vins d'Alsace (Saint-Hippolyte, Ribeauvillé, Ammerschwihr, Turckheim), vallée de Munster, Petit Ballon, Col du Platzerwasel, premier passage sur la ligne au Markstein (km 73,2), descente vers Kruth et la vallée de la Thur, Col Amic puis Grand Ballon et retour au Markstein par la route des Crêtes. Reconstitué depuis le roadbook ASO. Résultat : 132,6 km (+4,3 %, dans la tolérance), décalage constant de ~+5 km acquis sur la route des vins (voir confidence)."
       },
-      "8": {
+      "2": {
+        "start": { "label": "Nanteuil-lès-Meaux", "lat": 48.9306, "lon": 2.89893 },
         "vias": [
-          { "label": "Mélisey", "kind": "via", "lat": 47.761255, "lon": 6.564513 },
-          { "label": "Côte d'Esmoulières", "kind": "col" },
-          { "label": "Haut-du-Them", "kind": "via" },
-          { "label": "Ballon d'Alsace", "kind": "col" },
-          { "label": "Plancher-les-Mines", "kind": "via" }
+          { "label": "Magny-Saint-Loup", "kind": "via", "lat": 48.907558, "lon": 2.9133313 },
+          { "label": "Bouleurs", "kind": "via", "lat": 48.88019, "lon": 2.907062 },
+          { "label": "Tigeaux", "kind": "col", "lat": 48.8260028, "lon": 2.9012773 },
+          { "label": "Villeneuve-le-Comte", "kind": "via", "lat": 48.8137607, "lon": 2.8298314 },
+          { "label": "Neufmoutiers-en-Brie", "kind": "via", "lat": 48.7747207, "lon": 2.8268273 },
+          { "label": "Les Chapelles-Bourbon", "kind": "via", "lat": 48.7409307, "lon": 2.8397868 },
+          { "label": "Châtres", "kind": "via", "lat": 48.7089097, "lon": 2.8095273 },
+          { "label": "Liverdy-en-Brie", "kind": "via", "lat": 48.6996708, "lon": 2.7758202 },
+          { "label": "Coubert", "kind": "via", "lat": 48.6726066, "lon": 2.6954544 },
+          { "label": "Lissy", "kind": "via", "lat": 48.625886, "lon": 2.6954882 },
+          { "label": "Château de Vaux-le-Vicomte", "kind": "via", "lat": 48.5658656, "lon": 2.7141466 },
+          { "label": "Blandy", "kind": "via", "lat": 48.5674007, "lon": 2.7824287 },
+          { "label": "Champeaux", "kind": "via", "lat": 48.5860581, "lon": 2.8066888 },
+          { "label": "Saint-Méry", "kind": "via", "lat": 48.5782223, "lon": 2.8278032 },
+          { "label": "Bombon", "kind": "via", "lat": 48.5723121, "lon": 2.8578404 },
+          { "label": "Bréau", "kind": "via", "lat": 48.5620927, "lon": 2.8806749 },
+          { "label": "La Chapelle-Gauthier", "kind": "via", "lat": 48.54948, "lon": 2.89838 },
+          { "label": "Fontenailles", "kind": "via", "lat": 48.555306, "lon": 2.953889 },
+          { "label": "Nangis", "kind": "via", "lat": 48.5549416, "lon": 3.0136837 },
+          { "label": "Maison-Rouge", "kind": "via", "lat": 48.5598416, "lon": 3.1508994 },
+          { "label": "Vulaines-lès-Provins", "kind": "via", "lat": 48.56012, "lon": 3.21954 },
+          { "label": "Courton-le-Haut", "kind": "via", "lat": 48.534096, "lon": 3.232871 },
+          { "label": "Provins", "kind": "via" },
+          { "label": "Limars", "kind": "via", "lat": 48.596704, "lon": 3.232728 },
+          { "label": "Mortery", "kind": "via", "lat": 48.5991156, "lon": 3.2604475 },
+          { "label": "Rouilly", "kind": "via", "lat": 48.5835795, "lon": 3.2893256 }
         ],
         "confidence": [
           {
-            "claim": "enchaînement des cols de l'étape Lure → La Super Planche des Belles Filles",
+            "claim": "tracé reconstitué depuis le roadbook ASO complet (57 points kilométrés, reproduit par dimensionsvelo.com, « source : ASO »)",
             "status": "OK",
             "level": "haute",
-            "detail": "cols sourcés dans l'ordre (cyclingstage.com, description de parcours de l'étape 8) : côte d'Esmoulières (2,3 km à 8,5 %), Ballon d'Alsace (9 km à 6,9 %, sommet 1178 m, déjà référencé dans known_cols.json), avant l'arrivée à la Super Planche des Belles Filles (7 km à 8,7 %, dernier km à 9,5 % sur piste gravel, rampe finale à 24 %)."
+            "detail": "débloque une étape d'abord écartée cette même session : les prévisualisations (cyclingstage.com, rouleur.cc, Wikipédia) ne nommaient qu'un seul point (côte de Tigeaux) sur 136 km. 26 communes et lieux du roadbook retenus, géocodés (Nominatim restreint à la Seine-et-Marne ; « Limars » absent de Nominatim, trouvé dans l'index POI IGN, lieu-dit habité, 77160) puis figés. Départ réel figé à Nanteuil-lès-Meaux : le roadbook met « D405 Meaux », « D228 Nanteuil-lès-Meaux » et « Meaux » tous à km 0 — partir du centre de Meaux ajoutait +6 km dès le premier tronçon (mesuré). Château de Vaux-le-Vicomte (km 62,2) figé sur le résultat Nominatim de type « attraction » (48,5658656/2,7141466)."
           },
           {
-            "claim": "écart résiduel de distance de l'étape après curation (généré 110,7 km vs officiel 123,3 km, -10,2 %)",
-            "status": "UNSURE",
-            "level": "basse",
-            "detail": "cette session a ajouté Plancher-les-Mines (sourcé par cyclingstage.com), Mélisey et Haut-du-Them-Château-Lambert (communes plausibles sur l'axe direct, non nommées par la source, voir note). Résultat : -10,2 % (contre -39,7 % avec seulement les 2 cols, et -71,7 % sans aucun via) — tout juste hors tolérance ±10 %. Mélisey, bien que géographiquement correctement placé (confirmé en ajoutant/retirant : la distance ne change pas, le routeur passait déjà par ce point), n'a pas réduit l'écart — seul Haut-du-Them l'a fait, en forçant un détour réel que le routeur ne prenait pas spontanément. Quatre zones de rebroussement détectées (km 43,0-45,2 et 47,0-49,2 autour du Thillot ; km 101,4-102,4 et 103,9-104,9 autour de Plancher-les-Mines) — non investiguées plus avant, aucune source supplémentaire trouvée cette session."
+            "claim": "Crécy-la-Chapelle et Voulangis écartés (carrefours en bordure de commune)",
+            "status": "OK",
+            "level": "moyenne",
+            "detail": "le roadbook les code « Crécy-la-Chapelle (D85-D21-D934-D21) » et « Le Faubourg (Voulangis) (D235-D20) » : la course longe ces communes par les départementales. Mesuré avec les deux : -1,1 % au total mais 2 zones de rebroussement (km 11-14) et une dérive cumulée jusqu'à +7,6 km ; sans les deux : -3,5 %, aucune zone de rebroussement, dérive ≤ ~5 km. Version retenue : la seconde — le total est un peu plus loin de la cible, mais le tracé est plus fidèle point par point. Même mécanisme que les étapes 3 et 4 de cette édition."
+          },
+          {
+            "claim": "distance reconstituée 131,6 km vs officiel 136,4 km (-3,5 %), dans la tolérance ±5 %",
+            "status": "OK",
+            "level": "haute",
+            "detail": "vérifié par deux régénérations réelles indépendantes (import + generate, bases isolées) : 131,6 km les deux fois, aucun repli OSRM observé, aucune zone de rebroussement. Écart cumulé mesuré point par point contre le roadbook : entre -1,6 et +4,7 km sur tout le parcours (pire point : Coubert, km 47,5 contre 42,8), sans compensation notable entre tronçons. Restent un tronçon plus court que la course autour de Lissy (-3,6 km : le roadbook ne nomme qu'un carrefour entre Lissy et Vaux-le-Vicomte) et une boucle finale par Limars/Mortery/Rouilly légèrement plus courte (-1,8 km)."
           }
         ],
-        "note": "Lure → La Super Planche des Belles Filles (123,3 km, 31 juillet 2022), dernière étape et arrivée décisive de la première édition moderne (victoire finale d'Annemiek van Vleuten). Côte d'Esmoulières puis Ballon d'Alsace (premier grand col historique du Tour, franchi dès 1905 — voir édition 1905 de ce fichier), puis Plancher-les-Mines (ajouté cette session, sourcé par cyclingstage.com, « stage-8-tdf-2022-women », relu en HTML brut, confirmé mot pour mot en relecture adverse par un second accès direct : « an undulating section leads to Plancher-les-Mines » après la descente du Ballon d'Alsace, « 38 km restant à parcourir » au sommet) avant l'ascension finale de la Super Planche des Belles Filles, piste gravel — distincte de la Planche « classique » goudronnée utilisée par le Tour hommes (voir note de l'édition 2024, étape 16). « Mélisey » (entre Lure et la Côte d'Esmoulières) et « Haut-du-Them-Château-Lambert » (entre la Côte d'Esmoulières et le Ballon d'Alsace) également ajoutées cette session : communes évidentes sur l'axe direct, non sourcées nommément — les 50 km de plat/faux-plat puis les quelques km entre les deux cols décrits par la source ne nomment aucun point intermédiaire. Relecture adverse : seul Haut-du-Them réduit réellement l'écart de distance (vérifié en le retirant isolément, -6,5 km) ; Mélisey, bien que correctement placé, n'y change rien (déjà sur le plus court chemin). Coordonnées de Mélisey fixées en dur (lat/lon) par prudence : un homonyme dans l'Yonne existe à un score Géoplateforme presque identique (0,973 vs 0,982), même configuration que « Munster » sur l'étape 7 de cette même session. Sourcé : cyclingstage.com."
+        "note": "Meaux → Provins (136,4 km, 25 juillet 2022), étape de plaine de la Brie : côte de Tigeaux (seule difficulté répertoriée, km 16,9), Villeneuve-le-Comte, Coubert, Château de Vaux-le-Vicomte, Nangis, premier passage sur la ligne à Provins au km 116,7 puis boucle finale par Limars, Mortery et Rouilly. Reconstitué depuis le roadbook ASO. Résultat : 131,6 km (-3,5 %, dans la tolérance, dérive intermédiaire ≤ ~5 km, aucun rebroussement)."
+      },
+      "5": {
+        "start": { "label": "Longeville-en-Barrois", "lat": 48.74225, "lon": 5.21013 },
+        "vias": [
+          { "label": "Tronville-en-Barrois", "kind": "via", "lat": 48.719791, "lon": 5.2778732 },
+          { "label": "Velaines", "kind": "via", "lat": 48.7033589, "lon": 5.3001073 },
+          { "label": "Ligny-en-Barrois", "kind": "via", "lat": 48.685936, "lon": 5.3253723 },
+          { "label": "Longeaux", "kind": "via", "lat": 48.6452957, "lon": 5.3394095 },
+          { "label": "Menaucourt", "kind": "via", "lat": 48.650118, "lon": 5.3556748 },
+          { "label": "Naix-aux-Forges", "kind": "via", "lat": 48.637263, "lon": 5.3771405 },
+          { "label": "Boviolles", "kind": "via", "lat": 48.6476879, "lon": 5.4156042 },
+          { "label": "Marson-sur-Barboure", "kind": "via", "lat": 48.6410327, "lon": 5.444433 },
+          { "label": "Reffroy", "kind": "via", "lat": 48.6309081, "lon": 5.4655473 },
+          { "label": "Rosières-en-Blois", "kind": "via", "lat": 48.563447, "lon": 5.5539469 },
+          { "label": "Badonvilliers-Gérauvilliers", "kind": "via", "lat": 48.5500062, "lon": 5.5854653 },
+          { "label": "Épiez-sur-Meuse", "kind": "via", "lat": 48.5439978, "lon": 5.6409192 },
+          { "label": "Maxey-sur-Vaise", "kind": "via", "lat": 48.5391662, "lon": 5.6692455 },
+          { "label": "Pagny-la-Blanche-Côte", "kind": "via", "lat": 48.5408727, "lon": 5.7197089 },
+          { "label": "Vannes-le-Châtel", "kind": "via", "lat": 48.5462, "lon": 5.7799 },
+          { "label": "Colombey-les-Belles", "kind": "via", "lat": 48.5283196, "lon": 5.8980372 },
+          { "label": "Crépey", "kind": "via", "lat": 48.5265064, "lon": 5.9696148 },
+          { "label": "Goviller", "kind": "via", "lat": 48.4966479, "lon": 6.0109119 },
+          { "label": "Vézelise", "kind": "via", "lat": 48.48605, "lon": 6.0889938 },
+          { "label": "Quevilloncourt", "kind": "via", "lat": 48.4737369, "lon": 6.0994278 },
+          { "label": "Xirocourt", "kind": "via", "lat": 48.4313527, "lon": 6.1725986 },
+          { "label": "Gripport", "kind": "via", "lat": 48.4149871, "lon": 6.2527646 },
+          { "label": "Charmes", "kind": "via", "lat": 48.3725412, "lon": 6.2933856 },
+          { "label": "Essegney", "kind": "via", "lat": 48.3683026, "lon": 6.3174852 },
+          { "label": "Langley", "kind": "via", "lat": 48.3604648, "lon": 6.3258262 },
+          { "label": "Portieux", "kind": "via", "lat": 48.3453035, "lon": 6.3458681 },
+          { "label": "Moriville", "kind": "via", "lat": 48.3486327, "lon": 6.4327699 },
+          { "label": "Moyemont", "kind": "via", "lat": 48.3516489, "lon": 6.5396724 },
+          { "label": "Romont", "kind": "via", "lat": 48.3575152, "lon": 6.5866064 },
+          { "label": "Rambervillers", "kind": "via", "lat": 48.3466306, "lon": 6.6361176 },
+          { "label": "Jeanménil", "kind": "via", "lat": 48.3361407, "lon": 6.6886015 },
+          { "label": "Fraispertuis", "kind": "via", "lat": 48.324405, "lon": 6.7295133 },
+          { "label": "Col du Haut du Bois", "kind": "col", "lat": 48.329713, "lon": 6.7814921, "ele": 492 },
+          { "label": "La Salle", "kind": "via", "lat": 48.3237564, "lon": 6.8274682 },
+          { "label": "Nompatelize", "kind": "via", "lat": 48.3261, "lon": 6.854 },
+          { "label": "Saint-Michel-sur-Meurthe", "kind": "via", "lat": 48.3167646, "lon": 6.887566 }
+        ],
+        "confidence": [
+          {
+            "claim": "tracé reconstitué depuis le roadbook ASO complet (53 points kilométrés, reproduit par dimensionsvelo.com, « source : ASO »)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "remplace une première curation (même session) construite sur les seuls points nommés par Wikipédia/cyclingstage.com (Pagny, Gripport, Charmes, Col du Haut du Bois), qui donnait -0,3 % au total mais avec des écarts intermédiaires de ±6 km qui se compensaient. 36 points du roadbook retenus (communes, plus le Col du Haut du Bois), géocodés (Nominatim, par département : Meuse, Meurthe-et-Moselle, Vosges) puis figées. Mauvages écarté (codé « D194-D168-D10 » : carrefour, +2,4 km de détour mesuré). Col du Haut du Bois figé sur le nœud OSM mountain_pass (48,329713/6,7814921, ele 492, Jeanménil) ; Charmes figé (homonymes dans au moins cinq autres départements)."
+          },
+          {
+            "claim": "départ réel approximé à Longeville-en-Barrois (km 1,8 du roadbook)",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "le roadbook met « Bar-le-Duc (rue des Romains / D935) » à km 0 puis Longeville-en-Barrois à km 1,8 — incohérent avec la géographie (la rue des Romains est à ~4,5 km à vol d'oiseau de Longeville) : le km 0 réel est la fin de la zone neutralisée, quelque part sur la D935 avant Longeville, sans point nommé. Départ figé sur Longeville elle-même, ce qui retire 1,8 km connus au total reconstitué ; partir du centre de Bar-le-Duc ajoutait +4,0 km sur ce premier tronçon (mesuré)."
+          },
+          {
+            "claim": "distance reconstituée 174,9 km vs officiel 175,6 km (-0,4 %), dans la tolérance ±5 %",
+            "status": "OK",
+            "level": "haute",
+            "detail": "vérifié par régénération réelle (import + generate, base isolée), sans aucun repli OSRM sur ce run (un run précédent avec 5 legs en HTTP 403 BRouter → repli OSRM voiture donnait 180,5 km, non retenu comme mesure). Aucune zone de rebroussement. Écart cumulé mesuré point par point contre le roadbook : de -1,8 km (départ, décalage connu) à +5,0 km (Rambervillers, Saint-Michel-sur-Meurthe), dérive progressive et non une oscillation entre tronçons. Le dernier tronçon (circuit dans Saint-Dié-des-Vosges, km 167,9 → 175,6, codé « D82-D420-D415-Vc-D49-Vc-D82-Vc » sans point nommé) n'est pas reconstitué : il rattrape environ 5 km de cette dérive, d'où un total proche de la cible qui reste en partie une compensation sur ce seul tronçon final."
+          }
+        ],
+        "note": "Bar-le-Duc → Saint-Dié-des-Vosges (175,6 km, 28 juillet 2022), plus longue étape de l'édition : vallée de l'Ornain (Ligny-en-Barrois), plateau du Barrois, côte de Pagny-la-Blanche-Côte (km 61,4), Colombey-les-Belles et Vézelise, côte de Gripport (km 105,5), sprint à Charmes, vallée de la Moselle (Portieux), Rambervillers puis entrée dans les Vosges par le Col du Haut du Bois (km 155,2) et circuit final dans Saint-Dié. Reconstitué depuis le roadbook ASO. Résultat : 174,9 km (-0,4 %, dans la tolérance), dérive intermédiaire jusqu'à +5 km rattrapée en partie par le circuit final non reconstitué (voir confidence)."
+      },
+      "8": {
+        "start": { "label": "Linexert", "lat": 47.7442, "lon": 6.48475 },
+        "vias": [
+          { "label": "Lantenot", "kind": "via", "lat": 47.7495, "lon": 6.49505 },
+          { "label": "Rignovelle", "kind": "via", "lat": 47.764, "lon": 6.48147 },
+          { "label": "Magnivray", "kind": "via", "lat": 47.7798, "lon": 6.47194 },
+          { "label": "Esboz-Brest", "kind": "via", "lat": 47.8073, "lon": 6.45235 },
+          { "label": "Froideconche", "kind": "via", "lat": 47.8196555, "lon": 6.4166416 },
+          { "label": "Saint-Sauveur", "kind": "via", "lat": 47.8036807, "lon": 6.3837753 },
+          { "label": "Luxeuil-les-Bains", "kind": "via", "lat": 47.817177, "lon": 6.3808865 },
+          { "label": "Fougerolles-Saint-Valbert", "kind": "via", "lat": 47.8926061, "lon": 6.4227255 },
+          { "label": "Raddon-et-Chapendu", "kind": "via", "lat": 47.8416, "lon": 6.46962 },
+          { "label": "Amage", "kind": "via", "lat": 47.8362, "lon": 6.4923 },
+          { "label": "Sainte-Marie-en-Chanois", "kind": "via", "lat": 47.8334, "lon": 6.51274 },
+          { "label": "La Voivre", "kind": "via", "lat": 47.8239, "lon": 6.5374 },
+          { "label": "Faucogney-et-la-Mer", "kind": "via", "lat": 47.8440682, "lon": 6.5624523 },
+          { "label": "Côte d'Esmoulières", "kind": "col" },
+          { "label": "Esmoulières", "kind": "via", "lat": 47.8523, "lon": 6.61473 },
+          { "label": "Col des Croix", "kind": "col", "lat": 47.859719, "lon": 6.7470705 },
+          { "label": "Le Thillot", "kind": "via", "lat": 47.8804149, "lon": 6.7633816 },
+          { "label": "Fresse-sur-Moselle", "kind": "via", "lat": 47.8767217, "lon": 6.7881018 },
+          { "label": "Saint-Maurice-sur-Moselle", "kind": "via", "lat": 47.8588336, "lon": 6.8244935 },
+          { "label": "Ballon d'Alsace", "kind": "col" },
+          { "label": "Lepuix", "kind": "via", "lat": 47.759702, "lon": 6.8183942 },
+          { "label": "Giromagny", "kind": "via", "lat": 47.7418553, "lon": 6.8251787 },
+          { "label": "Auxelles-Bas", "kind": "via", "lat": 47.7341934, "lon": 6.7797653 },
+          { "label": "Plancher-Bas", "kind": "via", "lat": 47.7210861, "lon": 6.7322649 },
+          { "label": "Plancher-les-Mines", "kind": "via", "lat": 47.7571993, "lon": 6.739628 }
+        ],
+        "confidence": [
+          {
+            "claim": "tracé reconstitué depuis le roadbook ASO complet (37 points kilométrés hors marqueurs de département, reproduit par dimensionsvelo.com, « source : ASO »)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "remplace une curation antérieure (cyclingstage.com) qui donnait -10,2 %. Elle passait par Mélisey, ajoutée comme « commune évidente sur l'axe direct, non sourcée » — le roadbook montre que la course n'y passe pas : elle part plein nord par Lantenot, Esboz-Brest et Luxeuil-les-Bains, monte à Fougerolles, puis redescend par Raddon-et-Chapendu et Faucogney-et-la-Mer avant la côte d'Esmoulières. Le point « Haut-du-Them » est remplacé par le Col des Croix (km 66,3, sur la commune de Haut-du-Them-Château-Lambert), figé sur le nœud OSM (47,859719/6,7470705, ele 680). 25 points retenus, géocodés par département (Haute-Saône, Vosges, Territoire de Belfort) puis figés, sauf la côte d'Esmoulières et le Ballon d'Alsace (déjà correctement résolus : 121 m et 2 m du sommet, altitudes 582/562 m et 1175/1178 m)."
+          },
+          {
+            "claim": "départ réel approximé à Linexert (km 4,1 du roadbook)",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "le roadbook met « Lure (esplanade Charles-de-Gaulle / D18) » à km 0 puis Linexert à km 4,1 — incohérent avec la géographie (l'esplanade est à ~6,4 km à vol d'oiseau de Linexert) : le km 0 réel est la fin de la zone neutralisée, au nord de Lure sur la D18, sans point nommé. Départ figé sur Linexert, ce qui retire 4,1 km connus au total reconstitué (partir du centre de Lure ajoutait +4,3 km sur ce tronçon, mesuré). Même situation que l'étape 5 de cette édition (Longeville-en-Barrois)."
+          },
+          {
+            "claim": "distance reconstituée 127,8 km vs officiel 123,3 km (+3,6 %), dans la tolérance ±5 %",
+            "status": "OK",
+            "level": "haute",
+            "detail": "vérifié par deux régénérations réelles (import + generate, bases isolées), sans repli OSRM, aucune zone de rebroussement. Écart cumulé mesuré point par point contre le roadbook : -4,1 km au départ (décalage connu ci-dessus), puis progressivement jusqu'à +5,4 km (Plancher-Bas), +4,5 km à l'arrivée. Fougerolles (codé « D57D-D57d-D18 » dans le roadbook, centroïde communal) ajoute +2,6 km sur son tronçon, mais le retirer fait perdre tout l'aller-retour vers le nord réellement couru (-10,6 km mesurés, total -6,3 %) : conservé."
+          }
+        ],
+        "note": "Lure → La Super Planche des Belles Filles (123,3 km, 31 juillet 2022), dernière étape et arrivée décisive de la première édition moderne (victoire finale d'Annemiek van Vleuten) : Luxeuil-les-Bains, Fougerolles, Faucogney-et-la-Mer, côte d'Esmoulières, Col des Croix, vallée de la Moselle (Le Thillot, Saint-Maurice-sur-Moselle), Ballon d'Alsace (premier grand col historique du Tour, franchi dès 1905), Giromagny, Plancher-les-Mines puis l'ascension finale de la Super Planche des Belles Filles, piste gravel distincte de la Planche « classique » du Tour hommes. Reconstitué depuis le roadbook ASO. Résultat : 127,8 km (+3,6 %, dans la tolérance, aucun rebroussement)."
+      },
+      "4": {
+        "start": { "label": "Bréviandes", "lat": 48.2566295, "lon": 4.0955124 },
+        "vias": [
+          { "label": "Verrières", "kind": "via", "lat": 48.234425, "lon": 4.1509396 },
+          { "label": "Saint-Aventin", "kind": "via", "lat": 48.2209021, "lon": 4.1669565 },
+          { "label": "Clérey", "kind": "via", "lat": 48.2061134, "lon": 4.190068 },
+          { "label": "Lusigny-sur-Barse", "kind": "via", "lat": 48.2550945, "lon": 4.2686395 },
+          { "label": "Géraudot", "kind": "via", "lat": 48.3084776, "lon": 4.3231356 },
+          { "label": "Vendeuvre-sur-Barse", "kind": "via", "lat": 48.2363367, "lon": 4.464399 },
+          { "label": "Villy-en-Trodes", "kind": "via", "lat": 48.1975813, "lon": 4.3820885 },
+          { "label": "Courtenot", "kind": "via", "lat": 48.1487407, "lon": 4.3035507 },
+          { "label": "Bar-sur-Seine", "kind": "via", "lat": 48.1126529, "lon": 4.3759103 },
+          { "label": "Celles-sur-Ource", "kind": "via", "lat": 48.076503, "lon": 4.4006471 },
+          { "label": "Buxeuil", "kind": "via", "lat": 48.0535678, "lon": 4.3960136 },
+          { "label": "Neuville-sur-Seine", "kind": "via", "lat": 48.0418257, "lon": 4.410544 },
+          { "label": "Gyé-sur-Seine", "kind": "via", "lat": 48.0294269, "lon": 4.4296935 },
+          { "label": "Essoyes", "kind": "via", "lat": 48.0574547, "lon": 4.5347248 },
+          { "label": "Noé-les-Mallets", "kind": "via", "lat": 48.1006049, "lon": 4.570874 },
+          { "label": "Éguilly-sous-Bois", "kind": "via", "lat": 48.1390781, "lon": 4.5363248 },
+          { "label": "Vitry-le-Croisé", "kind": "via", "lat": 48.1461705, "lon": 4.5658442 },
+          { "label": "Bligny", "kind": "via", "lat": 48.1719102, "lon": 4.6171 },
+          { "label": "Meurville", "kind": "via", "lat": 48.2012489, "lon": 4.6244901 },
+          { "label": "Couvignon", "kind": "via", "lat": 48.2074727, "lon": 4.6508573 }
+        ],
+        "confidence": [
+          {
+            "claim": "tracé reconstitué depuis le roadbook ASO complet (63 points kilométrés, reproduit par dimensionsvelo.com, « source : ASO »), recoupé par dicodusport.fr et France 3 Grand Est",
+            "status": "OK",
+            "level": "haute",
+            "detail": "Clérey, Géraudot, Vendeuvre-sur-Barse et Bar-sur-Seine cités par deux sources indépendantes (dicodusport.fr, France 3) en plus du roadbook ; le reste des 20 vias vient du roadbook seul. Toutes les communes géocodées individuellement (Nominatim, restreint à l'Aube) puis figées (lat/lon) : plusieurs ont des homonymes ailleurs en France (Bligny, Buxeuil, Piney, Bergères, Essoyes). Trois entrées du roadbook volontairement écartées après mesure : « Piney (D43-D79) », « Chacenay (D45-D79) » et « Bergères (D101-D201) » désignent un carrefour sur le territoire communal, pas le village — viser le centre du village forçait un détour mesuré de +4,7 km, +2,3 km et +2,2 km respectivement, avec des zones de rebroussement. Lieux-dits des côtes (Val des Clos, Côte Maître Jean, Plateau de Blu, trouvés dans l'index POI IGN) testés dans un premier essai puis remplacés par les communes du roadbook, plus fiables comme points de route qu'un « élément topographique » de type crête/vallée."
+          },
+          {
+            "claim": "départ réel approximé à Bréviandes (km 0 après zone neutralisée)",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "le roadbook place Troyes (rue de la République), Saint-Julien-les-Villas, Bréviandes et le passage à niveau PN91 tous à « km 0 » (zone neutralisée), puis Verrières au km 2,6. Le vrai km 0 se situe donc quelque part entre Bréviandes et Verrières, sans point nommé — figé sur Bréviandes, la dernière commune citée avant km 0. Mesuré : 6,6 km reconstitués jusqu'à Verrières contre 2,6 en course, soit ~4 km d'avance prise dès le départ. Le départ depuis le centre de Troyes (sans curation) ajoutait encore ~3 km."
+          },
+          {
+            "claim": "distance reconstituée 130,6 km vs officiel 126,8 km (+3,0 %), dans la tolérance ±5 % — avec dérive intermédiaire",
+            "status": "OK",
+            "level": "moyenne",
+            "detail": "vérifié par régénération réelle (import + generate, base isolée) : status ok, aucune zone de rebroussement, un seul écart >12 km (Géraudot → Vendeuvre-sur-Barse, 13,2 km — le roadbook ne nomme sur ce tronçon que des carrefours et le « Domaine de l'Hermitage »). Écart cumulé mesuré point par point contre le roadbook : jusqu'à +10,1 km à Bar-sur-Seine (≈ +4 km dus au départ approximé, le reste diffus sur Clérey/Courtenot/Bar-sur-Seine), ramené à +3,8 km à l'arrivée par deux tronçons plus courts que la course : Neuville → Gyé-sur-Seine (-4,2 km, le routeur prend la route goudronnée au lieu du chemin blanc des Hautes Forêts) et Meurville → Couvignon (-4,5 km, sans le détour par Bergères/côte des Bergères écarté ci-dessus). Le total dans la tolérance masque donc une dérive réelle de ~±10 km au milieu de l'étape — dit ici plutôt que laissé à la lecture du seul chiffre global."
+          }
+        ],
+        "note": "Troyes → Bar-sur-Aube (126,8 km, 27 juillet 2022), l'étape des « chemins blancs » de Champagne : première moitié plate par les lacs de la forêt d'Orient (Lusigny-sur-Barse, Géraudot) et Vendeuvre-sur-Barse jusqu'au sprint de Bar-sur-Seine, puis le vignoble de la Côte des Bar avec quatre secteurs gravel (Celles, Hautes Forêts, Plateau de Blu, Vitry) et six côtes. Reconstitué depuis le roadbook ASO complet. Résultat : 130,6 km (+3,0 %, dans la tolérance), avec une dérive intermédiaire documentée (voir confidence)."
+      },
+      "6": {
+        "start": { "label": "Remomeix", "lat": 48.2698792, "lon": 7.001886 },
+        "vias": [
+          { "label": "Provenchères-et-Colroy", "kind": "via", "lat": 48.3211264, "lon": 7.1051324 },
+          { "label": "Colroy-la-Grande", "kind": "via", "lat": 48.3232029, "lon": 7.1156888 },
+          { "label": "Lubine", "kind": "via", "lat": 48.316732, "lon": 7.1531182 },
+          { "label": "Col d'Urbeis", "kind": "col", "lat": 48.3262018, "lon": 7.1776067, "ele": 602 },
+          { "label": "Urbeis", "kind": "via", "lat": 48.3261732, "lon": 7.224641 },
+          { "label": "Fouchy", "kind": "via", "lat": 48.3287605, "lon": 7.2697906 },
+          { "label": "Bassemberg", "kind": "via", "lat": 48.3348478, "lon": 7.283941 },
+          { "label": "Villé", "kind": "via", "lat": 48.3426621, "lon": 7.3034728 },
+          { "label": "Triembach-au-Val", "kind": "via", "lat": 48.3376446, "lon": 7.325348 },
+          { "label": "Eichhoffen", "kind": "via", "lat": 48.3843282, "lon": 7.442826 },
+          { "label": "Mittelbergheim", "kind": "via", "lat": 48.3966676, "lon": 7.4425002 },
+          { "label": "Barr", "kind": "via", "lat": 48.4088704, "lon": 7.4492808 },
+          { "label": "Heiligenstein", "kind": "via", "lat": 48.4238894, "lon": 7.4508332 },
+          { "label": "Ottrott", "kind": "via", "lat": 48.4569926, "lon": 7.4232432 },
+          { "label": "Klingenthal", "kind": "col" },
+          { "label": "Grendelbruch", "kind": "col", "lat": 48.4930562, "lon": 7.3233331 },
+          { "label": "Russ", "kind": "via", "lat": 48.5026193, "lon": 7.2846926 },
+          { "label": "Hersbach", "kind": "via", "lat": 48.4981757, "lon": 7.2494491 },
+          { "label": "Wisches", "kind": "via", "lat": 48.5094853, "lon": 7.2691416 },
+          { "label": "Lutzelhouse", "kind": "via", "lat": 48.5196167, "lon": 7.2880044 },
+          { "label": "Dinsheim-sur-Bruche", "kind": "via", "lat": 48.5430561, "lon": 7.4269445 },
+          { "label": "Gresswiller", "kind": "via", "lat": 48.5355746, "lon": 7.4321702 },
+          { "label": "Rosheim", "kind": "via", "lat": 48.496421, "lon": 7.4698832 },
+          { "label": "Bischoffsheim", "kind": "via", "lat": 48.4876657, "lon": 7.4901898 },
+          { "label": "Bœrsch", "kind": "via", "lat": 48.4767699, "lon": 7.4410859 }
+        ],
+        "finish": { "label": "Rosheim", "lat": 48.496421, "lon": 7.4698832 },
+        "confidence": [
+          {
+            "claim": "tracé reconstitué depuis le roadbook ASO complet (64 points kilométrés, reproduit par dimensionsvelo.com, « source : ASO »)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "remplace une première curation (même session) construite sur les seuls points nommés par cyclingstage.com/rouleur.cc/Wikipédia, qui manquait tout le passage par le val de Villé et le piémont viticole (Villé, Eichhoffen, Barr, Ottrott) avant Klingenthal, puis la vallée de la Bruche (Russ, Wisches, Lutzelhouse, Dinsheim) après Grendelbruch. 25 points du roadbook retenus, géocodés (Nominatim, par département) puis figés, sauf Klingenthal (résolution automatique vérifiée à ~0,5 km du nœud Nominatim). Col d'Urbeis figé sur le vrai col (nœud OSM mountain_pass 48,3262018/7,1776067, ele 602, recoupé Géoplateforme index POI sans near à ~80 m) : le géocodage automatique, avec le near chaîné depuis Saint-Dié, le plaçait à 6 km de Saint-Dié côté Vosges. Départ réel figé à Remomeix (km 0,4 du roadbook ; Saint-Dié, Sainte-Marguerite et la D420 tous à km 0, zone neutralisée)."
+          },
+          {
+            "claim": "points du roadbook écartés après mesure : communes frôlées par la course, pas traversées",
+            "status": "OK",
+            "level": "moyenne",
+            "detail": "Pair-et-Grandrupt, Neuvillers-sur-Fave et Frapelle (codé « D420-Vc-D420 »), Niederhaslach (« D392-Vc-D392 »), Urmatt (cité deux fois, km 83,8 et 84,3) et Saint-Pierre-Bois (« D203 Saint-Pierre-Bois ») : viser le centre de chaque commune ajoutait 1,5 à 5,6 km par tronçon avec des zones de rebroussement (Urmatt/Niederhaslach). Mesuré : avec ces points, -2,7 % au total mais par compensation — dérive cumulée jusqu'à +12,3 km à Gresswiller, rattrapée par la boucle finale trop courte. Sans eux : dérive cumulée ≤ 5,6 km jusqu'au premier passage à Rosheim, atteint au km 106,4 contre 106,7 en course."
+          },
+          {
+            "claim": "écart résiduel de distance (généré 116,6 km vs officiel 129,2 km, -9,8 %), entièrement localisé dans la boucle finale",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "vérifié par deux régénérations réelles indépendantes (import + generate, bases isolées), 116,6 km les deux fois, aucun repli OSRM. Les 106,7 premiers km (jusqu'au premier passage sur la ligne à Rosheim) sont reconstitués à 0,3 km près. Toute la différence vient de la boucle finale : 10,2 km reconstitués (Rosheim → Bischoffsheim → Bœrsch → Rosheim, 2 courtes zones de rebroussement autour de Bœrsch) contre 21,9 km en course. Le roadbook ne décrit sa seconde moitié que par des carrefours (« carrefour D216-D204 » au sommet de la côte de Boersch, km 119,5 ; « carrefour D204-D604 », km 121,1 ; retour par la D604 jusqu'à Rosheim, km 126,3) — aucun nom de lieu géocodable. Pas de via deviné pour la combler (Klingenthal ou Rosenwiller seraient plausibles sur la carte, mais non nommés par le roadbook sur ce tronçon). Préféré à la version à -2,7 % ci-dessus : un total dans la tolérance obtenu par compensation serait moins fidèle au tracé réel que ce -9,8 % localisé et expliqué."
+          }
+        ],
+        "note": "Saint-Dié-des-Vosges → Rosheim (129,2 km, 29 juillet 2022) : vallée de la Fave, Col d'Urbeis, val de Villé, piémont viticole d'Alsace (Barr, Ottrott), côtes de Klingenthal et de Grendelbruch, vallée de la Bruche (Russ, Lutzelhouse, Dinsheim), route de Mollkirch, premier passage à Rosheim au km 106,7, puis boucle finale par Bischoffsheim et la côte de Boersch. Reconstitué depuis le roadbook ASO. Résultat : 116,6 km (-9,8 %, hors tolérance), mais fidèle à 0,3 km près jusqu'au premier passage à Rosheim — l'écart est entièrement dans la boucle finale, décrite seulement par des numéros de carrefour (voir confidence)."
       }
     }
   }
