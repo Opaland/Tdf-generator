@@ -277,7 +277,7 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 - [x] 28.4 1919/11 curée : 329,3 km (+1,3 %), 3 cols au bon point, 0 aller-retour — PR #377 (empilée sur #375)
 - [ ] 28.5 **blocked** — Curer 2020/2 : aucune source détaillée trouvée le 17/10/2026 (pas de GPX cyclingstage pour 2020, dossier de presse LCL et Wikipédia limités aux 3 cols, pas de roadbook dimensionsvelo) ; reconstituer les liaisons entre vallées ne serait que de l'inférence géographique sur 186 km de montagne — critère « roadbook sourcé » non atteignable
 - [x] 28.6 Issue #280 : pickFeature préfère le nom exact parmi les reliefs — PR #378 ; différentiel réel sur 95 occurrences : 92 identiques, Aravis 1911/5 corrigé, Ballon d'Alsace figé pour ne pas régresser
-- [ ] 28.7 **backlog** — Issue #188 (P1) : curer le Tour 2002 (édition vide)
+- [ ] 28.7 **en cours** — Issue #188 (P1) : curer le Tour 2002 (édition vide) — PR #380 : étapes 14 (Ventoux, -3,2 %) et 16 (La Plagne, +4,7 %, altitude d'arrivée `UNSURE`). Mesurées par régénération réelle sur le code de `main`, avec départ et arrivée seuls, donc déjà dans ±5 % : 2002/6 (+0,8 %) et 2002/10 (-4,2 %). Les autres étapes ne sont pas encore re-mesurées.
 
 ## Epic 24 — Bilan final
 
