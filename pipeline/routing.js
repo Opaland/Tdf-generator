@@ -152,9 +152,8 @@ async function routeStage(waypoints, { onProgress } = {}) {
   const allPoints = [];
   const approxSegments = [];
   const wpOnTrack = [];
-  const legs = []; // diagnostic : distance routée vs vol d'oiseau par leg
+  const legs = []; // diagnostic : distance routée vs vol d'oiseau par leg, et routeur par leg
   let cum = 0;
-  let router = null;
 
   const pushPoints = (pts) => {
     for (const p of pts) {
@@ -179,12 +178,12 @@ async function routeStage(waypoints, { onProgress } = {}) {
       });
     }
     const leg = await routeLeg(a, b);
-    router = router || leg.router;
     legs.push({
       from: a.label || `wp${i}`,
       to: b.label || `wp${i + 1}`,
       straightM: Math.round(haversine(a, b)),
       roadM: Math.round(leg.distanceM),
+      router: leg.router,
     });
 
     const isColB = b.kind === 'col' || b.kind === 'peak';
@@ -217,7 +216,17 @@ async function routeStage(waypoints, { onProgress } = {}) {
     }
   }
 
-  return { points: allPoints, distanceM: cum, waypointsOnTrack: wpOnTrack, approxSegments, legs, router: router || 'osrm' };
+  // Un seul champ `router` par étape, dérivé du routeur réellement utilisé sur
+  // CHAQUE leg (pas seulement le premier, voir le bug ci-dessous) : avant ce
+  // correctif, un leg qui basculait sur OSRM après un échec BRouter isolé
+  // restait invisible dès que ce n'était pas le premier leg de l'étape — le
+  // seul signal était un `console.warn` (routeLeg() ci-dessus), jamais
+  // persisté ni affiché. `routers.size > 1` expose ce repli partiel comme
+  // 'mixed' plutôt que de masquer l'étape entière sous le routeur du premier
+  // leg (voir le nouveau check dédié, pipeline/checks.js).
+  const routers = new Set(legs.map((l) => l.router).filter(Boolean));
+  const router = routers.size === 1 ? [...routers][0] : routers.size > 1 ? 'mixed' : 'osrm';
+  return { points: allPoints, distanceM: cum, waypointsOnTrack: wpOnTrack, approxSegments, legs, router };
 }
 
 module.exports = { routeStage, routeLeg, COL_TOLERANCE_M, OSRM_BASE, BROUTER_BASE, BROUTER_PROFILE };
