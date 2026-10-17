@@ -48,10 +48,19 @@ function classifySurface(surface) {
   return 'inconnu';
 }
 
-/** Classe un tronçon {surface, highway} : tag surface d'abord, sinon présomption par classe de route. */
+/**
+ * Classe un tronçon {surface, highway} : tag surface d'abord, sinon
+ * présomption par classe de route. Symétrique de « revêtu présumé » : une
+ * piste agricole/forestière (`highway=track`) sans tag est présumée non
+ * revêtue — mesuré le 17/10/2026, la plupart des 14 secteurs de chemins
+ * blancs de 2024/9 sont des `highway=track` sans `surface`, et BRouter ne
+ * transmet pas `tracktype` (qui distinguerait une piste goudronnée, grade1).
+ */
 function classifyWay({ surface, highway }) {
   if (surface) return classifySurface(surface);
-  return highway && PRESUMED_PAVED_HIGHWAY.has(highway) ? 'revetu_presume' : 'inconnu';
+  if (highway && PRESUMED_PAVED_HIGHWAY.has(highway)) return 'revetu_presume';
+  if (highway === 'track') return 'non_revetu_presume';
+  return 'inconnu';
 }
 
 /**
@@ -94,12 +103,12 @@ function brouterSurfaceStretches(messages) {
  * le départ.
  */
 function summarizeSurfaces(stretches, totalM) {
-  const m = { revetu: 0, revetu_presume: 0, paves: 0, non_revetu: 0, inconnu: 0 };
+  const m = { revetu: 0, revetu_presume: 0, paves: 0, non_revetu: 0, non_revetu_presume: 0, inconnu: 0 };
   const notable = [];
   for (const s of stretches) {
     const cls = classifyWay(s);
     m[cls] += s.toM - s.fromM;
-    if (cls !== 'non_revetu' && cls !== 'paves') continue;
+    if (cls !== 'non_revetu' && cls !== 'non_revetu_presume' && cls !== 'paves') continue;
     const last = notable[notable.length - 1];
     if (last && last.cls === cls && s.fromM - last.toM < 1) {
       last.toM = s.toM;
@@ -108,13 +117,13 @@ function summarizeSurfaces(stretches, totalM) {
       notable.push({ fromM: s.fromM, toM: s.toM, cls, surfaces: s.surface ? [s.surface] : [] });
     }
   }
-  const covered = m.revetu + m.revetu_presume + m.paves + m.non_revetu + m.inconnu;
+  const covered = Object.values(m).reduce((a, b) => a + b, 0);
   m.inconnu += Math.max(0, totalM - covered);
   const round = (x) => Math.round(x);
   return {
     meters: {
       revetu: round(m.revetu), revetu_presume: round(m.revetu_presume), paves: round(m.paves),
-      non_revetu: round(m.non_revetu), inconnu: round(m.inconnu),
+      non_revetu: round(m.non_revetu), non_revetu_presume: round(m.non_revetu_presume), inconnu: round(m.inconnu),
     },
     stretches: notable.map((n) => ({ ...n, fromM: round(n.fromM), toM: round(n.toM) })),
     source: 'tags OSM surface=*/highway=* via BRouter',

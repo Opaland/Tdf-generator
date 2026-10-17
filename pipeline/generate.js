@@ -58,7 +58,7 @@ function parseSurfaces(raw) {
   try {
     const v = JSON.parse(raw);
     const ok = v && typeof v === 'object' && v.meters && typeof v.meters === 'object' && Array.isArray(v.stretches) &&
-      ['revetu', 'revetu_presume', 'paves', 'non_revetu', 'inconnu'].every((k) => Number.isFinite(v.meters[k])) &&
+      ['revetu', 'revetu_presume', 'paves', 'non_revetu', 'non_revetu_presume', 'inconnu'].every((k) => Number.isFinite(v.meters[k])) &&
       v.stretches.every((st) => st && Number.isFinite(st.fromM) && Number.isFinite(st.toM) && typeof st.cls === 'string' && Array.isArray(st.surfaces));
     return ok ? v : null;
   } catch {

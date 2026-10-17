@@ -209,8 +209,10 @@ function renderFiche() {
     const km = (m) => (m / 1000).toFixed(1).replace('.', ',');
     const t = surf.meters;
     document.getElementById('surface-summary').textContent =
-      `${km(t.non_revetu)} km non revêtus` + (t.paves > 0 ? ` · ${km(t.paves)} km de pavés` : '');
-    const labels = { non_revetu: 'non revêtu', paves: 'pavés' };
+      `${km(t.non_revetu + (t.non_revetu_presume || 0))} km non revêtus` +
+      (t.non_revetu_presume ? ` (dont ${km(t.non_revetu_presume)} km présumés : pistes sans tag)` : '') +
+      (t.paves > 0 ? ` · ${km(t.paves)} km de pavés` : '');
+    const labels = { non_revetu: 'non revêtu', non_revetu_presume: 'piste, non revêtu présumé', paves: 'pavés' };
     const ul = document.getElementById('surface-list');
     ul.textContent = '';
     for (const s of surf.stretches.filter((x) => x.toM - x.fromM >= 100)) {

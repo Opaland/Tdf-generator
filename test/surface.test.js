@@ -31,10 +31,11 @@ test('classifySurface : quatre classes, et une valeur absente ou inconnue n\'est
   assert.strictEqual(classifySurface('valeur_inventee'), 'inconnu');
 });
 
-test('classifyWay : sans tag surface, présomption par classe de route — jamais pour une piste ou un chemin', () => {
+test('classifyWay : sans tag surface, présomption par classe de route (revêtu pour une route classée, non revêtu pour une piste), inconnu sinon', () => {
   assert.strictEqual(classifyWay({ surface: null, highway: 'tertiary' }), 'revetu_presume');
   assert.strictEqual(classifyWay({ surface: null, highway: 'primary' }), 'revetu_presume');
-  assert.strictEqual(classifyWay({ surface: null, highway: 'track' }), 'inconnu');
+  assert.strictEqual(classifyWay({ surface: null, highway: 'track' }), 'non_revetu_presume');
+  assert.strictEqual(classifyWay({ surface: null, highway: 'service' }), 'inconnu');
   assert.strictEqual(classifyWay({ surface: null, highway: 'path' }), 'inconnu');
   assert.strictEqual(classifyWay({ surface: null, highway: null }), 'inconnu');
   // Le tag surface l'emporte toujours sur la classe de route (Finestre : unclassified + compacted).
@@ -72,11 +73,13 @@ test('summarizeSurfaces : le reste non couvert compte en « inconnu », tronçon
     { fromM: 1300, toM: 1500, surface: 'dirt', highway: 'track' },
     { fromM: 1500, toM: 2000, surface: null, highway: 'tertiary' },
     { fromM: 2000, toM: 2400, surface: 'sett', highway: 'residential' },
+    { fromM: 2400, toM: 2600, surface: null, highway: 'track' },
   ], 3000);
-  assert.deepStrictEqual(sum.meters, { revetu: 1000, revetu_presume: 500, paves: 400, non_revetu: 500, inconnu: 600 });
+  assert.deepStrictEqual(sum.meters, { revetu: 1000, revetu_presume: 500, paves: 400, non_revetu: 500, non_revetu_presume: 200, inconnu: 400 });
   assert.deepStrictEqual(sum.stretches, [
     { fromM: 1000, toM: 1500, cls: 'non_revetu', surfaces: ['gravel', 'dirt'] },
     { fromM: 2000, toM: 2400, cls: 'paves', surfaces: ['sett'] },
+    { fromM: 2400, toM: 2600, cls: 'non_revetu_presume', surfaces: [] },
   ]);
 });
 
