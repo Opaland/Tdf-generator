@@ -413,6 +413,22 @@ function stageToRoadbookHtml(stageId) {
         .join('\n')
     : '<tr><td colspan="7">Aucune côte détectée (seuil : ≥ 1,5 km à ≥ 3 %).</td></tr>';
 
+  // Communes traversées (Epic 12) : seulement si elles ont été calculées depuis
+  // la fiche. `nom` vient d'une API externe ou d'une sauvegarde importée :
+  // échappé comme toute autre donnée (CLAUDE.md règle 1).
+  const communes = full.track?.communes;
+  const communesHtml = communes
+    ? `<h2>Communes traversées</h2>
+<table>
+<thead><tr><th>Km d'entrée</th><th>Commune</th><th>Département</th></tr></thead>
+<tbody>
+${communes.communes.map((c) => `<tr><td>${Number(c.km).toFixed(1)}</td><td>${esc(c.nom)}</td><td>${esc(c.departement || '—')}</td></tr>`).join('\n')}
+</tbody>
+</table>
+<p class="note">Commune qui contient chaque point du tracé reconstitué, tous les ${Number(communes.stepM) / 1000} km (source : geo.api.gouv.fr, France seulement). Une commune traversée n'est pas forcément un bourg traversé ; une traversée plus courte que le pas peut manquer.</p>
+`
+    : '';
+
   const dist = stage.generated_distance_km != null ? `${stage.generated_distance_km} km` : '?';
   const editionLine = edition ? `${esc(edition.name)} — ` : '';
 
@@ -461,7 +477,7 @@ ${climbsHtml}
 </tbody>
 </table>
 
-<p class="note">Ravitaillements : non représentés — ÉtapeForge ne dispose d'aucune source sur l'emplacement réel des zones de ravitaillement d'une étape reconstituée (donnée non publiée par ASO).</p>
+${communesHtml}<p class="note">Ravitaillements : non représentés — ÉtapeForge ne dispose d'aucune source sur l'emplacement réel des zones de ravitaillement d'une étape reconstituée (donnée non publiée par ASO).</p>
 
 <footer>${esc(ATTRIBUTIONS)} — Généré par ÉtapeForge.</footer>
 </body>

@@ -227,6 +227,8 @@ function renderFiche() {
       `Source : ${surf.source}. Décrit le tracé reconstitué, pas forcément celui de la course.`;
   }
 
+  renderCommunes(FULL.track?.communes);
+
   // Réserves de confiance (backlog #10, section A/D) : affirmations à
   // confiance structurée portées par historic_routes.json pour cette étape
   // précise (ex. altitude non confirmée sur le roadbook) — absent = aucune
@@ -559,3 +561,44 @@ document.addEventListener('DOMContentLoaded', async () => {
 }
 
 if (typeof module !== 'undefined' && module.exports) module.exports = { similarItemHtml, poll, climbNameSourceLabel };
+
+// Communes traversées (Epic 12, option B) : calculées à la demande — environ
+// une requête geo.api.gouv.fr par kilomètre, donc jamais à la génération.
+// Démo statique : pas de serveur, section masquée.
+function renderCommunes(data) {
+  const section = document.getElementById('communes-section');
+  if (!section) return;
+  section.style.display = window.EF_STATIC || !FULL?.track ? 'none' : 'block';
+  const list = document.getElementById('communes-list');
+  const detail = document.getElementById('communes-detail');
+  list.textContent = '';
+  detail.textContent = '';
+  if (!data) return;
+  for (const c of data.communes) {
+    const li = document.createElement('li');
+    li.textContent = `km ${String(c.km).replace('.', ',')} — ${c.nom}${c.departement ? ` (${c.departement})` : ''}`;
+    list.appendChild(li);
+  }
+  detail.textContent = `${data.communes.length} commune(s) sur ${data.points} points (pas de ${data.stepM / 1000} km)` +
+    (data.pointsHorsFrance ? ` · ${data.pointsHorsFrance} point(s) hors de France, non renseignés` : '') +
+    (data.pointsSansCommune ? ` · ${data.pointsSansCommune} point(s) sans commune française (pays voisin ou mer)` : '') + '.';
+}
+
+if (typeof document !== 'undefined') document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.getElementById('btn-communes');
+  if (!btn) return;
+  btn.addEventListener('click', async () => {
+    const msg = document.getElementById('communes-msg');
+    btn.disabled = true;
+    msg.textContent = ' calcul en cours (environ 1 s par kilomètre de tracé)…';
+    try {
+      const data = await EF.api(`/api/stages/${FULL.stage.id}/communes`, { method: 'POST', timeoutMs: 600000 });
+      msg.textContent = '';
+      renderCommunes(data);
+    } catch (err) {
+      msg.textContent = ` Erreur : ${err.message}`;
+    } finally {
+      btn.disabled = false;
+    }
+  });
+});

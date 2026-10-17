@@ -146,15 +146,15 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 
 - [x] 8.1 Chiffré : 4 étapes bloquées (1975/22, 1992/21, 2002/20, 2022-femmes/1) + contournements par vias dupliqués (2025/21, 2020/1) — commentaire issue #251
 - [x] 8.2 3 options proposées (A : `laps` développé à l'import, S, recommandée ; B : dans routeStage, M ; C : multiplier la distance, déconseillée) — issue #251
-- [ ] 8.3 **en cours** — Décidé le 17/10/2026 : option A (`laps` développé à l'import). Branche `sprint8-laps`, premier cas 1975/22
-- [ ] 8.4 Tests + revue adverse
+- [x] 8.3 `laps` développé à l'import (option A) — PR #384 ; 1975/22 de 0 km à 197,9 km (fastbike)
+- [x] 8.4 Tests + revue adverse — PR #384 (roadbook et profil séquentiels, bornes, jonction des tours)
 
 ## Epic 9 — Décision + implémentation : profil de routage par étape (issue #243)
 
 - [x] 9.1 Prototype mesuré sur les 4 étapes : `shortest` fait entrer 1903/3 (-1,1 %) et 1992/10 (+4,9 %), pas 1903/2 ni 1992/4 ; `trekking` pire partout — issue #243
 - [x] 9.2 Proposé : champ `routing_profile` par étape (S/M), appliqué aux 2 étapes où le gain est mesuré — issue #243
-- [ ] 9.3 **backlog** — Décidé le 17/10/2026 : champ de profil BRouter par étape curée, `shortest` pour les seules étapes où il est mesuré meilleur
-- [ ] 9.4 Appliquer aux 4 étapes concernées (1903/2, 1903/3, 1992/4, 1992/10)
+- [x] 9.3 Profil BRouter par étape curée (`routing_profile`, migration 5) — PR #385
+- [x] 9.4 Appliqué après mesure : `shortest` retenu pour 1975/22 seulement (+5,0 %) ; écarté pour 1903/3, 1992/10 et 1992/21 (pistes empruntées) — PR #385, #387
 
 ## Epic 10 — Tour de France Femmes : données réelles
 
@@ -163,7 +163,7 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 - [x] 10.3 Vérifier import/génération avec cette donnée réelle — vérifié par régénération réelle (réseau live) à chaque étape curée
 - [x] 10.4 Documenter dans `historic_routes.json` avec `confidence` — fait pour les 3 étapes curées, honnêtement hors tolérance pour toutes (voir détail de chaque entrée)
 - [x] 10.5 Étapes 2, 4, 5, 6 curées (PR #358, #357, #356, #355) et étape 3 refaite (PR #354), toutes depuis le roadbook ASO complet trouvé sur dimensionsvelo.com — étapes 2-5 dans la tolérance (-3,5 % à +3,0 %), étape 6 à -9,8 % mais fidèle à 0,3 km près jusqu'au premier passage à Rosheim (écart entièrement dans la boucle finale, décrite seulement par des numéros de carrefour). Trouvailles transverses : (a) les entrées de roadbook codées comme carrefour (« Piney (D43-D79) ») désignent la route qui frôle la commune, pas le village — viser le centre ajoute 1,5-5,6 km par tronçon ; (b) un total dans la tolérance peut masquer une dérive intermédiaire de ±10 km par compensation — mesuré point par point à chaque étape, documenté dans les confidence ; (c) BRouter renvoie des HTTP 403 par intermittence sous charge (repli OSRM leg par leg), invisible sans la PR #340
-- [ ] 10.6 **backlog** — Étape 1 (circuit parisien à 12 tours) bloquée sur Epic 8 (mécanisme "laps"), pas une curation ordinaire
+- [ ] 10.6 **blocked** — Étape 1 (circuit parisien) : `laps` existe (PR #384), mais les sources divergent sur le nombre de tours (Wikipédia : 11, Rouleur : 12) ; pas tranché sans source primaire
 - [x] 10.7 Étapes 7 et 8 refaites depuis leur roadbook ASO (PR #359, #360) : -10,0 % → +4,3 % et -10,2 % → +3,6 %. Trouvailles : « Col du Platzerwasel » résolu sur un autre col (Hilsenfirst, ~4 km) sur main, check « col atteint » passant quand même ; Mélisey (étape 8), ajoutée par la curation précédente comme « commune évidente non sourcée », n'est pas sur le parcours réel.
 - [x] 10.8 Note d'édition `2022-femmes` consolidée — PR #370 intègre #354 à #360 (conflits résolus, étapes identiques à leurs branches) : 6 étapes dans ±5 %, étape 6 UNSURE, étape 1 bloquée sur les laps
 
@@ -181,13 +181,13 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 
 - [x] 12.1 Chiffrer le coût de géocodage inverse à l'échelle — PR #382 : 2002/18, reverse Géoplateforme 40 % de réponses vides ; geo.api.gouv.fr 0 %, 44 communes au pas de 1 km en 47,6 s
 - [x] 12.2 Proposer 2-3 approches à l'utilisateur — PR #382 : A génération / B à la demande (recommandée) / C contours embarqués
-- [ ] 12.3 **backlog** — Décidé le 17/10/2026 : option B (communes traversées à la demande, France seule, libellé « communes traversées »)
+- [ ] 12.3 **en revue** — Communes traversées à la demande — PR #390 ; vérification contre le vrai geo.api.gouv.fr à refaire (hôte injoignable depuis le bac à sable le 17/10)
 
 ## Epic 13 — Sécurité : identifiants Suunto stockés
 
 - [x] 13.1 Évaluer le risque réel (LAN strict vs exposition) — issue #379 (vérifié dans le code : jetons OAuth en clair dans `settings`, exclus de la sauvegarde portable)
 - [x] 13.2 Proposer un chiffrement at-rest — issue #379 : A durcir/documenter, B AES-256-GCM avec `ETAPEFORGE_SECRET_KEY`, C trousseau OS
-- [ ] 13.3 **backlog** — Décidé le 17/10/2026 : option A tout de suite (documenter, avertir sur /diag.html) ; B (chiffrement au repos) avant toute exposition publique durable
+- [x] 13.3 Option A : provenance des secrets sur /diag.html, doc de durcissement — PR #386 ; option B (chiffrement au repos) reste à faire avant toute exposition publique durable
 
 ## Epic 14 — Décision : programme partenaire Suunto
 
@@ -229,7 +229,7 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 - [x] 20.1 Chiffrer le coût d'un changement (dépendances, maintenance) — `docs/UI-UX-REVIEW.md`
 - [x] 20.2 Proposer 2-3 options avec compromis — A (statu quo) / B (tokeniser l'existant, recommandée) / C (refonte visuelle)
 - [x] 20.3 Décidé le 17/10/2026 : option B (jetons CSS d'espacement, rayon, typographie, sans changement visuel) — PR #352 mergée
-- [ ] 20.4 **backlog** — Tokeniser `frontend/style.css` (option B), captures avant/après 1440/375 px
+- [x] 20.4 Jetons CSS sans changement visuel (13 048 styles calculés identiques) — PR #389
 
 ## Epic 21 — Stratégie marketing/positionnement
 
@@ -269,7 +269,7 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 - [x] 27.1 Schéma SQLite versionné (`PRAGMA user_version`, migrations numérotées, `settings` dans `db.js`) — PR #369 ; base réelle de `main` migrée v0→v2 sans perte
 - [x] 27.2 `backend/server.js` découpé en `backend/routes/*` + `apiHelpers.js` (1 004 → 113 lignes) — PR #371 (empilée sur #369, intègre #364) ; 30 routes GET identiques au différentiel, 39/39 routes à la relecture
 - [x] 27.3 Test E2E navigateur en CI (8 écrans × 1440/375 px, contenu rendu exigé, erreurs tardives, débordement) — PR #367 (empilée sur #361), job `e2e` vert sur GitHub Actions
-- [ ] 27.4 **backlog** — Décidé le 17/10/2026 : R1, rôle admin sur les routes destructrices et `/api/*/config`, actif seulement en mode public (`ETAPEFORGE_PUBLIC=1`)
+- [x] 27.4 R1 : rôle admin en mode public, jeton d'amorçage, connecteurs couverts — PR #388 (deux relectures adverses)
 
 ## Epic 28 — Bugs de géocodage et de curation ouverts en issue
 
@@ -279,7 +279,7 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 - [x] 28.4 1919/11 curée : 329,3 km (+1,3 %), 3 cols au bon point, 0 aller-retour — PR #377 (empilée sur #375)
 - [ ] 28.5 **blocked** — Curer 2020/2 : aucune source détaillée trouvée le 17/10/2026 (pas de GPX cyclingstage pour 2020, dossier de presse LCL et Wikipédia limités aux 3 cols, pas de roadbook dimensionsvelo) ; reconstituer les liaisons entre vallées ne serait que de l'inférence géographique sur 186 km de montagne — critère « roadbook sourcé » non atteignable
 - [x] 28.6 Issue #280 : pickFeature préfère le nom exact parmi les reliefs — PR #378 ; différentiel réel sur 95 occurrences : 92 identiques, Aravis 1911/5 corrigé, Ballon d'Alsace figé pour ne pas régresser
-- [ ] 28.7 **en cours** — Issue #188 : Tour 2002 — PR #380 mergée (14 et 16) ; restent 2002/13 (+9,8 %), 2002/19 (-6,6 %), 2002/20 (-48 %, circuit : débloqué par `laps`)
+- [ ] 28.7 **en cours** — Issue #188 : Tour 2002 — 14 et 16 curées (PR #380) ; restent 2002/13 (+9,8 %), 2002/19 (-6,6 %), 2002/20 (-48 % : `laps` disponible, mais nombre de tours de 2002 introuvable dans les sources consultées)
 
 ## Epic 24 — Bilan final
 

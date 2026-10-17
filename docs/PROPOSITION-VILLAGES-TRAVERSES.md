@@ -103,6 +103,16 @@ polygone en local.
   Les Deux Alpes). Enfin, cela va contre l'esprit « aucune dépendance
   inutile » de `docs/BRIEF.md`.
 
+## Décision (17/10/2026)
+
+**B retenue** (décision déléguée par l'utilisateur). Implémentée :
+`pipeline/communes.js`, `POST /api/stages/:id/communes`, colonne
+`tracks.communes` (migration 6, remise à NULL à chaque régénération),
+section « Communes traversées » sur la fiche et dans le roadbook. Testée
+contre une réponse simulée au format relevé en réel le 17/10/2026 ; la
+vérification de bout en bout contre le vrai service reste à faire (hôte
+injoignable depuis le bac à sable au moment de l'implémentation).
+
 ## Recommandation
 
 **B**, au pas de 1 km, limitée à la France. Pour une étape à l'étranger, on
