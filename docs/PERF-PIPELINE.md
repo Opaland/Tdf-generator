@@ -89,3 +89,32 @@ d'isolation par process que `scripts/monkey.js`, voir CLAUDE.md règle 4), lance
 un run d'échauffement jeté avant de commencer à chronométrer (voir la
 correction ci-dessus), et nettoie son dossier temporaire en sortie. Aucune
 donnée existante n'est touchée.
+
+## API à l'échelle du catalogue complet (Epic 17, 17/10/2026)
+
+`node scripts/scale-bench.js` construit une base synthétique de **2 200 étapes**
+(110 éditions × 20, simulateur hors-ligne, ~48 s), puis chronomètre les routes
+qui lisent une table entière (5 requêtes par route, médiane). Mesures sur le
+bac à sable cloud :
+
+| Route | Avant | Après (liste allégée) |
+|---|---|---|
+| `GET /api/stages` | 251 ms, **5,2 Mo** | 90 ms, 680 Ko |
+| `GET /api/climbs` | 26 ms, 347 Ko | inchangé |
+| `GET /api/editions` | 14 ms, 21 Ko | inchangé |
+| `GET /api/editions/:id/mapdata` | 170 ms, 724 Ko (une édition de 20 étapes) | inchangé |
+| `GET /api/stages/:id` | 15 ms, 115 Ko | inchangé |
+| `GET /api/stages/:id/similar` | 17 ms | inchangé |
+
+- **Seul point chaud réel : la liste des étapes**, dont 87 % du poids était le
+  détail des audits qualité (~3 Ko par étape), alors que les écrans de liste
+  n'en lisent que `checks.ok`. Corrigé en renvoyant un résumé `{ ok, offline }`
+  (le détail reste dans `GET /api/stages/:id`) — **pas de pagination** : à
+  90 ms et 680 Ko pour le catalogue complet, elle ajouterait du code sans
+  besoin mesuré.
+- **Taille de base : 243 Mo, soit ~113 Ko par étape** — deux fois l'estimation
+  de ~55 Ko écrite dans `backend/server.js` (mesurée sur 7 étapes réelles plus
+  courtes). Les étapes synthétiques font ~150-200 km ; la taille dépend
+  surtout de `elevation_samples`, donc de la longueur.
+- Limite : étapes synthétiques (simulateur), pas les vraies étapes du
+  catalogue ; peu de côtes détectées, d'où un `/api/climbs` sans doute sous-estimé.
