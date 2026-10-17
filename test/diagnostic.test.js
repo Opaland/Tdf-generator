@@ -1,6 +1,6 @@
 'use strict';
 // pipeline/diagnostic.js : sondes de connectivité extraites de
-// GET /api/diagnostic (backend/server.js) pour être réutilisables hors d'une
+// GET /api/diagnostic (backend/routes/admin.js) pour être réutilisables hors d'une
 // requête HTTP — notamment par scripts/demo.js --online (Chantier L, "CI de
 // vérification croisée périodique"). test/diagnosticParallel.test.js couvre
 // déjà le comportement via la route HTTP (parallélisme, ordre des résultats)

@@ -12,7 +12,7 @@ process.env.ETAPEFORGE_OFFLINE = '1';
 const { test, after } = require('node:test');
 const assert = require('node:assert');
 const { getDb } = require('../backend/db');
-const { generateStage, loadStageFull, geocodeOptsFor } = require('../pipeline/generate');
+const { generateStage, loadStageFull, geocodeOptsFor, resetInterruptedGenerations } = require('../pipeline/generate');
 const { importTrackAsStage, parseGpx } = require('../pipeline/importTrack');
 const { stageConfidence } = require('../pipeline/wikipedia');
 
@@ -170,4 +170,43 @@ test('importTrackAsStage : trace vide → rejet explicite', async () => {
 
 test('importTrackAsStage : un seul point → rejet explicite', async () => {
   await assert.rejects(() => importTrackAsStage([{ lat: 43, lon: 1, ele: 200 }]), /vide ou illisible/);
+});
+
+// Epic 11.4 : en mode simulateur, aucun tag OSM — pas de résumé de revêtement
+// « 100 % inconnu » qui encombrerait la fiche.
+test('generateStage (simulateur) : tracks.surfaces reste NULL', async () => {
+  const db = getDb();
+  const id = db.prepare(`INSERT INTO stages (name, state) VALUES ('Surface simu', 'draft')`).run().lastInsertRowid;
+  db.prepare(`INSERT INTO waypoints (stage_id, idx, label, kind, lat, lon) VALUES (?, 0, 'A', 'start', 45.0, 5.0), (?, 1, 'B', 'finish', 45.1, 5.1)`).run(id, id);
+  await generateStage(id);
+  const full = loadStageFull(id);
+  assert.strictEqual(full.track.router, 'simulateur');
+  assert.strictEqual(full.track.surfaces, null);
+});
+
+// Revue d'architecture du 17/10/2026 (docs/ARCHITECTURE-REVIEW.md §3.1) : une
+// étape restée `generating` après un crash bouclait à vie sur la fiche
+// (frontend/stage.js) et perdait son bouton de relance dans Archives.
+test('resetInterruptedGenerations : seules les étapes `generating` passent en erreur, avec un message adapté (étape vs trace), une seule fois', () => {
+  const db = getDb();
+  const stuck = db.prepare(
+    `INSERT INTO stages (name, state, progress) VALUES ('Bloquée', 'generating', '{"step":"routage","percent":40}')`
+  ).run().lastInsertRowid;
+  db.prepare(`INSERT INTO waypoints (stage_id, idx, label) VALUES (?, 0, 'Pau'), (?, 1, 'Lourdes')`).run(stuck, stuck);
+  // Trace importée (aucun waypoint) : generateStage() la rejetterait, seul un réimport aboutit.
+  const trace = db.prepare(`INSERT INTO stages (name, stage_type, state) VALUES ('Trace', 'trace', 'generating')`).run().lastInsertRowid;
+  const done = db.prepare(`INSERT INTO stages (name, state) VALUES ('Finie', 'done')`).run().lastInsertRowid;
+  const draft = db.prepare(`INSERT INTO stages (name, state) VALUES ('Brouillon', 'draft')`).run().lastInsertRowid;
+
+  assert.strictEqual(resetInterruptedGenerations(), 2);
+  const s = db.prepare('SELECT state, error, progress FROM stages WHERE id = ?').get(stuck);
+  assert.strictEqual(s.state, 'error');
+  assert.match(s.error, /relancer la génération/);
+  const t = db.prepare('SELECT state, error FROM stages WHERE id = ?').get(trace);
+  assert.strictEqual(t.state, 'error');
+  assert.match(t.error, /réimporter la trace/);
+  assert.strictEqual(s.progress, null);
+  assert.strictEqual(db.prepare('SELECT state FROM stages WHERE id = ?').get(done).state, 'done');
+  assert.strictEqual(db.prepare('SELECT state FROM stages WHERE id = ?').get(draft).state, 'draft');
+  assert.strictEqual(resetInterruptedGenerations(), 0);
 });

@@ -87,7 +87,9 @@ function collectNames() {
   return occurrences;
 }
 
-// Même normalisation que pickFeature() (pipeline/geocode.js) — un écart de
+// Même normalisation que pickFeature() pour les reliefs (normName,
+// importée de pipeline/geocode.js depuis l'issue #280 : casse, accents et
+// apostrophes typographiques ignorés — une copie locale avait divergé) — un écart de
 // score n'est l'ambiguïté qui intéresse pickFeature() en production que si
 // LES DEUX candidats portent le nom exact interrogé (ses "exactMatches").
 // Sinon (aucun résultat, ou un seul, ne correspond exactement), c'est un
@@ -95,9 +97,7 @@ function collectNames() {
 // bon toponyme du tout (ex. "Perl", frontière Sarre/Moselle : la
 // Géoplateforme ne renvoie que des noms qui ne sont PAS "Perl", à un score
 // pourtant correct — un faux calme, pas une vraie absence d'ambiguïté).
-function normLabel(s) {
-  return String(s || '').trim().toLowerCase();
-}
+const { normName: normLabel } = require('../pipeline/geocode');
 
 async function auditOne(label) {
   const url = `https://data.geopf.fr/geocodage/search?q=${encodeURIComponent(label)}&index=poi&limit=5`;

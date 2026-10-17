@@ -69,3 +69,23 @@ test('GET /api/stages : checks corrompu (JSON invalide) → checks: null pour ce
   assert.strictEqual(corrupted.checks, null);
   assert.strictEqual(healthy.checks.ok, true);
 });
+
+// Epic 17 (scripts/scale-bench.js) : à 2 200 étapes, la liste pesait 5,2 Mo,
+// presque entièrement le détail des audits — seul le résumé est renvoyé ici,
+// le détail reste dans GET /api/stages/:id.
+test('GET /api/stages : checks résumé à { ok, offline } — le détail des audits ne transite pas par la liste', async () => {
+  const db = getDb();
+  const id = db.prepare(`INSERT INTO stages (name, state, checks) VALUES ('Étape', 'done', ?)`)
+    .run(JSON.stringify({ ok: false, offline: true, items: [{ status: 'fail', label: 'x', detail: 'y'.repeat(2000) }] })).lastInsertRowid;
+  const rows = await (await fetch(`${base}/api/stages`)).json();
+  assert.deepStrictEqual(rows[0].checks, { ok: false, offline: true });
+  const full = await (await fetch(`${base}/api/stages/${id}`)).json();
+  assert.strictEqual(full.stage.checks.items.length, 1, 'le détail reste disponible sur la fiche');
+});
+
+test('GET /api/stages : checks de forme inattendue (tableau, scalaire) → null, jamais un objet vide trompeur', async () => {
+  const db = getDb();
+  for (const v of ['[1,2]', '"x"', 'true']) db.prepare(`INSERT INTO stages (name, state, checks) VALUES (?, 'done', ?)`).run(`Étape ${v}`, v);
+  const rows = await (await fetch(`${base}/api/stages`)).json();
+  assert.deepStrictEqual(rows.map((r) => r.checks), [null, null, null]);
+});
