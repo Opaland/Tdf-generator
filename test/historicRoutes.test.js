@@ -492,22 +492,17 @@ test('reconstructionWaypoints : même classe de bug (near change le jeu de candi
     assert.strictEqual(madeleine.lat, 45.434905);
     assert.strictEqual(madeleine.lon, 6.37553);
     assert.strictEqual(madeleine.altitude_hint_m, 1993);
-    // Le finish (Col de la Loze) n'est PAS couvert par ce correctif :
-    // reconstructionWaypoints() ne consulte KNOWN_COLS que pour les vias,
-    // jamais pour start/finish (lacune déjà documentée sur l'entrée
-    // "Plateau de Beille" de known_cols.json) — il continue de dépendre du
-    // géocodage en direct, qui fonctionne aujourd'hui uniquement parce que
-    // near=Madeleine (désormais correct) suffit à orienter l'API vers le bon
-    // candidat. Ce test verrouille l'état actuel, pas une garantie structurelle.
-    // `lat` vaut désormais `null` (pas `undefined`) depuis le correctif
-    // reconstructionWaypoints()/resolveViaCoords() pour start/finish (trouvaille
-    // Rimini, 2024 étape 1) : la clé est maintenant toujours posée (comme pour
-    // un via objet), simplement sans valeur faute de lat/lon curés ICI — ce
-    // correctif couvre un départ/arrivée curé en objet { label, lat, lon },
-    // pas le repli KNOWN_COLS, qui reste la lacune documentée ci-dessus.
+    // Le finish (Col de la Loze) reçoit désormais les coordonnées figées de
+    // known_cols.json (issue #224) au lieu de dépendre du géocodage en direct
+    // orienté par near=Madeleine.
     const finish = wps[wps.length - 1];
     assert.strictEqual(finish.label, 'Col de la Loze');
-    assert.strictEqual(finish.lat, null, 'le finish ne reçoit pas de lat/lon pré-rempli par KNOWN_COLS (lacune connue, pas ce correctif)');
+    const known = require('../pipeline/data/known_cols.json')['Col de la Loze'];
+    assert.strictEqual(finish.lat, known.lat, 'le finish curé reçoit les coordonnées figées de KNOWN_COLS');
+    assert.strictEqual(finish.lon, known.lon);
+    // Sans altitude attendue, le check d'altitude du sommet disparaissait :
+    // generate.js ne géocode plus un point dont lat/lon sont posés.
+    assert.strictEqual(finish.altitude_hint_m, known.ele);
   }
 
   // 2023 étape 17 : Saint-Gervais Mont-Blanc → Col de la Loze → Courchevel
@@ -749,4 +744,11 @@ test('1947 étape 1 : retour du Tour d\'après-guerre — Paris → Lille, sourc
   const labels = wps.map((w) => w.label);
   assert.deepStrictEqual(labels, ['Paris', 'Lille']);
   assert.ok(wps.every((w) => w.source === 'parcours curé'), 'les deux extrémités sont explicitement sourcées, pas seulement Wikipédia');
+});
+
+test('reconstructionWaypoints : arrivée curée en objet { label, lat, lon } au sommet → altitude attendue reprise de known_cols (2025/18, Col de la Loze)', () => {
+  const finish = reconstructionWaypoints(2025, { number: 18, start: 'X', finish: 'Y' }).pop();
+  assert.strictEqual(finish.label, 'Col de la Loze');
+  assert.strictEqual(finish.kind, 'col');
+  assert.strictEqual(finish.altitude_hint_m, require('../pipeline/data/known_cols.json')['Col de la Loze'].ele);
 });

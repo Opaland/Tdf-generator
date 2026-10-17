@@ -1,6 +1,6 @@
 'use strict';
 // Import en masse de toutes les éditions du Tour (pipeline/importer.js,
-// importAllEditions() ; POST /api/editions/import-all, backend/server.js) —
+// importAllEditions() ; POST /api/editions/import-all, backend/routes/editions.js) —
 // demande explicite « ajoute toutes les TDF » : le mécanisme d'import d'une
 // édition (Wikipédia générique, sans curation requise) existait déjà pour
 // une année à la fois ; ceci l'exécute pour 1903 → 2026 (hors guerres
