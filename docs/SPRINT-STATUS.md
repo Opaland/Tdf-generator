@@ -158,11 +158,11 @@ total dépassant 100 une fois comptées au même niveau de détail.
 
 ## Epic 23 — Revue globale de fin de session
 
-- [ ] 23.1 Sécurité (grep XSS/eval/innerHTML, `npm audit`)
-- [ ] 23.2 Validation d'entrée sur les routes qui écrivent en base
-- [ ] 23.3 Dette du backlog (recompter issue #10)
-- [ ] 23.4 Cohérence des textes (positionnement README/docs)
-- [ ] 23.5 Poids et dépendances (`package.json`)
+- [x] 23.1 Sécurité : grep `innerHTML`/`eval`/`new Function` sur tout `frontend/`+`backend/` (~70 occurrences) — toutes passent par `esc()`/`EF.esc()`, `npm audit --omit=dev` : 0 vulnérabilité
+- [x] 23.2 Validation d'entrée : spot-check `POST /api/stages` — `requireString`/`optionalString`/`optionalNumber`/`assertLatLonPaired` systématiques, conforme au motif déjà établi
+- [x] 23.3 Dette du backlog : issue #10 recomptée — 44 items clos / 6 ouverts (sur 50 suivis), chacun des 6 relié à une issue de suivi dédiée (pas un flou générique)
+- [x] 23.4 Cohérence des textes : grep positionnement (« 100% local », « aucun compte »...) — cohérent, pas de contradiction trouvée
+- [x] 23.5 Poids et dépendances : 5 dépendances directes (`better-sqlite3`, `express`, `fit-file-parser`, `leaflet`, `node-html-parser`), chacune déjà justifiée dans son historique d'adoption — rien de nouveau
 
 ## Epic 24 — Bilan final
 
