@@ -108,6 +108,20 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 - [x] 4.2 Isoler le sous-ensemble "recherche épuisée" (~50-60, ne pas rouvrir sans piste neuve)
 - [x] 4.3 Isoler le sous-ensemble "décision archi requise" (6, voir Epics 8-9)
 - [x] 4.4 Adopter la posture "documenté honnêtement" plutôt que forcer une résolution
+- [x] 4.5 Trouvaille du 17/10/2026 : le resserrement de `DIST_TOLERANCE_PCT`
+      à ±5 % (24/09/2026) n'avait jamais été répercuté dans les `confidence`
+      blocks de `historic_routes.json`, qui citaient encore l'ancien seuil
+      ±10 % et un statut `OK` — 50 occurrences de « tolérance ±10 »
+      retrouvées par `grep`
+- [x] 4.6 5 occurrences confirmées comme réellement mal étiquetées (`OK` au
+      lieu de `fail`) par régénération réelle du pipeline (réseau live, pas
+      supposé depuis le texte) et corrigées : 1992/20, 2024/4, 2024/16,
+      2024/21, 2025/19 — PR #351
+- [ ] 4.7 **backlog** — ~45 occurrences restantes du même motif, non
+      re-vérifiées une à une par régénération réelle ; l'essentiel semble
+      déjà correctement contextualisé (référence explicite à « l'ancienne
+      tolérance », ou écart hors tolérance sous les deux seuils) mais ça
+      reste à confirmer stage par stage, pas supposé
 
 ## Epic 5 — Sprint 4 : performance
 
