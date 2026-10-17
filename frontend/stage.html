@@ -73,6 +73,19 @@
       </div>
     </div>
 
+    <div id="communes-section" style="display:none">
+      <h2>Communes traversées par le tracé reconstitué</h2>
+      <div class="card">
+        <p class="meta-line" style="margin-top:0">Commune qui contient chaque point du tracé, tous les kilomètres
+          (geo.api.gouv.fr, France seulement). Une commune traversée n'est pas forcément un bourg traversé,
+          et une traversée plus courte que le pas peut manquer.</p>
+        <button id="btn-communes" class="secondary">Calculer les communes traversées</button>
+        <span id="communes-msg" class="meta-line"></span>
+        <ol class="fauxplat-list" id="communes-list"></ol>
+        <p id="communes-detail" class="meta-line" style="margin-bottom:0"></p>
+      </div>
+    </div>
+
     <div id="confidence-section" style="display:none">
       <h2>Réserves de confiance sur les données</h2>
       <div class="card"><ul class="checks" id="confidence-list"></ul></div>

@@ -252,6 +252,14 @@ const MIGRATIONS = [
     up(database) {
       ensureColumn(database, 'stages', 'routing_profile', 'routing_profile TEXT');
     },
+  },  {
+    version: 6,
+    description: 'tracks.communes : communes traversées, calculées à la demande (pipeline/communes.js)',
+    up(database) {
+      // NULL tant que personne ne l'a demandé ; remis à NULL par toute
+      // régénération (INSERT OR REPLACE INTO tracks), jamais périmé.
+      ensureColumn(database, 'tracks', 'communes', 'communes TEXT');
+    },
   },
 ];
 const SCHEMA_VERSION = MIGRATIONS[MIGRATIONS.length - 1].version;

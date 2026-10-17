@@ -10,6 +10,7 @@
 | Nominatim (OpenStreetMap) | géocodage (hors France) | `nominatim.openstreetmap.org` |
 | opentopodata (EU-DEM) | altimétrie (hors France) | `api.opentopodata.org` |
 | Wikipédia | listes d'étapes historiques (mode archives) | `en.wikipedia.org` |
+| geo.api.gouv.fr (découpage administratif) | communes traversées, **à la demande** seulement (bouton de la fiche, France) — aucune génération n'en dépend | `geo.api.gouv.fr` |
 
 Aucun de ces services n'offre de garantie de disponibilité — panne, rate
 limit resserré, ou blocage du user-agent peuvent survenir sans préavis. Ce

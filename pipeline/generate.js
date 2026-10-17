@@ -47,6 +47,28 @@ function geocodeOptsFor(wp, prevPos) {
 }
 
 /**
+ * tracks.communes relu défensivement, comme tracks.surfaces : une sauvegarde
+ * importée peut y porter n'importe quelle chaîne — valeur illisible ou mal
+ * formée = null (section masquée), jamais une exception.
+ */
+function parseCommunes(raw) {
+  if (!raw) return null;
+  try {
+    const v = JSON.parse(raw);
+    const optStr = (x) => x == null || typeof x === 'string';
+    const count = (x) => x == null || (Number.isInteger(x) && x >= 0);
+    const ok = v && typeof v === 'object' && Array.isArray(v.communes) &&
+      Number.isInteger(v.points) && v.points >= 0 && Number.isFinite(v.stepM) && v.stepM > 0 && v.stepM <= 100000 &&
+      count(v.pointsHorsFrance) && count(v.pointsSansCommune) &&
+      v.communes.every((c) => c && typeof c.nom === 'string' && Number.isFinite(c.km) && c.km >= 0 && c.km < 10000 &&
+        optStr(c.departement) && optStr(c.code));
+    return ok ? v : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
  * tracks.surfaces relu défensivement : la colonne peut venir d'une sauvegarde
  * importée (POST /api/backup/import n'accepte que des types SQLite, pas une
  * forme JSON) — une valeur illisible ou mal formée donne `null` (section
@@ -346,7 +368,7 @@ function loadStageFull(stageId) {
       bonus_sec: w.bonus_sec ? JSON.parse(w.bonus_sec) : null,
     })),
     track: track
-      ? { ...track, geojson: JSON.parse(track.geojson), approx_segments: track.approx_segments ? JSON.parse(track.approx_segments) : [], surfaces: parseSurfaces(track.surfaces) }
+      ? { ...track, geojson: JSON.parse(track.geojson), approx_segments: track.approx_segments ? JSON.parse(track.approx_segments) : [], surfaces: parseSurfaces(track.surfaces), communes: parseCommunes(track.communes) }
       : null,
     samples,
     climbs: climbs.map((c) => ({ ...c, km_blocks: c.km_blocks ? JSON.parse(c.km_blocks) : [] })),
