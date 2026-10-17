@@ -310,6 +310,41 @@ produit : 30.5 attend une décision.
 - [x] 30.6 Relecture adverse : fuite de la FC dans la démo statique (`scripts/build-site.js`, `SELECT *` et `loadStageFull`) corrigée et testée par un vrai build ; courbe mesurée section masquée (texte illisible sur mobile) ; FC lue hors `<extensions>` ; repli Strava si le flux `heartrate` est refusé (comportement réel non vérifié faute d'activité sans capteur testée — règle 9)
 - [ ] 30.5 **en attente de décision** — Zones de FC : modèle (5 zones % FC max ? Karvonen ?) et source de la FC max (saisie, 220-âge, max observé)
 
+## Epic 31 — Segments et temps comparés (issue #228, phase 6) — en attente de décision
+
+Périmètre accepté dans #228 (« segments : inclus »), mais la forme n'a pas
+été tranchée et elle engage le modèle de données. Constat fait dans le code
+le 17/10/2026, avant toute proposition :
+- aucun temps n'est conservé par point : `elevation_samples` n'a que la
+  distance (l'horodatage brut sert seulement à `pipeline/rideStats.js` puis
+  il est jeté) ; mesurer un temps sur une portion exige donc d'abord une
+  colonne de temps par échantillon (migration), quelle que soit l'option ;
+- les côtes détectées (`climbs`) portent déjà un nom et des bornes en km, et
+  le bilan les regroupe déjà par nom (« gravi N fois ») ;
+- une même côte peut changer de nom d'un import à l'autre (géocodage
+  inverse, `name_source`), donc un regroupement par nom seul est fragile.
+
+Options :
+- **A — Côtes = segments.** Temps de montée de chaque côte détectée,
+  meilleur temps et historique par côte, appariées par position du sommet
+  (rayon ~150 m) plutôt que par nom. Pas de saisie, réutilise `climbs` ;
+  ne couvre ni le plat ni une portion choisie par l'utilisateur.
+- **B — Segments tracés à la main.** L'utilisateur choisit un départ et une
+  arrivée sur une de ses traces ; chaque trace qui passe par les deux points
+  (dans l'ordre, à ~30 m près) produit un effort. Le plus proche de Strava,
+  mais une table `segments` + `segment_efforts`, un écran d'édition et une
+  détection de passage à écrire et à fiabiliser.
+- **C — A puis B.** A d'abord (peu de surface, profite tout de suite des
+  imports existants une fois le temps stocké), B ensuite si le besoin
+  demeure.
+
+Recommandation : C. Prérequis commun aux trois : stocker le temps écoulé par
+échantillon à l'import (une migration, aucun effet sur les étapes routées).
+Les imports déjà faits n'ont pas ce temps : ils ne pourront être comptés
+qu'après réimport, ce qui sera affiché, jamais deviné.
+
+- [ ] 31.1 **en attente de décision** — choisir A, B ou C
+
 ## Epic 24 — Bilan final
 
 - [x] 24.1 Rapport de clôture par epic (17/10/2026), voir ci-dessous
