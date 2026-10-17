@@ -287,12 +287,13 @@ Périmètre déjà tranché avec l'utilisateur dans #228 (« inventaire matérie
 inclus »). Une seule instance, données partagées comme le reste des traces
 (aucun cloisonnement par compte n'existe dans ce dépôt).
 
-- [ ] 29.1 Migration 7 : table `gear` (nom, type vélo/chaussures/autre, retiré) et `stages.gear_id` (clé étrangère, `ON DELETE SET NULL`) ; empreinte figée dans `test/dbMigrations.test.js`
-- [ ] 29.2 API `GET/POST/PUT/DELETE /api/gear`, chaque champ validé avant SQL (règle 8) ; cumuls par matériel calculés sur les seules traces importées terminées (`tracks.router = 'trace'`), durée totale `null` et compteur « chronométrées » quand aucune sortie n'a d'horodatage (règle 10)
-- [ ] 29.3 `PUT /api/traces/:id/gear` : refusé (404) pour une étape qui n'est pas une trace importée, 400 pour un matériel inexistant ; `null` détache
-- [ ] 29.4 Sauvegarde portable : `gear` exporté et restauré avant `stages` (ordre des clés étrangères) ; une ancienne sauvegarde sans `gear` se restaure toujours
-- [ ] 29.5 Mode public : suppression d'un matériel réservée à l'admin (comme `DELETE /api/stages/:id`) ; nom affiché échappé partout (règle 1)
-- [ ] 29.6 Écran « Mes traces » : section Matériel (liste + cumuls, ajout, renommage, retrait) et choix du matériel par sortie récente ; vérification Playwright avant/après (360 et 1440 px)
+- [x] 29.1 Migration 7 : table `gear` (nom, type vélo/chaussures/autre, retiré) et `stages.gear_id` (clé étrangère, `ON DELETE SET NULL`) ; empreinte figée dans `test/dbMigrations.test.js`
+- [x] 29.2 API `GET/POST/PUT/DELETE /api/gear`, chaque champ validé avant SQL (règle 8) ; cumuls par matériel calculés sur les seules traces importées terminées (`tracks.router = 'trace'`), durée totale `null` et compteur « chronométrées » quand aucune sortie n'a d'horodatage (règle 10)
+- [x] 29.3 `PUT /api/traces/:id/gear` : refusé (404) pour une étape qui n'est pas une trace importée, 400 pour un matériel inexistant ; `null` détache
+- [x] 29.4 Sauvegarde portable : `gear` exporté et restauré avant `stages` (ordre des clés étrangères) ; une ancienne sauvegarde sans `gear` se restaure toujours
+- [x] 29.5 Mode public : suppression d'un matériel réservée à l'admin (comme `DELETE /api/stages/:id`) ; nom affiché échappé partout (règle 1)
+- [x] 29.6 Écran « Mes traces » : section Matériel (liste + cumuls, ajout, renommage, retrait) et choix du matériel par sortie récente ; vérification Playwright avant/après (360 et 1440 px)
+- [x] 29.7 Relecture adverse : 4 défauts fonctionnels corrigés — association limitée aux 20 sorties récentes (liste complète `GET /api/gear/traces`), réponses hors ordre (compteur de séquence), bilan dépendant de `/api/auth/me` (droit calculé une fois, échec = non), section invisible avant la première trace (carte à part) ; aucune faille de sécurité trouvée
 
 ## Epic 24 — Bilan final
 

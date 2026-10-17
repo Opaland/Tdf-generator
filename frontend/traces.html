@@ -40,7 +40,16 @@
     <h3>Cols gravis</h3>
     <ul class="fauxplat-list" id="summary-climbs"></ul>
 
-    <h3>Matériel</h3>
+    <h3>Sorties récentes</h3>
+    <div style="overflow-x:auto"><table class="stats" id="summary-recent"><thead><tr>
+      <th>Date</th><th>Nom</th><th>Distance</th><th>D+</th><th>Durée</th><th>Matériel</th>
+    </tr></thead><tbody></tbody></table></div>
+  </div>
+
+  <div id="gear-section" style="display:none">
+  <h2>Matériel</h2>
+  <div class="card">
+    <p class="meta-line">Vélos, chaussures… : choisissez le matériel de chaque sortie pour suivre son kilométrage.</p>
     <div style="overflow-x:auto"><table class="stats" id="gear-table"><thead><tr>
       <th>Matériel</th><th>Sorties</th><th>Distance</th><th>D+</th><th>Durée</th><th></th>
     </tr></thead><tbody></tbody></table></div>
@@ -52,11 +61,13 @@
       <button type="submit">Ajouter</button>
     </form>
     <p id="gear-msg" class="meta-line" aria-live="polite"></p>
-
-    <h3>Sorties récentes</h3>
-    <div style="overflow-x:auto"><table class="stats" id="summary-recent"><thead><tr>
-      <th>Date</th><th>Nom</th><th>Distance</th><th>D+</th><th>Durée</th><th>Matériel</th>
-    </tr></thead><tbody></tbody></table></div>
+    <details id="gear-all" style="display:none">
+      <summary id="gear-all-summary"></summary>
+      <div style="overflow-x:auto"><table class="stats" id="gear-all-table"><thead><tr>
+        <th>Date</th><th>Nom</th><th>Distance</th><th>Matériel</th>
+      </tr></thead><tbody></tbody></table></div>
+    </details>
+  </div>
   </div>
 
   <h2>Import GPX / FIT (universel)</h2>

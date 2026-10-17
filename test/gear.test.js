@@ -183,3 +183,24 @@ test('sauvegarde portable : gear exportée et restaurée avec le lien des sortie
   assert.strictEqual(r.status, 400);
   assert.strictEqual(db.prepare('SELECT COUNT(*) n FROM stages').get().n, 1, 'transaction annulée');
 });
+
+test('GET /api/gear/traces : toutes les traces terminées (au-delà des 20 récentes), date normalisée, compte des non associées', async () => {
+  const db = getDb();
+  const { body: g } = await call('POST', '/api/gear', { name: 'Vélo' });
+  const ids = [];
+  for (let i = 0; i < 25; i++) ids.push(insertStage(db, { distanceKm: i, gearId: i === 0 ? g.id : null }));
+  insertStage(db, { router: 'osrm' });
+  insertStage(db, { state: 'error' });
+  db.prepare("UPDATE stages SET date = '02/06/2026' WHERE id = ?").run(ids[1]);
+  db.prepare("UPDATE stages SET date = '2026-06-09' WHERE id = ?").run(ids[2]);
+  const { body } = await call('GET', '/api/gear/traces');
+  assert.strictEqual(body.traces.length, 25);
+  assert.strictEqual(body.unassignedCount, 24);
+  assert.strictEqual(body.traces[0].id, ids[2], 'datée d\'abord');
+  assert.strictEqual(body.traces.find((t) => t.id === ids[1]).date, null);
+  // La plus ancienne (hors des 20 récentes du bilan) est bien associable.
+  assert.strictEqual((await call('PUT', `/api/traces/${ids[0]}/gear`, { gearId: null })).status, 200);
+  const { recent } = (await call('GET', '/api/traces/summary')).body;
+  assert.strictEqual(recent.length, 20);
+  assert.ok(!recent.some((r) => r.id === ids[3]), 'hors du bilan récent, mais présente dans /api/gear/traces');
+});

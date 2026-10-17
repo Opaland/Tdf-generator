@@ -100,6 +100,28 @@ module.exports = function register(app) {
     res.json({ ok: true });
   }));
 
+  // Toutes les traces importées terminées, pour associer un matériel à
+  // n'importe laquelle — `recent` du bilan s'arrête aux 20 dernières
+  // (relecture adverse : sans cette liste, les cumuls par matériel restaient
+  // incomplets dès la 21e sortie, sans que rien ne le dise).
+  app.get('/api/gear/traces', wrap(async (req, res) => {
+    const rows = getDb().prepare(
+      `SELECT s.id, s.name, s.date, s.generated_distance_km, s.gear_id
+       FROM stages s JOIN tracks t ON t.stage_id = s.id
+       WHERE t.router = 'trace' AND s.state = 'done'`
+    ).all();
+    // Même normalisation de date que GET /api/traces/summary : un format
+    // inattendu (PUT /api/stages/:id ne valide que le type) vaut « inconnue ».
+    const traces = rows.map((r) => ({
+      id: r.id,
+      name: r.name,
+      date: r.date != null && /^\d{4}-\d{2}-\d{2}$/.test(r.date) ? r.date : null,
+      distanceKm: Math.round((r.generated_distance_km || 0) * 10) / 10,
+      gearId: r.gear_id,
+    })).sort((a, b) => (b.date || '').localeCompare(a.date || '') || b.id - a.id);
+    res.json({ traces, unassignedCount: traces.filter((t) => t.gearId == null).length });
+  }));
+
   app.put('/api/traces/:id/gear', wrap(async (req, res) => {
     const id = routeId(req.params.id);
     const gearId = req.body?.gearId;

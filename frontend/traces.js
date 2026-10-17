@@ -668,17 +668,62 @@ async function setTraceGear(select) {
   }
 }
 
+/** Section Matériel : carte à part du bilan, visible même avant la première
+ * trace importée (on déclare son vélo d'abord). `traces` = toutes les
+ * traces terminées (GET /api/gear/traces), pas seulement les 20 récentes. */
+function renderGear(g, all, canDelete) {
+  document.getElementById('gear-section').style.display = 'block';
+  const tbody = document.querySelector('#gear-table tbody');
+  const form = document.getElementById('gear-add');
+  if (!g) {
+    tbody.innerHTML = '<tr><td colspan="6" class="meta-line">Matériel indisponible (erreur serveur) — rechargez la page.</td></tr>';
+    form.style.display = 'none';
+    document.getElementById('gear-all').style.display = 'none';
+    return;
+  }
+  form.style.display = '';
+  tbody.innerHTML = buildGearRows(currentGear, { canDelete });
+  const details = document.getElementById('gear-all');
+  if (!all || !all.traces.length || !currentGear.length) {
+    details.style.display = 'none';
+    return;
+  }
+  details.style.display = '';
+  document.getElementById('gear-all-summary').textContent =
+    `Toutes les sorties (${all.traces.length})${all.unassignedCount ? ` — ${all.unassignedCount} sans matériel, non comptée${all.unassignedCount > 1 ? 's' : ''} ci-dessus` : ''}`;
+  document.querySelector('#gear-all-table tbody').innerHTML = all.traces.map((t) => `<tr>
+      <td>${t.date ? EF.esc(new Date(t.date + 'T00:00:00Z').toLocaleDateString('fr-FR')) : '—'}</td>
+      <td><a href="/stage.html?id=${Number(t.id)}">${EF.esc(t.name)}</a></td>
+      <td>${Number(t.distanceKm)} km</td>
+      <td>${buildGearSelect(currentGear, t.id, t.gearId ?? null)}</td>
+    </tr>`).join('');
+}
+
+// Chaque action relance un rafraîchissement complet : seule la réponse du
+// dernier lancé est rendue, sinon une réponse lente plus ancienne écrasait
+// un état plus récent (relecture adverse, Epic 29).
+let refreshSeq = 0;
+// Droit de supprimer un matériel : calculé une fois, un échec vaut « non » —
+// le bilan ne dépend plus de /api/auth/me (relecture adverse).
+let canDeleteGearP = null;
+
 async function loadSummary() {
   if (window.EF_STATIC) return;
+  const seq = ++refreshSeq;
+  canDeleteGearP ??= canConnectAccount().catch(() => false);
+  // Non bloquants entre eux : un échec n'empêche pas le reste de s'afficher.
+  const [s, g, all, canDelete] = await Promise.all([
+    EF.api('/api/traces/summary').catch(() => null),
+    EF.api('/api/gear').catch(() => null),
+    EF.api('/api/gear/traces').catch(() => null),
+    canDeleteGearP,
+  ]);
+  if (seq !== refreshSeq) return;
+  currentGear = g ? g.gear : [];
+  renderGear(g, all, canDelete);
   const box = document.getElementById('summary-box');
   try {
-    const [s, g] = await Promise.all([
-      EF.api('/api/traces/summary'),
-      // Non bloquant : sans liste de matériel, le reste du bilan s'affiche.
-      EF.api('/api/gear').catch(() => null),
-    ]);
-    if (!s.traceCount) return;
-    currentGear = g ? g.gear : [];
+    if (!s || !s.traceCount) return;
 
     const tiles = [
       { v: s.traceCount, l: `sortie${s.traceCount > 1 ? 's' : ''} importée${s.traceCount > 1 ? 's' : ''}` },
@@ -731,10 +776,6 @@ async function loadSummary() {
         <td>${g ? buildGearSelect(currentGear, t.id, t.gearId ?? null) : '—'}</td>
       </tr>`).join('') || '<tr><td colspan="6" class="meta-line">Aucune sortie.</td></tr>';
 
-    document.querySelector('#gear-table tbody').innerHTML = g
-      ? buildGearRows(currentGear, { canDelete: await canConnectAccount() })
-      : '<tr><td colspan="6" class="meta-line">Matériel indisponible.</td></tr>';
-
     box.style.display = 'block';
   } catch {
     // Non essentiel : l'écran reste utilisable sans le bilan.
@@ -753,9 +794,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     const btn = e.target.closest('button[data-gear-action]');
     if (btn) gearAction(btn);
   });
-  document.querySelector('#summary-recent tbody').addEventListener('change', (e) => {
-    if (e.target.matches('select[data-trace-id]')) setTraceGear(e.target);
-  });
+  for (const sel of ['#summary-recent tbody', '#gear-all-table tbody']) {
+    document.querySelector(sel).addEventListener('change', (e) => {
+      if (e.target.matches('select[data-trace-id]')) setTraceGear(e.target);
+    });
+  }
   const dz = document.getElementById('dropzone');
   const input = document.getElementById('gpx-file');
   dz.addEventListener('click', () => input.click());
