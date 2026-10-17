@@ -65,6 +65,24 @@ async function importFromLink() {
   }
 }
 
+/**
+ * Exécute l'action d'un bouton et affiche son erreur en ligne, juste après
+ * lui (textContent, jamais innerHTML) — sans quoi un refus du serveur (403
+ * « réservé aux administrateurs » en mode public, par exemple) restait un
+ * rejet non géré, sans aucun message (relecture adverse, Epic 27.4).
+ */
+async function withInlineError(btn, fn) {
+  btn.parentElement?.querySelector('.inline-error')?.remove();
+  try {
+    await fn();
+  } catch (err) {
+    const msg = document.createElement('span');
+    msg.className = 'meta-line inline-error';
+    msg.textContent = ` Erreur : ${err.message}`;
+    btn.after(msg);
+  }
+}
+
 async function renderSuunto() {
   const box = document.getElementById('suunto-box');
   let st;
@@ -93,7 +111,8 @@ async function renderSuunto() {
         <label class="field">Clé d'abonnement (Ocp-Apim-Subscription-Key)<input id="su-key" type="password" autocomplete="off"></label>
       </div>
       <button id="su-save">Enregistrer la configuration</button>`;
-    document.getElementById('su-save').addEventListener('click', async () => {
+    const suSave = document.getElementById('su-save');
+    suSave.addEventListener('click', () => withInlineError(suSave, async () => {
       await EF.api('/api/suunto/config', {
         method: 'POST',
         body: {
@@ -103,7 +122,7 @@ async function renderSuunto() {
         },
       });
       renderSuunto();
-    });
+    }));
     return;
   }
 
@@ -119,10 +138,11 @@ async function renderSuunto() {
       <button id="su-refresh" class="secondary">↻ Rafraîchir</button>
       <button id="su-disconnect" class="secondary">Déconnecter</button></p>
     <div id="su-list"><p class="meta-line">chargement des sorties…</p></div>`;
-  document.getElementById('su-disconnect').addEventListener('click', async () => {
+  const suDisc = document.getElementById('su-disconnect');
+  suDisc.addEventListener('click', () => withInlineError(suDisc, async () => {
     await EF.api('/api/suunto/disconnect', { method: 'POST' });
     renderSuunto();
-  });
+  }));
   document.getElementById('su-refresh').addEventListener('click', renderSuunto);
 
   const list = document.getElementById('su-list');
@@ -435,7 +455,8 @@ async function renderStrava() {
         <label class="field">Client secret<input id="st-secret" type="password" autocomplete="off"></label>
       </div>
       <button id="st-save">Enregistrer la configuration</button>`;
-    document.getElementById('st-save').addEventListener('click', async () => {
+    const stSave = document.getElementById('st-save');
+    stSave.addEventListener('click', () => withInlineError(stSave, async () => {
       await EF.api('/api/strava/config', {
         method: 'POST',
         body: {
@@ -444,7 +465,7 @@ async function renderStrava() {
         },
       });
       renderStrava();
-    });
+    }));
     return;
   }
 
@@ -460,10 +481,11 @@ async function renderStrava() {
       <button id="st-refresh" class="secondary">↻ Rafraîchir</button>
       <button id="st-disconnect" class="secondary">Déconnecter</button></p>
     <div id="st-list"><p class="meta-line">chargement des sorties…</p></div>`;
-  document.getElementById('st-disconnect').addEventListener('click', async () => {
+  const stDisc = document.getElementById('st-disconnect');
+  stDisc.addEventListener('click', () => withInlineError(stDisc, async () => {
     await EF.api('/api/strava/disconnect', { method: 'POST' });
     renderStrava();
-  });
+  }));
   document.getElementById('st-refresh').addEventListener('click', renderStrava);
 
   const list = document.getElementById('st-list');

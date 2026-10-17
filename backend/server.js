@@ -74,10 +74,21 @@ const ADMIN_ROUTES = [
   ['post', '/api/editions/import'],
   ['post', '/api/editions/import-all'],
   ['delete', '/api/stages/:id'],
+  // Connecteurs : un seul compte Suunto/Strava partagé par l'instance —
+  // le (re)connecter écrase les jetons de l'admin, lister ou importer lit
+  // ses sorties privées (relecture adverse).
   ['post', '/api/suunto/config'],
   ['post', '/api/suunto/disconnect'],
+  ['get', '/api/suunto/connect'],
+  ['get', '/api/suunto/callback'],
+  ['get', '/api/suunto/workouts'],
+  ['post', '/api/suunto/import'],
   ['post', '/api/strava/config'],
   ['post', '/api/strava/disconnect'],
+  ['get', '/api/strava/connect'],
+  ['get', '/api/strava/callback'],
+  ['get', '/api/strava/activities'],
+  ['post', '/api/strava/import'],
   ['get', '/api/secrets/status'],
 ];
 for (const [method, route] of ADMIN_ROUTES) app[method](route, requireAdmin);

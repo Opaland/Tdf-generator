@@ -69,11 +69,39 @@ dans la liste (insensible à la casse), sinon 403 :
   supprime puis recrée l'édition) ;
 - `DELETE /api/stages/:id` ;
 - `POST /api/offline` (mode hors-ligne, global au serveur) ;
-- `POST /api/suunto/config`, `/api/suunto/disconnect`,
-  `/api/strava/config`, `/api/strava/disconnect`, `GET /api/secrets/status`.
+- tout le connecteur Suunto/Strava sauf son statut : `config`, `disconnect`,
+  `connect`, `callback`, `workouts`/`activities`, `import` (un seul compte
+  partagé par l'instance : le reconnecter écraserait les jetons de l'admin,
+  lister ou importer lirait ses sorties privées) ;
+- `GET /api/secrets/status`.
+
+Restent ouverts à tout compte : créer, modifier et générer des étapes,
+importer des traces, créer une édition, exporter. Le modèle reste
+collaboratif : un membre peut modifier (`PUT /api/stages/:id`) une étape
+créée par un autre, il ne peut pas la supprimer.
 
 **Liste vide ou absente = personne n'est administrateur** : ces routes sont
-alors fermées à tous, jamais ouvertes par défaut. `GET /api/auth/me` renvoie
+alors fermées à tous, jamais ouvertes par défaut.
+
+**Inscription d'un compte administrateur** : l'inscription ne vérifie pas la
+propriété de l'email. Pour qu'un tiers ne puisse pas s'inscrire le premier
+avec un email de la liste, l'inscription de ces emails exige un jeton
+d'amorçage, `ETAPEFORGE_ADMIN_TOKEN` (une valeur longue et aléatoire, par
+exemple `openssl rand -hex 32`). Sans jeton configuré, l'inscription d'un
+email admin est refusée. La page de connexion n'a pas de champ pour ce
+jeton : créez le compte une fois, en ligne de commande, puis connectez-vous
+normalement sur `/login.html` :
+
+```bash
+curl -s https://etapeforge.votre-domaine.fr/api/auth/register \
+  -H 'Content-Type: application/json' \
+  -d '{"email":"vous@exemple.fr","password":"…","admin_token":"<ETAPEFORGE_ADMIN_TOKEN>"}'
+```
+
+Un compte qui existait déjà avant d'être ajouté à la liste devient admin
+sans jeton (il a été créé avant que l'email soit privilégié) : vérifiez
+alors que ce compte est bien le vôtre — si quelqu'un l'avait créé avant
+vous, l'ajouter à la liste lui donnerait les droits. `GET /api/auth/me` renvoie
 `admin: true/false` pour le compte connecté. Hors mode public, la variable
 n'a aucun effet.
 
@@ -114,6 +142,7 @@ services:
       - PORT=4567
       - ETAPEFORGE_PUBLIC=1
       - ETAPEFORGE_ADMIN_EMAILS=vous@exemple.fr
+      - ETAPEFORGE_ADMIN_TOKEN=${ETAPEFORGE_ADMIN_TOKEN}   # valeur dans un .env, jamais commitée
     ports:
       - "127.0.0.1:4567:4567"   # seul Caddy (sur la même machine) y accède
 ```

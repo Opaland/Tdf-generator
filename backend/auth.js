@@ -184,6 +184,14 @@ function adminEmails() {
     .split(',').map((e) => e.trim().toLowerCase()).filter(Boolean));
 }
 
+function adminTokenMatches(given) {
+  const expected = process.env.ETAPEFORGE_ADMIN_TOKEN;
+  if (!expected || typeof given !== 'string') return false;
+  const a = crypto.createHash('sha256').update(given).digest();
+  const b = crypto.createHash('sha256').update(expected).digest();
+  return crypto.timingSafeEqual(a, b);
+}
+
 function isAdmin(user) {
   return !!user && adminEmails().has(String(user.email).toLowerCase());
 }
@@ -210,6 +218,15 @@ router.post('/register', rateLimit, async (req, res) => {
   const db = getDb();
   if (db.prepare('SELECT id FROM users WHERE email = ?').get(email)) {
     return res.status(409).json({ error: 'Un compte existe déjà avec cet email' });
+  }
+  // L'inscription ne vérifie pas la propriété de l'email : sans ce garde, le
+  // premier venu à s'inscrire avec un email de ETAPEFORGE_ADMIN_EMAILS
+  // devenait administrateur (trouvaille de relecture adverse). Un email admin
+  // ne s'inscrit qu'avec le jeton d'amorçage ETAPEFORGE_ADMIN_TOKEN ; sans
+  // jeton configuré, l'inscription de ces emails est refusée (un compte
+  // existant avant la liste reste admin : il a prouvé sa priorité).
+  if (adminEmails().has(email) && !adminTokenMatches((req.body || {}).admin_token)) {
+    return res.status(403).json({ error: 'Inscription d\'un compte administrateur : jeton ETAPEFORGE_ADMIN_TOKEN requis (champ admin_token)' });
   }
   const hash = await hashPassword(password);
   const r = db.prepare('INSERT INTO users (email, password_hash) VALUES (?, ?)').run(email, hash);
