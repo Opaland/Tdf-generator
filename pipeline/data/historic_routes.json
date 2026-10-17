@@ -7849,7 +7849,7 @@
     "highlight": "Grand Départ à Utrecht, CLM inaugural remporté par Rohan Dennis"
   },
   "2022-femmes": {
-    "notes": "Première édition moderne du Tour de France Femmes, arrivée décisive à la Super Planche des Belles Filles. Édition reconstruite depuis Wikipédia (fixture pipeline/fixtures/wikipedia_2022_femmes_en.html) sans aucune curation avant ce correctif (backlog #10 section B, Chantier L Tour de France Femmes) : les 8 étapes affichaient un écart de distance sévèrement hors tolérance (de -50,9 % à -97,8 %, cette dernière pour l'étape 1, circuit parisien sans via). Cols/côtes sourcés : cyclingstage.com (descriptions de parcours détaillées par étape, même type de source déjà utilisé pour l'édition 2015 de ce fichier). Ce correctif ajoute les cols principaux des deux étapes de montagne (7 et 8), les plus emblématiques de l'édition — réduit sensiblement l'écart de distance sur ces deux étapes mais ne les ramène pas dans la tolérance ±10 % (voir les entrées confidence dédiées, curation volontairement partielle plutôt que vias inventés) ; les étapes 1 à 6 restent entièrement à curer.",
+    "notes": "Première édition moderne du Tour de France Femmes, arrivée décisive à la Super Planche des Belles Filles. Édition reconstruite depuis Wikipédia (fixture pipeline/fixtures/wikipedia_2022_femmes_en.html) sans aucune curation avant ce correctif (backlog #10 section B, Chantier L Tour de France Femmes) : les 8 étapes affichaient un écart de distance sévèrement hors tolérance (de -50,9 % à -97,8 %, cette dernière pour l'étape 1, circuit parisien sans via). Cols/côtes sourcés : cyclingstage.com (descriptions de parcours détaillées par étape, même type de source déjà utilisé pour l'édition 2015 de ce fichier). Ce correctif ajoute les cols principaux des deux étapes de montagne (7 et 8), les plus emblématiques de l'édition — réduit sensiblement l'écart de distance sur ces deux étapes mais ne les ramène pas dans la tolérance ±10 % (voir les entrées confidence dédiées, curation volontairement partielle plutôt que vias inventés). Étape 2 curée le 17/10/2026 depuis le roadbook ASO (-3,5 %, dans la tolérance, aucun rebroussement — voir confidence dédiée) ; les étapes 1 et 3 à 6 restent à curer (l'étape 1, circuit parisien à 12 tours, dépend du mécanisme « laps » encore absent, issue #251).",
     "stages": {
       "7": {
         "vias": [
@@ -7876,6 +7876,58 @@
           }
         ],
         "note": "Sélestat → Le Markstein (127,1 km, 30 juillet 2022), entièrement en Alsace. 35 km de plaine avant le Petit Ballon (via Munster), puis le col du Platzerwasel, une descente vers Oderen, et le Grand Ballon (déjà franchi par le Tour hommes en 1992, étape 11) avant les 7 derniers km sur la route des Crêtes jusqu'à l'arrivée. Munster et Oderen sourcés par cyclingstage.com (« stage-7-tdf-2022-women », relu en HTML brut, confirmé mot pour mot en relecture adverse par un second accès direct à la page). Colmar et Turckheim ajoutés en plus pour densifier le grand écart Sélestat-Munster (33,7 km sans point intermédiaire auparavant) : ce sont les villes évidentes sur l'axe direct (vallée de la Fecht/N83), non nommées par la source. Un essai d'ajout de « Wildenstein » pour combler l'écart Platzerwasel-Oderen (12,1 km) a été testé et abandonné cette session : il dégrade le résultat (+10,7 % au lieu de -10,0 %, avec 5 zones de rebroussement au lieu de 3), ce point n'étant en réalité pas sur le trajet direct de la descente. Coordonnées de Munster fixées explicitement (lat/lon) en relecture adverse : un homonyme français réel existe (Munster, Moselle, score Géoplateforme 0,973 contre 0,982 pour la bonne commune du Haut-Rhin) et n'était départagé que par le biais de proximité au near — fragile à un futur changement d'ordre des vias ; figé en dur par prudence, comme ailleurs dans ce fichier pour des cas d'homonymie serrée. Piste non exploitée de la même source cyclingstage.com, relevée en relecture adverse mais non vérifiée plus avant : « Shortly after the first passage on the line a long descent takes the riders to Oderen » suggère que le tracé repasse près de l'arrivée (Le Markstein) avant de redescendre vers Oderen — une boucle plutôt qu'un trajet linéaire, ce qui pourrait expliquer une partie des zones de rebroussement détectées dans cette zone (voir confidence), sans que cela ait été curé ni confirmé cette session."
+      },
+      "2": {
+        "start": { "label": "Nanteuil-lès-Meaux", "lat": 48.9306, "lon": 2.89893 },
+        "vias": [
+          { "label": "Magny-Saint-Loup", "kind": "via", "lat": 48.907558, "lon": 2.9133313 },
+          { "label": "Bouleurs", "kind": "via", "lat": 48.88019, "lon": 2.907062 },
+          { "label": "Tigeaux", "kind": "col", "lat": 48.8260028, "lon": 2.9012773 },
+          { "label": "Villeneuve-le-Comte", "kind": "via", "lat": 48.8137607, "lon": 2.8298314 },
+          { "label": "Neufmoutiers-en-Brie", "kind": "via", "lat": 48.7747207, "lon": 2.8268273 },
+          { "label": "Les Chapelles-Bourbon", "kind": "via", "lat": 48.7409307, "lon": 2.8397868 },
+          { "label": "Châtres", "kind": "via", "lat": 48.7089097, "lon": 2.8095273 },
+          { "label": "Liverdy-en-Brie", "kind": "via", "lat": 48.6996708, "lon": 2.7758202 },
+          { "label": "Coubert", "kind": "via", "lat": 48.6726066, "lon": 2.6954544 },
+          { "label": "Lissy", "kind": "via", "lat": 48.625886, "lon": 2.6954882 },
+          { "label": "Château de Vaux-le-Vicomte", "kind": "via", "lat": 48.5658656, "lon": 2.7141466 },
+          { "label": "Blandy", "kind": "via", "lat": 48.5674007, "lon": 2.7824287 },
+          { "label": "Champeaux", "kind": "via", "lat": 48.5860581, "lon": 2.8066888 },
+          { "label": "Saint-Méry", "kind": "via", "lat": 48.5782223, "lon": 2.8278032 },
+          { "label": "Bombon", "kind": "via", "lat": 48.5723121, "lon": 2.8578404 },
+          { "label": "Bréau", "kind": "via", "lat": 48.5620927, "lon": 2.8806749 },
+          { "label": "La Chapelle-Gauthier", "kind": "via", "lat": 48.54948, "lon": 2.89838 },
+          { "label": "Fontenailles", "kind": "via", "lat": 48.555306, "lon": 2.953889 },
+          { "label": "Nangis", "kind": "via", "lat": 48.5549416, "lon": 3.0136837 },
+          { "label": "Maison-Rouge", "kind": "via", "lat": 48.5598416, "lon": 3.1508994 },
+          { "label": "Vulaines-lès-Provins", "kind": "via", "lat": 48.56012, "lon": 3.21954 },
+          { "label": "Courton-le-Haut", "kind": "via", "lat": 48.534096, "lon": 3.232871 },
+          { "label": "Provins", "kind": "via" },
+          { "label": "Limars", "kind": "via", "lat": 48.596704, "lon": 3.232728 },
+          { "label": "Mortery", "kind": "via", "lat": 48.5991156, "lon": 3.2604475 },
+          { "label": "Rouilly", "kind": "via", "lat": 48.5835795, "lon": 3.2893256 }
+        ],
+        "confidence": [
+          {
+            "claim": "tracé reconstitué depuis le roadbook ASO complet (59 points kilométrés, reproduit par dimensionsvelo.com, « source : ASO »)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "débloque une étape d'abord écartée cette même session : les prévisualisations (cyclingstage.com, rouleur.cc, Wikipédia) ne nommaient qu'un seul point (côte de Tigeaux) sur 136 km. 26 communes et lieux du roadbook retenus, géocodés (Nominatim restreint à la Seine-et-Marne ; « Limars » absent de Nominatim, trouvé dans l'index POI IGN, lieu-dit habité, 77160) puis figés. Départ réel figé à Nanteuil-lès-Meaux : le roadbook met « D405 Meaux », « D228 Nanteuil-lès-Meaux » et « Meaux » tous à km 0 — partir du centre de Meaux ajoutait +6 km dès le premier tronçon (mesuré). Château de Vaux-le-Vicomte (km 62,2) figé sur le résultat Nominatim de type « attraction » (48,5658656/2,7141466)."
+          },
+          {
+            "claim": "Crécy-la-Chapelle et Voulangis écartés (carrefours en bordure de commune)",
+            "status": "OK",
+            "level": "moyenne",
+            "detail": "le roadbook les code « Crécy-la-Chapelle (D85-D21-D934-D21) » et « Le Faubourg (Voulangis) (D235-D20) » : la course longe ces communes par les départementales. Mesuré avec les deux : -1,1 % au total mais 2 zones de rebroussement (km 11-14) et une dérive cumulée jusqu'à +7,6 km ; sans les deux : -3,5 %, aucune zone de rebroussement, dérive ≤ ~5 km. Version retenue : la seconde — le total est un peu plus loin de la cible, mais le tracé est plus fidèle point par point. Même mécanisme que les étapes 3 et 4 de cette édition."
+          },
+          {
+            "claim": "distance reconstituée 131,6 km vs officiel 136,4 km (-3,5 %), dans la tolérance ±5 %",
+            "status": "OK",
+            "level": "haute",
+            "detail": "vérifié par deux régénérations réelles indépendantes (import + generate, bases isolées) : 131,6 km les deux fois, aucun repli OSRM observé, aucune zone de rebroussement. Écart cumulé mesuré point par point contre le roadbook : entre -1,6 et +4,7 km sur tout le parcours (pire point : Coubert, km 47,5 contre 42,8), sans compensation notable entre tronçons. Restent un tronçon plus court que la course autour de Lissy (-3,6 km : le roadbook ne nomme qu'un carrefour entre Lissy et Vaux-le-Vicomte) et une boucle finale par Limars/Mortery/Rouilly légèrement plus courte (-1,8 km)."
+          }
+        ],
+        "note": "Meaux → Provins (136,4 km, 25 juillet 2022), étape de plaine de la Brie : côte de Tigeaux (seule difficulté répertoriée, km 16,9), Villeneuve-le-Comte, Coubert, Château de Vaux-le-Vicomte, Nangis, premier passage sur la ligne à Provins au km 116,7 puis boucle finale par Limars, Mortery et Rouilly. Reconstitué depuis le roadbook ASO. Résultat : 131,6 km (-3,5 %, dans la tolérance, dérive intermédiaire ≤ ~5 km, aucun rebroussement)."
       },
       "8": {
         "vias": [
