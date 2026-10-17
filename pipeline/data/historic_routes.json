@@ -7849,7 +7849,7 @@
     "highlight": "Grand Départ à Utrecht, CLM inaugural remporté par Rohan Dennis"
   },
   "2022-femmes": {
-    "notes": "Première édition moderne du Tour de France Femmes, arrivée décisive à la Super Planche des Belles Filles. Édition reconstruite depuis Wikipédia (fixture pipeline/fixtures/wikipedia_2022_femmes_en.html) sans aucune curation avant ce correctif (backlog #10 section B, Chantier L Tour de France Femmes) : les 8 étapes affichaient un écart de distance sévèrement hors tolérance (de -50,9 % à -97,8 %, cette dernière pour l'étape 1, circuit parisien sans via). Cols/côtes sourcés : cyclingstage.com (descriptions de parcours détaillées par étape, même type de source déjà utilisé pour l'édition 2015 de ce fichier). Ce correctif ajoute les cols principaux des deux étapes de montagne (7 et 8), les plus emblématiques de l'édition — réduit sensiblement l'écart de distance sur ces deux étapes mais ne les ramène pas dans la tolérance ±10 % (voir les entrées confidence dédiées, curation volontairement partielle plutôt que vias inventés) ; les étapes 1 à 6 restent entièrement à curer.",
+    "notes": "Première édition moderne du Tour de France Femmes, arrivée décisive à la Super Planche des Belles Filles. Édition reconstruite depuis Wikipédia (fixture pipeline/fixtures/wikipedia_2022_femmes_en.html) sans aucune curation avant ce correctif (backlog #10 section B, Chantier L Tour de France Femmes) : les 8 étapes affichaient un écart de distance sévèrement hors tolérance (de -50,9 % à -97,8 %, cette dernière pour l'étape 1, circuit parisien sans via). Cols/côtes sourcés : cyclingstage.com (descriptions de parcours détaillées par étape, même type de source déjà utilisé pour l'édition 2015 de ce fichier). Ce correctif ajoute les cols principaux des deux étapes de montagne (7 et 8), les plus emblématiques de l'édition — réduit sensiblement l'écart de distance sur ces deux étapes mais ne les ramène pas dans la tolérance ±10 % (voir les entrées confidence dédiées, curation volontairement partielle plutôt que vias inventés). Étape 6 curée le 17/10/2026 (-12,0 %, écart localisé dans la boucle finale non sourcée — voir confidence dédiée) ; les étapes 1 à 5 restent à curer (l'étape 1, circuit parisien à 12 tours, dépend du mécanisme « laps » encore absent, issue #251).",
     "stages": {
       "7": {
         "vias": [
@@ -7900,6 +7900,39 @@
           }
         ],
         "note": "Lure → La Super Planche des Belles Filles (123,3 km, 31 juillet 2022), dernière étape et arrivée décisive de la première édition moderne (victoire finale d'Annemiek van Vleuten). Côte d'Esmoulières puis Ballon d'Alsace (premier grand col historique du Tour, franchi dès 1905 — voir édition 1905 de ce fichier), puis Plancher-les-Mines (ajouté cette session, sourcé par cyclingstage.com, « stage-8-tdf-2022-women », relu en HTML brut, confirmé mot pour mot en relecture adverse par un second accès direct : « an undulating section leads to Plancher-les-Mines » après la descente du Ballon d'Alsace, « 38 km restant à parcourir » au sommet) avant l'ascension finale de la Super Planche des Belles Filles, piste gravel — distincte de la Planche « classique » goudronnée utilisée par le Tour hommes (voir note de l'édition 2024, étape 16). « Mélisey » (entre Lure et la Côte d'Esmoulières) et « Haut-du-Them-Château-Lambert » (entre la Côte d'Esmoulières et le Ballon d'Alsace) également ajoutées cette session : communes évidentes sur l'axe direct, non sourcées nommément — les 50 km de plat/faux-plat puis les quelques km entre les deux cols décrits par la source ne nomment aucun point intermédiaire. Relecture adverse : seul Haut-du-Them réduit réellement l'écart de distance (vérifié en le retirant isolément, -6,5 km) ; Mélisey, bien que correctement placé, n'y change rien (déjà sur le plus court chemin). Coordonnées de Mélisey fixées en dur (lat/lon) par prudence : un homonyme dans l'Yonne existe à un score Géoplateforme presque identique (0,973 vs 0,982), même configuration que « Munster » sur l'étape 7 de cette même session. Sourcé : cyclingstage.com."
+      },
+      "6": {
+        "vias": [
+          { "label": "Col d'Urbeis", "kind": "col", "lat": 48.3262018, "lon": 7.1776067, "ele": 602 },
+          { "label": "Klingenthal", "kind": "col" },
+          { "label": "Grendelbruch", "kind": "col", "lat": 48.4930562, "lon": 7.3233331 },
+          { "label": "Urmatt", "kind": "via" },
+          { "label": "Mollkirch", "kind": "via", "lat": 48.5072228, "lon": 7.3861117 },
+          { "label": "Rosheim", "kind": "via", "lat": 48.496421, "lon": 7.4698832 },
+          { "label": "Bœrsch", "kind": "via", "lat": 48.4767699, "lon": 7.4410859 }
+        ],
+        "finish": { "label": "Rosheim", "lat": 48.496421, "lon": 7.4698832 },
+        "confidence": [
+          {
+            "claim": "côtes et points de passage sourcés dans l'ordre (cyclingstage.com, rouleur.cc, Wikipédia « 2022 Tour de France Femmes, Stage 1 to Stage 8 »)",
+            "status": "OK",
+            "level": "moyenne",
+            "detail": "Col d'Urbeis (~20 premiers km), côte de Klingenthal, côte de Grendelbruch « sans descente entre les deux » (cyclingstage.com), sprint intermédiaire d'Urmatt (44,3 km de l'arrivée, Wikipédia), côte de la route de Mollkirch, premier passage de la ligne à Rosheim (20,2 km de l'arrivée, Wikipédia), côte de Boersch dans la boucle finale. Mollkirch et Bœrsch marqués « via » plutôt que « col » : le sommet exact de ces deux côtes n'est donné par aucune source (Bœrsch est en plaine, la côte part du village) — seul le passage par la commune est certain."
+          },
+          {
+            "claim": "coordonnées figées pour 5 points mal résolus par le géocodage automatique",
+            "status": "OK",
+            "level": "haute",
+            "detail": "trouvé en rejouant le pipeline réel (premier essai sans coordonnées : -8,2 % mais 8 zones de rebroussement, chiffre trompeusement proche de la cible). Col d'Urbeis résolu à 48,3243/6,9539, à 6 km de Saint-Dié côté Vosges — pas le vrai col (Bas-Rhin), même classe de bug « near chaîné » que Col du Mont-Cenis/Montgenèvre (known_cols.json). Vrai col recoupé sur deux sources : Nominatim (nœud OSM mountain_pass, 48,3262018/7,1776067, ele 602) et Géoplateforme index POI sans near (« Col d'Urbeis », catégorie col, score 0,88, 48,326037/7,177093, à ~80 m). Rosheim (via et arrivée), Bœrsch, Grendelbruch et Mollkirch résolvaient sur des centroïdes communaux à 1-5 km du village (même classe que Pragelato/Valloire, 2024 étape 4) — figés sur le nœud place de Nominatim. Après correctif : 4 zones de rebroussement au lieu de 8, tous les cols atteints (≤ 24 m du tracé)."
+          },
+          {
+            "claim": "écart résiduel de distance (généré 113,7 km vs officiel 129,2 km, -12,0 %), concentré dans la boucle finale non sourcée",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "vérifié par régénération réelle (import + generate, base isolée). Mesuré sur le tracé : premier passage à Rosheim au km 106,7 contre ~109 en course (20,2 km de l'arrivée sur 129,2) — les 109 premiers km sont reconstitués à ~2 % près. Le reste de l'écart (~13 km) vient entièrement de la boucle finale : 7,0 km reconstitués (Rosheim → Bœrsch → Rosheim, aller-retour quasi direct, d'où 2 des 4 zones de rebroussement) contre 20,2 km en course. Aucune source trouvée ne nomme le tracé de ce circuit (rouleur.cc parle même de ~28 km, en contradiction avec les 20,2 km déduits de Wikipédia) — pas de via ajouté pour le combler plutôt qu'en deviner un (Ottrott, Saint-Nabor… plausibles sur la carte, non sourcés). Les 2 autres zones de rebroussement (autour de Grendelbruch, km 70-75) et les deux écarts >12 km (Saint-Dié → Col d'Urbeis, Col d'Urbeis → Klingenthal) restent également sans source pour les résoudre."
+          }
+        ],
+        "note": "Saint-Dié-des-Vosges → Rosheim (129,2 km, 29 juillet 2022) : traversée des Vosges vers l'Alsace par le Col d'Urbeis, puis les côtes de Klingenthal et Grendelbruch au pied du Mont Sainte-Odile, sprint à Urmatt, premier passage à Rosheim à 20,2 km de l'arrivée, puis boucle finale par la côte de Boersch. Résultat : 113,7 km (-12,0 %, hors tolérance ±5 %), l'écart étant presque entièrement localisé dans la boucle finale dont aucune source consultée ne donne le tracé (voir confidence)."
       }
     }
   }
