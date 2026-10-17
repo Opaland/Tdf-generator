@@ -121,3 +121,21 @@ test('routeStage : tronçons replacés sur la distance de l\'étape, montée int
   assert.ok(sum.meters.inconnu >= 400, 'la montée interpolée n\'est jamais comptée revêtue');
   assert.ok(Math.abs(sum.meters.revetu + sum.meters.non_revetu + sum.meters.inconnu - r.distanceM) <= 2); // arrondis par classe
 });
+
+// Relecture adverse : une sauvegarde importée peut porter n'importe quelle
+// chaîne dans tracks.surfaces — la fiche ne doit jamais tomber pour autant.
+test('loadStageFull : tracks.surfaces illisible ou mal formé → null, jamais d\'exception', () => {
+  const { getDb } = require('../backend/db');
+  const { loadStageFull } = require('../pipeline/generate');
+  const db = getDb();
+  const geo = JSON.stringify({ type: 'Feature', properties: {}, geometry: { type: 'LineString', coordinates: [[5, 45], [5.1, 45.1]] } });
+  for (const bad of ['pas du json', '{"stretches":[]}', '{"meters":{"revetu":"x"},"stretches":[]}', '[]', 'null']) {
+    const id = db.prepare(`INSERT INTO stages (name, state) VALUES ('Forgée', 'done')`).run().lastInsertRowid;
+    db.prepare('INSERT INTO tracks (stage_id, geojson, distance_m, router, surfaces) VALUES (?, ?, 1000, ?, ?)').run(id, geo, 'brouter', bad);
+    assert.strictEqual(loadStageFull(id).track.surfaces, null, bad);
+  }
+  const good = summarizeSurfaces([{ fromM: 0, toM: 500, surface: 'gravel', highway: 'track' }], 1000);
+  const id = db.prepare(`INSERT INTO stages (name, state) VALUES ('Saine', 'done')`).run().lastInsertRowid;
+  db.prepare('INSERT INTO tracks (stage_id, geojson, distance_m, router, surfaces) VALUES (?, ?, 1000, ?, ?)').run(id, geo, 'brouter', JSON.stringify(good));
+  assert.deepStrictEqual(loadStageFull(id).track.surfaces, good);
+});
