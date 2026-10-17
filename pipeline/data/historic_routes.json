@@ -1837,6 +1837,20 @@
         ],
         "note": "Lavelanet → Béziers (171 km, 20 juillet 2002). Trois cols classés en début d'étape : col de Montségur (km 8,5, 4,3 km à 8,3 %, 3e cat.), col de la Badourade (km 31,0, 6,7 km à 2,4 %, 4e cat. — en réalité la côte de la Babourade, Puivert, Aude), col de Saint-Benoît (km 48,5, 4,9 km à 4,7 %, 3e cat.). Cols sourcés : bikeraceinfo.com. Suite du parcours (Limoux, Carcassonne, Marseillette, Pouzols-Minervois, Capestang, Montady, Béziers) sourcée : ledicodutour.com (profil d'étape 2002-13a.jpg)."
       },
+      "14": {
+        "vias": [
+          "Bédoin"
+        ],
+        "note": "Lodève → Mont Ventoux (221 km, 21 juillet 2002). Arrivée au sommet du Mont Ventoux (1 909 m) par le versant de Bédoin (21 km à 7,5 %, HC). Source : présentation de l'étape par cyclingnews.com (http://autobus.cyclingnews.com/road/2002/tour02/?id=preview). Le via Bédoin force le versant classique : sans lui, le routeur peut monter par Malaucène ou Sault.",
+        "confidence": [
+          {
+            "claim": "distance reconstituée vs 221 km officiels",
+            "status": "OK",
+            "level": "moyenne",
+            "detail": "vérifié le 17/10/2026 (régénération réelle, profil BRouter fastbike, 0 repli OSRM) : 213,9 km reconstitués (-3,2 %), sommet du Ventoux mesuré à 1 908 m (contrôle d’altitude : écart 0 m). Seul le versant final est sourcé ; le reste du parcours (Lodève → Bédoin) est laissé au routeur, faute de road book détaillé consulté."
+          }
+        ]
+      },
       "15": {
         "vias": [
           { "label": "Sahune", "kind": "via", "lat": 44.4147018, "lon": 5.2678549 },
@@ -1877,6 +1891,46 @@
           }
         ],
         "note": "Vaison-la-Romaine → Les Deux Alpes (226,5 km, 23 juillet 2002). Six cols avant l'arrivée : col de Prémol (km 68,5, 3e cat.), col de Grimone (km 116,0, 2e cat.), col de la Croix-Haute (km 123,5, 3e cat.), col du Banchet (km 136,5, 3e cat.), côte de Ponsonas (km 160,0, 3e cat.), col d'Ornon (km 190,0, 2e cat.), puis ascension finale des Deux Alpes (11,2 km à 6,4 %, 1re cat.). Cols sourcés : bikeraceinfo.com. Points intermédiaires (Sahune, La Motte-Chalançon, Luc-en-Diois, Châtillon-en-Diois) sourcés : ledicodutour.com (profil d'étape 2002-15a.jpg)."
+      },
+      "16": {
+        "start": { "label": "Les Deux Alpes", "lat": 45.0206539, "lon": 6.1233271 },
+        "finish": { "label": "La Plagne", "lat": 45.5058779, "lon": 6.6743647 },
+        "vias": [
+          {
+            "label": "Col du Lautaret",
+            "kind": "col",
+            "lat": 45.035403,
+            "lon": 6.405134
+          },
+          {
+            "label": "Col du Galibier",
+            "kind": "col"
+          },
+          "Valloire",
+          {
+            "label": "Col du Télégraphe",
+            "kind": "col"
+          },
+          {
+            "label": "Col de la Madeleine",
+            "kind": "col"
+          }
+        ],
+        "note": "Les Deux Alpes → La Plagne (179,5 km, 24 juillet 2002). Col du Lautaret, col du Galibier (HC), col du Télégraphe, col de la Madeleine (HC), puis montée finale vers La Plagne (cyclingnews.com : « La Plagne (1880 m): 17.3 km at 7 % »). Source : présentation de l'étape par cyclingnews.com (http://autobus.cyclingnews.com/road/2002/tour02/?id=preview). Départ placé à la station (avenue de la Muzelle, Nominatim) et non au centroïde de la commune fusionnée Les Deux Alpes, qui ajoutait ~9 km. Arrivée placée à Plagne Centre (45,5059 / 6,6744, 1 985 m au RGE ALTI), pas à Belle Plagne (arrivée de 2025, 2 072 m).",
+        "confidence": [
+          {
+            "claim": "distance reconstituée vs 179,5 km officiels",
+            "status": "OK",
+            "level": "moyenne",
+            "detail": "vérifié le 17/10/2026 (régénération réelle, profil BRouter fastbike, 0 repli OSRM) : 187,9 km reconstitués (+4,7 %, dans la tolérance mais près de la borne). Excès vraisemblablement concentré entre la Madeleine et Aime : le routeur passe par la route ancienne (côte du Villaret, Montgirod) au lieu de la N90 à 2×2 voies interdite aux vélos aujourd'hui — hypothèse, le tracé exact de 2002 dans la vallée n'a pas été retrouvé."
+          },
+          {
+            "claim": "lieu exact de l'arrivée à La Plagne",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "cyclingnews.com donne 1 880 m pour l'arrivée ; Plagne Centre est à 1 985 m au RGE ALTI et la montée reconstituée fait 17,5 km à 7,4 % (17,3 km à 7 % annoncés). Plagne Centre est retenu comme le point le plus compatible avec la longueur de montée annoncée ; l'altitude de 1 880 m ne correspond à aucun des deux candidats vérifiés, à confirmer avec un road book."
+          }
+        ]
       },
       "17": {
         "vias": [
