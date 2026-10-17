@@ -806,7 +806,7 @@ test('reverseGeocode en France : normalise un schéma POI (city en tableau) si j
 // Géoplateforme) : le même grep exhaustif sur `data.geopf.fr` montre que
 // reverseGeocode() (route /api/reverse, clic sur la carte) avait le même
 // trou — non protégée, un 400 y remontait comme une exception non gérée
-// par wrap() (backend/server.js), donc un 500 générique au lieu du repli
+// par wrap() (backend/apiHelpers.js), donc un 500 générique au lieu du repli
 // Nominatim déjà prévu pour le cas « aucun résultat ».
 test('reverseGeocode en France : repli Nominatim quand la Géoplateforme REJETTE la requête (400)', async () => {
   mock = {
@@ -996,7 +996,7 @@ test('geocodeSuggest (en ligne) : aucun résultat → tableau vide, pas d\'excep
 // Trouvaille de relecture adverse sur le correctif geocode() (400
 // Géoplateforme) : geocodeSuggest() (route GET /api/geocode, autocomplétion
 // de l'éditeur) avait le même trou — un 400 y plantait avec un 500 générique
-// (wrap(), backend/server.js, ne gère que err.status, pas err.nonRetryable)
+// (wrap(), backend/apiHelpers.js, ne gère que err.status, pas err.nonRetryable)
 // au lieu de renvoyer un tableau vide comme le cas « 0 résultat » ci-dessus.
 // Reproduit exactement l'entrée qui a motivé ce correctif ('s-Hertogenbosch).
 test('geocodeSuggest (en ligne) : la Géoplateforme REJETTE la requête (400) → tableau vide, pas d\'exception', async () => {
