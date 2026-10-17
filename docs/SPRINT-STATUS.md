@@ -17,7 +17,7 @@ Nouvelle demande explicite du 17/10/2026 : monter à 200. Plutôt que
 d'inventer 100+ stories fictives pour atteindre ce chiffre — ce que ce
 document a toujours refusé de faire, voir ci-dessus — la Partie A compte le
 travail **réel et déjà mergé sur `main`**, vérifié par `git log`, dépôt
-entier (pas seulement cette session). La Partie B (Epics 1-26, 25 et 26 ajoutés le 17/10/2026)
+entier (pas seulement cette session). La Partie B (Epics 1-27, 25 à 27 ajoutés le 17/10/2026)
 reste la feuille de route active, à la même granularité qu'avant.
 
 ## Partie A — Travail déjà mergé sur `main` (vérifié par `git log`)
@@ -74,7 +74,7 @@ en PR ouverte) = 397 unités de travail**, chacune individuellement citable
 par un numéro de commit/PR ou une ligne de ce fichier — aucune ajoutée pour
 arrondir un compte.
 
-## Partie B — Feuille de route active (Epics 1-26)
+## Partie B — Feuille de route active (Epics 1-27)
 
 Granularité et statuts inchangés depuis la demande du 17/10/2026 précédente
 (`done`/`blocked`/`backlog`) : monter le total global passe par compter le
@@ -172,7 +172,8 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 - [x] 11.1 Revérifier l'accès réseau à `overpass-api.de` — toujours bloqué (`Connection reset by peer`, proxy d'egress), voir issue #350
 - [x] 11.1b Re-testé le 17/10/2026 : `overpass-api.de` toujours bloqué, mais des miroirs répondent depuis ce sandbox — `maps.mail.ru/osm/tools/overpass` renvoie du JSON valide par intermittence (sinon « server too busy »), `overpass.kumi.systems` répond en HTTP 500
 - [x] 11.2 Prototype de faisabilité : **Overpass inutile** — la réponse GeoJSON de BRouter porte déjà `WayTags` (dont `surface=`) et `Distance` par segment, vérifié en direct avec le profil `fastbike` (détail et conception : commentaire sur l'issue #350)
-- [ ] 11.4 **backlog** — Implémenter le résumé « km non revêtus » par étape depuis les `WayTags` BRouter — après merge de la PR #340 (même fichier `pipeline/routing.js`) ; limite connue : tronçons interpolés (col contourné) et legs OSRM sans surface
+- [x] 11.4 Résumé « km non revêtus / pavés » par étape depuis les `WayTags` BRouter — PR #366 (empilée sur #340) ; mesuré en réel sur 2024/9 : 98 % classés
+- [ ] 11.5 **in-progress** — Recurer 2024/9 pour que la reconstruction passe par les 14 secteurs de chemins blancs. Critères : chaque secteur listé avec sa source ; ≥ 25 km non revêtus mesurés par 11.4 (≈32 km réels) ; distance totale dans ±5 % de 199 km
 - [ ] 11.3 **blocked** — Évaluer le coût/la complexité : reporté avec 11.2
 
 ## Epic 12 — Décision produit : ravitaillement/villages traversés
@@ -259,6 +260,13 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 - [x] 26.3 Bug trouvé par la revue : étape bloquée en `generating` après un crash → remise en erreur au démarrage (PR #364)
 - [ ] 26.4 **backlog** — R1 (rôle admin sur les routes destructrices), R2 (schéma versionné), R3 (découpage de `server.js`) : dette objective, mais R1 implique un modèle de rôles à valider par l'utilisateur
 - [ ] 26.5 **backlog** — R5 (API `/v1` à clés), lecture hors-ligne PWA : décisions produit
+
+## Epic 27 — Dette technique issue de la revue d'architecture (règle 15 : autonomie)
+
+- [ ] 27.1 **backlog** — R2 : schéma versionné (`PRAGMA user_version` + migrations numérotées). Critères : base existante migrée sans perte (test sur une base créée par le code de `main`) ; `settings` rapatriée dans `db.js` ; aucun changement de comportement
+- [ ] 27.2 **backlog** — R3 : découper `backend/server.js` en routeurs (`stages`, `editions`, `exports`, `traces`, `admin`). Critères : routes et réponses identiques (tests existants verts sans modification) ; `server.js` < 300 lignes
+- [ ] 27.3 **backlog** — Test Playwright minimal en CI sur la démo hors-ligne (piste 3 de `docs/TESTING.md`). Critères : 8 écrans chargés, 0 erreur console, pas de débordement à 375 px ; job vert sur la PR
+- [ ] 27.4 **en attente de décision** — R1 : rôle admin sur les routes destructrices (modèle de rôles à valider)
 
 ## Epic 24 — Bilan final
 
