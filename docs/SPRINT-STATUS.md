@@ -92,7 +92,7 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 - [x] 2.2 Corriger le router mixte invisible (`routing.js`/`checks.js`)
 - [x] 2.3 Revue adverse + correction du vote "majoritaire"
 - [x] 2.4 Auditer `pipeline/generate.js` — déjà durci, rien trouvé
-- [ ] 2.5 **backlog** — PR #340 en attente de revue humaine
+- [x] 2.5 PR #340 mergée (17/10/2026)
 
 ## Epic 3 — Sprint 2 : resynchronisation documentaire
 
@@ -100,7 +100,7 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 - [x] 3.2 `docs/PRESENTATION.md` (schéma + tableau)
 - [x] 3.3 `docs/PERF-PIPELINE.md`, `SYNOLOGY.md`, `DEPLOY-PUBLIC.md`
 - [x] 3.4 `backend/exports.js` (attribution d'export)
-- [ ] 3.5 **backlog** — PR #341 en attente de revue humaine
+- [x] 3.5 PR #341 mergée (17/10/2026)
 
 ## Epic 4 — Sprint 3 : dette de confiance des données (65 entrées UNSURE)
 
@@ -126,7 +126,7 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 - [x] 5.4 Évaluer un index sur `editions(year, name)` — testé, aucun gain réel
 - [ ] 5.5 **backlog** — Pagination : mesure requise sur données à l'échelle réelle (Epic 17)
 - [ ] 5.6 **backlog** — Parallélisation : aucune cible sûre identifiée sans réseau réel (Epic 18)
-- [ ] 5.7 **backlog** — PR #348 en attente de revue humaine
+- [x] 5.7 PR #348 mergée (17/10/2026), index devenu la migration 4
 
 ## Epic 6 — Audit applicatif Playwright
 
@@ -146,14 +146,14 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 
 - [x] 8.1 Chiffré : 4 étapes bloquées (1975/22, 1992/21, 2002/20, 2022-femmes/1) + contournements par vias dupliqués (2025/21, 2020/1) — commentaire issue #251
 - [x] 8.2 3 options proposées (A : `laps` développé à l'import, S, recommandée ; B : dans routeStage, M ; C : multiplier la distance, déconseillée) — issue #251
-- [ ] 8.3 **en attente de décision** — Implémenter l'option choisie
+- [ ] 8.3 **en cours** — Décidé le 17/10/2026 : option A (`laps` développé à l'import). Branche `sprint8-laps`, premier cas 1975/22
 - [ ] 8.4 Tests + revue adverse
 
 ## Epic 9 — Décision + implémentation : profil de routage par étape (issue #243)
 
 - [x] 9.1 Prototype mesuré sur les 4 étapes : `shortest` fait entrer 1903/3 (-1,1 %) et 1992/10 (+4,9 %), pas 1903/2 ni 1992/4 ; `trekking` pire partout — issue #243
 - [x] 9.2 Proposé : champ `routing_profile` par étape (S/M), appliqué aux 2 étapes où le gain est mesuré — issue #243
-- [ ] 9.3 **en attente de décision** — Implémenter si approuvé
+- [ ] 9.3 **backlog** — Décidé le 17/10/2026 : champ de profil BRouter par étape curée, `shortest` pour les seules étapes où il est mesuré meilleur
 - [ ] 9.4 Appliquer aux 4 étapes concernées (1903/2, 1903/3, 1992/4, 1992/10)
 
 ## Epic 10 — Tour de France Femmes : données réelles
@@ -181,13 +181,13 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 
 - [x] 12.1 Chiffrer le coût de géocodage inverse à l'échelle — PR #382 : 2002/18, reverse Géoplateforme 40 % de réponses vides ; geo.api.gouv.fr 0 %, 44 communes au pas de 1 km en 47,6 s
 - [x] 12.2 Proposer 2-3 approches à l'utilisateur — PR #382 : A génération / B à la demande (recommandée) / C contours embarqués
-- [ ] 12.3 **en attente de décision** — Implémenter l'approche choisie
+- [ ] 12.3 **backlog** — Décidé le 17/10/2026 : option B (communes traversées à la demande, France seule, libellé « communes traversées »)
 
 ## Epic 13 — Sécurité : identifiants Suunto stockés
 
 - [x] 13.1 Évaluer le risque réel (LAN strict vs exposition) — issue #379 (vérifié dans le code : jetons OAuth en clair dans `settings`, exclus de la sauvegarde portable)
 - [x] 13.2 Proposer un chiffrement at-rest — issue #379 : A durcir/documenter, B AES-256-GCM avec `ETAPEFORGE_SECRET_KEY`, C trousseau OS
-- [ ] 13.3 **en attente de décision** — Implémenter si validé par l'utilisateur (issue #379)
+- [ ] 13.3 **backlog** — Décidé le 17/10/2026 : option A tout de suite (documenter, avertir sur /diag.html) ; B (chiffrement au repos) avant toute exposition publique durable
 
 ## Epic 14 — Décision : programme partenaire Suunto
 
@@ -216,7 +216,7 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 
 - [x] 18.1 Profiler une génération d'étape réelle de bout en bout — PR #381 : 2002/18 à froid en 35,8 s, dont ~20 s de délais de courtoisie (brouter.de, Nominatim) ; 0,14 s à chaud
 - [x] 18.2 Identifier les attentes réellement indépendantes — PR #381 : 3 leviers entre hôtes différents (flux géocodage→routage ~6-7 s, flux routage→altimétrie, moins de replis Nominatim = choix produit)
-- [ ] 18.3 **en attente de décision** Paralléliser prudemment sans casser le biais de proximité du géocodage — gain limité à la première génération (0,14 s à chaud) : à arbitrer avant d'ajouter de la complexité
+- [x] 18.3 Décidé le 17/10/2026 : pas de parallélisation (gain limité à la première génération, 0,14 s à chaud ; délais de courtoisie inchangés)
 
 ## Epic 19 — Revue UI/UX globale
 
@@ -228,14 +228,15 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 
 - [x] 20.1 Chiffrer le coût d'un changement (dépendances, maintenance) — `docs/UI-UX-REVIEW.md`
 - [x] 20.2 Proposer 2-3 options avec compromis — A (statu quo) / B (tokeniser l'existant, recommandée) / C (refonte visuelle)
-- [ ] 20.3 **backlog** — Attendre la décision de l'utilisateur (PR #352 ouverte, propose sans trancher)
+- [x] 20.3 Décidé le 17/10/2026 : option B (jetons CSS d'espacement, rayon, typographie, sans changement visuel) — PR #352 mergée
+- [ ] 20.4 **backlog** — Tokeniser `frontend/style.css` (option B), captures avant/après 1440/375 px
 
 ## Epic 21 — Stratégie marketing/positionnement
 
 - [x] 21.1 Rédiger l'angle de positionnement (reconstruction fidèle, locale, vérifiable) — `docs/MARKETING.md` (PR #353)
 - [x] 21.2 Captures d'écran : 8 existent déjà (`docs/captures/`) ; identifié ce qui manque réellement (mobile/PWA, GIF du pipeline) plutôt que tout refaire
 - [x] 21.3 Rédiger un texte de présentation court — 2 variantes (technique/non technique), non validées
-- [ ] 21.4 **backlog** — Soumis à l'utilisateur (PR #353 ouverte) ; aucune diffusion sans validation explicite
+- [x] 21.4 PR #353 mergée (document dans le dépôt) ; **aucune diffusion hors du dépôt** : publier reste une action de l'utilisateur (CLAUDE.md règle 15)
 
 ## Epic 22 — Resynchroniser l'issue #10
 
@@ -253,22 +254,22 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 
 - [x] 25.1 Inventorier les couches existantes (unitaires, lint, audit, démo, Docker, Playwright, nightly, monkey, mutation, agents) avec quand/bloquant/réseau — `docs/TESTING.md` (PR #361)
 - [x] 25.2 Lister les trous connus (pas d'E2E en CI, données jamais re-mesurées, pas de comparaison au kilométrage de course, pas de test de charge)
-- [ ] 25.3 **backlog** — Arbitrer les 3 pistes proposées (régénération périodique, champ `race_km`, Playwright minimal en CI) : décision utilisateur
+- [x] 25.3 Décidé le 17/10/2026 : Playwright minimal en CI (fait, PR #367) ; régénération périodique et champ `race_km` non retenus pour l'instant
 
 ## Epic 26 — Revue d'architecture (persona architecte logiciel)
 
 - [x] 26.1 Revue de l'architecture actuelle (couplage, points de défaillance, évolutivité SQLite/PWA, monétisation par clé API) — `docs/ARCHITECTURE-REVIEW.md` (PR #362), propositions seulement
 - [x] 26.2 R4 attributions/licences : BRouter cité, redistribution réelle de la démo Pages documentée (PR #363, complète #341)
 - [x] 26.3 Bug trouvé par la revue : étape bloquée en `generating` après un crash → remise en erreur au démarrage (PR #364)
-- [ ] 26.4 **backlog** — R1 (rôle admin sur les routes destructrices), R2 (schéma versionné), R3 (découpage de `server.js`) : dette objective, mais R1 implique un modèle de rôles à valider par l'utilisateur
-- [ ] 26.5 **backlog** — R5 (API `/v1` à clés), lecture hors-ligne PWA : décisions produit
+- [x] 26.4 R2 (PR #369) et R3 (PR #371) mergées ; R1 suivie en 27.4
+- [x] 26.5 Décidé le 17/10/2026 : R5 (API `/v1` à clés) et lecture hors-ligne PWA différées — aucun besoin d'exposition publique exprimé
 
 ## Epic 27 — Dette technique issue de la revue d'architecture (règle 15 : autonomie)
 
 - [x] 27.1 Schéma SQLite versionné (`PRAGMA user_version`, migrations numérotées, `settings` dans `db.js`) — PR #369 ; base réelle de `main` migrée v0→v2 sans perte
 - [x] 27.2 `backend/server.js` découpé en `backend/routes/*` + `apiHelpers.js` (1 004 → 113 lignes) — PR #371 (empilée sur #369, intègre #364) ; 30 routes GET identiques au différentiel, 39/39 routes à la relecture
 - [x] 27.3 Test E2E navigateur en CI (8 écrans × 1440/375 px, contenu rendu exigé, erreurs tardives, débordement) — PR #367 (empilée sur #361), job `e2e` vert sur GitHub Actions
-- [ ] 27.4 **en attente de décision** — R1 : rôle admin sur les routes destructrices (modèle de rôles à valider)
+- [ ] 27.4 **backlog** — Décidé le 17/10/2026 : R1, rôle admin sur les routes destructrices et `/api/*/config`, actif seulement en mode public (`ETAPEFORGE_PUBLIC=1`)
 
 ## Epic 28 — Bugs de géocodage et de curation ouverts en issue
 
@@ -278,15 +279,17 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 - [x] 28.4 1919/11 curée : 329,3 km (+1,3 %), 3 cols au bon point, 0 aller-retour — PR #377 (empilée sur #375)
 - [ ] 28.5 **blocked** — Curer 2020/2 : aucune source détaillée trouvée le 17/10/2026 (pas de GPX cyclingstage pour 2020, dossier de presse LCL et Wikipédia limités aux 3 cols, pas de roadbook dimensionsvelo) ; reconstituer les liaisons entre vallées ne serait que de l'inférence géographique sur 186 km de montagne — critère « roadbook sourcé » non atteignable
 - [x] 28.6 Issue #280 : pickFeature préfère le nom exact parmi les reliefs — PR #378 ; différentiel réel sur 95 occurrences : 92 identiques, Aravis 1911/5 corrigé, Ballon d'Alsace figé pour ne pas régresser
-- [ ] 28.7 **en cours** — Issue #188 (P1) : curer le Tour 2002 (édition vide) — PR #380 : étapes 14 (Ventoux, -3,2 %) et 16 (La Plagne, +4,7 %, altitude d'arrivée `UNSURE`). Mesurées par régénération réelle sur le code de `main`, avec départ et arrivée seuls, donc déjà dans ±5 % : 2002/6 (+0,8 %) et 2002/10 (-4,2 %). Les autres étapes ne sont pas encore re-mesurées. Re-mesurées le 17/10 sur `main`, toujours hors ±5 % et documentées `UNSURE` : 2002/13 (+9,8 %, excès diffus, BRouter voiture et vélo donnent les mêmes legs), 2002/19 (-6,6 %, profil ledicodutour en HTTP 403, aucune autre source de km), 2002/20 (-48 %, circuit des Champs-Élysées, bloqué par l'Epic 8) ; 2002/0 et 2002/3 sont reclassées dans la PR #351.
+- [ ] 28.7 **en cours** — Issue #188 : Tour 2002 — PR #380 mergée (14 et 16) ; restent 2002/13 (+9,8 %), 2002/19 (-6,6 %), 2002/20 (-48 %, circuit : débloqué par `laps`)
 
 ## Epic 24 — Bilan final
 
 - [x] 24.1 Rapport de clôture par epic (17/10/2026), voir ci-dessous
 - [x] 24.2 Liste de ce qui reste durablement ouvert, voir ci-dessous
-- [ ] 24.3 Remise à l'utilisateur : ce document, puis les décisions ci-dessous
+- [x] 24.3 Remise à l'utilisateur (17/10/2026) : il a délégué le merge et les 9 décisions ; tout est mergé ou fermé, décisions consignées ci-dessus
 
 ### Où en est la feuille de route (17/10/2026)
+
+**Mise à jour du 17/10/2026, après délégation :** toutes les PR listées ci-dessous sont mergées (ou fermées : #354 à #360 remplacées par #370, #364 incluse dans #371), et les 9 décisions sont prises (voir chaque epic). Texte d'origine conservé pour l'historique.
 
 Tout ce qui pouvait avancer sans toi a avancé. Le goulot n'est plus le
 développement, ce sont **les PR ouvertes non relues** et **les décisions
