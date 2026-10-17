@@ -649,10 +649,21 @@ function reconstructionWaypoints(year, stage, category = 'hommes', occurrenceInd
   // documentée, jamais corrigée) sur Le Markstein (2023 étape 20, arrivée) —
   // CLAUDE.md règle 1 : une trouvaille qui revient une deuxième fois se
   // corrige à la racine plutôt que de se redocumenter comme limite connue.
-  // `known` (KNOWN_COLS) n'a pas de sens pour un départ/arrivée (réservé aux
-  // vias cols, voir plus bas) — toujours `null` ici.
-  const startCoords = resolveViaCoords(curated?.start || {}, null);
-  const finishCoords = resolveViaCoords(curated?.finish || {}, null);
+  // KNOWN_COLS pour un départ/arrivée curé (issue #224) : une arrivée au
+  // sommet curée en chaîne simple (« Col de la Loze », 2020 étape 17)
+  // dépendait d'un géocodage en direct à chaque génération alors que ses
+  // coordonnées figées existent déjà dans known_cols.json. Consulté seulement
+  // si (1) le départ/arrivée est curé (jamais pour un libellé Wikipédia brut),
+  // (2) le libellé correspond exactement à une clé du référentiel, et (3)
+  // isColQuery() le reconnaît comme un col/sommet — garde contre une commune
+  // homonyme d'un nom de col (piège signalé dans l'issue). Des lat/lon curés
+  // sur l'objet lui-même restent prioritaires (resolveViaCoords).
+  const knownFor = (entry) => {
+    const label = curatedLabel(entry);
+    return entry && label && isColQuery(label) ? KNOWN_COLS[label] || null : null;
+  };
+  const startCoords = resolveViaCoords(curated?.start || {}, knownFor(curated?.start));
+  const finishCoords = resolveViaCoords(curated?.finish || {}, knownFor(curated?.finish));
   // region_hint : même logique que country_hint ci-dessus, mais pour le
   // qualificatif de département (« Bonneval, Eure-et-Loir ») — pour un
   // départ/arrivée NON curé, jamais deviné automatiquement (issu du texte
