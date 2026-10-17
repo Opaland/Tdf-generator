@@ -157,8 +157,7 @@ function pointsFromStreams(streams, startDateIso) {
   }
   const altitude = streams.altitude?.data;
   const timeOffsetsS = streams.time?.data;
-  // Flux `heartrate` (API Strava v3) : absent de la réponse quand l'activité
-  // n'a pas de capteur — traité comme « pas de FC », jamais comme 0.
+  // Flux `heartrate` (API Strava v3) : absent → « pas de FC », jamais 0.
   const heartrate = streams.heartrate?.data;
   const startMs = Date.parse(startDateIso);
   const hasStart = Number.isFinite(startMs);
@@ -251,7 +250,18 @@ router.post('/import', async (req, res) => {
     }
     const validName = optionalString(name, 'name');
     const activity = await apiGet(`/activities/${encodeURIComponent(id)}`);
-    const streams = await apiGet(`/activities/${encodeURIComponent(id)}/streams?keys=latlng,altitude,time,heartrate&key_by_type=true`);
+    // `heartrate` figure dans l'énumération des flux du swagger Strava v3 ;
+    // la réponse pour une activité sans capteur cardio n'a PAS été vérifiée
+    // par un appel réel (omission du flux vraisemblable). Si la requête avec
+    // FC échoue, on refait celle d'avant l'Epic 30 : l'import ne doit jamais
+    // casser pour une sortie sans ceinture.
+    const base = `/activities/${encodeURIComponent(id)}/streams?key_by_type=true&keys=latlng,altitude,time`;
+    let streams;
+    try {
+      streams = await apiGet(`${base},heartrate`);
+    } catch {
+      streams = await apiGet(base);
+    }
     const points = pointsFromStreams(streams, activity.start_date);
     const stageId = await importTrackAsStage(points, {
       name: validName || activity.name || `Sortie Strava ${id}`,

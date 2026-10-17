@@ -115,3 +115,21 @@ test('import GPX sans FC ou FC trop partielle : tout null, jamais 0', async () =
     assert.ok(full.samples.every((s) => s.hr_bpm === null));
   }
 });
+
+test('parseGpx : FC cherchée dans <extensions> seulement, première valeur plausible', () => {
+  const pt = (inner) => `<gpx><trk><trkseg><trkpt lat="45" lon="5">${inner}</trkpt><trkpt lat="45.001" lon="5"/></trkseg></trk></gpx>`;
+  assert.strictEqual(parseGpx(pt('<desc><hr>200</hr></desc>')).points[0].hr, null);
+  assert.strictEqual(parseGpx(pt('<extensions><gpxtpx:hr>0</gpxtpx:hr><x:hr>150</x:hr></extensions>')).points[0].hr, 150);
+  assert.strictEqual(parseGpx(pt('<extensions><a.b:hr>141</a.b:hr></extensions>')).points[0].hr, 141);
+});
+
+test('fullWithoutHr / stageWithoutHr : plus aucune trace de FC, le reste intact', () => {
+  const { fullWithoutHr, stageWithoutHr } = require('../pipeline/heartRate');
+  const full = { stage: { id: 1, name: 'x', avg_hr_bpm: 140, max_hr_bpm: 170 }, samples: [{ dist_m: 0, hr_bpm: 120, ele_raw_m: 3 }], climbs: [] };
+  const out = fullWithoutHr(full);
+  assert.ok(!/hr_bpm/.test(JSON.stringify(out)));
+  assert.deepStrictEqual(out.samples, [{ dist_m: 0, ele_raw_m: 3 }]);
+  assert.strictEqual(out.stage.name, 'x');
+  assert.strictEqual(full.stage.avg_hr_bpm, 140, 'original non modifié');
+  assert.deepStrictEqual(stageWithoutHr({ a: 1, avg_hr_bpm: 1 }), { a: 1 });
+});

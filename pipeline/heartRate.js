@@ -51,4 +51,29 @@ function hrAtSamples(points, cum, samples) {
   });
 }
 
-module.exports = { plausibleHr, hrSummary, hrAtSamples, MIN_HR, MAX_HR, MIN_COVERAGE };
+/** Copie d'une ligne `stages` sans ses champs de FC. */
+function stageWithoutHr(stage) {
+  if (!stage) return stage;
+  const rest = { ...stage };
+  delete rest.avg_hr_bpm;
+  delete rest.max_hr_bpm;
+  return rest;
+}
+
+/** Copie d'un loadStageFull() sans aucune FC (étape et échantillons) : pour
+ * tout ce qui est publié hors de l'instance (démo statique GitHub Pages) —
+ * donnée de santé, jamais diffusée (Epic 30, relecture adverse). */
+function fullWithoutHr(full) {
+  if (!full) return full;
+  return {
+    ...full,
+    stage: stageWithoutHr(full.stage),
+    samples: (full.samples || []).map((s) => {
+      const rest = { ...s };
+      delete rest.hr_bpm;
+      return rest;
+    }),
+  };
+}
+
+module.exports = { plausibleHr, hrSummary, hrAtSamples, stageWithoutHr, fullWithoutHr, MIN_HR, MAX_HR, MIN_COVERAGE };

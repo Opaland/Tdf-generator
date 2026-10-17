@@ -607,13 +607,14 @@ function renderHeartRate(st, samples) {
   const section = document.getElementById('hr-section');
   if (!section || st.avg_hr_bpm == null) return;
   const box = document.getElementById('hr-box');
-  const W = Math.max(320, Math.min(1100, box.clientWidth || 700));
-  const svg = buildHrChart(samples || [], W, 140);
-  box.innerHTML = svg;
+  // Section affichée AVANT de mesurer : masquée, clientWidth vaut 0 et la
+  // courbe serait dessinée à 700 px puis réduite (texte illisible sur mobile).
+  section.style.display = '';
+  const W = Math.max(280, Math.min(1100, box.clientWidth || 700));
+  box.innerHTML = buildHrChart(samples || [], W, 140);
   document.getElementById('hr-note').textContent =
     `moyenne ${Math.round(st.avg_hr_bpm)} bpm · max ${Math.round(st.max_hr_bpm)} bpm — ` +
     'valeur du point enregistré le plus proche, sans interpolation ; trous laissés vides.';
-  section.style.display = '';
   const stats = document.getElementById('ride-stats');
   stats.querySelectorAll('.hr-stat').forEach((el) => el.remove()); // idempotent si la fiche est re-rendue
   stats.insertAdjacentHTML('beforeend',

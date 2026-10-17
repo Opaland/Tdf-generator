@@ -41,8 +41,15 @@ function parseGpx(text) {
       }
       // FC : extension Garmin TrackPointExtension (<gpxtpx:hr>), préfixe
       // d'espace de noms variable selon l'appli (ns3:, gpxtpx:…) ou absent.
-      const hm = m[4].match(/<(?:[\w-]+:)?hr>\s*([\d.]+)\s*<\/(?:[\w-]+:)?hr>/);
-      if (hm) hr = plausibleHr(parseFloat(hm[1]));
+      // Cherchée dans <extensions> seulement (un <hr> dans un <desc> n'est
+      // pas une mesure), première valeur plausible retenue.
+      const ext = m[4].match(/<extensions>([\s\S]*?)<\/extensions>/);
+      if (ext) {
+        for (const hm of ext[1].matchAll(/<(?:[\w.-]+:)?hr>\s*([\d.]+)\s*<\/(?:[\w.-]+:)?hr>/g)) {
+          hr = plausibleHr(parseFloat(hm[1]));
+          if (hr != null) break;
+        }
+      }
     }
     points.push({ lat, lon, ele, time, hr });
   }
