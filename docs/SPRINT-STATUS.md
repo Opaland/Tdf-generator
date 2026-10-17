@@ -144,16 +144,16 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 
 ## Epic 8 — Décision + implémentation : mécanisme "laps" (issue #251)
 
-- [ ] 8.1 Chiffrer l'ampleur du changement de schéma/pipeline
-- [ ] 8.2 Proposer 2-3 options à l'utilisateur
-- [ ] 8.3 Implémenter l'option choisie (si approuvée)
+- [x] 8.1 Chiffré : 4 étapes bloquées (1975/22, 1992/21, 2002/20, 2022-femmes/1) + contournements par vias dupliqués (2025/21, 2020/1) — commentaire issue #251
+- [x] 8.2 3 options proposées (A : `laps` développé à l'import, S, recommandée ; B : dans routeStage, M ; C : multiplier la distance, déconseillée) — issue #251
+- [ ] 8.3 **en attente de décision** — Implémenter l'option choisie
 - [ ] 8.4 Tests + revue adverse
 
 ## Epic 9 — Décision + implémentation : profil de routage par étape (issue #243)
 
-- [ ] 9.1 Chiffrer l'ampleur (champ par étape vs config globale)
-- [ ] 9.2 Proposer à l'utilisateur
-- [ ] 9.3 Implémenter si approuvé
+- [x] 9.1 Prototype mesuré sur les 4 étapes : `shortest` fait entrer 1903/3 (-1,1 %) et 1992/10 (+4,9 %), pas 1903/2 ni 1992/4 ; `trekking` pire partout — issue #243
+- [x] 9.2 Proposé : champ `routing_profile` par étape (S/M), appliqué aux 2 étapes où le gain est mesuré — issue #243
+- [ ] 9.3 **en attente de décision** — Implémenter si approuvé
 - [ ] 9.4 Appliquer aux 4 étapes concernées (1903/2, 1903/3, 1992/4, 1992/10)
 
 ## Epic 10 — Tour de France Femmes : données réelles
@@ -206,10 +206,10 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 
 ## Epic 17 — Performance : pagination
 
-- [ ] 17.1 Obtenir ou générer un jeu de données à l'échelle réelle
-- [ ] 17.2 Mesurer le temps de réponse réel de `/api/editions` et `/api/stages`
-- [ ] 17.3 Décider si une pagination est justifiée
-- [ ] 17.4 Implémenter si justifié
+- [x] 17.1 `scripts/scale-bench.js` : base synthétique de 2 200 étapes (simulateur) — PR #373
+- [x] 17.2 Mesuré : seul point chaud `/api/stages` (251 ms, 5,2 Mo) ; ~113 Ko/étape en base
+- [x] 17.3 Pagination non justifiée : le poids venait du détail des audits, pas du nombre de lignes
+- [x] 17.4 Liste allégée à `{ ok, offline }` : 90 ms, 680 Ko (-87 %) — PR #373 (empilée sur #371)
 
 ## Epic 18 — Performance : parallélisation (réseau réel)
 
