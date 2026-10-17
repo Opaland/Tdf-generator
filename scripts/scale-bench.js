@@ -98,4 +98,8 @@ async function measure(ids) {
   console.log(`Base : ${ids.length} étapes (${EDITIONS} éditions × ${STAGES}), générées en ${buildS.toFixed(0)} s, fichier SQLite ${mb.toFixed(1)} Mo (${(mb * 1024 / ids.length).toFixed(1)} Ko/étape)`);
   console.table(rows);
   fs.rmSync(dataDir, { recursive: true, force: true });
-})().catch((e) => { console.error(e); process.exit(1); });
+})().catch((e) => {
+  console.error(e);
+  fs.rmSync(dataDir, { recursive: true, force: true });
+  process.exit(1);
+});

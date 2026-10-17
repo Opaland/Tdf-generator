@@ -97,7 +97,7 @@ donnée existante n'est touchée.
 qui lisent une table entière (5 requêtes par route, médiane). Mesures sur le
 bac à sable cloud :
 
-| Route | Avant | Après (liste allégée) |
+| Route | Avant (commit parent : `git stash` du correctif pour rejouer) | Après (liste allégée) |
 |---|---|---|
 | `GET /api/stages` | 251 ms, **5,2 Mo** | 90 ms, 680 Ko |
 | `GET /api/climbs` | 26 ms, 347 Ko | inchangé |
@@ -107,7 +107,7 @@ bac à sable cloud :
 | `GET /api/stages/:id/similar` | 17 ms | inchangé |
 
 - **Seul point chaud réel : la liste des étapes**, dont 87 % du poids était le
-  détail des audits qualité (~3 Ko par étape), alors que les écrans de liste
+  détail des audits qualité (~2 Ko par étape, (5,2 Mo − 680 Ko) / 2 200), alors que les écrans de liste
   n'en lisent que `checks.ok`. Corrigé en renvoyant un résumé `{ ok, offline }`
   (le détail reste dans `GET /api/stages/:id`) — **pas de pagination** : à
   90 ms et 680 Ko pour le catalogue complet, elle ajouterait du code sans
