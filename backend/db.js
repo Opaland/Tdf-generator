@@ -180,8 +180,12 @@ function ensureColumn(database, table, column, ddl) {
 // docs/ARCHITECTURE-REVIEW.md). `PRAGMA user_version` porte le numéro de la
 // dernière migration appliquée ; chacune tourne une seule fois, dans une
 // transaction (tout ou rien). Ajouter une migration = ajouter une entrée en
-// fin de tableau, ne JAMAIS modifier une entrée déjà publiée : une base
-// Synology/LAN existante l'a peut-être déjà appliquée.
+// fin de tableau, ne JAMAIS modifier une entrée déjà publiée — ni le SCHEMA
+// ci-dessus, exécuté par la migration 1 : une base Synology/LAN existante
+// l'a peut-être déjà appliquée, et une colonne/un index ajouté après coup ne
+// l'atteindrait jamais. Nouvel ensureColumn, nouvel index, nouvelle table :
+// toujours une nouvelle migration. Verrouillé par empreintes dans
+// test/dbMigrations.test.js.
 //
 // La migration 1 reprend à l'identique le schéma d'avant ce mécanisme
 // (CREATE TABLE IF NOT EXISTS + ensureColumn, tous idempotents) : une base

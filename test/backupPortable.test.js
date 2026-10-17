@@ -76,6 +76,7 @@ async function importBackup(payload) {
 test('GET /api/backup/export : base vide → toutes les tables présentes, vides', async () => {
   const dump = await exportBackup();
   assert.strictEqual(dump.version, 1);
+  assert.strictEqual(dump.schema_version, require('../backend/db').SCHEMA_VERSION); // migration de la base source (PR #369)
   assert.ok(dump.exported_at);
   for (const t of ['editions', 'stages', 'waypoints', 'tracks', 'elevation_samples', 'climbs', 'descents', 'km_analysis']) {
     assert.deepStrictEqual(dump.tables[t], [], `${t} doit être un tableau vide`);

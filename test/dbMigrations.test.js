@@ -84,3 +84,28 @@ test('migrate : base plus récente que le code → rien n\'est touché', () => {
   assert.strictEqual(db.prepare("SELECT count(*) c FROM sqlite_master WHERE type = 'table'").get().c, 0);
   db.close();
 });
+
+// Relecture adverse (PR #369) : une colonne ou un index ajouté APRÈS COUP à
+// une migration déjà publiée (ou au SCHEMA, exécuté par la migration 1)
+// n'atteint jamais une base déjà migrée — user_version y dépasse déjà ce
+// numéro. Empreintes figées des migrations publiées : ce test échoue à toute
+// modification, pour forcer l'ajout d'une NOUVELLE migration en fin de
+// tableau. (Mettre à jour une empreinte ici n'est légitime que si la
+// migration n'a encore jamais été mergée sur main.)
+test('migrations publiées figées : SCHEMA + migration 1, migration 2 — toute évolution passe par une nouvelle migration', () => {
+  const crypto = require('crypto');
+  const src = fs.readFileSync(path.join(__dirname, '..', 'backend', 'db.js'), 'utf8');
+  const schema = /const SCHEMA = `([\s\S]*?)`;/.exec(src)[1];
+  const h = (x) => crypto.createHash('sha256').update(x).digest('hex').slice(0, 16);
+  const PUBLISHED = { 1: '41b257a1888e56e1', 2: '0914fd11dbe36e3d' };
+  const actual = {
+    1: h(schema + '\n' + MIGRATIONS.find((m) => m.version === 1).up.toString()),
+    2: h(MIGRATIONS.find((m) => m.version === 2).up.toString()),
+  };
+  for (const v of Object.keys(PUBLISHED)) {
+    assert.strictEqual(actual[v], PUBLISHED[v],
+      `migration ${v} (ou SCHEMA) modifiée : une base déjà en v${v}+ ne la rejouera jamais — ajouter une nouvelle migration en fin de MIGRATIONS à la place`);
+  }
+  // Numéros strictement croissants, sans trou.
+  MIGRATIONS.forEach((m, i) => assert.strictEqual(m.version, i + 1));
+});
