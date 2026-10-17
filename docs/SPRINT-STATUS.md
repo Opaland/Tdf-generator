@@ -167,7 +167,9 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 - [x] 10.2 Curer les points de passage d'au moins une édition Femmes — 2022-femmes : étapes 7, 8 (montagnes finales, avant ce fichier) et 3 (Reims → Épernay, 17/10, PR #354)
 - [x] 10.3 Vérifier import/génération avec cette donnée réelle — vérifié par régénération réelle (réseau live) à chaque étape curée
 - [x] 10.4 Documenter dans `historic_routes.json` avec `confidence` — fait pour les 3 étapes curées, honnêtement hors tolérance pour toutes (voir détail de chaque entrée)
-- [ ] 10.5 **backlog** — Étapes 2, 4, 5, 6 restent à curer ; étape 1 (circuit 12 tours) bloquée sur Epic 8 (mécanisme "laps"), pas une curation ordinaire
+- [x] 10.5 Étapes 2, 4, 5, 6 curées (PR #358, #357, #356, #355) et étape 3 refaite (PR #354), toutes depuis le roadbook ASO complet trouvé sur dimensionsvelo.com — étapes 2-5 dans la tolérance (-3,5 % à +3,0 %), étape 6 à -9,8 % mais fidèle à 0,3 km près jusqu'au premier passage à Rosheim (écart entièrement dans la boucle finale, décrite seulement par des numéros de carrefour). Trouvailles transverses : (a) les entrées de roadbook codées comme carrefour (« Piney (D43-D79) ») désignent la route qui frôle la commune, pas le village — viser le centre ajoute 1,5-5,6 km par tronçon ; (b) un total dans la tolérance peut masquer une dérive intermédiaire de ±10 km par compensation — mesuré point par point à chaque étape, documenté dans les confidence ; (c) BRouter renvoie des HTTP 403 par intermittence sous charge (repli OSRM leg par leg), invisible sans la PR #340
+- [ ] 10.6 **backlog** — Étape 1 (circuit parisien à 12 tours) bloquée sur Epic 8 (mécanisme "laps"), pas une curation ordinaire
+- [ ] 10.7 **backlog** — Étapes 7 et 8 (curées avant ce fichier, depuis les prévisualisations seules, -10,0 %/-10,2 %) : à reprendre depuis leur roadbook ASO si disponible
 
 ## Epic 11 — Détection de surface non goudonnée (Overpass API)
 
