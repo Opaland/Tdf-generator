@@ -7,7 +7,7 @@
 // - points de passage curés trop espacés (risque de détour halluciné)
 // - le tracé repasse sur lui-même en sens inverse (aller-retour halluciné)
 
-const { COL_TOLERANCE_M } = require('./routing');
+const { COL_TOLERANCE_M, BROUTER_PROFILE } = require('./routing');
 const { haversine } = require('./geo');
 
 const ALT_TOLERANCE_M = 120;
@@ -160,12 +160,16 @@ function runChecks({ stage, distanceM, waypointsOnTrack, approxSegments, climbs,
   // 0d) Profil de routage curé (Epic 9, issue #243) : affiché à part pour
   // qu'une distance obtenue avec un profil non standard ne passe jamais
   // pour une reconstitution par défaut.
-  if (stage?.routing_profile) {
+  // Seuls les legs routés par BRouter l'appliquent : ni le simulateur
+  // (hors-ligne) ni le repli OSRM ne le connaissent, et un profil curé égal
+  // au défaut n'a rien à signaler (relecture adverse).
+  const brouterLegs = (legs || []).filter((l) => l.router === 'brouter').length;
+  if (stage?.routing_profile && stage.routing_profile !== BROUTER_PROFILE && brouterLegs > 0) {
     items.push({
       id: 'routing-profile',
       label: 'Profil de routage curé',
       status: 'warn',
-      detail: `profil BRouter « ${stage.routing_profile} » choisi pour cette étape (au lieu de fastbike) — voir la note de curation pour la raison mesurée`,
+      detail: `profil BRouter « ${stage.routing_profile} » au lieu de « ${BROUTER_PROFILE} », appliqué à ${brouterLegs} leg(s) sur ${(legs || []).length} — voir la note de curation pour la raison mesurée`,
     });
   }
 

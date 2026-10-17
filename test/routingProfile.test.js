@@ -89,3 +89,73 @@ test('migration 5 : stages.routing_profile existe sur une base fraîche', () => 
   const cols = getDb().prepare('PRAGMA table_info(stages)').all().map((c) => c.name);
   assert.ok(cols.includes('routing_profile'));
 });
+
+test('bout en bout : importEdition pose routing_profile depuis la curation, generateStage le transmet à routeStage', async () => {
+  // Wikipédia 1975 servi par le cache (aucun appel réseau) : une seule ligne,
+  // l'étape 22 (le parseur exige au moins deux lignes) curée avec `routing_profile: "shortest"` dans historic_routes.json.
+  const { cachePut } = require('../pipeline/cache');
+  cachePut('api', 'wikipedia-en', { page: '1975_Tour_de_France' }, `<section>
+  <h2 id="Route_and_stages">Route and stages</h2>
+  <table class="wikitable" style="text-align:center;">
+    <tbody>
+      <tr>
+        <th scope="col">Stage</th>
+        <th scope="col">Date</th>
+        <th scope="col">Course</th>
+        <th scope="col">Distance</th>
+        <th scope="col">Type</th>
+        <th scope="col">Winner</th>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td>19 July</td>
+        <td>Orléans to Paris</td>
+        <td>120&#160;km (75&#160;mi)</td>
+        <td>Plain stage</td>
+        <td>Walter Godefroot&#160;(<span class="flagicon">BEL</span>)</td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td>20 July</td>
+        <td>Paris to Paris</td>
+        <td>163.5&#160;km (101.6&#160;mi)</td>
+        <td>Plain stage</td>
+        <td>Walter Godefroot&#160;(<span class="flagicon">BEL</span>)</td>
+      </tr>
+    </tbody>
+  </table>
+</section>`);
+  const { importEdition } = require('../pipeline/importer');
+  const { getDb } = require('../backend/db');
+  const { edition } = await importEdition(1975);
+  const editionId = edition.id;
+  const db = getDb();
+  const st = db.prepare('SELECT id, routing_profile FROM stages WHERE edition_id = ? AND stage_order = 22').get(editionId);
+  assert.ok(st, 'étape 22 importée');
+  assert.strictEqual(st.routing_profile, 'shortest');
+
+  // generate.js → routeStage : un profil hors liste en base (sauvegarde
+  // forgée, par exemple) fait échouer la génération AVANT tout réseau — preuve
+  // que la colonne est bien lue et transmise. Hors-ligne : aucun appel externe.
+  db.prepare("UPDATE stages SET routing_profile = 'car-fast' WHERE id = ?").run(st.id);
+  setOffline(true);
+  try {
+    const { generateStage } = require('../pipeline/generate');
+    await assert.rejects(() => generateStage(st.id), /Profil de routage inconnu : car-fast/);
+  } finally {
+    setOffline(false);
+  }
+});
+
+test('clé de cache : un leg mis en cache sous l\'ancien format (profil par défaut) est toujours servi', async () => {
+  const { cachePut } = require('../pipeline/cache');
+  const c = { lat: 44.0, lon: 2.0, label: 'C' };
+  const d = { lat: 44.0, lon: 2.01, label: 'D' };
+  // Format de requête écrit en cache avant le profil par étape (routing.js, 17/10/2026).
+  cachePut('api', 'brouter', { a: { lat: 44, lon: 2 }, b: { lat: 44, lon: 2.01 }, profile: 'fastbike' },
+    { points: [{ lat: 44, lon: 2 }, { lat: 44, lon: 2.01 }], distanceM: 801, router: 'brouter', surfaces: [] });
+  calls.length = 0;
+  const r = await routeStage([c, d]);
+  assert.deepStrictEqual(calls, [], 'servi par le cache existant, aucun appel BRouter');
+  assert.strictEqual(r.legs[0].router, 'brouter');
+});

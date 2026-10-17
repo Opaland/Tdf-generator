@@ -245,7 +245,8 @@ const MIGRATIONS = [
       // Sprint 4 performance, issue #343).
       database.exec('CREATE INDEX IF NOT EXISTS idx_stages_edition ON stages(edition_id, stage_order, id)');
     },
-  },  {
+  },
+  {
     version: 5,
     description: 'stages.routing_profile : profil BRouter curé par étape (NULL = profil par défaut)',
     up(database) {
