@@ -45,6 +45,28 @@ function geocodeOptsFor(wp, prevPos) {
   return opts;
 }
 
+/**
+ * Au démarrage du serveur : une étape restée `generating` en base vient
+ * forcément d'une génération interrompue (crash, redémarrage) — la promesse
+ * qui l'aurait terminée est morte avec l'ancien process. Sans ce passage,
+ * la fiche d'étape interroge indéfiniment (frontend/stage.js) et l'écran
+ * Archives masque le bouton de relance (frontend/archives.js).
+ *
+ * Appelé depuis backend/server.js au lancement seulement, jamais depuis
+ * getDb() : un `pipeline/cli.js` lancé en parallèle ouvrirait la même base et
+ * marquerait en erreur une génération réellement en cours dans l'autre
+ * process. Renvoie le nombre d'étapes remises en état.
+ */
+function resetInterruptedGenerations() {
+  const db = getDb();
+  return db
+    .prepare(
+      `UPDATE stages SET state = 'error', error = ?, progress = NULL, updated_at = datetime('now')
+       WHERE state = 'generating'`
+    )
+    .run('Génération interrompue (serveur redémarré pendant le calcul) — relancer la génération.').changes;
+}
+
 function setProgress(stageId, progress) {
   const db = getDb();
   db.prepare(`UPDATE stages SET progress = ?, updated_at = datetime('now') WHERE id = ?`).run(
@@ -306,4 +328,4 @@ function loadStageFull(stageId) {
   };
 }
 
-module.exports = { generateStage, loadStageFull, setProgress, geocodeOptsFor };
+module.exports = { generateStage, loadStageFull, setProgress, geocodeOptsFor, resetInterruptedGenerations };

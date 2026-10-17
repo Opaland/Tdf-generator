@@ -12,7 +12,7 @@ process.env.ETAPEFORGE_OFFLINE = '1';
 const { test, after } = require('node:test');
 const assert = require('node:assert');
 const { getDb } = require('../backend/db');
-const { generateStage, loadStageFull, geocodeOptsFor } = require('../pipeline/generate');
+const { generateStage, loadStageFull, geocodeOptsFor, resetInterruptedGenerations } = require('../pipeline/generate');
 const { importTrackAsStage, parseGpx } = require('../pipeline/importTrack');
 const { stageConfidence } = require('../pipeline/wikipedia');
 
@@ -170,4 +170,25 @@ test('importTrackAsStage : trace vide → rejet explicite', async () => {
 
 test('importTrackAsStage : un seul point → rejet explicite', async () => {
   await assert.rejects(() => importTrackAsStage([{ lat: 43, lon: 1, ele: 200 }]), /vide ou illisible/);
+});
+
+// Revue d'architecture du 17/10/2026 (docs/ARCHITECTURE-REVIEW.md §3.1) : une
+// étape restée `generating` après un crash bouclait à vie sur la fiche
+// (frontend/stage.js) et perdait son bouton de relance dans Archives.
+test('resetInterruptedGenerations : seule une étape `generating` passe en erreur, une seule fois', () => {
+  const db = getDb();
+  const stuck = db.prepare(
+    `INSERT INTO stages (name, state, progress) VALUES ('Bloquée', 'generating', '{"step":"routage","percent":40}')`
+  ).run().lastInsertRowid;
+  const done = db.prepare(`INSERT INTO stages (name, state) VALUES ('Finie', 'done')`).run().lastInsertRowid;
+  const draft = db.prepare(`INSERT INTO stages (name, state) VALUES ('Brouillon', 'draft')`).run().lastInsertRowid;
+
+  assert.strictEqual(resetInterruptedGenerations(), 1);
+  const s = db.prepare('SELECT state, error, progress FROM stages WHERE id = ?').get(stuck);
+  assert.strictEqual(s.state, 'error');
+  assert.match(s.error, /interrompue/);
+  assert.strictEqual(s.progress, null);
+  assert.strictEqual(db.prepare('SELECT state FROM stages WHERE id = ?').get(done).state, 'done');
+  assert.strictEqual(db.prepare('SELECT state FROM stages WHERE id = ?').get(draft).state, 'draft');
+  assert.strictEqual(resetInterruptedGenerations(), 0);
 });
