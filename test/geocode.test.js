@@ -1049,3 +1049,33 @@ test('geocodeSuggest (hors ligne) : rien dans le gazetier → repli simulateur, 
     setOffline(false);
   }
 });
+
+// Issue #280 : candidats réels de data.geopf.fr (index POI, 17/10/2026) pour
+// « Col d'Ornon ». Sans préférence de nom exact, `near` départageait tous les
+// reliefs à la seule distance : depuis La Mure, « Col du Grand Van » (score
+// 0,330) ; depuis Bourg-d'Oisans, « Pic du Col d'Ornon » (sommet, 2866 m).
+test('pickFeature (sommet) : un relief au nom exact passe avant un relief plus proche au nom différent (issue #280)', () => {
+  const feats = [
+    { label: "Col d'Ornon", lat: 45.0086, lon: 5.9672, type: 'summit', score: 0.882 },
+    { label: "Col d'Ornon", lat: 45.1824, lon: 6.2298, type: 'summit', score: 0.845 },
+    { label: "Pic du Col d'Ornon", lat: 44.9956, lon: 6.0158, type: 'summit', score: 0.709 },
+    { label: "Station du Col d'Ornon", lat: 45.0177, lon: 5.9728, type: undefined, score: 0.673 },
+    { label: 'Col du Grand Van', lat: 45.0398, lon: 5.9207, type: 'summit', score: 0.33 },
+  ];
+  const laMure = { lat: 44.913, lon: 5.77 };
+  const bourgOisans = { lat: 45.055, lon: 6.031 };
+  for (const near of [laMure, bourgOisans]) {
+    const r = pickFeature(feats, "Col d'Ornon", near, { summit: true });
+    assert.deepStrictEqual([r.label, r.lat], ["Col d'Ornon", 45.0086]);
+  }
+  // Apostrophe typographique et accents ignorés dans la comparaison.
+  assert.strictEqual(pickFeature(feats, 'col d’ornon', laMure, { summit: true }).lat, 45.0086);
+});
+
+test('pickFeature (sommet) : aucun nom exact → comportement inchangé, near départage tous les reliefs (Hautacam)', () => {
+  const feats = [
+    { label: 'le Hautacam', lat: 43.02, lon: -0.08, type: undefined },
+    { label: 'Hautacam ou Soum de Dabant Aygue', lat: 43.0024, lon: -0.0147, type: 'summit' },
+  ];
+  assert.strictEqual(pickFeature(feats, 'Hautacam', { lat: 43.01, lon: -0.1 }, { summit: true }).type, 'summit');
+});
