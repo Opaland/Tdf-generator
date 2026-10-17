@@ -281,7 +281,7 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 - [x] 28.6 Issue #280 : pickFeature préfère le nom exact parmi les reliefs — PR #378 ; différentiel réel sur 95 occurrences : 92 identiques, Aravis 1911/5 corrigé, Ballon d'Alsace figé pour ne pas régresser
 - [ ] 28.7 **en cours** — Issue #188 : Tour 2002 — 14 et 16 curées (PR #380) ; restent 2002/13 (+9,8 %), 2002/19 (-6,6 %), 2002/20 (-48 % : `laps` disponible, mais nombre de tours de 2002 introuvable dans les sources consultées)
 
-## Epic 29 — Inventaire matériel (issue #228, phase 7)
+## Epic 29 — Inventaire matériel (issue #228, phase 7) — PR #394
 
 Périmètre déjà tranché avec l'utilisateur dans #228 (« inventaire matériel :
 inclus »). Une seule instance, données partagées comme le reste des traces
