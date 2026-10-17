@@ -12,9 +12,11 @@ const path = require('path');
 const { getDb } = require('../backend/db');
 const { tourToStandaloneHtml, stagePayload, ATTRIBUTIONS } = require('../backend/exports');
 const { loadStageFull } = require('../pipeline/generate');
+const { stageWithoutHr, fullWithoutHr } = require('../pipeline/heartRate');
 
 const ROOT = path.join(__dirname, '..');
-const DIST = path.join(ROOT, 'dist');
+// ETAPEFORGE_DIST_DIR : sortie ailleurs que dist/ (tests).
+const DIST = process.env.ETAPEFORGE_DIST_DIR || path.join(ROOT, 'dist');
 const FRONTEND = path.join(ROOT, 'frontend');
 
 function esc(s) {
@@ -86,7 +88,8 @@ function main() {
     )
     .all();
   writeJson('data/stages.json', stages);
-  for (const s of stages) writeJson(`data/stage-${s.id}.json`, loadStageFull(s.id));
+  // Site publié : jamais de fréquence cardiaque (donnée de santé, Epic 30).
+  for (const s of stages) writeJson(`data/stage-${s.id}.json`, fullWithoutHr(loadStageFull(s.id)));
 
   const editions = db
     .prepare(
@@ -102,6 +105,7 @@ function main() {
   const sitelinks = {};
   for (const e of editions) {
     const full = db.prepare('SELECT * FROM stages WHERE edition_id = ? ORDER BY stage_order, id').all(e.id)
+      .map(stageWithoutHr)
       .map((s) => ({ ...s, checks: s.checks ? JSON.parse(s.checks) : null, progress: null, source: s.source ? JSON.parse(s.source) : null }));
     writeJson(`data/edition-${e.id}.json`, { ...e, stages: full });
     const ids = full.filter((s) => s.state === 'done').map((s) => s.id);

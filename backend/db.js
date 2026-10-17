@@ -277,6 +277,16 @@ const MIGRATIONS = [
       ensureColumn(database, 'stages', 'gear_id', 'gear_id INTEGER REFERENCES gear(id) ON DELETE SET NULL');
     },
   },
+  {
+    version: 8,
+    description: 'fréquence cardiaque des traces importées (issue #228, phase 5)',
+    up(database) {
+      // NULL partout hors trace importée portant une FC (pipeline/heartRate.js).
+      ensureColumn(database, 'elevation_samples', 'hr_bpm', 'hr_bpm REAL');
+      ensureColumn(database, 'stages', 'avg_hr_bpm', 'avg_hr_bpm REAL');
+      ensureColumn(database, 'stages', 'max_hr_bpm', 'max_hr_bpm REAL');
+    },
+  },
 ];
 const SCHEMA_VERSION = MIGRATIONS[MIGRATIONS.length - 1].version;
 

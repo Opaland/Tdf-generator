@@ -18,8 +18,8 @@ test('pointsFromStreams : combine latlng + altitude + time avec la date de dépa
   };
   const points = pointsFromStreams(streams, startDateIso);
   assert.strictEqual(points.length, 2);
-  assert.deepStrictEqual(points[0], { lat: 43.0, lon: 0.5, ele: 400, time: new Date(Date.parse(startDateIso)) });
-  assert.deepStrictEqual(points[1], { lat: 43.001, lon: 0.5, ele: 410, time: new Date(Date.parse(startDateIso) + 60000) });
+  assert.deepStrictEqual(points[0], { lat: 43.0, lon: 0.5, ele: 400, time: new Date(Date.parse(startDateIso)), hr: null });
+  assert.deepStrictEqual(points[1], { lat: 43.001, lon: 0.5, ele: 410, time: new Date(Date.parse(startDateIso) + 60000), hr: null });
 });
 
 test('pointsFromStreams : sans flux altitude/time, ele/time restent null (pas un 0 deviné)', () => {
@@ -28,7 +28,13 @@ test('pointsFromStreams : sans flux altitude/time, ele/time restent null (pas un
   for (const p of points) {
     assert.strictEqual(p.ele, null);
     assert.strictEqual(p.time, null);
+    assert.strictEqual(p.hr, null);
   }
+});
+
+test('pointsFromStreams : flux heartrate lu, valeur implausible (0, capteur décroché) → null', () => {
+  const streams = { latlng: { data: [[43.0, 0.5], [43.001, 0.5], [43.002, 0.5]] }, heartrate: { data: [132, 0, 300] } };
+  assert.deepStrictEqual(pointsFromStreams(streams, '2026-06-01T09:00:00Z').map((p) => p.hr), [132, null, null]);
 });
 
 test("pointsFromStreams : sans flux latlng, erreur explicite plutôt qu'un tracé vide silencieux", () => {

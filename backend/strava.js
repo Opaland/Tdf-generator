@@ -38,6 +38,7 @@ const express = require('express');
 const { getSetting, setSetting } = require('./settings');
 const { importTrackAsStage } = require('../pipeline/importTrack');
 const { fetchWithTimeout } = require('../pipeline/http');
+const { plausibleHr } = require('../pipeline/heartRate');
 
 // Surchargeables pour les tests d'intégration (serveur Strava simulé en local).
 const OAUTH_BASE = process.env.STRAVA_OAUTH_BASE || 'https://www.strava.com';
@@ -156,6 +157,8 @@ function pointsFromStreams(streams, startDateIso) {
   }
   const altitude = streams.altitude?.data;
   const timeOffsetsS = streams.time?.data;
+  // Flux `heartrate` (API Strava v3) : absent → « pas de FC », jamais 0.
+  const heartrate = streams.heartrate?.data;
   const startMs = Date.parse(startDateIso);
   const hasStart = Number.isFinite(startMs);
   return latlng.map((pair, i) => ({
@@ -164,6 +167,7 @@ function pointsFromStreams(streams, startDateIso) {
     ele: Array.isArray(altitude) && typeof altitude[i] === 'number' ? altitude[i] : null,
     time: hasStart && Array.isArray(timeOffsetsS) && typeof timeOffsetsS[i] === 'number'
       ? new Date(startMs + timeOffsetsS[i] * 1000) : null,
+    hr: Array.isArray(heartrate) ? plausibleHr(heartrate[i]) : null,
   }));
 }
 
@@ -246,7 +250,18 @@ router.post('/import', async (req, res) => {
     }
     const validName = optionalString(name, 'name');
     const activity = await apiGet(`/activities/${encodeURIComponent(id)}`);
-    const streams = await apiGet(`/activities/${encodeURIComponent(id)}/streams?keys=latlng,altitude,time&key_by_type=true`);
+    // `heartrate` figure dans l'énumération des flux du swagger Strava v3 ;
+    // la réponse pour une activité sans capteur cardio n'a PAS été vérifiée
+    // par un appel réel (omission du flux vraisemblable). Si la requête avec
+    // FC échoue, on refait celle d'avant l'Epic 30 : l'import ne doit jamais
+    // casser pour une sortie sans ceinture.
+    const base = `/activities/${encodeURIComponent(id)}/streams?key_by_type=true&keys=latlng,altitude,time`;
+    let streams;
+    try {
+      streams = await apiGet(`${base},heartrate`);
+    } catch {
+      streams = await apiGet(base);
+    }
     const points = pointsFromStreams(streams, activity.start_date);
     const stageId = await importTrackAsStage(points, {
       name: validName || activity.name || `Sortie Strava ${id}`,

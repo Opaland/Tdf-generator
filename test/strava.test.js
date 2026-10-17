@@ -44,6 +44,7 @@ function syntheticStreams() {
 // --- Serveur Strava simulé -------------------------------------------------------
 let mock;
 let mockCalls;
+let rejectHeartrate = false;
 let appServer;
 let base;
 const START_DATE = '2026-06-01T09:00:00Z';
@@ -93,6 +94,11 @@ before(async () => {
       return;
     }
     if (req.url.startsWith('/activities/42/streams')) {
+      if (rejectHeartrate && req.url.includes('heartrate')) {
+        res.statusCode = 400;
+        res.end('{"message":"Bad Request"}');
+        return;
+      }
       res.setHeader('Content-Type', 'application/json');
       res.end(JSON.stringify(syntheticStreams()));
       return;
@@ -188,6 +194,27 @@ test('import par flux (streams) → étape complète, côte détectée, statisti
   // pas discriminer une mauvaise date, seulement une absence totale
   // d'horodatage).
   assert.ok(Math.abs(full.stage.avg_speed_kmh - 20) < 1, `vitesse moyenne ${full.stage.avg_speed_kmh} ≈ 20 km/h`);
+});
+
+test('import : si Strava refuse le flux heartrate, repli sur la requête sans FC (import jamais cassé)', async () => {
+  rejectHeartrate = true;
+  try {
+    const before = mockCalls.length;
+    const res = await fetch(`${base}/api/strava/import`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: 42, name: 'Sans ceinture' }),
+    });
+    const json = await res.json();
+    assert.ok(res.ok, JSON.stringify(json));
+    const streamCalls = mockCalls.slice(before).map((c) => c.url).filter((u) => u.includes('/streams'));
+    assert.strictEqual(streamCalls.length, 2);
+    assert.ok(streamCalls[0].includes('heartrate') && !streamCalls[1].includes('heartrate'));
+    const { loadStageFull } = require('../pipeline/generate');
+    assert.strictEqual(loadStageFull(json.id).stage.avg_hr_bpm, null);
+  } finally {
+    rejectHeartrate = false;
+  }
 });
 
 test("POST /api/strava/import avec name={} : 400 propre, pas d'appel réseau vers Strava", async () => {
