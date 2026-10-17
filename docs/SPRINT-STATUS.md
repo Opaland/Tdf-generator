@@ -234,7 +234,7 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 
 ## Epic 22 — Resynchroniser l'issue #10
 
-- [ ] 22.1 Corriger la mention périmée sur #16/#17 (déjà clos, texte pas à jour)
+- [x] 22.1 Corriger la mention périmée sur #16/#17 — déjà fait : le corps de l'issue #10 (mis à jour le 17/10/2026) dit « les 8 issues sont closes, y compris #16/#17 », vérifié par relecture
 
 ## Epic 23 — Revue globale de fin de session
 
