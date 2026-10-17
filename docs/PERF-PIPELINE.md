@@ -77,7 +77,83 @@ Détail de la longue étape (le scénario le plus lourd testé) :
   sont les seules à faire des appels réseau, donc les seules dominées par la
   latence en production.
 
+## En réseau réel : une génération profilée requête par requête (17/10/2026)
+
+Le benchmark ci-dessus ne dit rien du réseau. Pour combler ce trou (story
+18.1, Epic 18), **une** génération réelle a été chronométrée à froid, sur
+une base neuve sans cache : Tour 2002, étape 18 (Cluses → Bourg-en-Bresse,
+15 points de passage, 14 legs BRouter, 171,6 km). Chaque requête HTTP a été
+horodatée par une instrumentation temporaire de `pipeline/http.js`, posée
+dans une copie jetable du dépôt et jamais commitée (voir « Reproduire »).
+C'est **un seul run sur une seule étape**, et la latence des API publiques
+varie d'un moment à l'autre. L'ordre de grandeur est fiable, pas les
+dixièmes de seconde.
+
+| Phase | Durée | Requêtes | Latence réseau cumulée | Ce qui domine |
+|---|---|---|---|---|
+| Géocodage | 7,1 s | 16 (Géoplateforme : 11 recherches, 5 altitudes de cols) | ~3,7 s | requêtes séquentielles ; chaque point est biaisé par la proximité du précédent |
+| Routage | 15,7 s | 14 (brouter.de) | 2,6 s | **délai de courtoisie de 1 s par leg** (`minDelayMs: 1000`, `pipeline/routing.js`) |
+| Altimétrie | 6,4 s | 5 lots (Géoplateforme RGE ALTI) | 5,4 s | latence réelle de l'API (0,7 à 1,5 s par lot) |
+| Nommage des côtes et descentes | 6,5 s | 10 Géoplateforme (reverse) + 6 Nominatim | 1,6 s | **délai Nominatim de 1,1 s par requête** (`minDelayMs: 1100`) |
+| **Total à froid** | **35,8 s** | 51 | ~13 s | |
+| Même étape, à chaud (tout en cache SQLite) | 0,14 s | 0 | 0 | |
+
+À froid, environ **20 s sur 36** sont de l'attente volontaire : les délais
+de courtoisie envers brouter.de (≈ 14 s) et Nominatim (≈ 6 s). La latence
+réseau effective ne pèse qu'environ 13 s. Le calcul local (détection des
+côtes, analyse km par km, audits, SQLite) reste de l'ordre de 0,1 s, comme
+le mesure le benchmark hors-ligne.
+
+Les 6 appels Nominatim sont des **replis** : pour 6 des 10 points à nommer,
+le reverse Géoplateforme n'a renvoyé aucune adresse. On l'a vérifié en
+comptant les entrées `null` dans `geocode_cache` après le run : 6 valeurs
+`null`, et 6 noms fournis par Nominatim (Arjon, La Palud, Merloz,
+Les Mouilles, Gruent, Sénissiat). Hypothèse non vérifiée : ces points
+(sommets, forêts) n'ont pas d'adresse dans le rayon par défaut du reverse
+Géoplateforme.
+
+### Ce qui pourrait se recouvrir (story 18.2) — leviers, pas décisions
+
+Le rate-limiter (`pipeline/rateLimiter.js`) sérialise les requêtes **par
+hôte**. Paralléliser plusieurs requêtes vers le même service ne gagnerait
+donc rien sans réduire les délais de courtoisie. Réduire ces délais engage
+la relation avec des services publics gratuits, et ce n'est pas une
+décision technique. En revanche, des hôtes différents pourraient travailler
+en même temps sans toucher à ces délais :
+
+1. **Géocodage → routage en flux.** Le leg *i* ne dépend que des points *i*
+   et *i+1*. Il pourrait partir dès que ces deux points sont géocodés, sans
+   attendre la fin du géocodage. L'ordre du géocodage, donc le biais de
+   proximité, resterait intact. Gain plafonné par la phase la plus courte,
+   soit environ 6 à 7 s ici.
+2. **Routage → altimétrie en flux.** On pourrait échantillonner l'altitude
+   d'un leg pendant que les suivants se routent. Gain possible de quelques
+   secondes, mais l'échantillonnage porte aujourd'hui sur le tracé complet
+   (pas régulier sur toute la distance). Il faudrait le refaire leg par leg,
+   ce qui change le découpage du profil : à ne pas faire sans tests
+   d'équivalence.
+3. **Moins de replis Nominatim.** Chaque repli coûte environ 1,1 s. Demander
+   au reverse Géoplateforme un résultat même lointain, ou l'index POI,
+   réduirait ces replis, mais changerait les noms affichés des côtes. C'est
+   un choix de produit, pas une optimisation neutre.
+
+Aucun de ces leviers ne touche une génération à chaud (0,14 s). Ils ne
+servent que la première génération d'une étape ou d'une édition. À titre
+d'ordre de grandeur, une édition de 21 étapes comparables à celle-ci prend
+environ 12 minutes à froid. C'est une extrapolation linéaire, non mesurée.
+
 ## Reproduire
+
+Profil réseau réel (ci-dessus) : dans une copie jetable du dépôt (`git
+archive origin/main | tar -x -C <dossier>`), ajouter juste avant le `fetch`
+de `httpJson()` (`pipeline/http.js`) une ligne qui journalise l'horodatage,
+la durée, l'hôte et le statut de chaque requête dans un fichier. Lancer
+ensuite `node pipeline/cli.js --import 2002` puis `node pipeline/cli.js
+--stage <id>` avec `ETAPEFORGE_DATA_DIR` pointé vers un dossier vide, pour
+obtenir un run à froid. Ne jamais faire cette instrumentation dans le dépôt
+de travail.
+
+Benchmark hors-ligne :
 
 ```bash
 npm run benchmark            # 10 runs/scénario par défaut, après échauffement
