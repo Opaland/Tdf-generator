@@ -163,10 +163,11 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 
 ## Epic 10 — Tour de France Femmes : données réelles
 
-- [ ] 10.1 Récupérer une fixture Wikipédia réelle
-- [ ] 10.2 Curer les points de passage d'au moins une édition Femmes
-- [ ] 10.3 Vérifier import/génération avec cette donnée réelle
-- [ ] 10.4 Documenter dans `historic_routes.json` avec `confidence`
+- [x] 10.1 Récupérer une fixture Wikipédia réelle — `pipeline/fixtures/wikipedia_2022_femmes_en.html`, déjà fait avant ce fichier
+- [x] 10.2 Curer les points de passage d'au moins une édition Femmes — 2022-femmes : étapes 7, 8 (montagnes finales, avant ce fichier) et 3 (Reims → Épernay, 17/10, PR #354)
+- [x] 10.3 Vérifier import/génération avec cette donnée réelle — vérifié par régénération réelle (réseau live) à chaque étape curée
+- [x] 10.4 Documenter dans `historic_routes.json` avec `confidence` — fait pour les 3 étapes curées, honnêtement hors tolérance pour toutes (voir détail de chaque entrée)
+- [ ] 10.5 **backlog** — Étapes 2, 4, 5, 6 restent à curer ; étape 1 (circuit 12 tours) bloquée sur Epic 8 (mécanisme "laps"), pas une curation ordinaire
 
 ## Epic 11 — Détection de surface non goudonnée (Overpass API)
 
