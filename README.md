@@ -105,10 +105,13 @@ Chaque hôte a sa file d'attente avec délai minimal (rate limiting).
 1. **Géocodage** — France : `data.geopf.fr/geocodage/search` ; hors France :
    Nominatim (User-Agent dédié, max 1 req/s). Les cols sont géocodés au sommet
    et leur altitude vérifiée par altimétrie.
-2. **Routage** — OSRM public (`router.project-osrm.org`, driving,
-   `geometries=geojson`, `overview=full`), leg par leg (cache par paire de
-   waypoints). Si un col est contourné (tracé > 500 m du sommet), routage
-   jusqu'au pied puis interpolation pied→sommet, segment marqué « approximé ».
+2. **Routage** — BRouter public (`brouter.de`, profil vélo `fastbike`), leg
+   par leg (cache par paire de waypoints). Repli sur OSRM public
+   (`router.project-osrm.org`, profil voiture) si BRouter échoue sur un leg —
+   migration du 31/08/2026 (issue #169) : OSRM ignore le profil demandé et
+   sert toujours un itinéraire voiture, moins fidèle à un tracé cycliste réel.
+   Si un col est contourné (tracé > 500 m du sommet), routage jusqu'au pied
+   puis interpolation pied→sommet, segment marqué « approximé ».
 3. **Altimétrie** — échantillonnage tous les 100 m (étapes < 60 km) ou 250 m
    (au-delà). France : `data.geopf.fr/altimetrie` (ressource `ign_rge_alti_wld`,
    paquets de 150 points). Ailleurs : `api.opentopodata.org/v1/eudem25m`
@@ -237,8 +240,9 @@ relance le pipeline. L'éditeur permet aussi de créer un **tour personnalisé**
 Le workflow `pages.yml` publie automatiquement (à chaque push sur `main`) la
 **démo interactive** sur https://opaland.github.io/Tdf-generator/ : l'application
 frontend complète (fiches avec profil 3D, carte globale, cols, comparateur…)
-branchée sur des données pré-générées **avec les vraies APIs** (routage OSRM sur
-le réseau routier réel, altimétrie IGN) — repli automatique sur le simulateur
+branchée sur des données pré-générées **avec les vraies APIs** (routage BRouter
+sur le réseau routier réel, repli OSRM si BRouter échoue, altimétrie IGN) —
+repli automatique sur le simulateur
 hors-ligne si une API est indisponible, avec étiquetage du mode utilisé. La
 création d'étapes reste réservée à la version locale (`npm start`).
 
@@ -426,7 +430,7 @@ npm run parity   # nécessite un accès réseau réel
 
 Génère la **même** étape (Pau → Lourdes → Col du Soulor → Argelès-Gazost →
 Hautacam) une fois avec le simulateur hors-ligne, une fois avec les vraies
-APIs (Géoplateforme, OSRM, opentopodata), et diffuse les écarts — distance,
+APIs (Géoplateforme, BRouter/OSRM, opentopodata), et diffuse les écarts — distance,
 D+, côtes détectées. Pas un test pass/fail : le simulateur est un profil
 synthétique documenté comme tel, aucune égalité exacte n'est attendue —
 l'objectif est de mesurer l'ampleur réelle de l'écart plutôt que de la

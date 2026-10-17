@@ -25,7 +25,7 @@ const API_BASE = process.env.SUUNTO_API_BASE || 'https://cloudapi.suunto.com';
 // l'abandon réel sans attendre 15 s.
 const SUUNTO_TIMEOUT_MS = parseInt(process.env.SUUNTO_TIMEOUT_MS || '15000', 10);
 
-// Contrairement aux routes d'écriture de backend/server.js (requireString/
+// Contrairement aux routes d'écriture de backend/routes/ (requireString/
 // optionalString), POST /config n'appliquait aucune validation de type :
 // setSetting() fait String(value) avant l'écriture SQL, donc un objet/
 // tableau envoyé par erreur ne plante pas (pas de 500) mais est stocké

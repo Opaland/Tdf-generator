@@ -242,3 +242,33 @@ la classe de bug fermée, pas seulement le fichier où elle a été trouvée.
 un `finally`, jamais juste après l'opération censée réussir** — sinon le
 chemin d'erreur, justement celui qui compte pour un timeout, ne l'exécute
 jamais.
+
+## 15. « J'attends un merge » n'est pas un blocage — l'autonomie est l'objectif
+
+Le 17/10/2026, l'utilisateur a dû redemander plusieurs fois d'avancer seul :
+je m'arrêtais avec 19 PR vertes ouvertes, en annonçant que la suite
+« dépendait de merges ». Ce n'était pas un vrai blocage — une précaution
+contre des conflits futurs, transformée en arrêt. L'objectif explicite de
+l'utilisateur est de **voir jusqu'où ce dépôt peut être développé de façon
+totalement autonome** ; il a autorisé explicitement la modification de tout
+fichier du projet, à une condition : **respecter l'approche BMAD**.
+
+**Ne jamais s'arrêter parce qu'une PR n'est pas mergée.** Quand une story
+dépend d'une PR ouverte, l'empiler dessus : branche partie de la branche de
+cette PR, PR ouverte avec cette branche pour base, dépendance écrite dans la
+description. Quand plusieurs PR touchent le même fichier, travailler quand
+même et résoudre le conflit au moment du merge — c'est du travail, pas une
+raison d'attendre.
+
+**BMAD, concrètement** : chaque développement est une story rattachée à un
+epic dans `docs/SPRINT-STATUS.md`, déclarée *avant* le code (critères
+d'acceptation vérifiables), passée par la relecture adverse avant « done »,
+et cochée avec sa PR. On enchaîne la story actionnable suivante sans rendre
+la main tant qu'il en reste une.
+
+Ce qui reste un vrai arrêt, inchangé : merger soi-même (jamais), contourner
+un refus de permission (jamais), trancher seul une décision produit,
+design, architecture ou marketing (proposer, noter la story « en attente de
+décision », passer à la suivante — pas attendre la réponse), publier quoi
+que ce soit hors du dépôt, et la règle 12. On ne rend la main que quand
+**toutes** les stories restantes attendent une décision.

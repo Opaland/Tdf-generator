@@ -26,7 +26,7 @@ Express (backend/server.js) ── mur d'accès optionnel (backend/auth.js)
         ▼
 Pipeline (pipeline/generate.js, orchestrateur)
   1. géocodage    (pipeline/geocode.js)    → IGN/Géoplateforme, repli Nominatim
-  2. routage      (pipeline/routing.js)    → OSRM
+  2. routage      (pipeline/routing.js)    → BRouter (profil vélo), repli OSRM
   3. altimétrie   (pipeline/elevation.js)  → opentopodata
   4. côtes/descentes (pipeline/climbs.js, pipeline/descents.js) → géocodage
      inverse pour le nom (mêmes fournisseurs qu'à l'étape 1), catégorisation
@@ -71,7 +71,7 @@ Détail et justification complète : [`BRIEF.md`](./BRIEF.md#ce-quon-ne-fera-pas
 | Choix | Pourquoi |
 |---|---|
 | Pas de compte par défaut | Usage local/LAN visé en premier — le mur d'accès (`ETAPEFORGE_PUBLIC=1`) est une option pour qui veut exposer publiquement, jamais activé automatiquement (y compris en Docker, où `NODE_ENV=production` ne suffit pas — bug corrigé avant même d'être poussé) |
-| Pas de dépendance cloud propriétaire | IGN/Géoplateforme, OSM/OSRM, opentopodata, Wikipédia — sources ouvertes uniquement, mises en cache localement |
+| Pas de dépendance cloud propriétaire | IGN/Géoplateforme, BRouter/OSRM (OSM), opentopodata, Wikipédia — sources ouvertes uniquement, mises en cache localement |
 | Pas de framework frontend | JS vanilla + Leaflet, 5 dépendances directes en tout, chacune évaluée avant adoption |
 | Pas de base de cols généraliste | `/cols.html` reste un sous-produit des étapes déjà générées localement, jamais un référentiel mondial type climbfinder |
 | Pas de navigation temps réel | ÉtapeForge reconstruit et documente une étape, il n'accompagne pas une sortie en cours (rôle d'un GPS vélo) |
