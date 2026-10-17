@@ -195,8 +195,8 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 
 ## Epic 15 — Vérification concurrentielle directe (La Flamme Rouge)
 
-- [ ] 15.1 Tenter un accès direct depuis cette session
-- [ ] 15.2 Mettre à jour issue #14 avec le résultat
+- [ ] 15.1 **blocked** — Accès direct retenté le 17/10/2026 : HTTP 403 (protection anti-bot), recherche web non concluante ; aucun contournement tenté
+- [x] 15.2 Mettre à jour issue #14 avec le résultat — corps de l'issue mis à jour le 17/10, commentaire de suivi (surface via BRouter, PR #366)
 
 ## Epic 16 — Recherche concurrentielle élargie (rando/ski)
 
