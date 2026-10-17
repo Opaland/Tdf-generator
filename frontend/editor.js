@@ -178,8 +178,20 @@ async function loadStages() {
       confirmTitle: 'Cliquer à nouveau pour confirmer la suppression',
       onConfirm: async () => {
         b.disabled = true;
-        await EF.api(`/api/stages/${b.dataset.del}`, { method: 'DELETE' });
-        loadStages();
+        try {
+          await EF.api(`/api/stages/${b.dataset.del}`, { method: 'DELETE' });
+          loadStages();
+        } catch (err) {
+          // Refus du serveur (403 « réservé aux administrateurs » en mode
+          // public, par exemple) : bouton réactivé et message en ligne, plutôt
+          // qu'un rejet non géré qui laissait le bouton mort sans explication.
+          b.disabled = false;
+          b.parentElement.querySelector('.inline-error')?.remove();
+          const msg = document.createElement('span');
+          msg.className = 'meta-line inline-error';
+          msg.textContent = ` Erreur : ${err.message}`;
+          b.after(msg);
+        }
       },
     }))
   );

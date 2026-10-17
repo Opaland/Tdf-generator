@@ -7,7 +7,7 @@ const path = require('path');
 const express = require('express');
 const { resetInterruptedGenerations } = require('../pipeline/generate');
 const { isOffline } = require('../pipeline/http');
-const { authRouter, requireAuth, AUTH_REQUIRED } = require('./auth');
+const { authRouter, requireAuth, requireAdmin, AUTH_REQUIRED } = require('./auth');
 const { startScheduledBackups } = require('./backup');
 
 const PORT = parseInt(process.env.PORT || '4567', 10);
@@ -64,6 +64,34 @@ require('./routes/status')(app);
 // Tout ce qui suit nécessite une session valide quand ETAPEFORGE_PUBLIC=1
 // (GET /api/status ci-dessus reste accessible sans compte : sonde de santé).
 app.use('/api', requireAuth);
+
+// Routes destructrices ou de configuration partagée : admin seulement en mode
+// public (backend/auth.js, requireAdmin — sans effet en usage local).
+// Enregistrées AVANT les routes elles-mêmes pour passer en premier.
+const ADMIN_ROUTES = [
+  ['post', '/api/offline'],
+  ['post', '/api/backup/import'],
+  ['post', '/api/editions/import'],
+  ['post', '/api/editions/import-all'],
+  ['delete', '/api/stages/:id'],
+  // Connecteurs : un seul compte Suunto/Strava partagé par l'instance —
+  // le (re)connecter écrase les jetons de l'admin, lister ou importer lit
+  // ses sorties privées (relecture adverse).
+  ['post', '/api/suunto/config'],
+  ['post', '/api/suunto/disconnect'],
+  ['get', '/api/suunto/connect'],
+  ['get', '/api/suunto/callback'],
+  ['get', '/api/suunto/workouts'],
+  ['post', '/api/suunto/import'],
+  ['post', '/api/strava/config'],
+  ['post', '/api/strava/disconnect'],
+  ['get', '/api/strava/connect'],
+  ['get', '/api/strava/callback'],
+  ['get', '/api/strava/activities'],
+  ['post', '/api/strava/import'],
+  ['get', '/api/secrets/status'],
+];
+for (const [method, route] of ADMIN_ROUTES) app[method](route, requireAdmin);
 
 require('./routes/admin')(app);
 require('./routes/geocode')(app);

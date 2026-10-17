@@ -172,6 +172,44 @@ function requireAuth(req, res, next) {
   next();
 }
 
+// Rôle admin (recommandation R1, docs/ARCHITECTURE-REVIEW.md ; Epic 27.4) :
+// en mode public seulement, les routes destructrices ou de configuration
+// partagée (sauvegarde, réimport d'édition, suppression d'étape, mode
+// hors-ligne, identifiants des connecteurs) sont réservées aux emails listés
+// dans ETAPEFORGE_ADMIN_EMAILS (séparés par des virgules). Liste vide en mode
+// public = personne n'est admin : ces routes sont fermées, jamais ouvertes à
+// tous par défaut. Hors mode public, aucun effet (usage local inchangé).
+function adminEmails() {
+  return new Set(String(process.env.ETAPEFORGE_ADMIN_EMAILS || '')
+    .split(',').map((e) => e.trim().toLowerCase()).filter(Boolean));
+}
+
+const MIN_ADMIN_TOKEN_LEN = 16;
+
+function adminTokenMatches(given) {
+  // Jeton trop court (ou fait d'espaces, relecture adverse) = non configuré :
+  // l'inscription des emails admin reste fermée plutôt qu'ouverte à un
+  // jeton devinable.
+  const expected = String(process.env.ETAPEFORGE_ADMIN_TOKEN || '').trim();
+  if (expected.length < MIN_ADMIN_TOKEN_LEN || typeof given !== 'string') return false;
+  const a = crypto.createHash('sha256').update(given).digest();
+  const b = crypto.createHash('sha256').update(expected).digest();
+  return crypto.timingSafeEqual(a, b);
+}
+
+function isAdmin(user) {
+  return !!user && adminEmails().has(String(user.email).toLowerCase());
+}
+
+function requireAdmin(req, res, next) {
+  if (!AUTH_REQUIRED) return next();
+  const user = req.user || verifySession(parseCookies(req)[SESSION_COOKIE]);
+  if (!user) return res.status(401).json({ error: 'Authentification requise' });
+  if (!isAdmin(user)) return res.status(403).json({ error: 'Réservé aux administrateurs (ETAPEFORGE_ADMIN_EMAILS)' });
+  req.user = user;
+  next();
+}
+
 // --- routes ------------------------------------------------------------------
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -185,6 +223,15 @@ router.post('/register', rateLimit, async (req, res) => {
   const db = getDb();
   if (db.prepare('SELECT id FROM users WHERE email = ?').get(email)) {
     return res.status(409).json({ error: 'Un compte existe déjà avec cet email' });
+  }
+  // L'inscription ne vérifie pas la propriété de l'email : sans ce garde, le
+  // premier venu à s'inscrire avec un email de ETAPEFORGE_ADMIN_EMAILS
+  // devenait administrateur (trouvaille de relecture adverse). Un email admin
+  // ne s'inscrit qu'avec le jeton d'amorçage ETAPEFORGE_ADMIN_TOKEN ; sans
+  // jeton configuré, l'inscription de ces emails est refusée (un compte
+  // existant avant la liste reste admin : il a prouvé sa priorité).
+  if (adminEmails().has(email) && !adminTokenMatches((req.body || {}).admin_token)) {
+    return res.status(403).json({ error: 'Inscription d\'un compte administrateur : jeton ETAPEFORGE_ADMIN_TOKEN requis (champ admin_token)' });
   }
   const hash = await hashPassword(password);
   const r = db.prepare('INSERT INTO users (email, password_hash) VALUES (?, ?)').run(email, hash);
@@ -211,12 +258,13 @@ router.post('/logout', (req, res) => {
 router.get('/me', (req, res) => {
   const user = verifySession(parseCookies(req)[SESSION_COOKIE]);
   if (!user) return res.status(401).json({ error: 'Non connecté' });
-  res.json({ email: user.email });
+  res.json({ email: user.email, admin: isAdmin(user) });
 });
 
 module.exports = {
   authRouter: router,
   requireAuth,
+  requireAdmin,
   AUTH_REQUIRED,
   // exportés pour les tests unitaires
   hashPassword,
