@@ -8,6 +8,8 @@ const { notifyGenerationFailure } = require('../notify');
 const { getDb } = require('../db');
 const { generateStage, loadStageFull } = require('../../pipeline/generate');
 const { wrap, requireString, optionalString, optionalNumber, assertLatLonPaired, CLIMB_CATEGORY_RANK } = require('../apiHelpers');
+const { isOffline } = require('../../pipeline/http');
+const { communesAlong } = require('../../pipeline/communes');
 
 module.exports = function register(app) {
   // Générations en cours (une par étape).
@@ -134,6 +136,34 @@ module.exports = function register(app) {
     if (!full) return res.status(404).json({ error: 'Étape introuvable' });
     res.json(full);
   });
+
+  // Communes traversées, à la demande (Epic 12, option B) : ~1 requête
+  // geo.api.gouv.fr par km de tracé, donc jamais pendant la génération.
+  // Synchrone (≈ 45 s pour 170 km), une seule à la fois par étape.
+  const communesRunning = new Set();
+  app.post('/api/stages/:id/communes', wrap(async (req, res) => {
+    const id = parseInt(req.params.id, 10);
+    if (isOffline()) {
+      throw Object.assign(new Error('Calcul des communes traversées indisponible hors ligne (geo.api.gouv.fr requis)'), { status: 503 });
+    }
+    const full = loadStageFull(id);
+    if (!full) throw Object.assign(new Error(`Étape ${id} introuvable`), { status: 404 });
+    if (!full.track || !full.samples?.length) throw Object.assign(new Error('Étape non générée : aucun tracé'), { status: 409 });
+    if (communesRunning.has(id)) throw Object.assign(new Error('Calcul déjà en cours pour cette étape'), { status: 409 });
+    communesRunning.add(id);
+    try {
+      let result;
+      try {
+        result = await communesAlong(full.samples);
+      } catch (err) {
+        throw Object.assign(new Error(`geo.api.gouv.fr injoignable ou en erreur : ${err.message}`), { status: 502 });
+      }
+      getDb().prepare('UPDATE tracks SET communes = ? WHERE stage_id = ?').run(JSON.stringify(result), id);
+      res.json(result);
+    } finally {
+      communesRunning.delete(id);
+    }
+  }));
 
   app.post('/api/stages/:id/generate', wrap(async (req, res) => {
     const id = parseInt(req.params.id, 10);
