@@ -184,6 +184,9 @@ function getDb() {
   db.pragma('foreign_keys = ON');
   db.exec(SCHEMA);
   ensureColumn(db, 'climbs', 'irregularity_index', 'irregularity_index REAL');
+  // JSON : résumé du revêtement (pipeline/surface.js) — NULL pour un tracé
+  // généré avant cette colonne ou importé depuis une trace GPX/FIT.
+  ensureColumn(db, 'tracks', 'surfaces', 'surfaces TEXT');
   ensureColumn(db, 'waypoints', 'bonus_sec', 'bonus_sec TEXT');
   ensureColumn(db, 'waypoints', 'country_hint', 'country_hint TEXT');
   ensureColumn(db, 'waypoints', 'region_hint', 'region_hint TEXT');

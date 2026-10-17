@@ -199,6 +199,32 @@ function renderFiche() {
       `— heuristique maison (D+ pondéré par catégorie de côte + fatigue des jours de montagne consécutifs), pas une reconstruction du score VeloViewer.`;
   }
 
+  // Revêtement (pipeline/surface.js, tags OSM via BRouter) : décrit le tracé
+  // RECONSTITUÉ, pas forcément celui de la course — si le routage contourne un
+  // secteur de chemins, ce résumé le montre au lieu de le deviner. « Présumé »
+  // et « inconnu » restent affichés à part, jamais fondus dans « revêtu ».
+  const surf = FULL.track?.surfaces;
+  document.getElementById('surface-section').style.display = surf ? 'block' : 'none';
+  if (surf) {
+    const km = (m) => (m / 1000).toFixed(1).replace('.', ',');
+    const t = surf.meters;
+    document.getElementById('surface-summary').textContent =
+      `${km(t.non_revetu)} km non revêtus` + (t.paves > 0 ? ` · ${km(t.paves)} km de pavés` : '');
+    const labels = { non_revetu: 'non revêtu', paves: 'pavés' };
+    const ul = document.getElementById('surface-list');
+    ul.textContent = '';
+    for (const s of surf.stretches.filter((x) => x.toM - x.fromM >= 100)) {
+      const li = document.createElement('li');
+      li.textContent = `km ${km(s.fromM)} → ${km(s.toM)} : ${labels[s.cls] || s.cls}` +
+        (s.surfaces.length ? ` (${s.surfaces.join(', ')})` : '') + ` — ${km(s.toM - s.fromM)} km`;
+      ul.appendChild(li);
+    }
+    document.getElementById('surface-detail').textContent =
+      `Revêtu : ${km(t.revetu)} km d'après le tag OSM, ${km(t.revetu_presume)} km présumés d'après la classe de route (sans tag) · ` +
+      `inconnu : ${km(t.inconnu)} km (sans tag, tronçons interpolés ou routés par OSRM). ` +
+      `Source : ${surf.source}. Décrit le tracé reconstitué, pas forcément celui de la course.`;
+  }
+
   // Réserves de confiance (backlog #10, section A/D) : affirmations à
   // confiance structurée portées par historic_routes.json pour cette étape
   // précise (ex. altitude non confirmée sur le roadbook) — absent = aucune

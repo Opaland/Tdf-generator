@@ -15,6 +15,7 @@ const { runChecks } = require('./checks');
 const { isOffline } = require('./http');
 const { stageConfidence } = require('./wikipedia');
 const { consecutiveMountainDays, painIndex } = require('./pain');
+const { summarizeSurfaces } = require('./surface');
 
 /**
  * Options de géocodage pour un waypoint : `near` (biais de proximité, point
@@ -155,9 +156,13 @@ async function generateStage(stageId, { onProgress } = {}) {
     };
     const save = db.transaction(() => {
       db.prepare(
-        `INSERT OR REPLACE INTO tracks (stage_id, geojson, distance_m, approx_segments, router)
-         VALUES (?, ?, ?, ?, ?)`
-      ).run(stageId, JSON.stringify(geojson), routed.distanceM, JSON.stringify(routed.approxSegments), routed.router);
+        `INSERT OR REPLACE INTO tracks (stage_id, geojson, distance_m, approx_segments, router, surfaces)
+         VALUES (?, ?, ?, ?, ?, ?)`
+      ).run(
+        stageId, JSON.stringify(geojson), routed.distanceM, JSON.stringify(routed.approxSegments), routed.router,
+        // Simulateur : aucun tag OSM, un résumé « 100 % inconnu » ne serait que du bruit sur la fiche.
+        routed.router === 'simulateur' ? null : JSON.stringify(summarizeSurfaces(routed.surfaceStretches || [], routed.distanceM))
+      );
 
       db.prepare('DELETE FROM elevation_samples WHERE stage_id = ?').run(stageId);
       const insSample = db.prepare(
@@ -294,7 +299,7 @@ function loadStageFull(stageId) {
       bonus_sec: w.bonus_sec ? JSON.parse(w.bonus_sec) : null,
     })),
     track: track
-      ? { ...track, geojson: JSON.parse(track.geojson), approx_segments: track.approx_segments ? JSON.parse(track.approx_segments) : [] }
+      ? { ...track, geojson: JSON.parse(track.geojson), approx_segments: track.approx_segments ? JSON.parse(track.approx_segments) : [], surfaces: track.surfaces ? JSON.parse(track.surfaces) : null }
       : null,
     samples,
     climbs: climbs.map((c) => ({ ...c, km_blocks: c.km_blocks ? JSON.parse(c.km_blocks) : [] })),
