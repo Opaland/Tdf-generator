@@ -152,6 +152,15 @@ exposé qu'en local sur le VPS, Caddy en local fait le pont vers l'extérieur
 en HTTPS — le conteneur Node lui-même ne voit jamais de trafic non chiffré
 venant d'Internet.
 
+Ce n'est pas qu'une précaution : avec `trust proxy`, le limiteur de
+tentatives de connexion et d'inscription identifie le client par l'en-tête
+`X-Forwarded-For`. Si le port 4567 était joignable directement, un client
+pourrait forger cet en-tête à chaque requête et contourner le limiteur
+(vérifié en relecture : 12 en-têtes différents, aucun refus), y compris
+pour deviner `ETAPEFORGE_ADMIN_TOKEN`. Gardez donc le port lié à
+`127.0.0.1`, derrière un proxy qui réécrit l'en-tête (Caddy le fait par
+défaut).
+
 ```bash
 git clone https://github.com/Opaland/Tdf-generator
 cd Tdf-generator

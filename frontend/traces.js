@@ -66,6 +66,17 @@ async function importFromLink() {
 }
 
 /**
+ * En mode public, connecter le compte Suunto/Strava partagé est réservé aux
+ * administrateurs (backend/server.js, ADMIN_ROUTES) : un membre ne voit pas
+ * le lien (qui menait sinon à une page d'erreur JSON brute — relecture
+ * adverse). Hors mode public, user = null : lien affiché comme avant.
+ */
+async function canConnectAccount() {
+  const user = await EF.requireAuthOrRedirect();
+  return !user || user.admin === true;
+}
+
+/**
  * Exécute l'action d'un bouton et affiche son erreur en ligne, juste après
  * lui (textContent, jamais innerHTML) — sans quoi un refus du serveur (403
  * « réservé aux administrateurs » en mode public, par exemple) restait un
@@ -129,7 +140,9 @@ async function renderSuunto() {
   if (!st.connected) {
     box.innerHTML = `
       <p class="meta-line">Application configurée. Connectez votre compte Suunto pour lister vos sorties.</p>
-      <a class="btn" href="/api/suunto/connect">Se connecter à Suunto</a>`;
+      ${(await canConnectAccount())
+        ? '<a class="btn" href="/api/suunto/connect">Se connecter à Suunto</a>'
+        : '<span class="meta-line">Connexion du compte Suunto réservée à un administrateur de cette instance.</span>'}`;
     return;
   }
 
@@ -472,7 +485,9 @@ async function renderStrava() {
   if (!st.connected) {
     box.innerHTML = `
       <p class="meta-line">Application configurée. Connectez votre compte Strava pour lister vos sorties.</p>
-      <a class="btn" href="/api/strava/connect">Se connecter à Strava</a>`;
+      ${(await canConnectAccount())
+        ? '<a class="btn" href="/api/strava/connect">Se connecter à Strava</a>'
+        : '<span class="meta-line">Connexion du compte Strava réservée à un administrateur de cette instance.</span>'}`;
     return;
   }
 

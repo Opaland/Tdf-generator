@@ -184,9 +184,14 @@ function adminEmails() {
     .split(',').map((e) => e.trim().toLowerCase()).filter(Boolean));
 }
 
+const MIN_ADMIN_TOKEN_LEN = 16;
+
 function adminTokenMatches(given) {
-  const expected = process.env.ETAPEFORGE_ADMIN_TOKEN;
-  if (!expected || typeof given !== 'string') return false;
+  // Jeton trop court (ou fait d'espaces, relecture adverse) = non configuré :
+  // l'inscription des emails admin reste fermée plutôt qu'ouverte à un
+  // jeton devinable.
+  const expected = String(process.env.ETAPEFORGE_ADMIN_TOKEN || '').trim();
+  if (expected.length < MIN_ADMIN_TOKEN_LEN || typeof given !== 'string') return false;
   const a = crypto.createHash('sha256').update(given).digest();
   const b = crypto.createHash('sha256').update(expected).digest();
   return crypto.timingSafeEqual(a, b);

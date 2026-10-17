@@ -28,6 +28,9 @@ function sessionCookie(res) {
 }
 
 function registerRaw(email, extra = {}) {
+  // Plusieurs inscriptions par test : le limiteur (10 tentatives / 15 min
+  // par IP, backend/auth.js) n'est pas l'objet de ces tests.
+  require('../backend/auth').attempts.clear();
   return fetch(`${base}/api/auth/register`, {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password: 'motdepasse-solide', ...extra }),
@@ -130,4 +133,22 @@ test('inscription d\'un email administrateur : refusée sans le jeton d\'amorça
   assert.strictEqual((await (await call('GET', '/api/auth/me', cookie)).json()).admin, true);
   // Un email hors liste s'inscrit sans jeton, comme avant.
   assert.strictEqual((await registerRaw('simple@example.org')).status, 200);
+});
+
+test('jeton d\'amorçage absent, trop court ou fait d\'espaces → inscription admin fermée (jamais un jeton devinable)', async () => {
+  const savedToken = process.env.ETAPEFORGE_ADMIN_TOKEN;
+  const savedEmails = process.env.ETAPEFORGE_ADMIN_EMAILS;
+  process.env.ETAPEFORGE_ADMIN_EMAILS = `${savedEmails},troisieme@example.org`; // email admin pas encore inscrit
+  try {
+    for (const bad of ['', '                    ', 'court']) {
+      process.env.ETAPEFORGE_ADMIN_TOKEN = bad;
+      const res = await registerRaw('troisieme@example.org', { admin_token: bad });
+      assert.strictEqual(res.status, 403, `jeton ${JSON.stringify(bad)}`);
+    }
+    delete process.env.ETAPEFORGE_ADMIN_TOKEN;
+    assert.strictEqual((await registerRaw('troisieme@example.org', { admin_token: 'x' })).status, 403);
+  } finally {
+    process.env.ETAPEFORGE_ADMIN_TOKEN = savedToken;
+    process.env.ETAPEFORGE_ADMIN_EMAILS = savedEmails;
+  }
 });
