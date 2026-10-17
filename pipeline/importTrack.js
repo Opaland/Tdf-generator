@@ -12,8 +12,9 @@ const { runChecks } = require('./checks');
 const { reverseGeocode } = require('./geocode');
 const { isOffline } = require('./http');
 const { computeRideStats } = require('./rideStats');
+const { plausibleHr, hrSummary, hrAtSamples } = require('./heartRate');
 
-/** Parse un GPX (texte) → [{lat, lon, ele?, time?}] (trkpt, ou rtept à défaut). */
+/** Parse un GPX (texte) → [{lat, lon, ele?, time?, hr?}] (trkpt, ou rtept à défaut). */
 function parseGpx(text) {
   const points = [];
   const re = /<(trkpt|rtept)\b[^>]*\blat="(-?[\d.]+)"[^>]*\blon="(-?[\d.]+)"[^>]*>([\s\S]*?)<\/\1>|<(trkpt|rtept)\b[^>]*\blat="(-?[\d.]+)"[^>]*\blon="(-?[\d.]+)"[^>]*\/>/g;
@@ -24,6 +25,7 @@ function parseGpx(text) {
     if (!Number.isFinite(lat) || !Number.isFinite(lon)) continue;
     let ele = null;
     let time = null;
+    let hr = null;
     if (m[4]) {
       const em = m[4].match(/<ele>\s*(-?[\d.]+)\s*<\/ele>/);
       if (em) ele = parseFloat(em[1]);
@@ -37,14 +39,18 @@ function parseGpx(text) {
         const d = new Date(tm[1]);
         if (!Number.isNaN(d.getTime())) time = d;
       }
+      // FC : extension Garmin TrackPointExtension (<gpxtpx:hr>), préfixe
+      // d'espace de noms variable selon l'appli (ns3:, gpxtpx:…) ou absent.
+      const hm = m[4].match(/<(?:[\w-]+:)?hr>\s*([\d.]+)\s*<\/(?:[\w-]+:)?hr>/);
+      if (hm) hr = plausibleHr(parseFloat(hm[1]));
     }
-    points.push({ lat, lon, ele, time });
+    points.push({ lat, lon, ele, time, hr });
   }
   const nameM = text.match(/<name>([\s\S]*?)<\/name>/);
   return { points, name: nameM ? nameM[1].trim().slice(0, 120) : null };
 }
 
-/** Points FIT (fit-file-parser) → [{lat, lon, ele?, time?}]. */
+/** Points FIT (fit-file-parser) → [{lat, lon, ele?, time?, hr?}]. */
 function pointsFromFitRecords(records) {
   const points = [];
   for (const r of records || []) {
@@ -57,7 +63,7 @@ function pointsFromFitRecords(records) {
     // (epoch FIT 1989-12-31 déjà reconverti vers l'epoch Unix) — jamais une
     // chaîne à reparser, contrairement au <time> du GPX ci-dessus.
     const time = r.timestamp instanceof Date && !Number.isNaN(r.timestamp.getTime()) ? r.timestamp : null;
-    points.push({ lat, lon, ele, time });
+    points.push({ lat, lon, ele, time, hr: plausibleHr(r.heart_rate) });
   }
   return points;
 }
@@ -79,7 +85,7 @@ async function parseFit(buffer) {
 
 /**
  * Crée une étape depuis une trace et exécute le pipeline aval.
- * @param points [{lat, lon, ele?, time?}] bruts (≥ 2)
+ * @param points [{lat, lon, ele?, time?, hr?}] bruts (≥ 2)
  * @param meta { name, source, date?, stage_type?, status? }
  * @returns stageId
  */
@@ -95,11 +101,13 @@ async function importTrackAsStage(points, meta = {}) {
   // raison de porter le temps, or interpoler un horodatage entre deux points
   // recomposerait un rythme qui n'a jamais existé.
   const rideStats = computeRideStats(points);
+  const hr = hrSummary(points);
 
   const r = db
     .prepare(
-      `INSERT INTO stages (name, date, stage_type, status, state, source, elapsed_time_s, avg_speed_kmh, max_speed_kmh)
-       VALUES (?, ?, ?, ?, 'generating', ?, ?, ?, ?)`
+      `INSERT INTO stages (name, date, stage_type, status, state, source, elapsed_time_s, avg_speed_kmh, max_speed_kmh,
+         avg_hr_bpm, max_hr_bpm)
+       VALUES (?, ?, ?, ?, 'generating', ?, ?, ?, ?, ?, ?)`
     )
     .run(
       meta.name || 'Trace importée',
@@ -109,7 +117,9 @@ async function importTrackAsStage(points, meta = {}) {
       JSON.stringify({ trace: meta.source || 'import', points_bruts: points.length }),
       rideStats ? rideStats.elapsedTimeS : null,
       rideStats ? Math.round(rideStats.avgSpeedKmh * 10) / 10 : null,
-      rideStats ? Math.round(rideStats.maxSpeedKmh * 10) / 10 : null
+      rideStats ? Math.round(rideStats.maxSpeedKmh * 10) / 10 : null,
+      hr.avgHrBpm,
+      hr.maxHrBpm
     );
   const stageId = r.lastInsertRowid;
 
@@ -123,11 +133,12 @@ async function importTrackAsStage(points, meta = {}) {
     // Altitudes : celles de la trace si suffisamment présentes (interpolation
     // par ré-échantillonnage), sinon échantillonnage par les fournisseurs.
     const withEle = points.filter((p) => p.ele != null).length;
+    const { cumulativeDistances } = require('./geo');
+    const { cum } = cumulativeDistances(points);
+    const hrBySample = hrAtSamples(points, cum, resampled);
     let raw;
     if (withEle >= points.length * 0.8) {
       // Ré-interpolation des altitudes de la trace par abscisse curviligne.
-      const { cumulativeDistances } = require('./geo');
-      const { cum } = cumulativeDistances(points);
       // comble les trous d'altitude par le voisin le plus proche (fonction
       // partagée avec pipeline/elevation.js — même idiome que
       // fillInvalidElevations, pipeline/climbs.js). plausibleEle() d'abord :
@@ -166,6 +177,7 @@ async function importTrackAsStage(points, meta = {}) {
       idx: i, dist: s.dist, lat: s.lat, lon: s.lon,
       eleRaw: Number.isFinite(s.ele) ? Math.round(s.ele * 10) / 10 : null,
       eleSmooth: Math.round(smooth[i] * 10) / 10,
+      hr: hrBySample[i],
     }));
 
     let ascent = 0;
@@ -228,9 +240,9 @@ async function importTrackAsStage(points, meta = {}) {
       db.prepare(`INSERT OR REPLACE INTO tracks (stage_id, geojson, distance_m, approx_segments, router) VALUES (?, ?, ?, '[]', 'trace')`)
         .run(stageId, JSON.stringify(geojson), totalM);
       const insSample = db.prepare(
-        `INSERT INTO elevation_samples (stage_id, idx, dist_m, lat, lon, ele_raw_m, ele_smooth_m) VALUES (?, ?, ?, ?, ?, ?, ?)`
+        `INSERT INTO elevation_samples (stage_id, idx, dist_m, lat, lon, ele_raw_m, ele_smooth_m, hr_bpm) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
       );
-      for (const s of full) insSample.run(stageId, s.idx, s.dist, s.lat, s.lon, s.eleRaw, s.eleSmooth);
+      for (const s of full) insSample.run(stageId, s.idx, s.dist, s.lat, s.lon, s.eleRaw, s.eleSmooth, s.hr);
       const insClimb = db.prepare(
         `INSERT INTO climbs (stage_id, name, category, score, start_km, end_km, length_km,
            start_ele_m, summit_ele_m, avg_gradient, max_gradient, irregularity_index, km_blocks, name_source)

@@ -316,7 +316,7 @@ function loadStageFull(stageId) {
   const waypoints = db.prepare('SELECT * FROM waypoints WHERE stage_id = ? ORDER BY idx').all(stageId);
   const track = db.prepare('SELECT * FROM tracks WHERE stage_id = ?').get(stageId);
   const samples = db
-    .prepare('SELECT idx, dist_m, lat, lon, ele_raw_m, ele_smooth_m FROM elevation_samples WHERE stage_id = ? ORDER BY idx')
+    .prepare('SELECT idx, dist_m, lat, lon, ele_raw_m, ele_smooth_m, hr_bpm FROM elevation_samples WHERE stage_id = ? ORDER BY idx')
     .all(stageId);
   const climbs = db.prepare('SELECT * FROM climbs WHERE stage_id = ? ORDER BY start_km').all(stageId);
   const descents = db.prepare('SELECT * FROM descents WHERE stage_id = ? ORDER BY start_km').all(stageId);

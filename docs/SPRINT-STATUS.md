@@ -295,6 +295,20 @@ inclus »). Une seule instance, données partagées comme le reste des traces
 - [x] 29.6 Écran « Mes traces » : section Matériel (liste + cumuls, ajout, renommage, retrait) et choix du matériel par sortie récente ; vérification Playwright avant/après (360 et 1440 px)
 - [x] 29.7 Relecture adverse : 4 défauts fonctionnels corrigés — association limitée aux 20 sorties récentes (liste complète `GET /api/gear/traces`), réponses hors ordre (compteur de séquence), bilan dépendant de `/api/auth/me` (droit calculé une fois, échec = non), section invisible avant la première trace (carte à part) ; aucune faille de sécurité trouvée
 
+## Epic 30 — Fréquence cardiaque des traces importées (issue #228, phase 5)
+
+Prérequis de #228 vérifié le 17/10/2026 sur les données réelles de
+l'utilisateur (Strava, lecture seule) : une sortie vélo porte un flux de
+fréquence cardiaque et de température, ni puissance ni cadence — d'où une
+story limitée à la FC. Les zones (modèle, FC max de référence) sont un choix
+produit : 30.5 attend une décision.
+
+- [ ] 30.1 Lecture de la FC à l'import : GPX (extension `…:hr`, tout préfixe), FIT (`heart_rate`), Strava (flux `heartrate`) ; valeur hors 25–250 bpm = absente, jamais 0
+- [ ] 30.2 Migration 8 : `elevation_samples.hr_bpm` (valeur du point brut le plus proche en abscisse, jamais interpolée), `stages.avg_hr_bpm`/`max_hr_bpm` ; moyenne et max `null` si moins de la moitié des points bruts portent une FC (règle 10)
+- [ ] 30.3 Fiche étape : tuiles FC moyenne/max et courbe de FC par distance, seulement pour une trace qui en porte ; aucun changement pour les autres étapes (Playwright avant/après)
+- [ ] 30.4 Sauvegarde portable et exports : FC incluse dans les exports bruts de ses propres données (sauvegarde portable, `export.json` de la fiche) ; absente des formats faits pour être partagés — GPX/TCX/KML, export HTML, roadbook, mini-sites (donnée de santé)
+- [ ] 30.5 **en attente de décision** — Zones de FC : modèle (5 zones % FC max ? Karvonen ?) et source de la FC max (saisie, 220-âge, max observé)
+
 ## Epic 24 — Bilan final
 
 - [x] 24.1 Rapport de clôture par epic (17/10/2026), voir ci-dessous

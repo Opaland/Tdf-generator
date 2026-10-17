@@ -149,6 +149,7 @@ function renderFiche() {
       .join('');
     document.getElementById('ride-stats-section').style.display = '';
   }
+  renderHeartRate(st, FULL.samples);
 
   // Bandeau reconstruction historique.
   const delta = EF.distanceDelta(st.official_distance_km, st.generated_distance_km);
@@ -560,7 +561,68 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 }
 
-if (typeof module !== 'undefined' && module.exports) module.exports = { similarItemHtml, poll, climbNameSourceLabel };
+
+// Fréquence cardiaque (issue #228, phase 5, Epic 30) : trace importée
+// seulement — avg/max_hr_bpm restent NULL partout ailleurs, et pour une trace
+// dont moins de la moitié des points portent une FC (pipeline/heartRate.js).
+
+/** Courbe FC par distance, SVG autonome. Un trou (échantillon sans FC)
+ * coupe la ligne au lieu d'être relié : rien n'est inventé entre deux
+ * mesures. Renvoie '' s'il n'y a pas au moins deux valeurs. */
+function buildHrChart(samples, W, H) {
+  const pts = samples.filter((s) => Number.isFinite(s.hr_bpm));
+  if (pts.length < 2) return '';
+  const M = { l: 36, r: 10, t: 10, b: 22 };
+  const maxD = samples[samples.length - 1].dist_m || 1;
+  let lo = Infinity;
+  let hi = -Infinity;
+  for (const s of pts) { lo = Math.min(lo, s.hr_bpm); hi = Math.max(hi, s.hr_bpm); }
+  lo = Math.floor((lo - 5) / 10) * 10;
+  hi = Math.ceil((hi + 5) / 10) * 10;
+  const x = (d) => M.l + (d / maxD) * (W - M.l - M.r);
+  const y = (v) => H - M.b - ((v - lo) / (hi - lo)) * (H - M.t - M.b);
+  // Au plus ~900 points tracés, coupure de ligne conservée.
+  const step = Math.max(1, Math.ceil(samples.length / 900));
+  let d = '';
+  let pen = false;
+  for (let i = 0; i < samples.length; i += step) {
+    const s = samples[i];
+    if (!Number.isFinite(s.hr_bpm)) { pen = false; continue; }
+    d += `${pen ? 'L' : 'M'}${x(s.dist_m).toFixed(1)},${y(s.hr_bpm).toFixed(1)}`;
+    pen = true;
+  }
+  const km = Math.round(maxD / 100) / 10;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Fréquence cardiaque de ${lo} à ${hi} bpm sur ${km} km">
+    <line x1="${M.l}" y1="${y(lo)}" x2="${W - M.r}" y2="${y(lo)}" stroke="#ddd5c2"/>
+    <line x1="${M.l}" y1="${y(hi)}" x2="${W - M.r}" y2="${y(hi)}" stroke="#ddd5c2"/>
+    <text x="${M.l - 4}" y="${y(lo) + 3}" text-anchor="end" font-size="10" fill="#6b6b6b">${lo}</text>
+    <text x="${M.l - 4}" y="${y(hi) + 3}" text-anchor="end" font-size="10" fill="#6b6b6b">${hi}</text>
+    <text x="${M.l}" y="${H - 6}" font-size="10" fill="#6b6b6b">0 km</text>
+    <text x="${W - M.r}" y="${H - 6}" text-anchor="end" font-size="10" fill="#6b6b6b">${km} km</text>
+    <path d="${d}" fill="none" stroke="#b01c2f" stroke-width="1.5" stroke-linejoin="round"/>
+  </svg>`;
+}
+
+function renderHeartRate(st, samples) {
+  const section = document.getElementById('hr-section');
+  if (!section || st.avg_hr_bpm == null) return;
+  const box = document.getElementById('hr-box');
+  const W = Math.max(320, Math.min(1100, box.clientWidth || 700));
+  const svg = buildHrChart(samples || [], W, 140);
+  box.innerHTML = svg;
+  document.getElementById('hr-note').textContent =
+    `moyenne ${Math.round(st.avg_hr_bpm)} bpm · max ${Math.round(st.max_hr_bpm)} bpm — ` +
+    'valeur du point enregistré le plus proche, sans interpolation ; trous laissés vides.';
+  section.style.display = '';
+  const stats = document.getElementById('ride-stats');
+  stats.querySelectorAll('.hr-stat').forEach((el) => el.remove()); // idempotent si la fiche est re-rendue
+  stats.insertAdjacentHTML('beforeend',
+    `<div class="stat hr-stat"><div class="v">${Math.round(st.avg_hr_bpm)} bpm</div><div class="l">FC moyenne</div></div>` +
+    `<div class="stat hr-stat"><div class="v">${Math.round(st.max_hr_bpm)} bpm</div><div class="l">FC maximale</div></div>`);
+  document.getElementById('ride-stats-section').style.display = '';
+}
+
+if (typeof module !== 'undefined' && module.exports) module.exports = { similarItemHtml, poll, climbNameSourceLabel, buildHrChart };
 
 // Communes traversées (Epic 12, option B) : calculées à la demande — environ
 // une requête geo.api.gouv.fr par kilomètre, donc jamais à la génération.
