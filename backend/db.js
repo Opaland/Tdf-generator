@@ -45,14 +45,6 @@ CREATE TABLE IF NOT EXISTS stages (
   created_at TEXT NOT NULL DEFAULT (datetime('now')),
   updated_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
--- Couvre le filtre + tri utilisés par toutes les routes qui listent les étapes
--- d'une édition (GET /api/editions/:id, export de tour, generate.js — lookup
--- des étapes sœurs pour occurrenceIndex/occurrenceCount) : sans cet index,
--- chacune de ces requêtes fait un SCAN complet de la table stages plus un tri sur
--- B-tree temporaire (vérifié par EXPLAIN QUERY PLAN, Sprint 4 performance,
--- issue #343) — un coût qui grossit avec le nombre total d'étapes de TOUTES
--- les éditions, pas seulement celle demandée.
-CREATE INDEX IF NOT EXISTS idx_stages_edition ON stages(edition_id, stage_order, id);
 
 CREATE TABLE IF NOT EXISTS waypoints (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -240,6 +232,18 @@ const MIGRATIONS = [
       // NULL pour un tracé généré avant cette colonne ou importé depuis une
       // trace GPX/FIT.
       ensureColumn(database, 'tracks', 'surfaces', 'surfaces TEXT');
+    },
+  },
+  {
+    version: 4,
+    description: 'index stages(edition_id, stage_order, id)',
+    up(database) {
+      // Couvre le filtre + tri de toutes les routes qui listent les étapes
+      // d'une édition (GET /api/editions/:id, export de tour, generate.js —
+      // étapes sœurs pour occurrenceIndex/occurrenceCount) : sans lui, SCAN
+      // complet de stages + tri sur B-tree temporaire (EXPLAIN QUERY PLAN,
+      // Sprint 4 performance, issue #343).
+      database.exec('CREATE INDEX IF NOT EXISTS idx_stages_edition ON stages(edition_id, stage_order, id)');
     },
   },
 ];
