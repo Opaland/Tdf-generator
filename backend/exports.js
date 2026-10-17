@@ -326,14 +326,33 @@ function stagePayload(full, { maxSamples = 600, maxTrack = 900 } = {}) {
   };
 }
 
-function nearestSampleDist(w, samples) {
-  let best = null;
+// Distance approchée en mètres (équirectangulaire) : suffisante pour comparer
+// des échantillons voisins d'un même waypoint.
+function approxM(a, b) {
+  const x = (b.lon - a.lon) * Math.cos(((a.lat + b.lat) / 2) * Math.PI / 180);
+  const y = b.lat - a.lat;
+  return Math.sqrt(x * x + y * y) * 111320;
+}
+
+/**
+ * Échantillon du profil qui correspond au waypoint `w`, en ne cherchant
+ * qu'à partir de `fromIdx` (indice retenu pour le waypoint précédent) : les
+ * waypoints sont ordonnés le long du tracé, et un circuit en tours (`laps`,
+ * issue #251) repasse N fois au même endroit — une recherche sur tout le
+ * profil renverrait le passage du tour 1 pour chacun des N tours
+ * (trouvaille de relecture adverse : 28 « Place de la Concorde » à 0,0 km).
+ * Parmi les échantillons restants, on prend le PREMIER assez proche du
+ * meilleur (2× la distance minimale, au moins 300 m — de l'ordre du pas
+ * d'échantillonnage), donc le passage du tour en cours plutôt qu'un tour
+ * suivant à peine plus proche.
+ */
+function nearestSampleIdx(w, samples, fromIdx = 0) {
   let bd = Infinity;
-  for (const s of samples) {
-    const d2 = (s.lat - w.lat) ** 2 + (s.lon - w.lon) ** 2;
-    if (d2 < bd) { bd = d2; best = s; }
-  }
-  return best;
+  for (let i = fromIdx; i < samples.length; i++) bd = Math.min(bd, approxM(w, samples[i]));
+  if (!Number.isFinite(bd)) return -1;
+  const tol = Math.max(2 * bd, 300);
+  for (let i = fromIdx; i < samples.length; i++) if (approxM(w, samples[i]) <= tol) return i;
+  return -1;
 }
 
 /**
@@ -355,10 +374,13 @@ function stageToRoadbookHtml(stageId) {
   }
   const { stage, edition, waypoints, climbs, samples } = full;
 
+  let fromIdx = 0;
   const points = waypoints
     .filter((w) => w.lat != null)
     .map((w) => {
-      const s = nearestSampleDist(w, samples);
+      const i = nearestSampleIdx(w, samples, fromIdx);
+      if (i >= 0) fromIdx = i;
+      const s = i >= 0 ? samples[i] : null;
       return {
         distM: s ? s.dist_m : 0,
         ele: s ? Math.round(s.ele_smooth_m) : null,

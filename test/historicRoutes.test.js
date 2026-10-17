@@ -673,15 +673,20 @@ test('1989 étape 21 : LeMond bat Fignon de 8 secondes — contre-la-montre Vers
   assert.ok(wps.every((w) => w.source === 'parcours curé'), 'les deux extrémités sont explicitement sourcées, pas seulement Wikipédia');
 });
 
-test('1975 étape 22 : première arrivée aux Champs-Élysées — circuit fermé Paris, sourcé', () => {
-  // Étape en circuit fermé (27 tours du circuit Paris/Champs-Élysées) : même
-  // pattern start === finish sans via que 2026 étape 1 (Barcelone) — le test
-  // d'adjacence de historic_routes.json l'exclut déjà explicitement (aucun
-  // via, donc rien à comparer).
+test('1975 étape 22 : première arrivée aux Champs-Élysées — 27 tours du circuit développés à l\'import (laps)', () => {
+  // Circuit fermé (27 tours × 6,05 km) : avant le mécanisme `laps` (issue
+  // #251), départ = arrivée sans via donnait 0 km généré.
   const wps = reconstructionWaypoints(1975, { number: 22, start: 'Paris', finish: 'Paris' });
-  const labels = wps.map((w) => w.label);
-  assert.deepStrictEqual(labels, ['Paris', 'Paris']);
-  assert.ok(wps.every((w) => w.source === 'parcours curé'), 'les deux extrémités sont explicitement sourcées, pas seulement Wikipédia');
+  const tour = ['Rond-point des Champs-Élysées, Paris', 'Rue Arsène-Houssaye, Paris', 'Tunnel du Général-Lemonnier, Paris',
+    'Rue de Rivoli (avenue du Général-Lemonnier), Paris', 'Place de la Concorde, Paris'];
+  assert.strictEqual(wps.length, 2 + 27 * tour.length);
+  assert.strictEqual(wps[0].label, 'Place de la Concorde, Paris');
+  assert.strictEqual(wps.at(-1).label, 'Avenue des Champs-Élysées, Paris');
+  for (let lap = 0; lap < 27; lap++) {
+    assert.deepStrictEqual(wps.slice(1 + lap * tour.length, 1 + (lap + 1) * tour.length).map((w) => w.label), tour, `tour ${lap + 1}`);
+  }
+  assert.ok(wps.every((w) => w.source === 'parcours curé'));
+  assert.ok(wps.every((w) => Number.isFinite(w.lat) && Number.isFinite(w.lon)), 'chaque point du circuit est figé en coordonnées');
 });
 
 test('1934 étape 21b : premier contre-la-montre individuel — La Roche-sur-Yon → Nantes, sourcé', () => {
