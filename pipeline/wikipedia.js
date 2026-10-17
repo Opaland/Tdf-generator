@@ -713,7 +713,13 @@ function reconstructionWaypoints(year, stage, category = 'hommes', occurrenceInd
     country_hint: curated?.start ? curatedCountry(curated.start) : foreignCountry(stage.startCountry),
     region_hint: curated?.start ? curatedRegion(curated.start) : stage.startDepartment || null,
   });
-  for (const via of expandLaps(curated?.vias || [], curated?.laps)) {
+  let vias;
+  try {
+    vias = expandLaps(curated?.vias || [], curated?.laps);
+  } catch (e) {
+    throw new Error(`historic_routes.json, ${year} étape ${stage.number} : ${e.message}`, { cause: e });
+  }
+  for (const via of vias) {
     if (typeof via === 'string') wps.push({ label: via, kind: 'via', bonus_sec: null, source: 'parcours curé' });
     else {
       const known = KNOWN_COLS[via.label];

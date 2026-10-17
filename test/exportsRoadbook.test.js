@@ -114,6 +114,32 @@ test('roadbook.html : temps écoulé au départ toujours "0 min" (distance nulle
   assert.match(firstRow, /<td>0\.0<\/td><td>0 min<\/td>/);
 });
 
+test('roadbook.html : circuit en tours (laps) -> chaque passage au même lieu a son propre km, croissant', async () => {
+  // Trouvaille de relecture adverse (Epic 8, issue #251) : chaque waypoint
+  // était replacé sur l'échantillon le plus proche de TOUT le profil, donc
+  // les N passages d'un même lieu héritaient tous du km du premier tour.
+  const { generateStage } = require('../pipeline/generate');
+  const tour = [
+    { label: 'Boucle Nord', lat: 45.03, lon: 5.0 },
+    { label: 'Boucle Est', lat: 45.03, lon: 5.04 },
+    { label: 'Boucle Sud', lat: 45.0, lon: 5.04 },
+  ];
+  const waypoints = [{ label: 'Départ circuit', lat: 45.0, lon: 5.0 }];
+  for (let i = 0; i < 3; i++) waypoints.push(...tour.map((w) => ({ ...w })));
+  waypoints.push({ label: 'Arrivée circuit', lat: 45.0, lon: 5.001 });
+  const create = await (await fetch(`${base}/api/stages`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: 'Circuit trois tours', waypoints }),
+  })).json();
+  await generateStage(create.id);
+  const html = await (await fetch(`${base}/api/stages/${create.id}/roadbook.html`)).text();
+  const tbody = html.match(/<tbody>([\s\S]*?)<\/tbody>/)[1];
+  const rows = [...tbody.matchAll(/<tr>\s*<td>([0-9.]+)<\/td>[\s\S]*?<td>(Boucle [A-Za-z]+)<\/td>/g)];
+  const est = rows.filter((r) => r[2] === 'Boucle Est').map((r) => Number(r[1]));
+  assert.strictEqual(est.length, 3);
+  assert.ok(est[0] < est[1] && est[1] < est[2], `km des 3 passages à « Boucle Est » : ${est.join(', ')}`);
+});
+
 test('site (tour) : édition sans source.notes -> aucun encart <p class="note">', async () => {
   const ed = await (await fetch(`${base}/api/editions`, {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
