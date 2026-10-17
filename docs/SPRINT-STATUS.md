@@ -169,7 +169,8 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 - [x] 10.4 Documenter dans `historic_routes.json` avec `confidence` — fait pour les 3 étapes curées, honnêtement hors tolérance pour toutes (voir détail de chaque entrée)
 - [x] 10.5 Étapes 2, 4, 5, 6 curées (PR #358, #357, #356, #355) et étape 3 refaite (PR #354), toutes depuis le roadbook ASO complet trouvé sur dimensionsvelo.com — étapes 2-5 dans la tolérance (-3,5 % à +3,0 %), étape 6 à -9,8 % mais fidèle à 0,3 km près jusqu'au premier passage à Rosheim (écart entièrement dans la boucle finale, décrite seulement par des numéros de carrefour). Trouvailles transverses : (a) les entrées de roadbook codées comme carrefour (« Piney (D43-D79) ») désignent la route qui frôle la commune, pas le village — viser le centre ajoute 1,5-5,6 km par tronçon ; (b) un total dans la tolérance peut masquer une dérive intermédiaire de ±10 km par compensation — mesuré point par point à chaque étape, documenté dans les confidence ; (c) BRouter renvoie des HTTP 403 par intermittence sous charge (repli OSRM leg par leg), invisible sans la PR #340
 - [ ] 10.6 **backlog** — Étape 1 (circuit parisien à 12 tours) bloquée sur Epic 8 (mécanisme "laps"), pas une curation ordinaire
-- [ ] 10.7 **backlog** — Étapes 7 et 8 (curées avant ce fichier, depuis les prévisualisations seules, -10,0 %/-10,2 %) : à reprendre depuis leur roadbook ASO si disponible
+- [x] 10.7 Étapes 7 et 8 refaites depuis leur roadbook ASO (PR #359, #360) : -10,0 % → +4,3 % et -10,2 % → +3,6 %. Trouvailles : « Col du Platzerwasel » résolu sur un autre col (Hilsenfirst, ~4 km) sur main, check « col atteint » passant quand même ; Mélisey (étape 8), ajoutée par la curation précédente comme « commune évidente non sourcée », n'est pas sur le parcours réel.
+- [ ] 10.8 **backlog** — Consolider la note d'édition  une fois #354-#360 mergées (chacune la modifie partiellement)
 
 ## Epic 11 — Détection de surface non goudonnée (Overpass API)
 
