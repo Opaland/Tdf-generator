@@ -59,12 +59,17 @@ function geocodeOptsFor(wp, prevPos) {
  */
 function resetInterruptedGenerations() {
   const db = getDb();
-  return db
-    .prepare(
-      `UPDATE stages SET state = 'error', error = ?, progress = NULL, updated_at = datetime('now')
-       WHERE state = 'generating'`
-    )
-    .run('Génération interrompue (serveur redémarré pendant le calcul) — relancer la génération.').changes;
+  // Une étape sans waypoint vient d'un import de trace (pipeline/importTrack.js) :
+  // generateStage() la rejetterait (« au moins deux waypoints ») et la trace
+  // source n'est pas conservée — seul un réimport peut aboutir.
+  const reset = db.prepare(
+    `UPDATE stages SET state = 'error', error = ?, progress = NULL, updated_at = datetime('now')
+     WHERE state = 'generating' AND ? = EXISTS (SELECT 1 FROM waypoints w WHERE w.stage_id = stages.id)`
+  );
+  return db.transaction(() =>
+    reset.run('Génération interrompue (serveur redémarré pendant le calcul) — relancer la génération.', 1).changes +
+    reset.run('Import interrompu (serveur redémarré pendant le calcul) — réimporter la trace.', 0).changes
+  )();
 }
 
 function setProgress(stageId, progress) {
