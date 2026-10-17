@@ -28,6 +28,13 @@ module.exports = function register(app) {
       .map((s) => {
         let checks = null;
         try { checks = s.checks ? JSON.parse(s.checks) : null; } catch { /* checks corrompu : ignoré plutôt que de faire planter toute la liste */ }
+        // Liste : résumé seulement ({ ok, offline }, seuls champs lus par les
+        // écrans de liste — badge d'état, frontend/common.js stateBadge). Le
+        // détail des audits (~2 Ko par étape) reste dans GET /api/stages/:id.
+        // Mesuré (scripts/scale-bench.js, 2 200 étapes) : la liste complète
+        // pesait 5,2 Mo pour 251 ms, presque entièrement ce détail.
+        // Toute autre forme (tableau, scalaire — jamais écrite par le pipeline) : null.
+        checks = checks && typeof checks === 'object' && !Array.isArray(checks) ? { ok: checks.ok, offline: checks.offline } : null;
         return { ...s, checks };
       });
     res.json(rows);
