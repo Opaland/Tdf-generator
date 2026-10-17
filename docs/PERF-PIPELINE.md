@@ -13,7 +13,7 @@ fiche complète) sur plusieurs scénarios.
 **Mode hors-ligne forcé** (`ETAPEFORGE_OFFLINE`, simulateur déterministe) :
 reproductible dans un bac à sable sans réseau, mais ça mesure uniquement le
 **calcul et l'écriture SQLite** du pipeline — pas la latence des vraies APIs
-(Géoplateforme, OSRM, opentopodata, Wikipédia). En usage réel (`npm run
+(Géoplateforme, BRouter/OSRM, opentopodata, Wikipédia). En usage réel (`npm run
 demo:online` ou un serveur en production), le temps perçu par
 l'utilisateur·rice est dominé par ces appels réseau et leur rate-limiting
 (voir `pipeline/rateLimiter.js`), pas par le pipeline lui-même — ce document

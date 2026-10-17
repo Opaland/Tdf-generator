@@ -448,7 +448,7 @@ ${climbsHtml}
 
 const ATTRIBUTIONS =
   'Données : © IGN/Géoplateforme (géocodage, altimétrie RGE ALTI, fonds PLANIGNV2) · ' +
-  '© OpenStreetMap contributors · Routage OSRM (router.project-osrm.org) · ' +
+  '© OpenStreetMap contributors · Routage BRouter (brouter.de), repli OSRM · ' +
   'Altimétrie hors France : opentopodata.org (EU-DEM) · ' +
   'Données historiques : Wikipédia (CC BY-SA), recoupées avec bikeraceinfo.com';
 
