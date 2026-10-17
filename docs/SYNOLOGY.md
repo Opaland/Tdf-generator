@@ -143,8 +143,16 @@ Recommandations :
    sur un NAS réel.) Les sauvegardes automatiques déjà faites contiennent toujours l'ancienne
    valeur : les purger aussi, ou changer le secret chez le fournisseur.
 
-Un chiffrement au repos (option B de l'issue #379) est prévu avant toute
-exposition publique durable ; il n'est pas en place aujourd'hui.
+**Chiffrement au repos** (option B de l'issue #379) : définir
+`ETAPEFORGE_SECRET_KEY` (16 caractères au moins, par exemple
+`openssl rand -hex 32`). Les secrets et jetons des connecteurs sont alors
+chiffrés en base (AES-256-GCM) ; ceux déjà présents en clair sont chiffrés au
+démarrage suivant. Ce que ça protège : une copie du fichier `.sqlite` ou
+d'une sauvegarde automatique, sans la clé. Ce que ça ne protège pas : un
+serveur compromis en marche (la clé est dans son environnement). **Une clé
+perdue ou changée rend les secrets illisibles** : les connecteurs
+apparaissent alors non configurés, il faut les reconfigurer et reconnecter
+les comptes. Les sauvegardes faites avant l'activation restent en clair.
 
 ## Notifications
 

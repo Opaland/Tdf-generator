@@ -81,19 +81,25 @@ async function loadQuota() {
 async function loadSecrets() {
   const ul = document.getElementById('secrets-list');
   const NAMES = { client_secret: 'secret client', subscription_key: 'clé d\'abonnement' };
-  const WHERE = { env: 'variable d\'environnement', db: 'base SQLite, en clair', absent: 'non configuré' };
+  const WHERE = { env: 'variable d\'environnement', db: 'base SQLite, en clair', 'db-chiffre': 'base SQLite, chiffré (ETAPEFORGE_SECRET_KEY)', absent: 'non configuré' };
   try {
     const d = await EF.api('/api/secrets/status');
     const items = [];
+    items.push(d.encryptionKey
+      ? '<li class="ok"><span class="st">✓</span>Chiffrement au repos actif (ETAPEFORGE_SECRET_KEY)</li>'
+      : '<li class="warn"><span class="st">⚠</span>Chiffrement au repos inactif : définir ETAPEFORGE_SECRET_KEY (16 caractères au moins)</li>');
     for (const [service, st] of Object.entries(d)) {
+      if (service === 'encryptionKey') continue;
       for (const [name, where] of Object.entries(st.secrets)) {
         const cls = where === 'db' ? 'warn' : 'ok';
         items.push(`<li class="${cls}"><span class="st">${where === 'db' ? '⚠' : '✓'}</span>` +
           `<b>${EF.esc(service)}</b> — ${EF.esc(NAMES[name] || name)} : ${EF.esc(WHERE[where] || where)}</li>`);
       }
       if (st.tokensInDb) {
-        items.push(`<li class="warn"><span class="st">⚠</span><b>${EF.esc(service)}</b> — jetons de connexion : base SQLite, en clair ` +
-          '(protéger le fichier de base et les sauvegardes : permissions 600)</li>');
+        items.push(st.tokensEncrypted
+          ? `<li class="ok"><span class="st">✓</span><b>${EF.esc(service)}</b> — jetons de connexion : base SQLite, chiffrés</li>`
+          : `<li class="warn"><span class="st">⚠</span><b>${EF.esc(service)}</b> — jetons de connexion : base SQLite, en clair ` +
+            '(définir ETAPEFORGE_SECRET_KEY, ou protéger le fichier de base et les sauvegardes)</li>');
       }
     }
     ul.innerHTML = items.join('');

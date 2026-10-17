@@ -115,6 +115,8 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
 });
 
 if (require.main === module) {
+  const encrypted = require('./settings').encryptStoredSecrets();
+  if (encrypted) console.log(`[settings] ${encrypted} secret(s) de connecteur chiffré(s) au repos (ETAPEFORGE_SECRET_KEY)`);
   const interrupted = resetInterruptedGenerations();
   if (interrupted) console.log(`${interrupted} génération(s) interrompue(s) par l'arrêt précédent marquée(s) en erreur.`);
   app.listen(PORT, () => {
