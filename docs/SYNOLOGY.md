@@ -41,7 +41,7 @@ dossier que le conteneur pourra écrire.
 
 Vérification : depuis un appareil du réseau local,
 `http://IP-DU-NAS:4567` → ÉtapeForge. Ouvrez `http://IP-DU-NAS:4567/diag.html`
-pour vérifier que le NAS atteint bien les APIs (IGN, OSRM, Wikipédia…).
+pour vérifier que le NAS atteint bien les APIs (IGN, BRouter/OSRM, Wikipédia…).
 
 ### Variante en ligne de commande (SSH)
 

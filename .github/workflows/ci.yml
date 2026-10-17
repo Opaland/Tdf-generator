@@ -38,6 +38,24 @@ jobs:
       - name: npm audit (dépendances directes + dev, seuil élevé)
         run: npm audit --audit-level=high
 
+  e2e:
+    # Navigateur réel sur la démo hors-ligne (scripts/e2e-smoke.js) : 8 écrans
+    # × 2 largeurs, échec sur erreur JS/console, requête locale en erreur ou
+    # débordement horizontal. Requêtes externes coupées : déterministe.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Démo hors-ligne (données des écrans)
+        run: npm run demo
+      - name: E2E navigateur (desktop 1440 px + mobile 375 px)
+        run: npm run e2e
+
   docker:
     runs-on: ubuntu-latest
     steps:

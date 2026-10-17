@@ -1,6 +1,6 @@
 'use strict';
 // POST /api/editions/import-all doit refuser (409) un second démarrage tant
-// qu'un import en masse tourne déjà (backend/server.js, importAllJob). Le
+// qu'un import en masse tourne déjà (backend/routes/editions.js, importAllJob). Le
 // vrai importAllEditions() hors-ligne est trop rapide pour fiablement
 // « attraper » l'état running dans un test réel (aucun délai réseau — les
 // fixtures locales sont lues en synchrone). On mocke donc

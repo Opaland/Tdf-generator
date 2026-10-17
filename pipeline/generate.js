@@ -66,6 +66,33 @@ function parseSurfaces(raw) {
   }
 }
 
+/**
+ * Au démarrage du serveur : une étape restée `generating` en base vient
+ * forcément d'une génération interrompue (crash, redémarrage) — la promesse
+ * qui l'aurait terminée est morte avec l'ancien process. Sans ce passage,
+ * la fiche d'étape interroge indéfiniment (frontend/stage.js) et l'écran
+ * Archives masque le bouton de relance (frontend/archives.js).
+ *
+ * Appelé depuis backend/server.js au lancement seulement, jamais depuis
+ * getDb() : un `pipeline/cli.js` lancé en parallèle ouvrirait la même base et
+ * marquerait en erreur une génération réellement en cours dans l'autre
+ * process. Renvoie le nombre d'étapes remises en état.
+ */
+function resetInterruptedGenerations() {
+  const db = getDb();
+  // Une étape sans waypoint vient d'un import de trace (pipeline/importTrack.js) :
+  // generateStage() la rejetterait (« au moins deux waypoints ») et la trace
+  // source n'est pas conservée — seul un réimport peut aboutir.
+  const reset = db.prepare(
+    `UPDATE stages SET state = 'error', error = ?, progress = NULL, updated_at = datetime('now')
+     WHERE state = 'generating' AND ? = EXISTS (SELECT 1 FROM waypoints w WHERE w.stage_id = stages.id)`
+  );
+  return db.transaction(() =>
+    reset.run('Génération interrompue (serveur redémarré pendant le calcul) — relancer la génération.', 1).changes +
+    reset.run('Import interrompu (serveur redémarré pendant le calcul) — réimporter la trace.', 0).changes
+  )();
+}
+
 function setProgress(stageId, progress) {
   const db = getDb();
   db.prepare(`UPDATE stages SET progress = ?, updated_at = datetime('now') WHERE id = ?`).run(
@@ -331,4 +358,4 @@ function loadStageFull(stageId) {
   };
 }
 
-module.exports = { generateStage, loadStageFull, setProgress, geocodeOptsFor };
+module.exports = { generateStage, loadStageFull, setProgress, geocodeOptsFor, resetInterruptedGenerations };
