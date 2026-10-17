@@ -2,7 +2,7 @@
 // Sauvegarde portable (export/import JSON) — backlog #10, "réfléchisses à
 // mettre en place des backend pour la gestion des datas". Complète (ne
 // remplace pas) backend/backup.js (sauvegarde fichier .sqlite planifiée,
-// testée dans test/backup.test.js) : voir backend/server.js pour la
+// testée dans test/backup.test.js) : voir backend/routes/admin.js pour la
 // distinction reprise-après-sinistre vs portabilité.
 
 const os = require('os');
@@ -76,6 +76,7 @@ async function importBackup(payload) {
 test('GET /api/backup/export : base vide → toutes les tables présentes, vides', async () => {
   const dump = await exportBackup();
   assert.strictEqual(dump.version, 1);
+  assert.strictEqual(dump.schema_version, require('../backend/db').SCHEMA_VERSION); // migration de la base source (PR #369)
   assert.ok(dump.exported_at);
   for (const t of ['editions', 'stages', 'waypoints', 'tracks', 'elevation_samples', 'climbs', 'descents', 'km_analysis']) {
     assert.deepStrictEqual(dump.tables[t], [], `${t} doit être un tableau vide`);
@@ -178,7 +179,7 @@ test('POST /api/backup/import : accepte un payload de plus de 2 Mo avec le Conte
   assert.strictEqual(getDb().prepare('SELECT length(source) n FROM editions WHERE id = 1').get().n, bigSource.length);
 });
 
-// Trouvaille de sprint dédié : isBindable() (backend/server.js) ne vérifiait
+// Trouvaille de sprint dédié : isBindable() (backend/routes/admin.js) ne vérifiait
 // que `typeof v === 'number'`, contrairement à optionalNumber() plus haut
 // dans le même fichier qui utilise Number.isFinite. `1e999` est un nombre
 // syntaxiquement valide en JSON mais JSON.parse('1e999') === Infinity — et
