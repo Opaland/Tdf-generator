@@ -35,6 +35,13 @@
     </table>
   </div>
 
+  <h2>Identifiants des connecteurs (Suunto, Strava)</h2>
+  <p class="meta-line">Provenance de chaque secret, jamais sa valeur. La base SQLite n'est pas chiffrée :
+    un secret ou un jeton qui y est stocké est lisible par quiconque copie le fichier de base ou une
+    sauvegarde automatique. Préférer les variables d'environnement pour les secrets d'application
+    (voir docs/SYNOLOGY.md, « Identifiants des connecteurs »).</p>
+  <div class="card"><ul class="checks" id="secrets-list"></ul></div>
+
   <h2>Sauvegarde portable (export / import)</h2>
   <p class="meta-line">Exporte les données produit (éditions, étapes, tracés, côtes…) dans un fichier
     JSON téléchargeable — pour déplacer ses données vers une autre installation, ou en garder une
@@ -68,6 +75,30 @@ async function loadQuota() {
       : '<tr><td colspan="4" class="meta-line">Aucune requête réseau réelle depuis le démarrage (mode hors-ligne, ou aucune génération lancée).</td></tr>';
   } catch (err) {
     tbody.innerHTML = `<tr><td colspan="4" class="meta-line">Erreur : ${EF.esc(err.message)}</td></tr>`;
+  }
+}
+
+async function loadSecrets() {
+  const ul = document.getElementById('secrets-list');
+  const NAMES = { client_secret: 'secret client', subscription_key: 'clé d\'abonnement' };
+  const WHERE = { env: 'variable d\'environnement', db: 'base SQLite, en clair', absent: 'non configuré' };
+  try {
+    const d = await EF.api('/api/secrets/status');
+    const items = [];
+    for (const [service, st] of Object.entries(d)) {
+      for (const [name, where] of Object.entries(st.secrets)) {
+        const cls = where === 'db' ? 'warn' : 'ok';
+        items.push(`<li class="${cls}"><span class="st">${where === 'db' ? '⚠' : '✓'}</span>` +
+          `<b>${EF.esc(service)}</b> — ${EF.esc(NAMES[name] || name)} : ${EF.esc(WHERE[where] || where)}</li>`);
+      }
+      if (st.tokensInDb) {
+        items.push(`<li class="warn"><span class="st">⚠</span><b>${EF.esc(service)}</b> — jetons de connexion : base SQLite, en clair ` +
+          '(protéger le fichier de base et les sauvegardes : permissions 600)</li>');
+      }
+    }
+    ul.innerHTML = items.join('');
+  } catch (err) {
+    ul.innerHTML = `<li class="fail"><span class="st">✗</span>Erreur : ${EF.esc(err.message)}</li>`;
   }
 }
 
@@ -125,6 +156,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('btn-run').addEventListener('click', run);
   run();
   loadQuota();
+  loadSecrets();
 
   const fileInput = document.getElementById('backup-file');
   const restoreBtn = document.getElementById('btn-restore');
