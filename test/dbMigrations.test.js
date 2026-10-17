@@ -92,12 +92,12 @@ test('migrate : base plus récente que le code → rien n\'est touché', () => {
 // modification, pour forcer l'ajout d'une NOUVELLE migration en fin de
 // tableau. (Mettre à jour une empreinte ici n'est légitime que si la
 // migration n'a encore jamais été mergée sur main.)
-test('migrations publiées figées : SCHEMA + migration 1, migrations 2 à 6 — toute évolution passe par une nouvelle migration', () => {
+test('migrations publiées figées : SCHEMA + migration 1, migrations 2 à 7 — toute évolution passe par une nouvelle migration', () => {
   const crypto = require('crypto');
   const src = fs.readFileSync(path.join(__dirname, '..', 'backend', 'db.js'), 'utf8');
   const schema = /const SCHEMA = `([\s\S]*?)`;/.exec(src)[1];
   const h = (x) => crypto.createHash('sha256').update(x).digest('hex').slice(0, 16);
-  const PUBLISHED = { 1: '41b257a1888e56e1', 2: '0914fd11dbe36e3d', 3: 'f970c39851db3d6b', 4: 'c3548728be54efb4', 5: '2d0b9d61666df0bf', 6: '076339cb5cda615b' };
+  const PUBLISHED = { 1: '41b257a1888e56e1', 2: '0914fd11dbe36e3d', 3: 'f970c39851db3d6b', 4: 'c3548728be54efb4', 5: '2d0b9d61666df0bf', 6: '076339cb5cda615b', 7: '5b917893dcefc0c7' };
   const actual = {
     1: h(schema + '\n' + MIGRATIONS.find((m) => m.version === 1).up.toString()),
     2: h(MIGRATIONS.find((m) => m.version === 2).up.toString()),
@@ -105,6 +105,7 @@ test('migrations publiées figées : SCHEMA + migration 1, migrations 2 à 6 —
     4: h(MIGRATIONS.find((m) => m.version === 4).up.toString()),
     5: h(MIGRATIONS.find((m) => m.version === 5).up.toString()),
     6: h(MIGRATIONS.find((m) => m.version === 6).up.toString()),
+    7: h(MIGRATIONS.find((m) => m.version === 7).up.toString()),
   };
   for (const v of Object.keys(PUBLISHED)) {
     assert.strictEqual(actual[v], PUBLISHED[v],

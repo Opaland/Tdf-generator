@@ -52,7 +52,9 @@ module.exports = function register(app) {
   // passe ou un identifiant de session, même haché), ni les caches d'appels
   // externes (geocode_cache/elevation_cache/api_cache — régénérables, pas des
   // données produit).
-  const BACKUP_TABLES = ['editions', 'stages', 'waypoints', 'tracks', 'elevation_samples', 'climbs', 'descents', 'km_analysis'];
+  // `gear` avant `stages` : stages.gear_id y fait référence (migration 7) ;
+  // la suppression parcourt la liste à l'envers.
+  const BACKUP_TABLES = ['editions', 'gear', 'stages', 'waypoints', 'tracks', 'elevation_samples', 'climbs', 'descents', 'km_analysis'];
 
   // Number.isFinite, pas juste typeof === 'number' : better-sqlite3 accepte
   // NaN/Infinity comme paramètre lié sans se plaindre (vérifié directement),

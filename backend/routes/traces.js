@@ -33,7 +33,7 @@ module.exports = function register(app) {
     const traces = db
       .prepare(
         `SELECT s.id, s.name, s.date, s.generated_distance_km, s.total_ascent_m, s.elapsed_time_s,
-                s.city_hint, s.region_hint, s.country_hint
+                s.city_hint, s.region_hint, s.country_hint, s.gear_id
          FROM stages s JOIN tracks t ON t.stage_id = s.id
          WHERE t.router = 'trace' AND s.state = 'done'`
       )
@@ -158,6 +158,7 @@ module.exports = function register(app) {
         distanceKm: Math.round((t.generated_distance_km || 0) * 10) / 10,
         ascentM: Math.round(t.total_ascent_m || 0),
         elapsedTimeS: t.elapsed_time_s,
+        gearId: t.gear_id,
       }));
 
     res.json({

@@ -69,7 +69,9 @@ async function importFromLink() {
  * En mode public, connecter le compte Suunto/Strava partagé est réservé aux
  * administrateurs (backend/server.js, ADMIN_ROUTES) : un membre ne voit pas
  * le lien (qui menait sinon à une page d'erreur JSON brute — relecture
- * adverse). Hors mode public, user = null : lien affiché comme avant.
+ * adverse). Hors mode public, user = null : lien affiché comme avant. Sert
+ * aussi au bouton « Supprimer » du matériel (DELETE /api/gear/:id, même
+ * réserve admin).
  */
 async function canConnectAccount() {
   const user = await EF.requireAuthOrRedirect();
@@ -554,12 +556,174 @@ async function renderStrava() {
   }
 }
 
+// ---------------------------------------------------------------- matériel (issue #228, phase 7)
+
+const GEAR_KIND_LABELS = { velo: 'Vélo', chaussures: 'Chaussures', autre: 'Autre' };
+
+/** Lignes du tableau Matériel. Tout texte venu de l'API passe par EF.esc ;
+ * les identifiants sont des entiers (Number() avant interpolation). */
+function buildGearRows(gear, { canDelete = false } = {}) {
+  if (!gear.length) {
+    return '<tr><td colspan="6" class="meta-line">Aucun matériel : ajoutez-en un ci-dessous, puis choisissez-le pour chaque sortie.</td></tr>';
+  }
+  return gear.map((g) => {
+    const id = Number(g.id);
+    const kind = GEAR_KIND_LABELS[g.kind] || g.kind;
+    // Durée : null tant qu'aucune sortie n'est horodatée — « — », jamais 0 h.
+    let duration = '—';
+    if (g.elapsedTimeS != null) {
+      duration = EF.esc(formatDuration(g.elapsedTimeS));
+      if (g.timedCount < g.traceCount) duration += `<br><span class="meta-line">${g.timedCount} sur ${g.traceCount} horodatée${g.timedCount > 1 ? 's' : ''}</span>`;
+    }
+    return `<tr data-gear-id="${id}"${g.retired ? ' class="gear-retired"' : ''}>
+        <td class="gear-name"><b>${EF.esc(g.name)}</b><br><span class="meta-line">${EF.esc(kind)}${g.retired ? ' · retiré' : ''}</span></td>
+        <td>${Number(g.traceCount)}</td>
+        <td>${Number(g.distanceKm)} km</td>
+        <td>${Number(g.ascentM)} m</td>
+        <td>${duration}</td>
+        <td class="gear-actions">
+          <button type="button" class="secondary" data-gear-action="rename">Renommer</button>
+          <button type="button" class="secondary" data-gear-action="${g.retired ? 'unretire' : 'retire'}">${g.retired ? 'Remettre en service' : 'Retirer'}</button>
+          ${canDelete ? '<button type="button" class="danger" data-gear-action="delete">Supprimer</button>' : ''}
+        </td>
+      </tr>`;
+  }).join('');
+}
+
+/** Liste de choix du matériel d'une sortie : matériel en service, plus celui
+ * déjà associé même s'il a été retiré depuis (sinon la sortie paraîtrait
+ * sans matériel). */
+function buildGearSelect(gear, traceId, selectedId) {
+  const options = gear
+    .filter((g) => !g.retired || g.id === selectedId)
+    .map((g) => `<option value="${Number(g.id)}"${g.id === selectedId ? ' selected' : ''}>${EF.esc(g.name)}${g.retired ? ' (retiré)' : ''}</option>`)
+    .join('');
+  return `<select data-trace-id="${Number(traceId)}" aria-label="Matériel de la sortie"><option value=""${selectedId == null ? ' selected' : ''}>—</option>${options}</select>`;
+}
+
+let currentGear = [];
+
+async function gearAction(btn) {
+  const row = btn.closest('tr[data-gear-id]');
+  const id = Number(row.dataset.gearId);
+  const action = btn.dataset.gearAction;
+  if (action === 'rename') {
+    // Champ en place (pas de prompt() natif : test/noNativeDialogs.test.js).
+    const cell = row.querySelector('.gear-name');
+    const g = currentGear.find((x) => x.id === id);
+    cell.innerHTML = '<input maxlength="80" aria-label="Nouveau nom"> <button type="button" data-gear-action="save">OK</button>';
+    const input = cell.querySelector('input');
+    input.value = g ? g.name : '';
+    input.focus();
+    input.addEventListener('keydown', (e) => { if (e.key === 'Enter') cell.querySelector('button').click(); });
+    return;
+  }
+  if (action === 'delete' && btn.dataset.confirm !== '1') {
+    // Deux temps plutôt qu'un confirm() natif ; les sorties sont détachées, jamais supprimées.
+    btn.dataset.confirm = '1';
+    btn.textContent = 'Confirmer (les sorties sont conservées)';
+    return;
+  }
+  await withInlineError(btn, async () => {
+    if (action === 'save') {
+      await EF.api(`/api/gear/${id}`, { method: 'PUT', body: { name: row.querySelector('.gear-name input').value } });
+    } else if (action === 'retire' || action === 'unretire') {
+      await EF.api(`/api/gear/${id}`, { method: 'PUT', body: { retired: action === 'retire' } });
+    } else if (action === 'delete') {
+      await EF.api(`/api/gear/${id}`, { method: 'DELETE' });
+    }
+    await loadSummary();
+  });
+}
+
+async function addGear(e) {
+  e.preventDefault();
+  const msg = document.getElementById('gear-msg');
+  msg.textContent = '';
+  try {
+    await EF.api('/api/gear', {
+      method: 'POST',
+      body: { name: document.getElementById('gear-name').value, kind: document.getElementById('gear-kind').value },
+    });
+    document.getElementById('gear-name').value = '';
+    await loadSummary();
+  } catch (err) {
+    msg.textContent = `Erreur : ${err.message}`;
+  }
+}
+
+async function setTraceGear(select) {
+  select.parentElement.querySelector('.inline-error')?.remove();
+  try {
+    await EF.api(`/api/traces/${Number(select.dataset.traceId)}/gear`, {
+      method: 'PUT',
+      body: { gearId: select.value === '' ? null : Number(select.value) },
+    });
+    await loadSummary();
+  } catch (err) {
+    const m = document.createElement('span');
+    m.className = 'meta-line inline-error';
+    m.textContent = ` Erreur : ${err.message}`;
+    select.after(m);
+  }
+}
+
+/** Section Matériel : carte à part du bilan, visible même avant la première
+ * trace importée (on déclare son vélo d'abord). `traces` = toutes les
+ * traces terminées (GET /api/gear/traces), pas seulement les 20 récentes. */
+function renderGear(g, all, canDelete) {
+  document.getElementById('gear-section').style.display = 'block';
+  const tbody = document.querySelector('#gear-table tbody');
+  const form = document.getElementById('gear-add');
+  if (!g) {
+    tbody.innerHTML = '<tr><td colspan="6" class="meta-line">Matériel indisponible (erreur serveur) — rechargez la page.</td></tr>';
+    form.style.display = 'none';
+    document.getElementById('gear-all').style.display = 'none';
+    return;
+  }
+  form.style.display = '';
+  tbody.innerHTML = buildGearRows(currentGear, { canDelete });
+  const details = document.getElementById('gear-all');
+  if (!all || !all.traces.length || !currentGear.length) {
+    details.style.display = 'none';
+    return;
+  }
+  details.style.display = '';
+  document.getElementById('gear-all-summary').textContent =
+    `Toutes les sorties (${all.traces.length})${all.unassignedCount ? ` — ${all.unassignedCount} sans matériel, non comptée${all.unassignedCount > 1 ? 's' : ''} ci-dessus` : ''}`;
+  document.querySelector('#gear-all-table tbody').innerHTML = all.traces.map((t) => `<tr>
+      <td>${t.date ? EF.esc(new Date(t.date + 'T00:00:00Z').toLocaleDateString('fr-FR')) : '—'}</td>
+      <td><a href="/stage.html?id=${Number(t.id)}">${EF.esc(t.name)}</a></td>
+      <td>${Number(t.distanceKm)} km</td>
+      <td>${buildGearSelect(currentGear, t.id, t.gearId ?? null)}</td>
+    </tr>`).join('');
+}
+
+// Chaque action relance un rafraîchissement complet : seule la réponse du
+// dernier lancé est rendue, sinon une réponse lente plus ancienne écrasait
+// un état plus récent (relecture adverse, Epic 29).
+let refreshSeq = 0;
+// Droit de supprimer un matériel : calculé une fois, un échec vaut « non » —
+// le bilan ne dépend plus de /api/auth/me (relecture adverse).
+let canDeleteGearP = null;
+
 async function loadSummary() {
   if (window.EF_STATIC) return;
+  const seq = ++refreshSeq;
+  canDeleteGearP ??= canConnectAccount().catch(() => false);
+  // Non bloquants entre eux : un échec n'empêche pas le reste de s'afficher.
+  const [s, g, all, canDelete] = await Promise.all([
+    EF.api('/api/traces/summary').catch(() => null),
+    EF.api('/api/gear').catch(() => null),
+    EF.api('/api/gear/traces').catch(() => null),
+    canDeleteGearP,
+  ]);
+  if (seq !== refreshSeq) return;
+  currentGear = g ? g.gear : [];
+  renderGear(g, all, canDelete);
   const box = document.getElementById('summary-box');
   try {
-    const s = await EF.api('/api/traces/summary');
-    if (!s.traceCount) return;
+    if (!s || !s.traceCount) return;
 
     const tiles = [
       { v: s.traceCount, l: `sortie${s.traceCount > 1 ? 's' : ''} importée${s.traceCount > 1 ? 's' : ''}` },
@@ -609,7 +773,8 @@ async function loadSummary() {
         <td>${t.distanceKm} km</td>
         <td>${t.ascentM} m</td>
         <td>${t.elapsedTimeS != null ? EF.esc(formatDuration(t.elapsedTimeS)) : '—'}</td>
-      </tr>`).join('') || '<tr><td colspan="5" class="meta-line">Aucune sortie.</td></tr>';
+        <td>${g ? buildGearSelect(currentGear, t.id, t.gearId ?? null) : '—'}</td>
+      </tr>`).join('') || '<tr><td colspan="6" class="meta-line">Aucune sortie.</td></tr>';
 
     box.style.display = 'block';
   } catch {
@@ -624,6 +789,16 @@ if (typeof document !== 'undefined') {
 document.addEventListener('DOMContentLoaded', async () => {
   await EF.initChrome('traces');
   loadSummary();
+  document.getElementById('gear-add').addEventListener('submit', addGear);
+  document.querySelector('#gear-table tbody').addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-gear-action]');
+    if (btn) gearAction(btn);
+  });
+  for (const sel of ['#summary-recent tbody', '#gear-all-table tbody']) {
+    document.querySelector(sel).addEventListener('change', (e) => {
+      if (e.target.matches('select[data-trace-id]')) setTraceGear(e.target);
+    });
+  }
   const dz = document.getElementById('dropzone');
   const input = document.getElementById('gpx-file');
   dz.addEventListener('click', () => input.click());
@@ -663,5 +838,5 @@ document.addEventListener('DOMContentLoaded', async () => {
 }
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { isoWeekKey, formatPeriodLabel, formatDuration, computeAwards, buildCumulativeChart, buildWeeklyBarChart, buildCalendarHeatmap, heatmapColor };
+  module.exports = { isoWeekKey, formatPeriodLabel, formatDuration, computeAwards, buildCumulativeChart, buildWeeklyBarChart, buildCalendarHeatmap, heatmapColor, buildGearRows, buildGearSelect };
 }
