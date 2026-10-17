@@ -213,9 +213,9 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 
 ## Epic 18 — Performance : parallélisation (réseau réel)
 
-- [ ] 18.1 Profiler une génération d'étape réelle de bout en bout
-- [ ] 18.2 Identifier les attentes réellement indépendantes
-- [ ] 18.3 Paralléliser prudemment sans casser le biais de proximité du géocodage
+- [x] 18.1 Profiler une génération d'étape réelle de bout en bout — PR #381 : 2002/18 à froid en 35,8 s, dont ~20 s de délais de courtoisie (brouter.de, Nominatim) ; 0,14 s à chaud
+- [x] 18.2 Identifier les attentes réellement indépendantes — PR #381 : 3 leviers entre hôtes différents (flux géocodage→routage ~6-7 s, flux routage→altimétrie, moins de replis Nominatim = choix produit)
+- [ ] 18.3 **en attente de décision** Paralléliser prudemment sans casser le biais de proximité du géocodage — gain limité à la première génération (0,14 s à chaud) : à arbitrer avant d'ajouter de la complexité
 
 ## Epic 19 — Revue UI/UX globale
 
