@@ -41,6 +41,11 @@ function normLabel(s) {
   return String(s || '').trim().toLowerCase();
 }
 
+/** Comparaison de noms de reliefs : casse, accents et apostrophe typographique ignorés. */
+function normName(s) {
+  return normLabel(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[’ʼ`]/g, "'").replace(/\s+/g, ' ');
+}
+
 // Index POI de la Géoplateforme (sommets, communes atteintes sans numéro de
 // voie) : pas de `properties.label` (un tableau `name` à la place) —
 // schéma différent de l'index adresse. Partagé entre geopfSearch() (via
@@ -187,7 +192,16 @@ function pickFeature(feats, query, near, { summit = false, regionHint = null } =
   // aucune côte détectée du tout — pas seulement mal nommée.
   if (summit && !preferred.length) {
     const summits = feats.filter((f) => f.type === 'summit');
-    if (summits.length) preferred = summits;
+    // Parmi les reliefs, ceux qui portent EXACTEMENT le nom demandé passent
+    // avant les autres (issue #280) — même principe que exactMatches pour les
+    // communes ci-dessus. Sans ça, `near` départageait tous les reliefs à la
+    // seule distance, nom ignoré : « Col d'Ornon » (vrai col, Chantepérier,
+    // score 0,882) perdait contre « Col du Grand Van » (score 0,330) depuis La
+    // Mure et contre « Pic du Col d'Ornon » (2866 m) depuis Bourg-d'Oisans —
+    // vérifié en direct le 17/10/2026. Sans aucun nom exact (« Hautacam » vs
+    // « Hautacam ou Soum de Dabant Aygue »), comportement inchangé.
+    const exactSummits = summits.filter((f) => normName(f.label) === normName(query));
+    if (summits.length) preferred = exactSummits.length ? exactSummits : summits;
   }
   if (near) {
     // Ignore les candidats sans coordonnées exploitables : une comparaison
