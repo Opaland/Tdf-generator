@@ -228,10 +228,10 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 
 ## Epic 21 — Stratégie marketing/positionnement
 
-- [ ] 21.1 Rédiger l'angle de positionnement (reconstruction fidèle, locale, vérifiable)
-- [ ] 21.2 Lister les captures d'écran à produire
-- [ ] 21.3 Rédiger un texte de présentation court
-- [ ] 21.4 Soumettre à l'utilisateur avant toute publication
+- [x] 21.1 Rédiger l'angle de positionnement (reconstruction fidèle, locale, vérifiable) — `docs/MARKETING.md` (PR #353)
+- [x] 21.2 Captures d'écran : 8 existent déjà (`docs/captures/`) ; identifié ce qui manque réellement (mobile/PWA, GIF du pipeline) plutôt que tout refaire
+- [x] 21.3 Rédiger un texte de présentation court — 2 variantes (technique/non technique), non validées
+- [ ] 21.4 **backlog** — Soumis à l'utilisateur (PR #353 ouverte) ; aucune diffusion sans validation explicite
 
 ## Epic 22 — Resynchroniser l'issue #10
 
