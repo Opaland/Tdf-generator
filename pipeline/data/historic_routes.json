@@ -8117,6 +8117,58 @@
           }
         ],
         "note": "Troyes → Bar-sur-Aube (126,8 km, 27 juillet 2022), l'étape des « chemins blancs » de Champagne : première moitié plate par les lacs de la forêt d'Orient (Lusigny-sur-Barse, Géraudot) et Vendeuvre-sur-Barse jusqu'au sprint de Bar-sur-Seine, puis le vignoble de la Côte des Bar avec quatre secteurs gravel (Celles, Hautes Forêts, Plateau de Blu, Vitry) et six côtes. Reconstitué depuis le roadbook ASO complet. Résultat : 130,6 km (+3,0 %, dans la tolérance), avec une dérive intermédiaire documentée (voir confidence)."
+      },
+      "6": {
+        "start": { "label": "Remomeix", "lat": 48.2698792, "lon": 7.001886 },
+        "vias": [
+          { "label": "Provenchères-et-Colroy", "kind": "via", "lat": 48.3211264, "lon": 7.1051324 },
+          { "label": "Colroy-la-Grande", "kind": "via", "lat": 48.3232029, "lon": 7.1156888 },
+          { "label": "Lubine", "kind": "via", "lat": 48.316732, "lon": 7.1531182 },
+          { "label": "Col d'Urbeis", "kind": "col", "lat": 48.3262018, "lon": 7.1776067, "ele": 602 },
+          { "label": "Urbeis", "kind": "via", "lat": 48.3261732, "lon": 7.224641 },
+          { "label": "Fouchy", "kind": "via", "lat": 48.3287605, "lon": 7.2697906 },
+          { "label": "Bassemberg", "kind": "via", "lat": 48.3348478, "lon": 7.283941 },
+          { "label": "Villé", "kind": "via", "lat": 48.3426621, "lon": 7.3034728 },
+          { "label": "Triembach-au-Val", "kind": "via", "lat": 48.3376446, "lon": 7.325348 },
+          { "label": "Eichhoffen", "kind": "via", "lat": 48.3843282, "lon": 7.442826 },
+          { "label": "Mittelbergheim", "kind": "via", "lat": 48.3966676, "lon": 7.4425002 },
+          { "label": "Barr", "kind": "via", "lat": 48.4088704, "lon": 7.4492808 },
+          { "label": "Heiligenstein", "kind": "via", "lat": 48.4238894, "lon": 7.4508332 },
+          { "label": "Ottrott", "kind": "via", "lat": 48.4569926, "lon": 7.4232432 },
+          { "label": "Klingenthal", "kind": "col" },
+          { "label": "Grendelbruch", "kind": "col", "lat": 48.4930562, "lon": 7.3233331 },
+          { "label": "Russ", "kind": "via", "lat": 48.5026193, "lon": 7.2846926 },
+          { "label": "Hersbach", "kind": "via", "lat": 48.4981757, "lon": 7.2494491 },
+          { "label": "Wisches", "kind": "via", "lat": 48.5094853, "lon": 7.2691416 },
+          { "label": "Lutzelhouse", "kind": "via", "lat": 48.5196167, "lon": 7.2880044 },
+          { "label": "Dinsheim-sur-Bruche", "kind": "via", "lat": 48.5430561, "lon": 7.4269445 },
+          { "label": "Gresswiller", "kind": "via", "lat": 48.5355746, "lon": 7.4321702 },
+          { "label": "Rosheim", "kind": "via", "lat": 48.496421, "lon": 7.4698832 },
+          { "label": "Bischoffsheim", "kind": "via", "lat": 48.4876657, "lon": 7.4901898 },
+          { "label": "Bœrsch", "kind": "via", "lat": 48.4767699, "lon": 7.4410859 }
+        ],
+        "finish": { "label": "Rosheim", "lat": 48.496421, "lon": 7.4698832 },
+        "confidence": [
+          {
+            "claim": "tracé reconstitué depuis le roadbook ASO complet (64 points kilométrés, reproduit par dimensionsvelo.com, « source : ASO »)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "remplace une première curation (même session) construite sur les seuls points nommés par cyclingstage.com/rouleur.cc/Wikipédia, qui manquait tout le passage par le val de Villé et le piémont viticole (Villé, Eichhoffen, Barr, Ottrott) avant Klingenthal, puis la vallée de la Bruche (Russ, Wisches, Lutzelhouse, Dinsheim) après Grendelbruch. 25 points du roadbook retenus, géocodés (Nominatim, par département) puis figés, sauf Klingenthal (résolution automatique vérifiée à ~0,5 km du nœud Nominatim). Col d'Urbeis figé sur le vrai col (nœud OSM mountain_pass 48,3262018/7,1776067, ele 602, recoupé Géoplateforme index POI sans near à ~80 m) : le géocodage automatique, avec le near chaîné depuis Saint-Dié, le plaçait à 6 km de Saint-Dié côté Vosges. Départ réel figé à Remomeix (km 0,4 du roadbook ; Saint-Dié, Sainte-Marguerite et la D420 tous à km 0, zone neutralisée)."
+          },
+          {
+            "claim": "points du roadbook écartés après mesure : communes frôlées par la course, pas traversées",
+            "status": "OK",
+            "level": "moyenne",
+            "detail": "Pair-et-Grandrupt, Neuvillers-sur-Fave et Frapelle (codé « D420-Vc-D420 »), Niederhaslach (« D392-Vc-D392 »), Urmatt (cité deux fois, km 83,8 et 84,3) et Saint-Pierre-Bois (« D203 Saint-Pierre-Bois ») : viser le centre de chaque commune ajoutait 1,5 à 5,6 km par tronçon avec des zones de rebroussement (Urmatt/Niederhaslach). Mesuré : avec ces points, -2,7 % au total mais par compensation — dérive cumulée jusqu'à +12,3 km à Gresswiller, rattrapée par la boucle finale trop courte. Sans eux : dérive cumulée ≤ 5,6 km jusqu'au premier passage à Rosheim, atteint au km 106,4 contre 106,7 en course."
+          },
+          {
+            "claim": "écart résiduel de distance (généré 116,6 km vs officiel 129,2 km, -9,8 %), entièrement localisé dans la boucle finale",
+            "status": "UNSURE",
+            "level": "basse",
+            "detail": "vérifié par deux régénérations réelles indépendantes (import + generate, bases isolées), 116,6 km les deux fois, aucun repli OSRM. Les 106,7 premiers km (jusqu'au premier passage sur la ligne à Rosheim) sont reconstitués à 0,3 km près. Toute la différence vient de la boucle finale : 10,2 km reconstitués (Rosheim → Bischoffsheim → Bœrsch → Rosheim, 2 courtes zones de rebroussement autour de Bœrsch) contre 21,9 km en course. Le roadbook ne décrit sa seconde moitié que par des carrefours (« carrefour D216-D204 » au sommet de la côte de Boersch, km 119,5 ; « carrefour D204-D604 », km 121,1 ; retour par la D604 jusqu'à Rosheim, km 126,3) — aucun nom de lieu géocodable. Pas de via deviné pour la combler (Klingenthal ou Rosenwiller seraient plausibles sur la carte, mais non nommés par le roadbook sur ce tronçon). Préféré à la version à -2,7 % ci-dessus : un total dans la tolérance obtenu par compensation serait moins fidèle au tracé réel que ce -9,8 % localisé et expliqué."
+          }
+        ],
+        "note": "Saint-Dié-des-Vosges → Rosheim (129,2 km, 29 juillet 2022) : vallée de la Fave, Col d'Urbeis, val de Villé, piémont viticole d'Alsace (Barr, Ottrott), côtes de Klingenthal et de Grendelbruch, vallée de la Bruche (Russ, Lutzelhouse, Dinsheim), route de Mollkirch, premier passage à Rosheim au km 106,7, puis boucle finale par Bischoffsheim et la côte de Boersch. Reconstitué depuis le roadbook ASO. Résultat : 116,6 km (-9,8 %, hors tolérance), mais fidèle à 0,3 km près jusqu'au premier passage à Rosheim — l'écart est entièrement dans la boucle finale, décrite seulement par des numéros de carrefour (voir confidence)."
       }
     }
   }
