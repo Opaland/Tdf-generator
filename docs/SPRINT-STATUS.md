@@ -181,13 +181,13 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 
 - [x] 12.1 Chiffrer le coût de géocodage inverse à l'échelle — PR #382 : 2002/18, reverse Géoplateforme 40 % de réponses vides ; geo.api.gouv.fr 0 %, 44 communes au pas de 1 km en 47,6 s
 - [x] 12.2 Proposer 2-3 approches à l'utilisateur — PR #382 : A génération / B à la demande (recommandée) / C contours embarqués
-- [ ] 12.3 **en revue** — Communes traversées à la demande — PR #390 ; vérification contre le vrai geo.api.gouv.fr à refaire (hôte injoignable depuis le bac à sable le 17/10)
+- [x] 12.3 Communes traversées à la demande (fiche + roadbook, migration 6) — PR #390 (relecture adverse : course de régénération et relecture stricte corrigées) ; vérification contre le vrai geo.api.gouv.fr encore à faire (hôte injoignable depuis le bac à sable le 17/10)
 
 ## Epic 13 — Sécurité : identifiants Suunto stockés
 
 - [x] 13.1 Évaluer le risque réel (LAN strict vs exposition) — issue #379 (vérifié dans le code : jetons OAuth en clair dans `settings`, exclus de la sauvegarde portable)
 - [x] 13.2 Proposer un chiffrement at-rest — issue #379 : A durcir/documenter, B AES-256-GCM avec `ETAPEFORGE_SECRET_KEY`, C trousseau OS
-- [x] 13.3 Option A : provenance des secrets sur /diag.html, doc de durcissement — PR #386 ; option B (chiffrement au repos) reste à faire avant toute exposition publique durable
+- [x] 13.3 Option A (provenance des secrets, PR #386) puis option B (chiffrement au repos AES-256-GCM + scrypt, `ETAPEFORGE_SECRET_KEY`, PR #392)
 
 ## Epic 14 — Décision : programme partenaire Suunto
 
@@ -286,6 +286,33 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 - [x] 24.1 Rapport de clôture par epic (17/10/2026), voir ci-dessous
 - [x] 24.2 Liste de ce qui reste durablement ouvert, voir ci-dessous
 - [x] 24.3 Remise à l'utilisateur (17/10/2026) : il a délégué le merge et les 9 décisions ; tout est mergé ou fermé, décisions consignées ci-dessus
+
+### Bilan au 17/10/2026, fin de soirée (après délégation des merges et des décisions)
+
+**Mergé ce jour** : 38 PR — les 29 de la pile en attente (#339 à #383, hors fermées)
+puis les PR issues des décisions (et #391, suivi) — #384 (`laps`), #385 (profil par
+étape), #386 et #392 (secrets : provenance puis chiffrement), #387 (1992/21),
+#388 (rôle admin en mode public), #389 (jetons CSS), #390 (communes
+traversées). Fermées sans merge : #354 à #360 (remplacées par #370), #364
+(incluse dans #371). Chaque story de code est passée par au moins une
+relecture adverse ; trois en ont eu deux (rôle admin) ou ont vu des
+trouvailles majeures corrigées avant merge (clair résiduel du chiffrement,
+inscription admin usurpable, course de régénération des communes).
+
+**Les 9 décisions, telles que prises** : laps option A ; profil `shortest`
+seulement là où il n'emprunte aucune piste (1975/22) ; communes à la
+demande (B) ; secrets A puis B ; pas de parallélisation ; design option B ;
+positionnement versé au dépôt, **aucune publication** (reste une action de
+l'utilisateur) ; Playwright minimal en CI ; R1 livré, R5 et PWA hors ligne
+différés.
+
+**Reste ouvert, et pourquoi** :
+- 12.3 : vérification contre le vrai geo.api.gouv.fr (réseau du bac à sable) ;
+- 10.6 (2022-femmes/1) et 2002/20 : nombre de tours non sourcé ou contradictoire ;
+- 2002/13 (+9,8 %) et 2002/19 (-6,6 %) : pas de source kilométrée accessible ;
+- 28.5 (2020/2), 15.1 (La Flamme Rouge), 1.3 (branches mortes) : bloqués
+  par des accès externes ;
+- 26.5 (API `/v1`, PWA hors ligne) : différés faute de besoin exprimé.
 
 ### Où en est la feuille de route (17/10/2026)
 
