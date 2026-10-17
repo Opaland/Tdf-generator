@@ -23,12 +23,7 @@ licence, distincte du code qui les traite.
 
 Géocodage/routage/altimétrie ne sont pas versionnés dans ce dépôt — ils sont
 interrogés à l'exécution et mis en cache localement chez l'utilisateur
-(`data/etapeforge.sqlite`). **Exception** : la démo GitHub Pages
-(`.github/workflows/pages.yml` → `scripts/build-site.js`) publie les étapes
-générées à la publication (`data/stage-N.json` : tracé routé, waypoints
-géocodés, profil altimétrique) — des données dérivées d'OpenStreetMap (ODbL)
-et de l'IGN, redistribuées sous ces attributions. Portée exacte des
-obligations ODbL pour ces fichiers : à confirmer. Attribution affichée dans l'application et les
+(`data/etapeforge.sqlite`). Attribution affichée dans l'application et les
 exports (voir `ATTRIBUTIONS` dans `backend/exports.js`) :
 
 - © IGN/Géoplateforme (géocodage, altimétrie RGE ALTI, fonds PLANIGNV2)
@@ -37,10 +32,21 @@ exports (voir `ATTRIBUTIONS` dans `backend/exports.js`) :
 - Altimétrie hors France : opentopodata.org (EU-DEM)
 - Géocodage hors France : Nominatim (OpenStreetMap)
 
+**Exception — démo GitHub Pages** : `.github/workflows/pages.yml` →
+`scripts/build-site.js` publie les étapes pré-générées (`data/stage-N.json` :
+tracé, waypoints géocodés, profil altimétrique). Quand les APIs réelles sont
+joignables à la publication, ce sont des données dérivées d'OpenStreetMap
+(ODbL) et de l'IGN, redistribuées sous les attributions ci-dessus ; sinon
+`pages.yml` retombe sur le simulateur hors-ligne et les tracés publiés sont
+synthétiques (bandeau de la démo, `st.offline`). Le routeur effectif est
+enregistré par étape (`tracks.router`) : les étapes restaurées depuis le
+cache CI peuvent précéder la migration BRouter. Portée exacte des
+obligations ODbL pour ces fichiers : à confirmer.
+
 ## En résumé
 
 | | Licence | Redistribué par ce dépôt ? |
 |---|---|---|
 | Code (`backend/`, `pipeline/`, `frontend/`, `scripts/`, `test/`) | MIT | Oui |
 | `pipeline/data/historic_routes.json`, `pipeline/fixtures/*.html` | CC BY-SA (Wikipédia) | Oui — respecter CC BY-SA pour ce contenu précis |
-| Réponses géocodage/routage/altimétrie (mises en cache) | Propriété de chaque fournisseur, voir leurs CGU | Non dans le dépôt (cache local chez l'utilisateur) ; **oui** dans la démo GitHub Pages, pour les étapes pré-générées (voir ci-dessus) |
+| Réponses géocodage/routage/altimétrie (mises en cache) | Propriété de chaque fournisseur, voir leurs CGU | Non dans le dépôt (cache local chez l'utilisateur) ; **oui** dans la démo GitHub Pages quand elle est générée en ligne (voir ci-dessus) |
