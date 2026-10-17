@@ -7849,7 +7849,7 @@
     "highlight": "Grand Départ à Utrecht, CLM inaugural remporté par Rohan Dennis"
   },
   "2022-femmes": {
-    "notes": "Première édition moderne du Tour de France Femmes, arrivée décisive à la Super Planche des Belles Filles. Édition reconstruite depuis Wikipédia (fixture pipeline/fixtures/wikipedia_2022_femmes_en.html) sans aucune curation avant ce correctif (backlog #10 section B, Chantier L Tour de France Femmes) : les 8 étapes affichaient un écart de distance sévèrement hors tolérance (de -50,9 % à -97,8 %, cette dernière pour l'étape 1, circuit parisien sans via). Cols/côtes sourcés : cyclingstage.com (descriptions de parcours détaillées par étape, même type de source déjà utilisé pour l'édition 2015 de ce fichier). Ce correctif ajoute les cols principaux des deux étapes de montagne (7 et 8), les plus emblématiques de l'édition — réduit sensiblement l'écart de distance sur ces deux étapes mais ne les ramène pas dans la tolérance ±10 % (voir les entrées confidence dédiées, curation volontairement partielle plutôt que vias inventés) ; les étapes 1 à 6 restent entièrement à curer.",
+    "notes": "Première édition moderne du Tour de France Femmes, arrivée décisive à la Super Planche des Belles Filles. Édition reconstruite depuis Wikipédia (fixture pipeline/fixtures/wikipedia_2022_femmes_en.html) sans aucune curation avant ce correctif (backlog #10 section B, Chantier L Tour de France Femmes) : les 8 étapes affichaient un écart de distance sévèrement hors tolérance (de -50,9 % à -97,8 %, cette dernière pour l'étape 1, circuit parisien sans via). Cols/côtes sourcés : cyclingstage.com (descriptions de parcours détaillées par étape, même type de source déjà utilisé pour l'édition 2015 de ce fichier). Ce correctif ajoute les cols principaux des deux étapes de montagne (7 et 8), les plus emblématiques de l'édition — réduit sensiblement l'écart de distance sur ces deux étapes mais ne les ramène pas dans la tolérance ±10 % (voir les entrées confidence dédiées, curation volontairement partielle plutôt que vias inventés). Étape 5 curée le 17/10/2026 (-0,3 %, dans la tolérance, avec des écarts intermédiaires de ±6 km qui se compensent — voir confidence dédiée) ; les étapes 1 à 4 et 6 restent à curer (l'étape 1, circuit parisien à 12 tours, dépend du mécanisme « laps » encore absent, issue #251).",
     "stages": {
       "7": {
         "vias": [
@@ -7876,6 +7876,29 @@
           }
         ],
         "note": "Sélestat → Le Markstein (127,1 km, 30 juillet 2022), entièrement en Alsace. 35 km de plaine avant le Petit Ballon (via Munster), puis le col du Platzerwasel, une descente vers Oderen, et le Grand Ballon (déjà franchi par le Tour hommes en 1992, étape 11) avant les 7 derniers km sur la route des Crêtes jusqu'à l'arrivée. Munster et Oderen sourcés par cyclingstage.com (« stage-7-tdf-2022-women », relu en HTML brut, confirmé mot pour mot en relecture adverse par un second accès direct à la page). Colmar et Turckheim ajoutés en plus pour densifier le grand écart Sélestat-Munster (33,7 km sans point intermédiaire auparavant) : ce sont les villes évidentes sur l'axe direct (vallée de la Fecht/N83), non nommées par la source. Un essai d'ajout de « Wildenstein » pour combler l'écart Platzerwasel-Oderen (12,1 km) a été testé et abandonné cette session : il dégrade le résultat (+10,7 % au lieu de -10,0 %, avec 5 zones de rebroussement au lieu de 3), ce point n'étant en réalité pas sur le trajet direct de la descente. Coordonnées de Munster fixées explicitement (lat/lon) en relecture adverse : un homonyme français réel existe (Munster, Moselle, score Géoplateforme 0,973 contre 0,982 pour la bonne commune du Haut-Rhin) et n'était départagé que par le biais de proximité au near — fragile à un futur changement d'ordre des vias ; figé en dur par prudence, comme ailleurs dans ce fichier pour des cas d'homonymie serrée. Piste non exploitée de la même source cyclingstage.com, relevée en relecture adverse mais non vérifiée plus avant : « Shortly after the first passage on the line a long descent takes the riders to Oderen » suggère que le tracé repasse près de l'arrivée (Le Markstein) avant de redescendre vers Oderen — une boucle plutôt qu'un trajet linéaire, ce qui pourrait expliquer une partie des zones de rebroussement détectées dans cette zone (voir confidence), sans que cela ait été curé ni confirmé cette session."
+      },
+      "5": {
+        "vias": [
+          { "label": "Pagny-la-Blanche-Côte", "kind": "via" },
+          { "label": "Gripport", "kind": "via" },
+          { "label": "Charmes", "kind": "via", "lat": 48.3725412, "lon": 6.2933856 },
+          { "label": "Col du Haut du Bois", "kind": "col", "lat": 48.329713, "lon": 6.7814921, "ele": 492 }
+        ],
+        "confidence": [
+          {
+            "claim": "points de passage sourcés avec leur kilométrage de course (Wikipédia « 2022 Tour de France Femmes, Stage 1 to Stage 8 », cyclingstage.com)",
+            "status": "OK",
+            "level": "moyenne",
+            "detail": "côte de Pagny-la-Blanche-Côte (km 61,4), côte de Gripport (km 105,5), sprint intermédiaire de Charmes (61,5 km de l'arrivée, soit km 114,1), Col du Haut du Bois (20,4 km de l'arrivée, soit km 155,2 ; cyclingstage.com confirme « crested with 20 kilometres remaining »). Charmes figé (lat/lon, nœud place Nominatim) : homonymes dans au moins cinq autres départements, départagé seulement par le near sinon. Col du Haut du Bois figé sur le nœud OSM mountain_pass (48,329713/6,7814921, ele 492 — Jeanménil, Vosges). Aucune autre localité nommée par les sources consultées : les trois écarts >12 km signalés (Bar-le-Duc → Pagny 47,2 km, Pagny → Gripport 41,6 km, Charmes → Haut du Bois 36,4 km à vol d'oiseau) restent sans point intermédiaire plutôt que comblés par des communes devinées."
+          },
+          {
+            "claim": "distance reconstituée 175,0 km vs officiel 175,6 km (-0,3 %), dans la tolérance ±5 % — avec compensation entre tronçons",
+            "status": "OK",
+            "level": "moyenne",
+            "detail": "vérifié par régénération réelle (import + generate, base isolée) : `status: \"ok\"`, aucune zone de rebroussement. Mais le total proche de la cible masque en partie des écarts qui se compensent, mesurés point par point sur le tracé contre le kilométrage de course : Pagny +0,7 km, Gripport +5,7 km, Charmes +4,4 km, Haut du Bois +4,2 km, arrivée -0,6 km — le tronçon Pagny → Gripport est ~5 km plus long que la course, et le final Haut du Bois → Saint-Dié ~5 km plus court (15,6 km reconstitués contre 20,4). Le tracé n'est donc fidèle qu'à ±6 km près sur ses points intermédiaires, pas au -0,3 % que suggère le total — dit ici plutôt que laissé à la lecture du seul chiffre global."
+          }
+        ],
+        "note": "Bar-le-Duc → Saint-Dié-des-Vosges (175,6 km, 28 juillet 2022), plus longue étape de l'édition : traversée de la Lorraine (côtes de Pagny-la-Blanche-Côte et de Gripport, sprint à Charmes) puis entrée dans les Vosges par le Col du Haut du Bois. Résultat : 175,0 km (-0,3 %, dans la tolérance), mais avec des écarts intermédiaires de ±6 km qui se compensent (voir confidence)."
       },
       "8": {
         "vias": [
