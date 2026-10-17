@@ -234,6 +234,18 @@ const MIGRATIONS = [
       ensureColumn(database, 'tracks', 'surfaces', 'surfaces TEXT');
     },
   },
+  {
+    version: 4,
+    description: 'index stages(edition_id, stage_order, id)',
+    up(database) {
+      // Couvre le filtre + tri de toutes les routes qui listent les étapes
+      // d'une édition (GET /api/editions/:id, export de tour, generate.js —
+      // étapes sœurs pour occurrenceIndex/occurrenceCount) : sans lui, SCAN
+      // complet de stages + tri sur B-tree temporaire (EXPLAIN QUERY PLAN,
+      // Sprint 4 performance, issue #343).
+      database.exec('CREATE INDEX IF NOT EXISTS idx_stages_edition ON stages(edition_id, stage_order, id)');
+    },
+  },
 ];
 const SCHEMA_VERSION = MIGRATIONS[MIGRATIONS.length - 1].version;
 
