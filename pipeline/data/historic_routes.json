@@ -7986,6 +7986,68 @@
         ],
         "note": "Meaux → Provins (136,4 km, 25 juillet 2022), étape de plaine de la Brie : côte de Tigeaux (seule difficulté répertoriée, km 16,9), Villeneuve-le-Comte, Coubert, Château de Vaux-le-Vicomte, Nangis, premier passage sur la ligne à Provins au km 116,7 puis boucle finale par Limars, Mortery et Rouilly. Reconstitué depuis le roadbook ASO. Résultat : 131,6 km (-3,5 %, dans la tolérance, dérive intermédiaire ≤ ~5 km, aucun rebroussement)."
       },
+      "5": {
+        "start": { "label": "Longeville-en-Barrois", "lat": 48.74225, "lon": 5.21013 },
+        "vias": [
+          { "label": "Tronville-en-Barrois", "kind": "via", "lat": 48.719791, "lon": 5.2778732 },
+          { "label": "Velaines", "kind": "via", "lat": 48.7033589, "lon": 5.3001073 },
+          { "label": "Ligny-en-Barrois", "kind": "via", "lat": 48.685936, "lon": 5.3253723 },
+          { "label": "Longeaux", "kind": "via", "lat": 48.6452957, "lon": 5.3394095 },
+          { "label": "Menaucourt", "kind": "via", "lat": 48.650118, "lon": 5.3556748 },
+          { "label": "Naix-aux-Forges", "kind": "via", "lat": 48.637263, "lon": 5.3771405 },
+          { "label": "Boviolles", "kind": "via", "lat": 48.6476879, "lon": 5.4156042 },
+          { "label": "Marson-sur-Barboure", "kind": "via", "lat": 48.6410327, "lon": 5.444433 },
+          { "label": "Reffroy", "kind": "via", "lat": 48.6309081, "lon": 5.4655473 },
+          { "label": "Rosières-en-Blois", "kind": "via", "lat": 48.563447, "lon": 5.5539469 },
+          { "label": "Badonvilliers-Gérauvilliers", "kind": "via", "lat": 48.5500062, "lon": 5.5854653 },
+          { "label": "Épiez-sur-Meuse", "kind": "via", "lat": 48.5439978, "lon": 5.6409192 },
+          { "label": "Maxey-sur-Vaise", "kind": "via", "lat": 48.5391662, "lon": 5.6692455 },
+          { "label": "Pagny-la-Blanche-Côte", "kind": "via", "lat": 48.5408727, "lon": 5.7197089 },
+          { "label": "Vannes-le-Châtel", "kind": "via", "lat": 48.5462, "lon": 5.7799 },
+          { "label": "Colombey-les-Belles", "kind": "via", "lat": 48.5283196, "lon": 5.8980372 },
+          { "label": "Crépey", "kind": "via", "lat": 48.5265064, "lon": 5.9696148 },
+          { "label": "Goviller", "kind": "via", "lat": 48.4966479, "lon": 6.0109119 },
+          { "label": "Vézelise", "kind": "via", "lat": 48.48605, "lon": 6.0889938 },
+          { "label": "Quevilloncourt", "kind": "via", "lat": 48.4737369, "lon": 6.0994278 },
+          { "label": "Xirocourt", "kind": "via", "lat": 48.4313527, "lon": 6.1725986 },
+          { "label": "Gripport", "kind": "via", "lat": 48.4149871, "lon": 6.2527646 },
+          { "label": "Charmes", "kind": "via", "lat": 48.3725412, "lon": 6.2933856 },
+          { "label": "Essegney", "kind": "via", "lat": 48.3683026, "lon": 6.3174852 },
+          { "label": "Langley", "kind": "via", "lat": 48.3604648, "lon": 6.3258262 },
+          { "label": "Portieux", "kind": "via", "lat": 48.3453035, "lon": 6.3458681 },
+          { "label": "Moriville", "kind": "via", "lat": 48.3486327, "lon": 6.4327699 },
+          { "label": "Moyemont", "kind": "via", "lat": 48.3516489, "lon": 6.5396724 },
+          { "label": "Romont", "kind": "via", "lat": 48.3575152, "lon": 6.5866064 },
+          { "label": "Rambervillers", "kind": "via", "lat": 48.3466306, "lon": 6.6361176 },
+          { "label": "Jeanménil", "kind": "via", "lat": 48.3361407, "lon": 6.6886015 },
+          { "label": "Fraispertuis", "kind": "via", "lat": 48.324405, "lon": 6.7295133 },
+          { "label": "Col du Haut du Bois", "kind": "col", "lat": 48.329713, "lon": 6.7814921, "ele": 492 },
+          { "label": "La Salle", "kind": "via", "lat": 48.3237564, "lon": 6.8274682 },
+          { "label": "Nompatelize", "kind": "via", "lat": 48.3261, "lon": 6.854 },
+          { "label": "Saint-Michel-sur-Meurthe", "kind": "via", "lat": 48.3167646, "lon": 6.887566 }
+        ],
+        "confidence": [
+          {
+            "claim": "tracé reconstitué depuis le roadbook ASO complet (53 points kilométrés, reproduit par dimensionsvelo.com, « source : ASO »)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "remplace une première curation (même session) construite sur les seuls points nommés par Wikipédia/cyclingstage.com (Pagny, Gripport, Charmes, Col du Haut du Bois), qui donnait -0,3 % au total mais avec des écarts intermédiaires de ±6 km qui se compensaient. 36 points du roadbook retenus (communes, plus le Col du Haut du Bois), géocodés (Nominatim, par département : Meuse, Meurthe-et-Moselle, Vosges) puis figées. Mauvages écarté (codé « D194-D168-D10 » : carrefour, +2,4 km de détour mesuré). Col du Haut du Bois figé sur le nœud OSM mountain_pass (48,329713/6,7814921, ele 492, Jeanménil) ; Charmes figé (homonymes dans au moins cinq autres départements)."
+          },
+          {
+            "claim": "départ réel approximé à Longeville-en-Barrois (km 1,8 du roadbook)",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "le roadbook met « Bar-le-Duc (rue des Romains / D935) » à km 0 puis Longeville-en-Barrois à km 1,8 — incohérent avec la géographie (la rue des Romains est à ~4,5 km à vol d'oiseau de Longeville) : le km 0 réel est la fin de la zone neutralisée, quelque part sur la D935 avant Longeville, sans point nommé. Départ figé sur Longeville elle-même, ce qui retire 1,8 km connus au total reconstitué ; partir du centre de Bar-le-Duc ajoutait +4,0 km sur ce premier tronçon (mesuré)."
+          },
+          {
+            "claim": "distance reconstituée 174,9 km vs officiel 175,6 km (-0,4 %), dans la tolérance ±5 %",
+            "status": "OK",
+            "level": "haute",
+            "detail": "vérifié par régénération réelle (import + generate, base isolée), sans aucun repli OSRM sur ce run (un run précédent avec 5 legs en HTTP 403 BRouter → repli OSRM voiture donnait 180,5 km, non retenu comme mesure). Aucune zone de rebroussement. Écart cumulé mesuré point par point contre le roadbook : de -1,8 km (départ, décalage connu) à +5,0 km (Rambervillers, Saint-Michel-sur-Meurthe), dérive progressive et non une oscillation entre tronçons. Le dernier tronçon (circuit dans Saint-Dié-des-Vosges, km 167,9 → 175,6, codé « D82-D420-D415-Vc-D49-Vc-D82-Vc » sans point nommé) n'est pas reconstitué : il rattrape environ 5 km de cette dérive, d'où un total proche de la cible qui reste en partie une compensation sur ce seul tronçon final."
+          }
+        ],
+        "note": "Bar-le-Duc → Saint-Dié-des-Vosges (175,6 km, 28 juillet 2022), plus longue étape de l'édition : vallée de l'Ornain (Ligny-en-Barrois), plateau du Barrois, côte de Pagny-la-Blanche-Côte (km 61,4), Colombey-les-Belles et Vézelise, côte de Gripport (km 105,5), sprint à Charmes, vallée de la Moselle (Portieux), Rambervillers puis entrée dans les Vosges par le Col du Haut du Bois (km 155,2) et circuit final dans Saint-Dié. Reconstitué depuis le roadbook ASO. Résultat : 174,9 km (-0,4 %, dans la tolérance), dérive intermédiaire jusqu'à +5 km rattrapée en partie par le circuit final non reconstitué (voir confidence)."
+      },
       "8": {
         "vias": [
           { "label": "Mélisey", "kind": "via", "lat": 47.761255, "lon": 6.564513 },
