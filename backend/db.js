@@ -246,6 +246,13 @@ const MIGRATIONS = [
       database.exec('CREATE INDEX IF NOT EXISTS idx_stages_edition ON stages(edition_id, stage_order, id)');
     },
   },
+  {
+    version: 5,
+    description: 'stages.routing_profile : profil BRouter curé par étape (NULL = profil par défaut)',
+    up(database) {
+      ensureColumn(database, 'stages', 'routing_profile', 'routing_profile TEXT');
+    },
+  },
 ];
 const SCHEMA_VERSION = MIGRATIONS[MIGRATIONS.length - 1].version;
 

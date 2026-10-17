@@ -761,6 +761,16 @@ function reconstructionWaypoints(year, stage, category = 'hommes', occurrenceInd
   return wps;
 }
 
+/**
+ * Profil BRouter curé pour une étape (`routing_profile`, Epic 9, issue #243),
+ * ou null (profil par défaut). Même clé de curation que
+ * reconstructionWaypoints().
+ */
+function curatedRoutingProfile(year, stage, category = 'hommes', occurrenceIndex = 0, occurrenceCount = 1) {
+  const curated = HISTORIC_ROUTES[historicRoutesKey(year, category)]?.stages?.[stageCurationKey(stage.number, occurrenceIndex, occurrenceCount)];
+  return curated?.routing_profile || null;
+}
+
 function editionNotes(year, category = 'hommes') {
   return HISTORIC_ROUTES[historicRoutesKey(year, category)]?.notes || null;
 }
@@ -813,6 +823,7 @@ module.exports = {
   fetchEditionHtml,
   reconstructionWaypoints,
   expandLaps,
+  curatedRoutingProfile,
   stageCurationKey,
   resolveViaCoords,
   FRENCH_DEPARTMENTS,
