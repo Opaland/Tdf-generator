@@ -103,6 +103,49 @@ arrêtez le conteneur le temps de la copie — une copie de fichier brute
 pendant que SQLite écrit (mode WAL) n'est pas garantie cohérente, contrairement
 à la sauvegarde automatique intégrée ci-dessus.
 
+## Identifiants des connecteurs (Suunto, Strava)
+
+La base SQLite **n'est pas chiffrée**. Ce qui y est stocké est lisible par
+quiconque obtient une copie du fichier `etapeforge.sqlite`, ou d'une
+sauvegarde automatique (`/backup`). C'est le cas :
+
+- des **jetons de connexion** (`access_token`, `refresh_token`) : toujours en
+  base, c'est leur seul stockage ;
+- des **secrets d'application** (`client_secret`, `subscription_key`)
+  **seulement** s'ils ont été saisis dans l'interface. Fournis par variable
+  d'environnement, ils ne touchent jamais la base.
+
+Recommandations :
+
+1. Passer les secrets d'application par variables d'environnement dans
+   `docker-compose.yml` : `SUUNTO_CLIENT_ID`, `SUUNTO_CLIENT_SECRET`,
+   `SUUNTO_SUBSCRIPTION_KEY`, `STRAVA_CLIENT_ID`, `STRAVA_CLIENT_SECRET`.
+2. Restreindre l'accès au dossier de données et aux sauvegardes **au
+   niveau du partage DSM** (droits du dossier partagé, pas de partage
+   SMB/AFP ouvert à d'autres comptes). Attention à un `chmod 600`/`700`
+   direct : le conteneur tourne sous un utilisateur non-root (uid 10001,
+   voir le `Dockerfile`), et retirer ses droits l'empêcherait d'ouvrir sa
+   propre base — si vous resserrez les permissions, faites-le pour cet uid
+   (`chown -R 10001:10001` sur le dossier), pas contre lui.
+3. Vérifier sur `/diag.html`, section « Identifiants des connecteurs ». Un
+   secret signalé « base SQLite, en clair » reste en base même une fois la
+   variable d'environnement définie (elle est seulement prioritaire).
+   L'interface ne propose pas de l'effacer. L'image ne contient pas l'outil
+   `sqlite3`, mais le module SQLite de l'application suffit, depuis le
+   conteneur en marche (même utilisateur que l'application, donc aucun
+   fichier créé avec un autre propriétaire) :
+
+   ```bash
+   docker exec etapeforge node -e "require('better-sqlite3')('/data/etapeforge.sqlite').prepare(\"DELETE FROM settings WHERE key IN ('suunto_client_secret','suunto_subscription_key','strava_client_secret')\").run()"
+   ```
+
+   (Requête vérifiée sur une base de test avec ce même module ; pas rejouée
+   sur un NAS réel.) Les sauvegardes automatiques déjà faites contiennent toujours l'ancienne
+   valeur : les purger aussi, ou changer le secret chez le fournisseur.
+
+Un chiffrement au repos (option B de l'issue #379) est prévu avant toute
+exposition publique durable ; il n'est pas en place aujourd'hui.
+
 ## Notifications
 
 Une génération d'étape tourne en tâche de fond (jusqu'à quelques minutes en
