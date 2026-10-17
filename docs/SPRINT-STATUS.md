@@ -185,9 +185,9 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 
 ## Epic 13 — Sécurité : identifiants Suunto stockés
 
-- [ ] 13.1 Évaluer le risque réel (LAN strict vs exposition)
-- [ ] 13.2 Proposer un chiffrement at-rest
-- [ ] 13.3 Implémenter si validé par l'utilisateur
+- [x] 13.1 Évaluer le risque réel (LAN strict vs exposition) — issue #379 (vérifié dans le code : jetons OAuth en clair dans `settings`, exclus de la sauvegarde portable)
+- [x] 13.2 Proposer un chiffrement at-rest — issue #379 : A durcir/documenter, B AES-256-GCM avec `ETAPEFORGE_SECRET_KEY`, C trousseau OS
+- [ ] 13.3 **en attente de décision** — Implémenter si validé par l'utilisateur (issue #379)
 
 ## Epic 14 — Décision : programme partenaire Suunto
 
