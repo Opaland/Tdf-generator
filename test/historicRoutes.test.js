@@ -500,6 +500,9 @@ test('reconstructionWaypoints : même classe de bug (near change le jeu de candi
     const known = require('../pipeline/data/known_cols.json')['Col de la Loze'];
     assert.strictEqual(finish.lat, known.lat, 'le finish curé reçoit les coordonnées figées de KNOWN_COLS');
     assert.strictEqual(finish.lon, known.lon);
+    // Sans altitude attendue, le check d'altitude du sommet disparaissait :
+    // generate.js ne géocode plus un point dont lat/lon sont posés.
+    assert.strictEqual(finish.altitude_hint_m, known.ele);
   }
 
   // 2023 étape 17 : Saint-Gervais Mont-Blanc → Col de la Loze → Courchevel
@@ -738,4 +741,11 @@ test('1947 étape 1 : retour du Tour d\'après-guerre — Paris → Lille, sourc
   const labels = wps.map((w) => w.label);
   assert.deepStrictEqual(labels, ['Paris', 'Lille']);
   assert.ok(wps.every((w) => w.source === 'parcours curé'), 'les deux extrémités sont explicitement sourcées, pas seulement Wikipédia');
+});
+
+test('reconstructionWaypoints : arrivée curée en objet { label, lat, lon } au sommet → altitude attendue reprise de known_cols (2025/18, Col de la Loze)', () => {
+  const finish = reconstructionWaypoints(2025, { number: 18, start: 'X', finish: 'Y' }).pop();
+  assert.strictEqual(finish.label, 'Col de la Loze');
+  assert.strictEqual(finish.kind, 'col');
+  assert.strictEqual(finish.altitude_hint_m, require('../pipeline/data/known_cols.json')['Col de la Loze'].ele);
 });

@@ -664,6 +664,15 @@ function reconstructionWaypoints(year, stage, category = 'hommes', occurrenceInd
   };
   const startCoords = resolveViaCoords(curated?.start || {}, knownFor(curated?.start));
   const finishCoords = resolveViaCoords(curated?.finish || {}, knownFor(curated?.finish));
+  // Altitude attendue d'une arrivée/départ au sommet, comme pour un via col
+  // (via.ele ?? known.ele). Indispensable dès que lat/lon sont posés : avec
+  // des coordonnées figées, pipeline/generate.js saute le géocodage, qui était
+  // le seul endroit où un col sans altitude recevait res.ele — sans ça, le
+  // check « Altitude du sommet » (checks.js) disparaissait silencieusement
+  // (relecture adverse, issue #224 ; même lacune préexistante sur 2025/18,
+  // arrivée objet { label, lat, lon }).
+  const curatedEle = (entry) => (entry && typeof entry === 'object' && entry.ele != null ? entry.ele : null);
+  const eleFor = (entry) => curatedEle(entry) ?? knownFor(entry)?.ele ?? null;
   // region_hint : même logique que country_hint ci-dessus, mais pour le
   // qualificatif de département (« Bonneval, Eure-et-Loir ») — pour un
   // départ/arrivée NON curé, jamais deviné automatiquement (issu du texte
@@ -672,6 +681,7 @@ function reconstructionWaypoints(year, stage, category = 'hommes', occurrenceInd
   wps.push({
     label: startLabel, kind: 'start', bonus_sec: null,
     lat: startCoords.lat, lon: startCoords.lon,
+    altitude_hint_m: eleFor(curated?.start),
     source: curated?.start ? 'parcours curé' : 'wikipedia',
     country_hint: curated?.start ? curatedCountry(curated.start) : foreignCountry(stage.startCountry),
     region_hint: curated?.start ? curatedRegion(curated.start) : stage.startDepartment || null,
@@ -709,6 +719,7 @@ function reconstructionWaypoints(year, stage, category = 'hommes', occurrenceInd
     label: finishLabel,
     kind: isColQuery(finishLabel) ? 'col' : 'finish',
     lat: finishCoords.lat, lon: finishCoords.lon,
+    altitude_hint_m: eleFor(curated?.finish),
     bonus_sec: curated?.finish_bonus_sec || null,
     source: curated?.finish ? 'parcours curé' : 'wikipedia',
     country_hint: curated?.finish ? curatedCountry(curated.finish) : foreignCountry(stage.finishCountry),
