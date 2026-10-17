@@ -69,6 +69,7 @@ const ADMIN_ONLY = [
   ['POST', '/api/editions/import', { year: 1903 }],
   ['POST', '/api/editions/import-all', {}],
   ['DELETE', '/api/stages/999999', undefined],
+  ['DELETE', '/api/gear/999999', undefined],
   ['POST', '/api/suunto/config', { client_id: 'x' }],
   ['POST', '/api/suunto/disconnect', {}],
   ['GET', '/api/suunto/connect', undefined],

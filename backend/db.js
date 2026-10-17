@@ -261,6 +261,22 @@ const MIGRATIONS = [
       ensureColumn(database, 'tracks', 'communes', 'communes TEXT');
     },
   },
+  {
+    version: 7,
+    description: 'inventaire matériel : table gear + stages.gear_id (issue #228, phase 7)',
+    up(database) {
+      database.exec(`CREATE TABLE IF NOT EXISTS gear (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        kind TEXT NOT NULL DEFAULT 'velo',   -- velo | chaussures | autre
+        retired INTEGER NOT NULL DEFAULT 0,  -- 1 = plus utilisé, cumuls conservés
+        created_at TEXT NOT NULL DEFAULT (datetime('now'))
+      )`);
+      // ON DELETE SET NULL : supprimer un matériel détache ses sorties, ne
+      // les supprime jamais (foreign_keys = ON, voir getDb()).
+      ensureColumn(database, 'stages', 'gear_id', 'gear_id INTEGER REFERENCES gear(id) ON DELETE SET NULL');
+    },
+  },
 ];
 const SCHEMA_VERSION = MIGRATIONS[MIGRATIONS.length - 1].version;
 
