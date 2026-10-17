@@ -6,7 +6,7 @@
 const path = require('path');
 const express = require('express');
 const { getDb, DB_PATH, SCHEMA_VERSION } = require('./db');
-const { generateStage, loadStageFull } = require('../pipeline/generate');
+const { generateStage, loadStageFull, resetInterruptedGenerations } = require('../pipeline/generate');
 const { importEdition, importAllEditions, CATEGORIES } = require('../pipeline/importer');
 const { historicHighlights } = require('../pipeline/wikipedia');
 const { geocodeSuggest, reverseGeocode } = require('../pipeline/geocode');
@@ -997,6 +997,8 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
 });
 
 if (require.main === module) {
+  const interrupted = resetInterruptedGenerations();
+  if (interrupted) console.log(`${interrupted} génération(s) interrompue(s) par l'arrêt précédent marquée(s) en erreur.`);
   app.listen(PORT, () => {
     console.log(`ÉtapeForge démarré : http://localhost:${PORT}`);
     if (isOffline()) console.log('Mode hors-ligne actif (ETAPEFORGE_OFFLINE=1) : données simulées.');
