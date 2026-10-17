@@ -179,8 +179,9 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 
 ## Epic 12 — Décision produit : ravitaillement/villages traversés
 
-- [ ] 12.1 Chiffrer le coût de géocodage inverse à l'échelle
-- [ ] 12.2 Proposer 2-3 approches à l'utilisateur
+- [x] 12.1 Chiffrer le coût de géocodage inverse à l'échelle — PR #382 : 2002/18, reverse Géoplateforme 40 % de réponses vides ; geo.api.gouv.fr 0 %, 44 communes au pas de 1 km en 47,6 s
+- [x] 12.2 Proposer 2-3 approches à l'utilisateur — PR #382 : A génération / B à la demande (recommandée) / C contours embarqués
+- [ ] 12.3 **en attente de décision** — Implémenter l'approche choisie
 
 ## Epic 13 — Sécurité : identifiants Suunto stockés
 
