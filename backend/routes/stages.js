@@ -150,6 +150,12 @@ module.exports = function register(app) {
     if (!full) throw Object.assign(new Error(`Étape ${id} introuvable`), { status: 404 });
     if (!full.track || !full.samples?.length) throw Object.assign(new Error('Étape non générée : aucun tracé'), { status: 409 });
     if (communesRunning.has(id)) throw Object.assign(new Error('Calcul déjà en cours pour cette étape'), { status: 409 });
+    if (running.has(id)) throw Object.assign(new Error('Génération en cours : relancer le calcul une fois l\'étape générée'), { status: 409 });
+    // Tracé exact sur lequel porte le calcul : une régénération pendant les
+    // minutes d'attente remplace la ligne tracks — l'écriture finale est
+    // conditionnée à ce même tracé, sinon la liste de l'ancien tracé serait
+    // posée sur le nouveau (trouvaille de relecture adverse).
+    const trackBefore = getDb().prepare('SELECT geojson FROM tracks WHERE stage_id = ?').get(id)?.geojson;
     communesRunning.add(id);
     try {
       let result;
@@ -158,7 +164,9 @@ module.exports = function register(app) {
       } catch (err) {
         throw Object.assign(new Error(`geo.api.gouv.fr injoignable ou en erreur : ${err.message}`), { status: 502 });
       }
-      getDb().prepare('UPDATE tracks SET communes = ? WHERE stage_id = ?').run(JSON.stringify(result), id);
+      const written = getDb().prepare('UPDATE tracks SET communes = ? WHERE stage_id = ? AND geojson = ?')
+        .run(JSON.stringify(result), id, trackBefore).changes;
+      if (!written) throw Object.assign(new Error('Étape régénérée pendant le calcul : relancer le calcul sur le nouveau tracé'), { status: 409 });
       res.json(result);
     } finally {
       communesRunning.delete(id);

@@ -581,7 +581,7 @@ function renderCommunes(data) {
   }
   detail.textContent = `${data.communes.length} commune(s) sur ${data.points} points (pas de ${data.stepM / 1000} km)` +
     (data.pointsHorsFrance ? ` · ${data.pointsHorsFrance} point(s) hors de France, non renseignés` : '') +
-    (data.pointsSansCommune ? ` · ${data.pointsSansCommune} point(s) hors de toute commune` : '') + '.';
+    (data.pointsSansCommune ? ` · ${data.pointsSansCommune} point(s) sans commune française (pays voisin ou mer)` : '') + '.';
 }
 
 if (typeof document !== 'undefined') document.addEventListener('DOMContentLoaded', () => {

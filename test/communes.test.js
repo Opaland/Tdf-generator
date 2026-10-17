@@ -19,6 +19,8 @@ let realFetch;
 let appServer;
 let base;
 const geoCalls = [];
+let geoDelayMs = 0;
+let geoEmpty = false;
 // Commune selon la longitude : < 5.02 → A, < 5.04 → B, sinon C (format réel :
 // tableau d'objets {nom, code, codeDepartement}, vérifié le 17/10/2026).
 function fakeCommune(lon) {
@@ -33,8 +35,9 @@ before(async () => {
     const u = new URL(String(url));
     if (u.host !== 'geo.api.gouv.fr') return realFetch(url, opts);
     geoCalls.push(u.search);
+    if (geoDelayMs) await new Promise((r) => setTimeout(r, geoDelayMs));
     const lon = Number(u.searchParams.get('lon'));
-    return { ok: true, status: 200, json: async () => [fakeCommune(lon)] };
+    return { ok: true, status: 200, json: async () => (geoEmpty ? [] : [fakeCommune(lon)]) };
   };
   const { app } = require('../backend/server');
   await new Promise((r) => (appServer = app.listen(0, '127.0.0.1', r)));
@@ -134,10 +137,50 @@ test('tracks.communes illisible ou mal formé (sauvegarde forgée) → null, jam
   const id = await generatedStage();
   const { getDb } = require('../backend/db');
   const { loadStageFull } = require('../pipeline/generate');
-  for (const bad of ['pas du json', '{"communes": "x", "points": 1}', '{"communes": [{"nom": 3, "km": 1}], "points": 1}', '[]', 'null']) {
+  const ok = (c) => JSON.stringify({ stepM: 1000, points: 1, communes: [{ nom: 'a', km: 1, ...c }] });
+  for (const bad of ['pas du json', '{"communes": "x", "points": 1}', '{"communes": [{"nom": 3, "km": 1}], "points": 1}', '[]', 'null',
+    // Relecture adverse : un département objet faisait planter le roadbook (500) et la fiche.
+    ok({ departement: { toString: 1 } }), ok({ code: ['x'] }), ok({ km: -1 }), ok({ km: 1e21 }),
+    JSON.stringify({ stepM: '<svg onload=1>', points: 1, communes: [] }), JSON.stringify({ stepM: 0, points: 1, communes: [] }),
+    JSON.stringify({ stepM: 1000, points: 1.5, communes: [] }), JSON.stringify({ stepM: 1000, points: 1, pointsSansCommune: 'x', communes: [] })]) {
     getDb().prepare('UPDATE tracks SET communes = ? WHERE stage_id = ?').run(bad, id);
     assert.strictEqual(loadStageFull(id).track.communes, null, bad);
   }
   const html = await (await fetch(`${base}/api/stages/${id}/roadbook.html`)).text();
   assert.doesNotMatch(html, /Communes traversées/);
+});
+
+test('API qui répond [] (point sans commune française) : compté à part, pas d\'exception', async () => {
+  setOffline(false);
+  geoEmpty = true;
+  try {
+    const r = await communesAlong([{ dist_m: 0, lat: 46.5, lon: 6.6 }]); // Lausanne : dans la bbox, hors de France
+    assert.strictEqual(r.pointsSansCommune, 1);
+    assert.deepStrictEqual(r.communes, []);
+  } finally {
+    geoEmpty = false;
+    setOffline(true);
+  }
+});
+
+test('régénération pendant le calcul → 409, jamais la liste de l\'ancien tracé sur le nouveau', async () => {
+  const id = await generatedStage();
+  const { getDb } = require('../backend/db');
+  setOffline(false);
+  geoDelayMs = 40;
+  try {
+    // Cache vidé pour forcer des appels lents.
+    getDb().prepare("DELETE FROM api_cache").run();
+    const pending = fetch(`${base}/api/stages/${id}/communes`, { method: 'POST' });
+    await new Promise((r) => setTimeout(r, 60));
+    // Régénération simulée au milieu : la ligne tracks est remplacée.
+    getDb().prepare("UPDATE tracks SET geojson = json_set(geojson, '$.properties.regen', 1), communes = NULL WHERE stage_id = ?").run(id);
+    const res = await pending;
+    assert.strictEqual(res.status, 409);
+    assert.match((await res.json()).error, /régénérée pendant le calcul/);
+    assert.strictEqual(getDb().prepare('SELECT communes FROM tracks WHERE stage_id = ?').get(id).communes, null);
+  } finally {
+    geoDelayMs = 0;
+    setOffline(true);
+  }
 });

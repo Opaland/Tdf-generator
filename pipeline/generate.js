@@ -55,8 +55,13 @@ function parseCommunes(raw) {
   if (!raw) return null;
   try {
     const v = JSON.parse(raw);
-    const ok = v && typeof v === 'object' && Array.isArray(v.communes) && Number.isFinite(v.points) &&
-      v.communes.every((c) => c && typeof c.nom === 'string' && Number.isFinite(c.km));
+    const optStr = (x) => x == null || typeof x === 'string';
+    const count = (x) => x == null || (Number.isInteger(x) && x >= 0);
+    const ok = v && typeof v === 'object' && Array.isArray(v.communes) &&
+      Number.isInteger(v.points) && v.points >= 0 && Number.isFinite(v.stepM) && v.stepM > 0 && v.stepM <= 100000 &&
+      count(v.pointsHorsFrance) && count(v.pointsSansCommune) &&
+      v.communes.every((c) => c && typeof c.nom === 'string' && Number.isFinite(c.km) && c.km >= 0 && c.km < 10000 &&
+        optStr(c.departement) && optStr(c.code));
     return ok ? v : null;
   } catch {
     return null;
