@@ -225,6 +225,15 @@ const MIGRATIONS = [
       database.exec('CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT)');
     },
   },
+  {
+    version: 3,
+    description: 'tracks.surfaces : résumé JSON du revêtement (pipeline/surface.js)',
+    up(database) {
+      // NULL pour un tracé généré avant cette colonne ou importé depuis une
+      // trace GPX/FIT.
+      ensureColumn(database, 'tracks', 'surfaces', 'surfaces TEXT');
+    },
+  },
 ];
 const SCHEMA_VERSION = MIGRATIONS[MIGRATIONS.length - 1].version;
 

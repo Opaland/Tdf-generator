@@ -172,6 +172,18 @@ test('importTrackAsStage : un seul point → rejet explicite', async () => {
   await assert.rejects(() => importTrackAsStage([{ lat: 43, lon: 1, ele: 200 }]), /vide ou illisible/);
 });
 
+// Epic 11.4 : en mode simulateur, aucun tag OSM — pas de résumé de revêtement
+// « 100 % inconnu » qui encombrerait la fiche.
+test('generateStage (simulateur) : tracks.surfaces reste NULL', async () => {
+  const db = getDb();
+  const id = db.prepare(`INSERT INTO stages (name, state) VALUES ('Surface simu', 'draft')`).run().lastInsertRowid;
+  db.prepare(`INSERT INTO waypoints (stage_id, idx, label, kind, lat, lon) VALUES (?, 0, 'A', 'start', 45.0, 5.0), (?, 1, 'B', 'finish', 45.1, 5.1)`).run(id, id);
+  await generateStage(id);
+  const full = loadStageFull(id);
+  assert.strictEqual(full.track.router, 'simulateur');
+  assert.strictEqual(full.track.surfaces, null);
+});
+
 // Revue d'architecture du 17/10/2026 (docs/ARCHITECTURE-REVIEW.md §3.1) : une
 // étape restée `generating` après un crash bouclait à vie sur la fiche
 // (frontend/stage.js) et perdait son bouton de relance dans Archives.

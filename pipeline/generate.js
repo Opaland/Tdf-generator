@@ -15,6 +15,7 @@ const { runChecks } = require('./checks');
 const { isOffline } = require('./http');
 const { stageConfidence } = require('./wikipedia');
 const { consecutiveMountainDays, painIndex } = require('./pain');
+const { summarizeSurfaces } = require('./surface');
 
 /**
  * Options de géocodage pour un waypoint : `near` (biais de proximité, point
@@ -43,6 +44,26 @@ function geocodeOptsFor(wp, prevPos) {
   if (wp.country_hint) opts.countryHint = wp.country_hint;
   if (wp.region_hint) opts.regionHint = wp.region_hint;
   return opts;
+}
+
+/**
+ * tracks.surfaces relu défensivement : la colonne peut venir d'une sauvegarde
+ * importée (POST /api/backup/import n'accepte que des types SQLite, pas une
+ * forme JSON) — une valeur illisible ou mal formée donne `null` (section
+ * masquée sur la fiche), jamais une exception qui ferait tomber la fiche et
+ * les exports (trouvaille de relecture adverse).
+ */
+function parseSurfaces(raw) {
+  if (!raw) return null;
+  try {
+    const v = JSON.parse(raw);
+    const ok = v && typeof v === 'object' && v.meters && typeof v.meters === 'object' && Array.isArray(v.stretches) &&
+      ['revetu', 'revetu_presume', 'paves', 'non_revetu', 'non_revetu_presume', 'inconnu'].every((k) => Number.isFinite(v.meters[k])) &&
+      v.stretches.every((st) => st && Number.isFinite(st.fromM) && Number.isFinite(st.toM) && typeof st.cls === 'string' && Array.isArray(st.surfaces));
+    return ok ? v : null;
+  } catch {
+    return null;
+  }
 }
 
 /**
@@ -182,9 +203,13 @@ async function generateStage(stageId, { onProgress } = {}) {
     };
     const save = db.transaction(() => {
       db.prepare(
-        `INSERT OR REPLACE INTO tracks (stage_id, geojson, distance_m, approx_segments, router)
-         VALUES (?, ?, ?, ?, ?)`
-      ).run(stageId, JSON.stringify(geojson), routed.distanceM, JSON.stringify(routed.approxSegments), routed.router);
+        `INSERT OR REPLACE INTO tracks (stage_id, geojson, distance_m, approx_segments, router, surfaces)
+         VALUES (?, ?, ?, ?, ?, ?)`
+      ).run(
+        stageId, JSON.stringify(geojson), routed.distanceM, JSON.stringify(routed.approxSegments), routed.router,
+        // Simulateur : aucun tag OSM, un résumé « 100 % inconnu » ne serait que du bruit sur la fiche.
+        routed.router === 'simulateur' ? null : JSON.stringify(summarizeSurfaces(routed.surfaceStretches || [], routed.distanceM))
+      );
 
       db.prepare('DELETE FROM elevation_samples WHERE stage_id = ?').run(stageId);
       const insSample = db.prepare(
@@ -321,7 +346,7 @@ function loadStageFull(stageId) {
       bonus_sec: w.bonus_sec ? JSON.parse(w.bonus_sec) : null,
     })),
     track: track
-      ? { ...track, geojson: JSON.parse(track.geojson), approx_segments: track.approx_segments ? JSON.parse(track.approx_segments) : [] }
+      ? { ...track, geojson: JSON.parse(track.geojson), approx_segments: track.approx_segments ? JSON.parse(track.approx_segments) : [], surfaces: parseSurfaces(track.surfaces) }
       : null,
     samples,
     climbs: climbs.map((c) => ({ ...c, km_blocks: c.km_blocks ? JSON.parse(c.km_blocks) : [] })),
