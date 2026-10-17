@@ -2,7 +2,7 @@
 // Sauvegarde portable (export/import JSON) — backlog #10, "réfléchisses à
 // mettre en place des backend pour la gestion des datas". Complète (ne
 // remplace pas) backend/backup.js (sauvegarde fichier .sqlite planifiée,
-// testée dans test/backup.test.js) : voir backend/server.js pour la
+// testée dans test/backup.test.js) : voir backend/routes/admin.js pour la
 // distinction reprise-après-sinistre vs portabilité.
 
 const os = require('os');
@@ -179,7 +179,7 @@ test('POST /api/backup/import : accepte un payload de plus de 2 Mo avec le Conte
   assert.strictEqual(getDb().prepare('SELECT length(source) n FROM editions WHERE id = 1').get().n, bigSource.length);
 });
 
-// Trouvaille de sprint dédié : isBindable() (backend/server.js) ne vérifiait
+// Trouvaille de sprint dédié : isBindable() (backend/routes/admin.js) ne vérifiait
 // que `typeof v === 'number'`, contrairement à optionalNumber() plus haut
 // dans le même fichier qui utilise Number.isFinite. `1e999` est un nombre
 // syntaxiquement valide en JSON mais JSON.parse('1e999') === Infinity — et

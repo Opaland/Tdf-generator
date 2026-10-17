@@ -1,6 +1,6 @@
 'use strict';
 // Géocodage (autocomplétion, inverse) pour l'éditeur.
-// Extrait de backend/server.js (Epic 27.1/27.2, recommandation R3 de
+// Extrait de backend/server.js (Epic 27.2, recommandation R3 de
 // docs/ARCHITECTURE-REVIEW.md) — code des routes inchangé, enregistré dans
 // le même ordre par server.js.
 
