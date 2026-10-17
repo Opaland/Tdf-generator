@@ -120,21 +120,27 @@ Recommandations :
 1. Passer les secrets d'application par variables d'environnement dans
    `docker-compose.yml` : `SUUNTO_CLIENT_ID`, `SUUNTO_CLIENT_SECRET`,
    `SUUNTO_SUBSCRIPTION_KEY`, `STRAVA_CLIENT_ID`, `STRAVA_CLIENT_SECRET`.
-2. Restreindre l'accès au dossier de données et aux sauvegardes, par
-   exemple `chmod 600` sur les fichiers `.sqlite` et `chmod 700` sur leurs
-   dossiers. Ne pas les placer dans un dossier partagé du NAS.
+2. Restreindre l'accès au dossier de données et aux sauvegardes **au
+   niveau du partage DSM** (droits du dossier partagé, pas de partage
+   SMB/AFP ouvert à d'autres comptes). Attention à un `chmod 600`/`700`
+   direct : le conteneur tourne sous un utilisateur non-root (uid 10001,
+   voir le `Dockerfile`), et retirer ses droits l'empêcherait d'ouvrir sa
+   propre base — si vous resserrez les permissions, faites-le pour cet uid
+   (`chown -R 10001:10001` sur le dossier), pas contre lui.
 3. Vérifier sur `/diag.html`, section « Identifiants des connecteurs ». Un
    secret signalé « base SQLite, en clair » reste en base même une fois la
    variable d'environnement définie (elle est seulement prioritaire).
-   L'interface ne propose pas de l'effacer ; conteneur arrêté, avec
-   l'outil `sqlite3` :
+   L'interface ne propose pas de l'effacer. L'image ne contient pas l'outil
+   `sqlite3`, mais le module SQLite de l'application suffit, depuis le
+   conteneur en marche (même utilisateur que l'application, donc aucun
+   fichier créé avec un autre propriétaire) :
 
    ```bash
-   sqlite3 docker/etapeforge/data/etapeforge.sqlite \
-     "DELETE FROM settings WHERE key IN ('suunto_client_secret','suunto_subscription_key','strava_client_secret');"
+   docker exec etapeforge node -e "require('better-sqlite3')('/data/etapeforge.sqlite').prepare(\"DELETE FROM settings WHERE key IN ('suunto_client_secret','suunto_subscription_key','strava_client_secret')\").run()"
    ```
 
-   Les sauvegardes automatiques déjà faites contiennent toujours l'ancienne
+   (Requête vérifiée sur une base de test avec ce même module ; pas rejouée
+   sur un NAS réel.) Les sauvegardes automatiques déjà faites contiennent toujours l'ancienne
    valeur : les purger aussi, ou changer le secret chez le fournisseur.
 
 Un chiffrement au repos (option B de l'issue #379) est prévu avant toute
