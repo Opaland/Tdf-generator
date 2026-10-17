@@ -330,7 +330,7 @@ const EF = {
         note.innerHTML =
           `🌐 <b>Démo interactive statique</b> (GitHub Pages${st.offline
             ? ', données simulées hors-ligne'
-            : ' — tracés réels OSRM/OpenStreetMap, altimétrie réelle IGN, pré-générés à la publication'}). ` +
+            : ' — tracés routés sur OpenStreetMap, altimétrie réelle IGN, pré-générés à la publication'}). ` +
           `La création et la génération d'étapes nécessitent la version locale : ` +
           `<code>git clone https://github.com/Opaland/Tdf-generator && npm install && npm run demo && npm start</code>`;
         header.after(note);

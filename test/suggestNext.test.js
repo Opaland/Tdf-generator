@@ -2,7 +2,7 @@
 // Suggestion de prochaine étape à générer (backlog #10, "réfléchisses à…").
 // GET /api/suggest-next pondère par variété de terrain déjà générée (stage_type
 // le moins représenté parmi les étapes state='done') plutôt que par ordre
-// d'ajout — voir backend/server.js pour l'algorithme et sa justification.
+// d'ajout — voir backend/routes/editions.js pour l'algorithme et sa justification.
 
 const os = require('os');
 const path = require('path');

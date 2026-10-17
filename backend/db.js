@@ -176,37 +176,97 @@ function ensureColumn(database, table, column, ddl) {
   if (!cols.includes(column)) database.exec(`ALTER TABLE ${table} ADD COLUMN ${ddl}`);
 }
 
+// Migrations numérotées (Epic 27.1, recommandation R2 de
+// docs/ARCHITECTURE-REVIEW.md). `PRAGMA user_version` porte le numéro de la
+// dernière migration appliquée ; chacune tourne une seule fois, dans une
+// transaction (tout ou rien). Ajouter une migration = ajouter une entrée en
+// fin de tableau, ne JAMAIS modifier une entrée déjà publiée — ni le SCHEMA
+// ci-dessus, exécuté par la migration 1 : une base Synology/LAN existante
+// l'a peut-être déjà appliquée, et une colonne/un index ajouté après coup ne
+// l'atteindrait jamais. Nouvel ensureColumn, nouvel index, nouvelle table :
+// toujours une nouvelle migration. Verrouillé par empreintes dans
+// test/dbMigrations.test.js.
+//
+// La migration 1 reprend à l'identique le schéma d'avant ce mécanisme
+// (CREATE TABLE IF NOT EXISTS + ensureColumn, tous idempotents) : une base
+// existante, en user_version 0, la traverse sans aucun changement de données.
+const MIGRATIONS = [
+  {
+    version: 1,
+    description: 'schéma de base (état antérieur au versionnement)',
+    up(database) {
+      database.exec(SCHEMA);
+      ensureColumn(database, 'climbs', 'irregularity_index', 'irregularity_index REAL');
+      ensureColumn(database, 'waypoints', 'bonus_sec', 'bonus_sec TEXT');
+      ensureColumn(database, 'waypoints', 'country_hint', 'country_hint TEXT');
+      ensureColumn(database, 'waypoints', 'region_hint', 'region_hint TEXT');
+      ensureColumn(database, 'stages', 'elapsed_time_s', 'elapsed_time_s REAL');
+      ensureColumn(database, 'stages', 'city_hint', 'city_hint TEXT');
+      ensureColumn(database, 'stages', 'region_hint', 'region_hint TEXT');
+      ensureColumn(database, 'stages', 'country_hint', 'country_hint TEXT');
+      // Chantier L, Tour de France Femmes : `year` seul comme clé d'édition
+      // aurait fait écraser silencieusement l'un des deux tours par
+      // importEdition() (DELETE + INSERT sur la même année) dès qu'Hommes et
+      // Femmes partagent une année — trouvaille documentée dans
+      // docs/PRESENTATION.md avant d'être corrigée ici.
+      ensureColumn(database, 'editions', 'category', "category TEXT NOT NULL DEFAULT 'hommes'");
+      // Vitesse moyenne/max d'une trace importée horodatée (pipeline/rideStats.js,
+      // qui calcule aussi elapsed_time_s ci-dessus désormais). NULL pour toute
+      // étape reconstruite par routage, ou une trace sans <time>/timestamp
+      // exploitable — jamais un 0 qui se ferait passer pour une vraie mesure.
+      ensureColumn(database, 'stages', 'avg_speed_kmh', 'avg_speed_kmh REAL');
+      ensureColumn(database, 'stages', 'max_speed_kmh', 'max_speed_kmh REAL');
+    },
+  },
+  {
+    version: 2,
+    description: 'table settings rapatriée de backend/settings.js (créée à la demande jusqu\'ici)',
+    up(database) {
+      database.exec('CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT)');
+    },
+  },
+  {
+    version: 3,
+    description: 'tracks.surfaces : résumé JSON du revêtement (pipeline/surface.js)',
+    up(database) {
+      // NULL pour un tracé généré avant cette colonne ou importé depuis une
+      // trace GPX/FIT.
+      ensureColumn(database, 'tracks', 'surfaces', 'surfaces TEXT');
+    },
+  },
+];
+const SCHEMA_VERSION = MIGRATIONS[MIGRATIONS.length - 1].version;
+
+/** Applique les migrations manquantes ; renvoie la liste des versions appliquées. */
+function migrate(database) {
+  const current = database.pragma('user_version', { simple: true });
+  if (current > SCHEMA_VERSION) {
+    // Base créée par une version plus récente du code (retour arrière) : on
+    // ne touche à rien. Les migrations étant additives, l'ancien code
+    // fonctionne vraisemblablement, mais rien ne le garantit — d'où le signal.
+    console.warn(`[db] schéma v${current} plus récent que ce code (v${SCHEMA_VERSION}) — aucune migration appliquée`);
+    return [];
+  }
+  const applied = [];
+  for (const m of MIGRATIONS) {
+    if (m.version <= current) continue;
+    database.transaction(() => {
+      m.up(database);
+      database.pragma(`user_version = ${m.version}`);
+    })();
+    applied.push(m.version);
+  }
+  return applied;
+}
+
 function getDb() {
   if (db) return db;
   fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
   db = new Database(DB_PATH);
   db.pragma('journal_mode = WAL');
   db.pragma('foreign_keys = ON');
-  db.exec(SCHEMA);
-  ensureColumn(db, 'climbs', 'irregularity_index', 'irregularity_index REAL');
-  // JSON : résumé du revêtement (pipeline/surface.js) — NULL pour un tracé
-  // généré avant cette colonne ou importé depuis une trace GPX/FIT.
-  ensureColumn(db, 'tracks', 'surfaces', 'surfaces TEXT');
-  ensureColumn(db, 'waypoints', 'bonus_sec', 'bonus_sec TEXT');
-  ensureColumn(db, 'waypoints', 'country_hint', 'country_hint TEXT');
-  ensureColumn(db, 'waypoints', 'region_hint', 'region_hint TEXT');
-  ensureColumn(db, 'stages', 'elapsed_time_s', 'elapsed_time_s REAL');
-  ensureColumn(db, 'stages', 'city_hint', 'city_hint TEXT');
-  ensureColumn(db, 'stages', 'region_hint', 'region_hint TEXT');
-  ensureColumn(db, 'stages', 'country_hint', 'country_hint TEXT');
-  // Chantier L, Tour de France Femmes : `year` seul comme clé d'édition
-  // aurait fait écraser silencieusement l'un des deux tours par
-  // importEdition() (DELETE + INSERT sur la même année) dès qu'Hommes et
-  // Femmes partagent une année — trouvaille documentée dans
-  // docs/PRESENTATION.md avant d'être corrigée ici.
-  ensureColumn(db, 'editions', 'category', "category TEXT NOT NULL DEFAULT 'hommes'");
-  // Vitesse moyenne/max d'une trace importée horodatée (pipeline/rideStats.js,
-  // qui calcule aussi elapsed_time_s ci-dessus désormais). NULL pour toute
-  // étape reconstruite par routage, ou une trace sans <time>/timestamp
-  // exploitable — jamais un 0 qui se ferait passer pour une vraie mesure.
-  ensureColumn(db, 'stages', 'avg_speed_kmh', 'avg_speed_kmh REAL');
-  ensureColumn(db, 'stages', 'max_speed_kmh', 'max_speed_kmh REAL');
+  migrate(db);
   return db;
 }
 
-module.exports = { getDb, DB_PATH, DATA_DIR, ensureColumn };
+module.exports = { getDb, DB_PATH, DATA_DIR, ensureColumn, migrate, MIGRATIONS, SCHEMA_VERSION };
