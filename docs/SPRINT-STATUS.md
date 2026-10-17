@@ -170,7 +170,8 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 ## Epic 11 — Détection de surface non goudonnée (Overpass API)
 
 - [x] 11.1 Revérifier l'accès réseau à `overpass-api.de` — toujours bloqué (`Connection reset by peer`, proxy d'egress), voir issue #350
-- [ ] 11.2 **blocked** — Prototyper le map-matching : nécessite un accès réseau à Overpass API, indisponible
+- [x] 11.1b Re-testé le 17/10/2026 : `overpass-api.de` toujours bloqué, mais des miroirs répondent depuis ce sandbox — `maps.mail.ru/osm/tools/overpass` renvoie du JSON valide par intermittence (sinon « server too busy »), `overpass.kumi.systems` répond en HTTP 500
+- [ ] 11.2 **backlog** — Prototyper le map-matching : un miroir est joignable mais instable ; à faire avec retries espacés, sans en dépendre en CI
 - [ ] 11.3 **blocked** — Évaluer le coût/la complexité : reporté avec 11.2
 
 ## Epic 12 — Décision produit : ravitaillement/villages traversés
@@ -252,7 +253,11 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 
 ## Epic 26 — Revue d'architecture (persona architecte logiciel)
 
-- [ ] 26.1 Revue de l'architecture actuelle (couplage, points de défaillance, évolutivité SQLite/PWA, monétisation par clé API) — proposition seulement, aucune décision prise
+- [x] 26.1 Revue de l'architecture actuelle (couplage, points de défaillance, évolutivité SQLite/PWA, monétisation par clé API) — `docs/ARCHITECTURE-REVIEW.md` (PR #362), propositions seulement
+- [x] 26.2 R4 attributions/licences : BRouter cité, redistribution réelle de la démo Pages documentée (PR #363, complète #341)
+- [x] 26.3 Bug trouvé par la revue : étape bloquée en `generating` après un crash → remise en erreur au démarrage (PR #364)
+- [ ] 26.4 **backlog** — R1 (rôle admin sur les routes destructrices), R2 (schéma versionné), R3 (découpage de `server.js`) : dette objective, mais R1 implique un modèle de rôles à valider par l'utilisateur
+- [ ] 26.5 **backlog** — R5 (API `/v1` à clés), lecture hors-ligne PWA : décisions produit
 
 ## Epic 24 — Bilan final
 
