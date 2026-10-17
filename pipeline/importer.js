@@ -8,6 +8,7 @@ const {
   fetchEditionHtml,
   parseStagesFromHtml,
   reconstructionWaypoints,
+  curatedRoutingProfile,
   editionNotes,
 } = require('./wikipedia');
 const { isOffline } = require('./http');
@@ -67,8 +68,8 @@ async function importEdition(year, { category = 'hommes', onProgress } = {}) {
 
     const insStage = db.prepare(
       `INSERT INTO stages (edition_id, stage_order, name, date, stage_type, status,
-         official_distance_km, state, source)
-       VALUES (?, ?, ?, ?, ?, ?, ?, 'draft', ?)`
+         official_distance_km, state, source, routing_profile)
+       VALUES (?, ?, ?, ?, ?, ?, ?, 'draft', ?, ?)`
     );
     const insWp = db.prepare(
       `INSERT INTO waypoints (stage_id, idx, label, kind, lat, lon, altitude_hint_m, bonus_sec, source, country_hint, region_hint)
@@ -110,7 +111,8 @@ async function importEdition(year, { category = 'hommes', onProgress } = {}) {
       };
       const r = insStage.run(
         editionId, s.number, name, s.dateIso || s.dateText, s.type || null,
-        'historique', s.distanceKm, JSON.stringify(stageSource)
+        'historique', s.distanceKm, JSON.stringify(stageSource),
+        curatedRoutingProfile(year, s, category, occurrenceIndex, occurrenceCount)
       );
       const stageId = r.lastInsertRowid;
       const wps = reconstructionWaypoints(year, s, category, occurrenceIndex, occurrenceCount);

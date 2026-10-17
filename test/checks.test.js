@@ -489,3 +489,17 @@ test('README : la tolérance annoncée est celle que le code applique', () => {
     `le README annonce ±${m[1]} % là où pipeline/checks.js applique ±${DIST_TOLERANCE_PCT} %`,
   );
 });
+
+test('profil de routage curé (Epic 9) : visible seulement s\'il diffère du défaut ET qu\'au moins un leg BRouter l\'a appliqué', () => {
+  const legsB = [{ from: 'A', to: 'B', roadM: 10000, straightM: 9500, router: 'brouter' }];
+  const base = { distanceM: 20000, waypointsOnTrack: [], approxSegments: [], climbs: [], samples: [] };
+  const find = (stage, legs) => runChecks({ ...base, stage, legs }).items.find((i) => i.id === 'routing-profile');
+  const item = find({ routing_profile: 'shortest' }, legsB);
+  assert.ok(item);
+  assert.strictEqual(item.status, 'warn');
+  assert.match(item.detail, /« shortest » au lieu de « fastbike », appliqué à 1 leg\(s\) sur 1/);
+  assert.strictEqual(find({}, legsB), undefined, 'aucun profil curé');
+  assert.strictEqual(find({ routing_profile: 'fastbike' }, legsB), undefined, 'profil curé égal au défaut');
+  assert.strictEqual(find({ routing_profile: 'shortest' }, [{ ...legsB[0], router: 'simulateur' }]), undefined, 'hors-ligne : profil jamais appliqué');
+  assert.strictEqual(find({ routing_profile: 'shortest' }, [{ ...legsB[0], router: 'osrm' }]), undefined, 'repli OSRM : profil jamais appliqué');
+});
