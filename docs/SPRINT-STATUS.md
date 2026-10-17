@@ -174,7 +174,7 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 - [x] 11.2 Prototype de faisabilité : **Overpass inutile** — la réponse GeoJSON de BRouter porte déjà `WayTags` (dont `surface=`) et `Distance` par segment, vérifié en direct avec le profil `fastbike` (détail et conception : commentaire sur l'issue #350)
 - [x] 11.4 Résumé « km non revêtus / pavés » par étape depuis les `WayTags` BRouter — PR #366 (empilée sur #340) ; mesuré en réel sur 2024/9 : 98 % classés
 - [x] 11.5 2024/9 recurée sur les 14 secteurs de chemins blancs — PR #368 (empilée sur #366) : 206,8 km (+3,9 %), 28,3 km non revêtus mesurés sur 32,2 km réels
-- [ ] 11.6 **in-progress** — Curer 2022/5 (Lille → Arenberg, secteurs pavés). Critères : chaque secteur sourcé ; pavés mesurés par 11.4 ≥ 70 % du total officiel des secteurs ; distance dans ±5 %
+- [x] 11.6 2022/5 (Lille → Arenberg) curée sur ses secteurs pavés — PR #372 (empilée sur #366) : 151,0 km (-1,8 % / -3,8 %), 18,1 km de pavés mesurés sur 19,4
 - [ ] 11.3 **blocked** — Évaluer le coût/la complexité : reporté avec 11.2
 
 ## Epic 12 — Décision produit : ravitaillement/villages traversés
@@ -265,7 +265,7 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 ## Epic 27 — Dette technique issue de la revue d'architecture (règle 15 : autonomie)
 
 - [x] 27.1 Schéma SQLite versionné (`PRAGMA user_version`, migrations numérotées, `settings` dans `db.js`) — PR #369 ; base réelle de `main` migrée v0→v2 sans perte
-- [ ] 27.2 **backlog** — R3 : découper `backend/server.js` en routeurs (`stages`, `editions`, `exports`, `traces`, `admin`). Critères : routes et réponses identiques (tests existants verts sans modification) ; `server.js` < 300 lignes
+- [x] 27.2 `backend/server.js` découpé en `backend/routes/*` + `apiHelpers.js` (1 004 → 113 lignes) — PR #371 (empilée sur #369, intègre #364) ; 30 routes GET identiques au différentiel, 39/39 routes à la relecture
 - [x] 27.3 Test E2E navigateur en CI (8 écrans × 1440/375 px, contenu rendu exigé, erreurs tardives, débordement) — PR #367 (empilée sur #361), job `e2e` vert sur GitHub Actions
 - [ ] 27.4 **en attente de décision** — R1 : rôle admin sur les routes destructrices (modèle de rôles à valider)
 
