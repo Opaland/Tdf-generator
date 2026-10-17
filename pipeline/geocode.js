@@ -641,4 +641,4 @@ async function geocodeSuggest(query) {
   return value || [];
 }
 
-module.exports = { geocode, geocodeCol, reverseGeocode, geocodeSuggest, looksLikeFrance, isColQuery, pickFeature, pickNominatimFeature };
+module.exports = { geocode, geocodeCol, reverseGeocode, geocodeSuggest, looksLikeFrance, isColQuery, pickFeature, pickNominatimFeature, normName };
