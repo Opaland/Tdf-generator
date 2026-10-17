@@ -89,9 +89,9 @@ total dépassant 100 une fois comptées au même niveau de détail.
 
 ## Epic 11 — Détection de surface non goudonnée (Overpass API)
 
-- [ ] 11.1 Revérifier l'accès réseau à `overpass-api.de` depuis cette session
-- [ ] 11.2 Si accessible, prototyper le map-matching sur une étape gravel connue
-- [ ] 11.3 Évaluer le coût/la complexité avant d'engager plus
+- [x] 11.1 Revérifier l'accès réseau à `overpass-api.de` — toujours bloqué (`Connection reset by peer`, proxy d'egress), voir issue #350
+- [ ] 11.2 **blocked** — Prototyper le map-matching : nécessite un accès réseau à Overpass API, indisponible
+- [ ] 11.3 **blocked** — Évaluer le coût/la complexité : reporté avec 11.2
 
 ## Epic 12 — Décision produit : ravitaillement/villages traversés
 
