@@ -275,7 +275,7 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 - [x] 28.2 Issue #248 : Col du Lautaret figé sur le vrai col (PR #375) ; 1919/11 révèle son vrai écart (-14,1 %), masqué jusqu'ici par l'homonyme isérois
 - [x] 28.3 Issue #225 : Col de la Colmiane figé sur le col routier (Col Saint-Martin, 1500,7 m) (PR #376)
 - [x] 28.4 1919/11 curée : 329,3 km (+1,3 %), 3 cols au bon point, 0 aller-retour — PR #377 (empilée sur #375)
-- [ ] 28.5 **backlog** — Curer 2020/2 (Nice → Nice, 186 km, 2 vias, segments de 39 et 16 km sans point, 4 allers-retours déjà présents sur main). Critères : roadbook sourcé, distance dans ±5 %, zéro aller-retour
+- [ ] 28.5 **blocked** — Curer 2020/2 : aucune source détaillée trouvée le 17/10/2026 (pas de GPX cyclingstage pour 2020, dossier de presse LCL et Wikipédia limités aux 3 cols, pas de roadbook dimensionsvelo) ; reconstituer les liaisons entre vallées ne serait que de l'inférence géographique sur 186 km de montagne — critère « roadbook sourcé » non atteignable
 - [x] 28.6 Issue #280 : pickFeature préfère le nom exact parmi les reliefs — PR #378 ; différentiel réel sur 95 occurrences : 92 identiques, Aravis 1911/5 corrigé, Ballon d'Alsace figé pour ne pas régresser
 - [ ] 28.7 **backlog** — Issue #188 (P1) : curer le Tour 2002 (édition vide)
 
