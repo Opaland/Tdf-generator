@@ -23,6 +23,7 @@ const { httpJson, isOffline } = require('./http');
 const { cached } = require('./cache');
 const { haversine, lerpPoint } = require('./geo');
 const { simRouteLeg } = require('./simulator');
+const { brouterSurfaceStretches } = require('./surface');
 
 const OSRM_BASE = process.env.ETAPEFORGE_OSRM || 'https://router.project-osrm.org';
 const BROUTER_BASE = process.env.ETAPEFORGE_BROUTER || 'https://brouter.de/brouter';
@@ -65,7 +66,12 @@ async function routeLegBrouter(a, b) {
     // sources d'altitude sans arbitrage explicite serait un chantier séparé,
     // plus risqué qu'une simple migration de routage).
     const points = feature.geometry.coordinates.map(([lon, lat]) => ({ lat, lon }));
-    return { points, distanceM, router: 'brouter' };
+    // Revêtement par tronçon (tags OSM surface=*), déjà présent dans la
+    // réponse — voir pipeline/surface.js. Un leg relu depuis un cache plus
+    // ancien n'a pas ce champ : traité comme « inconnu » en aval, jamais
+    // comme revêtu.
+    const surfaces = brouterSurfaceStretches(feature.properties?.messages);
+    return { points, distanceM, router: 'brouter', surfaces };
   });
   return {
     ...value,
@@ -152,9 +158,9 @@ async function routeStage(waypoints, { onProgress } = {}) {
   const allPoints = [];
   const approxSegments = [];
   const wpOnTrack = [];
-  const legs = []; // diagnostic : distance routée vs vol d'oiseau par leg
+  const legs = []; // diagnostic : distance routée vs vol d'oiseau par leg, et routeur par leg
+  const surfaceStretches = []; // [{fromM, toM, cls, surface}] depuis le départ, legs BRouter seulement
   let cum = 0;
-  let router = null;
 
   const pushPoints = (pts) => {
     for (const p of pts) {
@@ -179,12 +185,12 @@ async function routeStage(waypoints, { onProgress } = {}) {
       });
     }
     const leg = await routeLeg(a, b);
-    router = router || leg.router;
     legs.push({
       from: a.label || `wp${i}`,
       to: b.label || `wp${i + 1}`,
       straightM: Math.round(haversine(a, b)),
       roadM: Math.round(leg.distanceM),
+      router: leg.router,
     });
 
     const isColB = b.kind === 'col' || b.kind === 'peak';
@@ -203,7 +209,19 @@ async function routeStage(waypoints, { onProgress } = {}) {
       approxSegments.push({ fromM, toM: cum, reason: `descente interpolée depuis ${a.label || 'col'}` });
     }
 
+    const legStartM = cum;
     pushPoints(leg.points);
+    // Tronçons de surface du leg replacés sur la distance cumulée de l'étape.
+    // La longueur BRouter et la somme haversine des points diffèrent de
+    // quelques mètres : mise à l'échelle sur la longueur réellement ajoutée,
+    // pour qu'un tronçon ne déborde jamais sur le leg suivant.
+    if (Array.isArray(leg.surfaces) && leg.surfaces.length) {
+      const legLen = leg.surfaces[leg.surfaces.length - 1].toM;
+      const k = legLen > 0 ? (cum - legStartM) / legLen : 0;
+      for (const st of leg.surfaces) {
+        surfaceStretches.push({ ...st, fromM: legStartM + st.fromM * k, toM: legStartM + st.toM * k });
+      }
+    }
 
     if (endGap > COL_TOLERANCE_M && isColB) {
       // Col contourné : la route s'arrête au pied → interpolation pied→sommet.
@@ -217,7 +235,17 @@ async function routeStage(waypoints, { onProgress } = {}) {
     }
   }
 
-  return { points: allPoints, distanceM: cum, waypointsOnTrack: wpOnTrack, approxSegments, legs, router: router || 'osrm' };
+  // Un seul champ `router` par étape, dérivé du routeur réellement utilisé sur
+  // CHAQUE leg (pas seulement le premier, voir le bug ci-dessous) : avant ce
+  // correctif, un leg qui basculait sur OSRM après un échec BRouter isolé
+  // restait invisible dès que ce n'était pas le premier leg de l'étape — le
+  // seul signal était un `console.warn` (routeLeg() ci-dessus), jamais
+  // persisté ni affiché. `routers.size > 1` expose ce repli partiel comme
+  // 'mixed' plutôt que de masquer l'étape entière sous le routeur du premier
+  // leg (voir le nouveau check dédié, pipeline/checks.js).
+  const routers = new Set(legs.map((l) => l.router).filter(Boolean));
+  const router = routers.size === 1 ? [...routers][0] : routers.size > 1 ? 'mixed' : 'osrm';
+  return { points: allPoints, distanceM: cum, waypointsOnTrack: wpOnTrack, approxSegments, legs, router, surfaceStretches };
 }
 
 module.exports = { routeStage, routeLeg, COL_TOLERANCE_M, OSRM_BASE, BROUTER_BASE, BROUTER_PROFILE };

@@ -15,6 +15,7 @@ const { runChecks } = require('./checks');
 const { isOffline } = require('./http');
 const { stageConfidence } = require('./wikipedia');
 const { consecutiveMountainDays, painIndex } = require('./pain');
+const { summarizeSurfaces } = require('./surface');
 
 /**
  * Options de géocodage pour un waypoint : `near` (biais de proximité, point
@@ -43,6 +44,53 @@ function geocodeOptsFor(wp, prevPos) {
   if (wp.country_hint) opts.countryHint = wp.country_hint;
   if (wp.region_hint) opts.regionHint = wp.region_hint;
   return opts;
+}
+
+/**
+ * tracks.surfaces relu défensivement : la colonne peut venir d'une sauvegarde
+ * importée (POST /api/backup/import n'accepte que des types SQLite, pas une
+ * forme JSON) — une valeur illisible ou mal formée donne `null` (section
+ * masquée sur la fiche), jamais une exception qui ferait tomber la fiche et
+ * les exports (trouvaille de relecture adverse).
+ */
+function parseSurfaces(raw) {
+  if (!raw) return null;
+  try {
+    const v = JSON.parse(raw);
+    const ok = v && typeof v === 'object' && v.meters && typeof v.meters === 'object' && Array.isArray(v.stretches) &&
+      ['revetu', 'revetu_presume', 'paves', 'non_revetu', 'non_revetu_presume', 'inconnu'].every((k) => Number.isFinite(v.meters[k])) &&
+      v.stretches.every((st) => st && Number.isFinite(st.fromM) && Number.isFinite(st.toM) && typeof st.cls === 'string' && Array.isArray(st.surfaces));
+    return ok ? v : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Au démarrage du serveur : une étape restée `generating` en base vient
+ * forcément d'une génération interrompue (crash, redémarrage) — la promesse
+ * qui l'aurait terminée est morte avec l'ancien process. Sans ce passage,
+ * la fiche d'étape interroge indéfiniment (frontend/stage.js) et l'écran
+ * Archives masque le bouton de relance (frontend/archives.js).
+ *
+ * Appelé depuis backend/server.js au lancement seulement, jamais depuis
+ * getDb() : un `pipeline/cli.js` lancé en parallèle ouvrirait la même base et
+ * marquerait en erreur une génération réellement en cours dans l'autre
+ * process. Renvoie le nombre d'étapes remises en état.
+ */
+function resetInterruptedGenerations() {
+  const db = getDb();
+  // Une étape sans waypoint vient d'un import de trace (pipeline/importTrack.js) :
+  // generateStage() la rejetterait (« au moins deux waypoints ») et la trace
+  // source n'est pas conservée — seul un réimport peut aboutir.
+  const reset = db.prepare(
+    `UPDATE stages SET state = 'error', error = ?, progress = NULL, updated_at = datetime('now')
+     WHERE state = 'generating' AND ? = EXISTS (SELECT 1 FROM waypoints w WHERE w.stage_id = stages.id)`
+  );
+  return db.transaction(() =>
+    reset.run('Génération interrompue (serveur redémarré pendant le calcul) — relancer la génération.', 1).changes +
+    reset.run('Import interrompu (serveur redémarré pendant le calcul) — réimporter la trace.', 0).changes
+  )();
 }
 
 function setProgress(stageId, progress) {
@@ -155,9 +203,13 @@ async function generateStage(stageId, { onProgress } = {}) {
     };
     const save = db.transaction(() => {
       db.prepare(
-        `INSERT OR REPLACE INTO tracks (stage_id, geojson, distance_m, approx_segments, router)
-         VALUES (?, ?, ?, ?, ?)`
-      ).run(stageId, JSON.stringify(geojson), routed.distanceM, JSON.stringify(routed.approxSegments), routed.router);
+        `INSERT OR REPLACE INTO tracks (stage_id, geojson, distance_m, approx_segments, router, surfaces)
+         VALUES (?, ?, ?, ?, ?, ?)`
+      ).run(
+        stageId, JSON.stringify(geojson), routed.distanceM, JSON.stringify(routed.approxSegments), routed.router,
+        // Simulateur : aucun tag OSM, un résumé « 100 % inconnu » ne serait que du bruit sur la fiche.
+        routed.router === 'simulateur' ? null : JSON.stringify(summarizeSurfaces(routed.surfaceStretches || [], routed.distanceM))
+      );
 
       db.prepare('DELETE FROM elevation_samples WHERE stage_id = ?').run(stageId);
       const insSample = db.prepare(
@@ -294,7 +346,7 @@ function loadStageFull(stageId) {
       bonus_sec: w.bonus_sec ? JSON.parse(w.bonus_sec) : null,
     })),
     track: track
-      ? { ...track, geojson: JSON.parse(track.geojson), approx_segments: track.approx_segments ? JSON.parse(track.approx_segments) : [] }
+      ? { ...track, geojson: JSON.parse(track.geojson), approx_segments: track.approx_segments ? JSON.parse(track.approx_segments) : [], surfaces: parseSurfaces(track.surfaces) }
       : null,
     samples,
     climbs: climbs.map((c) => ({ ...c, km_blocks: c.km_blocks ? JSON.parse(c.km_blocks) : [] })),
@@ -306,4 +358,4 @@ function loadStageFull(stageId) {
   };
 }
 
-module.exports = { generateStage, loadStageFull, setProgress, geocodeOptsFor };
+module.exports = { generateStage, loadStageFull, setProgress, geocodeOptsFor, resetInterruptedGenerations };

@@ -1,7 +1,7 @@
 'use strict';
 // Étapes similaires (backlog #10, section D) : GET /api/stages/:id/similar
 // rapproche des étapes au profil proche (D+, catégorie de côte max, pente
-// max) — heuristique de distance documentée dans backend/server.js,
+// max) — heuristique de distance documentée dans backend/routes/stages.js,
 // jamais présentée comme une recommandation éditoriale.
 
 const os = require('os');

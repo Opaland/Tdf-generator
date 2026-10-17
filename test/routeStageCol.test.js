@@ -204,3 +204,54 @@ test('routeLeg() : track-length de BRouter en chaîne (format réel de l\'API) e
   assert.strictEqual(result.router, 'brouter', 'une réponse BRouter valide (même avec track-length en chaîne) ne doit jamais déclencher le repli OSRM');
   assert.strictEqual(result.legs[0].roadM, 2477);
 });
+
+// Sprint fiabilité du routage (15/10/2026) : avant ce correctif, `router`
+// (routing.js) ne retenait que le routeur du PREMIER leg — un repli OSRM
+// isolé sur un leg ultérieur restait invisible (seul un `console.warn`,
+// jamais persisté). Étape à 3 waypoints (2 legs) : le 1er leg réussit sur
+// BRouter, le 2e échoue sur BRouter et bascule sur OSRM.
+test('routeStage() : un repli OSRM isolé sur un leg qui n\'est pas le premier reste visible (router "mixed", pas masqué en "brouter")', async () => {
+  const a = { lat: 45.3, lon: 6.3, kind: 'via', label: 'A' };
+  const b = { lat: 45.32, lon: 6.3, kind: 'via', label: 'B' };
+  const c = { lat: 45.34, lon: 6.3, kind: 'via', label: 'C' };
+  global.fetch = async (url) => {
+    const u = String(url);
+    if (u.includes('brouter.de')) {
+      // Le leg B→C (lonlats commençant par les coordonnées de B) échoue ;
+      // le leg A→B (coordonnées de A) réussit.
+      if (u.includes(`lonlats=${b.lon},${b.lat}`)) {
+        return { ok: false, status: 400, json: async () => { throw new Error('pas de JSON sur un 400 BRouter'); } };
+      }
+      return {
+        ok: true,
+        status: 200,
+        json: async () => ({
+          type: 'FeatureCollection',
+          features: [{
+            type: 'Feature',
+            geometry: { type: 'LineString', coordinates: [[a.lon, a.lat, 0], [b.lon, b.lat, 0]] },
+            properties: { 'track-length': '2200' },
+          }],
+        }),
+      };
+    }
+    if (u.includes('router.project-osrm.org')) {
+      return {
+        ok: true,
+        status: 200,
+        json: async () => ({
+          code: 'Ok',
+          routes: [{ geometry: { coordinates: [[b.lon, b.lat], [c.lon, c.lat]] }, distance: 2300 }],
+          waypoints: [{ distance: 0 }, { distance: 0 }],
+        }),
+      };
+    }
+    return realFetch(url);
+  };
+
+  const result = await routeStage([a, b, c]);
+
+  assert.strictEqual(result.legs[0].router, 'brouter', 'le 1er leg (A→B) a bien réussi sur BRouter');
+  assert.strictEqual(result.legs[1].router, 'osrm', 'le 2e leg (B→C) a bien basculé sur OSRM');
+  assert.strictEqual(result.router, 'mixed', 'router agrégé ne doit pas masquer le repli partiel sous "brouter" (routeur du seul 1er leg)');
+});

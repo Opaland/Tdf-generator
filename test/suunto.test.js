@@ -165,7 +165,7 @@ test('le statut ne renvoie jamais client_secret/subscription_key en clair', asyn
 
 // Trouvaille de sprint dédié : client_id/client_secret/subscription_key
 // n'étaient validés par aucun type, contrairement aux autres routes
-// d'écriture (requireString/optionalString, backend/server.js). setSetting()
+// d'écriture (requireString/optionalString, backend/apiHelpers.js). setSetting()
 // fait String(value) donc pas de 500, mais un objet/tableau envoyé par
 // erreur était stocké silencieusement comme "[object Object]" — 200 { ok:
 // true } alors que la config est inutilisable.

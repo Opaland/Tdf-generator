@@ -203,7 +203,7 @@ function main() {
   <p class="meta-line">Générateur d'étapes du Tour de France, open source et 100 % local.
     Cette démo est <b>entièrement navigable</b> — ${simulated
       ? 'données pré-générées avec le <b>simulateur hors-ligne</b> (tracés synthétiques, clairement étiquetés)'
-      : 'tracés routés sur le <b>vrai réseau routier</b> (OSRM/OpenStreetMap) et <b>altimétrie réelle IGN</b>, pré-générés à la publication'} ;
+      : 'tracés routés sur le <b>vrai réseau routier</b> (OpenStreetMap) et <b>altimétrie réelle IGN</b>, pré-générés à la publication'} ;
     la création de vos propres étapes se fait dans la
     <a href="https://github.com/Opaland/Tdf-generator">version locale</a>.</p>
   <div class="hub">
