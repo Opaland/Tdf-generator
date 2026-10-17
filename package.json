@@ -20,7 +20,8 @@
     "lint": "eslint .",
     "monkey": "node scripts/monkey.js",
     "mutation": "stryker run",
-    "benchmark": "node scripts/benchmark.js"
+    "benchmark": "node scripts/benchmark.js",
+    "e2e": "node scripts/e2e-smoke.js"
   },
   "engines": {
     "node": ">=20"

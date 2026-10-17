@@ -15,6 +15,7 @@ qu'il a déjà trouvé. Les trous sont listés en fin de document.
 | Audit dépendances | `npm audit --audit-level=high` | CI | **oui** | oui (registre npm) |
 | Démo hors-ligne auto-vérifiée | `npm run demo` (`scripts/demo.js`, simulateur) | CI à chaque push/PR, `/porte` avant PR | **oui** | non |
 | Image Docker + smoke test | `docker build` puis conteneur démarré | CI | **oui** | non |
+| E2E navigateur | `npm run demo && npm run e2e` (`scripts/e2e-smoke.js`, 8 écrans × 1440/375 px) | CI à chaque push/PR (job `e2e`) | **oui** | non (requêtes externes coupées) |
 | Vérification visuelle | Playwright, captures 1440px + 375px avant/après | `/porte`, seulement si le frontend change | oui pour la PR concernée (manuel) | non |
 | Démo réseau réel | `npm run demo:online` | CI planifiée, tous les jours 5h UTC (`demo-online.yml`) | non (alerte) | **oui** |
 | Démo spéculative 2027 | `npm run demo:2027` | CI planifiée, le 3 de chaque mois (`demo-2027.yml`) | non | **oui** |
@@ -58,10 +59,13 @@ qu'il a déjà trouvé. Les trous sont listés en fin de document.
 
 ## Trous connus (ce qui n'est pas testé automatiquement)
 
-- **Pas de test de bout en bout automatisé dans le navigateur en CI** : la
-  vérification Playwright de `/porte` est manuelle et ponctuelle ; les
-  audits applicatifs (Epic 6) ont été faits par scripts ad hoc, non
-  versionnés.
+- **Le test de bout en bout en CI ne fait que charger les écrans** (job
+  `e2e`, ajouté le 17/10/2026) : contenu rendu par le JS de chaque écran,
+  aucune erreur JS/console jusqu'à 2 s après le rendu, aucune requête
+  locale en erreur, aucun débordement horizontal. Aucun parcours
+  interactif (créer une étape, importer une trace, comparer) n'est
+  automatisé, ni le mur d'accès (`/login.html`, `ETAPEFORGE_PUBLIC=1`) ;
+  la vérification visuelle de `/porte` reste manuelle.
 - **La qualité des données historiques n'est vérifiée qu'à la curation** :
   chaque entrée de `pipeline/data/historic_routes.json` est mesurée par
   régénération réelle au moment où elle est écrite, puis plus jamais — une
@@ -89,6 +93,6 @@ un arbitrage :
 2. Un champ optionnel `race_km` sur les vias curés depuis un roadbook, et un
    check qui compare la position reconstituée de chaque via à ce
    kilométrage — automatiser la mesure faite à la main ci-dessus.
-3. Un **test Playwright minimal en CI** (chargement des 8 écrans, aucune
-   erreur console, pas de débordement horizontal à 375px) sur la démo
-   hors-ligne — sans réseau, donc stable.
+3. ~~Un test Playwright minimal en CI~~ — fait (Epic 27.3, job `e2e`) ;
+   prochaine marche possible : des parcours interactifs (créer → générer →
+   fiche) et le mur d'accès, sur la même démo hors-ligne.
