@@ -17,7 +17,7 @@ Nouvelle demande explicite du 17/10/2026 : monter à 200. Plutôt que
 d'inventer 100+ stories fictives pour atteindre ce chiffre — ce que ce
 document a toujours refusé de faire, voir ci-dessus — la Partie A compte le
 travail **réel et déjà mergé sur `main`**, vérifié par `git log`, dépôt
-entier (pas seulement cette session). La Partie B (Epics 1-24, inchangée)
+entier (pas seulement cette session). La Partie B (Epics 1-26, 25 et 26 ajoutés le 17/10/2026)
 reste la feuille de route active, à la même granularité qu'avant.
 
 ## Partie A — Travail déjà mergé sur `main` (vérifié par `git log`)
@@ -74,7 +74,7 @@ en PR ouverte) = 397 unités de travail**, chacune individuellement citable
 par un numéro de commit/PR ou une ligne de ce fichier — aucune ajoutée pour
 arrondir un compte.
 
-## Partie B — Feuille de route active (Epics 1-24)
+## Partie B — Feuille de route active (Epics 1-26)
 
 Granularité et statuts inchangés depuis la demande du 17/10/2026 précédente
 (`done`/`blocked`/`backlog`) : monter le total global passe par compter le
@@ -243,6 +243,16 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 - [x] 23.3 Dette du backlog : issue #10 recomptée — 44 items clos / 6 ouverts (sur 50 suivis), chacun des 6 relié à une issue de suivi dédiée (pas un flou générique)
 - [x] 23.4 Cohérence des textes : grep positionnement (« 100% local », « aucun compte »...) — cohérent, pas de contradiction trouvée
 - [x] 23.5 Poids et dépendances : 5 dépendances directes (`better-sqlite3`, `express`, `fit-file-parser`, `leaflet`, `node-html-parser`), chacune déjà justifiée dans son historique d'adoption — rien de nouveau
+
+## Epic 25 — Stratégie d'automatisation des tests
+
+- [x] 25.1 Inventorier les couches existantes (unitaires, lint, audit, démo, Docker, Playwright, nightly, monkey, mutation, agents) avec quand/bloquant/réseau — `docs/TESTING.md` (PR #361)
+- [x] 25.2 Lister les trous connus (pas d'E2E en CI, données jamais re-mesurées, pas de comparaison au kilométrage de course, pas de test de charge)
+- [ ] 25.3 **backlog** — Arbitrer les 3 pistes proposées (régénération périodique, champ `race_km`, Playwright minimal en CI) : décision utilisateur
+
+## Epic 26 — Revue d'architecture (persona architecte logiciel)
+
+- [ ] 26.1 Revue de l'architecture actuelle (couplage, points de défaillance, évolutivité SQLite/PWA, monétisation par clé API) — proposition seulement, aucune décision prise
 
 ## Epic 24 — Bilan final
 
