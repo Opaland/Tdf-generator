@@ -225,7 +225,15 @@
     "notes": "Première apparition du maillot jaune du Tour (étape 11 : Grenoble → Genève, 325 km, 19 juillet). Henri Desgrange, directeur de la course, le remet vers 2h du matin à Eugène Christophe au Café de l'Ascenseur à Grenoble — jaune comme les pages du journal organisateur L'Auto. Étape reine franchissant les cols du Lautaret, du Galibier et des Aravis ; Honoré Barthélemy remporte l'étape. Christophe conserve le maillot jusqu'à l'avant-dernière étape (Metz → Dunkerque), où sa fourche casse à nouveau — comme en 1913 —, le privant une seconde fois de la victoire finale, remportée par le Belge Firmin Lambot, premier vainqueur à ramener le maillot jaune à Paris. Points de passage d'après Wikipédia (CC BY-SA) / bikeraceinfo.com (résultats et étape recoupés). Import de la liste des étapes : en ligne.",
     "stages": {
       "11": {
+        "finish": {
+          "label": "Genève",
+          "country": "switzerland",
+          "lat": 46.2017559,
+          "lon": 6.1466014
+        },
         "vias": [
+          "Vizille",
+          "Le Bourg-d'Oisans",
           {
             "label": "Col du Lautaret",
             "kind": "col"
@@ -234,9 +242,39 @@
             "label": "Col du Galibier",
             "kind": "col"
           },
+          "Valloire",
+          {
+            "label": "Aiguebelle",
+            "kind": "via",
+            "lat": 45.5415041,
+            "lon": 6.3060463
+          },
+          "Albertville",
+          "Ugine",
+          "Flumet",
+          "La Giettaz",
           {
             "label": "Col des Aravis",
-            "kind": "col"
+            "kind": "col",
+            "lat": 45.87233,
+            "lon": 6.46489
+          },
+          "Thônes",
+          "Annecy"
+        ],
+        "note": "Grenoble → Genève (325 km, 11e étape, 1919), dernière étape alpestre. Sourcé : cols du Lautaret, du Galibier et des Aravis, traversée d'Annecy (fr.wikipedia.org, Tour de France 1919 : Barthélémy « franchit les cols du Lautaret, du Galibier et des Aravis », Lambot creuse l'écart « dans la traversée d'Annecy »), arrivée à Genève. Entre ces points, les vias suivent la seule route possible (Oisans jusqu'au Lautaret, descente du Galibier par Valloire, vallée de la Maurienne jusqu'à Aiguebelle, Albertville, gorges de l'Arly par Ugine, Flumet et La Giettaz jusqu'aux Aravis, puis Thônes) : déduits de la géographie, pas d'une source d'époque — voir la confidence. Curation du 17/10/2026 (story 28.4) : avant, 3 cols seuls et une arrivée « Geneva » géocodée près d'Annecy.",
+        "confidence": [
+          {
+            "claim": "distance reconstituée 329,3 km vs officiel 325 km (+1,3 %), dans la tolérance ±5 %",
+            "status": "OK",
+            "level": "haute",
+            "detail": "vérifié par régénération réelle (import + generate, base isolée), BRouter sur tous les legs, aucun repli OSRM, aucune zone de rebroussement ; altitudes des trois cols conformes (Lautaret 2112/2058 m, Galibier 2635/2642 m, Aravis 1485/1486 m). Saint-Michel- et Saint-Jean-de-Maurienne retirés après un premier essai à +8,7 % : leur centre-ville, hors de la route de vallée, imposait 8 allers-retours (même piège déjà rencontré sur les étapes Femmes 2022)."
+          },
+          {
+            "claim": "vias intermédiaires entre les cols (Vizille, Bourg-d'Oisans, Valloire, Aiguebelle, Albertville, Ugine, Flumet, La Giettaz, Thônes)",
+            "status": "UNSURE",
+            "level": "moyenne",
+            "detail": "imposés par la géographie (seule route entre les points sourcés), aucune source d'époque ne les cite. Aiguebelle figée par coordonnées (45.5415/6.3060, Nominatim) : la commune a fusionné dans Val-d'Arc en 2019 et le géocodage du nom seul retombait en Isère (45.22/6.02). Col des Aravis figé (45.87233/6.46489) : sans la préférence au nom exact de pickFeature() (issue #280), le géocodage retombait sur « Porte des Aravis » (2391 m). Arrivée figée sur Genève (46.2018/6.1466) : le libellé Wikipédia « Geneva » se géocodait près d'Annecy (45.95/6.04)."
           }
         ]
       }
