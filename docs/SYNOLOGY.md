@@ -103,6 +103,43 @@ arrêtez le conteneur le temps de la copie — une copie de fichier brute
 pendant que SQLite écrit (mode WAL) n'est pas garantie cohérente, contrairement
 à la sauvegarde automatique intégrée ci-dessus.
 
+## Identifiants des connecteurs (Suunto, Strava)
+
+La base SQLite **n'est pas chiffrée**. Ce qui y est stocké est lisible par
+quiconque obtient une copie du fichier `etapeforge.sqlite`, ou d'une
+sauvegarde automatique (`/backup`). C'est le cas :
+
+- des **jetons de connexion** (`access_token`, `refresh_token`) : toujours en
+  base, c'est leur seul stockage ;
+- des **secrets d'application** (`client_secret`, `subscription_key`)
+  **seulement** s'ils ont été saisis dans l'interface. Fournis par variable
+  d'environnement, ils ne touchent jamais la base.
+
+Recommandations :
+
+1. Passer les secrets d'application par variables d'environnement dans
+   `docker-compose.yml` : `SUUNTO_CLIENT_ID`, `SUUNTO_CLIENT_SECRET`,
+   `SUUNTO_SUBSCRIPTION_KEY`, `STRAVA_CLIENT_ID`, `STRAVA_CLIENT_SECRET`.
+2. Restreindre l'accès au dossier de données et aux sauvegardes, par
+   exemple `chmod 600` sur les fichiers `.sqlite` et `chmod 700` sur leurs
+   dossiers. Ne pas les placer dans un dossier partagé du NAS.
+3. Vérifier sur `/diag.html`, section « Identifiants des connecteurs ». Un
+   secret signalé « base SQLite, en clair » reste en base même une fois la
+   variable d'environnement définie (elle est seulement prioritaire).
+   L'interface ne propose pas de l'effacer ; conteneur arrêté, avec
+   l'outil `sqlite3` :
+
+   ```bash
+   sqlite3 docker/etapeforge/data/etapeforge.sqlite \
+     "DELETE FROM settings WHERE key IN ('suunto_client_secret','suunto_subscription_key','strava_client_secret');"
+   ```
+
+   Les sauvegardes automatiques déjà faites contiennent toujours l'ancienne
+   valeur : les purger aussi, ou changer le secret chez le fournisseur.
+
+Un chiffrement au repos (option B de l'issue #379) est prévu avant toute
+exposition publique durable ; il n'est pas en place aujourd'hui.
+
 ## Notifications
 
 Une génération d'étape tourne en tâche de fond (jusqu'à quelques minutes en
