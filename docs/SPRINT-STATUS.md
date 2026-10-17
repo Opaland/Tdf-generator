@@ -17,7 +17,7 @@ Nouvelle demande explicite du 17/10/2026 : monter à 200. Plutôt que
 d'inventer 100+ stories fictives pour atteindre ce chiffre — ce que ce
 document a toujours refusé de faire, voir ci-dessus — la Partie A compte le
 travail **réel et déjà mergé sur `main`**, vérifié par `git log`, dépôt
-entier (pas seulement cette session). La Partie B (Epics 1-27, 25 à 27 ajoutés le 17/10/2026)
+entier (pas seulement cette session). La Partie B (Epics 1-28, 25 à 28 ajoutés le 17/10/2026)
 reste la feuille de route active, à la même granularité qu'avant.
 
 ## Partie A — Travail déjà mergé sur `main` (vérifié par `git log`)
@@ -74,7 +74,7 @@ en PR ouverte) = 397 unités de travail**, chacune individuellement citable
 par un numéro de commit/PR ou une ligne de ce fichier — aucune ajoutée pour
 arrondir un compte.
 
-## Partie B — Feuille de route active (Epics 1-27)
+## Partie B — Feuille de route active (Epics 1-28)
 
 Granularité et statuts inchangés depuis la demande du 17/10/2026 précédente
 (`done`/`blocked`/`backlog`) : monter le total global passe par compter le
@@ -268,6 +268,16 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 - [x] 27.2 `backend/server.js` découpé en `backend/routes/*` + `apiHelpers.js` (1 004 → 113 lignes) — PR #371 (empilée sur #369, intègre #364) ; 30 routes GET identiques au différentiel, 39/39 routes à la relecture
 - [x] 27.3 Test E2E navigateur en CI (8 écrans × 1440/375 px, contenu rendu exigé, erreurs tardives, débordement) — PR #367 (empilée sur #361), job `e2e` vert sur GitHub Actions
 - [ ] 27.4 **en attente de décision** — R1 : rôle admin sur les routes destructrices (modèle de rôles à valider)
+
+## Epic 28 — Bugs de géocodage et de curation ouverts en issue
+
+- [x] 28.1 Issue #224 : départ/arrivée curé au sommet — coordonnées et altitude de `known_cols` (PR #374) ; 4 arrivées gagnent leur altitude attendue, 2020/17 vérifiée en réel
+- [x] 28.2 Issue #248 : Col du Lautaret figé sur le vrai col (PR #375) ; 1919/11 révèle son vrai écart (-14,1 %), masqué jusqu'ici par l'homonyme isérois
+- [x] 28.3 Issue #225 : Col de la Colmiane figé sur le col routier (Col Saint-Martin, 1500,7 m) (PR #376)
+- [ ] 28.4 **backlog** — Curer 1919/11 (Grenoble → Genève, 325 km, 3 cols et aucune ville intermédiaire). Critères : vias sourcés (itinéraire 1919), distance dans ±5 %
+- [ ] 28.5 **backlog** — Curer 2020/2 (Nice → Nice, 186 km, 2 vias, segments de 39 et 16 km sans point, 4 allers-retours déjà présents sur main). Critères : roadbook sourcé, distance dans ±5 %, zéro aller-retour
+- [ ] 28.6 **backlog** — Issue #280 : pickFeature() exclut un POI « col » dès qu'un homonyme « sommet » existe à proximité
+- [ ] 28.7 **backlog** — Issue #188 (P1) : curer le Tour 2002 (édition vide)
 
 ## Epic 24 — Bilan final
 
