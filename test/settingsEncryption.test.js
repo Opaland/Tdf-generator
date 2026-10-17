@@ -82,3 +82,44 @@ test('valeur chiffrée altérée (base modifiée) → null, l\'authentification 
   getDb().prepare('UPDATE settings SET value = ? WHERE key = ?').run(tampered, 'suunto_access_token');
   assert.strictEqual(getSetting('suunto_access_token'), null);
 });
+
+test('chiffrement de l\'existant : plus aucune trace du clair dans le fichier SQLite ni dans le WAL', () => {
+  delete process.env.ETAPEFORGE_SECRET_KEY;
+  const CLAIR = 'CLAIR-RESIDUEL-9d2f6c41';
+  setSetting('suunto_subscription_key', CLAIR);
+  process.env.ETAPEFORGE_SECRET_KEY = KEY;
+  assert.ok(encryptStoredSecrets() >= 1);
+  const dir = process.env.ETAPEFORGE_DATA_DIR;
+  for (const f of fs.readdirSync(dir).filter((x) => x.startsWith('etapeforge.sqlite'))) {
+    assert.ok(!fs.readFileSync(path.join(dir, f)).includes(CLAIR), `clair encore présent dans ${f}`);
+  }
+  assert.strictEqual(getSetting('suunto_subscription_key'), CLAIR);
+});
+
+test('statut : un secret chiffré illisible est signalé « db-illisible », pas « chiffré »', () => {
+  process.env.ETAPEFORGE_SECRET_KEY = KEY;
+  setSetting('strava_client_secret', 'abc');
+  setSetting('strava_refresh_token', 'r');
+  process.env.ETAPEFORGE_SECRET_KEY = 'encore-une-autre-cle-longue';
+  const st = secretsStatus().strava;
+  assert.strictEqual(st.secrets.client_secret, 'db-illisible');
+  assert.strictEqual(st.tokensUnreadable, true);
+  assert.strictEqual(st.tokensEncrypted, false);
+  // Reconfigurer sous la nouvelle clé répare.
+  setSetting('strava_client_secret', 'abc2');
+  assert.strictEqual(secretsStatus().strava.secrets.client_secret, 'db-chiffre');
+  assert.strictEqual(getSetting('strava_client_secret'), 'abc2');
+});
+
+test('valeur saisie commençant par le préfixe de chiffrement : relue telle quelle, avec ou sans clé', () => {
+  for (const key of [undefined, KEY]) {
+    if (key) process.env.ETAPEFORGE_SECRET_KEY = key; else delete process.env.ETAPEFORGE_SECRET_KEY;
+    for (const v of [`${ENC_PREFIX}abcDEF123`, 'raw:xyz', 'raw:raw:z']) {
+      setSetting('suunto_client_secret', v);
+      assert.strictEqual(getSetting('suunto_client_secret'), v, `${v} (clé : ${!!key})`);
+    }
+  }
+  // Clé non sensible : jamais interprétée.
+  setSetting('suunto_client_id', `${ENC_PREFIX}id`);
+  assert.strictEqual(getSetting('suunto_client_id'), `${ENC_PREFIX}id`);
+});

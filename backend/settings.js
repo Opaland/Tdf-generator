@@ -21,10 +21,24 @@ const SENSITIVE_KEYS = new Set([
   'strava_client_secret', 'strava_access_token', 'strava_refresh_token',
 ]);
 
+// Dérivation : scrypt (coûteux, comme il se doit contre une attaque hors
+// ligne sur un fichier volé — un simple sha256 se casse vite sur GPU si la
+// clé est une phrase de passe), sel aléatoire propre à l'installation stocké
+// en clair dans settings. Clé dérivée gardée en mémoire (scrypt ~50 ms).
+const SALT_KEY = 'settings_kdf_salt';
+let derived = null; // { raw, salt, key }
 function encryptionKey() {
   const raw = String(process.env.ETAPEFORGE_SECRET_KEY || '').trim();
   if (raw.length < MIN_KEY_LEN) return null;
-  return crypto.createHash('sha256').update(`etapeforge-settings-v1:${raw}`).digest();
+  let salt = rawSetting(SALT_KEY);
+  if (!salt) {
+    salt = crypto.randomBytes(16).toString('base64');
+    getDb().prepare('INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)').run(SALT_KEY, salt);
+  }
+  if (!derived || derived.raw !== raw || derived.salt !== salt) {
+    derived = { raw, salt, key: crypto.scryptSync(raw, Buffer.from(salt, 'base64'), 32, { N: 2 ** 15, r: 8, p: 1, maxmem: 64 * 1024 * 1024 }) };
+  }
+  return derived.key;
 }
 
 function encrypt(plain, key) {
@@ -47,30 +61,47 @@ function rawSetting(key) {
   return row ? row.value : null;
 }
 
-const warned = new Set();
-function getSetting(key) {
-  const value = rawSetting(key);
-  if (value == null || !value.startsWith(ENC_PREFIX)) return value;
+// Échappement : une valeur saisie qui commence par le préfixe de chiffrement
+// (ou par celui d'échappement) est stockée préfixée de RAW_PREFIX — sans quoi
+// elle serait prise pour une valeur chiffrée et relue `null` (relecture
+// adverse). Seules les clés sensibles sont concernées.
+const RAW_PREFIX = 'raw:';
+
+function decodeValue(key, value) {
+  if (value == null || !SENSITIVE_KEYS.has(key)) return { value };
+  if (value.startsWith(RAW_PREFIX)) return { value: value.slice(RAW_PREFIX.length) };
+  if (!value.startsWith(ENC_PREFIX)) return { value };
   const k = encryptionKey();
   try {
     if (!k) throw new Error('ETAPEFORGE_SECRET_KEY absente ou trop courte');
-    return decrypt(value, k);
+    return { value: decrypt(value, k), encrypted: true };
   } catch (err) {
+    return { value: null, encrypted: true, unreadable: err.message };
+  }
+}
+
+const warned = new Set();
+function getSetting(key) {
+  const d = decodeValue(key, rawSetting(key));
+  if (d.unreadable && !warned.has(key)) {
     // Clé absente ou différente : le connecteur se comporte comme non
     // configuré plutôt que de planter ou d'utiliser un secret corrompu.
-    if (!warned.has(key)) {
-      warned.add(key);
-      console.warn(`[settings] « ${key} » chiffré mais illisible (${err.message}) — reconfigurer le connecteur ou rétablir la clé`);
-    }
-    return null;
+    warned.add(key);
+    console.warn(`[settings] « ${key} » chiffré mais illisible (${d.unreadable}) — reconfigurer le connecteur ou rétablir la clé`);
   }
+  return d.value;
 }
 
 function setSetting(key, value) {
   const db = getDb();
   if (value == null) return db.prepare('DELETE FROM settings WHERE key = ?').run(key);
-  const k = SENSITIVE_KEYS.has(key) ? encryptionKey() : null;
-  const stored = k ? encrypt(String(value), k) : String(value);
+  let stored = String(value);
+  if (SENSITIVE_KEYS.has(key)) {
+    const k = encryptionKey();
+    if (k) stored = encrypt(stored, k);
+    else if (stored.startsWith(ENC_PREFIX) || stored.startsWith(RAW_PREFIX)) stored = RAW_PREFIX + stored;
+    warned.delete(key);
+  }
   db.prepare('INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)').run(key, stored);
 }
 
@@ -81,10 +112,19 @@ function encryptStoredSecrets() {
   let n = 0;
   for (const key of SENSITIVE_KEYS) {
     const v = rawSetting(key);
-    if (v != null && !v.startsWith(ENC_PREFIX)) {
-      setSetting(key, v);
-      n++;
-    }
+    if (v == null || v.startsWith(ENC_PREFIX)) continue;
+    setSetting(key, decodeValue(key, v).value);
+    n++;
+  }
+  if (n) {
+    // L'ancien clair survit sinon dans les pages libérées du fichier et dans
+    // le WAL (relecture adverse, vérifié en lisant les octets du fichier) :
+    // secure_delete (posé par getDb) efface les pages réécrites, VACUUM
+    // reconstruit le fichier, le checkpoint TRUNCATE vide le WAL.
+    const db = getDb();
+    db.pragma('wal_checkpoint(TRUNCATE)');
+    db.exec('VACUUM');
+    db.pragma('wal_checkpoint(TRUNCATE)');
   }
   return n;
 }
@@ -103,15 +143,21 @@ const TOKEN_KEYS = { suunto: ['suunto_access_token', 'suunto_refresh_token'], st
 function secretsStatus() {
   const out = {};
   for (const [service, secrets] of Object.entries(SECRET_SOURCES)) {
-    const tokens = TOKEN_KEYS[service].map(rawSetting).filter((v) => v != null);
+    const where = (key) => {
+      const raw = rawSetting(key);
+      if (raw == null) return 'absent';
+      const d = decodeValue(key, raw);
+      return d.unreadable ? 'db-illisible' : d.encrypted ? 'db-chiffre' : 'db';
+    };
+    const tokens = TOKEN_KEYS[service].map(where).filter((w) => w !== 'absent');
     const s = {
       secrets: {},
       tokensInDb: tokens.length > 0,
-      tokensEncrypted: tokens.length > 0 && tokens.every((v) => v.startsWith(ENC_PREFIX)),
+      tokensEncrypted: tokens.length > 0 && tokens.every((w) => w === 'db-chiffre'),
+      tokensUnreadable: tokens.includes('db-illisible'),
     };
     for (const [name, [envVar, key]] of Object.entries(secrets)) {
-      const stored = rawSetting(key);
-      s.secrets[name] = process.env[envVar] ? 'env' : stored == null ? 'absent' : stored.startsWith(ENC_PREFIX) ? 'db-chiffre' : 'db';
+      s.secrets[name] = process.env[envVar] ? 'env' : where(key);
     }
     out[service] = s;
   }

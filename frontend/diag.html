@@ -81,7 +81,8 @@ async function loadQuota() {
 async function loadSecrets() {
   const ul = document.getElementById('secrets-list');
   const NAMES = { client_secret: 'secret client', subscription_key: 'clé d\'abonnement' };
-  const WHERE = { env: 'variable d\'environnement', db: 'base SQLite, en clair', 'db-chiffre': 'base SQLite, chiffré (ETAPEFORGE_SECRET_KEY)', absent: 'non configuré' };
+  const WHERE = { env: 'variable d\'environnement', db: 'base SQLite, en clair', 'db-chiffre': 'base SQLite, chiffré (ETAPEFORGE_SECRET_KEY)',
+    'db-illisible': 'base SQLite, chiffré mais ILLISIBLE (clé absente ou changée) — reconfigurer ce connecteur', absent: 'non configuré' };
   try {
     const d = await EF.api('/api/secrets/status');
     const items = [];
@@ -91,12 +92,14 @@ async function loadSecrets() {
     for (const [service, st] of Object.entries(d)) {
       if (service === 'encryptionKey') continue;
       for (const [name, where] of Object.entries(st.secrets)) {
-        const cls = where === 'db' ? 'warn' : 'ok';
-        items.push(`<li class="${cls}"><span class="st">${where === 'db' ? '⚠' : '✓'}</span>` +
+        const cls = where === 'db-illisible' ? 'fail' : where === 'db' ? 'warn' : 'ok';
+        items.push(`<li class="${cls}"><span class="st">${{ fail: '✗', warn: '⚠', ok: '✓' }[cls]}</span>` +
           `<b>${EF.esc(service)}</b> — ${EF.esc(NAMES[name] || name)} : ${EF.esc(WHERE[where] || where)}</li>`);
       }
       if (st.tokensInDb) {
-        items.push(st.tokensEncrypted
+        items.push(st.tokensUnreadable
+          ? `<li class="fail"><span class="st">✗</span><b>${EF.esc(service)}</b> — jetons de connexion chiffrés mais illisibles (clé absente ou changée) : déconnecter puis reconnecter le compte</li>`
+          : st.tokensEncrypted
           ? `<li class="ok"><span class="st">✓</span><b>${EF.esc(service)}</b> — jetons de connexion : base SQLite, chiffrés</li>`
           : `<li class="warn"><span class="st">⚠</span><b>${EF.esc(service)}</b> — jetons de connexion : base SQLite, en clair ` +
             '(définir ETAPEFORGE_SECRET_KEY, ou protéger le fichier de base et les sauvegardes)</li>');
