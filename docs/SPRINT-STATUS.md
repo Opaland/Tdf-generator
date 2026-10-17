@@ -196,10 +196,10 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 
 ## Epic 16 — Recherche concurrentielle élargie (rando/ski)
 
-- [ ] 16.1 Lister les apps candidates (AllTrails, Visorando, Skitourenguru, etc.)
-- [ ] 16.2 Rechercher chacune
-- [ ] 16.3 Synthèse 3 colonnes (idées / à vérifier / différenciant confirmé)
-- [ ] 16.4 Soumettre à l'utilisateur avant toute implémentation
+- [x] 16.1 Lister les apps candidates (AllTrails, Visorando, Skitourenguru, etc.)
+- [x] 16.2 Rechercher chacune
+- [x] 16.3 Synthèse 3 colonnes (idées / à vérifier / différenciant confirmé) — issue #345
+- [x] 16.4 Soumis à l'utilisateur (issue #345) — aucune implémentation engagée depuis
 
 ## Epic 17 — Performance : pagination
 
@@ -216,15 +216,15 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 
 ## Epic 19 — Revue UI/UX globale
 
-- [ ] 19.1 Relire les 8 écrans à partir de l'audit Playwright
-- [ ] 19.2 Vérifier la cohérence avec `docs/DESIGN_SYSTEM.md`
-- [ ] 19.3 Lister les incohérences concrètes (pas des opinions)
+- [x] 19.1 Relire les 8 écrans à partir de l'audit Playwright (recoupé avec Epic 6/7 : aucune régression fonctionnelle à re-vérifier)
+- [x] 19.2 Vérifier la cohérence avec `docs/DESIGN_SYSTEM.md` — doc à jour sur les couleurs, muet sur l'espacement/rayon/typographie réels
+- [x] 19.3 Lister les incohérences concrètes (pas des opinions) — `docs/UI-UX-REVIEW.md` (PR #352) : 8 valeurs de `border-radius`, 17 de `font-size`, 14 d'espacement, mesurées par grep, aucune jeton CSS équivalent à la palette couleur
 
 ## Epic 20 — Proposition design system
 
-- [ ] 20.1 Chiffrer le coût d'un changement (dépendances, maintenance)
-- [ ] 20.2 Proposer 2-3 options avec compromis
-- [ ] 20.3 Attendre la décision de l'utilisateur
+- [x] 20.1 Chiffrer le coût d'un changement (dépendances, maintenance) — `docs/UI-UX-REVIEW.md`
+- [x] 20.2 Proposer 2-3 options avec compromis — A (statu quo) / B (tokeniser l'existant, recommandée) / C (refonte visuelle)
+- [ ] 20.3 **backlog** — Attendre la décision de l'utilisateur (PR #352 ouverte, propose sans trancher)
 
 ## Epic 21 — Stratégie marketing/positionnement
 
