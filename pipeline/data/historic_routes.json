@@ -7849,36 +7849,64 @@
     "highlight": "Grand Départ à Utrecht, CLM inaugural remporté par Rohan Dennis"
   },
   "2022-femmes": {
-    "notes": "Première édition moderne du Tour de France Femmes, arrivée décisive à la Super Planche des Belles Filles. Édition reconstruite depuis Wikipédia (fixture pipeline/fixtures/wikipedia_2022_femmes_en.html) sans aucune curation avant un premier correctif (backlog #10 section B, Chantier L Tour de France Femmes) : les 8 étapes affichaient un écart de distance sévèrement hors tolérance (de -50,9 % à -97,8 %, cette dernière pour l'étape 1, circuit parisien sans via). Cols/côtes sourcés : cyclingstage.com (descriptions de parcours détaillées par étape, même type de source déjà utilisé pour l'édition 2015 de ce fichier). Ce premier correctif a ajouté les cols principaux des deux étapes de montagne (7 et 8), les plus emblématiques de l'édition — réduit sensiblement l'écart de distance sur ces deux étapes mais ne les ramène pas dans la tolérance ±5 % (voir les entrées confidence dédiées, curation volontairement partielle plutôt que vias inventés). Étape 3 curée le 17/10/2026 (-79,5 % → -25,5 %, toujours hors tolérance, deux zones de rebroussement non résolues sur la boucle finale — voir confidence dédiée) ; l'étape 1 reste un cas distinct (circuit à 12 tours, bloqué sur le mécanisme \"laps\" manquant, voir issue #251/Epic 8, pas une curation de vias ordinaire) ; les étapes 2, 4, 5, 6 restent entièrement à curer.",
+    "notes": "Première édition moderne du Tour de France Femmes, arrivée décisive à la Super Planche des Belles Filles. Édition reconstruite depuis Wikipédia (fixture pipeline/fixtures/wikipedia_2022_femmes_en.html) sans aucune curation avant un premier correctif (backlog #10 section B, Chantier L Tour de France Femmes) : les 8 étapes affichaient un écart de distance sévèrement hors tolérance (de -50,9 % à -97,8 %, cette dernière pour l'étape 1, circuit parisien sans via). Cols/côtes sourcés : cyclingstage.com (descriptions de parcours détaillées par étape, même type de source déjà utilisé pour l'édition 2015 de ce fichier). Ce premier correctif a ajouté les cols principaux des deux étapes de montagne (7 et 8), les plus emblématiques de l'édition — réduit sensiblement l'écart de distance sur ces deux étapes mais ne les ramène pas dans la tolérance ±5 % (voir les entrées confidence dédiées, curation volontairement partielle plutôt que vias inventés). Étape 3 curée le 17/10/2026 depuis le roadbook ASO (-1,1 % à -0,3 %, dans la tolérance, dérive intermédiaire ≤ 3,5 km — voir confidence dédiée) ; l'étape 1 reste un cas distinct (circuit à 12 tours, bloqué sur le mécanisme \"laps\" manquant, voir issue #251/Epic 8, pas une curation de vias ordinaire) ; les étapes 2, 4, 5, 6 restent entièrement à curer.",
     "stages": {
       "3": {
+        "start": { "label": "Cormontreuil", "lat": 49.2234466, "lon": 4.0534118 },
         "vias": [
-          { "label": "Verzenay", "kind": "via" },
-          { "label": "Villers-Marmery", "kind": "via" },
-          { "label": "Trépail", "kind": "col" },
-          { "label": "Bouzy", "kind": "via" },
-          { "label": "Avize", "kind": "via" },
-          { "label": "Vertus", "kind": "col" },
-          { "label": "Le Mesnil-sur-Oger", "kind": "col" },
+          { "label": "Chigny-les-Roses", "kind": "via", "lat": 49.1565861, "lon": 4.062423 },
+          { "label": "Ludes", "kind": "via", "lat": 49.1551929, "lon": 4.0803069 },
+          { "label": "Mailly-Champagne", "kind": "via", "lat": 49.157657, "lon": 4.1112769 },
+          { "label": "Verzenay", "kind": "via", "lat": 49.1593602, "lon": 4.1443389 },
+          { "label": "Verzy", "kind": "via", "lat": 49.14707, "lon": 4.1638626 },
+          { "label": "Villers-Marmery", "kind": "via", "lat": 49.134704, "lon": 4.1961214 },
+          { "label": "Trépail", "kind": "col", "lat": 49.1064396, "lon": 4.1821589 },
+          { "label": "Ambonnay", "kind": "via", "lat": 49.0772894, "lon": 4.1723887 },
+          { "label": "Bouzy", "kind": "via", "lat": 49.0815257, "lon": 4.1476967 },
+          { "label": "Mutry", "kind": "via", "lat": 49.0853586, "lon": 4.0929103 },
+          { "label": "Fontaine-sur-Ay", "kind": "via", "lat": 49.0808692, "lon": 4.0775129 },
+          { "label": "Tours-sur-Marne", "kind": "via", "lat": 49.0484724, "lon": 4.1203277 },
+          { "label": "Condé-sur-Marne", "kind": "via", "lat": 49.0437143, "lon": 4.1796065 },
+          { "label": "Jâlons", "kind": "via", "lat": 49.01047, "lon": 4.1838 },
+          { "label": "Champigneul-Champagne", "kind": "via", "lat": 48.97197, "lon": 4.16653 },
+          { "label": "Saint-Mard-lès-Rouffy", "kind": "via", "lat": 48.9405026, "lon": 4.1140631 },
+          { "label": "Rouffy", "kind": "via", "lat": 48.934303, "lon": 4.101182 },
+          { "label": "Voipreux", "kind": "via", "lat": 48.9010021, "lon": 4.0437882 },
+          { "label": "Le Mesnil-sur-Oger", "kind": "col", "lat": 48.94631, "lon": 4.02123 },
+          { "label": "Gionges", "kind": "via", "lat": 48.9403411, "lon": 3.9651067 },
+          { "label": "Oger", "kind": "via", "lat": 48.9544652, "lon": 4.0088696 },
+          { "label": "Avize", "kind": "via", "lat": 48.9722072, "lon": 4.0100647 },
+          { "label": "Cramant", "kind": "via", "lat": 48.9876509, "lon": 3.9921169 },
+          { "label": "Cuis", "kind": "via", "lat": 48.9964897, "lon": 3.9653776 },
+          { "label": "Chouilly", "kind": "via", "lat": 49.0260648, "lon": 4.0094589 },
           { "label": "Épernay", "kind": "via" },
-          { "label": "Mutigny", "kind": "col" },
-          { "label": "Mont Bernon", "kind": "via" }
+          { "label": "Aÿ", "kind": "via", "lat": 49.0621668, "lon": 3.9970886 },
+          { "label": "Mutigny", "kind": "col", "lat": 49.0660152, "lon": 4.0261983 },
+          { "label": "Mareuil-sur-Ay", "kind": "via", "lat": 49.0449239, "lon": 4.0391006 },
+          { "label": "Chouilly", "kind": "via", "lat": 49.0260648, "lon": 4.0094589 },
+          { "label": "Mont Bernon", "kind": "via", "lat": 49.0319971, "lon": 3.96945 }
         ],
         "confidence": [
           {
-            "claim": "cols/côtes sourcés dans l'ordre (cyclingstage.com, rouleur.cc, description de parcours de l'étape 3)",
+            "claim": "tracé reconstitué depuis le roadbook ASO complet (58 points kilométrés, reproduit par dimensionsvelo.com, « source : ASO »)",
             "status": "OK",
-            "level": "moyenne",
-            "detail": "route décrite comme traversant les trois sous-régions viticoles de Champagne autour d'Épernay : Montagne de Reims (côte de Trépail, ~20 km), Côte des Blancs (côte de Vertus, côte du Mesnil-sur-Oger), puis Vallée de la Marne (côte de Mutigny, ~16 km de l'arrivée) avant un premier passage par Épernay (~24 km de l'arrivée) puis une boucle finale via le Mont Bernon (~3,7 km de l'arrivée). Géocodage de chacun vérifié isolément (Nominatim, sans near) : aucun homonyme concurrent trouvé pour ces 6 labels dans ce département (Marne), contrairement à Munster/Mélisey sur les étapes 7/8 de cette même édition. Gradients/longueurs précis des côtes non repris ici (sources de prévisualisation, pas un roadbook officiel — cf. note) : seul l'ordre de passage et la position sont utilisés pour la reconstruction. Verzenay, Villers-Marmery (entre Reims et Trépail), Bouzy et Avize (entre Trépail et Vertus) ajoutés en plus, non sourcés nommément : communes évidentes sur l'axe direct (même motif que Colmar/Turckheim, étape 7 de cette même édition) pour combler deux écarts >12 km."
+            "level": "haute",
+            "detail": "remplace une première curation (même session) construite sur les seules prévisualisations (cyclingstage.com, rouleur.cc), qui donnait -25,5 % : il lui manquait tout le détour par la vallée de la Marne (Mutry, Fontaine-sur-Ay, Tours-sur-Marne, Condé-sur-Marne, Jâlons) puis la descente vers Rouffy et Voipreux avant Vertus, qu'aucune prévisualisation ne mentionnait. 31 communes du roadbook retenues comme vias, toutes géocodées (Nominatim, restreint à la Marne) puis figées. Départ réel figé à Cormontreuil (le roadbook met Reims rue de Mars, Cormontreuil et la D9 tous à km 0, zone neutralisée)."
           },
           {
-            "claim": "écart résiduel de distance de l'étape après curation (généré 99,6 km vs officiel 133,6 km, -25,5 %)",
-            "status": "UNSURE",
-            "level": "basse",
-            "detail": "vérifié en rejouant le pipeline réel (import + generate, base isolée) à chaque étape : -79,5 % sans aucun via, -28,3 % avec les 6 cols/villes sourcés seuls, -25,5 % après ajout de Verzenay/Villers-Marmery/Bouzy/Avize pour fermer les deux écarts >12 km restants — net progrès, mais loin de la tolérance ±5 %. Deux zones de rebroussement subsistent (km 80,3-83,8 autour de Mutigny, km 92,6-96,1 autour de Mont Bernon), **non résolues** : un essai de retrait isolé de Mont Bernon n'a quasiment rien changé (mêmes zones de rebroussement, -25,4 % au lieu de -25,5 %), donc ce n'est pas ce point précis qui force le détour — plus probablement la boucle finale Épernay→Mutigny→Mont Bernon→Épernay, telle que décrite par les sources de prévisualisation (pas un roadbook officiel), ne correspond pas exactement à un vrai aller simple sur cette portion : BRouter semble réutiliser la même route dans les deux sens d'une partie du trajet. Piste non résolue cette session, faute d'un roadbook précis pour confirmer l'ordre exact de la boucle finale — accepté comme écart honnête plutôt que de deviner un ordre supplémentaire sans source. Aucun des deux écarts via-gap restants (Reims→Verzenay 12,6 km, Bouzy→Avize 14,9 km) n'a de source nommée disponible pour les combler davantage."
+            "claim": "8 entrées du roadbook écartées : elles désignent un carrefour en bordure de commune, pas le village",
+            "status": "OK",
+            "level": "moyenne",
+            "detail": "Rilly-la-Montagne (D409-D26), Vaudemange (D219-D19), Avenay-Val-d'Or, Bisseuil (D9-D1), Pocancy, Villeneuve-Renneville-Chevigny (D37-D9-D36), Vertus (« Les Blancs Coteaux », D37-D9-D36-Vc-D36-Vc) et Oiry (D9-D3). Mesuré avec les 39 entrées : chaque centre de village visé ajoutait +1,7 à +3,6 km par rapport au roadbook, pour +14,8 % au total et 4 rebroussements — la course longe ces villages sur la départementale, le routeur va jusqu'au nœud du village. Même mécanisme que l'étape 4 de cette édition (Piney, Chacenay, Bergères)."
+          },
+          {
+            "claim": "distance reconstituée 132,2-133,2 km vs officiel 133,6 km (-1,1 % à -0,3 % selon la régénération), dans la tolérance ±5 %",
+            "status": "OK",
+            "level": "haute",
+            "detail": "vérifié par régénération réelle (import + generate, base isolée), 4 régénérations indépendantes : 133,1 / 132,2 / 133,2 / 133,2 km (-1,1 % à -0,3 %), status ok à chaque fois. La variance vient de BRouter, qui a renvoyé HTTP 403 par intermittence sur 3-4 legs pendant cette session (repli OSRM profil voiture leg par leg, vraisemblablement une limite de débit atteinte par les régénérations répétées) — une future régénération peut donc retomber un peu en dehors de cette plage selon l'état du service, sans que ce soit une régression des données (même réserve que 2024/6). Ce repli n'apparaît pas dans le champ router persisté (« brouter ») ni dans les checks tant que la PR #340 (routeur mixte sur un leg non premier) n'est pas mergée — constaté ici en conditions réelles. Contrairement aux étapes 4 et 5 de cette édition, ce total n'est pas le produit d'une compensation : l'écart cumulé mesuré point par point contre le roadbook reste sous ±3,5 km sur tout le parcours (pire point : Le Mesnil-sur-Oger, km 81,2 reconstitué contre 84,7). Quatre zones de rebroussement courtes subsistent (km 70-76 autour de Rouffy/Voipreux, km 84-90 autour de Gionges) : le roadbook va bien du Mesnil-sur-Oger à Gionges (à l'ouest) puis revient vers Oger (à l'est), vraisemblablement par deux routes différentes (D238 puis D38) que le routeur confond en partie — non résolu, faute de point intermédiaire nommé sur ces deux tronçons."
           }
         ],
-        "note": "Reims → Épernay (133,6 km, 26 juillet 2022). Traverse les trois terroirs viticoles de Champagne autour d'Épernay (Montagne de Reims, Côte des Blancs, Vallée de la Marne) avant un premier passage devant la ligne d'arrivée puis une boucle finale incluant le Mont Bernon. Sourcé par les prévisualisations de course (cyclingstage.com, rouleur.cc) faute de roadbook ASO accessible depuis cet environnement — gradients/longueurs de côte non repris, seuls les labels et l'ordre de passage le sont. Résultat final : 99,6 km (-25,5 %, hors tolérance ±5 %) — amélioration nette depuis -79,5 % sans via, mais deux zones de rebroussement sur la boucle finale restent non résolues (voir confidence), faute d'un roadbook précis pour confirmer son tracé exact."
+        "note": "Reims → Épernay (133,6 km, 26 juillet 2022). Traverse les trois terroirs viticoles de Champagne : Montagne de Reims (Chigny-les-Roses, Verzenay, côte de Trépail), vallée de la Marne (Tours-sur-Marne, Condé-sur-Marne), plaine jusqu'à Voipreux puis Côte des Blancs (côtes de Vertus et du Mesnil-sur-Oger, Avize, Cramant), premier passage sur la ligne à Épernay au km 109,4, puis boucle finale par Aÿ, la côte de Mutigny, Mareuil-sur-Ay, Chouilly et le Mont Bernon. Reconstitué depuis le roadbook ASO. Résultat : 132,2-133,2 km selon la régénération (-1,1 % à -0,3 %, dans la tolérance, dérive intermédiaire ≤ 3,5 km)."
       },
       "7": {
         "vias": [
