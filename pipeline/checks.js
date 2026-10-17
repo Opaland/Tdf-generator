@@ -157,6 +157,18 @@ function runChecks({ stage, distanceM, waypointsOnTrack, approxSegments, climbs,
     });
   }
 
+  // 0d) Profil de routage curé (Epic 9, issue #243) : affiché à part pour
+  // qu'une distance obtenue avec un profil non standard ne passe jamais
+  // pour une reconstitution par défaut.
+  if (stage?.routing_profile) {
+    items.push({
+      id: 'routing-profile',
+      label: 'Profil de routage curé',
+      status: 'warn',
+      detail: `profil BRouter « ${stage.routing_profile} » choisi pour cette étape (au lieu de fastbike) — voir la note de curation pour la raison mesurée`,
+    });
+  }
+
   // 1) Distance vs cible.
   if (stage.official_distance_km) {
     const target = stage.official_distance_km;

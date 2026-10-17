@@ -489,3 +489,12 @@ test('README : la tolérance annoncée est celle que le code applique', () => {
     `le README annonce ±${m[1]} % là où pipeline/checks.js applique ±${DIST_TOLERANCE_PCT} %`,
   );
 });
+
+test('profil de routage curé (Epic 9) : item visible si routing_profile, absent sinon', () => {
+  const base = { distanceM: 20000, waypointsOnTrack: [], approxSegments: [], climbs: [], samples: [], legs: [] };
+  const withProfile = runChecks({ ...base, stage: { routing_profile: 'shortest' } }).items.find((i) => i.id === 'routing-profile');
+  assert.ok(withProfile);
+  assert.strictEqual(withProfile.status, 'warn');
+  assert.match(withProfile.detail, /« shortest »/);
+  assert.strictEqual(runChecks({ ...base, stage: {} }).items.some((i) => i.id === 'routing-profile'), false);
+});

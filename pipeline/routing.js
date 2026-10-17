@@ -34,6 +34,10 @@ const BROUTER_BASE = process.env.ETAPEFORGE_BROUTER || 'https://brouter.de/brout
 // vérifié sur la liste des profils disponibles (brouter.de/brouter/profiles2/,
 // 31/08/2026).
 const BROUTER_PROFILE = process.env.ETAPEFORGE_BROUTER_PROFILE || 'fastbike';
+// Profils autorisés par étape curée (`routing_profile`, Epic 9, issue #243) :
+// « shortest » fait entrer dans la tolérance des étapes anciennes ou
+// urbaines où « fastbike » contourne trop (mesuré, voir historic_routes.json).
+const ALLOWED_PROFILES = ['fastbike', 'shortest'];
 const COL_TOLERANCE_M = 500;
 
 function r5(x) {
@@ -41,11 +45,11 @@ function r5(x) {
 }
 
 /** Route un leg a→b via BRouter (profil vélo). Lève en cas d'échec — le repli OSRM est géré par routeLeg(). */
-async function routeLegBrouter(a, b) {
-  const req = { a: { lat: r5(a.lat), lon: r5(a.lon) }, b: { lat: r5(b.lat), lon: r5(b.lon) }, profile: BROUTER_PROFILE };
+async function routeLegBrouter(a, b, profile = BROUTER_PROFILE) {
+  const req = { a: { lat: r5(a.lat), lon: r5(a.lon) }, b: { lat: r5(b.lat), lon: r5(b.lon) }, profile };
   const { value } = await cached('api', 'brouter', req, async () => {
     const lonlats = `${r5(a.lon)},${r5(a.lat)}|${r5(b.lon)},${r5(b.lat)}`;
-    const url = `${BROUTER_BASE}?lonlats=${lonlats}&profile=${BROUTER_PROFILE}&format=geojson`;
+    const url = `${BROUTER_BASE}?lonlats=${lonlats}&profile=${profile}&format=geojson`;
     const json = await httpJson(url, { minDelayMs: 1000 }); // courtoisie serveur public, sans politique de débit publiée
     const feature = json.features && json.features[0];
     if (!feature || feature.geometry?.type !== 'LineString' || !feature.geometry.coordinates?.length) {
@@ -108,7 +112,7 @@ async function routeLegOsrm(a, b) {
 }
 
 /** Route un leg a→b. Retourne { points, distanceM, snapStartM, snapEndM, router }. */
-async function routeLeg(a, b) {
+async function routeLeg(a, b, { profile } = {}) {
   if (isOffline()) {
     const req = { a: { lat: r5(a.lat), lon: r5(a.lon) }, b: { lat: r5(b.lat), lon: r5(b.lon) } };
     const { value } = await cached('api', 'simulateur-route', req, async () => {
@@ -118,7 +122,7 @@ async function routeLeg(a, b) {
     return value;
   }
   try {
-    return await routeLegBrouter(a, b);
+    return await routeLegBrouter(a, b, profile || BROUTER_PROFILE);
   } catch (err) {
     // Repli OSRM (profil voiture, moins fidèle qu'un vrai tracé vélo mais
     // mieux qu'un échec total) — même esprit que le repli Nominatim de
@@ -153,7 +157,10 @@ function interpolateSegment(from, to) {
  *   approxSegments: [{fromM, toM, reason}], router
  * }
  */
-async function routeStage(waypoints, { onProgress } = {}) {
+async function routeStage(waypoints, { onProgress, profile } = {}) {
+  if (profile != null && !ALLOWED_PROFILES.includes(profile)) {
+    throw new Error(`Profil de routage inconnu : ${profile} (autorisés : ${ALLOWED_PROFILES.join(', ')})`);
+  }
   if (waypoints.length < 2) throw new Error('Il faut au moins deux waypoints (départ et arrivée).');
   const allPoints = [];
   const approxSegments = [];
@@ -184,7 +191,7 @@ async function routeStage(waypoints, { onProgress } = {}) {
         percent: Math.round((i / (waypoints.length - 1)) * 100),
       });
     }
-    const leg = await routeLeg(a, b);
+    const leg = await routeLeg(a, b, { profile });
     legs.push({
       from: a.label || `wp${i}`,
       to: b.label || `wp${i + 1}`,
@@ -248,4 +255,4 @@ async function routeStage(waypoints, { onProgress } = {}) {
   return { points: allPoints, distanceM: cum, waypointsOnTrack: wpOnTrack, approxSegments, legs, router, surfaceStretches };
 }
 
-module.exports = { routeStage, routeLeg, COL_TOLERANCE_M, OSRM_BASE, BROUTER_BASE, BROUTER_PROFILE };
+module.exports = { routeStage, routeLeg, COL_TOLERANCE_M, OSRM_BASE, BROUTER_BASE, BROUTER_PROFILE, ALLOWED_PROFILES };

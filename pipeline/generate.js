@@ -158,7 +158,7 @@ async function generateStage(stageId, { onProgress } = {}) {
 
     // --- 2. Routage -------------------------------------------------------
     progress({ step: 'routage', detail: 'calcul du tracé', percent: 0 });
-    const routed = await routeStage(waypoints, { onProgress: progress });
+    const routed = await routeStage(waypoints, { onProgress: progress, profile: stage.routing_profile || undefined });
 
     // --- 3. Altimétrie ----------------------------------------------------
     progress({ step: 'altimétrie', detail: 'échantillonnage du profil', percent: 0 });
