@@ -13,6 +13,73 @@ en est le résultat. Le compte de stories (~81 à venir) rejoint les ~48
 déjà closes cette session (curation d'étape par étape, tâches #2-#49) à un
 total dépassant 100 une fois comptées au même niveau de détail.
 
+Nouvelle demande explicite du 17/10/2026 : monter à 200. Plutôt que
+d'inventer 100+ stories fictives pour atteindre ce chiffre — ce que ce
+document a toujours refusé de faire, voir ci-dessus — la Partie A compte le
+travail **réel et déjà mergé sur `main`**, vérifié par `git log`, dépôt
+entier (pas seulement cette session). La Partie B (Epics 1-24, inchangée)
+reste la feuille de route active, à la même granularité qu'avant.
+
+## Partie A — Travail déjà mergé sur `main` (vérifié par `git log`)
+
+Commande de référence, rejouable : `git log origin/main --oneline | wc -l`
+(dépôt dé-superficialisé via `git fetch --unshallow` le 17/10/2026, sinon
+le clone par défaut tronque l'historique à 50 commits et sous-compte).
+
+**312 commits mergés sur `main`, du 18/08/2026 (commit initial) au
+13/10/2026** (aucun merge depuis — les 5 PR ouvertes #339/#340/#341/#348/#349
+attendent toujours une revue humaine, voir Epics 2/3/5/7 et la veille en
+cours). Répartition mensuelle, exacte et non chevauchante :
+
+| Mois | Commits | Vérifié par |
+|---|---|---|
+| Août 2026 | 171 | `git log origin/main --oneline --since=2026-08-01 --until=2026-09-01 \| wc -l` |
+| Septembre 2026 | 49 | idem `--since=2026-09-01 --until=2026-10-01` |
+| Octobre 2026 (1→13) | 92 | idem `--since=2026-10-01 --until=2026-10-14` |
+| **Total** | **312** | `git log origin/main --oneline \| wc -l` |
+
+Ces 312 commits dépassent déjà seuls les 200 demandés — aucune story n'a
+besoin d'être inventée. Regroupement thématique ci-dessous : **approximatif
+et non exclusif** (un commit de curation d'étape est aussi souvent un
+correctif de bug ; les pourcentages de thème ne s'additionnent donc pas au
+total exact ci-dessus, qui est la seule somme garantie sans double-compte).
+
+- **Curation historique étape par étape** (≥143 commits, `grep -ciE
+  "étape|tour de france|édition|prologue"`) — le cœur du projet : chaque
+  édition (1903 → 2026, hommes et femmes) reconstruite tour de rôle,
+  documentée dans `pipeline/data/historic_routes.json` avec sa `confidence`.
+  Exemples réels : « Cure le tracé réel de 14 étapes du Tour 1992 » (#176),
+  « Reconstruit le road book complet du Tour 1992 étape 10 » (#179),
+  « Documente l'écart irréductible du prologue 1992 (San Sebastián) » (#254),
+  « Détecte les points de passage curés trop espacés (via-gap) » (#181).
+- **Sécurité** (≥6 commits) — « Corrige une XSS stockée via
+  `POST /api/backup/import` sur `climbs.*` » (#337), « Revue globale :
+  corrige 4 XSS stockées (Leaflet `bindPopup`/`bindTooltip`) » (#94), « Revue
+  croisée multi-perspective : corrige une faille XSS... » (#11, origine de
+  la règle 1 de `CLAUDE.md`).
+- **Routage** (≥4 commits) — « Migre le routage principal d'OSRM vers
+  BRouter (profil vélo réel) » (#173, issue #169).
+- **Performance** (≥4 commits) — « Chronomètre `pipeline/generate.js` au
+  lieu de supposer sa performance » (#92), « Parallélise les 6 sondes de
+  `GET /api/diagnostic` ».
+- **Documentation / resynchronisation** (≥21 commits) — « Resynchronise la
+  doc avec l'état réel du dépôt » (#143), et la longue série de
+  « Documente l'écart [irréductible/résiduel] de... » par étape.
+- **Genèse du projet** (18/08/2026) — commit initial, pipeline
+  géocodage→routage→élévation→cols, import GPX/Suunto, vitrine Pages,
+  CI GitHub Actions.
+
+Total vérifiable : **312 (mergé, `main`) + 85 (Partie B, actif, dont 5 déjà
+en PR ouverte) = 397 unités de travail**, chacune individuellement citable
+par un numéro de commit/PR ou une ligne de ce fichier — aucune ajoutée pour
+arrondir un compte.
+
+## Partie B — Feuille de route active (Epics 1-24)
+
+Granularité et statuts inchangés depuis la demande du 17/10/2026 précédente
+(`done`/`blocked`/`backlog`) : monter le total global passe par compter le
+réel (Partie A), pas par subdiviser artificiellement ces stories.
+
 ## Epic 1 — Sprint 0.5 : nettoyer les branches mortes
 
 - [x] 1.1 Identifier les branches dont le dernier commit est un ancêtre fusionné de `main`
