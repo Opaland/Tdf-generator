@@ -19,8 +19,12 @@ compte. L'inscription est libre (n'importe qui avec le lien peut créer un
 compte), donc :
 
 - ne partagez le lien public qu'avec des personnes de confiance ;
-- gardez à l'esprit qu'un compte malveillant peut tout supprimer — voir la
-  sauvegarde SQLite ci-dessous ;
+- gardez à l'esprit qu'un compte malveillant peut encore créer et modifier
+  des étapes partagées. Les actions destructrices ou de configuration
+  partagée sont réservées aux administrateurs (voir « Rôle administrateur »
+  ci-dessous) : supprimer une étape, réimporter une édition, restaurer une
+  sauvegarde, basculer le mode hors-ligne, configurer Suunto/Strava. Voir
+  aussi la sauvegarde SQLite ci-dessous ;
 - l'inscription libre consomme aussi les quotas des APIs externes gratuites
   (Nominatim 1 req/s, BRouter/OSRM public…) partagés par tous les comptes — un afflux
   d'inscriptions peut dégrader la génération pour tout le monde.
@@ -50,6 +54,28 @@ Effets :
 
 Sans cette variable (mode par défaut, local/Synology), rien ne change :
 aucun compte requis, comportement historique inchangé.
+
+### Rôle administrateur
+
+```bash
+ETAPEFORGE_ADMIN_EMAILS=vous@exemple.fr,autre@exemple.fr
+```
+
+En mode public seulement, ces routes exigent un compte dont l'email figure
+dans la liste (insensible à la casse), sinon 403 :
+
+- `POST /api/backup/import` (restauration, remplace toutes les données) ;
+- `POST /api/editions/import` et `/api/editions/import-all` (réimport,
+  supprime puis recrée l'édition) ;
+- `DELETE /api/stages/:id` ;
+- `POST /api/offline` (mode hors-ligne, global au serveur) ;
+- `POST /api/suunto/config`, `/api/suunto/disconnect`,
+  `/api/strava/config`, `/api/strava/disconnect`, `GET /api/secrets/status`.
+
+**Liste vide ou absente = personne n'est administrateur** : ces routes sont
+alors fermées à tous, jamais ouvertes par défaut. `GET /api/auth/me` renvoie
+`admin: true/false` pour le compte connecté. Hors mode public, la variable
+n'a aucun effet.
 
 ## HTTPS via reverse proxy (Caddy, le plus simple)
 
@@ -87,6 +113,7 @@ services:
     environment:
       - PORT=4567
       - ETAPEFORGE_PUBLIC=1
+      - ETAPEFORGE_ADMIN_EMAILS=vous@exemple.fr
     ports:
       - "127.0.0.1:4567:4567"   # seul Caddy (sur la même machine) y accède
 ```
@@ -105,8 +132,9 @@ sudo docker compose up -d --build
 ## Créer le premier compte
 
 Ouvrez `https://etapeforge.votre-domaine.fr/login.html`, onglet
-« Créer un compte ». Le premier arrivé n'a pas de statut particulier
-(pas de rôle admin) — voir l'avertissement en tête de ce document.
+« Créer un compte ». Le rôle administrateur ne dépend pas de l'ordre
+d'inscription : il vient uniquement de `ETAPEFORGE_ADMIN_EMAILS` (voir
+« Rôle administrateur »). Créez donc votre compte avec l'email listé.
 
 ## Sauvegarde
 

@@ -172,6 +172,31 @@ function requireAuth(req, res, next) {
   next();
 }
 
+// Rôle admin (recommandation R1, docs/ARCHITECTURE-REVIEW.md ; Epic 27.4) :
+// en mode public seulement, les routes destructrices ou de configuration
+// partagée (sauvegarde, réimport d'édition, suppression d'étape, mode
+// hors-ligne, identifiants des connecteurs) sont réservées aux emails listés
+// dans ETAPEFORGE_ADMIN_EMAILS (séparés par des virgules). Liste vide en mode
+// public = personne n'est admin : ces routes sont fermées, jamais ouvertes à
+// tous par défaut. Hors mode public, aucun effet (usage local inchangé).
+function adminEmails() {
+  return new Set(String(process.env.ETAPEFORGE_ADMIN_EMAILS || '')
+    .split(',').map((e) => e.trim().toLowerCase()).filter(Boolean));
+}
+
+function isAdmin(user) {
+  return !!user && adminEmails().has(String(user.email).toLowerCase());
+}
+
+function requireAdmin(req, res, next) {
+  if (!AUTH_REQUIRED) return next();
+  const user = req.user || verifySession(parseCookies(req)[SESSION_COOKIE]);
+  if (!user) return res.status(401).json({ error: 'Authentification requise' });
+  if (!isAdmin(user)) return res.status(403).json({ error: 'Réservé aux administrateurs (ETAPEFORGE_ADMIN_EMAILS)' });
+  req.user = user;
+  next();
+}
+
 // --- routes ------------------------------------------------------------------
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -211,12 +236,13 @@ router.post('/logout', (req, res) => {
 router.get('/me', (req, res) => {
   const user = verifySession(parseCookies(req)[SESSION_COOKIE]);
   if (!user) return res.status(401).json({ error: 'Non connecté' });
-  res.json({ email: user.email });
+  res.json({ email: user.email, admin: isAdmin(user) });
 });
 
 module.exports = {
   authRouter: router,
   requireAuth,
+  requireAdmin,
   AUTH_REQUIRED,
   // exportés pour les tests unitaires
   hashPassword,
