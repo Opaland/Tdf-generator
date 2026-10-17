@@ -132,6 +132,25 @@ gain cosmétique marginal.
 - `.meta-line` : 0.9em, `--texte2` — texte secondaire, toujours en dessous
   d'un titre ou d'un champ, jamais seul.
 
+## Échelles d'espacement, de rayon et de taille (`:root` dans `style.css`)
+
+Ajoutées le 17/10/2026 (Epic 20, option B de `docs/UI-UX-REVIEW.md`). Chaque
+jeton vaut **exactement** une valeur qui existait déjà : la tokenisation n'a
+rien changé à l'affichage. Les styles calculés de 13 048 éléments (9 écrans
+× 1440 et 375 px, hors tuiles de carte Leaflet que `style.css` ne style pas)
+ont été comparés avant et après, sans aucune différence.
+
+| Jeton | Valeur | Usage |
+|---|---|---|
+| `--space-1` … `--space-6` | 4, 8, 12, 16, 24 px | `margin`, `padding`, `gap` |
+| `--radius-xs` … `--radius-xl` | 3, 6, 8, 10, 12 px | `border-radius` |
+| `--fs-xs`, `--fs-sm`, `--fs-md`, `--fs-lg` | 0,75 / 0,85 / 0,92 / 1,1 em | `font-size` |
+
+Les valeurs **hors échelle** (par exemple `padding: 3px 10px`, `font-size:
+0.68em`, `border-radius: 5px`) restent écrites en dur. Les ramener sur
+l'échelle change l'affichage : à faire au cas par cas, avec captures avant
+et après. Un nouveau composant pioche d'abord dans ces jetons.
+
 ## Composants
 
 - **`.card`** : conteneur blanc, bord `--bord`, rayon 10px — unité de base de

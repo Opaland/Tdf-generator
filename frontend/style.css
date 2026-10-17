@@ -14,6 +14,25 @@
   --ok: #27764a;
   --warn: #a15818;
   --fail: #b01c2f;
+  /* Échelles (Epic 20, option B, docs/UI-UX-REVIEW.md) : chaque jeton vaut
+     EXACTEMENT une valeur déjà présente — tokenisation sans changement visuel
+     (styles calculés comparés avant/après sur 9 écrans × 2 largeurs). Les
+     valeurs hors échelle restent écrites en dur, à résorber au cas par cas
+     avec vérification visuelle. Nouveau composant : piocher ici d'abord. */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --radius-xs: 3px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 12px;
+  --fs-xs: 0.75em;
+  --fs-sm: 0.85em;
+  --fs-md: 0.92em;
+  --fs-lg: 1.1em;
 }
 * { box-sizing: border-box; }
 body {
@@ -43,23 +62,23 @@ header.topbar {
 }
 header.topbar .logo { font-weight: 800; font-size: 1.15em; letter-spacing: 0.5px; }
 header.topbar .logo span { color: #fff; }
-header.topbar nav { display: flex; gap: 4px; height: 100%; }
+header.topbar nav { display: flex; gap: var(--space-1); height: 100%; }
 header.topbar nav a {
   color: #eee; text-decoration: none; padding: 0 14px;
-  display: flex; align-items: center; font-size: 0.92em;
+  display: flex; align-items: center; font-size: var(--fs-md);
 }
 header.topbar nav a:hover { background: #2a2a2a; }
 header.topbar nav a.active { background: var(--jaune); color: var(--noir); font-weight: 600; }
 header.topbar .offline-badge {
-  margin-left: auto; font-size: 0.75em; background: #444; color: #ffce54;
-  padding: 3px 10px; border-radius: 12px; display: none;
+  margin-left: auto; font-size: var(--fs-xs); background: #444; color: #ffce54;
+  padding: 3px 10px; border-radius: var(--radius-xl); display: none;
 }
 header.topbar .user-badge { margin-left: auto; font-size: 0.82em; color: #ccc; white-space: nowrap; }
 header.topbar .user-badge a { color: var(--jaune); text-decoration: none; }
 header.topbar .user-badge a:hover { text-decoration: underline; }
 header.topbar .nav-toggle {
   display: none; background: none; border: none; color: var(--jaune);
-  font-size: 1.3em; line-height: 1; padding: 4px 6px; cursor: pointer;
+  font-size: 1.3em; line-height: 1; padding: var(--space-1) 6px; cursor: pointer;
 }
 /* Nav qui déborde d'un viewport étroit (pas de flex-wrap) : au lieu de laisser
    toute la page défiler horizontalement (les liens au-delà de "Cols" devenaient
@@ -74,15 +93,15 @@ header.topbar .nav-toggle {
     top: 52px; left: 0; right: 0; height: auto; background: var(--noir);
     z-index: 1000; padding: 6px 0; box-shadow: 0 6px 12px rgba(0,0,0,0.25);
   }
-  header.topbar.nav-open nav a { padding: 12px 20px; }
+  header.topbar.nav-open nav a { padding: var(--space-3) 20px; }
   header.topbar .offline-badge, header.topbar .user-badge {
     font-size: 0.68em; max-width: 108px; overflow: hidden;
     text-overflow: ellipsis; white-space: nowrap;
   }
 }
 main { max-width: 1160px; margin: 0 auto; padding: 18px 20px 60px; }
-h1 { font-size: 1.45em; margin: 12px 0; }
-h2 { font-size: 1.12em; margin: 22px 0 10px; border-bottom: 2px solid var(--jaune); padding-bottom: 4px; }
+h1 { font-size: 1.45em; margin: var(--space-3) 0; }
+h2 { font-size: 1.12em; margin: 22px 0 10px; border-bottom: 2px solid var(--jaune); padding-bottom: var(--space-1); }
 /* <details>/<summary> natif : divulgation progressive sans JS (archives.js
    par édition, archives.html pour la méthode de reconstitution — #22). */
 summary { cursor: pointer; font-weight: 700; padding: 6px 0; }
@@ -106,19 +125,19 @@ details > :not(summary) { margin-left: 2px; }
   background-attachment: local, local, scroll, scroll;
 }
 .card {
-  background: var(--carte); border: 1px solid var(--bord); border-radius: 10px;
-  padding: 16px; margin: 14px 0;
+  background: var(--carte); border: 1px solid var(--bord); border-radius: var(--radius-lg);
+  padding: var(--space-4); margin: 14px 0;
 }
 .row { display: flex; gap: 14px; flex-wrap: wrap; }
 .row > * { flex: 1; min-width: 240px; }
 label.field { display: block; font-size: 0.82em; color: var(--texte2); margin-bottom: 10px; }
 label.field input, label.field select {
   display: block; width: 100%; margin-top: 3px; padding: 7px 9px;
-  border: 1px solid var(--bord); border-radius: 6px; font-size: 1.05em; background: #fff;
+  border: 1px solid var(--bord); border-radius: var(--radius-sm); font-size: 1.05em; background: #fff;
 }
 button, a.btn {
-  background: var(--noir); color: var(--jaune); border: none; border-radius: 6px;
-  padding: 8px 16px; font-size: 0.95em; cursor: pointer; text-decoration: none;
+  background: var(--noir); color: var(--jaune); border: none; border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-4); font-size: 0.95em; cursor: pointer; text-decoration: none;
   display: inline-block;
 }
 button:hover, a.btn:hover { background: #333; }
@@ -140,14 +159,14 @@ select:disabled { opacity: 0.5; cursor: default; }
 a.btn[aria-disabled="true"] { opacity: 0.5; cursor: default; pointer-events: none; }
 .wp-list { list-style: none; margin: 0; padding: 0; }
 .wp-list li {
-  display: flex; gap: 8px; align-items: center; padding: 6px 0;
+  display: flex; gap: var(--space-2); align-items: center; padding: 6px 0;
   border-bottom: 1px dashed var(--bord); position: relative;
 }
 .wp-list .idx { width: 26px; text-align: center; font-weight: 700; color: var(--texte2); }
-.wp-list input.label { flex: 1; padding: 6px 8px; border: 1px solid var(--bord); border-radius: 6px; }
-.wp-list select { padding: 6px; border: 1px solid var(--bord); border-radius: 6px; }
-.wp-list .coords { font-size: 0.75em; color: var(--texte2); width: 120px; }
-.wp-list button { padding: 4px 8px; font-size: 0.8em; }
+.wp-list input.label { flex: 1; padding: 6px var(--space-2); border: 1px solid var(--bord); border-radius: var(--radius-sm); }
+.wp-list select { padding: 6px; border: 1px solid var(--bord); border-radius: var(--radius-sm); }
+.wp-list .coords { font-size: var(--fs-xs); color: var(--texte2); width: 120px; }
+.wp-list button { padding: var(--space-1) var(--space-2); font-size: 0.8em; }
 /* Ligne de waypoint : idx + champ + select + coordonnées + 3 boutons ne
    tiennent pas sur une largeur mobile (~366px de contenu à taille fixe avant
    même le champ texte, qui a lui-même un contenu minimal incompressible) —
@@ -160,25 +179,25 @@ a.btn[aria-disabled="true"] { opacity: 0.5; cursor: default; pointer-events: non
 }
 .suggest {
   position: absolute; top: 100%; left: 34px; right: 220px; z-index: 1000;
-  background: #fff; border: 1px solid var(--bord); border-radius: 0 0 8px 8px;
+  background: #fff; border: 1px solid var(--bord); border-radius: 0 0 var(--radius-md) var(--radius-md);
   box-shadow: 0 4px 12px rgba(0,0,0,0.12); max-height: 220px; overflow: auto;
 }
 .suggest div { padding: 7px 10px; cursor: pointer; font-size: 0.9em; }
 .suggest div:hover { background: var(--sable); }
-#map, .stagemap { height: 420px; border-radius: 10px; border: 1px solid var(--bord); }
+#map, .stagemap { height: 420px; border-radius: var(--radius-lg); border: 1px solid var(--bord); }
 .stagemap { height: 380px; }
 table.kmtable { border-collapse: collapse; width: 100%; font-size: 0.88em; }
-table.kmtable th, table.kmtable td { border: 1px solid var(--bord); padding: 4px 8px; text-align: right; }
+table.kmtable th, table.kmtable td { border: 1px solid var(--bord); padding: var(--space-1) var(--space-2); text-align: right; }
 table.kmtable th { background: var(--sable); cursor: pointer; user-select: none; position: sticky; top: 0; }
 table.kmtable tr:nth-child(even) { background: #f6f1e4; }
-.kmtable-wrap { max-height: 420px; overflow: auto; border: 1px solid var(--bord); border-radius: 8px; }
-.checks li { margin: 4px 0; font-size: 0.92em; list-style: none; }
+.kmtable-wrap { max-height: 420px; overflow: auto; border: 1px solid var(--bord); border-radius: var(--radius-md); }
+.checks li { margin: var(--space-1) 0; font-size: var(--fs-md); list-style: none; }
 .checks .st { display: inline-block; width: 20px; font-weight: 700; }
 .checks .ok .st { color: var(--ok); }
 .checks .warn .st { color: var(--warn); }
 .checks .fail .st { color: var(--fail); }
 .badge {
-  display: inline-block; border-radius: 10px; padding: 2px 9px; font-size: 0.75em;
+  display: inline-block; border-radius: var(--radius-lg); padding: 2px 9px; font-size: var(--fs-xs);
   background: #eee; color: #333; margin-left: 6px;
 }
 .badge.done { background: #d9efe1; color: var(--ok); }
@@ -188,57 +207,57 @@ table.kmtable tr:nth-child(even) { background: #f6f1e4; }
 .badge.done-checkfail { background: #fbdcdc; color: var(--fail); }
 .sourced-badge { background: #d9efe1; color: var(--ok); }
 .partial-badge { background: #fdf0d8; color: var(--warn); }
-.progress-box { padding: 24px; text-align: center; }
-.progress-bar { height: 10px; background: #eee; border-radius: 5px; overflow: hidden; margin: 12px auto; max-width: 480px; }
+.progress-box { padding: var(--space-6); text-align: center; }
+.progress-bar { height: 10px; background: #eee; border-radius: 5px; overflow: hidden; margin: var(--space-3) auto; max-width: 480px; }
 .progress-bar > div { height: 100%; background: var(--jaune); width: 0; transition: width 0.4s; }
-.meta-line { color: var(--texte2); font-size: 0.9em; margin: 4px 0 12px; }
+.meta-line { color: var(--texte2); font-size: 0.9em; margin: var(--space-1) 0 var(--space-3); }
 .note {
-  background: #fdf6dd; border: 1px solid #e8d48a; border-radius: 8px;
+  background: #fdf6dd; border: 1px solid #e8d48a; border-radius: var(--radius-md);
   padding: 10px 14px; font-size: 0.88em; margin: 10px 0;
 }
 .reconstruction {
-  background: #eef3fb; border: 1px solid #b8cbe8; border-radius: 8px;
-  padding: 10px 14px; font-size: 0.92em; margin: 10px 0;
+  background: #eef3fb; border: 1px solid #b8cbe8; border-radius: var(--radius-md);
+  padding: 10px 14px; font-size: var(--fs-md); margin: 10px 0;
 }
-.stage-list { width: 100%; border-collapse: collapse; font-size: 0.92em; }
+.stage-list { width: 100%; border-collapse: collapse; font-size: var(--fs-md); }
 .stage-list td, .stage-list th { padding: 7px 10px; border-bottom: 1px solid var(--bord); text-align: left; }
 .stage-list tr:hover { background: #f6f1e4; }
 .climb-card { margin: 18px 0; }
 .fauxplat-list { list-style: none; margin: 0; padding: 0; }
-.fauxplat-item { margin: 6px 0; font-size: 0.92em; }
-.fauxplat-badge { background: #fdf0d8; color: var(--warn); margin-left: 0; margin-right: 8px; }
+.fauxplat-item { margin: 6px 0; font-size: var(--fs-md); }
+.fauxplat-badge { background: #fdf0d8; color: var(--warn); margin-left: 0; margin-right: var(--space-2); }
 footer.attrib {
   border-top: 1px solid var(--bord); margin-top: 40px; padding: 14px 20px;
-  font-size: 0.75em; color: var(--texte2); text-align: center;
+  font-size: var(--fs-xs); color: var(--texte2); text-align: center;
 }
 .toolbar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin: 10px 0; }
 .mythic-grid { display: flex; gap: 10px; flex-wrap: wrap; }
 .mythic-card {
-  background: var(--noir); color: var(--jaune); border: none; border-radius: 8px;
+  background: var(--noir); color: var(--jaune); border: none; border-radius: var(--radius-md);
   padding: 10px 14px; cursor: pointer; text-align: left; min-width: 160px; flex: 1 1 200px;
   font-family: inherit;
 }
 .mythic-card:hover { background: #333; }
-.mythic-card .year { display: block; font-weight: 700; font-size: 1.1em; }
-.mythic-card .highlight { display: block; font-size: 0.85em; color: var(--sable); margin-top: 2px; }
+.mythic-card .year { display: block; font-weight: 700; font-size: var(--fs-lg); }
+.mythic-card .highlight { display: block; font-size: var(--fs-sm); color: var(--sable); margin-top: 2px; }
 .explorer-grid { display: flex; flex-wrap: wrap; gap: 6px; }
 .explorer-tile {
-  border: none; border-radius: 6px; min-width: 52px; padding: 6px 4px;
-  font-weight: 700; font-size: 0.85em; cursor: pointer; font-family: inherit; color: var(--noir);
+  border: none; border-radius: var(--radius-sm); min-width: 52px; padding: 6px var(--space-1);
+  font-weight: 700; font-size: var(--fs-sm); cursor: pointer; font-family: inherit; color: var(--noir);
 }
 .explorer-tile-unexplored { background: var(--bord); color: var(--texte); }
 .explorer-tile-partial { background: #fdf0d8; color: var(--noir); }
 .explorer-tile-complete { background: #d9efe1; color: var(--noir); }
 .explorer-legend-swatch {
-  display: inline-block; width: 14px; height: 14px; border-radius: 3px; vertical-align: -2px; margin-right: 2px;
+  display: inline-block; width: 14px; height: 14px; border-radius: var(--radius-xs); vertical-align: -2px; margin-right: 2px;
 }
 .explorer-legend-swatch.explorer-tile-unexplored { background: var(--bord); }
 .explorer-legend-swatch.explorer-tile-partial { background: #fdf0d8; }
 .explorer-legend-swatch.explorer-tile-complete { background: #d9efe1; }
-.legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 0.85em; margin: 8px 0; }
-.legend .sw { display: inline-block; width: 14px; height: 14px; border-radius: 3px; vertical-align: -2px; margin-right: 4px; }
+.legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: var(--fs-sm); margin: var(--space-2) 0; }
+.legend .sw { display: inline-block; width: 14px; height: 14px; border-radius: var(--radius-xs); vertical-align: -2px; margin-right: var(--space-1); }
 .pill { display:inline-flex; align-items:center; justify-content:center; width: 22px; height: 22px; border-radius: 50%; font-size: 0.72em; font-weight: 700; color:#fff; margin-right:6px; }
-button.tab { border-radius: 6px 6px 0 0; }
+button.tab { border-radius: var(--radius-sm) var(--radius-sm) 0 0; }
 button.tab.active { background: var(--jaune); color: var(--noir); font-weight: 700; }
 table.stats { border-collapse: collapse; width: 100%; font-size: 0.9em; }
 table.stats th, table.stats td { border-bottom: 1px solid var(--bord); padding: 6px 10px; text-align: right; }
@@ -255,15 +274,15 @@ table.stats tfoot td { font-weight: 700; background: #f3ecd9; }
 @media (max-width: 640px) {
   #cmp-table thead { display: none; }
   #cmp-table, #cmp-table tbody, #cmp-table tr, #cmp-table td { display: block; width: 100%; }
-  #cmp-table tr { border: 1px solid var(--bord); border-radius: 8px; margin: 10px 0; padding: 8px 10px; }
+  #cmp-table tr { border: 1px solid var(--bord); border-radius: var(--radius-md); margin: 10px 0; padding: var(--space-2) 10px; }
   #cmp-table td { border: none; padding: 3px 0; text-align: left; }
   #cmp-table td:first-child { font-weight: 700; border-bottom: 1px dashed var(--bord); padding-bottom: 5px; margin-bottom: 3px; }
   #cmp-table td:not(:first-child)::before { content: attr(data-label) " : "; color: var(--texte2); font-weight: 600; }
 }
 .statgrid { display: flex; gap: 14px; flex-wrap: wrap; margin: 10px 0; }
-.stat { background: var(--carte); border: 1px solid var(--bord); border-radius: 10px; padding: 10px 18px; text-align: center; flex: 1; min-width: 130px; }
+.stat { background: var(--carte); border: 1px solid var(--bord); border-radius: var(--radius-lg); padding: 10px 18px; text-align: center; flex: 1; min-width: 130px; }
 .stat .v { font-size: 1.5em; font-weight: 800; }
-.stat .l { font-size: 0.75em; color: var(--texte2); }
+.stat .l { font-size: var(--fs-xs); color: var(--texte2); }
 @media print {
   header.topbar, .toolbar, button, a.btn, footer.attrib { display: none !important; }
   .card, #map, .stagemap { border: none; box-shadow: none; }
@@ -279,16 +298,16 @@ table.stats tfoot td { font-weight: 700; background: #f3ecd9; }
 }
 .tour-card {
   position: relative;
-  background: var(--carte); border-radius: 12px; padding: 24px 28px;
+  background: var(--carte); border-radius: var(--radius-xl); padding: var(--space-6) 28px;
   max-width: 480px; width: 100%; box-shadow: 0 12px 32px rgba(0,0,0,0.3);
 }
-.tour-card h2 { margin: 4px 0 10px; padding-right: 24px; }
-.tour-progress { color: var(--texte2); font-size: 0.8em; margin: 0 0 4px; text-transform: uppercase; letter-spacing: 0.5px; }
-.tour-actions { flex-wrap: wrap; margin-top: 16px; }
+.tour-card h2 { margin: var(--space-1) 0 10px; padding-right: var(--space-6); }
+.tour-progress { color: var(--texte2); font-size: 0.8em; margin: 0 0 var(--space-1); text-transform: uppercase; letter-spacing: 0.5px; }
+.tour-actions { flex-wrap: wrap; margin-top: var(--space-4); }
 .tour-close-btn {
   position: absolute; top: 14px; right: 14px;
   background: none; border: none; color: var(--texte2);
-  width: 30px; height: 30px; border-radius: 6px; font-size: 1.1em; line-height: 1;
+  width: 30px; height: 30px; border-radius: var(--radius-sm); font-size: var(--fs-lg); line-height: 1;
   cursor: pointer; padding: 0;
 }
 .tour-close-btn:hover { background: var(--bord); color: var(--texte); }
@@ -297,13 +316,13 @@ table.stats tfoot td { font-weight: 700; background: #f3ecd9; }
    .note (fond sable clair), avec un bouton de fermeture façon
    .tour-close-btn — jamais de nouvelle palette pour ce genre de bloc. */
 .whats-new { position: relative; margin: 10px 20px; padding-right: 40px; }
-.whats-new p { margin: 0 0 4px; }
-.whats-new ul { margin: 0 0 8px; padding-left: 20px; }
+.whats-new p { margin: 0 0 var(--space-1); }
+.whats-new ul { margin: 0 0 var(--space-2); padding-left: 20px; }
 .whats-new ul:last-child { margin-bottom: 0; }
 .whats-new-close {
   position: absolute; top: 8px; right: 10px;
   background: none; border: none; color: var(--texte2);
-  width: 26px; height: 26px; border-radius: 6px; font-size: 1.1em; line-height: 1;
+  width: 26px; height: 26px; border-radius: var(--radius-sm); font-size: var(--fs-lg); line-height: 1;
   cursor: pointer; padding: 0;
 }
 .whats-new-close:hover { background: var(--bord); color: var(--texte); }
