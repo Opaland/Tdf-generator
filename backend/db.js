@@ -292,6 +292,9 @@ function getDb() {
   db = new Database(DB_PATH);
   db.pragma('journal_mode = WAL');
   db.pragma('foreign_keys = ON');
+  // Pages libérées mises à zéro : un secret chiffré ou supprimé ne survit pas
+  // en clair dans le fichier (backend/settings.js).
+  db.pragma('secure_delete = ON');
   migrate(db);
   return db;
 }
