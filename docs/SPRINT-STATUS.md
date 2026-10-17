@@ -278,10 +278,51 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 - [x] 28.4 1919/11 curée : 329,3 km (+1,3 %), 3 cols au bon point, 0 aller-retour — PR #377 (empilée sur #375)
 - [ ] 28.5 **blocked** — Curer 2020/2 : aucune source détaillée trouvée le 17/10/2026 (pas de GPX cyclingstage pour 2020, dossier de presse LCL et Wikipédia limités aux 3 cols, pas de roadbook dimensionsvelo) ; reconstituer les liaisons entre vallées ne serait que de l'inférence géographique sur 186 km de montagne — critère « roadbook sourcé » non atteignable
 - [x] 28.6 Issue #280 : pickFeature préfère le nom exact parmi les reliefs — PR #378 ; différentiel réel sur 95 occurrences : 92 identiques, Aravis 1911/5 corrigé, Ballon d'Alsace figé pour ne pas régresser
-- [ ] 28.7 **en cours** — Issue #188 (P1) : curer le Tour 2002 (édition vide) — PR #380 : étapes 14 (Ventoux, -3,2 %) et 16 (La Plagne, +4,7 %, altitude d'arrivée `UNSURE`). Mesurées par régénération réelle sur le code de `main`, avec départ et arrivée seuls, donc déjà dans ±5 % : 2002/6 (+0,8 %) et 2002/10 (-4,2 %). Les autres étapes ne sont pas encore re-mesurées.
+- [ ] 28.7 **en cours** — Issue #188 (P1) : curer le Tour 2002 (édition vide) — PR #380 : étapes 14 (Ventoux, -3,2 %) et 16 (La Plagne, +4,7 %, altitude d'arrivée `UNSURE`). Mesurées par régénération réelle sur le code de `main`, avec départ et arrivée seuls, donc déjà dans ±5 % : 2002/6 (+0,8 %) et 2002/10 (-4,2 %). Les autres étapes ne sont pas encore re-mesurées. Re-mesurées le 17/10 sur `main`, toujours hors ±5 % et documentées `UNSURE` : 2002/13 (+9,8 %, excès diffus, BRouter voiture et vélo donnent les mêmes legs), 2002/19 (-6,6 %, profil ledicodutour en HTTP 403, aucune autre source de km), 2002/20 (-48 %, circuit des Champs-Élysées, bloqué par l'Epic 8) ; 2002/0 et 2002/3 sont reclassées dans la PR #351.
 
 ## Epic 24 — Bilan final
 
-- [ ] 24.1 Rapport de clôture par epic
-- [ ] 24.2 Liste de ce qui reste durablement ouvert (ex. parcours 2027 bloqué sur l'annonce ASO)
-- [ ] 24.3 Remise à l'utilisateur
+- [x] 24.1 Rapport de clôture par epic (17/10/2026), voir ci-dessous
+- [x] 24.2 Liste de ce qui reste durablement ouvert, voir ci-dessous
+- [ ] 24.3 Remise à l'utilisateur : ce document, puis les décisions ci-dessous
+
+### Où en est la feuille de route (17/10/2026)
+
+Tout ce qui pouvait avancer sans toi a avancé. Le goulot n'est plus le
+développement, ce sont **les PR ouvertes non relues** et **les décisions
+en attente**.
+
+**Ordre de merge à respecter** (PR empilées ; la base de chaque PR est la
+branche de celle dont elle dépend) :
+
+1. #369 (schéma versionné) **avant** #366 et #348. Ces deux dernières
+   ajoutent une colonne et des index : elles devront devenir les
+   migrations 3 et 4. Je m'en charge au moment du rebase.
+2. #340 (routeur mixte), puis #366 (revêtement), puis #368 (2024/9) et
+   #372 (2022/5).
+3. #369, puis #371 (découpage de `server.js`), puis #373 (liste allégée).
+4. #361 (stratégie de tests), puis #367 (fumée E2E en CI).
+5. #375 (Lautaret), puis #377 (1919/11).
+6. PR indépendantes, dans n'importe quel ordre : #341, #349, #351, #362,
+   #363, #364, #365, #370, #374, #376, #378, #380, #381, #382, #383.
+   #352 et #353 sont des propositions : à lire, pas forcément à merger.
+
+**Décisions qui débloquent du développement** (une ligne suffit pour chacune) :
+
+| Epic | Question | Où | Ma recommandation |
+|---|---|---|---|
+| 8 | Étapes en circuit (tours) | issue #251 | option A |
+| 9 | Profil de routage par étape | issue #243 | `shortest` pour 1903/3 et 1992/10 seulement |
+| 12 | Communes traversées dans le roadbook | PR #382 | B : à la demande |
+| 13 | Identifiants Suunto/Strava | issue #379 | A tout de suite, B avant exposition publique |
+| 18 | Paralléliser la génération à froid | PR #381 | ne rien faire tant que personne ne s'en plaint |
+| 20 | Design system | PR #352 | à ton goût |
+| 21 | Positionnement / marketing | PR #353 | rien n'est diffusé sans toi |
+| 25 | Automatisation des tests | PR #361 | Playwright minimal en CI (déjà prêt dans #367) |
+| 26/27 | R1 rôle admin, R5 API à clés, PWA hors ligne | PR #362 | R1 avant toute exposition publique |
+
+**Durablement bloqué, hors de ma portée** : suppression des branches
+mortes (HTTP 403 du remote, #342) ; La Flamme Rouge (403 anti-bot) ;
+Overpass API (contournée par BRouter, #350) ; 2020/2 sans source
+détaillée ; parcours 2027 (attend l'annonce d'ASO) ; ravitaillements
+historiques sans source ; profils ledicodutour en 403.
