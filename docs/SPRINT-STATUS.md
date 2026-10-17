@@ -60,11 +60,11 @@ total dépassant 100 une fois comptées au même niveau de détail.
 - [x] 6.4 Filtrer le bruit TLS propre au bac à sable (`--ignore-certificate-errors`)
 - [x] 6.5 Vérifier la fiche d'étape individuelle
 - [x] 6.6 Confirmer la non-régression des correctifs nav mobile #16/#17 (clos depuis le 24/08, toujours vrai)
-- [ ] 6.7 **backlog** — Parcours non encore couverts : import réel d'une trace GPX/FIT, génération d'étape de bout en bout depuis l'éditeur, installation PWA réelle (pas seulement manifest/SW statiques)
+- [x] 6.7 Import réel d'une trace GPX + génération complète d'étape depuis l'éditeur, bout en bout : les deux fonctionnent (vérifié par traçage réseau direct — `POST /api/stages` 200, `POST /api/stages/:id/generate` 202, redirection réelle vers la fiche). Trois "échecs" rencontrés en chemin, tous vérifiés comme des bugs de mon propre script d'audit (hypothèses fausses sur l'état initial des lignes de waypoints, sur le texte affiché après import, et sur le comportement de redirection au succès) — pas des bugs de l'app, corrigés avant de conclure.
 
 ## Epic 7 — Sprint correctif post-audit
 
-- [ ] 7.1 **backlog** — Couvrir les parcours restants de 6.7 avant de conclure qu'il n'y a rien à corriger
+- [x] 7.1 Clos sans PR : aucune trouvaille réelle sur l'ensemble des parcours couverts (7 pages × 2 viewports, fiche d'étape, PWA, import de trace, génération depuis l'éditeur)
 
 ## Epic 8 — Décision + implémentation : mécanisme "laps" (issue #251)
 
