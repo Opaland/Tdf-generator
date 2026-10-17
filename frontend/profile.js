@@ -167,20 +167,34 @@
       const climbs = data.climbs || [];
       const labels = [];
       const bonusPoints = []; // waypoints avec bonif., y compris ceux absorbés par une côte (arrivée au sommet)
+      let fromIdx = 0; // waypoints ordonnés le long du tracé, voir plus bas
       for (const w of data.waypoints || []) {
         // w.lon == null aussi : sinon `(prof[i].lon - w.lon) ** 2` coerce
         // silencieusement un lon manquant en 0 (arithmétique JS), faussant
         // le point le plus proche retenu plutôt que d'ignorer proprement ce
         // waypoint — même famille que CLAUDE.md règle 10.
         if (w.lat == null || w.lon == null) continue;
-        // position le long du profil : point le plus proche géographiquement
-        let best = 0;
+        // position le long du profil : point le plus proche géographiquement,
+        // cherché à partir du waypoint précédent — un circuit en tours
+        // (`laps`, issue #251) repasse N fois au même endroit, et une
+        // recherche sur tout le profil empilerait les N passages au km du
+        // tour 1 (même correctif que nearestSampleIdx, backend/exports.js).
+        // Premier échantillon à moins de 2× la distance minimale : le passage
+        // du tour en cours, pas un tour suivant à peine plus proche.
         let bd = Infinity;
-        for (let i = 0; i < prof.length; i++) {
-          if (prof[i].lat == null) break;
-          const d2 = (prof[i].lat - w.lat) ** 2 + (prof[i].lon - w.lon) ** 2;
-          if (d2 < bd) { bd = d2; best = i; }
+        let end = prof.length;
+        for (let i = fromIdx; i < prof.length; i++) {
+          if (prof[i].lat == null) { end = i; break; }
+          bd = Math.min(bd, (prof[i].lat - w.lat) ** 2 + (prof[i].lon - w.lon) ** 2);
         }
+        if (!Number.isFinite(bd)) continue;
+        // 4× en distance au carré = 2× en distance ; plancher ~300 m (≈ 2,7e-3°).
+        const tol = Math.max(4 * bd, 2.7e-3 ** 2);
+        let best = fromIdx;
+        for (let i = fromIdx; i < end; i++) {
+          if ((prof[i].lat - w.lat) ** 2 + (prof[i].lon - w.lon) ** 2 <= tol) { best = i; break; }
+        }
+        fromIdx = best;
         if (Array.isArray(w.bonus_sec) && w.bonus_sec.length) bonusPoints.push({ m: prof[best].d, bonus_sec: w.bonus_sec });
         const nearClimb = climbs.some((c) => Math.abs(c.end_km * 1000 - prof[best].d) < 1200 && (w.kind === 'col'));
         if (nearClimb) continue; // le sommet sera annoté par la côte
