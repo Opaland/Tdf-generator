@@ -25,6 +25,14 @@ module.exports = function register(app) {
     res.json({ allOk, offline: isOffline(), results });
   }));
 
+  // Provenance des secrets des connecteurs (env / base en clair / absent),
+  // jamais leur valeur — avertissement affiché sur /diag.html (Epic 13,
+  // issue #379, option A).
+  app.get('/api/secrets/status', (req, res) => {
+    const { secretsStatus } = require('../settings');
+    res.json(secretsStatus());
+  });
+
   // Compteur de requêtes envoyées à chaque hôte externe depuis le démarrage du
   // process (backlog issue #10, section E, « dashboard de consommation des
   // quotas API ») — en mémoire, pas d'historique persistant (voir
