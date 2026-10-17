@@ -7909,30 +7909,56 @@
         "note": "Reims → Épernay (133,6 km, 26 juillet 2022). Traverse les trois terroirs viticoles de Champagne : Montagne de Reims (Chigny-les-Roses, Verzenay, côte de Trépail), vallée de la Marne (Tours-sur-Marne, Condé-sur-Marne), plaine jusqu'à Voipreux puis Côte des Blancs (côtes de Vertus et du Mesnil-sur-Oger, Avize, Cramant), premier passage sur la ligne à Épernay au km 109,4, puis boucle finale par Aÿ, la côte de Mutigny, Mareuil-sur-Ay, Chouilly et le Mont Bernon. Reconstitué depuis le roadbook ASO. Résultat : 132,2-133,2 km selon la régénération (-1,1 % à -0,3 %, dans la tolérance, dérive intermédiaire ≤ 3,5 km)."
       },
       "7": {
+        "start": { "label": "Kintzheim", "lat": 48.2550027, "lon": 7.396165 },
+        "finish": { "label": "Le Markstein", "lat": 47.9233312, "lon": 7.0318064 },
         "vias": [
-          { "label": "Colmar", "kind": "via" },
-          { "label": "Turckheim", "kind": "via" },
+          { "label": "Saint-Hippolyte", "kind": "via", "lat": 48.2326964, "lon": 7.3698232 },
+          { "label": "Ribeauvillé", "kind": "via", "lat": 48.1924602, "lon": 7.3248871 },
+          { "label": "Bennwihr", "kind": "via", "lat": 48.1437763, "lon": 7.3260346 },
+          { "label": "Ammerschwihr", "kind": "via", "lat": 48.1261389, "lon": 7.2825373 },
+          { "label": "Turckheim", "kind": "via", "lat": 48.0878217, "lon": 7.278011 },
+          { "label": "Gunsbach", "kind": "via", "lat": 48.0466071, "lon": 7.1751197 },
           { "label": "Munster", "kind": "via", "lat": 48.042721, "lon": 7.142765 },
           { "label": "Petit Ballon", "kind": "col" },
-          { "label": "Col du Platzerwasel", "kind": "col" },
-          { "label": "Oderen", "kind": "via" },
+          { "label": "Sondernach", "kind": "via", "lat": 47.9975751, "lon": 7.0741713 },
+          { "label": "Col du Platzerwasel", "kind": "col", "lat": 47.9694963, "lon": 7.0428914 },
+          { "label": "Le Markstein", "kind": "via", "lat": 47.9233312, "lon": 7.0318064 },
+          { "label": "Kruth", "kind": "via", "lat": 47.930557, "lon": 6.9645918 },
+          { "label": "Oderen", "kind": "via", "lat": 47.909675, "lon": 6.9756051 },
+          { "label": "Fellering", "kind": "via", "lat": 47.8965061, "lon": 6.9858441 },
+          { "label": "Saint-Amarin", "kind": "via", "lat": 47.8730323, "lon": 7.0316956 },
+          { "label": "Willer-sur-Thur", "kind": "via", "lat": 47.8437216, "lon": 7.0706242 },
+          { "label": "Goldbach-Altenbach", "kind": "via", "lat": 47.8738655, "lon": 7.1045446 },
+          { "label": "Col Amic", "kind": "col", "lat": 47.8754863, "lon": 7.1273463, "ele": 828 },
           { "label": "Grand Ballon", "kind": "col" }
         ],
         "confidence": [
           {
-            "claim": "enchaînement des 3 cols de l'étape Sélestat → Le Markstein",
+            "claim": "tracé reconstitué depuis le roadbook ASO complet (53 points kilométrés, reproduit par dimensionsvelo.com, « source : ASO »)",
             "status": "OK",
             "level": "haute",
-            "detail": "3 cols sourcés dans l'ordre (cyclingstage.com, description de parcours de l'étape 7) : Petit Ballon (9,3 km à 8,1 %), col du Platzerwasel (7,1 km à 8,3 %), Grand Ballon (13,5 km à 6,7 %) — puis la route des Crêtes jusqu'au Markstein sans redescendre après le dernier col. Altitudes de sommet non citées ici : absentes de la source (vérifié par relecture directe des deux pages cyclingstage.com) et absentes de known_cols.json pour ces trois labels — à ne pas confondre avec l'entrée équivalente de l'étape 8 (Ballon d'Alsace), où l'altitude vient bien de known_cols.json."
+            "detail": "remplace une curation antérieure construite sur la seule description de parcours de cyclingstage.com, qui donnait -10,0 % avec 3 zones de rebroussement : elle passait par Colmar (absent du roadbook — la course suit la route des vins par Saint-Hippolyte, Ribeauvillé, Bennwihr et Ammerschwihr) et ignorait le premier passage sur la ligne au Markstein (km 73,2) puis la vallée de la Thur (Kruth, Oderen, Fellering, Saint-Amarin, Willer-sur-Thur, Goldbach-Altenbach) et le Col Amic avant le Grand Ballon. La boucle par le Markstein, seulement soupçonnée par la curation précédente (« piste non exploitée »), est confirmée par le roadbook. 20 points retenus, figés (Nominatim, Bas-Rhin/Haut-Rhin), départ réel à Kintzheim (km 0 du roadbook), arrivée figée au Markstein (même point que le premier passage)."
           },
           {
-            "claim": "écart résiduel de distance de l'étape après curation (généré 114,3 km vs officiel 127,1 km, -10,0 %)",
-            "status": "UNSURE",
-            "level": "basse",
-            "detail": "cette session a ajouté Munster, Oderen (sourcés), puis Colmar et Turckheim (plausibles, non sourcés, voir note) pour densifier le grand écart Sélestat-Munster. Résultat : -10,0 % (contre -27,7 % avec seulement les 3 cols, et -50,9 % sans aucun via) — tout juste hors tolérance ±10 % (la valeur non arrondie dépasse légèrement le seuil). Un essai d'ajout de « Wildenstein » pour combler le dernier grand écart (Platzerwasel-Oderen, 12,1 km) a dégradé le résultat (+10,7 %, 5 zones de rebroussement au lieu de 3) et a été abandonné — ce point n'est pas sur le trajet réel de la descente, malgré une position qui semblait plausible sur la carte. Deux écarts de plus de 12 km subsistent (Sélestat-Colmar 16,6 km, Platzerwasel-Oderen 12,1 km) et trois zones de rebroussement (km 89,6-92,6, km 94,8-105,3, km 106,3-113,6, autour de Ranspach et du Grand Ballon) — aucune source supplémentaire trouvée pour les combler cette session."
+            "claim": "Col du Platzerwasel : le géocodage automatique le résolvait sur un autre col (Col du Hilsenfirst, ~4 km à l'est)",
+            "status": "OK",
+            "level": "haute",
+            "detail": "trouvé en inspectant le tracé entre le Platzerwasel et le Markstein (+5,2 km et des zones de rebroussement inexpliqués) : la Géoplateforme renvoie « Col du Hilsenfirst » (sommet, score 0,55) avant « Col du Platzerwaesel » (graphie IGN, score 0,46) pour la requête « Col du Platzerwasel ». Le check « col atteint » passait quand même (le tracé allait bien au point résolu, simplement pas au bon col) — l'erreur existait déjà dans la curation précédente sur cette étape. Figé sur le nœud OSM mountain_pass (Nominatim, 47,9694963/7,0428914, ele 1183), recoupé par le candidat Géoplateforme « Col du Platzerwaesel » (47,96956/7,042854, à ~5 m). Altitude mesurée au tracé : 1203 m (écart 20 m avec l'ele OSM). Coordonnées figées localement sans ele, même schéma que l'étape 20 du Tour 2023 qui avait déjà rencontré et corrigé ce même homonyme (lat/lon 47,96956/7,042854, sans altitude) — fixer une altitude ici seulement ferait diverger les deux occurrences du même col (garde-fou test/historicRoutes.test.js) ; la centraliser dans known_cols.json reste une piste séparée. Petit Ballon (résolu sur le col routier « Col du Petit Ballon », 1163 m, mesuré 1164 m) et Grand Ballon (1423 m, mesuré 1419 m) vérifiés corrects."
+          },
+          {
+            "claim": "points du roadbook écartés après mesure",
+            "status": "OK",
+            "level": "moyenne",
+            "detail": "avec les 33 points retenus au premier essai (presque toutes les communes du roadbook), chaque petit tronçon de la route des vins (1 à 3 km) ajoutait ~+1 km (centres de village hors de la D1bis) : +8,7 km de dérive cumulée dès Munster. Retirés : Orschwiller, Rorschwihr, Bergheim, Zellenberg, Beblenheim, Mittelwihr, Ingersheim (codé « D10-D1bis-D10 »), Zimmerbach, Walbach, Wihr-au-Val, Luttenbach-près-Munster, Husseren-Wesserling, Ranspach, Moosch. « Le Breitfirst » (km 68,7, nommé par le roadbook) testé puis retiré : le seul point trouvé (Nominatim/IGN) est le sommet, hors route — l'atteindre ajoutait +14 km. « Le Treh » et « Le Haag » non retenus (introuvables comme points routiers)."
+          },
+          {
+            "claim": "distance reconstituée 132,6 km vs officiel 127,1 km (+4,3 %), dans la tolérance ±5 %",
+            "status": "OK",
+            "level": "haute",
+            "detail": "vérifié par régénération réelle (import + generate, base isolée), sans repli OSRM, aucune zone de rebroussement. Écart cumulé mesuré point par point contre le roadbook : +1,6 km dès Saint-Hippolyte (départ figé au centre de Kintzheim, le km 0 réel est au carrefour D159-D35), +5,6 km à Munster, puis stable entre +4,9 et +5,5 km jusqu'à l'arrivée (premier passage au Markstein : km 78,7 contre 73,2) — un décalage constant acquis sur la route des vins, pas une compensation entre tronçons. Col Amic (figé sur le nœud OSM, ele 828) mesuré à 904 m au tracé, écart de 76 m inexpliqué (dans la tolérance du check, non creusé)."
           }
         ],
-        "note": "Sélestat → Le Markstein (127,1 km, 30 juillet 2022), entièrement en Alsace. 35 km de plaine avant le Petit Ballon (via Munster), puis le col du Platzerwasel, une descente vers Oderen, et le Grand Ballon (déjà franchi par le Tour hommes en 1992, étape 11) avant les 7 derniers km sur la route des Crêtes jusqu'à l'arrivée. Munster et Oderen sourcés par cyclingstage.com (« stage-7-tdf-2022-women », relu en HTML brut, confirmé mot pour mot en relecture adverse par un second accès direct à la page). Colmar et Turckheim ajoutés en plus pour densifier le grand écart Sélestat-Munster (33,7 km sans point intermédiaire auparavant) : ce sont les villes évidentes sur l'axe direct (vallée de la Fecht/N83), non nommées par la source. Un essai d'ajout de « Wildenstein » pour combler l'écart Platzerwasel-Oderen (12,1 km) a été testé et abandonné cette session : il dégrade le résultat (+10,7 % au lieu de -10,0 %, avec 5 zones de rebroussement au lieu de 3), ce point n'étant en réalité pas sur le trajet direct de la descente. Coordonnées de Munster fixées explicitement (lat/lon) en relecture adverse : un homonyme français réel existe (Munster, Moselle, score Géoplateforme 0,973 contre 0,982 pour la bonne commune du Haut-Rhin) et n'était départagé que par le biais de proximité au near — fragile à un futur changement d'ordre des vias ; figé en dur par prudence, comme ailleurs dans ce fichier pour des cas d'homonymie serrée. Piste non exploitée de la même source cyclingstage.com, relevée en relecture adverse mais non vérifiée plus avant : « Shortly after the first passage on the line a long descent takes the riders to Oderen » suggère que le tracé repasse près de l'arrivée (Le Markstein) avant de redescendre vers Oderen — une boucle plutôt qu'un trajet linéaire, ce qui pourrait expliquer une partie des zones de rebroussement détectées dans cette zone (voir confidence), sans que cela ait été curé ni confirmé cette session."
+        "note": "Sélestat → Le Markstein (127,1 km, 30 juillet 2022) : route des vins d'Alsace (Saint-Hippolyte, Ribeauvillé, Ammerschwihr, Turckheim), vallée de Munster, Petit Ballon, Col du Platzerwasel, premier passage sur la ligne au Markstein (km 73,2), descente vers Kruth et la vallée de la Thur, Col Amic puis Grand Ballon et retour au Markstein par la route des Crêtes. Reconstitué depuis le roadbook ASO. Résultat : 132,6 km (+4,3 %, dans la tolérance), décalage constant de ~+5 km acquis sur la route des vins (voir confidence)."
       },
       "2": {
         "start": { "label": "Nanteuil-lès-Meaux", "lat": 48.9306, "lon": 2.89893 },
