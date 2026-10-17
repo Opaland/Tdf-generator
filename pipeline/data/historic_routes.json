@@ -8075,28 +8075,55 @@
         "note": "Bar-le-Duc → Saint-Dié-des-Vosges (175,6 km, 28 juillet 2022), plus longue étape de l'édition : vallée de l'Ornain (Ligny-en-Barrois), plateau du Barrois, côte de Pagny-la-Blanche-Côte (km 61,4), Colombey-les-Belles et Vézelise, côte de Gripport (km 105,5), sprint à Charmes, vallée de la Moselle (Portieux), Rambervillers puis entrée dans les Vosges par le Col du Haut du Bois (km 155,2) et circuit final dans Saint-Dié. Reconstitué depuis le roadbook ASO. Résultat : 174,9 km (-0,4 %, dans la tolérance), dérive intermédiaire jusqu'à +5 km rattrapée en partie par le circuit final non reconstitué (voir confidence)."
       },
       "8": {
+        "start": { "label": "Linexert", "lat": 47.7442, "lon": 6.48475 },
         "vias": [
-          { "label": "Mélisey", "kind": "via", "lat": 47.761255, "lon": 6.564513 },
+          { "label": "Lantenot", "kind": "via", "lat": 47.7495, "lon": 6.49505 },
+          { "label": "Rignovelle", "kind": "via", "lat": 47.764, "lon": 6.48147 },
+          { "label": "Magnivray", "kind": "via", "lat": 47.7798, "lon": 6.47194 },
+          { "label": "Esboz-Brest", "kind": "via", "lat": 47.8073, "lon": 6.45235 },
+          { "label": "Froideconche", "kind": "via", "lat": 47.8196555, "lon": 6.4166416 },
+          { "label": "Saint-Sauveur", "kind": "via", "lat": 47.8036807, "lon": 6.3837753 },
+          { "label": "Luxeuil-les-Bains", "kind": "via", "lat": 47.817177, "lon": 6.3808865 },
+          { "label": "Fougerolles-Saint-Valbert", "kind": "via", "lat": 47.8926061, "lon": 6.4227255 },
+          { "label": "Raddon-et-Chapendu", "kind": "via", "lat": 47.8416, "lon": 6.46962 },
+          { "label": "Amage", "kind": "via", "lat": 47.8362, "lon": 6.4923 },
+          { "label": "Sainte-Marie-en-Chanois", "kind": "via", "lat": 47.8334, "lon": 6.51274 },
+          { "label": "La Voivre", "kind": "via", "lat": 47.8239, "lon": 6.5374 },
+          { "label": "Faucogney-et-la-Mer", "kind": "via", "lat": 47.8440682, "lon": 6.5624523 },
           { "label": "Côte d'Esmoulières", "kind": "col" },
-          { "label": "Haut-du-Them", "kind": "via" },
+          { "label": "Esmoulières", "kind": "via", "lat": 47.8523, "lon": 6.61473 },
+          { "label": "Col des Croix", "kind": "col", "lat": 47.859719, "lon": 6.7470705 },
+          { "label": "Le Thillot", "kind": "via", "lat": 47.8804149, "lon": 6.7633816 },
+          { "label": "Fresse-sur-Moselle", "kind": "via", "lat": 47.8767217, "lon": 6.7881018 },
+          { "label": "Saint-Maurice-sur-Moselle", "kind": "via", "lat": 47.8588336, "lon": 6.8244935 },
           { "label": "Ballon d'Alsace", "kind": "col" },
-          { "label": "Plancher-les-Mines", "kind": "via" }
+          { "label": "Lepuix", "kind": "via", "lat": 47.759702, "lon": 6.8183942 },
+          { "label": "Giromagny", "kind": "via", "lat": 47.7418553, "lon": 6.8251787 },
+          { "label": "Auxelles-Bas", "kind": "via", "lat": 47.7341934, "lon": 6.7797653 },
+          { "label": "Plancher-Bas", "kind": "via", "lat": 47.7210861, "lon": 6.7322649 },
+          { "label": "Plancher-les-Mines", "kind": "via", "lat": 47.7571993, "lon": 6.739628 }
         ],
         "confidence": [
           {
-            "claim": "enchaînement des cols de l'étape Lure → La Super Planche des Belles Filles",
+            "claim": "tracé reconstitué depuis le roadbook ASO complet (37 points kilométrés hors marqueurs de département, reproduit par dimensionsvelo.com, « source : ASO »)",
             "status": "OK",
             "level": "haute",
-            "detail": "cols sourcés dans l'ordre (cyclingstage.com, description de parcours de l'étape 8) : côte d'Esmoulières (2,3 km à 8,5 %), Ballon d'Alsace (9 km à 6,9 %, sommet 1178 m, déjà référencé dans known_cols.json), avant l'arrivée à la Super Planche des Belles Filles (7 km à 8,7 %, dernier km à 9,5 % sur piste gravel, rampe finale à 24 %)."
+            "detail": "remplace une curation antérieure (cyclingstage.com) qui donnait -10,2 %. Elle passait par Mélisey, ajoutée comme « commune évidente sur l'axe direct, non sourcée » — le roadbook montre que la course n'y passe pas : elle part plein nord par Lantenot, Esboz-Brest et Luxeuil-les-Bains, monte à Fougerolles, puis redescend par Raddon-et-Chapendu et Faucogney-et-la-Mer avant la côte d'Esmoulières. Le point « Haut-du-Them » est remplacé par le Col des Croix (km 66,3, sur la commune de Haut-du-Them-Château-Lambert), figé sur le nœud OSM (47,859719/6,7470705, ele 680). 25 points retenus, géocodés par département (Haute-Saône, Vosges, Territoire de Belfort) puis figés, sauf la côte d'Esmoulières et le Ballon d'Alsace (déjà correctement résolus : 121 m et 2 m du sommet, altitudes 582/562 m et 1175/1178 m)."
           },
           {
-            "claim": "écart résiduel de distance de l'étape après curation (généré 110,7 km vs officiel 123,3 km, -10,2 %)",
+            "claim": "départ réel approximé à Linexert (km 4,1 du roadbook)",
             "status": "UNSURE",
-            "level": "basse",
-            "detail": "cette session a ajouté Plancher-les-Mines (sourcé par cyclingstage.com), Mélisey et Haut-du-Them-Château-Lambert (communes plausibles sur l'axe direct, non nommées par la source, voir note). Résultat : -10,2 % (contre -39,7 % avec seulement les 2 cols, et -71,7 % sans aucun via) — tout juste hors tolérance ±10 %. Mélisey, bien que géographiquement correctement placé (confirmé en ajoutant/retirant : la distance ne change pas, le routeur passait déjà par ce point), n'a pas réduit l'écart — seul Haut-du-Them l'a fait, en forçant un détour réel que le routeur ne prenait pas spontanément. Quatre zones de rebroussement détectées (km 43,0-45,2 et 47,0-49,2 autour du Thillot ; km 101,4-102,4 et 103,9-104,9 autour de Plancher-les-Mines) — non investiguées plus avant, aucune source supplémentaire trouvée cette session."
+            "level": "moyenne",
+            "detail": "le roadbook met « Lure (esplanade Charles-de-Gaulle / D18) » à km 0 puis Linexert à km 4,1 — incohérent avec la géographie (l'esplanade est à ~6,4 km à vol d'oiseau de Linexert) : le km 0 réel est la fin de la zone neutralisée, au nord de Lure sur la D18, sans point nommé. Départ figé sur Linexert, ce qui retire 4,1 km connus au total reconstitué (partir du centre de Lure ajoutait +4,3 km sur ce tronçon, mesuré). Même situation que l'étape 5 de cette édition (Longeville-en-Barrois)."
+          },
+          {
+            "claim": "distance reconstituée 127,8 km vs officiel 123,3 km (+3,6 %), dans la tolérance ±5 %",
+            "status": "OK",
+            "level": "haute",
+            "detail": "vérifié par deux régénérations réelles (import + generate, bases isolées), sans repli OSRM, aucune zone de rebroussement. Écart cumulé mesuré point par point contre le roadbook : -4,1 km au départ (décalage connu ci-dessus), puis progressivement jusqu'à +5,4 km (Plancher-Bas), +4,5 km à l'arrivée. Fougerolles (codé « D57D-D57d-D18 » dans le roadbook, centroïde communal) ajoute +2,6 km sur son tronçon, mais le retirer fait perdre tout l'aller-retour vers le nord réellement couru (-10,6 km mesurés, total -6,3 %) : conservé."
           }
         ],
-        "note": "Lure → La Super Planche des Belles Filles (123,3 km, 31 juillet 2022), dernière étape et arrivée décisive de la première édition moderne (victoire finale d'Annemiek van Vleuten). Côte d'Esmoulières puis Ballon d'Alsace (premier grand col historique du Tour, franchi dès 1905 — voir édition 1905 de ce fichier), puis Plancher-les-Mines (ajouté cette session, sourcé par cyclingstage.com, « stage-8-tdf-2022-women », relu en HTML brut, confirmé mot pour mot en relecture adverse par un second accès direct : « an undulating section leads to Plancher-les-Mines » après la descente du Ballon d'Alsace, « 38 km restant à parcourir » au sommet) avant l'ascension finale de la Super Planche des Belles Filles, piste gravel — distincte de la Planche « classique » goudronnée utilisée par le Tour hommes (voir note de l'édition 2024, étape 16). « Mélisey » (entre Lure et la Côte d'Esmoulières) et « Haut-du-Them-Château-Lambert » (entre la Côte d'Esmoulières et le Ballon d'Alsace) également ajoutées cette session : communes évidentes sur l'axe direct, non sourcées nommément — les 50 km de plat/faux-plat puis les quelques km entre les deux cols décrits par la source ne nomment aucun point intermédiaire. Relecture adverse : seul Haut-du-Them réduit réellement l'écart de distance (vérifié en le retirant isolément, -6,5 km) ; Mélisey, bien que correctement placé, n'y change rien (déjà sur le plus court chemin). Coordonnées de Mélisey fixées en dur (lat/lon) par prudence : un homonyme dans l'Yonne existe à un score Géoplateforme presque identique (0,973 vs 0,982), même configuration que « Munster » sur l'étape 7 de cette même session. Sourcé : cyclingstage.com."
+        "note": "Lure → La Super Planche des Belles Filles (123,3 km, 31 juillet 2022), dernière étape et arrivée décisive de la première édition moderne (victoire finale d'Annemiek van Vleuten) : Luxeuil-les-Bains, Fougerolles, Faucogney-et-la-Mer, côte d'Esmoulières, Col des Croix, vallée de la Moselle (Le Thillot, Saint-Maurice-sur-Moselle), Ballon d'Alsace (premier grand col historique du Tour, franchi dès 1905), Giromagny, Plancher-les-Mines puis l'ascension finale de la Super Planche des Belles Filles, piste gravel distincte de la Planche « classique » du Tour hommes. Reconstitué depuis le roadbook ASO. Résultat : 127,8 km (+3,6 %, dans la tolérance, aucun rebroussement)."
       },
       "4": {
         "start": { "label": "Bréviandes", "lat": 48.2566295, "lon": 4.0955124 },
