@@ -171,7 +171,8 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 
 - [x] 11.1 Revérifier l'accès réseau à `overpass-api.de` — toujours bloqué (`Connection reset by peer`, proxy d'egress), voir issue #350
 - [x] 11.1b Re-testé le 17/10/2026 : `overpass-api.de` toujours bloqué, mais des miroirs répondent depuis ce sandbox — `maps.mail.ru/osm/tools/overpass` renvoie du JSON valide par intermittence (sinon « server too busy »), `overpass.kumi.systems` répond en HTTP 500
-- [ ] 11.2 **backlog** — Prototyper le map-matching : un miroir est joignable mais instable ; à faire avec retries espacés, sans en dépendre en CI
+- [x] 11.2 Prototype de faisabilité : **Overpass inutile** — la réponse GeoJSON de BRouter porte déjà `WayTags` (dont `surface=`) et `Distance` par segment, vérifié en direct avec le profil `fastbike` (détail et conception : commentaire sur l'issue #350)
+- [ ] 11.4 **backlog** — Implémenter le résumé « km non revêtus » par étape depuis les `WayTags` BRouter — après merge de la PR #340 (même fichier `pipeline/routing.js`) ; limite connue : tronçons interpolés (col contourné) et legs OSRM sans surface
 - [ ] 11.3 **blocked** — Évaluer le coût/la complexité : reporté avec 11.2
 
 ## Epic 12 — Décision produit : ravitaillement/villages traversés
