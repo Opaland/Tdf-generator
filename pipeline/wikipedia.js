@@ -595,6 +595,33 @@ function resolveViaCoords(via, known) {
   return { lat: null, lon: null };
 }
 
+const MAX_LAPS = 50;
+
+/**
+ * Étapes en circuit (issue #251, Epic 8, option A) : `laps: { count, from }`
+ * sur une entrée curée — les vias à partir de l'indice `from` forment UN tour
+ * du circuit, répété `count` fois au total. Développé ici, à l'import : le
+ * routage, l'altimétrie et la détection de côtes voient simplement un tracé
+ * qui repasse N fois (chaque passage d'une côte est détecté, comme en
+ * course), et chaque leg répété est servi par le cache de routage.
+ * Un `laps` mal formé est une erreur de curation : on lève plutôt que de
+ * produire en silence une étape à la mauvaise distance (règle 12).
+ */
+function expandLaps(vias, laps) {
+  if (laps == null) return vias;
+  const { count, from } = laps;
+  if (!Number.isInteger(count) || count < 1 || count > MAX_LAPS) {
+    throw new Error(`laps.count invalide (${count}) : entier entre 1 et ${MAX_LAPS} attendu`);
+  }
+  if (!Number.isInteger(from) || from < 0 || from >= vias.length) {
+    throw new Error(`laps.from invalide (${from}) : indice d'un via existant attendu (0 à ${vias.length - 1})`);
+  }
+  const loop = vias.slice(from);
+  const out = vias.slice(0, from);
+  for (let i = 0; i < count; i++) out.push(...loop);
+  return out;
+}
+
 /**
  * Waypoints de reconstruction d'une étape historique : villes officielles
  * (Wikipédia) + points de passage curés (historic_routes.json) quand ils existent.
@@ -686,7 +713,7 @@ function reconstructionWaypoints(year, stage, category = 'hommes', occurrenceInd
     country_hint: curated?.start ? curatedCountry(curated.start) : foreignCountry(stage.startCountry),
     region_hint: curated?.start ? curatedRegion(curated.start) : stage.startDepartment || null,
   });
-  for (const via of curated?.vias || []) {
+  for (const via of expandLaps(curated?.vias || [], curated?.laps)) {
     if (typeof via === 'string') wps.push({ label: via, kind: 'via', bonus_sec: null, source: 'parcours curé' });
     else {
       const known = KNOWN_COLS[via.label];
@@ -779,6 +806,7 @@ module.exports = {
   parseDate,
   fetchEditionHtml,
   reconstructionWaypoints,
+  expandLaps,
   stageCurationKey,
   resolveViaCoords,
   FRENCH_DEPARTMENTS,

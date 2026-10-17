@@ -388,14 +388,22 @@
     "notes": "Première arrivée du Tour sur les Champs-Élysées (étape 22, dernière étape : circuit fermé Paris/Champs-Élysées, 163,35 km, 27 tours d'un circuit de 6,05 km, 20 juillet). Idée originale du journaliste Yves Mourousi et du directeur du Tour Félix Lévitan, approuvée par le président Valéry Giscard d'Estaing. Bernard Thévenet, maillot jaune depuis Pra-Loup dans les Alpes, résiste aux attaques d'Eddy Merckx dans les premiers kilomètres et remporte son premier Tour de France, mettant fin à la série de cinq victoires consécutives de Merckx. Walter Godefroot remporte l'étape elle-même. Points de passage d'après Wikipédia (CC BY-SA) / memoire-du-cyclisme.eu / procyclingstats.com (résultats et étape recoupés). Import de la liste des étapes : en ligne.",
     "stages": {
       "22": {
-        "start": "Paris",
-        "finish": "Paris",
+        "start": { "label": "Place de la Concorde, Paris", "lat": 48.8655715, "lon": 2.3212248 },
+        "finish": { "label": "Avenue des Champs-Élysées, Paris", "lat": 48.8698, "lon": 2.3075 },
+        "vias": [
+          { "label": "Rond-point des Champs-Élysées, Paris", "kind": "via", "lat": 48.869233, "lon": 2.311183 },
+          { "label": "Rue Arsène-Houssaye, Paris", "kind": "via", "lat": 48.874165, "lon": 2.29892 },
+          { "label": "Tunnel du Général-Lemonnier, Paris", "kind": "via", "lat": 48.862365, "lon": 2.331047 },
+          { "label": "Rue de Rivoli (avenue du Général-Lemonnier), Paris", "kind": "via", "lat": 48.8637, "lon": 2.3299 },
+          { "label": "Place de la Concorde, Paris", "kind": "via", "lat": 48.8655715, "lon": 2.3212248 }
+        ],
+        "laps": { "count": 27, "from": 0 },
         "confidence": [
           {
             "claim": "distance reconstituée du circuit fermé (27 tours × 6,05 km = 163,35 km officiels)",
             "status": "UNSURE",
             "level": "basse",
-            "detail": "vérifié le 25/09/2026 en régénérant réellement le pipeline : 0,0 km généré (`reconstitution quasi nulle`, checks.distance) — départ = arrivée sans via ne donne au routeur aucun trajet à calculer. Limitation structurelle, pas un manque de curation : même un via list traçant fidèlement UNE boucle complète et sourcée du circuit historique des Champs-Élysées (celui déjà documenté pour 1992/21, confirmé inchangé de 1975 à 2012) ne donnerait que ~6 km, pas 163,35 km — l'app n'a aucun mécanisme pour répéter un trajet N fois (`laps`). Corriger nécessiterait une vraie fonctionnalité de schéma/pipeline, hors scope d'une curation par étape — voir issue de suivi #251."
+            "detail": "vérifié le 17/10/2026 par régénération réelle (BRouter fastbike, 0 repli OSRM), avec le mécanisme `laps` (issue #251, option A) : 27 tours d'un circuit Concorde → Champs-Élysées → demi-tour rue Arsène-Houssaye → Concorde → tunnel du Général-Lemonnier → rue de Rivoli → Concorde (tracé inchangé de 1975 à 2012, même source que 1992/21 : fr.wikipedia.org, « Étape des Champs-Élysées du Tour de France »). Résultat : 197,9 km pour 163,35 km officiels (+20,7 %), hors tolérance. Avant `laps`, la reconstitution était de 0,0 km. L'excès est réparti sur chaque tour : BRouter compte 7,1 à 7,3 km par tour contre 6,05 km, parce qu'il respecte les sens uniques et les règles cyclables actuelles de Paris, ce que la course ne faisait pas. Mesuré sur un tour seul : 2,13 km en montée et 2,44 km en descente des Champs-Élysées, 2,56 km pour la boucle des Tuileries. Le profil BRouter « shortest » donne 6,25 km par tour (environ 170 km, +4 %) : piste de l'Epic 9 (profil par étape). Le check signale un aller-retour par tour : c'est le demi-tour réel de la course en haut de l'avenue, pas un point mal placé. Points du tour figés en coordonnées : deux points géocodés automatiquement (« Rue de Rivoli » à 500 m à l'est du virage, « Cours-la-Reine » à 600 m à l'ouest de la Concorde) forçaient chacun un aller-retour supplémentaire, et ont été corrigés ou retirés."
           }
         ]
       }
