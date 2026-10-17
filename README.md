@@ -263,7 +263,13 @@ email/mot de passe (hachage `crypto.scrypt`, sessions par cookie `httpOnly`).
 **Important : les données restent partagées entre tous les comptes** (ce
 n'est pas un cloisonnement multi-utilisateur) — voir les détails et la mise
 en garde dans **[docs/DEPLOY-PUBLIC.md](docs/DEPLOY-PUBLIC.md)** avant
-d'activer ce mode. Pas de VPS sous la main ? **[docs/RASPBERRY-PI.md](docs/RASPBERRY-PI.md)**
+d'activer ce mode. En mode public, les actions destructrices ou de
+configuration partagée (suppression d'étape, réimport, restauration,
+connecteurs Suunto/Strava) sont réservées aux comptes de
+`ETAPEFORGE_ADMIN_EMAILS` (inscription protégée par `ETAPEFORGE_ADMIN_TOKEN`),
+et `ETAPEFORGE_SECRET_KEY` chiffre au repos les secrets des connecteurs — voir
+[docs/DEPLOY-PUBLIC.md](docs/DEPLOY-PUBLIC.md) et [docs/SYNOLOGY.md](docs/SYNOLOGY.md).
+Pas de VPS sous la main ? **[docs/RASPBERRY-PI.md](docs/RASPBERRY-PI.md)**
 documente la même exposition publique depuis un Raspberry Pi chez soi
 (Cloudflare Tunnel, contourne le CGNAT des box grand public sans redirection
 de port).
