@@ -649,10 +649,30 @@ function reconstructionWaypoints(year, stage, category = 'hommes', occurrenceInd
   // documentée, jamais corrigée) sur Le Markstein (2023 étape 20, arrivée) —
   // CLAUDE.md règle 1 : une trouvaille qui revient une deuxième fois se
   // corrige à la racine plutôt que de se redocumenter comme limite connue.
-  // `known` (KNOWN_COLS) n'a pas de sens pour un départ/arrivée (réservé aux
-  // vias cols, voir plus bas) — toujours `null` ici.
-  const startCoords = resolveViaCoords(curated?.start || {}, null);
-  const finishCoords = resolveViaCoords(curated?.finish || {}, null);
+  // KNOWN_COLS pour un départ/arrivée curé (issue #224) : une arrivée au
+  // sommet curée en chaîne simple (« Col de la Loze », 2020 étape 17)
+  // dépendait d'un géocodage en direct à chaque génération alors que ses
+  // coordonnées figées existent déjà dans known_cols.json. Consulté seulement
+  // si (1) le départ/arrivée est curé (jamais pour un libellé Wikipédia brut),
+  // (2) le libellé correspond exactement à une clé du référentiel, et (3)
+  // isColQuery() le reconnaît comme un col/sommet — garde contre une commune
+  // homonyme d'un nom de col (piège signalé dans l'issue). Des lat/lon curés
+  // sur l'objet lui-même restent prioritaires (resolveViaCoords).
+  const knownFor = (entry) => {
+    const label = curatedLabel(entry);
+    return entry && label && isColQuery(label) ? KNOWN_COLS[label] || null : null;
+  };
+  const startCoords = resolveViaCoords(curated?.start || {}, knownFor(curated?.start));
+  const finishCoords = resolveViaCoords(curated?.finish || {}, knownFor(curated?.finish));
+  // Altitude attendue d'une arrivée/départ au sommet, comme pour un via col
+  // (via.ele ?? known.ele). Indispensable dès que lat/lon sont posés : avec
+  // des coordonnées figées, pipeline/generate.js saute le géocodage, qui était
+  // le seul endroit où un col sans altitude recevait res.ele — sans ça, le
+  // check « Altitude du sommet » (checks.js) disparaissait silencieusement
+  // (relecture adverse, issue #224 ; même lacune préexistante sur 2025/18,
+  // arrivée objet { label, lat, lon }).
+  const curatedEle = (entry) => (entry && typeof entry === 'object' && entry.ele != null ? entry.ele : null);
+  const eleFor = (entry) => curatedEle(entry) ?? knownFor(entry)?.ele ?? null;
   // region_hint : même logique que country_hint ci-dessus, mais pour le
   // qualificatif de département (« Bonneval, Eure-et-Loir ») — pour un
   // départ/arrivée NON curé, jamais deviné automatiquement (issu du texte
@@ -661,6 +681,7 @@ function reconstructionWaypoints(year, stage, category = 'hommes', occurrenceInd
   wps.push({
     label: startLabel, kind: 'start', bonus_sec: null,
     lat: startCoords.lat, lon: startCoords.lon,
+    altitude_hint_m: eleFor(curated?.start),
     source: curated?.start ? 'parcours curé' : 'wikipedia',
     country_hint: curated?.start ? curatedCountry(curated.start) : foreignCountry(stage.startCountry),
     region_hint: curated?.start ? curatedRegion(curated.start) : stage.startDepartment || null,
@@ -698,6 +719,7 @@ function reconstructionWaypoints(year, stage, category = 'hommes', occurrenceInd
     label: finishLabel,
     kind: isColQuery(finishLabel) ? 'col' : 'finish',
     lat: finishCoords.lat, lon: finishCoords.lon,
+    altitude_hint_m: eleFor(curated?.finish),
     bonus_sec: curated?.finish_bonus_sec || null,
     source: curated?.finish ? 'parcours curé' : 'wikipedia',
     country_hint: curated?.finish ? curatedCountry(curated.finish) : foreignCountry(stage.finishCountry),
