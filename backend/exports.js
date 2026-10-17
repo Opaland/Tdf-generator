@@ -98,7 +98,7 @@ function stageToGpx(full) {
 <gpx version="1.1" creator="ÉtapeForge" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>${esc(stage.name)}</name>
-    <desc>Généré par ÉtapeForge — tracé © OpenStreetMap contributors (routage OSRM), altimétrie IGN/Géoplateforme &amp; opentopodata.</desc>
+    <desc>Généré par ÉtapeForge — tracé © OpenStreetMap contributors (routage BRouter, repli OSRM), altimétrie IGN/Géoplateforme &amp; opentopodata.</desc>
   </metadata>
 ${wpts}
   <trk>
@@ -260,7 +260,7 @@ function stageToKml(full) {
 <kml xmlns="http://www.opengis.net/kml/2.2">
   <Document>
     <name>${esc(stage.name)}</name>
-    <description>Généré par ÉtapeForge — tracé © OpenStreetMap contributors (routage OSRM), altimétrie IGN/Géoplateforme &amp; opentopodata.</description>
+    <description>Généré par ÉtapeForge — tracé © OpenStreetMap contributors (routage BRouter, repli OSRM), altimétrie IGN/Géoplateforme &amp; opentopodata.</description>
     <Style id="etapeforge-track">
       <LineStyle><color>ff20d3ff</color><width>4</width></LineStyle>
     </Style>

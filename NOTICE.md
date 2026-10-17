@@ -19,16 +19,21 @@ licence, distincte du code qui les traite.
   [CC BY-SA](https://creativecommons.org/licenses/by-sa/4.0/) — attribution
   et partage dans les mêmes conditions.
 
-## Autres données tierces (appelées à l'exécution, non redistribuées)
+## Autres données tierces (appelées à l'exécution)
 
-Géocodage/routage/altimétrie ne sont pas redistribués par ce dépôt — ils sont
+Géocodage/routage/altimétrie ne sont pas versionnés dans ce dépôt — ils sont
 interrogés à l'exécution et mis en cache localement chez l'utilisateur
-(`data/etapeforge.sqlite`). Attribution affichée dans l'application et les
+(`data/etapeforge.sqlite`). **Exception** : la démo GitHub Pages
+(`.github/workflows/pages.yml` → `scripts/build-site.js`) publie les étapes
+générées à la publication (`data/stage-N.json` : tracé routé, waypoints
+géocodés, profil altimétrique) — des données dérivées d'OpenStreetMap (ODbL)
+et de l'IGN, redistribuées sous ces attributions. Portée exacte des
+obligations ODbL pour ces fichiers : à confirmer. Attribution affichée dans l'application et les
 exports (voir `ATTRIBUTIONS` dans `backend/exports.js`) :
 
 - © IGN/Géoplateforme (géocodage, altimétrie RGE ALTI, fonds PLANIGNV2)
 - © OpenStreetMap contributors
-- Routage : OSRM (router.project-osrm.org)
+- Routage : BRouter (brouter.de, routeur principal depuis le 31/08/2026), repli OSRM (router.project-osrm.org)
 - Altimétrie hors France : opentopodata.org (EU-DEM)
 - Géocodage hors France : Nominatim (OpenStreetMap)
 
@@ -38,4 +43,4 @@ exports (voir `ATTRIBUTIONS` dans `backend/exports.js`) :
 |---|---|---|
 | Code (`backend/`, `pipeline/`, `frontend/`, `scripts/`, `test/`) | MIT | Oui |
 | `pipeline/data/historic_routes.json`, `pipeline/fixtures/*.html` | CC BY-SA (Wikipédia) | Oui — respecter CC BY-SA pour ce contenu précis |
-| Réponses géocodage/routage/altimétrie (mises en cache) | Propriété de chaque fournisseur, voir leurs CGU | Non — appelées à l'exécution, en cache local chez l'utilisateur |
+| Réponses géocodage/routage/altimétrie (mises en cache) | Propriété de chaque fournisseur, voir leurs CGU | Non dans le dépôt (cache local chez l'utilisateur) ; **oui** dans la démo GitHub Pages, pour les étapes pré-générées (voir ci-dessus) |
