@@ -50,3 +50,16 @@ test('verify : ville incertaine corrigée par le seul candidat compatible, ville
   assert.strictEqual(s[4].finish.lat, near(2, 0).lat, 'E conservée');
   assert.deepStrictEqual(left, ['Lyon → E'], 'étape contradictoire entre deux villes fiables signalée');
 });
+
+test('verify : un remplacement compatible mais implausible (route presque droite) est refusé — position retirée', async () => {
+  const chambery = town('Chambéry', { lat: 45.566, lon: 5.92 });
+  const editions = { 1996: { stages: [
+    // Les Arcs (Savoie) à ~70 km de Chambéry pour 200 km d'étape. Candidat
+    // proposé en Haute-Saône (~200 km à vol d'oiseau) : compatible avec la
+    // borne maximale, mais une route de 200 km presque droite n'existe pas.
+    stage(7, chambery, town('Les Arcs', { lat: 43.46, lon: 6.48 }, 'approx'), 200),
+  ] } };
+  const failures = [];
+  await verify(editions, failures, async () => [{ lat: 47.4586, lon: 5.5827, how: 'commune-ign' }], () => {});
+  assert.strictEqual(editions[1996].stages[0].finish.lat, undefined);
+});

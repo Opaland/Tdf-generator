@@ -66,13 +66,20 @@ const round = (v) => Math.round(v * 1e5) / 1e5;
  * 10 km pour le géocodage au centre-ville). */
 const maxCrowM = (km) => (km * 1.1 + 10) * 1000;
 
-/** Arêtes (étapes) : [{ a, b, maxM }] où a/b sont des libellés de ville. */
+/** Identité d'une ville dans la vérification : libellé ET position. Un même
+ * libellé peut être géocodé différemment selon l'édition (« Geneva » avec le
+ * pays donné par Wikipédia → Suisse ; sans pays → homonyme français) : les
+ * confondre faisait juger la bonne position à la place de la mauvaise. */
+const townKey = (t) => `${t.label}@${Number.isFinite(t.lat) ? `${t.lat},${t.lon}` : '?'}`;
+const keyLabel = (k) => k.slice(0, k.lastIndexOf('@'));
+
+/** Arêtes (étapes) : [{ a, b, maxM }] où a/b sont des clés de ville (townKey). */
 function stageEdges(editions) {
   const edges = [];
   for (const ed of Object.values(editions)) {
     for (const s of ed.stages) {
       if (!s.distanceKm || s.start.label === s.finish.label) continue;
-      edges.push({ a: s.start.label, b: s.finish.label, maxM: maxCrowM(s.distanceKm) });
+      edges.push({ a: townKey(s.start), b: townKey(s.finish), maxM: maxCrowM(s.distanceKm), km: s.distanceKm });
     }
   }
   return edges;
@@ -101,6 +108,24 @@ async function nominatimCandidates(label) {
   }
 }
 
+/** Un REMPLACEMENT doit être plausible, pas seulement compatible : sur une
+ * étape de plus de 30 km, la distance à vol d'oiseau ne dépasse pas 90 % de
+ * la longueur de l'étape (une route n'est jamais presque droite). Sans cela,
+ * « Les Arcs » (Savoie) se retrouvait en Haute-Saône, à une distance
+ * compatible mais au mauvais endroit. Pas de borne basse : une étape en
+ * boucle (Leeds → Harrogate, 190 km pour 25 km à vol d'oiseau) est réelle. */
+function plausible(edges, pos, label, c) {
+  for (const e of edges) {
+    if (e.a !== label && e.b !== label) continue;
+    const other = pos.get(e.a === label ? e.b : e.a);
+    if (!other) continue;
+    const d = haversine(c, other);
+    if (d > e.maxM) return false;
+    if (e.km > 30 && d > e.km * 1000 * 0.9) return false;
+  }
+  return true;
+}
+
 /** Nombre d'étapes (arêtes) par ville. */
 function degrees(edges) {
   const d = new Map();
@@ -120,8 +145,16 @@ function degrees(edges) {
  * contredit aucune voisine fiable est gardé, sinon la position est retirée.
  */
 async function realCandidates(label) {
+  // Communes au nom exact, ou commune nouvelle qui le prolonge (« Vire » →
+  // « Vire Normandie ») — jamais une correspondance partielle (« Grand
+  // Colombier » → une commune « Colombier » de la Loire).
+  const want = normName(label);
+  const named = (await communeCandidates(label)).filter((c) => {
+    const n = normName(c.name);
+    return n === want || n.startsWith(`${want} `) || n.startsWith(`${want}-`);
+  });
   return [
-    ...(await communeCandidates(label)).map((c) => ({ lat: round(c.lat), lon: round(c.lon), how: 'commune-ign' })),
+    ...named.map((c) => ({ lat: round(c.lat), lon: round(c.lon), how: 'commune-ign' })),
     ...(await nominatimCandidates(label)),
   ];
 }
@@ -134,7 +167,7 @@ async function verify(editions, failures, candidatesFor = realCandidates, log = 
   for (const ed of Object.values(editions)) {
     for (const s of ed.stages) {
       for (const t of [s.start, s.finish]) {
-        if (Number.isFinite(t.lat)) { pos.set(t.label, { lat: t.lat, lon: t.lon }); conf.set(t.label, t.confidence); }
+        if (Number.isFinite(t.lat)) { pos.set(townKey(t), { lat: t.lat, lon: t.lon }); conf.set(townKey(t), t.confidence); }
       }
     }
   }
@@ -150,25 +183,26 @@ async function verify(editions, failures, candidatesFor = realCandidates, log = 
     if (!suspects.length) break;
     for (const label of suspects) {
       if (!violations(edges, pos).get(label)) continue; // déjà résolu par la correction d'une voisine
-      const cands = await candidatesFor(label);
+      const cands = await candidatesFor(keyLabel(label));
       const count = (c) => { const before = pos.get(label); pos.set(label, c); const n = violations(edges, pos).get(label) || 0; if (before) pos.set(label, before); else pos.delete(label); return n; };
-      const good = cands.find((c) => count(c) === 0);
+      const good = cands.find((c) => count(c) === 0 && plausible(edges, pos, label, c));
       if (good) {
         pos.set(label, good);
         fixed.set(label, { ...good, confidence: 'verifie' });
       } else {
         pos.delete(label);
         fixed.set(label, null);
-        failures.push({ label, error: 'aucune position compatible avec la longueur des étapes voisines — retirée' });
+        failures.push({ label: keyLabel(label), error: 'aucune position compatible avec la longueur des étapes voisines — retirée' });
       }
-      log(`  ${good ? '↻' : '✗'} ${label}${good ? ` → ${good.lat}, ${good.lon} (${good.how})` : ' : position retirée'}`);
+      log(`  ${good ? '↻' : '✗'} ${keyLabel(label)}${good ? ` → ${good.lat}, ${good.lon} (${good.how})` : ' : position retirée'}`);
     }
   }
   for (const ed of Object.values(editions)) {
     for (const s of ed.stages) {
       for (const k of ['start', 'finish']) {
-        if (!fixed.has(s[k].label)) continue;
-        const f = fixed.get(s[k].label);
+        const key = townKey(s[k]);
+        if (!fixed.has(key)) continue;
+        const f = fixed.get(key);
         s[k] = f ? { label: s[k].label, lat: f.lat, lon: f.lon, how: f.how, confidence: f.confidence } : { label: s[k].label };
       }
     }
@@ -179,7 +213,7 @@ async function verify(editions, failures, candidatesFor = realCandidates, log = 
   for (const e of edges) {
     const pa = pos.get(e.a);
     const pb = pos.get(e.b);
-    if (pa && pb && haversine(pa, pb) > e.maxM) left.push(`${e.a} → ${e.b}`);
+    if (pa && pb && haversine(pa, pb) > e.maxM) left.push(`${keyLabel(e.a)} → ${keyLabel(e.b)}`);
   }
   return left;
 }

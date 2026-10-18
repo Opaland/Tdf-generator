@@ -291,6 +291,7 @@ const NEAR_BASIS = {
 const GEOCODE_WARN = {
   ambigu: ' — ville homonyme possible (la plus peuplée a été retenue)',
   approx: ' — position de la ville approximative',
+  verifie: ' — position de la ville corrigée automatiquement (seule compatible avec la longueur des étapes)',
 };
 
 /** Rendu des résultats de GET /api/search/near. Tout texte venu de l'API
