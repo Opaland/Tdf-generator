@@ -26,6 +26,50 @@ const { haversine } = require('../pipeline/geo');
 const { cached } = require('../pipeline/cache');
 
 const OUT = path.join(__dirname, '..', 'pipeline', 'data', 'stage_towns.json');
+const OVERRIDES = path.join(__dirname, '..', 'pipeline', 'data', 'stage_towns_overrides.json');
+
+/**
+ * Réapplique les positions vérifiées à la main (Epic 33.9) : une
+ * régénération redonnait sinon le centre du département pour le Puy de
+ * Dôme, le centre du pays pour Luxembourg… Une occurrence précise
+ * (« édition/étape/start|finish ») prime sur le libellé. Confiance « ok »
+ * par défaut, l'entrée peut la fixer (« douteux » reste exclu de la
+ * recherche). Retourne le nombre de positions réappliquées.
+ */
+function applyOverrides(editions, overrides) {
+  const towns = overrides.towns || {};
+  const occ = overrides.occurrences || {};
+  let n = 0;
+  for (const [key, ed] of Object.entries(editions)) {
+    for (const s of ed.stages) {
+      for (const side of ['start', 'finish']) {
+        const t = s[side];
+        if (!t) continue;
+        const o = occ[`${key}/${s.number}/${side}`] || towns[t.label];
+        if (!o) continue;
+        // Une entrée sans coordonnées effacerait la position en silence.
+        if (!Number.isFinite(o.lat) || !Number.isFinite(o.lon)) throw new Error(`stage_towns_overrides : ${t.label} sans lat/lon valides`);
+        s[side] = { label: t.label, ...(t.dep ? { dep: t.dep } : {}), lat: o.lat, lon: o.lon, how: o.how, confidence: o.confidence || 'ok', note: o.note };
+        n++;
+      }
+    }
+  }
+  return n;
+}
+
+/** Fichier absent ou mal formé : erreur, jamais une régénération écrite
+ * sans les corrections (relecture adverse). */
+function readOverrides(file = OVERRIDES) {
+  return JSON.parse(fs.readFileSync(file, 'utf8'));
+}
+
+/** Seule écriture de stage_towns.json : positions vérifiées réappliquées
+ * juste avant (régénération complète comme --verify-only). */
+function writeStageTowns(doc, out = OUT, overrides = readOverrides()) {
+  const n = applyOverrides(doc.editions, overrides);
+  fs.writeFileSync(out, JSON.stringify(doc) + '\n');
+  return n;
+}
 const FEMMES_YEARS = [2022, 2023, 2024, 2025, 2026];
 
 const townCache = new Map();
@@ -244,6 +288,41 @@ async function verify(editions, failures, candidatesFor = realCandidates, log = 
  * Une position `douteux` reste dans le fichier (traçabilité) mais n'est
  * jamais utilisée par la recherche (pipeline/placeSearch.js).
  */
+// L'index IGN donne le centre géographique de la commune, pas la ville :
+// Pau à 3 km, Avignon 3,7, Limoges 4,1, Bagnères-de-Bigorre 7,7 (Epic
+// 33.10). Une commune IGN est recalée sur le point OSM de localité du même
+// nom le plus proche, à moins de SNAP_M — même règle que
+// scripts/geocode-itineraries.js (snapToTown), jamais un quartier ni une
+// entité administrative (« municipality » d'Avignon : 11 km à l'est).
+const SNAP_M = 8000;
+const SNAP_TYPES = new Set(['city', 'town', 'village', 'hamlet']);
+async function snapCommuneAnchors(editions, candidatesFor = nominatimCandidates, log = console.log) {
+  const done = new Map();
+  let n = 0;
+  for (const ed of Object.values(editions)) {
+    for (const s of ed.stages) {
+      for (const k of ['start', 'finish']) {
+        const t = s[k];
+        if (!t || t.how !== 'commune-ign' || !Number.isFinite(t.lat)) continue;
+        const key = `${t.label}|${t.lat},${t.lon}`;
+        if (!done.has(key)) {
+          let best = null;
+          for (const c of await candidatesFor(t.label)) {
+            if (!(c.osmClass === 'place' || c.osmClass === 'boundary') || !SNAP_TYPES.has(c.addresstype)) continue;
+            const d = haversine(t, c);
+            if (d <= SNAP_M && (!best || d < best.d)) best = { d, lat: c.lat, lon: c.lon };
+          }
+          done.set(key, best);
+          if (best && best.d >= 1000) log(`  ⌖ ${t.label} : ${(best.d / 1000).toFixed(1)} km → bourg OSM`);
+        }
+        const b = done.get(key);
+        if (b) { Object.assign(t, { lat: b.lat, lon: b.lon }); n++; }
+      }
+    }
+  }
+  return n;
+}
+
 async function crossCheck(editions, candidatesFor = nominatimCandidates, log = console.log) {
   const edges = stageEdges(editions);
   const pos = new Map();
@@ -289,7 +368,7 @@ async function main() {
     await crossCheck(doc.editions);
     const left = await verify(doc.editions, doc.failures);
     doc.unverifiedStages = left;
-    fs.writeFileSync(OUT, JSON.stringify(doc) + '\n');
+    console.log(`${writeStageTowns(doc)} position(s) vérifiée(s) réappliquée(s)`);
     console.log(`Vérification : ${left.length} étape(s) encore contradictoire(s) → ${path.relative(process.cwd(), OUT)}`);
     return;
   }
@@ -324,6 +403,8 @@ async function main() {
   }
   console.log('\nVérification par la longueur des étapes…');
   console.log('\nContre-vérification Nominatim…');
+  console.log('\nRecalage des communes IGN sur leur bourg…');
+  await snapCommuneAnchors(editions);
   await crossCheck(editions);
   const left = await verify(editions, failures);
   console.log(`${left.length} étape(s) encore contradictoire(s) entre deux villes fiables : ${left.join(' ; ')}`);
@@ -340,11 +421,11 @@ async function main() {
     failures,
     unverifiedStages: left,
   };
-  fs.writeFileSync(OUT, JSON.stringify(doc) + '\n');
+  console.log(`${writeStageTowns(doc)} position(s) vérifiée(s) réappliquée(s)`);
   const n = Object.values(editions).reduce((a, e) => a + e.stages.length, 0);
   console.log(`\n${Object.keys(editions).length} éditions, ${n} étapes, ${failures.length} échec(s) → ${path.relative(process.cwd(), OUT)}`);
 }
 
 if (require.main === module) main().catch((err) => { console.error(err); process.exit(1); });
 
-module.exports = { verify, crossCheck, maxCrowM, nominatimCandidates };
+module.exports = { snapCommuneAnchors, verify, crossCheck, maxCrowM, nominatimCandidates, applyOverrides, writeStageTowns, readOverrides };

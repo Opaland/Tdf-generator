@@ -567,6 +567,86 @@ et côtes traversées avec leur kilomètre.
   Libellés de l'image gardés (Seyne-les-Alpes, Colombières, Malmédy,
   Côte-des-4-Routes) ; longueurs du profil reprises quand elles diffèrent
   de `stage_towns` (1989/11, 13, 16, 17, 20).
+- [ ] Édition 1988 : 22 étapes sur 23 (prologue Pornichet → La Baule,
+  3,8 km, sans profil publié), 387 points placés sur 419. Contrôlée à
+  ±5 % avant PR : 18 étapes dans la tolérance, 4 hors, affichées comme
+  telles — 1988/6 (+10,7 %, contre-la-montre par équipes : Villeneuve-
+  d'Ascq → Croix, 7 km à vol d'oiseau pour 5 km de profil), 1988/18
+  (+5,4 %), 1988/21 (−10,8 %, contre-la-montre, côte de Saint-Romain et
+  deux lieux-dits hors du calcul), 1988/22 (+8,9 %, circuit des
+  Champs-Élysées retiré de la mesure par `circuit_km` au pont de la
+  Concorde ; Jouy-en-Josas → Versailles 3 km de profil pour 5,5 à vol
+  d'oiseau). Mesure sensible au routeur : 1988/18 était à +4,8 % routée
+  entièrement en voiture (repli OSRM), +5,4 % en vélo ; 6 tronçons voiture
+  restent sur 1988 (affichés). Erreur trouvée dans `stage_towns` : « Puy
+  de Dôme » (14 arrivées et 1 départ, 1952-2023) était le centre du
+  département, 13,9 km au sud-est du sommet — recalé sur le volcan
+  (Nominatim natural/volcano) ; 1988/19 de +6,4 % à −0,4 %. Relecture
+  adverse : deux km lus sur la graduation au lieu du km du point (Le
+  Landreau 16, La Varenne 31, 1988/2) ; Villagrains placé sur son hameau
+  (le `geocodeAs` vers Cabanac-et-Villagrains était deviné et faux) ;
+  graphies du profil rattachées à la commune IGN (Courgains, Mérigon,
+  Cazeaux-de-Larboust, Saint-Marcelin-de-Cray, Lachapelle-sous-Chaux) ;
+  quai André-Citroën placé (était le centroïde du 15e arrondissement) ;
+  libellés de l'image restaurés (pont de la Concorde, esplanade des
+  Quinconces au km 202). Saint-Nazaire (1988/1) non placé : centre-ville
+  à 7,7 km de Montoir pour 4,5 km de profil. Libellés illisibles ou
+  nommés sans km (Côte de Mamers, Saint-Amand-les-Eaux, Taninges,
+  Saint-Yorre, Col de Menté-Mourtis, Payolle…) non repris, notés.
+- [x] 33.9 Corrections manuelles de `stage_towns.json` non protégées :
+  `scripts/build-stage-towns.js` régénère tout le fichier, et les
+  recalages faits à la main (Puy de Dôme, Luxembourg City, Épinal,
+  Besançon, Lac de Vassivière, Eurotunnel…) disparaîtraient à la
+  prochaine régénération (relecture adverse 1988, lecture de code, non
+  rejoué). Fait : `pipeline/data/stage_towns_overrides.json` (9 libellés,
+  7 occurrences « édition/étape/côté » pour les lieux qui changent selon
+  l'édition — Lac de Vassivière, Eurotunnel 1994/3), chaque entrée avec
+  sa source ; le générateur les réapplique après la régénération et après
+  `--verify-only` (89 positions). Tests : une position fausse redonnée par
+  le géocodeur est corrigée, l'occurrence prime sur le libellé (la
+  mutation inverse fait échouer le test), et `stage_towns.json` porte
+  déjà chaque position vérifiée (aucune ne bouge en les réappliquant).
+  Relecture adverse : la confiance « ok » par défaut n'était pas testée
+  (Luxembourg City revenait « douteux », exclu de la recherche) ; un
+  fichier d'overrides absent ou mal formé donnait une régénération sans
+  corrections, en silence — erreur désormais ; une entrée sans lat/lon
+  effaçait la position — refusée ; « Val-d'Isère » (graphie à tiret)
+  ajouté (89 positions). L'écriture passe par une seule fonction,
+  `writeStageTowns`, qui réapplique les positions (testé, et un test
+  vérifie qu'il n'y a qu'une écriture dans le générateur). Limite : le
+  générateur lui-même n'a pas été relancé (10-15 min de réseau). Doute
+  noté, non tranché : 1959/15 (contre-la-montre de 12 km libellé « Puy
+  de Dôme → Puy de Dôme ») a son départ au sommet — vraisemblablement
+  Clermont-Ferrand ou Chamalières, à confirmer par une source.
+- [x] 33.10 Bourg plutôt que centroïde dans `stage_towns.json` : les
+  villes-étapes françaises (`commune-ign`) étaient au centre géographique
+  de leur commune — Épinal, Besançon, Avignon, Dijon trouvées une à une
+  par le contrôle ±5 %. Balayage : 564 positions distinctes (3 805
+  occurrences), 258 à 1 km ou plus de leur bourg OSM, 25 à 3 km ou plus
+  (Bagnères-de-Bigorre 7,7, Isola 7,7 — le centroïde tombait vers Isola
+  2000 —, Saint-Raphaël 6,8, Hyères 5,9, Limoges 4,1, Avignon 3,7, Pau
+  3,1 sur 135 étapes…). Le générateur recale désormais chaque commune IGN
+  sur le point OSM de localité du même nom le plus proche, à moins de
+  8 km (`snapCommuneAnchors`, même règle que `snapToTown` des itinéraires :
+  jamais une « municipality » — celle d'Avignon est à 11 km —, un
+  quartier ni une entité administrative ; test, deux mutations
+  détectées), appliqué une fois aux données (cache Nominatim). Les 25
+  plus grands recalages vérifiés un à un ; Gavarnie-Gèdre (arrivée 2026/6,
+  commune nouvelle, point OSM entre Gèdre et Gavarnie) marquée `douteux`
+  par une position vérifiée (33.9), le lieu exact de l'arrivée n'étant
+  pas sourcé. Les 49 arrivées d'itinéraire posées sur ces ancres suivent ;
+  relecture adverse : 82 autres points d'itinéraire (villes au même nom,
+  à moins de 300 m de l'ancien centroïde, géocodées avant 33.3) restaient
+  sur l'ancienne position — recalés aussi. Isola (départ de 1993/12) passe
+  au village, comme l'avait déjà tranché la relecture de l'édition 1993
+  d'après le profil (km 0 au village) ; l'arrivée de 1993/11 reste à Isola
+  2000. Test renforcé (plus proche de deux bourgs, hameau, classe OSM,
+  position non IGN intacte : quatre mutations détectées). Remesure :
+  144 étapes dans la tolérance (145 avant) ; rentrent 1979/13, 1989/8,
+  1992/14 ; sortent 1989/5 (+5,4 %), 1989/13 (−6,2 %, Marseille recalée
+  sur la ville), 1992/15 (+5,7 %), 1993/1 (−5,9 %) — écarts affichés,
+  pas ajustés. 25 tronçons routés en voiture (13 avant) : BRouter refusait
+  par moments pendant la remesure.
 - [x] 33.7 Entités administratives larges (trouvé sur 1989) : Bastogne
   placée sur son arrondissement (« county » OSM), 9,2 km au nord de la
   ville. Le rang « subdivision » de 33.6 couvre désormais aussi county,

@@ -1,0 +1,113 @@
+{
+ "_notes": "Positions vérifiées à la main pour stage_towns.json (Epic 33.9). scripts/build-stage-towns.js les réapplique après chaque régénération et chaque --verify-only : sans ce fichier, une régénération redonnait les positions fausses que ces corrections ont remplacées. « towns » : par libellé Wikipédia, toutes éditions ; « occurrences » : par « édition/étape/start|finish », prioritaires (même libellé, lieux différents selon l'édition). Chaque entrée cite sa source dans « note ».",
+ "towns": {
+  "Luxembourg City": {
+   "lat": 49.61128,
+   "lon": 6.1298,
+   "how": "nominatim",
+   "note": "ville (Nominatim boundary/city) ; le géocodeur donnait le centre géographique du pays, 23 km au nord (Epic 33, édition 1989)"
+  },
+  "Puy de Dôme": {
+   "lat": 45.77265,
+   "lon": 2.96441,
+   "how": "nominatim",
+   "note": "sommet du volcan (Nominatim natural/volcano) ; le géocodeur donnait le centre du département, 13,9 km au sud-est (édition 1988)"
+  },
+  "Puy-de-Dôme": {
+   "lat": 45.77265,
+   "lon": 2.96441,
+   "how": "nominatim",
+   "note": "sommet du volcan (Nominatim natural/volcano) ; le géocodeur donnait le centre du département, 13,9 km au sud-est (édition 1988)"
+  },
+  "Épinal": {
+   "lat": 48.17477,
+   "lon": 6.45036,
+   "how": "nominatim",
+   "note": "ville (Nominatim town) ; le centroïde IGN de la commune est 2,6 km à l'est (édition 1990)"
+  },
+  "Epinal": {
+   "lat": 48.17477,
+   "lon": 6.45036,
+   "how": "nominatim",
+   "note": "ville (Nominatim town) ; le centroïde IGN de la commune est 2,6 km à l'est (édition 1990)"
+  },
+  "Besançon": {
+   "lat": 47.23802,
+   "lon": 6.02436,
+   "how": "nominatim",
+   "note": "ville (Nominatim boundary/city) ; le centroïde IGN de la commune est 2,3 km au nord-ouest (relecture adverse, édition 1990)"
+  },
+  "Val d'Isère": {
+   "lat": 45.44956,
+   "lon": 6.97874,
+   "how": "nominatim",
+   "note": "village (Nominatim, centre administratif) ; le centroïde de commune était 2,5 km plus loin (Epic 33.5)"
+  },
+  "Villeneuve-sur-Lot": {
+   "lat": 44.40566,
+   "lon": 0.70465,
+   "how": "nominatim",
+   "note": "ville (Nominatim, centre administratif) ; position corrigée en Epic 33.5"
+  },
+  "Val-d'Isère": {
+   "lat": 45.44956,
+   "lon": 6.97874,
+   "how": "nominatim",
+   "note": "village (Nominatim, centre administratif) ; le centroïde de commune était 2,5 km plus loin (Epic 33.5)"
+  }
+ },
+ "occurrences": {
+  "1994/3/finish": {
+   "lat": 50.92611,
+   "lon": 1.83406,
+   "how": "manuel",
+   "confidence": "verifie",
+   "note": "terminal français de Coquelles : le profil officiel place toute l'étape dans le Pas-de-Calais (le géocodeur donnait le terminal de Folkestone)"
+  },
+  "1985/21/start": {
+   "lat": 45.79787,
+   "lon": 1.90067,
+   "how": "nominatim",
+   "confidence": "douteux",
+   "note": "centre du lac (Nominatim) ; lieu exact du départ non sourcé"
+  },
+  "1985/21/finish": {
+   "lat": 45.79787,
+   "lon": 1.90067,
+   "how": "nominatim",
+   "confidence": "douteux",
+   "note": "centre du lac (Nominatim) ; lieu exact du départ non sourcé"
+  },
+  "1990/20/start": {
+   "lat": 45.80716,
+   "lon": 1.84137,
+   "how": "nominatim",
+   "note": "Auphelle, départ et arrivée nommés sur le profil ledicodutour"
+  },
+  "1990/20/finish": {
+   "lat": 45.80716,
+   "lon": 1.84137,
+   "how": "nominatim",
+   "note": "Auphelle, départ et arrivée nommés sur le profil ledicodutour"
+  },
+  "1995/19/start": {
+   "lat": 45.80716,
+   "lon": 1.84137,
+   "how": "nominatim",
+   "note": "Auphelle, départ et arrivée nommés sur le profil ledicodutour"
+  },
+  "1995/19/finish": {
+   "lat": 45.80716,
+   "lon": 1.84137,
+   "how": "nominatim",
+   "note": "Auphelle, départ et arrivée nommés sur le profil ledicodutour"
+  },
+  "2026/6/finish": {
+   "lat": 42.75674,
+   "lon": -0.00029,
+   "how": "nominatim",
+   "confidence": "douteux",
+   "note": "commune nouvelle Gavarnie-Gèdre : point OSM de la commune, entre Gèdre et Gavarnie ; lieu exact de l’arrivée (village de Gavarnie ? cirque ?) non sourcé — exclu de la recherche"
+  }
+ }
+}
