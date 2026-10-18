@@ -634,11 +634,19 @@ et côtes traversées avec leur kilomètre.
   plus grands recalages vérifiés un à un ; Gavarnie-Gèdre (arrivée 2026/6,
   commune nouvelle, point OSM entre Gèdre et Gavarnie) marquée `douteux`
   par une position vérifiée (33.9), le lieu exact de l'arrivée n'étant
-  pas sourcé. Les 49 arrivées d'itinéraire posées sur ces ancres suivent.
-  Remesure de toutes les éditions transcrites : 144 étapes dans la
-  tolérance (145 avant) ; 1989/8 rentre (−6,0 → −3,9 %), 1989/5 (+5,0 →
-  +5,4 %) et 1989/13 (−4,1 → −6,2 %, arrivée à Marseille recalée sur la
-  ville) sortent — écarts affichés, pas ajustés.
+  pas sourcé. Les 49 arrivées d'itinéraire posées sur ces ancres suivent ;
+  relecture adverse : 82 autres points d'itinéraire (villes au même nom,
+  à moins de 300 m de l'ancien centroïde, géocodées avant 33.3) restaient
+  sur l'ancienne position — recalés aussi. Isola (départ de 1993/12) passe
+  au village, comme l'avait déjà tranché la relecture de l'édition 1993
+  d'après le profil (km 0 au village) ; l'arrivée de 1993/11 reste à Isola
+  2000. Test renforcé (plus proche de deux bourgs, hameau, classe OSM,
+  position non IGN intacte : quatre mutations détectées). Remesure :
+  144 étapes dans la tolérance (145 avant) ; rentrent 1979/13, 1989/8,
+  1992/14 ; sortent 1989/5 (+5,4 %), 1989/13 (−6,2 %, Marseille recalée
+  sur la ville), 1992/15 (+5,7 %), 1993/1 (−5,9 %) — écarts affichés,
+  pas ajustés. 25 tronçons routés en voiture (13 avant) : BRouter refusait
+  par moments pendant la remesure.
 - [x] 33.7 Entités administratives larges (trouvé sur 1989) : Bastogne
   placée sur son arrondissement (« county » OSM), 9,2 km au nord de la
   ville. Le rang « subdivision » de 33.6 couvre désormais aussi county,

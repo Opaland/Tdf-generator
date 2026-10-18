@@ -81,14 +81,25 @@ test('snapCommuneAnchors : commune IGN recalée sur le bourg OSM le plus proche 
   ] } };
   const cands = {
     Avignon: [{ lat: 43.96365, lon: 4.94246, osmClass: 'boundary', addresstype: 'municipality' }, { lat: 43.94925, lon: 4.8059, osmClass: 'boundary', addresstype: 'city' }],
-    Millau: [{ lat: 44.0, lon: 3.0, osmClass: 'place', addresstype: 'town' }],
+    Millau: [{ lat: 44.1, lon: 3.09, osmClass: 'place', addresstype: 'town' }], // à 0,8 km : seule la garde « commune-ign » le protège
     Loin: [{ lat: 45.1, lon: 5, osmClass: 'place', addresstype: 'town' }], // 11 km
     Quartier: [{ lat: 46.01, lon: 6, osmClass: 'boundary', addresstype: 'city_district' }],
   };
   await snapCommuneAnchors(eds, async (l) => cands[l] || [], () => {});
   const [s17, s18] = eds[1987].stages;
   assert.deepStrictEqual([s17.finish.lat, s17.finish.lon], [43.94925, 4.8059]);
-  assert.strictEqual(s17.start.lat, 44.1); // nominatim : intact
+  assert.deepStrictEqual([s17.start.lat, s17.start.lon], [44.1, 3.08]); // nominatim : intact
   assert.strictEqual(s18.start.lat, 45); // au-delà de 8 km
   assert.strictEqual(s18.finish.lat, 46); // quartier
+  // Deux bourgs éligibles : le plus proche ; un hameau compte ; un point OSM d'une autre classe (rivière) jamais.
+  const e2 = { 2000: { stages: [{ number: 1, start: town('A', 45, 5), finish: town('B', 46, 6) }, { number: 2, start: town('C', 47, 7), finish: town('C', 47, 7) }] } };
+  const c2 = {
+    A: [{ lat: 45.05, lon: 5, osmClass: 'place', addresstype: 'town' }, { lat: 45.01, lon: 5, osmClass: 'place', addresstype: 'town' }],
+    B: [{ lat: 46.01, lon: 6, osmClass: 'place', addresstype: 'hamlet' }],
+    C: [{ lat: 47.01, lon: 7, osmClass: 'waterway', addresstype: 'village' }],
+  };
+  await snapCommuneAnchors(e2, async (l) => c2[l] || [], () => {});
+  assert.strictEqual(e2[2000].stages[0].start.lat, 45.01);
+  assert.strictEqual(e2[2000].stages[0].finish.lat, 46.01);
+  assert.strictEqual(e2[2000].stages[1].start.lat, 47);
 });
