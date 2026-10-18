@@ -435,6 +435,20 @@ et côtes traversées avec leur kilomètre.
   dont le point OSM n'est pas le bourg (Lamballe-Armor) — ces points
   restent au centroïde IGN, limite connue. Porcelette inchangée : 1970/9
   à 4,2 km, 1992/10 à 5,3 km.
+- [ ] Édition 1994 : 21 étapes sur 22 (prologue de Lille, rues seulement),
+  279 points placés sur 293, dont les deux étapes anglaises (Douvres →
+  Brighton, Portsmouth). Erreur trouvée dans `stage_towns.json` : l'arrivée
+  « Eurotunnel » de 1994/3 était au terminal de Folkestone (Angleterre) ;
+  le profil place toute l'étape dans le Pas-de-Calais — arrivée replacée
+  au terminal de Coquelles (`confidence: verifie`). Elle bloquait le
+  géocodage de 8 points sur 11.
+  Relecture adverse : Noyant-la-Plaine rattachée à tort à Terranjou
+  (commune voisine, 6 km) — c'est Tuffalun ; Winchester et Ashford étaient
+  au centroïde de leur district anglais (5,7 et 4,5 km), Winchester faisait
+  rejeter Andover (désormais placé) ; trois hameaux des Belleville
+  superposés au centroïde de la commune, replacés. Étapes dont la
+  transcription omet des points du profil marquées `partial` (avec leur
+  longueur, la contrainte d'arrivée reste appliquée).
 
 ## Epic 34 — Idées venues d'autres dépôts (veille du 18/10/2026)
 
