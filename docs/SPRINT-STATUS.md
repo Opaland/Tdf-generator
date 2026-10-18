@@ -496,7 +496,7 @@ et côtes traversées avec leur kilomètre.
   retiré des positions — station ou autre point, non tranché ; ce retrait
   fait passer 1991/13 de +5,9 % à +0,5 %, il est signalé ici pour ne pas
   être pris pour une correction. Aucune commune de rattachement devinée.
-- [ ] Édition 1990 : 21 étapes sur 22, 303 points placés sur 338 (1990/6,
+- [x] Édition 1990 (PR #414) : 21 étapes sur 22, 303 points placés sur 338 (1990/6,
   déjà transcrite dans le lot Lorraine, conservée ; 278 routables, les
   autres sont des côtes et lieux-dits « (entrée) » placés au centre de leur
   commune, exclus du calcul comme ailleurs). Non transcrite : l'étape 5
@@ -534,7 +534,7 @@ et côtes traversées avec leur kilomètre.
   en voiture par un détour vélo. Relecture adverse : 14 étapes relues
   contre l'image sans erreur de km ; libellés restaurés
   (Saint-Gervais-Mont-Blanc, Huez-en-Oisans, Côte de Marigny-Brizai).
-- [x] 33.6 Candidat Nominatim « city_district » : le géocodage retient un
+- [x] 33.6 (PR #415) Candidat Nominatim « city_district » : le géocodage retient un
   point de commune déléguée (Bonneval, Les Vignes en 1990 ; relecture :
   aussi Tarcenay, Morez, Celliers, Noirterre) au lieu du village
   homonyme listé juste après. Même cause que Pontorson (33.3),
