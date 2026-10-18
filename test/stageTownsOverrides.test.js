@@ -70,3 +70,25 @@ test('writeStageTowns : la seule écriture réapplique les positions vérifiées
   const src = fs.readFileSync(path.join(__dirname, '..', 'scripts', 'build-stage-towns.js'), 'utf8');
   assert.strictEqual((src.match(/writeFileSync\(/g) || []).length, 1);
 });
+
+test('snapCommuneAnchors : commune IGN recalée sur le bourg OSM le plus proche ; jamais une « municipality », un quartier, au-delà de 8 km, ni une position non IGN', async () => {
+  const { snapCommuneAnchors } = require('../scripts/build-stage-towns');
+  // Avignon : centroïde IGN 3,7 km au sud-est de la ville ; la « municipality » OSM est à 11 km.
+  const town = (label, lat, lon, how = 'commune-ign') => ({ label, lat, lon, how, confidence: 'ok' });
+  const eds = { 1987: { stages: [
+    { number: 17, start: town('Millau', 44.1, 3.08, 'nominatim'), finish: town('Avignon', 43.93635, 4.84886) },
+    { number: 18, start: town('Loin', 45, 5), finish: town('Quartier', 46, 6) },
+  ] } };
+  const cands = {
+    Avignon: [{ lat: 43.96365, lon: 4.94246, osmClass: 'boundary', addresstype: 'municipality' }, { lat: 43.94925, lon: 4.8059, osmClass: 'boundary', addresstype: 'city' }],
+    Millau: [{ lat: 44.0, lon: 3.0, osmClass: 'place', addresstype: 'town' }],
+    Loin: [{ lat: 45.1, lon: 5, osmClass: 'place', addresstype: 'town' }], // 11 km
+    Quartier: [{ lat: 46.01, lon: 6, osmClass: 'boundary', addresstype: 'city_district' }],
+  };
+  await snapCommuneAnchors(eds, async (l) => cands[l] || [], () => {});
+  const [s17, s18] = eds[1987].stages;
+  assert.deepStrictEqual([s17.finish.lat, s17.finish.lon], [43.94925, 4.8059]);
+  assert.strictEqual(s17.start.lat, 44.1); // nominatim : intact
+  assert.strictEqual(s18.start.lat, 45); // au-delà de 8 km
+  assert.strictEqual(s18.finish.lat, 46); // quartier
+});
