@@ -147,7 +147,7 @@ test('geocodeStage : une subdivision OSM (commune déléguée) passe après le v
   const only = await geocodeStage(towns, {}, async (l) => (l === 'B' ? [cands.B[0]] : cands[l]));
   assert.strictEqual(only[1].lat, at(0, 9000).lat);
   // Tous les types de subdivision, pas seulement city_district (relecture adverse).
-  for (const addresstype of ['suburb', 'quarter', 'neighbourhood', 'borough']) {
+  for (const addresstype of ['suburb', 'quarter', 'neighbourhood', 'borough', 'county', 'state_district', 'state', 'region', 'province', 'country']) {
     const sub = await geocodeStage(towns, {}, async (l) => (l === 'B' ? [{ ...cands.B[0], addresstype }, cands.B[1]] : cands[l]));
     assert.strictEqual(sub[1].lat, at(2500, 9000).lat, addresstype);
   }
