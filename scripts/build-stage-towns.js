@@ -47,6 +47,8 @@ function applyOverrides(editions, overrides) {
         if (!t) continue;
         const o = occ[`${key}/${s.number}/${side}`] || towns[t.label];
         if (!o) continue;
+        // Une entrée sans coordonnées effacerait la position en silence.
+        if (!Number.isFinite(o.lat) || !Number.isFinite(o.lon)) throw new Error(`stage_towns_overrides : ${t.label} sans lat/lon valides`);
         s[side] = { label: t.label, ...(t.dep ? { dep: t.dep } : {}), lat: o.lat, lon: o.lon, how: o.how, confidence: o.confidence || 'ok', note: o.note };
         n++;
       }
@@ -55,8 +57,18 @@ function applyOverrides(editions, overrides) {
   return n;
 }
 
-function readOverrides() {
-  try { return JSON.parse(fs.readFileSync(OVERRIDES, 'utf8')); } catch { return {}; }
+/** Fichier absent ou mal formé : erreur, jamais une régénération écrite
+ * sans les corrections (relecture adverse). */
+function readOverrides(file = OVERRIDES) {
+  return JSON.parse(fs.readFileSync(file, 'utf8'));
+}
+
+/** Seule écriture de stage_towns.json : positions vérifiées réappliquées
+ * juste avant (régénération complète comme --verify-only). */
+function writeStageTowns(doc, out = OUT, overrides = readOverrides()) {
+  const n = applyOverrides(doc.editions, overrides);
+  fs.writeFileSync(out, JSON.stringify(doc) + '\n');
+  return n;
 }
 const FEMMES_YEARS = [2022, 2023, 2024, 2025, 2026];
 
@@ -321,8 +333,7 @@ async function main() {
     await crossCheck(doc.editions);
     const left = await verify(doc.editions, doc.failures);
     doc.unverifiedStages = left;
-    console.log(`${applyOverrides(doc.editions, readOverrides())} position(s) vérifiée(s) réappliquée(s)`);
-    fs.writeFileSync(OUT, JSON.stringify(doc) + '\n');
+    console.log(`${writeStageTowns(doc)} position(s) vérifiée(s) réappliquée(s)`);
     console.log(`Vérification : ${left.length} étape(s) encore contradictoire(s) → ${path.relative(process.cwd(), OUT)}`);
     return;
   }
@@ -359,7 +370,6 @@ async function main() {
   console.log('\nContre-vérification Nominatim…');
   await crossCheck(editions);
   const left = await verify(editions, failures);
-  console.log(`${applyOverrides(editions, readOverrides())} position(s) vérifiée(s) réappliquée(s)`);
   console.log(`${left.length} étape(s) encore contradictoire(s) entre deux villes fiables : ${left.join(' ; ')}`);
   const doc = {
     _notes: "Villes de départ/arrivée de chaque étape (Wikipédia anglais, CC BY-SA), géocodées par scripts/build-stage-towns.js (Epic 32.4). " +
@@ -374,11 +384,11 @@ async function main() {
     failures,
     unverifiedStages: left,
   };
-  fs.writeFileSync(OUT, JSON.stringify(doc) + '\n');
+  console.log(`${writeStageTowns(doc)} position(s) vérifiée(s) réappliquée(s)`);
   const n = Object.values(editions).reduce((a, e) => a + e.stages.length, 0);
   console.log(`\n${Object.keys(editions).length} éditions, ${n} étapes, ${failures.length} échec(s) → ${path.relative(process.cwd(), OUT)}`);
 }
 
 if (require.main === module) main().catch((err) => { console.error(err); process.exit(1); });
 
-module.exports = { verify, crossCheck, maxCrowM, nominatimCandidates, applyOverrides };
+module.exports = { verify, crossCheck, maxCrowM, nominatimCandidates, applyOverrides, writeStageTowns, readOverrides };

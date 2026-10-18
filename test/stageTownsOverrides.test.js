@@ -12,7 +12,7 @@ process.env.ETAPEFORGE_OFFLINE = '1';
 
 const { test, after } = require('node:test');
 const assert = require('node:assert');
-const { applyOverrides } = require('../scripts/build-stage-towns');
+const { applyOverrides, writeStageTowns, readOverrides } = require('../scripts/build-stage-towns');
 
 after(() => fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true }));
 
@@ -47,4 +47,26 @@ test('stage_towns.json porte déjà chaque position vérifiée (sinon une régé
   for (const o of [...Object.values(overrides.towns), ...Object.values(overrides.occurrences)]) {
     assert.ok(o.note && o.note.length > 10, 'chaque position vérifiée cite sa source');
   }
+});
+
+test('applyOverrides : une position redonnée « douteux » repasse « ok » (utilisable par la recherche) ; entrée sans lat/lon refusée', () => {
+  // Luxembourg City avant correction : centre du pays, « douteux » (exclu de la recherche).
+  const eds = { 1989: { stages: [{ number: 1, start: { label: 'Luxembourg City', lat: 49.81587, lon: 6.12968, how: 'geocode-pays', confidence: 'douteux' },
+    finish: { label: 'Luxembourg City', lat: 49.81587, lon: 6.12968, how: 'geocode-pays', confidence: 'douteux' } }] } };
+  applyOverrides(eds, { towns: { 'Luxembourg City': { lat: 49.61128, lon: 6.1298, how: 'nominatim', note: 'ville' } } });
+  assert.deepStrictEqual([eds[1989].stages[0].start.lat, eds[1989].stages[0].start.confidence], [49.61128, 'ok']);
+  assert.throws(() => applyOverrides(eds, { towns: { 'Luxembourg City': { how: 'x', note: 'faute de frappe' } } }), /lat\/lon/);
+});
+
+test('writeStageTowns : la seule écriture réapplique les positions vérifiées ; fichier d\'overrides absent = erreur, pas une régénération sans corrections', () => {
+  const out = path.join(process.env.ETAPEFORGE_DATA_DIR, 'st.json');
+  fs.mkdirSync(path.dirname(out), { recursive: true });
+  const doc = { editions: { 1988: { stages: [{ number: 19, start: { label: 'Limoges', lat: 45.8, lon: 1.2 },
+    finish: { label: 'Puy-de-Dôme', lat: 45.70874, lon: 3.11886, how: 'geocode+nominatim', confidence: 'ok' } }] } } };
+  writeStageTowns(doc, out, overrides);
+  assert.strictEqual(JSON.parse(fs.readFileSync(out, 'utf8')).editions[1988].stages[0].finish.lat, 45.77265);
+  assert.throws(() => readOverrides(path.join(process.env.ETAPEFORGE_DATA_DIR, 'absent.json')));
+  // Le générateur n'écrit stage_towns.json que par writeStageTowns.
+  const src = fs.readFileSync(path.join(__dirname, '..', 'scripts', 'build-stage-towns.js'), 'utf8');
+  assert.strictEqual((src.match(/writeFileSync\(/g) || []).length, 1);
 });
