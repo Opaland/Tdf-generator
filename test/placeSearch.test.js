@@ -88,6 +88,8 @@ test('itinéraire : prioritaire sur la curation, segment coupé par un point non
     itin('10', [pt('A', 0, -4000, 3000), pt('B', 8, 4000, 3000)]), // segment à 3 km : masque la curation (0,1 km)
     itin('11', [pt('C', 0, -4000, 2000), { label: 'X', km: 4 }, pt('D', 8, 4000, 2000)]), // coupé : points à 4,5 km
     itin('12', [pt('E', 0, -30000, 0), pt('Côte de F', 30, 0, 500, { kind: 'côte', geocodeAs: 'F' }), pt('G', 60, 30000, 0)]),
+    // Lieu-dit placé au centre de sa commune (geocodeAs) : écarté comme une côte.
+    itin('14', [pt('K', 0, -30000, 0), pt('Hameau', 30, 0, 300, { kind: 'lieu-dit', geocodeAs: 'Commune' }), pt('L', 60, 30000, 0)]),
     // Côte écartée entre deux villes à 8 km l'une de l'autre : coupe aussi le segment.
     itin('13', [pt('H', 0, -4000, -1500), pt('Côte de I', 4, 0, -1600, { kind: 'côte', geocodeAs: 'I' }), pt('J', 8, 4000, -1500)]),
   ];
@@ -97,7 +99,7 @@ test('itinéraire : prioritaire sur la curation, segment coupé par un point non
     ['11', 'itinerary-point', 4.5],
     ['13', 'itinerary-point', 4.3],
   ]);
-  assert.strictEqual(coverage.itineraryStages, 4);
+  assert.strictEqual(coverage.itineraryStages, 5);
   assert.strictEqual(coverage.curatedStages, 0);
 });
 

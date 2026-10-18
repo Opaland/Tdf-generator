@@ -404,6 +404,11 @@ et côtes traversées avec leur kilomètre.
     placée à 10 km au sud ; Dieuze, 1990/6, corrigée de 4 km) ; un
     lieu-dit placé au centre de sa commune (Gavet, L'Alpe d'Huez,
     Bordeaux-Lac…) est écarté de la recherche, comme une côte.
+    Relecture adverse : « Marlhes » (1992/15) était « Marlhoux » sur
+    l'image, point retiré ; Vovray (1992/12) placé sur la commune
+    Vovray-en-Bornes (7 km au sud) puis sur un homonyme de l'Ain, fixé au
+    hameau d'Archamps ; une commune IGN trouvée par préfixe ne prime plus
+    sur les autres sources.
 
 ## Epic 24 — Bilan final
 

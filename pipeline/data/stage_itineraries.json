@@ -1,5 +1,5 @@
 {
- "_notes": "Itinéraires détaillés (Epic 33) : villes et côtes traversées, avec leur kilomètre, transcrites à la main depuis le profil officiel cité dans source_url (profils du Dico du Tour, ledicodutour.com). Coordonnées ajoutées par scripts/geocode-itineraries.js : un point n'est placé que si la distance à vol d'oiseau depuis le point précédent ne dépasse pas l'écart de kilomètres du profil (+3 km ; +10 km depuis le km 0, le départ réel pouvant être hors du centre de la ville de départ) ; sinon il reste sans coordonnées. confidence : ok (un seul candidat compatible), ambigu (plusieurs, le moins détourné retenu). Un point sans coordonnées n'est jamais utilisé par la recherche. Une côte est placée au village dont elle porte le nom (geocodeAs) : position approchée à quelques km près, jamais le sommet exact. partial: true = transcription partielle, seuls les points dont le kilomètre est lisible sans doute sur l image sont repris (un point absent n est pas une preuve que l étape n y est pas passée). length_km : longueur de l'étape lue sur le profil ; sur une transcription partielle, elle confirme que le dernier point est l'arrivée (sinon la contrainte vers l'arrivée n'est pas appliquée). kind lieu-dit : hameau ou quartier placé au centre de sa commune (geocodeAs) — comme une côte, jamais utilisé par la recherche.",
+ "_notes": "Itinéraires détaillés (Epic 33) : villes et côtes traversées, avec leur kilomètre, transcrites à la main depuis le profil officiel cité dans source_url (profils du Dico du Tour, ledicodutour.com). Coordonnées ajoutées par scripts/geocode-itineraries.js : un point n'est placé que si la distance à vol d'oiseau depuis le point précédent ne dépasse pas l'écart de kilomètres du profil (+3 km ; +10 km depuis le km 0, le départ réel pouvant être hors du centre de la ville de départ) ; sinon il reste sans coordonnées. confidence : ok (un seul candidat compatible), ambigu (plusieurs candidats distincts de la source la plus fiable — col connu, puis commune IGN au nom exact, puis le reste —, le moins détourné retenu). Un point sans coordonnées n'est jamais utilisé par la recherche. Une côte est placée au village dont elle porte le nom (geocodeAs) : position approchée à quelques km près, jamais le sommet exact. partial: true = transcription partielle, seuls les points dont le kilomètre est lisible sans doute sur l image sont repris (un point absent n est pas une preuve que l étape n y est pas passée). length_km : longueur de l'étape lue sur le profil ; sur une transcription partielle, elle confirme que le dernier point est l'arrivée (sinon la contrainte vers l'arrivée n'est pas appliquée). kind lieu-dit : hameau ou quartier placé au centre de sa commune (geocodeAs) — comme une côte, jamais utilisé par la recherche.",
  "_source": "Profils d'étapes du Dico du Tour (https://www.ledicodutour.com), lus image par image ; seuls les noms de lieux et kilomètres (faits) sont repris, pas les images.",
  "editions": {
   "1970": {
@@ -3515,10 +3515,10 @@
        "label": "Vovray",
        "km": 179,
        "kind": "ville",
-       "geocodeAs": "Vovray-en-Bornes",
-       "lat": 46.06009,
-       "lon": 6.1473,
-       "how": "commune-ign",
+       "geocodeAs": "Vovray, Archamps",
+       "lat": 46.12852,
+       "lon": 6.15004,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -3850,11 +3850,7 @@
        "label": "La Brévière",
        "km": 111.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Saint-Jean-d'Arves",
-       "lat": 45.20453,
-       "lon": 6.27915,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "non-place"
       },
       {
        "label": "Saint-Jean-d'Arves",
@@ -4088,15 +4084,6 @@
        "kind": "ville",
        "lat": 45.30099,
        "lon": 4.55841,
-       "how": "commune-ign",
-       "confidence": "ok"
-      },
-      {
-       "label": "Marlhes",
-       "km": 174.5,
-       "kind": "ville",
-       "lat": 45.30139,
-       "lon": 4.40327,
        "how": "commune-ign",
        "confidence": "ok"
       },
