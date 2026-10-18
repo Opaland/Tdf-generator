@@ -31,7 +31,8 @@ test('build-site : aucune FC dans dist/ (fiche, édition, carte), alors que la b
       const ed = db.prepare("INSERT INTO editions (name, is_custom) VALUES ('Perso', 1)").run().lastInsertRowid;
       db.prepare('UPDATE stages SET edition_id = ?, stage_order = 1 WHERE id = ?').run(ed, id);
       const n = db.prepare('SELECT COUNT(*) n FROM elevation_samples WHERE hr_bpm IS NOT NULL').get().n;
-      if (!n || db.prepare('SELECT avg_hr_bpm FROM stages WHERE id = ?').get(id).avg_hr_bpm == null) throw new Error('FC absente de la base : test non discriminant');
+      const t = db.prepare('SELECT COUNT(*) n FROM elevation_samples WHERE elapsed_s IS NOT NULL').get().n;
+      if (!n || !t || db.prepare('SELECT avg_hr_bpm FROM stages WHERE id = ?').get(id).avg_hr_bpm == null) throw new Error('FC absente de la base : test non discriminant');
     })().catch((e) => { console.error(e); process.exit(1); });`;
   execFileSync(process.execPath, ['-e', setup], { env, stdio: 'pipe' });
   execFileSync(process.execPath, [path.join(ROOT, 'scripts/build-site.js')], { env, stdio: 'pipe', timeout: 120000 });
@@ -40,6 +41,6 @@ test('build-site : aucune FC dans dist/ (fiche, édition, carte), alors que la b
   assert.ok(files.some((f) => /edition-\d+\.json$/.test(f)), 'édition publiée');
   for (const f of files) {
     const body = fs.readFileSync(f, 'utf8');
-    assert.ok(!/"(avg_hr_bpm|max_hr_bpm|hr_bpm)"\s*:/.test(body), `${path.relative(dir, f)} contient une FC`);
+    assert.ok(!/"(avg_hr_bpm|max_hr_bpm|hr_bpm|elapsed_s)"\s*:/.test(body), `${path.relative(dir, f)} contient une FC ou un temps par échantillon`);
   }
 });

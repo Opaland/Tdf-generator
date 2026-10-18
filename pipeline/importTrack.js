@@ -11,7 +11,7 @@ const { analyzeByKm } = require('./kmanalysis');
 const { runChecks } = require('./checks');
 const { reverseGeocode } = require('./geocode');
 const { isOffline } = require('./http');
-const { computeRideStats } = require('./rideStats');
+const { computeRideStats, elapsedAtSamples } = require('./rideStats');
 const { plausibleHr, hrSummary, hrAtSamples } = require('./heartRate');
 
 /** Parse un GPX (texte) → [{lat, lon, ele?, time?, hr?}] (trkpt, ou rtept à défaut). */
@@ -143,6 +143,7 @@ async function importTrackAsStage(points, meta = {}) {
     const { cumulativeDistances } = require('./geo');
     const { cum } = cumulativeDistances(points);
     const hrBySample = hrAtSamples(points, cum, resampled);
+    const elapsedBySample = elapsedAtSamples(points, cum, resampled);
     let raw;
     if (withEle >= points.length * 0.8) {
       // Ré-interpolation des altitudes de la trace par abscisse curviligne.
@@ -185,6 +186,7 @@ async function importTrackAsStage(points, meta = {}) {
       eleRaw: Number.isFinite(s.ele) ? Math.round(s.ele * 10) / 10 : null,
       eleSmooth: Math.round(smooth[i] * 10) / 10,
       hr: hrBySample[i],
+      elapsed: elapsedBySample[i],
     }));
 
     let ascent = 0;
@@ -247,9 +249,9 @@ async function importTrackAsStage(points, meta = {}) {
       db.prepare(`INSERT OR REPLACE INTO tracks (stage_id, geojson, distance_m, approx_segments, router) VALUES (?, ?, ?, '[]', 'trace')`)
         .run(stageId, JSON.stringify(geojson), totalM);
       const insSample = db.prepare(
-        `INSERT INTO elevation_samples (stage_id, idx, dist_m, lat, lon, ele_raw_m, ele_smooth_m, hr_bpm) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+        `INSERT INTO elevation_samples (stage_id, idx, dist_m, lat, lon, ele_raw_m, ele_smooth_m, hr_bpm, elapsed_s) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
       );
-      for (const s of full) insSample.run(stageId, s.idx, s.dist, s.lat, s.lon, s.eleRaw, s.eleSmooth, s.hr);
+      for (const s of full) insSample.run(stageId, s.idx, s.dist, s.lat, s.lon, s.eleRaw, s.eleSmooth, s.hr, s.elapsed);
       const insClimb = db.prepare(
         `INSERT INTO climbs (stage_id, name, category, score, start_km, end_km, length_km,
            start_ele_m, summit_ele_m, avg_gradient, max_gradient, irregularity_index, km_blocks, name_source)

@@ -102,7 +102,7 @@ test('import GPX avec FC : moyenne/max sur la fiche, FC par échantillon ; expor
   // Formats faits pour être partagés : aucune trace de la FC.
   for (const fmt of ['export.gpx', 'export.tcx', 'export.kml', 'export.html', 'roadbook.html']) {
     const body = await (await fetch(`${base}/api/stages/${id}/${fmt}`)).text();
-    assert.ok(!/hr_bpm|HeartRate|<[\w:]*hr>|"hr"/i.test(body), `${fmt} ne doit pas contenir de FC`);
+    assert.ok(!/hr_bpm|HeartRate|<[\w:]*hr>|"hr"|elapsed_s/i.test(body), `${fmt} ne doit pas contenir de FC ni de temps par échantillon`);
   }
 });
 

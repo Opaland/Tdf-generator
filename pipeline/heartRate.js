@@ -3,6 +3,8 @@
 // Valeur absente = null, jamais 0 : un 0 se lirait comme une mesure réelle et
 // ferait chuter une moyenne en silence (CLAUDE.md règle 10).
 
+const { nearestRawIndices } = require('./geo');
+
 const MIN_HR = 25;
 const MAX_HR = 250;
 // Moins de la moitié des points bruts avec une FC : capteur décroché ou
@@ -43,12 +45,7 @@ function hrAtSamples(points, cum, samples) {
   const hrs = points.map((p) => plausibleHr(p.hr));
   const valid = hrs.filter((v) => v != null).length;
   if (!points.length || valid < points.length * MIN_COVERAGE) return samples.map(() => null);
-  let i = 0;
-  return samples.map((s) => {
-    while (i < points.length - 1 && cum[i + 1] <= s.dist) i++;
-    const j = i < points.length - 1 && Math.abs(cum[i + 1] - s.dist) < Math.abs(s.dist - cum[i]) ? i + 1 : i;
-    return hrs[j] == null ? null : Math.round(hrs[j]);
-  });
+  return nearestRawIndices(cum, samples).map((j) => (hrs[j] == null ? null : Math.round(hrs[j])));
 }
 
 /** Copie d'une ligne `stages` sans ses champs de FC. */
@@ -60,7 +57,8 @@ function stageWithoutHr(stage) {
   return rest;
 }
 
-/** Copie d'un loadStageFull() sans aucune FC (étape et échantillons) : pour
+/** Copie d'un loadStageFull() sans aucune FC (étape et échantillons), ni
+ * temps par échantillon (Epic 31.2, même règle de diffusion) : pour
  * tout ce qui est publié hors de l'instance (démo statique GitHub Pages) —
  * donnée de santé, jamais diffusée (Epic 30, relecture adverse). */
 function fullWithoutHr(full) {
@@ -71,6 +69,7 @@ function fullWithoutHr(full) {
     samples: (full.samples || []).map((s) => {
       const rest = { ...s };
       delete rest.hr_bpm;
+      delete rest.elapsed_s;
       return rest;
     }),
   };

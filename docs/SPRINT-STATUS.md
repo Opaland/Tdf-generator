@@ -191,7 +191,7 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 
 ## Epic 14 — Décision : programme partenaire Suunto
 
-- [ ] 14.1 Peser "usage personnel vs organisation" avec l'utilisateur
+- [x] 14.1 Décidé le 18/10/2026 : usage personnel — le connecteur actuel suffit, aucune candidature au programme partenaire
 
 ## Epic 15 — Vérification concurrentielle directe (La Flamme Rouge)
 
@@ -308,7 +308,7 @@ produit : 30.5 attend une décision.
 - [x] 30.3 Fiche étape : tuiles FC moyenne/max et courbe de FC par distance, seulement pour une trace qui en porte ; aucun changement pour les autres étapes (Playwright avant/après)
 - [x] 30.4 Sauvegarde portable et exports : FC incluse dans les exports bruts de ses propres données (sauvegarde portable, `export.json` de la fiche) ; absente des formats faits pour être partagés — GPX/TCX/KML, export HTML, roadbook, mini-sites (donnée de santé)
 - [x] 30.6 Relecture adverse : fuite de la FC dans la démo statique (`scripts/build-site.js`, `SELECT *` et `loadStageFull`) corrigée et testée par un vrai build ; courbe mesurée section masquée (texte illisible sur mobile) ; FC lue hors `<extensions>` ; repli Strava si le flux `heartrate` est refusé (comportement réel non vérifié faute d'activité sans capteur testée — règle 9)
-- [ ] 30.5 **en attente de décision** — Zones de FC : modèle (5 zones % FC max ? Karvonen ?) et source de la FC max (saisie, 220-âge, max observé)
+- [ ] 30.5 Décidé le 18/10/2026 : FC max **saisie** par l'utilisateur, 5 zones en % de la FC max (50-60, 60-70, 70-80, 80-90, 90-100) ; temps passé par zone sur la fiche d'une trace horodatée avec FC (dépend de 31.2)
 
 ## Epic 31 — Segments et temps comparés (issue #228, phase 6) — en attente de décision
 
@@ -343,7 +343,9 @@ Recommandation : C. Prérequis commun aux trois : stocker le temps écoulé par
 Les imports déjà faits n'ont pas ce temps : ils ne pourront être comptés
 qu'après réimport, ce qui sera affiché, jamais deviné.
 
-- [ ] 31.1 **en attente de décision** — choisir A, B ou C
+- [x] 31.1 Décidé le 18/10/2026 : option C (A d'abord, B ensuite si le besoin demeure)
+- [ ] 31.2 Temps écoulé par échantillon à l'import (`elevation_samples.elapsed_s`, migration 9) : temps du point brut le plus proche en abscisse, jamais interpolé ; `null` pour toute étape routée ou trace sans horodatage ; absent des formats partageables et de la démo statique (même règle que la FC)
+- [ ] 31.3 Option A : temps de montée de chaque côte d'une trace horodatée, côtes appariées entre sorties par la position du sommet, meilleur temps et historique par côte dans « Mes traces » ; une trace importée avant 31.2 est signalée « sans temps », jamais estimée
 
 ## Epic 24 — Bilan final
 
