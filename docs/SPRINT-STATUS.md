@@ -442,6 +442,13 @@ et côtes traversées avec leur kilomètre.
   le profil place toute l'étape dans le Pas-de-Calais — arrivée replacée
   au terminal de Coquelles (`confidence: verifie`). Elle bloquait le
   géocodage de 8 points sur 11.
+  Relecture adverse : Noyant-la-Plaine rattachée à tort à Terranjou
+  (commune voisine, 6 km) — c'est Tuffalun ; Winchester et Ashford étaient
+  au centroïde de leur district anglais (5,7 et 4,5 km), Winchester faisait
+  rejeter Andover (désormais placé) ; trois hameaux des Belleville
+  superposés au centroïde de la commune, replacés. Étapes dont la
+  transcription omet des points du profil marquées `partial` (avec leur
+  longueur, la contrainte d'arrivée reste appliquée).
 
 ## Epic 34 — Idées venues d'autres dépôts (veille du 18/10/2026)
 
