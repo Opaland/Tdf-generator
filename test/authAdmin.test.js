@@ -70,6 +70,7 @@ const ADMIN_ONLY = [
   ['POST', '/api/editions/import-all', {}],
   ['DELETE', '/api/stages/999999', undefined],
   ['DELETE', '/api/gear/999999', undefined],
+  ['PUT', '/api/profile', { hrMaxBpm: 190 }],
   ['POST', '/api/suunto/config', { client_id: 'x' }],
   ['POST', '/api/suunto/disconnect', {}],
   ['GET', '/api/suunto/connect', undefined],
