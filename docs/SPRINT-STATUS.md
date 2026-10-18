@@ -496,6 +496,37 @@ et côtes traversées avec leur kilomètre.
   retiré des positions — station ou autre point, non tranché ; ce retrait
   fait passer 1991/13 de +5,9 % à +0,5 %, il est signalé ici pour ne pas
   être pris pour une correction. Aucune commune de rattachement devinée.
+- [ ] Édition 1990 : 21 étapes sur 22, 303 points placés sur 338 (1990/6,
+  déjà transcrite dans le lot Lorraine, conservée). Non transcrite :
+  l'étape 5 (Avranches → Rouen), image publiée de 133 px dont les km
+  sont illisibles même agrandis. Non repris : les rues du prologue, un
+  libellé illisible au km 72 de 1990/16, Issy-les-Moulineaux (même km 123
+  que l'entrée dans Paris). Contrôlée à ±5 % avant PR : 15 étapes dans la
+  tolérance, 6 hors, affichées comme telles — prologue (+11,5 % sur
+  3,9 km), 1990/2 (+14,6 % : 7,5 km de profil entre Lencloître et
+  Vendeuvre-du-Poitou, 9 km à vol d'oiseau, km du profil contradictoire
+  laissé tel quel), 1990/8 (−6,0 %) et 1990/15 (−6,2 %) coupées par des
+  côtes non placées (Côte des Vignes, Saint-Ferréol), 1990/20 (+5,9 %),
+  1990/21 (−34,8 %, circuit des Champs-Élysées). Erreurs de position
+  trouvées par le contrôle : Épinal (`stage_towns`, 8 occurrences
+  1954-1990) au centroïde IGN, 2,6 km à l'est de la ville — 1990/7 de
+  +13,3 % à −0,4 % ; Bonneval et Les Vignes placés sur leur commune
+  déléguée (« city_district » OSM) et non sur le village — 1990/11 de
+  +7,6 % à +1,7 %, 1990/14 de +8,4 % à +0,6 % ; Allemond au centroïde de
+  sa commune, 4 km au nord du village (bloquait Le Bourg-d'Oisans).
+  `stage_towns` : « Lac de Vassivière » (1985, 1990, 1995, `douteux`)
+  était à 45 km du lac — recalé sur Auphelle, nommée sur les profils de
+  1990 et 1995, et au centre du lac pour 1985 (lieu exact non sourcé).
+  Arrivées en altitude sans position sourcée (Côte 2000, Causse Noir,
+  Bordeaux-Lac) laissées non placées plutôt que mises à la position de la
+  ville ; Le Bettex placé (Nominatim). Romans non placé : 12,5 km à vol
+  d'oiseau de Saint-Lattier pour 9,5 km de profil.
+- [ ] 33.6 Candidat Nominatim « city_district » : le géocodage retient un
+  point de commune déléguée (Bonneval, Les Vignes en 1990) au lieu du
+  village homonyme listé juste après. Même cause que Pontorson (33.3),
+  mais par le chemin Nominatim, que `snapToTown` ne couvre pas. À faire :
+  écarter ou déclasser ce type de candidat, puis remesurer les éditions
+  déjà transcrites.
 - [ ] 33.4 Contrôle à ±5 % des itinéraires (demande du 18/10/2026 : « 5 %
   max de tolérance ») : `scripts/check-itineraries.js` route l'itinéraire
   point par point et compare au kilométrage du profil, avec
