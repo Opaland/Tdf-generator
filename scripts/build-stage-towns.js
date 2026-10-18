@@ -18,11 +18,12 @@ const os = require('os');
 
 process.env.ETAPEFORGE_DATA_DIR = process.env.ETAPEFORGE_DATA_DIR || fs.mkdtempSync(path.join(os.tmpdir(), 'etapeforge-towns-'));
 
-const { fetchEditionHtml, parseStagesFromHtml, FRENCH_DEPARTMENTS } = require('../pipeline/wikipedia');
+const { fetchEditionHtml, parseStagesFromHtml, FRENCH_DEPARTMENTS, KNOWN_COLS } = require('../pipeline/wikipedia');
 const { allTdfYears } = require('../pipeline/importer');
 const { communeCandidates, geocode, normName } = require('../pipeline/geocode');
 const { httpJson } = require('../pipeline/http');
 const { haversine } = require('../pipeline/geo');
+const { cached } = require('../pipeline/cache');
 
 const OUT = path.join(__dirname, '..', 'pipeline', 'data', 'stage_towns.json');
 const FEMMES_YEARS = [2022, 2023, 2024, 2025, 2026];
@@ -101,8 +102,16 @@ function violations(edges, pos) {
 async function nominatimCandidates(label) {
   const url = `https://nominatim.openstreetmap.org/search?format=json&limit=5&q=${encodeURIComponent(label)}`;
   try {
-    const r = await httpJson(url, { minDelayMs: 1100 });
-    return (r || []).map((x) => ({ lat: round(Number(x.lat)), lon: round(Number(x.lon)), how: 'nominatim' })).filter((c) => Number.isFinite(c.lat));
+    const { value: r } = await cached('geocode', 'nominatim-towns', { q: label }, () => httpJson(url, { minDelayMs: 1100 }));
+    // Lieux nommés seulement (localité, sommet/col, lac, site touristique) :
+    // jamais une rue, un arrêt de bus, un bâtiment ou un bureau homonyme —
+    // « Méribel » renvoyait d'abord un arrêt de bus près de Sallanches,
+    // « Luxembourg City » une ambassade à Londres.
+    const NAMED_PLACE = new Set(['place', 'boundary', 'natural', 'mountain_pass', 'tourism', 'leisure', 'landuse', 'water', 'waterway']);
+    return (r || [])
+      .filter((x) => NAMED_PLACE.has(x.class) || (x.class === 'highway' && x.type === 'mountain_pass'))
+      .map((x) => ({ lat: round(Number(x.lat)), lon: round(Number(x.lon)), how: 'nominatim' }))
+      .filter((c) => Number.isFinite(c.lat));
   } catch {
     return [];
   }
@@ -218,9 +227,66 @@ async function verify(editions, failures, candidatesFor = realCandidates, log = 
   return left;
 }
 
+/**
+ * Contre-vérification indépendante (relecture adverse) : la contrainte de
+ * longueur ne voit pas une position fausse quand les étapes voisines sont
+ * longues (Les Menuires placées à Romans-sur-Isère, Luxembourg-Ville à
+ * Nommern). Toute position qui ne vient PAS de l'index des communes IGN est
+ * comparée au premier résultat Nominatim (sans filtre de pays) :
+ * - à moins de 10 km → confirmée (`ok`) ;
+ * - désaccord → la position Nominatim n'est retenue (`verifie`) que si elle
+ *   est plausible avec au moins une étape voisine contraignante ET que
+ *   l'actuelle ne l'est pas ; sinon `douteux`. Sans ce garde-fou, une ville
+ *   sans contrainte (étapes en circuit : « West Berlin ») partait au New
+ *   Jersey, et une position juste (« Evian ») était remplacée par un
+ *   homonyme valdôtain plausible lui aussi ;
+ * - aucun résultat → `douteux`.
+ * Une position `douteux` reste dans le fichier (traçabilité) mais n'est
+ * jamais utilisée par la recherche (pipeline/placeSearch.js).
+ */
+async function crossCheck(editions, candidatesFor = nominatimCandidates, log = console.log) {
+  const edges = stageEdges(editions);
+  const pos = new Map();
+  for (const ed of Object.values(editions)) {
+    for (const s of ed.stages) for (const t of [s.start, s.finish]) if (Number.isFinite(t.lat)) pos.set(townKey(t), { lat: t.lat, lon: t.lon });
+  }
+  const decided = new Map();
+  for (const ed of Object.values(editions)) {
+    for (const s of ed.stages) {
+      for (const k of ['start', 'finish']) {
+        const t = s[k];
+        if (!Number.isFinite(t.lat) || t.how === 'commune-ign' || t.confidence === 'verifie') continue;
+        const key = townKey(t);
+        if (!decided.has(key)) {
+          // Col du référentiel du dépôt (known_cols.json, coordonnées déjà
+          // vérifiées) : source prioritaire quand le libellé y figure.
+          const known = KNOWN_COLS[t.label];
+          const [top] = known && Number.isFinite(known.lat) ? [{ lat: known.lat, lon: known.lon }] : await candidatesFor(t.label);
+          const constrained = edges.some((e) => (e.a === key || e.b === key) && pos.has(e.a === key ? e.b : e.a));
+          // La position actuelle n'est jamais « confirmée » par le seul fait que
+          // le candidat Nominatim soit implausible (« Luxembourg City » restait
+          // à Nommern) : il faut l'accord des deux sources.
+          const curOk = constrained && plausible(edges, pos, key, t);
+          const topOk = constrained && top && plausible(edges, pos, key, top);
+          let d;
+          if (top && haversine(top, t) <= 10000) d = { lat: t.lat, lon: t.lon, how: `${t.how}+nominatim`, confidence: 'ok' };
+          else if (topOk && !curOk) d = { lat: top.lat, lon: top.lon, how: 'nominatim', confidence: 'verifie' };
+          else d = { lat: t.lat, lon: t.lon, how: t.how, confidence: 'douteux' };
+          if (d.confidence !== 'ok') log(`  ${d.confidence === 'verifie' ? '↻' : '?'} ${t.label} : ${t.lat}, ${t.lon} → ${d.confidence === 'verifie' ? `${d.lat}, ${d.lon}` : 'douteux (exclu de la recherche)'}`);
+          decided.set(key, d);
+        }
+        const d = decided.get(key);
+        s[k] = { label: t.label, lat: d.lat, lon: d.lon, how: d.how, confidence: d.confidence };
+      }
+    }
+  }
+}
+
 async function main() {
   if (process.argv.includes('--verify-only')) {
     const doc = JSON.parse(fs.readFileSync(OUT, 'utf8'));
+    console.log('Contre-vérification Nominatim…');
+    await crossCheck(doc.editions);
     const left = await verify(doc.editions, doc.failures);
     doc.unverifiedStages = left;
     fs.writeFileSync(OUT, JSON.stringify(doc) + '\n');
@@ -257,12 +323,17 @@ async function main() {
     console.log(`✔ ${key} : ${out.length} étapes`);
   }
   console.log('\nVérification par la longueur des étapes…');
+  console.log('\nContre-vérification Nominatim…');
+  await crossCheck(editions);
   const left = await verify(editions, failures);
   console.log(`${left.length} étape(s) encore contradictoire(s) entre deux villes fiables : ${left.join(' ; ')}`);
   const doc = {
     _notes: "Villes de départ/arrivée de chaque étape (Wikipédia anglais, CC BY-SA), géocodées par scripts/build-stage-towns.js (Epic 32.4). " +
-      "confidence : ok | ambigu (homonyme de taille comparable, la plus peuplée retenue) | approx (géocodeur général, pas l'index des communes) | verifie (position corrigée : la seule compatible avec la longueur des étapes voisines). " +
-      'Toute position contredisant la longueur d\'une étape a été corrigée ou retirée (failures). ' +
+      "confidence : ok (commune IGN, ou géocodeur général confirmé par Nominatim à moins de 10 km) | ambigu (homonyme de taille comparable, la plus peuplée retenue) | " +
+      "verifie (position corrigée, compatible et plausible avec la longueur des étapes voisines) | douteux (non confirmée : conservée pour traçabilité, jamais utilisée par la recherche). " +
+      "Vérification par la longueur des étapes : elle ne détecte une position fausse que si une étape voisine la contredit (une étape longue laisse beaucoup de marge). " +
+      "unverifiedStages : étapes encore contradictoires entre deux villes jugées fiables (distance Wikipédia probablement mal lue, ou l'une des deux fausse). " +
+      "Sources : Wikipédia anglais (CC BY-SA), IGN/Géoplateforme, Nominatim/OpenStreetMap (ODbL) — voir NOTICE.md. " +
       'Points seulement : le parcours entre les deux villes n\'est pas connu ici.',
     generatedAt: new Date().toISOString().slice(0, 10),
     editions,
@@ -276,4 +347,4 @@ async function main() {
 
 if (require.main === module) main().catch((err) => { console.error(err); process.exit(1); });
 
-module.exports = { verify, maxCrowM };
+module.exports = { verify, crossCheck, maxCrowM };

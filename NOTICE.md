@@ -12,6 +12,12 @@ licence, distincte du code qui les traite.
   (villes, cols, altitudes) reconstitués à partir des articles Wikipédia
   « *année* Tour de France » (CC BY-SA), recoupés avec des sources tierces
   citées dans le champ `notes` de chaque édition.
+- **`pipeline/data/stage_towns.json`** : villes de départ et d'arrivée de
+  chaque étape de chaque édition, extraites des articles Wikipédia anglais
+  « *année* Tour de France » (CC BY-SA), avec des **coordonnées** issues de
+  l'IGN/Géoplateforme (index des communes) et de Nominatim / OpenStreetMap
+  (© OpenStreetMap contributors, ODbL) — construit par
+  `scripts/build-stage-towns.js`, sert la recherche par lieu.
 - **`pipeline/fixtures/*.html`** : extraits capturés de pages Wikipédia,
   utilisés uniquement pour les tests hors-ligne (1903, 2025, 2026).
 - Toute réutilisation de ces données spécifiques (pas le code qui les lit)
@@ -49,4 +55,5 @@ obligations ODbL pour ces fichiers : à confirmer.
 |---|---|---|
 | Code (`backend/`, `pipeline/`, `frontend/`, `scripts/`, `test/`) | MIT | Oui |
 | `pipeline/data/historic_routes.json`, `pipeline/fixtures/*.html` | CC BY-SA (Wikipédia) | Oui — respecter CC BY-SA pour ce contenu précis |
+| `pipeline/data/stage_towns.json` | CC BY-SA (Wikipédia) pour les villes et étapes ; coordonnées © IGN/Géoplateforme et © OpenStreetMap contributors (ODbL) | Oui — respecter CC BY-SA et l'attribution ODbL ; portée exacte des obligations ODbL pour ces coordonnées : à confirmer |
 | Réponses géocodage/routage/altimétrie (mises en cache) | Propriété de chaque fournisseur, voir leurs CGU | Non dans le dépôt (cache local chez l'utilisateur) ; **oui** dans la démo GitHub Pages quand elle est générée en ligne (voir ci-dessus) |

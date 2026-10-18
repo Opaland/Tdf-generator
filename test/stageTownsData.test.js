@@ -9,7 +9,7 @@ const { haversine } = require('../pipeline/geo');
 const { maxCrowM } = require('../scripts/build-stage-towns');
 const doc = require('../pipeline/data/stage_towns.json');
 
-const CONF = new Set(['ok', 'ambigu', 'approx', 'verifie']);
+const CONF = new Set(['ok', 'ambigu', 'verifie', 'douteux']);
 
 test('stage_towns.json : positions finies et confiance connue, ou absence explicite', () => {
   let n = 0;
@@ -49,4 +49,29 @@ test('Porcelette (centre communal IGN) : 1992/10 à moins de 10 km, et à 20 km 
   const at20 = searchNear({ lat: 49.163382, lon: 6.659574 }, 20000, { tracked: [], waypointed: [] }).results;
   const saar = at20.find((r) => r.year === 1970 && r.stage === '9');
   assert.ok(saar && saar.basis === 'endpoint' && saar.nearestLabel === 'Saarlouis', JSON.stringify(at20));
+});
+
+test('relecture adverse : positions fausses du premier jet corrigées ou exclues de la recherche', () => {
+  const { stageTowns } = require('../pipeline/placeSearch');
+  const { haversine: h } = require('../pipeline/geo');
+  const usable = new Map();
+  for (const t of stageTowns()) for (const w of t.towns) usable.set(w.label, w);
+  const truth = {
+    'Les Menuires': { lat: 45.3236, lon: 6.5379 },
+    'Luxembourg City': { lat: 49.6116, lon: 6.1319 },
+    'Méribel': { lat: 45.3967, lon: 6.5656 },
+    Geneva: { lat: 46.2044, lon: 6.1432 },
+    Charleroi: { lat: 50.4108, lon: 4.4446 },
+  };
+  for (const [label, p] of Object.entries(truth)) {
+    const w = usable.get(label);
+    // Soit absente de la recherche (douteux), soit à moins de 15 km de la réalité.
+    if (w) assert.ok(h(w, p) < 15000, `${label} à ${Math.round(h(w, p) / 1000)} km de sa position réelle`);
+  }
+});
+
+test('demi-étapes : chacune gardée (Cholet, arrivée de 1936/19b, trouvée)', () => {
+  const { searchNear } = require('../pipeline/placeSearch');
+  const r = searchNear({ lat: 47.06, lon: -0.879 }, 5000, { tracked: [], waypointed: [] }).results.filter((x) => x.year === 1936);
+  assert.ok(r.some((x) => /^19[bc]$/.test(x.stage)), JSON.stringify(r));
 });
