@@ -379,8 +379,8 @@
        "label": "Paliseul",
        "km": 34.5,
        "kind": "ville",
-       "lat": 49.89948,
-       "lon": 5.13695,
+       "lat": 49.90353,
+       "lon": 5.1349,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -943,8 +943,8 @@
        "label": "Saarlouis",
        "km": 217.5,
        "kind": "ville",
-       "lat": 49.31317,
-       "lon": 6.7478,
+       "lat": 49.31647,
+       "lon": 6.74985,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -987,9 +987,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 261.5,
+      "routed_km": 262.2,
       "profile_km": 257.5,
-      "delta_pct": 1.5,
+      "delta_pct": 1.8,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
@@ -1085,7 +1085,8 @@
        "label": "Fischbach",
        "km": 143,
        "kind": "ville",
-       "confidence": "non-place"
+       "confidence": "non-place",
+       "note": "homonymes au Luxembourg (Fischbach près de Mersch, au sud de Diekirch ; vraisemblablement Fischbach près de Clervaux, au nord, à vérifier) : le géocodage retenait celui du sud, à contresens de l’étape — non placé faute de source"
       },
       {
        "label": "Wemperhaardt",
@@ -1097,10 +1098,11 @@
        "label": "Vielsalm",
        "km": 174,
        "kind": "ville",
-       "lat": 50.2843,
-       "lon": 5.91364,
+       "confidence": "ok",
+       "lat": 50.28422,
+       "lon": 5.91628,
        "how": "nominatim",
-       "confidence": "ok"
+       "note": "village (Nominatim) ; était le city_district à 0,2 km, que la relance du géocodage ne replaçait plus"
       },
       {
        "label": "Grand-Halleux",
@@ -1115,8 +1117,8 @@
        "label": "Stavelot",
        "km": 191.5,
        "kind": "ville",
-       "lat": 50.38909,
-       "lon": 5.9161,
+       "lat": 50.39424,
+       "lon": 5.93103,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -1142,8 +1144,8 @@
        "label": "Theux",
        "km": 222.5,
        "kind": "ville",
-       "lat": 50.52586,
-       "lon": 5.8199,
+       "lat": 50.53492,
+       "lon": 5.81329,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -1176,9 +1178,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 218.4,
+      "routed_km": 219.1,
       "profile_km": 215,
-      "delta_pct": 1.6,
+      "delta_pct": 1.9,
       "tolerance_pct": 5,
       "coverage_pct": 76,
       "car_legs": 0,
@@ -1315,9 +1317,9 @@
        "label": "Schnersheim",
        "km": 57.5,
        "kind": "ville",
-       "lat": 48.65622,
-       "lon": 7.56538,
-       "how": "nominatim",
+       "lat": 48.65758,
+       "lon": 7.56896,
+       "how": "commune-ign",
        "confidence": "ok"
       },
       {
@@ -1359,9 +1361,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 75.9,
+      "routed_km": 75.5,
       "profile_km": 72.5,
-      "delta_pct": 4.7,
+      "delta_pct": 4.1,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
@@ -1599,8 +1601,8 @@
        "label": "Vendeuvre-du-Poitou",
        "km": 27.5,
        "kind": "ville",
-       "lat": 46.72137,
-       "lon": 0.32598,
+       "lat": 46.73464,
+       "lon": 0.30899,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -1633,9 +1635,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 35,
+      "routed_km": 32.9,
       "profile_km": 30.5,
-      "delta_pct": 14.6,
+      "delta_pct": 8,
       "tolerance_pct": 5,
       "coverage_pct": 69,
       "car_legs": 0,
@@ -1721,8 +1723,8 @@
        "label": "Noirterre",
        "km": 93.5,
        "kind": "ville",
-       "lat": 46.87917,
-       "lon": -0.40965,
+       "lat": 46.86838,
+       "lon": -0.39111,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -1848,9 +1850,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 216.5,
+      "routed_km": 214.5,
       "profile_km": 220,
-      "delta_pct": -1.6,
+      "delta_pct": -2.5,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
@@ -2073,9 +2075,9 @@
        "label": "Château-Salins",
        "km": 48.5,
        "kind": "ville",
-       "lat": 48.81659,
-       "lon": 6.50973,
-       "how": "nominatim",
+       "lat": 48.82308,
+       "lon": 6.51131,
+       "how": "commune-ign",
        "confidence": "ok"
       },
       {
@@ -2216,9 +2218,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 191.4,
+      "routed_km": 190.2,
       "profile_km": 189,
-      "delta_pct": 1.2,
+      "delta_pct": 0.6,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
@@ -2533,8 +2535,8 @@
        "label": "Tarcenay",
        "km": 13.5,
        "kind": "ville",
-       "lat": 47.1636,
-       "lon": 6.10601,
+       "lat": 47.15593,
+       "lon": 6.11233,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -2634,8 +2636,8 @@
        "label": "Morez",
        "km": 117.5,
        "kind": "ville",
-       "lat": 46.52707,
-       "lon": 6.01617,
+       "lat": 46.52034,
+       "lon": 6.0235,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -2714,9 +2716,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 191.6,
+      "routed_km": 186.6,
       "profile_km": 182.5,
-      "delta_pct": 5,
+      "delta_pct": 2.2,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
@@ -2979,8 +2981,8 @@
        "label": "Celliers",
        "km": 77.5,
        "kind": "ville",
-       "lat": 45.46797,
-       "lon": 6.39395,
+       "lat": 45.47895,
+       "lon": 6.4204,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -3076,9 +3078,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 176,
+      "routed_km": 172.6,
       "profile_km": 173,
-      "delta_pct": 1.7,
+      "delta_pct": -0.2,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
@@ -6093,8 +6095,8 @@
        "label": "Longuenoë",
        "km": 47,
        "kind": "ville",
-       "lat": 48.51409,
-       "lon": -0.06317,
+       "lat": 48.51758,
+       "lon": -0.06758,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -6134,9 +6136,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 67.9,
+      "routed_km": 66.3,
       "profile_km": 66,
-      "delta_pct": 2.8,
+      "delta_pct": 0.5,
       "tolerance_pct": 5,
       "coverage_pct": 90,
       "car_legs": 0,
@@ -7822,8 +7824,8 @@
        "label": "Chauffayer",
        "km": 25.5,
        "kind": "ville",
-       "lat": 44.75365,
-       "lon": 6.01285,
+       "lat": 44.75618,
+       "lon": 6.00699,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -7943,9 +7945,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 115.3,
+      "routed_km": 114.8,
       "profile_km": 115,
-      "delta_pct": 0.3,
+      "delta_pct": -0.1,
       "tolerance_pct": 5,
       "coverage_pct": 92,
       "car_legs": 0,
@@ -8470,8 +8472,8 @@
        "label": "Ruffieu",
        "km": 47.5,
        "kind": "ville",
-       "lat": 46.00483,
-       "lon": 5.65295,
+       "lat": 45.99412,
+       "lon": 5.66368,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -8580,9 +8582,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 155.9,
+      "routed_km": 153.5,
       "profile_km": 153,
-      "delta_pct": 1.9,
+      "delta_pct": 0.3,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
@@ -9856,8 +9858,8 @@
        "km": 36,
        "kind": "ville",
        "geocodeAs": "Ronse",
-       "lat": 50.75262,
-       "lon": 3.60145,
+       "lat": 50.74755,
+       "lon": 3.60209,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -9921,8 +9923,8 @@
        "label": "Braine-l'Alleud",
        "km": 120,
        "kind": "ville",
-       "lat": 50.69431,
-       "lon": 4.35476,
+       "lat": 50.68287,
+       "lon": 4.36927,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -9965,9 +9967,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 154.6,
+      "routed_km": 158.7,
       "profile_km": 163,
-      "delta_pct": -5.1,
+      "delta_pct": -2.6,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
@@ -10000,8 +10002,8 @@
        "label": "Wavre",
        "km": 23,
        "kind": "ville",
-       "lat": 50.72312,
-       "lon": 4.61525,
+       "lat": 50.71697,
+       "lon": 4.61042,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -10054,8 +10056,8 @@
        "label": "Hognoul",
        "km": 94,
        "kind": "ville",
-       "lat": 50.68391,
-       "lon": 5.45826,
+       "lat": 50.68081,
+       "lon": 5.45564,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -10064,8 +10066,8 @@
        "km": 99,
        "kind": "ville",
        "geocodeAs": "Loncin",
-       "lat": 50.66666,
-       "lon": 5.49621,
+       "lat": 50.66515,
+       "lon": 5.50273,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -10073,8 +10075,8 @@
        "label": "Juprelle",
        "km": 107.5,
        "kind": "ville",
-       "lat": 50.71156,
-       "lon": 5.52847,
+       "lat": 50.71124,
+       "lon": 5.52659,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -10176,9 +10178,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 149.8,
+      "routed_km": 150.1,
       "profile_km": 183.5,
-      "delta_pct": -18.4,
+      "delta_pct": -18.2,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
@@ -10286,8 +10288,8 @@
        "label": "Oberdrees",
        "km": 99.5,
        "kind": "ville",
-       "lat": 50.63223,
-       "lon": 6.92167,
+       "lat": 50.64107,
+       "lon": 6.91912,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -10371,8 +10373,8 @@
        "km": 200.5,
        "kind": "ville",
        "geocodeAs": "Stolzenfels",
-       "lat": 50.31207,
-       "lon": 7.58245,
+       "lat": 50.3045,
+       "lon": 7.59267,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -10387,9 +10389,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 193.4,
+      "routed_km": 193,
       "profile_km": 200.5,
-      "delta_pct": -3.6,
+      "delta_pct": -3.8,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
@@ -10549,8 +10551,8 @@
        "label": "Angviller-lès-Bisping",
        "km": 129.5,
        "kind": "ville",
-       "lat": 48.82545,
-       "lon": 6.89184,
+       "lat": 48.81755,
+       "lon": 6.88084,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -10610,9 +10612,9 @@
        "km": 196,
        "kind": "côte",
        "geocodeAs": "Willgottheim",
-       "lat": 48.6747,
-       "lon": 7.51874,
-       "how": "nominatim",
+       "lat": 48.67415,
+       "lon": 7.50944,
+       "how": "commune-ign",
        "confidence": "ok"
       },
       {
@@ -10644,9 +10646,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 218,
+      "routed_km": 214.4,
       "profile_km": 210.5,
-      "delta_pct": 3.5,
+      "delta_pct": 1.8,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
@@ -11181,8 +11183,8 @@
        "label": "Lanslevillard",
        "km": 168,
        "kind": "ville",
-       "lat": 45.29891,
-       "lon": 6.92929,
+       "lat": 45.28918,
+       "lon": 6.91156,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -11251,9 +11253,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 245.9,
+      "routed_km": 244.5,
       "profile_km": 244.5,
-      "delta_pct": 0.6,
+      "delta_pct": 0,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
@@ -11409,7 +11411,10 @@
        "label": "Le Bourg-d'Oisans",
        "km": 170.5,
        "kind": "ville",
-       "confidence": "non-place"
+       "confidence": "ok",
+       "lat": 45.05471,
+       "lon": 6.03066,
+       "how": "commune-ign"
       },
       {
        "label": "La Garde",
@@ -11441,13 +11446,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 180.4,
+      "routed_km": 182.6,
       "profile_km": 173.5,
-      "delta_pct": 4,
+      "delta_pct": 5.2,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
-      "legs": 14
+      "legs": 15
      }
     },
     "15": {
@@ -11765,8 +11770,8 @@
        "label": "Le Vernet-la-Varenne",
        "km": 127,
        "kind": "ville",
-       "lat": 45.47902,
-       "lon": 3.45742,
+       "lat": 45.47409,
+       "lon": 3.45115,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -11842,9 +11847,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 204.5,
+      "routed_km": 203.8,
       "profile_km": 196,
-      "delta_pct": 4.4,
+      "delta_pct": 4,
       "tolerance_pct": 5,
       "coverage_pct": 92,
       "car_legs": 0,
@@ -13043,8 +13048,8 @@
        "km": 80,
        "kind": "côte",
        "geocodeAs": "Mûr-de-Bretagne",
-       "lat": 48.1961,
-       "lon": -2.98262,
+       "lat": 48.20104,
+       "lon": -2.98571,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -13718,8 +13723,8 @@
        "label": "Mareuil-sur-Ay",
        "km": 168,
        "kind": "ville",
-       "lat": 49.04492,
-       "lon": 4.0391,
+       "lat": 49.04601,
+       "lon": 4.03873,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -13753,9 +13758,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 193,
+      "routed_km": 193.3,
       "profile_km": 191.5,
-      "delta_pct": 0.8,
+      "delta_pct": 0.9,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
@@ -13824,8 +13829,8 @@
        "label": "Le Chesne",
        "km": 75.5,
        "kind": "ville",
-       "lat": 49.50975,
-       "lon": 4.76583,
+       "lat": 49.51428,
+       "lon": 4.76494,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -13944,9 +13949,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 158.5,
+      "routed_km": 157.6,
       "profile_km": 165.5,
-      "delta_pct": -4.3,
+      "delta_pct": -4.8,
       "tolerance_pct": 5,
       "coverage_pct": 90,
       "car_legs": 0,
@@ -16922,8 +16927,8 @@
        "km": 239.5,
        "kind": "côte",
        "geocodeAs": "Marigny-Brizay",
-       "lat": 46.74949,
-       "lon": 0.3734,
+       "lat": 46.74556,
+       "lon": 0.37683,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -17069,8 +17074,8 @@
        "label": "Le Change",
        "km": 206,
        "kind": "ville",
-       "lat": 45.20505,
-       "lon": 0.8892,
+       "lat": 45.19484,
+       "lon": 0.89275,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -17085,9 +17090,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 204.3,
+      "routed_km": 204.1,
       "profile_km": 206.5,
-      "delta_pct": -1.1,
+      "delta_pct": -1.2,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
@@ -19459,8 +19464,8 @@
        "label": "Le Bourg-Saint-Léonard",
        "km": 40,
        "kind": "ville",
-       "lat": 48.76932,
-       "lon": 0.10683,
+       "lat": 48.76149,
+       "lon": 0.1043,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -19762,8 +19767,8 @@
        "label": "De Panne",
        "km": 15,
        "kind": "ville",
-       "lat": 51.09516,
-       "lon": 2.58066,
+       "lat": 51.09883,
+       "lon": 2.59241,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -19771,8 +19776,8 @@
        "label": "Alveringem",
        "km": 27.5,
        "kind": "ville",
-       "lat": 51.01506,
-       "lon": 2.722,
+       "lat": 51.012,
+       "lon": 2.7105,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -19846,8 +19851,8 @@
        "label": "Tournai",
        "km": 106,
        "kind": "ville",
-       "lat": 50.60438,
-       "lon": 3.39665,
+       "lat": 50.60565,
+       "lon": 3.38782,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -19856,8 +19861,8 @@
        "km": 117.5,
        "kind": "ville",
        "geocodeAs": "Barry, Tournai",
-       "lat": 50.58741,
-       "lon": 3.53062,
+       "lat": 50.58754,
+       "lon": 3.54306,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -19931,8 +19936,8 @@
        "km": 190.5,
        "kind": "ville",
        "geocodeAs": "Marchienne-au-Pont",
-       "lat": 50.40897,
-       "lon": 4.40234,
+       "lat": 50.40701,
+       "lon": 4.39511,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -19947,9 +19952,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 191.7,
+      "routed_km": 187.5,
       "profile_km": 187,
-      "delta_pct": 2.5,
+      "delta_pct": 0.3,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
@@ -19991,8 +19996,8 @@
        "label": "Yvoir",
        "km": 33.5,
        "kind": "ville",
-       "lat": 50.32897,
-       "lon": 4.88493,
+       "lat": 50.32604,
+       "lon": 4.87782,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -20001,8 +20006,8 @@
        "km": 38,
        "kind": "côte",
        "geocodeAs": "Yvoir",
-       "lat": 50.32897,
-       "lon": 4.88493,
+       "lat": 50.32604,
+       "lon": 4.87782,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -20111,8 +20116,8 @@
        "label": "Stavelot",
        "km": 134.5,
        "kind": "ville",
-       "lat": 50.38909,
-       "lon": 5.9161,
+       "lat": 50.39424,
+       "lon": 5.93103,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -20132,8 +20137,8 @@
        "label": "Spa",
        "km": 160.5,
        "kind": "ville",
-       "lat": 50.47292,
-       "lon": 5.87123,
+       "lat": 50.49207,
+       "lon": 5.86276,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -20151,8 +20156,8 @@
        "label": "Theux",
        "km": 174.5,
        "kind": "ville",
-       "lat": 50.52586,
-       "lon": 5.8199,
+       "lat": 50.53492,
+       "lon": 5.81329,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -20161,8 +20166,8 @@
        "km": 178,
        "kind": "côte",
        "geocodeAs": "Theux",
-       "lat": 50.52586,
-       "lon": 5.8199,
+       "lat": 50.53492,
+       "lon": 5.81329,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -20183,9 +20188,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 185.9,
+      "routed_km": 181.3,
       "profile_km": 194.5,
-      "delta_pct": -4.4,
+      "delta_pct": -6.8,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
@@ -20336,8 +20341,8 @@
        "label": "Marlens",
        "km": 33,
        "kind": "ville",
-       "lat": 45.7635,
-       "lon": 6.35189,
+       "lat": 45.76742,
+       "lon": 6.34868,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -20435,9 +20440,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 134.8,
+      "routed_km": 130.2,
       "profile_km": 133,
-      "delta_pct": 1.3,
+      "delta_pct": -2.1,
       "tolerance_pct": 5,
       "coverage_pct": 83,
       "car_legs": 0,
@@ -21815,8 +21820,8 @@
        "km": 61,
        "kind": "côte",
        "geocodeAs": "Saint-Sulpice-de-Mareuil",
-       "lat": 45.46634,
-       "lon": 0.52118,
+       "lat": 45.46833,
+       "lon": 0.5075,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -23908,8 +23913,8 @@
        "km": 163.5,
        "kind": "côte",
        "geocodeAs": "Saint-Anastaise",
-       "lat": 45.47715,
-       "lon": 2.95182,
+       "lat": 45.47234,
+       "lon": 2.97361,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -24130,8 +24135,8 @@
        "km": 21,
        "kind": "ville",
        "geocodeAs": "Les Quatre-Routes-du-Lot",
-       "lat": 44.99712,
-       "lon": 1.63895,
+       "lat": 44.99687,
+       "lon": 1.64552,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -24217,9 +24222,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 128.5,
+      "routed_km": 128.2,
       "profile_km": 155,
-      "delta_pct": -17.1,
+      "delta_pct": -17.3,
       "tolerance_pct": 5,
       "coverage_pct": 88,
       "car_legs": 0,
@@ -25439,8 +25444,8 @@
        "label": "Riegelsberg",
        "km": 166,
        "kind": "ville",
-       "lat": 49.30427,
-       "lon": 6.94704,
+       "lat": 49.30226,
+       "lon": 6.94541,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -25455,9 +25460,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 144.5,
+      "routed_km": 144.6,
       "profile_km": 164,
-      "delta_pct": -11.9,
+      "delta_pct": -11.8,
       "tolerance_pct": 5,
       "coverage_pct": 91,
       "car_legs": 0,

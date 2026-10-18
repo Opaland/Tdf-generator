@@ -496,7 +496,7 @@ et côtes traversées avec leur kilomètre.
   retiré des positions — station ou autre point, non tranché ; ce retrait
   fait passer 1991/13 de +5,9 % à +0,5 %, il est signalé ici pour ne pas
   être pris pour une correction. Aucune commune de rattachement devinée.
-- [ ] Édition 1990 : 21 étapes sur 22, 303 points placés sur 338 (1990/6,
+- [x] Édition 1990 (PR #414) : 21 étapes sur 22, 303 points placés sur 338 (1990/6,
   déjà transcrite dans le lot Lorraine, conservée ; 278 routables, les
   autres sont des côtes et lieux-dits « (entrée) » placés au centre de leur
   commune, exclus du calcul comme ailleurs). Non transcrite : l'étape 5
@@ -534,13 +534,40 @@ et côtes traversées avec leur kilomètre.
   en voiture par un détour vélo. Relecture adverse : 14 étapes relues
   contre l'image sans erreur de km ; libellés restaurés
   (Saint-Gervais-Mont-Blanc, Huez-en-Oisans, Côte de Marigny-Brizai).
-- [ ] 33.6 Candidat Nominatim « city_district » : le géocodage retient un
+- [x] 33.6 (PR #415) Candidat Nominatim « city_district » : le géocodage retient un
   point de commune déléguée (Bonneval, Les Vignes en 1990 ; relecture :
   aussi Tarcenay, Morez, Celliers, Noirterre) au lieu du village
   homonyme listé juste après. Même cause que Pontorson (33.3),
   mais par le chemin Nominatim, que `snapToTown` ne couvre pas. À faire :
   écarter ou déclasser ce type de candidat, puis remesurer les éditions
   déjà transcrites.
+  Fait : une subdivision OSM (city_district, suburb, quarter,
+  neighbourhood, borough) passe après tout autre candidat Nominatim
+  compatible ; seule compatible, elle reste retenue. Une commune IGN
+  trouvée par préfixe (autre commune) est au même rang qu'elle, pour ne
+  pas la battre d'office (relecture adverse). Balayage des points
+  Nominatim (≈ 670) : 69 sur une subdivision, 56 avec une localité
+  homonyme, re-géocodés — 49 déplacés de 0,1 à 2,4 km (Belgique surtout :
+  Stavelot, Spa, Theux, Wavre, Tournai… ; Vendeuvre-du-Poitou,
+  Noirterre, Celliers en 1990), les autres revenus au même point faute de
+  village compatible ; Vielsalm mise sur le candidat village de Nominatim
+  (la relance ne la replaçait plus). Bug trouvé en relançant le géocodage :
+  il replaçait les points retirés volontairement (Gravere, Artouste,
+  arrivées de 1990 sans position sourcée) — un point `non-place` portant
+  une note n'est plus jamais re-géocodé. Tests : chaque type de
+  subdivision, commune IGN et col connu devant un village, préfixe contre
+  subdivision, garde « non-place + note » — chaque mutation de ces règles
+  fait échouer un test. La relance a aussi placé deux points jamais
+  placés : Fischbach (1980/3), sur l'homonyme au sud de Diekirch, à
+  contresens de l'étape (+19,9 %) — remise non placée avec une note ; Le
+  Bourg-d'Oisans (1992/14), au village, même point qu'en 1990/11.
+  Remesure (10 éditions changent ; 1992 et 2002 remesurées une 2ᵉ fois
+  pour éliminer des tronçons routés en voiture, 0 désormais) : 110
+  étapes dans la tolérance sur 155 contrôlées (111 avant). Entre 1992/6
+  (−5,1 → −2,6 %) ; 1990/2 passe de +14,6 % à +8,0 % ; sortent 1995/7
+  (−4,4 → −6,8 %, Spa replacée sur la ville, 2,2 km) et 1992/14 (+4,0 →
+  +5,2 %, Le Bourg-d'Oisans désormais placé). Écarts affichés, pas
+  ajustés.
 - [ ] 33.4 Contrôle à ±5 % des itinéraires (demande du 18/10/2026 : « 5 %
   max de tolérance ») : `scripts/check-itineraries.js` route l'itinéraire
   point par point et compare au kilométrage du profil, avec
