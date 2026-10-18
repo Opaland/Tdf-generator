@@ -647,6 +647,25 @@ et côtes traversées avec leur kilomètre.
   sur la ville), 1992/15 (+5,7 %), 1993/1 (−5,9 %) — écarts affichés,
   pas ajustés. 25 tronçons routés en voiture (13 avant) : BRouter refusait
   par moments pendant la remesure.
+- [ ] Édition 1987 : 25 étapes sur 26 (prologue de Berlin-Ouest sans
+  profil publié), 497 points placés sur 578. Les deux contre-la-montre
+  dans Berlin-Ouest n'ont que des rues et quartiers (1987/1 non
+  contrôlable, 1987/2 −33,1 % sur deux lieux-dits). Contrôlée à ±5 %
+  avant PR, entièrement en vélo (BRouter, aucun tronçon voiture) : 14
+  étapes dans la tolérance, 10 hors, affichées comme telles. Écarts
+  dominés par les boucles en ville et les profils à points espacés :
+  1987/3 (−9,0 %, passages dans Karlsruhe et Stuttgart), 1987/12
+  (+13,7 %, vallée de la Dordogne, plusieurs tronçons plus longs que le
+  profil), 1987/21 (+8,4 %, Moûtiers → Aime 17 km routés pour 14),
+  1987/24 (−14,4 %, contre-la-montre autour de Dijon, Sainte-Foy non
+  placé), 1987/5, 8, 11, 15, 23 entre 5,2 et 6,1 %. Circuits retirés de
+  la mesure (`circuit_km`) : Pforzheim (1987/4, de −10,4 % à −1,6 %),
+  Bordeaux (1987/12), Champs-Élysées (1987/25, arrivée sur l'avenue, entrée
+  à la Concorde). Longueur du profil retenue quand elle diffère de
+  `stage_towns` : 1987/11 Poitiers → Chaumeil 255 km au profil contre
+  206 km (Wikipédia anglais) — écart non tranché, le profil est la
+  source citée. Partie des km de 1987/11 illisibles : seuls les points
+  lus sans doute sont repris.
 - [x] 33.7 Entités administratives larges (trouvé sur 1989) : Bastogne
   placée sur son arrondissement (« county » OSM), 9,2 km au nord de la
   ville. Le rang « subdivision » de 33.6 couvre désormais aussi county,
