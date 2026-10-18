@@ -18,21 +18,24 @@ after(() => fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force:
 const town = (label, km, extra = {}) => ({ label, km, kind: 'ville', lat: 49, lon: 6 + km / 100, ...extra });
 
 test('checkStage : écart routé / profil, tolérance ±5 % incluse, au-delà hors', async () => {
-  const towns = [town('A', 0), town('B', 50), town('C', 100)];
+  const towns = [town('A', 0), town('A2', 1), town('B', 50), town('C', 100)];
   const at = (factor) => async (a, b) => (b.km - a.km) * 1000 * factor;
   assert.strictEqual((await checkStage(towns, at(1.049))).ok, true);
   assert.strictEqual((await checkStage(towns, at(0.951))).ok, true);
   const hors = await checkStage(towns, at(1.06));
   assert.strictEqual(hors.ok, false);
   assert.ok(Math.abs(hors.deltaPct - 6) < 1e-9);
+  // Premier tronçon (km 0 = départ fictif, zone neutralisée) jamais mesuré.
+  const neutral = await checkStage(towns, async (a, b) => (a.km === 0 ? 40000 : (b.km - a.km) * 1000));
+  assert.strictEqual(neutral.ok, true);
   assert.strictEqual((await checkStage(towns, at(0.94))).ok, false);
 });
 
 test('checkStage : côte/lieu-dit au centre de sa commune non routés ; moins de la moitié du profil couverte → null', async () => {
   const seen = [];
   const router = async (a, b) => { seen.push(`${a.label}>${b.label}`); return (b.km - a.km) * 1000; };
-  const towns = [town('A', 0), town('Côte', 30, { kind: 'côte', geocodeAs: 'X' }), town('B', 60)];
+  const towns = [town('A', 0), town('A2', 1), town('Côte', 30, { kind: 'côte', geocodeAs: 'X' }), town('B', 60)];
   await checkStage(towns, router);
-  assert.deepStrictEqual(seen, ['A>B']);
+  assert.deepStrictEqual(seen, ['A2>B']);
   assert.strictEqual(await checkStage([town('A', 0), town('B', 40), { label: 'Z', km: 100, kind: 'ville' }], router), null);
 });

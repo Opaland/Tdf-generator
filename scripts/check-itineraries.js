@@ -35,11 +35,19 @@ function routablePoints(towns) {
  * couvert (le contrôle ne dirait rien de l'étape).
  */
 async function checkStage(towns, legRouter, totalKm) {
-  const pts = routablePoints(towns);
+  // Le km 0 d'un profil est le départ réel, souvent hors de la ville de
+  // départ (zone neutralisée : 1992/14, km 0 « Sestrières » mais Montgenèvre
+  // au km 7,5, soit Cesana ; 1992/10, Hesperange). Le premier tronçon n'est
+  // donc pas mesurable — même raison que START_SLACK_M au géocodage.
+  const pts = routablePoints(towns).filter((p, i) => !(i === 0 && p.km === 0));
   if (pts.length < 2) return null;
   const profileKm = pts[pts.length - 1].km - pts[0].km;
   const total = Number.isFinite(totalKm) ? totalKm : towns[towns.length - 1].km;
   if (!(profileKm > 0) || profileKm < total * 0.5) return null;
+  return measure(pts, profileKm, legRouter);
+}
+
+async function measure(pts, profileKm, legRouter) {
   const legs = [];
   let routedM = 0;
   for (let i = 1; i < pts.length; i++) {
