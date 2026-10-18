@@ -593,13 +593,31 @@ et côtes traversées avec leur kilomètre.
   à 7,7 km de Montoir pour 4,5 km de profil. Libellés illisibles ou
   nommés sans km (Côte de Mamers, Saint-Amand-les-Eaux, Taninges,
   Saint-Yorre, Col de Menté-Mourtis, Payolle…) non repris, notés.
-- [ ] 33.9 Corrections manuelles de `stage_towns.json` non protégées :
+- [x] 33.9 Corrections manuelles de `stage_towns.json` non protégées :
   `scripts/build-stage-towns.js` régénère tout le fichier, et les
   recalages faits à la main (Puy de Dôme, Luxembourg City, Épinal,
   Besançon, Lac de Vassivière, Eurotunnel…) disparaîtraient à la
   prochaine régénération (relecture adverse 1988, lecture de code, non
-  rejoué). À faire : fichier de positions vérifiées relu par le
-  générateur, test qu'une régénération les conserve.
+  rejoué). Fait : `pipeline/data/stage_towns_overrides.json` (9 libellés,
+  7 occurrences « édition/étape/côté » pour les lieux qui changent selon
+  l'édition — Lac de Vassivière, Eurotunnel 1994/3), chaque entrée avec
+  sa source ; le générateur les réapplique après la régénération et après
+  `--verify-only` (89 positions). Tests : une position fausse redonnée par
+  le géocodeur est corrigée, l'occurrence prime sur le libellé (la
+  mutation inverse fait échouer le test), et `stage_towns.json` porte
+  déjà chaque position vérifiée (aucune ne bouge en les réappliquant).
+  Relecture adverse : la confiance « ok » par défaut n'était pas testée
+  (Luxembourg City revenait « douteux », exclu de la recherche) ; un
+  fichier d'overrides absent ou mal formé donnait une régénération sans
+  corrections, en silence — erreur désormais ; une entrée sans lat/lon
+  effaçait la position — refusée ; « Val-d'Isère » (graphie à tiret)
+  ajouté (89 positions). L'écriture passe par une seule fonction,
+  `writeStageTowns`, qui réapplique les positions (testé, et un test
+  vérifie qu'il n'y a qu'une écriture dans le générateur). Limite : le
+  générateur lui-même n'a pas été relancé (10-15 min de réseau). Doute
+  noté, non tranché : 1959/15 (contre-la-montre de 12 km libellé « Puy
+  de Dôme → Puy de Dôme ») a son départ au sommet — vraisemblablement
+  Clermont-Ferrand ou Chamalières, à confirmer par une source.
 - [x] 33.7 Entités administratives larges (trouvé sur 1989) : Bastogne
   placée sur son arrondissement (« county » OSM), 9,2 km au nord de la
   ville. Le rang « subdivision » de 33.6 couvre désormais aussi county,
