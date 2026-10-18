@@ -657,8 +657,8 @@ et côtes traversées avec leur kilomètre.
   1987/3 (−9,0 %, passages dans Karlsruhe et Stuttgart), 1987/12
   (+13,7 %, vallée de la Dordogne, plusieurs tronçons plus longs que le
   profil), 1987/21 (+8,4 %, Moûtiers → Aime 17 km routés pour 14),
-  1987/24 (−14,4 %, contre-la-montre autour de Dijon, Sainte-Foy non
-  placé), 1987/5, 8, 11, 15, 23 entre 5,2 et 6,1 %. Circuits retirés de
+  1987/24 (−15,6 %, contre-la-montre autour de Dijon, Sainte-Foy non
+  placé), 1987/5, 8, 11, 15, 23 entre 5,1 et 6,1 %. Circuits retirés de
   la mesure (`circuit_km`) : Pforzheim (1987/4, de −10,4 % à −1,6 %),
   Bordeaux (1987/12), Champs-Élysées (1987/25, arrivée sur l'avenue, entrée
   à la Concorde). Longueur du profil retenue quand elle diffère de
