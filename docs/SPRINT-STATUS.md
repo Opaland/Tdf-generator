@@ -449,6 +449,20 @@ et côtes traversées avec leur kilomètre.
   superposés au centroïde de la commune, replacés. Étapes dont la
   transcription omet des points du profil marquées `partial` (avec leur
   longueur, la contrainte d'arrivée reste appliquée).
+- [ ] Édition 1995 : 20 étapes sur 21 (prologue de Saint-Brieuc non
+  transcrit), 296 points placés sur 321. Limoges (arrivée de 1995/18),
+  recalée sur son centre-ville, était rejetée à 3,9 km de l'ancre
+  `stage_towns` (un centroïde IGN). Premier correctif (marge d'arrivée
+  portée à 10 km) refusé en relecture adverse : il aurait placé Val
+  Thorens au centroïde des Belleville (9,6 km). Correctif retenu : la
+  ville d'arrivée prend la position vérifiée de `stage_towns`, la marge
+  reste à 3 km pour les autres points. Relecture : Rochetaillée, Livet,
+  Mareuil et Auphelle replacés sur le hameau (étaient au centroïde de leur
+  commune) ; libellés de l'image restaurés ; étapes 11, 13, 16, 18
+  `partial` avec leur longueur, 10 et 12 complètes. Non placés parce que le
+  km du profil contredit la géographie, laissés tels quels : Ieper et
+  Mons (1995/6), Luchon et Cazaux-Layrisse (1995/15). Dourgne (1995/13)
+  non repris : km imprimé « 119,5 » entre Castres (198) et Revel (245).
 
 ## Epic 34 — Idées venues d'autres dépôts (veille du 18/10/2026)
 
