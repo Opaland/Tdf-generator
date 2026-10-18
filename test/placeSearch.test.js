@@ -189,13 +189,13 @@ test('nearResultsHtml : échappement, couverture toujours affichée, « aucun r�
 test('segments : au-delà de 10 km entre deux points, plus d\'estimation en ligne droite (seule la distance aux points compte)', () => {
   const place = at(0, 0);
   const curated = [{ year: 2002, category: 'hommes', stage: '12', points: [at(-24000, 0), at(25000, 0)] }];
-  assert.deepStrictEqual(searchNear(place, 10000, { tracked: [], waypointed: [] }, curated).results, []);
+  assert.deepStrictEqual(searchNear(place, 10000, { tracked: [], waypointed: [] }, curated, [], []).results, []);
   // Même configuration en base (étape importée non générée) : même règle.
   const db = { tracked: [], waypointed: [{ year: 2002, category: 'hommes', stageOrder: 12, stageId: 3, name: 'x', waypoints: [at(-24000, 0), at(25000, 0)] }] };
-  assert.deepStrictEqual(searchNear(place, 10000, db, []).results, []);
+  assert.deepStrictEqual(searchNear(place, 10000, db, [], [], []).results, []);
   // Segment court : estimation retenue et signalée.
   const short = [{ year: 2002, category: 'hommes', stage: '13', points: [at(-4000, 1000), at(4000, 1000)] }];
-  assert.strictEqual(searchNear(place, 10000, { tracked: [], waypointed: [] }, short).results[0].basis, 'curated-segment');
+  assert.strictEqual(searchNear(place, 10000, { tracked: [], waypointed: [] }, short, [], []).results[0].basis, 'curated-segment');
 });
 
 test('GET /api/search/near en ligne : homonymes proposés au choix, commune unique cherchée, lieu introuvable → 404', async () => {
@@ -251,7 +251,7 @@ test('villes de départ/arrivée : dernier recours, distance à la ville seuleme
     { year: 1980, category: 'hommes', stage: '1', date: null, towns: [{ label: 'Loin', role: 'départ', ...at(50000, 0), confidence: 'ok' }] },
   ];
   const curated = [{ year: 1975, category: 'hommes', stage: '22', points: [at(0, 9000)] }];
-  const { results, coverage } = searchNear(place, 10000, { tracked: [], waypointed: [] }, curated, towns);
+  const { results, coverage } = searchNear(place, 10000, { tracked: [], waypointed: [] }, curated, towns, []);
   assert.deepStrictEqual(results.map((r) => [r.year, r.stage, r.basis, r.nearestLabel, r.endpointRole]), [
     [1960, '5', 'endpoint', 'Ville A', 'départ'],
     [1975, '22', 'curated-point', undefined, undefined], // la curation masque la ville d'arrivée

@@ -384,6 +384,17 @@ et côtes traversées avec leur kilomètre.
   agrandi. Toute transcription se fait sur l'image agrandie.
 - [ ] 33.2 Transcription édition par édition (une PR par lot), en
   commençant par les éditions passées par la Lorraine.
+  - [ ] Lot Lorraine : 14 étapes (1970/9, 1978/20, 1979/12-13, 1980/2-3,
+    1985/8, 1990/6, 1999/7-8, 2002/2-3, 2006/2, 2012/6), 235 points placés
+    sur 239 (Fresse-sur-Moselle 1979/13 retirée en relecture : km imprimé
+    sous le libellé voisin). Porcelette : 1970/9 passe par Carling (km 18) et Saint-Avold
+    (km 25,5), à 4,3 km — réponse que les villes de départ/arrivée seules
+    ne donnaient pas. Un point n'est repris que si son km est lisible sans
+    doute (`partial` sinon). **Non transcrits** : les profils 1951-1967 du
+    lot (1951/1, 1952/6-7, 1953/1-2, 1955/4-5, 1957/6-7, 1959/1-2,
+    1961/4-5, 1964/4, 1967/6-7), dont les km en italique sont illisibles à
+    la résolution publiée — source à trouver (Gallica, Epic 34.12).
+    Absents du Dico du Tour : 1950/1-2.
 
 ## Epic 34 — Idées venues d'autres dépôts (veille du 18/10/2026)
 
