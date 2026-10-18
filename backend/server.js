@@ -98,6 +98,7 @@ require('./routes/admin')(app);
 require('./routes/geocode')(app);
 require('./routes/stages')(app);
 require('./routes/traces')(app);
+require('./routes/climbEfforts')(app);
 require('./routes/gear')(app);
 require('./routes/climbs')(app);
 require('./routes/editions')(app);
