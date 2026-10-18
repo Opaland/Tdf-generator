@@ -100,16 +100,22 @@ async function geocodeStage(towns, anchors = {}, candidatesFor = defaultCandidat
   let prev = anchors.start ? { ...anchors.start, km: 0 } : null;
   for (const t of out) {
     if (Number.isFinite(t.lat)) { if (!t.geocodeAs || t.kind === 'ville') prev = t; continue; }
+    // Ville d'arrivée de l'étape : la position vérifiée de stage_towns, pas un
+    // nouveau géocodage (1995/18 : Limoges recalée sur son centre-ville tombait
+    // hors de la marge de l'ancre). Élargir la marge laissait passer des
+    // stations au centroïde d'une commune voisine (Val Thorens à 9,6 km).
+    if (anchors.finish && t.km === total && !t.geocodeAs) {
+      Object.assign(t, { lat: anchors.finish.lat, lon: anchors.finish.lon, how: 'stage_towns', confidence: 'ok' });
+      prev = t;
+      continue;
+    }
     // Côte : placée au village éponyme quand le profil le permet (geocodeAs),
     // à quelques km du sommet réel — jamais présenté comme le sommet.
     const cands = t.geocodeAs ? await candidatesFor(t.geocodeAs, 'ville', t.label) : await candidatesFor(t.label, t.kind);
     const ok = cands.filter((c) => {
       const slack = prev && prev.km === 0 ? START_SLACK_M : SLACK_M;
       if (prev && haversine(prev, c) > (t.km - prev.km) * 1000 + slack) return false;
-      // Même marge qu'au départ : l'arrivée réelle peut être hors du centre
-      // (et l'ancre est un centroïde IGN — 1995/18 : Limoges, recalée sur son
-      // centre-ville, rejetée à 3,9 km de l'ancre).
-      if (anchors.finish && haversine(c, anchors.finish) > (total - t.km) * 1000 + START_SLACK_M) return false;
+      if (anchors.finish && haversine(c, anchors.finish) > (total - t.km) * 1000 + SLACK_M) return false;
       return true;
     });
     if (!ok.length) { t.confidence = 'non-place'; continue; }

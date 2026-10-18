@@ -12424,7 +12424,6 @@
     },
     "10": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1995/95_10a.jpg",
-     "partial": true,
      "towns": [
       {
        "label": "Aime-la-Plagne",
@@ -12445,7 +12444,7 @@
        "confidence": "ok"
       },
       {
-       "label": "Aigueblanche",
+       "label": "Aigueblanche-Bellecombe",
        "km": 20.5,
        "kind": "ville",
        "lat": 45.50169,
@@ -12549,6 +12548,8 @@
     },
     "11": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1995/95_11a.jpg",
+     "partial": true,
+     "length_km": 199,
      "towns": [
       {
        "label": "Le Bourg-d'Oisans",
@@ -12563,10 +12564,10 @@
        "label": "Livet",
        "km": 10.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Livet-et-Gavet",
-       "lat": 45.08953,
-       "lon": 5.90189,
-       "how": "commune-ign",
+       "geocodeAs": "Livet, Livet-et-Gavet",
+       "lat": 45.10833,
+       "lon": 5.93387,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -12723,10 +12724,10 @@
        "label": "Rochetaillée",
        "km": 191.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Saint-Étienne",
-       "lat": 45.4302,
-       "lon": 4.37005,
-       "how": "commune-ign",
+       "geocodeAs": "Rochetaillée, Saint-Étienne",
+       "lat": 45.41041,
+       "lon": 4.44579,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -12742,7 +12743,6 @@
     },
     "12": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1995/95_12a.jpg",
-     "partial": true,
      "towns": [
       {
        "label": "Saint-Étienne",
@@ -12873,18 +12873,18 @@
        "confidence": "ok"
       },
       {
-       "label": "Mende",
+       "label": "Mende Aérodrome",
        "km": 222.5,
-       "kind": "ville",
-       "lat": 44.51802,
-       "lon": 3.49911,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "kind": "lieu-dit",
+       "geocodeAs": "Aérodrome de Mende-Brenoux",
+       "confidence": "non-place"
       }
      ]
     },
     "13": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1995/95_13a.jpg",
+     "partial": true,
+     "length_km": 245,
      "towns": [
       {
        "label": "Mende",
@@ -12941,13 +12941,14 @@
        "confidence": "ok"
       },
       {
-       "label": "Saint-Affrique",
+       "label": "Sainte-Affrique",
        "km": 108.5,
        "kind": "ville",
        "lat": 43.958,
        "lon": 2.88666,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "geocodeAs": "Saint-Affrique"
       },
       {
        "label": "Belmont-sur-Rance",
@@ -13010,7 +13011,8 @@
        "how": "commune-ign",
        "confidence": "ok"
       }
-     ]
+     ],
+     "note": "Dourgne non repris : km imprimé « 119,5 » entre Castres (198) et Revel (245), vraisemblablement 219,5"
     },
     "14": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1995/95_14a.jpg",
@@ -13228,7 +13230,7 @@
        "confidence": "ok"
       },
       {
-       "label": "Col de Menté",
+       "label": "Col de Menté-Le Mourtis",
        "km": 45.5,
        "kind": "col",
        "lat": 42.91935,
@@ -13374,6 +13376,7 @@
     "16": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1995/95_16a.jpg",
      "partial": true,
+     "length_km": 237,
      "towns": [
       {
        "label": "Tarbes",
@@ -13664,6 +13667,8 @@
     },
     "18": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1995/95_18a.jpg",
+     "partial": true,
+     "length_km": 166.5,
      "towns": [
       {
        "label": "Montpon-Ménestérol",
@@ -13684,7 +13689,7 @@
        "confidence": "ok"
       },
       {
-       "label": "Villetoureix",
+       "label": "Villetoureix (La Borie)",
        "km": 32.5,
        "kind": "ville",
        "lat": 45.26351,
@@ -13705,10 +13710,10 @@
        "label": "Mareuil-sur-Belle",
        "km": 56.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Mareuil en Périgord",
-       "lat": 45.44362,
-       "lon": 0.50376,
-       "how": "commune-ign",
+       "geocodeAs": "Mareuil, Mareuil en Périgord",
+       "lat": 45.45153,
+       "lon": 0.45294,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -13799,10 +13804,10 @@
        "label": "Auphelle (Lac de Vassivière)",
        "km": 0,
        "kind": "lieu-dit",
-       "geocodeAs": "Peyrat-le-Château",
-       "lat": 45.81547,
-       "lon": 1.78824,
-       "how": "commune-ign",
+       "geocodeAs": "Auphelle",
+       "lat": 45.80716,
+       "lon": 1.84137,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -13846,10 +13851,10 @@
        "label": "Auphelle (Lac de Vassivière)",
        "km": 46.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Peyrat-le-Château",
-       "lat": 45.81547,
-       "lon": 1.78824,
-       "how": "commune-ign",
+       "geocodeAs": "Auphelle",
+       "lat": 45.80716,
+       "lon": 1.84137,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ]

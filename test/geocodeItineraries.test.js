@@ -30,7 +30,7 @@ test('geocodeStage : homonyme lointain écarté par l\'écart de km, candidat le
     .map((t) => ({ ...t, kind: 'ville' }));
   const out = await geocodeStage(towns, { finish: at(0, 30000) }, async (label) => cands[label] || []);
   assert.deepStrictEqual(out.map((t) => [t.label, t.how ?? null, t.confidence]), [
-    ['A', 't', 'ok'], ['B', 't', 'ok'], ['C', 't', 'ambigu'], ['D', null, 'non-place'], ['E', 't', 'ok'],
+    ['A', 't', 'ok'], ['B', 't', 'ok'], ['C', 't', 'ambigu'], ['D', null, 'non-place'], ['E', 'stage_towns', 'ok'],
   ]);
   assert.strictEqual(towns[0].lat, undefined, 'entrée non mutée');
 });
@@ -67,7 +67,8 @@ test('geocodeStage : longueur d\'étape fournie (totalKm) utilisée pour la cont
   const cands = { A: [at(0, 0)], B: [at(0, 10000)] };
   const towns = [{ label: 'A', km: 0, kind: 'ville' }, { label: 'B', km: 10, kind: 'ville' }];
   const finish = at(0, 30000); // arrivée 20 km après B
-  assert.strictEqual((await geocodeStage(towns, { finish }, async (l) => cands[l] || []))[1].confidence, 'non-place');
+  // Sans longueur, le dernier point transcrit est pris pour l'arrivée : ancre imposée.
+  assert.strictEqual((await geocodeStage(towns, { finish }, async (l) => cands[l] || []))[1].how, 'stage_towns');
   assert.strictEqual((await geocodeStage(towns, { finish }, async (l) => cands[l] || [], 31))[1].confidence, 'ok');
 });
 
@@ -120,11 +121,13 @@ test('assembleCandidates : recalage branché, sauf pour un point géocodé sous 
   assert.ok(Math.abs(kept.lat - at(0, 0).lat) < 1e-4);
 });
 
-test('geocodeStage : arrivée réelle jusqu\'à 10 km de l\'ancre (centroïde) acceptée, au-delà rejetée', async () => {
-  const towns = [{ label: 'A', km: 0, kind: 'ville' }, { label: 'Z', km: 20, kind: 'ville' }];
-  const cands = { A: [at(0, 0)], Z: [at(0, 15000)] };
-  const near = await geocodeStage(towns, { finish: at(0, 21000) }, async (l) => cands[l] || []);
-  assert.strictEqual(near[1].confidence, 'ok');
-  const far = await geocodeStage(towns, { finish: at(0, 27000) }, async (l) => cands[l] || []);
-  assert.strictEqual(far[1].confidence, 'non-place');
+test('geocodeStage : ville d\'arrivée = ancre stage_towns ; point non final à 9 km de l\'ancre refusé (marge de 3 km)', async () => {
+  const cands = { A: [at(0, 0)], Y: [at(0, 11000)], Z: [at(0, 15000)] };
+  const towns = [{ label: 'A', km: 0, kind: 'ville' }, { label: 'Y', km: 19, kind: 'ville' }, { label: 'Z', km: 20, kind: 'ville' }];
+  const out = await geocodeStage(towns, { finish: at(0, 20000) }, async (l) => cands[l] || []);
+  assert.strictEqual(out[1].confidence, 'non-place', 'Y à 9 km de l\'arrivée pour 1 km de profil');
+  assert.deepStrictEqual([out[2].how, out[2].lat], ['stage_towns', at(0, 20000).lat]);
+  // Arrivée géocodée sous un autre nom (station, aérodrome…) : pas d'ancre imposée.
+  const gs = await geocodeStage([towns[0], { ...towns[2], geocodeAs: 'Z' }], { finish: at(0, 20000) }, async (l) => cands[l] || []);
+  assert.strictEqual(gs[1].how, undefined);
 });
