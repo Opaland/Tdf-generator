@@ -415,6 +415,13 @@ et côtes traversées avec leur kilomètre.
     retenue à tort comme « moins détournée ») ; communes déléguées placées
     au chef-lieu de leur commune nouvelle (Boufféré, Le Château-d'Olonne…)
     classées lieux-dits, donc hors recherche.
+    Relecture adverse : Bagnères-de-Bigorre (1993/17) était au centroïde
+    de sa commune IGN, 7,7 km au sud dans la montagne — replacée sur la
+    ville ; départ de 1993/12 replacé au village d'Isola (était à Isola
+    2000) ; « La Bounette » gardé tel qu'imprimé (vraisemblablement La
+    Bolline). Les listes ne reprennent pas tous les points du profil
+    (ex. 1993/12 : Côte des Glaciers, Côte de Périer) : « N points » compte
+    les points transcrits, pas ceux de l'image.
 
 ## Epic 34 — Idées venues d'autres dépôts (veille du 18/10/2026)
 
