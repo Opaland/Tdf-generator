@@ -6,11 +6,29 @@
 const { getDb } = require('../db');
 const { wrap, httpError } = require('../apiHelpers');
 const { geocode, communeCandidates, normName } = require('../../pipeline/geocode');
-const { searchNear } = require('../../pipeline/placeSearch');
+const { searchNear, stageLabels } = require('../../pipeline/placeSearch');
 
 const MAX_Q = 100;
 
+/** Libellé d'étape par id (« 19 », ou « 19a »/« 19b » pour une étape
+ * scindée), même convention que la curation et les villes-étapes. */
+function stageLabelsById(db) {
+  const rows = db.prepare('SELECT id, edition_id, stage_order FROM stages WHERE edition_id IS NOT NULL ORDER BY edition_id, stage_order, id').all();
+  const byEdition = new Map();
+  for (const r of rows) {
+    if (!byEdition.has(r.edition_id)) byEdition.set(r.edition_id, []);
+    byEdition.get(r.edition_id).push(r);
+  }
+  const out = new Map();
+  for (const list of byEdition.values()) {
+    const labels = stageLabels(list.map((r) => r.stage_order));
+    list.forEach((r, i) => out.set(r.id, labels[i]));
+  }
+  return out;
+}
+
 function readDbStages(db) {
+  const labelOf = stageLabelsById(db);
   // Éditions historiques seulement : ni tour personnalisé, ni trace personnelle.
   const tracked = db.prepare(
     `SELECT s.id, s.stage_order, s.name, s.date, s.official_distance_km, s.generated_distance_km,
@@ -20,7 +38,7 @@ function readDbStages(db) {
   ).all().map((r) => {
     let coords = [];
     try { coords = JSON.parse(r.geojson).geometry.coordinates || []; } catch { /* tracé illisible : ignoré */ }
-    return { year: r.year, category: r.category, stageOrder: r.stage_order, stageId: r.id, name: r.name, date: r.date,
+    return { year: r.year, category: r.category, stageOrder: r.stage_order, stage: labelOf.get(r.id), stageId: r.id, name: r.name, date: r.date,
       coords, officialKm: r.official_distance_km, generatedKm: r.generated_distance_km };
   }).filter((s) => Array.isArray(s.coords) && s.coords.length);
   const trackedIds = new Set(tracked.map((s) => s.stageId));
@@ -33,7 +51,7 @@ function readDbStages(db) {
   const byStage = new Map();
   for (const r of wps) {
     if (trackedIds.has(r.id)) continue;
-    if (!byStage.has(r.id)) byStage.set(r.id, { year: r.year, category: r.category, stageOrder: r.stage_order, stageId: r.id, name: r.name, date: r.date, waypoints: [] });
+    if (!byStage.has(r.id)) byStage.set(r.id, { year: r.year, category: r.category, stageOrder: r.stage_order, stage: labelOf.get(r.id), stageId: r.id, name: r.name, date: r.date, waypoints: [] });
     byStage.get(r.id).waypoints.push({ label: r.label, lat: r.lat, lon: r.lon });
   }
   return { tracked, waypointed: [...byStage.values()] };

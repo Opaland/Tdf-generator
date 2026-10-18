@@ -44,14 +44,14 @@ test('searchNear : le tracé l\'emporte sur les points et sur la curation pour l
     { year: 1975, category: 'hommes', stage: '22', points: [at(-4000, -8000), at(4000, -8000)] },
     { year: 2022, category: 'femmes', stage: '1', points: [at(-1000, 4000), at(1000, -4000)] }, // segment qui passe au ras
   ];
-  const { results, coverage } = searchNear(place, 10000, db, curated);
+  const { results, coverage } = searchNear(place, 10000, db, curated, []);
   assert.deepStrictEqual(results.map((r) => [r.year, r.stage, r.basis, Math.round(r.distanceM / 100) / 10]), [
     [1960, '3', 'waypoint', 6],
     [1975, '22', 'curated-segment', 8],
     [1992, '10', 'trace', 2],
     [2022, '1', 'curated-segment', 0],
   ]);
-  assert.deepStrictEqual(coverage, { trackedStages: 1, waypointStages: 3, curatedStages: 2 });
+  assert.deepStrictEqual(coverage, { trackedStages: 1, waypointStages: 3, curatedStages: 2, townStages: 0 });
 });
 
 test('curatedStages : 1992/10 a des points de passage géolocalisés (Boulay-Moselle, Boucheporn…)', () => {
@@ -119,6 +119,7 @@ test('nearResultsHtml : échappement, couverture toujours affichée, « aucun r�
   assert.match(html, /4,4 km/);
   assert.match(html, /estimation/);
   assert.match(html, /74 étape\(s\) curée\(s\)/);
+  assert.match(html, /village traversé en cours d'étape peut manquer/);
   const none = nearResultsHtml({ ...data, results: [] });
   assert.match(none, /pas la preuve qu'aucun Tour n'y est passé/);
 });
@@ -178,4 +179,34 @@ test('nearCandidatesHtml : un bouton par homonyme, libellés échappés', () => 
   const html = nearCandidatesHtml({ candidates: [{ label: '<b>A</b> (65)', lat: 1, lon: 2 }, { label: 'B (67)', lat: 3, lon: 4 }] });
   assert.strictEqual((html.match(/data-cand=/g) || []).length, 2);
   assert.ok(!html.includes('<b>A</b>'));
+});
+
+test('villes de départ/arrivée : dernier recours, distance à la ville seulement, jamais si une source plus fiable couvre l\'étape', () => {
+  const place = at(0, 0);
+  const towns = [
+    { year: 1960, category: 'hommes', stage: '5', date: '1960-07-01', towns: [{ label: 'Ville A', role: 'départ', ...at(3000, 0), confidence: 'ok' }, { label: 'Ville B', role: 'arrivée', ...at(200000, 0), confidence: 'ambigu' }] },
+    { year: 1975, category: 'hommes', stage: '22', date: null, towns: [{ label: 'Doublon', role: 'arrivée', ...at(100, 0), confidence: 'ok' }] },
+    { year: 1980, category: 'hommes', stage: '1', date: null, towns: [{ label: 'Loin', role: 'départ', ...at(50000, 0), confidence: 'ok' }] },
+  ];
+  const curated = [{ year: 1975, category: 'hommes', stage: '22', points: [at(0, 9000)] }];
+  const { results, coverage } = searchNear(place, 10000, { tracked: [], waypointed: [] }, curated, towns);
+  assert.deepStrictEqual(results.map((r) => [r.year, r.stage, r.basis, r.nearestLabel, r.endpointRole]), [
+    [1960, '5', 'endpoint', 'Ville A', 'départ'],
+    [1975, '22', 'curated-point', undefined, undefined], // la curation masque la ville d'arrivée
+  ]);
+  assert.strictEqual(results[0].date, '1960-07-01');
+  assert.strictEqual(coverage.townStages, 2);
+});
+
+test('nearResultsHtml : ville de départ/arrivée signalée comme telle, homonyme possible signalé', () => {
+  const html = nearResultsHtml({
+    place: { label: 'X', lat: 49, lon: 6 }, radiusKm: 10, coverage: { trackedStages: 0, waypointStages: 0, curatedStages: 0, townStages: 2000 },
+    results: [{ year: 1960, category: 'hommes', stage: '0', stageId: null, name: null, date: '1960-06-26', distanceM: 2500, basis: 'endpoint', nearestLabel: 'Metz', endpointRole: 'arrivée', geocodeConfidence: 'ambigu' }],
+  });
+  assert.match(html, /prologue/);
+  assert.match(html, /de Metz \(ville d'arrivée\)/);
+  assert.match(html, /parcours entre les deux n'est pas connu/);
+  assert.match(html, /homonyme possible/);
+  assert.match(html, /26\/06\/1960/);
+  assert.match(html, /2000 autre\(s\) étape\(s\)/);
 });

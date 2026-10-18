@@ -611,6 +611,8 @@ async function communeCandidates(query) {
       name: String(f.properties?.name || ''),
       context: String(f.properties?.context || ''),
       citycode: String(f.properties?.citycode || ''),
+      depcode: String(f.properties?.depcode || ''),
+      population: Number.isFinite(f.properties?.population) ? f.properties.population : null,
       lat: f.geometry.coordinates[1],
       lon: f.geometry.coordinates[0],
     })).filter((c) => c.name && Number.isFinite(c.lat) && Number.isFinite(c.lon));
