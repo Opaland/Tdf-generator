@@ -369,11 +369,12 @@ villes de départ/arrivée (Epic 32.4) ne disent pas par où l'étape est
 passée ; le profil officiel de chaque étape (Dico du Tour) liste les villes
 et côtes traversées avec leur kilomètre.
 
-- [ ] 33.1 Socle + 1992/10 : `pipeline/data/stage_itineraries.json`
+- [x] 33.1 Socle + 1992/10 : `pipeline/data/stage_itineraries.json`
   (transcription manuelle, source citée par étape), `scripts/geocode-itineraries.js`
   (un point n'est placé que s'il est atteignable depuis le précédent dans
-  l'écart de km du profil, +3 km, +10 km depuis le départ réel ; sinon sans
-  coordonnées), source « itinéraire » dans la recherche par lieu, prioritaire
+  l'écart de km du profil, +3 km — +10 km depuis le km 0, le départ réel
+  pouvant être hors du centre-ville (1992/10 : Hesperange) ; sinon sans
+  coordonnées ; position ambiguë signalée à l'affichage), source « itinéraire » dans la recherche par lieu, prioritaire
   sur la curation, avec le km du profil et un lien vers le profil.
   Critères : Porcelette → 1992/10 près de Longeville-lès-Saint-Avold (km 83,5),
   profil cité ; un point non placé coupe le segment ; une côte placée au

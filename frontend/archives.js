@@ -318,7 +318,7 @@ function nearResultsHtml(data) {
     // Source citée (règle 12) : lien externe https seulement.
     const source = typeof r.sourceUrl === 'string' && /^https:\/\//.test(r.sourceUrl)
       ? ` · <a href="${EF.esc(r.sourceUrl)}" target="_blank" rel="noopener noreferrer">profil officiel</a>` : '';
-    const warn = r.basis === 'endpoint' ? EF.esc(GEOCODE_WARN[r.geocodeConfidence] || '') : '';
+    const warn = r.basis === 'endpoint' || String(r.basis).startsWith('itinerary-') ? EF.esc(GEOCODE_WARN[r.geocodeConfidence] || '') : '';
     const date = r.date && /^\d{4}-\d{2}-\d{2}$/.test(r.date) ? ` (${EF.esc(new Date(r.date + 'T00:00:00Z').toLocaleDateString('fr-FR'))})` : '';
     const link = r.stageId != null ? ` · <a href="/stage.html?id=${Number(r.stageId)}">voir l'étape</a>` : '';
     return `<li class="fauxplat-item">${title} — à <b>${km(r.distanceM)} km</b>${near}${link}${source}${date}<br><span class="meta-line">${EF.esc(NEAR_BASIS[r.basis] || r.basis)}${warn}</span></li>`;

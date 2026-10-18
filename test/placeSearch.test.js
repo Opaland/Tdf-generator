@@ -11,7 +11,7 @@ process.env.ETAPEFORGE_OFFLINE = '1';
 
 const { test, before, after } = require('node:test');
 const assert = require('node:assert');
-const { searchNear, curatedStages, pointSegmentM, distanceToLineM } = require('../pipeline/placeSearch');
+const { searchNear, curatedStages, buildItinerary, pointSegmentM, distanceToLineM } = require('../pipeline/placeSearch');
 
 global.EF = { esc: (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;') };
 const { nearResultsHtml } = require('../frontend/archives.js');
@@ -81,32 +81,23 @@ test('itinéraire réel (profil officiel 1992/10) : Porcelette → Longeville-l�
 test('itinéraire : prioritaire sur la curation, segment coupé par un point non placé, côte approchée écartée', () => {
   const place = at(0, 0);
   const pt = (label, km, dN, dE, extra = {}) => ({ label, km, ...at(dN, dE), ...extra });
-  // Construit comme stageItineraries() : segments entre voisins placés seulement.
-  const itin = (stage, raw) => {
-    const points = [];
-    const segments = [];
-    let prev = null;
-    for (const t of raw) {
-      if (t.geocodeAs && t.kind !== 'ville') continue;
-      if (!Number.isFinite(t.lat)) { prev = null; continue; }
-      if (prev) segments.push([prev, t]);
-      points.push(t);
-      prev = t;
-    }
-    return { year: 1992, category: 'hommes', stage, sourceUrl: 'https://exemple.test/p.jpg', points, segments };
-  };
+  // Le vrai constructeur de stageItineraries() (relecture adverse : une copie dans le test ne testait rien).
+  const itin = (stage, raw) => ({ year: 1992, category: 'hommes', stage, sourceUrl: 'https://exemple.test/p.jpg', ...buildItinerary(raw) });
   const curated = [{ year: 1992, category: 'hommes', stage: '10', points: [at(0, 100)] }];
   const its = [
     itin('10', [pt('A', 0, -4000, 3000), pt('B', 8, 4000, 3000)]), // segment à 3 km : masque la curation (0,1 km)
     itin('11', [pt('C', 0, -4000, 2000), { label: 'X', km: 4 }, pt('D', 8, 4000, 2000)]), // coupé : points à 4,5 km
     itin('12', [pt('E', 0, -30000, 0), pt('Côte de F', 30, 0, 500, { kind: 'côte', geocodeAs: 'F' }), pt('G', 60, 30000, 0)]),
+    // Côte écartée entre deux villes à 8 km l'une de l'autre : coupe aussi le segment.
+    itin('13', [pt('H', 0, -4000, -1500), pt('Côte de I', 4, 0, -1600, { kind: 'côte', geocodeAs: 'I' }), pt('J', 8, 4000, -1500)]),
   ];
   const { results, coverage } = searchNear(place, 5000, { tracked: [], waypointed: [] }, curated, [], its);
   assert.deepStrictEqual(results.map((r) => [r.stage, r.basis, Math.round(r.distanceM / 100) / 10]), [
     ['10', 'itinerary-segment', 3],
     ['11', 'itinerary-point', 4.5],
+    ['13', 'itinerary-point', 4.3],
   ]);
-  assert.strictEqual(coverage.itineraryStages, 3);
+  assert.strictEqual(coverage.itineraryStages, 4);
   assert.strictEqual(coverage.curatedStages, 0);
 });
 
@@ -185,6 +176,7 @@ test('nearResultsHtml : échappement, couverture toujours affichée, « aucun r�
   const itin = nearResultsHtml({ ...data, coverage: { ...data.coverage, itineraryStages: 1 },
     results: [{ ...data.results[0], basis: 'itinerary-point', nearestLabel: 'Longeville', nearestKm: 83.5, sourceUrl: 'https://x.test/a"b.jpg' }] });
   assert.match(itin, /près de Longeville \(km 83,5\)/);
+  assert.match(nearResultsHtml({ ...data, results: [{ ...data.results[0], basis: 'itinerary-point', geocodeConfidence: 'ambigu' }] }), /homonyme possible/);
   assert.match(itin, /href="https:\/\/x\.test\/a&quot;b\.jpg"[^>]*>profil officiel/);
   assert.match(itin, /1 étape\(s\) au profil officiel détaillé/);
   const bad = nearResultsHtml({ ...data, results: [{ ...data.results[0], sourceUrl: 'javascript:alert(1)' }] });

@@ -150,6 +150,22 @@ function stageLabels(numbers) {
  * écartée, sa position n'étant pas celle de la route. Un segment ne relie
  * que deux points voisins du profil, sans point non placé entre eux (la
  * route peut y faire un détour inconnu). Fichier absent → []. */
+function buildItinerary(towns) {
+  const points = [];
+  const segments = [];
+  let prev = null;
+  for (const t of towns) {
+    // Point écarté (côte au village éponyme) ou non placé : il coupe le
+    // segment, la route peut y faire un détour inconnu.
+    if ((t.geocodeAs && t.kind !== 'ville') || !Number.isFinite(t.lat) || !Number.isFinite(t.lon)) { prev = null; continue; }
+    const p = { label: t.label, km: t.km, lat: t.lat, lon: t.lon, confidence: t.confidence || 'ok' };
+    if (prev) segments.push([prev, p]);
+    points.push(p);
+    prev = p;
+  }
+  return { points, segments };
+}
+
 let itinCache = null;
 function stageItineraries() {
   if (itinCache) return itinCache;
@@ -165,17 +181,7 @@ function stageItineraries() {
     const m = /^(\d{4})(?:-(\w+))?$/.exec(key);
     if (!m) continue;
     for (const [stage, st] of Object.entries(ed.stages || {})) {
-      const points = [];
-      const segments = [];
-      let prev = null;
-      for (const t of st.towns || []) {
-        if (t.geocodeAs && t.kind !== 'ville') continue;
-        if (!Number.isFinite(t.lat) || !Number.isFinite(t.lon)) { prev = null; continue; }
-        const p = { label: t.label, km: t.km, lat: t.lat, lon: t.lon };
-        if (prev) segments.push([prev, p]);
-        points.push(p);
-        prev = p;
-      }
+      const { points, segments } = buildItinerary(st.towns || []);
       itinCache.push({ year: Number(m[1]), category: m[2] || 'hommes', stage, sourceUrl: st.source_url || null, points, segments });
     }
   }
@@ -242,7 +248,8 @@ function searchNear(place, radiusM, db, curated = curatedStages(), towns = stage
     if (d <= radiusM) {
       results.push({ year: it.year, category: it.category, stage: it.stage, stageId: null, name: null, date: dateOf.get(k) || null,
         distanceM: Math.round(d), basis: seg < near.d ? 'itinerary-segment' : 'itinerary-point',
-        nearestLabel: near.p.label, nearestKm: near.p.km, nearestPointM: Math.round(near.d), sourceUrl: it.sourceUrl });
+        nearestLabel: near.p.label, nearestKm: near.p.km, nearestPointM: Math.round(near.d), sourceUrl: it.sourceUrl,
+        geocodeConfidence: near.p.confidence });
     }
   }
   let curatedCovered = 0;
@@ -293,4 +300,4 @@ function searchNear(place, radiusM, db, curated = curatedStages(), towns = stage
   };
 }
 
-module.exports = { searchNear, curatedStages, stageTowns, stageItineraries, stageLabels, distanceToLineM, pointSegmentM, MAX_SEGMENT_M };
+module.exports = { searchNear, curatedStages, stageTowns, stageItineraries, buildItinerary, stageLabels, distanceToLineM, pointSegmentM, MAX_SEGMENT_M };
