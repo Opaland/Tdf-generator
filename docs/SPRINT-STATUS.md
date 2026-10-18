@@ -513,7 +513,7 @@ et côtes traversées avec leur kilomètre.
   hameaux exclus du calcul (route coupée, écart négatif), et vraies
   erreurs de position — à corriger une à une (33.5).
 
-- [ ] 33.5 Tri des étapes hors ±5 % (18/10/2026) : `check-itineraries
+- [x] 33.5 Tri des étapes hors ±5 % (18/10/2026, PR #413) : `check-itineraries
   --legs` liste les tronçons suspects ; deux analyses ont classé chaque
   étape (A position fausse, B km mal transcrit, C circuit/points espacés,
   D routeur) — aucun cas B. 25 corrections (24 déplacements, 1 retrait),
