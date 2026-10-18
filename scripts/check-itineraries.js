@@ -7,8 +7,10 @@
 // sens — un point mal placé allonge la route, une ville omise aussi.
 //
 // Usage : node scripts/check-itineraries.js [--write] [année …]   (réseau requis)
-// --write : enregistre route_check {routed_km, profile_km, delta_pct} dans
-// pipeline/data/stage_itineraries.json.
+// --write : enregistre route_check {routed_km, profile_km, delta_pct,
+// tolerance_pct, car_legs, legs} dans pipeline/data/stage_itineraries.json —
+// affiché par la recherche par lieu, jamais masqué (décision du 18/10/2026 :
+// mesurer et afficher, corriger les vraies erreurs une à une).
 
 const fs = require('fs');
 const path = require('path');
@@ -51,13 +53,17 @@ async function measure(pts, profileKm, legRouter) {
   const legs = [];
   let routedM = 0;
   for (let i = 1; i < pts.length; i++) {
-    const m = await legRouter(pts[i - 1], pts[i]);
+    const r = await legRouter(pts[i - 1], pts[i]);
+    const m = typeof r === 'number' ? r : r.distanceM;
     routedM += m;
-    legs.push({ from: pts[i - 1].label, to: pts[i].label, profileKm: pts[i].km - pts[i - 1].km, routedKm: m / 1000 });
+    legs.push({ from: pts[i - 1].label, to: pts[i].label, profileKm: pts[i].km - pts[i - 1].km, routedKm: m / 1000, router: typeof r === 'number' ? null : r.router });
   }
   const routedKm = routedM / 1000;
   const deltaPct = (routedKm / profileKm - 1) * 100;
-  return { routedKm, profileKm, deltaPct, ok: Math.abs(deltaPct) <= DIST_TOLERANCE_PCT, legs };
+  // Part des tronçons routés en voiture (repli OSRM quand BRouter refuse) :
+  // la mesure en dépend, elle se publie avec elle.
+  const carLegs = legs.filter((l) => l.router === 'osrm').length;
+  return { routedKm, profileKm, deltaPct, ok: Math.abs(deltaPct) <= DIST_TOLERANCE_PCT, legs, carLegs };
 }
 
 async function main() {
@@ -65,7 +71,7 @@ async function main() {
   const write = args.includes('--write');
   const only = args.filter((a) => a !== '--write');
   const doc = JSON.parse(fs.readFileSync(FILE, 'utf8'));
-  const router = async (a, b) => (await routeLeg(a, b)).distanceM;
+  const router = (a, b) => routeLeg(a, b);
   for (const [edition, ed] of Object.entries(doc.editions)) {
     if (only.length && !only.includes(edition)) continue;
     for (const [stage, st] of Object.entries(ed.stages)) {
@@ -84,7 +90,10 @@ async function main() {
       const worst = [...r.legs].sort((a, b) => (b.routedKm - b.profileKm) - (a.routedKm - a.profileKm))[0];
       console.log(`${edition}/${stage} : ${r.ok ? 'ok  ' : 'HORS'} ${sign}${r.deltaPct.toFixed(1)} % (routé ${r.routedKm.toFixed(1)} km / profil ${r.profileKm.toFixed(1)} km)` +
         (r.ok ? '' : ` — pire tronçon ${worst.from} → ${worst.to} : ${worst.routedKm.toFixed(1)} km routés pour ${worst.profileKm} km`));
-      if (write) st.route_check = { routed_km: Math.round(r.routedKm * 10) / 10, profile_km: r.profileKm, delta_pct: Math.round(r.deltaPct * 10) / 10 };
+      if (write) {
+        st.route_check = { routed_km: Math.round(r.routedKm * 10) / 10, profile_km: r.profileKm, delta_pct: Math.round(r.deltaPct * 10) / 10,
+          tolerance_pct: DIST_TOLERANCE_PCT, car_legs: r.carLegs, legs: r.legs.length };
+      }
     }
   }
   if (write) fs.writeFileSync(FILE, JSON.stringify(doc, null, 1) + '\n');
