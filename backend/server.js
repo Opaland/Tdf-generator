@@ -75,6 +75,7 @@ const ADMIN_ROUTES = [
   ['post', '/api/editions/import-all'],
   ['delete', '/api/stages/:id'],
   ['delete', '/api/gear/:id'],
+  ['put', '/api/profile'],
   // Connecteurs : un seul compte Suunto/Strava partagé par l'instance —
   // le (re)connecter écrase les jetons de l'admin, lister ou importer lit
   // ses sorties privées (relecture adverse).
@@ -99,6 +100,7 @@ require('./routes/geocode')(app);
 require('./routes/stages')(app);
 require('./routes/traces')(app);
 require('./routes/gear')(app);
+require('./routes/profile')(app);
 require('./routes/climbs')(app);
 require('./routes/editions')(app);
 require('./routes/exports')(app);
