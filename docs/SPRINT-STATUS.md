@@ -362,6 +362,28 @@ Question d'origine du projet, rappelée par l'utilisateur le 18/10/2026
 
 Réponse vérifiée pour Porcelette (18/10/2026) : **1992, étape 10 (Luxembourg → Strasbourg)**, road book : Boulay-Moselle → Boucheporn → Longeville-lès-Saint-Avold ; tracé routé (OSRM) entre ces points à ~3,6 km du centre du village (Nominatim) ; la recherche donne 4,0 km depuis le chef-lieu de la commune (index des communes IGN), en ligne droite entre Boucheporn et Longeville. Avec la couverture complète (32.4) : aucune autre étape à moins de 10 km ; à 20 km, le départ de 1970/9 à Sarrelouis (18 km, ville de départ seulement).
 
+## Epic 33 — Itinéraires détaillés : tous les villages traversés
+
+Demande du 18/10/2026 : « cure moi en détail les Tours de France ». Les
+villes de départ/arrivée (Epic 32.4) ne disent pas par où l'étape est
+passée ; le profil officiel de chaque étape (Dico du Tour) liste les villes
+et côtes traversées avec leur kilomètre.
+
+- [ ] 33.1 Socle + 1992/10 : `pipeline/data/stage_itineraries.json`
+  (transcription manuelle, source citée par étape), `scripts/geocode-itineraries.js`
+  (un point n'est placé que s'il est atteignable depuis le précédent dans
+  l'écart de km du profil, +3 km, +10 km depuis le départ réel ; sinon sans
+  coordonnées), source « itinéraire » dans la recherche par lieu, prioritaire
+  sur la curation, avec le km du profil et un lien vers le profil.
+  Critères : Porcelette → 1992/10 près de Longeville-lès-Saint-Avold (km 83,5),
+  profil cité ; un point non placé coupe le segment ; une côte placée au
+  village éponyme n'entre pas dans le calcul ; homonyme lointain écarté (test).
+  Leçon : la première transcription, faite de mémoire sur une image non
+  agrandie, citait Bouzonville, Boulay et Boucheporn — absents du profil
+  agrandi. Toute transcription se fait sur l'image agrandie.
+- [ ] 33.2 Transcription édition par édition (une PR par lot), en
+  commençant par les éditions passées par la Lorraine.
+
 ## Epic 24 — Bilan final
 
 - [x] 24.1 Rapport de clôture par epic (17/10/2026), voir ci-dessous

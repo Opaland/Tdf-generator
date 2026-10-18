@@ -18,6 +18,13 @@ licence, distincte du code qui les traite.
   l'IGN/Géoplateforme (index des communes) et de Nominatim / OpenStreetMap
   (© OpenStreetMap contributors, ODbL) — construit par
   `scripts/build-stage-towns.js`, sert la recherche par lieu.
+- **`pipeline/data/stage_itineraries.json`** : villes et côtes traversées
+  par une étape, avec leur kilomètre, **transcrites à la main** depuis les
+  profils d'étapes publiés par le Dico du Tour (ledicodutour.com), chaque
+  étape citant l'URL de son profil. Seuls des faits (noms de lieux,
+  kilomètres) sont repris, jamais les images. Coordonnées : IGN/Géoplateforme
+  et Nominatim / OpenStreetMap (ODbL), ajoutées par
+  `scripts/geocode-itineraries.js`.
 - **`pipeline/fixtures/*.html`** : extraits capturés de pages Wikipédia,
   utilisés uniquement pour les tests hors-ligne (1903, 2025, 2026).
 - Toute réutilisation de ces données spécifiques (pas le code qui les lit)
@@ -56,4 +63,5 @@ obligations ODbL pour ces fichiers : à confirmer.
 | Code (`backend/`, `pipeline/`, `frontend/`, `scripts/`, `test/`) | MIT | Oui |
 | `pipeline/data/historic_routes.json`, `pipeline/fixtures/*.html` | CC BY-SA (Wikipédia) | Oui — respecter CC BY-SA pour ce contenu précis |
 | `pipeline/data/stage_towns.json` | CC BY-SA (Wikipédia) pour les villes et étapes ; coordonnées © IGN/Géoplateforme et © OpenStreetMap contributors (ODbL) | Oui — respecter CC BY-SA et l'attribution ODbL ; portée exacte des obligations ODbL pour ces coordonnées : à confirmer |
+| `pipeline/data/stage_itineraries.json` | Faits (lieux, km) transcrits des profils du Dico du Tour, source citée par étape ; coordonnées © IGN/Géoplateforme et © OpenStreetMap contributors (ODbL) | Oui pour les faits cités ; statut d'une compilation de faits tirée d'un site tiers : à confirmer — attribution ODbL pour les coordonnées |
 | Réponses géocodage/routage/altimétrie (mises en cache) | Propriété de chaque fournisseur, voir leurs CGU | Non dans le dépôt (cache local chez l'utilisateur) ; **oui** dans la démo GitHub Pages quand elle est générée en ligne (voir ci-dessus) |
