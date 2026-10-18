@@ -184,7 +184,7 @@ function stageItineraries() {
       const { points, segments } = buildItinerary(st.towns || []);
       const rc = st.route_check;
       const routeCheck = rc && Number.isFinite(rc.delta_pct) && Number.isFinite(rc.tolerance_pct)
-        ? { deltaPct: rc.delta_pct, tolerancePct: rc.tolerance_pct, carLegs: rc.car_legs ?? null, legs: rc.legs ?? null } : null;
+        ? { deltaPct: rc.delta_pct, tolerancePct: rc.tolerance_pct, coveragePct: rc.coverage_pct ?? null, carLegs: rc.car_legs ?? null, legs: rc.legs ?? null } : null;
       itinCache.push({ year: Number(m[1]), category: m[2] || 'hommes', stage, sourceUrl: st.source_url || null, routeCheck, points, segments });
     }
   }

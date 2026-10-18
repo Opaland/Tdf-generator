@@ -188,6 +188,8 @@ test('nearResultsHtml : échappement, couverture toujours affichée, « aucun r�
   const hors = nearResultsHtml({ ...data, results: [{ ...data.results[0], basis: 'itinerary-segment', routeCheck: { deltaPct: -9.5, tolerancePct: 5, carLegs: 6, legs: 10 } }] });
   assert.match(hors, /hors tolérance ±5 % : route à -9,5 % du kilométrage officiel, mesure routée surtout en voiture/);
   assert.match(nearResultsHtml({ ...data, results: [{ ...data.results[0], basis: 'itinerary-point', routeCheck: null }] }), /itinéraire non contrôlé/);
+  const part = nearResultsHtml({ ...data, results: [{ ...data.results[0], basis: 'itinerary-point', routeCheck: { deltaPct: -1, tolerancePct: 5, coveragePct: 63 } }] });
+  assert.match(part, /tolérance ±5 %, sur 63 % de l'étape seulement/);
   assert.doesNotMatch(nearResultsHtml(data), /itinéraire (non )?contrôlé/, 'pas de mention hors source itinéraire');
   const bad = nearResultsHtml({ ...data, results: [{ ...data.results[0], sourceUrl: 'javascript:alert(1)' }] });
   assert.ok(!bad.includes('javascript:'));

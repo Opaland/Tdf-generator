@@ -305,10 +305,12 @@ function routeCheckText(rc) {
   const d = Number(rc.deltaPct);
   const pct = `${d >= 0 ? '+' : ''}${d.toLocaleString('fr-FR', { maximumFractionDigits: 1 })} %`;
   const tol = `±${Number(rc.tolerancePct).toLocaleString('fr-FR')} %`;
+  const cov = Number.isFinite(Number(rc.coveragePct)) && rc.coveragePct != null && Number(rc.coveragePct) < 95
+    ? `, sur ${Number(rc.coveragePct).toLocaleString('fr-FR')} % de l'étape seulement` : '';
   const car = Number(rc.carLegs) > 0 && Number(rc.legs) > 0 && Number(rc.carLegs) * 2 >= Number(rc.legs) ? ', mesure routée surtout en voiture' : '';
   return Math.abs(d) <= Number(rc.tolerancePct)
-    ? ` — itinéraire contrôlé : route à ${pct} du kilométrage officiel (tolérance ${tol}${car})`
-    : ` — itinéraire hors tolérance ${tol} : route à ${pct} du kilométrage officiel${car} — position de villes ou parcours à vérifier`;
+    ? ` — itinéraire contrôlé : route à ${pct} du kilométrage officiel (tolérance ${tol}${cov}${car})`
+    : ` — itinéraire hors tolérance ${tol} : route à ${pct} du kilométrage officiel${cov}${car} — position de villes ou parcours à vérifier`;
 }
 
 /** Rendu des résultats de GET /api/search/near. Tout texte venu de l'API
