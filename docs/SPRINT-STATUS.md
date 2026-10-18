@@ -480,6 +480,22 @@ et côtes traversées avec leur kilomètre.
   Mons (1995/6), Luchon et Cazaux-Layrisse (1995/15). Dourgne (1995/13)
   non repris : km imprimé « 119,5 » entre Castres (198) et Revel (245).
 
+- [ ] Édition 1991 : 22 étapes sur 23 (prologue de Lyon non transcrit),
+  405 points placés sur 442. Contrôlée à ±5 % avant PR : 20 étapes dans la tolérance, 2
+  hors, affichées comme telles — 1991/1 (−22,7 %) et 1991/21 (−8,4 %),
+  circuits sinueux dont le profil ne liste qu'une partie des villages
+  (positions vérifiées une à une en relecture adverse, pas d'erreur de
+  donnée). Le contrôle a fait réintégrer les hameaux omis (Charvas,
+  Gratay, Quintaine, Roizon, Le Ribot…), dont l'absence coupait la route.
+  Relecture adverse : Canfranc-Estación placé sur le village de Canfranc
+  à 3 km de la gare (1991/12 de +8,1 % à +2,4 %) ; Charvas placé sur un
+  ruisseau homonyme (1991/2 de −6,0 % à +0,3 %, « Jonas » reste
+  introuvable, non placé) ; hameaux pyrénéens sortis du centroïde de leur
+  commune (Escarilla, Formigal, Gripp, La Séoube, Armanteule) ; libellés
+  de l'image restaurés ; « Artouste » (1 140 m, descente du Pourtalet)
+  retiré des positions — station ou autre point, non tranché ; ce retrait
+  fait passer 1991/13 de +5,9 % à +0,5 %, il est signalé ici pour ne pas
+  être pris pour une correction. Aucune commune de rattachement devinée.
 - [ ] 33.4 Contrôle à ±5 % des itinéraires (demande du 18/10/2026 : « 5 %
   max de tolérance ») : `scripts/check-itineraries.js` route l'itinéraire
   point par point et compare au kilométrage du profil, avec
