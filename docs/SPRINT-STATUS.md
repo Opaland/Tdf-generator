@@ -459,7 +459,23 @@ et côtes traversées avec leur kilomètre.
   reste à 3 km pour les autres points. Relecture : Rochetaillée, Livet,
   Mareuil et Auphelle replacés sur le hameau (étaient au centroïde de leur
   commune) ; libellés de l'image restaurés ; étapes 11, 13, 16, 18
-  `partial` avec leur longueur, 10 et 12 complètes. Non placés parce que le
+  `partial` avec leur longueur, 10 et 12 complètes.
+- [ ] Édition 1996 : 20 étapes sur 22, 285 points placés sur 308.
+  Non transcrits : le prologue de 's-Hertogenbosch et l'étape 9 — le
+  profil publié (Val d'Isère → Iseran → Galibier → Sestrières, 189,5 km)
+  est le parcours prévu, pas l'étape courue, raccourcie par la neige
+  depuis Le Monêtier-les-Bains. Tilburg et Sint-Niklaas placés sur la
+  ville (le candidat retenu était la commune élargie, comme Winchester en
+  1994). 1996/19 : Mios, Pessac et Talence non placés — les km du profil
+  entre Biscarrosse (159) et Bordeaux (226,5) sont plus courts que la
+  ligne droite, donnée incohérente laissée telle quelle.
+  Gand (1996/2) non placé pour la même raison (31,5 km à vol d'oiseau de
+  Sint-Niklaas pour 26 km de profil). Relecture adverse : Kronenburg,
+  La Serre et « Besançon (entrée) » ajoutés (omis à la transcription) ;
+  arrivée Superbesse-Sancy placée sur l'ancre `stage_towns` ;
+  Rosières-sur-Mouzon (graphie du profil) placée sur Rozières-sur-Mouzon ;
+  libellés de l'image restaurés (« Goussancourt (près de) », « Alto de
+  Ibaneta »…) ; 1996/7 n'est plus `partial`. Non placés parce que le
   km du profil contredit la géographie, laissés tels quels : Ieper et
   Mons (1995/6), Luchon et Cazaux-Layrisse (1995/15). Dourgne (1995/13)
   non repris : km imprimé « 119,5 » entre Castres (198) et Revel (245).
