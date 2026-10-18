@@ -345,7 +345,7 @@ qu'après réimport, ce qui sera affiché, jamais deviné.
 
 - [x] 31.1 Décidé le 18/10/2026 : option C (A d'abord, B ensuite si le besoin demeure)
 - [x] 31.2 Temps écoulé par échantillon à l'import (`elevation_samples.elapsed_s`, migration 9) : temps du point brut le plus proche en abscisse, jamais interpolé ; `null` pour toute étape routée ou trace sans horodatage ; absent des formats partageables et de la démo statique (même règle que la FC)
-- [ ] 31.3 Option A : temps de montée de chaque côte d'une trace horodatée, côtes appariées entre sorties par la position du sommet, meilleur temps et historique par côte dans « Mes traces » ; une trace importée avant 31.2 est signalée « sans temps », jamais estimée
+- [x] 31.3 Option A : temps de montée de chaque côte d'une trace horodatée, côtes appariées entre sorties par la position du sommet, meilleur temps et historique par côte dans « Mes traces » ; une trace importée avant 31.2 est signalée « sans temps », jamais estimée — `pipeline/climbEfforts.js`, `GET /api/traces/climb-efforts` ; relecture adverse : sur une boucle repassant au pied, le départ était pris pour le pied (temps faux, non signalé) → dernier passage au pied + longueur de référence exigée ; montée multiple dans une sortie numérotée ; coût mesuré ~0,5 s pour 300 traces × 1 000 échantillons × 8 côtes, sans cache (à surveiller)
 
 ## Epic 24 — Bilan final
 

@@ -707,20 +707,63 @@ let refreshSeq = 0;
 // le bilan ne dépend plus de /api/auth/me (relecture adverse).
 let canDeleteGearP = null;
 
+// ---------------------------------------------------------------- temps par côte (Epic 31.3)
+
+const EFFORT_REASONS = {
+  pied: 'ne passe pas par le pied de référence, ou pas sur la même longueur (autre versant, départ plus haut)',
+  sommet: 'sommet trop éloigné du sommet de référence',
+  'sans-temps': 'trace sans horodatage exploitable — réimportez-la pour obtenir le temps',
+};
+
+/** Liste « Temps par côte » : un élément par côte, passages dans un
+ * <details> (liste plutôt que tableau : lisible à 360 px). Tout texte venu de
+ * l'API passe par EF.esc. */
+function buildEffortRows(climbs) {
+  return climbs.map((c) => {
+    const title = `<b>${EF.esc(c.name || 'Côte sans nom')}</b><br><span class="meta-line">` +
+      `${c.category ? `cat. ${EF.esc(c.category)} · ` : ''}${c.summitEleM != null ? `${Math.round(c.summitEleM)} m · ` : ''}réf. ${Number(c.refLengthKm)} km</span>`;
+    const items = c.passages.map((p) => {
+      const date = p.date ? EF.esc(new Date(p.date + 'T00:00:00Z').toLocaleDateString('fr-FR')) : 'date inconnue';
+      const val = p.timeS != null
+        ? `<b>${EF.esc(formatDuration(p.timeS))}</b>${p.timeS === c.bestTimeS ? ' ★' : ''}`
+        : `<span class="meta-line">${EF.esc(EFFORT_REASONS[p.reason] || 'pas de temps')}</span>`;
+      const nth = p.ascent > 1 ? ` (${Number(p.ascent)}ᵉ montée)` : '';
+      return `<li>${date} — <a href="/stage.html?id=${Number(p.stageId)}">${EF.esc(p.stageName)}</a>${nth} : ${val}</li>`;
+    }).join('');
+    const label = `${c.count} passage${c.count > 1 ? 's' : ''}${c.timedCount < c.count ? ` (${c.timedCount} chronométré${c.timedCount > 1 ? 's' : ''})` : ''}`;
+    const best = c.bestTimeS != null ? ` — meilleur temps <b>${EF.esc(formatDuration(c.bestTimeS))}</b>` : '';
+    return `<li class="fauxplat-item">${title}${best}` +
+      `<details><summary>${label}</summary><ul>${items}</ul></details></li>`;
+  }).join('');
+}
+
+function renderEfforts(data) {
+  const box = document.getElementById('efforts-box');
+  if (!data || !data.climbs.length) { box.style.display = 'none'; return; }
+  document.getElementById('efforts-list').innerHTML = buildEffortRows(data.climbs);
+  box.style.display = '';
+}
+
 async function loadSummary() {
   if (window.EF_STATIC) return;
   const seq = ++refreshSeq;
   canDeleteGearP ??= canConnectAccount().catch(() => false);
   // Non bloquants entre eux : un échec n'empêche pas le reste de s'afficher.
-  const [s, g, all, canDelete] = await Promise.all([
+  const [s, g, all, canDelete, efforts] = await Promise.all([
     EF.api('/api/traces/summary').catch(() => null),
     EF.api('/api/gear').catch(() => null),
     EF.api('/api/gear/traces').catch(() => null),
     canDeleteGearP,
+    EF.api('/api/traces/climb-efforts').catch(() => null),
   ]);
   if (seq !== refreshSeq) return;
   currentGear = g ? g.gear : [];
   renderGear(g, all, canDelete);
+  try {
+    renderEfforts(efforts);
+  } catch {
+    document.getElementById('efforts-box').style.display = 'none'; // non essentiel
+  }
   const box = document.getElementById('summary-box');
   try {
     if (!s || !s.traceCount) return;
@@ -838,5 +881,5 @@ document.addEventListener('DOMContentLoaded', async () => {
 }
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { isoWeekKey, formatPeriodLabel, formatDuration, computeAwards, buildCumulativeChart, buildWeeklyBarChart, buildCalendarHeatmap, heatmapColor, buildGearRows, buildGearSelect };
+  module.exports = { isoWeekKey, formatPeriodLabel, formatDuration, computeAwards, buildCumulativeChart, buildWeeklyBarChart, buildCalendarHeatmap, heatmapColor, buildGearRows, buildGearSelect, buildEffortRows };
 }
