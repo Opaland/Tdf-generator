@@ -76,6 +76,8 @@ test('itinéraire réel (profil officiel 1992/10) : Porcelette → Longeville-l�
   assert.ok(r.distanceM < 6000, String(r.distanceM));
   assert.match(r.sourceUrl, /^https:\/\/www\.ledicodutour\.com\//);
   assert.strictEqual(r.date, '1992-07-14');
+  // Contrôle de routage publié avec le résultat (décision du 18/10/2026).
+  assert.ok(r.routeCheck && Number.isFinite(r.routeCheck.deltaPct) && r.routeCheck.tolerancePct === 5, JSON.stringify(r.routeCheck));
 });
 
 test('itinéraire : prioritaire sur la curation, segment coupé par un point non placé, côte approchée écartée', () => {
@@ -181,6 +183,14 @@ test('nearResultsHtml : échappement, couverture toujours affichée, « aucun r�
   assert.match(nearResultsHtml({ ...data, results: [{ ...data.results[0], basis: 'itinerary-point', geocodeConfidence: 'ambigu' }] }), /homonyme possible/);
   assert.match(itin, /href="https:\/\/x\.test\/a&quot;b\.jpg"[^>]*>profil officiel/);
   assert.match(itin, /1 étape\(s\) au profil officiel détaillé/);
+  const ok = nearResultsHtml({ ...data, results: [{ ...data.results[0], basis: 'itinerary-point', routeCheck: { deltaPct: 3.2, tolerancePct: 5, carLegs: 1, legs: 10 } }] });
+  assert.match(ok, /itinéraire contrôlé : route à \+3,2 % du kilométrage officiel \(tolérance ±5 %\)/);
+  const hors = nearResultsHtml({ ...data, results: [{ ...data.results[0], basis: 'itinerary-segment', routeCheck: { deltaPct: -9.5, tolerancePct: 5, carLegs: 6, legs: 10 } }] });
+  assert.match(hors, /hors tolérance ±5 % : route à -9,5 % du kilométrage officiel, mesure routée surtout en voiture/);
+  assert.match(nearResultsHtml({ ...data, results: [{ ...data.results[0], basis: 'itinerary-point', routeCheck: null }] }), /itinéraire non contrôlé/);
+  const part = nearResultsHtml({ ...data, results: [{ ...data.results[0], basis: 'itinerary-point', routeCheck: { deltaPct: -1, tolerancePct: 5, coveragePct: 63 } }] });
+  assert.match(part, /tolérance ±5 %, sur 63 % de l'étape seulement/);
+  assert.doesNotMatch(nearResultsHtml(data), /itinéraire (non )?contrôlé/, 'pas de mention hors source itinéraire');
   const bad = nearResultsHtml({ ...data, results: [{ ...data.results[0], sourceUrl: 'javascript:alert(1)' }] });
   assert.ok(!bad.includes('javascript:'));
   assert.match(html, /village traversé en cours d'étape peut manquer/);

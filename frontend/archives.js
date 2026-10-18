@@ -296,6 +296,23 @@ const GEOCODE_WARN = {
   verifie: ' — position de la ville corrigée automatiquement (seule compatible avec la longueur des étapes)',
 };
 
+/** Contrôle de l'itinéraire détaillé (scripts/check-itineraries.js) : la
+ * route reliant les villes du profil retrouve-t-elle son kilométrage ?
+ * L'écart s'affiche toujours, dans la tolérance ou non (décision du
+ * 18/10/2026 : mesurer et afficher, ne rien masquer). */
+function routeCheckText(rc) {
+  if (!rc || !Number.isFinite(Number(rc.deltaPct)) || !Number.isFinite(Number(rc.tolerancePct))) return ' — itinéraire non contrôlé par routage';
+  const d = Number(rc.deltaPct);
+  const pct = `${d >= 0 ? '+' : ''}${d.toLocaleString('fr-FR', { maximumFractionDigits: 1 })} %`;
+  const tol = `±${Number(rc.tolerancePct).toLocaleString('fr-FR')} %`;
+  const cov = Number.isFinite(Number(rc.coveragePct)) && rc.coveragePct != null && Number(rc.coveragePct) < 95
+    ? `, sur ${Number(rc.coveragePct).toLocaleString('fr-FR')} % de l'étape seulement` : '';
+  const car = Number(rc.carLegs) > 0 && Number(rc.legs) > 0 && Number(rc.carLegs) * 2 >= Number(rc.legs) ? ', mesure routée surtout en voiture' : '';
+  return Math.abs(d) <= Number(rc.tolerancePct)
+    ? ` — itinéraire contrôlé : route à ${pct} du kilométrage officiel (tolérance ${tol}${cov}${car})`
+    : ` — itinéraire hors tolérance ${tol} : route à ${pct} du kilométrage officiel${cov}${car} — position de villes ou parcours à vérifier`;
+}
+
 /** Rendu des résultats de GET /api/search/near. Tout texte venu de l'API
  * passe par EF.esc ; les nombres par Number(). */
 function nearResultsHtml(data) {
@@ -318,10 +335,11 @@ function nearResultsHtml(data) {
     // Source citée (règle 12) : lien externe https seulement.
     const source = typeof r.sourceUrl === 'string' && /^https:\/\//.test(r.sourceUrl)
       ? ` · <a href="${EF.esc(r.sourceUrl)}" target="_blank" rel="noopener noreferrer">profil officiel</a>` : '';
+    const check = String(r.basis).startsWith('itinerary-') ? EF.esc(routeCheckText(r.routeCheck)) : '';
     const warn = r.basis === 'endpoint' || String(r.basis).startsWith('itinerary-') ? EF.esc(GEOCODE_WARN[r.geocodeConfidence] || '') : '';
     const date = r.date && /^\d{4}-\d{2}-\d{2}$/.test(r.date) ? ` (${EF.esc(new Date(r.date + 'T00:00:00Z').toLocaleDateString('fr-FR'))})` : '';
     const link = r.stageId != null ? ` · <a href="/stage.html?id=${Number(r.stageId)}">voir l'étape</a>` : '';
-    return `<li class="fauxplat-item">${title} — à <b>${km(r.distanceM)} km</b>${near}${link}${source}${date}<br><span class="meta-line">${EF.esc(NEAR_BASIS[r.basis] || r.basis)}${warn}</span></li>`;
+    return `<li class="fauxplat-item">${title} — à <b>${km(r.distanceM)} km</b>${near}${link}${source}${date}<br><span class="meta-line">${EF.esc(NEAR_BASIS[r.basis] || r.basis)}${warn}${check}</span></li>`;
   }).join('');
   return place + `<ul class="fauxplat-list">${items}</ul>` + coverage;
 }
