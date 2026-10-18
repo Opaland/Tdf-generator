@@ -1388,7 +1388,7 @@
       },
       {
        "label": "Spandau",
-       "km": 21,
+       "km": 27,
        "kind": "lieu-dit",
        "lat": 52.53579,
        "lon": 13.19779,
@@ -1403,7 +1403,7 @@
       },
       {
        "label": "Pont de Wannsee",
-       "km": 55.5,
+       "km": 60.5,
        "kind": "lieu-dit",
        "confidence": "non-place"
       },
@@ -1504,7 +1504,7 @@
       },
       {
        "label": "Schöllbronn",
-       "km": 30,
+       "km": 32.5,
        "kind": "lieu-dit",
        "lat": 48.89595,
        "lon": 8.41758,
@@ -1513,7 +1513,7 @@
       },
       {
        "label": "Ettlingen",
-       "km": 32.5,
+       "km": 38,
        "kind": "ville",
        "lat": 48.92619,
        "lon": 8.40557,
@@ -1847,7 +1847,7 @@
       "legs": 7
      },
      "circuit_km": 72.5,
-     "note": "Arrivée après une boucle dans Pforzheim (km 72,5 → 79, Messplatz) : circuit hors de la mesure."
+     "note": "Pforzheim (km 72,5) puis Messplatz (km 79) : la mesure s’arrête à Pforzheim (circuit_km). Le profil n’imprime pas de « circuit » — boucle ou traversée de la ville, non tranché."
     },
     "5": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1987/87_5.jpg",
@@ -1909,7 +1909,7 @@
        "confidence": "ok"
       },
       {
-       "label": "Côte d'Eberstein",
+       "label": "Côte de Ebersteinburg",
        "km": 43,
        "kind": "côte",
        "confidence": "non-place"
@@ -2034,7 +2034,7 @@
       },
       {
        "label": "Achenheim",
-       "km": 10.5,
+       "km": 4.5,
        "kind": "ville",
        "lat": 48.57786,
        "lon": 7.62497,
@@ -2043,7 +2043,7 @@
       },
       {
        "label": "Ernolsheim",
-       "km": 14.5,
+       "km": 10.5,
        "kind": "ville",
        "geocodeAs": "Ernolsheim-Bruche",
        "lat": 48.55717,
@@ -2053,7 +2053,7 @@
       },
       {
        "label": "Duttlenheim",
-       "km": 18.5,
+       "km": 14.5,
        "kind": "ville",
        "lat": 48.52422,
        "lon": 7.56559,
@@ -2062,7 +2062,7 @@
       },
       {
        "label": "Innenheim",
-       "km": 24.5,
+       "km": 18.5,
        "kind": "ville",
        "lat": 48.49639,
        "lon": 7.57326,
@@ -2071,7 +2071,7 @@
       },
       {
        "label": "Meistratzheim",
-       "km": 29,
+       "km": 24.5,
        "kind": "ville",
        "lat": 48.4491,
        "lon": 7.54256,
@@ -2080,7 +2080,7 @@
       },
       {
        "label": "Valff",
-       "km": 33.5,
+       "km": 29,
        "kind": "ville",
        "lat": 48.42224,
        "lon": 7.52279,
@@ -2089,7 +2089,7 @@
       },
       {
        "label": "Gertwiller",
-       "km": 39.5,
+       "km": 33.5,
        "kind": "ville",
        "lat": 48.41116,
        "lon": 7.46765,
@@ -2098,7 +2098,7 @@
       },
       {
        "label": "Andlau",
-       "km": 48.5,
+       "km": 39.5,
        "kind": "ville",
        "lat": 48.38652,
        "lon": 7.41774,
@@ -2107,7 +2107,7 @@
       },
       {
        "label": "Le Hohwald",
-       "km": 53.5,
+       "km": 48.5,
        "kind": "ville",
        "lat": 48.40382,
        "lon": 7.32674,
@@ -2116,7 +2116,7 @@
       },
       {
        "label": "Col du Kreuzweg",
-       "km": 60,
+       "km": 53.5,
        "kind": "col",
        "lat": 48.38709,
        "lon": 7.29412,
@@ -2130,7 +2130,8 @@
        "lat": 48.40282,
        "lon": 7.26404,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "non-place",
+       "note": "aucun km imprimé sous le libellé (le 67 de la première transcription ne figure pas sur l’image) — km non sûr, non placé"
       },
       {
        "label": "Rothau",
@@ -2307,10 +2308,10 @@
      ],
      "route_check": {
       "routed_km": 161.7,
-      "profile_km": 158.5,
-      "delta_pct": 2,
+      "profile_km": 164.5,
+      "delta_pct": -1.7,
       "tolerance_pct": 5,
-      "coverage_pct": 94,
+      "coverage_pct": 97,
       "car_legs": 0,
       "legs": 28
      }
@@ -2494,7 +2495,7 @@
       },
       {
        "label": "Briaucourt",
-       "km": 110,
+       "km": 112,
        "kind": "ville",
        "lat": 48.2086,
        "lon": 5.18938,
@@ -2503,7 +2504,7 @@
       },
       {
        "label": "Bologne",
-       "km": 112,
+       "km": 116,
        "kind": "ville",
        "lat": 48.20205,
        "lon": 5.14119,
@@ -2512,7 +2513,7 @@
       },
       {
        "label": "Annéville-la-Prairie",
-       "km": 116,
+       "km": 121,
        "kind": "ville",
        "lat": 48.19672,
        "lon": 5.08424,
@@ -2521,7 +2522,7 @@
       },
       {
        "label": "Côte de Sexfontaines",
-       "km": 121,
+       "km": 125,
        "kind": "côte",
        "geocodeAs": "Sexfontaines",
        "lat": 48.20179,
@@ -2531,7 +2532,7 @@
       },
       {
        "label": "Juzennecourt",
-       "km": 125,
+       "km": 131,
        "kind": "ville",
        "lat": 48.18369,
        "lon": 4.97921,
@@ -2540,7 +2541,7 @@
       },
       {
        "label": "Colombey-les-Deux-Églises",
-       "km": 131,
+       "km": 139,
        "kind": "ville",
        "lat": 48.22301,
        "lon": 4.88731,
@@ -2549,7 +2550,7 @@
       },
       {
        "label": "Lignol",
-       "km": 139,
+       "km": 146,
        "kind": "ville",
        "geocodeAs": "Lignol-le-Château",
        "lat": 48.22392,
@@ -2559,7 +2560,7 @@
       },
       {
        "label": "Bar-sur-Aube",
-       "km": 146,
+       "km": 155,
        "kind": "ville",
        "lat": 48.2332,
        "lon": 4.70583,
@@ -2568,7 +2569,7 @@
       },
       {
        "label": "Arsonval",
-       "km": 155,
+       "km": 160.5,
        "kind": "ville",
        "lat": 48.26813,
        "lon": 4.6511,
@@ -2577,13 +2578,16 @@
       },
       {
        "label": "Magny-Fouchard",
-       "km": 160.5,
+       "km": 170,
        "kind": "ville",
-       "confidence": "non-place"
+       "lat": 48.24257,
+       "lon": 4.53568,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Vendeuvre-sur-Barse",
-       "km": 170,
+       "km": 176,
        "kind": "ville",
        "lat": 48.23634,
        "lon": 4.4644,
@@ -2591,14 +2595,17 @@
        "confidence": "ok"
       },
       {
-       "label": "Villeneuve-au-Chêne",
-       "km": 176,
+       "label": "La Villeneuve-au-Chêne",
+       "km": 182,
        "kind": "ville",
-       "confidence": "non-place"
+       "lat": 48.23931,
+       "lon": 4.38887,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Lusigny-sur-Barse",
-       "km": 182,
+       "km": 191.5,
        "kind": "ville",
        "lat": 48.25509,
        "lon": 4.26864,
@@ -2607,7 +2614,7 @@
       },
       {
        "label": "Baires",
-       "km": 191.5,
+       "km": 204,
        "kind": "lieu-dit",
        "lat": 48.28889,
        "lon": 4.12279,
@@ -2616,7 +2623,7 @@
       },
       {
        "label": "Saint-Julien-les-Villas",
-       "km": 204,
+       "km": 207.5,
        "kind": "ville",
        "lat": 48.2735,
        "lon": 4.09836,
@@ -2634,13 +2641,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 213.2,
+      "routed_km": 213.6,
       "profile_km": 207,
-      "delta_pct": 3,
+      "delta_pct": 3.2,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 29
+      "legs": 31
      }
     },
     "8": {
@@ -3201,10 +3208,11 @@
        "confidence": "ok"
       },
       {
-       "label": "Côte de la Féchaudière",
+       "label": "Côte de la Féchalière",
        "km": 248.5,
        "kind": "côte",
-       "confidence": "non-place"
+       "confidence": "non-place",
+       "note": "km incertain à cette résolution"
       },
       {
        "label": "Côte du Calvaire",
@@ -3249,8 +3257,12 @@
        "label": "Champigny",
        "km": 8,
        "kind": "ville",
-       "geocodeAs": "Champigny-le-Sec",
-       "confidence": "non-place"
+       "geocodeAs": "Souzay-Champigny",
+       "note": "Champigny, aujourd’hui dans Souzay-Champigny (le rattachement à Champigny-le-Sec était un homonyme de la Vienne)",
+       "lat": 47.2214,
+       "lon": -0.01806,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Fontevraud-l'Abbaye",
@@ -3280,10 +3292,11 @@
        "confidence": "ok"
       },
       {
-       "label": "Genneton",
+       "label": "Geneston",
        "km": 45,
        "kind": "ville",
-       "confidence": "non-place"
+       "confidence": "non-place",
+       "note": "libellé de l’image ; non placé (aucune commune Geneston sur ce tronçon)"
       },
       {
        "label": "Monts-sur-Guesnes",
@@ -3351,18 +3364,23 @@
       },
       {
        "label": "Parigny",
-       "km": 79.5,
+       "km": 81.5,
        "kind": "lieu-dit",
-       "confidence": "non-place"
+       "confidence": "ok",
+       "lat": 46.70959,
+       "lon": 0.3848,
+       "how": "nominatim",
+       "note": "hameau de Jaunay-Marigny (Nominatim « Parigny, Vienne »)"
       },
       {
        "label": "Jaunay-Clan",
-       "km": 81.5,
+       "km": 85,
        "kind": "ville",
        "lat": 46.69453,
        "lon": 0.36249,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "aucun km imprimé ; graduation 85 sous le libellé (relecture adverse) — approché"
       },
       {
        "label": "Futuroscope",
@@ -3376,13 +3394,13 @@
      ],
      "length_km": 87.5,
      "route_check": {
-      "routed_km": 73.3,
-      "profile_km": 72.5,
-      "delta_pct": 1.1,
+      "routed_km": 81.6,
+      "profile_km": 79.5,
+      "delta_pct": 2.6,
       "tolerance_pct": 5,
-      "coverage_pct": 83,
+      "coverage_pct": 91,
       "car_legs": 0,
-      "legs": 10
+      "legs": 11
      }
     },
     "11": {
@@ -3506,8 +3524,12 @@
       {
        "label": "Saint-Gervais",
        "km": 104.5,
-       "kind": "ville",
-       "confidence": "non-place"
+       "kind": "lieu-dit",
+       "note": "village de la commune de Videix (Nominatim « Saint-Gervais, Videix ») — pas une commune",
+       "confidence": "ok",
+       "lat": 45.78416,
+       "lon": 0.75966,
+       "how": "nominatim"
       },
       {
        "label": "Côte de Vayres",
@@ -3796,7 +3818,7 @@
       },
       {
        "label": "Le Bugue",
-       "km": 84,
+       "km": 87,
        "kind": "ville",
        "lat": 44.91807,
        "lon": 0.92733,
@@ -4066,7 +4088,7 @@
       },
       {
        "label": "Saint-Jean-Pied-de-Port",
-       "km": 50.5,
+       "km": 47,
        "kind": "ville",
        "lat": 43.16295,
        "lon": -1.23805,
@@ -4075,7 +4097,7 @@
       },
       {
        "label": "Saint-Jean-le-Vieux",
-       "km": 54.5,
+       "km": 50.5,
        "kind": "ville",
        "lat": 43.1654,
        "lon": -1.19406,
@@ -4084,7 +4106,7 @@
       },
       {
        "label": "Ahaxe",
-       "km": 56,
+       "km": 54.5,
        "kind": "ville",
        "geocodeAs": "Ahaxe-Alciette-Bascassan",
        "lat": 43.1462,
@@ -4205,13 +4227,13 @@
        "confidence": "ok"
       },
       {
-       "label": "Iseste",
+       "label": "Izeste",
        "km": 188,
        "kind": "lieu-dit",
-       "geocodeAs": "Louvie-Juzon",
-       "lat": 43.09659,
-       "lon": -0.35366,
-       "how": "commune-ign",
+       "note": "graphie du profil « Iseste » ; commune Izeste (était rattachée à tort à Louvie-Juzon)",
+       "lat": 43.0915,
+       "lon": -0.4263,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -4282,7 +4304,7 @@
       "tolerance_pct": 5,
       "coverage_pct": 87,
       "car_legs": 0,
-      "legs": 20
+      "legs": 21
      }
     },
     "14": {
@@ -5114,7 +5136,8 @@
       "coverage_pct": 96,
       "car_legs": 0,
       "legs": 18
-     }
+     },
+     "note": "Non repris : Pont du Gard (≈ km 208, km non imprimé)."
     },
     "18": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1987/87_18.jpg",

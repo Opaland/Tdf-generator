@@ -648,24 +648,42 @@ et côtes traversées avec leur kilomètre.
   pas ajustés. 25 tronçons routés en voiture (13 avant) : BRouter refusait
   par moments pendant la remesure.
 - [ ] Édition 1987 : 25 étapes sur 26 (prologue de Berlin-Ouest sans
-  profil publié), 497 points placés sur 578. Les deux contre-la-montre
+  profil publié), 502 points placés sur 578. Les deux contre-la-montre
   dans Berlin-Ouest n'ont que des rues et quartiers (1987/1 non
-  contrôlable, 1987/2 −33,1 % sur deux lieux-dits). Contrôlée à ±5 %
-  avant PR, entièrement en vélo (BRouter, aucun tronçon voiture) : 14
-  étapes dans la tolérance, 10 hors, affichées comme telles. Écarts
-  dominés par les boucles en ville et les profils à points espacés :
-  1987/3 (−9,0 %, passages dans Karlsruhe et Stuttgart), 1987/12
-  (+13,7 %, vallée de la Dordogne, plusieurs tronçons plus longs que le
-  profil), 1987/21 (+8,4 %, Moûtiers → Aime 17 km routés pour 14),
+  contrôlable, 1987/2 −33,1 % sur deux tronçons). Contrôlée à ±5 % avant
+  PR, entièrement en vélo (BRouter, aucun tronçon voiture) : 14 étapes
+  dans la tolérance, 10 hors, affichées comme telles — 1987/3 (−9,0 %,
+  passages dans Karlsruhe et Stuttgart), 1987/12 (+13,7 %, vallée de la
+  Dordogne), 1987/21 (+8,4 %, Moûtiers → Aime 17 km routés pour 14),
   1987/24 (−15,6 %, contre-la-montre autour de Dijon, Sainte-Foy non
   placé), 1987/5, 8, 11, 15, 23 entre 5,1 et 6,1 %. Circuits retirés de
-  la mesure (`circuit_km`) : Pforzheim (1987/4, de −10,4 % à −1,6 %),
-  Bordeaux (1987/12), Champs-Élysées (1987/25, arrivée sur l'avenue, entrée
-  à la Concorde). Longueur du profil retenue quand elle diffère de
-  `stage_towns` : 1987/11 Poitiers → Chaumeil 255 km au profil contre
-  206 km (Wikipédia anglais) — écart non tranché, le profil est la
-  source citée. Partie des km de 1987/11 illisibles : seuls les points
-  lus sans doute sont repris.
+  la mesure (`circuit_km`) : Bordeaux (1987/12) et Champs-Élysées
+  (1987/25, arrivée sur l'avenue, entrée à la Concorde), imprimés sur le
+  profil ; Pforzheim (1987/4, de −10,4 % à −1,6 %) — le profil n'imprime
+  pas de circuit, boucle ou traversée de la ville non tranchée.
+  Longueur du profil retenue quand elle diffère de `stage_towns` :
+  1987/11 Poitiers → Chaumeil 255 km (imprimé au bout de l'axe) contre
+  206 km sur Wikipédia anglais, incompatible avec les 234 km routés sur
+  98 % de l'étape. Relecture adverse : une trentaine de km décalés d'un
+  cran (rangée de la graduation prise pour celle du point) dans 1987/1,
+  3, 6, 7, 10, 12, 13 — corrigés ; le contrôle ±5 % ne les voyait pas
+  (il compare le total, pas chaque tronçon) : par exemple Baires → Saint-
+  Julien-les-Villas 12,5 km au profil transcrit pour 3,9 km routés. Col
+  du Kreuzweg était au km 60, une graduation (même erreur qu'en 1988) ;
+  Le Champ du Feu sans km imprimé, non placé. Iseste est Izeste (était
+  rattaché à tort à Louvie-Juzon, 5,9 km) ; Champigny rattaché à
+  Souzay-Champigny (Champigny-le-Sec est un homonyme de la Vienne) ;
+  Saint-Gervais et Parigny placés sur leur village ; Magny-Fouchard et
+  La Villeneuve-au-Chêne placés après correction des km ; libellés de
+  l'image restaurés (Geneston, Côte de Ebersteinburg, Côte de la
+  Féchalière).
+- [ ] 33.11 Contrôle par tronçon : `check-itineraries` compare la
+  distance routée totale au profil, si bien qu'un km faux au milieu
+  d'une étape ne change rien (relecture 1987 : une trentaine de km
+  décalés invisibles). À faire : signaler aussi chaque tronçon dont le
+  km du profil est inférieur à la ligne droite, ou très éloigné de la
+  distance routée, avant PR (`--legs` en partie), et l'ajouter au
+  protocole de transcription.
 - [x] 33.7 Entités administratives larges (trouvé sur 1989) : Bastogne
   placée sur son arrondissement (« county » OSM), 9,2 km au nord de la
   ville. Le rang « subdivision » de 33.6 couvre désormais aussi county,
