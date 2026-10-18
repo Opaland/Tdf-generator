@@ -91,6 +91,34 @@ function nearestShortSegmentM(place, pts) {
   return best;
 }
 
+/** Villes de départ/arrivée de toutes les éditions (Epic 32.4,
+ * pipeline/data/stage_towns.json, construit par scripts/build-stage-towns.js) :
+ * [{ year, category, stage, towns: [{label, role, lat, lon, confidence}] }].
+ * Fichier absent → [] (la recherche reste limitée aux autres sources). */
+let townsCache = null;
+function stageTowns() {
+  if (townsCache) return townsCache;
+  let doc;
+  try {
+    doc = JSON.parse(require('fs').readFileSync(require('path').join(__dirname, 'data', 'stage_towns.json'), 'utf8'));
+  } catch {
+    townsCache = [];
+    return townsCache;
+  }
+  townsCache = [];
+  for (const [key, ed] of Object.entries(doc.editions || {})) {
+    const m = /^(\d{4})(?:-(\w+))?$/.exec(key);
+    if (!m) continue;
+    for (const s of ed.stages || []) {
+      const towns = [['départ', s.start], ['arrivée', s.finish]]
+        .filter(([, t]) => t && Number.isFinite(t.lat) && Number.isFinite(t.lon))
+        .map(([role, t]) => ({ label: t.label, role, lat: t.lat, lon: t.lon, confidence: t.confidence || 'ok' }));
+      townsCache.push({ year: Number(m[1]), category: m[2] || 'hommes', stage: String(s.number), date: s.date || null, towns });
+    }
+  }
+  return townsCache;
+}
+
 const stageKey = (year, category, stage) => `${year}|${category}|${parseInt(stage, 10)}`;
 
 /**
@@ -100,7 +128,7 @@ const stageKey = (year, category, stage) => `${year}|${category}|${parseInt(stag
  *             waypointed: [{year, category, stageOrder, stageId, name, date, waypoints: [{label, lat, lon}]}] }
  * @param curated curatedStages() (injectable pour les tests)
  */
-function searchNear(place, radiusM, db, curated = curatedStages()) {
+function searchNear(place, radiusM, db, curated = curatedStages(), towns = stageTowns()) {
   const results = [];
   const seen = new Set();
   for (const s of db.tracked) {
@@ -132,6 +160,7 @@ function searchNear(place, radiusM, db, curated = curatedStages()) {
     if (c.points.length === 0) continue;
     const k = stageKey(c.year, c.category, c.stage);
     if (seen.has(k)) continue;
+    seen.add(k);
     curatedCovered++;
     const near = nearestPoint(place, c.points);
     // Segment droit entre deux points curés consécutifs (moins de
@@ -145,11 +174,32 @@ function searchNear(place, radiusM, db, curated = curatedStages()) {
         nearestLabel: near.label, nearestPointM: Math.round(near.d) });
     }
   }
+  // Dernier recours : villes de départ/arrivée seulement, pour toutes les
+  // éditions. Le parcours entre les deux n'est pas connu : la distance est
+  // celle à la ville, jamais à une route supposée.
+  let townsCovered = 0;
+  for (const t of towns) {
+    if (!t.towns.length) continue;
+    const k = stageKey(t.year, t.category, t.stage);
+    if (seen.has(k)) continue;
+    seen.add(k);
+    townsCovered++;
+    let best = null;
+    for (const w of t.towns) {
+      const d = haversine(place, w);
+      if (!best || d < best.d) best = { d, w };
+    }
+    if (best.d <= radiusM) {
+      results.push({ year: t.year, category: t.category, stage: t.stage, stageId: null, name: null, date: t.date,
+        distanceM: Math.round(best.d), basis: 'endpoint', nearestLabel: best.w.label, endpointRole: best.w.role,
+        geocodeConfidence: best.w.confidence });
+    }
+  }
   results.sort((a, b) => a.year - b.year || parseInt(a.stage, 10) - parseInt(b.stage, 10) || a.distanceM - b.distanceM);
   return {
     results,
-    coverage: { trackedStages: db.tracked.length, waypointStages: db.waypointed.length, curatedStages: curatedCovered },
+    coverage: { trackedStages: db.tracked.length, waypointStages: db.waypointed.length, curatedStages: curatedCovered, townStages: townsCovered },
   };
 }
 
-module.exports = { searchNear, curatedStages, distanceToLineM, pointSegmentM, MAX_SEGMENT_M };
+module.exports = { searchNear, curatedStages, stageTowns, distanceToLineM, pointSegmentM, MAX_SEGMENT_M };

@@ -286,6 +286,11 @@ const NEAR_BASIS = {
   'waypoint-segment': 'estimation : ligne droite entre deux points de passage proches (étape importée, pas encore générée)',
   'curated-point': 'distance au point de passage curé le plus proche (édition pas encore importée)',
   'curated-segment': 'estimation : ligne droite entre deux points de passage curés (édition pas encore importée)',
+  endpoint: 'distance à la ville de départ ou d\'arrivée seulement : le parcours entre les deux n\'est pas connu pour cette étape',
+};
+const GEOCODE_WARN = {
+  ambigu: ' — ville homonyme possible (la plus peuplée a été retenue)',
+  approx: ' — position de la ville approximative',
 };
 
 /** Rendu des résultats de GET /api/search/near. Tout texte venu de l'API
@@ -294,17 +299,23 @@ function nearResultsHtml(data) {
   const km = (m) => (Number(m) / 1000).toLocaleString('fr-FR', { maximumFractionDigits: 1 });
   const place = `<p class="meta-line">Lieu retenu : <b>${EF.esc(data.place.label)}</b> (${Number(data.place.lat).toFixed(4)}, ${Number(data.place.lon).toFixed(4)})</p>`;
   const c = data.coverage;
-  const coverage = `<p class="meta-line">Recherché dans ${Number(c.trackedStages)} étape(s) reconstituée(s), ${Number(c.waypointStages)} étape(s) importée(s) non générée(s) et ${Number(c.curatedStages)} étape(s) curée(s). ` +
-    'Les autres étapes de l\'histoire du Tour ne sont pas encore couvertes : importez une édition (ci-dessous) pour l\'ajouter à la recherche.</p>';
+  const coverage = `<p class="meta-line">Recherché dans ${Number(c.trackedStages)} étape(s) reconstituée(s), ${Number(c.waypointStages)} étape(s) importée(s) non générée(s), ${Number(c.curatedStages)} étape(s) curée(s)` +
+    `${c.townStages ? ` et, pour ${Number(c.townStages)} autre(s) étape(s), leurs seules villes de départ et d'arrivée` : ''}. ` +
+    'Le passage entre deux villes n\'est connu que pour les étapes reconstituées ou curées : un village traversé en cours d\'étape peut manquer.</p>';
   if (!data.results.length) {
     return place + `<p><b>Aucun passage trouvé à moins de ${Number(data.radiusKm)} km</b> dans les étapes couvertes — ce n'est pas la preuve qu'aucun Tour n'y est passé.</p>` + coverage;
   }
   const items = data.results.map((r) => {
     const cat = r.category === 'femmes' ? ' (Femmes)' : '';
-    const title = `<b>${Number(r.year)}${cat}</b> — étape ${EF.esc(r.stage)}${r.name ? ` : ${EF.esc(r.name)}` : ''}`;
-    const near = r.nearestLabel ? `, près de ${EF.esc(r.nearestLabel)}` : '';
+    const stage = r.stage === '0' ? 'prologue' : `étape ${EF.esc(r.stage)}`;
+    const title = `<b>${Number(r.year)}${cat}</b> — ${stage}${r.name ? ` : ${EF.esc(r.name)}` : ''}`;
+    const near = r.basis === 'endpoint'
+      ? ` de ${EF.esc(r.nearestLabel)} (ville ${r.endpointRole === 'départ' ? 'de départ' : 'd\'arrivée'})`
+      : r.nearestLabel ? `, près de ${EF.esc(r.nearestLabel)}` : '';
+    const warn = r.basis === 'endpoint' ? EF.esc(GEOCODE_WARN[r.geocodeConfidence] || '') : '';
+    const date = r.date && /^\d{4}-\d{2}-\d{2}$/.test(r.date) ? ` (${EF.esc(new Date(r.date + 'T00:00:00Z').toLocaleDateString('fr-FR'))})` : '';
     const link = r.stageId != null ? ` · <a href="/stage.html?id=${Number(r.stageId)}">voir l'étape</a>` : '';
-    return `<li class="fauxplat-item">${title} — à <b>${km(r.distanceM)} km</b>${near}${link}<br><span class="meta-line">${EF.esc(NEAR_BASIS[r.basis] || r.basis)}</span></li>`;
+    return `<li class="fauxplat-item">${title} — à <b>${km(r.distanceM)} km</b>${near}${link}${date}<br><span class="meta-line">${EF.esc(NEAR_BASIS[r.basis] || r.basis)}${warn}</span></li>`;
   }).join('');
   return place + `<ul class="fauxplat-list">${items}</ul>` + coverage;
 }
