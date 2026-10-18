@@ -480,6 +480,16 @@ et côtes traversées avec leur kilomètre.
   Mons (1995/6), Luchon et Cazaux-Layrisse (1995/15). Dourgne (1995/13)
   non repris : km imprimé « 119,5 » entre Castres (198) et Revel (245).
 
+- [ ] Édition 1991 : 22 étapes sur 23 (prologue de Lyon non transcrit),
+  406 points placés sur 442. Contrôlée à ±5 % avant PR : 18 étapes dans la
+  tolérance, 4 hors (1991/1 −22,7 %, boucle lyonnaise dont le profil ne
+  liste qu'une partie des villages ; 1991/2 −6,0 % ; 1991/12 +8,1 %,
+  Canfranc → Castiello ; 1991/21 −8,4 %), affichées comme telles. Le
+  contrôle a fait réintégrer les hameaux omis à la transcription (Jonas,
+  Charvas, Gratay, Quintaine, Roizon, Le Ribot…) : leur absence coupait la
+  route (1991/2 de −16,9 % à −6,0 %, 1991/17 de −10,1 % à la tolérance).
+  Hameaux géocodés par leur seul nom et la contrainte de km — aucune
+  commune de rattachement devinée.
 - [ ] 33.4 Contrôle à ±5 % des itinéraires (demande du 18/10/2026 : « 5 %
   max de tolérance ») : `scripts/check-itineraries.js` route l'itinéraire
   point par point et compare au kilométrage du profil, avec
