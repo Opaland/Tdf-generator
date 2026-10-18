@@ -567,6 +567,22 @@ et côtes traversées avec leur kilomètre.
   Libellés de l'image gardés (Seyne-les-Alpes, Colombières, Malmédy,
   Côte-des-4-Routes) ; longueurs du profil reprises quand elles diffèrent
   de `stage_towns` (1989/11, 13, 16, 17, 20).
+- [ ] Édition 1988 : 22 étapes sur 23 (prologue Pornichet → La Baule,
+  3,8 km, sans profil publié), 381 points placés sur 419. Contrôlée à
+  ±5 % avant PR : 18 étapes dans la tolérance, 4 hors, affichées comme
+  telles — 1988/6 (+14,4 %, contre-la-montre par équipes : Villeneuve-
+  d'Ascq → Croix, 7 km à vol d'oiseau pour 5 km de profil), 1988/11
+  (+6,9 %, rive du Léman, Territet non placé), 1988/21 (−11,9 %,
+  contre-la-montre, côte de Saint-Romain et deux lieux-dits hors du
+  calcul), 1988/22 (+6,6 %, circuit des Champs-Élysées retiré de la mesure
+  par `circuit_km` à la Concorde ; Jouy-en-Josas → Versailles 3 km de
+  profil pour 5,5 à vol d'oiseau). Erreur trouvée dans `stage_towns` :
+  « Puy de Dôme » (15 arrivées 1952-2023) était le centre du département,
+  13,9 km au sud-est du sommet — recalé sur le volcan (Nominatim
+  natural/volcano) ; 1988/19 de +6,4 % à +0,4 %. Saint-Nazaire (1988/1)
+  non placé : centre-ville à 7,7 km de Montoir pour 4,5 km de profil.
+  Libellés illisibles ou nommés sans km (Côte de Mamers, Saint-Amand-les-
+  Eaux, Taninges, Saint-Yorre…) non repris, notés sur leur étape.
 - [x] 33.7 Entités administratives larges (trouvé sur 1989) : Bastogne
   placée sur son arrondissement (« county » OSM), 9,2 km au nord de la
   ville. Le rang « subdivision » de 33.6 couvre désormais aussi county,
