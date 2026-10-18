@@ -677,13 +677,28 @@ et côtes traversées avec leur kilomètre.
   La Villeneuve-au-Chêne placés après correction des km ; libellés de
   l'image restaurés (Geneston, Côte de Ebersteinburg, Côte de la
   Féchalière).
-- [ ] 33.11 Contrôle par tronçon : `check-itineraries` compare la
+- [x] 33.11 Contrôle par tronçon : `check-itineraries` comparait la
   distance routée totale au profil, si bien qu'un km faux au milieu
-  d'une étape ne change rien (relecture 1987 : une trentaine de km
-  décalés invisibles). À faire : signaler aussi chaque tronçon dont le
-  km du profil est inférieur à la ligne droite, ou très éloigné de la
-  distance routée, avant PR (`--legs` en partie), et l'ajouter au
-  protocole de transcription.
+  d'une étape ne changeait rien (relecture 1987 : une trentaine de km
+  décalés invisibles). Fait : `isSuspectLeg` signale un tronçon dont le
+  km du profil est plus court que la ligne droite (+1 km de marge,
+  centres de commune) ou dont la route s'écarte du profil d'au moins
+  3 km et d'un facteur 1,4 ou 0,7 ; `--legs` les liste pour toutes les
+  étapes, plus seulement celles hors tolérance, et `route_check` publie
+  leur nombre (`suspect_legs`). Tests : cas réels de 1987, compensation
+  entre deux tronçons faux d'une étape dans la tolérance, chaque règle
+  discriminée par une mutation. Premier passage sur les 179 étapes
+  transcrites : 188 tronçons suspects sur 112 étapes (1987 : 34, 1988 :
+  23, 1995 : 21, 1992 : 20…) — à trier contre l'image (33.12) ; la
+  liste est la sortie de `check-itineraries --legs`. Remesure
+  simultanée : 159 étapes dans la tolérance (158 avant), 1 tronçon
+  voiture (25 avant).
+- [ ] 33.12 Tri des 188 tronçons suspects (33.11), édition par édition,
+  contre l'image agrandie : km décalé d'un cran, graduation lue pour le
+  point, homonyme, centre de commune loin du passage — ou profil
+  réellement contradictoire, laissé tel quel avec une note. Protocole de
+  transcription : `--legs` avant chaque PR d'édition, tout tronçon
+  suspect justifié.
 - [x] 33.7 Entités administratives larges (trouvé sur 1989) : Bastogne
   placée sur son arrondissement (« county » OSM), 9,2 km au nord de la
   ville. Le rang « subdivision » de 33.6 couvre désormais aussi county,
