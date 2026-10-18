@@ -347,6 +347,18 @@ qu'après réimport, ce qui sera affiché, jamais deviné.
 - [x] 31.2 Temps écoulé par échantillon à l'import (`elevation_samples.elapsed_s`, migration 9) : temps du point brut le plus proche en abscisse, jamais interpolé ; `null` pour toute étape routée ou trace sans horodatage ; absent des formats partageables et de la démo statique (même règle que la FC)
 - [x] 31.3 Option A : temps de montée de chaque côte d'une trace horodatée, côtes appariées entre sorties par la position du sommet, meilleur temps et historique par côte dans « Mes traces » ; une trace importée avant 31.2 est signalée « sans temps », jamais estimée — `pipeline/climbEfforts.js`, `GET /api/traces/climb-efforts` ; relecture adverse : sur une boucle repassant au pied, le départ était pris pour le pied (temps faux, non signalé) → dernier passage au pied + longueur de référence exigée ; montée multiple dans une sortie numérotée ; coût mesuré ~0,5 s pour 300 traces × 1 000 échantillons × 8 côtes, sans cache (à surveiller)
 
+## Epic 32 — Recherche par lieu : « un Tour est-il passé près de ce village ? »
+
+Question d'origine du projet, rappelée par l'utilisateur le 18/10/2026
+(« un Tour de France est-il passé près de Porcelette, et en quelle année ? »).
+
+- [x] 32.1 `pipeline/placeSearch.js` + `GET /api/search/near?q=&radiusKm=` : géocodage du lieu, puis trois sources par ordre de confiance — tracé reconstitué en base, points de passage en base, points curés de `historic_routes.json` (même édition non importée) ; la plus fiable l'emporte pour une même étape ; couverture toujours renvoyée
+- [x] 32.2 Archives : « Le Tour est-il passé près de chez vous ? » — distance, base de calcul (tracé, point, estimation en ligne droite), lien vers l'étape si elle existe ; un « aucun résultat » est affiché comme tel, jamais comme une preuve d'absence
+- [x] 32.3 Hors ligne : un lieu inconnu du simulateur (position inventée) est refusé, jamais cherché (règle 12)
+- [ ] 32.4 Couverture : aujourd'hui 74 étapes curées avec coordonnées (+ ce qui est importé/généré en base). Pour couvrir toute l'histoire, il faut les villes de départ/arrivée de toutes les éditions (liste Wikipédia) géocodées une fois — jeu de données à construire avec le réseau (Wikipédia renvoyait 429 le 18/10)
+
+Réponse vérifiée pour Porcelette (18/10/2026) : **1992, étape 10 (Luxembourg → Strasbourg)**, road book : Boulay-Moselle → Boucheporn → Longeville-lès-Saint-Avold ; tracé routé (OSRM) entre ces points à ~3,6 km du centre du village (Nominatim), ~4,4 km du centroïde communal (IGN). Aucune autre étape curée à moins de 10 km ; les éditions non couvertes ne sont pas vérifiées.
+
 ## Epic 24 — Bilan final
 
 - [x] 24.1 Rapport de clôture par epic (17/10/2026), voir ci-dessous

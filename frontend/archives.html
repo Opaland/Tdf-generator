@@ -41,6 +41,18 @@
       voir <code>npm run demo:2027</code> pour un parcours spéculatif à part.</p>
   </details>
 
+  <div class="card" id="near-box">
+    <h2 style="margin-top:0">Le Tour est-il passé près de chez vous ?</h2>
+    <form class="row" id="near-form">
+      <label class="field" style="flex:1">Village ou ville<input id="near-q" maxlength="100" placeholder="ex. Porcelette" required></label>
+      <label class="field">Rayon<select id="near-radius">
+        <option value="5">5 km</option><option value="10" selected>10 km</option><option value="20">20 km</option><option value="50">50 km</option>
+      </select></label>
+      <button type="submit">Chercher</button>
+    </form>
+    <div id="near-results" aria-live="polite"></div>
+  </div>
+
   <div class="card">
     <p class="meta-line" style="margin-top:0">Étapes mythiques — cliquer une vignette importe directement l'édition correspondante :</p>
     <div id="mythic-grid" class="mythic-grid"></div>
