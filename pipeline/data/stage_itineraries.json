@@ -14082,6 +14082,12 @@
        "confidence": "ambigu"
       },
       {
+       "label": "Kronenburg",
+       "km": 168,
+       "kind": "ville",
+       "confidence": "non-place"
+      },
+      {
        "label": "Drunen",
        "km": 195.5,
        "kind": "ville",
@@ -14480,13 +14486,14 @@
        "confidence": "ok"
       },
       {
-       "label": "Goussancourt",
+       "label": "Goussancourt (près de)",
        "km": 37.5,
        "kind": "ville",
        "lat": 49.16707,
        "lon": 3.66944,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "geocodeAs": "Goussancourt"
       },
       {
        "label": "Romigny",
@@ -14723,7 +14730,11 @@
        "label": "Rosières-sur-Mouzon",
        "km": 108.5,
        "kind": "ville",
-       "confidence": "non-place"
+       "geocodeAs": "Rozières-sur-Mouzon",
+       "lat": 48.11975,
+       "lon": 5.7044,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Lamarche",
@@ -14805,6 +14816,16 @@
        "geocodeAs": "Pouilley-les-Vignes",
        "lat": 47.25225,
        "lon": 5.93907,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Besançon (entrée)",
+       "km": 232.5,
+       "kind": "lieu-dit",
+       "geocodeAs": "Besançon",
+       "lat": 47.25194,
+       "lon": 6.0017,
        "how": "commune-ign",
        "confidence": "ok"
       },
@@ -14973,7 +14994,6 @@
     },
     "7": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1996/96_7a.jpg",
-     "partial": true,
      "towns": [
       {
        "label": "Chambéry",
@@ -15704,9 +15724,11 @@
       {
        "label": "Superbesse-Sancy",
        "km": 177,
-       "kind": "lieu-dit",
-       "geocodeAs": "Besse-et-Saint-Anastaise",
-       "confidence": "non-place"
+       "kind": "ville",
+       "lat": 45.50857,
+       "lon": 2.85877,
+       "how": "stage_towns",
+       "confidence": "ok"
       }
      ]
     },
@@ -15789,6 +15811,12 @@
        "label": "Côte des Aubazines",
        "km": 80,
        "kind": "côte",
+       "confidence": "non-place"
+      },
+      {
+       "label": "La Serre",
+       "km": 98.5,
+       "kind": "ville",
        "confidence": "non-place"
       },
       {
@@ -16190,16 +16218,21 @@
        "label": "Col de Soudet",
        "km": 112.5,
        "kind": "col",
-       "confidence": "non-place"
+       "geocodeAs": "Soudet",
+       "lat": 42.98811,
+       "lon": -0.75489,
+       "how": "nominatim",
+       "confidence": "ok"
       },
       {
-       "label": "Sainte-Engrâce",
+       "label": "Sainte-Engrâce (bourg)",
        "km": 123,
        "kind": "ville",
        "lat": 42.99586,
        "lon": -0.81081,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "geocodeAs": "Sainte-Engrâce"
       },
       {
        "label": "Larrau",
@@ -16336,10 +16369,11 @@
        "confidence": "ok"
       },
       {
-       "label": "Alto de Ibañeta",
+       "label": "Alto de Ibaneta",
        "km": 43.5,
        "kind": "col",
-       "confidence": "non-place"
+       "confidence": "non-place",
+       "geocodeAs": "Alto de Ibañeta"
       },
       {
        "label": "Saint-Jean-Pied-de-Port",
@@ -16429,13 +16463,14 @@
        "confidence": "ok"
       },
       {
-       "label": "Hendaye",
+       "label": "Hendaye (Bld de la Mer)",
        "km": 154.5,
        "kind": "ville",
        "lat": 43.36084,
        "lon": -1.75963,
        "how": "stage_towns",
-       "confidence": "ok"
+       "confidence": "ok",
+       "geocodeAs": "Hendaye"
       }
      ]
     },
