@@ -93,6 +93,16 @@ function anchorsFor(townsDoc, edition, stage) {
   return s ? { start: ok(s.start), finish: ok(s.finish) } : {};
 }
 
+/** Ancres d'une étape du fichier. Transcription partielle sans longueur
+ * connue (length_km) : le dernier point n'est pas forcément l'arrivée, la
+ * contrainte vers l'arrivée serait fausse (1979/13 : Fresse-sur-Moselle
+ * rejetée, à 9 km du Ballon d'Alsace) — ancre d'arrivée retirée. */
+function stageAnchors(townsDoc, edition, stage, st) {
+  const anchors = anchorsFor(townsDoc, edition, stage);
+  if (st.partial && !Number.isFinite(st.length_km)) delete anchors.finish;
+  return anchors;
+}
+
 async function main() {
   const doc = JSON.parse(fs.readFileSync(FILE, 'utf8'));
   let townsDoc = null;
@@ -101,11 +111,7 @@ async function main() {
   for (const [edition, ed] of Object.entries(doc.editions)) {
     if (only.length && !only.includes(edition)) continue;
     for (const [stage, st] of Object.entries(ed.stages)) {
-      // Transcription partielle sans longueur connue : le dernier point n'est
-      // pas forcément l'arrivée, la contrainte vers l'arrivée serait fausse
-      // (1979/13 : Fresse-sur-Moselle rejetée, à 9 km du Ballon d'Alsace).
-      const anchors = anchorsFor(townsDoc, edition, stage);
-      if (st.partial && !Number.isFinite(st.length_km)) delete anchors.finish;
+      const anchors = stageAnchors(townsDoc, edition, stage, st);
       st.towns = await geocodeStage(st.towns, anchors, defaultCandidates, st.length_km);
       const miss = st.towns.filter((t) => !Number.isFinite(t.lat)).map((t) => t.label);
       console.log(`${edition}/${stage} : ${st.towns.length - miss.length}/${st.towns.length} placés${miss.length ? ` — non placés : ${miss.join(', ')}` : ''}`);
@@ -116,4 +122,4 @@ async function main() {
 
 if (require.main === module) main().catch((err) => { console.error(err); process.exit(1); });
 
-module.exports = { geocodeStage, anchorsFor, SLACK_M, START_SLACK_M };
+module.exports = { geocodeStage, anchorsFor, stageAnchors, SLACK_M, START_SLACK_M };

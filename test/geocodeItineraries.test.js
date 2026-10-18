@@ -11,7 +11,7 @@ process.env.ETAPEFORGE_OFFLINE = '1';
 
 const { test, after } = require('node:test');
 const assert = require('node:assert');
-const { geocodeStage, anchorsFor } = require('../scripts/geocode-itineraries');
+const { geocodeStage, anchorsFor, stageAnchors } = require('../scripts/geocode-itineraries');
 
 after(() => fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true }));
 
@@ -69,4 +69,11 @@ test('geocodeStage : longueur d\'étape fournie (totalKm) utilisée pour la cont
   const finish = at(0, 30000); // arrivée 20 km après B
   assert.strictEqual((await geocodeStage(towns, { finish }, async (l) => cands[l] || []))[1].confidence, 'non-place');
   assert.strictEqual((await geocodeStage(towns, { finish }, async (l) => cands[l] || [], 31))[1].confidence, 'ok');
+});
+
+test('stageAnchors : arrivée retirée seulement pour une transcription partielle sans longueur', () => {
+  const doc = { editions: { 1979: { stages: [{ number: 13, start: { lat: 1, lon: 2 }, finish: { lat: 3, lon: 4 } }] } } };
+  assert.ok(stageAnchors(doc, '1979', '13', { towns: [] }).finish);
+  assert.ok(stageAnchors(doc, '1979', '13', { partial: true, length_km: 205, towns: [] }).finish);
+  assert.strictEqual(stageAnchors(doc, '1979', '13', { partial: true, towns: [] }).finish, undefined);
 });

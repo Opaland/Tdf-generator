@@ -1,5 +1,5 @@
 {
- "_notes": "Itinéraires détaillés (Epic 33) : villes et côtes traversées, avec leur kilomètre, transcrites à la main depuis le profil officiel cité dans source_url (profils du Dico du Tour, ledicodutour.com). Coordonnées ajoutées par scripts/geocode-itineraries.js : un point n'est placé que si la distance à vol d'oiseau depuis le point précédent ne dépasse pas l'écart de kilomètres du profil (+3 km ; +10 km depuis le km 0, le départ réel pouvant être hors du centre de la ville de départ) ; sinon il reste sans coordonnées. confidence : ok (un seul candidat compatible), ambigu (plusieurs, le moins détourné retenu). Un point sans coordonnées n'est jamais utilisé par la recherche. Une côte est placée au village dont elle porte le nom (geocodeAs) : position approchée à quelques km près, jamais le sommet exact. partial: true = transcription partielle, seuls les points dont le kilomètre est lisible sans doute sur l image sont repris (un point absent n est pas une preuve que l étape n y est pas passée). length_km : longueur de l étape lue sur le profil, quand le dernier point transcrit n est pas l arrivée.",
+ "_notes": "Itinéraires détaillés (Epic 33) : villes et côtes traversées, avec leur kilomètre, transcrites à la main depuis le profil officiel cité dans source_url (profils du Dico du Tour, ledicodutour.com). Coordonnées ajoutées par scripts/geocode-itineraries.js : un point n'est placé que si la distance à vol d'oiseau depuis le point précédent ne dépasse pas l'écart de kilomètres du profil (+3 km ; +10 km depuis le km 0, le départ réel pouvant être hors du centre de la ville de départ) ; sinon il reste sans coordonnées. confidence : ok (un seul candidat compatible), ambigu (plusieurs, le moins détourné retenu). Un point sans coordonnées n'est jamais utilisé par la recherche. Une côte est placée au village dont elle porte le nom (geocodeAs) : position approchée à quelques km près, jamais le sommet exact. partial: true = transcription partielle, seuls les points dont le kilomètre est lisible sans doute sur l image sont repris (un point absent n est pas une preuve que l étape n y est pas passée). length_km : longueur de l'étape lue sur le profil ; sur une transcription partielle, elle confirme que le dernier point est l'arrivée (sinon la contrainte vers l'arrivée n'est pas appliquée).",
  "_source": "Profils d'étapes du Dico du Tour (https://www.ledicodutour.com), lus image par image ; seuls les noms de lieux et kilomètres (faits) sont repris, pas les images.",
  "editions": {
   "1970": {
@@ -7,6 +7,7 @@
     "9": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1970/1970_9.jpg",
      "partial": true,
+     "length_km": 267.5,
      "towns": [
       {
        "label": "Saarlouis",
@@ -198,6 +199,7 @@
     "20": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1978/78_20a.jpg",
      "partial": true,
+     "length_km": 75,
      "towns": [
       {
        "label": "Metz",
@@ -218,13 +220,14 @@
        "confidence": "ok"
       },
       {
-       "label": "Marly",
+       "label": "Marly-Frescaty",
        "km": 4.8,
        "kind": "ville",
        "lat": 49.06002,
        "lon": 6.15457,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "geocodeAs": "Marly"
       },
       {
        "label": "Coin-sur-Seille",
@@ -383,13 +386,14 @@
        "confidence": "ok"
       },
       {
-       "label": "Herbeumont",
+       "label": "Hebermont",
        "km": 59.5,
        "kind": "ville",
        "lat": 49.78154,
        "lon": 5.23777,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "geocodeAs": "Herbeumont"
       },
       {
        "label": "Florenville",
@@ -717,15 +721,6 @@
        "kind": "col",
        "lat": 47.92617,
        "lon": 6.81705,
-       "how": "nominatim",
-       "confidence": "ok"
-      },
-      {
-       "label": "Fresse-sur-Moselle",
-       "km": 194.5,
-       "kind": "ville",
-       "lat": 47.87672,
-       "lon": 6.7881,
        "how": "nominatim",
        "confidence": "ok"
       }
@@ -1759,6 +1754,7 @@
     "7": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1997_2006/1999/99_7a.jpg",
      "partial": true,
+     "length_km": 227,
      "towns": [
       {
        "label": "Avesnes-sur-Helpe",
@@ -2183,6 +2179,7 @@
     "2": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2006/06_02b.jpg",
      "partial": true,
+     "length_km": 228.5,
      "towns": [
       {
        "label": "Obernai",

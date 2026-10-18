@@ -385,8 +385,9 @@ et côtes traversées avec leur kilomètre.
 - [ ] 33.2 Transcription édition par édition (une PR par lot), en
   commençant par les éditions passées par la Lorraine.
   - [ ] Lot Lorraine : 14 étapes (1970/9, 1978/20, 1979/12-13, 1980/2-3,
-    1985/8, 1990/6, 1999/7-8, 2002/2-3, 2006/2, 2012/6), 236 points placés
-    sur 240. Porcelette : 1970/9 passe par Carling (km 18) et Saint-Avold
+    1985/8, 1990/6, 1999/7-8, 2002/2-3, 2006/2, 2012/6), 235 points placés
+    sur 239 (Fresse-sur-Moselle 1979/13 retirée en relecture : km imprimé
+    sous le libellé voisin). Porcelette : 1970/9 passe par Carling (km 18) et Saint-Avold
     (km 25,5), à 4,3 km — réponse que les villes de départ/arrivée seules
     ne donnaient pas. Un point n'est repris que si son km est lisible sans
     doute (`partial` sinon). **Non transcrits** : les profils 1951-1967 du
