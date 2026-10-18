@@ -513,6 +513,22 @@ et côtes traversées avec leur kilomètre.
   hameaux exclus du calcul (route coupée, écart négatif), et vraies
   erreurs de position — à corriger une à une (33.5).
 
+- [ ] 33.5 Tri des étapes hors ±5 % (18/10/2026) : `check-itineraries
+  --legs` liste les tronçons suspects ; deux analyses ont classé chaque
+  étape (A position fausse, B km mal transcrit, C circuit/points espacés,
+  D routeur) — aucun cas B. 25 positions corrigées, chacune sourcée et
+  re-routée : cols jamais placés (Jaizkibel, Wettstein), centroïdes de
+  commune au lieu du bourg (≈ 15 villes), Val-d'Isère à 2,5 km du village
+  (1996/8 de +70,8 % à la tolérance), col de la Grosse Pierre au km 164
+  de 1979/13 (était le col du Haut de la Côte). stage_towns.json : 6
+  occurrences fausses de Val-d'Isère et Villeneuve-sur-Lot corrigées.
+  Mesure après tri, 1991 comprise : 137 étapes, 96 dans la tolérance, 39
+  hors, 2 non contrôlables ; 11 tronçons seulement routés en voiture
+  (BRouter de nouveau disponible). Les 39 restantes sont des causes C
+  (circuits finaux, côtes et hameaux exclus du calcul qui coupent la
+  route) ou D (détours du profil vélo ; 1995/4 : pont de Normandie
+  interdit aux vélos) — pas d'erreur de donnée trouvée, écart affiché.
+
 ## Epic 34 — Idées venues d'autres dépôts (veille du 18/10/2026)
 
 Veille open source (dépôts clonés, licences et derniers commits relevés,
