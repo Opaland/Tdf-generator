@@ -287,6 +287,14 @@ const MIGRATIONS = [
       ensureColumn(database, 'stages', 'max_hr_bpm', 'max_hr_bpm REAL');
     },
   },
+  {
+    version: 9,
+    description: 'temps écoulé par échantillon des traces importées (Epic 31.2)',
+    up(database) {
+      // NULL hors trace importée horodatée (pipeline/rideStats.js, elapsedAtSamples).
+      ensureColumn(database, 'elevation_samples', 'elapsed_s', 'elapsed_s REAL');
+    },
+  },
 ];
 const SCHEMA_VERSION = MIGRATIONS[MIGRATIONS.length - 1].version;
 

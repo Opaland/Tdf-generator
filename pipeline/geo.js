@@ -50,6 +50,21 @@ function cumulativeDistances(points) {
 }
 
 /**
+ * Pour chaque échantillon (trié par `dist`), indice du point brut le plus
+ * proche en abscisse curviligne (`cum` : distances cumulées des points bruts).
+ * Sert à reporter une mesure brute (FC, temps) sur le profil ré-échantillonné
+ * sans jamais l'interpoler.
+ */
+function nearestRawIndices(cum, samples) {
+  let i = 0;
+  return samples.map((s) => {
+    // `<` strict : à distance égale (points dupliqués), le premier l'emporte.
+    while (i < cum.length - 1 && cum[i + 1] < s.dist) i++;
+    return i < cum.length - 1 && Math.abs(cum[i + 1] - s.dist) < Math.abs(s.dist - cum[i]) ? i + 1 : i;
+  });
+}
+
+/**
  * Ré-échantillonne une polyligne à pas constant (en mètres).
  * Retourne [{lat, lon, dist}] — le premier et le dernier point d'origine sont conservés.
  */
@@ -95,6 +110,7 @@ function movingAverageByDistance(samples, windowM) {
 }
 
 module.exports = {
+  nearestRawIndices,
   haversine,
   bearing,
   bearingDiff,
