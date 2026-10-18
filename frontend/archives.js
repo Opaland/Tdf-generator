@@ -283,6 +283,7 @@ async function loadMythicGrid() {
 const NEAR_BASIS = {
   trace: 'distance au tracé reconstitué',
   waypoint: 'distance au point de passage le plus proche (étape importée, pas encore générée)',
+  'waypoint-segment': 'estimation : ligne droite entre deux points de passage proches (étape importée, pas encore générée)',
   'curated-point': 'distance au point de passage curé le plus proche (édition pas encore importée)',
   'curated-segment': 'estimation : ligne droite entre deux points de passage curés (édition pas encore importée)',
 };
@@ -308,18 +309,37 @@ function nearResultsHtml(data) {
   return place + `<ul class="fauxplat-list">${items}</ul>` + coverage;
 }
 
-async function searchNearPlace(e) {
-  e.preventDefault();
+/** Homonymes : un bouton par commune (département visible), jamais un choix
+ * fait à la place de l'utilisateur. */
+function nearCandidatesHtml(data) {
+  const items = data.candidates.map((c, i) => `<li><button type="button" class="secondary" data-cand="${i}">${EF.esc(c.label)}</button></li>`).join('');
+  return `<p>Plusieurs lieux portent ce nom : lequel ?</p><ul class="fauxplat-list">${items}</ul>`;
+}
+
+async function runNearSearch(params) {
   const out = document.getElementById('near-results');
-  const q = document.getElementById('near-q').value.trim();
   const radius = document.getElementById('near-radius').value;
   out.innerHTML = '<p class="meta-line">Recherche…</p>';
   try {
-    const data = await EF.api(`/api/search/near?q=${encodeURIComponent(q)}&radiusKm=${encodeURIComponent(radius)}`, { timeoutMs: 60000 });
+    const qs = new URLSearchParams({ ...params, radiusKm: radius }).toString();
+    const data = await EF.api(`/api/search/near?${qs}`, { timeoutMs: 60000 });
+    if (data.candidates) {
+      out.innerHTML = nearCandidatesHtml(data);
+      out.querySelectorAll('button[data-cand]').forEach((b) => b.addEventListener('click', () => {
+        const c = data.candidates[Number(b.dataset.cand)];
+        runNearSearch({ lat: String(c.lat), lon: String(c.lon), label: c.label });
+      }));
+      return;
+    }
     out.innerHTML = nearResultsHtml(data);
   } catch (err) {
     out.textContent = `Erreur : ${err.message}`;
   }
+}
+
+function searchNearPlace(e) {
+  e.preventDefault();
+  runNearSearch({ q: document.getElementById('near-q').value.trim() });
 }
 
 if (typeof document !== 'undefined') {
@@ -355,4 +375,4 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 }
 
-if (typeof module !== 'undefined' && module.exports) module.exports = { pollWhileGenerating, stageRow, nearResultsHtml };
+if (typeof module !== 'undefined' && module.exports) module.exports = { pollWhileGenerating, stageRow, nearResultsHtml, nearCandidatesHtml };

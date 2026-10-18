@@ -122,3 +122,60 @@ test('nearResultsHtml : échappement, couverture toujours affichée, « aucun r�
   const none = nearResultsHtml({ ...data, results: [] });
   assert.match(none, /pas la preuve qu'aucun Tour n'y est passé/);
 });
+
+test('segments : au-delà de 10 km entre deux points, plus d\'estimation en ligne droite (seule la distance aux points compte)', () => {
+  const place = at(0, 0);
+  const curated = [{ year: 2002, category: 'hommes', stage: '12', points: [at(-24000, 0), at(25000, 0)] }];
+  assert.deepStrictEqual(searchNear(place, 10000, { tracked: [], waypointed: [] }, curated).results, []);
+  // Même configuration en base (étape importée non générée) : même règle.
+  const db = { tracked: [], waypointed: [{ year: 2002, category: 'hommes', stageOrder: 12, stageId: 3, name: 'x', waypoints: [at(-24000, 0), at(25000, 0)] }] };
+  assert.deepStrictEqual(searchNear(place, 10000, db, []).results, []);
+  // Segment court : estimation retenue et signalée.
+  const short = [{ year: 2002, category: 'hommes', stage: '13', points: [at(-4000, 1000), at(4000, 1000)] }];
+  assert.strictEqual(searchNear(place, 10000, { tracked: [], waypointed: [] }, short).results[0].basis, 'curated-segment');
+});
+
+test('GET /api/search/near en ligne : homonymes proposés au choix, commune unique cherchée, lieu introuvable → 404', async () => {
+  const { setOffline } = require('../pipeline/http');
+  const realFetch = global.fetch;
+  const COMMUNES = {
+    'Saint-Martin': [['Saint-Martin', '65, Hautes-Pyrénées, Occitanie', [0.0816, 43.158]], ['Saint-Martin', '67, Bas-Rhin, Grand Est', [7.2928, 48.3511]]],
+    Porcelette: [['Porcelette', '57, Moselle, Grand Est', [6.659574, 49.163382]]],
+    xqzvbnm: [],
+  };
+  // Mock limité à data.geopf.fr (CLAUDE.md règle 6) : les appels au serveur de test passent.
+  global.fetch = async (url, opts) => {
+    const u = new URL(String(url));
+    if (u.hostname !== 'data.geopf.fr') return realFetch(url, opts);
+    const list = COMMUNES[u.searchParams.get('q')] || [];
+    const features = u.searchParams.get('type') === 'municipality'
+      ? list.map(([name, context, coordinates], i) => ({ properties: { name, context, citycode: String(i) }, geometry: { coordinates } }))
+      : [];
+    return { ok: true, status: 200, json: async () => ({ features }), text: async () => JSON.stringify({ features }) };
+  };
+  setOffline(false);
+  try {
+    let r = await (await fetch(`${base}/api/search/near?q=Saint-Martin`)).json();
+    assert.deepStrictEqual(r.candidates.map((c) => c.label), ['Saint-Martin (65, Hautes-Pyrénées, Occitanie)', 'Saint-Martin (67, Bas-Rhin, Grand Est)']);
+    assert.strictEqual(r.results, undefined, 'aucune recherche tant que le lieu n\'est pas choisi');
+    r = await (await fetch(`${base}/api/search/near?q=Porcelette&radiusKm=10`)).json();
+    assert.strictEqual(r.place.label, 'Porcelette (57)');
+    assert.ok(r.results.some((x) => x.year === 1992 && x.stage === '10'));
+    // Lieu choisi parmi des homonymes : coordonnées passées telles quelles.
+    r = await (await fetch(`${base}/api/search/near?lat=49.163382&lon=6.659574&label=Porcelette%20(57)`)).json();
+    assert.ok(r.results.some((x) => x.year === 1992));
+    for (const qs of ['lat=abc&lon=6&label=x', 'lat=49&lon=6', 'lat=91&lon=6&label=x']) {
+      assert.strictEqual((await fetch(`${base}/api/search/near?${qs}`)).status, 400, qs);
+    }
+  } finally {
+    global.fetch = realFetch;
+    setOffline(true);
+  }
+});
+
+test('nearCandidatesHtml : un bouton par homonyme, libellés échappés', () => {
+  const { nearCandidatesHtml } = require('../frontend/archives.js');
+  const html = nearCandidatesHtml({ candidates: [{ label: '<b>A</b> (65)', lat: 1, lon: 2 }, { label: 'B (67)', lat: 3, lon: 4 }] });
+  assert.strictEqual((html.match(/data-cand=/g) || []).length, 2);
+  assert.ok(!html.includes('<b>A</b>'));
+});

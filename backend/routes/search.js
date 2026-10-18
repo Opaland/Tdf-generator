@@ -1,15 +1,16 @@
 'use strict';
-// Recherche par lieu (Epic 32) : GET /api/search/near?q=Porcelette&radiusKm=10.
-// Calcul dans pipeline/placeSearch.js ; ici, lecture de la base et géocodage.
+// Recherche par lieu (Epic 32) : GET /api/search/near?q=Porcelette&radiusKm=10,
+// ou ?lat=&lon=&label= une fois un homonyme choisi. Calcul dans
+// pipeline/placeSearch.js ; ici, résolution du lieu et lecture de la base.
 
 const { getDb } = require('../db');
 const { wrap, httpError } = require('../apiHelpers');
-const { geocode } = require('../../pipeline/geocode');
+const { geocode, communeCandidates, normName } = require('../../pipeline/geocode');
 const { searchNear } = require('../../pipeline/placeSearch');
 
 const MAX_Q = 100;
 
-function loadDbStages(db) {
+function readDbStages(db) {
   // Éditions historiques seulement : ni tour personnalisé, ni trace personnelle.
   const tracked = db.prepare(
     `SELECT s.id, s.stage_order, s.name, s.date, s.official_distance_km, s.generated_distance_km,
@@ -38,20 +39,67 @@ function loadDbStages(db) {
   return { tracked, waypointed: [...byStage.values()] };
 }
 
+// Cache des tracés parsés : relire et parser tous les GeoJSON à chaque
+// recherche bloquait le serveur ~0,7 s pour 2 300 étapes (relecture adverse).
+// Clé bon marché qui change à toute génération, régénération ou suppression.
+let cache = { key: null, value: null };
+function loadDbStages(db) {
+  const k = db.prepare(
+    `SELECT (SELECT COUNT(*) FROM tracks) || ':' || (SELECT TOTAL(LENGTH(geojson)) FROM tracks) || ':' ||
+            (SELECT COUNT(*) FROM waypoints WHERE lat IS NOT NULL) || ':' || (SELECT TOTAL(stage_id) FROM tracks) || ':' ||
+            (SELECT COUNT(*) FROM stages) AS k`
+  ).get().k;
+  if (cache.key !== k) cache = { key: k, value: readDbStages(db) };
+  return cache.value;
+}
+
+/** Lieu à chercher : coordonnées choisies par l'utilisateur, commune
+ * française unique, ou liste d'homonymes à lui faire choisir. */
+async function resolvePlace(query) {
+  if (query.lat !== undefined || query.lon !== undefined) {
+    const lat = Number(query.lat);
+    const lon = Number(query.lon);
+    const label = typeof query.label === 'string' ? query.label.trim().slice(0, 120) : '';
+    if (!Number.isFinite(lat) || !Number.isFinite(lon) || lat < -90 || lat > 90 || lon < -180 || lon > 180 || !label) {
+      throw httpError(400, 'lat, lon (nombres) et label requis ensemble');
+    }
+    return { place: { label, lat, lon, provider: 'choix' } };
+  }
+  const q = typeof query.q === 'string' ? query.q.trim() : '';
+  if (q.length < 2 || q.length > MAX_Q) throw httpError(400, `q : nom de lieu de 2 à ${MAX_Q} caractères`);
+  const communes = await communeCandidates(q);
+  const exact = communes.filter((c) => normName(c.name) === normName(q));
+  const pool = exact.length ? exact : communes;
+  if (pool.length === 1) {
+    const c = pool[0];
+    return { place: { label: `${c.name} (${c.context.split(',')[0].trim()})`, lat: c.lat, lon: c.lon, provider: 'geopf-commune' } };
+  }
+  if (pool.length > 1) return { candidates: pool.map((c) => ({ label: `${c.name} (${c.context})`, lat: c.lat, lon: c.lon })) };
+  // Aucune commune française : lieu à l'étranger (le Tour y passe aussi) ou
+  // mode hors ligne — géocodeur général.
+  let place;
+  try {
+    place = await geocode(q);
+  } catch {
+    place = null;
+  }
+  if (!place || place.lat == null || place.lon == null) throw httpError(404, `Lieu introuvable : « ${q} »`);
+  // Hors ligne, le simulateur invente une position pour un lieu qu'il ne
+  // connaît pas : chercher autour serait une réponse fausse (règle 12).
+  if (place.provider === 'simulateur' && place.kind === 'unknown') {
+    throw httpError(404, `« ${q} » est inconnu du géocodeur hors ligne (position simulée) : recherche impossible sans réseau`);
+  }
+  return { place: { label: place.label || q, lat: place.lat, lon: place.lon, provider: place.provider || null } };
+}
+
 module.exports = function register(app) {
   app.get('/api/search/near', wrap(async (req, res) => {
-    const q = typeof req.query.q === 'string' ? req.query.q.trim() : '';
-    if (q.length < 2 || q.length > MAX_Q) throw httpError(400, `q : nom de lieu de 2 à ${MAX_Q} caractères`);
     const radiusKm = req.query.radiusKm === undefined ? 10 : Number(req.query.radiusKm);
     if (!Number.isInteger(radiusKm) || radiusKm < 1 || radiusKm > 50) throw httpError(400, 'radiusKm : entier de 1 à 50');
-    const place = await geocode(q);
-    if (!place || place.lat == null || place.lon == null) throw httpError(404, `Lieu introuvable : « ${q} »`);
-    // Hors ligne, le simulateur invente une position pour un lieu qu'il ne
-    // connaît pas : chercher autour serait une réponse fausse (règle 12).
-    if (place.provider === 'simulateur' && place.kind === 'unknown') {
-      throw httpError(404, `« ${q} » est inconnu du géocodeur hors ligne (position simulée) : recherche impossible sans réseau`);
-    }
+    const resolved = await resolvePlace(req.query);
+    if (resolved.candidates) return res.json({ candidates: resolved.candidates, radiusKm });
+    const { place } = resolved;
     const { results, coverage } = searchNear(place, radiusKm * 1000, loadDbStages(getDb()));
-    res.json({ place: { label: place.label || q, lat: place.lat, lon: place.lon, provider: place.provider || null }, radiusKm, results, coverage });
+    res.json({ place, radiusKm, results, coverage });
   }));
 };

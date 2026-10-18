@@ -74,6 +74,23 @@ function curatedStages() {
   return out;
 }
 
+// Au-delà, la ligne droite entre deux points de passage consécutifs n'est
+// plus une estimation défendable de la route (relecture adverse : jusqu'à
+// 57 km entre deux points curés, « 0 km » affiché au milieu d'une vallée non
+// parcourue). p90 des écarts curés réels : 7,5 km.
+const MAX_SEGMENT_M = 10000;
+
+/** Plus courte distance aux segments droits [p_i, p_i+1] de moins de
+ * MAX_SEGMENT_M ; Infinity s'il n'y en a aucun. */
+function nearestShortSegmentM(place, pts) {
+  let best = Infinity;
+  for (let i = 1; i < pts.length; i++) {
+    if (haversine(pts[i - 1], pts[i]) > MAX_SEGMENT_M) continue;
+    best = Math.min(best, pointSegmentM(place, pts[i - 1], pts[i]));
+  }
+  return best;
+}
+
 const stageKey = (year, category, stage) => `${year}|${category}|${parseInt(stage, 10)}`;
 
 /**
@@ -101,9 +118,13 @@ function searchNear(place, radiusM, db, curated = curatedStages()) {
     const near = nearestPoint(place, s.waypoints);
     if (!Number.isFinite(near.d)) continue;
     seen.add(k);
-    if (near.d <= radiusM) {
+    // Même règle que la curation : segment court seulement, signalé.
+    const seg = nearestShortSegmentM(place, s.waypoints.filter((w) => w.lat != null && w.lon != null));
+    const d = Math.min(near.d, seg);
+    if (d <= radiusM) {
       results.push({ year: s.year, category: s.category, stage: String(s.stageOrder), stageId: s.stageId, name: s.name,
-        date: s.date || null, distanceM: Math.round(near.d), basis: 'waypoint', nearestLabel: near.label });
+        date: s.date || null, distanceM: Math.round(d), basis: seg < near.d ? 'waypoint-segment' : 'waypoint',
+        nearestLabel: near.label, nearestPointM: Math.round(near.d) });
     }
   }
   let curatedCovered = 0;
@@ -113,10 +134,10 @@ function searchNear(place, radiusM, db, curated = curatedStages()) {
     if (seen.has(k)) continue;
     curatedCovered++;
     const near = nearestPoint(place, c.points);
-    // Segment droit entre deux points curés consécutifs : la route réelle
-    // peut s'en écarter — estimation, jamais présentée comme le tracé.
-    let seg = Infinity;
-    for (let i = 1; i < c.points.length; i++) seg = Math.min(seg, pointSegmentM(place, c.points[i - 1], c.points[i]));
+    // Segment droit entre deux points curés consécutifs (moins de
+    // MAX_SEGMENT_M) : la route réelle peut s'en écarter — estimation,
+    // jamais présentée comme le tracé.
+    const seg = nearestShortSegmentM(place, c.points);
     const d = Math.min(near.d, seg);
     if (d <= radiusM) {
       results.push({ year: c.year, category: c.category, stage: c.stage, stageId: null, name: null, date: null,
@@ -131,4 +152,4 @@ function searchNear(place, radiusM, db, curated = curatedStages()) {
   };
 }
 
-module.exports = { searchNear, curatedStages, distanceToLineM, pointSegmentM };
+module.exports = { searchNear, curatedStages, distanceToLineM, pointSegmentM, MAX_SEGMENT_M };
