@@ -460,7 +460,7 @@ et côtes traversées avec leur kilomètre.
   Mareuil et Auphelle replacés sur le hameau (étaient au centroïde de leur
   commune) ; libellés de l'image restaurés ; étapes 11, 13, 16, 18
   `partial` avec leur longueur, 10 et 12 complètes.
-- [ ] Édition 1996 : 20 étapes sur 22, 286 points placés sur 308.
+- [ ] Édition 1996 : 20 étapes sur 22, 285 points placés sur 308.
   Non transcrits : le prologue de 's-Hertogenbosch et l'étape 9 — le
   profil publié (Val d'Isère → Iseran → Galibier → Sestrières, 189,5 km)
   est le parcours prévu, pas l'étape courue, raccourcie par la neige
