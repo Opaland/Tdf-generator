@@ -38,6 +38,15 @@ function officialKm(st, townsStage) {
   return null;
 }
 
+/** Points mesurés d'une étape : tout le profil, sauf un circuit final
+ * (`circuit_km`, km de l'entrée sur le circuit lu sur le profil) — les tours
+ * des Champs-Élysées ne se routent pas d'un point au suivant, ils
+ * fausseraient l'écart (1990/21 : −36 % avec 60 km de circuit). La part
+ * mesurée baisse d'autant, et se publie (coverage_pct). */
+function measuredTowns(st) {
+  return Number.isFinite(st.circuit_km) ? st.towns.filter((t) => t.km <= st.circuit_km) : st.towns;
+}
+
 /** Points routables d'une étape : ceux que la recherche utilise (une côte ou
  * un lieu-dit placé au centre de sa commune n'est pas sur la route). */
 function routablePoints(towns) {
@@ -83,6 +92,12 @@ async function measure(pts, profileKm, legRouter) {
   return { routedKm, profileKm, deltaPct, ok: Math.abs(deltaPct) <= DIST_TOLERANCE_PCT, legs, carLegs };
 }
 
+/** Contrôle d'une étape telle qu'elle est stockée : circuit final retiré,
+ * longueur officielle (profil, sinon stage_towns). C'est ce que main() mesure. */
+function checkStoredStage(st, legRouter, townsStage) {
+  return checkStage(measuredTowns(st), legRouter, officialKm(st, townsStage));
+}
+
 async function main() {
   const args = process.argv.slice(2);
   const write = args.includes('--write');
@@ -98,7 +113,7 @@ async function main() {
     for (const [stage, st] of Object.entries(ed.stages)) {
       let r;
       try {
-        r = await checkStage(st.towns, router, officialKm(st, townsStage(edition, stage)));
+        r = await checkStoredStage(st, router, townsStage(edition, stage));
       } catch (err) {
         console.log(`${edition}/${stage} : routage impossible (${err.message})`);
         if (write) delete st.route_check; // jamais une mesure périmée affichée
@@ -134,4 +149,4 @@ async function main() {
 
 if (require.main === module) main().catch((err) => { console.error(err); process.exit(1); });
 
-module.exports = { checkStage, routablePoints, officialKm };
+module.exports = { checkStage, checkStoredStage, routablePoints, officialKm, measuredTowns };

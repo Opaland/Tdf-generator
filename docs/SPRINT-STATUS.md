@@ -579,11 +579,32 @@ et côtes traversées avec leur kilomètre.
   le centre-ville est à 13 km de Schilde pour 8 km de profil. Remesure
   des éditions touchées : 1994/2 de −13,5 % à −12,0 %, 1996/2 de +2,2 %
   à −1,5 %, aucune étape ne change de verdict hors 1989.
-- [ ] 33.8 Arrivées « Paris (Champs-Élysées) » : l'ancre `stage_towns` de
-  Paris (48,859 ; 2,347) est au Châtelet, à 3 km des Champs-Élysées ; toute
-  arrivée de dernière étape en hérite (1989/21, et les autres éditions
-  transcrites). À faire : point d'arrivée sourcé (avenue des
-  Champs-Élysées) pour ces lieux-dits, puis remesure.
+- [x] 33.8 (PR #417) Arrivées « Paris (Champs-Élysées) » : l'ancre
+  `stage_towns` de Paris (48,859 ; 2,347) est au Châtelet, à 3,3 km des
+  Champs-Élysées ; les 8 arrivées transcrites (1989/21 à 1996/21) et les
+  entrées sur le circuit (Concorde 1992/21, « Champs-Élysées » 1991-1996)
+  en héritaient. Fait : arrivées et entrées sur l'avenue (Nominatim
+  « Champs-Élysées, Paris », tourism, 48,87076 ; 2,30533) ou à la Concorde
+  (même point qu'en 1989/21), sans `geocodeAs` désormais. Les tours du
+  circuit final ne se routent pas d'un point au suivant : champ
+  `circuit_km` (km de l'entrée sur le circuit, lu sur le profil), la
+  mesure s'arrête au dernier point routable avant, sa part de l'étape se
+  publie (test, y compris le chemin de `main()`). Posé sur les 7
+  arrivées à Paris avec circuit et, après relecture adverse, sur 1989/3
+  (circuit de Spa, km 211) et 1996/1 (boucle de 's-Hertogenbosch, km
+  134). Effets : 1989/3 de −12,8 % à −4,7 % ; 1990/21 de −34,8 % à
+  −8,4 % (la mesure s'arrête à Sèvres, l'entrée dans Paris n'étant pas
+  placée) ; 1992/21 de −45,0 % à +3,3 % ; 1996/1 de −34,5 % à −16,9 % ;
+  1991/22 de −1,9 % à −4,9 %, 1993/20 de −1,0 % à −3,8 %, 1994/21 de
+  −6,6 % à −8,5 % (tronçon Issy → avenue désormais mesuré) ; 1995/20
+  −33,4 % (cause ailleurs : Arpajon → Angervilliers, 36 km de profil pour
+  13,5 km à vol d'oiseau, non tranché). 1989/21 (contre-la-montre
+  Versailles → Paris, sans circuit) passe de −14,5 % à −18,6 % : le
+  parcours chronométré suivait vraisemblablement les quais, le routeur
+  coupe au plus court (cause D). Bilan sur les 179 étapes : 127 dans la
+  tolérance (125 avant), 49 hors, 3 non contrôlables. Limite connue : la
+  recherche par lieu ignore `circuit_km` (interpolation du km le long du
+  circuit, inchangée).
 - [x] 33.6 (PR #415) Candidat Nominatim « city_district » : le géocodage retient un
   point de commune déléguée (Bonneval, Les Vignes en 1990 ; relecture :
   aussi Tarcenay, Morez, Celliers, Noirterre) au lieu du village

@@ -11,7 +11,7 @@ process.env.ETAPEFORGE_OFFLINE = '1';
 
 const { test, after } = require('node:test');
 const assert = require('node:assert');
-const { checkStage, officialKm } = require('../scripts/check-itineraries');
+const { checkStage, checkStoredStage, officialKm, measuredTowns } = require('../scripts/check-itineraries');
 
 after(() => fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true }));
 
@@ -53,4 +53,22 @@ test('officialKm : length_km, sinon distance stage_towns, sinon dernier km d\'un
   assert.strictEqual(officialKm({ partial: true, towns }, { distanceKm: 90 }), 90);
   assert.strictEqual(officialKm({ towns }, null), 80);
   assert.strictEqual(officialKm({ partial: true, towns }, null), null);
+});
+
+test('measuredTowns : un circuit final (circuit_km) sort de la mesure, la part mesurée baisse d\'autant', async () => {
+  // L'arrivée est à 1 km de l'entrée du circuit, 20 km de tours plus loin au profil.
+  const towns = [town('A', 0), town('B', 10), town('C', 30), town('Entrée', 50), town('Arrivée', 70, { lon: 6.51 })];
+  assert.deepStrictEqual(measuredTowns({ towns }).map((t) => t.label), ['A', 'B', 'C', 'Entrée', 'Arrivée']);
+  const kept = measuredTowns({ towns, circuit_km: 50 });
+  assert.deepStrictEqual(kept.map((t) => t.label), ['A', 'B', 'C', 'Entrée']);
+  const leg = (a, b) => Math.abs(b.lon - a.lon) * 100 * 1000; // 1 km par 0,01° : ligne droite
+  const all = await checkStage(towns, leg, 70);
+  const cut = await checkStage(kept, leg, 70);
+  assert.strictEqual(all.ok, false); // les tours du circuit ne se routent pas
+  assert.strictEqual(cut.ok, true);
+  assert.strictEqual(cut.coveragePct, 57); // 40 km mesurés sur 70
+  // Le contrôle d'une étape stockée (celui de main) applique bien circuit_km.
+  const stored = await checkStoredStage({ towns, circuit_km: 50 }, leg, null);
+  assert.strictEqual(stored.ok, true);
+  assert.strictEqual(stored.coveragePct, 57);
 });
