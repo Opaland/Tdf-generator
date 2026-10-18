@@ -422,6 +422,14 @@ et côtes traversées avec leur kilomètre.
     Bolline). Les listes ne reprennent pas tous les points du profil
     (ex. 1993/12 : Côte des Glaciers, Côte de Périer) : « N points » compte
     les points transcrits, pas ceux de l'image.
+- [ ] 33.3 Bourg plutôt que centroïde : l'index IGN des communes donne le
+  centre géographique de la commune, pas le bourg (Bagnères-de-Bigorre à
+  7,7 km, Laruns 4,2, Allemond 4,1). Une commune IGN au nom exact est
+  recalée sur le point OpenStreetMap du même nom à moins de 8 km
+  (`snapToTown`) ; 90 points déjà en base recalés de 1,5 à 5,4 km. Pas de
+  recalage pour une commune nouvelle (geocodeAs) : le point OSM du nom
+  fusionné n'est pas le bourg (Lamballe-Armor, attrapé par le test de
+  données). Porcelette inchangée : 1970/9 à 4,2 km, 1992/10 à 5,3 km.
 
 ## Epic 34 — Idées venues d'autres dépôts (veille du 18/10/2026)
 

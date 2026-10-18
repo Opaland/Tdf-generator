@@ -34,7 +34,7 @@ const SLACK_M = 3000;
 const START_SLACK_M = 10000;
 const round = (v) => Math.round(v * 1e5) / 1e5;
 
-async function defaultCandidates(label, kind) {
+async function defaultCandidates(label, kind, original = label) {
   const out = [];
   const known = KNOWN_COLS[label];
   if (known && Number.isFinite(known.lat)) out.push({ lat: known.lat, lon: known.lon, how: 'known-cols' });
@@ -48,8 +48,30 @@ async function defaultCandidates(label, kind) {
     for (const c of communes) out.push({ lat: round(c.lat), lon: round(c.lon), how: normName(c.name) === want ? 'commune-ign' : 'commune-ign-prefixe' });
   }
   const { nominatimCandidates } = require('./build-stage-towns');
-  for (const c of await nominatimCandidates(label)) out.push(c);
-  return out;
+  const osm = await nominatimCandidates(label);
+  for (const c of osm) out.push(c);
+  // Commune nouvelle (geocodeAs « Lamballe-Armor » pour Lamballe) : le point
+  // OSM du nom fusionné n'est pas le bourg cherché, pas de recalage.
+  return label === original ? snapToTown(out) : out;
+}
+
+// L'index IGN donne le centre géographique de la commune, pas le bourg :
+// dans une grande commune de montagne, l'écart atteint 7,7 km (Bagnères-de-
+// Bigorre, relecture adverse 1993). Une commune IGN au nom exact est donc
+// recalée sur le point OpenStreetMap le plus proche s'il est à moins de
+// SNAP_M — même nom, même commune ; au-delà, c'est un homonyme, ignoré.
+const SNAP_M = 8000;
+function snapToTown(cands) {
+  const osm = cands.filter((c) => c.how === 'nominatim');
+  return cands.map((c) => {
+    if (c.how !== 'commune-ign') return c;
+    let best = null;
+    for (const o of osm) {
+      const d = haversine(c, o);
+      if (d <= SNAP_M && (!best || d < best.d)) best = { d, o };
+    }
+    return best ? { lat: best.o.lat, lon: best.o.lon, how: 'commune-ign' } : c;
+  });
 }
 
 /**
@@ -66,7 +88,7 @@ async function geocodeStage(towns, anchors = {}, candidatesFor = defaultCandidat
     if (Number.isFinite(t.lat)) { if (!t.geocodeAs || t.kind === 'ville') prev = t; continue; }
     // Côte : placée au village éponyme quand le profil le permet (geocodeAs),
     // à quelques km du sommet réel — jamais présenté comme le sommet.
-    const cands = t.geocodeAs ? await candidatesFor(t.geocodeAs, 'ville') : await candidatesFor(t.label, t.kind);
+    const cands = t.geocodeAs ? await candidatesFor(t.geocodeAs, 'ville', t.label) : await candidatesFor(t.label, t.kind);
     const ok = cands.filter((c) => {
       const slack = prev && prev.km === 0 ? START_SLACK_M : SLACK_M;
       if (prev && haversine(prev, c) > (t.km - prev.km) * 1000 + slack) return false;
@@ -130,4 +152,4 @@ async function main() {
 
 if (require.main === module) main().catch((err) => { console.error(err); process.exit(1); });
 
-module.exports = { geocodeStage, anchorsFor, stageAnchors, SLACK_M, START_SLACK_M };
+module.exports = { geocodeStage, anchorsFor, stageAnchors, snapToTown, SNAP_M, SLACK_M, START_SLACK_M };

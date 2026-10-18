@@ -11,7 +11,7 @@ process.env.ETAPEFORGE_OFFLINE = '1';
 
 const { test, after } = require('node:test');
 const assert = require('node:assert');
-const { geocodeStage, anchorsFor, stageAnchors } = require('../scripts/geocode-itineraries');
+const { geocodeStage, anchorsFor, stageAnchors, snapToTown } = require('../scripts/geocode-itineraries');
 
 after(() => fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true }));
 
@@ -94,4 +94,15 @@ test('geocodeStage : rang des sources — col connu > commune IGN exacte > reste
   assert.strictEqual(await run([{ ...at(0, 5000), how: 'commune-ign' }, { ...at(9000, 5000), how: 'known-cols' }]), 'known-cols');
   // Préfixe IGN (autre commune) : ne prime pas sur le hameau Nominatim moins détourné.
   assert.strictEqual(await run([{ ...at(9000, 5000), how: 'commune-ign-prefixe' }, { ...at(0, 5000), how: 'nominatim' }]), 'nominatim');
+});
+
+test('snapToTown : commune IGN recalée sur le bourg OSM proche (centroïde de commune ≠ bourg), jamais sur un homonyme lointain', () => {
+  const out = snapToTown([
+    { ...at(0, 0), how: 'commune-ign' },
+    { ...at(7700, 0), how: 'nominatim' }, // le bourg, 7,7 km du centroïde
+    { ...at(120000, 0), how: 'nominatim' }, // homonyme
+  ]);
+  assert.deepStrictEqual([out[0].how, Math.round(out[0].lat * 1e4)], ['commune-ign', Math.round(at(7700, 0).lat * 1e4)]);
+  const far = snapToTown([{ ...at(0, 0), how: 'commune-ign' }, { ...at(9000, 0), how: 'nominatim' }]);
+  assert.strictEqual(far[0].lat, at(0, 0).lat);
 });
