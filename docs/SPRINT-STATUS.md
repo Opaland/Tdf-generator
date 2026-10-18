@@ -395,6 +395,15 @@ et côtes traversées avec leur kilomètre.
     1961/4-5, 1964/4, 1967/6-7), dont les km en italique sont illisibles à
     la résolution publiée — source à trouver (Gallica, Epic 34.12).
     Absents du Dico du Tour : 1950/1-2.
+  - [ ] Édition 1992 : 19 nouvelles étapes, soit 20 sur 22 (prologue et 9e étape,
+    contre-la-montre à Saint-Sébastien et Luxembourg, sans profil publié),
+    341 points placés sur 357. Seuls les km lisibles sans doute sont
+    repris ; Vougy et Cluses (1992/12) retirés, leur km contredisant la
+    distance réelle. Géocodage : la commune IGN compatible l'emporte
+    désormais sur un résultat Nominatim moins détourné (Grenoble était
+    placée à 10 km au sud ; Dieuze, 1990/6, corrigée de 4 km) ; un
+    lieu-dit placé au centre de sa commune (Gavet, L'Alpe d'Huez,
+    Bordeaux-Lac…) est écarté de la recherche, comme une côte.
 
 ## Epic 24 — Bilan final
 

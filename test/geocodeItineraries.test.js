@@ -77,3 +77,13 @@ test('stageAnchors : arrivée retirée seulement pour une transcription partiell
   assert.ok(stageAnchors(doc, '1979', '13', { partial: true, length_km: 205, towns: [] }).finish);
   assert.strictEqual(stageAnchors(doc, '1979', '13', { partial: true, towns: [] }).finish, undefined);
 });
+
+test('geocodeStage : la commune IGN compatible l\'emporte sur un résultat Nominatim moins détourné', async () => {
+  const cands = {
+    A: [{ ...at(0, 0), how: 'commune-ign' }],
+    G: [{ ...at(0, 5000), how: 'nominatim' }, { ...at(9000, 5000), how: 'commune-ign' }],
+  };
+  const towns = [{ label: 'A', km: 0, kind: 'ville' }, { label: 'G', km: 10, kind: 'ville' }];
+  const out = await geocodeStage(towns, {}, async (l) => cands[l] || []);
+  assert.strictEqual(out[1].how, 'commune-ign');
+});
