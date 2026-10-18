@@ -618,6 +618,35 @@ et côtes traversées avec leur kilomètre.
   noté, non tranché : 1959/15 (contre-la-montre de 12 km libellé « Puy
   de Dôme → Puy de Dôme ») a son départ au sommet — vraisemblablement
   Clermont-Ferrand ou Chamalières, à confirmer par une source.
+- [x] 33.10 Bourg plutôt que centroïde dans `stage_towns.json` : les
+  villes-étapes françaises (`commune-ign`) étaient au centre géographique
+  de leur commune — Épinal, Besançon, Avignon, Dijon trouvées une à une
+  par le contrôle ±5 %. Balayage : 564 positions distinctes (3 805
+  occurrences), 258 à 1 km ou plus de leur bourg OSM, 25 à 3 km ou plus
+  (Bagnères-de-Bigorre 7,7, Isola 7,7 — le centroïde tombait vers Isola
+  2000 —, Saint-Raphaël 6,8, Hyères 5,9, Limoges 4,1, Avignon 3,7, Pau
+  3,1 sur 135 étapes…). Le générateur recale désormais chaque commune IGN
+  sur le point OSM de localité du même nom le plus proche, à moins de
+  8 km (`snapCommuneAnchors`, même règle que `snapToTown` des itinéraires :
+  jamais une « municipality » — celle d'Avignon est à 11 km —, un
+  quartier ni une entité administrative ; test, deux mutations
+  détectées), appliqué une fois aux données (cache Nominatim). Les 25
+  plus grands recalages vérifiés un à un ; Gavarnie-Gèdre (arrivée 2026/6,
+  commune nouvelle, point OSM entre Gèdre et Gavarnie) marquée `douteux`
+  par une position vérifiée (33.9), le lieu exact de l'arrivée n'étant
+  pas sourcé. Les 49 arrivées d'itinéraire posées sur ces ancres suivent ;
+  relecture adverse : 82 autres points d'itinéraire (villes au même nom,
+  à moins de 300 m de l'ancien centroïde, géocodées avant 33.3) restaient
+  sur l'ancienne position — recalés aussi. Isola (départ de 1993/12) passe
+  au village, comme l'avait déjà tranché la relecture de l'édition 1993
+  d'après le profil (km 0 au village) ; l'arrivée de 1993/11 reste à Isola
+  2000. Test renforcé (plus proche de deux bourgs, hameau, classe OSM,
+  position non IGN intacte : quatre mutations détectées). Remesure :
+  144 étapes dans la tolérance (145 avant) ; rentrent 1979/13, 1989/8,
+  1992/14 ; sortent 1989/5 (+5,4 %), 1989/13 (−6,2 %, Marseille recalée
+  sur la ville), 1992/15 (+5,7 %), 1993/1 (−5,9 %) — écarts affichés,
+  pas ajustés. 25 tronçons routés en voiture (13 avant) : BRouter refusait
+  par moments pendant la remesure.
 - [x] 33.7 Entités administratives larges (trouvé sur 1989) : Bastogne
   placée sur son arrondissement (« county » OSM), 9,2 km au nord de la
   ville. Le rang « subdivision » de 33.6 couvre désormais aussi county,
