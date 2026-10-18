@@ -409,6 +409,12 @@ et côtes traversées avec leur kilomètre.
     Vovray-en-Bornes (7 km au sud) puis sur un homonyme de l'Ain, fixé au
     hameau d'Archamps ; une commune IGN trouvée par préfixe ne prime plus
     sur les autres sources.
+  - [ ] Édition 1993 : 20 étapes sur 21 (prologue du Puy du Fou, 6,8 km,
+    sans km lisibles par point), 315 points placés sur 332. Col de Jau
+    fixé au vrai col (Nominatim proposait aussi une route 10 km à l'est,
+    retenue à tort comme « moins détournée ») ; communes déléguées placées
+    au chef-lieu de leur commune nouvelle (Boufféré, Le Château-d'Olonne…)
+    classées lieux-dits, donc hors recherche.
 
 ## Epic 34 — Idées venues d'autres dépôts (veille du 18/10/2026)
 
