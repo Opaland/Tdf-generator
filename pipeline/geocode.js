@@ -594,6 +594,30 @@ function countryFromNominatim(json) {
 }
 
 /** Suggestions pour l'autocomplétion de l'éditeur (jusqu'à 5 résultats). */
+/**
+ * Communes françaises portant ce nom (index « municipality » de la
+ * Géoplateforme), avec leur département : [{ name, context, citycode, lat,
+ * lon }]. Sert la recherche par lieu (Epic 32), qui doit faire choisir entre
+ * homonymes plutôt que d'en prendre un au hasard (relecture adverse :
+ * « Saint-Martin » donnait deux communes différentes d'un appel à l'autre).
+ * Hors ligne : [] (le simulateur ne connaît pas les communes).
+ */
+async function communeCandidates(query) {
+  if (isOffline() || !query || query.trim().length < 2) return [];
+  const value = await geopfOrNull('geopf-communes', { q: query }, async () => {
+    const url = `https://data.geopf.fr/geocodage/search?q=${encodeURIComponent(query)}&index=address&type=municipality&limit=10`;
+    const json = await httpJson(url, { minDelayMs: 120 });
+    return (json.features || []).map((f) => ({
+      name: String(f.properties?.name || ''),
+      context: String(f.properties?.context || ''),
+      citycode: String(f.properties?.citycode || ''),
+      lat: f.geometry.coordinates[1],
+      lon: f.geometry.coordinates[0],
+    })).filter((c) => c.name && Number.isFinite(c.lat) && Number.isFinite(c.lon));
+  });
+  return value || [];
+}
+
 async function geocodeSuggest(query) {
   if (!query || query.trim().length < 2) return [];
   if (isOffline()) {
@@ -641,4 +665,4 @@ async function geocodeSuggest(query) {
   return value || [];
 }
 
-module.exports = { geocode, geocodeCol, reverseGeocode, geocodeSuggest, looksLikeFrance, isColQuery, pickFeature, pickNominatimFeature, normName };
+module.exports = { geocode, geocodeCol, reverseGeocode, geocodeSuggest, communeCandidates, looksLikeFrance, isColQuery, pickFeature, pickNominatimFeature, normName };

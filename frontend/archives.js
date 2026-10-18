@@ -278,8 +278,75 @@ async function loadMythicGrid() {
 
 // Garde typeof : pollWhileGenerating est require()-able côté test (voir
 // test/archivesPoll.test.js) sans DOM — même schéma que stage.js/compare.js.
+// ---------------------------------------------------------------- recherche par lieu (Epic 32)
+
+const NEAR_BASIS = {
+  trace: 'distance au tracé reconstitué',
+  waypoint: 'distance au point de passage le plus proche (étape importée, pas encore générée)',
+  'waypoint-segment': 'estimation : ligne droite entre deux points de passage proches (étape importée, pas encore générée)',
+  'curated-point': 'distance au point de passage curé le plus proche (édition pas encore importée)',
+  'curated-segment': 'estimation : ligne droite entre deux points de passage curés (édition pas encore importée)',
+};
+
+/** Rendu des résultats de GET /api/search/near. Tout texte venu de l'API
+ * passe par EF.esc ; les nombres par Number(). */
+function nearResultsHtml(data) {
+  const km = (m) => (Number(m) / 1000).toLocaleString('fr-FR', { maximumFractionDigits: 1 });
+  const place = `<p class="meta-line">Lieu retenu : <b>${EF.esc(data.place.label)}</b> (${Number(data.place.lat).toFixed(4)}, ${Number(data.place.lon).toFixed(4)})</p>`;
+  const c = data.coverage;
+  const coverage = `<p class="meta-line">Recherché dans ${Number(c.trackedStages)} étape(s) reconstituée(s), ${Number(c.waypointStages)} étape(s) importée(s) non générée(s) et ${Number(c.curatedStages)} étape(s) curée(s). ` +
+    'Les autres étapes de l\'histoire du Tour ne sont pas encore couvertes : importez une édition (ci-dessous) pour l\'ajouter à la recherche.</p>';
+  if (!data.results.length) {
+    return place + `<p><b>Aucun passage trouvé à moins de ${Number(data.radiusKm)} km</b> dans les étapes couvertes — ce n'est pas la preuve qu'aucun Tour n'y est passé.</p>` + coverage;
+  }
+  const items = data.results.map((r) => {
+    const cat = r.category === 'femmes' ? ' (Femmes)' : '';
+    const title = `<b>${Number(r.year)}${cat}</b> — étape ${EF.esc(r.stage)}${r.name ? ` : ${EF.esc(r.name)}` : ''}`;
+    const near = r.nearestLabel ? `, près de ${EF.esc(r.nearestLabel)}` : '';
+    const link = r.stageId != null ? ` · <a href="/stage.html?id=${Number(r.stageId)}">voir l'étape</a>` : '';
+    return `<li class="fauxplat-item">${title} — à <b>${km(r.distanceM)} km</b>${near}${link}<br><span class="meta-line">${EF.esc(NEAR_BASIS[r.basis] || r.basis)}</span></li>`;
+  }).join('');
+  return place + `<ul class="fauxplat-list">${items}</ul>` + coverage;
+}
+
+/** Homonymes : un bouton par commune (département visible), jamais un choix
+ * fait à la place de l'utilisateur. */
+function nearCandidatesHtml(data) {
+  const items = data.candidates.map((c, i) => `<li><button type="button" class="secondary" data-cand="${i}">${EF.esc(c.label)}</button></li>`).join('');
+  return `<p>Plusieurs lieux portent ce nom : lequel ?</p><ul class="fauxplat-list">${items}</ul>`;
+}
+
+async function runNearSearch(params) {
+  const out = document.getElementById('near-results');
+  const radius = document.getElementById('near-radius').value;
+  out.innerHTML = '<p class="meta-line">Recherche…</p>';
+  try {
+    const qs = new URLSearchParams({ ...params, radiusKm: radius }).toString();
+    const data = await EF.api(`/api/search/near?${qs}`, { timeoutMs: 60000 });
+    if (data.candidates) {
+      out.innerHTML = nearCandidatesHtml(data);
+      out.querySelectorAll('button[data-cand]').forEach((b) => b.addEventListener('click', () => {
+        const c = data.candidates[Number(b.dataset.cand)];
+        runNearSearch({ lat: String(c.lat), lon: String(c.lon), label: c.label });
+      }));
+      return;
+    }
+    out.innerHTML = nearResultsHtml(data);
+  } catch (err) {
+    out.textContent = `Erreur : ${err.message}`;
+  }
+}
+
+function searchNearPlace(e) {
+  e.preventDefault();
+  runNearSearch({ q: document.getElementById('near-q').value.trim() });
+}
+
 if (typeof document !== 'undefined') {
 document.addEventListener('DOMContentLoaded', async () => {
+  // Démo statique : pas de serveur pour géocoder ni chercher.
+  if (window.EF_STATIC) document.getElementById('near-box').style.display = 'none';
+  else document.getElementById('near-form').addEventListener('submit', searchNearPlace);
   await EF.initChrome('archives');
   document.getElementById('btn-import').addEventListener('click', importYear);
   document.getElementById('btn-import-all').addEventListener('click', importAllYears);
@@ -308,4 +375,4 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 }
 
-if (typeof module !== 'undefined' && module.exports) module.exports = { pollWhileGenerating, stageRow };
+if (typeof module !== 'undefined' && module.exports) module.exports = { pollWhileGenerating, stageRow, nearResultsHtml, nearCandidatesHtml };

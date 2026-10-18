@@ -104,6 +104,7 @@ require('./routes/gear')(app);
 require('./routes/profile')(app);
 require('./routes/climbs')(app);
 require('./routes/editions')(app);
+require('./routes/search')(app);
 require('./routes/exports')(app);
 
 // Gestionnaire d'erreur global (4 arguments — signature reconnue par Express
