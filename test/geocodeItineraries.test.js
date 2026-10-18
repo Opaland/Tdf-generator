@@ -11,7 +11,7 @@ process.env.ETAPEFORGE_OFFLINE = '1';
 
 const { test, after } = require('node:test');
 const assert = require('node:assert');
-const { geocodeStage, anchorsFor, stageAnchors, snapToTown } = require('../scripts/geocode-itineraries');
+const { geocodeStage, anchorsFor, stageAnchors, snapToTown, assembleCandidates } = require('../scripts/geocode-itineraries');
 
 after(() => fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true }));
 
@@ -96,13 +96,26 @@ test('geocodeStage : rang des sources — col connu > commune IGN exacte > reste
   assert.strictEqual(await run([{ ...at(9000, 5000), how: 'commune-ign-prefixe' }, { ...at(0, 5000), how: 'nominatim' }]), 'nominatim');
 });
 
-test('snapToTown : commune IGN recalée sur le bourg OSM proche (centroïde de commune ≠ bourg), jamais sur un homonyme lointain', () => {
-  const out = snapToTown([
-    { ...at(0, 0), how: 'commune-ign' },
-    { ...at(7700, 0), how: 'nominatim' }, // le bourg, 7,7 km du centroïde
-    { ...at(120000, 0), how: 'nominatim' }, // homonyme
-  ]);
-  assert.deepStrictEqual([out[0].how, Math.round(out[0].lat * 1e4)], ['commune-ign', Math.round(at(7700, 0).lat * 1e4)]);
-  const far = snapToTown([{ ...at(0, 0), how: 'commune-ign' }, { ...at(9000, 0), how: 'nominatim' }]);
-  assert.strictEqual(far[0].lat, at(0, 0).lat);
+test('snapToTown : commune IGN recalée sur le bourg OSM le plus proche ; jamais sur un quartier, un homonyme lointain ou au-delà de 8 km', () => {
+  const town = (dN, extra = {}) => ({ ...at(dN, 0), how: 'nominatim', osmClass: 'boundary', addresstype: 'village', ...extra });
+  const lat = (dN) => Math.round(at(dN, 0).lat * 1e4);
+  const snap = (...osm) => Math.round(snapToTown([{ ...at(0, 0), how: 'commune-ign' }, ...osm])[0].lat * 1e4);
+  assert.strictEqual(snap(town(7700), town(120000)), lat(7700));
+  assert.strictEqual(snap(town(6000), town(3000)), lat(3000), 'le plus proche, pas n\'importe lequel dans le rayon');
+  assert.strictEqual(snap(town(2500, { addresstype: 'city_district' }), town(3100)), lat(3100), 'Pontorson : quartier écarté');
+  assert.strictEqual(snap(town(1000, { osmClass: 'natural', addresstype: 'water' })), lat(0), 'lac homonyme écarté');
+  assert.strictEqual(snap(town(8000)), lat(8000), 'borne incluse');
+  assert.strictEqual(snap(town(9000)), lat(0));
+  // Seule une commune IGN est recalée.
+  const other = snapToTown([{ ...at(0, 0), how: 'commune-ign-prefixe' }, town(3000)])[0];
+  assert.strictEqual(other.lat, at(0, 0).lat);
+});
+
+test('assembleCandidates : recalage branché, sauf pour un point géocodé sous un autre nom (geocodeAs)', () => {
+  const communes = [{ name: 'Lamballe-Armor', lat: at(0, 0).lat, lon: at(0, 0).lon, population: 1 }];
+  const osm = [{ ...at(3000, 0), how: 'nominatim', osmClass: 'boundary', addresstype: 'town' }];
+  const snapped = assembleCandidates({ label: 'Lamballe-Armor', kind: 'ville', communes, osm }).find((c) => c.how === 'commune-ign');
+  assert.ok(Math.abs(snapped.lat - at(3000, 0).lat) < 1e-4);
+  const kept = assembleCandidates({ label: 'Lamballe-Armor', original: 'Lamballe', kind: 'ville', communes, osm }).find((c) => c.how === 'commune-ign');
+  assert.ok(Math.abs(kept.lat - at(0, 0).lat) < 1e-4);
 });

@@ -35,23 +35,32 @@ const START_SLACK_M = 10000;
 const round = (v) => Math.round(v * 1e5) / 1e5;
 
 async function defaultCandidates(label, kind, original = label) {
-  const out = [];
   const known = KNOWN_COLS[label];
+  const communes = kind === 'ville' ? await communeCandidates(label) : [];
+  const { nominatimCandidates } = require('./build-stage-towns');
+  return assembleCandidates({ label, kind, original, known, communes, osm: await nominatimCandidates(label) });
+}
+
+/** Candidats d'un point, par source (pur, testé) : col connu, communes IGN
+ * (nom exact → « commune-ign », préfixe → « commune-ign-prefixe »),
+ * Nominatim. Une commune IGN exacte est recalée sur son bourg OSM, sauf
+ * quand le point est géocodé sous un autre nom (geocodeAs) : le nom
+ * cherché peut alors être une commune nouvelle dont le point OSM n'est pas
+ * le bourg voulu (Lamballe-Armor pour Lamballe). Ces points restent au
+ * centroïde IGN — limite connue, voir docs/SPRINT-STATUS.md (33.3). */
+function assembleCandidates({ label, kind, original = label, known, communes = [], osm = [] }) {
+  const out = [];
   if (known && Number.isFinite(known.lat)) out.push({ lat: known.lat, lon: known.lon, how: 'known-cols' });
   if (kind === 'ville') {
     const want = normName(label);
-    const communes = (await communeCandidates(label))
-      .filter((c) => { const n = normName(c.name); return n === want || n.startsWith(`${want} `) || n.startsWith(`${want}-`); })
-      .sort((a, b) => (b.population || 0) - (a.population || 0));
     // Nom exact seulement pour le rang « commune IGN » : un préfixe
     // (« Vovray » → Vovray-en-Bornes) est une autre commune (relecture adverse).
-    for (const c of communes) out.push({ lat: round(c.lat), lon: round(c.lon), how: normName(c.name) === want ? 'commune-ign' : 'commune-ign-prefixe' });
+    communes
+      .filter((c) => { const n = normName(c.name); return n === want || n.startsWith(`${want} `) || n.startsWith(`${want}-`); })
+      .sort((a, b) => (b.population || 0) - (a.population || 0))
+      .forEach((c) => out.push({ lat: round(c.lat), lon: round(c.lon), how: normName(c.name) === want ? 'commune-ign' : 'commune-ign-prefixe' }));
   }
-  const { nominatimCandidates } = require('./build-stage-towns');
-  const osm = await nominatimCandidates(label);
   for (const c of osm) out.push(c);
-  // Commune nouvelle (geocodeAs « Lamballe-Armor » pour Lamballe) : le point
-  // OSM du nom fusionné n'est pas le bourg cherché, pas de recalage.
   return label === original ? snapToTown(out) : out;
 }
 
@@ -61,8 +70,13 @@ async function defaultCandidates(label, kind, original = label) {
 // recalée sur le point OpenStreetMap le plus proche s'il est à moins de
 // SNAP_M — même nom, même commune ; au-delà, c'est un homonyme, ignoré.
 const SNAP_M = 8000;
+// Points OSM d'une localité seulement : jamais un quartier ou une commune
+// déléguée (Pontorson : le « city_district » était plus proche du centroïde
+// IGN que le bourg — relecture adverse), ni un lac ou un col homonyme.
+const TOWN_ADDRESSTYPES = new Set(['city', 'town', 'village', 'hamlet', 'municipality']);
+const isTownPoint = (c) => c.how === 'nominatim' && (c.osmClass === 'place' || c.osmClass === 'boundary') && TOWN_ADDRESSTYPES.has(c.addresstype);
 function snapToTown(cands) {
-  const osm = cands.filter((c) => c.how === 'nominatim');
+  const osm = cands.filter(isTownPoint);
   return cands.map((c) => {
     if (c.how !== 'commune-ign') return c;
     let best = null;
@@ -152,4 +166,4 @@ async function main() {
 
 if (require.main === module) main().catch((err) => { console.error(err); process.exit(1); });
 
-module.exports = { geocodeStage, anchorsFor, stageAnchors, snapToTown, SNAP_M, SLACK_M, START_SLACK_M };
+module.exports = { geocodeStage, anchorsFor, stageAnchors, snapToTown, assembleCandidates, SNAP_M, SLACK_M, START_SLACK_M };

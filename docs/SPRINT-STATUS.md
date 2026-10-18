@@ -426,10 +426,15 @@ et côtes traversées avec leur kilomètre.
   centre géographique de la commune, pas le bourg (Bagnères-de-Bigorre à
   7,7 km, Laruns 4,2, Allemond 4,1). Une commune IGN au nom exact est
   recalée sur le point OpenStreetMap du même nom à moins de 8 km
-  (`snapToTown`) ; 90 points déjà en base recalés de 1,5 à 5,4 km. Pas de
-  recalage pour une commune nouvelle (geocodeAs) : le point OSM du nom
-  fusionné n'est pas le bourg (Lamballe-Armor, attrapé par le test de
-  données). Porcelette inchangée : 1970/9 à 4,2 km, 1992/10 à 5,3 km.
+  (`snapToTown`) ; 91 points déjà en base recalés de 1,5 à 5,4 km. Seuls
+  les points OSM de localité comptent (city/town/village/hamlet/
+  municipality) : la relecture adverse a trouvé Pontorson recalé sur un
+  « city_district » (2,4 km de la mairie) et Apremont-la-Forêt idem.
+  Pas de recalage pour un point géocodé sous un autre nom (geocodeAs, 84
+  points dont 28 villes) : le nom cherché peut être une commune nouvelle
+  dont le point OSM n'est pas le bourg (Lamballe-Armor) — ces points
+  restent au centroïde IGN, limite connue. Porcelette inchangée : 1970/9
+  à 4,2 km, 1992/10 à 5,3 km.
 
 ## Epic 34 — Idées venues d'autres dépôts (veille du 18/10/2026)
 

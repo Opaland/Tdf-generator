@@ -110,7 +110,7 @@ async function nominatimCandidates(label) {
     const NAMED_PLACE = new Set(['place', 'boundary', 'natural', 'mountain_pass', 'tourism', 'leisure', 'landuse', 'water', 'waterway']);
     return (r || [])
       .filter((x) => NAMED_PLACE.has(x.class) || (x.class === 'highway' && x.type === 'mountain_pass'))
-      .map((x) => ({ lat: round(Number(x.lat)), lon: round(Number(x.lon)), how: 'nominatim' }))
+      .map((x) => ({ lat: round(Number(x.lat)), lon: round(Number(x.lon)), how: 'nominatim', osmClass: x.class, addresstype: x.addresstype || null }))
       .filter((c) => Number.isFinite(c.lat));
   } catch {
     return [];
