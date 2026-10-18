@@ -129,8 +129,11 @@ async function geocodeStage(towns, anchors = {}, candidatesFor = defaultCandidat
     // Grenoble placée à 10 km au sud, Fontaine rejetée ensuite).
     // Une subdivision OSM (commune déléguée, quartier) passe après tout autre
     // candidat : son point n'est pas le village homonyme, souvent listé juste
-    // après (1990 : Bonneval et Les Vignes, 7 et 8 % d'écart routé).
-    const tier = (c) => (c.how === 'known-cols' ? 0 : c.how === 'commune-ign' ? 1 : SUBDIVISION_ADDRESSTYPES.has(c.addresstype) ? 3 : 2);
+    // après (1990 : Bonneval et Les Vignes, 7 et 8 % d'écart routé). Une
+    // commune IGN trouvée par préfixe (une autre commune, Vovray-en-Bornes)
+    // ne la bat pas pour autant : même rang, départagées par le détour.
+    const tier = (c) => (c.how === 'known-cols' ? 0 : c.how === 'commune-ign' ? 1
+      : SUBDIVISION_ADDRESSTYPES.has(c.addresstype) || c.how === 'commune-ign-prefixe' ? 3 : 2);
     const bestTier = Math.min(...ok.map(tier));
     for (let i = ok.length - 1; i >= 0; i--) if (tier(ok[i]) !== bestTier) ok.splice(i, 1);
     // Plusieurs candidats compatibles et distincts : le plus « sur le

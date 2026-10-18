@@ -543,24 +543,31 @@ et côtes traversées avec leur kilomètre.
   déjà transcrites.
   Fait : une subdivision OSM (city_district, suburb, quarter,
   neighbourhood, borough) passe après tout autre candidat Nominatim
-  compatible ; seule compatible, elle reste retenue. Balayage des 669
-  points Nominatim : 69 sur une subdivision, 56 avec une localité
-  homonyme, re-géocodés — 55 déplacés de 0 à 2,4 km (Belgique surtout :
+  compatible ; seule compatible, elle reste retenue. Une commune IGN
+  trouvée par préfixe (autre commune) est au même rang qu'elle, pour ne
+  pas la battre d'office (relecture adverse). Balayage des points
+  Nominatim (≈ 670) : 69 sur une subdivision, 56 avec une localité
+  homonyme, re-géocodés — 49 déplacés de 0,1 à 2,4 km (Belgique surtout :
   Stavelot, Spa, Theux, Wavre, Tournai… ; Vendeuvre-du-Poitou,
-  Noirterre, Celliers en 1990), Vielsalm fixée au village (le géocodage
-  ne la replaçait plus). Bug trouvé en relançant le géocodage : il
-  replaçait les points retirés volontairement (Gravere, Artouste, arrivées
-  de 1990 sans position sourcée) — un point `non-place` portant une note
-  n'est plus jamais re-géocodé (test). Fischbach (1980/3), placée par la
-  relance sur l'homonyme au sud de Diekirch, à contresens de l'étape
-  (1980/3 à +19,9 %), retirée avec une note. Remesure des 11 éditions
-  touchées : 110 étapes dans la tolérance sur 155 contrôlées (111 avant,
-  après le recalage de Besançon de #414),
-  1990/2 de +14,6 % à +8,0 %, 1992/6 rentre (−5,1 → −2,6 %) ; sortent
-  1995/7 (−4,4 → −6,8 %, Spa replacée sur la ville, 2,2 km), 1992/14
-  (+4,0 → +5,2 %, Le Bourg-d'Oisans enfin placé) et 1996/18 (+10,8 →
-  +17,7 %, données inchangées : BRouter a remplacé les 4 tronçons
-  voiture par un détour vélo). Écarts affichés, pas ajustés.
+  Noirterre, Celliers en 1990), les autres revenus au même point faute de
+  village compatible ; Vielsalm mise sur le candidat village de Nominatim
+  (la relance ne la replaçait plus). Bug trouvé en relançant le géocodage :
+  il replaçait les points retirés volontairement (Gravere, Artouste,
+  arrivées de 1990 sans position sourcée) — un point `non-place` portant
+  une note n'est plus jamais re-géocodé. Tests : chaque type de
+  subdivision, commune IGN et col connu devant un village, préfixe contre
+  subdivision, garde « non-place + note » — chaque mutation de ces règles
+  fait échouer un test. La relance a aussi placé deux points jamais
+  placés : Fischbach (1980/3), sur l'homonyme au sud de Diekirch, à
+  contresens de l'étape (+19,9 %) — remise non placée avec une note ; Le
+  Bourg-d'Oisans (1992/14), au village, même point qu'en 1990/11.
+  Remesure (10 éditions changent ; 1992 et 2002 remesurées une 2ᵉ fois
+  pour éliminer des tronçons routés en voiture, 0 désormais) : 110
+  étapes dans la tolérance sur 155 contrôlées (111 avant). Entre 1992/6
+  (−5,1 → −2,6 %) ; 1990/2 passe de +14,6 % à +8,0 % ; sortent 1995/7
+  (−4,4 → −6,8 %, Spa replacée sur la ville, 2,2 km) et 1992/14 (+4,0 →
+  +5,2 %, Le Bourg-d'Oisans désormais placé). Écarts affichés, pas
+  ajustés.
 - [ ] 33.4 Contrôle à ±5 % des itinéraires (demande du 18/10/2026 : « 5 %
   max de tolérance ») : `scripts/check-itineraries.js` route l'itinéraire
   point par point et compare au kilométrage du profil, avec

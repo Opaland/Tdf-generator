@@ -146,6 +146,19 @@ test('geocodeStage : une subdivision OSM (commune déléguée) passe après le v
   // Seule la subdivision est compatible : elle reste retenue (mieux que rien).
   const only = await geocodeStage(towns, {}, async (l) => (l === 'B' ? [cands.B[0]] : cands[l]));
   assert.strictEqual(only[1].lat, at(0, 9000).lat);
+  // Tous les types de subdivision, pas seulement city_district (relecture adverse).
+  for (const addresstype of ['suburb', 'quarter', 'neighbourhood', 'borough']) {
+    const sub = await geocodeStage(towns, {}, async (l) => (l === 'B' ? [{ ...cands.B[0], addresstype }, cands.B[1]] : cands[l]));
+    assert.strictEqual(sub[1].lat, at(2500, 9000).lat, addresstype);
+  }
+  // Commune IGN exacte et col connu restent devant un village Nominatim.
+  for (const how of ['commune-ign', 'known-cols']) {
+    const strong = await geocodeStage(towns, {}, async (l) => (l === 'B' ? [{ ...at(0, 9000), how }, cands.B[1]] : cands[l]));
+    assert.strictEqual(strong[1].how, how);
+  }
+  // Une commune IGN par préfixe (autre commune) ne bat pas la subdivision : même rang, moindre détour.
+  const pref = await geocodeStage(towns, {}, async (l) => (l === 'B' ? [cands.B[0], { ...at(3000, 9000), how: 'commune-ign-prefixe' }] : cands[l]));
+  assert.strictEqual(pref[1].lat, at(0, 9000).lat);
 });
 
 test('geocodeStage : un point retiré avec une note n\'est jamais re-géocodé ; sans note, il est retenté', async () => {
@@ -158,4 +171,7 @@ test('geocodeStage : un point retiré avec une note n\'est jamais re-géocodé ;
   assert.strictEqual(out[2].lat, at(0, 18000).lat);
   const retry = await geocodeStage(towns.map((t) => ({ ...t, note: undefined })), {}, async (l) => cands[l] || []);
   assert.strictEqual(retry[1].lat, at(0, 9000).lat);
+  // Une note sur un point jamais tenté (pas « non-place ») ne bloque pas le géocodage.
+  const noted = await geocodeStage(towns.map((t) => ({ ...t, confidence: undefined })), {}, async (l) => cands[l] || []);
+  assert.strictEqual(noted[1].lat, at(0, 9000).lat);
 });
