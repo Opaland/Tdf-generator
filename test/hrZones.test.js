@@ -68,3 +68,22 @@ test('buildZonesTable : bornes en bpm et message si rien d\'exploitable', () => 
   assert.match(html, /100 %/);
   assert.match(buildZonesTable({ zones: [0, 0, 0, 0, 0], below: 0, uncounted: 50 }, 200), /Aucun intervalle/);
 });
+
+test('zones : pour toute FC max de 100 à 240 et tout bpm entier, la zone calculée est celle que le tableau affiche', () => {
+  const { hrZoneBounds } = require('../frontend/stage.js');
+  for (let hrMax = 100; hrMax <= 240; hrMax++) {
+    const html = buildZonesTable({ zones: [1, 1, 1, 1, 1], below: 1, uncounted: 0 }, hrMax);
+    const ranges = [...html.matchAll(/<td style="white-space:nowrap">(≥ \d+|\d+–\d+|&lt; \d+|< \d+)<\/td>/g)].map((m) => m[1]);
+    assert.strictEqual(ranges.length, 6, `hrMax ${hrMax}`);
+    const bounds = hrZoneBounds(hrMax);
+    for (let bpm = 25; bpm <= 250; bpm++) {
+      const t = hrZoneTimes([{ elapsed_s: 0, hr_bpm: bpm }, { elapsed_s: 1, hr_bpm: bpm }], hrMax);
+      const z = t.zones.findIndex((v) => v === 1);
+      const shown = z === -1 ? ranges[5] : ranges[z];
+      const m = shown.match(/(\d+)–(\d+)/);
+      if (m) assert.ok(bpm >= +m[1] && bpm <= +m[2], `hrMax ${hrMax}, ${bpm} bpm compté en ${shown}`);
+      else if (/≥/.test(shown)) assert.ok(bpm >= bounds[4].lo, `hrMax ${hrMax}, ${bpm} bpm`);
+      else assert.ok(bpm < bounds[0].lo, `hrMax ${hrMax}, ${bpm} bpm sous Z1`);
+    }
+  }
+});

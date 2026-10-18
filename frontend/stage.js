@@ -623,7 +623,16 @@ const HR_ZONE_MAX_GAP_S = 600;
  * premier. `uncounted` : secondes non attribuées (FC ou temps absents, arrêt
  * long) — affichées, jamais réparties. `below` : sous 50 % de la FC max.
  */
+/** Bornes entières en bpm de chaque zone, partagées par le calcul et
+ * l'affichage : un bpm entier tombe toujours dans la zone que le tableau
+ * annonce (relecture adverse — l'arrondi d'affichage et le rapport exact
+ * divergeaient d'un bpm pour certaines FC max, ex. 187). */
+function hrZoneBounds(hrMax) {
+  return HR_ZONES.map((z) => ({ lo: Math.ceil(z.lo * hrMax), hi: z.hi === Infinity ? Infinity : Math.ceil(z.hi * hrMax) }));
+}
+
 function hrZoneTimes(samples, hrMax) {
+  const bounds = hrZoneBounds(hrMax);
   const zones = HR_ZONES.map(() => 0);
   let below = 0;
   let uncounted = 0;
@@ -634,8 +643,7 @@ function hrZoneTimes(samples, hrMax) {
     const dt = b.elapsed_s - a.elapsed_s;
     if (!(dt > 0)) continue;
     if (dt > HR_ZONE_MAX_GAP_S || !Number.isFinite(a.hr_bpm)) { uncounted += dt; continue; }
-    const pct = a.hr_bpm / hrMax;
-    const z = HR_ZONES.findIndex((zone) => pct >= zone.lo && pct < zone.hi);
+    const z = bounds.findIndex((b) => a.hr_bpm >= b.lo && a.hr_bpm < b.hi);
     if (z === -1) below += dt;
     else zones[z] += dt;
   }
@@ -651,11 +659,12 @@ function buildZonesTable(t, hrMax) {
       `<td style="white-space:nowrap">${EF.esc(EF.formatDuration(s))}<br><span class="meta-line">${pct} %</span>` +
       `<div style="background:#b01c2f;height:6px;border-radius:var(--radius-xs);width:${pct}%;min-width:${pct ? 2 : 0}px;margin-left:auto" aria-hidden="true"></div></td></tr>`;
   };
+  const bounds = hrZoneBounds(hrMax);
   const rows = HR_ZONES.map((z, i) => row(z.name,
-    z.hi === Infinity ? `≥ ${Math.round(z.lo * hrMax)}` : `${Math.round(z.lo * hrMax)}–${Math.round(z.hi * hrMax) - 1}`,
+    bounds[i].hi === Infinity ? `≥ ${bounds[i].lo}` : `${bounds[i].lo}–${bounds[i].hi - 1}`,
     t.zones[i])).join('');
   return `<div style="overflow-x:auto"><table class="stats"><thead><tr><th>Zone</th><th>FC (bpm)</th><th>Temps</th></tr></thead><tbody>` +
-    rows + row('Sous Z1', `< ${Math.round(0.5 * hrMax)}`, t.below) + '</tbody></table></div>' +
+    rows + row('Sous Z1', `< ${bounds[0].lo}`, t.below) + '</tbody></table></div>' +
     (t.uncounted ? `<p class="meta-line">${EF.esc(EF.formatDuration(t.uncounted))} non comptées (FC absente ou arrêt de plus de ${HR_ZONE_MAX_GAP_S / 60} min).</p>` : '');
 }
 
@@ -709,7 +718,7 @@ function renderHeartRate(st, samples) {
   renderHrZones(samples || []);
 }
 
-if (typeof module !== 'undefined' && module.exports) module.exports = { similarItemHtml, poll, climbNameSourceLabel, buildHrChart, hrZoneTimes, buildZonesTable, HR_ZONES };
+if (typeof module !== 'undefined' && module.exports) module.exports = { similarItemHtml, poll, climbNameSourceLabel, buildHrChart, hrZoneTimes, hrZoneBounds, buildZonesTable, HR_ZONES };
 
 // Communes traversées (Epic 12, option B) : calculées à la demande — environ
 // une requête geo.api.gouv.fr par kilomètre, donc jamais à la génération.

@@ -51,7 +51,9 @@ module.exports = function register(app) {
   // données produit : ni users/sessions (jamais exporter un hash de mot de
   // passe ou un identifiant de session, même haché), ni les caches d'appels
   // externes (geocode_cache/elevation_cache/api_cache — régénérables, pas des
-  // données produit).
+  // données produit). `settings` non plus (secrets des connecteurs, FC max de
+  // référence /api/profile) : sur une nouvelle instance, la FC max est à
+  // ressaisir — la fiche la redemande d'elle-même.
   // `gear` avant `stages` : stages.gear_id y fait référence (migration 7) ;
   // la suppression parcourt la liste à l'envers.
   const BACKUP_TABLES = ['editions', 'gear', 'stages', 'waypoints', 'tracks', 'elevation_samples', 'climbs', 'descents', 'km_analysis'];
