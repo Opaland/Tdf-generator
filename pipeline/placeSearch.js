@@ -182,7 +182,10 @@ function stageItineraries() {
     if (!m) continue;
     for (const [stage, st] of Object.entries(ed.stages || {})) {
       const { points, segments } = buildItinerary(st.towns || []);
-      itinCache.push({ year: Number(m[1]), category: m[2] || 'hommes', stage, sourceUrl: st.source_url || null, points, segments });
+      const rc = st.route_check;
+      const routeCheck = rc && Number.isFinite(rc.delta_pct) && Number.isFinite(rc.tolerance_pct)
+        ? { deltaPct: rc.delta_pct, tolerancePct: rc.tolerance_pct, coveragePct: rc.coverage_pct ?? null, carLegs: rc.car_legs ?? null, legs: rc.legs ?? null } : null;
+      itinCache.push({ year: Number(m[1]), category: m[2] || 'hommes', stage, sourceUrl: st.source_url || null, routeCheck, points, segments });
     }
   }
   return itinCache;
@@ -249,7 +252,7 @@ function searchNear(place, radiusM, db, curated = curatedStages(), towns = stage
       results.push({ year: it.year, category: it.category, stage: it.stage, stageId: null, name: null, date: dateOf.get(k) || null,
         distanceM: Math.round(d), basis: seg < near.d ? 'itinerary-segment' : 'itinerary-point',
         nearestLabel: near.p.label, nearestKm: near.p.km, nearestPointM: Math.round(near.d), sourceUrl: it.sourceUrl,
-        geocodeConfidence: near.p.confidence });
+        geocodeConfidence: near.p.confidence, routeCheck: it.routeCheck ?? null });
     }
   }
   let curatedCovered = 0;
