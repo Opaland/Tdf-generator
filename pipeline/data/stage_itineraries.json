@@ -1,5 +1,5 @@
 {
- "_notes": "Itinéraires détaillés (Epic 33) : villes et côtes traversées, avec leur kilomètre, transcrites à la main depuis le profil officiel cité dans source_url (profils du Dico du Tour, ledicodutour.com). Coordonnées ajoutées par scripts/geocode-itineraries.js : un point n'est placé que si la distance à vol d'oiseau depuis le point précédent ne dépasse pas l'écart de kilomètres du profil (+3 km ; +10 km depuis le km 0, le départ réel pouvant être hors du centre de la ville de départ) ; sinon il reste sans coordonnées. confidence : ok (un seul candidat compatible), ambigu (plusieurs, le moins détourné retenu). Un point sans coordonnées n'est jamais utilisé par la recherche. Une côte est placée au village dont elle porte le nom (geocodeAs) : position approchée à quelques km près, jamais le sommet exact. partial: true = transcription partielle, seuls les points dont le kilomètre est lisible sans doute sur l image sont repris (un point absent n est pas une preuve que l étape n y est pas passée). length_km : longueur de l'étape lue sur le profil ; sur une transcription partielle, elle confirme que le dernier point est l'arrivée (sinon la contrainte vers l'arrivée n'est pas appliquée).",
+ "_notes": "Itinéraires détaillés (Epic 33) : villes et côtes traversées, avec leur kilomètre, transcrites à la main depuis le profil officiel cité dans source_url (profils du Dico du Tour, ledicodutour.com). Coordonnées ajoutées par scripts/geocode-itineraries.js : un point n'est placé que si la distance à vol d'oiseau depuis le point précédent ne dépasse pas l'écart de kilomètres du profil (+3 km ; +10 km depuis le km 0, le départ réel pouvant être hors du centre de la ville de départ) ; sinon il reste sans coordonnées. confidence : ok (un seul candidat compatible), ambigu (plusieurs candidats distincts de la source la plus fiable — col connu, puis commune IGN au nom exact, puis le reste —, le moins détourné retenu). Un point sans coordonnées n'est jamais utilisé par la recherche. Une côte est placée au village dont elle porte le nom (geocodeAs) : position approchée à quelques km près, jamais le sommet exact. partial: true = transcription partielle, seuls les points dont le kilomètre est lisible sans doute sur l image sont repris (un point absent n est pas une preuve que l étape n y est pas passée). length_km : longueur de l'étape lue sur le profil ; sur une transcription partielle, elle confirme que le dernier point est l'arrivée (sinon la contrainte vers l'arrivée n'est pas appliquée). kind lieu-dit : hameau ou quartier placé au centre de sa commune (geocodeAs) — comme une côte, jamais utilisé par la recherche.",
  "_source": "Profils d'étapes du Dico du Tour (https://www.ledicodutour.com), lus image par image ; seuls les noms de lieux et kilomètres (faits) sont repris, pas les images.",
  "editions": {
   "1970": {
@@ -1343,10 +1343,10 @@
        "label": "Dieuze",
        "km": 29,
        "kind": "ville",
-       "lat": 48.77596,
-       "lon": 6.69962,
-       "how": "nominatim",
-       "confidence": "ambigu"
+       "lat": 48.81149,
+       "lon": 6.72032,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Château-Salins",
@@ -1499,6 +1499,1426 @@
   },
   "1992": {
    "stages": {
+    "1": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1992/92_1.jpg",
+     "towns": [
+      {
+       "label": "San Sebastián",
+       "km": 0,
+       "kind": "ville",
+       "geocodeAs": "Donostia",
+       "lat": 43.32242,
+       "lon": -1.98389,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Aguinaga",
+       "km": 11,
+       "kind": "ville",
+       "geocodeAs": "Aginaga",
+       "lat": 43.27272,
+       "lon": -2.07396,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Alto de Orio",
+       "km": 19,
+       "kind": "col",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Zarautz",
+       "km": 22.5,
+       "kind": "ville",
+       "lat": 43.28349,
+       "lon": -2.17235,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Zumaia",
+       "km": 33,
+       "kind": "ville",
+       "lat": 43.29665,
+       "lon": -2.25712,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Zestoa",
+       "km": 40.5,
+       "kind": "ville",
+       "lat": 43.24014,
+       "lon": -2.25852,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Azkoitia",
+       "km": 53.5,
+       "kind": "ville",
+       "lat": 43.17816,
+       "lon": -2.3115,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Aizpurutxo",
+       "km": 61,
+       "kind": "ville",
+       "lat": 43.13305,
+       "lon": -2.3524,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Zumarraga",
+       "km": 72,
+       "kind": "ville",
+       "lat": 43.086,
+       "lon": -2.31409,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Legorreta",
+       "km": 93.5,
+       "kind": "ville",
+       "lat": 43.08489,
+       "lon": -2.14862,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Tolosa",
+       "km": 103,
+       "kind": "ville",
+       "lat": 43.13861,
+       "lon": -2.07236,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Andoain",
+       "km": 115.5,
+       "kind": "ville",
+       "lat": 43.21834,
+       "lon": -2.01994,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "San Sebastián",
+       "km": 133,
+       "kind": "ville",
+       "geocodeAs": "Donostia",
+       "lat": 43.32242,
+       "lon": -1.98389,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Errenteria",
+       "km": 142,
+       "kind": "ville",
+       "lat": 43.31253,
+       "lon": -1.89861,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Alto de Jaizkibel",
+       "km": 150.5,
+       "kind": "col",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Irun",
+       "km": 162.5,
+       "kind": "ville",
+       "lat": 43.33832,
+       "lon": -1.78881,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Alto de Gurutze",
+       "km": 168.5,
+       "kind": "col",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Astigarraga",
+       "km": 179.5,
+       "kind": "ville",
+       "lat": 43.28157,
+       "lon": -1.94748,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "San Sebastián",
+       "km": 194.5,
+       "kind": "ville",
+       "geocodeAs": "Donostia",
+       "lat": 43.32242,
+       "lon": -1.98389,
+       "how": "nominatim",
+       "confidence": "ok"
+      }
+     ]
+    },
+    "2": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1992/92_2.jpg",
+     "partial": true,
+     "towns": [
+      {
+       "label": "San Sebastián",
+       "km": 0,
+       "kind": "ville",
+       "geocodeAs": "Donostia",
+       "lat": 43.32242,
+       "lon": -1.98389,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Astigarraga",
+       "km": 11.5,
+       "kind": "ville",
+       "lat": 43.28157,
+       "lon": -1.94748,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Oiartzun",
+       "km": 20,
+       "kind": "ville",
+       "lat": 43.30273,
+       "lon": -1.86091,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Alto de Agina",
+       "km": 37,
+       "kind": "col",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Oronoz-Mugaire",
+       "km": 72,
+       "kind": "ville",
+       "geocodeAs": "Oronoz",
+       "lat": 43.14031,
+       "lon": -1.60565,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Elvetea",
+       "km": 81,
+       "kind": "ville",
+       "geocodeAs": "Elbete",
+       "lat": 43.14906,
+       "lon": -1.51257,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Erratzu",
+       "km": 88.5,
+       "kind": "ville",
+       "lat": 43.18074,
+       "lon": -1.45576,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col d'Ispéguy",
+       "km": 97.5,
+       "kind": "col",
+       "lat": 43.17569,
+       "lon": -1.40208,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Saint-Étienne-de-Baïgorry",
+       "km": 108,
+       "kind": "ville",
+       "lat": 43.19147,
+       "lon": -1.33046,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Saint-Jean-Pied-de-Port",
+       "km": 116.5,
+       "kind": "ville",
+       "lat": 43.16046,
+       "lon": -1.23474,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Ainhice-Mongelos",
+       "km": 126,
+       "kind": "ville",
+       "lat": 43.20723,
+       "lon": -1.15671,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Bunus",
+       "km": 136.5,
+       "kind": "ville",
+       "lat": 43.20284,
+       "lon": -1.06752,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col d'Osquich",
+       "km": 144,
+       "kind": "col",
+       "lat": 43.19952,
+       "lon": -1.00335,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Mauléon-Licharre",
+       "km": 156.5,
+       "kind": "ville",
+       "lat": 43.22229,
+       "lon": -0.89023,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Montory",
+       "km": 175,
+       "kind": "ville",
+       "lat": 43.09722,
+       "lon": -0.81486,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Arette",
+       "km": 185.5,
+       "kind": "ville",
+       "lat": 43.05172,
+       "lon": -0.6883,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Escot",
+       "km": 200.5,
+       "kind": "ville",
+       "lat": 43.07848,
+       "lon": -0.60681,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col de Marie-Blanque",
+       "km": 209.5,
+       "kind": "col",
+       "lat": 43.07047,
+       "lon": -0.50751,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Bielle",
+       "km": 221,
+       "kind": "ville",
+       "lat": 43.05605,
+       "lon": -0.43152,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Rébénacq",
+       "km": 234,
+       "kind": "ville",
+       "lat": 43.15707,
+       "lon": -0.3963,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Gan",
+       "km": 241,
+       "kind": "ville",
+       "lat": 43.20702,
+       "lon": -0.40257,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Pau",
+       "km": 249,
+       "kind": "ville",
+       "lat": 43.29575,
+       "lon": -0.36857,
+       "how": "nominatim",
+       "confidence": "ok"
+      }
+     ]
+    },
+    "3": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1992/92_3.jpg",
+     "partial": true,
+     "towns": [
+      {
+       "label": "Pau",
+       "km": 0,
+       "kind": "ville",
+       "lat": 43.31603,
+       "lon": -0.34311,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Bougarber",
+       "km": 8,
+       "kind": "ville",
+       "lat": 43.39059,
+       "lon": -0.46652,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Sault-de-Navailles",
+       "km": 35.5,
+       "kind": "ville",
+       "lat": 43.54679,
+       "lon": -0.68216,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Hagetmau",
+       "km": 49.5,
+       "kind": "ville",
+       "lat": 43.6518,
+       "lon": -0.59288,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Saint-Sever",
+       "km": 60.5,
+       "kind": "côte",
+       "geocodeAs": "Saint-Sever",
+       "lat": 43.76327,
+       "lon": -0.55979,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Saint-Pierre-du-Mont",
+       "km": 76.5,
+       "kind": "ville",
+       "lat": 43.87499,
+       "lon": -0.51446,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Mont-de-Marsan",
+       "km": 81,
+       "kind": "ville",
+       "lat": 43.89136,
+       "lon": -0.50018,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Uchacq-et-Parentis",
+       "km": 91.5,
+       "kind": "ville",
+       "lat": 43.92919,
+       "lon": -0.55346,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Brocas",
+       "km": 102.5,
+       "kind": "ville",
+       "lat": 44.05075,
+       "lon": -0.53619,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Labrit",
+       "km": 109,
+       "kind": "ville",
+       "lat": 44.10783,
+       "lon": -0.55914,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Luxey",
+       "km": 127.5,
+       "kind": "ville",
+       "lat": 44.25163,
+       "lon": -0.52188,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Sore",
+       "km": 138,
+       "kind": "ville",
+       "lat": 44.31797,
+       "lon": -0.59742,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Mano",
+       "km": 154,
+       "kind": "ville",
+       "lat": 44.42024,
+       "lon": -0.67254,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Hostens",
+       "km": 164,
+       "kind": "ville",
+       "lat": 44.47874,
+       "lon": -0.65795,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Villagrains",
+       "km": 173.5,
+       "kind": "ville",
+       "geocodeAs": "Cabanac-et-Villagrains",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Saucats",
+       "km": 183.5,
+       "kind": "ville",
+       "lat": 44.65212,
+       "lon": -0.61645,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Léognan",
+       "km": 192,
+       "kind": "ville",
+       "lat": 44.719,
+       "lon": -0.60521,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Bègles",
+       "km": 200,
+       "kind": "ville",
+       "lat": 44.80206,
+       "lon": -0.55119,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Bordeaux",
+       "km": 209.5,
+       "kind": "ville",
+       "lat": 44.85194,
+       "lon": -0.58788,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Bordeaux-Lac",
+       "km": 218,
+       "kind": "lieu-dit",
+       "geocodeAs": "Bordeaux",
+       "lat": 44.85194,
+       "lon": -0.58788,
+       "how": "commune-ign",
+       "confidence": "ok"
+      }
+     ]
+    },
+    "4": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1992/92_4.jpg",
+     "partial": true,
+     "towns": [
+      {
+       "label": "Libourne",
+       "km": 0,
+       "kind": "ville",
+       "lat": 44.92038,
+       "lon": -0.22684,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Saint-Michel-de-Fronsac",
+       "km": 6,
+       "kind": "ville",
+       "lat": 44.92994,
+       "lon": -0.29944,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Saint-Germain-de-la-Rivière",
+       "km": 9.5,
+       "kind": "ville",
+       "lat": 44.94841,
+       "lon": -0.3279,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Villegouge",
+       "km": 14.5,
+       "kind": "ville",
+       "lat": 44.97103,
+       "lon": -0.32043,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Galgon",
+       "km": 19,
+       "kind": "ville",
+       "lat": 44.99028,
+       "lon": -0.27337,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Saint-Ciers-d'Abzac",
+       "km": 25,
+       "kind": "ville",
+       "lat": 45.03301,
+       "lon": -0.28784,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Guîtres",
+       "km": 33,
+       "kind": "ville",
+       "lat": 45.04526,
+       "lon": -0.18293,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Lagorce",
+       "km": 41.5,
+       "kind": "ville",
+       "lat": 45.07406,
+       "lon": -0.16112,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Coutras",
+       "km": 46,
+       "kind": "ville",
+       "lat": 45.04696,
+       "lon": -0.09521,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Libourne",
+       "km": 63.5,
+       "kind": "ville",
+       "lat": 44.92038,
+       "lon": -0.22684,
+       "how": "commune-ign",
+       "confidence": "ok"
+      }
+     ]
+    },
+    "5": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1992/92_5.jpg",
+     "partial": true,
+     "towns": [
+      {
+       "label": "Nogent-sur-Oise",
+       "km": 0,
+       "kind": "ville",
+       "lat": 49.2763,
+       "lon": 2.46869,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Clermont",
+       "km": 10,
+       "kind": "ville",
+       "lat": 49.37814,
+       "lon": 2.41376,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Argenlieu",
+       "km": 19,
+       "kind": "ville",
+       "lat": 49.45311,
+       "lon": 2.44235,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Saint-Just-en-Chaussée",
+       "km": 25,
+       "kind": "ville",
+       "lat": 49.51225,
+       "lon": 2.42834,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Crèvecœur-le-Petit",
+       "km": 35,
+       "kind": "ville",
+       "lat": 49.57691,
+       "lon": 2.50345,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Montdidier",
+       "km": 45,
+       "kind": "ville",
+       "lat": 49.64655,
+       "lon": 2.57006,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Guerbigny",
+       "km": 54.5,
+       "kind": "ville",
+       "lat": 49.69956,
+       "lon": 2.65786,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Warvillers",
+       "km": 64,
+       "kind": "ville",
+       "lat": 49.78085,
+       "lon": 2.68774,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Framerville-Rainecourt",
+       "km": 74,
+       "kind": "ville",
+       "lat": 49.86265,
+       "lon": 2.71614,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Bray-sur-Somme",
+       "km": 83.5,
+       "kind": "ville",
+       "lat": 49.94186,
+       "lon": 2.71654,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Maricourt",
+       "km": 93,
+       "kind": "ville",
+       "lat": 49.98014,
+       "lon": 2.78442,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Flers",
+       "km": 101,
+       "kind": "ville",
+       "lat": 50.04812,
+       "lon": 2.82145,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Ligny-Thilloy",
+       "km": 105.5,
+       "kind": "ville",
+       "lat": 50.08524,
+       "lon": 2.82818,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Bapaume",
+       "km": 108.5,
+       "kind": "ville",
+       "lat": 50.10143,
+       "lon": 2.85319,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Écoust-Saint-Mein",
+       "km": 118,
+       "kind": "ville",
+       "lat": 50.18268,
+       "lon": 2.91095,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Dury",
+       "km": 129,
+       "kind": "ville",
+       "lat": 50.24757,
+       "lon": 3.00465,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Férin",
+       "km": 139.5,
+       "kind": "ville",
+       "lat": 50.32918,
+       "lon": 3.07951,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Douai",
+       "km": 148,
+       "kind": "ville",
+       "lat": 50.3799,
+       "lon": 3.0949,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Péronne-en-Mélantois",
+       "km": 174,
+       "kind": "ville",
+       "lat": 50.5661,
+       "lon": 3.17197,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Villeneuve-d'Ascq",
+       "km": 179.5,
+       "kind": "ville",
+       "lat": 50.63763,
+       "lon": 3.14829,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Roubaix",
+       "km": 189,
+       "kind": "ville",
+       "lat": 50.68845,
+       "lon": 3.18366,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Wasquehal",
+       "km": 196,
+       "kind": "ville",
+       "lat": 50.67305,
+       "lon": 3.1295,
+       "how": "commune-ign",
+       "confidence": "ok"
+      }
+     ]
+    },
+    "6": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1992/92_6.jpg",
+     "towns": [
+      {
+       "label": "Roubaix",
+       "km": 0,
+       "kind": "ville",
+       "lat": 50.68845,
+       "lon": 3.18366,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Dottignies",
+       "km": 4,
+       "kind": "ville",
+       "lat": 50.7274,
+       "lon": 3.30373,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Mont de l'Enclus",
+       "km": 22,
+       "kind": "côte",
+       "geocodeAs": "Kluisbergen",
+       "lat": 50.7783,
+       "lon": 3.52125,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Kwaremont",
+       "km": 29,
+       "kind": "côte",
+       "geocodeAs": "Kwaremont",
+       "lat": 50.7765,
+       "lon": 3.52426,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Renaix",
+       "km": 36,
+       "kind": "ville",
+       "geocodeAs": "Ronse",
+       "lat": 50.75262,
+       "lon": 3.60145,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Audenarde",
+       "km": 45.5,
+       "kind": "ville",
+       "geocodeAs": "Oudenaarde",
+       "lat": 50.83702,
+       "lon": 3.64084,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Brakel",
+       "km": 58,
+       "kind": "ville",
+       "lat": 50.79797,
+       "lon": 3.76278,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Mur de Grammont",
+       "km": 70.5,
+       "kind": "côte",
+       "geocodeAs": "Geraardsbergen",
+       "lat": 50.77158,
+       "lon": 3.88273,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Oetingen",
+       "km": 88.5,
+       "kind": "ville",
+       "lat": 50.77207,
+       "lon": 4.06146,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Pepingen",
+       "km": 97,
+       "kind": "ville",
+       "lat": 50.75985,
+       "lon": 4.1577,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Essenbeek",
+       "km": 107,
+       "kind": "ville",
+       "lat": 50.72031,
+       "lon": 4.25875,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Braine-l'Alleud",
+       "km": 120,
+       "kind": "ville",
+       "lat": 50.69431,
+       "lon": 4.35476,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Schepdaal",
+       "km": 141,
+       "kind": "ville",
+       "lat": 50.83485,
+       "lon": 4.19197,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Sint-Ulriks-Kapelle",
+       "km": 151,
+       "kind": "ville",
+       "lat": 50.88003,
+       "lon": 4.22065,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Wemmel",
+       "km": 161,
+       "kind": "ville",
+       "lat": 50.90877,
+       "lon": 4.30346,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Bruxelles",
+       "km": 167,
+       "kind": "ville",
+       "geocodeAs": "Brussels",
+       "lat": 50.84674,
+       "lon": 4.35249,
+       "how": "nominatim",
+       "confidence": "ok"
+      }
+     ]
+    },
+    "7": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1992/92_7.jpg",
+     "towns": [
+      {
+       "label": "Bruxelles",
+       "km": 0,
+       "kind": "ville",
+       "geocodeAs": "Auderghem",
+       "lat": 50.81717,
+       "lon": 4.42709,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Overijse",
+       "km": 13,
+       "kind": "ville",
+       "lat": 50.76803,
+       "lon": 4.55716,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Wavre",
+       "km": 23,
+       "kind": "ville",
+       "lat": 50.72312,
+       "lon": 4.61525,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Piétrebais",
+       "km": 33,
+       "kind": "ville",
+       "lat": 50.72779,
+       "lon": 4.76439,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Marilles",
+       "km": 45.5,
+       "kind": "ville",
+       "lat": 50.7073,
+       "lon": 4.95283,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Thisnes",
+       "km": 56.5,
+       "kind": "ville",
+       "lat": 50.66556,
+       "lon": 5.04807,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Tourinne",
+       "km": 68.5,
+       "kind": "ville",
+       "lat": 50.63955,
+       "lon": 5.17655,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Bovenistier",
+       "km": 78,
+       "kind": "ville",
+       "lat": 50.66761,
+       "lon": 5.28443,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Hognoul",
+       "km": 94,
+       "kind": "ville",
+       "lat": 50.68391,
+       "lon": 5.45826,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Liège-Loncin",
+       "km": 99,
+       "kind": "ville",
+       "geocodeAs": "Loncin",
+       "lat": 50.66666,
+       "lon": 5.49621,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Juprelle",
+       "km": 107.5,
+       "kind": "ville",
+       "lat": 50.71156,
+       "lon": 5.52847,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Boirs",
+       "km": 116.5,
+       "kind": "ville",
+       "lat": 50.7525,
+       "lon": 5.57904,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Hallembaye",
+       "km": 126,
+       "kind": "côte",
+       "geocodeAs": "Hallembaye",
+       "lat": 50.76448,
+       "lon": 5.66114,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Lanaye",
+       "km": 136.5,
+       "kind": "ville",
+       "lat": 50.78066,
+       "lon": 5.69444,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Maastricht",
+       "km": 146.5,
+       "kind": "ville",
+       "lat": 50.85124,
+       "lon": 5.69098,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Savelbos",
+       "km": 155.5,
+       "kind": "côte",
+       "geocodeAs": "Sint Geertruid",
+       "lat": 50.79554,
+       "lon": 5.765,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Loorberg",
+       "km": 168,
+       "kind": "côte",
+       "geocodeAs": "Slenaken",
+       "lat": 50.76861,
+       "lon": 5.862,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Camerig",
+       "km": 175,
+       "kind": "côte",
+       "geocodeAs": "Camerig",
+       "lat": 50.77327,
+       "lon": 5.92592,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Etenaken",
+       "km": 187.5,
+       "kind": "ville",
+       "lat": 50.84338,
+       "lon": 5.88492,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Le Cauberg",
+       "km": 194.5,
+       "kind": "côte",
+       "geocodeAs": "Valkenburg",
+       "lat": 50.86094,
+       "lon": 5.81371,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Valkenburg",
+       "km": 196.5,
+       "kind": "ville",
+       "geocodeAs": "Valkenburg aan de Geul",
+       "lat": 50.86094,
+       "lon": 5.81371,
+       "how": "nominatim",
+       "confidence": "ok"
+      }
+     ]
+    },
+    "8": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1992/92_8.jpg",
+     "towns": [
+      {
+       "label": "Valkenburg",
+       "km": 0,
+       "kind": "ville",
+       "geocodeAs": "Valkenburg aan de Geul",
+       "lat": 50.86094,
+       "lon": 5.81371,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Gulpen",
+       "km": 6,
+       "kind": "ville",
+       "lat": 50.81399,
+       "lon": 5.88996,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Vaals",
+       "km": 17,
+       "kind": "ville",
+       "lat": 50.77102,
+       "lon": 6.01905,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Haaren",
+       "km": 27.5,
+       "kind": "ville",
+       "geocodeAs": "Haaren, Aachen",
+       "lat": 50.79536,
+       "lon": 6.12683,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Eschweiler",
+       "km": 37.5,
+       "kind": "ville",
+       "lat": 50.8175,
+       "lon": 6.26309,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Langerwehe",
+       "km": 48,
+       "kind": "ville",
+       "lat": 50.80198,
+       "lon": 6.36812,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Düren",
+       "km": 57.5,
+       "kind": "ville",
+       "lat": 50.80317,
+       "lon": 6.48208,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Soller",
+       "km": 67,
+       "kind": "ville",
+       "geocodeAs": "Soller, Vettweiß",
+       "lat": 50.73308,
+       "lon": 6.5566,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Ülpenich",
+       "km": 80,
+       "kind": "ville",
+       "geocodeAs": "Ülpenich",
+       "lat": 50.67527,
+       "lon": 6.69391,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Euskirchen",
+       "km": 89.5,
+       "kind": "ville",
+       "lat": 50.66126,
+       "lon": 6.78712,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Oberdrees",
+       "km": 99.5,
+       "kind": "ville",
+       "lat": 50.63223,
+       "lon": 6.92167,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Gelsdorf",
+       "km": 111,
+       "kind": "ville",
+       "lat": 50.58622,
+       "lon": 7.0361,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Bad Neuenahr-Ahrweiler",
+       "km": 120,
+       "kind": "ville",
+       "lat": 50.54446,
+       "lon": 7.11867,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Bad Neuenahr",
+       "km": 128,
+       "kind": "côte",
+       "geocodeAs": "Bad Neuenahr-Ahrweiler",
+       "lat": 50.54446,
+       "lon": 7.11867,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Niederzissen",
+       "km": 138.5,
+       "kind": "ville",
+       "lat": 50.45856,
+       "lon": 7.22254,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Bell",
+       "km": 149,
+       "kind": "ville",
+       "geocodeAs": "Bell (Eifel)",
+       "lat": 50.38748,
+       "lon": 7.2329,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Ochtendung",
+       "km": 169,
+       "kind": "ville",
+       "lat": 50.34933,
+       "lon": 7.38915,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Kobern-Gondorf",
+       "km": 176.5,
+       "kind": "ville",
+       "lat": 50.30699,
+       "lon": 7.4583,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Waldesch",
+       "km": 190.5,
+       "kind": "côte",
+       "geocodeAs": "Waldesch",
+       "lat": 50.27948,
+       "lon": 7.54517,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Koblenz-Stolzenfels",
+       "km": 200.5,
+       "kind": "ville",
+       "geocodeAs": "Stolzenfels",
+       "lat": 50.31207,
+       "lon": 7.58245,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Koblenz",
+       "km": 206.5,
+       "kind": "ville",
+       "lat": 50.35333,
+       "lon": 7.5944,
+       "how": "nominatim",
+       "confidence": "ok"
+      }
+     ]
+    },
     "10": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1992/92_10.jpg",
      "towns": [
@@ -1742,6 +3162,1896 @@
        "kind": "ville",
        "lat": 48.57983,
        "lon": 7.76145,
+       "how": "commune-ign",
+       "confidence": "ok"
+      }
+     ]
+    },
+    "11": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1992/92_11.jpg",
+     "towns": [
+      {
+       "label": "Strasbourg",
+       "km": 0,
+       "kind": "ville",
+       "geocodeAs": "Lingolsheim",
+       "lat": 48.55787,
+       "lon": 7.68819,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Altorf",
+       "km": 11.5,
+       "kind": "ville",
+       "lat": 48.52776,
+       "lon": 7.54449,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Obernai",
+       "km": 19.5,
+       "kind": "ville",
+       "lat": 48.46289,
+       "lon": 7.46815,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Barr",
+       "km": 30.5,
+       "kind": "ville",
+       "lat": 48.40523,
+       "lon": 7.43628,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Andlau",
+       "km": 35.5,
+       "kind": "ville",
+       "lat": 48.39613,
+       "lon": 7.40089,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col du Kreuzweg",
+       "km": 49,
+       "kind": "col",
+       "lat": 48.38709,
+       "lon": 7.29412,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Villé",
+       "km": 59,
+       "kind": "ville",
+       "lat": 48.34243,
+       "lon": 7.30259,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col de Fouchy",
+       "km": 67.5,
+       "kind": "col",
+       "lat": 48.30469,
+       "lon": 7.26023,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Sainte-Croix-aux-Mines",
+       "km": 79,
+       "kind": "ville",
+       "lat": 48.26344,
+       "lon": 7.20975,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col des Bagenelles",
+       "km": 94.5,
+       "kind": "col",
+       "lat": 48.19248,
+       "lon": 7.11394,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Le Bonhomme",
+       "km": 98.5,
+       "kind": "ville",
+       "lat": 48.17501,
+       "lon": 7.11295,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col du Calvaire",
+       "km": 111,
+       "kind": "col",
+       "lat": 48.1367,
+       "lon": 7.08661,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col de Wettstein",
+       "km": 122,
+       "kind": "col",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Col de la Schlucht",
+       "km": 139,
+       "kind": "col",
+       "lat": 48.06417,
+       "lon": 7.02266,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col de Bramont",
+       "km": 154,
+       "kind": "col",
+       "lat": 48.00049,
+       "lon": 6.9454,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Wildenstein",
+       "km": 162,
+       "kind": "ville",
+       "lat": 47.97495,
+       "lon": 6.9606,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Willer-sur-Thur",
+       "km": 181,
+       "kind": "ville",
+       "lat": 47.84836,
+       "lon": 7.07795,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Grand Ballon",
+       "km": 196.5,
+       "kind": "col",
+       "lat": 47.90084,
+       "lon": 7.0984,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Linthal",
+       "km": 217,
+       "kind": "ville",
+       "lat": 47.95161,
+       "lon": 7.10909,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Soultz-Haut-Rhin",
+       "km": 228.5,
+       "kind": "ville",
+       "lat": 47.88757,
+       "lon": 7.22637,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Schoenensteinbach",
+       "km": 238.5,
+       "kind": "ville",
+       "lat": 47.82332,
+       "lon": 7.30171,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Mulhouse",
+       "km": 249.5,
+       "kind": "ville",
+       "lat": 47.75166,
+       "lon": 7.32652,
+       "how": "commune-ign",
+       "confidence": "ok"
+      }
+     ]
+    },
+    "12": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1992/92_12.jpg",
+     "partial": true,
+     "towns": [
+      {
+       "label": "Dole",
+       "km": 0,
+       "kind": "ville",
+       "lat": 47.07788,
+       "lon": 5.49366,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Tassenières",
+       "km": 16,
+       "kind": "ville",
+       "lat": 46.92377,
+       "lon": 5.51441,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Chemenot",
+       "km": 22.5,
+       "kind": "ville",
+       "lat": 46.86572,
+       "lon": 5.53356,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Passenans",
+       "km": 34,
+       "kind": "ville",
+       "lat": 46.79858,
+       "lon": 5.61677,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Le Vernois",
+       "km": 43.5,
+       "kind": "ville",
+       "lat": 46.73177,
+       "lon": 5.59254,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Lons-le-Saunier",
+       "km": 51,
+       "kind": "ville",
+       "lat": 46.67741,
+       "lon": 5.55893,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Montaigu",
+       "km": 55.5,
+       "kind": "côte",
+       "geocodeAs": "Montaigu",
+       "lat": 46.66085,
+       "lon": 5.57006,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Orgelet",
+       "km": 69.5,
+       "kind": "ville",
+       "lat": 46.52137,
+       "lon": 5.60655,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte d'Onoz",
+       "km": 78.5,
+       "kind": "côte",
+       "geocodeAs": "Onoz",
+       "lat": 46.45369,
+       "lon": 5.65416,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Cernon",
+       "km": 87.5,
+       "kind": "ville",
+       "lat": 46.40607,
+       "lon": 5.64896,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Chancia",
+       "km": 98.5,
+       "kind": "ville",
+       "lat": 46.34652,
+       "lon": 5.64061,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Oyonnax",
+       "km": 109,
+       "kind": "ville",
+       "lat": 46.26424,
+       "lon": 5.63916,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte d'Échallon",
+       "km": 115.5,
+       "kind": "côte",
+       "geocodeAs": "Échallon",
+       "lat": 46.22295,
+       "lon": 5.7367,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Saint-Germain-de-Joux",
+       "km": 128.5,
+       "kind": "ville",
+       "lat": 46.1819,
+       "lon": 5.73817,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Bellegarde-sur-Valserine",
+       "km": 140.5,
+       "kind": "ville",
+       "geocodeAs": "Valserhône",
+       "lat": 46.12796,
+       "lon": 5.80381,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Vovray",
+       "km": 179,
+       "kind": "ville",
+       "geocodeAs": "Vovray, Archamps",
+       "lat": 46.12852,
+       "lon": 6.15004,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Le Salève",
+       "km": 187,
+       "kind": "col",
+       "lat": 46.11184,
+       "lon": 6.16236,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "La Roche-sur-Foron",
+       "km": 213.5,
+       "kind": "ville",
+       "lat": 46.05313,
+       "lon": 6.29625,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Sallanches",
+       "km": 252,
+       "kind": "ville",
+       "lat": 45.94411,
+       "lon": 6.63293,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Le Fayet",
+       "km": 260,
+       "kind": "ville",
+       "lat": 45.90546,
+       "lon": 6.70106,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Saint-Gervais-les-Bains",
+       "km": 267.5,
+       "kind": "ville",
+       "lat": 45.87238,
+       "lon": 6.71755,
+       "how": "commune-ign",
+       "confidence": "ok"
+      }
+     ]
+    },
+    "13": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1992/92_13.jpg",
+     "towns": [
+      {
+       "label": "Saint-Gervais-les-Bains",
+       "km": 0,
+       "kind": "ville",
+       "lat": 45.87238,
+       "lon": 6.71755,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Megève",
+       "km": 10,
+       "kind": "ville",
+       "lat": 45.84357,
+       "lon": 6.62609,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Praz-sur-Arly",
+       "km": 14,
+       "kind": "ville",
+       "lat": 45.83475,
+       "lon": 6.56862,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col des Saisies",
+       "km": 31.5,
+       "kind": "col",
+       "lat": 45.76156,
+       "lon": 6.53336,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Beaufort",
+       "km": 49.5,
+       "kind": "ville",
+       "lat": 45.70944,
+       "lon": 6.59687,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col du Méraillet",
+       "km": 62,
+       "kind": "col",
+       "lat": 45.69491,
+       "lon": 6.63364,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Cormet de Roselend",
+       "km": 70,
+       "kind": "col",
+       "lat": 45.69133,
+       "lon": 6.69062,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Bourg-Saint-Maurice",
+       "km": 89,
+       "kind": "ville",
+       "lat": 45.65366,
+       "lon": 6.78753,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Sainte-Foy-Tarentaise",
+       "km": 101,
+       "kind": "ville",
+       "lat": 45.57251,
+       "lon": 6.88518,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col de l'Iseran",
+       "km": 136.5,
+       "kind": "col",
+       "lat": 45.41711,
+       "lon": 7.03085,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Bonneval-sur-Arc",
+       "km": 150,
+       "kind": "ville",
+       "lat": 45.37543,
+       "lon": 7.0581,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Lanslevillard",
+       "km": 168,
+       "kind": "ville",
+       "lat": 45.29891,
+       "lon": 6.92929,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col du Mont-Cenis",
+       "km": 178.5,
+       "kind": "col",
+       "lat": 45.259852,
+       "lon": 6.900833,
+       "how": "known-cols",
+       "confidence": "ok"
+      },
+      {
+       "label": "Molaretto",
+       "km": 199,
+       "kind": "ville",
+       "lat": 45.17298,
+       "lon": 7.00281,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Susa",
+       "km": 209,
+       "kind": "ville",
+       "lat": 45.13838,
+       "lon": 7.04934,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Exilles",
+       "km": 221.5,
+       "kind": "ville",
+       "lat": 45.09738,
+       "lon": 6.92906,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Oulx",
+       "km": 233.5,
+       "kind": "ville",
+       "lat": 45.03305,
+       "lon": 6.83251,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Cesana Torinese",
+       "km": 243.5,
+       "kind": "ville",
+       "lat": 44.95244,
+       "lon": 6.79067,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Sestriere",
+       "km": 254.5,
+       "kind": "ville",
+       "lat": 44.95845,
+       "lon": 6.87869,
+       "how": "nominatim",
+       "confidence": "ok"
+      }
+     ]
+    },
+    "14": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1992/92_14.jpg",
+     "towns": [
+      {
+       "label": "Sestriere",
+       "km": 0,
+       "kind": "ville",
+       "lat": 44.95845,
+       "lon": 6.87869,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col de Montgenèvre",
+       "km": 7.5,
+       "kind": "col",
+       "lat": 44.931665,
+       "lon": 6.725523,
+       "how": "known-cols",
+       "confidence": "ok"
+      },
+      {
+       "label": "Montgenèvre",
+       "km": 8,
+       "kind": "ville",
+       "lat": 44.92911,
+       "lon": 6.71322,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Briançon",
+       "km": 20,
+       "kind": "ville",
+       "lat": 44.89619,
+       "lon": 6.63723,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Le Monêtier-les-Bains",
+       "km": 33.5,
+       "kind": "ville",
+       "lat": 44.98124,
+       "lon": 6.50538,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col du Lautaret",
+       "km": 46.5,
+       "kind": "col",
+       "lat": 45.035403,
+       "lon": 6.405134,
+       "how": "known-cols",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col du Galibier",
+       "km": 55,
+       "kind": "col",
+       "lat": 45.06414,
+       "lon": 6.40786,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Plan Lachat",
+       "km": 63.5,
+       "kind": "col",
+       "lat": 45.08883,
+       "lon": 6.43613,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Valloire",
+       "km": 73,
+       "kind": "ville",
+       "lat": 45.13635,
+       "lon": 6.41923,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Saint-Michel-de-Maurienne",
+       "km": 90,
+       "kind": "ville",
+       "lat": 45.23184,
+       "lon": 6.48166,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Saint-Jean-de-Maurienne",
+       "km": 103,
+       "kind": "ville",
+       "lat": 45.26796,
+       "lon": 6.34785,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "La Brévière",
+       "km": 111.5,
+       "kind": "lieu-dit",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Saint-Jean-d'Arves",
+       "km": 122,
+       "kind": "ville",
+       "lat": 45.20453,
+       "lon": 6.27915,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col de la Croix-de-Fer",
+       "km": 132,
+       "kind": "col",
+       "lat": 45.22749,
+       "lon": 6.20333,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Le Rivier d'Allemond",
+       "km": 150,
+       "kind": "lieu-dit",
+       "geocodeAs": "Allemond",
+       "lat": 45.16753,
+       "lon": 6.03747,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Allemond",
+       "km": 162,
+       "kind": "ville",
+       "lat": 45.16753,
+       "lon": 6.03747,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Le Bourg-d'Oisans",
+       "km": 170.5,
+       "kind": "ville",
+       "confidence": "non-place"
+      },
+      {
+       "label": "La Garde",
+       "km": 175.5,
+       "kind": "ville",
+       "lat": 45.06681,
+       "lon": 6.04897,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Huez",
+       "km": 181,
+       "kind": "ville",
+       "lat": 45.08667,
+       "lon": 6.0667,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "L'Alpe d'Huez",
+       "km": 186.5,
+       "kind": "lieu-dit",
+       "geocodeAs": "Huez",
+       "lat": 45.08667,
+       "lon": 6.0667,
+       "how": "commune-ign",
+       "confidence": "ok"
+      }
+     ]
+    },
+    "15": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1992/92_15.jpg",
+     "towns": [
+      {
+       "label": "Le Bourg-d'Oisans",
+       "km": 0,
+       "kind": "ville",
+       "lat": 45.05275,
+       "lon": 6.03842,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Livet",
+       "km": 12.5,
+       "kind": "ville",
+       "geocodeAs": "Livet-et-Gavet",
+       "lat": 45.08953,
+       "lon": 5.90189,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Gavet",
+       "km": 19,
+       "kind": "lieu-dit",
+       "geocodeAs": "Livet-et-Gavet",
+       "lat": 45.08953,
+       "lon": 5.90189,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Le Péage-de-Vizille",
+       "km": 29,
+       "kind": "ville",
+       "geocodeAs": "Vizille",
+       "lat": 45.07142,
+       "lon": 5.77188,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Le Pont-de-Claix",
+       "km": 39,
+       "kind": "ville",
+       "lat": 45.12457,
+       "lon": 5.69978,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Grenoble",
+       "km": 45.5,
+       "kind": "ville",
+       "lat": 45.18283,
+       "lon": 5.7243,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Fontaine",
+       "km": 49.5,
+       "kind": "ville",
+       "lat": 45.19509,
+       "lon": 5.68309,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Noyarey",
+       "km": 56.5,
+       "kind": "ville",
+       "lat": 45.24534,
+       "lon": 5.62437,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Saint-Quentin-sur-Isère",
+       "km": 70,
+       "kind": "ville",
+       "lat": 45.27502,
+       "lon": 5.54482,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Georgat",
+       "km": 81,
+       "kind": "côte",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Saint-Étienne-de-Saint-Geoirs",
+       "km": 93,
+       "kind": "ville",
+       "lat": 45.34165,
+       "lon": 5.34459,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Brézins",
+       "km": 95.5,
+       "kind": "ville",
+       "lat": 45.34319,
+       "lon": 5.30904,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Marcilloles",
+       "km": 105.5,
+       "kind": "ville",
+       "lat": 45.34146,
+       "lon": 5.18487,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Moras-en-Valloire",
+       "km": 123,
+       "kind": "ville",
+       "lat": 45.2937,
+       "lon": 4.99043,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Le Creux-de-la-Thine",
+       "km": 137.5,
+       "kind": "ville",
+       "lat": 45.26376,
+       "lon": 4.82083,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Barges",
+       "km": 146.5,
+       "kind": "côte",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Saint-Marcel-lès-Annonay",
+       "km": 157.5,
+       "kind": "ville",
+       "lat": 45.2891,
+       "lon": 4.62608,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Bourg-Argental",
+       "km": 162.5,
+       "kind": "ville",
+       "lat": 45.30099,
+       "lon": 4.55841,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col de la Croix de Chaubouret",
+       "km": 180,
+       "kind": "col",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Rochetaillée",
+       "km": 191,
+       "kind": "ville",
+       "lat": 45.41041,
+       "lon": 4.44579,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Saint-Étienne",
+       "km": 198,
+       "kind": "ville",
+       "lat": 45.4302,
+       "lon": 4.37005,
+       "how": "commune-ign",
+       "confidence": "ok"
+      }
+     ]
+    },
+    "16": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1992/92_16.jpg",
+     "partial": true,
+     "towns": [
+      {
+       "label": "Saint-Étienne",
+       "km": 0,
+       "kind": "ville",
+       "lat": 45.4302,
+       "lon": 4.37005,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Unieux",
+       "km": 10,
+       "kind": "ville",
+       "lat": 45.40335,
+       "lon": 4.26981,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Aurec-sur-Loire",
+       "km": 18,
+       "kind": "ville",
+       "lat": 45.36789,
+       "lon": 4.20309,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Bas-en-Basset",
+       "km": 32,
+       "kind": "ville",
+       "lat": 45.31803,
+       "lon": 4.11202,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Retournac",
+       "km": 48.5,
+       "kind": "ville",
+       "lat": 45.22291,
+       "lon": 4.02036,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Le Chambon-de-Vorey",
+       "km": 59,
+       "kind": "ville",
+       "lat": 45.20385,
+       "lon": 3.93101,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Vorey",
+       "km": 63,
+       "kind": "ville",
+       "lat": 45.19312,
+       "lon": 3.91346,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Bellevue-la-Montagne",
+       "km": 75,
+       "kind": "côte",
+       "geocodeAs": "Bellevue-la-Montagne",
+       "lat": 45.21616,
+       "lon": 3.81583,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Sembadel",
+       "km": 85,
+       "kind": "ville",
+       "lat": 45.26994,
+       "lon": 3.69567,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "La Chaise-Dieu",
+       "km": 91,
+       "kind": "ville",
+       "lat": 45.31845,
+       "lon": 3.6895,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Saint-Alyre",
+       "km": 101,
+       "kind": "ville",
+       "geocodeAs": "Saint-Alyre-d'Arlanc",
+       "lat": 45.36754,
+       "lon": 3.636,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Saint-Germain-l'Herm",
+       "km": 117,
+       "kind": "ville",
+       "lat": 45.46285,
+       "lon": 3.53666,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Le Vernet-la-Varenne",
+       "km": 127,
+       "kind": "ville",
+       "lat": 45.47902,
+       "lon": 3.45742,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Sarpoil",
+       "km": 137,
+       "kind": "ville",
+       "lat": 45.49572,
+       "lon": 3.35149,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Issoire",
+       "km": 149,
+       "kind": "ville",
+       "lat": 45.54201,
+       "lon": 3.24313,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Champeix",
+       "km": 161.5,
+       "kind": "ville",
+       "lat": 45.58727,
+       "lon": 3.12329,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Saillant",
+       "km": 171.5,
+       "kind": "ville",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Lac Chambon",
+       "km": 181.5,
+       "kind": "ville",
+       "geocodeAs": "Chambon-sur-Lac",
+       "lat": 45.56892,
+       "lon": 2.89729,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col de la Croix-Morand",
+       "km": 192,
+       "kind": "col",
+       "lat": 45.59708,
+       "lon": 2.85082,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Le Mont-Dore",
+       "km": 199,
+       "kind": "ville",
+       "geocodeAs": "Mont-Dore",
+       "lat": 45.56932,
+       "lon": 2.80185,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "La Bourboule",
+       "km": 206,
+       "kind": "ville",
+       "lat": 45.58124,
+       "lon": 2.7459,
+       "how": "commune-ign",
+       "confidence": "ok"
+      }
+     ]
+    },
+    "17": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1992/92_17.jpg",
+     "towns": [
+      {
+       "label": "La Bourboule",
+       "km": 0,
+       "kind": "ville",
+       "lat": 45.58124,
+       "lon": 2.7459,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Méjanesse",
+       "km": 6,
+       "kind": "côte",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Tauves",
+       "km": 10,
+       "kind": "ville",
+       "lat": 45.56205,
+       "lon": 2.62912,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "La Guinguette",
+       "km": 19.5,
+       "kind": "ville",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Côte de Confolent-Port-Dieu",
+       "km": 27,
+       "kind": "côte",
+       "geocodeAs": "Confolent-Port-Dieu",
+       "lat": 45.54072,
+       "lon": 2.49656,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Ussel",
+       "km": 46.5,
+       "kind": "ville",
+       "lat": 45.55368,
+       "lon": 2.30281,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Daubech",
+       "km": 52,
+       "kind": "ville",
+       "lat": 45.60151,
+       "lon": 2.29147,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "La Courtine",
+       "km": 66,
+       "kind": "ville",
+       "lat": 45.71533,
+       "lon": 2.24655,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Les Gasnes",
+       "km": 77.5,
+       "kind": "ville",
+       "lat": 45.75827,
+       "lon": 2.17341,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Felletin",
+       "km": 93.5,
+       "kind": "ville",
+       "lat": 45.89621,
+       "lon": 2.17664,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Rozeille",
+       "km": 100.5,
+       "kind": "côte",
+       "lat": 45.94393,
+       "lon": 2.17351,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Aubusson",
+       "km": 102,
+       "kind": "ville",
+       "lat": 45.9489,
+       "lon": 2.17454,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Angly",
+       "km": 122.5,
+       "kind": "ville",
+       "lat": 46.08588,
+       "lon": 2.28785,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Besse-Matheu",
+       "km": 133,
+       "kind": "ville",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Côte d'Évaux-les-Bains",
+       "km": 145.5,
+       "kind": "côte",
+       "geocodeAs": "Évaux-les-Bains",
+       "lat": 46.1737,
+       "lon": 2.49428,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Chambonchard",
+       "km": 153.5,
+       "kind": "ville",
+       "lat": 46.16696,
+       "lon": 2.53654,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Marcillat-en-Combraille",
+       "km": 160.5,
+       "kind": "ville",
+       "lat": 46.17143,
+       "lon": 2.63169,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Larequille",
+       "km": 173,
+       "kind": "ville",
+       "lat": 46.25365,
+       "lon": 2.69619,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Montluçon",
+       "km": 189,
+       "kind": "ville",
+       "lat": 46.34231,
+       "lon": 2.60495,
+       "how": "commune-ign",
+       "confidence": "ok"
+      }
+     ]
+    },
+    "18": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1992/92_18.jpg",
+     "towns": [
+      {
+       "label": "Montluçon",
+       "km": 0,
+       "kind": "ville",
+       "geocodeAs": "Domérat",
+       "lat": 46.37015,
+       "lon": 2.54926,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "La Chapelaude",
+       "km": 7.5,
+       "kind": "ville",
+       "lat": 46.42167,
+       "lon": 2.49962,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Goëlat",
+       "km": 18.5,
+       "kind": "ville",
+       "lat": 46.48801,
+       "lon": 2.42155,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Culan",
+       "km": 28,
+       "kind": "ville",
+       "lat": 46.54767,
+       "lon": 2.35365,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Châteaumeillant",
+       "km": 39,
+       "kind": "ville",
+       "lat": 46.55645,
+       "lon": 2.20629,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Champillet",
+       "km": 47,
+       "kind": "ville",
+       "lat": 46.55034,
+       "lon": 2.10714,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "La Châtre",
+       "km": 57,
+       "kind": "ville",
+       "lat": 46.57354,
+       "lon": 1.99195,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte d'Ars",
+       "km": 59,
+       "kind": "côte",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Côte de Corlay",
+       "km": 68.5,
+       "kind": "côte",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Ardentes",
+       "km": 79.5,
+       "kind": "ville",
+       "lat": 46.73969,
+       "lon": 1.82547,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Châteauroux",
+       "km": 93,
+       "kind": "ville",
+       "lat": 46.80435,
+       "lon": 1.69299,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Levroux",
+       "km": 114,
+       "kind": "ville",
+       "lat": 46.97456,
+       "lon": 1.59622,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Écueillé",
+       "km": 138.5,
+       "kind": "ville",
+       "lat": 47.08329,
+       "lon": 1.33884,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Villeloin-Coulangé",
+       "km": 151,
+       "kind": "ville",
+       "lat": 47.13886,
+       "lon": 1.22956,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Genillé",
+       "km": 165,
+       "kind": "ville",
+       "lat": 47.18046,
+       "lon": 1.11515,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Luzillé",
+       "km": 175,
+       "kind": "ville",
+       "lat": 47.26398,
+       "lon": 1.05695,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Azay-sur-Cher",
+       "km": 197,
+       "kind": "ville",
+       "lat": 47.33428,
+       "lon": 0.83856,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Tours",
+       "km": 212,
+       "kind": "ville",
+       "lat": 47.39548,
+       "lon": 0.69585,
+       "how": "commune-ign",
+       "confidence": "ok"
+      }
+     ]
+    },
+    "19": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1992/92_19.jpg",
+     "towns": [
+      {
+       "label": "Tours",
+       "km": 0,
+       "kind": "ville",
+       "lat": 47.39548,
+       "lon": 0.69585,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Rochecorbon",
+       "km": 8.5,
+       "kind": "ville",
+       "lat": 47.43026,
+       "lon": 0.75494,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Vernou-sur-Brenne",
+       "km": 15.5,
+       "kind": "ville",
+       "lat": 47.43797,
+       "lon": 0.83836,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Chançay",
+       "km": 20,
+       "kind": "ville",
+       "lat": 47.44918,
+       "lon": 0.87691,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Reugny",
+       "km": 24,
+       "kind": "ville",
+       "lat": 47.48219,
+       "lon": 0.87959,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Montreuil-en-Touraine",
+       "km": 29,
+       "kind": "ville",
+       "lat": 47.48413,
+       "lon": 0.95556,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Autrèche",
+       "km": 35,
+       "kind": "ville",
+       "lat": 47.51841,
+       "lon": 0.99302,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Dame-Marie-les-Bois",
+       "km": 38.5,
+       "kind": "ville",
+       "lat": 47.55801,
+       "lon": 1.04404,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Santenay",
+       "km": 46,
+       "kind": "ville",
+       "lat": 47.57671,
+       "lon": 1.1042,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Molineuf",
+       "km": 54.5,
+       "kind": "ville",
+       "lat": 47.57767,
+       "lon": 1.21466,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Blois",
+       "km": 64,
+       "kind": "ville",
+       "lat": 47.58141,
+       "lon": 1.31653,
+       "how": "commune-ign",
+       "confidence": "ok"
+      }
+     ]
+    },
+    "20": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1992/92_20.jpg",
+     "towns": [
+      {
+       "label": "Blois",
+       "km": 0,
+       "kind": "ville",
+       "lat": 47.58141,
+       "lon": 1.31653,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Pontijou",
+       "km": 14,
+       "kind": "ville",
+       "lat": 47.74116,
+       "lon": 1.33366,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Oucques",
+       "km": 23,
+       "kind": "ville",
+       "lat": 47.81738,
+       "lon": 1.28635,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Moisy",
+       "km": 35,
+       "kind": "ville",
+       "lat": 47.91779,
+       "lon": 1.3145,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "La Ferté-Villeneuil",
+       "km": 43,
+       "kind": "ville",
+       "lat": 47.98204,
+       "lon": 1.34425,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Châteaudun",
+       "km": 54,
+       "kind": "ville",
+       "lat": 48.0743,
+       "lon": 1.32399,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Varize",
+       "km": 68,
+       "kind": "ville",
+       "lat": 48.08668,
+       "lon": 1.52526,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Cormainville",
+       "km": 76.5,
+       "kind": "ville",
+       "lat": 48.13688,
+       "lon": 1.60733,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Villars",
+       "km": 88.5,
+       "kind": "ville",
+       "lat": 48.23165,
+       "lon": 1.54672,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Boncé",
+       "km": 98,
+       "kind": "ville",
+       "lat": 48.30888,
+       "lon": 1.50828,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Dammarie",
+       "km": 102,
+       "kind": "ville",
+       "lat": 48.34098,
+       "lon": 1.49155,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Chartres",
+       "km": 114.5,
+       "kind": "ville",
+       "lat": 48.44653,
+       "lon": 1.50229,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Coltainville",
+       "km": 123,
+       "kind": "ville",
+       "lat": 48.49001,
+       "lon": 1.58957,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Gallardon",
+       "km": 132.5,
+       "kind": "ville",
+       "lat": 48.52784,
+       "lon": 1.68621,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Épernon",
+       "km": 142,
+       "kind": "ville",
+       "lat": 48.59998,
+       "lon": 1.67613,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Poigny-la-Forêt",
+       "km": 154,
+       "kind": "ville",
+       "lat": 48.68389,
+       "lon": 1.76377,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Montfort-l'Amaury",
+       "km": 166.5,
+       "kind": "ville",
+       "lat": 48.77433,
+       "lon": 1.80529,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Boissy-sans-Avoir",
+       "km": 176,
+       "kind": "ville",
+       "lat": 48.81841,
+       "lon": 1.79474,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Beynes",
+       "km": 187,
+       "kind": "ville",
+       "lat": 48.85236,
+       "lon": 1.8756,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Saint-Nom-la-Bretèche",
+       "km": 199.5,
+       "kind": "ville",
+       "lat": 48.85748,
+       "lon": 2.01633,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Marly-le-Roi",
+       "km": 210,
+       "kind": "ville",
+       "lat": 48.87529,
+       "lon": 2.09241,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Nanterre",
+       "km": 222,
+       "kind": "ville",
+       "lat": 48.8981,
+       "lon": 2.20231,
+       "how": "commune-ign",
+       "confidence": "ok"
+      }
+     ]
+    },
+    "21": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1992/92_21.jpg",
+     "towns": [
+      {
+       "label": "La Défense",
+       "km": 0,
+       "kind": "ville",
+       "geocodeAs": "Puteaux",
+       "lat": 48.88416,
+       "lon": 2.2372,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Chatou",
+       "km": 8,
+       "kind": "ville",
+       "lat": 48.89663,
+       "lon": 2.14827,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Bougival",
+       "km": 17,
+       "kind": "côte",
+       "geocodeAs": "Bougival",
+       "lat": 48.86432,
+       "lon": 2.1388,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Montigny-le-Bretonneux",
+       "km": 29.5,
+       "kind": "ville",
+       "lat": 48.77956,
+       "lon": 2.03301,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Chevreuse",
+       "km": 41.5,
+       "kind": "ville",
+       "lat": 48.70669,
+       "lon": 2.03721,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Saint-Rémy-lès-Chevreuse",
+       "km": 45,
+       "kind": "côte",
+       "geocodeAs": "Saint-Rémy-lès-Chevreuse",
+       "lat": 48.7075,
+       "lon": 2.08072,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Châteaufort",
+       "km": 49,
+       "kind": "côte",
+       "geocodeAs": "Châteaufort",
+       "lat": 48.73644,
+       "lon": 2.09429,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Versailles",
+       "km": 58.5,
+       "kind": "ville",
+       "lat": 48.80293,
+       "lon": 2.12113,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Issy-les-Moulineaux",
+       "km": 68,
+       "kind": "ville",
+       "lat": 48.8239,
+       "lon": 2.26289,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Place de la Concorde",
+       "km": 78.5,
+       "kind": "lieu-dit",
+       "geocodeAs": "Paris",
+       "lat": 48.859,
+       "lon": 2.347,
+       "how": "commune-ign",
+       "confidence": "ambigu"
+      },
+      {
+       "label": "Paris Champs-Élysées",
+       "km": 141,
+       "kind": "ville",
+       "geocodeAs": "Paris",
+       "lat": 48.859,
+       "lon": 2.347,
        "how": "commune-ign",
        "confidence": "ok"
       }

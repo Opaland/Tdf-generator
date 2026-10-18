@@ -43,7 +43,9 @@ async function defaultCandidates(label, kind) {
     const communes = (await communeCandidates(label))
       .filter((c) => { const n = normName(c.name); return n === want || n.startsWith(`${want} `) || n.startsWith(`${want}-`); })
       .sort((a, b) => (b.population || 0) - (a.population || 0));
-    for (const c of communes) out.push({ lat: round(c.lat), lon: round(c.lon), how: 'commune-ign' });
+    // Nom exact seulement pour le rang « commune IGN » : un préfixe
+    // (« Vovray » → Vovray-en-Bornes) est une autre commune (relecture adverse).
+    for (const c of communes) out.push({ lat: round(c.lat), lon: round(c.lon), how: normName(c.name) === want ? 'commune-ign' : 'commune-ign-prefixe' });
   }
   const { nominatimCandidates } = require('./build-stage-towns');
   for (const c of await nominatimCandidates(label)) out.push(c);
@@ -72,6 +74,12 @@ async function geocodeStage(towns, anchors = {}, candidatesFor = defaultCandidat
       return true;
     });
     if (!ok.length) { t.confidence = 'non-place'; continue; }
+    // Source la plus fiable d'abord : un résultat Nominatim plus « sur le
+    // chemin » ne l'emporte jamais sur la commune IGN compatible (1992/15 :
+    // Grenoble placée à 10 km au sud, Fontaine rejetée ensuite).
+    const tier = (c) => (c.how === 'known-cols' ? 0 : c.how === 'commune-ign' ? 1 : 2);
+    const bestTier = Math.min(...ok.map(tier));
+    for (let i = ok.length - 1; i >= 0; i--) if (tier(ok[i]) !== bestTier) ok.splice(i, 1);
     // Plusieurs candidats compatibles et distincts : le plus « sur le
     // chemin » (moindre détour vers l'arrivée), signalé ambigu.
     const detour = (c) => (prev ? haversine(prev, c) : 0) + (anchors.finish ? haversine(c, anchors.finish) : 0);

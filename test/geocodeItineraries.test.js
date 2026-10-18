@@ -77,3 +77,21 @@ test('stageAnchors : arrivée retirée seulement pour une transcription partiell
   assert.ok(stageAnchors(doc, '1979', '13', { partial: true, length_km: 205, towns: [] }).finish);
   assert.strictEqual(stageAnchors(doc, '1979', '13', { partial: true, towns: [] }).finish, undefined);
 });
+
+test('geocodeStage : la commune IGN compatible l\'emporte sur un résultat Nominatim moins détourné', async () => {
+  const cands = {
+    A: [{ ...at(0, 0), how: 'commune-ign' }],
+    G: [{ ...at(0, 5000), how: 'nominatim' }, { ...at(9000, 5000), how: 'commune-ign' }],
+  };
+  const towns = [{ label: 'A', km: 0, kind: 'ville' }, { label: 'G', km: 10, kind: 'ville' }];
+  const out = await geocodeStage(towns, {}, async (l) => cands[l] || []);
+  assert.strictEqual(out[1].how, 'commune-ign');
+});
+
+test('geocodeStage : rang des sources — col connu > commune IGN exacte > reste (préfixe IGN, Nominatim)', async () => {
+  const A = [{ ...at(0, 0), how: 'commune-ign' }];
+  const run = async (cands) => (await geocodeStage([{ label: 'A', km: 0, kind: 'ville' }, { label: 'X', km: 10, kind: 'col' }], {}, async (l) => (l === 'A' ? A : cands)))[1].how;
+  assert.strictEqual(await run([{ ...at(0, 5000), how: 'commune-ign' }, { ...at(9000, 5000), how: 'known-cols' }]), 'known-cols');
+  // Préfixe IGN (autre commune) : ne prime pas sur le hameau Nominatim moins détourné.
+  assert.strictEqual(await run([{ ...at(9000, 5000), how: 'commune-ign-prefixe' }, { ...at(0, 5000), how: 'nominatim' }]), 'nominatim');
+});
