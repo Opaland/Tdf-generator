@@ -11,7 +11,7 @@ process.env.ETAPEFORGE_OFFLINE = '1';
 
 const { test, after } = require('node:test');
 const assert = require('node:assert');
-const { checkStage, checkStoredStage, officialKm, measuredTowns } = require('../scripts/check-itineraries');
+const { checkStage, checkStoredStage, officialKm, measuredTowns, isSuspectLeg } = require('../scripts/check-itineraries');
 
 after(() => fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true }));
 
@@ -71,4 +71,31 @@ test('measuredTowns : un circuit final (circuit_km) sort de la mesure, la part m
   const stored = await checkStoredStage({ towns, circuit_km: 50 }, leg, null);
   assert.strictEqual(stored.ok, true);
   assert.strictEqual(stored.coveragePct, 57);
+});
+
+test('isSuspectLeg : km du profil plus court que la ligne droite, ou route très éloignée du profil ; un écart normal ne l\'est pas', () => {
+  // 1987/7 avant relecture : Baires → Saint-Julien 12,5 km au profil pour 3,9 routés.
+  assert.strictEqual(isSuspectLeg({ profileKm: 12.5, routedKm: 3.9, crowKm: 3.2 }), true);
+  // 1987/6 : Andlau → Le Hohwald 5 km au profil, 7 à vol d'oiseau.
+  assert.strictEqual(isSuspectLeg({ profileKm: 5, routedKm: 9.3, crowKm: 7.0 }), true);
+  assert.strictEqual(isSuspectLeg({ profileKm: 5, routedKm: 6.5, crowKm: 6.4 }), true); // seule la ligne droite le trahit
+  assert.strictEqual(isSuspectLeg({ profileKm: 5, routedKm: 5.9, crowKm: 5.8 }), false); // 0,8 km de marge
+  assert.strictEqual(isSuspectLeg({ profileKm: 10, routedKm: 11.5, crowKm: 8 }), false);
+  assert.strictEqual(isSuspectLeg({ profileKm: 6, routedKm: 8.5, crowKm: 5 }), false); // 2,5 km d'écart
+  assert.strictEqual(isSuspectLeg({ profileKm: 10, routedKm: 13, crowKm: 9 }), false); // facteur 1,3
+  // Bornes des seuils : 3 km d'écart, facteurs 1,4 et 0,7.
+  assert.strictEqual(isSuspectLeg({ profileKm: 6.4, routedKm: 9.6, crowKm: 6 }), true); // 3,2 km, ×1,5
+  assert.strictEqual(isSuspectLeg({ profileKm: 7, routedKm: 9.9, crowKm: 6 }), false); // 2,9 km, ×1,41
+  assert.strictEqual(isSuspectLeg({ profileKm: 20, routedKm: 15, crowKm: 12 }), false); // 5 km mais ×0,75
+
+});
+
+test('checkStage : compte les tronçons suspects même quand le total est dans la tolérance', async () => {
+  // Deux km décalés qui se compensent : total exact, deux tronçons faux.
+  const towns = [town('A', 0), town('B', 10), town('C', 12), town('D', 30), town('E', 40)]
+    .map((t, i) => ({ ...t, lon: 6 + [0, 0, 10, 20, 30, 40][i + 1] / 100 }));
+  const leg = (a, b) => Math.abs(b.lon - a.lon) * 100 * 1000 * 1.0;
+  const r = await checkStage(towns, leg, 40);
+  assert.strictEqual(r.ok, true);
+  assert.strictEqual(r.suspectLegs, 2);
 });

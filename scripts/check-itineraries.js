@@ -7,7 +7,7 @@
 // sens — un point mal placé allonge la route, une ville omise aussi.
 //
 // Usage : node scripts/check-itineraries.js [--write] [--legs] [année …]   (réseau requis)
-// --legs : pour chaque étape hors tolérance, liste les tronçons suspects.
+// --legs : pour chaque étape, liste les tronçons suspects (isSuspectLeg).
 // --write : enregistre route_check {routed_km, profile_km, delta_pct,
 // tolerance_pct, coverage_pct, car_legs, legs} dans pipeline/data/stage_itineraries.json —
 // affiché par la recherche par lieu, jamais masqué (décision du 18/10/2026 :
@@ -22,6 +22,7 @@ process.env.ETAPEFORGE_DATA_DIR = process.env.ETAPEFORGE_DATA_DIR || fs.mkdtempS
 const { routeLeg } = require('../pipeline/routing');
 const { DIST_TOLERANCE_PCT } = require('../pipeline/checks');
 const { buildItinerary } = require('../pipeline/placeSearch');
+const { haversine } = require('../pipeline/geo');
 
 const FILE = path.join(__dirname, '..', 'pipeline', 'data', 'stage_itineraries.json');
 const TOWNS_FILE = path.join(__dirname, '..', 'pipeline', 'data', 'stage_towns.json');
@@ -81,7 +82,7 @@ async function measure(pts, profileKm, legRouter) {
     const r = await legRouter(pts[i - 1], pts[i]);
     const m = typeof r === 'number' ? r : r.distanceM;
     routedM += m;
-    legs.push({ from: pts[i - 1].label, to: pts[i].label, profileKm: pts[i].km - pts[i - 1].km, routedKm: m / 1000, router: typeof r === 'number' ? null : r.router });
+    legs.push({ from: pts[i - 1].label, to: pts[i].label, profileKm: round1(pts[i].km - pts[i - 1].km), routedKm: m / 1000, crowKm: haversine(pts[i - 1], pts[i]) / 1000, router: typeof r === 'number' ? null : r.router });
   }
   const routedKm = routedM / 1000;
   // Arrondi avant le verdict : c'est la valeur publiée qui doit le porter.
@@ -89,7 +90,21 @@ async function measure(pts, profileKm, legRouter) {
   // Part des tronçons routés en voiture (repli OSRM quand BRouter refuse) :
   // la mesure en dépend, elle se publie avec elle.
   const carLegs = legs.filter((l) => l.router === 'osrm').length;
-  return { routedKm, profileKm, deltaPct, ok: Math.abs(deltaPct) <= DIST_TOLERANCE_PCT, legs, carLegs };
+  return { routedKm, profileKm, deltaPct, ok: Math.abs(deltaPct) <= DIST_TOLERANCE_PCT, legs, carLegs, suspectLegs: legs.filter(isSuspectLeg).length };
+}
+
+/**
+ * Tronçon suspect (Epic 33.11) : le total d'une étape compense les erreurs
+ * d'un tronçon à l'autre — une trentaine de km décalés d'un cran en 1987
+ * laissaient l'écart global inchangé. Suspect si le km du profil est plus
+ * court que la ligne droite (impossible par la route, 1 km de marge pour les
+ * centres de commune), ou si la route s'écarte du profil d'au moins 3 km et
+ * d'un facteur 1,4 (point mal placé) ou 0,7 (ville omise, km décalé).
+ */
+function isSuspectLeg(l) {
+  if (l.crowKm > l.profileKm + 1) return true;
+  const ratio = l.profileKm > 0 ? l.routedKm / l.profileKm : Infinity;
+  return Math.abs(l.routedKm - l.profileKm) >= 3 && (ratio >= 1.4 || ratio <= 0.7);
 }
 
 /** Contrôle d'une étape telle qu'elle est stockée : circuit final retiré,
@@ -128,19 +143,16 @@ async function main() {
       const worst = [...r.legs].sort((a, b) => (b.routedKm - b.profileKm) - (a.routedKm - a.profileKm))[0];
       console.log(`${edition}/${stage} : ${r.ok ? 'ok  ' : 'HORS'} ${sign}${r.deltaPct.toFixed(1)} % (routé ${r.routedKm.toFixed(1)} km / profil ${r.profileKm.toFixed(1)} km, ${r.coveragePct} % de l'étape)` +
         (r.ok ? '' : ` — pire tronçon ${worst.from} → ${worst.to} : ${worst.routedKm.toFixed(1)} km routés pour ${worst.profileKm} km`));
-      if (showLegs && !r.ok) {
-        // Tronçons suspects : route bien plus longue que l'écart du profil
-        // (point mal placé) ou bien plus courte (ville omise entre les deux).
-        for (const l of r.legs) {
-          const ratio = l.profileKm > 0 ? l.routedKm / l.profileKm : Infinity;
-          if (Math.abs(l.routedKm - l.profileKm) >= 3 && (ratio >= 1.4 || ratio <= 0.7)) {
-            console.log(`    ${l.from} → ${l.to} : ${l.routedKm.toFixed(1)} km routés pour ${l.profileKm} km (${l.router || '?'})`);
-          }
+      if (showLegs) {
+        // Toutes les étapes, pas seulement celles hors tolérance : un km faux
+        // au milieu ne change pas le total (relecture 1987).
+        for (const l of r.legs.filter(isSuspectLeg)) {
+          console.log(`    ${l.from} → ${l.to} : ${l.routedKm.toFixed(1)} km routés, ${l.crowKm.toFixed(1)} à vol d'oiseau, pour ${l.profileKm} km au profil (${l.router || '?'})`);
         }
       }
       if (write) {
         st.route_check = { routed_km: round1(r.routedKm), profile_km: r.profileKm, delta_pct: r.deltaPct,
-          tolerance_pct: DIST_TOLERANCE_PCT, coverage_pct: r.coveragePct, car_legs: r.carLegs, legs: r.legs.length };
+          tolerance_pct: DIST_TOLERANCE_PCT, coverage_pct: r.coveragePct, car_legs: r.carLegs, legs: r.legs.length, suspect_legs: r.suspectLegs };
       }
     }
   }
@@ -149,4 +161,4 @@ async function main() {
 
 if (require.main === module) main().catch((err) => { console.error(err); process.exit(1); });
 
-module.exports = { checkStage, checkStoredStage, routablePoints, officialKm, measuredTowns };
+module.exports = { checkStage, checkStoredStage, routablePoints, officialKm, measuredTowns, isSuspectLeg };
