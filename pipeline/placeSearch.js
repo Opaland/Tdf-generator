@@ -2,14 +2,18 @@
 // Recherche par lieu (Epic 32) : « un Tour de France est-il passé près de ce
 // village, et en quelle année ? » — la question d'origine du projet.
 //
-// Trois sources, de la plus fiable à la moins fiable, et la plus fiable
+// Cinq sources, de la plus fiable à la moins fiable, et la plus fiable
 // l'emporte pour une même étape :
 //   1. tracé reconstitué en base (route réelle, distance au tracé) ;
 //   2. points de passage en base, étape importée mais pas générée ;
-//   3. points de passage curés de pipeline/data/historic_routes.json, même
+//   3. itinéraire détaillé du profil officiel (Epic 33,
+//      pipeline/data/stage_itineraries.json) : toutes les villes traversées,
+//      avec leur kilomètre ;
+//   4. points de passage curés de pipeline/data/historic_routes.json, même
 //      pour une édition jamais importée (distance au point, et au segment
-//      droit entre deux points consécutifs — une estimation, signalée).
-// Une étape absente de ces trois sources n'est PAS cherchée : la réponse dit
+//      droit entre deux points consécutifs — une estimation, signalée) ;
+//   5. villes de départ et d'arrivée seulement (stage_towns.json).
+// Une étape absente de ces sources n'est PAS cherchée : la réponse dit
 // toujours ce qu'elle couvre, pour qu'un « aucun résultat » ne se lise jamais
 // comme « aucun Tour n'est passé ici ».
 
@@ -140,6 +144,50 @@ function stageLabels(numbers) {
   });
 }
 
+/** Itinéraires détaillés (Epic 33) : [{ year, category, stage, sourceUrl,
+ * points: [{label, km, lat, lon}], segments: [[a, b]] }]. Seuls les points
+ * placés comptent ; une côte placée au village éponyme (geocodeAs) est
+ * écartée, sa position n'étant pas celle de la route. Un segment ne relie
+ * que deux points voisins du profil, sans point non placé entre eux (la
+ * route peut y faire un détour inconnu). Fichier absent → []. */
+function buildItinerary(towns) {
+  const points = [];
+  const segments = [];
+  let prev = null;
+  for (const t of towns) {
+    // Point écarté (côte au village éponyme) ou non placé : il coupe le
+    // segment, la route peut y faire un détour inconnu.
+    if ((t.geocodeAs && t.kind !== 'ville') || !Number.isFinite(t.lat) || !Number.isFinite(t.lon)) { prev = null; continue; }
+    const p = { label: t.label, km: t.km, lat: t.lat, lon: t.lon, confidence: t.confidence || 'ok' };
+    if (prev) segments.push([prev, p]);
+    points.push(p);
+    prev = p;
+  }
+  return { points, segments };
+}
+
+let itinCache = null;
+function stageItineraries() {
+  if (itinCache) return itinCache;
+  let doc;
+  try {
+    doc = JSON.parse(require('fs').readFileSync(require('path').join(__dirname, 'data', 'stage_itineraries.json'), 'utf8'));
+  } catch {
+    itinCache = [];
+    return itinCache;
+  }
+  itinCache = [];
+  for (const [key, ed] of Object.entries(doc.editions || {})) {
+    const m = /^(\d{4})(?:-(\w+))?$/.exec(key);
+    if (!m) continue;
+    for (const [stage, st] of Object.entries(ed.stages || {})) {
+      const { points, segments } = buildItinerary(st.towns || []);
+      itinCache.push({ year: Number(m[1]), category: m[2] || 'hommes', stage, sourceUrl: st.source_url || null, points, segments });
+    }
+  }
+  return itinCache;
+}
+
 const stageKey = (year, category, stage) => `${year}|${category}|${String(stage).toLowerCase()}`;
 
 /**
@@ -149,7 +197,7 @@ const stageKey = (year, category, stage) => `${year}|${category}|${String(stage)
  *             waypointed: [{year, category, stageOrder, stageId, name, date, waypoints: [{label, lat, lon}]}] }
  * @param curated curatedStages() (injectable pour les tests)
  */
-function searchNear(place, radiusM, db, curated = curatedStages(), towns = stageTowns()) {
+function searchNear(place, radiusM, db, curated = curatedStages(), towns = stageTowns(), itineraries = stageItineraries()) {
   const results = [];
   const seen = new Set();
   for (const s of db.tracked) {
@@ -174,6 +222,34 @@ function searchNear(place, radiusM, db, curated = curatedStages(), towns = stage
       results.push({ year: s.year, category: s.category, stage: String(s.stage ?? s.stageOrder), stageId: s.stageId, name: s.name,
         date: s.date || null, distanceM: Math.round(d), basis: seg < near.d ? 'waypoint-segment' : 'waypoint',
         nearestLabel: near.label, nearestPointM: Math.round(near.d) });
+    }
+  }
+  // Itinéraire du profil officiel : distance à la ville traversée la plus
+  // proche, ou au segment droit court entre deux villes voisines (estimation).
+  let itineraryCovered = 0;
+  const dateOf = new Map(towns.map((t) => [stageKey(t.year, t.category, t.stage), t.date]));
+  for (const it of itineraries) {
+    if (it.points.length === 0) continue;
+    const k = stageKey(it.year, it.category, it.stage);
+    if (seen.has(k)) continue;
+    seen.add(k);
+    itineraryCovered++;
+    let near = { d: Infinity, p: null };
+    for (const p of it.points) {
+      const d = haversine(place, p);
+      if (d < near.d) near = { d, p };
+    }
+    let seg = Infinity;
+    for (const [a, b] of it.segments) {
+      if (haversine(a, b) > MAX_SEGMENT_M) continue;
+      seg = Math.min(seg, pointSegmentM(place, a, b));
+    }
+    const d = Math.min(near.d, seg);
+    if (d <= radiusM) {
+      results.push({ year: it.year, category: it.category, stage: it.stage, stageId: null, name: null, date: dateOf.get(k) || null,
+        distanceM: Math.round(d), basis: seg < near.d ? 'itinerary-segment' : 'itinerary-point',
+        nearestLabel: near.p.label, nearestKm: near.p.km, nearestPointM: Math.round(near.d), sourceUrl: it.sourceUrl,
+        geocodeConfidence: near.p.confidence });
     }
   }
   let curatedCovered = 0;
@@ -219,8 +295,9 @@ function searchNear(place, radiusM, db, curated = curatedStages(), towns = stage
   results.sort((a, b) => a.year - b.year || parseInt(a.stage, 10) - parseInt(b.stage, 10) || a.distanceM - b.distanceM);
   return {
     results,
-    coverage: { trackedStages: db.tracked.length, waypointStages: db.waypointed.length, curatedStages: curatedCovered, townStages: townsCovered },
+    coverage: { trackedStages: db.tracked.length, waypointStages: db.waypointed.length, itineraryStages: itineraryCovered,
+      curatedStages: curatedCovered, townStages: townsCovered },
   };
 }
 
-module.exports = { searchNear, curatedStages, stageTowns, stageLabels, distanceToLineM, pointSegmentM, MAX_SEGMENT_M };
+module.exports = { searchNear, curatedStages, stageTowns, stageItineraries, buildItinerary, stageLabels, distanceToLineM, pointSegmentM, MAX_SEGMENT_M };

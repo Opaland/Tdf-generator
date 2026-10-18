@@ -1,0 +1,258 @@
+{
+ "_notes": "Itinéraires détaillés (Epic 33) : villes et côtes traversées, avec leur kilomètre, transcrites à la main depuis le profil officiel cité dans source_url (profils du Dico du Tour, ledicodutour.com). Coordonnées ajoutées par scripts/geocode-itineraries.js : un point n'est placé que si la distance à vol d'oiseau depuis le point précédent ne dépasse pas l'écart de kilomètres du profil (+3 km ; +10 km depuis le km 0, le départ réel pouvant être hors du centre de la ville de départ) ; sinon il reste sans coordonnées. confidence : ok (un seul candidat compatible), ambigu (plusieurs, le moins détourné retenu). Un point sans coordonnées n'est jamais utilisé par la recherche. Une côte est placée au village dont elle porte le nom (geocodeAs) : position approchée à quelques km près, jamais le sommet exact.",
+ "_source": "Profils d'étapes du Dico du Tour (https://www.ledicodutour.com), lus image par image ; seuls les noms de lieux et kilomètres (faits) sont repris, pas les images.",
+ "editions": {
+  "1992": {
+   "stages": {
+    "10": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1992/92_10.jpg",
+     "towns": [
+      {
+       "label": "Luxembourg",
+       "km": 0,
+       "kind": "ville",
+       "lat": 49.61128,
+       "lon": 6.1298,
+       "how": "nominatim",
+       "confidence": "ambigu"
+      },
+      {
+       "label": "Frisange",
+       "km": 6.5,
+       "kind": "ville",
+       "lat": 49.51441,
+       "lon": 6.19031,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Mondorf-les-Bains",
+       "km": 14,
+       "kind": "ville",
+       "lat": 49.50717,
+       "lon": 6.28142,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Burmerange-Schengen",
+       "km": 20,
+       "kind": "ville",
+       "geocodeAs": "Burmerange",
+       "lat": 49.48551,
+       "lon": 6.32096,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Apach",
+       "km": 24.5,
+       "kind": "ville",
+       "lat": 49.45918,
+       "lon": 6.37435,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Montenach",
+       "km": 32.5,
+       "kind": "côte",
+       "geocodeAs": "Montenach",
+       "lat": 49.42035,
+       "lon": 6.3812,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Flastroff",
+       "km": 44,
+       "kind": "ville",
+       "lat": 49.36752,
+       "lon": 6.53356,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Vaudreching",
+       "km": 55,
+       "kind": "ville",
+       "lat": 49.2853,
+       "lon": 6.526,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Eblange",
+       "km": 63,
+       "kind": "ville",
+       "lat": 49.22407,
+       "lon": 6.48412,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Buckwald",
+       "km": 72,
+       "kind": "côte",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Longeville-lès-Saint-Avold",
+       "km": 83.5,
+       "kind": "ville",
+       "lat": 49.11551,
+       "lon": 6.65724,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Valmont",
+       "km": 90.5,
+       "kind": "côte",
+       "geocodeAs": "Valmont",
+       "lat": 49.08682,
+       "lon": 6.70133,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Barst",
+       "km": 96.5,
+       "kind": "côte",
+       "geocodeAs": "Barst",
+       "lat": 49.0682,
+       "lon": 6.83258,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Freybouse",
+       "km": 102.5,
+       "kind": "ville",
+       "lat": 49.00373,
+       "lon": 6.77865,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Neufvillage",
+       "km": 111.5,
+       "kind": "ville",
+       "lat": 48.9372,
+       "lon": 6.78242,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Marimont",
+       "km": 117,
+       "kind": "côte",
+       "geocodeAs": "Marimont-lès-Bénestroff",
+       "lat": 48.88993,
+       "lon": 6.78355,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Angviller-lès-Bisping",
+       "km": 129.5,
+       "kind": "ville",
+       "lat": 48.82545,
+       "lon": 6.89184,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Langatte",
+       "km": 140,
+       "kind": "ville",
+       "lat": 48.75736,
+       "lon": 6.98157,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Sarrebourg",
+       "km": 147.5,
+       "kind": "ville",
+       "lat": 48.73635,
+       "lon": 7.05388,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Reinthal",
+       "km": 158.5,
+       "kind": "côte",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Sparsbrod",
+       "km": 164.5,
+       "kind": "ville",
+       "lat": 48.70595,
+       "lon": 7.21529,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Saverne",
+       "km": 179,
+       "kind": "ville",
+       "lat": 48.74043,
+       "lon": 7.36968,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Maennolsheim",
+       "km": 189,
+       "kind": "ville",
+       "lat": 48.70019,
+       "lon": 7.46321,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Willgottheim",
+       "km": 196,
+       "kind": "côte",
+       "geocodeAs": "Willgottheim",
+       "lat": 48.6747,
+       "lon": 7.51874,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Wiwersheim",
+       "km": 203,
+       "kind": "ville",
+       "lat": 48.63972,
+       "lon": 7.60638,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Oberhausbergen",
+       "km": 211,
+       "kind": "ville",
+       "lat": 48.60705,
+       "lon": 7.69106,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Strasbourg",
+       "km": 217,
+       "kind": "ville",
+       "lat": 48.57983,
+       "lon": 7.76145,
+       "how": "commune-ign",
+       "confidence": "ok"
+      }
+     ]
+    }
+   }
+  }
+ }
+}
