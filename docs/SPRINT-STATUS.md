@@ -480,6 +480,20 @@ et côtes traversées avec leur kilomètre.
   Mons (1995/6), Luchon et Cazaux-Layrisse (1995/15). Dourgne (1995/13)
   non repris : km imprimé « 119,5 » entre Castres (198) et Revel (245).
 
+- [ ] 33.4 Contrôle à ±5 % des itinéraires (demande du 18/10/2026 : « 5 %
+  max de tolérance ») : `scripts/check-itineraries.js` route l'itinéraire
+  point par point et compare au kilométrage du profil, avec
+  DIST_TOLERANCE_PCT (±5 %). Premier tronçon exclu (le km 0 est le départ
+  réel, après la zone neutralisée). Décision de l'utilisateur : mesurer et
+  afficher — l'écart s'affiche dans la recherche par lieu, jamais masqué.
+  Mesure du 18/10 sur 115 étapes : 60 dans la tolérance, 53 hors, 2 non
+  contrôlables. **Limite de la mesure** : BRouter (vélo) a refusé 582
+  tronçons (HTTP 403), routés en voiture par OSRM ; 55 étapes mesurées
+  surtout en voiture, signalé à l'affichage. Causes des écarts observées :
+  départ réel hors du km 0, circuits finaux (Champs-Élysées), côtes et
+  hameaux exclus du calcul (route coupée, écart négatif), et vraies
+  erreurs de position — à corriger une à une (33.5).
+
 ## Epic 34 — Idées venues d'autres dépôts (veille du 18/10/2026)
 
 Veille open source (dépôts clonés, licences et derniers commits relevés,

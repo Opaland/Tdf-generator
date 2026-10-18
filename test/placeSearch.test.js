@@ -76,6 +76,8 @@ test('itinéraire réel (profil officiel 1992/10) : Porcelette → Longeville-l�
   assert.ok(r.distanceM < 6000, String(r.distanceM));
   assert.match(r.sourceUrl, /^https:\/\/www\.ledicodutour\.com\//);
   assert.strictEqual(r.date, '1992-07-14');
+  // Contrôle de routage publié avec le résultat (décision du 18/10/2026).
+  assert.ok(r.routeCheck && Number.isFinite(r.routeCheck.deltaPct) && r.routeCheck.tolerancePct === 5, JSON.stringify(r.routeCheck));
 });
 
 test('itinéraire : prioritaire sur la curation, segment coupé par un point non placé, côte approchée écartée', () => {
