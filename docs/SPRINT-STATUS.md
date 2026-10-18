@@ -486,10 +486,13 @@ et côtes traversées avec leur kilomètre.
   DIST_TOLERANCE_PCT (±5 %). Premier tronçon exclu (le km 0 est le départ
   réel, après la zone neutralisée). Décision de l'utilisateur : mesurer et
   afficher — l'écart s'affiche dans la recherche par lieu, jamais masqué.
-  Mesure du 18/10 sur 115 étapes : 60 dans la tolérance, 53 hors, 2 non
-  contrôlables. **Limite de la mesure** : BRouter (vélo) a refusé 582
-  tronçons (HTTP 403), routés en voiture par OSRM ; 55 étapes mesurées
-  surtout en voiture, signalé à l'affichage. Causes des écarts observées :
+  Mesure du 18/10 sur 115 étapes (après relecture adverse) : 63 dans la
+  tolérance, 50 hors, 2 non contrôlables. La part de l'étape contrôlée est
+  publiée et affichée (83 étapes contrôlées sur moins de 95 % de leur
+  longueur — premier tronçon et extrémités hors calcul). **Limite de la
+  mesure** : BRouter (vélo) a refusé 333 tronçons (HTTP 403), routés en
+  voiture par OSRM ; 33 étapes mesurées surtout en voiture, signalé à
+  l'affichage. Causes des écarts observées :
   départ réel hors du km 0, circuits finaux (Champs-Élysées), côtes et
   hameaux exclus du calcul (route coupée, écart négatif), et vraies
   erreurs de position — à corriger une à une (33.5).
