@@ -21,6 +21,8 @@ process.env.ETAPEFORGE_DATA_DIR = process.env.ETAPEFORGE_DATA_DIR || fs.mkdtempS
 const { fetchEditionHtml, parseStagesFromHtml, FRENCH_DEPARTMENTS } = require('../pipeline/wikipedia');
 const { allTdfYears } = require('../pipeline/importer');
 const { communeCandidates, geocode, normName } = require('../pipeline/geocode');
+const { httpJson } = require('../pipeline/http');
+const { haversine } = require('../pipeline/geo');
 
 const OUT = path.join(__dirname, '..', 'pipeline', 'data', 'stage_towns.json');
 const FEMMES_YEARS = [2022, 2023, 2024, 2025, 2026];
@@ -57,7 +59,140 @@ async function resolveTown(label, country, department) {
 
 const round = (v) => Math.round(v * 1e5) / 1e5;
 
+// ---------------------------------------------------------------- vérification
+
+/** Contrainte physique : départ et arrivée d'une étape ne peuvent pas être
+ * plus éloignés à vol d'oiseau que la longueur de l'étape (marge 10 % +
+ * 10 km pour le géocodage au centre-ville). */
+const maxCrowM = (km) => (km * 1.1 + 10) * 1000;
+
+/** Arêtes (étapes) : [{ a, b, maxM }] où a/b sont des libellés de ville. */
+function stageEdges(editions) {
+  const edges = [];
+  for (const ed of Object.values(editions)) {
+    for (const s of ed.stages) {
+      if (!s.distanceKm || s.start.label === s.finish.label) continue;
+      edges.push({ a: s.start.label, b: s.finish.label, maxM: maxCrowM(s.distanceKm) });
+    }
+  }
+  return edges;
+}
+
+/** Violations par ville avec les positions actuelles `pos` (label → {lat, lon}). */
+function violations(edges, pos) {
+  const v = new Map();
+  for (const e of edges) {
+    const pa = pos.get(e.a);
+    const pb = pos.get(e.b);
+    if (!pa || !pb || haversine(pa, pb) <= e.maxM) continue;
+    v.set(e.a, (v.get(e.a) || 0) + 1);
+    v.set(e.b, (v.get(e.b) || 0) + 1);
+  }
+  return v;
+}
+
+async function nominatimCandidates(label) {
+  const url = `https://nominatim.openstreetmap.org/search?format=json&limit=5&q=${encodeURIComponent(label)}`;
+  try {
+    const r = await httpJson(url, { minDelayMs: 1100 });
+    return (r || []).map((x) => ({ lat: round(Number(x.lat)), lon: round(Number(x.lon)), how: 'nominatim' })).filter((c) => Number.isFinite(c.lat));
+  } catch {
+    return [];
+  }
+}
+
+/** Nombre d'étapes (arêtes) par ville. */
+function degrees(edges) {
+  const d = new Map();
+  for (const e of edges) for (const t of [e.a, e.b]) d.set(t, (d.get(t) || 0) + 1);
+  return d;
+}
+
+/**
+ * Corrige les villes en contradiction avec la longueur des étapes voisines.
+ * Une ville est SUSPECTE si sa position est déjà incertaine (approx/ambigu)
+ * et contredite au moins une fois, ou si la MAJORITÉ de ses étapes la
+ * contredisent — jamais une grande ville cohérente avec des dizaines
+ * d'étapes parce qu'une seule (voisine mal placée, distance Wikipédia mal
+ * lue) la contredit (premier jet : Lyon, Toulouse retirées à tort). Pour une
+ * suspecte : d'autres candidats (communes IGN, noms composés type « Vire
+ * Normandie », puis Nominatim sans filtre de pays) ; le premier qui ne
+ * contredit aucune voisine fiable est gardé, sinon la position est retirée.
+ */
+async function realCandidates(label) {
+  return [
+    ...(await communeCandidates(label)).map((c) => ({ lat: round(c.lat), lon: round(c.lon), how: 'commune-ign' })),
+    ...(await nominatimCandidates(label)),
+  ];
+}
+
+async function verify(editions, failures, candidatesFor = realCandidates, log = console.log) {
+  const edges = stageEdges(editions);
+  const deg = degrees(edges);
+  const pos = new Map();
+  const conf = new Map();
+  for (const ed of Object.values(editions)) {
+    for (const s of ed.stages) {
+      for (const t of [s.start, s.finish]) {
+        if (Number.isFinite(t.lat)) { pos.set(t.label, { lat: t.lat, lon: t.lon }); conf.set(t.label, t.confidence); }
+      }
+    }
+  }
+  const fixed = new Map();
+  for (let pass = 0; pass < 3; pass++) {
+    const v = violations(edges, pos);
+    const suspects = [...v.entries()]
+      .filter(([label, n]) => !fixed.has(label) && ((conf.get(label) !== 'ok' && n >= 1) || n * 2 > (deg.get(label) || 0)))
+      // Positions déjà incertaines d'abord : quand une ville fiable est
+      // contredite par des voisines mal placées, ce sont elles les fautives.
+      .sort((x, y) => (conf.get(x[0]) === 'ok') - (conf.get(y[0]) === 'ok') || y[1] / deg.get(y[0]) - x[1] / deg.get(x[0]))
+      .map(([label]) => label);
+    if (!suspects.length) break;
+    for (const label of suspects) {
+      if (!violations(edges, pos).get(label)) continue; // déjà résolu par la correction d'une voisine
+      const cands = await candidatesFor(label);
+      const count = (c) => { const before = pos.get(label); pos.set(label, c); const n = violations(edges, pos).get(label) || 0; if (before) pos.set(label, before); else pos.delete(label); return n; };
+      const good = cands.find((c) => count(c) === 0);
+      if (good) {
+        pos.set(label, good);
+        fixed.set(label, { ...good, confidence: 'verifie' });
+      } else {
+        pos.delete(label);
+        fixed.set(label, null);
+        failures.push({ label, error: 'aucune position compatible avec la longueur des étapes voisines — retirée' });
+      }
+      log(`  ${good ? '↻' : '✗'} ${label}${good ? ` → ${good.lat}, ${good.lon} (${good.how})` : ' : position retirée'}`);
+    }
+  }
+  for (const ed of Object.values(editions)) {
+    for (const s of ed.stages) {
+      for (const k of ['start', 'finish']) {
+        if (!fixed.has(s[k].label)) continue;
+        const f = fixed.get(s[k].label);
+        s[k] = f ? { label: s[k].label, lat: f.lat, lon: f.lon, how: f.how, confidence: f.confidence } : { label: s[k].label };
+      }
+    }
+  }
+  // Contradictions restantes : entre deux villes fiables (distance Wikipédia
+  // probablement mal lue) — positions conservées, étapes listées.
+  const left = [];
+  for (const e of edges) {
+    const pa = pos.get(e.a);
+    const pb = pos.get(e.b);
+    if (pa && pb && haversine(pa, pb) > e.maxM) left.push(`${e.a} → ${e.b}`);
+  }
+  return left;
+}
+
 async function main() {
+  if (process.argv.includes('--verify-only')) {
+    const doc = JSON.parse(fs.readFileSync(OUT, 'utf8'));
+    const left = await verify(doc.editions, doc.failures);
+    doc.unverifiedStages = left;
+    fs.writeFileSync(OUT, JSON.stringify(doc) + '\n');
+    console.log(`Vérification : ${left.length} étape(s) encore contradictoire(s) → ${path.relative(process.cwd(), OUT)}`);
+    return;
+  }
   const editions = {};
   const failures = [];
   const jobs = [...allTdfYears().map((y) => [y, 'hommes']), ...FEMMES_YEARS.map((y) => [y, 'femmes'])];
@@ -87,17 +222,24 @@ async function main() {
     editions[key] = { category, stages: out };
     console.log(`✔ ${key} : ${out.length} étapes`);
   }
+  console.log('\nVérification par la longueur des étapes…');
+  const left = await verify(editions, failures);
+  console.log(`${left.length} étape(s) encore contradictoire(s) entre deux villes fiables : ${left.join(' ; ')}`);
   const doc = {
     _notes: "Villes de départ/arrivée de chaque étape (Wikipédia anglais, CC BY-SA), géocodées par scripts/build-stage-towns.js (Epic 32.4). " +
-      "confidence : ok | ambigu (homonyme de taille comparable, la plus peuplée retenue) | approx (géocodeur général, pas l'index des communes). " +
+      "confidence : ok | ambigu (homonyme de taille comparable, la plus peuplée retenue) | approx (géocodeur général, pas l'index des communes) | verifie (position corrigée : la seule compatible avec la longueur des étapes voisines). " +
+      'Toute position contredisant la longueur d\'une étape a été corrigée ou retirée (failures). ' +
       'Points seulement : le parcours entre les deux villes n\'est pas connu ici.',
     generatedAt: new Date().toISOString().slice(0, 10),
     editions,
     failures,
+    unverifiedStages: left,
   };
   fs.writeFileSync(OUT, JSON.stringify(doc) + '\n');
   const n = Object.values(editions).reduce((a, e) => a + e.stages.length, 0);
   console.log(`\n${Object.keys(editions).length} éditions, ${n} étapes, ${failures.length} échec(s) → ${path.relative(process.cwd(), OUT)}`);
 }
 
-main().catch((err) => { console.error(err); process.exit(1); });
+if (require.main === module) main().catch((err) => { console.error(err); process.exit(1); });
+
+module.exports = { verify, maxCrowM };
