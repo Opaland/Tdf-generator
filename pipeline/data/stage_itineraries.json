@@ -1752,9 +1752,9 @@
       {
        "label": "Charvas",
        "km": 19,
-       "kind": "ville",
-       "lat": 45.78668,
-       "lon": 5.06791,
+       "kind": "lieu-dit",
+       "lat": 45.78179,
+       "lon": 5.07422,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -1807,9 +1807,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 22.6,
+      "routed_km": 24.1,
       "profile_km": 24,
-      "delta_pct": -6,
+      "delta_pct": 0.3,
       "tolerance_pct": 5,
       "coverage_pct": 66,
       "car_legs": 0,
@@ -2001,7 +2001,6 @@
        "label": "Chevigny",
        "km": 194.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Chevigny-Saint-Sauveur",
        "confidence": "non-place"
       },
       {
@@ -2239,11 +2238,10 @@
       {
        "label": "Vertus",
        "km": 236.5,
-       "kind": "lieu-dit",
-       "geocodeAs": "Blancs-Coteaux",
-       "lat": 48.93389,
-       "lon": 3.98288,
-       "how": "commune-ign",
+       "kind": "ville",
+       "lat": 48.902,
+       "lon": 3.9985,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -2305,13 +2303,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 265.1,
+      "routed_km": 265.8,
       "profile_km": 265,
-      "delta_pct": 0,
+      "delta_pct": 0.3,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
-      "legs": 20
+      "legs": 21
      }
     },
     "5": {
@@ -3824,9 +3822,8 @@
        "label": "Canfranc-Estación",
        "km": 168,
        "kind": "ville",
-       "geocodeAs": "Canfranc",
-       "lat": 42.75337,
-       "lon": -0.47968,
+       "lat": 42.75137,
+       "lon": -0.51424,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -3850,9 +3847,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 202.1,
+      "routed_km": 191.5,
       "profile_km": 187,
-      "delta_pct": 8.1,
+      "delta_pct": 2.4,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
@@ -3872,10 +3869,10 @@
        "confidence": "ok"
       },
       {
-       "label": "Senegüé",
+       "label": "Senegue",
        "km": 18.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Sabiñánigo",
+       "geocodeAs": "Senegüé",
        "lat": 42.51836,
        "lon": -0.36479,
        "how": "nominatim",
@@ -3891,22 +3888,20 @@
        "confidence": "ok"
       },
       {
-       "label": "Escarrilla",
+       "label": "Escarilla",
        "km": 42,
-       "kind": "lieu-dit",
-       "geocodeAs": "Sallent de Gállego",
-       "lat": 42.77121,
-       "lon": -0.33409,
+       "kind": "ville",
+       "lat": 42.7355,
+       "lon": -0.3121,
        "how": "nominatim",
        "confidence": "ok"
       },
       {
        "label": "Formigal",
        "km": 49.5,
-       "kind": "lieu-dit",
-       "geocodeAs": "Sallent de Gállego",
-       "lat": 42.77121,
-       "lon": -0.33409,
+       "kind": "ville",
+       "lat": 42.77413,
+       "lon": -0.36086,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -3922,21 +3917,17 @@
       {
        "label": "Artouste",
        "km": 69.5,
-       "kind": "lieu-dit",
-       "geocodeAs": "Laruns",
-       "lat": 42.95191,
-       "lon": -0.43963,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "« Artouste » à 1 140 m sur la descente du Pourtalet : station de Fabrèges ou autre point, position non tranchée — non placé"
       },
       {
        "label": "Eaux-Chaudes",
        "km": 80,
-       "kind": "lieu-dit",
-       "geocodeAs": "Laruns",
-       "lat": 42.95191,
-       "lon": -0.43963,
-       "how": "commune-ign",
+       "kind": "ville",
+       "lat": 42.953,
+       "lon": -0.4392,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -4033,11 +4024,10 @@
       {
        "label": "Gripp",
        "km": 178.5,
-       "kind": "lieu-dit",
-       "geocodeAs": "Campan",
-       "lat": 42.97526,
-       "lon": 0.23362,
-       "how": "commune-ign",
+       "kind": "ville",
+       "lat": 42.9466,
+       "lon": 0.2224,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -4053,11 +4043,10 @@
       {
        "label": "La Séoube",
        "km": 186.5,
-       "kind": "lieu-dit",
-       "geocodeAs": "Campan",
-       "lat": 42.97526,
-       "lon": 0.23362,
-       "how": "commune-ign",
+       "kind": "ville",
+       "lat": 42.9631,
+       "lon": 0.2496,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -4088,13 +4077,12 @@
        "confidence": "ok"
       },
       {
-       "label": "Armenteule",
+       "label": "Armanteule",
        "km": 221,
-       "kind": "lieu-dit",
-       "geocodeAs": "Loudenvielle",
-       "lat": 42.79074,
-       "lon": 0.40908,
-       "how": "commune-ign",
+       "kind": "ville",
+       "lat": 42.8155,
+       "lon": 0.4139,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -4109,13 +4097,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 184.2,
-      "profile_km": 185.5,
-      "delta_pct": -0.7,
+      "routed_km": 194,
+      "profile_km": 193,
+      "delta_pct": 0.5,
       "tolerance_pct": 5,
-      "coverage_pct": 80,
+      "coverage_pct": 83,
       "car_legs": 0,
-      "legs": 13
+      "legs": 19
      }
     },
     "14": {
@@ -4855,13 +4843,14 @@
        "confidence": "ok"
       },
       {
-       "label": "Huez",
+       "label": "Huez-en-Oisans",
        "km": 120,
        "kind": "ville",
        "lat": 45.08209,
        "lon": 6.05964,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "geocodeAs": "Huez"
       },
       {
        "label": "L'Alpe d'Huez",
@@ -4960,13 +4949,14 @@
        "confidence": "non-place"
       },
       {
-       "label": "Allevard",
+       "label": "Allevard-les-Bains",
        "km": 82,
        "kind": "ville",
        "lat": 45.39347,
        "lon": 6.07444,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "geocodeAs": "Allevard"
       },
       {
        "label": "Arvillard",
@@ -5118,13 +5108,14 @@
        "confidence": "ok"
       },
       {
-       "label": "Col de Joux Plane",
+       "label": "Col de la Joux Plane",
        "km": 237.5,
        "kind": "col",
        "lat": 46.12962,
        "lon": 6.71291,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "geocodeAs": "Col de Joux Plane"
       },
       {
        "label": "Morzine",
@@ -5147,13 +5138,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 219.7,
+      "routed_km": 223.9,
       "profile_km": 220,
-      "delta_pct": -0.1,
+      "delta_pct": 1.8,
       "tolerance_pct": 5,
       "coverage_pct": 86,
       "car_legs": 0,
-      "legs": 18
+      "legs": 17
      }
     },
     "19": {
