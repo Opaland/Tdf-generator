@@ -536,14 +536,23 @@ et côtes traversées avec leur kilomètre.
   (Saint-Gervais-Mont-Blanc, Huez-en-Oisans, Côte de Marigny-Brizai).
 - [ ] Édition 1989 : 21 étapes en ligne sur 21 + prologue (rues de
   Luxembourg seulement, gardé pour mémoire, non contrôlable), 300 points
-  placés sur 340. Contrôlée à ±5 % avant PR : 14 étapes dans la
-  tolérance, 7 hors, affichées comme telles — 1989/3 (−12,8 %, Ardennes
-  et circuit de Spa), 1989/4 (−5,1 %), 1989/8 (−6,0 %), 1989/11 (+9,3 % :
-  Labastide-Clermont, Sainte-Foy-de-Peyrolières et Saint-Lys non placés,
-  le km du profil contredisant la distance depuis Benque ; Benque est
-  bien le village de Haute-Garonne, l'autre homonyme est dans les
-  Hautes-Pyrénées), 1989/15 (−5,4 %, contre-la-montre de 39 km), 1989/18
-  (−12,2 %, contre-la-montre), 1989/21 (−22,0 %, Champs-Élysées). Erreurs
+  placés sur 345. Contrôlée à ±5 % avant PR : 15 étapes dans la
+  tolérance (1989/5 à +5,0 %, à la limite), 6 hors, affichées comme
+  telles — 1989/3 (−12,8 %, Ardennes et passages sur le circuit de Spa),
+  1989/4 (−5,1 %), 1989/8 (−6,0 %), 1989/15 (−5,4 %, contre-la-montre de
+  39 km), 1989/18 (−12,2 %, contre-la-montre), 1989/21 (−14,5 % ;
+  arrivée sur l'ancre `stage_towns` de Paris, au Châtelet et non aux
+  Champs-Élysées — story 33.8). Relecture adverse : Benque (1989/11), le
+  village de Haute-Garonne, contredit les trois points suivants
+  (Labastide-Clermont à 18 km pour 11,5 km de profil) qui s'enchaînent
+  avec Plaisance-du-Touch — c'est Benque qui est retiré, l'étape passe de
+  +9,3 % à +0,4 % ; points omis ajoutés (côtes de l'Air et de Régagnas ;
+  cours la Reine, Concorde, haut des Champs-Élysées ; la côte des
+  Rayettes, au même km que Martigues, reste en note) ; Helfent
+  placé sur sa propre position (n'était qu'une copie de Bertrange via un
+  `geocodeAs` deviné). Non repris, avec une note : Jonzac (pas de km),
+  La Lustre et Prignac-et-Marcamps (deux libellés, un trait), Prémian et
+  Montpellier (entrée) (km confondus avec les graduations). Erreurs
   de position trouvées :
   - « Luxembourg City » (`stage_towns`, 17 occurrences 1947-2002,
     `douteux`) au centre géographique du pays, 23 km au nord de la ville
@@ -562,7 +571,7 @@ et côtes traversées avec leur kilomètre.
   placée sur son arrondissement (« county » OSM), 9,2 km au nord de la
   ville. Le rang « subdivision » de 33.6 couvre désormais aussi county,
   state_district, state, region, province, country (test, échoue sans le
-  correctif). Balayage des points Nominatim : 7 sur une entité large —
+  correctif, chaque type testé). Balayage des points Nominatim : 7 sur une entité large —
   Arlon (1980/3, 3,0 km), Bastogne, Charleroi (1989/4, 3,5 km), Audenarde
   (1992/6, 2,7 km), Ypres (1994/2, 2,5 km) recalés sur la ville ;
   Euskirchen inchangée (même point) ; Anvers (1996/2) retirée avec une
@@ -570,6 +579,11 @@ et côtes traversées avec leur kilomètre.
   le centre-ville est à 13 km de Schilde pour 8 km de profil. Remesure
   des éditions touchées : 1994/2 de −13,5 % à −12,0 %, 1996/2 de +2,2 %
   à −1,5 %, aucune étape ne change de verdict hors 1989.
+- [ ] 33.8 Arrivées « Paris (Champs-Élysées) » : l'ancre `stage_towns` de
+  Paris (48,859 ; 2,347) est au Châtelet, à 3 km des Champs-Élysées ; toute
+  arrivée de dernière étape en hérite (1989/21, et les autres éditions
+  transcrites). À faire : point d'arrivée sourcé (avenue des
+  Champs-Élysées) pour ces lieux-dits, puis remesure.
 - [x] 33.6 Candidat Nominatim « city_district » : le géocodage retient un
   point de commune déléguée (Bonneval, Les Vignes en 1990 ; relecture :
   aussi Tarcenay, Morez, Celliers, Noirterre) au lieu du village

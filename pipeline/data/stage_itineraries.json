@@ -1566,9 +1566,8 @@
        "label": "Helfent",
        "km": 5,
        "kind": "lieu-dit",
-       "geocodeAs": "Bertrange",
-       "lat": 49.6106,
-       "lon": 6.05016,
+       "lat": 49.60227,
+       "lon": 6.07282,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -1657,13 +1656,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 32.1,
-      "profile_km": 33.5,
-      "delta_pct": -4.3,
+      "routed_km": 40.9,
+      "profile_km": 41,
+      "delta_pct": -0.4,
       "tolerance_pct": 5,
-      "coverage_pct": 73,
+      "coverage_pct": 89,
       "car_legs": 0,
-      "legs": 6
+      "legs": 7
      }
     },
     "3": {
@@ -2623,7 +2622,8 @@
       "coverage_pct": 85,
       "car_legs": 0,
       "legs": 14
-     }
+     },
+     "note": "Non repris : Jonzac (pas de km imprimé), La Lustre et Prignac-et-Marcamps (deux libellés sur le même trait, km 217,5)."
     },
     "8": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1989/89_8.jpg",
@@ -3214,28 +3214,35 @@
        "label": "Benque",
        "km": 92.5,
        "kind": "ville",
-       "lat": 43.2603,
-       "lon": 0.91764,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "non-place",
+       "note": "le village de Benque (Haute-Garonne) contredit les trois points suivants (Labastide-Clermont à 18 km pour 11,5 km de profil) alors que ceux-ci s’enchaînent avec Plaisance-du-Touch : non placé (relecture adverse)"
       },
       {
        "label": "Labastide-Clermont",
        "km": 104,
        "kind": "ville",
-       "confidence": "non-place"
+       "lat": 43.34933,
+       "lon": 1.12183,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Sainte-Foy-de-Peyrolières",
        "km": 121,
        "kind": "ville",
-       "confidence": "non-place"
+       "lat": 43.4926,
+       "lon": 1.14481,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Saint-Lys",
        "km": 124.5,
        "kind": "ville",
-       "confidence": "non-place"
+       "lat": 43.51404,
+       "lon": 1.17752,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Plaisance-du-Touch",
@@ -3267,13 +3274,13 @@
      ],
      "length_km": 154.5,
      "route_check": {
-      "routed_km": 157.4,
+      "routed_km": 144.6,
       "profile_km": 144,
-      "delta_pct": 9.3,
+      "delta_pct": 0.4,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
-      "legs": 11
+      "legs": 13
      }
     },
     "12": {
@@ -3287,6 +3294,12 @@
        "lon": 1.44424,
        "how": "commune-ign",
        "confidence": "ok"
+      },
+      {
+       "label": "Côte de l'Air",
+       "km": 10.5,
+       "kind": "côte",
+       "confidence": "non-place"
       },
       {
        "label": "Saussens",
@@ -3469,7 +3482,8 @@
       "coverage_pct": 92,
       "car_legs": 0,
       "legs": 16
-     }
+     },
+     "note": "Non repris : Prémian et Montpellier (entrée) — km lus 120 et 230, confondus avec les graduations à cette résolution."
     },
     "13": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1989/89_13.jpg",
@@ -3638,7 +3652,8 @@
       "coverage_pct": 92,
       "car_legs": 0,
       "legs": 11
-     }
+     },
+     "note": "Côte des Rayettes (4e cat.) nommée sur le profil sous le même km (131) que Martigues : non reprise."
     },
     "14": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1989/89_14.jpg",
@@ -3657,6 +3672,15 @@
        "km": 11.5,
        "kind": "côte",
        "confidence": "non-place"
+      },
+      {
+       "label": "Côte de Régagnas",
+       "km": 20,
+       "kind": "côte",
+       "lat": 43.40001,
+       "lon": 5.67026,
+       "how": "nominatim",
+       "confidence": "ok"
       },
       {
        "label": "Pourrières",
@@ -3832,13 +3856,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 202.8,
-      "profile_km": 203,
-      "delta_pct": -0.1,
+      "routed_km": 218.5,
+      "profile_km": 218,
+      "delta_pct": 0.2,
       "tolerance_pct": 5,
-      "coverage_pct": 85,
+      "coverage_pct": 92,
       "car_legs": 0,
-      "legs": 14
+      "legs": 15
      }
     },
     "15": {
@@ -4644,6 +4668,27 @@
        "confidence": "ok"
       },
       {
+       "label": "Paris (cours la Reine)",
+       "km": 18,
+       "kind": "lieu-dit",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Paris (place de la Concorde)",
+       "km": 20.5,
+       "kind": "lieu-dit",
+       "lat": 48.86557,
+       "lon": 2.32122,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Paris (haut des Champs-Élysées)",
+       "km": 22.5,
+       "kind": "lieu-dit",
+       "confidence": "non-place"
+      },
+      {
        "label": "Paris (Champs-Élysées)",
        "km": 24.5,
        "kind": "ville",
@@ -4654,13 +4699,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 15.6,
+      "routed_km": 17.1,
       "profile_km": 20,
-      "delta_pct": -22,
+      "delta_pct": -14.5,
       "tolerance_pct": 5,
       "coverage_pct": 82,
       "car_legs": 0,
-      "legs": 3
+      "legs": 4
      }
     }
    }
