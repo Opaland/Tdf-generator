@@ -82,7 +82,7 @@ async function measure(pts, profileKm, legRouter) {
     const r = await legRouter(pts[i - 1], pts[i]);
     const m = typeof r === 'number' ? r : r.distanceM;
     routedM += m;
-    legs.push({ from: pts[i - 1].label, to: pts[i].label, profileKm: pts[i].km - pts[i - 1].km, routedKm: m / 1000, crowKm: haversine(pts[i - 1], pts[i]) / 1000, router: typeof r === 'number' ? null : r.router });
+    legs.push({ from: pts[i - 1].label, to: pts[i].label, profileKm: round1(pts[i].km - pts[i - 1].km), routedKm: m / 1000, crowKm: haversine(pts[i - 1], pts[i]) / 1000, router: typeof r === 'number' ? null : r.router });
   }
   const routedKm = routedM / 1000;
   // Arrondi avant le verdict : c'est la valeur publiée qui doit le porter.
@@ -102,7 +102,7 @@ async function measure(pts, profileKm, legRouter) {
  * d'un facteur 1,4 (point mal placé) ou 0,7 (ville omise, km décalé).
  */
 function isSuspectLeg(l) {
-  if (Number.isFinite(l.crowKm) && l.crowKm > l.profileKm + 1) return true;
+  if (l.crowKm > l.profileKm + 1) return true;
   const ratio = l.profileKm > 0 ? l.routedKm / l.profileKm : Infinity;
   return Math.abs(l.routedKm - l.profileKm) >= 3 && (ratio >= 1.4 || ratio <= 0.7);
 }

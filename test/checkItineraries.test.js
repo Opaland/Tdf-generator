@@ -83,6 +83,11 @@ test('isSuspectLeg : km du profil plus court que la ligne droite, ou route très
   assert.strictEqual(isSuspectLeg({ profileKm: 10, routedKm: 11.5, crowKm: 8 }), false);
   assert.strictEqual(isSuspectLeg({ profileKm: 6, routedKm: 8.5, crowKm: 5 }), false); // 2,5 km d'écart
   assert.strictEqual(isSuspectLeg({ profileKm: 10, routedKm: 13, crowKm: 9 }), false); // facteur 1,3
+  // Bornes des seuils : 3 km d'écart, facteurs 1,4 et 0,7.
+  assert.strictEqual(isSuspectLeg({ profileKm: 6.4, routedKm: 9.6, crowKm: 6 }), true); // 3,2 km, ×1,5
+  assert.strictEqual(isSuspectLeg({ profileKm: 7, routedKm: 9.9, crowKm: 6 }), false); // 2,9 km, ×1,41
+  assert.strictEqual(isSuspectLeg({ profileKm: 20, routedKm: 15, crowKm: 12 }), false); // 5 km mais ×0,75
+
 });
 
 test('checkStage : compte les tronçons suspects même quand le total est dans la tolérance', async () => {
