@@ -44,11 +44,21 @@ test('stage_towns.json : aucune contradiction distance/longueur hors liste unver
 
 test('Porcelette (centre communal IGN) : 1992/10 à moins de 10 km, et à 20 km le départ de 1970/9 à Sarrelouis', () => {
   const { searchNear } = require('../pipeline/placeSearch');
-  const at10 = searchNear({ lat: 49.163382, lon: 6.659574 }, 10000, { tracked: [], waypointed: [] }).results;
+  const { curatedStages, stageTowns } = require('../pipeline/placeSearch');
+  // Sans les itinéraires détaillés (Epic 33) : curation + villes seulement.
+  const near = (r) => searchNear({ lat: 49.163382, lon: 6.659574 }, r, { tracked: [], waypointed: [] }, curatedStages(), stageTowns(), []).results;
+  const at10 = near(10000);
   assert.deepStrictEqual(at10.map((r) => `${r.year}/${r.stage}`), ['1992/10']);
-  const at20 = searchNear({ lat: 49.163382, lon: 6.659574 }, 20000, { tracked: [], waypointed: [] }).results;
+  const at20 = near(20000);
   const saar = at20.find((r) => r.year === 1970 && r.stage === '9');
   assert.ok(saar && saar.basis === 'endpoint' && saar.nearestLabel === 'Saarlouis', JSON.stringify(at20));
+});
+
+test('Porcelette avec les itinéraires détaillés (Epic 33) : 1970/9 par Carling et Saint-Avold, 1992/10 par Longeville', () => {
+  const { searchNear } = require('../pipeline/placeSearch');
+  const at10 = searchNear({ lat: 49.163382, lon: 6.659574 }, 10000, { tracked: [], waypointed: [] }).results;
+  assert.deepStrictEqual(at10.map((r) => [`${r.year}/${r.stage}`, r.nearestLabel]), [['1970/9', 'Carling'], ['1992/10', 'Longeville-lès-Saint-Avold']]);
+  assert.ok(at10.every((r) => r.basis.startsWith('itinerary-') && /^https:\/\/www\.ledicodutour\.com\//.test(r.sourceUrl)));
 });
 
 test('relecture adverse : positions fausses du premier jet corrigées ou exclues de la recherche', () => {
