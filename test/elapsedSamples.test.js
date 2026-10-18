@@ -46,3 +46,13 @@ test('import horodaté : elapsed_s croissant de 0 à la durée ; sans horodatage
   const none = loadStageFull(await importTrackAsStage(pts(false), { name: 'Sans heure' }));
   assert.ok(none.samples.every((s) => s.elapsed_s === null));
 });
+
+test('elapsedAtSamples : horodatages non croissants (horloge qui recule) → tout null, jamais négatif', () => {
+  const points = [{ time: at(0) }, { time: at(60) }, { time: at(30) }, { time: at(90) }];
+  assert.deepStrictEqual(elapsedAtSamples(points, [0, 100, 200, 300], [{ dist: 0 }, { dist: 300 }]), [null, null]);
+});
+
+test('elapsedAtSamples : points dupliqués au départ → le premier l\'emporte (0 s au départ)', () => {
+  const points = [{ time: at(0) }, { time: at(5) }, { time: at(65) }];
+  assert.deepStrictEqual(elapsedAtSamples(points, [0, 0, 100], [{ dist: 0 }, { dist: 100 }]), [0, 65]);
+});

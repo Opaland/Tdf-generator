@@ -109,12 +109,17 @@ function computeRideStats(points) {
  * interpolé (Epic 31.2 — même règle que la FC, pipeline/heartRate.js). Arrêts
  * compris : c'est un temps écoulé, pas un temps en mouvement. `null` pour un
  * échantillon dont le point brut le plus proche n'a pas d'horodatage, et
- * partout si aucun point n'en a.
+ * partout si aucun point n'en a — ou si les horodatages ne sont pas
+ * croissants dans l'ordre des points (GPX multi-pistes non triées, horloge
+ * GPS qui recule) : des temps de passage faux ou négatifs seraient pires que
+ * pas de temps (relecture adverse). computeRideStats() garde, lui, la durée
+ * min→max, qui reste juste dans ce cas.
  */
 function elapsedAtSamples(points, cum, samples) {
   const ms = points.map((p) => (p.time instanceof Date && !Number.isNaN(p.time.getTime()) ? p.time.getTime() : null));
-  const first = ms.find((v) => v != null);
-  if (first == null) return samples.map(() => null);
+  const timed = ms.filter((v) => v != null);
+  if (!timed.length || timed.some((v, i) => i > 0 && v < timed[i - 1])) return samples.map(() => null);
+  const first = timed[0];
   return nearestRawIndices(cum, samples).map((j) => (ms[j] == null ? null : Math.round((ms[j] - first) / 1000)));
 }
 

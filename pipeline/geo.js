@@ -58,7 +58,8 @@ function cumulativeDistances(points) {
 function nearestRawIndices(cum, samples) {
   let i = 0;
   return samples.map((s) => {
-    while (i < cum.length - 1 && cum[i + 1] <= s.dist) i++;
+    // `<` strict : à distance égale (points dupliqués), le premier l'emporte.
+    while (i < cum.length - 1 && cum[i + 1] < s.dist) i++;
     return i < cum.length - 1 && Math.abs(cum[i + 1] - s.dist) < Math.abs(s.dist - cum[i]) ? i + 1 : i;
   });
 }
