@@ -567,6 +567,39 @@ et côtes traversées avec leur kilomètre.
   Libellés de l'image gardés (Seyne-les-Alpes, Colombières, Malmédy,
   Côte-des-4-Routes) ; longueurs du profil reprises quand elles diffèrent
   de `stage_towns` (1989/11, 13, 16, 17, 20).
+- [ ] Édition 1988 : 22 étapes sur 23 (prologue Pornichet → La Baule,
+  3,8 km, sans profil publié), 387 points placés sur 419. Contrôlée à
+  ±5 % avant PR : 18 étapes dans la tolérance, 4 hors, affichées comme
+  telles — 1988/6 (+10,7 %, contre-la-montre par équipes : Villeneuve-
+  d'Ascq → Croix, 7 km à vol d'oiseau pour 5 km de profil), 1988/18
+  (+5,4 %), 1988/21 (−10,8 %, contre-la-montre, côte de Saint-Romain et
+  deux lieux-dits hors du calcul), 1988/22 (+8,9 %, circuit des
+  Champs-Élysées retiré de la mesure par `circuit_km` au pont de la
+  Concorde ; Jouy-en-Josas → Versailles 3 km de profil pour 5,5 à vol
+  d'oiseau). Mesure sensible au routeur : 1988/18 était à +4,8 % routée
+  entièrement en voiture (repli OSRM), +5,4 % en vélo ; 6 tronçons voiture
+  restent sur 1988 (affichés). Erreur trouvée dans `stage_towns` : « Puy
+  de Dôme » (14 arrivées et 1 départ, 1952-2023) était le centre du
+  département, 13,9 km au sud-est du sommet — recalé sur le volcan
+  (Nominatim natural/volcano) ; 1988/19 de +6,4 % à −0,4 %. Relecture
+  adverse : deux km lus sur la graduation au lieu du km du point (Le
+  Landreau 16, La Varenne 31, 1988/2) ; Villagrains placé sur son hameau
+  (le `geocodeAs` vers Cabanac-et-Villagrains était deviné et faux) ;
+  graphies du profil rattachées à la commune IGN (Courgains, Mérigon,
+  Cazeaux-de-Larboust, Saint-Marcelin-de-Cray, Lachapelle-sous-Chaux) ;
+  quai André-Citroën placé (était le centroïde du 15e arrondissement) ;
+  libellés de l'image restaurés (pont de la Concorde, esplanade des
+  Quinconces au km 202). Saint-Nazaire (1988/1) non placé : centre-ville
+  à 7,7 km de Montoir pour 4,5 km de profil. Libellés illisibles ou
+  nommés sans km (Côte de Mamers, Saint-Amand-les-Eaux, Taninges,
+  Saint-Yorre, Col de Menté-Mourtis, Payolle…) non repris, notés.
+- [ ] 33.9 Corrections manuelles de `stage_towns.json` non protégées :
+  `scripts/build-stage-towns.js` régénère tout le fichier, et les
+  recalages faits à la main (Puy de Dôme, Luxembourg City, Épinal,
+  Besançon, Lac de Vassivière, Eurotunnel…) disparaîtraient à la
+  prochaine régénération (relecture adverse 1988, lecture de code, non
+  rejoué). À faire : fichier de positions vérifiées relu par le
+  générateur, test qu'une régénération les conserve.
 - [x] 33.7 Entités administratives larges (trouvé sur 1989) : Bastogne
   placée sur son arrondissement (« county » OSM), 9,2 km au nord de la
   ville. Le rang « subdivision » de 33.6 couvre désormais aussi county,
