@@ -396,6 +396,43 @@ et côtes traversées avec leur kilomètre.
     la résolution publiée — source à trouver (Gallica, Epic 34.12).
     Absents du Dico du Tour : 1950/1-2.
 
+## Epic 34 — Idées venues d'autres dépôts (veille du 18/10/2026)
+
+Veille open source (dépôts clonés, licences et derniers commits relevés,
+Wikidata interrogé en direct). Seul le code MIT/BSD/Apache peut être repris
+avec attribution ; AGPL/GPL (Dreeve, Endurain, FitTrackee, wanderer,
+GoldenCheetah) : idées seulement.
+
+Actionnables sans décision :
+- [ ] 34.1 Départs/arrivées par identifiant Wikidata (CC0, 2 428 étapes
+  1903→2026, ville de départ P1427, d'arrivée P1444, distance P3157) pour
+  recouper `stage_towns.json` : supprime les homonymes à la source.
+- [ ] 34.2 Calques IGN historiques (Carte 1950 `GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN50.1950`,
+  état-major `…ETATMAJOR40`, photos aériennes 1950-1965) dans l'éditeur et la
+  fiche — couches relevées dans le GetCapabilities ; licence à confirmer
+  couche par couche.
+- [ ] 34.3 Heatmap géographique de toutes ses traces (idée derive / VeloViewer).
+- [ ] 34.4 Nombre d'Eddington (distance et D+) dans le bilan (idée
+  geo-activity-playground, MIT).
+- [ ] 34.5 Indice FIETS à côté de la catégorie approchée (formule publique ;
+  bonus d'altitude à trancher par un test).
+- [ ] 34.6 Profil coloré par surface et par FC (données déjà présentes).
+- [ ] 34.7 Zones de confidentialité autour du domicile dans les exports et
+  mini-sites de traces (idée geo-activity-playground).
+
+En attente de décision (proposées, non commencées) :
+- 34.8 « Sur les traces du Tour » : part d'une étape historique déjà roulée,
+  cols du Tour gravis (périmètre).
+- 34.9 Tuiles explorateur z14 / plus grand carré (revient sur un choix noté
+  dans `archives.js`).
+- 34.10 Listes personnelles (« cols à faire »), alertes d'entretien du
+  matériel, bilan annuel, charge d'entraînement TRIMP (choix du modèle).
+- 34.11 Relief Mapterhorn hors de France (architecture, licences des données).
+- 34.12 Nouvelles sources admises pour la curation : Gallica (*L'Auto*,
+  itinéraires horaires d'avant 1950), itinéraires horaires ASO republiés par
+  les collectivités (≥ 2010), LeTourDataSet (données issues de letour.fr,
+  contraire à la règle actuelle du README).
+
 ## Epic 24 — Bilan final
 
 - [x] 24.1 Rapport de clôture par epic (17/10/2026), voir ci-dessous
