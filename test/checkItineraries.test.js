@@ -11,7 +11,7 @@ process.env.ETAPEFORGE_OFFLINE = '1';
 
 const { test, after } = require('node:test');
 const assert = require('node:assert');
-const { checkStage, officialKm, measuredTowns } = require('../scripts/check-itineraries');
+const { checkStage, checkStoredStage, officialKm, measuredTowns } = require('../scripts/check-itineraries');
 
 after(() => fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true }));
 
@@ -67,4 +67,8 @@ test('measuredTowns : un circuit final (circuit_km) sort de la mesure, la part m
   assert.strictEqual(all.ok, false); // les tours du circuit ne se routent pas
   assert.strictEqual(cut.ok, true);
   assert.strictEqual(cut.coveragePct, 57); // 40 km mesurés sur 70
+  // Le contrôle d'une étape stockée (celui de main) applique bien circuit_km.
+  const stored = await checkStoredStage({ towns, circuit_km: 50 }, leg, null);
+  assert.strictEqual(stored.ok, true);
+  assert.strictEqual(stored.coveragePct, 57);
 });

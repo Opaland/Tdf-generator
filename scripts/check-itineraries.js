@@ -92,6 +92,12 @@ async function measure(pts, profileKm, legRouter) {
   return { routedKm, profileKm, deltaPct, ok: Math.abs(deltaPct) <= DIST_TOLERANCE_PCT, legs, carLegs };
 }
 
+/** Contrôle d'une étape telle qu'elle est stockée : circuit final retiré,
+ * longueur officielle (profil, sinon stage_towns). C'est ce que main() mesure. */
+function checkStoredStage(st, legRouter, townsStage) {
+  return checkStage(measuredTowns(st), legRouter, officialKm(st, townsStage));
+}
+
 async function main() {
   const args = process.argv.slice(2);
   const write = args.includes('--write');
@@ -107,7 +113,7 @@ async function main() {
     for (const [stage, st] of Object.entries(ed.stages)) {
       let r;
       try {
-        r = await checkStage(measuredTowns(st), router, officialKm(st, townsStage(edition, stage)));
+        r = await checkStoredStage(st, router, townsStage(edition, stage));
       } catch (err) {
         console.log(`${edition}/${stage} : routage impossible (${err.message})`);
         if (write) delete st.route_check; // jamais une mesure périmée affichée
@@ -143,4 +149,4 @@ async function main() {
 
 if (require.main === module) main().catch((err) => { console.error(err); process.exit(1); });
 
-module.exports = { checkStage, routablePoints, officialKm, measuredTowns };
+module.exports = { checkStage, checkStoredStage, routablePoints, officialKm, measuredTowns };
