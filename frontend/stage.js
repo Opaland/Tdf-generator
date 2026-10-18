@@ -603,6 +603,100 @@ function buildHrChart(samples, W, H) {
   </svg>`;
 }
 
+// Zones de FC (Epic 30.5, décidé le 18/10/2026) : 5 zones en % d'une FC max
+// SAISIE par l'utilisateur (GET/PUT /api/profile), jamais devinée.
+const HR_ZONES = [
+  { name: 'Z1 récupération', lo: 0.5, hi: 0.6 },
+  { name: 'Z2 endurance', lo: 0.6, hi: 0.7 },
+  { name: 'Z3 tempo', lo: 0.7, hi: 0.8 },
+  { name: 'Z4 seuil', lo: 0.8, hi: 0.9 },
+  { name: 'Z5 maximal', lo: 0.9, hi: Infinity },
+];
+// Au-delà, l'écart entre deux échantillons est un arrêt ou un trou
+// d'enregistrement, pas un effort : non attribué à une zone (hypothèse —
+// 100 m en 10 min, c'est déjà moins de 1 km/h).
+const HR_ZONE_MAX_GAP_S = 600;
+
+/**
+ * Temps passé dans chaque zone (s), à partir des échantillons (hr_bpm,
+ * elapsed_s). L'intervalle entre deux échantillons va à la zone de la FC du
+ * premier. `uncounted` : secondes non attribuées (FC ou temps absents, arrêt
+ * long) — affichées, jamais réparties. `below` : sous 50 % de la FC max.
+ */
+/** Bornes entières en bpm de chaque zone, partagées par le calcul et
+ * l'affichage : un bpm entier tombe toujours dans la zone que le tableau
+ * annonce (relecture adverse — l'arrondi d'affichage et le rapport exact
+ * divergeaient d'un bpm pour certaines FC max, ex. 187). */
+function hrZoneBounds(hrMax) {
+  return HR_ZONES.map((z) => ({ lo: Math.ceil(z.lo * hrMax), hi: z.hi === Infinity ? Infinity : Math.ceil(z.hi * hrMax) }));
+}
+
+function hrZoneTimes(samples, hrMax) {
+  const bounds = hrZoneBounds(hrMax);
+  const zones = HR_ZONES.map(() => 0);
+  let below = 0;
+  let uncounted = 0;
+  for (let i = 1; i < samples.length; i++) {
+    const a = samples[i - 1];
+    const b = samples[i];
+    if (!Number.isFinite(a.elapsed_s) || !Number.isFinite(b.elapsed_s)) continue;
+    const dt = b.elapsed_s - a.elapsed_s;
+    if (!(dt > 0)) continue;
+    if (dt > HR_ZONE_MAX_GAP_S || !Number.isFinite(a.hr_bpm)) { uncounted += dt; continue; }
+    const z = bounds.findIndex((b) => a.hr_bpm >= b.lo && a.hr_bpm < b.hi);
+    if (z === -1) below += dt;
+    else zones[z] += dt;
+  }
+  return { zones, below, uncounted };
+}
+
+function buildZonesTable(t, hrMax) {
+  const total = t.zones.reduce((a, b) => a + b, 0) + t.below;
+  if (!total) return '<p class="meta-line">Aucun intervalle exploitable pour les zones (FC et temps absents).</p>';
+  const row = (label, range, s) => {
+    const pct = Math.round((s / total) * 100);
+    return `<tr><td>${label}</td><td style="white-space:nowrap">${range}</td>` +
+      `<td style="white-space:nowrap">${EF.esc(EF.formatDuration(s))}<br><span class="meta-line">${pct} %</span>` +
+      `<div style="background:#b01c2f;height:6px;border-radius:var(--radius-xs);width:${pct}%;min-width:${pct ? 2 : 0}px;margin-left:auto" aria-hidden="true"></div></td></tr>`;
+  };
+  const bounds = hrZoneBounds(hrMax);
+  const rows = HR_ZONES.map((z, i) => row(z.name,
+    bounds[i].hi === Infinity ? `≥ ${bounds[i].lo}` : `${bounds[i].lo}–${bounds[i].hi - 1}`,
+    t.zones[i])).join('');
+  return `<div style="overflow-x:auto"><table class="stats"><thead><tr><th>Zone</th><th>FC (bpm)</th><th>Temps</th></tr></thead><tbody>` +
+    rows + row('Sous Z1', `< ${bounds[0].lo}`, t.below) + '</tbody></table></div>' +
+    (t.uncounted ? `<p class="meta-line">${EF.esc(EF.formatDuration(t.uncounted))} non comptées (FC absente ou arrêt de plus de ${HR_ZONE_MAX_GAP_S / 60} min).</p>` : '');
+}
+
+async function renderHrZones(samples) {
+  const box = document.getElementById('hr-zones');
+  if (!box || window.EF_STATIC || !samples.some((s) => Number.isFinite(s.elapsed_s))) return;
+  let hrMax;
+  try {
+    hrMax = (await EF.api('/api/profile')).hrMaxBpm;
+  } catch {
+    return; // non essentiel : la courbe reste affichée
+  }
+  const form = `<form class="row" id="hrmax-form" style="margin-top:var(--space-2)">
+      <label class="field">FC max de référence (bpm)<input id="hrmax-input" type="number" min="100" max="240" step="1" required></label>
+      <button type="submit">${hrMax ? 'Modifier' : 'Afficher les zones'}</button><span class="meta-line" id="hrmax-msg" aria-live="polite"></span></form>`;
+  box.innerHTML = (hrMax ? `<h3>Temps par zone (FC max ${hrMax} bpm)</h3>` + buildZonesTable(hrZoneTimes(samples, hrMax), hrMax)
+    : '<p class="meta-line">Saisissez votre FC max pour voir le temps passé dans chaque zone.</p>') + form;
+  const input = document.getElementById('hrmax-input');
+  if (hrMax) input.value = hrMax;
+  document.getElementById('hrmax-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const msg = document.getElementById('hrmax-msg');
+    msg.textContent = '';
+    try {
+      await EF.api('/api/profile', { method: 'PUT', body: { hrMaxBpm: Number(input.value) } });
+      await renderHrZones(samples);
+    } catch (err) {
+      msg.textContent = ` Erreur : ${err.message}`;
+    }
+  });
+}
+
 function renderHeartRate(st, samples) {
   const section = document.getElementById('hr-section');
   if (!section || st.avg_hr_bpm == null) return;
@@ -621,9 +715,10 @@ function renderHeartRate(st, samples) {
     `<div class="stat hr-stat"><div class="v">${Math.round(st.avg_hr_bpm)} bpm</div><div class="l">FC moyenne</div></div>` +
     `<div class="stat hr-stat"><div class="v">${Math.round(st.max_hr_bpm)} bpm</div><div class="l">FC maximale</div></div>`);
   document.getElementById('ride-stats-section').style.display = '';
+  renderHrZones(samples || []);
 }
 
-if (typeof module !== 'undefined' && module.exports) module.exports = { similarItemHtml, poll, climbNameSourceLabel, buildHrChart };
+if (typeof module !== 'undefined' && module.exports) module.exports = { similarItemHtml, poll, climbNameSourceLabel, buildHrChart, hrZoneTimes, hrZoneBounds, buildZonesTable, HR_ZONES };
 
 // Communes traversées (Epic 12, option B) : calculées à la demande — environ
 // une requête geo.api.gouv.fr par kilomètre, donc jamais à la génération.
