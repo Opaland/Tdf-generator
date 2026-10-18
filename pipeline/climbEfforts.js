@@ -60,7 +60,10 @@ function climbEfforts(traces, climbsByStage, samplesByStage) {
       if (c.name) g.names.set(c.name, (g.names.get(c.name) || 0) + 1);
       if (c.summit_ele_m != null && (g.summitEleM == null || c.summit_ele_m > g.summitEleM)) g.summitEleM = c.summit_ele_m;
       if (CATEGORY_RANK[c.category] > (CATEGORY_RANK[g.category] || 0)) g.category = c.category;
-      g.passages.push({ stageId: t.id, stageName: t.name, date: t.date || null, ...passageTime(samples, ei, g) });
+      // Numéro de montée dans la sortie : une côte gravie deux fois le même
+      // jour donne deux passages, distingués à l'affichage.
+      const ascent = g.passages.filter((p) => p.stageId === t.id).length + 1;
+      g.passages.push({ stageId: t.id, stageName: t.name, date: t.date || null, ascent, ...passageTime(samples, ei, g) });
     }
   }
   return groups.map((g) => {
@@ -81,16 +84,28 @@ function climbEfforts(traces, climbsByStage, samplesByStage) {
 
 const CATEGORY_RANK = { HC: 5, 1: 4, 2: 3, 3: 2, 4: 1 };
 
-/** Temps entre le pied de référence et le sommet, sur ce passage-ci. */
+/** Temps entre le pied de référence et le sommet, sur ce passage-ci.
+ * Le pied retenu est le DERNIER passage près du pied de référence avant le
+ * sommet (premier rencontré en remontant), pas le plus proche sur 40 km : sur
+ * une boucle qui part du pied puis y repasse, le départ — plus proche — aurait
+ * chronométré la boucle entière (relecture adverse). Et la portion mesurée
+ * doit avoir la longueur de référence, à 15 % ou 300 m près. */
 function passageTime(samples, summitIdx, g) {
   if (haversine(samples[summitIdx], g.refSummit) > AT_POINT_M) return { timeS: null, reason: 'sommet' };
   let best = -1;
   let bestD = Infinity;
   for (let i = summitIdx - 1; i >= 0 && samples[summitIdx].dist_m - samples[i].dist_m <= MAX_CLIMB_SEARCH_M; i--) {
     const d = haversine(samples[i], g.refStart);
-    if (d < bestD) { bestD = d; best = i; }
+    if (d <= AT_POINT_M) {
+      if (d < bestD) { bestD = d; best = i; }
+    } else if (best !== -1) {
+      break; // sorti du voisinage du pied le plus récent : on s'arrête là
+    }
   }
-  if (best === -1 || bestD > AT_POINT_M) return { timeS: null, reason: 'pied' };
+  if (best === -1) return { timeS: null, reason: 'pied' };
+  const lengthM = samples[summitIdx].dist_m - samples[best].dist_m;
+  const refM = g.refLengthKm * 1000;
+  if (Math.abs(lengthM - refM) > Math.max(300, refM * 0.15)) return { timeS: null, reason: 'pied' };
   const a = samples[best].elapsed_s;
   const b = samples[summitIdx].elapsed_s;
   if (!Number.isFinite(a) || !Number.isFinite(b)) return { timeS: null, reason: 'sans-temps' };

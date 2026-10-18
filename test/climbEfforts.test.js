@@ -83,3 +83,46 @@ test('aucune côte ou aucun échantillon : liste vide, sans exception', () => {
   assert.deepStrictEqual(climbEfforts([], new Map(), new Map()), []);
   assert.deepStrictEqual(climbEfforts([{ id: 1, name: 'x', date: null }], new Map([[1, [{ start_km: 0, end_km: 1 }]]]), new Map()), []);
 });
+
+test('boucle qui part du pied puis y repasse : chronométrée depuis le dernier passage au pied, pas depuis le départ', () => {
+  // Réf : route 0 → 5 000 m, côte de 1 000 à 3 000 m, 5 m/s.
+  const ref = samples({});
+  // Sortie 2 : départ au pied (route 1 000 m), boucle de 15 km ailleurs, retour au pied, puis montée à 4 m/s.
+  const loop = [];
+  let d = 0;
+  let t = 0;
+  for (let i = 0; i <= 75; i++, d += 100, t += 20) loop.push({ dist_m: d, lat: 45 + 1000 / M_PER_DEG, lon: 6 + i * 0.001, elapsed_s: t });
+  for (let i = 75; i >= 0; i--, d += 100, t += 20) loop.push({ dist_m: d, lat: 45 + 1100 / M_PER_DEG, lon: 6 + i * 0.001, elapsed_s: t });
+  const footIdx = loop.length;
+  for (let r = 1050; r <= 3050; r += 100, d += 100, t += 25) loop.push({ dist_m: d, lat: 45 + r / M_PER_DEG, lon: 6, elapsed_s: t });
+  const endKm = (loop[loop.length - 1].dist_m) / 1000;
+  const traces = [{ id: 1, name: 'Réf', date: '2026-06-01' }, { id: 2, name: 'Boucle', date: '2026-06-02' }];
+  const climbs = new Map([
+    [1, [{ name: 'C', category: '3', start_km: 1, end_km: 3, summit_ele_m: 500 }]],
+    [2, [{ name: 'C', category: '3', start_km: loop[footIdx].dist_m / 1000, end_km: endKm, summit_ele_m: 500 }]],
+  ]);
+  const [g] = climbEfforts(traces, climbs, new Map([[1, ref], [2, loop]]));
+  const boucle = g.passages.find((p) => p.stageName === 'Boucle');
+  // ~2 000 m à 4 m/s = ~500 s (± un échantillon), jamais la boucle entière (~3 500 s).
+  assert.ok(boucle.timeS != null && Math.abs(boucle.timeS - 500) <= 30, JSON.stringify(boucle));
+});
+
+test('même côte montée deux fois dans la sortie : deux passages numérotés', () => {
+  const s1 = samples({ lengthM: 3000 });
+  // Montée, redescente, remontée sur la même route.
+  const s2 = [];
+  let d = 0;
+  for (const leg of [[0, 3000], [3000, 1000], [1000, 3000]]) {
+    const step = leg[1] > leg[0] ? 100 : -100;
+    for (let r = leg[0]; r !== leg[1] + step; r += step, d += 100) s2.push({ dist_m: d, lat: 45 + r / M_PER_DEG, lon: 6, elapsed_s: d / 5 });
+  }
+  const traces = [{ id: 1, name: 'Réf', date: '2026-06-01' }, { id: 2, name: 'Double', date: '2026-06-02' }];
+  const climbs = new Map([
+    [1, [{ name: 'C', category: '4', start_km: 1, end_km: 3, summit_ele_m: 400 }]],
+    [2, [{ name: 'C', category: '4', start_km: 1, end_km: 3, summit_ele_m: 400 }, { name: 'C', category: '4', start_km: 5.1, end_km: 7.1, summit_ele_m: 400 }]],
+  ]);
+  const [g] = climbEfforts(traces, climbs, new Map([[1, s1], [2, s2]]));
+  const double = g.passages.filter((p) => p.stageName === 'Double');
+  assert.deepStrictEqual(double.map((p) => p.ascent), [1, 2]);
+  assert.ok(double.every((p) => Math.abs(p.timeS - 400) <= 25), JSON.stringify(double));
+});
