@@ -716,11 +716,11 @@
        "confidence": "ok"
       },
       {
-       "label": "Col du Haut de la Côte",
+       "label": "Col de la Grosse Pierre",
        "km": 164,
        "kind": "col",
-       "lat": 48.0511,
-       "lon": 6.86537,
+       "lat": 48.02639,
+       "lon": 6.88557,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -753,9 +753,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 165.7,
+      "routed_km": 165,
       "profile_km": 157,
-      "delta_pct": 5.5,
+      "delta_pct": 5.1,
       "tolerance_pct": 5,
       "coverage_pct": 78,
       "car_legs": 0,
@@ -5955,7 +5955,10 @@
        "label": "Alto de Jaizkibel",
        "km": 150.5,
        "kind": "col",
-       "confidence": "non-place"
+       "confidence": "ok",
+       "lat": 43.35075,
+       "lon": -1.8514,
+       "how": "nominatim"
       },
       {
        "label": "Irun",
@@ -5993,13 +5996,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 170.6,
+      "routed_km": 180.7,
       "profile_km": 183.5,
-      "delta_pct": -7,
+      "delta_pct": -1.5,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
-      "legs": 14
+      "legs": 15
      }
     },
     "2": {
@@ -6287,9 +6290,9 @@
        "label": "Uchacq-et-Parentis",
        "km": 91.5,
        "kind": "ville",
-       "lat": 43.92919,
-       "lon": -0.55346,
-       "how": "commune-ign",
+       "lat": 43.96103,
+       "lon": -0.52491,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -6384,9 +6387,9 @@
        "label": "Bordeaux",
        "km": 209.5,
        "kind": "ville",
-       "lat": 44.85194,
-       "lon": -0.58788,
-       "how": "commune-ign",
+       "lat": 44.84549,
+       "lon": -0.57407,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -6401,9 +6404,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 212.4,
+      "routed_km": 209.5,
       "profile_km": 201.5,
-      "delta_pct": 5.4,
+      "delta_pct": 4,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
@@ -7687,7 +7690,10 @@
        "label": "Col de Wettstein",
        "km": 122,
        "kind": "col",
-       "confidence": "non-place"
+       "confidence": "ok",
+       "lat": 48.08788,
+       "lon": 7.11601,
+       "how": "nominatim"
       },
       {
        "label": "Col de la Schlucht",
@@ -7772,13 +7778,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 218.4,
+      "routed_km": 236.6,
       "profile_km": 238,
-      "delta_pct": -8.3,
+      "delta_pct": -0.6,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 19
+      "legs": 20
      }
     },
     "12": {
@@ -8741,26 +8747,25 @@
        "label": "Le Mont-Dore",
        "km": 199,
        "kind": "ville",
-       "geocodeAs": "Mont-Dore",
-       "lat": 45.56932,
-       "lon": 2.80185,
-       "how": "commune-ign",
+       "lat": 45.575,
+       "lon": 2.80941,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
        "label": "La Bourboule",
        "km": 206,
        "kind": "ville",
-       "lat": 45.58124,
-       "lon": 2.7459,
-       "how": "commune-ign",
+       "lat": 45.58925,
+       "lon": 2.74016,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
      "route_check": {
-      "routed_km": 213.2,
+      "routed_km": 204.5,
       "profile_km": 196,
-      "delta_pct": 8.8,
+      "delta_pct": 4.4,
       "tolerance_pct": 5,
       "coverage_pct": 92,
       "car_legs": 0,
@@ -9150,36 +9155,36 @@
        "label": "Chançay",
        "km": 20,
        "kind": "ville",
-       "lat": 47.44918,
-       "lon": 0.87691,
-       "how": "commune-ign",
+       "lat": 47.45201,
+       "lon": 0.87382,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
        "label": "Reugny",
        "km": 24,
        "kind": "ville",
-       "lat": 47.48219,
-       "lon": 0.87959,
-       "how": "commune-ign",
+       "lat": 47.48217,
+       "lon": 0.88571,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
        "label": "Montreuil-en-Touraine",
        "km": 29,
        "kind": "ville",
-       "lat": 47.48413,
-       "lon": 0.95556,
-       "how": "commune-ign",
+       "lat": 47.48789,
+       "lon": 0.94718,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
        "label": "Autrèche",
        "km": 35,
        "kind": "ville",
-       "lat": 47.51841,
-       "lon": 0.99302,
-       "how": "commune-ign",
+       "lat": 47.5268,
+       "lon": 0.99583,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -9195,9 +9200,9 @@
        "label": "Santenay",
        "km": 46,
        "kind": "ville",
-       "lat": 47.57671,
-       "lon": 1.1042,
-       "how": "commune-ign",
+       "lat": 47.5665,
+       "lon": 1.11607,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -9220,9 +9225,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 62.8,
+      "routed_km": 57.1,
       "profile_km": 55.5,
-      "delta_pct": 13.2,
+      "delta_pct": 2.9,
       "tolerance_pct": 5,
       "coverage_pct": 87,
       "car_legs": 0,
@@ -9817,10 +9822,9 @@
        "label": "Bourgneuf-en-Retz",
        "km": 94,
        "kind": "ville",
-       "geocodeAs": "Villeneuve-en-Retz",
-       "lat": 47.03656,
-       "lon": -1.90458,
-       "how": "commune-ign",
+       "lat": 47.04336,
+       "lon": -1.95207,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -9898,9 +9902,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 188.9,
+      "routed_km": 182.4,
       "profile_km": 212.5,
-      "delta_pct": -11.1,
+      "delta_pct": -14.2,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
@@ -10056,10 +10060,9 @@
        "label": "Pleslin",
        "km": 10,
        "kind": "ville",
-       "geocodeAs": "Pleslin-Trigavou",
-       "lat": 48.52754,
-       "lon": -2.07248,
-       "how": "commune-ign",
+       "lat": 48.53261,
+       "lon": -2.05785,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -10137,9 +10140,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 78.6,
+      "routed_km": 77.3,
       "profile_km": 71,
-      "delta_pct": 10.8,
+      "delta_pct": 8.9,
       "tolerance_pct": 5,
       "coverage_pct": 88,
       "car_legs": 0,
@@ -10280,12 +10283,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 199.7,
+      "routed_km": 200,
       "profile_km": 196,
-      "delta_pct": 1.9,
+      "delta_pct": 2,
       "tolerance_pct": 5,
       "coverage_pct": 87,
-      "car_legs": 2,
+      "car_legs": 0,
       "legs": 9
      }
     },
@@ -10463,12 +10466,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 158.9,
+      "routed_km": 157.3,
       "profile_km": 149,
-      "delta_pct": 6.6,
+      "delta_pct": 5.6,
       "tolerance_pct": 5,
       "coverage_pct": 94,
-      "car_legs": 10,
+      "car_legs": 0,
       "legs": 15
      }
     },
@@ -11509,12 +11512,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 310.7,
+      "routed_km": 304.7,
       "profile_km": 275,
-      "delta_pct": 13,
+      "delta_pct": 10.8,
       "tolerance_pct": 5,
       "coverage_pct": 96,
-      "car_legs": 8,
+      "car_legs": 0,
       "legs": 15
      }
     },
@@ -11713,12 +11716,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 167.1,
+      "routed_km": 163.6,
       "profile_km": 154.5,
-      "delta_pct": 8.1,
+      "delta_pct": 5.9,
       "tolerance_pct": 5,
       "coverage_pct": 85,
-      "car_legs": 2,
+      "car_legs": 0,
       "legs": 17
      }
     },
@@ -11890,12 +11893,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 217.7,
+      "routed_km": 213.5,
       "profile_km": 217,
-      "delta_pct": 0.3,
+      "delta_pct": -1.6,
       "tolerance_pct": 5,
       "coverage_pct": 97,
-      "car_legs": 3,
+      "car_legs": 0,
       "legs": 14
      }
     },
@@ -12627,18 +12630,18 @@
        "label": "Gometz-la-Ville",
        "km": 30,
        "kind": "ville",
-       "lat": 48.67716,
-       "lon": 2.11487,
-       "how": "commune-ign",
+       "lat": 48.6718,
+       "lon": 2.12505,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
        "label": "Janvry",
        "km": 33,
        "kind": "ville",
-       "lat": 48.64754,
-       "lon": 2.15033,
-       "how": "commune-ign",
+       "lat": 48.64796,
+       "lon": 2.15377,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -12658,9 +12661,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 46.5,
+      "routed_km": 43.5,
       "profile_km": 43,
-      "delta_pct": 8.2,
+      "delta_pct": 1.1,
       "tolerance_pct": 5,
       "coverage_pct": 90,
       "car_legs": 0,
@@ -13180,12 +13183,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 167.4,
+      "routed_km": 166.5,
       "profile_km": 192.5,
-      "delta_pct": -13.1,
+      "delta_pct": -13.5,
       "tolerance_pct": 5,
       "coverage_pct": 95,
-      "car_legs": 1,
+      "car_legs": 0,
       "legs": 11
      }
     },
@@ -13353,8 +13356,8 @@
        "label": "Sissinghurst",
        "km": 100.5,
        "kind": "ville",
-       "lat": 51.09838,
-       "lon": 0.53842,
+       "lat": 51.11006,
+       "lon": 0.56113,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -13414,9 +13417,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 154.2,
+      "routed_km": 150.9,
       "profile_km": 164,
-      "delta_pct": -6,
+      "delta_pct": -8,
       "tolerance_pct": 5,
       "coverage_pct": 80,
       "car_legs": 0,
@@ -13613,20 +13616,18 @@
        "label": "Percy",
        "km": 129.5,
        "kind": "ville",
-       "geocodeAs": "Percy-en-Normandie",
-       "lat": 48.92048,
-       "lon": -1.18643,
-       "how": "commune-ign",
+       "lat": 48.91607,
+       "lon": -1.19005,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
        "label": "Villedieu-les-Poêles",
        "km": 139.5,
        "kind": "ville",
-       "geocodeAs": "Villedieu-les-Poêles-Rouffigny",
-       "lat": 48.82816,
-       "lon": -1.2389,
-       "how": "commune-ign",
+       "lat": 48.83812,
+       "lon": -1.22209,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -13704,9 +13705,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 238.1,
+      "routed_km": 237.5,
       "profile_km": 256,
-      "delta_pct": -7,
+      "delta_pct": -7.2,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
@@ -14005,12 +14006,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 208.3,
+      "routed_km": 204.3,
       "profile_km": 206.5,
-      "delta_pct": 0.9,
+      "delta_pct": -1.1,
       "tolerance_pct": 5,
       "coverage_pct": 95,
-      "car_legs": 3,
+      "car_legs": 0,
       "legs": 10
      }
     },
@@ -14074,12 +14075,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 33,
+      "routed_km": 31.2,
       "profile_km": 35,
-      "delta_pct": -5.7,
+      "delta_pct": -10.7,
       "tolerance_pct": 5,
       "coverage_pct": 55,
-      "car_legs": 3,
+      "car_legs": 0,
       "legs": 3
      }
     },
@@ -14220,12 +14221,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 112.7,
+      "routed_km": 112.6,
       "profile_km": 119,
-      "delta_pct": -5.3,
+      "delta_pct": -5.4,
       "tolerance_pct": 5,
       "coverage_pct": 74,
-      "car_legs": 2,
+      "car_legs": 0,
       "legs": 5
      }
     },
@@ -14557,7 +14558,7 @@
       "delta_pct": -2.8,
       "tolerance_pct": 5,
       "coverage_pct": 75,
-      "car_legs": 1,
+      "car_legs": 0,
       "legs": 10
      }
     },
@@ -14716,12 +14717,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 196.2,
+      "routed_km": 195.6,
       "profile_km": 201.5,
-      "delta_pct": -2.6,
+      "delta_pct": -2.9,
       "tolerance_pct": 5,
       "coverage_pct": 90,
-      "car_legs": 2,
+      "car_legs": 0,
       "legs": 10
      }
     },
@@ -15624,10 +15625,9 @@
        "label": "Morez",
        "km": 146.5,
        "kind": "ville",
-       "geocodeAs": "Hauts de Bienne",
-       "lat": 46.51195,
-       "lon": 5.98529,
-       "how": "commune-ign",
+       "lat": 46.52034,
+       "lon": 6.0235,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -15659,9 +15659,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 164,
+      "routed_km": 152.3,
       "profile_km": 178,
-      "delta_pct": -7.8,
+      "delta_pct": -14.4,
       "tolerance_pct": 5,
       "coverage_pct": 85,
       "car_legs": 0,
@@ -16020,12 +16020,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 134.6,
+      "routed_km": 129.8,
       "profile_km": 161,
-      "delta_pct": -16.4,
+      "delta_pct": -19.4,
       "tolerance_pct": 5,
       "coverage_pct": 69,
-      "car_legs": 2,
+      "car_legs": 0,
       "legs": 7
      }
     },
@@ -16322,12 +16322,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 58.9,
+      "routed_km": 58.5,
       "profile_km": 57,
-      "delta_pct": 3.4,
+      "delta_pct": 2.7,
       "tolerance_pct": 5,
       "coverage_pct": 85,
-      "car_legs": 10,
+      "car_legs": 0,
       "legs": 10
      }
     },
@@ -16504,12 +16504,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 158.8,
+      "routed_km": 158.7,
       "profile_km": 137.5,
       "delta_pct": 15.5,
       "tolerance_pct": 5,
       "coverage_pct": 85,
-      "car_legs": 2,
+      "car_legs": 0,
       "legs": 9
      }
     },
@@ -17104,12 +17104,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 189.2,
+      "routed_km": 185.9,
       "profile_km": 194.5,
-      "delta_pct": -2.7,
+      "delta_pct": -4.4,
       "tolerance_pct": 5,
       "coverage_pct": 96,
-      "car_legs": 7,
+      "car_legs": 0,
       "legs": 13
      }
     },
@@ -17196,12 +17196,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 43,
+      "routed_km": 42.3,
       "profile_km": 48.5,
-      "delta_pct": -11.4,
+      "delta_pct": -12.7,
       "tolerance_pct": 5,
       "coverage_pct": 90,
-      "car_legs": 6,
+      "car_legs": 0,
       "legs": 6
      }
     },
@@ -17339,10 +17339,9 @@
        "label": "Aime",
        "km": 142,
        "kind": "ville",
-       "geocodeAs": "Aime-la-Plagne",
-       "lat": 45.53859,
-       "lon": 6.62575,
-       "how": "commune-ign",
+       "lat": 45.55719,
+       "lon": 6.65218,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -17357,12 +17356,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 141.3,
+      "routed_km": 134.8,
       "profile_km": 133,
-      "delta_pct": 6.3,
+      "delta_pct": 1.3,
       "tolerance_pct": 5,
       "coverage_pct": 83,
-      "car_legs": 3,
+      "car_legs": 0,
       "legs": 12
      }
     },
@@ -17694,12 +17693,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 189.8,
+      "routed_km": 186.1,
       "profile_km": 177.5,
-      "delta_pct": 6.9,
+      "delta_pct": 4.8,
       "tolerance_pct": 5,
       "coverage_pct": 89,
-      "car_legs": 5,
+      "car_legs": 0,
       "legs": 12
      }
     },
@@ -17843,12 +17842,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 147.7,
+      "routed_km": 144,
       "profile_km": 150,
-      "delta_pct": -1.5,
+      "delta_pct": -4,
       "tolerance_pct": 5,
       "coverage_pct": 67,
-      "car_legs": 8,
+      "car_legs": 0,
       "legs": 8
      }
     },
@@ -17985,12 +17984,12 @@
      ],
      "note": "Dourgne non repris : km imprimé « 119,5 » entre Castres (198) et Revel (245), vraisemblablement 219,5",
      "route_check": {
-      "routed_km": 162.7,
+      "routed_km": 164.2,
       "profile_km": 178,
-      "delta_pct": -8.6,
+      "delta_pct": -7.8,
       "tolerance_pct": 5,
       "coverage_pct": 73,
-      "car_legs": 3,
+      "car_legs": 0,
       "legs": 6
      }
     },
@@ -18362,12 +18361,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 176.5,
+      "routed_km": 176,
       "profile_km": 178.5,
-      "delta_pct": -1.1,
+      "delta_pct": -1.4,
       "tolerance_pct": 5,
       "coverage_pct": 87,
-      "car_legs": 7,
+      "car_legs": 0,
       "legs": 13
      }
     },
@@ -18522,12 +18521,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 165.6,
+      "routed_km": 164,
       "profile_km": 213.5,
-      "delta_pct": -22.4,
+      "delta_pct": -23.2,
       "tolerance_pct": 5,
       "coverage_pct": 90,
-      "car_legs": 10,
+      "car_legs": 0,
       "legs": 12
      }
     },
@@ -18672,12 +18671,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 208.7,
+      "routed_km": 208,
       "profile_km": 224,
-      "delta_pct": -6.8,
+      "delta_pct": -7.1,
       "tolerance_pct": 5,
       "coverage_pct": 91,
-      "car_legs": 1,
+      "car_legs": 0,
       "legs": 12
      }
     },
@@ -18813,12 +18812,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 152.8,
+      "routed_km": 151.4,
       "profile_km": 155,
-      "delta_pct": -1.4,
+      "delta_pct": -2.3,
       "tolerance_pct": 5,
       "coverage_pct": 93,
-      "car_legs": 3,
+      "car_legs": 0,
       "legs": 9
      }
     },
@@ -18884,12 +18883,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 23.4,
+      "routed_km": 23.3,
       "profile_km": 23.5,
       "delta_pct": -0.6,
       "tolerance_pct": 5,
       "coverage_pct": 51,
-      "car_legs": 2,
+      "car_legs": 0,
       "legs": 2
      }
     },
@@ -18999,12 +18998,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 59.3,
+      "routed_km": 55.1,
       "profile_km": 82,
-      "delta_pct": -27.7,
+      "delta_pct": -32.8,
       "tolerance_pct": 5,
       "coverage_pct": 53,
-      "car_legs": 2,
+      "car_legs": 0,
       "legs": 3
      }
     }
@@ -19150,12 +19149,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 144.5,
+      "routed_km": 131.3,
       "profile_km": 200.5,
-      "delta_pct": -27.9,
+      "delta_pct": -34.5,
       "tolerance_pct": 5,
       "coverage_pct": 96,
-      "car_legs": 11,
+      "car_legs": 0,
       "legs": 12
      }
     },
@@ -19356,12 +19355,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 239.4,
+      "routed_km": 236.1,
       "profile_km": 231,
-      "delta_pct": 3.6,
+      "delta_pct": 2.2,
       "tolerance_pct": 5,
       "coverage_pct": 93,
-      "car_legs": 3,
+      "car_legs": 0,
       "legs": 17
      }
     },
@@ -19515,12 +19514,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 187.1,
+      "routed_km": 184,
       "profile_km": 185.5,
-      "delta_pct": 0.9,
+      "delta_pct": -0.8,
       "tolerance_pct": 5,
       "coverage_pct": 95,
-      "car_legs": 13,
+      "car_legs": 0,
       "legs": 13
      }
     },
@@ -19696,12 +19695,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 203.7,
+      "routed_km": 202.3,
       "profile_km": 201,
-      "delta_pct": 1.3,
+      "delta_pct": 0.7,
       "tolerance_pct": 5,
       "coverage_pct": 87,
-      "car_legs": 4,
+      "car_legs": 0,
       "legs": 12
      }
     },
@@ -19919,12 +19918,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 238.4,
+      "routed_km": 233.1,
       "profile_km": 235,
-      "delta_pct": 1.4,
+      "delta_pct": -0.8,
       "tolerance_pct": 5,
       "coverage_pct": 97,
-      "car_legs": 13,
+      "car_legs": 0,
       "legs": 18
      }
     },
@@ -20080,12 +20079,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 193.5,
+      "routed_km": 197.5,
       "profile_km": 195,
-      "delta_pct": -0.8,
+      "delta_pct": 1.3,
       "tolerance_pct": 5,
       "coverage_pct": 94,
-      "car_legs": 8,
+      "car_legs": 0,
       "legs": 10
      }
     },
@@ -20274,16 +20273,16 @@
        "label": "Val-d'Isère",
        "km": 30.5,
        "kind": "ville",
-       "lat": 45.43702,
-       "lon": 7.00818,
-       "how": "stage_towns",
+       "lat": 45.44956,
+       "lon": 6.97874,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
      "route_check": {
-      "routed_km": 32.5,
+      "routed_km": 19.9,
       "profile_km": 19,
-      "delta_pct": 70.8,
+      "delta_pct": 4.8,
       "tolerance_pct": 5,
       "coverage_pct": 62,
       "car_legs": 0,
@@ -20326,10 +20325,8 @@
        "label": "Gravere",
        "km": 56.5,
        "kind": "ville",
-       "lat": 45.10614,
-       "lon": 7.02743,
-       "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "non-place",
+       "note": "point Nominatim (centre de la commune) hors de la vallée ; pas de position sourcée sur la route — non placé"
       },
       {
        "label": "Oulx",
@@ -20432,13 +20429,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 200.3,
+      "routed_km": 179.4,
       "profile_km": 179.5,
-      "delta_pct": 11.6,
+      "delta_pct": -0.1,
       "tolerance_pct": 5,
       "coverage_pct": 86,
-      "car_legs": 12,
-      "legs": 13
+      "car_legs": 0,
+      "legs": 12
      }
     },
     "11": {
@@ -20572,12 +20569,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 189.7,
+      "routed_km": 197.1,
       "profile_km": 196.5,
-      "delta_pct": -3.4,
+      "delta_pct": 0.3,
       "tolerance_pct": 5,
       "coverage_pct": 97,
-      "car_legs": 10,
+      "car_legs": 0,
       "legs": 10
      }
     },
@@ -20716,12 +20713,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 125.4,
+      "routed_km": 124.6,
       "profile_km": 128.5,
-      "delta_pct": -2.4,
+      "delta_pct": -3,
       "tolerance_pct": 5,
       "coverage_pct": 90,
-      "car_legs": 10,
+      "car_legs": 0,
       "legs": 10
      }
     },
@@ -20874,12 +20871,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 157.7,
+      "routed_km": 157.1,
       "profile_km": 166.5,
-      "delta_pct": -5.3,
+      "delta_pct": -5.7,
       "tolerance_pct": 5,
       "coverage_pct": 94,
-      "car_legs": 11,
+      "car_legs": 0,
       "legs": 11
      }
     },
@@ -21028,12 +21025,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 148.8,
+      "routed_km": 153.3,
       "profile_km": 159,
-      "delta_pct": -6.4,
+      "delta_pct": -3.6,
       "tolerance_pct": 5,
       "coverage_pct": 85,
-      "car_legs": 7,
+      "car_legs": 0,
       "legs": 7
      }
     },
@@ -21134,19 +21131,19 @@
        "label": "Villeneuve-sur-Lot",
        "km": 176,
        "kind": "ville",
-       "lat": 44.41615,
-       "lon": 0.74705,
-       "how": "stage_towns",
+       "lat": 44.40566,
+       "lon": 0.70465,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
      "route_check": {
-      "routed_km": 127.7,
+      "routed_km": 128.5,
       "profile_km": 155,
-      "delta_pct": -17.6,
+      "delta_pct": -17.1,
       "tolerance_pct": 5,
       "coverage_pct": 88,
-      "car_legs": 6,
+      "car_legs": 0,
       "legs": 6
      }
     },
@@ -21298,12 +21295,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 159.8,
+      "routed_km": 161,
       "profile_km": 159,
-      "delta_pct": 0.5,
+      "delta_pct": 1.3,
       "tolerance_pct": 5,
       "coverage_pct": 80,
-      "car_legs": 12,
+      "car_legs": 0,
       "legs": 12
      }
     },
@@ -21506,12 +21503,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 269.8,
+      "routed_km": 260,
       "profile_km": 251,
-      "delta_pct": 7.5,
+      "delta_pct": 3.6,
       "tolerance_pct": 5,
       "coverage_pct": 96,
-      "car_legs": 15,
+      "car_legs": 0,
       "legs": 17
      }
     },
@@ -21661,12 +21658,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 146.1,
+      "routed_km": 154,
       "profile_km": 139,
-      "delta_pct": 5.1,
+      "delta_pct": 10.8,
       "tolerance_pct": 5,
       "coverage_pct": 90,
-      "car_legs": 12,
+      "car_legs": 4,
       "legs": 12
      }
     },
@@ -21801,12 +21798,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 236,
+      "routed_km": 225.3,
       "profile_km": 218.5,
-      "delta_pct": 8,
+      "delta_pct": 3.1,
       "tolerance_pct": 5,
       "coverage_pct": 96,
-      "car_legs": 10,
+      "car_legs": 0,
       "legs": 10
      }
     },
@@ -21915,12 +21912,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 53.3,
+      "routed_km": 51.8,
       "profile_km": 59,
-      "delta_pct": -9.6,
+      "delta_pct": -12.2,
       "tolerance_pct": 5,
       "coverage_pct": 93,
-      "car_legs": 8,
+      "car_legs": 0,
       "legs": 8
      }
     },
@@ -22216,8 +22213,8 @@
        "label": "Ancy-sur-Moselle",
        "km": 38,
        "kind": "ville",
-       "lat": 49.06833,
-       "lon": 6.04377,
+       "lat": 49.05656,
+       "lon": 6.05847,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -22250,12 +22247,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 47.8,
+      "routed_km": 39.1,
       "profile_km": 41.5,
-      "delta_pct": 15.1,
+      "delta_pct": -5.9,
       "tolerance_pct": 5,
       "coverage_pct": 73,
-      "car_legs": 5,
+      "car_legs": 0,
       "legs": 5
      }
     }
@@ -22379,12 +22376,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 154.3,
+      "routed_km": 144.5,
       "profile_km": 164,
-      "delta_pct": -5.9,
+      "delta_pct": -11.9,
       "tolerance_pct": 5,
       "coverage_pct": 91,
-      "car_legs": 8,
+      "car_legs": 0,
       "legs": 8
      }
     },
@@ -22493,12 +22490,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 160.1,
+      "routed_km": 157.1,
       "profile_km": 158.5,
-      "delta_pct": 1,
+      "delta_pct": -0.9,
       "tolerance_pct": 5,
       "coverage_pct": 91,
-      "car_legs": 8,
+      "car_legs": 0,
       "legs": 8
      }
     }
@@ -22746,12 +22743,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 234,
+      "routed_km": 219.8,
       "profile_km": 216.5,
-      "delta_pct": 8.1,
+      "delta_pct": 1.5,
       "tolerance_pct": 5,
       "coverage_pct": 95,
-      "car_legs": 22,
+      "car_legs": 0,
       "legs": 22
      }
     }
@@ -22882,12 +22879,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 171.8,
+      "routed_km": 167.6,
       "profile_km": 178.5,
-      "delta_pct": -3.8,
+      "delta_pct": -6.1,
       "tolerance_pct": 5,
       "coverage_pct": 87,
-      "car_legs": 10,
+      "car_legs": 0,
       "legs": 10
      }
     }

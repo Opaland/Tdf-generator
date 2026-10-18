@@ -6,7 +6,8 @@
 // droite (une route n'est jamais plus courte) ; ce contrôle vérifie l'autre
 // sens — un point mal placé allonge la route, une ville omise aussi.
 //
-// Usage : node scripts/check-itineraries.js [--write] [année …]   (réseau requis)
+// Usage : node scripts/check-itineraries.js [--write] [--legs] [année …]   (réseau requis)
+// --legs : pour chaque étape hors tolérance, liste les tronçons suspects.
 // --write : enregistre route_check {routed_km, profile_km, delta_pct,
 // tolerance_pct, coverage_pct, car_legs, legs} dans pipeline/data/stage_itineraries.json —
 // affiché par la recherche par lieu, jamais masqué (décision du 18/10/2026 :
@@ -85,7 +86,8 @@ async function measure(pts, profileKm, legRouter) {
 async function main() {
   const args = process.argv.slice(2);
   const write = args.includes('--write');
-  const only = args.filter((a) => a !== '--write');
+  const showLegs = args.includes('--legs');
+  const only = args.filter((a) => !a.startsWith('--'));
   const doc = JSON.parse(fs.readFileSync(FILE, 'utf8'));
   let townsDoc = null;
   try { townsDoc = JSON.parse(fs.readFileSync(TOWNS_FILE, 'utf8')); } catch { /* longueurs facultatives */ }
@@ -111,6 +113,16 @@ async function main() {
       const worst = [...r.legs].sort((a, b) => (b.routedKm - b.profileKm) - (a.routedKm - a.profileKm))[0];
       console.log(`${edition}/${stage} : ${r.ok ? 'ok  ' : 'HORS'} ${sign}${r.deltaPct.toFixed(1)} % (routé ${r.routedKm.toFixed(1)} km / profil ${r.profileKm.toFixed(1)} km, ${r.coveragePct} % de l'étape)` +
         (r.ok ? '' : ` — pire tronçon ${worst.from} → ${worst.to} : ${worst.routedKm.toFixed(1)} km routés pour ${worst.profileKm} km`));
+      if (showLegs && !r.ok) {
+        // Tronçons suspects : route bien plus longue que l'écart du profil
+        // (point mal placé) ou bien plus courte (ville omise entre les deux).
+        for (const l of r.legs) {
+          const ratio = l.profileKm > 0 ? l.routedKm / l.profileKm : Infinity;
+          if (Math.abs(l.routedKm - l.profileKm) >= 3 && (ratio >= 1.4 || ratio <= 0.7)) {
+            console.log(`    ${l.from} → ${l.to} : ${l.routedKm.toFixed(1)} km routés pour ${l.profileKm} km (${l.router || '?'})`);
+          }
+        }
+      }
       if (write) {
         st.route_check = { routed_km: round1(r.routedKm), profile_km: r.profileKm, delta_pct: r.deltaPct,
           tolerance_pct: DIST_TOLERANCE_PCT, coverage_pct: r.coveragePct, car_legs: r.carLegs, legs: r.legs.length };
