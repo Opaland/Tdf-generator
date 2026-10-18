@@ -1,7 +1,1507 @@
 {
- "_notes": "Itinéraires détaillés (Epic 33) : villes et côtes traversées, avec leur kilomètre, transcrites à la main depuis le profil officiel cité dans source_url (profils du Dico du Tour, ledicodutour.com). Coordonnées ajoutées par scripts/geocode-itineraries.js : un point n'est placé que si la distance à vol d'oiseau depuis le point précédent ne dépasse pas l'écart de kilomètres du profil (+3 km ; +10 km depuis le km 0, le départ réel pouvant être hors du centre de la ville de départ) ; sinon il reste sans coordonnées. confidence : ok (un seul candidat compatible), ambigu (plusieurs, le moins détourné retenu). Un point sans coordonnées n'est jamais utilisé par la recherche. Une côte est placée au village dont elle porte le nom (geocodeAs) : position approchée à quelques km près, jamais le sommet exact.",
+ "_notes": "Itinéraires détaillés (Epic 33) : villes et côtes traversées, avec leur kilomètre, transcrites à la main depuis le profil officiel cité dans source_url (profils du Dico du Tour, ledicodutour.com). Coordonnées ajoutées par scripts/geocode-itineraries.js : un point n'est placé que si la distance à vol d'oiseau depuis le point précédent ne dépasse pas l'écart de kilomètres du profil (+3 km ; +10 km depuis le km 0, le départ réel pouvant être hors du centre de la ville de départ) ; sinon il reste sans coordonnées. confidence : ok (un seul candidat compatible), ambigu (plusieurs, le moins détourné retenu). Un point sans coordonnées n'est jamais utilisé par la recherche. Une côte est placée au village dont elle porte le nom (geocodeAs) : position approchée à quelques km près, jamais le sommet exact. partial: true = transcription partielle, seuls les points dont le kilomètre est lisible sans doute sur l image sont repris (un point absent n est pas une preuve que l étape n y est pas passée). length_km : longueur de l étape lue sur le profil, quand le dernier point transcrit n est pas l arrivée.",
  "_source": "Profils d'étapes du Dico du Tour (https://www.ledicodutour.com), lus image par image ; seuls les noms de lieux et kilomètres (faits) sont repris, pas les images.",
  "editions": {
+  "1970": {
+   "stages": {
+    "9": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1970/1970_9.jpg",
+     "partial": true,
+     "towns": [
+      {
+       "label": "Saarlouis",
+       "km": 0,
+       "kind": "ville",
+       "lat": 49.31647,
+       "lon": 6.74985,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Carling",
+       "km": 18,
+       "kind": "ville",
+       "lat": 49.16828,
+       "lon": 6.71813,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Saint-Avold",
+       "km": 25.5,
+       "kind": "ville",
+       "lat": 49.12752,
+       "lon": 6.71976,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Hoste-Bas",
+       "km": 41.5,
+       "kind": "ville",
+       "geocodeAs": "Hoste",
+       "lat": 49.06426,
+       "lon": 6.87322,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Sarralbe",
+       "km": 56,
+       "kind": "ville",
+       "lat": 48.99275,
+       "lon": 7.02475,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Sarre-Union",
+       "km": 65,
+       "kind": "ville",
+       "lat": 48.93784,
+       "lon": 7.08781,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Niederstinzel",
+       "km": 76,
+       "kind": "ville",
+       "lat": 48.86334,
+       "lon": 7.03256,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Berthelming",
+       "km": 81.5,
+       "kind": "ville",
+       "lat": 48.81662,
+       "lon": 7.00694,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Sarrebourg",
+       "km": 93,
+       "kind": "ville",
+       "lat": 48.73635,
+       "lon": 7.05388,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Nitting",
+       "km": 101.5,
+       "kind": "ville",
+       "lat": 48.66608,
+       "lon": 7.03632,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Bertrambois",
+       "km": 114,
+       "kind": "ville",
+       "lat": 48.59721,
+       "lon": 6.9898,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Cirey-sur-Vezouze",
+       "km": 119,
+       "kind": "ville",
+       "lat": 48.5811,
+       "lon": 6.95003,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Parux",
+       "km": 124.5,
+       "kind": "ville",
+       "lat": 48.53866,
+       "lon": 6.92308,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Neufmaisons",
+       "km": 137,
+       "kind": "ville",
+       "lat": 48.4594,
+       "lon": 6.8492,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Raon-l’Étape",
+       "km": 144.5,
+       "kind": "ville",
+       "lat": 48.40566,
+       "lon": 6.85298,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Saint-Dié",
+       "km": 160.5,
+       "kind": "ville",
+       "lat": 48.2947,
+       "lon": 6.94098,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col de la Schlucht",
+       "km": 199.5,
+       "kind": "col",
+       "lat": 48.06417,
+       "lon": 7.02266,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Cernay",
+       "km": 251.5,
+       "kind": "ville",
+       "lat": 47.80868,
+       "lon": 7.17877,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Lutterbach",
+       "km": 262.5,
+       "kind": "ville",
+       "lat": 47.75998,
+       "lon": 7.28136,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Mulhouse",
+       "km": 267.5,
+       "kind": "ville",
+       "lat": 47.75166,
+       "lon": 7.32652,
+       "how": "commune-ign",
+       "confidence": "ok"
+      }
+     ]
+    }
+   }
+  },
+  "1978": {
+   "stages": {
+    "20": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1978/78_20a.jpg",
+     "partial": true,
+     "towns": [
+      {
+       "label": "Metz",
+       "km": 0,
+       "kind": "ville",
+       "lat": 49.10839,
+       "lon": 6.19489,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Montigny-lès-Metz",
+       "km": 1.2,
+       "kind": "ville",
+       "lat": 49.09533,
+       "lon": 6.15375,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Marly",
+       "km": 4.8,
+       "kind": "ville",
+       "lat": 49.06002,
+       "lon": 6.15457,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Coin-sur-Seille",
+       "km": 14,
+       "kind": "ville",
+       "lat": 49.00864,
+       "lon": 6.16025,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Pommérieux",
+       "km": 19.5,
+       "kind": "ville",
+       "lat": 48.99576,
+       "lon": 6.17457,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Verny",
+       "km": 22.5,
+       "kind": "ville",
+       "lat": 49.00751,
+       "lon": 6.20394,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Chérisey",
+       "km": 25.5,
+       "kind": "ville",
+       "lat": 49.01294,
+       "lon": 6.23404,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Solgne",
+       "km": 34.5,
+       "kind": "ville",
+       "lat": 48.96535,
+       "lon": 6.2954,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Secourt",
+       "km": 37,
+       "kind": "ville",
+       "lat": 48.94869,
+       "lon": 6.28748,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Mailly-sur-Seille",
+       "km": 43,
+       "kind": "ville",
+       "lat": 48.90975,
+       "lon": 6.24547,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Nomeny",
+       "km": 46,
+       "kind": "ville",
+       "lat": 48.88668,
+       "lon": 6.22849,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Custines",
+       "km": 61,
+       "kind": "ville",
+       "lat": 48.79117,
+       "lon": 6.14223,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Bouxières-aux-Dames",
+       "km": 66.5,
+       "kind": "ville",
+       "lat": 48.7512,
+       "lon": 6.16381,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Nancy",
+       "km": 75,
+       "kind": "ville",
+       "lat": 48.69372,
+       "lon": 6.18341,
+       "how": "nominatim",
+       "confidence": "ok"
+      }
+     ]
+    }
+   }
+  },
+  "1979": {
+   "stages": {
+    "12": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1979/79_12a.jpg",
+     "partial": true,
+     "towns": [
+      {
+       "label": "Rochefort",
+       "km": 0,
+       "kind": "ville",
+       "geocodeAs": "Rochefort, Namur",
+       "lat": 50.15542,
+       "lon": 5.17528,
+       "how": "nominatim",
+       "confidence": "ambigu"
+      },
+      {
+       "label": "Maissin",
+       "km": 26.5,
+       "kind": "ville",
+       "lat": 49.96511,
+       "lon": 5.18058,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Paliseul",
+       "km": 34.5,
+       "kind": "ville",
+       "lat": 49.89948,
+       "lon": 5.13695,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Auby",
+       "km": 48.5,
+       "kind": "ville",
+       "geocodeAs": "Auby-sur-Semois",
+       "lat": 49.81576,
+       "lon": 5.18167,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Mortehan",
+       "km": 54.5,
+       "kind": "ville",
+       "lat": 49.79954,
+       "lon": 5.21184,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Herbeumont",
+       "km": 59.5,
+       "kind": "ville",
+       "lat": 49.78154,
+       "lon": 5.23777,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Florenville",
+       "km": 77.5,
+       "kind": "ville",
+       "lat": 49.69932,
+       "lon": 5.31005,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Abbaye d'Orval",
+       "km": 86.5,
+       "kind": "ville",
+       "geocodeAs": "Orval",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Gérouville",
+       "km": 94,
+       "kind": "ville",
+       "lat": 49.61843,
+       "lon": 5.42879,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Virton",
+       "km": 106,
+       "kind": "ville",
+       "lat": 49.56773,
+       "lon": 5.53296,
+       "how": "nominatim",
+       "confidence": "ambigu"
+      },
+      {
+       "label": "Longuyon",
+       "km": 126.5,
+       "kind": "ville",
+       "lat": 49.46194,
+       "lon": 5.59814,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Mainville",
+       "km": 155.5,
+       "kind": "ville",
+       "lat": 49.2932,
+       "lon": 5.84243,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Briey",
+       "km": 165,
+       "kind": "ville",
+       "lat": 49.2481,
+       "lon": 5.93705,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Auboué",
+       "km": 170.5,
+       "kind": "ville",
+       "lat": 49.21287,
+       "lon": 5.97502,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Saint-Privat-la-Montagne",
+       "km": 176.5,
+       "kind": "ville",
+       "lat": 49.18782,
+       "lon": 6.04054,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Ban-Saint-Martin",
+       "km": 189.5,
+       "kind": "ville",
+       "geocodeAs": "Le Ban-Saint-Martin",
+       "lat": 49.12369,
+       "lon": 6.14373,
+       "how": "commune-ign",
+       "confidence": "ok"
+      }
+     ]
+    },
+    "13": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1979/79_13a.jpg",
+     "partial": true,
+     "towns": [
+      {
+       "label": "Metz",
+       "km": 0,
+       "kind": "ville",
+       "lat": 49.10839,
+       "lon": 6.19489,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Liocourt",
+       "km": 25,
+       "kind": "ville",
+       "lat": 48.91054,
+       "lon": 6.34391,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Lemoncourt",
+       "km": 32.5,
+       "kind": "ville",
+       "lat": 48.86632,
+       "lon": 6.39311,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Malaucourt-sur-Seille",
+       "km": 36.5,
+       "kind": "ville",
+       "lat": 48.84099,
+       "lon": 6.36004,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Aboncourt-sur-Seille",
+       "km": 40.5,
+       "kind": "ville",
+       "lat": 48.81681,
+       "lon": 6.34124,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Pettoncourt",
+       "km": 48.5,
+       "kind": "ville",
+       "lat": 48.78207,
+       "lon": 6.40383,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Moncel-sur-Seille",
+       "km": 51,
+       "kind": "ville",
+       "lat": 48.76697,
+       "lon": 6.42275,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Arracourt",
+       "km": 62,
+       "kind": "ville",
+       "lat": 48.72315,
+       "lon": 6.53206,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Valhey",
+       "km": 68.5,
+       "kind": "ville",
+       "lat": 48.67865,
+       "lon": 6.49321,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Lunéville",
+       "km": 79,
+       "kind": "ville",
+       "lat": 48.59349,
+       "lon": 6.49781,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Xermaménil",
+       "km": 88,
+       "kind": "ville",
+       "lat": 48.53427,
+       "lon": 6.4627,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Gerbéviller",
+       "km": 92,
+       "kind": "ville",
+       "lat": 48.49511,
+       "lon": 6.51013,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Moyen",
+       "km": 97,
+       "kind": "ville",
+       "lat": 48.48415,
+       "lon": 6.56597,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Magnières",
+       "km": 102,
+       "kind": "ville",
+       "lat": 48.44666,
+       "lon": 6.5669,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Roville-aux-Chênes",
+       "km": 109.5,
+       "kind": "ville",
+       "lat": 48.38579,
+       "lon": 6.60412,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Rambervillers",
+       "km": 115,
+       "kind": "ville",
+       "lat": 48.34663,
+       "lon": 6.63612,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Sainte-Hélène",
+       "km": 121.5,
+       "kind": "ville",
+       "lat": 48.29116,
+       "lon": 6.65727,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Grandvillers",
+       "km": 128,
+       "kind": "ville",
+       "lat": 48.23653,
+       "lon": 6.66884,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Bruyères",
+       "km": 134,
+       "kind": "ville",
+       "lat": 48.208,
+       "lon": 6.71502,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Laveline-devant-Bruyères",
+       "km": 137.5,
+       "kind": "ville",
+       "lat": 48.18208,
+       "lon": 6.7549,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Granges-sur-Vologne",
+       "km": 143.5,
+       "kind": "ville",
+       "lat": 48.14476,
+       "lon": 6.78937,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Gérardmer",
+       "km": 156.5,
+       "kind": "ville",
+       "lat": 48.07193,
+       "lon": 6.8392,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col du Haut de la Côte",
+       "km": 164,
+       "kind": "col",
+       "lat": 48.0511,
+       "lon": 6.86537,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "La Bresse",
+       "km": 169.5,
+       "kind": "ville",
+       "lat": 48.00663,
+       "lon": 6.87669,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Cornimont",
+       "km": 176.5,
+       "kind": "ville",
+       "lat": 47.96545,
+       "lon": 6.84456,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col du Ménil",
+       "km": 182,
+       "kind": "col",
+       "lat": 47.92617,
+       "lon": 6.81705,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Fresse-sur-Moselle",
+       "km": 194.5,
+       "kind": "ville",
+       "lat": 47.87672,
+       "lon": 6.7881,
+       "how": "nominatim",
+       "confidence": "ok"
+      }
+     ]
+    }
+   }
+  },
+  "1980": {
+   "stages": {
+    "2": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1980/80_2a.jpg",
+     "partial": true,
+     "towns": [
+      {
+       "label": "Francfort",
+       "km": 0,
+       "kind": "ville",
+       "geocodeAs": "Frankfurt am Main",
+       "lat": 50.11064,
+       "lon": 8.68209,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Egelsbach",
+       "km": 18.5,
+       "kind": "ville",
+       "lat": 49.96684,
+       "lon": 8.66593,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Darmstadt",
+       "km": 27.5,
+       "kind": "ville",
+       "lat": 49.87278,
+       "lon": 8.65118,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Alsbach-Sandwiese",
+       "km": 46,
+       "kind": "ville",
+       "geocodeAs": "Alsbach",
+       "lat": 49.74112,
+       "lon": 8.62246,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Bürstadt-Bobstadt",
+       "km": 62,
+       "kind": "ville",
+       "geocodeAs": "Bobstadt",
+       "lat": 49.66306,
+       "lon": 8.44512,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Worms",
+       "km": 71.5,
+       "kind": "ville",
+       "lat": 49.63026,
+       "lon": 8.36209,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Offstein",
+       "km": 82,
+       "kind": "ville",
+       "lat": 49.6061,
+       "lon": 8.23806,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Kleehof",
+       "km": 104,
+       "kind": "ville",
+       "lat": 49.52978,
+       "lon": 7.98997,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Enkenbach-Alsenborn",
+       "km": 111.5,
+       "kind": "ville",
+       "lat": 49.48875,
+       "lon": 7.90074,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Kaiserslautern",
+       "km": 122,
+       "kind": "ville",
+       "lat": 49.44322,
+       "lon": 7.769,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Einsiedlerhof",
+       "km": 132,
+       "kind": "ville",
+       "lat": 49.42954,
+       "lon": 7.65984,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Bruchmühlbach",
+       "km": 148.5,
+       "kind": "ville",
+       "geocodeAs": "Bruchmühlbach-Miesau",
+       "lat": 49.38252,
+       "lon": 7.43917,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Homburg",
+       "km": 160.5,
+       "kind": "ville",
+       "lat": 49.32146,
+       "lon": 7.3409,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "St-Ingbert",
+       "km": 178,
+       "kind": "ville",
+       "geocodeAs": "Sankt Ingbert",
+       "lat": 49.27884,
+       "lon": 7.11567,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Saarbrücken",
+       "km": 189,
+       "kind": "ville",
+       "lat": 49.23436,
+       "lon": 6.99638,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Burbach",
+       "km": 195.5,
+       "kind": "ville",
+       "geocodeAs": "Burbach, Saarbrücken",
+       "lat": 49.24147,
+       "lon": 6.94671,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Völklingen",
+       "km": 202.5,
+       "kind": "ville",
+       "lat": 49.25229,
+       "lon": 6.85952,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Schwalbach-Ensdorf",
+       "km": 211,
+       "kind": "ville",
+       "geocodeAs": "Ensdorf",
+       "lat": 49.30199,
+       "lon": 6.77912,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Saarlouis",
+       "km": 217.5,
+       "kind": "ville",
+       "lat": 49.31317,
+       "lon": 6.7478,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte Ober Felsberg",
+       "km": 224.5,
+       "kind": "côte",
+       "geocodeAs": "Felsberg",
+       "lat": 49.29321,
+       "lon": 6.70167,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Boulay-Moselle",
+       "km": 243.5,
+       "kind": "ville",
+       "lat": 49.18422,
+       "lon": 6.49351,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Les Étangs",
+       "km": 254.5,
+       "kind": "ville",
+       "lat": 49.1426,
+       "lon": 6.3802,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Metz",
+       "km": 276,
+       "kind": "ville",
+       "lat": 49.10839,
+       "lon": 6.19489,
+       "how": "commune-ign",
+       "confidence": "ok"
+      }
+     ]
+    },
+    "3": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1980/80_3a.jpg",
+     "partial": true,
+     "towns": [
+      {
+       "label": "Metz",
+       "km": 0,
+       "kind": "ville",
+       "lat": 49.10839,
+       "lon": 6.19489,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Fillières",
+       "km": 34,
+       "kind": "ville",
+       "lat": 49.4039,
+       "lon": 5.844,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Longwy",
+       "km": 58,
+       "kind": "ville",
+       "lat": 49.52159,
+       "lon": 5.76894,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Aubange",
+       "km": 65,
+       "kind": "ville",
+       "lat": 49.5672,
+       "lon": 5.8045,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Arlon",
+       "km": 77.5,
+       "kind": "ville",
+       "lat": 49.69827,
+       "lon": 5.7822,
+       "how": "nominatim",
+       "confidence": "ambigu"
+      },
+      {
+       "label": "Rippweiler",
+       "km": 92,
+       "kind": "ville",
+       "lat": 49.75043,
+       "lon": 5.95561,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Bissen",
+       "km": 102,
+       "kind": "ville",
+       "lat": 49.78915,
+       "lon": 6.0663,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Colmar-Berg",
+       "km": 106.5,
+       "kind": "ville",
+       "lat": 49.81114,
+       "lon": 6.09102,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Diekirch",
+       "km": 115,
+       "kind": "ville",
+       "lat": 49.86909,
+       "lon": 6.16005,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Fischbach",
+       "km": 143,
+       "kind": "ville",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Wemperhaardt",
+       "km": 154.5,
+       "kind": "ville",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Vielsalm",
+       "km": 174,
+       "kind": "ville",
+       "lat": 50.2843,
+       "lon": 5.91364,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Grand-Halleux",
+       "km": 180.5,
+       "kind": "ville",
+       "lat": 50.32628,
+       "lon": 5.90725,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Stavelot",
+       "km": 191.5,
+       "kind": "ville",
+       "lat": 50.38909,
+       "lon": 5.9161,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Francorchamps",
+       "km": 199,
+       "kind": "ville",
+       "lat": 50.45316,
+       "lon": 5.95283,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Spa",
+       "km": 215,
+       "kind": "ville",
+       "lat": 50.49207,
+       "lon": 5.86276,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Theux",
+       "km": 222.5,
+       "kind": "ville",
+       "lat": 50.52586,
+       "lon": 5.8199,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Louveigné",
+       "km": 229.5,
+       "kind": "ville",
+       "lat": 50.53052,
+       "lon": 5.71044,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Beaufays",
+       "km": 236.5,
+       "kind": "ville",
+       "lat": 50.55905,
+       "lon": 5.63857,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Liège",
+       "km": 249,
+       "kind": "ville",
+       "lat": 50.64509,
+       "lon": 5.57361,
+       "how": "nominatim",
+       "confidence": "ok"
+      }
+     ]
+    }
+   }
+  },
+  "1985": {
+   "stages": {
+    "8": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1985/85_08.jpg",
+     "partial": true,
+     "towns": [
+      {
+       "label": "Sarrebourg",
+       "km": 0,
+       "kind": "ville",
+       "lat": 48.73635,
+       "lon": 7.05388,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Buhl",
+       "km": 2.5,
+       "kind": "ville",
+       "geocodeAs": "Buhl-Lorraine",
+       "lat": 48.7253,
+       "lon": 7.0853,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Niderviller",
+       "km": 5.5,
+       "kind": "ville",
+       "lat": 48.71257,
+       "lon": 7.1071,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Neustadtmuhle",
+       "km": 14.5,
+       "kind": "ville",
+       "lat": 48.68299,
+       "lon": 7.19535,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Schaeferhof",
+       "km": 16,
+       "kind": "ville",
+       "lat": 48.67385,
+       "lon": 7.20632,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Dabo",
+       "km": 20.5,
+       "kind": "ville",
+       "lat": 48.65895,
+       "lon": 7.23638,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "La Hoube",
+       "km": 26.5,
+       "kind": "ville",
+       "lat": 48.65351,
+       "lon": 7.27019,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col du Valsberg",
+       "km": 28,
+       "kind": "col",
+       "lat": 48.6511,
+       "lon": 7.29432,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Obersteigen",
+       "km": 32,
+       "kind": "ville",
+       "lat": 48.64187,
+       "lon": 7.30858,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Romanswiller",
+       "km": 39.5,
+       "kind": "ville",
+       "lat": 48.64219,
+       "lon": 7.39868,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Wasselonne",
+       "km": 44,
+       "kind": "ville",
+       "lat": 48.63733,
+       "lon": 7.44727,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Hohengoeft",
+       "km": 48,
+       "kind": "ville",
+       "lat": 48.66192,
+       "lon": 7.47468,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Willgottheim",
+       "km": 52,
+       "kind": "ville",
+       "lat": 48.67023,
+       "lon": 7.51095,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Schnersheim",
+       "km": 57.5,
+       "kind": "ville",
+       "lat": 48.65622,
+       "lon": 7.56538,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Wiwersheim",
+       "km": 61,
+       "kind": "ville",
+       "lat": 48.63972,
+       "lon": 7.60638,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Stutzheim",
+       "km": 63,
+       "kind": "ville",
+       "geocodeAs": "Stutzheim-Offenheim",
+       "lat": 48.6286,
+       "lon": 7.62502,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Oberhausbergen",
+       "km": 69,
+       "kind": "ville",
+       "lat": 48.60569,
+       "lon": 7.68579,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Strasbourg",
+       "km": 75,
+       "kind": "ville",
+       "lat": 48.57983,
+       "lon": 7.76145,
+       "how": "commune-ign",
+       "confidence": "ok"
+      }
+     ]
+    }
+   }
+  },
+  "1990": {
+   "stages": {
+    "6": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1990/90_6.jpg",
+     "towns": [
+      {
+       "label": "Sarrebourg",
+       "km": 0,
+       "kind": "ville",
+       "lat": 48.73635,
+       "lon": 7.05388,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Belles-Forêts",
+       "km": 13.5,
+       "kind": "ville",
+       "lat": 48.80742,
+       "lon": 6.8918,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Rorbach-lès-Dieuze",
+       "km": 19,
+       "kind": "ville",
+       "lat": 48.82956,
+       "lon": 6.84247,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Dieuze",
+       "km": 29,
+       "kind": "ville",
+       "lat": 48.77596,
+       "lon": 6.69962,
+       "how": "nominatim",
+       "confidence": "ambigu"
+      },
+      {
+       "label": "Château-Salins",
+       "km": 48.5,
+       "kind": "ville",
+       "lat": 48.81659,
+       "lon": 6.50973,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte d'Amelécourt",
+       "km": 51.5,
+       "kind": "côte",
+       "geocodeAs": "Amelécourt",
+       "lat": 48.83782,
+       "lon": 6.50058,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Lemoncourt",
+       "km": 59.5,
+       "kind": "ville",
+       "lat": 48.86632,
+       "lon": 6.39311,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Chenicourt",
+       "km": 68,
+       "kind": "ville",
+       "lat": 48.85583,
+       "lon": 6.29104,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Montenoy",
+       "km": 78,
+       "kind": "ville",
+       "lat": 48.79429,
+       "lon": 6.23227,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Pompey",
+       "km": 88,
+       "kind": "ville",
+       "lat": 48.76583,
+       "lon": 6.12299,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Fontenoy-sur-Moselle",
+       "km": 104,
+       "kind": "ville",
+       "lat": 48.71089,
+       "lon": 5.98245,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Toul",
+       "km": 114,
+       "kind": "ville",
+       "lat": 48.67803,
+       "lon": 5.9006,
+       "how": "commune-ign",
+       "confidence": "ambigu"
+      },
+      {
+       "label": "Blénod-lès-Toul",
+       "km": 124,
+       "kind": "ville",
+       "lat": 48.59876,
+       "lon": 5.83852,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Barisey-la-Côte",
+       "km": 131,
+       "kind": "ville",
+       "lat": 48.54378,
+       "lon": 5.84309,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Pagny-la-Blanche-Côte",
+       "km": 142,
+       "kind": "ville",
+       "lat": 48.53907,
+       "lon": 5.72197,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Domrémy-la-Pucelle",
+       "km": 155.5,
+       "kind": "ville",
+       "lat": 48.44306,
+       "lon": 5.67582,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Fruze",
+       "km": 164.5,
+       "kind": "ville",
+       "lat": 48.3963,
+       "lon": 5.73791,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Removille",
+       "km": 174.5,
+       "kind": "ville",
+       "lat": 48.3624,
+       "lon": 5.8401,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Houécourt",
+       "km": 186.5,
+       "kind": "ville",
+       "lat": 48.299,
+       "lon": 5.89171,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Vittel",
+       "km": 202.5,
+       "kind": "ville",
+       "lat": 48.20132,
+       "lon": 5.94979,
+       "how": "commune-ign",
+       "confidence": "ok"
+      }
+     ]
+    }
+   }
+  },
   "1992": {
    "stages": {
     "10": {
@@ -247,6 +1747,800 @@
        "kind": "ville",
        "lat": 48.57983,
        "lon": 7.76145,
+       "how": "commune-ign",
+       "confidence": "ok"
+      }
+     ]
+    }
+   }
+  },
+  "1999": {
+   "stages": {
+    "7": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1997_2006/1999/99_7a.jpg",
+     "partial": true,
+     "towns": [
+      {
+       "label": "Avesnes-sur-Helpe",
+       "km": 0,
+       "kind": "ville",
+       "lat": 50.12277,
+       "lon": 3.92885,
+       "how": "commune-ign",
+       "confidence": "ambigu"
+      },
+      {
+       "label": "Féron",
+       "km": 10.5,
+       "kind": "ville",
+       "lat": 50.05443,
+       "lon": 4.01543,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Hirson",
+       "km": 29,
+       "kind": "ville",
+       "lat": 49.92034,
+       "lon": 4.08372,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Maubert-Fontaine",
+       "km": 56.5,
+       "kind": "ville",
+       "lat": 49.86772,
+       "lon": 4.4289,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Bazeilles",
+       "km": 106,
+       "kind": "ville",
+       "lat": 49.69108,
+       "lon": 4.99083,
+       "how": "commune-ign",
+       "confidence": "ambigu"
+      },
+      {
+       "label": "Pouru-Saint-Rémy",
+       "km": 115.5,
+       "kind": "ville",
+       "lat": 49.67954,
+       "lon": 5.0847,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Margut",
+       "km": 132.5,
+       "kind": "ville",
+       "lat": 49.58595,
+       "lon": 5.26886,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Longuyon",
+       "km": 176,
+       "kind": "côte",
+       "geocodeAs": "Longuyon",
+       "lat": 49.46194,
+       "lon": 5.59814,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Boismont",
+       "km": 185.5,
+       "kind": "côte",
+       "geocodeAs": "Boismont",
+       "lat": 49.40306,
+       "lon": 5.74222,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Knutange",
+       "km": 212.5,
+       "kind": "ville",
+       "lat": 49.34104,
+       "lon": 6.03377,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Thionville",
+       "km": 227,
+       "kind": "ville",
+       "lat": 49.36728,
+       "lon": 6.15055,
+       "how": "commune-ign",
+       "confidence": "ok"
+      }
+     ]
+    },
+    "8": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1997_2006/1999/99_8a.jpg",
+     "towns": [
+      {
+       "label": "Metz",
+       "km": 0,
+       "kind": "ville",
+       "lat": 49.10839,
+       "lon": 6.19489,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Lorry-lès-Metz",
+       "km": 9.5,
+       "kind": "côte",
+       "geocodeAs": "Lorry-lès-Metz",
+       "lat": 49.14371,
+       "lon": 6.12533,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Amanvillers",
+       "km": 15,
+       "kind": "ville",
+       "lat": 49.16759,
+       "lon": 6.04394,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Gravelotte",
+       "km": 26.5,
+       "kind": "côte",
+       "geocodeAs": "Gravelotte",
+       "lat": 49.11048,
+       "lon": 6.03049,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Gravelotte",
+       "km": 29,
+       "kind": "ville",
+       "lat": 49.11048,
+       "lon": 6.03049,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Ancy-sur-Moselle",
+       "km": 38,
+       "kind": "ville",
+       "lat": 49.06833,
+       "lon": 6.04377,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Corny-sur-Moselle",
+       "km": 41.5,
+       "kind": "ville",
+       "lat": 49.03566,
+       "lon": 6.06821,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Marly",
+       "km": 51,
+       "kind": "ville",
+       "lat": 49.07252,
+       "lon": 6.15375,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Metz",
+       "km": 56.5,
+       "kind": "ville",
+       "lat": 49.10839,
+       "lon": 6.19489,
+       "how": "commune-ign",
+       "confidence": "ok"
+      }
+     ]
+    }
+   }
+  },
+  "2002": {
+   "stages": {
+    "2": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2002/2002-2a.jpg",
+     "towns": [
+      {
+       "label": "Luxembourg",
+       "km": 0,
+       "kind": "ville",
+       "lat": 49.61128,
+       "lon": 6.1298,
+       "how": "nominatim",
+       "confidence": "ambigu"
+      },
+      {
+       "label": "Esch-sur-Alzette",
+       "km": 17,
+       "kind": "ville",
+       "lat": 49.49596,
+       "lon": 5.98503,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Bettembourg",
+       "km": 29,
+       "kind": "ville",
+       "lat": 49.5169,
+       "lon": 6.10546,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Mondorf-les-Bains",
+       "km": 45,
+       "kind": "ville",
+       "lat": 49.50717,
+       "lon": 6.28142,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Perl",
+       "km": 60,
+       "kind": "côte",
+       "geocodeAs": "Perl",
+       "lat": 49.47359,
+       "lon": 6.38745,
+       "how": "nominatim",
+       "confidence": "ambigu"
+      },
+      {
+       "label": "Merzig",
+       "km": 85,
+       "kind": "ville",
+       "lat": 49.4427,
+       "lon": 6.63749,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Losheim",
+       "km": 95,
+       "kind": "ville",
+       "geocodeAs": "Losheim am See",
+       "lat": 49.50825,
+       "lon": 6.74471,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Primstal",
+       "km": 117,
+       "kind": "ville",
+       "lat": 49.5375,
+       "lon": 6.97634,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte d'Alsweiler-Heid",
+       "km": 132.5,
+       "kind": "côte",
+       "geocodeAs": "Alsweiler",
+       "lat": 49.4715,
+       "lon": 7.06961,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Uchtelfangen",
+       "km": 155.5,
+       "kind": "ville",
+       "lat": 49.37884,
+       "lon": 7.01944,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Riegelsberg",
+       "km": 166,
+       "kind": "ville",
+       "lat": 49.30427,
+       "lon": 6.94704,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Saarbrücken",
+       "km": 181,
+       "kind": "ville",
+       "lat": 49.23436,
+       "lon": 6.99638,
+       "how": "nominatim",
+       "confidence": "ok"
+      }
+     ]
+    },
+    "3": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2002/2002-3a.jpg",
+     "towns": [
+      {
+       "label": "Metz",
+       "km": 0,
+       "kind": "ville",
+       "lat": 49.10839,
+       "lon": 6.19489,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Gravelotte",
+       "km": 3,
+       "kind": "côte",
+       "geocodeAs": "Gravelotte",
+       "lat": 49.11048,
+       "lon": 6.03049,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Mars-la-Tour",
+       "km": 16,
+       "kind": "ville",
+       "lat": 49.09986,
+       "lon": 5.88598,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Maizeray",
+       "km": 31,
+       "kind": "ville",
+       "lat": 49.1023,
+       "lon": 5.70255,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Verdun",
+       "km": 57.5,
+       "kind": "ville",
+       "lat": 49.15391,
+       "lon": 5.36559,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Clermont-en-Argonne",
+       "km": 86,
+       "kind": "ville",
+       "lat": 49.1175,
+       "lon": 5.09999,
+       "how": "commune-ign",
+       "confidence": "ambigu"
+      },
+      {
+       "label": "Sainte-Menehould",
+       "km": 100.5,
+       "kind": "ville",
+       "lat": 49.09922,
+       "lon": 4.93602,
+       "how": "commune-ign",
+       "confidence": "ambigu"
+      },
+      {
+       "label": "Valmy",
+       "km": 109.5,
+       "kind": "ville",
+       "lat": 49.08497,
+       "lon": 4.77398,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Suippes",
+       "km": 130,
+       "kind": "ville",
+       "lat": 49.13085,
+       "lon": 4.53178,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Prunay",
+       "km": 159,
+       "kind": "ville",
+       "lat": 49.21101,
+       "lon": 4.14635,
+       "how": "commune-ign",
+       "confidence": "ambigu"
+      },
+      {
+       "label": "Reims",
+       "km": 174.5,
+       "kind": "ville",
+       "lat": 49.25095,
+       "lon": 4.0556,
+       "how": "commune-ign",
+       "confidence": "ok"
+      }
+     ]
+    }
+   }
+  },
+  "2006": {
+   "stages": {
+    "2": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2006/06_02b.jpg",
+     "partial": true,
+     "towns": [
+      {
+       "label": "Obernai",
+       "km": 0,
+       "kind": "ville",
+       "lat": 48.46289,
+       "lon": 7.46815,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Gresswiller",
+       "km": 12,
+       "kind": "ville",
+       "lat": 48.53373,
+       "lon": 7.41843,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Oberhaslach",
+       "km": 23,
+       "kind": "ville",
+       "lat": 48.55039,
+       "lon": 7.32954,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col des Pandours",
+       "km": 35.5,
+       "kind": "col",
+       "lat": 48.58939,
+       "lon": 7.31626,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Engenthal-le-Bas",
+       "km": 43.5,
+       "kind": "ville",
+       "geocodeAs": "Engenthal",
+       "lat": 48.63424,
+       "lon": 7.29811,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col du Valsberg",
+       "km": 50,
+       "kind": "col",
+       "lat": 48.6511,
+       "lon": 7.29432,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Dabo",
+       "km": 57,
+       "kind": "ville",
+       "lat": 48.65895,
+       "lon": 7.23638,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Neustadtmuhle",
+       "km": 63,
+       "kind": "ville",
+       "lat": 48.68299,
+       "lon": 7.19535,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Rehthal",
+       "km": 67.5,
+       "kind": "ville",
+       "lat": 48.68587,
+       "lon": 7.18057,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Niderviller",
+       "km": 71.5,
+       "kind": "ville",
+       "lat": 48.71257,
+       "lon": 7.1071,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Sarrebourg",
+       "km": 76.5,
+       "kind": "ville",
+       "lat": 48.73635,
+       "lon": 7.05388,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Langatte",
+       "km": 84,
+       "kind": "ville",
+       "lat": 48.75736,
+       "lon": 6.98157,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Albeschaux",
+       "km": 89.5,
+       "kind": "ville",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Rorbach-lès-Dieuze",
+       "km": 98,
+       "kind": "ville",
+       "lat": 48.83026,
+       "lon": 6.84201,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Marimont-lès-Bénestroff",
+       "km": 107,
+       "kind": "ville",
+       "lat": 48.88945,
+       "lon": 6.78316,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Bermering",
+       "km": 115,
+       "kind": "ville",
+       "lat": 48.93286,
+       "lon": 6.70944,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Morhange",
+       "km": 120,
+       "kind": "ville",
+       "lat": 48.92792,
+       "lon": 6.63952,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Landroff",
+       "km": 127,
+       "kind": "ville",
+       "lat": 48.96579,
+       "lon": 6.61205,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Faulquemont",
+       "km": 135,
+       "kind": "ville",
+       "lat": 49.04002,
+       "lon": 6.5944,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Fouligny",
+       "km": 146,
+       "kind": "ville",
+       "lat": 49.09529,
+       "lon": 6.50752,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Boulay-Moselle",
+       "km": 159,
+       "kind": "ville",
+       "lat": 49.17479,
+       "lon": 6.49488,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Holling",
+       "km": 169.5,
+       "kind": "ville",
+       "lat": 49.26159,
+       "lon": 6.49615,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Chémery-les-Deux",
+       "km": 176.5,
+       "kind": "ville",
+       "lat": 49.29874,
+       "lon": 6.44238,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Kédange-sur-Canner",
+       "km": 187.5,
+       "kind": "côte",
+       "geocodeAs": "Kédange-sur-Canner",
+       "lat": 49.3095,
+       "lon": 6.3412,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Yutz",
+       "km": 198.5,
+       "kind": "ville",
+       "lat": 49.36151,
+       "lon": 6.19193,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Esch-sur-Alzette",
+       "km": 228.5,
+       "kind": "ville",
+       "lat": 49.49596,
+       "lon": 5.98503,
+       "how": "nominatim",
+       "confidence": "ok"
+      }
+     ]
+    }
+   }
+  },
+  "2012": {
+   "stages": {
+    "6": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2012/12_06_pro.jpg",
+     "towns": [
+      {
+       "label": "Épernay",
+       "km": 0,
+       "kind": "ville",
+       "lat": 49.04024,
+       "lon": 3.96053,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Châlons-en-Champagne",
+       "km": 29,
+       "kind": "ville",
+       "lat": 48.95662,
+       "lon": 4.36289,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Marson",
+       "km": 45.5,
+       "kind": "ville",
+       "lat": 48.9152,
+       "lon": 4.52787,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Bussy-le-Repos",
+       "km": 63.5,
+       "kind": "ville",
+       "lat": 48.89909,
+       "lon": 4.75863,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Vroil",
+       "km": 78,
+       "kind": "ville",
+       "lat": 48.84294,
+       "lon": 4.91238,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Villotte-devant-Louppy",
+       "km": 97.5,
+       "kind": "ville",
+       "lat": 48.8852,
+       "lon": 5.07873,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Chaumont-sur-Aire",
+       "km": 112.5,
+       "kind": "ville",
+       "lat": 48.92712,
+       "lon": 5.25702,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Saint-Mihiel",
+       "km": 135.5,
+       "kind": "ville",
+       "lat": 48.89169,
+       "lon": 5.54234,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Buxières",
+       "km": 145,
+       "kind": "côte",
+       "geocodeAs": "Buxières-sous-les-Côtes",
+       "lat": 48.91559,
+       "lon": 5.6725,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Dampvitoux",
+       "km": 170.5,
+       "kind": "ville",
+       "lat": 49.01264,
+       "lon": 5.84314,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Gorze",
+       "km": 183.5,
+       "kind": "ville",
+       "lat": 49.05301,
+       "lon": 6.00256,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Fey",
+       "km": 194,
+       "kind": "ville",
+       "lat": 49.03056,
+       "lon": 6.09965,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Metz",
+       "km": 207.5,
+       "kind": "ville",
+       "lat": 49.10839,
+       "lon": 6.19489,
        "how": "commune-ign",
        "confidence": "ok"
       }

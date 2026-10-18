@@ -62,3 +62,11 @@ test('anchorsFor : ancres de stage_towns, ville douteuse ignorée, étape scind�
   assert.deepStrictEqual(anchorsFor(doc, '1992', '10a'), { start: { lat: 1, lon: 2 }, finish: undefined });
   assert.deepStrictEqual(anchorsFor(doc, '1993', '1'), {});
 });
+
+test('geocodeStage : longueur d\'étape fournie (totalKm) utilisée pour la contrainte vers l\'arrivée, pas le dernier point transcrit', async () => {
+  const cands = { A: [at(0, 0)], B: [at(0, 10000)] };
+  const towns = [{ label: 'A', km: 0, kind: 'ville' }, { label: 'B', km: 10, kind: 'ville' }];
+  const finish = at(0, 30000); // arrivée 20 km après B
+  assert.strictEqual((await geocodeStage(towns, { finish }, async (l) => cands[l] || []))[1].confidence, 'non-place');
+  assert.strictEqual((await geocodeStage(towns, { finish }, async (l) => cands[l] || [], 31))[1].confidence, 'ok');
+});
