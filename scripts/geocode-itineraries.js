@@ -74,7 +74,10 @@ const SNAP_M = 8000;
 // déléguée (Pontorson : le « city_district » était plus proche du centroïde
 // IGN que le bourg — relecture adverse), ni un lac ou un col homonyme.
 const TOWN_ADDRESSTYPES = new Set(['city', 'town', 'village', 'hamlet', 'municipality']);
-const SUBDIVISION_ADDRESSTYPES = new Set(['city_district', 'suburb', 'quarter', 'neighbourhood', 'borough']);
+// Ni une entité plus large (arrondissement, province, pays) : 1989/3, Bastogne
+// était placée sur son arrondissement (« county »), 9 km au nord de la ville.
+const SUBDIVISION_ADDRESSTYPES = new Set(['city_district', 'suburb', 'quarter', 'neighbourhood', 'borough',
+  'county', 'state_district', 'state', 'region', 'province', 'country']);
 const isTownPoint = (c) => c.how === 'nominatim' && (c.osmClass === 'place' || c.osmClass === 'boundary') && TOWN_ADDRESSTYPES.has(c.addresstype);
 function snapToTown(cands) {
   const osm = cands.filter(isTownPoint);

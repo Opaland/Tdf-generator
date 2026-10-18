@@ -534,6 +534,42 @@ et côtes traversées avec leur kilomètre.
   en voiture par un détour vélo. Relecture adverse : 14 étapes relues
   contre l'image sans erreur de km ; libellés restaurés
   (Saint-Gervais-Mont-Blanc, Huez-en-Oisans, Côte de Marigny-Brizai).
+- [ ] Édition 1989 : 21 étapes en ligne sur 21 + prologue (rues de
+  Luxembourg seulement, gardé pour mémoire, non contrôlable), 300 points
+  placés sur 340. Contrôlée à ±5 % avant PR : 14 étapes dans la
+  tolérance, 7 hors, affichées comme telles — 1989/3 (−12,8 %, Ardennes
+  et circuit de Spa), 1989/4 (−5,1 %), 1989/8 (−6,0 %), 1989/11 (+9,3 % :
+  Labastide-Clermont, Sainte-Foy-de-Peyrolières et Saint-Lys non placés,
+  le km du profil contredisant la distance depuis Benque ; Benque est
+  bien le village de Haute-Garonne, l'autre homonyme est dans les
+  Hautes-Pyrénées), 1989/15 (−5,4 %, contre-la-montre de 39 km), 1989/18
+  (−12,2 %, contre-la-montre), 1989/21 (−22,0 %, Champs-Élysées). Erreurs
+  de position trouvées :
+  - « Luxembourg City » (`stage_towns`, 17 occurrences 1947-2002,
+    `douteux`) au centre géographique du pays, 23 km au nord de la ville
+    — recalé sur la ville (Nominatim boundary/city) ;
+  - Arles (1989/13) au centre de sa commune, en Camargue, 7,6 km de la
+    ville — 1989/13 de +10,9 % à −4,1 % (Fontvieille placée du coup) ;
+  - Allemond fixé au village (même erreur qu'en 1990, bloquait Le
+    Bourg-d'Oisans) ;
+  - Bastogne sur son arrondissement — story 33.7.
+  Arrivées sans position sourcée (Le Cambasque, Côte 2000, Bordeaux-Lac,
+  site Hewlett-Packard de L'Isle-d'Abeau) non placées avec une note.
+  Libellés de l'image gardés (Seyne-les-Alpes, Colombières, Malmédy,
+  Côte-des-4-Routes) ; longueurs du profil reprises quand elles diffèrent
+  de `stage_towns` (1989/11, 13, 16, 17, 20).
+- [x] 33.7 Entités administratives larges (trouvé sur 1989) : Bastogne
+  placée sur son arrondissement (« county » OSM), 9,2 km au nord de la
+  ville. Le rang « subdivision » de 33.6 couvre désormais aussi county,
+  state_district, state, region, province, country (test, échoue sans le
+  correctif). Balayage des points Nominatim : 7 sur une entité large —
+  Arlon (1980/3, 3,0 km), Bastogne, Charleroi (1989/4, 3,5 km), Audenarde
+  (1992/6, 2,7 km), Ypres (1994/2, 2,5 km) recalés sur la ville ;
+  Euskirchen inchangée (même point) ; Anvers (1996/2) retirée avec une
+  note — le seul candidat compatible est le centre de l'arrondissement,
+  le centre-ville est à 13 km de Schilde pour 8 km de profil. Remesure
+  des éditions touchées : 1994/2 de −13,5 % à −12,0 %, 1996/2 de +2,2 %
+  à −1,5 %, aucune étape ne change de verdict hors 1989.
 - [x] 33.6 Candidat Nominatim « city_district » : le géocodage retient un
   point de commune déléguée (Bonneval, Les Vignes en 1990 ; relecture :
   aussi Tarcenay, Morez, Celliers, Noirterre) au lieu du village
