@@ -580,10 +580,21 @@ et côtes traversées avec leur kilomètre.
   des éditions touchées : 1994/2 de −13,5 % à −12,0 %, 1996/2 de +2,2 %
   à −1,5 %, aucune étape ne change de verdict hors 1989.
 - [ ] 33.8 Arrivées « Paris (Champs-Élysées) » : l'ancre `stage_towns` de
-  Paris (48,859 ; 2,347) est au Châtelet, à 3 km des Champs-Élysées ; toute
-  arrivée de dernière étape en hérite (1989/21, et les autres éditions
-  transcrites). À faire : point d'arrivée sourcé (avenue des
-  Champs-Élysées) pour ces lieux-dits, puis remesure.
+  Paris (48,859 ; 2,347) est au Châtelet, à 3,3 km des Champs-Élysées ;
+  les 8 arrivées transcrites (1989/21 à 1996/21) en héritaient. Fait :
+  arrivée placée sur l'avenue (Nominatim « Champs-Élysées, Paris »,
+  tourism, 48,87076 ; 2,30533). Le recalage a montré l'autre cause des
+  écarts : les tours du circuit final ne se routent pas d'un point au
+  suivant. Champ `circuit_km` (km de l'entrée sur le circuit, lu sur le
+  profil) : la mesure s'arrête là, sa part de l'étape se publie (test).
+  1990/21 de −34,8 % à −8,4 % (59 % de l'étape) ; 1992/21 (entrée à la
+  Concorde, km 78,5 sur 141) devient non contrôlable, la part mesurée
+  passant sous 50 %. 1989/21 (contre-la-montre Versailles → Paris, sans
+  circuit) passe de −14,5 % à −18,6 % : le parcours chronométré suivait
+  les quais, le routeur coupe au plus court (cause D). Les arrivées de
+  1991, 1993-1996, géocodées sous « Paris » (`geocodeAs`), restaient
+  déjà hors du calcul : position corrigée pour l'affichage, mesure
+  inchangée.
 - [x] 33.6 (PR #415) Candidat Nominatim « city_district » : le géocodage retient un
   point de commune déléguée (Bonneval, Les Vignes en 1990 ; relecture :
   aussi Tarcenay, Morez, Celliers, Noirterre) au lieu du village
