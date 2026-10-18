@@ -131,3 +131,31 @@ test('geocodeStage : ville d\'arrivée = ancre stage_towns ; point non final à 
   const gs = await geocodeStage([towns[0], { ...towns[2], geocodeAs: 'Z' }], { finish: at(0, 20000) }, async (l) => cands[l] || []);
   assert.strictEqual(gs[1].how, undefined);
 });
+
+test('geocodeStage : une subdivision OSM (commune déléguée) passe après le village homonyme, même plus « sur le chemin »', async () => {
+  // 1990/11 : « Bonneval » → city_district (sur le chemin) puis village.
+  const cands = {
+    A: [{ ...at(0, 0), how: 't' }],
+    B: [{ ...at(0, 9000), how: 'nominatim', osmClass: 'boundary', addresstype: 'city_district' },
+      { ...at(2500, 9000), how: 'nominatim', osmClass: 'place', addresstype: 'village' }],
+    C: [{ ...at(0, 18000), how: 't' }],
+  };
+  const towns = [{ label: 'A', km: 0 }, { label: 'B', km: 10 }, { label: 'C', km: 20 }].map((t) => ({ ...t, kind: 'ville' }));
+  const out = await geocodeStage(towns, {}, async (l) => cands[l] || []);
+  assert.strictEqual(out[1].lat, at(2500, 9000).lat);
+  // Seule la subdivision est compatible : elle reste retenue (mieux que rien).
+  const only = await geocodeStage(towns, {}, async (l) => (l === 'B' ? [cands.B[0]] : cands[l]));
+  assert.strictEqual(only[1].lat, at(0, 9000).lat);
+});
+
+test('geocodeStage : un point retiré avec une note n\'est jamais re-géocodé ; sans note, il est retenté', async () => {
+  const cands = { A: [{ ...at(0, 0), how: 't' }], B: [{ ...at(0, 9000), how: 't' }], C: [{ ...at(0, 18000), how: 't' }] };
+  const towns = [{ label: 'A', km: 0 }, { label: 'B', km: 10, confidence: 'non-place', note: 'position non sourcée' }, { label: 'C', km: 20 }]
+    .map((t) => ({ ...t, kind: 'ville' }));
+  const out = await geocodeStage(towns, {}, async (l) => cands[l] || []);
+  assert.strictEqual(out[1].lat, undefined);
+  assert.strictEqual(out[1].confidence, 'non-place');
+  assert.strictEqual(out[2].lat, at(0, 18000).lat);
+  const retry = await geocodeStage(towns.map((t) => ({ ...t, note: undefined })), {}, async (l) => cands[l] || []);
+  assert.strictEqual(retry[1].lat, at(0, 9000).lat);
+});

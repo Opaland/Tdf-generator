@@ -521,12 +521,31 @@ et côtes traversées avec leur kilomètre.
   Bordeaux-Lac) laissées non placées plutôt que mises à la position de la
   ville ; Le Bettex placé (Nominatim). Romans non placé : 12,5 km à vol
   d'oiseau de Saint-Lattier pour 9,5 km de profil.
-- [ ] 33.6 Candidat Nominatim « city_district » : le géocodage retient un
+- [x] 33.6 Candidat Nominatim « city_district » : le géocodage retient un
   point de commune déléguée (Bonneval, Les Vignes en 1990) au lieu du
   village homonyme listé juste après. Même cause que Pontorson (33.3),
   mais par le chemin Nominatim, que `snapToTown` ne couvre pas. À faire :
   écarter ou déclasser ce type de candidat, puis remesurer les éditions
   déjà transcrites.
+  Fait : une subdivision OSM (city_district, suburb, quarter,
+  neighbourhood, borough) passe après tout autre candidat Nominatim
+  compatible ; seule compatible, elle reste retenue. Balayage des 669
+  points Nominatim : 69 sur une subdivision, 56 avec une localité
+  homonyme, re-géocodés — 55 déplacés de 0 à 2,4 km (Belgique surtout :
+  Stavelot, Spa, Theux, Wavre, Tournai… ; Vendeuvre-du-Poitou,
+  Noirterre, Celliers en 1990), Vielsalm fixée au village (le géocodage
+  ne la replaçait plus). Bug trouvé en relançant le géocodage : il
+  replaçait les points retirés volontairement (Gravere, Artouste, arrivées
+  de 1990 sans position sourcée) — un point `non-place` portant une note
+  n'est plus jamais re-géocodé (test). Fischbach (1980/3), placée par la
+  relance sur l'homonyme au sud de Diekirch, à contresens de l'étape
+  (1980/3 à +19,9 %), retirée avec une note. Remesure des 11 éditions
+  touchées : 109 étapes dans la tolérance sur 155 contrôlées (110 avant),
+  1990/2 de +14,6 % à +8,0 %, 1992/6 rentre (−5,1 → −2,6 %) ; sortent
+  1995/7 (−4,4 → −6,8 %, Spa replacée sur la ville, 2,2 km), 1992/14
+  (+4,0 → +5,2 %, Le Bourg-d'Oisans enfin placé) et 1996/18 (+10,8 →
+  +17,7 %, données inchangées : BRouter a remplacé les 4 tronçons
+  voiture par un détour vélo). Écarts affichés, pas ajustés.
 - [ ] 33.4 Contrôle à ±5 % des itinéraires (demande du 18/10/2026 : « 5 %
   max de tolérance ») : `scripts/check-itineraries.js` route l'itinéraire
   point par point et compare au kilométrage du profil, avec

@@ -74,6 +74,7 @@ const SNAP_M = 8000;
 // déléguée (Pontorson : le « city_district » était plus proche du centroïde
 // IGN que le bourg — relecture adverse), ni un lac ou un col homonyme.
 const TOWN_ADDRESSTYPES = new Set(['city', 'town', 'village', 'hamlet', 'municipality']);
+const SUBDIVISION_ADDRESSTYPES = new Set(['city_district', 'suburb', 'quarter', 'neighbourhood', 'borough']);
 const isTownPoint = (c) => c.how === 'nominatim' && (c.osmClass === 'place' || c.osmClass === 'boundary') && TOWN_ADDRESSTYPES.has(c.addresstype);
 function snapToTown(cands) {
   const osm = cands.filter(isTownPoint);
@@ -100,6 +101,10 @@ async function geocodeStage(towns, anchors = {}, candidatesFor = defaultCandidat
   let prev = anchors.start ? { ...anchors.start, km: 0 } : null;
   for (const t of out) {
     if (Number.isFinite(t.lat)) { if (!t.geocodeAs || t.kind === 'ville') prev = t; continue; }
+    // Retrait délibéré, justifié par une note (position non sourcée,
+    // homonyme) : jamais re-géocodé — relancer le script replaçait Gravere,
+    // Artouste ou l'arrivée de Côte 2000 à la position qu'on avait écartée.
+    if (t.confidence === 'non-place' && t.note) continue;
     // Ville d'arrivée de l'étape : la position vérifiée de stage_towns, pas un
     // nouveau géocodage (1995/18 : Limoges recalée sur son centre-ville tombait
     // hors de la marge de l'ancre). Élargir la marge laissait passer des
@@ -122,7 +127,10 @@ async function geocodeStage(towns, anchors = {}, candidatesFor = defaultCandidat
     // Source la plus fiable d'abord : un résultat Nominatim plus « sur le
     // chemin » ne l'emporte jamais sur la commune IGN compatible (1992/15 :
     // Grenoble placée à 10 km au sud, Fontaine rejetée ensuite).
-    const tier = (c) => (c.how === 'known-cols' ? 0 : c.how === 'commune-ign' ? 1 : 2);
+    // Une subdivision OSM (commune déléguée, quartier) passe après tout autre
+    // candidat : son point n'est pas le village homonyme, souvent listé juste
+    // après (1990 : Bonneval et Les Vignes, 7 et 8 % d'écart routé).
+    const tier = (c) => (c.how === 'known-cols' ? 0 : c.how === 'commune-ign' ? 1 : SUBDIVISION_ADDRESSTYPES.has(c.addresstype) ? 3 : 2);
     const bestTier = Math.min(...ok.map(tier));
     for (let i = ok.length - 1; i >= 0; i--) if (tier(ok[i]) !== bestTier) ok.splice(i, 1);
     // Plusieurs candidats compatibles et distincts : le plus « sur le
