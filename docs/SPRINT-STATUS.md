@@ -705,6 +705,25 @@ et côtes traversées avec leur kilomètre.
   réellement contradictoire, laissé tel quel avec une note. Protocole de
   transcription : `--legs` avant chaque PR d'édition, tout tronçon
   suspect justifié.
+- [ ] Édition 1986 : 23 étapes en ligne sur 23 (prologue de Boulogne-
+  Billancourt non transcrit), 491 points placés sur 537. Contrôlée à
+  ±5 % avant PR : 20 étapes dans la tolérance, 3 hors, affichées comme
+  telles — 1986/1 (−36,5 %, contre-la-montre en boucles dans les
+  Hauts-de-Seine : Bois-Colombes → Asnières 6 km au profil pour 1,6 km à
+  vol d'oiseau, le parcours zigzague entre les communes), 1986/2
+  (+12,1 %, Viroflay → Versailles 2 km au profil pour 3,4 à vol
+  d'oiseau : centre de commune loin du passage), 1986/12 (+6,4 %).
+  Premier passage d'édition sous le contrôle par tronçon (33.11) : 28
+  tronçons suspects triés — deux vraies erreurs de position, corrigées :
+  Huez placé au centroïde IGN de sa commune, à côté de la station de
+  l'Alpe d'Huez et non au village (même point dans 1987/20, 1988/12,
+  1989/17, 1992/14, corrigés ; le recalage sur le bourg ne s'applique pas
+  aux points géocodés sous un autre nom) ; Côte du Châtelet placée au sud
+  de Sablons, à contresens de l'étape — retirée (1986/19 de +8,9 % à
+  −1,2 %). Restent 24 tronçons signalés, centres de commune loin du
+  passage ou boucles en ville, laissés tels quels. Circuits retirés de
+  la mesure : Bordeaux (1986/11) et Champs-Élysées (1986/23). 28
+  tronçons routés en voiture (BRouter par intermittence), affichés.
 - [x] 33.7 Entités administratives larges (trouvé sur 1989) : Bastogne
   placée sur son arrondissement (« county » OSM), 9,2 km au nord de la
   ville. Le rang « subdivision » de 33.6 couvre désormais aussi county,
