@@ -449,6 +449,14 @@ et côtes traversées avec leur kilomètre.
   superposés au centroïde de la commune, replacés. Étapes dont la
   transcription omet des points du profil marquées `partial` (avec leur
   longueur, la contrainte d'arrivée reste appliquée).
+- [ ] Édition 1995 : 20 étapes sur 21 (prologue de Saint-Brieuc non
+  transcrit), 296 points placés sur 321. Limoges (arrivée de 1995/18),
+  recalée sur son centre-ville, était rejetée à 3,9 km de l'ancre
+  `stage_towns` (un centroïde IGN) : la contrainte vers l'arrivée prend
+  désormais la même marge que le départ (10 km). Non placés parce que le
+  km du profil contredit la géographie, laissés tels quels : Ieper et
+  Mons (1995/6), Luchon et Cazaux-Layrisse (1995/15). Dourgne (1995/13)
+  non repris : km imprimé « 119,5 » entre Castres (198) et Revel (245).
 
 ## Epic 34 — Idées venues d'autres dépôts (veille du 18/10/2026)
 

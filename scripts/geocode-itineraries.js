@@ -106,7 +106,10 @@ async function geocodeStage(towns, anchors = {}, candidatesFor = defaultCandidat
     const ok = cands.filter((c) => {
       const slack = prev && prev.km === 0 ? START_SLACK_M : SLACK_M;
       if (prev && haversine(prev, c) > (t.km - prev.km) * 1000 + slack) return false;
-      if (anchors.finish && haversine(c, anchors.finish) > (total - t.km) * 1000 + SLACK_M) return false;
+      // Même marge qu'au départ : l'arrivée réelle peut être hors du centre
+      // (et l'ancre est un centroïde IGN — 1995/18 : Limoges, recalée sur son
+      // centre-ville, rejetée à 3,9 km de l'ancre).
+      if (anchors.finish && haversine(c, anchors.finish) > (total - t.km) * 1000 + START_SLACK_M) return false;
       return true;
     });
     if (!ok.length) { t.confidence = 'non-place'; continue; }

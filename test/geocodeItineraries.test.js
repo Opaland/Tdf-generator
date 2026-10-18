@@ -119,3 +119,12 @@ test('assembleCandidates : recalage branché, sauf pour un point géocodé sous 
   const kept = assembleCandidates({ label: 'Lamballe-Armor', original: 'Lamballe', kind: 'ville', communes, osm }).find((c) => c.how === 'commune-ign');
   assert.ok(Math.abs(kept.lat - at(0, 0).lat) < 1e-4);
 });
+
+test('geocodeStage : arrivée réelle jusqu\'à 10 km de l\'ancre (centroïde) acceptée, au-delà rejetée', async () => {
+  const towns = [{ label: 'A', km: 0, kind: 'ville' }, { label: 'Z', km: 20, kind: 'ville' }];
+  const cands = { A: [at(0, 0)], Z: [at(0, 15000)] };
+  const near = await geocodeStage(towns, { finish: at(0, 21000) }, async (l) => cands[l] || []);
+  assert.strictEqual(near[1].confidence, 'ok');
+  const far = await geocodeStage(towns, { finish: at(0, 27000) }, async (l) => cands[l] || []);
+  assert.strictEqual(far[1].confidence, 'non-place');
+});
