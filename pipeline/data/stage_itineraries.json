@@ -6575,7 +6575,8 @@
        "lat": 52.48564,
        "lon": 13.18013,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : contre-la-montre par les rues de Berlin-Ouest, 17 km au profil pour 5,7 à vol d’oiseau depuis Spandau — tracé sinueux, pas une erreur de lecture"
       },
       {
        "label": "Berlin (John-F.-Kennedy-Platz)",
@@ -6584,7 +6585,8 @@
        "lat": 52.4849,
        "lon": 13.34464,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "aller-retour (33.14) : pas de pont sur la Havel à hauteur de Gatow (vraisemblablement) : le routeur revient vers le nord ; le tracé réel du contre-la-montre n’est pas connu"
       }
      ],
      "length_km": 40.5,
@@ -6597,7 +6599,9 @@
       "coverage_pct": 84,
       "car_legs": 0,
       "legs": 2,
-      "suspect_legs": 1
+      "suspect_legs": 1,
+      "backtracks": 1,
+      "backtracks_uncertain": 0
      }
     },
     "3": {
@@ -6643,7 +6647,8 @@
        "lat": 48.89595,
        "lon": 8.41758,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "aller-retour (33.14) : boucle Ettlingen → Malsch → Völkersbach → Schöllbronn → Ettlingen ; la côte de Völkersbach, non placée, manque au routeur, qui revient sur ses pas entre Malsch et Schöllbronn"
       },
       {
        "label": "Ettlingen",
@@ -6658,10 +6663,8 @@
        "label": "Karlsruhe",
        "km": 45,
        "kind": "lieu-dit",
-       "lat": 49.00687,
-       "lon": 8.40342,
-       "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "non-place",
+       "note": "passage dans Karlsruhe : le centre-ville est à 9 km d’Ettlingen à vol d’oiseau pour 7 au profil, et y aller obligeait un aller-retour — le lieu exact du passage (sud ou est de la ville) n’est pas connu, non placé"
       },
       {
        "label": "Grötzingen",
@@ -6670,7 +6673,8 @@
        "lat": 49.00708,
        "lon": 8.49763,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 19,5 km au profil depuis Ettlingen pour 11,2 à vol d’oiseau — passage dans Karlsruhe (km 45), lieu non connu, non placé"
       },
       {
        "label": "Côte de Gondelsheim",
@@ -6822,7 +6826,8 @@
        "lat": 48.84268,
        "lon": 9.23091,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 12 km au profil pour 4,5 à vol d’oiseau depuis Neckarrems : boucle par les hauteurs, villages non imprimés"
       },
       {
        "label": "Côte de Feuerbach",
@@ -6843,19 +6848,22 @@
        "lat": 48.77845,
        "lon": 9.18001,
        "how": "stage_towns",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 20 km au profil pour 8 à vol d’oiseau depuis Mühlhausen : boucle par les côtes de Feuerbach et du Birkenkopf, non placées"
       }
      ],
      "note": "Non repris : 1er au 4e passage du « Schwaben Bräu » (sprints dans la ville), sans commune.",
      "route_check": {
-      "routed_km": 187.5,
+      "routed_km": 182.3,
       "profile_km": 206,
-      "delta_pct": -9,
+      "delta_pct": -11.5,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
-      "legs": 17,
-      "suspect_legs": 4
+      "legs": 16,
+      "suspect_legs": 3,
+      "backtracks": 0,
+      "backtracks_uncertain": 2
      }
     },
     "4": {
@@ -6980,7 +6988,9 @@
       "coverage_pct": 83,
       "car_legs": 0,
       "legs": 7,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      },
      "circuit_km": 72.5,
      "note": "Pforzheim (km 72,5) puis Messplatz (km 79) : la mesure s’arrête à Pforzheim (circuit_km). Le profil n’imprime pas de « circuit » — boucle ou traversée de la ville, non tranché."
@@ -7057,7 +7067,8 @@
        "lat": 48.80582,
        "lon": 8.22184,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 12,5 km au profil pour 7,6 à vol d’oiseau, 18 routés : la route de montagne réelle n’est pas connue, cause non établie ; aller-retour (33.14) : 1,9 km repris après Staufenberg, même cause non établie que l’écart du tronçon"
       },
       {
        "label": "Sinzheim",
@@ -7147,14 +7158,16 @@
      ],
      "length_km": 112.5,
      "route_check": {
-      "routed_km": 113,
+      "routed_km": 113.2,
       "profile_km": 106.5,
-      "delta_pct": 6.1,
+      "delta_pct": 6.3,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
       "legs": 10,
-      "suspect_legs": 1
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 1
      }
     },
     "6": {
@@ -7441,14 +7454,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 155.1,
+      "routed_km": 155,
       "profile_km": 164.5,
-      "delta_pct": -5.7,
+      "delta_pct": -5.8,
       "tolerance_pct": 5,
       "coverage_pct": 97,
-      "car_legs": 1,
+      "car_legs": 0,
       "legs": 27,
-      "suspect_legs": 1
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      },
      "note": "Le Champ du Feu (entre le Col du Kreuzweg, km 53,5, et Rothau, km 80) n’a pas de km imprimé : non placé, la mesure route donc Kreuzweg → Rothau au plus court et sous-estime l’étape."
     },
@@ -7525,7 +7540,8 @@
        "lat": 48.1805,
        "lon": 5.89463,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 3,2 km au profil (41,8 → 45, relus sur l’agrandissement) pour 4,2 à vol d’oiseau : profil contradictoire, laissé tel quel"
       },
       {
        "label": "Bulgnéville",
@@ -7784,7 +7800,9 @@
       "coverage_pct": 98,
       "car_legs": 0,
       "legs": 31,
-      "suspect_legs": 1
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "8": {
@@ -7803,10 +7821,11 @@
        "label": "Grange-l'Évêque",
        "km": 6,
        "kind": "lieu-dit",
-       "lat": 48.30632,
-       "lon": 4.02377,
+       "lat": 48.32326,
+       "lon": 3.94273,
        "how": "nominatim",
-       "confidence": "ambigu"
+       "confidence": "ok",
+       "note": "hameau de Grange-l’Évêque à Saint-Lyé/Macey (Nominatim) : l’homonyme de La Chapelle-Saint-Luc, 3,9 km de Troyes, laissait 19 km à vol d’oiseau jusqu’à Mesnil-Saint-Loup pour 17 au profil"
       },
       {
        "label": "Dierrey-Saint-Pierre",
@@ -7872,10 +7891,8 @@
        "label": "Soligny-les-Étangs",
        "km": 50,
        "kind": "ville",
-       "lat": 48.40669,
-       "lon": 3.51052,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "non-place",
+       "note": "le « 50 » sous le libellé est vraisemblablement la graduation (même rangée que 30, 60, 70, 80) : aucun km sûr, non placé — à 48 → 50 il laissait 2 km au profil pour 4,2 à vol d’oiseau depuis Trancault"
       },
       {
        "label": "Traînel",
@@ -8044,7 +8061,8 @@
        "lat": 48.62997,
        "lon": 2.43818,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 6 km au profil pour 6,7 à vol d’oiseau : centre de commune, profil plus court que la ligne droite, laissé tel quel ; aller-retour (33.14) : le routeur repasse par Mennecy (2,7 km repris) ; le profil (6 km) suppose vraisemblablement la route directe par Lisses"
       },
       {
        "label": "Croix-de-Villeroy",
@@ -8077,19 +8095,22 @@
        "lat": 48.6953,
        "lon": 2.51591,
        "how": "stage_towns",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "aller-retour (33.14) : traversée de Yerres : le routeur entre au centre et ressort par la même route (1,3 km)"
       }
      ],
      "length_km": 206.5,
      "route_check": {
-      "routed_km": 211.9,
+      "routed_km": 204.9,
       "profile_km": 200.5,
-      "delta_pct": 5.7,
+      "delta_pct": 2.2,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 28,
-      "suspect_legs": 3
+      "legs": 27,
+      "suspect_legs": 1,
+      "backtracks": 1,
+      "backtracks_uncertain": 0
      }
     },
     "9": {
@@ -8192,10 +8213,11 @@
        "label": "Troo",
        "km": 96,
        "kind": "ville",
-       "lat": 47.79245,
-       "lon": 0.77865,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 47.77752,
+       "lon": 0.79288,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "village de Troo placé à son église Saint-Martin (Nominatim) : le point de la commune était 2 km au nord, hors de la route (aller-retour signalé)"
       },
       {
        "label": "Pont-de-Braye",
@@ -8222,7 +8244,8 @@
        "lat": 47.74164,
        "lon": 0.51491,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "aller-retour (33.14) : le routeur entre au centre de La Chartre-sur-le-Loir et ressort par la même rue (1 km), artefact de la traversée"
       },
       {
        "label": "Marigné-Laillé",
@@ -8370,14 +8393,16 @@
      ],
      "note": "Non repris : Plessis-l’Échelle, au même km (44) que Saint-Léonard-en-Beauce.",
      "route_check": {
-      "routed_km": 258,
+      "routed_km": 254.3,
       "profile_km": 254.5,
-      "delta_pct": 1.4,
+      "delta_pct": -0.1,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
       "legs": 24,
-      "suspect_legs": 1
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "10": {
@@ -8540,7 +8565,9 @@
       "coverage_pct": 91,
       "car_legs": 0,
       "legs": 12,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "11": {
@@ -8838,11 +8865,8 @@
        "label": "Chaumeil (village)",
        "km": 241.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Chaumeil",
-       "lat": 45.45417,
-       "lon": 1.88138,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "non-place",
+       "note": "colonne « Chaumeil » à 530 m au profil (km 241,5), alors que le bourg de Chaumeil est vers 630 m (MNT, relecture) : le lieu de ce passage n’est pas identifié, non placé ; l’arrivée (660 m) suit 13,5 km plus loin"
       },
       {
        "label": "Chaumeil",
@@ -8851,7 +8875,8 @@
        "lat": 45.45417,
        "lon": 1.88138,
        "how": "stage_towns",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 19,5 km au profil depuis Saint-Augustin pour 4,8 à vol d’oiseau — passage à 530 m non identifié puis montée finale, tracé non transcrit"
       }
      ],
      "length_km": 255,
@@ -8864,7 +8889,9 @@
       "coverage_pct": 98,
       "car_legs": 0,
       "legs": 26,
-      "suspect_legs": 1
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "12": {
@@ -8908,10 +8935,11 @@
        "km": 29.5,
        "kind": "ville",
        "geocodeAs": "Salignac-Eyvigues",
-       "lat": 44.95212,
-       "lon": 1.36219,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 44.97297,
+       "lon": 1.32417,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "village de Salignac placé à son église Saint-Julien (Nominatim) : le point de la commune fusionnée Salignac-Eyvigues était 3,8 km au sud-est, vers Eyvigues, et obligeait un aller-retour de 5 km"
       },
       {
        "label": "Sarlat",
@@ -8937,10 +8965,11 @@
        "km": 64,
        "kind": "ville",
        "geocodeAs": "Beynac-et-Cazenac",
-       "lat": 44.85903,
-       "lon": 1.12892,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 44.84006,
+       "lon": 1.14466,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "village de Beynac placé à son église Notre-Dame (Nominatim), au bord de la Dordogne : le point de la commune était 2,5 km au nord, vers Cazenac, et obligeait deux allers-retours ; aller-retour (33.14) : avec le repli voiture (OSRM) seulement, le routeur entre dans La Roque-Gageac et en ressort (2,4 km) ; pas en vélo (BRouter)"
       },
       {
        "label": "Saint-Cyprien",
@@ -9176,16 +9205,18 @@
       }
      ],
      "circuit_km": 224.5,
-     "note": "Arrivée sur un circuit dans Bordeaux, entrée au km 224,5 (circuit_km).",
+     "note": "Arrivée sur un circuit dans Bordeaux, entrée au km 224,5 (circuit_km). Profil plus court que la route sur quatre tronçons (Larche → Chavagnac, Lalinde → Saint-Capraise, Bergerac → Lamonzie → Gardonne : 1 à 1,5 km de moins que la ligne droite) : km relus sur l’agrandissement, laissés tels quels — l’écart de l’étape vient du profil, pas de la transcription.",
      "route_check": {
-      "routed_km": 238.1,
+      "routed_km": 226.4,
       "profile_km": 209.5,
-      "delta_pct": 13.7,
+      "delta_pct": 8.1,
       "tolerance_pct": 5,
       "coverage_pct": 92,
       "car_legs": 0,
       "legs": 26,
-      "suspect_legs": 5
+      "suspect_legs": 4,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "13": {
@@ -9235,7 +9266,8 @@
        "lat": 43.16295,
        "lon": -1.23805,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "aller-retour (33.14) : bourg d’Ossès à l’écart de la route de la vallée : le routeur y entre et en ressort (1,2 km)"
       },
       {
        "label": "Saint-Jean-le-Vieux",
@@ -9321,7 +9353,11 @@
        "label": "Col de Soudet",
        "km": 125,
        "kind": "col",
-       "confidence": "non-place"
+       "confidence": "ok",
+       "lat": 42.98735,
+       "lon": -0.75553,
+       "how": "nominatim",
+       "note": "placé au panneau « Col de Soudet » sur la D113 (OSM, information=guidepost) : seul objet OSM nommé exactement « Col de Soudet », à 90 m du lieu-dit « Col du Soudet » ; non placé, il laissait le routeur revenir sur ses pas depuis Sainte-Engrâce (aller-retour incertain de 11 km)"
       },
       {
        "label": "Arette",
@@ -9440,14 +9476,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 189,
+      "routed_km": 189.5,
       "profile_km": 190,
-      "delta_pct": -0.5,
+      "delta_pct": -0.3,
       "tolerance_pct": 5,
       "coverage_pct": 87,
       "car_legs": 0,
-      "legs": 21,
-      "suspect_legs": 0
+      "legs": 22,
+      "suspect_legs": 0,
+      "backtracks": 1,
+      "backtracks_uncertain": 0
      }
     },
     "14": {
@@ -9502,10 +9540,11 @@
        "label": "Asasp-Arros",
        "km": 38,
        "kind": "ville",
-       "lat": 43.1226,
-       "lon": -0.61453,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 43.14495,
+       "lon": -0.60092,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "passage au hameau d’Arros (Nominatim), au nord de la commune : 1,5 km de Gurmençon au profil, le bourg d’Asasp en est à près de 4 km"
       },
       {
        "label": "Escot",
@@ -9658,7 +9697,9 @@
       "coverage_pct": 80,
       "car_legs": 0,
       "legs": 16,
-      "suspect_legs": 2
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "15": {
@@ -9831,7 +9872,8 @@
        "lat": 43.61847,
        "lon": 1.28497,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 13,5 km au profil (135 → 148,5, relus) pour 4,2 à vol d’oiseau depuis Colomiers : détour réel du profil ; aller-retour (33.14) : 2,3 km repris après Colomiers (routage voiture) : centre de Colomiers à l’écart du détour réel du profil"
       },
       {
        "label": "Cornebarrieu",
@@ -9860,7 +9902,9 @@
       "coverage_pct": 97,
       "car_legs": 0,
       "legs": 13,
-      "suspect_legs": 1
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "16": {
@@ -10037,7 +10081,8 @@
        "lat": 44.10197,
        "lon": 3.09318,
        "how": "stage_towns",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : arrivée au sommet d’une montée de 1re catégorie (835 m d’altitude au profil) à 9 km du passage en ville ; le point d’arrivée, placé en ville, n’est pas l’arrivée réelle, dont la position n’est pas sourcée"
       }
      ],
      "length_km": 216.5,
@@ -10049,7 +10094,9 @@
       "coverage_pct": 97,
       "car_legs": 0,
       "legs": 13,
-      "suspect_legs": 1
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "17": {
@@ -10140,7 +10187,8 @@
        "lat": 44.08118,
        "lon": 3.64213,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "aller-retour (33.14) : sommet du Mont Aigoual (observatoire) sur une route en impasse : 1,4 km repris, le point de passage exact n’est pas établi"
       },
       {
        "label": "Peyregrosse",
@@ -10282,7 +10330,9 @@
       "coverage_pct": 96,
       "car_legs": 0,
       "legs": 18,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 1
      },
      "note": "Non repris : Pont du Gard (≈ km 208, km non imprimé)."
     },
@@ -10353,7 +10403,9 @@
       "coverage_pct": 60,
       "car_legs": 0,
       "legs": 2,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "19": {
@@ -10546,7 +10598,9 @@
       "coverage_pct": 96,
       "car_legs": 0,
       "legs": 14,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "20": {
@@ -10577,7 +10631,8 @@
        "lat": 45.18054,
        "lon": 5.61681,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : village à l’écart de la route du Vercors : le routeur y entre et en ressort (aller-retour signalé), le passage réel est sur la route"
       },
       {
        "label": "Sassenage",
@@ -10652,10 +10707,11 @@
        "label": "Saint-Pierre-d'Entremont",
        "km": 70,
        "kind": "ville",
-       "lat": 45.38302,
-       "lon": 5.84463,
-       "how": "commune-ign",
-       "confidence": "ambigu"
+       "lat": 45.41505,
+       "lon": 5.85399,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "bourg placé à son église Saint-Pierre (Nominatim) : le point de la commune iséroise était 3,6 km au sud, côté Col du Cucheron"
       },
       {
        "label": "Col du Cucheron",
@@ -10691,7 +10747,8 @@
        "lat": 45.30246,
        "lon": 5.83677,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 8,5 km au profil pour 2,6 à vol d’oiseau depuis la Brévardière : montée en lacets"
       },
       {
        "label": "Saint-Nazaire-les-Eymes",
@@ -10706,10 +10763,11 @@
        "label": "Villard-Bonnot",
        "km": 115,
        "kind": "ville",
-       "lat": 45.23847,
-       "lon": 5.88821,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.23408,
+       "lon": 5.88258,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "libellé du profil « Villard-Bonnot-Lancey » : placé au village de Lancey, sur la route (Nominatim) — le centre de la commune obligeait un aller-retour"
       },
       {
        "label": "Domène",
@@ -10784,7 +10842,8 @@
        "lat": 45.06904,
        "lon": 5.87198,
        "how": "nominatim",
-       "confidence": "ambigu"
+       "confidence": "ambigu",
+       "note": "tronçon suspect (33.12) : 20 km au profil depuis Vizille par la côte de Laffrey et Saint-Barthélemy-de-Séchilienne, non routés (rattachés à leur commune)"
       },
       {
        "label": "Livet",
@@ -10835,14 +10894,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 184.9,
+      "routed_km": 184.1,
       "profile_km": 195,
-      "delta_pct": -5.2,
+      "delta_pct": -5.6,
       "tolerance_pct": 5,
       "coverage_pct": 97,
-      "car_legs": 5,
+      "car_legs": 0,
       "legs": 25,
-      "suspect_legs": 4
+      "suspect_legs": 2,
+      "backtracks": 1,
+      "backtracks_uncertain": 0
      }
     },
     "21": {
@@ -10927,7 +10988,8 @@
        "lat": 45.27755,
        "lon": 6.34517,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 11 km au profil (80,5 → 91,5) pour 11,8 à vol d’oiseau entre les églises : profil légèrement court, laissé tel quel"
       },
       {
        "label": "La Chambre",
@@ -11005,10 +11067,11 @@
        "label": "Aime",
        "km": 167,
        "kind": "ville",
-       "lat": 45.55559,
-       "lon": 6.62298,
+       "lat": 45.55719,
+       "lon": 6.65218,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "village d’Aime (nœud place=village, Nominatim, même point qu’au départ de 1987/22) : le point retenu était la limite historique de l’ancienne commune, 2,3 km à l’ouest"
       },
       {
        "label": "Mâcot",
@@ -11032,14 +11095,16 @@
      ],
      "length_km": 185.5,
      "route_check": {
-      "routed_km": 189.1,
+      "routed_km": 185.4,
       "profile_km": 174.5,
-      "delta_pct": 8.4,
+      "delta_pct": 6.3,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
       "legs": 18,
-      "suspect_legs": 1
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "22": {
@@ -11121,10 +11186,11 @@
        "label": "La Giettaz",
        "km": 89.5,
        "kind": "ville",
-       "lat": 45.87724,
-       "lon": 6.51982,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.8624,
+       "lon": 6.49525,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "village placé à son église Saint-Pierre-aux-Liens (Nominatim) : le point de la commune était 2,5 km au nord-est"
       },
       {
        "label": "Col des Aravis",
@@ -11252,14 +11318,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 177.7,
+      "routed_km": 173.3,
       "profile_km": 174,
-      "delta_pct": 2.1,
+      "delta_pct": -0.4,
       "tolerance_pct": 5,
       "coverage_pct": 94,
-      "car_legs": 0,
+      "car_legs": 8,
       "legs": 19,
-      "suspect_legs": 1
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "23": {
@@ -11502,7 +11570,8 @@
        "lat": 46.9634,
        "lon": 5.40694,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "aller-retour (33.14) : traversée des Essards : 1,5 km repris (routage voiture)"
       },
       {
        "label": "Peseux",
@@ -11580,14 +11649,16 @@
      ],
      "length_km": 224.5,
      "route_check": {
-      "routed_km": 230.2,
+      "routed_km": 230.7,
       "profile_km": 219,
-      "delta_pct": 5.1,
+      "delta_pct": 5.4,
       "tolerance_pct": 5,
       "coverage_pct": 98,
-      "car_legs": 0,
+      "car_legs": 2,
       "legs": 29,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "24": {
@@ -11644,7 +11715,8 @@
        "lat": 47.39027,
        "lon": 4.93976,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 17 km au profil depuis Messigny par Sainte-Foy et le Val-Suzon, non routés"
       },
       {
        "label": "Hauteville-lès-Dijon",
@@ -11671,7 +11743,8 @@
        "lat": 47.32158,
        "lon": 5.04147,
        "how": "stage_towns",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : arrivée placée au centre de Dijon : 4 km d’Ahuy au profil pour 5,7 à vol d’oiseau, l’arrivée réelle est vraisemblablement au nord du centre"
       }
      ],
      "route_check": {
@@ -11682,7 +11755,9 @@
       "coverage_pct": 80,
       "car_legs": 0,
       "legs": 4,
-      "suspect_legs": 2
+      "suspect_legs": 2,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "25": {
@@ -11916,14 +11991,16 @@
      ],
      "circuit_km": 150.5,
      "route_check": {
-      "routed_km": 144.6,
+      "routed_km": 146.6,
       "profile_km": 145.5,
-      "delta_pct": -0.6,
+      "delta_pct": 0.8,
       "tolerance_pct": 5,
       "coverage_pct": 76,
-      "car_legs": 0,
+      "car_legs": 3,
       "legs": 17,
-      "suspect_legs": 2
+      "suspect_legs": 2,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     }
    }
