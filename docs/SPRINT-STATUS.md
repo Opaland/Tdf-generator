@@ -973,6 +973,25 @@ et côtes traversées avec leur kilomètre.
     toutes trop courtes, ont une note d'étape. 15 tronçons suspects, 0
     aller-retour sûr et 3 incertains, tous notés ; aucun tronçon routé
     en voiture.
+  - 1987 repris (33.12, règles 14, 18 et 21 appliquées après coup, le
+    premier tri de 1987 les précédait). Placés (recherche bornée,
+    altitudes au MNT, contrôlées à l'altitude imprimée) : 36 lieux-dits,
+    villages, cols et côtes jusqu'ici rattachés ou non placés, dont les
+    côtes allemandes de 1987/3 à 1987/5 (Völkersbach, Kleingartach,
+    Birkenkopf, Dennach, Ebersteinburg — 1987/5 de +6,3 % à −0,5 %),
+    Laffrey à sa mairie (1987/20 de −5,6 % à −1,6 %), le Col d'Haltza,
+    Sainte-Colombe et Les Bruns (Ventoux), le Chalet de Chalimont, et
+    quatre côtes de 1987/15 dont le point stocké était déjà à l'altitude
+    du sommet (règle 14 : mesurer au point stocké). Refus notés :
+    Birkenfeld, Loffenau, Confolens et le Col de Chalimont (tronçon
+    suspect créé), Vouglans (aller-retour, 118 m sous le sommet),
+    Oberstenfeld (au pied). Tous les points non routés ont une note.
+    Bilan : 17 étapes contrôlables sur 24 dans la tolérance (13 avant) ;
+    1987/24 passe de −15,6 % à +11,6 % une fois Sainte-Foy et
+    Val-Suzon-Bas placés (noté) ; les hors-tolérance ont une note
+    d'étape. 18 tronçons suspects (22 avant), notés avec leur contre-test
+    voiture ; 4 allers-retours sûrs et 2 incertains (4 avant), notés ;
+    aucun tronçon routé en voiture.
   - 1987 trié (32 tronçons suspects stockés avant le tri, 10
     allers-retours sûrs au premier passage 33.14) : 10 erreurs de
     position corrigées — Troo (2 km), Asasp-Arros (hameau d'Arros),
