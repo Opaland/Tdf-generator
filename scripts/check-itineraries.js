@@ -10,10 +10,12 @@
 // --legs : pour chaque étape, liste les tronçons suspects (isSuspectLeg) et
 // les allers-retours (isBacktrack).
 // --write : enregistre route_check {routed_km, profile_km, delta_pct,
-// tolerance_pct, coverage_pct, car_legs, legs, suspect_legs, backtracks}
-// dans pipeline/data/stage_itineraries.json —
-// affiché par la recherche par lieu, jamais masqué (décision du 18/10/2026 :
-// mesurer et afficher, corriger les vraies erreurs une à une).
+// tolerance_pct, coverage_pct, car_legs, legs, suspect_legs, backtracks,
+// backtracks_uncertain} dans pipeline/data/stage_itineraries.json — l'écart
+// est affiché par la recherche par lieu, jamais masqué (décision du
+// 18/10/2026 : mesurer et afficher, corriger les vraies erreurs une à une) ;
+// les décomptes de tronçons suspects et d'allers-retours restent dans le
+// fichier, pour la curation.
 
 const fs = require('fs');
 const path = require('path');
@@ -67,20 +69,25 @@ async function checkStage(towns, legRouter, totalKm) {
   // départ (zone neutralisée : 1992/14, km 0 « Sestrières » mais Montgenèvre
   // au km 7,5, soit Cesana ; 1992/10, Hesperange). Le premier tronçon n'est
   // donc pas mesurable — même raison que START_SLACK_M au géocodage.
-  const pts = routablePoints(towns).filter((p, i) => !(i === 0 && p.km === 0));
+  const { points, segments } = buildItinerary(towns);
+  const pts = points.filter((p, i) => !(i === 0 && p.km === 0));
+  // Points atteints sans sauter de point retiré (même règle que les segments
+  // tracés) : un tronçon qui en saute un n'est pas la vraie route.
+  const contiguous = new Set(segments.map(([, b]) => b));
   if (pts.length < 2 || !Number.isFinite(totalKm) || !(totalKm > 0)) return null;
   const profileKm = pts[pts.length - 1].km - pts[0].km;
   if (!(profileKm > 0) || profileKm < totalKm * 0.5) return null;
-  const r = await measure(pts, profileKm, legRouter);
+  const r = await measure(pts, profileKm, legRouter, contiguous);
   // Part de l'étape réellement contrôlée : publiée avec l'écart, pour qu'une
   // mesure sur 60 % du parcours ne se lise jamais comme celle de l'étape.
   return { ...r, coveragePct: Math.min(100, Math.round((profileKm / totalKm) * 100)) };
 }
 
-async function measure(pts, profileKm, legRouter) {
+async function measure(pts, profileKm, legRouter, contiguous = null) {
   const legs = [];
   let routedM = 0;
   let prevPts = null;
+  let prevContig = true;
   for (let i = 1; i < pts.length; i++) {
     const r = await legRouter(pts[i - 1], pts[i]);
     const m = typeof r === 'number' ? r : r.distanceM;
@@ -88,6 +95,11 @@ async function measure(pts, profileKm, legRouter) {
     routedM += m;
     legs.push({ from: pts[i - 1].label, to: pts[i].label, profileKm: round1(pts[i].km - pts[i - 1].km), routedKm: m / 1000, crowKm: haversine(pts[i - 1], pts[i]) / 1000, router: typeof r === 'number' ? null : r.router,
       retracedKm: retracedKm(prevPts, geom) });
+    // Aller-retour incertain si l'un des deux tronçons comparés saute un
+    // point retiré : le routeur ne suit pas la vraie route (relecture 33.14).
+    const contig = !contiguous || contiguous.has(pts[i]);
+    legs[legs.length - 1].skipsPoint = !(contig && prevContig);
+    prevContig = contig;
     prevPts = geom;
   }
   const routedKm = routedM / 1000;
@@ -97,7 +109,7 @@ async function measure(pts, profileKm, legRouter) {
   // la mesure en dépend, elle se publie avec elle.
   const carLegs = legs.filter((l) => l.router === 'osrm').length;
   return { routedKm, profileKm, deltaPct, ok: Math.abs(deltaPct) <= DIST_TOLERANCE_PCT, legs, carLegs, suspectLegs: legs.filter(isSuspectLeg).length,
-    backtracks: legs.filter(isBacktrack).length };
+    backtracks: legs.filter(isBacktrack).length, uncertainBacktracks: legs.filter(isUncertainBacktrack).length };
 }
 
 /** Distance (m) d'un point à une polyligne, projection locale équirectangulaire. */
@@ -136,14 +148,26 @@ function retracedKm(inPts, outPts, tolM = BACKTRACK_TOL_M) {
   const pad = tolM / 100000;
   const lat0 = Math.min(...inPts.map((p) => p.lat)) - pad, lat1 = Math.max(...inPts.map((p) => p.lat)) + pad;
   const lon0 = Math.min(...inPts.map((p) => p.lon)) - pad * 2, lon1 = Math.max(...inPts.map((p) => p.lon)) + pad * 2;
-  const onIn = outPts.map((p) => p.lat >= lat0 && p.lat <= lat1 && p.lon >= lon0 && p.lon <= lon1 && distToPolylineM(p, inPts) <= tolM);
+  const near = (p) => p.lat >= lat0 && p.lat <= lat1 && p.lon >= lon0 && p.lon <= lon1 && distToPolylineM(p, inPts) <= tolM;
+  const onIn = outPts.map(near);
   let m = 0;
-  for (let i = 1; i < outPts.length; i++) if (onIn[i] && onIn[i - 1]) m += haversine(outPts[i - 1], outPts[i]);
-  return round1(m / 1000);
+  for (let i = 1; i < outPts.length; i++) {
+    // Milieu aussi sur la route : un segment long qui coupe en corde entre
+    // deux points du tracé entrant ne reprend aucune route (relecture 33.14).
+    const a = outPts[i - 1], b = outPts[i];
+    if (onIn[i] && onIn[i - 1] && near({ lat: (a.lat + b.lat) / 2, lon: (a.lon + b.lon) / 2 })) m += haversine(a, b);
+  }
+  return m / 1000; // non arrondi : le seuil porte sur la valeur exacte
 }
 
 function isBacktrack(l) {
-  return l.retracedKm >= BACKTRACK_MIN_KM;
+  return l.retracedKm >= BACKTRACK_MIN_KM && !l.skipsPoint;
+}
+
+/** Aller-retour mesuré sur un tronçon qui saute un point retiré : signalé à
+ * part, jamais compté comme certain (CLAUDE.md, règle 12). */
+function isUncertainBacktrack(l) {
+  return l.retracedKm >= BACKTRACK_MIN_KM && !!l.skipsPoint;
 }
 
 /**
@@ -206,10 +230,13 @@ async function main() {
         for (const l of r.legs.filter(isBacktrack)) {
           console.log(`    aller-retour à ${l.from} : ${l.retracedKm.toFixed(1)} km repris en sens inverse vers ${l.to} (${l.router || '?'})`);
         }
+        for (const l of r.legs.filter(isUncertainBacktrack)) {
+          console.log(`    aller-retour incertain à ${l.from} (point non placé sauté) : ${l.retracedKm.toFixed(1)} km repris vers ${l.to} (${l.router || '?'})`);
+        }
       }
       if (write) {
         st.route_check = { routed_km: round1(r.routedKm), profile_km: r.profileKm, delta_pct: r.deltaPct,
-          tolerance_pct: DIST_TOLERANCE_PCT, coverage_pct: r.coveragePct, car_legs: r.carLegs, legs: r.legs.length, suspect_legs: r.suspectLegs, backtracks: r.backtracks };
+          tolerance_pct: DIST_TOLERANCE_PCT, coverage_pct: r.coveragePct, car_legs: r.carLegs, legs: r.legs.length, suspect_legs: r.suspectLegs, backtracks: r.backtracks, backtracks_uncertain: r.uncertainBacktracks };
       }
     }
   }
@@ -218,4 +245,4 @@ async function main() {
 
 if (require.main === module) main().catch((err) => { console.error(err); process.exit(1); });
 
-module.exports = { checkStage, checkStoredStage, routablePoints, officialKm, measuredTowns, isSuspectLeg, isBacktrack, retracedKm };
+module.exports = { checkStage, checkStoredStage, routablePoints, officialKm, measuredTowns, isSuspectLeg, isBacktrack, isUncertainBacktrack, retracedKm };
