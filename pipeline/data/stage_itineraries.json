@@ -41007,7 +41007,8 @@
        "lat": 51.65909,
        "lon": 5.61486,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 11 km au profil depuis Veghel pour 7 à vol d’oiseau : détour sans nom imprimé"
       },
       {
        "label": "Boekel",
@@ -41034,7 +41035,8 @@
        "lat": 51.4791,
        "lon": 5.65577,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 21 km au profil depuis Gemert pour 9,1 à vol d’oiseau : détour sans nom imprimé"
       },
       {
        "label": "Eindhoven",
@@ -41043,7 +41045,8 @@
        "lat": 51.44856,
        "lon": 5.45012,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 13,5 km au profil depuis Helmond pour 14,6 à vol d’oiseau entre les centres : profil plus court que la ligne droite, laissé tel quel"
       },
       {
        "label": "Nuenen",
@@ -41070,7 +41073,8 @@
        "lat": 51.58831,
        "lon": 5.32478,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 9 km au profil depuis Liempde pour 3,8 à vol d’oiseau : détour sans nom imprimé"
       },
       {
        "label": "'s-Hertogenbosch (1er passage)",
@@ -41108,16 +41112,19 @@
       }
      ],
      "route_check": {
-      "routed_km": 104.3,
+      "routed_km": 104.2,
       "profile_km": 125.5,
-      "delta_pct": -16.9,
+      "delta_pct": -17,
       "tolerance_pct": 5,
       "coverage_pct": 60,
       "car_legs": 0,
       "legs": 10,
-      "suspect_legs": 4
+      "suspect_legs": 4,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      },
-     "circuit_km": 134
+     "circuit_km": 134,
+     "note": "Hors tolérance (−17,0 %) sur 60 % de l’étape (Kronenburg non placé, circuit final de ’s-Hertogenbosch) : détours sans nom imprimé (Gemert → Helmond, Liempde → Boxtel)."
     },
     "2": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1996/96_2a.jpg",
@@ -41219,7 +41226,8 @@
        "lat": 51.16467,
        "lon": 4.13951,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 17 km au profil depuis Beveren pour 9,8 à vol d’oiseau : détour sans nom imprimé"
       },
       {
        "label": "Gand",
@@ -41235,7 +41243,8 @@
        "lat": 50.98419,
        "lon": 3.52704,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 45 km au profil depuis Sint-Niklaas par Gand (non placé) pour 47,3 à vol d’oiseau : profil plus court que la ligne droite, laissé tel quel"
       },
       {
        "label": "Zulte",
@@ -41301,7 +41310,8 @@
        "lat": 50.69159,
        "lon": 3.17417,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 8,5 km au profil depuis Dottignies pour 10 à vol d’oiseau : profil plus court que la ligne droite, laissé tel quel"
       },
       {
        "label": "Wasquehal",
@@ -41310,7 +41320,8 @@
        "lat": 50.66916,
        "lon": 3.13124,
        "how": "stage_towns",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 13,5 km au profil depuis Roubaix pour 3,9 à vol d’oiseau : boucle d’arrivée vraisemblable, non transcrite"
       }
      ],
      "route_check": {
@@ -41321,7 +41332,9 @@
       "coverage_pct": 93,
       "car_legs": 0,
       "legs": 16,
-      "suspect_legs": 4
+      "suspect_legs": 4,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "3": {
@@ -41371,6 +41384,16 @@
        "lon": 3.08046,
        "how": "commune-ign",
        "confidence": "ok"
+      },
+      {
+       "label": "Lécluse",
+       "km": 54,
+       "kind": "ville",
+       "lat": 50.27835,
+       "lon": 3.03809,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "« L’Écluse », 40 m : commune de Lécluse, placée à sa mairie (Nominatim) ; imprimé sur le profil mais omis à la transcription — ajouté en tri (33.12, règle 18)"
       },
       {
        "label": "Bullecourt",
@@ -41480,8 +41503,10 @@
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 13,
-      "suspect_legs": 0
+      "legs": 14,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "4": {
@@ -41509,11 +41534,11 @@
        "label": "Nesles",
        "km": 29,
        "kind": "lieu-dit",
-       "geocodeAs": "Seringes-et-Nesles",
-       "lat": 49.20441,
-       "lon": 3.54513,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 49.20412,
+       "lon": 3.56909,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "château de Nesles sur la D2, à Nesles-en-Dôle (Nominatim) ; était rattaché à sa commune, donc non routé — placé (règle 21)"
       },
       {
        "label": "Goussancourt (près de)",
@@ -41584,10 +41609,11 @@
        "label": "Livry-Louvercy",
        "km": 100,
        "kind": "ville",
-       "lat": 49.10289,
-       "lon": 4.30142,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 49.11454,
+       "lon": 4.30762,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "village de Livry (Nominatim) : le point de la commune Livry-Louvercy, entre ses deux villages, obligeait un aller-retour de 1,4 km (règle 15) — Louvercy donne la même mesure à 0,5 % près"
       },
       {
        "label": "Cuperly",
@@ -41652,18 +41678,21 @@
        "lat": 48.91701,
        "lon": 5.7495,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "laissé rattaché : Nominatim ne donne que le plan d’eau, le lieu exact de l’arrivée/du départ n’est pas sourcé"
       }
      ],
      "route_check": {
-      "routed_km": 202.3,
+      "routed_km": 200.3,
       "profile_km": 201,
-      "delta_pct": 0.7,
+      "delta_pct": -0.3,
       "tolerance_pct": 5,
       "coverage_pct": 87,
       "car_legs": 0,
-      "legs": 12,
-      "suspect_legs": 0
+      "legs": 13,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "5": {
@@ -41677,7 +41706,8 @@
        "lat": 48.91701,
        "lon": 5.7495,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "laissé rattaché : Nominatim ne donne que le plan d’eau, le lieu exact de l’arrivée/du départ n’est pas sourcé"
       },
       {
        "label": "Saint-Baussant",
@@ -41863,11 +41893,8 @@
        "label": "Besançon (entrée)",
        "km": 232.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Besançon",
-       "lat": 47.23802,
-       "lon": 6.02436,
-       "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "non-place",
+       "note": "« Besançon (entrée) » imprimé au km 232,5 : lieu exact de l’entrée non sourcé, non placé (était rattaché au centre de Besançon)"
       },
       {
        "label": "Besançon",
@@ -41887,7 +41914,9 @@
       "coverage_pct": 97,
       "car_legs": 0,
       "legs": 18,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "6": {
@@ -42019,17 +42048,18 @@
        "lat": 45.86722,
        "lon": 5.94257,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "aller-retour incertain (33.14) : la côte de Fiolaz, non placée, est sautée"
       },
       {
        "label": "Albens",
        "km": 193,
        "kind": "lieu-dit",
-       "geocodeAs": "Entrelacs",
-       "lat": 45.77854,
-       "lon": 5.92467,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.78703,
+       "lon": 5.94531,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "ancien bourg d’Albens (Nominatim, place=quarter), commune nouvelle Entrelacs (règle 15) ; était rattaché à sa commune, donc non routé — placé (règle 21)"
       },
       {
        "label": "Aix-les-Bains",
@@ -42042,14 +42072,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 197.7,
+      "routed_km": 197.8,
       "profile_km": 195,
-      "delta_pct": 1.4,
+      "delta_pct": 1.5,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
-      "legs": 10,
-      "suspect_legs": 0
+      "legs": 11,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 1
      }
     },
     "7": {
@@ -42185,22 +42217,24 @@
        "label": "Les Arcs",
        "km": 199,
        "kind": "lieu-dit",
-       "geocodeAs": "Arc 1800, Bourg-Saint-Maurice",
        "lat": 45.5734,
        "lon": 6.77879,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "station d’Arc 1800 (Nominatim, place=village) — station d’arrivée retenue à la géocodage, à confirmer ; était rattaché à sa commune, donc non routé — placé (règle 21)"
       }
      ],
      "route_check": {
-      "routed_km": 170.9,
-      "profile_km": 170.5,
-      "delta_pct": 0.2,
+      "routed_km": 184.6,
+      "profile_km": 186.5,
+      "delta_pct": -1,
       "tolerance_pct": 5,
-      "coverage_pct": 85,
+      "coverage_pct": 93,
       "car_legs": 0,
-      "legs": 12,
-      "suspect_legs": 0
+      "legs": 13,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "8": {
@@ -42228,11 +42262,11 @@
        "label": "La Thuile",
        "km": 14.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Sainte-Foy-Tarentaise",
-       "lat": 45.57251,
-       "lon": 6.88518,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.57267,
+       "lon": 6.88557,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "hameau de Sainte-Foy-Tarentaise (Nominatim) ; était rattaché à sa commune, donc non routé — placé (règle 21)"
       },
       {
        "label": "Val-d'Isère",
@@ -42251,8 +42285,10 @@
       "tolerance_pct": 5,
       "coverage_pct": 62,
       "car_legs": 0,
-      "legs": 1,
-      "suspect_legs": 0
+      "legs": 2,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "10": {
@@ -42269,6 +42305,16 @@
        "confidence": "ok"
       },
       {
+       "label": "Ferriera",
+       "km": 19,
+       "kind": "lieu-dit",
+       "lat": 45.08232,
+       "lon": 7.43012,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "390 m : hameau de Buttigliera Alta (Nominatim) ; imprimé sur le profil mais omis à la transcription — ajouté en tri (33.12, règle 18)"
+      },
+      {
        "label": "Chiusa di San Michele",
        "km": 29,
        "kind": "ville",
@@ -42276,6 +42322,16 @@
        "lon": 7.32697,
        "how": "nominatim",
        "confidence": "ok"
+      },
+      {
+       "label": "Vernetto",
+       "km": 41.5,
+       "kind": "lieu-dit",
+       "lat": 45.13669,
+       "lon": 7.16583,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "495 m : hameau de Chianocco (Nominatim) ; imprimé sur le profil mais omis à la transcription — ajouté en tri (33.12, règle 18)"
       },
       {
        "label": "Suse",
@@ -42395,14 +42451,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 179,
-      "profile_km": 179.5,
-      "delta_pct": -0.3,
+      "routed_km": 188.5,
+      "profile_km": 189.5,
+      "delta_pct": -0.5,
       "tolerance_pct": 5,
-      "coverage_pct": 86,
+      "coverage_pct": 91,
       "car_legs": 0,
-      "legs": 12,
-      "suspect_legs": 0
+      "legs": 14,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "11": {
@@ -42514,7 +42572,8 @@
        "lat": 44.91134,
        "lon": 5.19283,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "aller-retour incertain (33.14) : la Montagne de Malatra, non placée, est sautée"
       },
       {
        "label": "Col des Limouches",
@@ -42524,6 +42583,13 @@
        "lon": 5.15851,
        "how": "nominatim",
        "confidence": "ok"
+      },
+      {
+       "label": "Valence (entrée)",
+       "km": 197.5,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "110 m ; lieu exact de l’entrée non sourcé, non placé ; imprimé sur le profil mais omis à la transcription — ajouté en tri (33.12, règle 18)"
       },
       {
        "label": "Valence",
@@ -42543,7 +42609,9 @@
       "coverage_pct": 97,
       "car_legs": 0,
       "legs": 10,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 1
      }
     },
     "12": {
@@ -42688,7 +42756,9 @@
       "coverage_pct": 90,
       "car_legs": 0,
       "legs": 10,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "13": {
@@ -42811,7 +42881,8 @@
        "lat": 45.50466,
        "lon": 2.92087,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 22,5 km au profil depuis Saurier par la côte de Saint-Anastaise, rattachée à sa commune donc non routée"
       },
       {
        "label": "Côte du Faux",
@@ -42847,8 +42918,11 @@
       "coverage_pct": 94,
       "car_legs": 0,
       "legs": 11,
-      "suspect_legs": 1
-     }
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     },
+     "note": "Hors tolérance (−5,7 %) : la côte de Saint-Anastaise, rattachée à sa commune, n’est pas routée (Saurier → Besse, 22,5 km au profil pour 14,3 routés)."
     },
     "14": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1996/96_14a.jpg",
@@ -42867,11 +42941,11 @@
        "label": "Lac Chambon",
        "km": 11,
        "kind": "lieu-dit",
-       "geocodeAs": "Chambon-sur-Lac",
-       "lat": 45.56892,
-       "lon": 2.89729,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.5737,
+       "lon": 2.92093,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "hameau du Lac Chambon (Nominatim) ; était rattaché à sa commune, donc non routé — placé (règle 21)"
       },
       {
        "label": "Col de la Croix-Morand",
@@ -42910,11 +42984,11 @@
        "label": "Veillac",
        "km": 71,
        "kind": "lieu-dit",
-       "geocodeAs": "Lanobre",
-       "lat": 45.43296,
-       "lon": 2.53743,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.43412,
+       "lon": 2.51302,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "hameau de Lanobre (Nominatim) ; était rattaché à sa commune, donc non routé — placé (règle 21)"
       },
       {
        "label": "Bort-les-Orgues",
@@ -42987,22 +43061,24 @@
        "label": "Tulle (Puy Pinçon)",
        "km": 186.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Tulle",
-       "lat": 45.26718,
-       "lon": 1.76407,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.27545,
+       "lon": 1.79077,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "arrivée au Puy Pinçon (Nominatim, natural=peak) ; était rattaché à sa commune, donc non routé — placé (règle 21)"
       }
      ],
      "route_check": {
-      "routed_km": 153.3,
-      "profile_km": 159,
-      "delta_pct": -3.6,
+      "routed_km": 166.7,
+      "profile_km": 175.5,
+      "delta_pct": -5,
       "tolerance_pct": 5,
-      "coverage_pct": 85,
+      "coverage_pct": 94,
       "car_legs": 0,
-      "legs": 7,
-      "suspect_legs": 0
+      "legs": 10,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "15": {
@@ -43016,6 +43092,16 @@
        "lon": 1.53324,
        "how": "commune-ign",
        "confidence": "ok"
+      },
+      {
+       "label": "Nazareth",
+       "km": 7,
+       "kind": "lieu-dit",
+       "lat": 45.0808,
+       "lon": 1.5594,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "350 m : chapelle Notre-Dame-de-Nazareth à Jugeals-Nazareth (Nominatim) ; imprimé sur le profil mais omis à la transcription — ajouté en tri (33.12, règle 18)"
       },
       {
        "label": "Les Quatre-Routes",
@@ -43060,7 +43146,8 @@
        "lat": 44.73702,
        "lon": 1.38206,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 69 km au profil depuis Les Quatre-Routes par les côtes de Jouhan (non placée), d’Alvignac et de Calès (rattachées), non routées"
       },
       {
        "label": "Salviac",
@@ -43109,15 +43196,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 128.2,
-      "profile_km": 155,
-      "delta_pct": -17.3,
+      "routed_km": 141.4,
+      "profile_km": 169,
+      "delta_pct": -16.3,
       "tolerance_pct": 5,
-      "coverage_pct": 88,
+      "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 6,
-      "suspect_legs": 1
-     }
+      "legs": 7,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     },
+     "note": "Hors tolérance (−16,3 %) : les côtes du Quercy entre Les Quatre-Routes et Gourdon ne sont pas routées (69 km au profil pour 47,6 routés)."
     },
     "16": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1996/96_16a.jpg",
@@ -43262,19 +43352,24 @@
        "label": "Hautacam",
        "km": 199,
        "kind": "lieu-dit",
-       "geocodeAs": "Beaucens",
-       "confidence": "non-place"
+       "confidence": "ok",
+       "lat": 42.97052,
+       "lon": -0.00498,
+       "how": "nominatim",
+       "note": "station de Hautacam (Nominatim, winter_sports), arrivée ; était rattaché à sa commune, donc non routé — placé (règle 21)"
       }
      ],
      "route_check": {
-      "routed_km": 161,
-      "profile_km": 159,
-      "delta_pct": 1.3,
+      "routed_km": 187.4,
+      "profile_km": 188,
+      "delta_pct": -0.3,
       "tolerance_pct": 5,
-      "coverage_pct": 80,
+      "coverage_pct": 94,
       "car_legs": 0,
-      "legs": 12,
-      "suspect_legs": 0
+      "legs": 13,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "17": {
@@ -43366,11 +43461,11 @@
        "label": "Col de Soudet",
        "km": 112.5,
        "kind": "col",
-       "geocodeAs": "Soudet",
-       "lat": 42.98811,
-       "lon": -0.75489,
+       "lat": 42.98735,
+       "lon": -0.75553,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "panneau « Col de Soudet » sur la D113 (OSM), même point qu’en 1987/13 et 1995/16 ; était rattaché à sa commune, donc non routé — placé (règle 21)"
       },
       {
        "label": "Sainte-Engrâce (bourg)",
@@ -43433,7 +43528,8 @@
        "lat": 42.97921,
        "lon": -1.36901,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 6 km au profil depuis l’Alto de Garralda pour 9,1 routés ; le routeur ne suit pas la route directe, cause non établie"
       },
       {
        "label": "Erro",
@@ -43442,7 +43538,8 @@
        "lat": 42.94196,
        "lon": -1.4498,
        "how": "nominatim",
-       "confidence": "ambigu"
+       "confidence": "ambigu",
+       "note": "tronçon suspect (33.12) : 10,5 km au profil depuis Aurizberri-Espinal pour 15,1 routés ; cause non établie"
       },
       {
        "label": "Huarte-Uharte",
@@ -43476,14 +43573,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 260,
+      "routed_km": 260.6,
       "profile_km": 251,
-      "delta_pct": 3.6,
+      "delta_pct": 3.8,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 17,
-      "suspect_legs": 2
+      "legs": 18,
+      "suspect_legs": 2,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "18": {
@@ -43530,8 +43629,11 @@
        "label": "Alto de Ibaneta",
        "km": 43.5,
        "kind": "col",
-       "confidence": "non-place",
-       "geocodeAs": "Alto de Ibañeta"
+       "confidence": "ok",
+       "lat": 43.01972,
+       "lon": -1.324,
+       "how": "nominatim",
+       "note": "col d’Ibañeta / Ibañetako lepoa (Nominatim, mountain_pass) — était non placé (règle 21)"
       },
       {
        "label": "Saint-Jean-Pied-de-Port",
@@ -43540,7 +43642,8 @@
        "lat": 43.16295,
        "lon": -1.23805,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 25,5 km au profil depuis l’Alto de Ibañeta, 41,2 routés en vélo mais 25,9 en voiture (OSRM) — détour du routeur vélo (règle 20) ; l’aller-retour de 8,9 km vers Saint-Étienne-de-Baïgorry en découle"
       },
       {
        "label": "Saint-Étienne-de-Baïgorry",
@@ -43573,7 +43676,11 @@
        "label": "Puerto Otxondo",
        "km": 107.5,
        "kind": "col",
-       "confidence": "non-place"
+       "confidence": "ok",
+       "lat": 43.23706,
+       "lon": -1.49409,
+       "how": "nominatim",
+       "note": "col d’Otxondo (Nominatim, mountain_pass) — était non placé (règle 21)"
       },
       {
        "label": "Ainhoa",
@@ -43582,7 +43689,8 @@
        "lat": 43.30672,
        "lon": -1.49881,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 12 km au profil depuis le Puerto Otxondo ; aller-retour de 3,5 km vers Sare avec le point sur la mairie (règle 17 vérifiée) — traversée du bourg, cause non établie"
       },
       {
        "label": "Sare",
@@ -43632,15 +43740,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 163.4,
+      "routed_km": 150.5,
       "profile_km": 139,
-      "delta_pct": 17.5,
+      "delta_pct": 8.3,
       "tolerance_pct": 5,
       "coverage_pct": 90,
       "car_legs": 0,
-      "legs": 12,
-      "suspect_legs": 1
-     }
+      "legs": 14,
+      "suspect_legs": 1,
+      "backtracks": 1,
+      "backtracks_uncertain": 0
+     },
+     "note": "Hors tolérance (+11,5 %) : BRouter (vélo) fait 41,2 km entre l’Alto de Ibañeta et Saint-Jean-Pied-de-Port, 25,9 en voiture pour 25,5 au profil — l’écart vient du routeur."
     },
     "19": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1996/96_19a.jpg",
@@ -43670,7 +43781,8 @@
        "lat": 43.48325,
        "lon": -1.55928,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 12,5 km au profil depuis Saint-Jean-de-Luz pour 13,6 à vol d’oiseau : profil plus court que la ligne droite, laissé tel quel"
       },
       {
        "label": "Bayonne",
@@ -43766,21 +43878,24 @@
        "label": "Bordeaux",
        "km": 226.5,
        "kind": "ville",
-       "lat": 44.84123,
-       "lon": -0.58004,
-       "how": "stage_towns",
-       "confidence": "ok"
+       "lat": 44.84415,
+       "lon": -0.57047,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "arrivée imprimée « Bordeaux, Quai Louis XVIII », placée sur ce quai (Nominatim) — règle 18 ; tronçon suspect (33.12) : 67,5 km au profil depuis Biscarrosse pour 68,7 à vol d’oiseau : profil plus court que la ligne droite — d’où Mios, Pessac et Talence non placés"
       }
      ],
      "route_check": {
-      "routed_km": 224.5,
+      "routed_km": 225.6,
       "profile_km": 218.5,
-      "delta_pct": 2.7,
+      "delta_pct": 3.2,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
       "legs": 10,
-      "suspect_legs": 1
+      "suspect_legs": 2,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "20": {
@@ -43875,7 +43990,15 @@
        "lat": 44.88023,
        "lon": -0.09397,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "rattachée à son village, donc non routée : Saint-Laurent-des-Combes → Saint-Émilion passe par elle"
+      },
+      {
+       "label": "Saint-Émilion (1er passage)",
+       "km": 57.5,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "« 95m Saint Emilion » imprimé au km 57,5, puis arrivée au km 63,5 : omis à la transcription — ajouté en tri (règle 18) ; début de la boucle finale (circuit_km), lieu exact non sourcé"
       },
       {
        "label": "Saint-Émilion",
@@ -43888,15 +44011,19 @@
       }
      ],
      "route_check": {
-      "routed_km": 50.1,
-      "profile_km": 59,
-      "delta_pct": -15.1,
+      "routed_km": 46.7,
+      "profile_km": 44,
+      "delta_pct": 6.2,
       "tolerance_pct": 5,
-      "coverage_pct": 93,
+      "coverage_pct": 69,
       "car_legs": 0,
-      "legs": 8,
-      "suspect_legs": 1
-     }
+      "legs": 7,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     },
+     "circuit_km": 57.5,
+     "note": "Hors tolérance (+6,2 %) sur la part mesurée, boucle finale de Saint-Émilion retirée : écart réparti (Floirac → Latresne, 7,7 km routés pour 6) ; cause non établie."
     },
     "21": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1996/96_21a.jpg",
@@ -43976,13 +44103,14 @@
        "confidence": "ok"
       },
       {
-       "label": "Versailles",
+       "label": "Versailles-Porchefontaine",
        "km": 67.5,
        "kind": "ville",
-       "lat": 48.80354,
-       "lon": 2.12669,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 48.79501,
+       "lon": 2.15598,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "libellé du profil « Versailles-Porchefontaine » : quartier de Porchefontaine (Nominatim), pas le centre de Versailles — corrigé en tri (33.12)"
       },
       {
        "label": "Issy-les-Moulineaux",
@@ -43992,6 +44120,13 @@
        "lon": 2.27346,
        "how": "commune-ign",
        "confidence": "ok"
+      },
+      {
+       "label": "Paris (entrée)",
+       "km": 80,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "60 m ; lieu exact de l’entrée non sourcé, non placé ; imprimé sur le profil mais omis à la transcription — ajouté en tri (33.12, règle 18)"
       },
       {
        "label": "Champs-Élysées",

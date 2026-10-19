@@ -705,6 +705,28 @@ et côtes traversées avec leur kilomètre.
   réellement contradictoire, laissé tel quel avec une note. Protocole de
   transcription : `--legs` avant chaque PR d'édition, tout tronçon
   suspect justifié.
+  - 1996 trié, premier passage avec les règles 18 et 21 appliquées
+    d'emblée (relecture de tous les profils, tous les rattachements
+    revus). Noms imprimés mais omis : Lécluse (1996/3), Ferriera et
+    Vernetto (1996/10), Valence (entrée) (1996/11, non placée),
+    Nazareth (1996/15), Paris (entrée) (1996/21, non placée), Saint-
+    Émilion (1er passage) (1996/20 — boucle finale déclarée, règle 19).
+    Arrivées et lieux imprimés placés à leur adresse : quai Louis XVIII
+    (Bordeaux), Versailles-Porchefontaine. Lieux-dits rattachés désormais
+    routés (règle 21) : Nesles, Albens (commune nouvelle), Les Arcs, La
+    Thuile, Lac Chambon, Veillac, Puy Pinçon (Tulle), Hautacam, Col de
+    Soudet (même panneau qu'en 1987 et 1995), Alto de Ibañeta, Puerto
+    Otxondo ; Lac de Madine laissé rattaché (seul le plan d'eau est
+    connu). Livry-Louvercy placé au village de Livry (règle 15, l'aller-
+    retour disparaît). Limite du routeur (règle 20) : BRouter fait 41 km
+    entre Ibañeta et Saint-Jean-Pied-de-Port, 25,9 en voiture pour 25,5
+    au profil — 1996/18 à +11,5 %, l'écart vient du routeur. Bilan : 14
+    étapes sur 19 dans la tolérance (14 avant) ; 1996/20 de −15,1 % à
+    +6,2 % (boucle retirée), 1996/18 de +17,5 % à +11,5 %. Les 5 hors
+    tolérance ont une note d'étape. 16 tronçons suspects, 2 allers-
+    retours sûrs (Saint-Jean-Pied-de-Port, artefact du détour BRouter ;
+    Ainhoa, mairie vérifiée) et 2 incertains, tous notés ; aucun tronçon
+    routé en voiture.
   - 1995 trié, sur un passage BRouter. Lieux-dits rattachés à leur
     commune, donc non routés, que Nominatim place (règle 21) : Pont de
     Normandie, Radôme de Pleumeur-Bodou, Trestel, Les Ponts-Neufs, Col
