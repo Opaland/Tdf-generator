@@ -570,7 +570,7 @@ et côtes traversées avec leur kilomètre.
   Côte-des-4-Routes) ; longueurs du profil reprises quand elles diffèrent
   de `stage_towns` (1989/11, 13, 16, 17, 20).
 - [x] Édition 1988 (PR #418) : 22 étapes sur 23 (prologue Pornichet → La Baule,
-  3,8 km, sans profil publié), 400 points placés sur 419 (387 avant le tri 33.12). Contrôlée à
+  3,8 km, sans profil publié), 399 points placés sur 419 (387 avant le tri 33.12). Contrôlée à
   ±5 % avant PR : 18 étapes dans la tolérance, 4 hors, affichées comme
   telles — 1988/6 (+10,7 %, contre-la-montre par équipes : Villeneuve-
   d'Ascq → Croix, 7 km à vol d'oiseau pour 5 km de profil), 1988/18
@@ -712,7 +712,7 @@ et côtes traversées avec leur kilomètre.
     sommet, HTTP 400, à chaque passage). Profils relus nom par nom
     (règle 18) : aucun nom omis hors ceux déjà notés. Placés (règle 21,
     recherche bornée, altitudes au MNT) : Pont de Saint-Nazaire,
-    Marœuil (« Mareuil » imprimé), Klingenthal, Territet, Pont d'Arbon
+    Marœuil (« Mareuil » imprimé), Klingenthal, Pont d’Arbon
     et La Léchère (connus par leur arrêt ou leur gare), Longchamp, Le
     Rivier, Bouilly, La Chaise, Chatâin-Besson, La Grolle, Melin,
     Petit-Auxey (« Auxey-le-Petit »), le boulevard du 14-Juillet à
@@ -724,7 +724,7 @@ et côtes traversées avec leur kilomètre.
     trois allers-retours disparaissent (1988/15 sans tronçon suspect) ;
     Villeneuve-d'Ascq et Versailles à leur hôtel de ville. Refusés,
     notés : Les Agets (homonyme lointain), Le Struthof (730 m au MNT
-    pour 1 030), et dix côtes dont le centre de la commune est au pied
+    pour 1 030), Territet (km contradictoire avec Vevey), et dix côtes dont le centre de la commune est au pied
     (règle 14). Circuits finaux (règle 19) : Le Mans (11,5 km) et
     Bordeaux (8 km). Bilan : 18 étapes sur 22 dans la tolérance (18
     avant) ; les 4 hors tolérance (1988/6, 18, 21, 22) ont une note

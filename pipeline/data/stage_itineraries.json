@@ -14103,17 +14103,14 @@
        "lon": 6.84187,
        "how": "nominatim",
        "confidence": "ok",
-       "note": "Saint-Saphorin → Vevey (3,8 km à vol d’oiseau pour 9 au profil) et Vevey → Territet (7,5 pour 3) : le km 148,5 imprimé pour Vevey est contradictoire avec la géographie, l’ensemble Saint-Saphorin → Territet (12 km) est cohérent — cause non établie (33.12) ; tronçon suspect depuis Saint-Saphorin (33.12) : 4,2 km routés, 3,8 à vol d’oiseau, pour 9 au profil ; en voiture (OSRM) 4,2 km — pas le routeur, cause non établie"
+       "note": "Saint-Saphorin → Vevey (3,8 km à vol d’oiseau pour 9 au profil) et Vevey → Territet (7,5 pour 3) : le km 148,5 imprimé pour Vevey est contradictoire avec la géographie, l’ensemble Saint-Saphorin → Territet (12 km) est cohérent — cause non établie (33.12)"
       },
       {
        "label": "Territet",
        "km": 151.5,
        "kind": "lieu-dit",
-       "confidence": "ok",
-       "lat": 46.4249698,
-       "lon": 6.9246438,
-       "how": "nominatim",
-       "note": "Territet, Montreux (Nominatim ; MNT 407 m pour 380 imprimés), 33.12 ; tronçon suspect depuis Vevey (33.12) : 8,7 km routés, 7,5 à vol d’oiseau, pour 3 au profil ; en voiture (OSRM) 9 km — pas le routeur, cause non établie"
+       "confidence": "non-place",
+       "note": "Territet (Montreux) est connu de Nominatim (407 m au MNT pour 380 imprimés), mais à 7,5 km à vol d’oiseau de Vevey pour 3 au profil : le km imprimé de Vevey ou de Territet est contradictoire (test d’atteignabilité de placeSearch) — non placé (33.12)"
       },
       {
        "label": "Noville",
@@ -14122,7 +14119,8 @@
        "lat": 46.38171,
        "lon": 6.89962,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect depuis Vevey (33.12) : 15 km routés, 9,8 à vol d’oiseau, pour 10 au profil — le km imprimé de Vevey est contradictoire (voir sa note), cause non établie"
       },
       {
        "label": "Muraz",
@@ -14199,13 +14197,13 @@
      ],
      "note": "Non repris : « Les …avins » (km 78), libellé illisible.",
      "route_check": {
-      "routed_km": 212.6,
+      "routed_km": 212.4,
       "profile_km": 211.5,
-      "delta_pct": 0.5,
+      "delta_pct": 0.4,
       "tolerance_pct": 5,
       "coverage_pct": 91,
       "car_legs": 0,
-      "legs": 23,
+      "legs": 22,
       "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 0
