@@ -19632,7 +19632,7 @@
    "stages": {
     "0": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1990/90_0.jpg",
-     "note": "Hors tolérance après tri (33.12) : prologue de 3,9 km entre deux centres (Futuroscope, Jaunay-Clan) ; le tracé exact dans le parc n’est pas sourcé, l’écart de 0,4 km pèse 11 % sur une si courte distance.",
+     "note": "Hors tolérance après tri (33.12) : prologue de 6,3 km, dont seul le tronçon Jaunay-Clan → Futuroscope (3,9 km) est mesuré, entre deux centres ; le tracé exact dans le parc n’est pas sourcé, l’écart de 0,4 km pèse 11 % sur une si courte distance.",
      "towns": [
       {
        "label": "Futuroscope",
@@ -20422,7 +20422,7 @@
        "km": 96.5,
        "kind": "côte",
        "confidence": "non-place",
-       "note": "260 m ; imprimé sur le profil mais omis à la transcription — ajouté en tri (33.12, règle 18) ; introuvable sur Nominatim"
+       "note": "260 m ; imprimé sur le profil mais omis à la transcription — ajouté en tri (33.12, règle 18) ; Nominatim connaît « La Flie » à Liverdun, entre Pompey et Fontenoy (château à 198 m au MNT, lavoir à 241 m, pour 260 imprimés), mais pas le sommet de la côte : non placée (relecture adverse)"
       },
       {
        "label": "Fontenoy-sur-Moselle",
@@ -20652,7 +20652,7 @@
        "lon": 6.36717,
        "how": "commune-ign",
        "confidence": "ok",
-       "note": "côte nommée d’après la commune ; Nominatim ne connaît que la commune, pas le sommet : laissée rattachée, non routée (33.12, règle 21)"
+       "note": "rattachée au centre de Xertigny, 16,2 km à vol d’oiseau d’Épinal pour une côte au km 14 : position incompatible, mais le point rattaché n’est pas routé ; Nominatim connaît une route « Côte d’Amerey » à Xertigny, non vérifiée comme la côte du profil (33.12)"
       },
       {
        "label": "Le Bagnerot",
@@ -20878,7 +20878,7 @@
        "lon": 6.14414,
        "how": "commune-ign",
        "confidence": "ok",
-       "note": "côte nommée d’après la commune ; aucun sommet ni lieu-dit de ce nom trouvé par la recherche bornée autour des voisins : laissée rattachée, non routée (33.12, règle 21)"
+       "note": "rattachée au centre d’Ornans, à 0,4 km du point d’Ornans (km 21) quand le profil met la côte 7,5 km plus loin : ce n’est pas sa position, mais le point rattaché n’est pas routé ; sommet non localisé (33.12)"
       },
       {
        "label": "Bolandoz",
@@ -21559,9 +21559,8 @@
        "label": "Romans",
        "km": 51,
        "kind": "ville",
-       "geocodeAs": "Romans-sur-Isère",
        "confidence": "non-place",
-       "note": "placé à la mairie de Romans-sur-Isère (RGE ALTI 155 m pour 140 imprimés), il crée un tronçon suspect : Saint-Lattier → Romans, 12,7 km à vol d’oiseau pour 9,5 au profil — km imprimé contradictoire, cause non établie ; laissé rattaché (33.12)"
+       "note": "placé à la mairie de Romans-sur-Isère (RGE ALTI 155 m pour 140 imprimés), il crée un tronçon suspect : Saint-Lattier → Romans, 12,7 km à vol d’oiseau pour 9,5 au profil. Sans lui, Saint-Lattier → Saint-Donat fait 20,8 km routés pour 21,5 : la route passe vraisemblablement à l’écart du centre (5,3 km de la mairie) — non placé (33.12)"
       },
       {
        "label": "Saint-Donat-sur-l'Herbasse",
@@ -22388,7 +22387,7 @@
        "km": 120.5,
        "kind": "côte",
        "confidence": "non-place",
-       "note": "Nominatim ne connaît que des rues « Renoir » et un « chemin de Renoir » à Lasseube, pas la côte : non placée (33.12)"
+       "note": "Nominatim ne connaît qu’un « chemin de Renoir » à Lasseubetat (362 m au MNT pour 385 imprimés), une route et non un lieu-dit : choix de ne pas placer la côte sur une route sans sommet identifié (33.12)"
       },
       {
        "label": "Côte de Soust",
@@ -22934,9 +22933,8 @@
        "label": "Côte de Mondeville",
        "km": 23,
        "kind": "côte",
-       "geocodeAs": "Mondeville",
        "confidence": "non-place",
-       "note": "côte nommée d’après la commune ; aucun sommet ni lieu-dit de ce nom trouvé par la recherche bornée autour des voisins : laissée rattachée, non routée (33.12, règle 21)"
+       "note": "côte nommée d’après Mondeville ; aucun sommet ni lieu-dit de ce nom trouvé par la recherche bornée : non placée (33.12)"
       },
       {
        "label": "La Ferté-Alais",
