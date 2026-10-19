@@ -6673,7 +6673,8 @@
        "lat": 49.00708,
        "lon": 8.49763,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 19,5 km au profil depuis Ettlingen pour 11,2 à vol d’oiseau — passage dans Karlsruhe (km 45), lieu non connu, non placé"
       },
       {
        "label": "Côte de Gondelsheim",
@@ -7890,11 +7891,8 @@
        "label": "Soligny-les-Étangs",
        "km": 50,
        "kind": "ville",
-       "lat": 48.40669,
-       "lon": 3.51052,
-       "how": "commune-ign",
-       "confidence": "ok",
-       "note": "tronçon suspect (33.12) : 2 km au profil (48 → 50, relus) pour 4,2 à vol d’oiseau : profil contradictoire, laissé tel quel"
+       "confidence": "non-place",
+       "note": "le « 50 » sous le libellé est vraisemblablement la graduation (même rangée que 30, 60, 70, 80) : aucun km sûr, non placé — à 48 → 50 il laissait 2 km au profil pour 4,2 à vol d’oiseau depuis Trancault"
       },
       {
        "label": "Traînel",
@@ -8109,8 +8107,8 @@
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 28,
-      "suspect_legs": 2,
+      "legs": 27,
+      "suspect_legs": 1,
       "backtracks": 1,
       "backtracks_uncertain": 0
      }
@@ -8867,11 +8865,8 @@
        "label": "Chaumeil (village)",
        "km": 241.5,
        "kind": "lieu-dit",
-       "lat": 45.45629,
-       "lon": 1.88047,
-       "how": "nominatim",
-       "confidence": "ok",
-       "note": "village placé à son église Saint-Jacques (Nominatim), distinct de l’arrivée : le profil passe au village au km 241,5 puis finit au km 255 après une montée"
+       "confidence": "non-place",
+       "note": "colonne « Chaumeil » à 530 m au profil (km 241,5), alors que le bourg de Chaumeil est vers 630 m (MNT, relecture) : le lieu de ce passage n’est pas identifié, non placé ; l’arrivée (660 m) suit 13,5 km plus loin"
       },
       {
        "label": "Chaumeil",
@@ -8880,19 +8875,20 @@
        "lat": 45.45417,
        "lon": 1.88138,
        "how": "stage_towns",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 19,5 km au profil depuis Saint-Augustin pour 4,8 à vol d’oiseau — passage à 530 m non identifié puis montée finale, tracé non transcrit"
       }
      ],
      "length_km": 255,
      "note": "Partie des km illisibles à cette résolution : seuls les points lus sans doute sont repris.",
      "route_check": {
-      "routed_km": 232.8,
+      "routed_km": 232.6,
       "profile_km": 249,
-      "delta_pct": -6.5,
+      "delta_pct": -6.6,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 27,
+      "legs": 26,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -8939,10 +8935,11 @@
        "km": 29.5,
        "kind": "ville",
        "geocodeAs": "Salignac-Eyvigues",
-       "lat": 44.95212,
-       "lon": 1.36219,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 44.97297,
+       "lon": 1.32417,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "village de Salignac placé à son église Saint-Julien (Nominatim) : le point de la commune fusionnée Salignac-Eyvigues était 3,8 km au sud-est, vers Eyvigues, et obligeait un aller-retour de 5 km"
       },
       {
        "label": "Sarlat",
@@ -8972,7 +8969,7 @@
        "lon": 1.14466,
        "how": "nominatim",
        "confidence": "ok",
-       "note": "village de Beynac placé à son église Notre-Dame (Nominatim), au bord de la Dordogne : le point de la commune était 2,5 km au nord, vers Cazenac, et obligeait deux allers-retours ; aller-retour (33.14) : le routeur, en voiture, entre dans La Roque-Gageac et ressort par la même route (2,4 km) : village accroché à la falaise, au bord de la route de la vallée"
+       "note": "village de Beynac placé à son église Notre-Dame (Nominatim), au bord de la Dordogne : le point de la commune était 2,5 km au nord, vers Cazenac, et obligeait deux allers-retours ; aller-retour (33.14) : avec le repli voiture (OSRM) seulement, le routeur entre dans La Roque-Gageac et en ressort (2,4 km) ; pas en vélo (BRouter)"
       },
       {
        "label": "Saint-Cyprien",
@@ -9208,17 +9205,17 @@
       }
      ],
      "circuit_km": 224.5,
-     "note": "Arrivée sur un circuit dans Bordeaux, entrée au km 224,5 (circuit_km). Profil plus court que la route sur cinq tronçons (Larche → Chavagnac, La Roque-Gageac → Beynac, Lalinde → Saint-Capraise, Bergerac → Lamonzie → Gardonne : 1 à 1,5 km de moins que la ligne droite) : km relus sur l’agrandissement, laissés tels quels — l’écart de l’étape vient du profil, pas de la transcription.",
+     "note": "Arrivée sur un circuit dans Bordeaux, entrée au km 224,5 (circuit_km). Profil plus court que la route sur quatre tronçons (Larche → Chavagnac, Lalinde → Saint-Capraise, Bergerac → Lamonzie → Gardonne : 1 à 1,5 km de moins que la ligne droite) : km relus sur l’agrandissement, laissés tels quels — l’écart de l’étape vient du profil, pas de la transcription.",
      "route_check": {
-      "routed_km": 236,
+      "routed_km": 226.4,
       "profile_km": 209.5,
-      "delta_pct": 12.7,
+      "delta_pct": 8.1,
       "tolerance_pct": 5,
       "coverage_pct": 92,
       "car_legs": 0,
       "legs": 26,
       "suspect_legs": 4,
-      "backtracks": 1,
+      "backtracks": 0,
       "backtracks_uncertain": 0
      }
     },
@@ -9360,7 +9357,7 @@
        "lat": 42.98735,
        "lon": -0.75553,
        "how": "nominatim",
-       "note": "placé au panneau « Col de Soudet » sur la D113 (OSM, information=guidepost) : seul objet OSM à ce nom ; non placé, il laissait le routeur revenir sur ses pas depuis Sainte-Engrâce (aller-retour incertain de 11 km)"
+       "note": "placé au panneau « Col de Soudet » sur la D113 (OSM, information=guidepost) : seul objet OSM nommé exactement « Col de Soudet », à 90 m du lieu-dit « Col du Soudet » ; non placé, il laissait le routeur revenir sur ses pas depuis Sainte-Engrâce (aller-retour incertain de 11 km)"
       },
       {
        "label": "Arette",
