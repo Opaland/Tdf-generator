@@ -497,7 +497,7 @@ et côtes traversées avec leur kilomètre.
   fait passer 1991/13 de +5,9 % à +0,5 %, il est signalé ici pour ne pas
   être pris pour une correction. Aucune commune de rattachement devinée.
 - [x] Édition 1990 (PR #414) : 21 étapes sur 22, 316 points placés sur 341 (303 sur 338 avant le tri 33.12 ; 1990/6,
-  déjà transcrite dans le lot Lorraine, conservée ; 278 routables, les
+  déjà transcrite dans le lot Lorraine, conservée ; 297 routables (279 avant le tri), les
   autres sont des côtes et lieux-dits « (entrée) » placés au centre de leur
   commune, exclus du calcul comme ailleurs). Non transcrite : l'étape 5
   (Avranches → Rouen), image publiée de 133 px — une partie des km se
@@ -707,7 +707,10 @@ et côtes traversées avec leur kilomètre.
   suspect justifié.
   - 1990 trié, sur un passage BRouter. Profils relus nom par nom
     (règle 18) : Côte de la Flye et Vittel (entrée) (1990/6), Hauts
-    des Champs-Élysées (1990/21) ajoutés, non placés. Placés (règle 21,
+    des Champs-Élysées (1990/21) ajoutés, non placés. Relecture adverse : la Flye existe sous « La Flie »
+    (Liverdun) mais sans sommet identifié, notes de Romans et de
+    Mondeville (non placés, pas rattachés) et du prologue (6,3 km)
+    corrigées, Ornans et Xertigny notés incompatibles avec le profil. Placés (règle 21,
     recherche bornée, altitudes contrôlées au MNT) : La Poirière,
     Parigny, Clairefontaine, Le Planet, Croix de Chaubouret, Côtes de
     Montbonnet, de la Vachellerie, des Gardilles et de Choizal,
