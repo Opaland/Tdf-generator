@@ -6,7 +6,7 @@
 // droite (une route n'est jamais plus courte) ; ce contrôle vérifie l'autre
 // sens — un point mal placé allonge la route, une ville omise aussi.
 //
-// Usage : node scripts/check-itineraries.js [--write] [--legs] [année …]   (réseau requis)
+// Usage : node scripts/check-itineraries.js [--write] [--legs] [année | année/étape …]   (réseau requis)
 // --legs : pour chaque étape, liste les tronçons suspects (isSuspectLeg).
 // --write : enregistre route_check {routed_km, profile_km, delta_pct,
 // tolerance_pct, coverage_pct, car_legs, legs} dans pipeline/data/stage_itineraries.json —
@@ -124,8 +124,9 @@ async function main() {
   const townsStage = (edition, stage) => (townsDoc?.editions?.[edition]?.stages || []).find((x) => String(x.number) === String(stage).replace(/[a-z]$/, ''));
   const router = (a, b) => routeLeg(a, b);
   for (const [edition, ed] of Object.entries(doc.editions)) {
-    if (only.length && !only.includes(edition)) continue;
     for (const [stage, st] of Object.entries(ed.stages)) {
+      // Filtre : une édition entière (« 1987 ») ou une étape (« 1987/14 »).
+      if (only.length && !only.includes(edition) && !only.includes(`${edition}/${stage}`)) continue;
       let r;
       try {
         r = await checkStoredStage(st, router, townsStage(edition, stage));
