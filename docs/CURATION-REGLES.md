@@ -93,3 +93,15 @@ dans la même PR que son correctif.
     étapes hors tolérance à 6, et ses allers-retours changeaient, entre
     un passage voiture et un passage vélo. Relancer avant de trier ; un
     aller-retour qui n'apparaît qu'en voiture se note comme tel.
+17. **Un aller-retour sur un point de commune : essayer la mairie avant
+    d'écrire « traversée ».** Labrit, Langerwehe, Felletin et Varize
+    (1992) étaient notés « traversée de bourg » : placés à leur mairie
+    (Nominatim `amenity=townhall`), l'aller-retour disparaît. La note
+    n'est juste que si l'aller-retour reste avec le point sur la mairie
+    (Zumaia).
+18. **Un tronçon suspect : relire d'abord le profil entre ses deux
+    points.** Le premier suspect est un nom imprimé mais omis à la
+    transcription — Mornex, Montigaud, Frappe, Côte de Point B. (1992).
+    Une arrivée imprimée avec son adresse (« Boulevard du Centenaire »,
+    « avenue de la Zurriola ») est une source : la placer là, pas au
+    centre-ville.

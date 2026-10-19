@@ -731,6 +731,32 @@ et côtes traversées avec leur kilomètre.
     en voiture (BRouter par intermittence : deux passages ne donnent pas
     toujours le même aller-retour, Beynac/La Roque-Gageac n'apparaît
     qu'en voiture).
+  - 1992 trié, sur un passage BRouter (le premier passage 33.14, routé
+    presque entièrement en voiture faute de BRouter, donnait 10 étapes
+    hors tolérance et 15 allers-retours). Noms imprimés sur le profil
+    mais omis à la transcription, ajoutés : Mornex (1992/12), Montigaud
+    et Frappe (1992/4 — son tronçon suspect disparaît ; Libourne (entrée)
+    ajoutée non placée), Saint-Sébastien (entrée) et Côte de Point B.
+    (non placées, lieu non sourcé). Arrivées imprimées : « Boulevard du
+    Centenaire » à Bruxelles (Heysel ; Wemmel → arrivée n'est plus
+    suspect) et « avenue de la Zurriola » à San Sebastián. Positions :
+    Labrit, Langerwehe, Felletin et Varize au centre de leur commune,
+    à l'écart de la route — placés à leur mairie, leur aller-retour
+    disparaît (relecture adverse : la première version les notait
+    « traversée de bourg », fausse cause) ; Bourg-Argental (648 m au MNT
+    pour 510 imprimés) à sa mairie. Le Salève retiré (crête entière,
+    point en bout de route) : sa montée n'est plus mesurée, noté.
+    Restent justifiés par une note : traversées réelles (Zumaia, La
+    Garde, Roubaix), Col du Wettstein bien placé mais le routeur repart
+    par la route des Crêtes, côtes rattachées à leur village ou non
+    placées (Échallon, Hallembaye, boucle du Limbourg, Waldesch,
+    Reinthal, Georgat — les 5 allers-retours incertains), centres de
+    ville loin du passage (Bègles, Villeneuve-d'Ascq, Grenoble). Bilan :
+    16 étapes sur 20 dans la tolérance (16 avant) — 1992/8 passe hors
+    tolérance (−5,3 %) une fois Langerwehe replacé, 1992/12 y entre
+    (+2,0 %) ; les 4 hors tolérance ont une note d'étape. 15 tronçons
+    suspects, 4 allers-retours sûrs et 5 incertains, aucun tronçon routé
+    en voiture.
 - [x] 33.13 Règles de curation lues avant tout premier tracé (demande
   utilisateur du 19/10) : `docs/CURATION-REGLES.md`, 13 règles tirées
   des erreurs réelles des éditions déjà curées (lecture du profil,
