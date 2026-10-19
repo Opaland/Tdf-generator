@@ -105,3 +105,13 @@ dans la même PR que son correctif.
     Une arrivée imprimée avec son adresse (« Boulevard du Centenaire »,
     « avenue de la Zurriola ») est une source : la placer là, pas au
     centre-ville.
+19. **Une entrée de ville imprimée annonce un circuit final.** « Bordeaux
+    - entrée » au km 184,5 (1993/18) : l'arrivée est 16 km plus loin sur
+    un circuit — `circuit_km` au km de l'entrée, sinon le circuit fausse
+    la mesure et compense un vrai écart ailleurs.
+20. **Avant d'accuser la transcription, comparer au routage voiture.**
+    BRouter (vélo) évite certaines routes (tunnels, routes de gorges) :
+    Roussillon → Le Chaudan, 44 km en vélo, 13,5 en voiture pour 14 au
+    profil (1993/12). Si OSRM colle au profil, c'est le routeur — le
+    noter, ne pas déplacer les points.
+
