@@ -114,7 +114,10 @@ dans la même PR que son correctif.
 19. **Une entrée de ville imprimée annonce un circuit final.** « Bordeaux
     - entrée » au km 184,5 (1993/18) : l'arrivée est 16 km plus loin sur
     un circuit — `circuit_km` au km de l'entrée, sinon le circuit fausse
-    la mesure et compense un vrai écart ailleurs.
+    la mesure et compense un vrai écart ailleurs. Repère utilisé depuis 1991 :
+    6 km ou plus entre l’entrée et l’arrivée (Pau 1995/16 : 6 km). En
+    deçà, l'entrée reste un point de passage (non déclarée en 1991 :
+    Argentan, Alençon, Castres, Aix-les-Bains, Mâcon).
 20. **Avant d'accuser la transcription — ou d'écrire « cause non
     établie » —, comparer au routage voiture.** Pontorson → Précey
     (1993/4), noté « cause non établie », faisait 12,8 km en voiture pour
@@ -142,3 +145,9 @@ dans la même PR que son correctif.
     « Mont-Theux ») ; pour une côte, l'altitude MNT du point est celle
     du sommet imprimé — un hameau au bord de l'eau (Hallembaye,
     Pourville) est le pied de la côte, pas son sommet.
+    **Chercher borné autour des voisins** (`viewbox` des deux points
+    voisins, `bounded=1`) avant de conclure « introuvable » : un nom
+    courant (Don, L'Étoile, Le Calvaire, Blanzy) se noie sous ses
+    homonymes dans une recherche globale — dix lieux de 1991 n'étaient
+    trouvés qu'ainsi. Essayer aussi la variante d'orthographe (Pallud /
+    Palud, Pongivart / Pontgivart).

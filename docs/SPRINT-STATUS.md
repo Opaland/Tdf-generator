@@ -481,7 +481,7 @@ et côtes traversées avec leur kilomètre.
   non repris : km imprimé « 119,5 » entre Castres (198) et Revel (245).
 
 - [ ] Édition 1991 : 22 étapes sur 23 (prologue de Lyon non transcrit),
-  405 points placés sur 442. Contrôlée à ±5 % avant PR : 20 étapes dans la tolérance, 2
+  415 points placés sur 443 (405 sur 442 avant le tri 33.12). Contrôlée à ±5 % avant PR : 20 étapes dans la tolérance, 2
   hors, affichées comme telles — 1991/1 (−22,7 %) et 1991/21 (−8,4 %),
   circuits sinueux dont le profil ne liste qu'une partie des villages
   (positions vérifiées une à une en relecture adverse, pas d'erreur de
@@ -705,6 +705,33 @@ et côtes traversées avec leur kilomètre.
   réellement contradictoire, laissé tel quel avec une note. Protocole de
   transcription : `--legs` avant chaque PR d'édition, tout tronçon
   suspect justifié.
+  - 1991 trié, sur un passage BRouter. Lieux-dits rattachés ou non
+    placés que Nominatim connaît (règle 21) : Côte de Bellevue-Limonest,
+    Genas-Azieu, Pont-de-Tancarville, Côte de Poulgrellec, Col de
+    Soudet, Senegüé, Artouste, Pont de Chabestan, Livet, Col de la Joux
+    Plane, Côte de Hautecourt, Côte de Montflix, La Croix de Médavy,
+    Liquisses Basses ; une recherche **bornée autour des deux voisins** en a
+    trouvé dix de plus, que la recherche globale noyait sous les
+    homonymes (Côte des Maris, Le Calvaire, La Mouline, Côte de
+    Bessède, Moulin Neuf, Côte de Lavaur, Blanzy, Col de Saint-Jean-de-
+    Sixt, Don, L'Étoile), et trois sous une variante
+    d'orthographe (La Pallud → Palud d'Ornon, Pongivart → Pontgivart,
+    Vaudrenant → Vaudrenand) ; altitudes contrôlées au MNT (règle 14).
+    Côte de la Mure placée à la mairie de La Mure : rattachée, le
+    tracé contournait la ville (aller-retour incertain de 5,7 km à
+    Roizon). Refusés, notés : Côte des Égats (aller-retour), Côte de
+    Giriat, Chevigny et Chindrieux (tronçon suspect), Val Louron
+    (aller-retour à Armanteule, même à son église). Nom imprimé omis :
+    Paris (entrée), 1991/22. Circuits finaux déclarés (règle 19) là où
+    6 km ou plus séparent l’entrée de l’arrivée : Lyon, Dijon, Reims, Le
+    Havre (Fontaine-la-Mallet → Le Havre : 7,8 km routés pour 17,5),
+    Rennes, Alès, Gap. Contre-test voiture (règle 20) sur les quatre
+    tronçons suspects plus longs que le profil : OSRM l'est aussi — pas
+    le routeur, cause non établie. Bilan : 20 étapes sur 22 dans la
+    tolérance (20 avant) ; 1991/1 (−21,9 %) et 1991/21 (−8,4 %) ont une
+    note d'étape. 9 tronçons suspects (10 avant), aucun aller-retour sûr
+    et 2 incertains (6 avant), tous notés ; aucun tronçon routé en
+    voiture.
   - 1996 trié, premier passage avec les règles 18 et 21 appliquées
     d'emblée. Noms imprimés mais omis : Lécluse, Ferriera, Vernetto,
     Nazareth, Valence (entrée) et Paris (entrée) (non placées), Saint-
