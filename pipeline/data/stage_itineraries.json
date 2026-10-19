@@ -10804,7 +10804,8 @@
        "lat": 45.12628,
        "lon": 5.77683,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "laissée rattachée (33.15) : Nominatim ne donne que Brié Bas, le pied de la côte"
       },
       {
        "label": "Vizille",
@@ -11318,12 +11319,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 173.3,
+      "routed_km": 172.3,
       "profile_km": 174,
-      "delta_pct": -0.4,
+      "delta_pct": -1,
       "tolerance_pct": 5,
       "coverage_pct": 94,
-      "car_legs": 8,
+      "car_legs": 0,
       "legs": 19,
       "suspect_legs": 0,
       "backtracks": 0,
@@ -11649,12 +11650,12 @@
      ],
      "length_km": 224.5,
      "route_check": {
-      "routed_km": 230.7,
+      "routed_km": 230.2,
       "profile_km": 219,
-      "delta_pct": 5.4,
+      "delta_pct": 5.1,
       "tolerance_pct": 5,
       "coverage_pct": 98,
-      "car_legs": 2,
+      "car_legs": 0,
       "legs": 29,
       "suspect_legs": 0,
       "backtracks": 0,
@@ -11991,12 +11992,12 @@
      ],
      "circuit_km": 150.5,
      "route_check": {
-      "routed_km": 146.6,
+      "routed_km": 144.6,
       "profile_km": 145.5,
-      "delta_pct": 0.8,
+      "delta_pct": -0.6,
       "tolerance_pct": 5,
       "coverage_pct": 76,
-      "car_legs": 3,
+      "car_legs": 0,
       "legs": 17,
       "suspect_legs": 2,
       "backtracks": 0,
@@ -16257,7 +16258,9 @@
       "coverage_pct": 90,
       "car_legs": 0,
       "legs": 8,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 1
      }
     },
     "2": {
@@ -16374,7 +16377,9 @@
       "coverage_pct": 89,
       "car_legs": 0,
       "legs": 7,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 1
      }
     },
     "3": {
@@ -16564,7 +16569,9 @@
       "coverage_pct": 82,
       "car_legs": 0,
       "legs": 15,
-      "suspect_legs": 2
+      "suspect_legs": 2,
+      "backtracks": 1,
+      "backtracks_uncertain": 0
      },
      "circuit_km": 211
     },
@@ -16809,7 +16816,9 @@
       "coverage_pct": 95,
       "car_legs": 0,
       "legs": 21,
-      "suspect_legs": 3
+      "suspect_legs": 3,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "5": {
@@ -16910,7 +16919,9 @@
       "coverage_pct": 91,
       "car_legs": 0,
       "legs": 4,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "6": {
@@ -17135,7 +17146,9 @@
       "coverage_pct": 96,
       "car_legs": 0,
       "legs": 18,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "7": {
@@ -17339,7 +17352,9 @@
       "coverage_pct": 85,
       "car_legs": 0,
       "legs": 14,
-      "suspect_legs": 1
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      },
      "note": "Non repris : Jonzac (pas de km imprimé), La Lustre et Prignac-et-Marcamps (deux libellés sur le même trait, km 217,5)."
     },
@@ -17377,11 +17392,11 @@
        "label": "Barbotan-les-Thermes",
        "km": 26.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Cazaubon",
-       "lat": 43.92485,
-       "lon": -0.02595,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 43.95086,
+       "lon": -0.04413,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « Barbotan-les-Thermes » (Nominatim, village) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       },
       {
        "label": "Estang",
@@ -17524,14 +17539,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 140.7,
+      "routed_km": 141.3,
       "profile_km": 146.5,
-      "delta_pct": -3.9,
+      "delta_pct": -3.6,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
-      "legs": 12,
-      "suspect_legs": 1
+      "legs": 13,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "9": {
@@ -17704,7 +17721,9 @@
       "coverage_pct": 86,
       "car_legs": 0,
       "legs": 13,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "10": {
@@ -17843,7 +17862,9 @@
       "coverage_pct": 93,
       "car_legs": 0,
       "legs": 11,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "11": {
@@ -18002,7 +18023,9 @@
       "coverage_pct": 93,
       "car_legs": 0,
       "legs": 13,
-      "suspect_legs": 1
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "12": {
@@ -18204,7 +18227,9 @@
       "coverage_pct": 92,
       "car_legs": 0,
       "legs": 16,
-      "suspect_legs": 1
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      },
      "note": "Non repris : Prémian et Montpellier (entrée) — km lus 120 et 230, confondus avec les graduations à cette résolution."
     },
@@ -18375,7 +18400,9 @@
       "coverage_pct": 92,
       "car_legs": 0,
       "legs": 11,
-      "suspect_legs": 1
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      },
      "note": "Côte des Rayettes (4e cat.) nommée sur le profil sous le même km (131) que Martigues : non reprise."
     },
@@ -18587,7 +18614,9 @@
       "coverage_pct": 92,
       "car_legs": 0,
       "legs": 15,
-      "suspect_legs": 1
+      "suspect_legs": 1,
+      "backtracks": 1,
+      "backtracks_uncertain": 0
      }
     },
     "15": {
@@ -18662,7 +18691,9 @@
       "coverage_pct": 74,
       "car_legs": 0,
       "legs": 4,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "16": {
@@ -18822,7 +18853,9 @@
       "coverage_pct": 92,
       "car_legs": 0,
       "legs": 12,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "17": {
@@ -18992,7 +19025,9 @@
       "coverage_pct": 93,
       "car_legs": 0,
       "legs": 14,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "18": {
@@ -19116,7 +19151,9 @@
       "coverage_pct": 81,
       "car_legs": 0,
       "legs": 7,
-      "suspect_legs": 2
+      "suspect_legs": 2,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "19": {
@@ -19236,7 +19273,9 @@
       "coverage_pct": 95,
       "car_legs": 0,
       "legs": 9,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "20": {
@@ -19347,7 +19386,9 @@
       "coverage_pct": 72,
       "car_legs": 0,
       "legs": 7,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "21": {
@@ -19439,7 +19480,9 @@
       "coverage_pct": 82,
       "car_legs": 0,
       "legs": 4,
-      "suspect_legs": 2
+      "suspect_legs": 2,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     }
    }
@@ -19495,7 +19538,9 @@
       "coverage_pct": 62,
       "car_legs": 0,
       "legs": 1,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "1": {
@@ -19622,7 +19667,9 @@
       "coverage_pct": 75,
       "car_legs": 0,
       "legs": 8,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "2": {
@@ -19716,7 +19763,9 @@
       "coverage_pct": 69,
       "car_legs": 0,
       "legs": 5,
-      "suspect_legs": 1
+      "suspect_legs": 1,
+      "backtracks": 1,
+      "backtracks_uncertain": 0
      }
     },
     "3": {
@@ -19853,11 +19902,11 @@
        "label": "Mont des Alouettes",
        "km": 152,
        "kind": "côte",
-       "geocodeAs": "Les Herbiers",
-       "lat": 46.86324,
-       "lon": -1.02864,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 46.89477,
+       "lon": -1.01026,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "sommet du Mont des Alouettes (Nominatim, peak) ; était rattaché à sa commune, donc non routé — placé (33.15, règle 21 ; relance après relecture)"
       },
       {
        "label": "La Gaubretière",
@@ -19925,14 +19974,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 212.2,
+      "routed_km": 214.4,
       "profile_km": 220,
-      "delta_pct": -3.6,
+      "delta_pct": -2.5,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
-      "legs": 18,
-      "suspect_legs": 3
+      "legs": 19,
+      "suspect_legs": 3,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "4": {
@@ -20106,7 +20157,9 @@
       "coverage_pct": 94,
       "car_legs": 0,
       "legs": 15,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "6": {
@@ -20302,7 +20355,9 @@
       "coverage_pct": 93,
       "car_legs": 0,
       "legs": 17,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "7": {
@@ -20389,7 +20444,9 @@
       "coverage_pct": 83,
       "car_legs": 0,
       "legs": 6,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "8": {
@@ -20586,7 +20643,9 @@
       "coverage_pct": 87,
       "car_legs": 0,
       "legs": 14,
-      "suspect_legs": 1
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "9": {
@@ -20729,7 +20788,8 @@
        "lat": 46.47925,
        "lon": 6.06787,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "laissée rattachée (33.15, relecture) : Nominatim ne donne que le hameau des Rousses d’Amont, hors de la route (+2,1 km de détour en voiture)"
       },
       {
        "label": "Col de la Faucille",
@@ -20803,7 +20863,9 @@
       "coverage_pct": 93,
       "car_legs": 0,
       "legs": 16,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "10": {
@@ -20969,7 +21031,9 @@
       "coverage_pct": 90,
       "car_legs": 0,
       "legs": 14,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "11": {
@@ -21161,14 +21225,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 172.8,
+      "routed_km": 172.6,
       "profile_km": 173,
-      "delta_pct": -0.1,
+      "delta_pct": -0.2,
       "tolerance_pct": 5,
       "coverage_pct": 95,
-      "car_legs": 3,
+      "car_legs": 0,
       "legs": 17,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "12": {
@@ -21245,7 +21311,9 @@
       "coverage_pct": 79,
       "car_legs": 0,
       "legs": 3,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "13": {
@@ -21402,7 +21470,9 @@
       "coverage_pct": 93,
       "car_legs": 0,
       "legs": 11,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "14": {
@@ -21596,7 +21666,9 @@
       "coverage_pct": 92,
       "car_legs": 0,
       "legs": 13,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "15": {
@@ -21761,7 +21833,9 @@
       "coverage_pct": 95,
       "car_legs": 0,
       "legs": 12,
-      "suspect_legs": 1
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "16": {
@@ -21959,7 +22033,9 @@
       "coverage_pct": 94,
       "car_legs": 0,
       "legs": 17,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      },
      "note": "Libellé du km 72 (260 m) non repris : lu « Rebichériolet » sans certitude."
     },
@@ -22119,7 +22195,9 @@
       "coverage_pct": 92,
       "car_legs": 0,
       "legs": 12,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 1,
+      "backtracks_uncertain": 1
      }
     },
     "18": {
@@ -22322,7 +22400,9 @@
       "coverage_pct": 79,
       "car_legs": 0,
       "legs": 13,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "19": {
@@ -22492,7 +22572,9 @@
       "coverage_pct": 93,
       "car_legs": 0,
       "legs": 13,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "20": {
@@ -22567,7 +22649,9 @@
       "coverage_pct": 78,
       "car_legs": 0,
       "legs": 4,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "21": {
@@ -22739,7 +22823,9 @@
       "coverage_pct": 59,
       "car_legs": 0,
       "legs": 6,
-      "suspect_legs": 1
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      },
      "note": "Issy-les-Moulineaux nommée sur le profil sous le même km (123) que l'entrée dans Paris : non reprise.",
      "circuit_km": 123
@@ -22888,7 +22974,9 @@
       "coverage_pct": 90,
       "car_legs": 0,
       "legs": 10,
-      "suspect_legs": 4
+      "suspect_legs": 4,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "2": {
@@ -22992,7 +23080,9 @@
       "coverage_pct": 66,
       "car_legs": 0,
       "legs": 5,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 1
      }
     },
     "3": {
@@ -23210,7 +23300,9 @@
       "coverage_pct": 97,
       "car_legs": 0,
       "legs": 17,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "4": {
@@ -23456,11 +23548,11 @@
        "label": "Montchenot",
        "km": 271,
        "kind": "lieu-dit",
-       "geocodeAs": "Villers-Allerand",
-       "lat": 49.16525,
-       "lon": 4.01975,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 49.16478,
+       "lon": 4.01186,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « Montchenot » (Nominatim, village) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       },
       {
        "label": "Reims (entrée)",
@@ -23483,14 +23575,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 266.5,
+      "routed_km": 266.6,
       "profile_km": 265,
       "delta_pct": 0.6,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
-      "legs": 21,
-      "suspect_legs": 0
+      "legs": 22,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "5": {
@@ -23656,7 +23750,9 @@
       "coverage_pct": 88,
       "car_legs": 0,
       "legs": 13,
-      "suspect_legs": 1
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "6": {
@@ -23817,7 +23913,8 @@
        "lat": 49.90232,
        "lon": 1.03654,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "laissée rattachée (33.15, relecture) : Nominatim ne donne que Pourville-sur-Mer, 7 m au MNT pour 110 imprimés — le pied de la côte"
       },
       {
        "label": "Quiberville",
@@ -23931,7 +24028,9 @@
       "coverage_pct": 97,
       "car_legs": 0,
       "legs": 19,
-      "suspect_legs": 1
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "7": {
@@ -24128,7 +24227,9 @@
       "coverage_pct": 97,
       "car_legs": 0,
       "legs": 12,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "8": {
@@ -24246,7 +24347,9 @@
       "coverage_pct": 90,
       "car_legs": 0,
       "legs": 7,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 1
      }
     },
     "9": {
@@ -24310,11 +24413,11 @@
        "label": "Fontaine-Daniel",
        "km": 63.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Saint-Georges-Buttavent",
-       "lat": 48.30085,
-       "lon": -0.71121,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 48.27833,
+       "lon": -0.6739,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « Fontaine-Daniel » (Nominatim, village) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       },
       {
        "label": "Saint-Germain-le-Guillaume",
@@ -24403,14 +24506,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 155,
+      "routed_km": 155.6,
       "profile_km": 153,
-      "delta_pct": 1.3,
+      "delta_pct": 1.7,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 12,
-      "suspect_legs": 0
+      "legs": 13,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "10": {
@@ -24579,11 +24684,11 @@
        "label": "Le Rouillen",
        "km": 202.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Quimper",
-       "lat": 47.9987,
-       "lon": -4.09323,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 47.99916,
+       "lon": -4.05811,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « Le Rouillen » (Nominatim, village) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       },
       {
        "label": "Quimper",
@@ -24596,14 +24701,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 194.5,
+      "routed_km": 194.7,
       "profile_km": 194,
-      "delta_pct": 0.2,
+      "delta_pct": 0.4,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
-      "legs": 16,
-      "suspect_legs": 0
+      "legs": 17,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "11": {
@@ -24714,11 +24821,11 @@
        "label": "Mériadec",
        "km": 102.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Plumergat",
-       "lat": 47.7326,
-       "lon": -2.92947,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 47.69619,
+       "lon": -2.89694,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "village de Mériadec à Plumergat (Nominatim) ; était rattaché à sa commune, donc non routé — placé (33.15, règle 21 ; relance après relecture)"
       },
       {
        "label": "Vannes",
@@ -24833,8 +24940,10 @@
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 18,
-      "suspect_legs": 0
+      "legs": 19,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "12": {
@@ -25042,7 +25151,9 @@
       "coverage_pct": 97,
       "car_legs": 0,
       "legs": 16,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 1
      }
     },
     "13": {
@@ -25132,11 +25243,11 @@
        "label": "Gourette",
        "km": 96,
        "kind": "lieu-dit",
-       "geocodeAs": "Eaux-Bonnes",
-       "lat": 42.96863,
-       "lon": -0.37027,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 42.95796,
+       "lon": -0.33251,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « Gourette » (Nominatim, village) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       },
       {
        "label": "Col d'Aubisque",
@@ -25223,11 +25334,11 @@
        "label": "Sainte-Marie-de-Campan",
        "km": 183,
        "kind": "lieu-dit",
-       "geocodeAs": "Campan",
-       "lat": 42.97526,
-       "lon": 0.23362,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 42.98481,
+       "lon": 0.22762,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « Sainte-Marie de Campan » (Nominatim, neighbourhood) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       },
       {
        "label": "La Séoube",
@@ -25286,14 +25397,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 194,
+      "routed_km": 194.6,
       "profile_km": 193,
-      "delta_pct": 0.5,
+      "delta_pct": 0.8,
       "tolerance_pct": 5,
       "coverage_pct": 83,
       "car_legs": 0,
-      "legs": 19,
-      "suspect_legs": 0
+      "legs": 21,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "14": {
@@ -25486,7 +25599,9 @@
       "coverage_pct": 93,
       "car_legs": 0,
       "legs": 16,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "15": {
@@ -25505,11 +25620,11 @@
        "label": "Les Avalats",
        "km": 5,
        "kind": "lieu-dit",
-       "geocodeAs": "Saint-Juéry",
-       "lat": 43.94136,
-       "lon": 2.21593,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 43.93939,
+       "lon": 2.24077,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « Les Avalats » (Nominatim, village) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       },
       {
        "label": "Ambialet",
@@ -25698,14 +25813,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 214.8,
-      "profile_km": 217.5,
-      "delta_pct": -1.2,
+      "routed_km": 227.7,
+      "profile_km": 230,
+      "delta_pct": -1,
       "tolerance_pct": 5,
-      "coverage_pct": 93,
+      "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 13,
-      "suspect_legs": 0
+      "legs": 14,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "16": {
@@ -25899,7 +26016,9 @@
       "coverage_pct": 93,
       "car_legs": 0,
       "legs": 15,
-      "suspect_legs": 2
+      "suspect_legs": 2,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "17": {
@@ -26050,22 +26169,24 @@
        "label": "L'Alpe d'Huez",
        "km": 125,
        "kind": "lieu-dit",
-       "geocodeAs": "Huez",
-       "lat": 45.08667,
-       "lon": 6.0667,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.0924,
+       "lon": 6.06994,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « L'Alpe d'Huez » (Nominatim, village) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       }
      ],
      "route_check": {
-      "routed_km": 114.9,
-      "profile_km": 115,
-      "delta_pct": -0.1,
+      "routed_km": 119.4,
+      "profile_km": 120,
+      "delta_pct": -0.5,
       "tolerance_pct": 5,
-      "coverage_pct": 92,
-      "car_legs": 10,
-      "legs": 11,
-      "suspect_legs": 0
+      "coverage_pct": 96,
+      "car_legs": 0,
+      "legs": 12,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 2
      }
     },
     "18": {
@@ -26094,11 +26215,11 @@
        "label": "Gavet",
        "km": 19,
        "kind": "lieu-dit",
-       "geocodeAs": "Livet-et-Gavet",
-       "lat": 45.08953,
-       "lon": 5.90189,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.06904,
+       "lon": 5.87198,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « Gavet » (Nominatim, hamlet) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       },
       {
        "label": "Vizille",
@@ -26113,11 +26234,11 @@
        "label": "Uriage-les-Bains",
        "km": 39.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Saint-Martin-d'Uriage",
-       "lat": 45.15736,
-       "lon": 5.84721,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.14213,
+       "lon": 5.82953,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "Uriage-les-Bains (Nominatim, hamlet) ; était rattaché à sa commune, donc non routé — placé (33.15, règle 21 ; relance après relecture)"
       },
       {
        "label": "Murianette",
@@ -26235,11 +26356,11 @@
        "label": "Le Chinaillon",
        "km": 180.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Le Grand-Bornand",
-       "lat": 45.95992,
-       "lon": 6.45778,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.97367,
+       "lon": 6.45445,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « Le Chinaillon » (Nominatim, village) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       },
       {
        "label": "Col de la Colombière",
@@ -26325,22 +26446,24 @@
        "label": "Morzine Les Prodains",
        "km": 255,
        "kind": "lieu-dit",
-       "geocodeAs": "Morzine",
-       "lat": 46.18199,
-       "lon": 6.72634,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 46.1904,
+       "lon": 6.7519,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "hameau des Prodains à Morzine (Nominatim ; 1 203 m au MNT pour 1 190 imprimés), arrivée — le point était au centre de Morzine, 1 029 m ; était rattaché à sa commune, donc non routé — placé (33.15, règle 21 ; relance après relecture)"
       }
      ],
      "route_check": {
-      "routed_km": 223.9,
-      "profile_km": 220,
-      "delta_pct": 1.8,
+      "routed_km": 239.5,
+      "profile_km": 236,
+      "delta_pct": 1.5,
       "tolerance_pct": 5,
-      "coverage_pct": 86,
+      "coverage_pct": 93,
       "car_legs": 0,
-      "legs": 17,
-      "suspect_legs": 0
+      "legs": 21,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 1
      }
     },
     "19": {
@@ -26359,11 +26482,11 @@
        "label": "Côte des Gets",
        "km": 4,
        "kind": "côte",
-       "geocodeAs": "Les Gets",
-       "lat": 46.15764,
-       "lon": 6.6623,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 46.16038,
+       "lon": 6.66908,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « Col des Gets » (Nominatim, yes) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       },
       {
        "label": "Taninges",
@@ -26411,11 +26534,11 @@
        "label": "Entremont",
        "km": 58.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Glières-Val-de-Borne",
-       "lat": 45.98756,
-       "lon": 6.38867,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.95873,
+       "lon": 6.38806,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « Entremont » (Nominatim, village) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       },
       {
        "label": "Col de Saint-Jean-de-Sixt",
@@ -26523,14 +26646,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 157.9,
-      "profile_km": 160.5,
-      "delta_pct": -1.6,
+      "routed_km": 167.7,
+      "profile_km": 173,
+      "delta_pct": -3,
       "tolerance_pct": 5,
-      "coverage_pct": 91,
+      "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 11,
-      "suspect_legs": 0
+      "legs": 13,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "20": {
@@ -26705,7 +26830,9 @@
       "coverage_pct": 96,
       "car_legs": 0,
       "legs": 12,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "21": {
@@ -26829,7 +26956,9 @@
       "coverage_pct": 87,
       "car_legs": 0,
       "legs": 9,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "22": {
@@ -27015,7 +27144,9 @@
       "coverage_pct": 66,
       "car_legs": 0,
       "legs": 10,
-      "suspect_legs": 2
+      "suspect_legs": 2,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      },
      "circuit_km": 128
     }
@@ -28275,7 +28406,8 @@
        "lat": 50.76448,
        "lon": 5.66114,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "laissée rattachée (33.15, relecture) : Nominatim ne donne que le quartier de Hallembaye au bord de la Meuse, 59 m au MNT pour 175 imprimés — le pied de la côte, pas son sommet"
       },
       {
        "label": "Lanaye",
@@ -29616,11 +29748,11 @@
        "label": "Le Rivier d'Allemond",
        "km": 150,
        "kind": "lieu-dit",
-       "geocodeAs": "Allemond",
-       "lat": 45.16753,
-       "lon": 6.03747,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.20231,
+       "lon": 6.04019,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « Le Rivier d'Allemond » (Nominatim, hamlet) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       },
       {
        "label": "Allemond",
@@ -29664,21 +29796,21 @@
        "label": "L'Alpe d'Huez",
        "km": 186.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Huez",
-       "lat": 45.08667,
-       "lon": 6.0667,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.0924,
+       "lon": 6.06994,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « L'Alpe d'Huez » (Nominatim, village) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       }
      ],
      "route_check": {
-      "routed_km": 176.6,
-      "profile_km": 173.5,
-      "delta_pct": 1.8,
+      "routed_km": 182.6,
+      "profile_km": 179,
+      "delta_pct": 2,
       "tolerance_pct": 5,
-      "coverage_pct": 93,
+      "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 15,
+      "legs": 17,
       "suspect_legs": 1,
       "backtracks": 1,
       "backtracks_uncertain": 0
@@ -29710,11 +29842,11 @@
        "label": "Gavet",
        "km": 19,
        "kind": "lieu-dit",
-       "geocodeAs": "Livet-et-Gavet",
-       "lat": 45.08953,
-       "lon": 5.90189,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.06904,
+       "lon": 5.87198,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « Gavet » (Nominatim, hamlet) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       },
       {
        "label": "Le Péage-de-Vizille",
@@ -29882,7 +30014,7 @@
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
-      "legs": 15,
+      "legs": 16,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 1
@@ -32233,11 +32365,11 @@
        "label": "Côte de Douaumont",
        "km": 172.5,
        "kind": "côte",
-       "geocodeAs": "Douaumont-Vaux",
-       "lat": 49.21106,
-       "lon": 5.47264,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 49.21079,
+       "lon": 5.42763,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « Douaumont » (Nominatim, hamlet) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       },
       {
        "label": "Verdun",
@@ -32251,14 +32383,14 @@
       }
      ],
      "route_check": {
-      "routed_km": 157.6,
+      "routed_km": 165.5,
       "profile_km": 165.5,
-      "delta_pct": -4.8,
+      "delta_pct": 0,
       "tolerance_pct": 5,
       "coverage_pct": 90,
       "car_legs": 0,
-      "legs": 14,
-      "suspect_legs": 2,
+      "legs": 15,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -32692,21 +32824,21 @@
        "label": "Isola 2000",
        "km": 180,
        "kind": "lieu-dit",
-       "geocodeAs": "Isola",
-       "lat": 44.19015,
-       "lon": 7.14868,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 44.18662,
+       "lon": 7.15789,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « Isola 2000 » (Nominatim, hamlet) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       }
      ],
      "route_check": {
-      "routed_km": 155.7,
-      "profile_km": 159,
-      "delta_pct": -2.1,
+      "routed_km": 171.8,
+      "profile_km": 176,
+      "delta_pct": -2.4,
       "tolerance_pct": 5,
-      "coverage_pct": 89,
+      "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 10,
+      "legs": 11,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -32975,11 +33107,11 @@
        "label": "Calas",
        "km": 9,
        "kind": "lieu-dit",
-       "geocodeAs": "Cabriès",
-       "lat": 43.44714,
-       "lon": 5.36102,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 43.46045,
+       "lon": 5.35359,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « Calas » (Nominatim, village) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       },
       {
        "label": "La Fare-les-Oliviers",
@@ -33156,13 +33288,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 164,
-      "profile_km": 154.5,
-      "delta_pct": 6.1,
+      "routed_km": 183.7,
+      "profile_km": 173.5,
+      "delta_pct": 5.9,
       "tolerance_pct": 5,
-      "coverage_pct": 85,
+      "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 17,
+      "legs": 18,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -33214,11 +33346,11 @@
        "label": "Mont Saint-Clair",
        "km": 32.5,
        "kind": "côte",
-       "geocodeAs": "Sète",
-       "lat": 43.40682,
-       "lon": 3.6873,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 43.40222,
+       "lon": 3.6844,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "sommet « Mont Saint-Clair » (Nominatim, peak) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       },
       {
        "label": "Agde",
@@ -33338,13 +33470,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 215.4,
+      "routed_km": 216.8,
       "profile_km": 217,
-      "delta_pct": -0.7,
+      "delta_pct": -0.1,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 14,
+      "legs": 15,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -33659,21 +33791,21 @@
        "label": "Pla d'Adet",
        "km": 230.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Saint-Lary-Soulan",
-       "lat": 42.81899,
-       "lon": 0.29048,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 42.81255,
+       "lon": 0.29471,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « Pla d'Adet » (Nominatim, hamlet) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       }
      ],
      "route_check": {
-      "routed_km": 202.5,
-      "profile_km": 207,
-      "delta_pct": -2.2,
+      "routed_km": 214.6,
+      "profile_km": 218.5,
+      "delta_pct": -1.8,
       "tolerance_pct": 5,
-      "coverage_pct": 90,
+      "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 11,
+      "legs": 12,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -33704,11 +33836,11 @@
        "label": "Sainte-Marie-de-Campan",
        "km": 30.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Campan",
-       "lat": 42.97526,
-       "lon": 0.23362,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 42.98481,
+       "lon": 0.22762,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « Sainte-Marie de Campan » (Nominatim, neighbourhood) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       },
       {
        "label": "Col du Tourmalet",
@@ -33795,11 +33927,11 @@
        "label": "Mifaget",
        "km": 156,
        "kind": "lieu-dit",
-       "geocodeAs": "Bruges-Capbis-Mifaget",
-       "lat": 43.12365,
-       "lon": -0.29855,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 43.1147,
+       "lon": -0.31811,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « Mifaget » (Nominatim, hamlet) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       },
       {
        "label": "Asson",
@@ -33832,11 +33964,11 @@
      "route_check": {
       "routed_km": 169.2,
       "profile_km": 172,
-      "delta_pct": -1.7,
+      "delta_pct": -1.6,
       "tolerance_pct": 5,
       "coverage_pct": 91,
       "car_legs": 0,
-      "legs": 12,
+      "legs": 14,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -34572,11 +34704,11 @@
        "label": "Mont Cassel",
        "km": 66,
        "kind": "côte",
-       "geocodeAs": "Cassel",
-       "lat": 50.79186,
-       "lon": 2.49277,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 50.80166,
+       "lon": 2.48405,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "sommet « Mont Cassel » (Nominatim, peak) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       },
       {
        "label": "Wormhout",
@@ -34691,13 +34823,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 169.4,
+      "routed_km": 176.6,
       "profile_km": 192.5,
-      "delta_pct": -12,
+      "delta_pct": -8.3,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 12,
+      "legs": 13,
       "suspect_legs": 3,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -34749,11 +34881,11 @@
        "label": "Locquinghen",
        "km": 22,
        "kind": "lieu-dit",
-       "geocodeAs": "Réty",
-       "lat": 50.79332,
-       "lon": 1.78125,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 50.80982,
+       "lon": 1.79475,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « Locquinghen » (Nominatim, hamlet) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       },
       {
        "label": "Ferques (près)",
@@ -34830,13 +34962,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 54.8,
+      "routed_km": 55.2,
       "profile_km": 54.5,
-      "delta_pct": 0.6,
+      "delta_pct": 1.2,
       "tolerance_pct": 5,
       "coverage_pct": 82,
       "car_legs": 0,
-      "legs": 7,
+      "legs": 8,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -35851,31 +35983,31 @@
        "label": "Saint-Martin-de-Vers",
        "km": 131.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Les Pechs du Vers",
-       "lat": 44.605,
-       "lon": 1.57364,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 44.58081,
+       "lon": 1.55858,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « Saint-Martin-de-Vers » (Nominatim, village) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       },
       {
        "label": "Vers",
        "km": 144,
        "kind": "lieu-dit",
-       "geocodeAs": "Saint-Géry-Vers",
-       "lat": 44.49153,
-       "lon": 1.55531,
+       "lat": 44.48562,
+       "lon": 1.55272,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "lieu « Vers » (Nominatim, village) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       },
       {
        "label": "Savanac",
        "km": 152.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Lamagdelaine",
-       "lat": 44.46982,
-       "lon": 1.49449,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 44.46302,
+       "lon": 1.51572,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « Savanac » (Nominatim, village) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       },
       {
        "label": "Cahors",
@@ -35888,13 +36020,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 112.6,
+      "routed_km": 116.3,
       "profile_km": 119,
-      "delta_pct": -5.4,
+      "delta_pct": -2.3,
       "tolerance_pct": 5,
       "coverage_pct": 74,
       "car_legs": 0,
-      "legs": 5,
+      "legs": 8,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -36212,11 +36344,11 @@
        "label": "Sainte-Marie-de-Campan",
        "km": 152,
        "kind": "lieu-dit",
-       "geocodeAs": "Campan",
-       "lat": 42.97526,
-       "lon": 0.23362,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 42.98481,
+       "lon": 0.22762,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « Sainte-Marie de Campan » (Nominatim, neighbourhood) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       },
       {
        "label": "Col du Tourmalet",
@@ -36249,21 +36381,21 @@
        "label": "Luz Ardiden",
        "km": 204.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Grust",
-       "lat": 42.89175,
-       "lon": -0.04683,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 42.88509,
+       "lon": -0.05882,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « Luz-Ardiden » (Nominatim, isolated_dwelling) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       }
      ],
      "route_check": {
-      "routed_km": 149.6,
-      "profile_km": 153.5,
-      "delta_pct": -2.5,
+      "routed_km": 158.7,
+      "profile_km": 163,
+      "delta_pct": -2.7,
       "tolerance_pct": 5,
-      "coverage_pct": 75,
+      "coverage_pct": 80,
       "car_legs": 0,
-      "legs": 11,
+      "legs": 13,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -36882,21 +37014,21 @@
        "label": "L'Alpe d'Huez",
        "km": 224.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Huez",
-       "lat": 45.08667,
-       "lon": 6.0667,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.0924,
+       "lon": 6.06994,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « L'Alpe d'Huez » (Nominatim, village) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       }
      ],
      "route_check": {
-      "routed_km": 176.8,
-      "profile_km": 178.5,
-      "delta_pct": -0.9,
+      "routed_km": 191.8,
+      "profile_km": 194.5,
+      "delta_pct": -1.4,
       "tolerance_pct": 5,
-      "coverage_pct": 80,
+      "coverage_pct": 87,
       "car_legs": 0,
-      "legs": 11,
+      "legs": 12,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -37011,11 +37143,11 @@
        "label": "Saint-Jean-de-Belleville",
        "km": 123,
        "kind": "lieu-dit",
-       "geocodeAs": "Les Belleville",
-       "lat": 45.408,
-       "lon": 6.443,
+       "lat": 45.42676,
+       "lon": 6.48466,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "lieu « Saint-Jean-de-Belleville » (Nominatim, village) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       },
       {
        "label": "Saint-Martin-de-Belleville",
@@ -37046,13 +37178,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 98.2,
-      "profile_km": 101,
-      "delta_pct": -2.8,
+      "routed_km": 112.7,
+      "profile_km": 114,
+      "delta_pct": -1.1,
       "tolerance_pct": 5,
-      "coverage_pct": 68,
+      "coverage_pct": 77,
       "car_legs": 0,
-      "legs": 7,
+      "legs": 8,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -37119,11 +37251,11 @@
        "label": "Héry-sur-Ugine",
        "km": 79,
        "kind": "lieu-dit",
-       "geocodeAs": "Ugine",
-       "lat": 45.75704,
-       "lon": 6.42895,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.77283,
+       "lon": 6.47278,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « Héry-sur-Ugine » (Nominatim, hamlet) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       },
       {
        "label": "Ugine",
@@ -37200,13 +37332,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 157.1,
+      "routed_km": 160.3,
       "profile_km": 165,
-      "delta_pct": -4.8,
+      "delta_pct": -2.9,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 12,
+      "legs": 13,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -38923,7 +39055,8 @@
        "lat": 50.53492,
        "lon": 5.81329,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "laissé rattaché (33.15, relecture) : Nominatim renvoyait « Thier de Theux » (213 m au MNT pour 330), pas le lieu nommé ; « Mont, Thier du Mont » (340 m au MNT) est un candidat non vérifié sur le tracé"
       },
       {
        "label": "Côte des Forges",
@@ -39129,11 +39262,11 @@
        "label": "Côte de Héry",
        "km": 51,
        "kind": "côte",
-       "geocodeAs": "Ugine",
-       "lat": 45.75704,
-       "lon": 6.42895,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.77283,
+       "lon": 6.47278,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « Héry-sur-Ugine » (Nominatim, hamlet) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       },
       {
        "label": "Notre-Dame-de-Bellecombe",
@@ -39210,13 +39343,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 150.8,
+      "routed_km": 153.5,
       "profile_km": 151,
-      "delta_pct": -0.1,
+      "delta_pct": 1.6,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
-      "legs": 13,
+      "legs": 14,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -39339,21 +39472,21 @@
        "label": "L'Alpe d'Huez",
        "km": 162.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Huez",
-       "lat": 45.08667,
-       "lon": 6.0667,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.0924,
+       "lon": 6.06994,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « L'Alpe d'Huez » (Nominatim, village) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       }
      ],
      "route_check": {
-      "routed_km": 133.2,
-      "profile_km": 134.5,
-      "delta_pct": -1,
+      "routed_km": 148.1,
+      "profile_km": 150.5,
+      "delta_pct": -1.6,
       "tolerance_pct": 5,
-      "coverage_pct": 83,
+      "coverage_pct": 93,
       "car_legs": 0,
-      "legs": 9,
+      "legs": 10,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -39406,11 +39539,11 @@
        "label": "Basse-Jarrie",
        "km": 32,
        "kind": "lieu-dit",
-       "geocodeAs": "Jarrie",
-       "lat": 45.10438,
-       "lon": 5.74894,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.08758,
+       "lon": 5.7431,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « Basse-Jarrie » (Nominatim, quarter) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       },
       {
        "label": "Grenoble",
@@ -39561,13 +39694,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 182.7,
+      "routed_km": 183.6,
       "profile_km": 177.5,
-      "delta_pct": 2.9,
+      "delta_pct": 3.5,
       "tolerance_pct": 5,
       "coverage_pct": 89,
       "car_legs": 0,
-      "legs": 13,
+      "legs": 14,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -39753,11 +39886,11 @@
        "label": "Le Massegros",
        "km": 46.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Massegros Causses Gorges",
-       "lat": 44.30237,
-       "lon": 3.19776,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 44.3085,
+       "lon": 3.17432,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « Le Massegros » (Nominatim, village) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       },
       {
        "label": "Rivière-sur-Tarn",
@@ -39869,13 +40002,13 @@
      ],
      "note": "Hors tolérance (−5,1 %) : Dourgne → Revel fait 25,5 km au profil pour 12,9 routés, par la côte de Saint-Ferréol rattachée à son village donc non routée.",
      "route_check": {
-      "routed_km": 168.9,
-      "profile_km": 178,
-      "delta_pct": -5.1,
+      "routed_km": 189.2,
+      "profile_km": 198.5,
+      "delta_pct": -4.7,
       "tolerance_pct": 5,
-      "coverage_pct": 73,
+      "coverage_pct": 81,
       "car_legs": 0,
-      "legs": 7,
+      "legs": 8,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -39976,11 +40109,11 @@
        "label": "Côte de Garrabet",
        "km": 97.5,
        "kind": "côte",
-       "geocodeAs": "Mercus-Garrabet",
-       "lat": 42.88002,
-       "lon": 1.63832,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 42.8909,
+       "lon": 1.63449,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « Garrabet » (Nominatim, hamlet) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       },
       {
        "label": "Tarascon-sur-Ariège",
@@ -40004,11 +40137,11 @@
        "label": "Vicdessos",
        "km": 119.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Val-de-Sos",
-       "lat": 42.78122,
-       "lon": 1.47763,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 42.76936,
+       "lon": 1.49717,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « Vicdessos » (Nominatim, village) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       },
       {
        "label": "Port de Lers",
@@ -40050,21 +40183,21 @@
        "label": "Guzet-Neige",
        "km": 164,
        "kind": "lieu-dit",
-       "geocodeAs": "Ustou",
-       "lat": 42.7986,
-       "lon": 1.25177,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 42.77911,
+       "lon": 1.30209,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « Guzet-Neige » (Nominatim, suburb) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       }
      ],
      "route_check": {
-      "routed_km": 138.9,
-      "profile_km": 139,
-      "delta_pct": -0.1,
+      "routed_km": 145.6,
+      "profile_km": 147.5,
+      "delta_pct": -1.3,
       "tolerance_pct": 5,
-      "coverage_pct": 85,
+      "coverage_pct": 90,
       "car_legs": 0,
-      "legs": 13,
+      "legs": 16,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -40122,11 +40255,11 @@
        "label": "Saint-Béat",
        "km": 57,
        "kind": "lieu-dit",
-       "geocodeAs": "Saint-Béat-Lez",
-       "lat": 42.91017,
-       "lon": 0.68964,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 42.9144,
+       "lon": 0.69281,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « Saint-Béat » (Nominatim, village) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       },
       {
        "label": "Cierp-Gaud",
@@ -40202,11 +40335,11 @@
        "label": "Sainte-Marie-de-Campan",
        "km": 142,
        "kind": "lieu-dit",
-       "geocodeAs": "Campan",
-       "lat": 42.97526,
-       "lon": 0.23362,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 42.98481,
+       "lon": 0.22762,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « Sainte-Marie de Campan » (Nominatim, neighbourhood) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
       },
       {
        "label": "Col du Tourmalet",
@@ -40256,13 +40389,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 176.2,
+      "routed_km": 176.8,
       "profile_km": 178.5,
-      "delta_pct": -1.3,
+      "delta_pct": -0.9,
       "tolerance_pct": 5,
       "coverage_pct": 87,
       "car_legs": 0,
-      "legs": 13,
+      "legs": 15,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
