@@ -137,4 +137,8 @@ dans la même PR que son correctif.
     que son hameau ou son sommet est connu n'est pas routée (1996 :
     Saint-Anastaise, Mont de l'Enclus, Fiolaz, Senoy) ; un col écarté
     pour homonymie se retrouve en cherchant avec le département (Col du
-    Rousset, Drôme).
+    Rousset, Drôme). **Deux contrôles avant de placer** (33.15) : le nom
+    renvoyé est bien celui cherché (« Thier de Theux » n'est pas
+    « Mont-Theux ») ; pour une côte, l'altitude MNT du point est celle
+    du sommet imprimé — un hameau au bord de l'eau (Hallembaye,
+    Pourville) est le pied de la côte, pas son sommet.

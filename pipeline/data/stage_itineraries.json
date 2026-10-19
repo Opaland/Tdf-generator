@@ -19902,11 +19902,11 @@
        "label": "Mont des Alouettes",
        "km": 152,
        "kind": "côte",
-       "geocodeAs": "Les Herbiers",
-       "lat": 46.86324,
-       "lon": -1.02864,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 46.89477,
+       "lon": -1.01026,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "sommet du Mont des Alouettes (Nominatim, peak) ; était rattaché à sa commune, donc non routé — placé (33.15, règle 21 ; relance après relecture)"
       },
       {
        "label": "La Gaubretière",
@@ -19974,13 +19974,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 212.2,
+      "routed_km": 214.4,
       "profile_km": 220,
-      "delta_pct": -3.6,
+      "delta_pct": -2.5,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
-      "legs": 18,
+      "legs": 19,
       "suspect_legs": 3,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -20784,11 +20784,12 @@
        "label": "Côte des Rousses",
        "km": 125.5,
        "kind": "côte",
-       "lat": 46.49377,
-       "lon": 6.06746,
-       "how": "nominatim",
+       "geocodeAs": "Les Rousses",
+       "lat": 46.47925,
+       "lon": 6.06787,
+       "how": "commune-ign",
        "confidence": "ok",
-       "note": "lieu « Les Rousses d'Amont » (Nominatim, hamlet) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
+       "note": "laissée rattachée (33.15, relecture) : Nominatim ne donne que le hameau des Rousses d’Amont, hors de la route (+2,1 km de détour en voiture)"
       },
       {
        "label": "Col de la Faucille",
@@ -20855,13 +20856,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 189.3,
+      "routed_km": 186.6,
       "profile_km": 182.5,
-      "delta_pct": 3.7,
+      "delta_pct": 2.2,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
-      "legs": 17,
+      "legs": 16,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -23908,11 +23909,12 @@
        "label": "Côte de Pourville",
        "km": 150,
        "kind": "côte",
-       "lat": 49.91622,
-       "lon": 1.03048,
-       "how": "nominatim",
+       "geocodeAs": "Hautot-sur-Mer",
+       "lat": 49.90232,
+       "lon": 1.03654,
+       "how": "commune-ign",
        "confidence": "ok",
-       "note": "lieu « Pourville-sur-Mer » (Nominatim, hamlet) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
+       "note": "laissée rattachée (33.15, relecture) : Nominatim ne donne que Pourville-sur-Mer, 7 m au MNT pour 110 imprimés — le pied de la côte"
       },
       {
        "label": "Quiberville",
@@ -24025,7 +24027,7 @@
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 20,
+      "legs": 19,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -24819,11 +24821,11 @@
        "label": "Mériadec",
        "km": 102.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Plumergat",
-       "lat": 47.7326,
-       "lon": -2.92947,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 47.69619,
+       "lon": -2.89694,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "village de Mériadec à Plumergat (Nominatim) ; était rattaché à sa commune, donc non routé — placé (33.15, règle 21 ; relance après relecture)"
       },
       {
        "label": "Vannes",
@@ -24938,7 +24940,7 @@
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 18,
+      "legs": 19,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -26232,11 +26234,11 @@
        "label": "Uriage-les-Bains",
        "km": 39.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Saint-Martin-d'Uriage",
-       "lat": 45.15736,
-       "lon": 5.84721,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.14213,
+       "lon": 5.82953,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "Uriage-les-Bains (Nominatim, hamlet) ; était rattaché à sa commune, donc non routé — placé (33.15, règle 21 ; relance après relecture)"
       },
       {
        "label": "Murianette",
@@ -26444,21 +26446,21 @@
        "label": "Morzine Les Prodains",
        "km": 255,
        "kind": "lieu-dit",
-       "geocodeAs": "Morzine",
-       "lat": 46.18199,
-       "lon": 6.72634,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 46.1904,
+       "lon": 6.7519,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "hameau des Prodains à Morzine (Nominatim ; 1 203 m au MNT pour 1 190 imprimés), arrivée — le point était au centre de Morzine, 1 029 m ; était rattaché à sa commune, donc non routé — placé (33.15, règle 21 ; relance après relecture)"
       }
      ],
      "route_check": {
-      "routed_km": 235.7,
-      "profile_km": 231,
-      "delta_pct": 2,
+      "routed_km": 239.5,
+      "profile_km": 236,
+      "delta_pct": 1.5,
       "tolerance_pct": 5,
-      "coverage_pct": 91,
+      "coverage_pct": 93,
       "car_legs": 0,
-      "legs": 19,
+      "legs": 21,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 1
@@ -28400,11 +28402,12 @@
        "label": "Côte de Hallembaye",
        "km": 126,
        "kind": "côte",
-       "lat": 50.74006,
-       "lon": 5.6637,
+       "geocodeAs": "Hallembaye",
+       "lat": 50.76448,
+       "lon": 5.66114,
        "how": "nominatim",
        "confidence": "ok",
-       "note": "lieu « Hallembaye » (Nominatim, neighbourhood) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
+       "note": "laissée rattachée (33.15, relecture) : Nominatim ne donne que le quartier de Hallembaye au bord de la Meuse, 59 m au MNT pour 175 imprimés — le pied de la côte, pas son sommet"
       },
       {
        "label": "Lanaye",
@@ -28487,13 +28490,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 152,
+      "routed_km": 150.1,
       "profile_km": 183.5,
-      "delta_pct": -17.2,
+      "delta_pct": -18.2,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
-      "legs": 15,
+      "legs": 14,
       "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 1
@@ -39048,11 +39051,12 @@
        "label": "Mont-Theux",
        "km": 178,
        "kind": "côte",
-       "lat": 50.53062,
-       "lon": 5.81085,
+       "geocodeAs": "Theux",
+       "lat": 50.53492,
+       "lon": 5.81329,
        "how": "nominatim",
        "confidence": "ok",
-       "note": "lieu « Ther de Theux » (Nominatim, locality) : était rattaché à sa commune, donc non routé — placé (33.15, règle 21)"
+       "note": "laissé rattaché (33.15, relecture) : Nominatim renvoyait « Thier de Theux » (213 m au MNT pour 330), pas le lieu nommé ; « Mont, Thier du Mont » (340 m au MNT) est un candidat non vérifié sur le tracé"
       },
       {
        "label": "Côte des Forges",
@@ -39071,13 +39075,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 182.8,
+      "routed_km": 181.3,
       "profile_km": 194.5,
-      "delta_pct": -6,
+      "delta_pct": -6.8,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 14,
+      "legs": 13,
       "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 0
