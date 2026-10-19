@@ -30943,7 +30943,8 @@
        "lat": 46.46608,
        "lon": -0.8064,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 12 km au profil depuis Mouzeuil-Saint-Martin pour 13,9 à vol d’oiseau (mairie et centre au même point) : profil plus court que la ligne droite, laissé tel quel"
       },
       {
        "label": "Côte de la Pissotte",
@@ -31053,11 +31054,11 @@
        "label": "Le Château-d'Olonne",
        "km": 204,
        "kind": "lieu-dit",
-       "geocodeAs": "Les Sables-d'Olonne",
-       "lat": 46.52436,
-       "lon": -1.76585,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 46.50428,
+       "lon": -1.73912,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "ancien bourg du Château-d’Olonne placé à sa mairie annexe (Nominatim) : le point était le centre de la commune nouvelle Les Sables-d’Olonne, au même endroit que l’arrivée (règle 15), relecture"
       },
       {
        "label": "Les Sables-d'Olonne",
@@ -31066,19 +31067,23 @@
        "lat": 46.52436,
        "lon": -1.76585,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 11 km au profil depuis Le Château-d’Olonne pour 3,9 routés — écart d’environ 7 km inexpliqué, aucun nom imprimé entre les deux"
       }
      ],
      "route_check": {
-      "routed_km": 192.9,
+      "routed_km": 193.8,
       "profile_km": 205,
-      "delta_pct": -5.9,
+      "delta_pct": -5.5,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 9,
-      "suspect_legs": 2
-     }
+      "legs": 10,
+      "suspect_legs": 2,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     },
+     "note": "Hors tolérance (−5,5 %) : Le Château-d’Olonne → Les Sables-d’Olonne fait 11 km au profil pour 4,1 routés, sans nom imprimé entre les deux — écart d’environ 7 km inexpliqué."
     },
     "2": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1993/93_2.jpg",
@@ -31256,8 +31261,11 @@
       "coverage_pct": 93,
       "car_legs": 0,
       "legs": 14,
-      "suspect_legs": 2
-     }
+      "suspect_legs": 2,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     },
+     "note": "Hors tolérance (−13,9 %) : la boucle de l’île de Noirmoutier (Notre-Dame-de-Monts → Beauvoir-sur-Mer, 24 km au profil), rattachée à Barbâtre, n’est pas routée, et Surzur → Vannes fait 26,5 km au profil pour 13,3 à vol d’oiseau sans nom imprimé entre les deux — la mesure sous-estime l’étape."
     },
     "3": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1993/93_3.jpg",
@@ -31284,10 +31292,11 @@
        "label": "Pluvigner",
        "km": 25,
        "kind": "ville",
-       "lat": 47.78162,
-       "lon": -3.02009,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 47.77731,
+       "lon": -3.00959,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "bourg placé à son hôtel de ville (Nominatim) : le point de la commune, à l’écart de la route, obligeait un aller-retour (règle 17)"
       },
       {
        "label": "Camors",
@@ -31339,11 +31348,11 @@
        "label": "Lamballe",
        "km": 139,
        "kind": "ville",
-       "geocodeAs": "Lamballe-Armor",
-       "lat": 48.4918,
-       "lon": -2.51465,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 48.46881,
+       "lon": -2.51744,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "ville de Lamballe (nœud place=town, Nominatim) : le point de la commune nouvelle Lamballe-Armor était 2,6 km au nord (règle 15)"
       },
       {
        "label": "Saint-Denoual",
@@ -31383,14 +31392,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 178.6,
+      "routed_km": 173.7,
       "profile_km": 176,
-      "delta_pct": 1.5,
+      "delta_pct": -1.3,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
       "legs": 10,
-      "suspect_legs": 1
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "4": {
@@ -31461,6 +31472,16 @@
        "confidence": "ok"
       },
       {
+       "label": "Mont-Rouault",
+       "km": 54,
+       "kind": "lieu-dit",
+       "lat": 48.55152,
+       "lon": -1.55997,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "village de Pleine-Fougères (Nominatim), 40 m, km 54 ; imprimé sur le profil mais omis à la transcription — ajouté en tri (33.12, règle 18)"
+      },
+      {
        "label": "Pontorson",
        "km": 57,
        "kind": "ville",
@@ -31476,7 +31497,8 @@
        "lat": 48.60133,
        "lon": -1.37415,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 12 km au profil depuis Pontorson, 15,8 routés en vélo mais 12,8 en voiture (OSRM) — détour du routeur vélo, pas de la transcription (règle 20)"
       },
       {
        "label": "Avranches",
@@ -31489,15 +31511,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 77.4,
+      "routed_km": 77.6,
       "profile_km": 71,
-      "delta_pct": 9.1,
+      "delta_pct": 9.3,
       "tolerance_pct": 5,
       "coverage_pct": 88,
       "car_legs": 0,
-      "legs": 8,
-      "suspect_legs": 0
-     }
+      "legs": 9,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     },
+     "note": "Hors tolérance (+9,3 %) : Pontorson → Précey fait 15,8 km routés en vélo pour 12 au profil, 12,8 en voiture (OSRM) — l’écart vient du routeur vélo (sans ce détour, environ +5 %)."
     },
     "5": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1993/93_5.jpg",
@@ -31640,7 +31665,9 @@
       "coverage_pct": 87,
       "car_legs": 0,
       "legs": 9,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "6": {
@@ -31824,7 +31851,9 @@
       "coverage_pct": 94,
       "car_legs": 0,
       "legs": 15,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "7": {
@@ -32033,7 +32062,9 @@
       "coverage_pct": 96,
       "car_legs": 0,
       "legs": 14,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "8": {
@@ -32083,7 +32114,8 @@
        "lat": 49.39808,
        "lon": 4.70036,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 4 km au profil depuis Bourcq pour 5,2 à vol d’oiseau : profil plus court que la ligne droite, laissé tel quel"
       },
       {
        "label": "Quatre-Champs",
@@ -32214,7 +32246,8 @@
        "lat": 49.15893,
        "lon": 5.38673,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 18 km au profil depuis Bras-sur-Meuse par la côte de Douaumont, rattachée à sa commune donc non routée"
       }
      ],
      "route_check": {
@@ -32225,7 +32258,9 @@
       "coverage_pct": 90,
       "car_legs": 0,
       "legs": 14,
-      "suspect_legs": 2
+      "suspect_legs": 2,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "9": {
@@ -32360,7 +32395,9 @@
       "coverage_pct": 92,
       "car_legs": 0,
       "legs": 9,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "10": {
@@ -32460,10 +32497,11 @@
        "label": "Saint-Étienne-de-Cuines",
        "km": 120,
        "kind": "ville",
-       "lat": 45.34085,
-       "lon": 6.28583,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.34205,
+       "lon": 6.29149,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "bourg placé à sa mairie (Nominatim) : le point de la commune, à l’écart de la route, obligeait un aller-retour (règle 17)"
       },
       {
        "label": "Saint-Michel-de-Maurienne",
@@ -32519,14 +32557,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 184.2,
+      "routed_km": 180.7,
       "profile_km": 180,
-      "delta_pct": 2.3,
+      "delta_pct": 0.4,
       "tolerance_pct": 5,
       "coverage_pct": 89,
       "car_legs": 0,
       "legs": 14,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "11": {
@@ -32609,10 +32649,11 @@
        "label": "La Condamine-Châtelard",
        "km": 95.5,
        "kind": "ville",
-       "lat": 44.45382,
-       "lon": 6.73948,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 44.45834,
+       "lon": 6.74535,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "bourg placé à sa mairie (Nominatim) : le point de la commune, à l’écart de la route, obligeait un aller-retour (règle 17)"
       },
       {
        "label": "Jausiers",
@@ -32659,14 +32700,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 161.1,
+      "routed_km": 155.7,
       "profile_km": 159,
-      "delta_pct": 1.3,
+      "delta_pct": -2.1,
       "tolerance_pct": 5,
       "coverage_pct": 89,
       "car_legs": 0,
       "legs": 10,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "12": {
@@ -32702,13 +32745,34 @@
        "note": "libellé imprimé sur le profil ; vraisemblablement La Bolline (Valdeblore), coquille de la source"
       },
       {
+       "label": "Roussillon",
+       "km": 28.5,
+       "kind": "lieu-dit",
+       "lat": 43.96059,
+       "lon": 7.1572,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "hameau de La Tour sur la route de la Tinée (Nominatim), imprimé sur le profil (250 m, km 28,5) mais omis à la transcription — ajouté en tri (33.12, règle 18)"
+      },
+      {
+       "label": "Le Chaudan",
+       "km": 42.5,
+       "kind": "lieu-dit",
+       "lat": 43.87083,
+       "lon": 7.19812,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "hameau d’Utelle au confluent de la Tinée et du Var (Nominatim), imprimé sur le profil (km 42,5) mais omis à la transcription — ajouté en tri (33.12, règle 18) ; tronçon suspect (33.12) : BRouter (vélo) contourne la route des gorges de la Tinée (M2205), 44 km routés depuis Roussillon pour 14 au profil — en voiture (OSRM) 13,5 km : limite du routeur, pas de la transcription ; aller-retour (33.14) : hameau à l’écart de la route, 1,1 km repris"
+      },
+      {
        "label": "Saint-Martin-du-Var",
        "km": 46.5,
        "kind": "ville",
-       "lat": 43.81696,
-       "lon": 7.19849,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 43.82249,
+       "lon": 7.1912,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "bourg placé à sa mairie (Nominatim) : le point de la commune était à 233 m au MNT pour 115 imprimés (règle 14), relecture ; tronçon suspect (33.12) : 4 km au profil depuis Le Chaudan pour 5,4 à vol d’oiseau jusqu’à la mairie : profil plus court que la ligne droite, laissé tel quel"
       },
       {
        "label": "Côte de Gattières",
@@ -32733,10 +32797,11 @@
        "label": "Tourrettes-sur-Loup",
        "km": 75.5,
        "kind": "ville",
-       "lat": 43.70778,
-       "lon": 7.03026,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 43.71585,
+       "lon": 7.05886,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "bourg placé à sa mairie (Nominatim) : le point de la commune était 2,4 km à l’ouest — Vence → mairie 5,7 km routés pour 5,5 au profil (règle 17), relecture"
       },
       {
        "label": "Côte de Châteauneuf",
@@ -32832,6 +32897,13 @@
        "confidence": "ok"
       },
       {
+       "label": "Côte des Glaciers",
+       "km": 230,
+       "kind": "côte",
+       "confidence": "non-place",
+       "note": "imprimée sur le profil (km 230) mais omise à la transcription — ajoutée en relecture (33.12), sommet non localisé, non placée"
+      },
+      {
        "label": "Plan-d'Aups-Sainte-Baume",
        "km": 238.5,
        "kind": "ville",
@@ -32859,6 +32931,13 @@
        "confidence": "ok"
       },
       {
+       "label": "Côte de Perrier",
+       "km": 283.5,
+       "kind": "côte",
+       "confidence": "non-place",
+       "note": "imprimée sur le profil (km 283,5) mais omise à la transcription — ajoutée en relecture (33.12), sommet non localisé, non placée"
+      },
+      {
        "label": "Marseille",
        "km": 287.5,
        "kind": "ville",
@@ -32869,15 +32948,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 301.9,
+      "routed_km": 302.6,
       "profile_km": 275,
-      "delta_pct": 9.8,
+      "delta_pct": 10,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 15,
-      "suspect_legs": 2
-     }
+      "legs": 17,
+      "suspect_legs": 2,
+      "backtracks": 1,
+      "backtracks_uncertain": 0
+     },
+     "note": "Hors tolérance (+10,0 %) : BRouter (vélo) contourne la route des gorges de la Tinée entre Roussillon et Le Chaudan (44 km routés pour 14 ; 13,5 en voiture) — l’écart vient du routeur, pas de la transcription."
     },
     "13": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1993/93_13.jpg",
@@ -33081,8 +33163,11 @@
       "coverage_pct": 85,
       "car_legs": 0,
       "legs": 17,
-      "suspect_legs": 0
-     }
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     },
+     "note": "Hors tolérance (+6,1 %) : écart réparti, pire tronçon Mauguio → Montpellier (14,1 km routés pour 12) ; cause non établie."
     },
     "14": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1993/93_14.jpg",
@@ -33122,7 +33207,8 @@
        "lat": 43.40144,
        "lon": 3.69598,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 5,5 km au profil depuis Frontignan pour 6,7 à vol d’oiseau entre les centres : laissé tel quel"
       },
       {
        "label": "Mont Saint-Clair",
@@ -33259,7 +33345,9 @@
       "coverage_pct": 97,
       "car_legs": 0,
       "legs": 14,
-      "suspect_legs": 1
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "15": {
@@ -33432,7 +33520,9 @@
       "coverage_pct": 90,
       "car_legs": 0,
       "legs": 13,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "16": {
@@ -33584,7 +33674,9 @@
       "coverage_pct": 90,
       "car_legs": 0,
       "legs": 11,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "17": {
@@ -33745,7 +33837,9 @@
       "coverage_pct": 91,
       "car_legs": 0,
       "legs": 12,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "18": {
@@ -33833,10 +33927,11 @@
        "label": "Commensacq",
        "km": 91.5,
        "kind": "ville",
-       "lat": 44.22095,
-       "lon": -0.83388,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 44.21078,
+       "lon": -0.8227,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "bourg placé à sa mairie (Nominatim) : le point de la commune, à l’écart de la route, obligeait un aller-retour (règle 17)"
       },
       {
        "label": "Pissos",
@@ -33899,7 +33994,15 @@
        "lat": 44.77508,
        "lon": -0.55453,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 12 km au profil depuis Saucats pour 17,1 routés ; placé à sa mairie le point ne gagne que 0,5 km — cause non établie"
+      },
+      {
+       "label": "Bordeaux (entrée du circuit)",
+       "km": 184.5,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "« Bordeaux - entrée » imprimé au km 184,5, omis à la transcription : entrée sur le circuit final (circuit_km), lieu exact non sourcé, non placé"
       },
       {
        "label": "Bordeaux",
@@ -33912,15 +34015,19 @@
       }
      ],
      "route_check": {
-      "routed_km": 192.2,
-      "profile_km": 192,
-      "delta_pct": 0.1,
+      "routed_km": 180.9,
+      "profile_km": 169,
+      "delta_pct": 7,
       "tolerance_pct": 5,
-      "coverage_pct": 96,
+      "coverage_pct": 85,
       "car_legs": 0,
-      "legs": 15,
-      "suspect_legs": 3
-     }
+      "legs": 14,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     },
+     "circuit_km": 184.5,
+     "note": "Hors tolérance (+7,0 %) sur la part mesurée, circuit final de Bordeaux retiré (entrée au km 184,5) : Saucats → Villenave-d’Ornon fait 17,1 km routés pour 12 au profil, cause non établie (la mairie de Villenave ne règle rien)."
     },
     "19": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1993/93_19.jpg",
@@ -33969,7 +34076,8 @@
        "lat": 48.57495,
        "lon": 2.07451,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 10,5 km au profil depuis Ollainville pour 11,5 à vol d’oiseau ; La Belle Étoile, rattachée à sa commune, n’est pas routée (aller-retour incertain) ; la mairie (1,4 km) ne résout rien : le tronçon vers Vaugrigneuse y serait pire (6,1 km à vol d’oiseau pour 3)"
       },
       {
        "label": "Vaugrigneuse",
@@ -33978,7 +34086,8 @@
        "lat": 48.6026,
        "lon": 2.12094,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 3 km au profil depuis Le Val-Saint-Germain pour 4,6 à vol d’oiseau entre les centres : laissé tel quel"
       },
       {
        "label": "Côte de Briis-sous-Forges",
@@ -34021,7 +34130,8 @@
        "lat": 48.63969,
        "lon": 2.2711,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 15 km au profil depuis Janvry par la côte de l’Escargot, non placée"
       }
      ],
      "route_check": {
@@ -34032,7 +34142,9 @@
       "coverage_pct": 90,
       "car_legs": 0,
       "legs": 6,
-      "suspect_legs": 3
+      "suspect_legs": 3,
+      "backtracks": 0,
+      "backtracks_uncertain": 1
      }
     },
     "20": {
@@ -34191,7 +34303,7 @@
        "lon": 2.30533,
        "how": "nominatim",
        "confidence": "ok",
-       "note": "entrée sur le circuit des Champs-Élysées (Nominatim) ; était l’ancre de Paris (Châtelet)"
+       "note": "entrée sur le circuit des Champs-Élysées (Nominatim) ; était l’ancre de Paris (Châtelet) ; tronçon suspect (33.12) : 11 km au profil depuis Issy-les-Moulineaux pour 6,1 à vol d’oiseau : aucun nom imprimé entre les deux, tracé non transcrit"
       },
       {
        "label": "Paris Champs-Élysées",
@@ -34212,7 +34324,9 @@
       "coverage_pct": 69,
       "car_legs": 0,
       "legs": 10,
-      "suspect_legs": 1
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      },
      "circuit_km": 146
     }

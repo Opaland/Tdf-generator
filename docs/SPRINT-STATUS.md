@@ -705,6 +705,29 @@ et côtes traversées avec leur kilomètre.
   réellement contradictoire, laissé tel quel avec une note. Protocole de
   transcription : `--legs` avant chaque PR d'édition, tout tronçon
   suspect justifié.
+  - 1993 trié, sur un passage BRouter. Noms imprimés mais omis,
+    ajoutés : Roussillon et Le Chaudan (1993/12), Mont-Rouault
+    (1993/4), « Bordeaux - entrée » (1993/18, non placée — le circuit
+    final de Bordeaux sort de la mesure, `circuit_km` 184,5), Côte des
+    Glaciers et Côte de Perrier (1993/12, non placées). Positions :
+    Lamballe au centre de la commune nouvelle Lamballe-Armor (2,6 km,
+    règle 15) ; Pluvigner, Saint-Étienne-de-Cuines, La Condamine-
+    Châtelard et Commensacq à leur mairie, leurs allers-retours
+    disparaissent (règle 17). Relecture adverse — règles 17 et 20 non
+    appliquées aux tronçons suspects hors aller-retour : Tourrettes-sur-
+    Loup à sa mairie (2,4 km, le tronçon suspect disparaît), Saint-
+    Martin-du-Var à sa mairie (233 m au MNT pour 115 imprimés, règle
+    14), Le Château-d'Olonne à sa mairie annexe (il était au centre de
+    la commune nouvelle Les Sables-d'Olonne, sur l'arrivée) ; Pontorson
+    → Précey : 15,8 km en vélo, 12,8 en voiture pour 12 au profil —
+    détour du routeur ; trois notes qui posaient une hypothèse comme un
+    fait, reformulées. Limite du routeur : BRouter (vélo) fait 44 km
+    entre Roussillon et Le Chaudan, 13,5 en voiture pour 14 au profil.
+    Bilan : 14 étapes sur 20 dans la tolérance (15 avant : 1993/18 sort,
+    +7,0 %, une fois le circuit de Bordeaux retiré — l'ancien écart le
+    compensait) ; les 6 hors tolérance ont une note d'étape. 14
+    tronçons suspects, 1 aller-retour sûr et 1 incertain, tous notés ;
+    aucun tronçon routé en voiture.
   - 1987 trié (32 tronçons suspects stockés avant le tri, 10
     allers-retours sûrs au premier passage 33.14) : 10 erreurs de
     position corrigées — Troo (2 km), Asasp-Arros (hameau d'Arros),
