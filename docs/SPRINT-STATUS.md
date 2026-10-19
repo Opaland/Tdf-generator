@@ -712,15 +712,24 @@ et côtes traversées avec leur kilomètre.
   étape ; CLAUDE.md règle 16 rend la lecture obligatoire avant la
   première étape d'une édition, et toute erreur trouvée en relecture
   ajoute ou précise une règle.
-- [ ] 33.14 Détection automatique des allers-retours (demande utilisateur
+- [x] 33.14 Détection automatique des allers-retours (demande utilisateur
   du 19/10 : « jamais un Tour ne fait un aller-retour sur une même
-  étape ») : `check-itineraries --legs` signale un point qui oblige le
-  tracé à faire demi-tour. Critères d'acceptation : un point placé de
-  l'autre côté de son voisin suivant (A → B → C avec C revenant vers A)
-  est signalé, un tracé en ligne ou en virage ne l'est pas ; les
-  circuits finaux (`circuit_km`) sont exclus ; seuil testé aux bornes,
-  chaque mutation de seuil fait échouer un test ; premier passage sur
-  toutes les éditions, chaque cas trié contre l'image.
+  étape ») : `check-itineraries --legs` mesure, pour chaque point, les km
+  du tracé routé sortant qui reprennent la route du tracé entrant (à 30 m
+  près, milieu de segment compris) ; 1 km ou plus est signalé
+  (« aller-retour à … ») et compté dans `route_check.backtracks`. Un
+  virage serré vers une autre vallée ne reprend aucune route : un premier
+  essai sur l'angle aux points en signalait 37, presque tous des
+  changements de vallée (Le Bourg-d'Oisans → Huez). Relecture adverse :
+  un signalement sur trois enjambait un point retiré, où le routeur ne
+  suit pas la vraie route — signalé à part, « incertain »
+  (`backtracks_uncertain`), jamais compté comme sûr ; seuil appliqué à la
+  valeur exacte (0,95 km passait pour 1,0) ; corde entre deux points du
+  tracé exclue. Tests aux bornes du seuil et de la tolérance, en latitude
+  comme en longitude ; chaque mutation relevée en relecture échoue.
+  Premier passage sur les 245 étapes mesurées (avant les corrections de
+  1987) : 80 allers-retours sûrs sur 65 étapes, 53 incertains — à trier
+  édition par édition avec 33.12 (1992 : 15, 1987 : 10, 1993 : 9…).
 - [x] Édition 1986 (PR #423) : 23 étapes en ligne sur 23 (prologue de Boulogne-
   Billancourt non transcrit), 491 points placés sur 539. Contrôlée à
   ±5 % avant PR : 21 étapes dans la tolérance, 2 hors, affichées comme
