@@ -11,7 +11,7 @@ process.env.ETAPEFORGE_OFFLINE = '1';
 
 const { test, after } = require('node:test');
 const assert = require('node:assert');
-const { checkStage, checkStoredStage, officialKm, measuredTowns, isSuspectLeg } = require('../scripts/check-itineraries');
+const { checkStage, checkStoredStage, officialKm, measuredTowns, isSuspectLeg, isBacktrack, retracedKm } = require('../scripts/check-itineraries');
 
 after(() => fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true }));
 
@@ -98,4 +98,58 @@ test('checkStage : compte les tronçons suspects même quand le total est dans l
   const r = await checkStage(towns, leg, 40);
   assert.strictEqual(r.ok, true);
   assert.strictEqual(r.suspectLegs, 2);
+});
+
+// Allers-retours (33.14) — géométrie synthétique à 45° N, pas de 100 m.
+const KM_LAT = 1 / 111.2;
+const KM_LON = 1 / (111.2 * Math.cos((45 * Math.PI) / 180));
+const pt = (xKm, yKm) => ({ lat: 45 + yKm * KM_LAT, lon: 6 + xKm * KM_LON });
+const line = (from, to, n = 30) => Array.from({ length: n + 1 }, (_, i) => pt(from[0] + ((to[0] - from[0]) * i) / n, from[1] + ((to[1] - from[1]) * i) / n));
+const IN = line([0, 0], [0, 3]); // A (0,0) → B (0,3), plein nord
+
+test('retracedKm : km du tracé sortant qui reprennent la route d\'arrivée, à 30 m près', () => {
+  // Demi-tour : 2 km vers le sud sur la même route, puis vers l'est.
+  const back = [...line([0, 3], [0, 1], 20), ...line([0, 1], [3, 1], 30).slice(1)];
+  assert.ok(Math.abs(retracedKm(IN, back) - 2) <= 0.1, String(retracedKm(IN, back)));
+  // Tout droit, ou virage à angle droit : rien de repris.
+  assert.ok(retracedKm(IN, line([0, 3], [0, 6])) <= 0.1);
+  assert.ok(retracedKm(IN, line([0, 3], [3, 3])) <= 0.1);
+  // Virage serré vers une autre vallée (20° d'écart) : la route s'écarte, pas un aller-retour.
+  const a = (20 * Math.PI) / 180;
+  assert.ok(retracedKm(IN, line([0, 3], [3 * Math.sin(a), 3 - 3 * Math.cos(a)])) < 1);
+  // Tolérance : retour parallèle à 25 m compté, à 40 m non.
+  const para = (dxKm) => [pt(0, 3), ...line([dxKm, 3], [dxKm, 1], 20)];
+  assert.ok(retracedKm(IN, para(0.025)) >= 1.9);
+  assert.ok(retracedKm(IN, para(0.04)) <= 0.1);
+  // Sans géométrie (routeur injecté qui ne rend qu'une distance) : 0.
+  assert.strictEqual(retracedKm(null, back), 0);
+  assert.strictEqual(retracedKm(IN, null), 0);
+});
+
+test('isBacktrack : 1 km repris suffit, en dessous non', () => {
+  assert.strictEqual(isBacktrack({ retracedKm: 1 }), true);
+  assert.strictEqual(isBacktrack({ retracedKm: 0.9 }), false);
+});
+
+test('checkStage : compte les allers-retours quand le routeur rend le tracé', async () => {
+  // A → B (3 km nord) ; B → C repart 2 km vers le sud sur la même route.
+  const towns = [{ ...pt(0, -1), label: 'Départ', km: 0 }, { ...pt(0, 0), label: 'A', km: 1 },
+    { ...pt(0, 3), label: 'B', km: 4 }, { ...pt(3, 1), label: 'C', km: 9 }];
+  const geom = { 'Départ>A': line([0, -1], [0, 0]), 'A>B': IN, 'B>C': [...line([0, 3], [0, 1], 20), ...line([0, 1], [3, 1], 30).slice(1)] };
+  const router = (a, b) => {
+    const points = geom[`${a.label}>${b.label}`];
+    let m = 0;
+    for (let i = 1; i < points.length; i++) m += Math.hypot((points[i].lat - points[i - 1].lat) / KM_LAT, (points[i].lon - points[i - 1].lon) / KM_LON) * 1000;
+    return { distanceM: m, points, router: 'brouter' };
+  };
+  const r = await checkStage(towns, router, 9);
+  assert.strictEqual(r.backtracks, 1);
+  assert.strictEqual(r.legs.find((l) => l.from === 'B').retracedKm >= 1.9, true);
+});
+
+test('retracedKm : une petite boucle avant de reprendre la route d\'arrivée reste un aller-retour', () => {
+  // Sortie vers l'est (200 m, hors tolérance), retour sur la route d'arrivée
+  // à 2,5 km, puis 1,5 km vers le sud dessus.
+  const loop = [...line([0, 3], [0.2, 3], 2), ...line([0.2, 3], [0.2, 2.5], 5).slice(1), ...line([0.2, 2.5], [0, 2.5], 2).slice(1), ...line([0, 2.5], [0, 1], 15).slice(1)];
+  assert.ok(retracedKm(IN, loop) >= 1.4, String(retracedKm(IN, loop)));
 });

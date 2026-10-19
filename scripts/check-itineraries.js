@@ -7,9 +7,11 @@
 // sens — un point mal placé allonge la route, une ville omise aussi.
 //
 // Usage : node scripts/check-itineraries.js [--write] [--legs] [année | année/étape …]   (réseau requis)
-// --legs : pour chaque étape, liste les tronçons suspects (isSuspectLeg).
+// --legs : pour chaque étape, liste les tronçons suspects (isSuspectLeg) et
+// les allers-retours (isBacktrack).
 // --write : enregistre route_check {routed_km, profile_km, delta_pct,
-// tolerance_pct, coverage_pct, car_legs, legs} dans pipeline/data/stage_itineraries.json —
+// tolerance_pct, coverage_pct, car_legs, legs, suspect_legs, backtracks}
+// dans pipeline/data/stage_itineraries.json —
 // affiché par la recherche par lieu, jamais masqué (décision du 18/10/2026 :
 // mesurer et afficher, corriger les vraies erreurs une à une).
 
@@ -78,11 +80,15 @@ async function checkStage(towns, legRouter, totalKm) {
 async function measure(pts, profileKm, legRouter) {
   const legs = [];
   let routedM = 0;
+  let prevPts = null;
   for (let i = 1; i < pts.length; i++) {
     const r = await legRouter(pts[i - 1], pts[i]);
     const m = typeof r === 'number' ? r : r.distanceM;
+    const geom = typeof r === 'number' ? null : r.points;
     routedM += m;
-    legs.push({ from: pts[i - 1].label, to: pts[i].label, profileKm: round1(pts[i].km - pts[i - 1].km), routedKm: m / 1000, crowKm: haversine(pts[i - 1], pts[i]) / 1000, router: typeof r === 'number' ? null : r.router });
+    legs.push({ from: pts[i - 1].label, to: pts[i].label, profileKm: round1(pts[i].km - pts[i - 1].km), routedKm: m / 1000, crowKm: haversine(pts[i - 1], pts[i]) / 1000, router: typeof r === 'number' ? null : r.router,
+      retracedKm: retracedKm(prevPts, geom) });
+    prevPts = geom;
   }
   const routedKm = routedM / 1000;
   // Arrondi avant le verdict : c'est la valeur publiée qui doit le porter.
@@ -90,7 +96,54 @@ async function measure(pts, profileKm, legRouter) {
   // Part des tronçons routés en voiture (repli OSRM quand BRouter refuse) :
   // la mesure en dépend, elle se publie avec elle.
   const carLegs = legs.filter((l) => l.router === 'osrm').length;
-  return { routedKm, profileKm, deltaPct, ok: Math.abs(deltaPct) <= DIST_TOLERANCE_PCT, legs, carLegs, suspectLegs: legs.filter(isSuspectLeg).length };
+  return { routedKm, profileKm, deltaPct, ok: Math.abs(deltaPct) <= DIST_TOLERANCE_PCT, legs, carLegs, suspectLegs: legs.filter(isSuspectLeg).length,
+    backtracks: legs.filter(isBacktrack).length };
+}
+
+/** Distance (m) d'un point à une polyligne, projection locale équirectangulaire. */
+function distToPolylineM(p, line) {
+  const kx = 111320 * Math.cos((p.lat * Math.PI) / 180);
+  const ky = 110540;
+  let best = Infinity;
+  for (let i = 0; i < line.length; i++) {
+    const ax = (line[i].lon - p.lon) * kx, ay = (line[i].lat - p.lat) * ky;
+    if (i === 0) { best = Math.min(best, Math.hypot(ax, ay)); continue; }
+    const bx = (line[i - 1].lon - p.lon) * kx, by = (line[i - 1].lat - p.lat) * ky;
+    const dx = ax - bx, dy = ay - by;
+    const len2 = dx * dx + dy * dy;
+    const t = len2 > 0 ? Math.max(0, Math.min(1, -(bx * dx + by * dy) / len2)) : 0;
+    best = Math.min(best, Math.hypot(bx + t * dx, by + t * dy));
+  }
+  return best;
+}
+
+/**
+ * Aller-retour (Epic 33.14) : un Tour ne rejoint jamais un point pour
+ * revenir sur ses pas (demande utilisateur du 19/10/2026). Km du tracé
+ * sortant d'un point qui reprennent la route du tracé entrant — à
+ * BACKTRACK_TOL_M près. Un point posé à l'écart de la route
+ * (centre de commune, homonyme) ou dans le mauvais ordre force ce
+ * demi-tour ; un virage serré vers une autre vallée ne reprend aucune route.
+ */
+const BACKTRACK_TOL_M = 30;
+const BACKTRACK_MIN_KM = 1;
+function retracedKm(inPts, outPts, tolM = BACKTRACK_TOL_M) {
+  if (!inPts?.length || !outPts?.length) return 0;
+  // Tout segment sortant dont les deux bouts sont sur la route d'arrivée
+  // compte, pas seulement le début : une petite boucle avant de reprendre la
+  // même route reste un aller-retour. Hors de l'emprise du tracé entrant
+  // (élargie de la tolérance), rien à chercher.
+  const pad = tolM / 100000;
+  const lat0 = Math.min(...inPts.map((p) => p.lat)) - pad, lat1 = Math.max(...inPts.map((p) => p.lat)) + pad;
+  const lon0 = Math.min(...inPts.map((p) => p.lon)) - pad * 2, lon1 = Math.max(...inPts.map((p) => p.lon)) + pad * 2;
+  const onIn = outPts.map((p) => p.lat >= lat0 && p.lat <= lat1 && p.lon >= lon0 && p.lon <= lon1 && distToPolylineM(p, inPts) <= tolM);
+  let m = 0;
+  for (let i = 1; i < outPts.length; i++) if (onIn[i] && onIn[i - 1]) m += haversine(outPts[i - 1], outPts[i]);
+  return round1(m / 1000);
+}
+
+function isBacktrack(l) {
+  return l.retracedKm >= BACKTRACK_MIN_KM;
 }
 
 /**
@@ -150,10 +203,13 @@ async function main() {
         for (const l of r.legs.filter(isSuspectLeg)) {
           console.log(`    ${l.from} → ${l.to} : ${l.routedKm.toFixed(1)} km routés, ${l.crowKm.toFixed(1)} à vol d'oiseau, pour ${l.profileKm} km au profil (${l.router || '?'})`);
         }
+        for (const l of r.legs.filter(isBacktrack)) {
+          console.log(`    aller-retour à ${l.from} : ${l.retracedKm.toFixed(1)} km repris en sens inverse vers ${l.to} (${l.router || '?'})`);
+        }
       }
       if (write) {
         st.route_check = { routed_km: round1(r.routedKm), profile_km: r.profileKm, delta_pct: r.deltaPct,
-          tolerance_pct: DIST_TOLERANCE_PCT, coverage_pct: r.coveragePct, car_legs: r.carLegs, legs: r.legs.length, suspect_legs: r.suspectLegs };
+          tolerance_pct: DIST_TOLERANCE_PCT, coverage_pct: r.coveragePct, car_legs: r.carLegs, legs: r.legs.length, suspect_legs: r.suspectLegs, backtracks: r.backtracks };
       }
     }
   }
@@ -162,4 +218,4 @@ async function main() {
 
 if (require.main === module) main().catch((err) => { console.error(err); process.exit(1); });
 
-module.exports = { checkStage, checkStoredStage, routablePoints, officialKm, measuredTowns, isSuspectLeg };
+module.exports = { checkStage, checkStoredStage, routablePoints, officialKm, measuredTowns, isSuspectLeg, isBacktrack, retracedKm };
