@@ -534,7 +534,7 @@ et côtes traversées avec leur kilomètre.
   en voiture par un détour vélo. Relecture adverse : 14 étapes relues
   contre l'image sans erreur de km ; libellés restaurés
   (Saint-Gervais-Mont-Blanc, Huez-en-Oisans, Côte de Marigny-Brizai).
-- [ ] Édition 1989 : 21 étapes en ligne sur 21 + prologue (rues de
+- [x] Édition 1989 (PR #416) : 21 étapes en ligne sur 21 + prologue (rues de
   Luxembourg seulement, gardé pour mémoire, non contrôlable), 300 points
   placés sur 345. Contrôlée à ±5 % avant PR : 15 étapes dans la
   tolérance (1989/5 à +5,0 %, à la limite), 6 hors, affichées comme
@@ -567,7 +567,7 @@ et côtes traversées avec leur kilomètre.
   Libellés de l'image gardés (Seyne-les-Alpes, Colombières, Malmédy,
   Côte-des-4-Routes) ; longueurs du profil reprises quand elles diffèrent
   de `stage_towns` (1989/11, 13, 16, 17, 20).
-- [ ] Édition 1988 : 22 étapes sur 23 (prologue Pornichet → La Baule,
+- [x] Édition 1988 (PR #418) : 22 étapes sur 23 (prologue Pornichet → La Baule,
   3,8 km, sans profil publié), 387 points placés sur 419. Contrôlée à
   ±5 % avant PR : 18 étapes dans la tolérance, 4 hors, affichées comme
   telles — 1988/6 (+10,7 %, contre-la-montre par équipes : Villeneuve-
@@ -647,7 +647,7 @@ et côtes traversées avec leur kilomètre.
   sur la ville), 1992/15 (+5,7 %), 1993/1 (−5,9 %) — écarts affichés,
   pas ajustés. 25 tronçons routés en voiture (13 avant) : BRouter refusait
   par moments pendant la remesure.
-- [ ] Édition 1987 : 25 étapes sur 26 (prologue de Berlin-Ouest sans
+- [x] Édition 1987 (PR #421) : 25 étapes sur 26 (prologue de Berlin-Ouest sans
   profil publié), 502 points placés sur 578. Les deux contre-la-montre
   dans Berlin-Ouest n'ont que des rues et quartiers (1987/1 non
   contrôlable, 1987/2 −33,1 % sur deux tronçons). Contrôlée à ±5 % avant
@@ -705,7 +705,23 @@ et côtes traversées avec leur kilomètre.
   réellement contradictoire, laissé tel quel avec une note. Protocole de
   transcription : `--legs` avant chaque PR d'édition, tout tronçon
   suspect justifié.
-- [ ] Édition 1986 : 23 étapes en ligne sur 23 (prologue de Boulogne-
+- [x] 33.13 Règles de curation lues avant tout premier tracé (demande
+  utilisateur du 19/10) : `docs/CURATION-REGLES.md`, 13 règles tirées
+  des erreurs réelles des éditions déjà curées (lecture du profil,
+  placement, contrôle), dont l'interdiction des allers-retours dans une
+  étape ; CLAUDE.md règle 16 rend la lecture obligatoire avant la
+  première étape d'une édition, et toute erreur trouvée en relecture
+  ajoute ou précise une règle.
+- [ ] 33.14 Détection automatique des allers-retours (demande utilisateur
+  du 19/10 : « jamais un Tour ne fait un aller-retour sur une même
+  étape ») : `check-itineraries --legs` signale un point qui oblige le
+  tracé à faire demi-tour. Critères d'acceptation : un point placé de
+  l'autre côté de son voisin suivant (A → B → C avec C revenant vers A)
+  est signalé, un tracé en ligne ou en virage ne l'est pas ; les
+  circuits finaux (`circuit_km`) sont exclus ; seuil testé aux bornes,
+  chaque mutation de seuil fait échouer un test ; premier passage sur
+  toutes les éditions, chaque cas trié contre l'image.
+- [x] Édition 1986 (PR #423) : 23 étapes en ligne sur 23 (prologue de Boulogne-
   Billancourt non transcrit), 491 points placés sur 539. Contrôlée à
   ±5 % avant PR : 21 étapes dans la tolérance, 2 hors, affichées comme
   telles — 1986/1 (−36,5 %, contre-la-montre en boucles dans les

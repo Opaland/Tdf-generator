@@ -272,3 +272,16 @@ design, architecture ou marketing (proposer, noter la story « en attente de
 décision », passer à la suivante — pas attendre la réponse), publier quoi
 que ce soit hors du dépôt, et la règle 12. On ne rend la main que quand
 **toutes** les stories restantes attendent une décision.
+
+## 16. Avant le premier tracé d'une édition, relire les règles de curation
+
+Le 19/10/2026, l'utilisateur a constaté que chaque édition transcrite
+revenait en reprise après relecture (km décalés d'un cran, centres de
+commune, homonymes, points « non placés » encore tracés) : les leçons
+existaient, éparpillées dans `docs/SPRINT-STATUS.md`, mais rien ne
+m'obligeait à les relire avant de recommencer.
+
+**Avant de transcrire la première étape d'une édition : lire
+`docs/CURATION-REGLES.md` en entier.** Toute erreur nouvelle trouvée en
+relecture y ajoute ou précise une règle, dans la PR de son correctif —
+la liste doit faire gagner le premier coup, pas documenter les reprises.
