@@ -853,6 +853,31 @@ et côtes traversées avec leur kilomètre.
     (+2,0 %) ; les 4 hors tolérance ont une note d'étape. 15 tronçons
     suspects, 4 allers-retours sûrs et 5 incertains, aucun tronçon routé
     en voiture.
+- [x] 33.15 Règle 21 (élargie aux côtes et cols, 1996) appliquée aux
+  éditions déjà triées, 1986 à 1995 : 383 points rattachés à leur
+  commune (`geocodeAs`, hors villes) passés à Nominatim (nom du lieu +
+  commune). 186 réponses, dont 122 ne sont que la limite administrative
+  de la commune éponyme (« Côte de Pouzauges » → Pouzauges) : pas plus
+  précises que le point actuel, écartées. 64 lieux nommés (hameau,
+  village, sommet, col) à moins de 8 km ; 5 écartés à la main (homonyme
+  à 6,8 km, zone d'activités, sommet sans référence, village andorran,
+  Côte de la Reid qui crée un aller-retour connu). Chaque candidat testé
+  seul sur son étape, en vélo uniquement (cache de routage par édition,
+  remesure tant qu'un tronçon passe en voiture) : placé seulement s'il
+  ne crée ni aller-retour ni tronçon suspect. 45 placés (dont Gourette,
+  Le Chinaillon, Uriage, Pla d'Adet, Luz Ardiden, Mont Cassel, Mont
+  Saint-Clair, Côte de Douaumont, L'Alpe d'Huez ×4) ; 11 refusés par le
+  test (dont Côte de Berdorf, La Mouline, Val-Louron, Hautacam 1994,
+  Côte de Mont-Ormel) ; Côte de Brié retirée à la main (Nominatim ne
+  donne que Brié Bas, le pied de la côte). Effet : 1993/8 de −4,8 % à
+  0,0 %, 1994/2 de −12,0 % à −8,3 %, 1994/10 de −5,4 % à −2,3 % (entre
+  dans la tolérance), 1995/13 de −5,1 % à −4,7 % (entre dans la
+  tolérance). Éditions 1987 à 1995 : 2 étapes de plus dans la
+  tolérance, aucune de moins, aucun tronçon routé en voiture. Première
+  mesure des allers-retours (33.14) sur 1989, 1990 et 1991, jamais
+  remesurées depuis : 4 sûrs et 9 incertains, préexistants (aucun
+  n'est sur un point placé ici) — à trier avec 33.12 pour ces
+  éditions.
 - [x] 33.13 Règles de curation lues avant tout premier tracé (demande
   utilisateur du 19/10) : `docs/CURATION-REGLES.md`, 13 règles tirées
   des erreurs réelles des éditions déjà curées (lecture du profil,
