@@ -6575,7 +6575,8 @@
        "lat": 52.48564,
        "lon": 13.18013,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : contre-la-montre par les rues de Berlin-Ouest, 17 km au profil pour 5,7 à vol d’oiseau depuis Spandau — tracé sinueux, pas une erreur de lecture"
       },
       {
        "label": "Berlin (John-F.-Kennedy-Platz)",
@@ -6661,7 +6662,8 @@
        "lat": 49.00687,
        "lon": 8.40342,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : passage dans Karlsruhe placé au centre-ville faute de mieux : 9 km d’Ettlingen à vol d’oiseau pour 7 au profil, le passage réel est au sud ou à l’est de la ville"
       },
       {
        "label": "Grötzingen",
@@ -6822,7 +6824,8 @@
        "lat": 48.84268,
        "lon": 9.23091,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 12 km au profil pour 4,5 à vol d’oiseau depuis Neckarrems : boucle par les hauteurs, villages non imprimés"
       },
       {
        "label": "Côte de Feuerbach",
@@ -6843,7 +6846,8 @@
        "lat": 48.77845,
        "lon": 9.18001,
        "how": "stage_towns",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 20 km au profil pour 8 à vol d’oiseau depuis Mühlhausen : boucle par les côtes de Feuerbach et du Birkenkopf, non placées"
       }
      ],
      "note": "Non repris : 1er au 4e passage du « Schwaben Bräu » (sprints dans la ville), sans commune.",
@@ -7057,7 +7061,8 @@
        "lat": 48.80582,
        "lon": 8.22184,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 12,5 km au profil pour 7,6 à vol d’oiseau, 18 routés : la route de montagne réelle n’est pas connue, cause non établie"
       },
       {
        "label": "Sinzheim",
@@ -7525,7 +7530,8 @@
        "lat": 48.1805,
        "lon": 5.89463,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 3,2 km au profil (41,8 → 45, relus sur l’agrandissement) pour 4,2 à vol d’oiseau : profil contradictoire, laissé tel quel"
       },
       {
        "label": "Bulgnéville",
@@ -7803,10 +7809,11 @@
        "label": "Grange-l'Évêque",
        "km": 6,
        "kind": "lieu-dit",
-       "lat": 48.30632,
-       "lon": 4.02377,
+       "lat": 48.32326,
+       "lon": 3.94273,
        "how": "nominatim",
-       "confidence": "ambigu"
+       "confidence": "ok",
+       "note": "hameau de Grange-l’Évêque à Saint-Lyé/Macey (Nominatim) : l’homonyme de La Chapelle-Saint-Luc, 3,9 km de Troyes, laissait 19 km à vol d’oiseau jusqu’à Mesnil-Saint-Loup pour 17 au profil"
       },
       {
        "label": "Dierrey-Saint-Pierre",
@@ -7875,7 +7882,8 @@
        "lat": 48.40669,
        "lon": 3.51052,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 2 km au profil (48 → 50, relus) pour 4,2 à vol d’oiseau : profil contradictoire, laissé tel quel"
       },
       {
        "label": "Traînel",
@@ -8044,7 +8052,8 @@
        "lat": 48.62997,
        "lon": 2.43818,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 6 km au profil pour 6,7 à vol d’oiseau : centre de commune, profil plus court que la ligne droite, laissé tel quel"
       },
       {
        "label": "Croix-de-Villeroy",
@@ -8192,10 +8201,11 @@
        "label": "Troo",
        "km": 96,
        "kind": "ville",
-       "lat": 47.79245,
-       "lon": 0.77865,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 47.77752,
+       "lon": 0.79288,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "village de Troo placé à son église Saint-Martin (Nominatim) : le point de la commune était 2 km au nord, hors de la route (aller-retour signalé)"
       },
       {
        "label": "Pont-de-Braye",
@@ -8838,11 +8848,11 @@
        "label": "Chaumeil (village)",
        "km": 241.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Chaumeil",
-       "lat": 45.45417,
-       "lon": 1.88138,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.45629,
+       "lon": 1.88047,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "village placé à son église Saint-Jacques (Nominatim), distinct de l’arrivée : le profil passe au village au km 241,5 puis finit au km 255 après une montée"
       },
       {
        "label": "Chaumeil",
@@ -9176,7 +9186,7 @@
       }
      ],
      "circuit_km": 224.5,
-     "note": "Arrivée sur un circuit dans Bordeaux, entrée au km 224,5 (circuit_km).",
+     "note": "Arrivée sur un circuit dans Bordeaux, entrée au km 224,5 (circuit_km). Profil plus court que la route sur cinq tronçons (Larche → Chavagnac, La Roque-Gageac → Beynac, Lalinde → Saint-Capraise, Bergerac → Lamonzie → Gardonne : 1 à 1,5 km de moins que la ligne droite) : km relus sur l’agrandissement, laissés tels quels — l’écart de l’étape vient du profil, pas de la transcription.",
      "route_check": {
       "routed_km": 238.1,
       "profile_km": 209.5,
@@ -9502,10 +9512,11 @@
        "label": "Asasp-Arros",
        "km": 38,
        "kind": "ville",
-       "lat": 43.1226,
-       "lon": -0.61453,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 43.14495,
+       "lon": -0.60092,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "passage au hameau d’Arros (Nominatim), au nord de la commune : 1,5 km de Gurmençon au profil, le bourg d’Asasp en est à près de 4 km"
       },
       {
        "label": "Escot",
@@ -9831,7 +9842,8 @@
        "lat": 43.61847,
        "lon": 1.28497,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 13,5 km au profil (135 → 148,5, relus) pour 4,2 à vol d’oiseau depuis Colomiers : détour réel du profil"
       },
       {
        "label": "Cornebarrieu",
@@ -10037,7 +10049,8 @@
        "lat": 44.10197,
        "lon": 3.09318,
        "how": "stage_towns",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : arrivée au sommet d’une montée de 1re catégorie (835 m d’altitude au profil) à 9 km du passage en ville ; le point d’arrivée, placé en ville, n’est pas l’arrivée réelle, dont la position n’est pas sourcée"
       }
      ],
      "length_km": 216.5,
@@ -10577,7 +10590,8 @@
        "lat": 45.18054,
        "lon": 5.61681,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : village à l’écart de la route du Vercors : le routeur y entre et en ressort (aller-retour signalé), le passage réel est sur la route"
       },
       {
        "label": "Sassenage",
@@ -10652,10 +10666,11 @@
        "label": "Saint-Pierre-d'Entremont",
        "km": 70,
        "kind": "ville",
-       "lat": 45.38302,
-       "lon": 5.84463,
-       "how": "commune-ign",
-       "confidence": "ambigu"
+       "lat": 45.41505,
+       "lon": 5.85399,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "bourg placé à son église Saint-Pierre (Nominatim) : le point de la commune iséroise était 3,6 km au sud, côté Col du Cucheron"
       },
       {
        "label": "Col du Cucheron",
@@ -10691,7 +10706,8 @@
        "lat": 45.30246,
        "lon": 5.83677,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 8,5 km au profil pour 2,6 à vol d’oiseau depuis la Brévardière : montée en lacets"
       },
       {
        "label": "Saint-Nazaire-les-Eymes",
@@ -10706,10 +10722,11 @@
        "label": "Villard-Bonnot",
        "km": 115,
        "kind": "ville",
-       "lat": 45.23847,
-       "lon": 5.88821,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.23408,
+       "lon": 5.88258,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "libellé du profil « Villard-Bonnot-Lancey » : placé au village de Lancey, sur la route (Nominatim) — le centre de la commune obligeait un aller-retour"
       },
       {
        "label": "Domène",
@@ -10784,7 +10801,8 @@
        "lat": 45.06904,
        "lon": 5.87198,
        "how": "nominatim",
-       "confidence": "ambigu"
+       "confidence": "ambigu",
+       "note": "tronçon suspect (33.12) : 20 km au profil depuis Vizille par la côte de Laffrey et Saint-Barthélemy-de-Séchilienne, non routés (rattachés à leur commune)"
       },
       {
        "label": "Livet",
@@ -10927,7 +10945,8 @@
        "lat": 45.27755,
        "lon": 6.34517,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 11 km au profil (80,5 → 91,5) pour 11,8 à vol d’oiseau entre les églises : profil légèrement court, laissé tel quel"
       },
       {
        "label": "La Chambre",
@@ -11121,10 +11140,11 @@
        "label": "La Giettaz",
        "km": 89.5,
        "kind": "ville",
-       "lat": 45.87724,
-       "lon": 6.51982,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.8624,
+       "lon": 6.49525,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "village placé à son église Saint-Pierre-aux-Liens (Nominatim) : le point de la commune était 2,5 km au nord-est"
       },
       {
        "label": "Col des Aravis",
@@ -11644,7 +11664,8 @@
        "lat": 47.39027,
        "lon": 4.93976,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 17 km au profil depuis Messigny par Sainte-Foy et le Val-Suzon, non routés"
       },
       {
        "label": "Hauteville-lès-Dijon",
@@ -11671,7 +11692,8 @@
        "lat": 47.32158,
        "lon": 5.04147,
        "how": "stage_towns",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : arrivée placée au centre de Dijon : 4 km d’Ahuy au profil pour 5,7 à vol d’oiseau, l’arrivée réelle est vraisemblablement au nord du centre"
       }
      ],
      "route_check": {
