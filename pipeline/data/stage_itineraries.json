@@ -27034,8 +27034,7 @@
        "lat": 43.32242,
        "lon": -1.98389,
        "how": "nominatim",
-       "confidence": "ok",
-       "note": "tronçon suspect (33.12) : 15 km au profil depuis Astigarraga pour 5,4 à vol d’oiseau : boucle finale dans San Sebastián, non transcrite"
+       "confidence": "ok"
       },
       {
        "label": "Aguinaga",
@@ -27188,20 +27187,27 @@
        "confidence": "ok"
       },
       {
+       "label": "Saint-Sébastien (entrée)",
+       "km": 189,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "imprimé sur le profil (5 m, km 189), omis à la transcription ; le lieu exact de l’entrée dans la ville n’est pas sourcé, non placé"
+      },
+      {
        "label": "San Sebastián",
        "km": 194.5,
        "kind": "ville",
-       "geocodeAs": "Donostia",
-       "lat": 43.32242,
-       "lon": -1.98389,
+       "lat": 43.32408,
+       "lon": -1.97852,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "arrivée imprimée « avenue de la Zurriola », placée sur cette avenue (Nominatim)"
       }
      ],
      "route_check": {
-      "routed_km": 180.7,
+      "routed_km": 180.4,
       "profile_km": 183.5,
-      "delta_pct": -1.5,
+      "delta_pct": -1.7,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
@@ -27517,10 +27523,11 @@
        "label": "Labrit",
        "km": 109,
        "kind": "ville",
-       "lat": 44.10783,
-       "lon": -0.55914,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 44.10448,
+       "lon": -0.5448,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "bourg placé à sa mairie (Nominatim) : le point de la commune, à l’écart de la route, obligeait un aller-retour (relecture 33.12)"
       },
       {
        "label": "Luxey",
@@ -27529,8 +27536,7 @@
        "lat": 44.25163,
        "lon": -0.52188,
        "how": "commune-ign",
-       "confidence": "ok",
-       "note": "aller-retour (33.14) : traversée de Labrit : 1,2 km repris, centre du bourg à l’écart de la route"
+       "confidence": "ok"
       },
       {
        "label": "Sore",
@@ -27615,15 +27621,15 @@
       }
      ],
      "route_check": {
-      "routed_km": 209.4,
+      "routed_km": 207.1,
       "profile_km": 201.5,
-      "delta_pct": 3.9,
+      "delta_pct": 2.8,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
       "legs": 15,
       "suspect_legs": 1,
-      "backtracks": 1,
+      "backtracks": 0,
       "backtracks_uncertain": 0
      }
     },
@@ -27695,14 +27701,23 @@
        "confidence": "ok"
       },
       {
+       "label": "Montigaud",
+       "km": 38,
+       "kind": "lieu-dit",
+       "lat": 45.08473,
+       "lon": -0.16362,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "imprimé sur le profil (45 m, km 38) mais omis à la transcription — ajouté en relecture (33.12)"
+      },
+      {
        "label": "Lagorce",
        "km": 41.5,
        "kind": "ville",
        "lat": 45.07124,
        "lon": -0.13873,
        "how": "commune-ign",
-       "confidence": "ok",
-       "note": "tronçon suspect (33.12) : 8,5 km au profil depuis Guîtres pour 4,5 à vol d’oiseau : détour du contre-la-montre par équipes, villages non imprimés"
+       "confidence": "ok"
       },
       {
        "label": "Coutras",
@@ -27712,6 +27727,23 @@
        "lon": -0.12895,
        "how": "commune-ign",
        "confidence": "ok"
+      },
+      {
+       "label": "Frappe",
+       "km": 55,
+       "kind": "lieu-dit",
+       "lat": 44.98171,
+       "lon": -0.20728,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "hameau de Saint-Denis-de-Pile, imprimé sur le profil (10 m, km 55) mais omis à la transcription — ajouté en relecture (33.12)"
+      },
+      {
+       "label": "Libourne (entrée)",
+       "km": 59.5,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "imprimé sur le profil (km 59,5), omis à la transcription ; le lieu exact de l’entrée dans Libourne n’est pas sourcé, non placé"
       },
       {
        "label": "Libourne",
@@ -27724,14 +27756,14 @@
       }
      ],
      "route_check": {
-      "routed_km": 55.9,
+      "routed_km": 58.7,
       "profile_km": 57.5,
-      "delta_pct": -2.8,
+      "delta_pct": 2,
       "tolerance_pct": 5,
       "coverage_pct": 91,
       "car_legs": 0,
-      "legs": 8,
-      "suspect_legs": 1,
+      "legs": 10,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -28102,23 +28134,22 @@
        "label": "Bruxelles",
        "km": 167,
        "kind": "ville",
-       "geocodeAs": "Brussels",
-       "lat": 50.84674,
-       "lon": 4.35249,
+       "lat": 50.89704,
+       "lon": 4.33981,
        "how": "nominatim",
        "confidence": "ok",
-       "note": "tronçon suspect (33.12) : 6 km au profil pour 7,7 à vol d’oiseau : arrivée placée au centre de Bruxelles, l’arrivée réelle est vraisemblablement au nord-ouest"
+       "note": "arrivée imprimée « Bruxelles, Boulevard du Centenaire » (Heysel), placée sur ce boulevard (Nominatim) — le point était au centre-ville"
       }
      ],
      "route_check": {
-      "routed_km": 161.6,
+      "routed_km": 156,
       "profile_km": 163,
-      "delta_pct": -0.9,
+      "delta_pct": -4.3,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
       "legs": 11,
-      "suspect_legs": 2,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -28302,7 +28333,8 @@
        "lat": 50.84338,
        "lon": 5.88492,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "aller-retour incertain (33.14) : les côtes du Limbourg rattachées à leur village ne sont pas routées (note d’étape)"
       },
       {
        "label": "Le Cauberg",
@@ -28393,10 +28425,11 @@
        "label": "Langerwehe",
        "km": 48,
        "kind": "ville",
-       "lat": 50.80198,
-       "lon": 6.36812,
+       "lat": 50.81492,
+       "lon": 6.36181,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "bourg placé à son Rathaus (Nominatim) : le point retenu était à 226 m au MNT pour 140 imprimés, à l’écart de la route (aller-retour, relecture 33.12)"
       },
       {
        "label": "Düren",
@@ -28405,8 +28438,7 @@
        "lat": 50.80317,
        "lon": 6.48208,
        "how": "nominatim",
-       "confidence": "ok",
-       "note": "aller-retour (33.14) : traversée de Langerwehe : 1,5 km repris"
+       "confidence": "ok"
       },
       {
        "label": "Soller",
@@ -28462,8 +28494,7 @@
        "lat": 50.54446,
        "lon": 7.11867,
        "how": "nominatim",
-       "confidence": "ok",
-       "note": "tronçon suspect (33.12) : 9 km au profil depuis Gelsdorf pour 7,5 à vol d’oiseau, 12,9 routés en voiture : route réelle non établie"
+       "confidence": "ok"
       },
       {
        "label": "Côte de Bad Neuenahr",
@@ -28531,7 +28562,8 @@
        "lat": 50.3045,
        "lon": 7.59267,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "aller-retour incertain (33.14) : la côte de Waldesch, rattachée à son village, n’est pas routée"
       },
       {
        "label": "Koblenz",
@@ -28544,17 +28576,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 192.9,
+      "routed_km": 189.8,
       "profile_km": 200.5,
-      "delta_pct": -3.8,
+      "delta_pct": -5.3,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
       "legs": 17,
       "suspect_legs": 1,
-      "backtracks": 1,
+      "backtracks": 0,
       "backtracks_uncertain": 1
-     }
+     },
+     "note": "Hors tolérance (−5,3 %) : Bell → Ochtendung fait 20 km au profil pour 13,8 routés (détour par des villages non imprimés) et la côte de Waldesch, rattachée à son village, n’est pas routée — la mesure sous-estime l’étape."
     },
     "10": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1992/92_10.jpg",
@@ -28737,7 +28770,8 @@
        "label": "Côte de Reinthal",
        "km": 158.5,
        "kind": "côte",
-       "confidence": "non-place"
+       "confidence": "non-place",
+       "note": "sommet non localisé, non placé"
       },
       {
        "label": "Sparsbrod",
@@ -28746,7 +28780,8 @@
        "lat": 48.70595,
        "lon": 7.21529,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "aller-retour incertain (33.14) : la côte de Reinthal, non placée, est sautée"
       },
       {
        "label": "Saverne",
@@ -29140,14 +29175,20 @@
        "confidence": "ok"
       },
       {
+       "label": "Côte de Point B.",
+       "km": 107,
+       "kind": "côte",
+       "confidence": "non-place",
+       "note": "imprimé « Côte de Point B. » (550 m, 4e catégorie, km 107), libellé tronqué sur le profil : lieu non identifié, non placé"
+      },
+      {
        "label": "Oyonnax",
        "km": 109,
        "kind": "ville",
        "lat": 46.25752,
        "lon": 5.65562,
        "how": "commune-ign",
-       "confidence": "ok",
-       "note": "tronçon suspect (33.12) : 10,5 km au profil depuis Chancia pour 10 à vol d’oiseau, 14,9 routés : la route directe par la côte de Point… n’est pas celle du routeur, cause non établie"
+       "confidence": "ok"
       },
       {
        "label": "Côte d'Échallon",
@@ -29204,7 +29245,7 @@
        "lon": 6.23676,
        "how": "nominatim",
        "confidence": "ok",
-       "note": "ajouté en tri (33.12/33.14) : imprimé sur le profil (530 m, km 198) mais omis à la transcription ; sans lui, le routeur revenait sur ses pas depuis Le Salève (aller-retour de 3,7 km)"
+       "note": "ajouté en tri (33.12/33.14) : imprimé sur le profil (530 m, km 198) mais omis à la transcription ; sans lui, le routeur revenait sur ses pas depuis Le Salève (aller-retour de 3,7 km) ; Le Salève étant non placé, la montée n’est pas mesurée : Vovray → Mornex 13,3 km routés pour 19 au profil, juste au-dessus du seuil ×0,7 — l’écart de l’étape en est réduit"
       },
       {
        "label": "La Roche-sur-Foron",
@@ -29729,13 +29770,15 @@
        "lat": 45.27502,
        "lon": 5.54482,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "aller-retour incertain (33.14) : la côte de Georgat, non placée, est sautée"
       },
       {
        "label": "Côte de Georgat",
        "km": 81,
        "kind": "côte",
-       "confidence": "non-place"
+       "confidence": "non-place",
+       "note": "sommet non localisé, non placé"
       },
       {
        "label": "Saint-Étienne-de-Saint-Geoirs",
@@ -29801,11 +29844,11 @@
        "label": "Bourg-Argental",
        "km": 162.5,
        "kind": "ville",
-       "lat": 45.30099,
-       "lon": 4.55841,
-       "how": "commune-ign",
+       "lat": 45.2964,
+       "lon": 4.56076,
+       "how": "nominatim",
        "confidence": "ok",
-       "note": "tronçon suspect (33.12) : 5 km au profil depuis Saint-Marcel-lès-Annonay pour 5,5 à vol d’oiseau : profil légèrement court, laissé tel quel"
+       "note": "bourg placé à sa mairie (Nominatim) : le point de la commune était à 648 m au MNT pour 510 imprimés (règle 14)"
       },
       {
        "label": "Col de la Croix de Chaubouret",
@@ -29833,17 +29876,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 196,
+      "routed_km": 194.9,
       "profile_km": 185.5,
-      "delta_pct": 5.7,
+      "delta_pct": 5.1,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
       "legs": 15,
-      "suspect_legs": 2,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 1
-     }
+     },
+     "note": "Hors tolérance (+5,1 %) : Saint-Marcel-lès-Annonay → Bourg-Argental fait 8 km routés pour 5 au profil (5,5 à vol d’oiseau) et Le Pont-de-Claix → Grenoble 8,4 pour 6,5 — profil plus court que la route, cause non établie."
     },
     "16": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1992/92_16.jpg",
@@ -30135,10 +30179,11 @@
        "label": "Felletin",
        "km": 93.5,
        "kind": "ville",
-       "lat": 45.89621,
-       "lon": 2.17664,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.88458,
+       "lon": 2.1739,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "bourg placé à sa mairie (Nominatim) : le point de la commune, à l’écart de la route, obligeait un aller-retour (relecture 33.12)"
       },
       {
        "label": "Côte de Rozeille",
@@ -30147,8 +30192,7 @@
        "lat": 45.94393,
        "lon": 2.17351,
        "how": "nominatim",
-       "confidence": "ok",
-       "note": "aller-retour (33.14) : traversée de Felletin : 1,5 km repris"
+       "confidence": "ok"
       },
       {
        "label": "Aubusson",
@@ -30223,15 +30267,15 @@
       }
      ],
      "route_check": {
-      "routed_km": 179.5,
+      "routed_km": 176.7,
       "profile_km": 179,
-      "delta_pct": 0.3,
+      "delta_pct": -1.3,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
       "legs": 12,
       "suspect_legs": 1,
-      "backtracks": 1,
+      "backtracks": 0,
       "backtracks_uncertain": 0
      }
     },
@@ -30407,7 +30451,8 @@
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Hors tolérance (+5,4 %) : écart réparti sur l’étape, pire tronçon Châteauroux → Levroux (23,9 km routés pour 21) ; cause non établie."
     },
     "19": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1992/92_19.jpg",
@@ -30586,11 +30631,11 @@
        "label": "Varize",
        "km": 68,
        "kind": "ville",
-       "lat": 48.08668,
-       "lon": 1.52526,
-       "how": "commune-ign",
+       "lat": 48.09549,
+       "lon": 1.515,
+       "how": "nominatim",
        "confidence": "ok",
-       "note": "tronçon suspect (33.12) : 14 km au profil pour 15 à vol d’oiseau depuis Châteaudun : centres de commune, laissé tel quel"
+       "note": "bourg placé à sa mairie (Nominatim) : le point de la commune, à l’écart de la route, obligeait un aller-retour (relecture 33.12)"
       },
       {
        "label": "Cormainville",
@@ -30599,8 +30644,7 @@
        "lat": 48.13688,
        "lon": 1.60733,
        "how": "commune-ign",
-       "confidence": "ok",
-       "note": "aller-retour (33.14) : traversée de Varize : 1,3 km repris"
+       "confidence": "ok"
       },
       {
        "label": "Villars",
@@ -30731,15 +30775,15 @@
       }
      ],
      "route_check": {
-      "routed_km": 210.8,
+      "routed_km": 208.4,
       "profile_km": 208,
-      "delta_pct": 1.4,
+      "delta_pct": 0.2,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
       "legs": 20,
-      "suspect_legs": 2,
-      "backtracks": 1,
+      "suspect_legs": 1,
+      "backtracks": 0,
       "backtracks_uncertain": 0
      }
     },
@@ -30855,12 +30899,12 @@
      ],
      "circuit_km": 78.5,
      "route_check": {
-      "routed_km": 69.3,
+      "routed_km": 69.4,
       "profile_km": 70.5,
-      "delta_pct": -1.7,
+      "delta_pct": -1.6,
       "tolerance_pct": 5,
       "coverage_pct": 50,
-      "car_legs": 1,
+      "car_legs": 0,
       "legs": 5,
       "suspect_legs": 0,
       "backtracks": 0,
