@@ -720,12 +720,12 @@ et côtes traversées avec leur kilomètre.
     connu). Livry-Louvercy placé au village de Livry (règle 15, l'aller-
     retour disparaît). Limite du routeur (règle 20) : BRouter fait 41 km
     entre Ibañeta et Saint-Jean-Pied-de-Port, 25,9 en voiture pour 25,5
-    au profil — 1996/18 à +11,5 %, l'écart vient du routeur. Bilan : 14
+    au profil — 1996/18 à +8,3 %, l’écart vient du routeur. Bilan : 14
     étapes sur 19 dans la tolérance (14 avant) ; 1996/20 de −15,1 % à
-    +6,2 % (boucle retirée), 1996/18 de +17,5 % à +11,5 %. Les 5 hors
-    tolérance ont une note d'étape. 16 tronçons suspects, 2 allers-
-    retours sûrs (Saint-Jean-Pied-de-Port, artefact du détour BRouter ;
-    Ainhoa, mairie vérifiée) et 2 incertains, tous notés ; aucun tronçon
+    +6,2 % (boucle retirée), 1996/18 de +17,5 % à +8,3 %. Les 5 hors
+    tolérance ont une note d’étape. 15 tronçons suspects, 1 aller-
+    retour sûr (Saint-Jean-Pied-de-Port, artefact du détour BRouter)
+    et 2 incertains, tous notés ; aucun tronçon
     routé en voiture.
   - 1995 trié, sur un passage BRouter. Lieux-dits rattachés à leur
     commune, donc non routés, que Nominatim place (règle 21) : Pont de
