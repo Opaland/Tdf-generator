@@ -705,6 +705,23 @@ et côtes traversées avec leur kilomètre.
   réellement contradictoire, laissé tel quel avec une note. Protocole de
   transcription : `--legs` avant chaque PR d'édition, tout tronçon
   suspect justifié.
+  - 1995 trié, sur un passage BRouter. Lieux-dits rattachés à leur
+    commune, donc non routés, alors que Nominatim les place : le Pont de
+    Normandie (1995/4 de +15,5 % à −0,3 %), le Radôme de Pleumeur-Bodou
+    (sur sa route), Trestel, Les Ponts-Neufs ; Col de Soudet placé au
+    même panneau qu'en 1987/13 et Côte d'Issarbe au lieu-dit Issarbe
+    (1995/16 de −23,2 % à −2,6 %). Noms imprimés mais omis : Montflix
+    (« Monflix », non placé — 1995/20 de −33,4 % à −19,8 %) et le
+    rond-point Terwagne (1995/8, non placé). Cap Fréhel reste rattaché
+    à sa commune : le cap est en bout de route, le placer créerait un
+    aller-retour. Positions des tronçons suspects restants contrôlées à
+    la mairie (règle 17) et en voiture (règle 20) : contradictions du
+    profil, notées. Bilan : 13 étapes sur 20 dans la tolérance (11
+    avant) ; les 7 hors tolérance, toutes trop courtes (côte du Trégor,
+    côtes des Ardennes, vallée de Chevreuse non routées), ont une note
+    d'étape. 19 tronçons suspects, 1 aller-retour sûr (Loudenvielle,
+    traversée vérifiée) et 4 incertains, tous notés ; aucun tronçon
+    routé en voiture.
   - 1993 trié, sur un passage BRouter. Noms imprimés mais omis,
     ajoutés : Roussillon et Le Chaudan (1993/12), Mont-Rouault
     (1993/4), « Bordeaux - entrée » (1993/18, non placée — le circuit

@@ -37401,11 +37401,11 @@
        "label": "Les Ponts-Neufs",
        "km": 84.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Hillion",
-       "lat": 48.50519,
-       "lon": -2.64641,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 48.50454,
+       "lon": -2.6183,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "hameau d’Hillion sur la D46 (Nominatim, arrêt « Les Ponts Neufs (Chapelle) ») — était rattaché à sa commune, donc non routé (tri 33.12)"
       },
       {
        "label": "Côte de Langueux",
@@ -37433,7 +37433,8 @@
        "lat": 48.54668,
        "lon": -2.7663,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "aller-retour incertain (33.14) : la côte de Langueux, rattachée à sa commune, n’est pas routée"
       },
       {
        "label": "Binic",
@@ -37486,11 +37487,11 @@
        "label": "Trestel",
        "km": 188,
        "kind": "lieu-dit",
-       "geocodeAs": "Trévou-Tréguignec",
-       "lat": 48.81813,
-       "lon": -3.34624,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 48.81977,
+       "lon": -3.35303,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu-dit de Trévou-Tréguignec (Nominatim) — était rattaché à sa commune, donc non routé (tri 33.12)"
       },
       {
        "label": "Perros-Guirec",
@@ -37505,11 +37506,11 @@
        "label": "Radôme de Pleumeur-Bodou",
        "km": 219,
        "kind": "lieu-dit",
-       "geocodeAs": "Pleumeur-Bodou",
-       "lat": 48.78833,
-       "lon": -3.52918,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 48.78239,
+       "lon": -3.52198,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "placé sur la route du Radôme (Nominatim, highway=tertiary) — le parc lui-même est à l’écart de la route ; était rattaché à sa commune, donc non routé (tri 33.12) ; tronçon suspect (33.12) : 16,5 km au profil depuis Perros-Guirec pour 6,8 à vol d’oiseau : route côtière sans nom imprimé"
       },
       {
        "label": "Lannion",
@@ -37518,19 +37519,23 @@
        "lat": 48.73222,
        "lon": -3.4588,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 14,5 km au profil depuis le Radôme pour 7,3 à vol d’oiseau : détour sans nom imprimé"
       }
      ],
      "route_check": {
-      "routed_km": 129.8,
+      "routed_km": 141.1,
       "profile_km": 161,
-      "delta_pct": -19.4,
+      "delta_pct": -12.4,
       "tolerance_pct": 5,
       "coverage_pct": 69,
       "car_legs": 0,
-      "legs": 7,
-      "suspect_legs": 2
-     }
+      "legs": 10,
+      "suspect_legs": 2,
+      "backtracks": 0,
+      "backtracks_uncertain": 1
+     },
+     "note": "Hors tolérance (−12,4 %) : route côtière du Trégor sans nom imprimé entre Perros-Guirec, le Radôme et Lannion, Cap Fréhel et les falaises de Plouézec rattachés à leur commune (non routés) — la mesure sous-estime l’étape."
     },
     "2": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1995/95_2a.jpg",
@@ -37710,8 +37715,11 @@
       "coverage_pct": 93,
       "car_legs": 0,
       "legs": 12,
-      "suspect_legs": 0
-     }
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     },
+     "note": "Hors tolérance (−5,4 %) : écart réparti, pire tronçon Saint-Clet → Guingamp (12,7 km routés pour 11) ; cause non établie."
     },
     "3": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1995/95_3a.jpg",
@@ -37833,7 +37841,9 @@
       "coverage_pct": 85,
       "car_legs": 0,
       "legs": 10,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "4": {
@@ -37967,11 +37977,11 @@
        "label": "Pont de Normandie",
        "km": 135,
        "kind": "côte",
-       "geocodeAs": "Le Havre",
-       "lat": 49.50735,
-       "lon": 0.13,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 49.43226,
+       "lon": 0.27403,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "placé sur le pont (Nominatim, man_made=bridge) — était rattaché à sa commune, donc non routé (tri 33.12)"
       },
       {
        "label": "Gonfreville-l'Orcher",
@@ -38009,14 +38019,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 158.7,
+      "routed_km": 144.2,
       "profile_km": 137.5,
-      "delta_pct": 15.5,
+      "delta_pct": 4.9,
       "tolerance_pct": 5,
       "coverage_pct": 85,
       "car_legs": 0,
-      "legs": 9,
-      "suspect_legs": 1
+      "legs": 10,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 2
      }
     },
     "5": {
@@ -38105,7 +38117,8 @@
        "lat": 50.10608,
        "lon": 1.8337,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 14 km au profil depuis Valines pour 15,5 à vol d’oiseau entre les mairies : profil plus court que la ligne droite, laissé tel quel"
       },
       {
        "label": "Le Boisle",
@@ -38160,7 +38173,8 @@
        "lat": 51.03477,
        "lon": 2.37725,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 27,5 km au profil depuis Looberghe pour 15,1 à vol d’oiseau : détour sans nom imprimé"
       }
      ],
      "route_check": {
@@ -38171,7 +38185,9 @@
       "coverage_pct": 82,
       "car_legs": 0,
       "legs": 8,
-      "suspect_legs": 2
+      "suspect_legs": 2,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "6": {
@@ -38212,7 +38228,8 @@
        "lat": 50.96381,
        "lon": 2.76434,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 13 km au profil depuis Alveringem pour 6,6 à vol d’oiseau : détour sans nom imprimé"
       },
       {
        "label": "Ieper",
@@ -38228,7 +38245,8 @@
        "lat": 50.83452,
        "lon": 2.9944,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 20 km au profil depuis Reninge pour 21,6 à vol d’oiseau : profil plus court que la ligne droite, laissé tel quel"
       },
       {
        "label": "Wervik (Geluwe)",
@@ -38268,7 +38286,8 @@
        "lat": 50.70447,
        "lon": 3.34401,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 6 km au profil depuis Luingne pour 8,7 à vol d’oiseau : profil plus court que la ligne droite, laissé tel quel"
       },
       {
        "label": "Tournai",
@@ -38371,7 +38390,8 @@
        "lat": 50.41162,
        "lon": 4.44453,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 11,5 km au profil depuis Marchienne-au-Pont pour 3,5 à vol d’oiseau : boucle d’arrivée dans Charleroi, non transcrite"
       }
      ],
      "route_check": {
@@ -38382,7 +38402,9 @@
       "coverage_pct": 93,
       "car_legs": 0,
       "legs": 16,
-      "suspect_legs": 4
+      "suspect_legs": 4,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "7": {
@@ -38564,7 +38586,8 @@
        "lat": 50.49207,
        "lon": 5.86276,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 26 km au profil depuis Stavelot pour 11,9 à vol d’oiseau par les côtes de la Haute-Levée et du Rosier, non placées"
       },
       {
        "label": "Côte de la Reid",
@@ -38583,7 +38606,8 @@
        "lat": 50.53492,
        "lon": 5.81329,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 14 km au profil depuis Spa par la côte de la Reid, rattachée à son village donc non routée"
       },
       {
        "label": "Mont-Theux",
@@ -38619,8 +38643,11 @@
       "coverage_pct": 96,
       "car_legs": 0,
       "legs": 13,
-      "suspect_legs": 2
-     }
+      "suspect_legs": 2,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     },
+     "note": "Hors tolérance (−6,8 %) : côtes des Ardennes non placées ou rattachées à leur village (Haute-Levée, Rosier, la Reid, Forges) — la mesure sous-estime l’étape."
     },
     "8": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1995/95_8a.jpg",
@@ -38650,13 +38677,21 @@
        "confidence": "non-place"
       },
       {
+       "label": "R.P. Terwagne",
+       "km": 17,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "« R.P. Terwagne » (rond-point, 240 m, km 17) imprimé sur le profil mais omis à la transcription — ajouté en tri (33.12, règle 18) ; rond-point non localisé, non placé"
+      },
+      {
        "label": "Seny",
        "km": 22.5,
        "kind": "ville",
        "lat": 50.45955,
        "lon": 5.40294,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 17 km au profil depuis Vierset-Barse par la côte du Pont de Bonne et le rond-point Terwagne, non placés"
       },
       {
        "label": "Warzée",
@@ -38712,8 +38747,11 @@
       "coverage_pct": 90,
       "car_legs": 0,
       "legs": 6,
-      "suspect_legs": 1
-     }
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     },
+     "note": "Hors tolérance (−12,7 %) : contre-la-montre dont la côte du Pont de Bonne et le rond-point Terwagne ne sont pas placés."
     },
     "9": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1995/95_9a.jpg",
@@ -38873,7 +38911,9 @@
       "coverage_pct": 83,
       "car_legs": 0,
       "legs": 12,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "10": {
@@ -38904,7 +38944,8 @@
        "lat": 45.50169,
        "lon": 6.50838,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 8,5 km au profil depuis Moûtiers pour 2,7 à vol d’oiseau : détour sans nom imprimé"
       },
       {
        "label": "Bonneval-Tarentaise",
@@ -39007,7 +39048,9 @@
       "coverage_pct": 83,
       "car_legs": 0,
       "legs": 9,
-      "suspect_legs": 1
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "11": {
@@ -39212,7 +39255,9 @@
       "coverage_pct": 89,
       "car_legs": 0,
       "legs": 12,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 1
      }
     },
     "12": {
@@ -39362,7 +39407,9 @@
       "coverage_pct": 67,
       "car_legs": 0,
       "legs": 8,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "13": {
@@ -39493,10 +39540,11 @@
        "lat": 43.45821,
        "lon": 2.00559,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 47 km au profil depuis Castres par Dourgne (km douteux, voir note d’étape) et la côte de Saint-Ferréol, non routés"
       }
      ],
-     "note": "Dourgne non repris : km imprimé « 119,5 » entre Castres (198) et Revel (245), vraisemblablement 219,5",
+     "note": "Dourgne non repris : km imprimé « 119,5 » entre Castres (198) et Revel (245), vraisemblablement 219,5 Hors tolérance (−7,8 %) : Castres → Revel fait 47 km au profil pour 27,3 routés, Dourgne et la côte de Saint-Ferréol n’étant pas routés.",
      "route_check": {
       "routed_km": 164.2,
       "profile_km": 178,
@@ -39505,7 +39553,9 @@
       "coverage_pct": 73,
       "car_legs": 0,
       "legs": 6,
-      "suspect_legs": 1
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "14": {
@@ -39578,7 +39628,8 @@
        "lat": 43.11475,
        "lon": 1.60822,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 3 km au profil depuis Villeneuve-du-Paréage pour 5 à vol d’oiseau entre les mairies : profil plus court que la ligne droite, laissé tel quel"
       },
       {
        "label": "Varilhes",
@@ -39691,7 +39742,9 @@
       "coverage_pct": 85,
       "car_legs": 0,
       "legs": 13,
-      "suspect_legs": 1
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "15": {
@@ -39799,7 +39852,8 @@
        "lat": 42.87204,
        "lon": 0.3952,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "aller-retour (33.14) : 2,2 km repris à Loudenvielle, dont le point est à 100 m de la mairie — traversée du bourg (règle 17 vérifiée)"
       },
       {
        "label": "Arreau",
@@ -39884,7 +39938,9 @@
       "coverage_pct": 87,
       "car_legs": 0,
       "legs": 13,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 1,
+      "backtracks_uncertain": 0
      }
     },
     "16": {
@@ -39992,13 +40048,21 @@
        "label": "Col de Soudet",
        "km": 155.5,
        "kind": "col",
-       "confidence": "non-place"
+       "confidence": "ok",
+       "lat": 42.98735,
+       "lon": -0.75553,
+       "how": "nominatim",
+       "note": "panneau « Col de Soudet » sur la D113 (OSM, information=guidepost), même point qu’en 1987/13 — était rattaché à sa commune, donc non routé (tri 33.12)"
       },
       {
        "label": "Côte d'Issarbe",
        "km": 164,
        "kind": "côte",
-       "confidence": "non-place"
+       "confidence": "ok",
+       "lat": 43.01822,
+       "lon": -0.79626,
+       "how": "nominatim",
+       "note": "lieu-dit Issarbe, station au sommet de la côte (Nominatim) — était rattaché à sa commune, donc non routé (tri 33.12)"
       },
       {
        "label": "Lanne-en-Barétous",
@@ -40038,14 +40102,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 164,
+      "routed_km": 207.9,
       "profile_km": 213.5,
-      "delta_pct": -23.2,
+      "delta_pct": -2.6,
       "tolerance_pct": 5,
       "coverage_pct": 90,
       "car_legs": 0,
-      "legs": 12,
-      "suspect_legs": 1
+      "legs": 14,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "17": {
@@ -40185,7 +40251,8 @@
        "lat": 44.84123,
        "lon": -0.58004,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 19 km au profil depuis Latresne pour 9,1 à vol d’oiseau : arrivée dans Bordeaux par un détour non transcrit"
       }
      ],
      "route_check": {
@@ -40196,8 +40263,11 @@
       "coverage_pct": 91,
       "car_legs": 0,
       "legs": 12,
-      "suspect_legs": 1
-     }
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     },
+     "note": "Hors tolérance (−7,1 %) : arrivée dans Bordeaux par un détour non transcrit (Latresne → Bordeaux, 19 km au profil pour 11,1 routés)."
     },
     "18": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1995/95_18a.jpg",
@@ -40309,7 +40379,8 @@
        "lat": 45.76544,
        "lon": 1.07921,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 14 km au profil depuis Gorre pour 7,9 à vol d’oiseau : détour sans nom imprimé"
       },
       {
        "label": "Isle",
@@ -40327,7 +40398,8 @@
        "lat": 45.83542,
        "lon": 1.26448,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 10 km au profil depuis Isle pour 4,6 à vol d’oiseau : arrivée dans Limoges par un détour non transcrit"
       }
      ],
      "route_check": {
@@ -40338,7 +40410,9 @@
       "coverage_pct": 93,
       "car_legs": 0,
       "legs": 9,
-      "suspect_legs": 2
+      "suspect_legs": 2,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "19": {
@@ -40410,7 +40484,9 @@
       "coverage_pct": 51,
       "car_legs": 0,
       "legs": 2,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "20": {
@@ -40435,10 +40511,14 @@
        "confidence": "ok"
       },
       {
-       "label": "Côte de Monflix",
+       "label": "Côte de Montflix",
        "km": 27.5,
        "kind": "côte",
-       "confidence": "non-place"
+       "confidence": "ok",
+       "lat": 48.51432,
+       "lon": 2.10616,
+       "how": "nominatim",
+       "note": "libellé du profil « Montflix (Côte de Montflix) », orthographe corrigée ; lieu-dit de Sermaise (Nominatim) — était non placé (tri 33.12)"
       },
       {
        "label": "Côte de Saint-Cyr-sous-Dourdan",
@@ -40505,7 +40585,7 @@
        "lon": 2.30533,
        "how": "nominatim",
        "confidence": "ok",
-       "note": "entrée sur le circuit des Champs-Élysées (Nominatim) ; était l’ancre de Paris (Châtelet)"
+       "note": "entrée sur le circuit des Champs-Élysées (Nominatim) ; était l’ancre de Paris (Châtelet) ; tronçon suspect (33.12) : 11 km au profil depuis Issy-les-Moulineaux pour 5,6 à vol d’oiseau : aucun nom imprimé entre les deux, tracé non transcrit"
       },
       {
        "label": "Paris Champs-Élysées",
@@ -40519,16 +40599,19 @@
       }
      ],
      "route_check": {
-      "routed_km": 61.9,
+      "routed_km": 74.6,
       "profile_km": 93,
-      "delta_pct": -33.4,
+      "delta_pct": -19.8,
       "tolerance_pct": 5,
       "coverage_pct": 60,
       "car_legs": 0,
-      "legs": 4,
-      "suspect_legs": 2
+      "legs": 5,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      },
-     "circuit_km": 101.5
+     "circuit_km": 101.5,
+     "note": "Hors tolérance (−19,8 %) sur la part mesurée : côtes de la vallée de Chevreuse rattachées à leur commune, non routées (Arpajon → Angervilliers et Angervilliers → Jouy-en-Josas)."
     }
    }
   },
