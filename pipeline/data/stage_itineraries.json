@@ -23013,7 +23013,7 @@
        "km": 17.5,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "introuvable sur Nominatim, même en recherche bornée autour des voisins (33.12)"
+       "note": "introuvable sur Nominatim, même en recherche bornée autour des voisins ; Jons, la commune voisine, testée en relecture : placée au centre, Jons → Charvas fait 4,6 km pour 1,5 au profil — non retenue (33.12)"
       },
       {
        "label": "Charvas",
@@ -23275,8 +23275,11 @@
        "label": "Chevigny",
        "km": 194.5,
        "kind": "lieu-dit",
-       "confidence": "non-place",
-       "note": "hameau « Chevigny » de Fénay connu de Nominatim (recherche bornée), mais placé il crée un tronçon suspect (33.12) : laissé non placé, lieu exact non établi"
+       "confidence": "ok",
+       "note": "hameau « Chevigny » de Fénay (Nominatim, recherche bornée, 33.12) ; RGE ALTI 234 m pour 225 imprimés. D’abord refusé : le tronçon suspect allait vers « Dijon (entrée) », retiré depuis avec le circuit final (relecture adverse)",
+       "lat": 47.242746,
+       "lon": 5.0588178,
+       "how": "nominatim"
       },
       {
        "label": "Dijon (entrée)",
@@ -23297,13 +23300,13 @@
      ],
      "circuit_km": 201.5,
      "route_check": {
-      "routed_km": 177.2,
-      "profile_km": 179,
-      "delta_pct": -1,
+      "routed_km": 186.7,
+      "profile_km": 188.5,
+      "delta_pct": -0.9,
       "tolerance_pct": 5,
-      "coverage_pct": 85,
+      "coverage_pct": 90,
       "car_legs": 0,
-      "legs": 17,
+      "legs": 18,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -24459,7 +24462,7 @@
        "km": 95,
        "kind": "côte",
        "confidence": "non-place",
-       "note": "Nominatim ne connaît que l’étang et le hameau « La Boulaie de l’Étang Neuf » (Juvigné), pas la côte elle-même : non placé (33.12)"
+       "note": "Nominatim ne connaît que l’étang et le hameau « La Boulaie de l’Étang Neuf » (Juvigné), nom différent ; placé sur le hameau (139 m au MNT pour 180 imprimés), le tronçon vers Juvigné ferait 2,5 km pour 1 au profil : non placé (33.12)"
       },
       {
        "label": "Juvigné",
@@ -25246,7 +25249,7 @@
        "km": 69.5,
        "kind": "ville",
        "confidence": "ok",
-       "note": "« Artouste » à 1 140 m sur la descente du Pourtalet : station de Fabrèges ou autre point, position non tranchée — non placé ; hameau d’Artouste à Laruns (Nominatim ; 1 132 m au MNT pour 1 140 imprimés, ce qui tranche la position) ; était rattaché ou non placé, donc non routé — placé (33.12, règle 21)",
+       "note": "hameau d’Artouste à Laruns (Nominatim) ; 1 132 m au MNT pour 1 140 imprimés au point de la descente du Pourtalet, ce qui tranche entre Fabrèges et Artouste — était non placé (33.12, règle 21)",
        "lat": 42.88623,
        "lon": -0.41173,
        "how": "nominatim"
@@ -26121,18 +26124,21 @@
        "label": "Quet-en-Beaumont",
        "km": 47,
        "kind": "ville",
-       "lat": 44.83416,
-       "lon": 5.87395,
-       "how": "commune-ign",
+       "lat": 44.8358599,
+       "lon": 5.8754999,
+       "how": "nominatim",
        "confidence": "ok",
-       "note": "aller-retour incertain de 1,9 km (le tronçon suivant saute la Côte des Égats, non placée) : le village est au-dessus de la N85 et la mairie n’est qu’à 200 m du point — laissé tel quel (33.12)"
+       "note": "placé à la mairie (arrêt « Mairie », hameau des Lambert, Nominatim ; RGE ALTI 803 m pour 880 imprimés) : au centre de la commune (757 m), il créait un aller-retour de 1,9 km — relecture adverse, règles 14 et 17 (33.12)"
       },
       {
        "label": "Côte des Égats",
        "km": 53,
        "kind": "côte",
-       "confidence": "non-place",
-       "note": "hameau « Les Égâts » de Saint-Laurent-en-Beaumont connu de Nominatim, mais placé il crée un aller-retour (33.12, règle 9) : laissé non placé"
+       "confidence": "ok",
+       "note": "hameau « Les Égâts » de Saint-Laurent-en-Beaumont (Nominatim, recherche bornée, 33.12) ; RGE ALTI 849 m pour 825 imprimés. D’abord refusé à tort : l’aller-retour venait de Quet-en-Beaumont, au centre de sa commune (relecture adverse)",
+       "lat": 44.8756567,
+       "lon": 5.8340619,
+       "how": "nominatim"
       },
       {
        "label": "Côte de la Mure",
@@ -26231,16 +26237,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 122.2,
+      "routed_km": 121.9,
       "profile_km": 120,
-      "delta_pct": 1.8,
+      "delta_pct": 1.6,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 14,
+      "legs": 15,
       "suspect_legs": 0,
       "backtracks": 0,
-      "backtracks_uncertain": 1
+      "backtracks_uncertain": 0
      }
     },
     "18": {
@@ -26491,7 +26497,7 @@
        "lon": 6.71105,
        "how": "nominatim",
        "confidence": "ok",
-       "note": "col de Joux Plane (Nominatim, saddle), même col qu’en 1987/22 ; était rattaché ou non placé, donc non routé — placé (33.12, règle 21)"
+       "note": "col de Joux Plane (Nominatim, saddle) ; RGE ALTI 1 712 m pour 1 713 imprimés (33.12, règle 21)"
       },
       {
        "label": "Morzine",
@@ -26588,8 +26594,11 @@
        "label": "Côte de Lavey",
        "km": 50.5,
        "kind": "côte",
-       "confidence": "non-place",
-       "note": "Nominatim ne connaît « Lavey » que comme arrêt de bus (Le Petit-Bornand-les-Glières), pas comme lieu-dit : non placé (33.12)"
+       "confidence": "ok",
+       "note": "lieu « Lavey », Termine, Le Petit-Bornand-les-Glières — Nominatim ne le connaît que par son arrêt de bus, nom identique (33.12) ; RGE ALTI 704 m pour 700 imprimés ; Bonneville → Lavey 9 km routés pour 9 au profil (relecture adverse, règle 21)",
+       "lat": 46.0216252,
+       "lon": 6.3973659,
+       "how": "nominatim"
       },
       {
        "label": "Entremont",
@@ -26715,7 +26724,7 @@
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 14,
+      "legs": 15,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -26747,7 +26756,7 @@
        "km": 14.5,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "commune connue (RGE ALTI 274 m pour 260 imprimés), mais placée elle crée un tronçon suspect : Brison-Saint-Innocent → Chindrieux fait 11 km à vol d'oiseau pour 7,5 au profil — km imprimé ou point de Brison à vérifier, cause non établie (33.12) ; laissé non placé"
+       "note": "commune connue (RGE ALTI 274 m pour 260 imprimés), mais placée elle crée un tronçon suspect : Brison-Saint-Innocent → Chindrieux fait 11 km à vol d'oiseau pour 7,5 au profil — en voiture (OSRM) 12,4 km, comme en vélo — pas le routeur, km imprimé ou point de Brison à vérifier, cause non établie (33.12) ; laissé non placé"
       },
       {
        "label": "Culoz",
@@ -26824,11 +26833,12 @@
        "label": "Côte de Hautecourt",
        "km": 93.5,
        "kind": "côte",
-       "lat": 46.15931,
-       "lon": 5.41853,
-       "how": "nominatim",
+       "lat": 46.15781,
+       "lon": 5.41988,
+       "how": "commune-ign",
        "confidence": "ok",
-       "note": "village de Hautecourt (Nominatim) ; était rattaché ou non placé, donc non routé — placé (33.12, règle 21)"
+       "note": "laissée rattachée à Hautecourt-Romanèche : le village (Nominatim) est à 354 m au MNT pour 450 imprimés, dans un creux du profil routé entre deux bosses — c’est le pied de la côte, pas son sommet, qui n’est pas localisé (relecture adverse, règle 21, 33.12)",
+       "geocodeAs": "Hautecourt-Romanèche"
       },
       {
        "label": "Ceyzériat",
@@ -26896,13 +26906,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 152.8,
+      "routed_km": 153.5,
       "profile_km": 153,
-      "delta_pct": -0.1,
+      "delta_pct": 0.3,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 15,
+      "legs": 14,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -26910,7 +26920,7 @@
     },
     "21": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1991/91_21a.jpg",
-     "note": "Hors tolérance après tri (33.12) : contre-la-montre de 57 km, aucun tronçon suspect ; l'écart se répartit sur tous les tronçons, cause non établie.",
+     "note": "Hors tolérance après tri (33.12) : contre-la-montre de 57 km, aucun tronçon suspect ; l'écart se répartit sur tous les tronçons. En voiture (OSRM), les mêmes points font 47,4 km pour 49,5 (−4,2 %, dans la tolérance) : l'écart vient pour moitié du routeur vélo, qui coupe par des routes que la course n'a vraisemblablement pas prises (règle 20) ; le reste, cause non établie.",
      "towns": [
       {
        "label": "Lugny",
@@ -27211,6 +27221,13 @@
        "how": "nominatim",
        "confidence": "ok",
        "note": "entrée sur le circuit des Champs-Élysées (Nominatim) ; était l’ancre de Paris (Châtelet) ; tronçon suspect (33.12) : 6,8 km routés depuis Issy-les-Moulineaux pour 10,5 au profil, en passant par « Paris (entrée) » au km 119,5, non placé — chemin réel dans Paris non sourcé, cause non établie"
+      },
+      {
+       "label": "Hauts des Champs-Élysées",
+       "km": 161,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "50 m ; imprimé sur le profil (sprint) mais omis à la transcription — ajouté en relecture (33.12, règle 18) ; dans le circuit final, non placé"
       },
       {
        "label": "Paris Champs-Élysées",
