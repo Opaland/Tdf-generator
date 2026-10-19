@@ -54,6 +54,9 @@ dans la même PR que son correctif.
    commune, mauvais ordre) — le corriger, ou le retirer avec une note.
    Seules exceptions : les circuits finaux en boucle (Champs-Élysées,
    Bordeaux), déclarés par `circuit_km`.
+   `check-itineraries --legs` les signale (« aller-retour à … », dès 1 km
+   de route reprise en sens inverse) ; « incertain » quand un point non
+   placé est sauté — le placer ou l'expliquer.
 10. **Retirer un point, c'est supprimer `lat`, `lon` et `how`**, pas
     seulement passer `confidence` à `non-place` : sinon il reste tracé et
     routé (Le Champ du Feu, La Forêt-le-Roi — test d'invariant dans
