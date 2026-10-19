@@ -496,8 +496,8 @@ et côtes traversées avec leur kilomètre.
   retiré des positions — station ou autre point, non tranché ; ce retrait
   fait passer 1991/13 de +5,9 % à +0,5 %, il est signalé ici pour ne pas
   être pris pour une correction. Aucune commune de rattachement devinée.
-- [x] Édition 1990 (PR #414) : 21 étapes sur 22, 303 points placés sur 338 (1990/6,
-  déjà transcrite dans le lot Lorraine, conservée ; 278 routables, les
+- [x] Édition 1990 (PR #414) : 21 étapes sur 22, 316 points placés sur 341 (303 sur 338 avant le tri 33.12 ; 1990/6,
+  déjà transcrite dans le lot Lorraine, conservée ; 297 routables (279 avant le tri), les
   autres sont des côtes et lieux-dits « (entrée) » placés au centre de leur
   commune, exclus du calcul comme ailleurs). Non transcrite : l'étape 5
   (Avranches → Rouen), image publiée de 133 px — une partie des km se
@@ -705,6 +705,33 @@ et côtes traversées avec leur kilomètre.
   réellement contradictoire, laissé tel quel avec une note. Protocole de
   transcription : `--legs` avant chaque PR d'édition, tout tronçon
   suspect justifié.
+  - 1990 trié, sur un passage BRouter. Profils relus nom par nom
+    (règle 18) : Côte de la Flye et Vittel (entrée) (1990/6), Hauts
+    des Champs-Élysées (1990/21) ajoutés, non placés. Relecture adverse : la Flye existe sous « La Flie »
+    (Liverdun) mais sans sommet identifié, notes de Romans et de
+    Mondeville (non placés, pas rattachés) et du prologue (6,3 km)
+    corrigées, Ornans et Xertigny notés incompatibles avec le profil. Placés (règle 21,
+    recherche bornée, altitudes contrôlées au MNT) : La Poirière,
+    Parigny, Clairefontaine, Le Planet, Croix de Chaubouret, Côtes de
+    Montbonnet, de la Vachellerie, des Gardilles et de Choizal,
+    Tiergues, Moulin-Neuf, Saint-Sauveur, Notre-Dame-de-Piétat,
+    Montflix (« Montfix » imprimé), Porchefontaine ; à leur adresse
+    imprimée : pont Aristide-Briand (Nantes) et esplanade des
+    Quinconces. Positions : Arrens sur son hameau (commune nouvelle
+    Arrens-Marsous, son aller-retour disparaît), Bressuire-Saint-
+    Porchaire sur Saint-Porchaire (1,9 km). Refusés, notés : Le
+    Plessis-Hudelor (nom différent, 38 m au MNT pour 105), Romans à sa
+    mairie (Saint-Lattier → Romans, 12,7 km à vol d'oiseau pour 9,5).
+    Circuits finaux (règle 19) : Nantes (pont, 9 km avant l'arrivée),
+    Besançon, Bordeaux, et la boucle Revel → Saint-Ferréol → Revel
+    (1990/15 de −7,4 % à −2,5 %). Contre-test voiture (règle 20) :
+    Écharcon → Mennecy, 2,9 km en vélo, 7,7 en voiture pour 8 — limite
+    du routeur ; les autres tronçons suspects sont aussi longs en
+    voiture. Bilan : 17 étapes sur 21 dans la tolérance (16 avant) ;
+    les 4 hors tolérance (prologue, 1990/2, 1990/20, 1990/21) ont une
+    note d'étape. 4 tronçons suspects (7 avant), 1 aller-retour sûr
+    (Chasseneuil-du-Poitou, déjà à sa mairie, noté) et 1 incertain (2
+    et 1 avant), tous notés ; aucun tronçon routé en voiture.
   - 1991 trié, sur un passage BRouter. Lieux-dits rattachés ou non
     placés que Nominatim connaît (règle 21) : Côte de Bellevue-Limonest,
     Genas-Azieu, Pont-de-Tancarville, Côte de Poulgrellec, Col de
