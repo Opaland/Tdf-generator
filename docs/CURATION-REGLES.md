@@ -160,4 +160,9 @@ dans la même PR que son correctif.
     courant (Don, L'Étoile, Le Calvaire, Blanzy) se noie sous ses
     homonymes dans une recherche globale — onze lieux de 1991 n’étaient
     trouvés qu'ainsi. Essayer aussi la variante d'orthographe (Pallud /
-    Palud, Pongivart / Pontgivart).
+    Palud, Pongivart / Pontgivart, Cazaux / Cazeaux, Monpach / Mompach,
+    Pétrou / Peyrou). Un lieu-dit que Nominatim ne connaît que par son
+    arrêt de bus ou un poteau homonyme sur la route (Lavey 1991, La
+    Fresquière et Basse-Plaine 1989) se place sur cet arrêt, altitude
+    contrôlée. Et un tronçon suspect ne fait pas refuser un lieu qui
+    existe : il se note (règle 11 ; Bray, Berdorf 1989).
