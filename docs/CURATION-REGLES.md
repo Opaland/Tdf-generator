@@ -54,6 +54,14 @@ dans la même PR que son correctif.
    commune, mauvais ordre) — le corriger, ou le retirer avec une note.
    Seules exceptions : les circuits finaux en boucle (Champs-Élysées,
    Bordeaux), déclarés par `circuit_km`.
+   **Avant de refuser un point pour un aller-retour, regarder où il
+   se produit** : `--legs` nomme le point de demi-tour, pas forcément
+   celui qu'on vient d'ajouter. La Côte des Égats (1991/17) a été
+   refusée pour un aller-retour qui se faisait à Quet-en-Beaumont, au
+   centre de sa commune — Quet à sa mairie, les deux se placent. Même
+   chose pour un refus « tronçon suspect » : le refaire tester après
+   tout autre changement de l'étape (Chevigny, 1991/3, refusé pour un
+   tronçon vers un point retiré ensuite).
    `check-itineraries --legs` les signale (« aller-retour à … », dès 1 km
    de route reprise en sens inverse) ; « incertain » quand un point non
    placé est sauté — le placer ou l'expliquer.
