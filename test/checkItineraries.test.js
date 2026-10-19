@@ -11,7 +11,7 @@ process.env.ETAPEFORGE_OFFLINE = '1';
 
 const { test, after } = require('node:test');
 const assert = require('node:assert');
-const { checkStage, checkStoredStage, officialKm, measuredTowns, isSuspectLeg, isBacktrack, retracedKm } = require('../scripts/check-itineraries');
+const { checkStage, checkStoredStage, officialKm, measuredTowns, isSuspectLeg, isBacktrack, isUncertainBacktrack, retracedKm } = require('../scripts/check-itineraries');
 
 after(() => fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true }));
 
@@ -126,9 +126,36 @@ test('retracedKm : km du tracé sortant qui reprennent la route d\'arrivée, à 
   assert.strictEqual(retracedKm(IN, null), 0);
 });
 
-test('isBacktrack : 1 km repris suffit, en dessous non', () => {
+test('isBacktrack : 1 km repris suffit, en dessous non — sur la valeur exacte, pas arrondie', () => {
   assert.strictEqual(isBacktrack({ retracedKm: 1 }), true);
   assert.strictEqual(isBacktrack({ retracedKm: 0.9 }), false);
+  // 0,95 km s'arrondirait à 1,0 : pas un aller-retour (relecture 33.14).
+  const r = retracedKm(IN, line([0, 3], [0, 2.05], 19));
+  assert.ok(r > 0.9 && r < 1, String(r));
+  assert.strictEqual(isBacktrack({ retracedKm: r }), false);
+  // Un tronçon qui saute un point retiré : incertain, jamais compté comme sûr.
+  assert.strictEqual(isBacktrack({ retracedKm: 3, skipsPoint: true }), false);
+  assert.strictEqual(isUncertainBacktrack({ retracedKm: 3, skipsPoint: true }), true);
+  assert.strictEqual(isUncertainBacktrack({ retracedKm: 3 }), false);
+  assert.strictEqual(isUncertainBacktrack({ retracedKm: 0.9, skipsPoint: true }), false);
+});
+
+test('retracedKm : corde, bout hors tolérance, axe est-ouest, prolongement, polyligne d\'un point', () => {
+  // Corde : les deux bouts sur un tracé en U, le milieu à 1 km de toute route.
+  const U = [...line([0, 0], [0, 2], 20), ...line([0, 2], [2, 2], 20).slice(1), ...line([2, 2], [2, 0], 20).slice(1)];
+  assert.ok(retracedKm(U, [pt(2, 0), pt(0, 0)]) <= 0.1);
+  // Départ à 35 m de la route (hors tolérance), arrivée dessus : rien.
+  assert.ok(retracedKm(IN, [pt(0.035, 3), pt(0, 1)]) <= 0.1);
+  // Retour vers l'ouest, décalé en latitude : 25 m compté, 32 m non (dans l'emprise, hors tolérance).
+  const EW = line([0, 0], [3, 0]);
+  assert.ok(retracedKm(EW, line([3, 0.025], [1, 0.025], 20)) >= 1.9);
+  assert.ok(retracedKm(EW, line([3, 0.032], [1, 0.032], 20)) <= 0.1);
+  // Tout droit dans le prolongement d'un segment du tracé entrant, dans son emprise : rien.
+  const L = [...line([0, 0], [3, 0]), ...line([3, 0], [3, 3]).slice(1), ...line([3, 3], [1.5, 3], 15).slice(1)];
+  assert.ok(retracedKm(L, line([1.5, 3], [0, 3], 15)) <= 0.1);
+  // Tracé entrant réduit à un point : 20 m autour de lui comptés.
+  const r = retracedKm([pt(0, 3)], [pt(0, 3), pt(0, 3.02)]);
+  assert.ok(r > 0.01 && r < 0.03, String(r));
 });
 
 test('checkStage : compte les allers-retours quand le routeur rend le tracé', async () => {
@@ -144,7 +171,18 @@ test('checkStage : compte les allers-retours quand le routeur rend le tracé', a
   };
   const r = await checkStage(towns, router, 9);
   assert.strictEqual(r.backtracks, 1);
+  assert.strictEqual(r.uncertainBacktracks, 0);
   assert.strictEqual(r.legs.find((l) => l.from === 'B').retracedKm >= 1.9, true);
+  // Un point retiré entre A et B : A → B saute un détour inconnu, l'aller-retour devient incertain.
+  const gap = [...towns.slice(0, 2), { label: 'X', km: 2.5, kind: 'ville', confidence: 'non-place' }, ...towns.slice(2)];
+  const r2 = await checkStage(gap, router, 9);
+  assert.strictEqual(r2.backtracks, 0);
+  assert.strictEqual(r2.uncertainBacktracks, 1);
+  // Même chose quand le point retiré est entre B et C (tronçon sortant).
+  const gapOut = [...towns.slice(0, 3), { label: 'Y', km: 6, kind: 'ville', confidence: 'non-place' }, towns[3]];
+  const r3 = await checkStage(gapOut, router, 9);
+  assert.strictEqual(r3.backtracks, 0);
+  assert.strictEqual(r3.uncertainBacktracks, 1);
 });
 
 test('retracedKm : une petite boucle avant de reprendre la route d\'arrivée reste un aller-retour', () => {
