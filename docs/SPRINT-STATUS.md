@@ -705,6 +705,22 @@ et côtes traversées avec leur kilomètre.
   réellement contradictoire, laissé tel quel avec une note. Protocole de
   transcription : `--legs` avant chaque PR d'édition, tout tronçon
   suspect justifié.
+  - 1992 trié, sur un passage BRouter (le premier passage 33.14, routé
+    presque entièrement en voiture faute de BRouter, donnait 10 étapes
+    hors tolérance et 15 allers-retours ; en vélo : 4 hors, 8
+    allers-retours sûrs). Une erreur de transcription : Mornex (km 198,
+    530 m) imprimé sur le profil de 1992/12 mais omis — ajouté. Le
+    Salève retiré : Nominatim ne donne que la crête entière, dont le
+    point tombait en bout de route (aller-retour de 3,7 km) ; 1992/12 de
+    +5,4 % à +1,9 %. Les autres tronçons sont justifiés par une note :
+    traversées de bourg (Zumaia, Labrit, Roubaix, Langerwehe, La Garde,
+    Felletin, Varize), Col du Wettstein bien placé mais le routeur
+    repart par la route des Crêtes, côtes rattachées à leur village donc
+    non routées (Échallon, Hallembaye, boucle du Limbourg — 1992/7 à
+    −18,2 %), centres de ville loin du passage (Bègles, Villeneuve-
+    d'Ascq, Grenoble, Bruxelles). Bilan : 17 étapes sur 20 dans la
+    tolérance (16 avant), 19 tronçons suspects, 8 allers-retours sûrs et
+    5 incertains, tous notés ; 1 tronçon routé en voiture.
 - [x] 33.13 Règles de curation lues avant tout premier tracé (demande
   utilisateur du 19/10) : `docs/CURATION-REGLES.md`, 13 règles tirées
   des erreurs réelles des éditions déjà curées (lecture du profil,
