@@ -460,7 +460,7 @@ et côtes traversées avec leur kilomètre.
   Mareuil et Auphelle replacés sur le hameau (étaient au centroïde de leur
   commune) ; libellés de l'image restaurés ; étapes 11, 13, 16, 18
   `partial` avec leur longueur, 10 et 12 complètes.
-- [ ] Édition 1996 : 20 étapes sur 22, 285 points placés sur 308.
+- [ ] Édition 1996 : 20 étapes sur 22, 293 points placés sur 316 (283 sur 308 avant le tri 33.12).
   Non transcrits : le prologue de 's-Hertogenbosch et l'étape 9 — le
   profil publié (Val d'Isère → Iseran → Galibier → Sestrières, 189,5 km)
   est le parcours prévu, pas l'étape courue, raccourcie par la neige
@@ -706,27 +706,29 @@ et côtes traversées avec leur kilomètre.
   transcription : `--legs` avant chaque PR d'édition, tout tronçon
   suspect justifié.
   - 1996 trié, premier passage avec les règles 18 et 21 appliquées
-    d'emblée (relecture de tous les profils, tous les rattachements
-    revus). Noms imprimés mais omis : Lécluse (1996/3), Ferriera et
-    Vernetto (1996/10), Valence (entrée) (1996/11, non placée),
-    Nazareth (1996/15), Paris (entrée) (1996/21, non placée), Saint-
-    Émilion (1er passage) (1996/20 — boucle finale déclarée, règle 19).
-    Arrivées et lieux imprimés placés à leur adresse : quai Louis XVIII
-    (Bordeaux), Versailles-Porchefontaine. Lieux-dits rattachés désormais
-    routés (règle 21) : Nesles, Albens (commune nouvelle), Les Arcs, La
-    Thuile, Lac Chambon, Veillac, Puy Pinçon (Tulle), Hautacam, Col de
-    Soudet (même panneau qu'en 1987 et 1995), Alto de Ibañeta, Puerto
-    Otxondo ; Lac de Madine laissé rattaché (seul le plan d'eau est
-    connu). Livry-Louvercy placé au village de Livry (règle 15, l'aller-
-    retour disparaît). Limite du routeur (règle 20) : BRouter fait 41 km
-    entre Ibañeta et Saint-Jean-Pied-de-Port, 25,9 en voiture pour 25,5
-    au profil — 1996/18 à +8,3 %, l’écart vient du routeur. Bilan : 14
-    étapes sur 19 dans la tolérance (14 avant) ; 1996/20 de −15,1 % à
-    +6,2 % (boucle retirée), 1996/18 de +17,5 % à +8,3 %. Les 5 hors
-    tolérance ont une note d’étape. 15 tronçons suspects, 1 aller-
-    retour sûr (Saint-Jean-Pied-de-Port, artefact du détour BRouter)
-    et 2 incertains, tous notés ; aucun tronçon
-    routé en voiture.
+    d'emblée. Noms imprimés mais omis : Lécluse, Ferriera, Vernetto,
+    Nazareth, Valence (entrée) et Paris (entrée) (non placées), Saint-
+    Émilion (1er passage) ; la relecture adverse en a trouvé un de plus
+    (Montée de Val d'Isère, 1996/8). Lieux placés à leur adresse : quai
+    Louis XVIII, Versailles-Porchefontaine. Lieux-dits routés (règle
+    21) : Nesles, Albens, Les Arcs, La Thuile, Lac Chambon, Veillac, Puy
+    Pinçon, Hautacam, Col de Soudet, Alto de Ibañeta, Puerto Otxondo ;
+    relecture — la règle n'avait pas été appliquée aux côtes au lieu
+    connu : Saint-Anastaise, Mont de l'Enclus, Argenlieu, Fiolaz et
+    Senoy routés, et deux cols écartés à tort comme homonymes : Col du
+    Rousset (Drôme) et Col de la Chau placés. Positions : Livry
+    (Livry-Louvercy), Besse (mairie, 1 124 m au MNT pour 1 040),
+    Bellegarde (centre de Valserhône, 510 m pour 360) ; Alto de Garralda
+    retiré (1 292 m au MNT pour 970, col non localisé). Lac de Madine
+    laissé rattaché. Limite du routeur (règle 20) : Ibañeta → Saint-
+    Jean-Pied-de-Port, 41 km en vélo, 25,9 en voiture pour 25,5 au
+    profil (1996/18 à +8,3 %) ; Aurizberri → Erro, 15,1 en vélo, 11,1 en
+    voiture. Bilan : 15 étapes sur 19 dans la tolérance (14 avant) ;
+    1996/13 de −5,7 % à +0,1 %, 1996/20 de −15,1 % à −5,5 % ; 1996/14 à
+    −5,0 %, à la limite (noté). Les 4 hors tolérance ont une note
+    d'étape. 15 tronçons suspects, 1 aller-retour sûr (artefact du
+    détour BRouter) et aucun incertain, tous notés ; aucun tronçon routé
+    en voiture.
   - 1995 trié, sur un passage BRouter. Lieux-dits rattachés à leur
     commune, donc non routés, que Nominatim place (règle 21) : Pont de
     Normandie, Radôme de Pleumeur-Bodou, Trestel, Les Ponts-Neufs, Col

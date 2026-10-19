@@ -41278,11 +41278,11 @@
        "label": "Mont de l'Enclus",
        "km": 207.5,
        "kind": "côte",
-       "geocodeAs": "Kluisbergen",
-       "lat": 50.7783,
-       "lon": 3.52125,
+       "lat": 50.7577,
+       "lon": 3.4916,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "sommet du Kluisberg / Mont de l’Enclus (Nominatim, natural=peak) : la côte était rattachée au centre de Kluisbergen (règle 21) (relecture)"
       },
       {
        "label": "Avelgem (Outrijve)",
@@ -41325,13 +41325,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 227.5,
+      "routed_km": 231.9,
       "profile_km": 231,
-      "delta_pct": -1.5,
+      "delta_pct": 0.4,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
-      "legs": 16,
+      "legs": 17,
       "suspect_legs": 4,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -41471,11 +41471,11 @@
        "label": "Côte d'Argenlieu",
        "km": 167,
        "kind": "côte",
-       "geocodeAs": "Avrechy",
-       "lat": 49.44737,
-       "lon": 2.42946,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 49.4531,
+       "lon": 2.4423,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "hameau d’Argenlieu à Avrechy (Nominatim ; 152 m au MNT pour 160 imprimés) — la côte était rattachée au centre d’Avrechy (règle 21) (relecture) ; tronçon suspect (33.12) : 4 km au profil depuis Saint-Just-en-Chaussée pour 5,8 à vol d’oiseau, mais Saint-Just → Argenlieu → Clermont fait 15,5 km routés, exactement le profil : km du hameau sur le profil vraisemblablement approximatif"
       },
       {
        "label": "Clermont",
@@ -41497,14 +41497,14 @@
       }
      ],
      "route_check": {
-      "routed_km": 184.2,
+      "routed_km": 184.4,
       "profile_km": 185.5,
-      "delta_pct": -0.7,
+      "delta_pct": -0.6,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 14,
-      "suspect_legs": 0,
+      "legs": 15,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -42023,23 +42023,31 @@
        "label": "Bellegarde-sur-Valserine",
        "km": 146.5,
        "kind": "ville",
-       "geocodeAs": "Valserhône",
-       "lat": 46.12796,
-       "lon": 5.80381,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 46.1076,
+       "lon": 5.8261,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "bourg de Bellegarde (Nominatim, place=town) : le point de la commune nouvelle Valserhône était à 510 m au MNT pour 360 imprimés (règles 14 et 15) (relecture)"
       },
       {
        "label": "Côte de Fiolaz",
        "km": 152.5,
        "kind": "côte",
-       "confidence": "non-place"
+       "confidence": "ok",
+       "lat": 46.0891,
+       "lon": 5.8416,
+       "how": "nominatim",
+       "note": "hameau de Fiolaz à Éloise (Nominatim ; 482 m au MNT pour 500 imprimés) (relecture)"
       },
       {
        "label": "Côte de Senoy",
        "km": 167.5,
        "kind": "côte",
-       "confidence": "non-place"
+       "confidence": "ok",
+       "lat": 45.99088,
+       "lon": 5.91884,
+       "how": "nominatim",
+       "note": "lieu-dit Senoy à Desingy, Haute-Savoie (Nominatim ; 597 m au MNT pour 605) — l’homonyme de l’Ain est écarté (règle 7) (relecture)"
       },
       {
        "label": "Rumilly",
@@ -42048,8 +42056,7 @@
        "lat": 45.86722,
        "lon": 5.94257,
        "how": "commune-ign",
-       "confidence": "ok",
-       "note": "aller-retour incertain (33.14) : la côte de Fiolaz, non placée, est sautée"
+       "confidence": "ok"
       },
       {
        "label": "Albens",
@@ -42072,16 +42079,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 197.8,
+      "routed_km": 194.6,
       "profile_km": 195,
-      "delta_pct": 1.5,
+      "delta_pct": -0.2,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
-      "legs": 11,
+      "legs": 13,
       "suspect_legs": 0,
       "backtracks": 0,
-      "backtracks_uncertain": 1
+      "backtracks_uncertain": 0
      }
     },
     "7": {
@@ -42267,6 +42274,13 @@
        "how": "nominatim",
        "confidence": "ok",
        "note": "hameau de Sainte-Foy-Tarentaise (Nominatim) ; était rattaché à sa commune, donc non routé — placé (règle 21)"
+      },
+      {
+       "label": "Montée de Val d’Isère",
+       "km": 24,
+       "kind": "côte",
+       "confidence": "non-place",
+       "note": "« 1810m Montée de Val d’Isère » (1re catégorie, km 24) imprimée sur le profil mais omise — ajoutée en relecture (règle 18) ; sommet non localisé, non placé"
       },
       {
        "label": "Val-d'Isère",
@@ -42542,13 +42556,21 @@
        "label": "Col du Rousset",
        "km": 111.5,
        "kind": "col",
-       "confidence": "non-place"
+       "confidence": "ok",
+       "lat": 44.84037,
+       "lon": 5.40546,
+       "how": "nominatim",
+       "note": "col du Rousset dans la Drôme (Nominatim ; 1 276 m au MNT pour 1 254 imprimés) — l’homonyme de l’Isère est écarté (règle 7) (relecture)"
       },
       {
        "label": "Col de la Chaux",
        "km": 125.5,
        "kind": "col",
-       "confidence": "non-place"
+       "confidence": "ok",
+       "lat": 44.9073,
+       "lon": 5.35662,
+       "how": "nominatim",
+       "note": "« Col de la Chau » (Nominatim ; 1 339 m au MNT pour 1 350 imprimés) (relecture)"
       },
       {
        "label": "Montagne de Malatra",
@@ -42572,8 +42594,7 @@
        "lat": 44.91134,
        "lon": 5.19283,
        "how": "commune-ign",
-       "confidence": "ok",
-       "note": "aller-retour incertain (33.14) : la Montagne de Malatra, non placée, est sautée"
+       "confidence": "ok"
       },
       {
        "label": "Col des Limouches",
@@ -42602,16 +42623,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 199.9,
+      "routed_km": 191.6,
       "profile_km": 196.5,
-      "delta_pct": 1.7,
+      "delta_pct": -2.5,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 10,
+      "legs": 12,
       "suspect_legs": 0,
       "backtracks": 0,
-      "backtracks_uncertain": 1
+      "backtracks_uncertain": 0
      }
     },
     "12": {
@@ -42867,22 +42888,21 @@
        "label": "Côte de Saint-Anastaise",
        "km": 163.5,
        "kind": "côte",
-       "geocodeAs": "Saint-Anastaise",
        "lat": 45.47234,
        "lon": 2.97361,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "hameau de Saint-Anastaise (Nominatim, place=hamlet) : la côte était rattachée, donc non routée (règle 21) (relecture)"
       },
       {
        "label": "Besse",
        "km": 169,
        "kind": "ville",
-       "geocodeAs": "Besse-et-Saint-Anastaise",
-       "lat": 45.50466,
-       "lon": 2.92087,
-       "how": "commune-ign",
+       "lat": 45.5125,
+       "lon": 2.93365,
+       "how": "nominatim",
        "confidence": "ok",
-       "note": "tronçon suspect (33.12) : 22,5 km au profil depuis Saurier par la côte de Saint-Anastaise, rattachée à sa commune donc non routée"
+       "note": "placé à la mairie de Besse : le point de la commune Besse-et-Saint-Anastaise était à 1 124 m au MNT pour 1 040 imprimés (règles 15 et 17) (relecture)"
       },
       {
        "label": "Côte du Faux",
@@ -42911,18 +42931,17 @@
       }
      ],
      "route_check": {
-      "routed_km": 157.1,
+      "routed_km": 166.7,
       "profile_km": 166.5,
-      "delta_pct": -5.7,
+      "delta_pct": 0.1,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
-      "legs": 11,
-      "suspect_legs": 1,
+      "legs": 12,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     },
-     "note": "Hors tolérance (−5,7 %) : la côte de Saint-Anastaise, rattachée à sa commune, n’est pas routée (Saurier → Besse, 22,5 km au profil pour 14,3 routés)."
+     }
     },
     "14": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1996/96_14a.jpg",
@@ -42931,11 +42950,11 @@
        "label": "Besse",
        "km": 0,
        "kind": "ville",
-       "geocodeAs": "Besse-et-Saint-Anastaise",
-       "lat": 45.50466,
-       "lon": 2.92087,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.5125,
+       "lon": 2.93365,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "départ placé à la mairie de Besse, comme l’arrivée de 1996/13 (règle 15) (relecture)"
       },
       {
        "label": "Lac Chambon",
@@ -43079,7 +43098,8 @@
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "À −5,0 %, à la limite de la tolérance (−5,01 % avant arrondi) : verdict fragile."
     },
     "15": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1996/96_15a.jpg",
@@ -43515,10 +43535,8 @@
        "label": "Alto de Garralda",
        "km": 205.5,
        "kind": "col",
-       "lat": 42.9406,
-       "lon": -1.33399,
-       "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "non-place",
+       "note": "retiré en relecture : le point était à 1 292 m au MNT pour 970 imprimés (hameau d’Arrieta, règle 14) ; le col n’est pas localisé"
       },
       {
        "label": "Aurizberri-Espinal",
@@ -43529,7 +43547,7 @@
        "lon": -1.36901,
        "how": "nominatim",
        "confidence": "ok",
-       "note": "tronçon suspect (33.12) : 6 km au profil depuis l’Alto de Garralda pour 9,1 routés ; le routeur ne suit pas la route directe, cause non établie"
+       "note": "tronçon suspect (33.12) : 6 km au profil depuis l’Alto de Garralda pour 9,1 routés"
       },
       {
        "label": "Erro",
@@ -43539,7 +43557,7 @@
        "lon": -1.4498,
        "how": "nominatim",
        "confidence": "ambigu",
-       "note": "tronçon suspect (33.12) : 10,5 km au profil depuis Aurizberri-Espinal pour 15,1 routés ; cause non établie"
+       "note": "tronçon suspect (33.12) : 10,5 km au profil depuis Aurizberri-Espinal pour 15,1 routés ; tronçon suspect (33.12) : 10,5 km au profil depuis Aurizberri-Espinal, 15,1 routés en vélo mais 11,1 en voiture (OSRM) — détour du routeur vélo (règle 20)"
       },
       {
        "label": "Huarte-Uharte",
@@ -43573,14 +43591,14 @@
       }
      ],
      "route_check": {
-      "routed_km": 260.6,
+      "routed_km": 253.4,
       "profile_km": 251,
-      "delta_pct": 3.8,
+      "delta_pct": 1,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 18,
-      "suspect_legs": 2,
+      "legs": 17,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -43881,7 +43899,7 @@
        "lon": -0.57047,
        "how": "nominatim",
        "confidence": "ok",
-       "note": "arrivée imprimée « Bordeaux, Quai Louis XVIII », placée sur ce quai (Nominatim) — règle 18 ; tronçon suspect (33.12) : 67,5 km au profil depuis Biscarrosse pour 68,7 à vol d’oiseau : profil plus court que la ligne droite — d’où Mios, Pessac et Talence non placés"
+       "note": "arrivée imprimée « Bordeaux, Quai Louis XVIII », placée au bord du quai (≈ 270 m de l’axe de la rue) (Nominatim) — règle 18 ; tronçon suspect (33.12) : 67,5 km au profil depuis Biscarrosse pour 68,7 à vol d’oiseau : profil plus court que la ligne droite — d’où Mios, Pessac et Talence non placés"
       }
      ],
      "route_check": {
@@ -43996,8 +44014,11 @@
        "label": "Saint-Émilion (1er passage)",
        "km": 57.5,
        "kind": "lieu-dit",
-       "confidence": "non-place",
-       "note": "« 95m Saint Emilion » imprimé au km 57,5, puis arrivée au km 63,5 : omis à la transcription — ajouté en tri (règle 18) ; début de la boucle finale (circuit_km), lieu exact non sourcé"
+       "confidence": "ok",
+       "note": "« 95m Saint Emilion » imprimé au km 57,5, omis à la transcription — ajouté en tri (règle 18) ; placé au village (Nominatim, 79 m au MNT) ; l’arrivée, au km 63,5, est imprimée à 30 m : elle n’est pas au village, une boucle finale est vraisemblable mais non prouvée — mesure arrêtée au km 57,5 (circuit_km) ; tronçon suspect (33.12) : 9 km au profil depuis Saint-Laurent-des-Combes par la côte de Saint-Étienne-de-Lisse, rattachée à son village donc non routée",
+       "lat": 44.89315,
+       "lon": -0.15607,
+       "how": "nominatim"
       },
       {
        "label": "Saint-Émilion",
@@ -44010,19 +44031,19 @@
       }
      ],
      "route_check": {
-      "routed_km": 46.7,
-      "profile_km": 44,
-      "delta_pct": 6.2,
+      "routed_km": 50.1,
+      "profile_km": 53,
+      "delta_pct": -5.5,
       "tolerance_pct": 5,
-      "coverage_pct": 69,
+      "coverage_pct": 83,
       "car_legs": 0,
-      "legs": 7,
-      "suspect_legs": 0,
+      "legs": 8,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
      "circuit_km": 57.5,
-     "note": "Hors tolérance (+6,2 %) sur la part mesurée, boucle finale de Saint-Émilion retirée : écart réparti (Floirac → Latresne, 7,7 km routés pour 6) ; cause non établie."
+     "note": "Hors tolérance (−5,5 %) sur 83 % de l’étape : la côte de Saint-Étienne-de-Lisse, rattachée, n’est pas routée (Saint-Laurent-des-Combes → Saint-Émilion, 9 km au profil pour 3,3 routés)."
     },
     "21": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1996/96_21a.jpg",

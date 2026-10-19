@@ -132,4 +132,9 @@ dans la même PR que son correctif.
     créerait un aller-retour, et au lieu que Nominatim ne connaît que
     par un centre administratif (Bonneval-Tarentaise). **Appliquer la
     règle à tous les rattachements de l'édition**, pas seulement à ceux
-    qui sautent aux yeux : en 1995, 11 de plus en relecture.
+    qui sautent aux yeux : en 1995, 11 de plus en relecture. **Côtes et
+    cols compris** : une côte rattachée au centre de sa commune alors
+    que son hameau ou son sommet est connu n'est pas routée (1996 :
+    Saint-Anastaise, Mont de l'Enclus, Fiolaz, Senoy) ; un col écarté
+    pour homonymie se retrouve en cherchant avec le département (Col du
+    Rousset, Drôme).
