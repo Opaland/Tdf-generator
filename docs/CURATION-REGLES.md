@@ -75,3 +75,21 @@ dans la même PR que son correctif.
     une étape hors tolérance après correction reste hors tolérance, avec
     sa cause dans la note d'étape. BRouter renvoie parfois 403 : les
     tronçons routés en voiture sont remesurés plus tard, jamais cachés.
+
+## Vérifier un point placé
+
+14. **L'altitude du profil est un témoin.** Chaque nom du profil porte son
+    altitude : la comparer au relief (MNT) du point placé. Un écart de
+    plus de 100 m trahit le mauvais lieu — Saint-Pierre-d'Entremont à
+    983 m pour 650 imprimés, Aime à 895 pour 680, La Giettaz à 1 304 pour
+    1 080, et « Chaumeil (village) » à 630 pour 530 : ce dernier n’était
+    vraisemblablement pas le village (relecture 1987).
+15. **Commune nouvelle : le village, pas la commune fusionnée.** Le centre
+    de Salignac-Eyvigues tombait vers Eyvigues, 3,8 km du village de
+    Salignac nommé par le profil (1987/12, aller-retour de 5 km) ;
+    Beynac-et-Cazenac, Aime-la-Plagne, Asasp-Arros : même piège.
+16. **Trier sur un passage BRouter, pas sur le repli voiture.** Quand
+    BRouter refuse (403), OSRM route en voiture : 1992 passait de 10
+    étapes hors tolérance à 6, et ses allers-retours changeaient, entre
+    un passage voiture et un passage vélo. Relancer avant de trier ; un
+    aller-retour qui n'apparaît qu'en voiture se note comme tel.
