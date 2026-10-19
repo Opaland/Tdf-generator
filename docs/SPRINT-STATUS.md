@@ -707,6 +707,30 @@ et côtes traversées avec leur kilomètre.
   réellement contradictoire, laissé tel quel avec une note. Protocole de
   transcription : `--legs` avant chaque PR d'édition, tout tronçon
   suspect justifié.
+  - 1986 trié, sur un passage BRouter (un tronçon routé en voiture,
+    la montée du Puy de Dôme, refusée par BRouter comme en 1988).
+    Profils relus nom par nom (règle 18) : 14 noms omis ajoutés —
+    Argenlieu et Hamel (1986/3), Gavray, Côte de Mesnil et Le Repas
+    (1986/7), Notre-Dame-des-Langueurs (1986/8), Montgaillard (1986/14),
+    Espondeilhan et Neffiès (1986/15), Les Granges (1986/16), Côte de
+    Notre-Dame (1986/19), Saint-Chamond (2e passage) et Saint-Étienne
+    (entrée) (1986/20), Côte de Chaynat (1986/21) ; les noms sans km
+    imprimé sont notés à l'étape (règle 4). Placés (règle 21, recherche
+    bornée, altitudes au MNT) : 25 points jusqu'ici non placés, dont
+    Rebirechioulet,
+    Pont-Sarrazin (arrêts de bus), la Croix de Chaubouret, Caumont-
+    l'Éventé (village de la commune nouvelle), Nadaillat, Laschamps, La
+    Font de l'Arbre, Chaynat et la Côte de Rochetaillée. Positions
+    (règle 17) : Bressuire et La Condamine à leur mairie, leurs allers-
+    retours disparaissent. Retiré : Châteauneuf-de-Chabre, placé jusqu'ici
+    (543 m au MNT pour 650, règle 14). Refusés, notés : Argenlieu, Les Thuiles, La Fresquière et
+    Forges (tronçon suspect ou aller-retour créé), Pic Saint-Loup
+    (sommet hors route). Bilan : 20 étapes sur 23 dans la tolérance (21
+    avant) : 1986/20 sort à +13,7 % une fois la Côte de Rochetaillée
+    placée (le tronçon final, court-circuité, compensait le reste —
+    noté) ; 1986/1, 1986/2 et 1986/20 ont une note d'étape. 23 tronçons
+    suspects (24 avant), notés avec leur contre-test voiture ; 3
+    allers-retours sûrs (6 avant) et 2 incertains (1 avant), notés.
   - 1988 trié, sur un passage BRouter (un seul tronçon routé en
     voiture, Col de la Moréno → Puy de Dôme : BRouter refuse la route du
     sommet, HTTP 400, à chaque passage). Profils relus nom par nom
@@ -1031,7 +1055,7 @@ et côtes traversées avec leur kilomètre.
   1987) : 80 allers-retours sûrs sur 65 étapes, 53 incertains — à trier
   édition par édition avec 33.12 (1992 : 15, 1987 : 10, 1993 : 9…).
 - [x] Édition 1986 (PR #423) : 23 étapes en ligne sur 23 (prologue de Boulogne-
-  Billancourt non transcrit), 491 points placés sur 539. Contrôlée à
+  Billancourt non transcrit), 515 points placés sur 553 (491 sur 539 avant le tri 33.12). Contrôlée à
   ±5 % avant PR : 21 étapes dans la tolérance, 2 hors, affichées comme
   telles — 1986/1 (−36,5 %, contre-la-montre en boucles dans les
   Hauts-de-Seine : Bois-Colombes → Asnières 6 km au profil pour 1,6 km à
