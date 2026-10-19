@@ -535,8 +535,8 @@ et côtes traversées avec leur kilomètre.
   contre l'image sans erreur de km ; libellés restaurés
   (Saint-Gervais-Mont-Blanc, Huez-en-Oisans, Côte de Marigny-Brizai).
 - [x] Édition 1989 (PR #416) : 21 étapes en ligne sur 21 + prologue (rues de
-  Luxembourg seulement, gardé pour mémoire, non contrôlable), 300 points
-  placés sur 345. Contrôlée à ±5 % avant PR : 15 étapes dans la
+  Luxembourg seulement, gardé pour mémoire, non contrôlable), 315 points
+  placés sur 350 (304 sur 345 avant le tri 33.12). Contrôlée à ±5 % avant PR : 15 étapes dans la
   tolérance (1989/5 à +5,0 %, à la limite), 6 hors, affichées comme
   telles — 1989/3 (−12,8 %, Ardennes et passages sur le circuit de Spa),
   1989/4 (−5,1 %), 1989/8 (−6,0 %), 1989/15 (−5,4 %, contre-la-montre de
@@ -705,6 +705,31 @@ et côtes traversées avec leur kilomètre.
   réellement contradictoire, laissé tel quel avec une note. Protocole de
   transcription : `--legs` avant chaque PR d'édition, tout tronçon
   suspect justifié.
+  - 1989 trié, sur un passage BRouter. Profils relus nom par nom
+    (règle 18) : Prignac-et-Marcamps (1989/7, jusqu'ici « non repris »),
+    Sortie Orcières et Les Veyers (1989/15), Souvenir Henri-Desgrange
+    (1989/17) et l'entrée du circuit de L'Isle-d'Abeau (1989/20)
+    ajoutés. Placés (règle 21, recherche bornée, altitudes au MNT) :
+    17 lieux-dits et hameaux, dont Regné, La Barre, Taizé, Étables, Le
+    Grand-Breuil, Saint-Marcellin et La Brévière ; côtes à leur sommet
+    connu — Laffrey à sa mairie (917 m au MNT pour 875 ; 1989/18 de
+    −12,2 % à −1,3 %), Simacourbe, Le Rove, Saint-Nizier, la citadelle
+    de Namur. Positions (règle 17) : Tandel sur son village (son
+    aller-retour disparaît), Aniane et Lunel à leur mairie (leurs
+    tronçons suspects disparaissent). Retirées : Côte de l'Auvestre,
+    placée au-delà de Puimoisson (aller-retour de 2,5 km, règle 9),
+    Côte de Fontenaille (village plus haut que le sommet imprimé).
+    Refus notés : Bray, Côte de Berdorf, Côte de Saint-Savin, Aurensan
+    et Châteauredon (village au pied). Circuits finaux (règle 19) :
+    Luxembourg, Bordeaux, Pau, Marseille, Gap, L'Isle-d'Abeau, et
+    l'aller-retour final sur les Champs-Élysées du contre-la-montre
+    (1989/21). Contre-test voiture (règle 20) sur les 10 tronçons
+    suspects restants : OSRM donne la même distance que BRouter, le
+    profil est plus long ou plus court — pas le routeur, cause non
+    établie, noté. Bilan : 20 étapes sur 21 contrôlables dans la
+    tolérance (15 avant) ; 1989/21 (−6,8 %) a une note d'étape. 10
+    tronçons suspects (15 avant), aucun aller-retour sûr (2 avant) et
+    1 incertain (2 avant), tous notés ; aucun tronçon routé en voiture.
   - 1990 trié, sur un passage BRouter. Profils relus nom par nom
     (règle 18) : Côte de la Flye et Vittel (entrée) (1990/6), Hauts
     des Champs-Élysées (1990/21) ajoutés, non placés. Placés (règle 21,
