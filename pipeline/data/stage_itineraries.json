@@ -4001,6 +4001,16 @@
        "confidence": "ok"
       },
       {
+       "label": "Col de Marie-Blanque",
+       "km": 170,
+       "kind": "col",
+       "lat": 43.07047,
+       "lon": -0.50751,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "km lu sur la graduation 170 (aucun chiffre imprimé sous le nom) ; position reprise de 1987/14 (Nominatim)"
+      },
+      {
        "label": "Bielle",
        "km": 182,
        "kind": "ville",
@@ -4071,13 +4081,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 224,
+      "routed_km": 214.8,
       "profile_km": 210.5,
-      "delta_pct": 6.4,
+      "delta_pct": 2,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 21,
+      "legs": 22,
       "suspect_legs": 1
      }
     },
@@ -5426,11 +5436,11 @@
        "km": 158,
        "kind": "ville",
        "geocodeAs": "Huez",
-       "lat": 45.08209,
-       "lon": 6.05964,
+       "lat": 45.0774,
+       "lon": 6.05328,
        "how": "nominatim",
        "confidence": "ok",
-       "note": "village de Huez (Nominatim « Huez, Isère ») ; le centroïde IGN de la commune est à côté de la station de l’Alpe d’Huez"
+       "note": "vieux village de Huez placé à son église Saint-Ferréol (Nominatim, 45.0774 ; 6.0533) : OSM n’a pas de nœud place=village pour Huez, et le point de la relation administrative (45.08209 ; 6.05964) tombe dans la station de l’Alpe d’Huez (géocodage inverse Nominatim)"
       },
       {
        "label": "L'Alpe d'Huez",
@@ -5443,12 +5453,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 151.5,
+      "routed_km": 151.3,
       "profile_km": 151,
-      "delta_pct": 0.3,
+      "delta_pct": 0.2,
       "tolerance_pct": 5,
       "coverage_pct": 93,
-      "car_legs": 0,
+      "car_legs": 2,
       "legs": 13,
       "suspect_legs": 0
      }
@@ -6392,21 +6402,26 @@
       },
       {
        "label": "La Forêt-le-Roi",
-       "km": 154,
+       "km": 150,
        "kind": "ville",
-       "lat": 48.47952,
-       "lon": 2.04293,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "non-place",
+       "note": "aucun km imprimé sous le libellé (le 154 de la première transcription appartient aux Granges-le-Roi) ; position sur l’axe vers 150-152 — km non sûr, non placé"
       },
       {
        "label": "Les Granges-le-Roi",
-       "km": 158,
+       "km": 154,
        "kind": "ville",
        "lat": 48.50573,
        "lon": 2.02259,
        "how": "commune-ign",
        "confidence": "ok"
+      },
+      {
+       "label": "Côte de Dourdan",
+       "km": 158,
+       "kind": "côte",
+       "confidence": "non-place",
+       "note": "côte de 3e catégorie, sommet non localisé"
       },
       {
        "label": "Saint-Cyr-sous-Dourdan",
@@ -6483,9 +6498,9 @@
       "delta_pct": 4.7,
       "tolerance_pct": 5,
       "coverage_pct": 80,
-      "car_legs": 1,
-      "legs": 19,
-      "suspect_legs": 2
+      "car_legs": 0,
+      "legs": 18,
+      "suspect_legs": 1
      }
     }
    }
@@ -7249,9 +7264,6 @@
        "label": "Le Champ du Feu",
        "km": 67,
        "kind": "col",
-       "lat": 48.40282,
-       "lon": 7.26404,
-       "how": "nominatim",
        "confidence": "non-place",
        "note": "aucun km imprimé sous le libellé (le 67 de la première transcription ne figure pas sur l’image) — km non sûr, non placé"
       },
@@ -7429,15 +7441,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 161.7,
+      "routed_km": 155.1,
       "profile_km": 164.5,
-      "delta_pct": -1.7,
+      "delta_pct": -5.7,
       "tolerance_pct": 5,
       "coverage_pct": 97,
-      "car_legs": 0,
-      "legs": 28,
+      "car_legs": 1,
+      "legs": 27,
       "suspect_legs": 1
-     }
+     },
+     "note": "Le Champ du Feu (entre le Col du Kreuzweg, km 53,5, et Rothau, km 80) n’a pas de km imprimé : non placé, la mesure route donc Kreuzweg → Rothau au plus court et sous-estime l’étape."
     },
     "7": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1987/87_7.jpg",
@@ -10805,11 +10818,11 @@
        "km": 195.5,
        "kind": "ville",
        "geocodeAs": "Huez",
-       "lat": 45.08209,
-       "lon": 6.05964,
+       "lat": 45.0774,
+       "lon": 6.05328,
        "how": "nominatim",
        "confidence": "ok",
-       "note": "village de Huez (Nominatim « Huez, Isère ») ; le centroïde IGN de la commune est à côté de la station de l’Alpe d’Huez"
+       "note": "vieux village de Huez placé à son église Saint-Ferréol (Nominatim, 45.0774 ; 6.0533) : OSM n’a pas de nœud place=village pour Huez, et le point de la relation administrative (45.08209 ; 6.05964) tombe dans la station de l’Alpe d’Huez (géocodage inverse Nominatim)"
       },
       {
        "label": "L'Alpe d'Huez",
@@ -10822,12 +10835,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 185.1,
+      "routed_km": 184.9,
       "profile_km": 195,
-      "delta_pct": -5.1,
+      "delta_pct": -5.2,
       "tolerance_pct": 5,
       "coverage_pct": 97,
-      "car_legs": 1,
+      "car_legs": 5,
       "legs": 25,
       "suspect_legs": 4
      }
@@ -14247,11 +14260,11 @@
        "km": 221.5,
        "kind": "ville",
        "geocodeAs": "Huez",
-       "lat": 45.08209,
-       "lon": 6.05964,
+       "lat": 45.0774,
+       "lon": 6.05328,
        "how": "nominatim",
        "confidence": "ok",
-       "note": "village de Huez (Nominatim « Huez, Isère ») ; le centroïde IGN de la commune est à côté de la station de l’Alpe d’Huez"
+       "note": "vieux village de Huez placé à son église Saint-Ferréol (Nominatim, 45.0774 ; 6.0533) : OSM n’a pas de nœud place=village pour Huez, et le point de la relation administrative (45.08209 ; 6.05964) tombe dans la station de l’Alpe d’Huez (géocodage inverse Nominatim)"
       },
       {
        "label": "L'Alpe d'Huez",
@@ -14265,12 +14278,12 @@
      ],
      "note": "Non repris : Taninges, nommée sans km imprimé.",
      "route_check": {
-      "routed_km": 205,
+      "routed_km": 207.6,
       "profile_km": 201.5,
-      "delta_pct": 1.7,
+      "delta_pct": 3,
       "tolerance_pct": 5,
       "coverage_pct": 89,
-      "car_legs": 0,
+      "car_legs": 7,
       "legs": 17,
       "suspect_legs": 1
      }
@@ -18877,11 +18890,11 @@
        "km": 156.5,
        "kind": "ville",
        "geocodeAs": "Huez",
-       "lat": 45.08209,
-       "lon": 6.05964,
+       "lat": 45.0774,
+       "lon": 6.05328,
        "how": "nominatim",
        "confidence": "ok",
-       "note": "village de Huez (Nominatim « Huez, Isère ») ; le centroïde IGN de la commune est à côté de la station de l’Alpe d’Huez"
+       "note": "vieux village de Huez placé à son église Saint-Ferréol (Nominatim, 45.0774 ; 6.0533) : OSM n’a pas de nœud place=village pour Huez, et le point de la relation administrative (45.08209 ; 6.05964) tombe dans la station de l’Alpe d’Huez (géocodage inverse Nominatim)"
       },
       {
        "label": "L'Alpe d'Huez",
@@ -21053,11 +21066,12 @@
        "label": "Huez-en-Oisans",
        "km": 177,
        "kind": "ville",
-       "lat": 45.08209,
-       "lon": 6.05964,
-       "how": "commune-ign",
+       "lat": 45.0774,
+       "lon": 6.05328,
+       "how": "nominatim",
        "confidence": "ok",
-       "geocodeAs": "Huez"
+       "geocodeAs": "Huez",
+       "note": "vieux village de Huez placé à son église Saint-Ferréol (Nominatim, 45.0774 ; 6.0533) : OSM n’a pas de nœud place=village pour Huez, et le point de la relation administrative (45.08209 ; 6.05964) tombe dans la station de l’Alpe d’Huez (géocodage inverse Nominatim)"
       },
       {
        "label": "L'Alpe d'Huez",
@@ -21070,12 +21084,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 172.6,
+      "routed_km": 172.8,
       "profile_km": 173,
-      "delta_pct": -0.2,
+      "delta_pct": -0.1,
       "tolerance_pct": 5,
       "coverage_pct": 95,
-      "car_legs": 0,
+      "car_legs": 3,
       "legs": 17,
       "suspect_legs": 0
      }
@@ -25948,11 +25962,12 @@
        "label": "Huez-en-Oisans",
        "km": 120,
        "kind": "ville",
-       "lat": 45.08209,
-       "lon": 6.05964,
-       "how": "commune-ign",
+       "lat": 45.0774,
+       "lon": 6.05328,
+       "how": "nominatim",
        "confidence": "ok",
-       "geocodeAs": "Huez"
+       "geocodeAs": "Huez",
+       "note": "vieux village de Huez placé à son église Saint-Ferréol (Nominatim, 45.0774 ; 6.0533) : OSM n’a pas de nœud place=village pour Huez, et le point de la relation administrative (45.08209 ; 6.05964) tombe dans la station de l’Alpe d’Huez (géocodage inverse Nominatim)"
       },
       {
        "label": "L'Alpe d'Huez",
@@ -25966,12 +25981,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 114.8,
+      "routed_km": 114.9,
       "profile_km": 115,
       "delta_pct": -0.1,
       "tolerance_pct": 5,
       "coverage_pct": 92,
-      "car_legs": 0,
+      "car_legs": 10,
       "legs": 11,
       "suspect_legs": 0
      }
@@ -29469,11 +29484,11 @@
        "label": "Huez",
        "km": 181,
        "kind": "ville",
-       "lat": 45.08209,
-       "lon": 6.05964,
+       "lat": 45.0774,
+       "lon": 6.05328,
        "how": "nominatim",
        "confidence": "ok",
-       "note": "village de Huez (Nominatim « Huez, Isère ») ; le centroïde IGN de la commune est à côté de la station de l’Alpe d’Huez"
+       "note": "vieux village de Huez placé à son église Saint-Ferréol (Nominatim, 45.0774 ; 6.0533) : OSM n’a pas de nœud place=village pour Huez, et le point de la relation administrative (45.08209 ; 6.05964) tombe dans la station de l’Alpe d’Huez (géocodage inverse Nominatim)"
       },
       {
        "label": "L'Alpe d'Huez",
@@ -29487,9 +29502,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 178,
+      "routed_km": 176.6,
       "profile_km": 173.5,
-      "delta_pct": 2.6,
+      "delta_pct": 1.8,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 1,

@@ -116,6 +116,9 @@ test('stage_itineraries.json : source https citée, km croissants, chaque point 
       st.towns.forEach((t, i) => {
         assert.ok(typeof t.label === 'string' && t.label && Number.isFinite(t.km), `${where} #${i}`);
         if (i) assert.ok(t.km > st.towns[i - 1].km, `${where} : km non croissant à ${t.label}`);
+        // Un point « non placé » qui garde ses coordonnées reste tracé et routé
+        // (Le Champ du Feu 1987/6, La Forêt-le-Roi 1986/23 — relecture 1986).
+        if (t.confidence === 'non-place') assert.ok(!Number.isFinite(t.lat) && !Number.isFinite(t.lon), `${where} : ${t.label} non placé mais avec coordonnées`);
         if (!Number.isFinite(t.lat) || (t.geocodeAs && t.kind !== 'ville')) return;
         // Même contrainte que scripts/geocode-itineraries.js (marge du départ réel comprise).
         if (prev) assert.ok(haversine(prev, t) <= (t.km - prev.km) * 1000 + (prev.km === 0 ? 10000 : 3000), `${where} : ${prev.label} → ${t.label}`);

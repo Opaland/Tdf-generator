@@ -706,24 +706,37 @@ et côtes traversées avec leur kilomètre.
   transcription : `--legs` avant chaque PR d'édition, tout tronçon
   suspect justifié.
 - [ ] Édition 1986 : 23 étapes en ligne sur 23 (prologue de Boulogne-
-  Billancourt non transcrit), 491 points placés sur 537. Contrôlée à
-  ±5 % avant PR : 20 étapes dans la tolérance, 3 hors, affichées comme
+  Billancourt non transcrit), 491 points placés sur 539. Contrôlée à
+  ±5 % avant PR : 21 étapes dans la tolérance, 2 hors, affichées comme
   telles — 1986/1 (−36,5 %, contre-la-montre en boucles dans les
   Hauts-de-Seine : Bois-Colombes → Asnières 6 km au profil pour 1,6 km à
-  vol d'oiseau, le parcours zigzague entre les communes), 1986/2
+  vol d'oiseau, le parcours zigzague entre les communes) et 1986/2
   (+12,1 %, Viroflay → Versailles 2 km au profil pour 3,4 à vol
-  d'oiseau : centre de commune loin du passage), 1986/12 (+6,4 %).
-  Premier passage d'édition sous le contrôle par tronçon (33.11) : 28
-  tronçons suspects triés — deux vraies erreurs de position, corrigées :
-  Huez placé au centroïde IGN de sa commune, à côté de la station de
-  l'Alpe d'Huez et non au village (même point dans 1987/20, 1988/12,
-  1989/17, 1992/14, corrigés ; le recalage sur le bourg ne s'applique pas
-  aux points géocodés sous un autre nom) ; Côte du Châtelet placée au sud
-  de Sablons, à contresens de l'étape — retirée (1986/19 de +8,9 % à
-  −1,2 %). Restent 24 tronçons signalés, centres de commune loin du
-  passage ou boucles en ville, laissés tels quels. Circuits retirés de
-  la mesure : Bordeaux (1986/11) et Champs-Élysées (1986/23). 28
-  tronçons routés en voiture (BRouter par intermittence), affichés.
+  d'oiseau : centre de commune loin du passage).
+  Premier passage d'édition sous le contrôle par tronçon (33.11) —
+  erreurs trouvées et corrigées : Côte du Châtelet placée au sud de
+  Sablons, à contresens de l'étape — retirée (1986/19 de +8,9 % à
+  −1,2 %) ; Huez placé au centroïde IGN de sa commune, dans la station
+  de l'Alpe d'Huez. Relecture adverse : le premier correctif (point de
+  la relation administrative Nominatim « Huez ») tombait lui aussi dans
+  la station (géocodage inverse : avenue du Moulin, L'Alpe d'Huez) ;
+  OSM n'a pas de nœud place=village pour Huez, le vieux village est
+  donc placé à son église Saint-Ferréol (45,0774 ; 6,0533), avec une
+  note, dans les 7 occurrences (1986/18, 1987/20, 1988/12, 1989/17,
+  1990/11, 1991/17, 1992/14). Toujours en relecture : 1986/23 décalé
+  d'un cran (Les Granges-le-Roi 154, Côte de Dourdan 158 ajoutée, La
+  Forêt-le-Roi sans km imprimé, non placée) ; 1986/12, Col de
+  Marie-Blanque ajouté au km 170 lu sur la graduation (chiffre non
+  imprimé) — l'étape passe de +6,4 % à +2,0 %. Deux points notés « non
+  placé » gardaient leurs coordonnées et restaient tracés et routés
+  (La Forêt-le-Roi, Le Champ du Feu 1987/6) : coordonnées retirées ;
+  1987/6 passe de −1,7 % à −5,7 %, hors tolérance, avec une note
+  d'étape (détour du Champ du Feu non routé). Restent 23 tronçons
+  signalés, centres de commune loin du passage ou boucles en ville,
+  laissés tels quels. Circuits retirés de la mesure : Bordeaux (1986/11)
+  et Champs-Élysées (1986/23). 29 tronçons routés en voiture (BRouter
+  par intermittence), affichés. `check-itineraries` accepte désormais
+  une étape seule (`1986/23`) en plus d'une édition.
 - [x] 33.7 Entités administratives larges (trouvé sur 1989) : Bastogne
   placée sur son arrondissement (« county » OSM), 9,2 km au nord de la
   ville. Le rang « subdivision » de 33.6 couvre désormais aussi county,
