@@ -102,8 +102,11 @@ dans la même PR que son correctif.
     (Nominatim `amenity=townhall`), l'aller-retour disparaît. La note
     n'est juste que si l'aller-retour reste avec le point sur la mairie
     (Zumaia).
-18. **Un tronçon suspect : relire d'abord le profil entre ses deux
-    points.** Le premier suspect est un nom imprimé mais omis à la
+18. **Relire tout le profil de chaque étape, nom par nom, contre la
+    transcription — pas seulement autour des tronçons suspects.** En
+    1994, 11 noms omis étaient dans des étapes sans aucun tronçon
+    suspect (relecture adverse). Pour un tronçon suspect, relire
+    d'abord le profil entre ses deux points. Le premier suspect est un nom imprimé mais omis à la
     transcription — Mornex, Montigaud, Frappe, Côte de Point B. (1992).
     Une arrivée imprimée avec son adresse (« Boulevard du Centenaire »,
     « avenue de la Zurriola ») est une source : la placer là, pas au
