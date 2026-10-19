@@ -22836,6 +22836,7 @@
    "stages": {
     "1": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1991/91_1a.jpg",
+     "note": "Hors tolérance après tri (33.12) : le profil est nettement plus long que la route sur Pollionnay → Craponne → Chaponost → Brignais et Solaize → Vénissieux (≈ 17 km de plus sur ces quatre tronçons, aucun nom imprimé omis) — vraisemblablement des détours par les monts du Lyonnais sans nom au profil ; non reconstitués.",
      "towns": [
       {
        "label": "Lyon",
@@ -22868,11 +22869,11 @@
        "label": "Côte de Bellevue-Limonest",
        "km": 29,
        "kind": "côte",
-       "geocodeAs": "Limonest",
-       "lat": 45.82572,
-       "lon": 4.77713,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.84296,
+       "lon": 4.7725,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu-dit Bellevue à Limonest (Nominatim ; 446 m au MNT pour 415 imprimés) ; était rattaché ou non placé, donc non routé — placé (33.12, règle 21)"
       },
       {
        "label": "Charbonnières-les-Bains",
@@ -22950,11 +22951,8 @@
        "label": "Lyon (entrée)",
        "km": 107,
        "kind": "lieu-dit",
-       "geocodeAs": "Lyon",
-       "lat": 45.73385,
-       "lon": 4.86951,
-       "how": "commune-ign-prefixe",
-       "confidence": "ambigu"
+       "confidence": "non-place",
+       "note": "entrée sur le circuit final (circuit_km, règle 19) : 7,5 km jusqu'à l'arrivée, lieu exact non sourcé (33.12)"
       },
       {
        "label": "Lyon",
@@ -22966,12 +22964,13 @@
        "confidence": "ok"
       }
      ],
+     "circuit_km": 107,
      "route_check": {
-      "routed_km": 80.1,
-      "profile_km": 103,
-      "delta_pct": -22.3,
+      "routed_km": 71.1,
+      "profile_km": 91,
+      "delta_pct": -21.9,
       "tolerance_pct": 5,
-      "coverage_pct": 90,
+      "coverage_pct": 79,
       "car_legs": 0,
       "legs": 10,
       "suspect_legs": 4,
@@ -23013,7 +23012,8 @@
        "label": "Jonas",
        "km": 17.5,
        "kind": "ville",
-       "confidence": "non-place"
+       "confidence": "non-place",
+       "note": "introuvable sur Nominatim, même en recherche bornée autour des voisins ; Jons, la commune voisine, testée en relecture : placée au centre, Jons → Charvas fait 4,6 km pour 1,5 au profil — non retenue (33.12)"
       },
       {
        "label": "Charvas",
@@ -23022,7 +23022,8 @@
        "lat": 45.78179,
        "lon": 5.07422,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "aller-retour incertain de 1,9 km (le tronçon entrant saute Jonas, introuvable) : non tranché (33.12)"
       },
       {
        "label": "Pusignan",
@@ -23037,11 +23038,11 @@
        "label": "Genas-Azieu",
        "km": 27,
        "kind": "lieu-dit",
-       "geocodeAs": "Genas",
-       "lat": 45.7296,
-       "lon": 5.00137,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.73883,
+       "lon": 5.01663,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "quartier d’Azieu à Genas (Nominatim) ; était rattaché ou non placé, donc non routé — placé (33.12, règle 21)"
       },
       {
        "label": "Genas",
@@ -23073,13 +23074,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 24.1,
+      "routed_km": 24.2,
       "profile_km": 24,
-      "delta_pct": 0.3,
+      "delta_pct": 1,
       "tolerance_pct": 5,
       "coverage_pct": 66,
       "car_legs": 0,
-      "legs": 5,
+      "legs": 6,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 1
@@ -23165,7 +23166,11 @@
        "label": "Vaudrenant",
        "km": 67,
        "kind": "ville",
-       "confidence": "non-place"
+       "confidence": "ok",
+       "lat": 46.2475994,
+       "lon": 5.0345528,
+       "how": "nominatim",
+       "note": "imprimé « Vaudrenant » ; hameau « Vaudrenand » de Mézériat (Nominatim, variante d'orthographe, 33.12) ; RGE ALTI 213 m pour 220 m imprimés"
       },
       {
        "label": "Marsonnas",
@@ -23270,17 +23275,18 @@
        "label": "Chevigny",
        "km": 194.5,
        "kind": "lieu-dit",
-       "confidence": "non-place"
+       "confidence": "ok",
+       "note": "hameau « Chevigny » de Fénay (Nominatim, recherche bornée, 33.12) ; RGE ALTI 234 m pour 225 imprimés. D’abord refusé : le tronçon suspect allait vers « Dijon (entrée) », retiré depuis avec le circuit final (relecture adverse)",
+       "lat": 47.242746,
+       "lon": 5.0588178,
+       "how": "nominatim"
       },
       {
        "label": "Dijon (entrée)",
        "km": 201.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Dijon",
-       "lat": 47.33195,
-       "lon": 5.0336,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "non-place",
+       "note": "entrée sur le circuit final (circuit_km, règle 19) : 9 km jusqu'à l'arrivée, lieu exact non sourcé (33.12)"
       },
       {
        "label": "Dijon",
@@ -23292,14 +23298,15 @@
        "confidence": "ok"
       }
      ],
+     "circuit_km": 201.5,
      "route_check": {
-      "routed_km": 196.2,
-      "profile_km": 204.5,
-      "delta_pct": -4,
+      "routed_km": 186.7,
+      "profile_km": 188.5,
+      "delta_pct": -0.9,
       "tolerance_pct": 5,
-      "coverage_pct": 97,
+      "coverage_pct": 90,
       "car_legs": 0,
-      "legs": 17,
+      "legs": 18,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -23321,7 +23328,8 @@
        "label": "Côte de Sainte-Anne",
        "km": 10.5,
        "kind": "côte",
-       "confidence": "non-place"
+       "confidence": "non-place",
+       "note": "introuvable sur Nominatim, même en recherche bornée autour des voisins (33.12)"
       },
       {
        "label": "Vernot",
@@ -23336,7 +23344,8 @@
        "label": "Côte des Suchots",
        "km": 33,
        "kind": "côte",
-       "confidence": "non-place"
+       "confidence": "non-place",
+       "note": "introuvable sur Nominatim, même en recherche bornée autour des voisins (33.12)"
       },
       {
        "label": "Larçon",
@@ -23405,7 +23414,8 @@
        "label": "Côte du Grand-Mallet",
        "km": 116,
        "kind": "côte",
-       "confidence": "non-place"
+       "confidence": "non-place",
+       "note": "introuvable sur Nominatim, même en recherche bornée autour des voisins (33.12)"
       },
       {
        "label": "Beurey",
@@ -23558,11 +23568,8 @@
        "label": "Reims (entrée)",
        "km": 277,
        "kind": "lieu-dit",
-       "geocodeAs": "Reims",
-       "lat": 49.25095,
-       "lon": 4.0556,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "non-place",
+       "note": "entrée sur le circuit final (circuit_km, règle 19) : 9 km jusqu'à l'arrivée, lieu exact non sourcé (33.12)"
       },
       {
        "label": "Reims",
@@ -23574,14 +23581,15 @@
        "confidence": "ok"
       }
      ],
+     "circuit_km": 277,
      "route_check": {
-      "routed_km": 266.6,
-      "profile_km": 265,
-      "delta_pct": 0.6,
+      "routed_km": 254.8,
+      "profile_km": 250,
+      "delta_pct": 1.9,
       "tolerance_pct": 5,
-      "coverage_pct": 93,
+      "coverage_pct": 87,
       "car_legs": 0,
-      "legs": 22,
+      "legs": 21,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -23603,7 +23611,11 @@
        "label": "Pongivart",
        "km": 10,
        "kind": "ville",
-       "confidence": "non-place"
+       "confidence": "ok",
+       "lat": 49.3848261,
+       "lon": 4.0386986,
+       "how": "nominatim",
+       "note": "imprimé « Pongivart » ; hameau « Pontgivart » d'Auménancourt (Nominatim, variante d'orthographe, 33.12) ; RGE ALTI 63 m. Le km 0 du profil est le départ réel, vraisemblablement au nord de Reims (Reims → Pontgivart : 15 km à vol d'oiseau pour 10 au profil, premier tronçon non mesuré)"
       },
       {
        "label": "Évergnicourt",
@@ -23685,7 +23697,8 @@
        "lat": 50.07533,
        "lon": 3.67802,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 9,1 km à vol d'oiseau depuis Étreux pour 8 au profil ; aux mairies 9,3 km, en voiture (OSRM) 9,5 km — pas le routeur, km imprimés vraisemblablement arrondis, cause non établie"
       },
       {
        "label": "Fontaine-au-Bois",
@@ -23743,13 +23756,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 133.8,
-      "profile_km": 131.5,
-      "delta_pct": 1.7,
+      "routed_km": 140.9,
+      "profile_km": 139.5,
+      "delta_pct": 1,
       "tolerance_pct": 5,
-      "coverage_pct": 88,
+      "coverage_pct": 93,
       "car_legs": 0,
-      "legs": 13,
+      "legs": 14,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -24004,11 +24017,8 @@
        "label": "Le Havre (entrée)",
        "km": 244,
        "kind": "lieu-dit",
-       "geocodeAs": "Le Havre",
-       "lat": 49.50735,
-       "lon": 0.13,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "non-place",
+       "note": "entrée sur le circuit final (circuit_km, règle 19) : 15 km jusqu'à l'arrivée, lieu exact non sourcé (33.12)"
       },
       {
        "label": "Le Havre",
@@ -24020,15 +24030,16 @@
        "confidence": "ok"
       }
      ],
+     "circuit_km": 244,
      "route_check": {
-      "routed_km": 248.3,
-      "profile_km": 250,
-      "delta_pct": -0.7,
+      "routed_km": 240.5,
+      "profile_km": 232.5,
+      "delta_pct": 3.4,
       "tolerance_pct": 5,
-      "coverage_pct": 97,
+      "coverage_pct": 90,
       "car_legs": 0,
-      "legs": 19,
-      "suspect_legs": 1,
+      "legs": 18,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -24067,11 +24078,11 @@
        "label": "Pont-de-Tancarville",
        "km": 21.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Tancarville",
-       "lat": 49.48659,
-       "lon": 0.45437,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 49.4726,
+       "lon": 0.46475,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "pont de Tancarville (Nominatim, bridge) ; était rattaché ou non placé, donc non routé — placé (33.12, règle 21)"
       },
       {
        "label": "Conteville",
@@ -24170,7 +24181,11 @@
        "label": "Côte des Maris",
        "km": 121,
        "kind": "côte",
-       "confidence": "non-place"
+       "confidence": "ok",
+       "lat": 48.9214174,
+       "lon": 0.2378695,
+       "how": "nominatim",
+       "note": "hameau « Les Maris » de Ticheville (Nominatim, recherche bornée autour des voisins, 33.12) ; MNT 218 m pour 205 m imprimés"
       },
       {
        "label": "Gacé",
@@ -24220,13 +24235,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 160.8,
+      "routed_km": 163.5,
       "profile_km": 162.5,
-      "delta_pct": -1.1,
+      "delta_pct": 0.6,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 12,
+      "legs": 14,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -24275,7 +24290,8 @@
        "label": "Mesnil-Scelleur",
        "km": 31.5,
        "kind": "ville",
-       "confidence": "non-place"
+       "confidence": "non-place",
+       "note": "introuvable sur Nominatim, même en recherche bornée autour des voisins (33.12)"
       },
       {
        "label": "Carrouges",
@@ -24317,7 +24333,11 @@
        "label": "La Croix de Médavy",
        "km": 57,
        "kind": "côte",
-       "confidence": "non-place"
+       "confidence": "ok",
+       "lat": 48.5503626,
+       "lon": 0.0484252,
+       "how": "nominatim",
+       "note": "carrefour « La Croix de Médavy », La Ferrière-Béchet (Nominatim, 33.12)"
       },
       {
        "label": "Alençon (entrée)",
@@ -24340,16 +24360,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 66.2,
+      "routed_km": 67.3,
       "profile_km": 66,
-      "delta_pct": 0.3,
+      "delta_pct": 2,
       "tolerance_pct": 5,
       "coverage_pct": 90,
       "car_legs": 0,
-      "legs": 7,
+      "legs": 8,
       "suspect_legs": 0,
       "backtracks": 0,
-      "backtracks_uncertain": 1
+      "backtracks_uncertain": 0
      }
     },
     "9": {
@@ -24441,7 +24461,8 @@
        "label": "Côte de l'Étang-Neuf",
        "km": 95,
        "kind": "côte",
-       "confidence": "non-place"
+       "confidence": "non-place",
+       "note": "Nominatim ne connaît que l’étang et le hameau « La Boulaie de l’Étang Neuf » (Juvigné), nom différent ; placé sur le hameau (139 m au MNT pour 180 imprimés), le tronçon vers Juvigné ferait 2,5 km pour 1 au profil : non placé (33.12)"
       },
       {
        "label": "Juvigné",
@@ -24492,8 +24513,8 @@
        "label": "Rennes (entrée)",
        "km": 154,
        "kind": "lieu-dit",
-       "geocodeAs": "Rennes",
-       "confidence": "non-place"
+       "confidence": "non-place",
+       "note": "entrée sur le circuit final (circuit_km, règle 19) : 7 km jusqu'à l'arrivée, lieu exact non sourcé (33.12)"
       },
       {
        "label": "Rennes",
@@ -24505,14 +24526,15 @@
        "confidence": "ok"
       }
      ],
+     "circuit_km": 154,
      "route_check": {
-      "routed_km": 155.6,
-      "profile_km": 153,
-      "delta_pct": 1.7,
+      "routed_km": 139.1,
+      "profile_km": 134.5,
+      "delta_pct": 3.5,
       "tolerance_pct": 5,
-      "coverage_pct": 95,
+      "coverage_pct": 84,
       "car_legs": 0,
-      "legs": 13,
+      "legs": 12,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -24642,7 +24664,11 @@
        "label": "Côte de Poulgrellec",
        "km": 133.5,
        "kind": "côte",
-       "confidence": "non-place"
+       "confidence": "ok",
+       "lat": 48.09092,
+       "lon": -3.25713,
+       "how": "nominatim",
+       "note": "hameau de Poulgrellec à Ploërdut (Nominatim ; 221 m au MNT pour 260 imprimés) ; était rattaché ou non placé, donc non routé — placé (33.12, règle 21)"
       },
       {
        "label": "Plouray",
@@ -24701,13 +24727,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 194.7,
+      "routed_km": 194.9,
       "profile_km": 194,
-      "delta_pct": 0.4,
+      "delta_pct": 0.5,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
-      "legs": 17,
+      "legs": 18,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -24885,7 +24911,11 @@
        "label": "Le Calvaire",
        "km": 188.5,
        "kind": "ville",
-       "confidence": "non-place"
+       "confidence": "ok",
+       "lat": 47.4430212,
+       "lon": -2.1341211,
+       "how": "nominatim",
+       "note": "lieu « Le Calvaire » de Pontchâteau (Nominatim, recherche bornée, 33.12) ; MNT 39 m pour 25 m imprimés"
       },
       {
        "label": "Campbon",
@@ -24934,13 +24964,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 232.9,
+      "routed_km": 232.6,
       "profile_km": 235,
-      "delta_pct": -0.9,
+      "delta_pct": -1,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 19,
+      "legs": 20,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -25036,21 +25066,21 @@
        "label": "Col de Soudet",
        "km": 83.5,
        "kind": "col",
-       "geocodeAs": "Soudet",
-       "lat": 42.9867,
-       "lon": -0.75469,
+       "lat": 42.98735,
+       "lon": -0.75553,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "panneau « Col de Soudet » sur la D113 (OSM), même point qu’en 1987, 1995 et 1996 ; était rattaché ou non placé, donc non routé — placé (33.12, règle 21)"
       },
       {
        "label": "La Mouline",
        "km": 97.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Arette",
-       "lat": 43.05172,
-       "lon": -0.6883,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 43.04725,
+       "lon": -0.7573078,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "lieu « La Mouline » d'Arette (Nominatim, recherche bornée, 33.12) : était rattaché à Arette ; RGE ALTI 456 m pour 470 m imprimés"
       },
       {
        "label": "Arette",
@@ -25144,16 +25174,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 191.5,
+      "routed_km": 192,
       "profile_km": 187,
-      "delta_pct": 2.4,
+      "delta_pct": 2.7,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 16,
+      "legs": 18,
       "suspect_legs": 0,
       "backtracks": 0,
-      "backtracks_uncertain": 1
+      "backtracks_uncertain": 0
      }
     },
     "13": {
@@ -25172,11 +25202,11 @@
        "label": "Senegue",
        "km": 18.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Senegüé",
-       "lat": 42.51836,
-       "lon": -0.36479,
+       "lat": 42.54916,
+       "lon": -0.3445,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "hameau de Senegüé à Sabiñánigo (Nominatim) ; était rattaché ou non placé, donc non routé — placé (33.12, règle 21)"
       },
       {
        "label": "Biescas",
@@ -25218,8 +25248,11 @@
        "label": "Artouste",
        "km": 69.5,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "« Artouste » à 1 140 m sur la descente du Pourtalet : station de Fabrèges ou autre point, position non tranchée — non placé"
+       "confidence": "ok",
+       "note": "hameau d’Artouste à Laruns (Nominatim) ; 1 132 m au MNT pour 1 140 imprimés au point de la descente du Pourtalet, ce qui tranche entre Fabrèges et Artouste — était non placé (33.12, règle 21)",
+       "lat": 42.88623,
+       "lon": -0.41173,
+       "how": "nominatim"
       },
       {
        "label": "Eaux-Chaudes",
@@ -25393,17 +25426,18 @@
        "lat": 42.76912,
        "lon": 0.41036,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "hameau « Val Louron » de Génos connu de Nominatim (RGE ALTI 1 455 m pour 1 420 imprimés), mais placé il crée un aller-retour de 1,2 km à Armanteule, même avec Armanteule à son église (33.12, règle 9) : laissé rattaché à Génos"
       }
      ],
      "route_check": {
-      "routed_km": 194.6,
-      "profile_km": 193,
-      "delta_pct": 0.8,
+      "routed_km": 207.8,
+      "profile_km": 202.5,
+      "delta_pct": 2.6,
       "tolerance_pct": 5,
-      "coverage_pct": 83,
+      "coverage_pct": 87,
       "car_legs": 0,
-      "legs": 21,
+      "legs": 23,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -25497,7 +25531,8 @@
        "label": "Côte de Saintes",
        "km": 76,
        "kind": "côte",
-       "confidence": "non-place"
+       "confidence": "non-place",
+       "note": "280 m ; introuvable sur Nominatim, même en recherche bornée autour des voisins (33.12)"
       },
       {
        "label": "Auterive",
@@ -25649,13 +25684,21 @@
        "label": "Côte de Bessède",
        "km": 55.5,
        "kind": "côte",
-       "confidence": "non-place"
+       "confidence": "ok",
+       "lat": 43.8744166,
+       "lon": 2.70033,
+       "how": "nominatim",
+       "note": "écart « La Bessède » de Combret (Nominatim, recherche bornée, 33.12) ; RGE ALTI 557 m pour 610 m imprimés au sommet"
       },
       {
        "label": "Moulin Neuf",
        "km": 65,
        "kind": "ville",
-       "confidence": "non-place"
+       "confidence": "ok",
+       "lat": 43.8911457,
+       "lon": 2.8139704,
+       "how": "nominatim",
+       "note": "écart « Moulin-Neuf » de Montlaur (Nominatim, recherche bornée, 33.12) ; RGE ALTI 336 m pour 340 m imprimés"
       },
       {
        "label": "Saint-Affrique",
@@ -25670,7 +25713,8 @@
        "label": "Côte de Cadias",
        "km": 83.5,
        "kind": "côte",
-       "confidence": "non-place"
+       "confidence": "non-place",
+       "note": "introuvable sur Nominatim, même en recherche bornée autour des voisins (33.12)"
       },
       {
        "label": "Saint-Rome-de-Cernon",
@@ -25685,7 +25729,8 @@
        "label": "Côte de Larzac",
        "km": 97,
        "kind": "côte",
-       "confidence": "non-place"
+       "confidence": "non-place",
+       "note": "introuvable sur Nominatim, même en recherche bornée autour des voisins (33.12)"
       },
       {
        "label": "La Cavalerie",
@@ -25700,8 +25745,11 @@
        "label": "Les Liquisses Basses",
        "km": 113,
        "kind": "lieu-dit",
-       "geocodeAs": "Nant",
-       "confidence": "non-place"
+       "confidence": "ok",
+       "lat": 44.0276111,
+       "lon": 3.2523393,
+       "how": "nominatim",
+       "note": "hameau « Liquisses Basses » de Nant (Nominatim, 33.12) : était rattaché à Nant ; RGE ALTI 800 m pour 800 m imprimés"
       },
       {
        "label": "Saint-Jean-du-Bruel",
@@ -25716,7 +25764,11 @@
        "label": "Côte de Lavaur",
        "km": 130.5,
        "kind": "côte",
-       "confidence": "non-place"
+       "confidence": "ok",
+       "lat": 43.998116,
+       "lon": 3.3756241,
+       "how": "nominatim",
+       "note": "écart « Lavaur » de Saint-Jean-du-Bruel (Nominatim, recherche bornée, 33.12) ; MNT 717 m, altitude imprimée mal lisible (« ?00 m »)"
       },
       {
        "label": "Alzon",
@@ -25796,11 +25848,8 @@
        "label": "Alès (entrée)",
        "km": 225,
        "kind": "lieu-dit",
-       "geocodeAs": "Alès",
-       "lat": 44.12536,
-       "lon": 4.08924,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "non-place",
+       "note": "entrée sur le circuit final (circuit_km, règle 19) : 10 km jusqu'à l'arrivée, lieu exact non sourcé (33.12)"
       },
       {
        "label": "Alès",
@@ -25812,14 +25861,15 @@
        "confidence": "ok"
       }
      ],
+     "circuit_km": 225,
      "route_check": {
-      "routed_km": 227.7,
-      "profile_km": 230,
-      "delta_pct": -1,
+      "routed_km": 211.6,
+      "profile_km": 209,
+      "delta_pct": 1.3,
       "tolerance_pct": 5,
-      "coverage_pct": 98,
+      "coverage_pct": 89,
       "car_legs": 0,
-      "legs": 14,
+      "legs": 17,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -25880,7 +25930,8 @@
        "lat": 44.25386,
        "lon": 4.64566,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 10,5 km à vol d'oiseau depuis Bagnols-sur-Cèze pour 9,5 au profil ; mairie plus au nord (plus loin), en voiture (OSRM) 12,7 km — cause non établie"
       },
       {
        "label": "Bollène",
@@ -25940,7 +25991,8 @@
        "label": "Côte de Saint-André",
        "km": 149.5,
        "kind": "côte",
-       "confidence": "non-place"
+       "confidence": "non-place",
+       "note": "875 m ; vraisemblablement nommée d’après Saint-André-de-Rosans, mais Nominatim ne connaît que le centre de la commune, pas le sommet (33.12)"
       },
       {
        "label": "Col de la Saulce",
@@ -25964,11 +26016,11 @@
        "label": "Pont de Chabestan",
        "km": 177,
        "kind": "lieu-dit",
-       "geocodeAs": "Chabestan",
-       "lat": 44.47661,
-       "lon": 5.77809,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 44.48262,
+       "lon": 5.76355,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "hameau du Pont de Chabestan (Nominatim) ; était rattaché ou non placé, donc non routé — placé (33.12, règle 21)"
       },
       {
        "label": "Veynes",
@@ -25986,17 +26038,15 @@
        "lat": 44.56343,
        "lon": 5.95869,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 11,1 km à vol d'oiseau depuis Veynes pour 10 au profil ; le point est déjà à la mairie, en voiture (OSRM) 11,7 km — cause non établie"
       },
       {
        "label": "Gap (entrée)",
        "km": 209,
        "kind": "lieu-dit",
-       "geocodeAs": "Gap",
-       "lat": 44.56323,
-       "lon": 6.07678,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "non-place",
+       "note": "entrée sur le circuit final (circuit_km, règle 19) : 6 km jusqu'à l'arrivée, lieu exact non sourcé (33.12)"
       },
       {
        "label": "Gap",
@@ -26008,12 +26058,13 @@
        "confidence": "ok"
       }
      ],
+     "circuit_km": 209,
      "route_check": {
-      "routed_km": 195.6,
-      "profile_km": 199.5,
-      "delta_pct": -2,
+      "routed_km": 182.2,
+      "profile_km": 180.5,
+      "delta_pct": 1,
       "tolerance_pct": 5,
-      "coverage_pct": 93,
+      "coverage_pct": 84,
       "car_legs": 0,
       "legs": 15,
       "suspect_legs": 2,
@@ -26073,26 +26124,31 @@
        "label": "Quet-en-Beaumont",
        "km": 47,
        "kind": "ville",
-       "lat": 44.83416,
-       "lon": 5.87395,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 44.8358599,
+       "lon": 5.8754999,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "placé à la mairie (arrêt « Mairie », hameau des Lambert, Nominatim ; RGE ALTI 803 m pour 880 imprimés) : au centre de la commune (757 m), il créait un aller-retour de 1,9 km — relecture adverse, règles 14 et 17 (33.12)"
       },
       {
        "label": "Côte des Égats",
        "km": 53,
        "kind": "côte",
-       "confidence": "non-place"
+       "confidence": "ok",
+       "note": "hameau « Les Égâts » de Saint-Laurent-en-Beaumont (Nominatim, recherche bornée, 33.12) ; RGE ALTI 849 m pour 825 imprimés. D’abord refusé à tort : l’aller-retour venait de Quet-en-Beaumont, au centre de sa commune (relecture adverse)",
+       "lat": 44.8756567,
+       "lon": 5.8340619,
+       "how": "nominatim"
       },
       {
        "label": "Côte de la Mure",
        "km": 61.5,
        "kind": "côte",
-       "geocodeAs": "La Mure",
-       "lat": 44.9137,
-       "lon": 5.78649,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 44.9067,
+       "lon": 5.7849,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "placée à la mairie de La Mure, que la route traverse (sommet non connu de Nominatim) : rattachée à la commune, elle laissait le tronçon Quet-en-Beaumont → Roizon contourner La Mure, avec un aller-retour incertain de 5,7 km à Roizon ; au centre IGN de la commune, 800 m plus au nord, un aller-retour de 1,6 km restait (33.12, règle 17)"
       },
       {
        "label": "Roizon",
@@ -26131,10 +26187,14 @@
        "confidence": "ok"
       },
       {
-       "label": "La Palud",
+       "label": "La Pallud",
        "km": 103,
        "kind": "ville",
-       "confidence": "non-place"
+       "confidence": "ok",
+       "lat": 45.0516577,
+       "lon": 5.9885439,
+       "how": "nominatim",
+       "note": "imprimé « La Pallud » ; hameau « Palud » d'Ornon (Nominatim, hameau), variante d'orthographe, entre le col d'Ornon et Le Bourg-d'Oisans ; altitude MNT 989 m pour 950 m imprimés"
       },
       {
        "label": "Le Bourg-d'Oisans",
@@ -26177,16 +26237,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 119.4,
+      "routed_km": 121.9,
       "profile_km": 120,
-      "delta_pct": -0.5,
+      "delta_pct": 1.6,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 12,
+      "legs": 15,
       "suspect_legs": 0,
       "backtracks": 0,
-      "backtracks_uncertain": 2
+      "backtracks_uncertain": 0
      }
     },
     "18": {
@@ -26205,11 +26265,11 @@
        "label": "Livet",
        "km": 12,
        "kind": "lieu-dit",
-       "geocodeAs": "Livet, Livet-et-Gavet",
        "lat": 45.10833,
        "lon": 5.93387,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "village de Livet (Nominatim) ; était rattaché ou non placé, donc non routé — placé (33.12, règle 21)"
       },
       {
        "label": "Gavet",
@@ -26262,7 +26322,8 @@
        "label": "Côte des Fontaines",
        "km": 74.5,
        "kind": "côte",
-       "confidence": "non-place"
+       "confidence": "non-place",
+       "note": "introuvable sur Nominatim, même en recherche bornée autour des voisins (33.12)"
       },
       {
        "label": "Allevard-les-Bains",
@@ -26323,7 +26384,8 @@
        "label": "Montée de l'Arly",
        "km": 147.5,
        "kind": "côte",
-       "confidence": "non-place"
+       "confidence": "non-place",
+       "note": "introuvable sur Nominatim, même en recherche bornée autour des voisins (33.12)"
       },
       {
        "label": "Col des Aravis",
@@ -26384,7 +26446,11 @@
        "label": "Blanzy",
        "km": 200.5,
        "kind": "ville",
-       "confidence": "non-place"
+       "confidence": "ok",
+       "lat": 46.0543296,
+       "lon": 6.5278251,
+       "how": "nominatim",
+       "note": "hameau « Blanzy » de Marnaz (Nominatim, recherche bornée, 33.12) ; MNT 585 m"
       },
       {
        "label": "Cluses",
@@ -26427,11 +26493,11 @@
        "label": "Col de la Joux Plane",
        "km": 237.5,
        "kind": "col",
-       "lat": 46.12962,
-       "lon": 6.71291,
+       "lat": 46.13262,
+       "lon": 6.71105,
        "how": "nominatim",
        "confidence": "ok",
-       "geocodeAs": "Col de Joux Plane"
+       "note": "col de Joux Plane (Nominatim, saddle) ; RGE ALTI 1 712 m pour 1 713 imprimés (33.12, règle 21)"
       },
       {
        "label": "Morzine",
@@ -26454,16 +26520,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 239.5,
-      "profile_km": 236,
-      "delta_pct": 1.5,
+      "routed_km": 243.1,
+      "profile_km": 243,
+      "delta_pct": 0.1,
       "tolerance_pct": 5,
-      "coverage_pct": 93,
+      "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 21,
+      "legs": 24,
       "suspect_legs": 0,
       "backtracks": 0,
-      "backtracks_uncertain": 1
+      "backtracks_uncertain": 0
      }
     },
     "19": {
@@ -26528,7 +26594,11 @@
        "label": "Côte de Lavey",
        "km": 50.5,
        "kind": "côte",
-       "confidence": "non-place"
+       "confidence": "ok",
+       "note": "lieu « Lavey », Termine, Le Petit-Bornand-les-Glières — Nominatim ne le connaît que par son arrêt de bus, nom identique (33.12) ; RGE ALTI 704 m pour 700 imprimés ; Bonneville → Lavey 9 km routés pour 9 au profil (relecture adverse, règle 21)",
+       "lat": 46.0216252,
+       "lon": 6.3973659,
+       "how": "nominatim"
       },
       {
        "label": "Entremont",
@@ -26544,11 +26614,11 @@
        "label": "Col de Saint-Jean-de-Sixt",
        "km": 64,
        "kind": "col",
-       "geocodeAs": "Saint-Jean-de-Sixt",
-       "lat": 45.92526,
-       "lon": 6.40963,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.9238709,
+       "lon": 6.4098566,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "« Col de St Jean de Sixt » (Nominatim, recherche bornée, 33.12) ; MNT 961 m"
       },
       {
        "label": "Thônes",
@@ -26572,7 +26642,8 @@
        "label": "Balmette",
        "km": 96,
        "kind": "ville",
-       "confidence": "non-place"
+       "confidence": "non-place",
+       "note": "440 m ; introuvable sur Nominatim entre Veyrier-du-Lac et Duingt, même en recherche bornée (33.12)"
       },
       {
        "label": "Duingt",
@@ -26605,7 +26676,8 @@
        "label": "Côte du Mont",
        "km": 137.5,
        "kind": "côte",
-       "confidence": "non-place"
+       "confidence": "non-place",
+       "note": "800 m ; introuvable sur Nominatim, même en recherche bornée (33.12)"
       },
       {
        "label": "Col de Plainpalais",
@@ -26646,13 +26718,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 167.7,
+      "routed_km": 167.8,
       "profile_km": 173,
       "delta_pct": -3,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 13,
+      "legs": 15,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -26683,7 +26755,8 @@
        "label": "Chindrieux",
        "km": 14.5,
        "kind": "ville",
-       "confidence": "non-place"
+       "confidence": "non-place",
+       "note": "commune connue (RGE ALTI 274 m pour 260 imprimés), mais placée elle crée un tronçon suspect : Brison-Saint-Innocent → Chindrieux fait 11 km à vol d'oiseau pour 7,5 au profil — en voiture (OSRM) 12,4 km, comme en vélo — pas le routeur, km imprimé ou point de Brison à vérifier, cause non établie (33.12) ; laissé non placé"
       },
       {
        "label": "Culoz",
@@ -26698,7 +26771,11 @@
        "label": "Don",
        "km": 32.5,
        "kind": "ville",
-       "confidence": "non-place"
+       "confidence": "ok",
+       "lat": 45.8801716,
+       "lon": 5.6908459,
+       "how": "nominatim",
+       "note": "hameau « Don » de Vieu, Valromey-sur-Séran (Nominatim, recherche bornée, 33.12) ; MNT 349 m pour 320 m imprimés"
       },
       {
        "label": "Sutrieu",
@@ -26740,7 +26817,8 @@
        "label": "Côte de Giriat",
        "km": 74.5,
        "kind": "côte",
-       "confidence": "non-place"
+       "confidence": "non-place",
+       "note": "hameau « Giriat » de Peyriat connu de Nominatim, mais placé il crée un tronçon suspect (33.12) : laissé non placé"
       },
       {
        "label": "Col du Berthiand",
@@ -26755,11 +26833,12 @@
        "label": "Côte de Hautecourt",
        "km": 93.5,
        "kind": "côte",
-       "geocodeAs": "Hautecourt-Romanèche",
        "lat": 46.15781,
        "lon": 5.41988,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "laissée rattachée à Hautecourt-Romanèche : le village (Nominatim) est à 354 m au MNT pour 450 imprimés, dans un creux du profil routé entre deux bosses — c’est le pied de la côte, pas son sommet, qui n’est pas localisé (relecture adverse, règle 21, 33.12)",
+       "geocodeAs": "Hautecourt-Romanèche"
       },
       {
        "label": "Ceyzériat",
@@ -26783,7 +26862,11 @@
        "label": "L'Étoile",
        "km": 123,
        "kind": "ville",
-       "confidence": "non-place"
+       "confidence": "ok",
+       "lat": 46.1909795,
+       "lon": 5.1342961,
+       "how": "nominatim",
+       "note": "hameau « L'Étoile » de Montracol (Nominatim, recherche bornée, 33.12) ; RGE ALTI 239 m pour 240 m imprimés"
       },
       {
        "label": "Neuville-les-Dames",
@@ -26829,7 +26912,7 @@
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 12,
+      "legs": 14,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -26837,6 +26920,7 @@
     },
     "21": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1991/91_21a.jpg",
+     "note": "Hors tolérance après tri (33.12) : contre-la-montre de 57 km, aucun tronçon suspect ; l'écart se répartit sur tous les tronçons. En voiture (OSRM), les mêmes points font 47,4 km pour 49,5 (−4,2 %, dans la tolérance) : l'écart vient pour moitié du routeur vélo, qui coupe par des routes que la course n'a vraisemblablement pas prises (règle 20) ; le reste, cause non établie.",
      "towns": [
       {
        "label": "Lugny",
@@ -27032,7 +27116,11 @@
        "label": "Côte de Montflix",
        "km": 48.5,
        "kind": "côte",
-       "confidence": "non-place"
+       "confidence": "ok",
+       "lat": 48.51432,
+       "lon": 2.10616,
+       "how": "nominatim",
+       "note": "lieu-dit Montflix à Sermaise (Nominatim ; 151 m au MNT), même point qu’en 1995/20 ; était rattaché ou non placé, donc non routé — placé (33.12, règle 21)"
       },
       {
        "label": "Dourdan",
@@ -27075,7 +27163,8 @@
        "label": "Côte des 17 Tournants",
        "km": 85.5,
        "kind": "côte",
-       "confidence": "non-place"
+       "confidence": "non-place",
+       "note": "imprimé « Les 17 Tournants » ; introuvable sur Nominatim (33.12)"
       },
       {
        "label": "Côte de Saint-Rémy-lès-Chevreuse",
@@ -27113,7 +27202,15 @@
        "lat": 48.82505,
        "lon": 2.27346,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 11 km à vol d'oiseau depuis Versailles pour 9,5 au profil ; le point est déjà au centre (mairie d'Issy), en voiture (OSRM) 14,2 km — cause non établie"
+      },
+      {
+       "label": "Paris (entrée)",
+       "km": 119.5,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "35 m ; imprimé sur le profil mais omis à la transcription — ajouté en tri (33.12, règle 18) ; lieu exact non sourcé"
       },
       {
        "label": "Champs-Élysées",
@@ -27123,7 +27220,14 @@
        "lon": 2.30533,
        "how": "nominatim",
        "confidence": "ok",
-       "note": "entrée sur le circuit des Champs-Élysées (Nominatim) ; était l’ancre de Paris (Châtelet)"
+       "note": "entrée sur le circuit des Champs-Élysées (Nominatim) ; était l’ancre de Paris (Châtelet) ; tronçon suspect (33.12) : 6,8 km routés depuis Issy-les-Moulineaux pour 10,5 au profil, en passant par « Paris (entrée) » au km 119,5, non placé — chemin réel dans Paris non sourcé, cause non établie"
+      },
+      {
+       "label": "Hauts des Champs-Élysées",
+       "km": 161,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "50 m ; imprimé sur le profil (sprint) mais omis à la transcription — ajouté en relecture (33.12, règle 18) ; dans le circuit final, non placé"
       },
       {
        "label": "Paris Champs-Élysées",
@@ -27143,7 +27247,7 @@
       "tolerance_pct": 5,
       "coverage_pct": 66,
       "car_legs": 0,
-      "legs": 10,
+      "legs": 11,
       "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 0
