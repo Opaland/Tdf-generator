@@ -6600,7 +6600,8 @@
       "car_legs": 0,
       "legs": 2,
       "suspect_legs": 1,
-      "backtracks": 1
+      "backtracks": 1,
+      "backtracks_uncertain": 0
      }
     },
     "3": {
@@ -6860,7 +6861,8 @@
       "car_legs": 0,
       "legs": 16,
       "suspect_legs": 3,
-      "backtracks": 2
+      "backtracks": 0,
+      "backtracks_uncertain": 2
      }
     },
     "4": {
@@ -6986,7 +6988,8 @@
       "car_legs": 0,
       "legs": 7,
       "suspect_legs": 0,
-      "backtracks": 0
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      },
      "circuit_km": 72.5,
      "note": "Pforzheim (km 72,5) puis Messplatz (km 79) : la mesure s’arrête à Pforzheim (circuit_km). Le profil n’imprime pas de « circuit » — boucle ou traversée de la ville, non tranché."
@@ -7154,15 +7157,16 @@
      ],
      "length_km": 112.5,
      "route_check": {
-      "routed_km": 113.4,
+      "routed_km": 113.2,
       "profile_km": 106.5,
-      "delta_pct": 6.5,
+      "delta_pct": 6.3,
       "tolerance_pct": 5,
       "coverage_pct": 95,
-      "car_legs": 3,
+      "car_legs": 0,
       "legs": 10,
       "suspect_legs": 1,
-      "backtracks": 1
+      "backtracks": 0,
+      "backtracks_uncertain": 1
      }
     },
     "6": {
@@ -7449,15 +7453,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 155.5,
+      "routed_km": 155,
       "profile_km": 164.5,
-      "delta_pct": -5.5,
+      "delta_pct": -5.8,
       "tolerance_pct": 5,
       "coverage_pct": 97,
-      "car_legs": 3,
+      "car_legs": 0,
       "legs": 27,
       "suspect_legs": 1,
-      "backtracks": 0
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      },
      "note": "Le Champ du Feu (entre le Col du Kreuzweg, km 53,5, et Rothau, km 80) n’a pas de km imprimé : non placé, la mesure route donc Kreuzweg → Rothau au plus court et sous-estime l’étape."
     },
@@ -7787,15 +7792,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 213.2,
+      "routed_km": 213.6,
       "profile_km": 207,
-      "delta_pct": 3,
+      "delta_pct": 3.2,
       "tolerance_pct": 5,
       "coverage_pct": 98,
-      "car_legs": 10,
+      "car_legs": 0,
       "legs": 31,
       "suspect_legs": 1,
-      "backtracks": 0
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "8": {
@@ -8097,15 +8103,16 @@
      ],
      "length_km": 206.5,
      "route_check": {
-      "routed_km": 206.2,
+      "routed_km": 204.9,
       "profile_km": 200.5,
-      "delta_pct": 2.8,
+      "delta_pct": 2.2,
       "tolerance_pct": 5,
       "coverage_pct": 97,
-      "car_legs": 13,
+      "car_legs": 0,
       "legs": 28,
       "suspect_legs": 2,
-      "backtracks": 1
+      "backtracks": 1,
+      "backtracks_uncertain": 0
      }
     },
     "9": {
@@ -8388,15 +8395,16 @@
      ],
      "note": "Non repris : Plessis-l’Échelle, au même km (44) que Saint-Léonard-en-Beauce.",
      "route_check": {
-      "routed_km": 259.6,
+      "routed_km": 254.3,
       "profile_km": 254.5,
-      "delta_pct": 2,
+      "delta_pct": -0.1,
       "tolerance_pct": 5,
       "coverage_pct": 98,
-      "car_legs": 6,
+      "car_legs": 0,
       "legs": 24,
       "suspect_legs": 0,
-      "backtracks": 1
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "10": {
@@ -8552,15 +8560,16 @@
      ],
      "length_km": 87.5,
      "route_check": {
-      "routed_km": 82.3,
+      "routed_km": 82.1,
       "profile_km": 79.5,
-      "delta_pct": 3.6,
+      "delta_pct": 3.3,
       "tolerance_pct": 5,
       "coverage_pct": 91,
-      "car_legs": 8,
+      "car_legs": 0,
       "legs": 12,
       "suspect_legs": 0,
-      "backtracks": 0
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "11": {
@@ -8877,15 +8886,16 @@
      "length_km": 255,
      "note": "Partie des km illisibles à cette résolution : seuls les points lus sans doute sont repris.",
      "route_check": {
-      "routed_km": 233.3,
+      "routed_km": 232.8,
       "profile_km": 249,
-      "delta_pct": -6.3,
+      "delta_pct": -6.5,
       "tolerance_pct": 5,
       "coverage_pct": 98,
-      "car_legs": 7,
+      "car_legs": 0,
       "legs": 27,
       "suspect_legs": 1,
-      "backtracks": 0
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "12": {
@@ -9200,15 +9210,16 @@
      "circuit_km": 224.5,
      "note": "Arrivée sur un circuit dans Bordeaux, entrée au km 224,5 (circuit_km). Profil plus court que la route sur cinq tronçons (Larche → Chavagnac, La Roque-Gageac → Beynac, Lalinde → Saint-Capraise, Bergerac → Lamonzie → Gardonne : 1 à 1,5 km de moins que la ligne droite) : km relus sur l’agrandissement, laissés tels quels — l’écart de l’étape vient du profil, pas de la transcription.",
      "route_check": {
-      "routed_km": 232.1,
+      "routed_km": 236,
       "profile_km": 209.5,
-      "delta_pct": 10.8,
+      "delta_pct": 12.7,
       "tolerance_pct": 5,
       "coverage_pct": 92,
-      "car_legs": 8,
+      "car_legs": 0,
       "legs": 26,
       "suspect_legs": 4,
-      "backtracks": 1
+      "backtracks": 1,
+      "backtracks_uncertain": 0
      }
     },
     "13": {
@@ -9345,7 +9356,11 @@
        "label": "Col de Soudet",
        "km": 125,
        "kind": "col",
-       "confidence": "non-place"
+       "confidence": "ok",
+       "lat": 42.98735,
+       "lon": -0.75553,
+       "how": "nominatim",
+       "note": "placé au panneau « Col de Soudet » sur la D113 (OSM, information=guidepost) : seul objet OSM à ce nom ; non placé, il laissait le routeur revenir sur ses pas depuis Sainte-Engrâce (aller-retour incertain de 11 km)"
       },
       {
        "label": "Arette",
@@ -9464,15 +9479,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 190.9,
+      "routed_km": 189.5,
       "profile_km": 190,
-      "delta_pct": 0.5,
+      "delta_pct": -0.3,
       "tolerance_pct": 5,
       "coverage_pct": 87,
-      "car_legs": 17,
-      "legs": 21,
+      "car_legs": 0,
+      "legs": 22,
       "suspect_legs": 0,
-      "backtracks": 1
+      "backtracks": 1,
+      "backtracks_uncertain": 0
      }
     },
     "14": {
@@ -9685,7 +9701,8 @@
       "car_legs": 0,
       "legs": 16,
       "suspect_legs": 0,
-      "backtracks": 0
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "15": {
@@ -9881,15 +9898,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 155.8,
+      "routed_km": 150.7,
       "profile_km": 159,
-      "delta_pct": -2,
+      "delta_pct": -5.2,
       "tolerance_pct": 5,
       "coverage_pct": 97,
-      "car_legs": 8,
+      "car_legs": 0,
       "legs": 13,
-      "suspect_legs": 2,
-      "backtracks": 1
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "16": {
@@ -10072,15 +10090,16 @@
      ],
      "length_km": 216.5,
      "route_check": {
-      "routed_km": 214.2,
+      "routed_km": 201.9,
       "profile_km": 211,
-      "delta_pct": 1.5,
+      "delta_pct": -4.3,
       "tolerance_pct": 5,
       "coverage_pct": 97,
-      "car_legs": 9,
+      "car_legs": 0,
       "legs": 13,
       "suspect_legs": 1,
-      "backtracks": 0
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "17": {
@@ -10307,15 +10326,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 237.1,
+      "routed_km": 233.5,
       "profile_km": 229,
-      "delta_pct": 3.5,
+      "delta_pct": 2,
       "tolerance_pct": 5,
       "coverage_pct": 96,
-      "car_legs": 3,
+      "car_legs": 0,
       "legs": 18,
       "suspect_legs": 0,
-      "backtracks": 1
+      "backtracks": 0,
+      "backtracks_uncertain": 1
      },
      "note": "Non repris : Pont du Gard (≈ km 208, km non imprimé)."
     },
@@ -10384,10 +10404,11 @@
       "delta_pct": -2.8,
       "tolerance_pct": 5,
       "coverage_pct": 60,
-      "car_legs": 2,
+      "car_legs": 0,
       "legs": 2,
       "suspect_legs": 0,
-      "backtracks": 0
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "19": {
@@ -10573,15 +10594,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 174.4,
+      "routed_km": 171.6,
       "profile_km": 177,
-      "delta_pct": -1.4,
+      "delta_pct": -3,
       "tolerance_pct": 5,
       "coverage_pct": 96,
-      "car_legs": 12,
+      "car_legs": 0,
       "legs": 14,
       "suspect_legs": 0,
-      "backtracks": 0
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "20": {
@@ -10875,15 +10897,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 185.9,
+      "routed_km": 184.1,
       "profile_km": 195,
-      "delta_pct": -4.7,
+      "delta_pct": -5.6,
       "tolerance_pct": 5,
       "coverage_pct": 97,
-      "car_legs": 10,
+      "car_legs": 0,
       "legs": 25,
-      "suspect_legs": 3,
-      "backtracks": 1
+      "suspect_legs": 2,
+      "backtracks": 1,
+      "backtracks_uncertain": 0
      }
     },
     "21": {
@@ -11075,15 +11098,16 @@
      ],
      "length_km": 185.5,
      "route_check": {
-      "routed_km": 186.5,
+      "routed_km": 185.4,
       "profile_km": 174.5,
-      "delta_pct": 6.9,
+      "delta_pct": 6.3,
       "tolerance_pct": 5,
       "coverage_pct": 94,
-      "car_legs": 8,
+      "car_legs": 0,
       "legs": 18,
       "suspect_legs": 1,
-      "backtracks": 0
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "22": {
@@ -11297,15 +11321,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 173.7,
+      "routed_km": 173.3,
       "profile_km": 174,
-      "delta_pct": -0.1,
+      "delta_pct": -0.4,
       "tolerance_pct": 5,
       "coverage_pct": 94,
-      "car_legs": 14,
+      "car_legs": 8,
       "legs": 19,
       "suspect_legs": 0,
-      "backtracks": 0
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "23": {
@@ -11627,15 +11652,16 @@
      ],
      "length_km": 224.5,
      "route_check": {
-      "routed_km": 231.5,
+      "routed_km": 230.7,
       "profile_km": 219,
-      "delta_pct": 5.7,
+      "delta_pct": 5.4,
       "tolerance_pct": 5,
       "coverage_pct": 98,
-      "car_legs": 16,
+      "car_legs": 2,
       "legs": 29,
       "suspect_legs": 0,
-      "backtracks": 1
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "24": {
@@ -11725,15 +11751,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 28.9,
+      "routed_km": 25.7,
       "profile_km": 30.5,
-      "delta_pct": -5.2,
+      "delta_pct": -15.6,
       "tolerance_pct": 5,
       "coverage_pct": 80,
-      "car_legs": 4,
+      "car_legs": 0,
       "legs": 4,
-      "suspect_legs": 1,
-      "backtracks": 0
+      "suspect_legs": 2,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "25": {
@@ -11967,15 +11994,16 @@
      ],
      "circuit_km": 150.5,
      "route_check": {
-      "routed_km": 153.2,
+      "routed_km": 146.6,
       "profile_km": 145.5,
-      "delta_pct": 5.3,
+      "delta_pct": 0.8,
       "tolerance_pct": 5,
       "coverage_pct": 76,
-      "car_legs": 17,
+      "car_legs": 3,
       "legs": 17,
       "suspect_legs": 2,
-      "backtracks": 0
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     }
    }

@@ -705,6 +705,25 @@ et côtes traversées avec leur kilomètre.
   réellement contradictoire, laissé tel quel avec une note. Protocole de
   transcription : `--legs` avant chaque PR d'édition, tout tronçon
   suspect justifié.
+  - 1987 trié (34 tronçons suspects, 13 allers-retours sous 33.14) :
+    10 erreurs de position corrigées — Troo (2 km), Asasp-Arros (hameau
+    d'Arros), Saint-Pierre-d'Entremont (3,6 km), Villard-Bonnot (Lancey,
+    libellé du profil), Chaumeil (village routé, distinct de l'arrivée),
+    Grange-l'Évêque (homonyme), La Giettaz, Beynac (2,5 km), Aime (limite
+    historique, 2,3 km), Col de Soudet placé (panneau OSM ; 1987/13 sans
+    aller-retour, −0,3 %) ; passage dans Karlsruhe retiré (centre-ville
+    incompatible avec le profil). Les autres tronçons sont relus sur
+    l'agrandissement et justifiés par une note : profil contradictoire
+    (Contrexéville, Soligny, étape 12), boucles et points non routés
+    (Berlin, Stuttgart, Gavet, Darois), traversées de bourg, arrivée de
+    Millau en haut d'une montée non sourcée. Remesure : 13 étapes dans la
+    tolérance (12 avant) ; 1987/20 passe de −4,7 % à −5,6 % — les
+    tronçons corrigés collent au profil (Saint-Christophe → Saint-Pierre-
+    d'Entremont : 9,9 km routés pour 10, 14,9 avant), l'ancien écart
+    masquait deux erreurs qui se compensaient ; 1987/3 de −9,0 % à
+    −11,5 % (Karlsruhe retiré). Restent 23 tronçons suspects, 5
+    allers-retours sûrs et 4 incertains, tous notés ; 13 tronçons routés
+    en voiture (BRouter par intermittence).
 - [x] 33.13 Règles de curation lues avant tout premier tracé (demande
   utilisateur du 19/10) : `docs/CURATION-REGLES.md`, 13 règles tirées
   des erreurs réelles des éditions déjà curées (lecture du profil,
