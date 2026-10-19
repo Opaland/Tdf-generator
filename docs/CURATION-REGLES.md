@@ -121,3 +121,9 @@ dans la même PR que son correctif.
     profil (1993/12). Si OSRM colle au profil, c'est le routeur — le
     noter, ne pas déplacer les points.
 
+21. **Un lieu-dit que Nominatim connaît se place, il ne se rattache pas.**
+    Rattaché à sa commune (`geocodeAs`), un lieu-dit n'est pas routé :
+    le Pont de Normandie (1995/4, +15,5 %) et le Col de Soudet (1995/16,
+    −23,2 %) faussaient toute l'étape. Le rattachement est réservé au
+    lieu introuvable — ou au lieu en bout de route (Cap Fréhel), qui
+    créerait un aller-retour.
