@@ -125,5 +125,8 @@ dans la même PR que son correctif.
     Rattaché à sa commune (`geocodeAs`), un lieu-dit n'est pas routé :
     le Pont de Normandie (1995/4, +15,5 %) et le Col de Soudet (1995/16,
     −23,2 %) faussaient toute l'étape. Le rattachement est réservé au
-    lieu introuvable — ou au lieu en bout de route (Cap Fréhel), qui
-    créerait un aller-retour.
+    lieu introuvable, au lieu en bout de route (Cap Fréhel), qui
+    créerait un aller-retour, et au lieu que Nominatim ne connaît que
+    par un centre administratif (Bonneval-Tarentaise). **Appliquer la
+    règle à tous les rattachements de l'édition**, pas seulement à ceux
+    qui sautent aux yeux : en 1995, 11 de plus en relecture.
