@@ -705,6 +705,22 @@ et côtes traversées avec leur kilomètre.
   réellement contradictoire, laissé tel quel avec une note. Protocole de
   transcription : `--legs` avant chaque PR d'édition, tout tronçon
   suspect justifié.
+- [x] 33.13 Règles de curation lues avant tout premier tracé (demande
+  utilisateur du 19/10) : `docs/CURATION-REGLES.md`, 13 règles tirées
+  des erreurs réelles des éditions déjà curées (lecture du profil,
+  placement, contrôle), dont l'interdiction des allers-retours dans une
+  étape ; CLAUDE.md règle 16 rend la lecture obligatoire avant la
+  première étape d'une édition, et toute erreur trouvée en relecture
+  ajoute ou précise une règle.
+- [ ] 33.14 Détection automatique des allers-retours (demande utilisateur
+  du 19/10 : « jamais un Tour ne fait un aller-retour sur une même
+  étape ») : `check-itineraries --legs` signale un point qui oblige le
+  tracé à faire demi-tour. Critères d'acceptation : un point placé de
+  l'autre côté de son voisin suivant (A → B → C avec C revenant vers A)
+  est signalé, un tracé en ligne ou en virage ne l'est pas ; les
+  circuits finaux (`circuit_km`) sont exclus ; seuil testé aux bornes,
+  chaque mutation de seuil fait échouer un test ; premier passage sur
+  toutes les éditions, chaque cas trié contre l'image.
 - [ ] Édition 1986 : 23 étapes en ligne sur 23 (prologue de Boulogne-
   Billancourt non transcrit), 491 points placés sur 539. Contrôlée à
   ±5 % avant PR : 21 étapes dans la tolérance, 2 hors, affichées comme
