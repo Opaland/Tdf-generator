@@ -92,6 +92,10 @@ dans la même PR que son correctif.
     983 m pour 650 imprimés, Aime à 895 pour 680, La Giettaz à 1 304 pour
     1 080, et « Chaumeil (village) » à 630 pour 530 : ce dernier n’était
     vraisemblablement pas le village (relecture 1987).
+    **Mesurer l'altitude au point stocké**, pas au centre que renvoie
+    une nouvelle recherche Nominatim : en 1988, sept côtes notées « au
+    pied » l'étaient pour le centroïde administratif, alors que le point
+    stocké était à l'altitude du sommet (Saint-Romain, 420 m pour 415).
 15. **Commune nouvelle : le village, pas la commune fusionnée.** Le centre
     de Salignac-Eyvigues tombait vers Eyvigues, 3,8 km du village de
     Salignac nommé par le profil (1987/12, aller-retour de 5 km) ;
