@@ -54,6 +54,14 @@ dans la même PR que son correctif.
    commune, mauvais ordre) — le corriger, ou le retirer avec une note.
    Seules exceptions : les circuits finaux en boucle (Champs-Élysées,
    Bordeaux), déclarés par `circuit_km`.
+   **Avant de refuser un point pour un aller-retour, regarder où il
+   se produit** : `--legs` nomme le point de demi-tour, pas forcément
+   celui qu'on vient d'ajouter. La Côte des Égats (1991/17) a été
+   refusée pour un aller-retour qui se faisait à Quet-en-Beaumont, au
+   centre de sa commune — Quet à sa mairie, les deux se placent. Même
+   chose pour un refus « tronçon suspect » : le refaire tester après
+   tout autre changement de l'étape (Chevigny, 1991/3, refusé pour un
+   tronçon vers un point retiré ensuite).
    `check-itineraries --legs` les signale (« aller-retour à … », dès 1 km
    de route reprise en sens inverse) ; « incertain » quand un point non
    placé est sauté — le placer ou l'expliquer.
@@ -114,7 +122,9 @@ dans la même PR que son correctif.
 19. **Une entrée de ville imprimée annonce un circuit final.** « Bordeaux
     - entrée » au km 184,5 (1993/18) : l'arrivée est 16 km plus loin sur
     un circuit — `circuit_km` au km de l'entrée, sinon le circuit fausse
-    la mesure et compense un vrai écart ailleurs. Repère utilisé depuis 1991 :
+    la mesure et compense un vrai écart ailleurs. Repère appliqué à partir de 1991 (1994/14 Montpellier, non
+    déclaré pour la raison notée, et 1996/5 Besançon, triés avant, sont à
+    revoir) :
     6 km ou plus entre l’entrée et l’arrivée (Pau 1995/16 : 6 km). En
     deçà, l'entrée reste un point de passage (non déclarée en 1991 :
     Argentan, Alençon, Castres, Aix-les-Bains, Mâcon).
@@ -148,6 +158,6 @@ dans la même PR que son correctif.
     **Chercher borné autour des voisins** (`viewbox` des deux points
     voisins, `bounded=1`) avant de conclure « introuvable » : un nom
     courant (Don, L'Étoile, Le Calvaire, Blanzy) se noie sous ses
-    homonymes dans une recherche globale — dix lieux de 1991 n'étaient
+    homonymes dans une recherche globale — onze lieux de 1991 n’étaient
     trouvés qu'ainsi. Essayer aussi la variante d'orthographe (Pallud /
     Palud, Pongivart / Pontgivart).
