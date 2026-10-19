@@ -728,6 +728,31 @@ et côtes traversées avec leur kilomètre.
     compensait) ; les 6 hors tolérance ont une note d'étape. 14
     tronçons suspects, 1 aller-retour sûr et 1 incertain, tous notés ;
     aucun tronçon routé en voiture.
+  - 1994 trié, sur un passage BRouter. Noms imprimés mais omis à la
+    transcription (règle 18) : 14 trouvés au premier passage (Hennuin,
+    Lostebarne, Côte de Farlington Avenue, Newfound, Burmah, Portsmouth
+    (entrée), Côte de Brighton Elmgrove ×2, Sprint du mémorial,
+    Lamonzie-Montastruc « près », carrefour D.21/N.21, Bergerac
+    (entrée), Montpellier (entrée), Essertet), 11 de plus en relecture
+    adverse sur les étapes que je n'avais pas relues (Ferques « près »,
+    Colincthun, Blackhouse Hill, White Hill, Côte de l'embranchement,
+    Les Allas « près », Aulery, Belmont, Aventignan, Saint-Gérard,
+    Malbuisson) et l'arrivée du Lac Saint-Point, absente de
+    l'itinéraire ; ceux dont le lieu n'est pas sourcé restent non
+    placés. Circuits finaux (règle 19) : Brighton et Portsmouth ;
+    Montpellier non déclaré (Castelnau suit l'entrée — déclaré, il
+    réduisait la mesure à la moitié de l'étape). Positions : Faverges et
+    Atur (communes nouvelles, règle 15), La Léchère (1 315 m au MNT pour
+    380 imprimés) et le Mont Ventoux (sur une piste, 1 653 m pour 1 909 ;
+    son « aller-retour » disparaît) — ces deux derniers trouvés en
+    relecture. Notes qui attribuaient l'écart à une côte non routée,
+    démenties par une mesure, corrigées (Boulogne, 1994/10, Winchester,
+    Crowborough). Bilan : 12 étapes sur 20 dans la tolérance (10 avant) ;
+    1994/4 de −8,0 % à −1,9 %, 1994/5 de −7,4 % à −2,2 % ; 1994/20 de
+    −14,4 % à −12,5 % une fois l'arrivée ajoutée. Les 8 hors tolérance,
+    toutes trop courtes, ont une note d'étape. 15 tronçons suspects, 0
+    aller-retour sûr et 3 incertains, tous notés ; aucun tronçon routé
+    en voiture.
   - 1987 trié (32 tronçons suspects stockés avant le tri, 10
     allers-retours sûrs au premier passage 33.14) : 10 erreurs de
     position corrigées — Troo (2 km), Asasp-Arros (hameau d'Arros),

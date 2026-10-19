@@ -34381,7 +34381,8 @@
        "lat": 50.39163,
        "lon": 3.48239,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 5,5 km au profil depuis Saint-Amand-les-Eaux pour 7,5 à vol d’oiseau entre les mairies : profil plus court que la ligne droite, laissé tel quel"
       },
       {
        "label": "Valenciennes",
@@ -34427,7 +34428,8 @@
        "lat": 50.12501,
        "lon": 3.6913,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 32 km au profil depuis Aulnoye-Aymeries par la côte d’Avesnes-sur-Helpe, rattachée à sa commune donc non routée"
       },
       {
        "label": "Le Cateau-Cambrésis",
@@ -34500,7 +34502,8 @@
        "lat": 50.68673,
        "lon": 2.88217,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 13,5 km au profil depuis Radinghem-en-Weppes pour 7,5 à vol d’oiseau : détour sans nom imprimé"
       }
      ],
      "route_check": {
@@ -34511,8 +34514,11 @@
       "coverage_pct": 95,
       "car_legs": 0,
       "legs": 14,
-      "suspect_legs": 3
-     }
+      "suspect_legs": 3,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     },
+     "note": "Hors tolérance (−10,8 %) : profil peu détaillé (aucun nom omis à la relecture), la boucle par Avesnes-sur-Helpe n’est pas routée — la mesure, qui relie les seuls points imprimés, sous-estime l’étape."
     },
     "2": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1994/1994_2a.jpg",
@@ -34588,7 +34594,8 @@
        "lat": 50.96839,
        "lon": 2.43252,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 17 km au profil depuis Wormhout pour 9,9 à vol d’oiseau : détour sans nom imprimé"
       },
       {
        "label": "Dunkerque",
@@ -34615,7 +34622,8 @@
        "lat": 50.98707,
        "lon": 2.12731,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 11 km au profil depuis Grande-Synthe pour 12,6 à vol d’oiseau entre les mairies : profil plus court que la ligne droite, laissé tel quel"
       },
       {
        "label": "Bourbourg",
@@ -34625,6 +34633,23 @@
        "lon": 2.19737,
        "how": "commune-ign",
        "confidence": "ok"
+      },
+      {
+       "label": "Hennuin",
+       "km": 145,
+       "kind": "lieu-dit",
+       "lat": 50.88983,
+       "lon": 2.11963,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "hameau d’Audruicq (Nominatim), 10 m ; imprimé sur le profil mais omis à la transcription — ajouté en tri (33.12, règle 18)"
+      },
+      {
+       "label": "Lostebarne",
+       "km": 158.5,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "25 m, vraisemblablement le hameau de Louches ; imprimé sur le profil mais omis à la transcription — ajouté en tri (33.12, règle 18) — Nominatim ne donne que la réserve naturelle, non placé"
       },
       {
        "label": "Herbinghen",
@@ -34661,7 +34686,8 @@
        "lat": 50.726,
        "lon": 1.61188,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 19,5 km au profil depuis La Capelle-lès-Boulogne pour 8 routés (8,7 par la côte de la Haute Ville) : détour sans nom imprimé"
       }
      ],
      "route_check": {
@@ -34671,9 +34697,12 @@
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 11,
-      "suspect_legs": 3
-     }
+      "legs": 12,
+      "suspect_legs": 3,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     },
+     "note": "Hors tolérance (−12,0 %) : détours sans nom imprimé (Wormhout → Bergues) et La Capelle → Boulogne (19,5 km au profil pour 8 routés) — la mesure sous-estime l’étape."
     },
     "3": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1994/1994_3a.jpg",
@@ -34725,6 +34754,23 @@
        "lon": 1.78125,
        "how": "commune-ign",
        "confidence": "ok"
+      },
+      {
+       "label": "Ferques (près)",
+       "km": 28,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "« près de Ferques », 100 m ; imprimé sur le profil mais omis à la transcription — ajouté en relecture (33.12, règle 18) — passage à côté du village, non placé"
+      },
+      {
+       "label": "Colincthun",
+       "km": 34,
+       "kind": "lieu-dit",
+       "lat": 50.83146,
+       "lon": 1.67618,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "hameau de Bazinghen (Nominatim), 30 m ; imprimé sur le profil mais omis à la transcription — ajouté en relecture (33.12, règle 18)"
       },
       {
        "label": "Audinghen",
@@ -34790,8 +34836,10 @@
       "tolerance_pct": 5,
       "coverage_pct": 82,
       "car_legs": 0,
-      "legs": 6,
-      "suspect_legs": 0
+      "legs": 7,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "4": {
@@ -34810,6 +34858,13 @@
        "confidence": "ambigu"
       },
       {
+       "label": "Blackhouse Hill",
+       "km": 16,
+       "kind": "côte",
+       "confidence": "non-place",
+       "note": "180 m, 3e catégorie ; imprimé sur le profil mais omis à la transcription — ajouté en relecture (33.12, règle 18) — lieu non confirmé, non placé"
+      },
+      {
        "label": "Canterbury",
        "km": 40,
        "kind": "ville",
@@ -34817,6 +34872,13 @@
        "lon": 1.08025,
        "how": "nominatim",
        "confidence": "ok"
+      },
+      {
+       "label": "White Hill",
+       "km": 61,
+       "kind": "côte",
+       "confidence": "non-place",
+       "note": "160 m, 4e catégorie ; imprimé sur le profil mais omis à la transcription — ajouté en relecture (33.12, règle 18) — deux candidats (Boughton Aluph, Challock), non placé"
       },
       {
        "label": "Ashford",
@@ -34861,7 +34923,8 @@
        "lat": 51.059,
        "lon": 0.16359,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 10,5 km au profil depuis Royal Tunbridge Wells pour 16,1 routés en vélo et 12,3 en voiture : cause non établie"
       },
       {
        "label": "Maresfield",
@@ -34882,13 +34945,31 @@
        "confidence": "ok"
       },
       {
-       "label": "Brighton",
+       "label": "Côte de Brighton Elmgrove",
+       "km": 191,
+       "kind": "côte",
+       "lat": 50.83154,
+       "lon": -0.11566,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "haut de la rue Elm Grove à Brighton (Nominatim, 94 m au MNT), 140 m, 1er passage ; imprimé sur le profil mais omis à la transcription — ajouté en tri (33.12, règle 18)"
+      },
+      {
+       "label": "Brighton (1er passage)",
        "km": 195.5,
        "kind": "ville",
        "lat": 50.82146,
        "lon": -0.14006,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "libellé du profil « Brighton - 1er passage » : début du circuit final (circuit_km)"
+      },
+      {
+       "label": "Côte de Brighton Elmgrove (2e passage)",
+       "km": 199.5,
+       "kind": "côte",
+       "confidence": "non-place",
+       "note": "2e passage sur le circuit final, imprimé sur le profil mais omis à la transcription — ajouté en tri (33.12, règle 18)"
       },
       {
        "label": "Brighton",
@@ -34901,15 +34982,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 150.9,
-      "profile_km": 164,
-      "delta_pct": -8,
+      "routed_km": 152.6,
+      "profile_km": 155.5,
+      "delta_pct": -1.9,
       "tolerance_pct": 5,
-      "coverage_pct": 80,
+      "coverage_pct": 76,
       "car_legs": 0,
       "legs": 9,
-      "suspect_legs": 2
-     }
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     },
+     "circuit_km": 195.5
     },
     "5": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1994/1994_5a.jpg",
@@ -34924,6 +35008,16 @@
        "lon": -1.0906,
        "how": "nominatim",
        "confidence": "ok"
+      },
+      {
+       "label": "Côte de Farlington Avenue",
+       "km": 7,
+       "kind": "côte",
+       "lat": 50.85097,
+       "lon": -1.03973,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "Farlington Avenue à Portsmouth (Nominatim), 80 m ; imprimé sur le profil mais omis à la transcription — ajouté en tri (33.12, règle 18)"
       },
       {
        "label": "Wickham",
@@ -34972,6 +35066,16 @@
        "confidence": "ok"
       },
       {
+       "label": "Newfound",
+       "km": 94.5,
+       "kind": "lieu-dit",
+       "lat": 51.2588,
+       "lon": -1.16712,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "quartier d’Oakley (Nominatim), 120 m ; imprimé sur le profil mais omis à la transcription — ajouté en tri (33.12, règle 18)"
+      },
+      {
        "label": "Basingstoke",
        "km": 100,
        "kind": "ville",
@@ -34987,7 +35091,8 @@
        "lat": 51.2096,
        "lon": -1.05168,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 11 km au profil depuis Basingstoke pour 6,4 à vol d’oiseau : détour sans nom imprimé"
       },
       {
        "label": "Alton, Hampshire",
@@ -34997,6 +35102,13 @@
        "lon": -0.97577,
        "how": "nominatim",
        "confidence": "ok"
+      },
+      {
+       "label": "Burmah",
+       "km": 136.5,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "180 m ; imprimé sur le profil mais omis à la transcription — ajouté en tri (33.12, règle 18) — lieu non identifié (Nominatim ne donne que des homonymes hors parcours), non placé"
       },
       {
        "label": "Compton, West Sussex",
@@ -35017,6 +35129,13 @@
        "confidence": "ok"
       },
       {
+       "label": "Portsmouth (entrée)",
+       "km": 171,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "« Portsmouth - entrée », 70 m ; imprimé sur le profil mais omis à la transcription — ajouté en tri (33.12, règle 18) — entrée sur le circuit final (circuit_km), lieu exact non sourcé"
+      },
+      {
        "label": "Portsmouth",
        "km": 187,
        "kind": "ville",
@@ -35027,15 +35146,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 156.5,
-      "profile_km": 169,
-      "delta_pct": -7.4,
+      "routed_km": 153,
+      "profile_km": 156.5,
+      "delta_pct": -2.2,
       "tolerance_pct": 5,
-      "coverage_pct": 90,
+      "coverage_pct": 84,
       "car_legs": 0,
-      "legs": 9,
-      "suspect_legs": 1
-     }
+      "legs": 10,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 1
+     },
+     "circuit_km": 171
     },
     "6": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1994/1994_6a.jpg",
@@ -35077,7 +35199,8 @@
        "lat": 49.41712,
        "lon": -1.22941,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 24 km au profil depuis Le Fontenay-sur-Mer pour 10,8 à vol d’oiseau : détour par les plages du Débarquement, sans nom imprimé (vraisemblablement)"
       },
       {
        "label": "Saint-Hilaire-Petitville",
@@ -35099,6 +35222,13 @@
        "confidence": "ok"
       },
       {
+       "label": "Sprint du mémorial",
+       "km": 106.5,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "70 m ; imprimé sur le profil mais omis à la transcription — ajouté en tri (33.12, règle 18) — mémorial non identifié, non placé"
+      },
+      {
        "label": "Percy",
        "km": 129.5,
        "kind": "ville",
@@ -35115,6 +35245,13 @@
        "lon": -1.22209,
        "how": "nominatim",
        "confidence": "ok"
+      },
+      {
+       "label": "Côte de l'embranchement",
+       "km": 162.5,
+       "kind": "côte",
+       "confidence": "non-place",
+       "note": "240 m, 4e catégorie ; imprimé sur le profil mais omis à la transcription — ajouté en relecture (33.12, règle 18) — lieu non identifié, non placé"
       },
       {
        "label": "Saint-Hilaire-du-Harcouët",
@@ -35198,8 +35335,11 @@
       "coverage_pct": 95,
       "car_legs": 0,
       "legs": 12,
-      "suspect_legs": 1
-     }
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     },
+     "note": "Hors tolérance (−7,2 %) : détour par les plages du Débarquement (Le Fontenay-sur-Mer → Audouville, 24 km au profil) sans nom imprimé — la mesure sous-estime l’étape."
     },
     "7": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1994/1994_7a.jpg",
@@ -35354,8 +35494,11 @@
       "coverage_pct": 84,
       "car_legs": 0,
       "legs": 10,
-      "suspect_legs": 0
-     }
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     },
+     "note": "Montreuil-Bellay et Les Trois-Moutiers sont tous deux imprimés au km 172,5 (km dupliqué sur le profil) : non repris."
     },
     "8": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1994/1994_8a.jpg",
@@ -35501,7 +35644,9 @@
       "coverage_pct": 95,
       "car_legs": 0,
       "legs": 10,
-      "suspect_legs": 0
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "9": {
@@ -35520,11 +35665,11 @@
        "label": "Atur",
        "km": 5.5,
        "kind": "lieu-dit",
-       "geocodeAs": "Boulazac Isle Manoire",
-       "lat": 45.13886,
-       "lon": 0.78309,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.14,
+       "lon": 0.7485,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "placé à la mairie d’Atur (Nominatim) : le point de la commune nouvelle Boulazac Isle Manoire tombait à Saint-Laurent-sur-Manoire (règle 15), relecture"
       },
       {
        "label": "Vergt",
@@ -35545,6 +35690,20 @@
        "confidence": "ok"
       },
       {
+       "label": "Lamonzie-Montastruc (près)",
+       "km": 49.5,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "30 m ; imprimé sur le profil mais omis à la transcription — ajouté en tri (33.12, règle 18) — le profil dit « près » : passage à côté du village, non placé"
+      },
+      {
+       "label": "Carrefour D.21/N.21",
+       "km": 54,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "20 m, chrono intermédiaire ; imprimé sur le profil mais omis à la transcription — ajouté en tri (33.12, règle 18) — carrefour non localisé, non placé"
+      },
+      {
        "label": "Lembras",
        "km": 56,
        "kind": "ville",
@@ -35554,25 +35713,36 @@
        "confidence": "ok"
       },
       {
+       "label": "Bergerac (entrée)",
+       "km": 59.5,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "20 m ; imprimé sur le profil mais omis à la transcription — ajouté en tri (33.12, règle 18) — lieu exact non sourcé, non placé"
+      },
+      {
        "label": "Bergerac",
        "km": 64,
        "kind": "ville",
        "lat": 44.85346,
        "lon": 0.48753,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 8 km au profil depuis Lembras pour 4,4 à vol d’oiseau, entrée dans Bergerac non placée"
       }
      ],
      "route_check": {
-      "routed_km": 31.2,
-      "profile_km": 35,
-      "delta_pct": -10.7,
+      "routed_km": 49.8,
+      "profile_km": 58.5,
+      "delta_pct": -14.8,
       "tolerance_pct": 5,
-      "coverage_pct": 55,
+      "coverage_pct": 91,
       "car_legs": 0,
-      "legs": 3,
-      "suspect_legs": 1
-     }
+      "legs": 4,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     },
+     "note": "Hors tolérance (−14,8 %) sur 91 % de l’étape (Atur désormais placé) : contre-la-montre dont trois points (Lamonzie-Montastruc « près », carrefour D.21/N.21, entrée de Bergerac) ne sont pas placés."
     },
     "10": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1994/1994_10a.jpg",
@@ -35622,6 +35792,13 @@
        "lon": 1.03199,
        "how": "commune-ign",
        "confidence": "ok"
+      },
+      {
+       "label": "Les Allas (près)",
+       "km": 63,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "150 m ; imprimé sur le profil mais omis à la transcription — ajouté en relecture (33.12, règle 18) — passage à côté du lieu-dit, non placé"
       },
       {
        "label": "Sarlat-la-Canéda",
@@ -35718,8 +35895,11 @@
       "coverage_pct": 74,
       "car_legs": 0,
       "legs": 5,
-      "suspect_legs": 0
-     }
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     },
+     "note": "Hors tolérance (−5,4 %) : le manque est sur Séniergues → Cahors (41,3 km routés pour 47 au profil) ; cause non établie."
     },
     "11": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1994/1994_11a.jpg",
@@ -35743,6 +35923,16 @@
        "lon": 1.17257,
        "how": "commune-ign",
        "confidence": "ok"
+      },
+      {
+       "label": "Aulery",
+       "km": 29.5,
+       "kind": "lieu-dit",
+       "lat": 44.26217,
+       "lon": 1.14588,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "hameau de Lauzerte, route de Montcuq (Nominatim), 130 m ; imprimé sur le profil mais omis à la transcription — ajouté en relecture (33.12, règle 18)"
       },
       {
        "label": "Valence-d'Agen",
@@ -35795,6 +35985,16 @@
        "km": 134,
        "kind": "côte",
        "confidence": "non-place"
+      },
+      {
+       "label": "Belmont",
+       "km": 147,
+       "kind": "ville",
+       "lat": 43.68807,
+       "lon": 0.2386,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "village du Gers, placé à sa mairie (Nominatim), 200 m ; imprimé sur le profil mais omis à la transcription — ajouté en relecture (33.12, règle 18)"
       },
       {
        "label": "Mascaras",
@@ -35871,14 +36071,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 243.6,
+      "routed_km": 242.4,
       "profile_km": 233,
-      "delta_pct": 4.5,
+      "delta_pct": 4.1,
       "tolerance_pct": 5,
       "coverage_pct": 88,
       "car_legs": 0,
-      "legs": 11,
-      "suspect_legs": 0
+      "legs": 13,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "12": {
@@ -35931,6 +36133,16 @@
        "lon": 0.38417,
        "how": "commune-ign",
        "confidence": "ok"
+      },
+      {
+       "label": "Aventignan",
+       "km": 54.5,
+       "kind": "ville",
+       "lat": 43.06942,
+       "lon": 0.51869,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "village (Nominatim), 460 m ; imprimé sur le profil mais omis à la transcription — ajouté en relecture (33.12, règle 18)"
       },
       {
        "label": "Bertren",
@@ -36045,14 +36257,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 149.2,
+      "routed_km": 149.6,
       "profile_km": 153.5,
-      "delta_pct": -2.8,
+      "delta_pct": -2.5,
       "tolerance_pct": 5,
       "coverage_pct": 75,
       "car_legs": 0,
-      "legs": 10,
-      "suspect_legs": 0
+      "legs": 11,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "13": {
@@ -36185,6 +36399,16 @@
        "confidence": "ok"
       },
       {
+       "label": "Saint-Gérard",
+       "km": 183,
+       "kind": "lieu-dit",
+       "lat": 43.90889,
+       "lon": 1.7186,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "chapelle Saint-Gérard d’Armissard (Nominatim), 170 m ; imprimé sur le profil mais omis à la transcription — ajouté en relecture (33.12, règle 18)"
+      },
+      {
        "label": "Gaillac",
        "km": 199.5,
        "kind": "ville",
@@ -36210,14 +36434,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 195.6,
+      "routed_km": 197.1,
       "profile_km": 201.5,
-      "delta_pct": -2.9,
+      "delta_pct": -2.2,
       "tolerance_pct": 5,
       "coverage_pct": 90,
       "car_legs": 0,
-      "legs": 10,
-      "suspect_legs": 0
+      "legs": 11,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "14": {
@@ -36345,6 +36571,13 @@
        "confidence": "ok"
       },
       {
+       "label": "Montpellier (entrée)",
+       "km": 183,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "70 m ; imprimé sur le profil mais omis à la transcription — ajouté en tri (33.12, règle 18) — lieu exact non sourcé ; Castelnau (189) suit, puis l’arrivée (202) : 13 km au profil pour 4,5 à vol d’oiseau, boucle dans Montpellier vraisemblable, non transcrite (pas de circuit_km, pour ne pas réduire la mesure à la moitié de l’étape)"
+      },
+      {
        "label": "Castelnau-le-Lez",
        "km": 189,
        "kind": "ville",
@@ -36371,8 +36604,11 @@
       "coverage_pct": 77,
       "car_legs": 0,
       "legs": 9,
-      "suspect_legs": 1
-     }
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 1
+     },
+     "note": "Hors tolérance (−6,9 %) : Castelnau-le-Lez → Montpellier fait 13 km au profil pour 5 routés (boucle dans Montpellier non transcrite) ; côtes de la Fontasse, de Combespinasse et de Monredon non placées."
     },
     "15": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1994/1994_15a.jpg",
@@ -36402,7 +36638,8 @@
        "lat": 43.87247,
        "lon": 3.93984,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 21 km au profil depuis Saint-Bauzille-de-Montmel pour 11,4 à vol d’oiseau : détour sans nom imprimé"
       },
       {
        "label": "Dions",
@@ -36462,10 +36699,11 @@
        "label": "Mont Ventoux",
        "km": 190.5,
        "kind": "col",
-       "lat": 44.16951,
-       "lon": 5.2575,
+       "lat": 44.17396,
+       "lon": 5.2784,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "sommet (Nominatim, natural=peak) : le point retenu était sur une piste à 1 653 m pour 1 909 imprimés (règle 14), relecture"
       },
       {
        "label": "Malaucène",
@@ -36487,14 +36725,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 208.5,
+      "routed_km": 206.5,
       "profile_km": 216,
-      "delta_pct": -3.5,
+      "delta_pct": -4.4,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
       "legs": 10,
-      "suspect_legs": 1
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "16": {
@@ -36602,6 +36842,16 @@
        "confidence": "ok"
       },
       {
+       "label": "Malbuisson",
+       "km": 170,
+       "kind": "lieu-dit",
+       "lat": 44.89182,
+       "lon": 5.8439,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "hameau de Saint-Laurent-en-Beaumont (Nominatim), 690 m ; imprimé sur le profil mais omis à la transcription — ajouté en relecture (33.12, règle 18)"
+      },
+      {
        "label": "Entraigues",
        "km": 180,
        "kind": "ville",
@@ -36640,14 +36890,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 176.7,
+      "routed_km": 176.8,
       "profile_km": 178.5,
-      "delta_pct": -1,
+      "delta_pct": -0.9,
       "tolerance_pct": 5,
       "coverage_pct": 80,
       "car_legs": 0,
-      "legs": 10,
-      "suspect_legs": 0
+      "legs": 11,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "17": {
@@ -36740,10 +36992,11 @@
        "label": "La Léchère",
        "km": 105,
        "kind": "ville",
-       "lat": 45.52628,
-       "lon": 6.45039,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.51938,
+       "lon": 6.48385,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "placé à la mairie de La Léchère (Nominatim) : le point de la commune nouvelle tombait à Villard-Soffray, 1 315 m au MNT pour 380 imprimés (règles 14 et 15), relecture"
       },
       {
        "label": "Aigueblanche",
@@ -36793,14 +37046,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 105.4,
+      "routed_km": 98.2,
       "profile_km": 101,
-      "delta_pct": 4.3,
+      "delta_pct": -2.8,
       "tolerance_pct": 5,
       "coverage_pct": 68,
       "car_legs": 0,
       "legs": 7,
-      "suspect_legs": 1
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "18": {
@@ -36883,11 +37138,11 @@
        "label": "Faverges",
        "km": 100,
        "kind": "ville",
-       "geocodeAs": "Faverges-Seythenex",
-       "lat": 45.7373,
-       "lon": 6.28677,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.7468,
+       "lon": 6.29337,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "bourg placé à sa mairie (Nominatim) : le point de la commune nouvelle Faverges-Seythenex était 1,2 km au sud et obligeait un aller-retour de 3 km (règle 15)"
       },
       {
        "label": "Col du Marais",
@@ -36945,14 +37200,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 162.6,
+      "routed_km": 157.1,
       "profile_km": 165,
-      "delta_pct": -1.4,
+      "delta_pct": -4.8,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
       "legs": 12,
-      "suspect_legs": 1
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "19": {
@@ -37083,6 +37340,16 @@
        "confidence": "ok"
       },
       {
+       "label": "Essertet",
+       "km": 66.5,
+       "kind": "lieu-dit",
+       "lat": 46.11498,
+       "lon": 6.0193,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "hameau de Viry sur la route de Bellegarde (Nominatim), 470 m ; imprimé sur le profil mais omis à la transcription — ajouté en tri (33.12, règle 18)"
+      },
+      {
        "label": "Côte de Collonges",
        "km": 80.5,
        "kind": "côte",
@@ -37099,7 +37366,8 @@
        "lat": 46.24324,
        "lon": 6.02078,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 31 km au profil depuis Essertet par la côte de Collonges, rattachée à son village donc non routée"
       },
       {
        "label": "Col de la Faucille",
@@ -37155,18 +37423,31 @@
        "lon": 6.28218,
        "how": "commune-ign",
        "confidence": "ok"
+      },
+      {
+       "label": "Lac Saint-Point",
+       "km": 208.5,
+       "kind": "ville",
+       "lat": 46.81159,
+       "lon": 6.2949,
+       "how": "stage_towns",
+       "confidence": "ok",
+       "note": "arrivée de l’étape (point de stage_towns), absente de l’itinéraire — ajoutée en relecture (33.12) ; tronçon suspect (33.12) : 19 km au profil depuis Labergement-Sainte-Marie pour 4,2 à vol d’oiseau, boucle non transcrite"
       }
      ],
      "route_check": {
-      "routed_km": 152.3,
-      "profile_km": 178,
-      "delta_pct": -14.4,
+      "routed_km": 172.4,
+      "profile_km": 197,
+      "delta_pct": -12.5,
       "tolerance_pct": 5,
-      "coverage_pct": 85,
+      "coverage_pct": 94,
       "car_legs": 0,
-      "legs": 9,
-      "suspect_legs": 1
-     }
+      "legs": 11,
+      "suspect_legs": 2,
+      "backtracks": 0,
+      "backtracks_uncertain": 1
+     },
+     "note": "Hors tolérance (−12,5 %) : la côte de Collonges, rattachée à son village, n’est pas routée (Essertet → Saint-Genis-Pouilly, 31 km au profil pour 20,7 routés), et Labergement-Sainte-Marie → Lac Saint-Point fait 19 km au profil pour 4,2 à vol d’oiseau — boucle d’arrivée autour du lac, vraisemblablement, non transcrite."
     },
     "21": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1994/1994_21a.jpg",
@@ -37278,7 +37559,8 @@
        "lat": 48.76464,
        "lon": 2.16845,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "tronçon suspect (33.12) : 21 km au profil depuis Gometz-la-Ville par les côtes de Saint-Rémy et de Châteaufort, rattachées à leur commune donc non routées"
       },
       {
        "label": "Issy-les-Moulineaux",
@@ -37318,9 +37600,12 @@
       "coverage_pct": 62,
       "car_legs": 0,
       "legs": 9,
-      "suspect_legs": 1
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      },
-     "circuit_km": 124.5
+     "circuit_km": 124.5,
+     "note": "Hors tolérance (−8,5 %) sur la part mesurée : côtes de la vallée de Chevreuse rattachées à leur commune, non routées."
     }
    }
   },
