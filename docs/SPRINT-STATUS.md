@@ -722,15 +722,32 @@ et côtes traversées avec leur kilomètre.
     l'Éventé (village de la commune nouvelle), Nadaillat, Laschamps, La
     Font de l'Arbre, Chaynat et la Côte de Rochetaillée. Positions
     (règle 17) : Bressuire et La Condamine à leur mairie, leurs allers-
-    retours disparaissent. Retiré : Châteauneuf-de-Chabre, placé jusqu'ici
-    (543 m au MNT pour 650, règle 14). Refusés, notés : Argenlieu, Les Thuiles, La Fresquière et
-    Forges (tronçon suspect ou aller-retour créé), Pic Saint-Loup
-    (sommet hors route). Bilan : 20 étapes sur 23 dans la tolérance (21
+    retours disparaissent. Non placé : Châteauneuf-de-Chabre, jusqu'ici
+    rattaché (le village, 544 m au MNT pour 650, règle 14). Refusés,
+    notés : Forges (tronçon suspect créé), Pic Saint-Loup (sommet hors
+    route).
+    Relecture adverse — erreurs corrigées : 7 noms imprimés oubliés de
+    plus (Surat, Courcelles, Intville-la-Guétard, Milly, Côte de Vidame,
+    Côte de Bosc-Hyons « Nosc-Hyons », Belle), deux séries décalées d'un
+    cran (règle 3) — Châtenay-Malabry imprimé deux fois en 1986/1 (la
+    Porte-Trivaux n'a pas de km), La Fresquière sans km en 1986/17, ce
+    qui faisait refuser Les Thuiles à tort ; refus mal mesurés
+    (Argenlieu, Les Granges, Montgaillard, qui est Montgaillard-sur-Save) ;
+    Beaulieu-sur-Loire et Saint-Auban à leur mairie (règle 17) ; notes
+    « non trouvé » fausses — Fontchristianne, Pierrepin, Col d'Haltza,
+    Monument Pershing, Mont-Valérien, Chauffour, Bourg placés, Col du
+    Mortier refusé pour son altitude (règle 14) ; six côtes rattachées
+    dont le point stocké est à l'altitude du sommet, placées (règle 14 :
+    mesurer au point stocké — Guerbigny, Avranches, La Gaubretière,
+    Pouzauges, Saint-Léger-des-Vignes, Châteaufort) ; noms sans km
+    notés aux étapes 12, 13, 15, 16, 18.
+    Bilan : 20 étapes sur 23 dans la tolérance (21
     avant) : 1986/20 sort à +13,7 % une fois la Côte de Rochetaillée
     placée (le tronçon final, court-circuité, compensait le reste —
-    noté) ; 1986/1, 1986/2 et 1986/20 ont une note d'étape. 23 tronçons
-    suspects (24 avant), notés avec leur contre-test voiture ; 3
-    allers-retours sûrs (6 avant) et 2 incertains (1 avant), notés.
+    noté) ; 1986/1, 1986/2 et 1986/20 ont une note d'étape. 22 tronçons
+    suspects (24 avant), notés avec leur contre-test voiture ; 4
+    allers-retours sûrs (6 avant ; Clamart, incertain, devenu sûr une
+    fois Châtenay corrigé) et aucun incertain (1 avant), notés.
   - 1988 trié, sur un passage BRouter (un seul tronçon routé en
     voiture, Col de la Moréno → Puy de Dôme : BRouter refuse la route du
     sommet, HTTP 400, à chaque passage). Profils relus nom par nom
@@ -1065,7 +1082,7 @@ et côtes traversées avec leur kilomètre.
   1987) : 80 allers-retours sûrs sur 65 étapes, 53 incertains — à trier
   édition par édition avec 33.12 (1992 : 15, 1987 : 10, 1993 : 9…).
 - [x] Édition 1986 (PR #423) : 23 étapes en ligne sur 23 (prologue de Boulogne-
-  Billancourt non transcrit), 515 points placés sur 553 (491 sur 539 avant le tri 33.12). Contrôlée à
+  Billancourt non transcrit), 532 points placés sur 560 (491 sur 539 avant le tri 33.12). Contrôlée à
   ±5 % avant PR : 21 étapes dans la tolérance, 2 hors, affichées comme
   telles — 1986/1 (−36,5 %, contre-la-montre en boucles dans les
   Hauts-de-Seine : Bois-Colombes → Asnières 6 km au profil pour 1,6 km à
