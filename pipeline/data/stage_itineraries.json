@@ -12447,8 +12447,11 @@
        "label": "Les Agets",
        "km": 151.5,
        "kind": "lieu-dit",
-       "confidence": "non-place",
-       "note": "seul homonyme connu de Nominatim à Bazougers, loin de la route (placé, l’étape passerait à +17,7 %) : non placé (33.12)"
+       "confidence": "ok",
+       "note": "MNT 63 m pour 70 imprimés) — relecture adverse : l’homonyme de Bazougers, d’abord testé, était le mauvais (33.12)",
+       "lat": 47.86722,
+       "lon": -0.4268,
+       "how": "nominatim"
       },
       {
        "label": "Auvers-le-Hamon",
@@ -12490,8 +12493,11 @@
        "label": "Côte de Souligné",
        "km": 192.5,
        "kind": "côte",
-       "confidence": "non-place",
-       "note": "introuvable sur Nominatim, même en recherche bornée autour des voisins (33.12)"
+       "confidence": "ok",
+       "note": "MNT 76 m pour 100 imprimés, écart de 24 m) : la côte est vraisemblablement à l’entrée du village, sommet exact non sourcé — relecture adverse (33.12, règle 21)",
+       "lat": 47.97402,
+       "lon": 0.01443,
+       "how": "nominatim"
       },
       {
        "label": "Le Mans (entrée)",
@@ -12512,13 +12518,13 @@
      ],
      "circuit_km": 202,
      "route_check": {
-      "routed_km": 182.3,
-      "profile_km": 179,
-      "delta_pct": 1.8,
+      "routed_km": 188.7,
+      "profile_km": 187,
+      "delta_pct": 0.9,
       "tolerance_pct": 5,
-      "coverage_pct": 84,
+      "coverage_pct": 88,
       "car_legs": 0,
-      "legs": 19,
+      "legs": 21,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -12771,7 +12777,7 @@
        "lon": 1.61712,
        "how": "commune-ign",
        "confidence": "ok",
-       "note": "le centre de la commune est à 48 m au MNT pour 175 imprimés au sommet : c’est le pied ou un autre point, sommet non localisé — laissée rattachée, non routée (33.12, règles 14 et 21)"
+       "note": "rattachée au centre de la commune (MNT 45 m pour 175 imprimés) : écart de 130 m, c’est le pied (règle 14) — laissée rattachée, non routée (33.12 ; altitudes remesurées au point stocké en relecture adverse)"
       },
       {
        "label": "Saint-Maxent",
@@ -13053,7 +13059,7 @@
        "lon": 3.15644,
        "how": "commune-ign",
        "confidence": "ok",
-       "note": "tronçon suspect et aller-retour (33.12) : 7 km à vol d’oiseau depuis Villeneuve-d’Ascq pour 5 au profil ; point au centre de la commune, mairie non trouvée sur Nominatim — cause non établie"
+       "note": "tronçon suspect et aller-retour (33.12) : 7 km à vol d’oiseau depuis Villeneuve-d’Ascq pour 5 au profil ; point à 43 m de la mairie (Nominatim, townhall) — cause non établie"
       },
       {
        "label": "Wasquehal",
@@ -13247,7 +13253,7 @@
        "lon": 3.61494,
        "how": "commune-ign",
        "confidence": "ok",
-       "note": "côte nommée d’après la commune, dont Nominatim ne connaît que le centre : altitude compatible avec le sommet, mais position du sommet non sourcée — laissée rattachée, non routée (33.12)"
+       "note": "rattachée au centre de Laon, à 88 m au MNT pour 170 imprimés au sommet (écart de 82 m) : le profil met « Laon » (km 152) en bas à 70 m et la côte en haut de la ville — position du sommet non sourcée, laissée rattachée, non routée (33.12, relecture adverse)"
       },
       {
        "label": "Monthenault",
@@ -13531,12 +13537,11 @@
        "label": "Côte de Chavigny",
        "km": 208.5,
        "kind": "côte",
-       "geocodeAs": "Chavigny",
        "lat": 48.63232,
        "lon": 6.12608,
        "how": "commune-ign",
        "confidence": "ok",
-       "note": "le centre de la commune est à 292 m au MNT pour 380 imprimés au sommet : c’est le pied ou un autre point, sommet non localisé — laissée rattachée, non routée (33.12, règles 14 et 21)"
+       "note": "placée au centre de Chavigny (MNT 323 m pour 380 imprimés, écart de 57 m, sous le seuil) : 1988/8 de +2,5 % à +1,0 % — relecture adverse : ma première note mesurait le centroïde administratif, pas ce point (33.12, règle 21)"
       },
       {
        "label": "Nancy (entrée)",
@@ -13560,13 +13565,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 212.6,
+      "routed_km": 209.6,
       "profile_km": 207.5,
-      "delta_pct": 2.5,
+      "delta_pct": 1,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 19,
+      "legs": 20,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -13770,7 +13775,8 @@
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Non repris : La Broque et Rothau, imprimés dans le même groupe que Schirmeck (km 90,5), sans km propre (33.12, règle 4)."
     },
     "10": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1988/88_10.jpg",
@@ -13967,7 +13973,7 @@
        "lon": 6.11233,
        "how": "nominatim",
        "confidence": "ok",
-       "note": "le centre de la commune est à 485 m au MNT pour 550 imprimés au sommet : c’est le pied ou un autre point, sommet non localisé — laissée rattachée, non routée (33.12, règles 14 et 21)"
+       "note": "rattachée au centre de la commune (MNT 481 m pour 550 imprimés) : placée, elle allonge l’étape sans sommet identifié — laissée rattachée, non routée (33.12 ; altitudes remesurées au point stocké en relecture adverse)"
       },
       {
        "label": "Ornans",
@@ -14001,8 +14007,11 @@
        "label": "Côte de la Main",
        "km": 41.5,
        "kind": "côte",
-       "confidence": "non-place",
-       "note": "introuvable sur Nominatim, même en recherche bornée autour des voisins (33.12)"
+       "confidence": "ok",
+       "note": "introuvable sur Nominatim, même en recherche bornée autour des voisins (33.12) ; hameau de La Main, Saint-Gorgon-Main (Nominatim ; MNT 694 m pour 700 imprimés) — relecture adverse (33.12, règle 21)",
+       "lat": 47.01737,
+       "lon": 6.32297,
+       "how": "nominatim"
       },
       {
        "label": "Pontarlier",
@@ -14197,13 +14206,13 @@
      ],
      "note": "Non repris : « Les …avins » (km 78), libellé illisible.",
      "route_check": {
-      "routed_km": 212.4,
+      "routed_km": 212.5,
       "profile_km": 211.5,
-      "delta_pct": 0.4,
+      "delta_pct": 0.5,
       "tolerance_pct": 5,
       "coverage_pct": 91,
       "car_legs": 0,
-      "legs": 22,
+      "legs": 23,
       "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -14490,7 +14499,7 @@
        "lon": 5.61499,
        "how": "commune-ign",
        "confidence": "ok",
-       "note": "le centre de la commune est à 932 m au MNT pour 865 imprimés au sommet : c’est le pied ou un autre point, sommet non localisé — laissée rattachée, non routée (33.12, règles 14 et 21)"
+       "note": "rattachée au centre de la commune (MNT 935 m pour 865 imprimés) : le centre est au-dessus du sommet imprimé ; placée, elle allonge l’étape — laissée rattachée, non routée (33.12 ; altitudes remesurées au point stocké en relecture adverse)"
       },
       {
        "label": "Lans-en-Vercors",
@@ -14602,12 +14611,11 @@
        "label": "Côte de Montesquieu-Volvestre",
        "km": 61.5,
        "kind": "côte",
-       "geocodeAs": "Montesquieu-Volvestre",
        "lat": 43.17775,
        "lon": 1.22605,
        "how": "commune-ign",
        "confidence": "ok",
-       "note": "le centre de la commune est à 232 m au MNT pour 370 imprimés au sommet : c’est le pied ou un autre point, sommet non localisé — laissée rattachée, non routée (33.12, règles 14 et 21)"
+       "note": "placée au centre de Montesquieu-Volvestre (MNT 314 m pour 370 imprimés, écart de 56 m) — relecture adverse : ma première note mesurait le centroïde administratif (33.12, règle 21)"
       },
       {
        "label": "Lahitère",
@@ -14721,13 +14729,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 157.7,
+      "routed_km": 157.4,
       "profile_km": 156.5,
-      "delta_pct": 0.8,
+      "delta_pct": 0.6,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 16,
+      "legs": 17,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -14969,7 +14977,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Non repris : « Col de Menté-Mourtis » (1 420 m, étiquette voisine du col de Menté, km 45 ou 45,5 non tranché) et Payolle (sans km imprimé)."
+     "note": "Non repris : « Col de Menté-Mourtis » (1 420 m, étiquette voisine du col de Menté, km 45 ou 45,5 non tranché) et Payolle (sans km imprimé). Non repris : « Souvenir Henri-Desgrange », annotation accolée au Col du Tourmalet, sans km propre (33.12, règle 4)."
     },
     "16": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1988/88_16.jpg",
@@ -15008,7 +15016,7 @@
        "lon": -0.15817,
        "how": "commune-ign",
        "confidence": "ok",
-       "note": "le centre de la commune est à 298 m au MNT pour 400 imprimés au sommet : c’est le pied ou un autre point, sommet non localisé — laissée rattachée, non routée (33.12, règles 14 et 21)"
+       "note": "rattachée au centre de la commune (MNT 306 m pour 400 imprimés) : placé, il allonge l’étape sans sommet identifié — laissée rattachée, non routée (33.12 ; altitudes remesurées au point stocké en relecture adverse)"
       },
       {
        "label": "Soumoulou",
@@ -15099,8 +15107,11 @@
        "label": "Côte de Sainte-Quitterie",
        "km": 9.5,
        "kind": "côte",
-       "confidence": "non-place",
-       "note": "introuvable sur Nominatim, même en recherche bornée autour des voisins (33.12)"
+       "confidence": "ok",
+       "note": "introuvable sur Nominatim, même en recherche bornée autour des voisins (33.12) ; sanctuaire de Sainte-Quitterie, Doumy (Nominatim ; MNT 276 m pour 280 imprimés) — relecture adverse (33.12, règle 21)",
+       "lat": 43.42428,
+       "lon": -0.37391,
+       "how": "nominatim"
       },
       {
        "label": "Côte du Luy-de-France",
@@ -15285,13 +15296,13 @@
      ],
      "circuit_km": 202,
      "route_check": {
-      "routed_km": 199.6,
+      "routed_km": 200.1,
       "profile_km": 197.5,
-      "delta_pct": 1.1,
+      "delta_pct": 1.3,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
-      "legs": 18,
+      "legs": 19,
       "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -15412,7 +15423,7 @@
        "lon": 1.12802,
        "how": "commune-ign",
        "confidence": "ok",
-       "note": "le centre de la commune est à 224 m au MNT pour 305 imprimés au sommet : c’est le pied ou un autre point, sommet non localisé — laissée rattachée, non routée (33.12, règles 14 et 21)"
+       "note": "rattachée au centre de la commune (MNT 216 m pour 305 imprimés) : placée, 1988/18 passe de +7,3 % à +9,6 % — laissée rattachée, non routée (33.12 ; altitudes remesurées au point stocké en relecture adverse)"
       },
       {
        "label": "Limoges",
@@ -15494,7 +15505,7 @@
        "lon": 1.78824,
        "how": "commune-ign",
        "confidence": "ok",
-       "note": "le centre de la commune est à 433 m au MNT pour 710 imprimés au sommet : c’est le pied ou un autre point, sommet non localisé — laissée rattachée, non routée (33.12, règles 14 et 21)"
+       "note": "rattachée au centre de la commune (MNT 446 m pour 710 imprimés) : écart de 264 m, c’est le pied (règle 14) — laissée rattachée, non routée (33.12 ; altitudes remesurées au point stocké en relecture adverse)"
       },
       {
        "label": "Auphelle (Lac de Vassivière)",
@@ -15897,7 +15908,7 @@
     },
     "21": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1988/88_21.jpg",
-     "note": "Hors tolérance après tri (33.12) : contre-la-montre en boucle autour de Santenay ; Auxey-le-Petit → Pommard fait 5,8 km routés pour 11 au profil (détour par Saint-Romain et sa côte, rattachée au centre de la commune) — cause non établie.",
+     "note": "Hors tolérance après tri (33.12) : +5,8 % une fois la Côte de Saint-Romain placée à son église (−10,4 % avant, la côte rattachée n’était pas routée) ; contre-la-montre en boucle autour de Santenay, cause du reste non établie. Non repris : « Santenay (pont sur voie ferrée) », 235 m, sans km imprimé (règle 4).",
      "towns": [
       {
        "label": "Santenay",
@@ -15960,12 +15971,11 @@
        "label": "Côte de Saint-Romain",
        "km": 23.5,
        "kind": "côte",
-       "geocodeAs": "Saint-Romain",
-       "lat": 46.99927,
-       "lon": 4.71344,
-       "how": "commune-ign",
+       "lat": 47.00037,
+       "lon": 4.71325,
+       "how": "nominatim",
        "confidence": "ok",
-       "note": "le centre de la commune est à 354 m au MNT pour 415 imprimés au sommet : c’est le pied ou un autre point, sommet non localisé — laissée rattachée, non routée (33.12, règles 14 et 21)"
+       "note": "MNT 428 m pour 415 imprimés), village perché au sommet — relecture adverse : ma note « centre au pied » mesurait le centroïde administratif, pas le point (33.12, règle 21)"
       },
       {
        "label": "Pommard",
@@ -15974,8 +15984,7 @@
        "lat": 47.00879,
        "lon": 4.79623,
        "how": "commune-ign",
-       "confidence": "ok",
-       "note": "tronçon suspect depuis Auxey-le-Petit (33.12) : 5,8 km routés, 5 à vol d’oiseau, pour 11 au profil ; en voiture (OSRM) 5,8 km — pas le routeur, cause non établie"
+       "confidence": "ok"
       },
       {
        "label": "Meursault",
@@ -16006,14 +16015,14 @@
       }
      ],
      "route_check": {
-      "routed_km": 35.8,
+      "routed_km": 42.3,
       "profile_km": 40,
-      "delta_pct": -10.4,
+      "delta_pct": 5.8,
       "tolerance_pct": 5,
       "coverage_pct": 87,
       "car_legs": 0,
-      "legs": 8,
-      "suspect_legs": 1,
+      "legs": 9,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -16144,7 +16153,7 @@
        "lon": 2.08072,
        "how": "commune-ign",
        "confidence": "ok",
-       "note": "le centre de la commune est à 76 m au MNT pour 130 imprimés au sommet : c’est le pied ou un autre point, sommet non localisé — laissée rattachée, non routée (33.12, règles 14 et 21)"
+       "note": "rattachée au centre de la commune (MNT 78 m pour 130 imprimés) : placée, elle allonge l’étape sans sommet identifié — laissée rattachée, non routée (33.12 ; altitudes remesurées au point stocké en relecture adverse)"
       },
       {
        "label": "Côte de Châteaufort",
@@ -16180,7 +16189,7 @@
        "km": 121,
        "kind": "côte",
        "confidence": "non-place",
-       "note": "introuvable sur Nominatim, même en recherche bornée autour des voisins (33.12)"
+       "note": "Nominatim connaît l’arrêt « Pavé des Gardes » et la rue, à Chaville (103 m au MNT pour 150 imprimés) : point de passage vraisemblable mais pas le sommet démontré — non placée (33.12, relecture adverse)"
       },
       {
        "label": "Issy-les-Moulineaux",
