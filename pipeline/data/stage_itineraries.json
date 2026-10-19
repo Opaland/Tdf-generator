@@ -6585,7 +6585,8 @@
        "lat": 52.4849,
        "lon": 13.34464,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "aller-retour (33.14) : pas de pont sur la Havel à hauteur de Gatow (vraisemblablement) : le routeur revient vers le nord ; le tracé réel du contre-la-montre n’est pas connu"
       }
      ],
      "length_km": 40.5,
@@ -6659,11 +6660,8 @@
        "label": "Karlsruhe",
        "km": 45,
        "kind": "lieu-dit",
-       "lat": 49.00687,
-       "lon": 8.40342,
-       "how": "nominatim",
-       "confidence": "ok",
-       "note": "tronçon suspect (33.12) : passage dans Karlsruhe placé au centre-ville faute de mieux : 9 km d’Ettlingen à vol d’oiseau pour 7 au profil, le passage réel est au sud ou à l’est de la ville"
+       "confidence": "non-place",
+       "note": "passage dans Karlsruhe : le centre-ville est à 9 km d’Ettlingen à vol d’oiseau pour 7 au profil, et y aller obligeait un aller-retour — le lieu exact du passage (sud ou est de la ville) n’est pas connu, non placé"
       },
       {
        "label": "Grötzingen",
@@ -8053,7 +8051,7 @@
        "lon": 2.43818,
        "how": "nominatim",
        "confidence": "ok",
-       "note": "tronçon suspect (33.12) : 6 km au profil pour 6,7 à vol d’oiseau : centre de commune, profil plus court que la ligne droite, laissé tel quel"
+       "note": "tronçon suspect (33.12) : 6 km au profil pour 6,7 à vol d’oiseau : centre de commune, profil plus court que la ligne droite, laissé tel quel ; aller-retour (33.14) : le routeur repasse par Mennecy (2,7 km repris) ; le profil (6 km) suppose vraisemblablement la route directe par Lisses"
       },
       {
        "label": "Croix-de-Villeroy",
@@ -8232,7 +8230,8 @@
        "lat": 47.74164,
        "lon": 0.51491,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "aller-retour (33.14) : le routeur entre au centre de La Chartre-sur-le-Loir et ressort par la même rue (1 km), artefact de la traversée"
       },
       {
        "label": "Marigné-Laillé",
@@ -8947,10 +8946,11 @@
        "km": 64,
        "kind": "ville",
        "geocodeAs": "Beynac-et-Cazenac",
-       "lat": 44.85903,
-       "lon": 1.12892,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 44.84006,
+       "lon": 1.14466,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "village de Beynac placé à son église Notre-Dame (Nominatim), au bord de la Dordogne : le point de la commune était 2,5 km au nord, vers Cazenac, et obligeait deux allers-retours"
       },
       {
        "label": "Saint-Cyprien",
@@ -9245,7 +9245,8 @@
        "lat": 43.16295,
        "lon": -1.23805,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "aller-retour (33.14) : bourg d’Ossès à l’écart de la route de la vallée : le routeur y entre et en ressort (1,2 km)"
       },
       {
        "label": "Saint-Jean-le-Vieux",
@@ -10153,7 +10154,8 @@
        "lat": 44.08118,
        "lon": 3.64213,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "aller-retour (33.14) : sommet du Mont Aigoual (observatoire) sur une route en impasse : 1,4 km repris, le point de passage exact n’est pas établi"
       },
       {
        "label": "Peyregrosse",
@@ -11024,10 +11026,11 @@
        "label": "Aime",
        "km": 167,
        "kind": "ville",
-       "lat": 45.55559,
-       "lon": 6.62298,
+       "lat": 45.55719,
+       "lon": 6.65218,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "village d’Aime (nœud place=village, Nominatim, même point qu’au départ de 1987/22) : le point retenu était la limite historique de l’ancienne commune, 2,3 km à l’ouest"
       },
       {
        "label": "Mâcot",
