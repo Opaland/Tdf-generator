@@ -29,8 +29,27 @@ function looksLikeFrance(lat, lon) {
   );
 }
 
+// Sommets dont le nom courant s'écrit avec un trait d'union, comme une
+// commune : seule cette liste fermée les distingue de Mont-de-Marsan ou
+// Le Mont-Dore (relevés dans stage_towns.json, Wikipédia).
+const HYPHENATED_SUMMITS = new Set(['mont-ventoux', 'plateau-de-beille', 'puy-de-dome']);
+const COL_HEAD = /^(?:(?:le|la|les)\s+|l['’]\s*)?(col|cote|côte|montee|montée|pic|puy|mont|alpe|plateau|station)(\s|-|$)/i;
+
+/** Le libellé désigne-t-il un col, une côte ou un sommet ? Le mot-clé doit
+ * ouvrir le libellé, ou l'un de ses segments séparés par « / », « – » ou une
+ * parenthèse (« Gourette–Col d'Aubisque », « Tulle (Puy Pinçon) »). Avant,
+ * `\bmont\b` n'importe où classait en col Mont-de-Marsan, Le Mont-Dore,
+ * Mont-Saint-Père, Pagny-la-Blanche-Côte, Saint-Gervais Mont-Blanc, et même
+ * Montélimar (`\b` coupe avant « é ») — revue globale du 19/10/2026. Un mot-clé
+ * suivi d'un trait d'union n'est un col que pour HYPHENATED_SUMMITS. */
 function isColQuery(q) {
-  return /\b(col|cote|côte|montee|montée|pic|puy|mont|alpe|plateau|station)\b/i.test(q);
+  return String(q || '').split(/[/–—()]/).some((seg) => {
+    const t = seg.trim();
+    const m = t.match(COL_HEAD);
+    if (!m) return false;
+    if (m[2] !== '-') return true;
+    return HYPHENATED_SUMMITS.has(t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''));
+  });
 }
 
 function isCommuneFeat(f) {

@@ -324,9 +324,14 @@ function parseDistanceKm(text) {
 
 function normalizeType(text) {
   const t = String(text).toLowerCase();
-  if (/mountain|montagne/.test(t)) return 'montagne';
-  if (/hilly|accident|medium/.test(t)) return 'accidentée';
+  // Contre-la-montre d'abord : « Mountain time trial » perdait son type clm.
+  // Puis moyenne montagne avant montagne : « Medium mountain stage » tombait
+  // dans la branche montagne, et `medium` ne servait jamais (revue globale du
+  // 19/10/2026). « Intermediate stage » est l'ancien libellé anglais des
+  // étapes accidentées.
   if (/time trial|contre-la-montre|clm/.test(t)) return t.includes('team') || t.includes('équipes') ? 'clm par équipes' : 'clm';
+  if (/hilly|accident|medium|intermediate|moyenne montagne/.test(t)) return 'accidentée';
+  if (/mountain|montagne/.test(t)) return 'montagne';
   if (/plain|flat|plaine/.test(t)) return 'plaine';
   return text ? String(text).trim() : null;
 }
@@ -814,6 +819,7 @@ function stageConfidence(year, stageNumber, category = 'hommes', occurrenceIndex
 }
 
 module.exports = {
+  normalizeType,
   parseStagesFromHtml,
   extractTables,
   extractTablesRich,
