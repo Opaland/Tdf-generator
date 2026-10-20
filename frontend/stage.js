@@ -4,6 +4,10 @@
 
 const stageId = EF.qs('id');
 let FULL = null;
+// Carte de la fiche et marqueur du survol profil ↔ carte : gardés pour
+// redessiner le profil après un redimensionnement (35.22).
+let PROFILE_MAP = null;
+let hoverMarker = null;
 let kmSortKey = 'km';
 let kmSortAsc = true;
 
@@ -88,6 +92,30 @@ function sampleAt(m) {
 // width recalculée à chaque rendu (EFProfile.responsiveWidth), avant le
 // renderProfileSVG que le survol doit refléter.
 const PROFILE_OPTS = { width: 1080, height: 300 };
+/** Profil 2D à la largeur du conteneur. Renvoie false sans rien toucher si
+ * la largeur calculée n'a pas changé (redimensionnement sans effet). */
+function drawProfile(payload, { onlyIfResized = false } = {}) {
+  const profileBox = document.getElementById('profile-box');
+  // Masqué (onglet 3D actif) : largeur 0, responsiveWidth renverrait 1080.
+  // On attend le retour sur l'onglet 2D (relecture adverse).
+  if (onlyIfResized && !(profileBox.clientWidth > 0)) return false;
+  const width = EFProfile.responsiveWidth(profileBox.clientWidth, 1080);
+  if (onlyIfResized && width === PROFILE_OPTS.width) return false;
+  PROFILE_OPTS.width = width;
+  profileBox.innerHTML = EFProfile.renderProfileSVG(payload, PROFILE_OPTS);
+  if (PROFILE_MAP) setupProfileMapHover(payload, PROFILE_MAP);
+  return true;
+}
+
+// Rotation d'écran, fenêtre redimensionnée : le profil était figé à la
+// largeur du premier rendu (texte trop petit après un passage bureau →
+// mobile, relecture adverse de la 35.18).
+let resizeTimer = null;
+function onResize() {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => { if (FULL) drawProfile(toPayload(FULL), { onlyIfResized: true }); }, 200);
+}
+
 function setupProfileMapHover(payload, map) {
   const svg = document.querySelector('#profile-box svg');
   if (!svg) return;
@@ -102,7 +130,9 @@ function setupProfileMapHover(payload, map) {
   svg.appendChild(guide);
   const line = guide.querySelector('#hg-line');
   const dot = guide.querySelector('#hg-dot');
+  if (hoverMarker && map.hasLayer(hoverMarker)) map.removeLayer(hoverMarker); // profil redessiné
   const marker = L.circleMarker([0, 0], { radius: 7, color: '#1c6dd0', weight: 2, fillColor: '#fff', fillOpacity: 1, interactive: false });
+  hoverMarker = marker;
 
   const move = (e) => {
     const rect = svg.getBoundingClientRect();
@@ -176,9 +206,7 @@ function renderFiche() {
   // Profil 2D + profil 3D interactif (rotation à la souris, relief étirable —
   // visualisation inspirée des profils 3D VeloViewer).
   const payload = toPayload(FULL);
-  const profileBox = document.getElementById('profile-box');
-  PROFILE_OPTS.width = EFProfile.responsiveWidth(profileBox.clientWidth, 1080);
-  profileBox.innerHTML = EFProfile.renderProfileSVG(payload, PROFILE_OPTS);
+  drawProfile(payload);
   setup3D(payload);
 
   // Checks.
@@ -373,6 +401,7 @@ function renderFiche() {
       if (sub.length > 1) L.polyline(sub, { color: '#f08c00', weight: 4, dashArray: '6 6' }).addTo(map).bindTooltip('segment approximé : ' + EF.esc(seg.reason));
     }
     map.fitBounds(coords, { padding: [30, 30] });
+    PROFILE_MAP = map;
     setupProfileMapHover(payload, map);
 
     const totalM = track.distance_m;
@@ -477,6 +506,8 @@ function setup3D(payload) {
     tab2d.setAttribute('aria-pressed', String(!three));
     tab3d.setAttribute('aria-pressed', String(three));
     if (three) draw();
+    // Fenêtre redimensionnée pendant la 3D : le profil 2D se recale au retour.
+    else if (FULL) drawProfile(toPayload(FULL), { onlyIfResized: true });
   };
   tab2d.addEventListener('click', () => show(false));
   tab3d.addEventListener('click', () => show(true));
@@ -575,6 +606,7 @@ function csvRow(values) {
 // profile.js/compare.js/editor.js.
 if (typeof document !== 'undefined') {
 document.addEventListener('DOMContentLoaded', async () => {
+  window.addEventListener('resize', onResize);
   await EF.initChrome('editeur');
   if (!stageId) { location.href = '/'; return; }
   EF.sortableHeaders(
