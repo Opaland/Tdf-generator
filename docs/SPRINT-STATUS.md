@@ -1276,7 +1276,14 @@ Actionnables sans décision :
   couche par couche.
 - [ ] 34.3 Heatmap géographique de toutes ses traces (idée derive / VeloViewer).
 - [ ] 34.4 Nombre d'Eddington (distance et D+) dans le bilan (idée
-  geo-activity-playground, MIT).
+  geo-activity-playground, MIT) — critères : deux tuiles du bilan de Mes
+  traces donnent le plus grand E tel qu'au moins E jours roulés atteignent
+  E km (distance) et E × 100 m (D+, tranche choisie ici et écrite dans le
+  libellé, pas une norme), avec les jours qui manquent pour le palier
+  suivant ; calcul sur les totaux par jour déjà fournis par
+  `/api/traces/summary` (plusieurs sorties le même jour s'additionnent) ;
+  valeurs absentes ou négatives ignorées, jamais comptées comme 0
+  (`test/eddington.test.js`, vérification Playwright 1280 / 390 px).
 - [ ] 34.5 Indice FIETS à côté de la catégorie approchée (formule publique ;
   bonus d'altitude à trancher par un test).
 - [ ] 34.6 Profil coloré par surface et par FC (données déjà présentes).
