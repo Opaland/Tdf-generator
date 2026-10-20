@@ -1280,6 +1280,95 @@ En attente de décision (proposées, non commencées) :
   les collectivités (≥ 2010), LeTourDataSet (données issues de letour.fr,
   contraire à la règle actuelle du README).
 
+## Epic 35 — Correctifs de la revue globale du 19/10/2026
+
+Revue globale de `main` f0dd08e : chasse aux bugs backend/pipeline, QA
+Playwright (desktop 1280×800, mobile 390×844), 37 personas. 908 tests verts
+au moment de la revue : aucun des bugs ci-dessous n'était couvert. Chaque
+story commence par un test qui échoue sans le correctif, et se termine par un
+grep du même motif sur tout le dépôt (règles 1 et 10).
+
+- [x] 35.1 (PR #439) Robustesse serveur — critères : deux inscriptions simultanées du
+  même email donnent 200 + 409 sans arrêter le process (`/register` et
+  `/login` passent par `wrap()`) ; un cookie voisin mal encodé (`other=50%`)
+  ne donne plus 500 ; un waypoint hors [-90, 90] × [-180, 180] est refusé en
+  400 à la création et à la modification, comme à l'import de sauvegarde ; un
+  point de trace (GPX, FIT, Strava, Suunto) hors bornes est écarté ; une
+  génération sur un waypoint déjà en base hors bornes échoue proprement au
+  lieu de saturer la mémoire ; un clic sur une copie du monde dans l'éditeur
+  donne une longitude ramenée dans [-180, 180) (`test/authRobustness.test.js`,
+  `test/backupBounds.test.js`).
+- [x] 35.2 (PR #443) Parseur GPX linéaire — critères : 60 000 `<trkpt>` jamais fermés
+  (~1,8 Mo) et 200 000 `<name>` jamais fermés se lisent en moins de 2 s (avant :
+  920 Ko figeaient le serveur 8,2 s) ; `lon` avant `lat`, guillemets simples et
+  espaces autour de `=` sont acceptés ; la balise fermante d'un point n'est
+  jamais cherchée au-delà du point suivant ; restent linéaires (< 2 s pour
+  ~1 Mo) des `<trkpt ` sans `>`, un `<time>` non fermé suivi d'espaces, des
+  commentaires non fermés ; `data-lat` n'est pas lu comme `lat`, seule une
+  valeur décimale simple est acceptée, un point commenté ou en CDATA n'est
+  pas un point (`test/parseGpxLinear.test.js`).
+- [x] 35.3 (PR #440) Réimport d'une année — critères : un tour personnalisé de la même
+  année n'est jamais supprimé (`is_custom = 0` dans la recherche) ; l'API
+  refuse en 409 de réimporter une édition qui a des étapes générées ou en
+  génération, sans rien effacer, sauf `replace: true` ; l'interface (bouton,
+  vignettes mythiques, « défi du jour ») affiche le refus et un bouton
+  « Réimporter quand même » à double confirmation ; le contrôle est refait
+  dans la transaction qui supprime (une génération lancée pendant l'appel
+  Wikipédia fait refuser l'import) ; le bouton « Importer toutes les
+  éditions » laisse ces éditions intactes et les compte à part (`skipped`),
+  tandis que le catalogue complet (`import-all-and-generate.js`) et la démo
+  gardent le remplacement intégral pour reprendre une curation modifiée ;
+  le message de l'interface est annoncé (`aria-live`) ; une année non
+  entière (1903.7) est refusée en 400 (`test/reimportGuard.test.js`,
+  vérification Playwright). La CLI et `agent-curate-stage.js` gardent le
+  remplacement explicite.
+- [x] 35.4 (PR #441) L'éditeur conserve la provenance des waypoints — critères :
+  renommer une étape curée depuis l'éditeur garde à l'identique `source`,
+  `altitude_hint_m`, `bonus_sec`, `country_hint` et `region_hint` de chaque
+  point (POST et PUT écrivent tous ces champs, `bonus_sec` validé en liste
+  de secondes) ; retaper le libellé d'un point efface sa provenance ; un PUT
+  refusé en 400 n'écrit plus rien (validation avant écriture, transaction) ;
+  choisir un tour dans l'éditeur n'est plus refusé (`edition_id` envoyé en
+  nombre) (`test/waypointProvenance.test.js`, vérification Playwright).
+- [x] 35.5 (PR #442) Arithmétique de l'altitude — critères : le « D+ cumulé » du
+  dernier km égale le D+ de l'étape (segment à cheval sur deux km réparti au
+  prorata ; démo : Paris → Lyon 1 592 m pour 1 592, contre 1 193 avant) ; un
+  échantillon sans altitude n'est plus exporté à 0 m (GPX `<ele>` et TCX
+  `<AltitudeMeters>` omis, KML `lon,lat` et tracé laissé au sol) ; une trace
+  aux altitudes toutes aberrantes passe par les fournisseurs au lieu d'un
+  profil à 0 m ; `fillNearestValid` prend vraiment le voisin le plus proche
+  et refuse un tableau entièrement vide (`test/kmanalysisAscent.test.js`,
+  `test/importTrackSentinel.test.js`, `test/exports.test.js`,
+  `test/elevationGaps.test.js`).
+- [ ] 35.6 Validation des longueurs et des valeurs (`name`, `date`, `kind`,
+  `stage_type`) et 500 qui devraient être des 400.
+- [ ] 35.7 Couche réseau : timeout du corps de réponse, `state` OAuth
+  Strava/Suunto, redirections de l'import par lien.
+- [x] 35.8 (PR #444) Frontend — critères : la colonne « Max cat. » de la carte globale
+  affiche la catégorie la plus dure (`maxCategory`) ; une fiche d'étape
+  inexistante (404) affiche « Étape introuvable » et cesse de sonder (une
+  vraie panne réseau reste retentée) ; les jours calendaires (« AAAA-MM-JJ »)
+  et les mois ne reculent plus d'un jour en UTC− (`timeZone: 'UTC'`, 10
+  occurrences dans traces.js et archives.js) ; les tuiles « Éditions
+  explorées » sont identifiées par l'id d'édition et marquent Femmes
+  (« 2022 F ») (`test/frontendReviewFixes.test.js`, vérification Playwright
+  en fuseau America/New_York).
+- [ ] 35.9 Export TCX — critères : une date d'étape qui n'est pas un jour
+  AAAA-MM-JJ valide (texte Wikipédia non lu, « 2026-13-45 ») ne fait plus
+  planter l'export (repli sur la date conventionnelle) ; chaque `CoursePoint`
+  de waypoint est daté à sa position sur le tracé (arrivée de 98,4 km à
+  25 km/h : départ + 3 h 56 min) au lieu de l'heure du départ ; les
+  `CoursePoint` sont triés par heure et le `<Notes>` du Course précède les
+  `CoursePoint` (ordre du XSD TCX v2 : les TCX de la démo valident désormais
+  contre le schéma Garmin avec xmllint) ; une date impossible (30 février)
+  n'est plus décalée au 2 mars (`test/exports.test.js`).
+- [ ] 35.10 Wikipédia : `normalizeType` (« Medium mountain », CLM de
+  montagne) et faux cols de `isColQuery` (Mont-de-Marsan, Le Mont-Dore…).
+
+En attente de décision (proposées, non commencées) : méthode de lissage
+d'altitude (D+ et pente max sous-estimés en relief vallonné), export de la
+base par tout compte en mode public, phrase « 100 % local » du README.
+
 ## Epic 24 — Bilan final
 
 - [x] 24.1 Rapport de clôture par epic (17/10/2026), voir ci-dessous

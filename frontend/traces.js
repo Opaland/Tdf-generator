@@ -223,11 +223,11 @@ function isoWeekKey(dateStr) {
 }
 
 function formatPeriodLabel(period, key) {
-  if (period === 'day') return new Date(key + 'T00:00:00Z').toLocaleDateString('fr-FR');
-  if (period === 'week') return `sem. du ${new Date(key + 'T00:00:00Z').toLocaleDateString('fr-FR')}`;
+  if (period === 'day') return new Date(key + 'T00:00:00Z').toLocaleDateString('fr-FR', { timeZone: 'UTC' });
+  if (period === 'week') return `sem. du ${new Date(key + 'T00:00:00Z').toLocaleDateString('fr-FR', { timeZone: 'UTC' })}`;
   if (period === 'month') {
     const [y, m] = key.split('-');
-    return new Date(Date.UTC(+y, +m - 1, 1)).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
+    return new Date(Date.UTC(+y, +m - 1, 1)).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric', timeZone: 'UTC' });
   }
   return key;
 }
@@ -322,8 +322,8 @@ function buildCumulativeChart(daily, W, H) {
     grid += `<line x1="${M.l}" y1="${y(v).toFixed(1)}" x2="${W - M.r}" y2="${y(v).toFixed(1)}" stroke="#d8cdb4" stroke-width="0.6" stroke-dasharray="3 4"/>` +
       `<text x="${M.l - 6}" y="${(y(v) + 3).toFixed(1)}" text-anchor="end" font-size="10" fill="#8a7a58">${v}</text>`;
   }
-  const startLabel = new Date(pts[0].date + 'T00:00:00Z').toLocaleDateString('fr-FR');
-  const endLabel = new Date(pts[pts.length - 1].date + 'T00:00:00Z').toLocaleDateString('fr-FR');
+  const startLabel = new Date(pts[0].date + 'T00:00:00Z').toLocaleDateString('fr-FR', { timeZone: 'UTC' });
+  const endLabel = new Date(pts[pts.length - 1].date + 'T00:00:00Z').toLocaleDateString('fr-FR', { timeZone: 'UTC' });
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Distance cumulée du ${EF.esc(startLabel)} au ${EF.esc(endLabel)} : ${Math.round(total)} km">
     ${grid}
     <path d="${area}" fill="#ead9b0" stroke="none"/>
@@ -367,7 +367,7 @@ function buildWeeklyBarChart(daily, W, H) {
   values.forEach((w, i) => {
     if (w.v <= 0) return;
     const xx = M.l + i * ((W - M.l - M.r) / n) + gap / 2;
-    const label = `sem. du ${new Date(w.key + 'T00:00:00Z').toLocaleDateString('fr-FR')} : ${Math.round(w.v * 10) / 10} km`;
+    const label = `sem. du ${new Date(w.key + 'T00:00:00Z').toLocaleDateString('fr-FR', { timeZone: 'UTC' })} : ${Math.round(w.v * 10) / 10} km`;
     bars += `<rect x="${xx.toFixed(1)}" y="${y(w.v).toFixed(1)}" width="${barW.toFixed(1)}" height="${(y0 - y(w.v)).toFixed(1)}" rx="2" fill="#ead9b0" stroke="#7a5c2e" stroke-width="1"><title>${EF.esc(label)}</title></rect>`;
   });
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Distance par semaine ISO, de ${values[0].key} à ${values[values.length - 1].key}">
@@ -431,7 +431,7 @@ function buildCalendarHeatmap(daily, { weeks = 52, today = new Date() } = {}) {
       if (day > today) continue; // jamais de case pour un jour futur
       const distanceKm = byDate.get(dateKey) || 0;
       const level = distanceKm > 0 && maxDistance > 0 ? Math.max(1, Math.ceil((distanceKm / maxDistance) * 4)) : 0;
-      const label = `${EF.esc(new Date(dateKey + 'T00:00:00Z').toLocaleDateString('fr-FR'))} : ${distanceKm > 0 ? Math.round(distanceKm * 10) / 10 + ' km' : 'aucune sortie'}`;
+      const label = `${EF.esc(new Date(dateKey + 'T00:00:00Z').toLocaleDateString('fr-FR', { timeZone: 'UTC' }))} : ${distanceKm > 0 ? Math.round(distanceKm * 10) / 10 + ' km' : 'aucune sortie'}`;
       cells += `<rect x="${M.l + w * step}" y="${M.t + d * step}" width="${cell}" height="${cell}" rx="2" fill="${heatmapColor(level)}"><title>${label}</title></rect>`;
     }
   }
@@ -692,7 +692,7 @@ function renderGear(g, all, canDelete) {
   document.getElementById('gear-all-summary').textContent =
     `Toutes les sorties (${all.traces.length})${all.unassignedCount ? ` — ${all.unassignedCount} sans matériel, non comptée${all.unassignedCount > 1 ? 's' : ''} ci-dessus` : ''}`;
   document.querySelector('#gear-all-table tbody').innerHTML = all.traces.map((t) => `<tr>
-      <td>${t.date ? EF.esc(new Date(t.date + 'T00:00:00Z').toLocaleDateString('fr-FR')) : '—'}</td>
+      <td>${t.date ? EF.esc(new Date(t.date + 'T00:00:00Z').toLocaleDateString('fr-FR', { timeZone: 'UTC' })) : '—'}</td>
       <td><a href="/stage.html?id=${Number(t.id)}">${EF.esc(t.name)}</a></td>
       <td>${Number(t.distanceKm)} km</td>
       <td>${buildGearSelect(currentGear, t.id, t.gearId ?? null)}</td>
@@ -723,7 +723,7 @@ function buildEffortRows(climbs) {
     const title = `<b>${EF.esc(c.name || 'Côte sans nom')}</b><br><span class="meta-line">` +
       `${c.category ? `cat. ${EF.esc(c.category)} · ` : ''}${c.summitEleM != null ? `${Math.round(c.summitEleM)} m · ` : ''}réf. ${Number(c.refLengthKm)} km</span>`;
     const items = c.passages.map((p) => {
-      const date = p.date ? EF.esc(new Date(p.date + 'T00:00:00Z').toLocaleDateString('fr-FR')) : 'date inconnue';
+      const date = p.date ? EF.esc(new Date(p.date + 'T00:00:00Z').toLocaleDateString('fr-FR', { timeZone: 'UTC' })) : 'date inconnue';
       const val = p.timeS != null
         ? `<b>${EF.esc(formatDuration(p.timeS))}</b>${p.timeS === c.bestTimeS ? ' ★' : ''}`
         : `<span class="meta-line">${EF.esc(EFFORT_REASONS[p.reason] || 'pas de temps')}</span>`;
@@ -811,7 +811,7 @@ async function loadSummary() {
 
     const recentBody = document.querySelector('#summary-recent tbody');
     recentBody.innerHTML = s.recent.map((t) => `<tr>
-        <td>${t.date ? EF.esc(new Date(t.date + 'T00:00:00Z').toLocaleDateString('fr-FR')) : '—'}</td>
+        <td>${t.date ? EF.esc(new Date(t.date + 'T00:00:00Z').toLocaleDateString('fr-FR', { timeZone: 'UTC' })) : '—'}</td>
         <td><a href="/stage.html?id=${t.id}">${EF.esc(t.name)}</a></td>
         <td>${t.distanceKm} km</td>
         <td>${t.ascentM} m</td>

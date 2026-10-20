@@ -16,6 +16,7 @@ const { isOffline } = require('./http');
 const { stageConfidence } = require('./wikipedia');
 const { consecutiveMountainDays, painIndex } = require('./pain');
 const { summarizeSurfaces } = require('./surface');
+const { inLatLonBounds } = require('./geo');
 
 /**
  * Options de géocodage pour un waypoint : `near` (biais de proximité, point
@@ -167,6 +168,12 @@ async function generateStage(stageId, { onProgress } = {}) {
         }
       }
       wp.kind = kind;
+      // Une ligne en base d'avant les bornes de l'API (ou un géocodeur qui
+      // dérape) ne doit pas atteindre le routage : hors bornes, la génération
+      // saturait la mémoire jusqu'à l'arrêt du process.
+      if (wp.lat != null && !inLatLonBounds(wp.lat, wp.lon)) {
+        throw new Error(`Waypoint « ${wp.label} » hors bornes (lat ${wp.lat}, lon ${wp.lon}) : à corriger dans l'éditeur`);
+      }
       if (wp.lat != null) prevPos = { lat: wp.lat, lon: wp.lon };
       db.prepare(
         `UPDATE waypoints SET lat=?, lon=?, kind=?, altitude_hint_m=?, geocode=? WHERE id=?`

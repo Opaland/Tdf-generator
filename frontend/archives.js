@@ -2,7 +2,7 @@
 // Écran 4 : mode archives — import Wikipédia d'une édition, reconstruction des
 // étapes par le pipeline standard, affichage distance officielle vs reconstituée.
 
-async function importYear() {
+async function importYear({ replace = false } = {}) {
   const year = document.getElementById('f-year').value;
   const category = document.getElementById('f-category').value;
   const msg = document.getElementById('import-msg');
@@ -13,14 +13,36 @@ async function importYear() {
     // Aller-retour réseau externe (Wikipédia) côté serveur en plus du
     // nôtre — le délai par défaut d'EF.api() (pensé pour un appel local)
     // serait trop court ici.
-    const res = await EF.api('/api/editions/import', { method: 'POST', body: { year: Number(year), category }, timeoutMs: 60000 });
-    msg.textContent = `✔ ${res.stages.length} étapes importées.`;
+    const res = await EF.api('/api/editions/import', { method: 'POST', body: { year: Number(year), category, replace }, timeoutMs: 60000 });
+    msg.textContent = `✔ ${res.stages.length} étape${res.stages.length > 1 ? 's' : ''} importée${res.stages.length > 1 ? 's' : ''}.`;
     await loadEditions();
   } catch (err) {
-    msg.textContent = 'Erreur : ' + err.message;
+    if (err.status === 409) {
+      showReimportChoice(msg, err.message);
+      await loadEditions(); // l'édition existante, à jour (génération en cours comprise)
+    } else msg.textContent = 'Erreur : ' + err.message;
   } finally {
     btn.disabled = false;
   }
+}
+
+/** Réimport refusé par le serveur (409) : l'édition a des étapes générées.
+ * Rien n'est effacé sans un second geste explicite — vignettes mythiques,
+ * « défi du jour » et champ année passent tous par importYear() (revue
+ * globale du 19/10/2026 : un clic sur un widget détruisait le travail). */
+function showReimportChoice(msg, text) {
+  msg.textContent = `${text}. L'édition existante est affichée ci-dessous. `;
+  const again = document.createElement('button');
+  again.type = 'button';
+  again.className = 'btn secondary';
+  again.textContent = 'Réimporter quand même';
+  again.addEventListener('click', EF.confirmClick(again, {
+    confirmText: 'confirmer : effacer les étapes générées ?',
+    // Le bouton disparaît avec le message : le focus va au message (annoncé
+    // par aria-live) plutôt que de retomber sur <body>.
+    onConfirm: async () => { msg.focus(); await importYear({ replace: true }); },
+  }));
+  msg.appendChild(again);
 }
 
 // Import en masse : toutes les éditions 1903 → 2026 (hors guerres mondiales),
@@ -45,7 +67,9 @@ async function importAllYears() {
         : 'Démarrage…';
     }
     const failedYears = status.failed.map((f) => f.year);
+    const skipped = status.skipped || [];
     msg.textContent = `✔ ${status.imported.length}/${status.total} éditions importées`
+      + (skipped.length ? ` — ${skipped.length} déjà générée${skipped.length > 1 ? 's' : ''}, laissée${skipped.length > 1 ? 's' : ''} intacte${skipped.length > 1 ? 's' : ''}` : '')
       + (failedYears.length
         ? ` — ${failedYears.length} échouées (${failedYears.slice(0, 5).join(', ')}${failedYears.length > 5 ? '…' : ''}, détail en console)`
         : '.');
@@ -136,11 +160,17 @@ function renderExplorerGrid(editions) {
     // visible directement sur la tuile, même esprit que ✓/⚠/✗ sur
     // .checks .st ailleurs dans l'app. Trouvaille de revue-personas.
     const glyph = status === 'complete' ? '✓' : status === 'partial' ? '½' : '';
-    return `<button type="button" class="explorer-tile explorer-tile-${status}" data-explorer-year="${e.year}" title="${EF.esc(title)}">${glyph ? `<span class="explorer-tile-glyph">${glyph}</span> ` : ''}${e.year}</button>`;
+    // Identifiée par l'id d'édition, pas par l'année : Hommes et Femmes de
+    // la même année donnaient deux tuiles « 2022 » identiques, et le clic sur
+    // la tuile Femmes ouvrait toujours l'édition Hommes (revue globale du
+    // 19/10/2026).
+    const label = e.category === 'femmes' ? `${e.year} F` : String(e.year);
+    const fullTitle = e.category === 'femmes' ? `Tour de France Femmes ${title}` : title;
+    return `<button type="button" class="explorer-tile explorer-tile-${status}" data-explorer-id="${e.id}" title="${EF.esc(fullTitle)}">${glyph ? `<span class="explorer-tile-glyph">${glyph}</span> ` : ''}${label}</button>`;
   }).join('');
-  grid.querySelectorAll('[data-explorer-year]').forEach((btn) =>
+  grid.querySelectorAll('[data-explorer-id]').forEach((btn) =>
     btn.addEventListener('click', async () => {
-      const edition = known.find((e) => String(e.year) === btn.dataset.explorerYear);
+      const edition = known.find((e) => String(e.id) === btn.dataset.explorerId);
       if (!edition) return;
       // Le filtre « entièrement sourcé » peut avoir retiré le <details> de
       // cette édition du DOM alors que sa tuile reste affichée (la grille
@@ -337,7 +367,7 @@ function nearResultsHtml(data) {
       ? ` · <a href="${EF.esc(r.sourceUrl)}" target="_blank" rel="noopener noreferrer">profil officiel</a>` : '';
     const check = String(r.basis).startsWith('itinerary-') ? EF.esc(routeCheckText(r.routeCheck)) : '';
     const warn = r.basis === 'endpoint' || String(r.basis).startsWith('itinerary-') ? EF.esc(GEOCODE_WARN[r.geocodeConfidence] || '') : '';
-    const date = r.date && /^\d{4}-\d{2}-\d{2}$/.test(r.date) ? ` (${EF.esc(new Date(r.date + 'T00:00:00Z').toLocaleDateString('fr-FR'))})` : '';
+    const date = r.date && /^\d{4}-\d{2}-\d{2}$/.test(r.date) ? ` (${EF.esc(new Date(r.date + 'T00:00:00Z').toLocaleDateString('fr-FR', { timeZone: 'UTC' }))})` : '';
     const link = r.stageId != null ? ` · <a href="/stage.html?id=${Number(r.stageId)}">voir l'étape</a>` : '';
     return `<li class="fauxplat-item">${title} — à <b>${km(r.distanceM)} km</b>${near}${link}${source}${date}<br><span class="meta-line">${EF.esc(NEAR_BASIS[r.basis] || r.basis)}${warn}${check}</span></li>`;
   }).join('');

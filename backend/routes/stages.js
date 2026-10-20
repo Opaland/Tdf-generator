@@ -7,9 +7,48 @@
 const { notifyGenerationFailure } = require('../notify');
 const { getDb } = require('../db');
 const { generateStage, loadStageFull } = require('../../pipeline/generate');
-const { wrap, requireString, optionalString, optionalNumber, assertLatLonPaired, CLIMB_CATEGORY_RANK } = require('../apiHelpers');
+const { wrap, httpError, requireString, optionalString, optionalNumber, assertLatLonPaired, CLIMB_CATEGORY_RANK } = require('../apiHelpers');
 const { isOffline } = require('../../pipeline/http');
 const { communesAlong } = require('../../pipeline/communes');
+
+/** Waypoints reçus par POST/PUT /api/stages → lignes validées (règle 8).
+ * Tous les champs que l'import d'une édition écrit (pipeline/importer.js)
+ * sont acceptés et réécrits : le PUT supprime puis réinsère les waypoints,
+ * et l'ancien INSERT n'avait ni bonus_sec, ni country_hint, ni region_hint —
+ * modifier le nom d'une étape curée depuis l'éditeur effaçait ces données et
+ * la provenance « parcours curé » (revue globale du 19/10/2026). */
+function parseWaypoints(list) {
+  const waypoints = list.map((w, i) => {
+    const f = `waypoints[${i}]`;
+    const bonus = w?.bonus_sec;
+    if (bonus != null && !(Array.isArray(bonus) && bonus.length <= 10 && bonus.every((b) => Number.isFinite(b) && b >= 0))) {
+      throw httpError(400, `${f}.bonus_sec doit être une liste de secondes (ou absent)`);
+    }
+    return {
+      label: typeof w?.label === 'string' && w.label ? w.label : `Point ${i + 1}`,
+      kind: optionalString(w?.kind, `${f}.kind`) || 'via',
+      lat: optionalNumber(w?.lat, `${f}.lat`),
+      lon: optionalNumber(w?.lon, `${f}.lon`),
+      altitude_hint_m: optionalNumber(w?.altitude_hint_m, `${f}.altitude_hint_m`),
+      bonus_sec: bonus && bonus.length ? JSON.stringify(bonus) : null,
+      source: optionalString(w?.source, `${f}.source`) || 'éditeur',
+      country_hint: optionalString(w?.country_hint, `${f}.country_hint`),
+      region_hint: optionalString(w?.region_hint, `${f}.region_hint`),
+    };
+  });
+  assertLatLonPaired(waypoints, 'waypoints');
+  return waypoints;
+}
+
+function insertWaypoints(db, stageId, waypoints) {
+  const ins = db.prepare(
+    `INSERT INTO waypoints (stage_id, idx, label, kind, lat, lon, altitude_hint_m, bonus_sec, source, country_hint, region_hint)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+  );
+  waypoints.forEach((w, i) =>
+    ins.run(stageId, i, w.label, w.kind, w.lat, w.lon, w.altitude_hint_m, w.bonus_sec, w.source, w.country_hint, w.region_hint)
+  );
+}
 
 module.exports = function register(app) {
   // Générations en cours (une par étape).
@@ -53,15 +92,7 @@ module.exports = function register(app) {
     const status = optionalString(body.status, 'status');
     const edition_id = optionalNumber(body.edition_id, 'edition_id');
     const stage_order = optionalNumber(body.stage_order, 'stage_order');
-    const waypoints = body.waypoints.map((w, i) => ({
-      label: typeof w?.label === 'string' && w.label ? w.label : `Point ${i + 1}`,
-      kind: optionalString(w?.kind, `waypoints[${i}].kind`) || 'via',
-      lat: optionalNumber(w?.lat, `waypoints[${i}].lat`),
-      lon: optionalNumber(w?.lon, `waypoints[${i}].lon`),
-      altitude_hint_m: optionalNumber(w?.altitude_hint_m, `waypoints[${i}].altitude_hint_m`),
-      source: optionalString(w?.source, `waypoints[${i}].source`) || 'éditeur',
-    }));
-    assertLatLonPaired(waypoints, 'waypoints');
+    const waypoints = parseWaypoints(body.waypoints);
     const db = getDb();
     const r = db
       .prepare(
@@ -70,13 +101,7 @@ module.exports = function register(app) {
       )
       .run(name, date, stage_type, status, edition_id, stage_order);
     const id = r.lastInsertRowid;
-    const ins = db.prepare(
-      `INSERT INTO waypoints (stage_id, idx, label, kind, lat, lon, altitude_hint_m, source)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
-    );
-    waypoints.forEach((w, i) =>
-      ins.run(id, i, w.label || `Point ${i + 1}`, w.kind || 'via', w.lat ?? null, w.lon ?? null, w.altitude_hint_m ?? null, w.source || 'éditeur')
-    );
+    insertWaypoints(db, id, waypoints);
     res.json({ id });
   });
 
@@ -92,32 +117,22 @@ module.exports = function register(app) {
     const status = optionalString(body.status, 'status');
     const edition_id = optionalNumber(body.edition_id, 'edition_id');
     const stage_order = optionalNumber(body.stage_order, 'stage_order');
-    db.prepare(
-      `UPDATE stages SET name = COALESCE(?, name), date = COALESCE(?, date),
-         stage_type = COALESCE(?, stage_type), status = COALESCE(?, status),
-         edition_id = COALESCE(?, edition_id), stage_order = COALESCE(?, stage_order),
-         updated_at = datetime('now') WHERE id = ?`
-    ).run(name, date, stage_type, status, edition_id, stage_order, id);
-    if (Array.isArray(body.waypoints) && body.waypoints.length >= 2) {
-      const waypoints = body.waypoints.map((w, i) => ({
-        label: typeof w?.label === 'string' && w.label ? w.label : `Point ${i + 1}`,
-        kind: optionalString(w?.kind, `waypoints[${i}].kind`) || 'via',
-        lat: optionalNumber(w?.lat, `waypoints[${i}].lat`),
-        lon: optionalNumber(w?.lon, `waypoints[${i}].lon`),
-        altitude_hint_m: optionalNumber(w?.altitude_hint_m, `waypoints[${i}].altitude_hint_m`),
-        source: optionalString(w?.source, `waypoints[${i}].source`) || 'éditeur',
-      }));
-      assertLatLonPaired(waypoints, 'waypoints');
-      db.prepare('DELETE FROM waypoints WHERE stage_id = ?').run(id);
-      const ins = db.prepare(
-        `INSERT INTO waypoints (stage_id, idx, label, kind, lat, lon, altitude_hint_m, source)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
-      );
-      waypoints.forEach((w, i) =>
-        ins.run(id, i, w.label, w.kind, w.lat, w.lon, w.altitude_hint_m, w.source)
-      );
-      db.prepare(`UPDATE stages SET state = 'draft' WHERE id = ?`).run(id);
-    }
+    // Waypoints validés AVANT toute écriture, et le tout en une transaction :
+    // un waypoint invalide renvoyait 400 après avoir déjà renommé l'étape.
+    const waypoints = Array.isArray(body.waypoints) && body.waypoints.length >= 2 ? parseWaypoints(body.waypoints) : null;
+    db.transaction(() => {
+      db.prepare(
+        `UPDATE stages SET name = COALESCE(?, name), date = COALESCE(?, date),
+           stage_type = COALESCE(?, stage_type), status = COALESCE(?, status),
+           edition_id = COALESCE(?, edition_id), stage_order = COALESCE(?, stage_order),
+           updated_at = datetime('now') WHERE id = ?`
+      ).run(name, date, stage_type, status, edition_id, stage_order, id);
+      if (waypoints) {
+        db.prepare('DELETE FROM waypoints WHERE stage_id = ?').run(id);
+        insertWaypoints(db, id, waypoints);
+        db.prepare(`UPDATE stages SET state = 'draft' WHERE id = ?`).run(id);
+      }
+    })();
     res.json({ ok: true });
   });
 
