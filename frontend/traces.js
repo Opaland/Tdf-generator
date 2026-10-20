@@ -11,11 +11,8 @@ async function importTraceFiles(files) {
   // Bilan rafraîchi après coup, même si un fichier suivant échoue (revue
   // globale du 19/10/2026 : il restait à l'état d'avant l'import).
   let imported = 0;
-  try {
-    await importEach(files, msg, () => imported++);
-  } finally {
-    if (imported) loadSummary();
-  }
+  await importEach(files, msg, () => imported++);
+  if (imported) loadSummary();
 }
 
 async function importEach(files, msg, onImported) {

@@ -5,7 +5,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert');
 
-function setup({ importOk }) {
+function setup({ importOk, okFiles }) {
   const els = {};
   const el = () => ({ textContent: '', innerHTML: '', value: 'https://www.sports-tracker.com/workout/x/y', style: {}, addEventListener: () => {}, querySelector: () => el(), querySelectorAll: () => [] });
   global.window = {};
@@ -19,6 +19,10 @@ function setup({ importOk }) {
   // Seuls les deux imports sont simulés ; tout autre appel est une erreur du test.
   global.fetch = async (url) => {
     assert.match(String(url), /^\/api\/import\/gpx\?/);
+    if (okFiles) {
+      const ok = okFiles.some((f) => String(url).includes(`name=${f}`));
+      return { ok, status: ok ? 200 : 400, json: async () => (ok ? { id: 7, points: 10 } : { error: 'GPX invalide' }) };
+    }
     return { ok: importOk, status: importOk ? 200 : 400, json: async () => (importOk ? { id: 7, points: 10 } : { error: 'GPX invalide' }) };
   };
   // Le bilan est demandé via EF.api : il suffit de compter ces appels, le
@@ -55,6 +59,15 @@ test('import GPX en échec : pas de rafraîchissement inutile', async () => {
   await new Promise((r) => setImmediate(r));
   assert.strictEqual(summaryCalls(calls), 0);
   assert.match(global.document.getElementById('gpx-msg').textContent, /GPX invalide/);
+});
+
+test('un fichier réussi puis un en échec : le bilan est quand même redemandé', async () => {
+  const calls = setup({ okFiles: ['a'] });
+  const { importTraceFiles } = require('../frontend/traces.js');
+  await importTraceFiles([gpx('a.gpx'), gpx('bad.gpx'), gpx('c.gpx')]);
+  await new Promise((r) => setImmediate(r));
+  assert.strictEqual(summaryCalls(calls), 1);
+  assert.match(global.document.getElementById('gpx-msg').textContent, /bad\.gpx : GPX invalide/);
 });
 
 test('import par lien réussi : le bilan est redemandé', async () => {

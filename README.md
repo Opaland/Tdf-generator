@@ -311,7 +311,8 @@ npm audit --audit-level=high
   mock HTTP local, aucun vrai appel externe.
 
 Les trois commandes tournent en CI (`.github/workflows/ci.yml`, jobs `test` et
-`lint`) à chaque push et pull request.
+`lint`) à chaque pull request et à chaque push sur `main` (une branche sans PR
+n'est testée que par le hook avant commit).
 
 ## Démo de validation finale (`npm run demo`)
 

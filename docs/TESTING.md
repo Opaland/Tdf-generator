@@ -10,12 +10,12 @@ qu'il a déjà trouvé. Les trous sont listés en fin de document.
 
 | Couche | Commande | Quand | Bloquant ? | Réseau |
 |---|---|---|---|---|
-| Unitaires / intégration | `npm test` (`node --test`, 68 fichiers dans `test/`) | avant chaque commit (hook `porte-avant-commit.sh`), en CI à chaque push/PR (Node 20 et 22) | **oui** | non (mocks HTTP locaux) |
+| Unitaires / intégration | `npm test` (`node --test`, 68 fichiers dans `test/`) | avant chaque commit (hook `porte-avant-commit.sh`), en CI à chaque PR et push sur main (Node 20 et 22) | **oui** | non (mocks HTTP locaux) |
 | Lint | `npm run lint` (ESLint `eslint:recommended`) | hook avant commit, CI | **oui** | non |
 | Audit dépendances | `npm audit --audit-level=high` | CI | **oui** | oui (registre npm) |
-| Démo hors-ligne auto-vérifiée | `npm run demo` (`scripts/demo.js`, simulateur) | CI à chaque push/PR, `/porte` avant PR | **oui** | non |
+| Démo hors-ligne auto-vérifiée | `npm run demo` (`scripts/demo.js`, simulateur) | CI à chaque PR et push sur main, `/porte` avant PR | **oui** | non |
 | Image Docker + smoke test | `docker build` puis conteneur démarré | CI | **oui** | non |
-| E2E navigateur | `npm run demo && npm run e2e` (`scripts/e2e-smoke.js`, 8 écrans × 1440/375 px) | CI à chaque push/PR (job `e2e`) | **oui** | non (requêtes externes coupées) |
+| E2E navigateur | `npm run demo && npm run e2e` (`scripts/e2e-smoke.js`, 8 écrans × 1440/375 px) | CI à chaque PR et push sur main (job `e2e`) | **oui** | non (requêtes externes coupées) |
 | Vérification visuelle | Playwright, captures 1440px + 375px avant/après | `/porte`, seulement si le frontend change | oui pour la PR concernée (manuel) | non |
 | Démo réseau réel | `npm run demo:online` | CI planifiée, tous les jours 5h UTC (`demo-online.yml`) | non (alerte) | **oui** |
 | Démo spéculative 2027 | `npm run demo:2027` | CI planifiée, le 3 de chaque mois (`demo-2027.yml`) | non | **oui** |
