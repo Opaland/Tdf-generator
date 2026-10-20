@@ -14,7 +14,7 @@ function esc(s) {
   return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
-// Équivalent client-side de esc() ci-dessus, injecté tel quel dans le
+// Équivalent client-side de esc() ci-dessus (avec frDec), injecté tel quel dans le
 // <script> des deux mini-sites autonomes (tour et étape) : chacun est un
 // fichier HTML self-contained sans dépendance JS externe, donc la fonction
 // doit être dupliquée dans le HTML généré — mais sa source n'existe qu'ici,
@@ -26,6 +26,9 @@ function esc(s) {
 // modifier l'un ne couvre pas l'autre.
 const ESC_HTML_JS = `function escHtml(s) {
   return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+function frDec(v) {
+  return v == null ? v : String(v).replace('.', ',');
 }`;
 
 // Vitesse conventionnelle utilisée partout où ÉtapeForge synthétise un temps
@@ -489,7 +492,7 @@ function stageToRoadbookHtml(stageId) {
 ${communes.communes.map((c) => `<tr><td>${frDec(Number(c.km).toFixed(1))}</td><td>${esc(c.nom)}</td><td>${esc(c.departement || '—')}</td></tr>`).join('\n')}
 </tbody>
 </table>
-<p class="note">Commune qui contient chaque point du tracé reconstitué, tous les ${Number(communes.stepM) / 1000} km (source : geo.api.gouv.fr, France seulement). Une commune traversée n'est pas forcément un bourg traversé ; une traversée plus courte que le pas peut manquer.</p>
+<p class="note">Commune qui contient chaque point du tracé reconstitué, tous les ${frDec(Number(communes.stepM) / 1000)} km (source : geo.api.gouv.fr, France seulement). Une commune traversée n'est pas forcément un bourg traversé ; une traversée plus courte que le pas peut manquer.</p>
 `
     : '';
 
@@ -631,7 +634,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (prevEnd) L.polyline([prevEnd, latlngs[0]], { color:'#888', dashArray:'6 8', weight:2 }).addTo(map);
       const color = TYPE_COLORS[st.stage.stage_type] || '#c0392b';
       L.polyline(latlngs, { color, weight: 3.5 }).addTo(map)
-        .bindPopup('<b>' + escHtml(st.stage.name) + '</b><br>' + (st.stage.generated_distance_km || '?') + ' km — D+ ' + (st.stage.total_ascent_m || '?') + ' m');
+        .bindPopup('<b>' + escHtml(st.stage.name) + '</b><br>' + (frDec(st.stage.generated_distance_km) || '?') + ' km — D+ ' + (st.stage.total_ascent_m || '?') + ' m');
       prevEnd = latlngs[latlngs.length - 1];
     }
     if (bounds.length) map.fitBounds(bounds, { padding: [24, 24] });
@@ -649,8 +652,8 @@ document.addEventListener('DOMContentLoaded', () => {
       : null;
     card.innerHTML = '<h2>' + escHtml(st.stage.name) + '</h2>' +
       '<div class="meta">' + [escHtml(st.stage.date), escHtml(st.stage.stage_type),
-        (st.stage.generated_distance_km || '?') + ' km', 'D+ ' + (st.stage.total_ascent_m || '?') + ' m',
-        delta != null ? 'tracé reconstitué sur le réseau routier actuel — distance officielle : ' + st.stage.official_distance_km + ' km / reconstitution : ' + st.stage.generated_distance_km + ' km (écart ' + (delta >= 0 ? '+' : '') + delta.toFixed(1) + ' %)' : null
+        (frDec(st.stage.generated_distance_km) || '?') + ' km', 'D+ ' + (st.stage.total_ascent_m || '?') + ' m',
+        delta != null ? 'tracé reconstitué sur le réseau routier actuel — distance officielle : ' + frDec(st.stage.official_distance_km) + ' km / reconstitution : ' + frDec(st.stage.generated_distance_km) + ' km (écart ' + (delta >= 0 ? '+' : '') + frDec(delta.toFixed(1)) + ' %)' : null
       ].filter(Boolean).join(' · ') + '</div>' +
       (st.profile.length ? EFProfile.renderProfileSVG(st, { width: 1000, height: 260 }) : '<em>non générée</em>');
     cont.appendChild(card);
@@ -749,12 +752,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const card = document.getElementById('stagecard');
   card.className = 'stagecard';
   card.innerHTML = '<div class="meta">' + [escHtml(STAGE.stage.date), escHtml(STAGE.stage.stage_type),
-      (STAGE.stage.generated_distance_km || '?') + ' km', 'D+ ' + (STAGE.stage.total_ascent_m || '?') + ' m',
-      delta != null ? 'tracé reconstitué sur le réseau routier actuel — distance officielle : ' + STAGE.stage.official_distance_km + ' km / reconstitution : ' + STAGE.stage.generated_distance_km + ' km (écart ' + (delta >= 0 ? '+' : '') + delta.toFixed(1) + ' %)' : null
+      (frDec(STAGE.stage.generated_distance_km) || '?') + ' km', 'D+ ' + (STAGE.stage.total_ascent_m || '?') + ' m',
+      delta != null ? 'tracé reconstitué sur le réseau routier actuel — distance officielle : ' + frDec(STAGE.stage.official_distance_km) + ' km / reconstitution : ' + frDec(STAGE.stage.generated_distance_km) + ' km (écart ' + (delta >= 0 ? '+' : '') + frDec(delta.toFixed(1)) + ' %)' : null
     ].filter(Boolean).join(' · ') + '</div>' +
     (STAGE.profile.length ? EFProfile.renderProfileSVG(STAGE, { width: 1000, height: 260 }) : '<em>non générée</em>') +
     STAGE.climbs.map(c => '<div class="climb"><b>' + escHtml(c.name) + '</b> — cat. ' + escHtml(c.category) +
-      ' · ' + c.length_km + ' km à ' + c.avg_gradient + ' % (max ' + c.max_gradient + ' %) · sommet ' + c.summit_ele_m + ' m</div>').join('');
+      ' · ' + frDec(c.length_km) + ' km à ' + frDec(c.avg_gradient) + ' % (max ' + frDec(c.max_gradient) + ' %) · sommet ' + c.summit_ele_m + ' m</div>').join('');
 });
 </script>
 </body>

@@ -61,6 +61,7 @@ test('stageRow() : distance reconstituée à 0 km (motif réel — ville départ
 test('stageRow() : cas nominal — distance et écart tous deux affichés', () => {
   const html = stageRow(baseStage());
   assert.match(html, />172,3 km/);
+  assert.match(html, />184,9 km</, "distance officielle à la virgule aussi (35.19)");
   assert.match(html, /-6,8 %/, 'écart calculé et affiché normalement quand les deux distances sont non nulles');
 });
 

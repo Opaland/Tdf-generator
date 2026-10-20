@@ -89,7 +89,7 @@ function overlaySVG(fa, fb, axis, alignStart, W = 1080) {
     const xx = M.l + (d / maxLen) * (W - M.l - M.r);
     axisTicks +=
       `<line x1="${xx.toFixed(1)}" y1="${y(eMin)}" x2="${xx.toFixed(1)}" y2="${y(eMin) + 5}" stroke="#888"/>` +
-      `<text x="${xx.toFixed(1)}" y="${y(eMin) + 17}" text-anchor="middle" font-size="10" fill="#666">${axis === 'pct' ? d + ' %' : d / 1000}</text>`;
+      `<text x="${xx.toFixed(1)}" y="${y(eMin) + 17}" text-anchor="middle" font-size="10" fill="#666">${axis === 'pct' ? d + ' %' : EF.dec(d / 1000)}</text>`;
   }
 
   const marker = (f, pts, len, color) =>
