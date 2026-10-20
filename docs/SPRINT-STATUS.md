@@ -1279,8 +1279,11 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   lieu de saturer la mémoire ; un clic sur une copie du monde dans l'éditeur
   donne une longitude ramenée dans [-180, 180) (`test/authRobustness.test.js`,
   `test/backupBounds.test.js`).
-- [ ] 35.2 Parseur GPX linéaire (ReDoS de `parseGpx`) ; accepter `lon` avant
-  `lat` et les guillemets simples.
+- [ ] 35.2 Parseur GPX linéaire — critères : 60 000 `<trkpt>` jamais fermés
+  (~1,8 Mo) et 200 000 `<name>` jamais fermés se lisent en moins de 2 s (avant :
+  920 Ko figeaient le serveur 8,2 s) ; `lon` avant `lat`, guillemets simples et
+  espaces autour de `=` sont acceptés ; la balise fermante d'un point n'est
+  jamais cherchée au-delà du point suivant (`test/parseGpxLinear.test.js`).
 - [ ] 35.3 Réimport d'une année : confirmation côté interface, et un tour
   personnalisé de la même année n'est jamais supprimé (`is_custom`).
 - [ ] 35.4 L'éditeur conserve la provenance des waypoints (`source`,
