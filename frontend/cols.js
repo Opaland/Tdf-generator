@@ -4,7 +4,7 @@
 
 let ALL = [];
 let sort = { k: 'summit_ele_m', asc: false };
-const CAT_ORDER = { HC: 5, 1: 4, 2: 3, 3: 2, 4: 1 };
+const CAT_ORDER = EFProfile.CAT_RANK;
 
 function filtered() {
   const cat = document.getElementById('f-cat').value;

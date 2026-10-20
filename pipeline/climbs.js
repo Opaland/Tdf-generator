@@ -438,7 +438,13 @@ async function nameClimbs(climbs, waypointsOnTrack, samples, reverseGeocodeFn) {
   return climbs;
 }
 
+/** Rang d'une catégorie de côte (plus haut = plus dur), pour comparer et
+ * trier — seule définition côté Node (revue globale du 19/10/2026 : quatre
+ * copies). Le frontend a la sienne, EFProfile.CAT_RANK (frontend/profile.js). */
+const CATEGORY_RANK = Object.freeze({ HC: 5, 1: 4, 2: 3, 3: 2, 4: 1 });
+
 module.exports = {
+  CATEGORY_RANK,
   detectClimbs, nameClimbs, categorize, irregularityIndex, detectBacktrackZones,
   MIN_LENGTH_M, MIN_AVG_GRADIENT, MERGE_GAP_M,
   BACKTRACK_PROXIMITY_M, BACKTRACK_ELEVATION_TOLERANCE_M, BACKTRACK_BEARING_REVERSAL_MIN, BACKTRACK_MIN_SEPARATION_M,

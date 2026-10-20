@@ -82,7 +82,7 @@ function climbEfforts(traces, climbsByStage, samplesByStage) {
   }).sort((a, b) => b.count - a.count || (b.summitEleM ?? -Infinity) - (a.summitEleM ?? -Infinity));
 }
 
-const CATEGORY_RANK = { HC: 5, 1: 4, 2: 3, 3: 2, 4: 1 };
+const { CATEGORY_RANK } = require('./climbs');
 
 /** Temps entre le pied de référence et le sommet, sur ce passage-ci.
  * Le pied retenu est le DERNIER passage près du pied de référence avant le

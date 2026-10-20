@@ -60,7 +60,8 @@ function renderLegend() {
 }
 
 // Tableau de statistiques dense et triable (façon listes VeloViewer) + tuiles de totaux.
-const CAT_ORDER = { HC: 5, 1: 4, 2: 3, 3: 2, 4: 1 };
+// require() : tourmap.js est chargé tel quel par les tests Node (maxCategory).
+const CAT_ORDER = (typeof EFProfile !== 'undefined' ? EFProfile : require('./profile.js')).CAT_RANK;
 let statRows = [];
 let statSort = { k: 'order', asc: true };
 

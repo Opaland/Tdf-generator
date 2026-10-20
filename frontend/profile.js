@@ -595,7 +595,11 @@
     return out;
   }
 
-  const EFProfile = { renderProfileSVG, fitLabel, responsiveWidth, renderClimbSVG, renderRibbon3D, decimate, niceStep, CAT_COLORS, CAT_TEXT, gradStyle, catStyle, climbApproxOverlap, profileHoverAt };
+  // Rang d'une catégorie (plus haut = plus dur) : seule définition côté
+  // navigateur, reprise par cols.js et tourmap.js (même table que
+  // CATEGORY_RANK, pipeline/climbs.js).
+  const CAT_RANK = Object.freeze({ HC: 5, 1: 4, 2: 3, 3: 2, 4: 1 });
+  const EFProfile = { CAT_RANK, renderProfileSVG, fitLabel, responsiveWidth, renderClimbSVG, renderRibbon3D, decimate, niceStep, CAT_COLORS, CAT_TEXT, gradStyle, catStyle, climbApproxOverlap, profileHoverAt };
   if (typeof module !== 'undefined' && module.exports) module.exports = EFProfile;
   global.EFProfile = EFProfile;
 })(typeof window !== 'undefined' ? window : globalThis);
