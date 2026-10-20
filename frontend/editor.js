@@ -131,7 +131,7 @@ function wpRow(wp, i) {
     clearProvenance(wp); // un autre lieu : la source et les indices ne valent plus
     clearTimeout(debounce);
     debounce = setTimeout(async () => {
-      if (input.value.trim().length < 2) { suggestBox.style.display = 'none'; return; }
+      if (input.value.trim().length < 2) { closeSuggest(); return; }
       try {
         const hits = await EF.api(`/api/geocode?q=${encodeURIComponent(input.value)}`);
         suggestBox.innerHTML = '';
@@ -147,6 +147,9 @@ function wpRow(wp, i) {
             wp.lon = h.lon;
             if (h.kind === 'col' && wp.kind === 'via') wp.kind = 'col';
             render();
+            // render() recrée la liste : sans ça, le focus repartirait en
+            // haut de page après un choix au clavier.
+            document.querySelectorAll('#wp-list input.label')[i]?.focus();
           });
           suggestBox.appendChild(d);
         });
@@ -155,7 +158,7 @@ function wpRow(wp, i) {
       } catch { closeSuggest(); }
     }, 250);
   });
-  input.addEventListener('blur', () => setTimeout(() => (suggestBox.style.display = 'none'), 200));
+  input.addEventListener('blur', () => setTimeout(closeSuggest, 200));
   li.querySelector('select.kind').addEventListener('change', (e) => { wp.kind = e.target.value; });
   li.querySelector('.up').addEventListener('click', () => { if (i > 0) { [waypoints[i - 1], waypoints[i]] = [waypoints[i], waypoints[i - 1]]; render(); } });
   li.querySelector('.down').addEventListener('click', () => { if (i < waypoints.length - 1) { [waypoints[i + 1], waypoints[i]] = [waypoints[i], waypoints[i + 1]]; render(); } });
