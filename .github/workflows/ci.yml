@@ -1,10 +1,13 @@
 name: CI
 
 on:
+  # push sur main seulement : une branche avec PR était testée deux fois
+  # (push + pull_request) pour le même commit. pull_request sans filtre de
+  # base, pour que les PR empilées sur une autre branche (CLAUDE.md règle 15)
+  # restent testées.
   push:
-    branches: ['**']
-  pull_request:
     branches: [main]
+  pull_request:
 
 jobs:
   test:
