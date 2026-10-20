@@ -13,7 +13,7 @@
 EF.TOUR_STEPS = [
   {
     title: 'Reconstruction historique',
-    body: "Rejouez n'importe quelle étape du Tour depuis 1903 sur le réseau routier actuel : villes d'époque géocodées, routage, altimétrie et détection des côtes, à partir de sources vérifiées.",
+    body: "Rejouez une étape du Tour depuis 1903 sur le réseau routier actuel : villes d'époque géocodées, routage, altimétrie et détection des côtes. Une partie des étapes a des points de passage sourcés ; les autres sont reconstituées entre départ et arrivée, et l'écart avec la distance officielle est toujours affiché.",
     href: '/archives.html',
     cta: 'Voir les archives',
   },
