@@ -40,6 +40,14 @@ test('recherche près d\'un lieu : un renommage d\'étape n\'est plus masqué pa
   const after1 = await search();
   assert.ok(JSON.stringify(after1).includes('Nouveau nom'), JSON.stringify(after1));
   assert.ok(JSON.stringify(after1).includes('1950-07-19'));
+  // Relecture adverse : renommage à longueur constante dans la même seconde,
+  // et champs que l'ancienne clé ne voyait pas (catégorie, ordre).
+  assert.strictEqual((await send('PUT', `/api/stages/${id}`, { name: 'Nouveau mot' })).status, 200);
+  assert.ok(JSON.stringify(await search()).includes('Nouveau mot'));
+  db.prepare("UPDATE editions SET category = 'femmes' WHERE id = ?").run(ed);
+  db.prepare('UPDATE stages SET stage_order = 7 WHERE id = ?').run(id);
+  const after2 = await search();
+  assert.ok(JSON.stringify(after2) !== JSON.stringify(after1), 'catégorie et ordre visibles');
 });
 
 test('PUT : un stage_type vide (sélecteur sans option correspondante) n\'efface pas le type stocké', async () => {
@@ -65,13 +73,13 @@ test('sauvegardes : un intervalle de 720 h ne déclenche pas une sauvegarde par 
       const b = require(${JSON.stringify(path.join(__dirname, '../backend/backup.js'))});
       b.startScheduledBackups();
       setTimeout(() => { console.log(JSON.stringify(b.getBackupStatus())); process.exit(0); }, 1500);`;
-    for (const hours of ['720', '-5', 'abc']) {
+    for (const hours of ['720', '-5', 'abc', '0.00000001']) {
       const out = execFileSync(process.execPath, ['-e', script], {
-        env: { ...process.env, ETAPEFORGE_BACKUP_DIR: dir, ETAPEFORGE_BACKUP_INTERVAL_HOURS: hours, ETAPEFORGE_DATA_DIR: path.join(dir, 'data-' + hours) },
+        env: { ...process.env, ETAPEFORGE_BACKUP_DIR: path.join(dir, 'bk-' + hours), ETAPEFORGE_BACKUP_INTERVAL_HOURS: hours, ETAPEFORGE_DATA_DIR: path.join(dir, 'data-' + hours) },
         encoding: 'utf8',
       });
       const st = JSON.parse(out.trim().split('\n').pop());
-      assert.ok(st.count <= 3, `${hours} h : ${st.count} sauvegardes en 1,5 s`);
+      assert.ok(st.count <= 2, `${hours} h : ${st.count} sauvegardes en 1,5 s`);
       assert.ok(st.intervalHours > 0 && st.intervalHours <= 24 * 366, String(st.intervalHours));
     }
   } finally {
