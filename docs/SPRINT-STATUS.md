@@ -1517,7 +1517,7 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   `profile.js`, chargé seul dans les exports HTML autonomes, et
   `CATEGORY_POINTS` (`pipeline/pain.js`), barème de l'indice de douleur aux
   mêmes valeurs aujourd'hui mais à pondération propre.
-- [ ] 35.21 Dates en JJ/MM/AAAA partout — critères : un jour AAAA-MM-JJ
+- [x] 35.21 (PR #459) Dates en JJ/MM/AAAA partout — critères : un jour AAAA-MM-JJ
   s'affiche JJ/MM/AAAA, comme Mes traces, sur la fiche, la liste des
   archives, la carte globale (popup et tableau), le roadbook et les
   mini-sites HTML autonomes (`EF.day`, `frDay`) ; lecture par chaînes, sans
