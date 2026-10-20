@@ -39,6 +39,13 @@ test('roadbook : la date de l\'étape en JJ/MM/AAAA', async () => {
     })).json();
     const html = await (await fetch(`${base}/api/stages/${created.id}/roadbook.html`)).text();
     assert.match(html, /<p class="meta">07\/07\/2001 · /);
+    // Mini-site autonome : frDay est injecté avec escHtml et appliqué à la date.
+    const page = await (await fetch(`${base}/api/stages/${created.id}/export.html`)).text();
+    assert.match(page, /escHtml\(frDay\(STAGE\.stage\.date\)\)/);
+    const src = page.match(/function frDay\(v\) \{[\s\S]*?\n\}/)[0];
+    const frDay = new Function(`${src}; return frDay;`)();
+    assert.strictEqual(frDay('2001-07-07'), '07/07/2001');
+    assert.strictEqual(frDay('1–2 Jul.'), '1–2 Jul.');
   } finally {
     server.close();
   }

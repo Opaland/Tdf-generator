@@ -183,7 +183,7 @@ async function renderSuunto() {
       workouts.map((w, i) => `<tr>
         <td>${w.startTime ? new Date(w.startTime).toLocaleDateString('fr-FR') : '—'}</td>
         <td>${EF.esc(w.name || 'Sortie ' + (i + 1))}</td>
-        <td>${w.distance_m ? (w.distance_m / 1000).toFixed(1) + ' km' : '—'}</td>
+        <td>${w.distance_m ? EF.dec((w.distance_m / 1000).toFixed(1)) + ' km' : '—'}</td>
         <td>${w.ascent_m ? Math.round(w.ascent_m) + ' m' : '—'}</td>
         <td><button data-key="${EF.esc(String(w.key))}" data-name="${EF.esc(w.name || '')}">Importer</button></td>
       </tr>`).join('') + '</tbody></table>';
@@ -531,7 +531,7 @@ async function renderStrava() {
       activities.map((a, i) => `<tr>
         <td>${a.startDate ? new Date(a.startDate).toLocaleDateString('fr-FR') : '—'}</td>
         <td>${EF.esc(a.name || 'Sortie ' + (i + 1))}</td>
-        <td>${a.distance_m ? (a.distance_m / 1000).toFixed(1) + ' km' : '—'}</td>
+        <td>${a.distance_m ? EF.dec((a.distance_m / 1000).toFixed(1)) + ' km' : '—'}</td>
         <td>${a.ascent_m ? Math.round(a.ascent_m) + ' m' : '—'}</td>
         <td><button data-id="${EF.esc(String(a.id))}" data-name="${EF.esc(a.name || '')}">Importer</button></td>
       </tr>`).join('') + '</tbody></table>';

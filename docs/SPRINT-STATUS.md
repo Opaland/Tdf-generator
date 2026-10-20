@@ -1490,7 +1490,7 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   utilise la virgule décimale avec le « ; » (convention d'Excel en
   français) (`test/mobileReadability.test.js`, vérification Playwright
   390 / 1280 px).
-- [ ] 35.19 Décimales homogènes — critères : les distances, vitesses et
+- [x] 35.19 (PR #458) Décimales homogènes — critères : les distances, vitesses et
   pentes affichées prennent la virgule décimale (« 460,3 km », plus de
   « 460.3 km » à côté de « 12,3 km ») : `EF.dec` (interface), `dec` de
   `profile.js` (aussi chargé seul dans les exports HTML), roadbook
@@ -1500,12 +1500,38 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   entiers ne changent pas ; aucun nombre à point décimal suivi de km, % ou
   m dans le texte des fiches, du catalogue des cols et du comparateur
   (`test/decimalComma.test.js`, attentes des tests d'affichage passées à la
-  virgule, balayage Playwright). Hors périmètre : les formats de données
-  (GPX, TCX, KML, JSON, CSV déjà traité en 35.18).
+  virgule, balayage Playwright de l'accueil, des fiches, du catalogue, du
+  comparateur, du roadbook et de l'export HTML autonome). Les mini-sites
+  autonomes reçoivent `frDec` avec `escHtml`. Hors périmètre : les formats
+  de données (GPX, TCX, KML — y compris leurs champs de description —,
+  JSON ; CSV déjà traité en 35.18).
+- [x] 35.20 (PR #457) Dette : une source pour le rang des catégories et pour esc() —
+  critères : le rang des catégories de côte n'existe plus qu'en
+  `CATEGORY_RANK` (`pipeline/climbs.js`, repris par `apiHelpers` et
+  `climbEfforts`) et `EFProfile.CAT_RANK` (repris par `cols.js` et
+  `tourmap.js`), les deux tables restant identiques ; `esc()` côté Node
+  n'est défini que dans `backend/exports.js`, et le site statique
+  (`scripts/build-site.js`) l'utilise : sa copie locale n'échappait pas
+  « " » dans un attribut `alt` (`test/singleSource.test.js`). Hors
+  périmètre, volontairement : `EF.esc` (navigateur), l'`esc` de
+  `profile.js`, chargé seul dans les exports HTML autonomes, et
+  `CATEGORY_POINTS` (`pipeline/pain.js`), barème de l'indice de douleur aux
+  mêmes valeurs aujourd'hui mais à pondération propre.
+- [ ] 35.21 Dates en JJ/MM/AAAA partout — critères : un jour AAAA-MM-JJ
+  s'affiche JJ/MM/AAAA, comme Mes traces, sur la fiche, la liste des
+  archives, la carte globale (popup et tableau), le roadbook et les
+  mini-sites HTML autonomes (`EF.day`, `frDay`) ; lecture par chaînes, sans
+  `Date` (aucun décalage de fuseau, testé en `America/New_York`) ; une date
+  libre d'un import Wikipédia est rendue telle quelle ; les valeurs triées
+  et exportées restent en ISO (`test/dayFormat.test.js`).
 
 En attente de décision (proposées, non commencées) : méthode de lissage
 d'altitude (D+ et pente max sous-estimés en relief vallonné), export de la
-base par tout compte en mode public, phrase « 100 % local » du README.
+base par tout compte en mode public, phrase « 100 % local » du README,
+en-tête Content-Security-Policy (les pages ont des scripts et styles en
+ligne : il faudrait soit les extraire, soit autoriser `'unsafe-inline'`,
+ce qui en réduit l'intérêt) et compression HTTP (nouvelle dépendance
+`compression`, à justifier selon docs/BRIEF.md).
 
 ## Epic 24 — Bilan final
 

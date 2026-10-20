@@ -98,6 +98,6 @@ function truncateText(v, max) {
 /** Rang numérique d'une catégorie de côte (plus haut = plus dur) — pour comparer
  * des étapes entre elles, pas pour un affichage (voir climbs.js pour le libellé).
  * Partagé par routes/stages.js (étapes similaires) et routes/traces.js (bilan). */
-const CLIMB_CATEGORY_RANK = { HC: 5, 1: 4, 2: 3, 3: 2, 4: 1 };
+const { CATEGORY_RANK: CLIMB_CATEGORY_RANK } = require('../pipeline/climbs');
 
 module.exports = { truncateText, FIELD_MAX, WAYPOINT_KINDS, CLIMB_CATEGORY_RANK, wrap, httpError, requireString, optionalString, optionalNumber, queryString, optionalIsoDay, assertLatLonPaired };

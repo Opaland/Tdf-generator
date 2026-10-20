@@ -383,7 +383,7 @@ function renderFiche() {
       if (m <= 0) continue;
       const s = sampleAt(m);
       L.marker([s.lat, s.lon], { icon: icon(`<div style="background:#fff;border:2px solid #c0392b;border-radius:4px;font-size:10px;font-weight:700;text-align:center;line-height:20px;color:#c0392b">${kmLeft}</div>`) })
-        .bindTooltip(`${kmLeft} km de l'arrivée`).addTo(map);
+        .bindTooltip(`${EF.dec(kmLeft)} km de l'arrivée`).addTo(map);
     }
     // flamme rouge
     const fr = sampleAt(totalM - 1000);
@@ -772,7 +772,7 @@ function renderCommunes(data) {
     li.textContent = `km ${String(c.km).replace('.', ',')} — ${c.nom}${c.departement ? ` (${c.departement})` : ''}`;
     list.appendChild(li);
   }
-  detail.textContent = `${data.communes.length} commune(s) sur ${data.points} points (pas de ${data.stepM / 1000} km)` +
+  detail.textContent = `${data.communes.length} commune(s) sur ${data.points} points (pas de ${EF.dec(data.stepM / 1000)} km)` +
     (data.pointsHorsFrance ? ` · ${data.pointsHorsFrance} point(s) hors de France, non renseignés` : '') +
     (data.pointsSansCommune ? ` · ${data.pointsSansCommune} point(s) sans commune française (pays voisin ou mer)` : '') + '.';
 }
