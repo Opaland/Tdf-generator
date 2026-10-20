@@ -1278,7 +1278,7 @@ avec attribution ; AGPL/GPL (Dreeve, Endurain, FitTrackee, wanderer,
 GoldenCheetah) : idées seulement.
 
 Actionnables sans décision :
-- [ ] 34.1 Départs/arrivées par identifiant Wikidata (CC0, 2 428 étapes
+- [x] 34.1 (PR #464) Départs/arrivées par identifiant Wikidata (CC0, 2 428 étapes
   1903→2026, ville de départ P1427, d'arrivée P1444, distance P3157) pour
   recouper `stage_towns.json` : supprime les homonymes à la source —
   critères : `scripts/wikidata-crosscheck.js` interroge Wikidata édition par
