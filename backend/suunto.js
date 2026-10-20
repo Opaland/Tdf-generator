@@ -13,7 +13,8 @@
 const express = require('express');
 const { getSetting, setSetting } = require('./settings');
 const { importTrackAsStage, parseFit } = require('../pipeline/importTrack');
-const { fetchWithTimeout } = require('../pipeline/http');
+const { fetchWithTimeout, readJsonLenient, readBodyOrError, readBinaryOrError } = require('../pipeline/http');
+const { issueState, consumeState } = require('./oauthState');
 
 // Surchargeables pour les tests d'intégration (serveur Suunto simulé en local).
 const OAUTH_BASE = process.env.SUUNTO_OAUTH_BASE || 'https://cloudapi-oauth.suunto.com';
@@ -68,20 +69,22 @@ function storeTokens(json) {
 async function oauthToken(params) {
   const { clientId, clientSecret } = config();
   let res;
+  let json;
   try {
-    res = await fetchWithTimeout(`${OAUTH_BASE}/oauth/token`, {
+    // Corps lu sous le même délai que la connexion (fetchWithTimeout, 4e
+    // argument) : un corps qui ne finit jamais bloquait l'import.
+    ({ res, json } = await fetchWithTimeout(`${OAUTH_BASE}/oauth/token`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         Authorization: 'Basic ' + Buffer.from(`${clientId}:${clientSecret}`).toString('base64'),
       },
       body: new URLSearchParams(params).toString(),
-    }, SUUNTO_TIMEOUT_MS);
+    }, SUUNTO_TIMEOUT_MS, readJsonLenient));
   } catch (err) {
     if (err.name === 'AbortError') throw new Error(`OAuth Suunto : délai de ${SUUNTO_TIMEOUT_MS} ms dépassé`, { cause: err });
     throw err;
   }
-  const json = await res.json().catch(() => ({}));
   if (!res.ok || !json.access_token) {
     throw new Error(`OAuth Suunto : HTTP ${res.status} ${JSON.stringify(json).slice(0, 300)}`);
   }
@@ -102,24 +105,21 @@ async function accessToken() {
 async function apiGet(path, { binary = false } = {}) {
   const { subscriptionKey } = config();
   const token = await accessToken();
-  let res;
+  let out;
   try {
-    res = await fetchWithTimeout(`${API_BASE}${path}`, {
+    out = await fetchWithTimeout(`${API_BASE}${path}`, {
       headers: {
         Authorization: `Bearer ${token}`,
         'Ocp-Apim-Subscription-Key': subscriptionKey,
         Accept: binary ? 'application/octet-stream' : 'application/json',
       },
-    }, SUUNTO_TIMEOUT_MS);
+    }, SUUNTO_TIMEOUT_MS, binary ? readBinaryOrError : readBodyOrError);
   } catch (err) {
     if (err.name === 'AbortError') throw new Error(`Suunto API ${path} : délai de ${SUUNTO_TIMEOUT_MS} ms dépassé`, { cause: err });
     throw err;
   }
-  if (!res.ok) {
-    const body = await res.text().catch(() => '');
-    throw new Error(`Suunto API ${path} : HTTP ${res.status} ${body.slice(0, 300)}`);
-  }
-  return binary ? Buffer.from(await res.arrayBuffer()) : res.json();
+  if (!out.res.ok) throw new Error(`Suunto API ${path} : HTTP ${out.res.status} ${out.text.slice(0, 300)}`);
+  return binary ? out.buffer : out.json;
 }
 
 function redirectUri(req) {
@@ -162,7 +162,8 @@ router.get('/connect', (req, res) => {
   const url =
     `${OAUTH_BASE}/oauth/authorize?response_type=code` +
     `&client_id=${encodeURIComponent(clientId)}` +
-    `&redirect_uri=${encodeURIComponent(redirectUri(req))}`;
+    `&redirect_uri=${encodeURIComponent(redirectUri(req))}` +
+    `&state=${encodeURIComponent(issueState(res, 'suunto'))}`;
   res.redirect(url);
 });
 
@@ -170,6 +171,7 @@ router.get('/callback', async (req, res) => {
   try {
     const code = req.query.code;
     if (!code) throw new Error(`Autorisation refusée (${req.query.error || 'pas de code'})`);
+    if (!consumeState(req, res, 'suunto')) throw new Error('Lien de connexion invalide ou expiré : relancez « Se connecter »');
     const json = await oauthToken({ grant_type: 'authorization_code', code, redirect_uri: redirectUri(req) });
     storeTokens(json);
     res.redirect('/traces.html?suunto=ok');
