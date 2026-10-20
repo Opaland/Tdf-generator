@@ -7,7 +7,12 @@
 const { notifyGenerationFailure } = require('../notify');
 const { getDb } = require('../db');
 const { generateStage, loadStageFull } = require('../../pipeline/generate');
-const { wrap, httpError, requireString, optionalString, optionalNumber, assertLatLonPaired, CLIMB_CATEGORY_RANK } = require('../apiHelpers');
+const { wrap, httpError, requireString, optionalString, optionalNumber, optionalIsoDay, assertLatLonPaired, CLIMB_CATEGORY_RANK } = require('../apiHelpers');
+
+// Bornes des champs texte (revue globale du 19/10/2026) et valeurs de kind
+// admises par le schéma (backend/db.js : start | via | col | sprint | finish).
+const MAX = { name: 200, status: 200, stage_type: 40, label: 200, source: 60, hint: 60 };
+const WAYPOINT_KINDS = new Set(['start', 'via', 'col', 'sprint', 'finish']);
 const { isOffline } = require('../../pipeline/http');
 const { communesAlong } = require('../../pipeline/communes');
 
@@ -25,19 +30,33 @@ function parseWaypoints(list) {
       throw httpError(400, `${f}.bonus_sec doit être une liste de secondes (ou absent)`);
     }
     return {
-      label: typeof w?.label === 'string' && w.label ? w.label : `Point ${i + 1}`,
-      kind: optionalString(w?.kind, `${f}.kind`) || 'via',
+      label: typeof w?.label === 'string' && w.label ? optionalString(w.label, `${f}.label`, MAX.label) : `Point ${i + 1}`,
+      kind: waypointKind(w?.kind, `${f}.kind`),
       lat: optionalNumber(w?.lat, `${f}.lat`),
       lon: optionalNumber(w?.lon, `${f}.lon`),
       altitude_hint_m: optionalNumber(w?.altitude_hint_m, `${f}.altitude_hint_m`),
       bonus_sec: bonus && bonus.length ? JSON.stringify(bonus) : null,
-      source: optionalString(w?.source, `${f}.source`) || 'éditeur',
-      country_hint: optionalString(w?.country_hint, `${f}.country_hint`),
-      region_hint: optionalString(w?.region_hint, `${f}.region_hint`),
+      source: optionalString(w?.source, `${f}.source`, MAX.source) || 'éditeur',
+      country_hint: optionalString(w?.country_hint, `${f}.country_hint`, MAX.hint),
+      region_hint: optionalString(w?.region_hint, `${f}.region_hint`, MAX.hint),
     };
   });
   assertLatLonPaired(waypoints, 'waypoints');
   return waypoints;
+}
+
+function waypointKind(v, field) {
+  const kind = optionalString(v, field) || 'via';
+  if (!WAYPOINT_KINDS.has(kind)) throw httpError(400, `${field} : ${[...WAYPOINT_KINDS].join(', ')} attendu`);
+  return kind;
+}
+
+/** edition_id d'une étape : nombre (optionalNumber) ET édition existante —
+ * un id inconnu faisait lever une violation de clé étrangère, en 500. */
+function existingEditionId(db, v) {
+  const id = optionalNumber(v, 'edition_id');
+  if (id != null && !db.prepare('SELECT 1 FROM editions WHERE id = ?').get(id)) throw httpError(400, `edition_id : édition ${id} introuvable`);
+  return id;
 }
 
 function insertWaypoints(db, stageId, waypoints) {
@@ -83,14 +102,14 @@ module.exports = function register(app) {
 
   app.post('/api/stages', (req, res) => {
     const body = req.body || {};
-    const name = requireString(body.name, 'name');
+    const name = requireString(body.name, 'name', MAX.name);
     if (!Array.isArray(body.waypoints) || body.waypoints.length < 2) {
       return res.status(400).json({ error: 'name et au moins 2 waypoints requis' });
     }
-    const date = optionalString(body.date, 'date');
-    const stage_type = optionalString(body.stage_type, 'stage_type');
-    const status = optionalString(body.status, 'status');
-    const edition_id = optionalNumber(body.edition_id, 'edition_id');
+    const date = optionalIsoDay(body.date, 'date');
+    const stage_type = optionalString(body.stage_type, 'stage_type', MAX.stage_type);
+    const status = optionalString(body.status, 'status', MAX.status);
+    const edition_id = existingEditionId(getDb(), body.edition_id);
     const stage_order = optionalNumber(body.stage_order, 'stage_order');
     const waypoints = parseWaypoints(body.waypoints);
     const db = getDb();
@@ -111,11 +130,11 @@ module.exports = function register(app) {
     const stage = db.prepare('SELECT id FROM stages WHERE id = ?').get(id);
     if (!stage) return res.status(404).json({ error: 'Étape introuvable' });
     const body = req.body || {};
-    const name = optionalString(body.name, 'name');
-    const date = optionalString(body.date, 'date');
-    const stage_type = optionalString(body.stage_type, 'stage_type');
-    const status = optionalString(body.status, 'status');
-    const edition_id = optionalNumber(body.edition_id, 'edition_id');
+    const name = optionalString(body.name, 'name', MAX.name);
+    const date = optionalIsoDay(body.date, 'date');
+    const stage_type = optionalString(body.stage_type, 'stage_type', MAX.stage_type);
+    const status = optionalString(body.status, 'status', MAX.status);
+    const edition_id = existingEditionId(getDb(), body.edition_id);
     const stage_order = optionalNumber(body.stage_order, 'stage_order');
     // Waypoints validés AVANT toute écriture, et le tout en une transaction :
     // un waypoint invalide renvoyait 400 après avoir déjà renommé l'étape.

@@ -9,7 +9,7 @@ const { httpText } = require('../../pipeline/http');
 const { suuntoRouter } = require('../suunto');
 const { stravaRouter } = require('../strava');
 const { parseGpx, parseFit, importTrackAsStage } = require('../../pipeline/importTrack');
-const { wrap, httpError, requireString, CLIMB_CATEGORY_RANK } = require('../apiHelpers');
+const { wrap, httpError, requireString, queryString, CLIMB_CATEGORY_RANK } = require('../apiHelpers');
 
 module.exports = function register(app) {
   // ---------------------------------------------------------------- import de traces
@@ -180,7 +180,9 @@ module.exports = function register(app) {
     const { points, name } = parseGpx(String(req.body || ''));
     if (points.length < 2) return res.status(400).json({ error: 'GPX illisible : aucun point de trace (trkpt/rtept)' });
     const id = await importTrackAsStage(points, {
-      name: req.query.name || name || 'Trace GPX importée',
+      // Nom de fichier : une seule valeur (?name répété → 400), tronquée à
+      // 200 comme un nom d'étape plutôt que refusée (nom de fichier long).
+      name: (queryString(req.query.name, 'name') || '').slice(0, 200) || name || 'Trace GPX importée',
       source: 'gpx',
     });
     res.json({ id, points: points.length });
@@ -201,7 +203,7 @@ module.exports = function register(app) {
     }
     if (points.length < 2) return res.status(400).json({ error: 'FIT illisible : aucun point de trace (position_lat/position_long)' });
     const id = await importTrackAsStage(points, {
-      name: req.query.name || 'Trace FIT importée',
+      name: (queryString(req.query.name, 'name') || '').slice(0, 200) || 'Trace FIT importée',
       source: 'fit',
     });
     res.json({ id, points: points.length });
