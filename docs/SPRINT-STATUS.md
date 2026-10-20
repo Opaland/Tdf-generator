@@ -1443,7 +1443,7 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   atteignables et dépliables au clavier (Entrée, Espace, `aria-expanded`) ;
   une recherche de cols sans résultat affiche un message (vérification
   Playwright au clavier).
-- [ ] 35.16 Mes traces, boutons et CI — critères : après un import GPX/FIT
+- [x] 35.16 (PR #454) Mes traces, boutons et CI — critères : après un import GPX/FIT
   (au moins un fichier réussi) ou par lien, le bilan de Mes traces est
   redemandé ; avec une seule semaine, la barre du graphique hebdomadaire
   ne dépasse pas 48 px et reste centrée ; les boutons des formulaires en
