@@ -2,7 +2,7 @@
 // Écran 4 : mode archives — import Wikipédia d'une édition, reconstruction des
 // étapes par le pipeline standard, affichage distance officielle vs reconstituée.
 
-async function importYear() {
+async function importYear({ replace = false } = {}) {
   const year = document.getElementById('f-year').value;
   const category = document.getElementById('f-category').value;
   const msg = document.getElementById('import-msg');
@@ -13,14 +13,34 @@ async function importYear() {
     // Aller-retour réseau externe (Wikipédia) côté serveur en plus du
     // nôtre — le délai par défaut d'EF.api() (pensé pour un appel local)
     // serait trop court ici.
-    const res = await EF.api('/api/editions/import', { method: 'POST', body: { year: Number(year), category }, timeoutMs: 60000 });
-    msg.textContent = `✔ ${res.stages.length} étapes importées.`;
+    const res = await EF.api('/api/editions/import', { method: 'POST', body: { year: Number(year), category, replace }, timeoutMs: 60000 });
+    msg.textContent = `✔ ${res.stages.length} étape${res.stages.length > 1 ? 's' : ''} importée${res.stages.length > 1 ? 's' : ''}.`;
     await loadEditions();
   } catch (err) {
-    msg.textContent = 'Erreur : ' + err.message;
+    if (err.status === 409) {
+      showReimportChoice(msg, err.message);
+      await loadEditions(); // l'édition existante, à jour (génération en cours comprise)
+    } else msg.textContent = 'Erreur : ' + err.message;
   } finally {
     btn.disabled = false;
   }
+}
+
+/** Réimport refusé par le serveur (409) : l'édition a des étapes générées.
+ * Rien n'est effacé sans un second geste explicite — vignettes mythiques,
+ * « défi du jour » et champ année passent tous par importYear() (revue
+ * globale du 19/10/2026 : un clic sur un widget détruisait le travail). */
+function showReimportChoice(msg, text) {
+  msg.textContent = `${text}. L'édition existante est affichée ci-dessous. `;
+  const again = document.createElement('button');
+  again.type = 'button';
+  again.className = 'btn secondary';
+  again.textContent = 'Réimporter quand même';
+  again.addEventListener('click', EF.confirmClick(again, {
+    confirmText: 'confirmer : effacer les étapes générées ?',
+    onConfirm: () => importYear({ replace: true }),
+  }));
+  msg.appendChild(again);
 }
 
 // Import en masse : toutes les éditions 1903 → 2026 (hors guerres mondiales),
@@ -45,7 +65,9 @@ async function importAllYears() {
         : 'Démarrage…';
     }
     const failedYears = status.failed.map((f) => f.year);
+    const skipped = status.skipped || [];
     msg.textContent = `✔ ${status.imported.length}/${status.total} éditions importées`
+      + (skipped.length ? ` — ${skipped.length} déjà générée${skipped.length > 1 ? 's' : ''}, laissée${skipped.length > 1 ? 's' : ''} intacte${skipped.length > 1 ? 's' : ''}` : '')
       + (failedYears.length
         ? ` — ${failedYears.length} échouées (${failedYears.slice(0, 5).join(', ')}${failedYears.length > 5 ? '…' : ''}, détail en console)`
         : '.');

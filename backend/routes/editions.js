@@ -123,10 +123,14 @@ module.exports = function register(app) {
 
   app.post('/api/editions/import', wrap(async (req, res) => {
     const body = req.body || {};
-    const year = parseInt(body.year, 10);
     const category = body.category || 'hommes';
-    const result = await importEdition(year, { category });
-    res.json({ edition: result.edition, stages: result.stages });
+    try {
+      const result = await importEdition(body.year, { category, refuseIfGenerated: body.replace !== true });
+      res.json({ edition: result.edition, stages: result.stages });
+    } catch (err) {
+      if (err.status !== 409) throw err;
+      res.status(409).json({ error: err.message, edition_id: err.editionId, generated: err.generated });
+    }
   }));
 
   // Import en masse (toutes les éditions 1903 → LAST_KNOWN_YEAR, hors guerres
@@ -141,7 +145,7 @@ module.exports = function register(app) {
     if (importAllJob && importAllJob.running) {
       return res.status(409).json({ error: 'Import en masse déjà en cours' });
     }
-    importAllJob = { running: true, total: 0, done: 0, imported: [], failed: [], startedAt: new Date().toISOString() };
+    importAllJob = { running: true, total: 0, done: 0, imported: [], failed: [], skipped: [], startedAt: new Date().toISOString() };
     importAllEditions({
       onProgress: (p) => {
         importAllJob.total = p.total;
@@ -151,6 +155,7 @@ module.exports = function register(app) {
       .then((result) => {
         importAllJob.imported = result.imported;
         importAllJob.failed = result.failed;
+        importAllJob.skipped = result.skipped;
         importAllJob.total = result.total;
         importAllJob.done = result.total;
       })
@@ -164,7 +169,7 @@ module.exports = function register(app) {
   });
 
   app.get('/api/editions/import-all/status', (req, res) => {
-    res.json(importAllJob || { running: false, total: 0, done: 0, imported: [], failed: [] });
+    res.json(importAllJob || { running: false, total: 0, done: 0, imported: [], failed: [], skipped: [] });
   });
 
   /** Données carte globale d'un tour : tracés décimés + profils miniatures. */
