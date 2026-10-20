@@ -1524,7 +1524,7 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   `Date` (aucun décalage de fuseau, testé en `America/New_York`) ; une date
   libre d'un import Wikipédia est rendue telle quelle ; les valeurs triées
   et exportées restent en ISO (`test/dayFormat.test.js`).
-- [ ] 35.22 Suites des 35.18 et 35.20 — critères : le profil de la fiche
+- [x] 35.22 (PR #460) Suites des 35.18 et 35.20 — critères : le profil de la fiche
   se redessine à la nouvelle largeur après un redimensionnement ou une
   rotation (viewBox 1080 → 420 → 1080 vérifié), y compris quand elle a
   lieu pendant que l'onglet 3D masque le profil (recalé au retour sur 2D,
