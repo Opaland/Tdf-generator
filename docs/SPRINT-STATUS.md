@@ -973,6 +973,41 @@ et côtes traversées avec leur kilomètre.
     toutes trop courtes, ont une note d'étape. 15 tronçons suspects, 0
     aller-retour sûr et 3 incertains, tous notés ; aucun tronçon routé
     en voiture.
+  - 1987 repris (33.12, règles 14 et 21 appliquées après coup, le premier
+    tri de 1987 les précédait ; la règle 18, nom par nom, ne l'est pas
+    encore pour 1987/1, 1987/2 (Berlin : une dizaine de places et
+    quartiers imprimés omis), 1987/3 (Theodor Heuss Strasse) et 1987/20
+    (Hewlett-Packard) — à reprendre). Placés en deux passes (recherche
+    bornée, variantes d'orthographe, mairies, altitudes au MNT contrôlées
+    à l'altitude imprimée) :
+    - premier passage : 36 lieux-dits, villages, cols et côtes, dont les
+      côtes allemandes de 1987/3 à 1987/5, Laffrey à sa mairie, le Col
+      d'Haltza, Sainte-Colombe et Les Bruns (Ventoux), Sainte-Foy et
+      Val-Suzon (Bas), quatre côtes de 1987/15 ;
+    - relecture adverse : 22 de plus. Mairies au lieu du centroïde
+      (règle 17) : Messigny-et-Vantoux (1987/24 de +11,6 % à +5,7 %), Les
+      Essards (1987/23 de +5,1 % à +4,0 %), Birkenfeld et Confolens,
+      refusés à tort au centroïde. Variantes d'orthographe ou arrêt de
+      bus pour 13 points notés « non trouvé » à tort (Hertmannsweiler —
+      1987/3 de −5,4 % à −5,0 % —, La Pénarie, Maruéjols-lès-Gardon, La
+      Réglisserie, Sagournat — l'image imprime « SAGOURNAT » —, Croix de
+      Villeroy, Les Agets, Col du Ranfolly, Pavillon de Rolland,
+      Saint-Sauveur, Geneton, Palais de l'Europe, Nemours). Cinq côtes
+      dont le point stocké est déjà à l'altitude imprimée (Sexfontaines,
+      Marigny, Dourdan, Châteaufort, Brié ; règle 14).
+    Nemours : km imprimé 115, colonne du profil à ~121,5, coquille
+    vraisemblable, km retenu d'après la colonne (noté). Km relus à l'image :
+    Plaisance-du-Touch 130 (129 avant ; rend le tronçon vers Colomiers
+    suspect, noté), La Chapelle-en-Vercors 150 (149,5). Refus notés, lieu
+    trouvé : Col de la Serreyrède (aller-retour créé), Strasbourg au km 105
+    (deux tronçons suspects au centre). Cinq notes périmées réécrites
+    (Schöllbronn, Stuttgart, Haueneberstein, Gavet, Darois), une note mal
+    attribuée retirée (Ahuy sur le Dijon de départ). Tous les points non
+    routés ont une note.
+    Bilan : 19 étapes contrôlables sur 24 dans la tolérance (13 avant la
+    reprise) ; 19 tronçons suspects (22 avant), dont 8 portent leur
+    contre-test voiture dans la note ; 4 allers-retours sûrs et 2
+    incertains, notés ; aucun tronçon routé en voiture.
   - 1987 trié (32 tronçons suspects stockés avant le tri, 10
     allers-retours sûrs au premier passage 33.14) : 10 erreurs de
     position corrigées — Troo (2 km), Asasp-Arros (hameau d'Arros),
