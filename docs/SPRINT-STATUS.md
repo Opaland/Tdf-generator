@@ -1457,7 +1457,7 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   l'altitude que de la côte la plus proche dont le sommet est à moins de
   100 m de sa mesure (`test/roadbookProfileFixes.test.js`,
   vérification Playwright).
-- [ ] 35.17 Revalidation de l'import de sauvegarde — critères :
+- [x] 35.17 (PR #455) Revalidation de l'import de sauvegarde — critères :
   `POST /api/backup/import` refuse un kind de waypoint ou une catégorie
   d'édition que l'appli n'écrit pas, et une colonne JSON mal formée que les
   pages relisent sans garde (`source`, `checks`, `progress`, `bonus_sec`,
