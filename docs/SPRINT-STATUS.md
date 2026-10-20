@@ -1409,7 +1409,13 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   « Col-de-… », « Alpe-d'Huez », « Côte-de-… » et une liste fermée de sommets
   (Mont-Ventoux, Puy-de-Dôme…) restent des reliefs.
 
-<<<<<<< HEAD
+- [x] 35.11 (PR #449) Textes faux ou surévalués — critères : `archives.html` ne dit plus
+  qu'aucune édition Femmes n'est curée (2022 Femmes : étapes 2 à 8) et liste
+  toutes les éditions curées de `historic_routes.json` (1992, 2002, 2015,
+  2017, 2018, 2019, 2022 Femmes manquaient) ; l'écran d'accueil ne promet
+  plus « n'importe quelle étape … à partir de sources vérifiées » (environ
+  130 étapes curées) ; le temps fort 2017 ne dit plus qu'un CLM a été
+  « remporté par Marseille » (une ville).
 - [ ] 35.12 Petits correctifs backend — critères : le cache de
   `/api/search/near` voit un renommage, un changement de date, d'édition ou
   de coordonnées ; un intervalle de sauvegarde au-delà de 596 h (ou négatif,
@@ -1422,15 +1428,6 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
 - [ ] 35.13 Petits correctifs frontend (archives : requêtes en série et
   liste vidée à chaque sondage ; « Régénérer » sans confirmation ; totaux
   de la carte globale ; bouton de suppression non réarmé ; accords).
-=======
-- [x] 35.11 (PR #449) Textes faux ou surévalués — critères : `archives.html` ne dit plus
-  qu'aucune édition Femmes n'est curée (2022 Femmes : étapes 2 à 8) et liste
-  toutes les éditions curées de `historic_routes.json` (1992, 2002, 2015,
-  2017, 2018, 2019, 2022 Femmes manquaient) ; l'écran d'accueil ne promet
-  plus « n'importe quelle étape … à partir de sources vérifiées » (environ
-  130 étapes curées) ; le temps fort 2017 ne dit plus qu'un CLM a été
-  « remporté par Marseille » (une ville).
->>>>>>> origin/main
 
 En attente de décision (proposées, non commencées) : méthode de lissage
 d'altitude (D+ et pente max sous-estimés en relief vallonné), export de la
