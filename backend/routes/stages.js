@@ -7,12 +7,8 @@
 const { notifyGenerationFailure } = require('../notify');
 const { getDb } = require('../db');
 const { generateStage, loadStageFull } = require('../../pipeline/generate');
-const { wrap, httpError, requireString, optionalString, optionalNumber, optionalIsoDay, assertLatLonPaired, CLIMB_CATEGORY_RANK } = require('../apiHelpers');
+const { wrap, httpError, requireString, optionalString, optionalNumber, optionalIsoDay, assertLatLonPaired, CLIMB_CATEGORY_RANK, FIELD_MAX: MAX, WAYPOINT_KINDS } = require('../apiHelpers');
 
-// Bornes des champs texte (revue globale du 19/10/2026) et valeurs de kind
-// admises par le schéma (backend/db.js : start | via | col | sprint | finish).
-const MAX = { name: 200, status: 200, stage_type: 40, label: 200, source: 60, hint: 60 };
-const WAYPOINT_KINDS = new Set(['start', 'via', 'col', 'sprint', 'finish']);
 const { isOffline } = require('../../pipeline/http');
 const { communesAlong } = require('../../pipeline/communes');
 

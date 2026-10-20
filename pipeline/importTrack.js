@@ -4,6 +4,7 @@
 // analyse km par km, checks) est identique à une étape générée.
 
 const { getDb } = require('../backend/db');
+const { truncateText, FIELD_MAX } = require('../backend/apiHelpers');
 const { resamplePolyline, movingAverageByDistance, inLatLonBounds } = require('./geo');
 const { sampleElevations, fillNearestValid, plausibleEle } = require('./elevation');
 const { detectClimbs, nameClimbs, detectBacktrackZones } = require('./climbs');
@@ -193,7 +194,9 @@ async function importTrackAsStage(points, meta = {}) {
        VALUES (?, ?, ?, ?, 'generating', ?, ?, ?, ?, ?, ?)`
     )
     .run(
-      meta.name || 'Trace importée',
+      // Borné ici pour tous les chemins (nom du fichier GPX, Suunto, Strava,
+      // lien) : seuls ?name= des routes GPX/FIT l'étaient (35.17).
+      truncateText(meta.name, FIELD_MAX.name) || 'Trace importée',
       meta.date || (rideStats ? rideStats.date : null),
       meta.stage_type || 'trace',
       meta.status || 'importée',
