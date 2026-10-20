@@ -72,3 +72,47 @@ test('exports d\'une trace : aucun point dans la zone (GPX, JSON, carte des trac
   const app = await (await fetch(`${base}/api/stages/${traceId}`)).json();
   assert.ok(app.samples.some((s) => inZone(s, [HOME])));
 });
+
+test('parseZones : une zone invalide est écartée seule ; un réglage illisible vaut « tout masquer »', () => {
+  const { parseZones, maskStage } = require('../pipeline/privacy');
+  assert.deepStrictEqual(parseZones(JSON.stringify([HOME, { lat: 10, lon: 10, radiusM: 99 }])), [HOME]);
+  assert.strictEqual(parseZones('{cassé'), null);
+  assert.strictEqual(parseZones('{"a":1}'), null);
+  assert.deepStrictEqual(parseZones(null), []);
+  const full = { stage: {}, track: { router: 'trace', geojson: { geometry: { coordinates: [[6, 45.5]] } } }, samples: [{ dist_m: 0, lat: 45.5, lon: 6 }] };
+  const m = maskStage(full, null);
+  assert.deepStrictEqual([m.samples.length, m.track.geojson.geometry.coordinates.length], [0, 0]);
+});
+
+test('trace masquée : côtes, km par km et commune de départ retirés ; export d\'édition masqué aussi', async () => {
+  const { getDb } = require('../backend/db');
+  const db = getDb();
+  db.prepare(`INSERT INTO climbs (stage_id, name, category, score, start_km, end_km, length_km, start_ele_m, summit_ele_m, avg_gradient, max_gradient)
+              VALUES (?, 'Côte de chez moi', '4', 10, 0, 1.5, 1.5, 300, 360, 4, 6), (?, 'Côte du bout', '4', 10, 9, 10.5, 1.5, 390, 450, 4, 6)`).run(traceId, traceId);
+  db.prepare("UPDATE stages SET city_hint = 'Ma commune' WHERE id = ?").run(traceId);
+  const full = await (await fetch(`${base}/api/stages/${traceId}/export.json`)).json();
+  assert.deepStrictEqual(full.climbs.map((c) => c.name), ['Côte du bout']);
+  assert.ok(full.kmAnalysis.every((r) => r.km > 1), `km par km : ${full.kmAnalysis.map((r) => r.km)}`);
+  assert.strictEqual(full.stage.city_hint, null);
+  // Trace rattachée à un tour : l'export d'édition et la carte d'édition la masquent aussi.
+  const ed = await (await json('/api/editions', 'POST', { name: 'Mon tour', year: 2026, is_custom: 1 })).json();
+  db.prepare('UPDATE stages SET edition_id = ? WHERE id = ?').run(ed.id, traceId);
+  const mapdata = await (await fetch(`${base}/api/editions/${ed.id}/mapdata`)).json();
+  const st = mapdata.stages.find((x) => x.stage.id === traceId);
+  assert.ok(st.profile.every((p) => !inZone(p, [HOME])));
+  assert.ok(st.track.coords.every(([lo, la]) => !inZone({ lat: la, lon: lo }, [HOME])));
+  const html = await (await fetch(`${base}/api/editions/${ed.id}/export.html`)).text();
+  assert.doesNotMatch(html, /"lat":45(,|\.000)/);
+  assert.doesNotMatch(html, /Côte de chez moi/);
+});
+
+test('réglage illisible en base : la carte des traces est vide, les exports ne publient aucun point', async () => {
+  const { setSetting } = require('../backend/settings');
+  setSetting('privacy_zones', '{cassé');
+  const prof = await (await fetch(`${base}/api/profile`)).json();
+  assert.strictEqual(prof.privacyZonesUnreadable, true);
+  assert.deepStrictEqual((await (await fetch(`${base}/api/traces/lines`)).json()).lines, []);
+  const full = await (await fetch(`${base}/api/stages/${traceId}/export.json`)).json();
+  assert.strictEqual(full.samples.length, 0);
+  setSetting('privacy_zones', JSON.stringify([HOME]));
+});

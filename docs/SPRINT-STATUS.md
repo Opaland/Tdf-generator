@@ -1313,9 +1313,14 @@ Actionnables sans décision :
   l'instance comme la FC max (`PUT /api/profile`, admin seul en mode
   public ; un champ absent est laissé tel quel, aucun champ → 400) ; les
   points d'une trace importée situés dans une zone sont retirés des exports
-  JSON, GPX, TCX, KML, HTML autonome, du roadbook, du mini-site et de la
-  carte « Toutes mes traces » ; les étapes historiques ne sont pas
-  touchées ; la trace reste complète en base et dans la fiche de
+  JSON, GPX, TCX, KML, HTML autonome, du roadbook, du mini-site, de l'export
+  et de la carte d'une édition à laquelle la trace est rattachée, du site
+  statique (`scripts/build-site.js`) et de la carte « Toutes mes traces »,
+  ainsi que les côtes, descentes, faux-plats et lignes du km par km qui
+  recouvrent une portion masquée, et la commune de départ (`city_hint`)
+  si le départ est masqué ; une zone stockée invalide est écartée seule,
+  un réglage illisible fait retirer tous les points (jamais publier faute
+  de savoir) ; les étapes historiques ne sont pas touchées ; la trace reste complète en base et dans la fiche de
   l'application ; formulaire « Confidentialité » dans Mes traces
   (`test/privacyZones.test.js`, vérification Playwright 1280 / 390 px).
   Limites, écrites ici : couper la trace révèle le bord de la zone, pas

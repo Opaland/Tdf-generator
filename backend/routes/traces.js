@@ -197,7 +197,9 @@ module.exports = function register(app) {
     const lines = [];
     // Zones de confidentialité (34.7) : points retirés avant la
     // simplification, pour qu'aucun point gardé ne tombe dedans.
+    // Réglage illisible (null) : aucune trace publiée sur la carte.
     const zones = parseZones(getSetting(PRIVACY_ZONES_KEY));
+    if (zones === null) return res.json({ lines: [], privacyZonesUnreadable: true });
     for (const r of rows) {
       let coords;
       try {

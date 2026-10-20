@@ -12,8 +12,7 @@ const path = require('path');
 const { getDb } = require('../backend/db');
 // esc() de backend/exports.js : la copie locale n'échappait pas « " »
 // (revue globale du 19/10/2026), alors qu'elle sert dans un attribut alt.
-const { esc, tourToStandaloneHtml, stagePayload, ATTRIBUTIONS } = require('../backend/exports');
-const { loadStageFull } = require('../pipeline/generate');
+const { esc, tourToStandaloneHtml, stagePayload, ATTRIBUTIONS, loadExportable } = require('../backend/exports');
 const { stageWithoutHr, fullWithoutHr } = require('../pipeline/heartRate');
 
 const ROOT = path.join(__dirname, '..');
@@ -87,7 +86,9 @@ function main() {
     .all();
   writeJson('data/stages.json', stages);
   // Site publié : jamais de fréquence cardiaque (donnée de santé, Epic 30).
-  for (const s of stages) writeJson(`data/stage-${s.id}.json`, fullWithoutHr(loadStageFull(s.id)));
+  // loadExportable : une trace importée publiée sur le site statique passe par
+  // les zones de confidentialité, comme ses exports (relecture adverse).
+  for (const s of stages) writeJson(`data/stage-${s.id}.json`, fullWithoutHr(loadExportable(s.id)));
 
   const editions = db
     .prepare(
@@ -109,7 +110,7 @@ function main() {
     const ids = full.filter((s) => s.state === 'done').map((s) => s.id);
     writeJson(`data/mapdata-${e.id}.json`, {
       edition: e,
-      stages: ids.map((id) => stagePayload(loadStageFull(id), { maxSamples: 200, maxTrack: 500 })),
+      stages: ids.map((id) => stagePayload(loadExportable(id), { maxSamples: 200, maxTrack: 500 })),
     });
     const file = `tour-${e.year || 'perso'}-${e.id}.html`;
     write(file, tourToStandaloneHtml(e.id));

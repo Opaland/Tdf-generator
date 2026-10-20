@@ -11,6 +11,12 @@ const { validateZones, parseZones, PRIVACY_ZONES_KEY } = require('../../pipeline
 // Zones de confidentialité (backlog 34.7), une liste pour l'instance comme
 // la FC max ; modifiables par l'admin seul en mode public (même route PUT).
 const privacyZones = () => parseZones(getSetting(PRIVACY_ZONES_KEY));
+// Réglage illisible : affiché comme tel (les exports retirent alors tous les
+// points des traces, voir pipeline/privacy.js).
+const profileBody = () => {
+  const zones = privacyZones();
+  return { hrMaxBpm: hrMaxBpm(), privacyZones: zones || [], ...(zones === null ? { privacyZonesUnreadable: true } : {}) };
+};
 
 const HR_MAX_KEY = 'hr_max_bpm';
 // Bornes physiologiques larges : en dehors, c'est une faute de saisie.
@@ -24,7 +30,7 @@ function hrMaxBpm() {
 
 module.exports = function register(app) {
   app.get('/api/profile', wrap(async (req, res) => {
-    res.json({ hrMaxBpm: hrMaxBpm(), privacyZones: privacyZones() });
+    res.json(profileBody());
   }));
 
   // Champs absents : inchangés (le formulaire FC et celui des zones
@@ -41,7 +47,7 @@ module.exports = function register(app) {
     const zones = 'privacyZones' in body ? validateZones(body.privacyZones) : null;
     if ('hrMaxBpm' in body) setSetting(HR_MAX_KEY, body.hrMaxBpm);
     if (zones) setSetting(PRIVACY_ZONES_KEY, JSON.stringify(zones));
-    res.json({ hrMaxBpm: hrMaxBpm(), privacyZones: privacyZones() });
+    res.json(profileBody());
   }));
 };
 

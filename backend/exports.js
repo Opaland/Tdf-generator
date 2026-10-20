@@ -591,7 +591,9 @@ function tourToStandaloneHtml(editionId) {
   const stageRows = db
     .prepare(`SELECT id FROM stages WHERE edition_id = ? ORDER BY stage_order, id`)
     .all(editionId);
-  const payloads = stageRows.map((r) => stagePayload(loadStageFull(r.id)));
+  // loadExportable : une trace rattachée au tour passe par les zones de
+  // confidentialité, comme son export d'étape (relecture adverse).
+  const payloads = stageRows.map((r) => stagePayload(loadExportable(r.id)));
 
   const profileJs = fs.readFileSync(path.join(__dirname, '..', 'frontend', 'profile.js'), 'utf8');
   const title = edition.name;
