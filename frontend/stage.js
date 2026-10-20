@@ -233,12 +233,12 @@ function renderFiche() {
   const pain = FULL.pain;
   document.getElementById('pain-section').style.display = pain ? 'block' : 'none';
   if (pain) {
-    document.getElementById('pain-summary').textContent = `${pain.score} points`;
+    document.getElementById('pain-summary').textContent = `${EF.dec(pain.score)} points`;
     const streakText = pain.mountainStreak > 1
-      ? ` · ${pain.mountainStreak}ᵉ jour de montagne consécutif de l'édition → fatigue ×${pain.fatigueFactor}`
+      ? ` · ${pain.mountainStreak}ᵉ jour de montagne consécutif de l'édition → fatigue ×${EF.dec(pain.fatigueFactor)}`
       : '';
     document.getElementById('pain-detail').textContent =
-      `côtes catégorisées : ${pain.climbScore} pts · D+ (${st.total_ascent_m} m) : ${pain.ascentContribution} pts${streakText} ` +
+      `côtes catégorisées : ${EF.dec(pain.climbScore)} pts · D+ (${st.total_ascent_m} m) : ${EF.dec(pain.ascentContribution)} pts${streakText} ` +
       `— heuristique maison (D+ pondéré par catégorie de côte + fatigue des jours de montagne consécutifs), pas une reconstruction du score VeloViewer.`;
   }
 
@@ -324,8 +324,9 @@ function renderFiche() {
     div.innerHTML =
       EFProfile.renderClimbSVG({ ...c }, { width: 1040, height: 300 }) +
       `<p class="meta-line">km ${EF.dec(c.start_km)} → ${EF.dec(c.end_km)} · du pied (${c.start_ele_m} m) au sommet (${c.summit_ele_m} m) · ` +
-      `score ${c.score} → catégorie ${EF.esc(c.category)}` +
-      `${c.irregularity_index != null ? ` · indice d'irrégularité ${c.irregularity_index} (écart-type des pentes par km — un mur peut noyer dans la moyenne)` : ''}` +
+      `score ${EF.dec(c.score)} → catégorie ${EF.esc(c.category)}` +
+      `${EFProfile.fietsIndex(c) != null ? ` · <span title="H² / (D × 10) + (sommet − 1000) / 1000 au-dessus de 1000 m (forme donnée par Runalyze ; le bonus d'altitude varie selon les sources)">indice FIETS ${EF.dec(EFProfile.fietsIndex(c))}</span>` : ''}` +
+      `${c.irregularity_index != null ? ` · indice d'irrégularité ${EF.dec(c.irregularity_index)} (écart-type des pentes par km — un mur peut noyer dans la moyenne)` : ''}` +
       ` · ${climbNameSourceLabel(c.name_source)} ${sourceBadge}${approxBadge}</p>`;
     climbsBox.appendChild(div);
   }
@@ -368,7 +369,7 @@ function renderFiche() {
     li.innerHTML = `<span class="badge fauxplat-badge">descente</span> ${EF.esc(d.name)} · ` +
       `km ${EF.dec(d.start_km)} → ${EF.dec(d.end_km)} · ${EF.dec(d.length_km)} km à ${EF.dec(d.avg_gradient)} % en moyenne ` +
       `(max ${EF.dec(d.max_gradient)} %) · du sommet (${d.top_ele_m} m) au bas (${d.bottom_ele_m} m)` +
-      `${d.irregularity_index != null ? ` · indice d'irrégularité ${d.irregularity_index}` : ''}${approxBadge}`;
+      `${d.irregularity_index != null ? ` · indice d'irrégularité ${EF.dec(d.irregularity_index)}` : ''}${approxBadge}`;
     descList.appendChild(li);
   }
 
