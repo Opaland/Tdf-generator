@@ -33,8 +33,11 @@ const EF = {
     }
     if (!res.ok) {
       let msg = `HTTP ${res.status}`;
-      try { msg = (await res.json()).error || msg; } catch { /* texte brut */ }
-      throw new Error(msg);
+      let data = null;
+      try { data = await res.json(); msg = data.error || msg; } catch { /* texte brut */ }
+      // status/data : un appelant qui distingue un cas attendu (409 du
+      // réimport d'une édition déjà générée) lit le code et le corps.
+      throw Object.assign(new Error(msg), { status: res.status, data });
     }
     return res.json();
   },
