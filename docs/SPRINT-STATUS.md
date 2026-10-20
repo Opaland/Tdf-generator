@@ -1325,8 +1325,11 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   AAAA-MM-JJ valide (texte Wikipédia non lu, « 2026-13-45 ») ne fait plus
   planter l'export (repli sur la date conventionnelle) ; chaque `CoursePoint`
   de waypoint est daté à sa position sur le tracé (arrivée de 98,4 km à
-  25 km/h : départ + 3 h 56 min) au lieu de l'heure du départ
-  (`test/exports.test.js`).
+  25 km/h : départ + 3 h 56 min) au lieu de l'heure du départ ; les
+  `CoursePoint` sont triés par heure et le `<Notes>` du Course précède les
+  `CoursePoint` (ordre du XSD TCX v2 : les TCX de la démo valident désormais
+  contre le schéma Garmin avec xmllint) ; une date impossible (30 février)
+  n'est plus décalée au 2 mars (`test/exports.test.js`).
 - [ ] 35.10 Wikipédia : `normalizeType` (« Medium mountain », CLM de
   montagne) et faux cols de `isColQuery` (Mont-de-Marsan, Le Mont-Dore…).
 

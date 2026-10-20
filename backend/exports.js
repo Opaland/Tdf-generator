@@ -140,7 +140,10 @@ function stageToTcx(full) {
   // (pipeline/importer.js, dateIso || dateText), et `new Date('18 juillet
   // T08:00:00Z').toISOString()` levait une RangeError — export en 500 (revue
   // globale du 19/10/2026).
-  const isoDay = /^\d{4}-\d{2}-\d{2}$/.test(stage.date || '') && Number.isFinite(Date.parse(`${stage.date}T08:00:00Z`)) ? stage.date : '2024-01-01';
+  // Aller-retour exact : Date.parse('2026-02-30…') ne rend pas NaN mais le
+  // 2 mars, qui serait exporté sans prévenir.
+  const parsed = /^\d{4}-\d{2}-\d{2}$/.test(stage.date || '') ? Date.parse(`${stage.date}T08:00:00Z`) : NaN;
+  const isoDay = Number.isFinite(parsed) && new Date(parsed).toISOString().slice(0, 10) === stage.date ? stage.date : '2024-01-01';
   const baseTime = Date.parse(`${isoDay}T08:00:00Z`);
   const timeAt = (distM) => new Date(baseTime + (distM / AVG_SPEED_MPS) * 1000).toISOString();
 
@@ -160,30 +163,35 @@ function stageToTcx(full) {
       // CoursePoint de côtes portent déjà <AltitudeMeters> plus bas, ceux
       // des waypoints n'en portaient aucun malgré altitude_hint_m calculée.
       const altitude = Number.isFinite(w.altitude_hint_m) ? `\n      <AltitudeMeters>${w.altitude_hint_m}</AltitudeMeters>` : '';
-      return `    <CoursePoint>\n` +
+      return { distM, xml: `    <CoursePoint>\n` +
         `      <Name>${esc(tcxToken(w.label, 10))}</Name>\n` +
         `      <Time>${timeAt(distM)}</Time>\n` +
         `      <Position><LatitudeDegrees>${w.lat}</LatitudeDegrees><LongitudeDegrees>${w.lon}</LongitudeDegrees></Position>${altitude}\n` +
         `      <PointType>${pointType}</PointType>\n` +
         `      <Notes>${esc(w.label)}</Notes>\n` +
-        `    </CoursePoint>`;
+        `    </CoursePoint>` };
     })
     .concat(
       (climbs || []).map((c) => {
         const best = nearestSample(samples, c.end_km * 1000);
-        if (!best) return '';
+        if (!best) return null;
         const pointType = TCX_CLIMB_POINT_TYPE[c.category] || 'Summit';
-        return `    <CoursePoint>\n` +
+        return { distM: best.dist_m, xml: `    <CoursePoint>\n` +
           `      <Name>${esc(tcxToken(c.name, 10))}</Name>\n` +
           `      <Time>${timeAt(best.dist_m)}</Time>\n` +
           `      <Position><LatitudeDegrees>${best.lat.toFixed(6)}</LatitudeDegrees><LongitudeDegrees>${best.lon.toFixed(6)}</LongitudeDegrees></Position>\n` +
           `      <AltitudeMeters>${c.summit_ele_m}</AltitudeMeters>\n` +
           `      <PointType>${pointType}</PointType>\n` +
           `      <Notes>${esc(c.name)} — cat. ${esc(c.category)}, ${c.length_km} km à ${c.avg_gradient} % (max ${c.max_gradient} %)</Notes>\n` +
-          `    </CoursePoint>`;
+          `    </CoursePoint>` };
       })
     )
     .filter(Boolean)
+    // Ordre chronologique : waypoints puis côtes étaient concaténés, d'où des
+    // heures qui reculent dans le fichier (le XSD ne l'interdit pas, un GPS
+    // peut s'y perdre — hypothèse, non testé sur appareil). Tri stable.
+    .sort((a, b) => a.distM - b.distM)
+    .map((p) => p.xml)
     .join('\n');
 
   const trackpoints = samples
@@ -215,8 +223,8 @@ function stageToTcx(full) {
       <Track>
 ${trackpoints}
       </Track>
-${coursePoints}
       <Notes>${esc(stage.name)} — Généré par ÉtapeForge. Horaires synthétiques (vitesse moyenne conventionnelle 25 km/h), pas une sortie réellement enregistrée.</Notes>
+${coursePoints}
     </Course>
   </Courses>
 </TrainingCenterDatabase>`;
