@@ -1490,7 +1490,7 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   utilise la virgule décimale avec le « ; » (convention d'Excel en
   français) (`test/mobileReadability.test.js`, vérification Playwright
   390 / 1280 px).
-- [ ] 35.19 Décimales homogènes — critères : les distances, vitesses et
+- [x] 35.19 (PR #458) Décimales homogènes — critères : les distances, vitesses et
   pentes affichées prennent la virgule décimale (« 460,3 km », plus de
   « 460.3 km » à côté de « 12,3 km ») : `EF.dec` (interface), `dec` de
   `profile.js` (aussi chargé seul dans les exports HTML), roadbook
