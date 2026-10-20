@@ -24,14 +24,14 @@ const CATEGORIES = ['hommes', 'femmes'];
  * docs/PRESENTATION.md avant d'être corrigée ici). Retourne
  * { edition, stages: [{id, ...}] }.
  */
-async function importEdition(year, { category = 'hommes', onProgress } = {}) {
-  year = parseInt(year, 10);
+async function importEdition(year, { category = 'hommes', onProgress, refuseIfGenerated = false } = {}) {
+  year = typeof year === 'string' && /^\d+$/.test(year.trim()) ? Number(year) : year;
   if (!Number.isInteger(year) || year < 1903 || year > 2100) {
     // .status : consommé par wrap() (backend/server.js) pour renvoyer 400
     // plutôt que 500 — erreur de validation d'entrée, pas une panne serveur
     // (trouvaille de sprint dédié : cette garde manquait ici alors qu'elle
     // était déjà posée juste en dessous sur la catégorie).
-    throw Object.assign(new Error(`Année invalide : ${year} (le Tour commence en 1903)`), { status: 400 });
+    throw Object.assign(new Error(`Année invalide : ${year} (attendu : un entier de 1903 à 2100)`), { status: 400 });
   }
   if (!CATEGORIES.includes(category)) {
     // .status : consommé par wrap() (backend/server.js) pour renvoyer 400
@@ -41,11 +41,38 @@ async function importEdition(year, { category = 'hommes', onProgress } = {}) {
   const label = category === 'femmes' ? `Tour de France Femmes ${year}` : `Tour de France ${year}`;
   if (onProgress) onProgress({ step: 'import', detail: `Récupération de la liste des étapes ${label}`, percent: 5 });
 
+  const db = getDb();
+  // Un tour personnalisé (is_custom = 1) n'est jamais l'édition Wikipédia de
+  // son année : sans ce filtre, réimporter 1903 supprimait un « Mon tour 1903 »
+  // et toutes ses étapes (revue globale du 19/10/2026).
+  const existingSql = 'SELECT id FROM editions WHERE year = ? AND category = ? AND is_custom = 0';
+  // Réimporter remplace l'édition et toutes ses étapes : une étape déjà
+  // générée (parfois de longues minutes de routage) serait perdue, et son id
+  // avec elle (favoris, liens de comparaison). L'API refuse donc par défaut
+  // (refuseIfGenerated) ; l'utilisateur confirme explicitement. Contrôlé
+  // avant l'appel Wikipédia (pas de réseau pour rien) ET de nouveau dans la
+  // transaction qui supprime : une génération lancée pendant l'appel réseau
+  // serait sinon effacée (relecture adverse).
+  const refuseIfStagesGenerated = () => {
+    if (!refuseIfGenerated) return;
+    const prev = db.prepare(existingSql).get(year, category);
+    const generated = prev
+      ? db.prepare("SELECT COUNT(*) AS n FROM stages WHERE edition_id = ? AND state IN ('done', 'generating')").get(prev.id).n
+      : 0;
+    if (generated > 0) {
+      const s = generated > 1 ? 's' : '';
+      throw Object.assign(
+        new Error(`${label} déjà importé avec ${generated} étape${s} générée${s} ou en cours de génération : le réimporter les effacerait`),
+        { status: 409, editionId: prev.id, generated }
+      );
+    }
+  };
+  refuseIfStagesGenerated();
+
   const html = await fetchEditionHtml(year, category);
   const parsed = parseStagesFromHtml(html, year);
   if (onProgress) onProgress({ step: 'import', detail: `${parsed.length} étapes trouvées`, percent: 40 });
 
-  const db = getDb();
   const notes = editionNotes(year, category);
   const sourceInfo = {
     liste_etapes: isOffline()
@@ -56,7 +83,8 @@ async function importEdition(year, { category = 'hommes', onProgress } = {}) {
   };
 
   const result = db.transaction(() => {
-    const existing = db.prepare('SELECT id FROM editions WHERE year = ? AND category = ?').get(year, category);
+    refuseIfStagesGenerated();
+    const existing = db.prepare(existingSql).get(year, category);
     if (existing) {
       db.prepare('DELETE FROM stages WHERE edition_id = ?').run(existing.id);
       db.prepare('DELETE FROM editions WHERE id = ?').run(existing.id);
@@ -164,23 +192,30 @@ function allTdfYears() {
  * collecté avec sa raison plutôt que masqué (pas de troncature silencieuse).
  * @returns { total, imported: [{year, editionId, stagesCount}], failed: [{year, error}] }
  */
-async function importAllEditions({ onProgress } = {}) {
+async function importAllEditions({ onProgress, refuseIfGenerated = false } = {}) {
   const years = allTdfYears();
   const imported = [];
   const failed = [];
+  const skipped = [];
   for (let i = 0; i < years.length; i++) {
     const year = years[i];
     if (onProgress) {
       onProgress({ year, index: i + 1, total: years.length, imported: imported.length, failed: failed.length });
     }
     try {
-      const { edition, stages } = await importEdition(year);
+      const { edition, stages } = await importEdition(year, { refuseIfGenerated });
       imported.push({ year, editionId: edition.id, stagesCount: stages.length });
     } catch (err) {
-      failed.push({ year, error: String(err.message || err) });
+      // 409 (refuseIfGenerated) : édition déjà générée, laissée intacte —
+      // pas un échec. Le bouton « Importer toutes les éditions » le demande ;
+      // scripts/import-all-and-generate.js (catalogue complet, pages.yml) et
+      // la démo gardent le remplacement intégral, pour qu'une curation
+      // modifiée dans historic_routes.json soit toujours reprise.
+      if (err.status === 409) skipped.push({ year, editionId: err.editionId, generated: err.generated });
+      else failed.push({ year, error: String(err.message || err) });
     }
   }
-  return { total: years.length, imported, failed };
+  return { total: years.length, imported, failed, skipped };
 }
 
 module.exports = { importEdition, importAllEditions, allTdfYears, CATEGORIES };
