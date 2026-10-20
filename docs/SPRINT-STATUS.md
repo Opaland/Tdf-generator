@@ -1480,7 +1480,7 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   Suunto, Strava, lien) est borné à 200 caractères ; la sauvegarde exportée
   telle quelle se réimporte (`test/backupRevalidation.test.js`,
   aller-retour sur la base de la démo).
-- [ ] 35.18 Lisibilité mobile et CSV — critères : le profil de la fiche et
+- [x] 35.18 (PR #456) Lisibilité mobile et CSV — critères : le profil de la fiche et
   le comparateur règlent leur viewBox sur la largeur de l'écran (×1,2,
   entre 420 et 1080) : texte d'au moins 8 px à 390 px au lieu d'environ
   3 px ; légendes du comparateur l'une sous l'autre en étroit ; une
