@@ -1359,6 +1359,14 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   « Col-de-… », « Alpe-d'Huez », « Côte-de-… » et une liste fermée de sommets
   (Mont-Ventoux, Puy-de-Dôme…) restent des reliefs.
 
+- [ ] 35.11 Textes faux ou surévalués — critères : `archives.html` ne dit plus
+  qu'aucune édition Femmes n'est curée (2022 Femmes : étapes 2 à 8) et liste
+  toutes les éditions curées de `historic_routes.json` (1992, 2002, 2015,
+  2017, 2018, 2019, 2022 Femmes manquaient) ; l'écran d'accueil ne promet
+  plus « n'importe quelle étape … à partir de sources vérifiées » (environ
+  130 étapes curées) ; le temps fort 2017 ne dit plus qu'un CLM a été
+  « remporté par Marseille » (une ville).
+
 En attente de décision (proposées, non commencées) : méthode de lissage
 d'altitude (D+ et pente max sous-estimés en relief vallonné), export de la
 base par tout compte en mode public, phrase « 100 % local » du README.
