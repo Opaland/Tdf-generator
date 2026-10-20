@@ -1283,8 +1283,14 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   `lat` et les guillemets simples.
 - [ ] 35.3 Réimport d'une année : confirmation côté interface, et un tour
   personnalisé de la même année n'est jamais supprimé (`is_custom`).
-- [ ] 35.4 L'éditeur conserve la provenance des waypoints (`source`,
-  `altitude_hint_m`, `bonus_sec`, `country_hint`, `region_hint`).
+- [ ] 35.4 L'éditeur conserve la provenance des waypoints — critères :
+  renommer une étape curée depuis l'éditeur garde à l'identique `source`,
+  `altitude_hint_m`, `bonus_sec`, `country_hint` et `region_hint` de chaque
+  point (POST et PUT écrivent tous ces champs, `bonus_sec` validé en liste
+  de secondes) ; retaper le libellé d'un point efface sa provenance ; un PUT
+  refusé en 400 n'écrit plus rien (validation avant écriture, transaction) ;
+  choisir un tour dans l'éditeur n'est plus refusé (`edition_id` envoyé en
+  nombre) (`test/waypointProvenance.test.js`, vérification Playwright).
 - [ ] 35.5 Arithmétique de l'altitude : D+ cumulé km par km (segment à cheval
   sur deux km), `?? 0` des exports GPX/TCX/KML, trace entièrement aberrante
   présentée à 0 m.
