@@ -103,3 +103,19 @@ test('snapCommuneAnchors : commune IGN recalée sur le bourg OSM le plus proche 
   assert.strictEqual(e2[2000].stages[0].finish.lat, 46.01);
   assert.strictEqual(e2[2000].stages[1].start.lat, 47);
 });
+
+test('applyOverrides : une occurrence peut corriger le libellé (lien Wikipédia faux), jamais une entrée par libellé', () => {
+  const eds = { 1984: { stages: [{ number: 6, start: { label: 'Louvroil', dep: '59', lat: 50.26447, lon: 3.96232, how: 'commune-ign', confidence: 'ok' },
+    finish: { label: 'Alençon', lat: 48.43121, lon: 0.09114, how: 'commune-ign', confidence: 'ok' } }] } };
+  const occ = { '1984/6/start': { label: ' Cergy-Pontoise ', lat: 49.04529, lon: 2.05944, how: 'geocode+nominatim', note: 'lien faux' } };
+  applyOverrides(eds, { occurrences: occ });
+  const st = eds[1984].stages[0].start;
+  assert.deepStrictEqual([st.label, st.lat, st.dep], ['Cergy-Pontoise', 49.04529, undefined]);
+  // Réappliquer ne change rien (régénération --verify-only).
+  const before = JSON.stringify(eds);
+  applyOverrides(eds, { occurrences: occ });
+  assert.strictEqual(JSON.stringify(eds), before);
+  assert.throws(() => applyOverrides(eds, { towns: { 'Alençon': { label: 'Autre', lat: 1, lon: 1, how: 'x' } } }), /label refusé/);
+  assert.throws(() => applyOverrides(eds, { occurrences: { '1984/6/finish': { label: '', lat: 1, lon: 1, how: 'x' } } }), /label refusé/);
+});
+

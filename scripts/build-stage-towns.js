@@ -45,11 +45,18 @@ function applyOverrides(editions, overrides) {
       for (const side of ['start', 'finish']) {
         const t = s[side];
         if (!t) continue;
-        const o = occ[`${key}/${s.number}/${side}`] || towns[t.label];
+        const byOcc = occ[`${key}/${s.number}/${side}`];
+        const o = byOcc || towns[t.label];
         if (!o) continue;
         // Une entrée sans coordonnées effacerait la position en silence.
         if (!Number.isFinite(o.lat) || !Number.isFinite(o.lon)) throw new Error(`stage_towns_overrides : ${t.label} sans lat/lon valides`);
-        s[side] = { label: t.label, ...(t.dep ? { dep: t.dep } : {}), lat: o.lat, lon: o.lon, how: o.how, confidence: o.confidence || 'ok', note: o.note };
+        // `label` : seulement par occurrence (Epic 33.18, nom pris à un lien
+        // Wikipédia faux) ; par libellé, il renommerait toutes les éditions.
+        if (o.label != null && (!byOcc || typeof o.label !== 'string' || !o.label.trim())) throw new Error(`stage_towns_overrides : label refusé pour ${t.label} (occurrence seulement, texte non vide)`);
+        const label = o.label ? o.label.trim() : t.label;
+        // Le département venait de l'ancien libellé : il ne suit pas un renommage.
+        const dep = t.dep && label === t.label ? { dep: t.dep } : {};
+        s[side] = { label, ...dep, lat: o.lat, lon: o.lon, how: o.how, confidence: o.confidence || 'ok', note: o.note };
         n++;
       }
     }
