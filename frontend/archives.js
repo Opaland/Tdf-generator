@@ -223,8 +223,6 @@ async function runLoadEditions() {
   const editions = await EF.api('/api/editions');
   const box = document.getElementById('editions');
   const sourcedOnly = document.getElementById('f-sourced-only').checked;
-  const openStates = {};
-  box.querySelectorAll('details').forEach((d) => (openStates[d.dataset.ed] = d.open));
   renderExplorerGrid(editions);
   // Détails des éditions demandés en parallèle, et liste remplacée d'un bloc
   // une fois construite : une requête en série par édition (113 au catalogue
@@ -233,14 +231,27 @@ async function runLoadEditions() {
   // 19/10/2026).
   const shown = editions.filter((x) => !x.is_custom && x.year)
     .filter((e) => !sourcedOnly || (e.stage_count > 0 && e.curated_stage_count === e.stage_count));
-  const fulls = await Promise.all(shown.map((e) => EF.api(`/api/editions/${e.id}`)));
+  // allSettled : une édition supprimée entre la liste et son détail (404) ne
+  // fait plus tomber toute la liste — elle seule affiche son erreur.
+  const fulls = await Promise.allSettled(shown.map((e) => EF.api(`/api/editions/${e.id}`)));
+  // États ouvert/fermé lus APRÈS l'attente : un <details> ouvert pendant les
+  // requêtes se refermait à la reconstruction (relecture adverse).
+  const openStates = {};
+  box.querySelectorAll('details').forEach((d) => (openStates[d.dataset.ed] = d.open));
   const dets = [];
   shown.forEach((e, i) => {
+    if (fulls[i].status === 'rejected') {
+      const det = document.createElement('details');
+      det.dataset.ed = e.id;
+      det.innerHTML = `<summary style="cursor:pointer;font-weight:700;padding:8px 0">${EF.esc(e.name)} — détail indisponible (${EF.esc(fulls[i].reason?.message || 'erreur')})</summary>`;
+      dets.push(det);
+      return;
+    }
     const fullySourced = e.stage_count > 0 && e.curated_stage_count === e.stage_count;
     const det = document.createElement('details');
     det.dataset.ed = e.id;
     det.open = openStates[e.id] !== undefined ? openStates[e.id] : String(e.year) === '1903';
-    const full = fulls[i];
+    const full = fulls[i].value;
     const sourceBadge = fullySourced
       ? '<span class="badge sourced-badge">entièrement sourcé</span>'
       : `<span class="badge partial-badge">reconstruction partielle (${e.curated_stage_count || 0}/${e.stage_count} étapes sourcées)</span>`;
@@ -429,7 +440,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   // d'équivalent statique — la grille de vignettes restait juste vide,
   // jamais visible en pratique donc jamais remarqué jusqu'ici.
   loadMythicGrid().catch(() => {});
-  const editions = await loadEditions();
+  let editions = [];
+  try {
+    editions = await loadEditions();
+  } catch (err) {
+    // Le sondage démarre quand même : il réessaie (pollWhileGenerating).
+    document.getElementById('import-msg').textContent = 'Erreur de chargement des éditions : ' + err.message;
+  }
   // Première visite : proposer la démo 1903 automatiquement.
   if (!editions.some((e) => e.year === 1903)) {
     document.getElementById('import-msg').textContent =
