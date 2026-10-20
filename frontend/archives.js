@@ -98,9 +98,9 @@ function stageRow(s) {
       ${s.is_curated ? '<span class="badge sourced-badge" title="points de passage vérifiés (historic_routes.json), pas seulement villes Wikipédia">sourcé</span>' : ''}</td>
     <td>${EF.esc(s.date || '')}</td>
     <td>${EF.esc(s.stage_type || '—')}</td>
-    <td>${s.official_distance_km ? s.official_distance_km + ' km' : '—'}</td>
+    <td>${s.official_distance_km ? EF.dec(s.official_distance_km) + ' km' : '—'}</td>
     <td>${s.generated_distance_km != null
-      ? `${s.generated_distance_km} km${delta != null ? ` <span class="meta-line">(${EF.formatDelta(delta)})</span>` : ''}`
+      ? `${EF.dec(s.generated_distance_km)} km${delta != null ? ` <span class="meta-line">(${EF.formatDelta(delta)})</span>` : ''}`
       : '—'}</td>
     <td>${EF.stateBadge(s.state, s.checks)} ${s.state === 'generating' && s.progress ? `<span class="meta-line">${EF.esc(s.progress.step || '')} ${s.progress.percent || 0}%</span>` : ''}</td>
     <td>${s.state !== 'generating' ? `<button class="secondary" data-gen="${s.id}"${s.state === 'done' ? ` title="Régénérer" aria-label="Régénérer l'étape ${EF.esc(s.name)}"` : ''}>${s.state === 'done' ? '↻' : '▶ Générer'}</button>` : ''}</td>

@@ -19,7 +19,7 @@ const assert = require('node:assert');
 // vérifierait rien sur l'échappement. global.EF.qs est nécessaire car
 // frontend/stage.js l'appelle au chargement du module (const stageId =
 // EF.qs('id')) — sa valeur n'a pas d'importance pour similarItemHtml.
-global.EF = {
+global.EF = { dec: (v) => (v == null ? v : String(v).replace('.', ',')),
   esc: (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'),
   qs: () => null,
 };
@@ -157,7 +157,7 @@ test('similarItemHtml : rendu normal — lien vers la fiche, métadonnées joint
   assert.match(html, /Tour de France \(2024\)/);
   assert.match(html, /D\+ 2200 m/);
   assert.match(html, /côte cat\. 1/);
-  assert.match(html, /12\.4 % max/);
+  assert.match(html, /12,4 % max/);
 });
 
 test('similarItemHtml : sans édition ni côte, pas de tiret orphelin ni de "null" affiché', () => {

@@ -74,7 +74,7 @@ test('roadbook.html : distance non générée -> "?", distance générée -> la 
   const metaGenerated = (await (await fetch(`${base}/api/stages/${generated.id}/roadbook.html`)).text())
     .match(/<p class="meta">([\s\S]*?)<\/p>/)[1];
   assert.doesNotMatch(metaGenerated, /\?/, 'avec une distance générée, "?" ne doit plus apparaître à sa place');
-  assert.match(metaGenerated, /^[0-9]+(\.[0-9]+)? km/);
+  assert.match(metaGenerated, /^[0-9]+(,[0-9]+)? km/); // virgule décimale (35.19)
 });
 
 test('roadbook.html : un waypoint d\'un kind non répertorié dans KIND_LABELS retombe sur "Passage", pas "undefined"', async () => {
@@ -114,7 +114,7 @@ test('roadbook.html : temps écoulé au départ toujours "0 min" (distance nulle
   const html = await (await fetch(`${base}/api/stages/${create.id}/roadbook.html`)).text();
   // Première ligne du tableau villes/points de passage = le départ (km 0.0).
   const firstRow = html.match(/<tbody>\s*<tr>([\s\S]*?)<\/tr>/)[1];
-  assert.match(firstRow, /<td>0\.0<\/td><td>0 min<\/td>/);
+  assert.match(firstRow, /<td>0,0<\/td><td>0 min<\/td>/);
 });
 
 test('roadbook.html : circuit en tours (laps) -> chaque passage au même lieu a son propre km, croissant', async () => {
@@ -137,8 +137,8 @@ test('roadbook.html : circuit en tours (laps) -> chaque passage au même lieu a 
   await generateStage(create.id);
   const html = await (await fetch(`${base}/api/stages/${create.id}/roadbook.html`)).text();
   const tbody = html.match(/<tbody>([\s\S]*?)<\/tbody>/)[1];
-  const rows = [...tbody.matchAll(/<tr>\s*<td>([0-9.]+)<\/td>[\s\S]*?<td>(Boucle [A-Za-z]+)<\/td>/g)];
-  const est = rows.filter((r) => r[2] === 'Boucle Est').map((r) => Number(r[1]));
+  const rows = [...tbody.matchAll(/<tr>\s*<td>([0-9,]+)<\/td>[\s\S]*?<td>(Boucle [A-Za-z]+)<\/td>/g)];
+  const est = rows.filter((r) => r[2] === 'Boucle Est').map((r) => Number(r[1].replace(',', '.')));
   assert.strictEqual(est.length, 3);
   assert.ok(est[0] < est[1] && est[1] < est[2], `km des 3 passages à « Boucle Est » : ${est.join(', ')}`);
 });

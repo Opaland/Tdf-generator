@@ -183,7 +183,7 @@ async function renderSuunto() {
       workouts.map((w, i) => `<tr>
         <td>${w.startTime ? new Date(w.startTime).toLocaleDateString('fr-FR') : '—'}</td>
         <td>${EF.esc(w.name || 'Sortie ' + (i + 1))}</td>
-        <td>${w.distance_m ? (w.distance_m / 1000).toFixed(1) + ' km' : '—'}</td>
+        <td>${w.distance_m ? EF.dec((w.distance_m / 1000).toFixed(1)) + ' km' : '—'}</td>
         <td>${w.ascent_m ? Math.round(w.ascent_m) + ' m' : '—'}</td>
         <td><button data-key="${EF.esc(String(w.key))}" data-name="${EF.esc(w.name || '')}">Importer</button></td>
       </tr>`).join('') + '</tbody></table>';
@@ -290,7 +290,7 @@ function renderAwards(daily) {
   const best = computeAwards(daily);
   const periods = ['day', 'week', 'month', 'year'];
   const rows = [
-    { label: 'Distance', metric: 'distance', fmt: (b) => `${Math.round(b.distanceKm * 10) / 10} km` },
+    { label: 'Distance', metric: 'distance', fmt: (b) => `${EF.dec(Math.round(b.distanceKm * 10) / 10)} km` },
     { label: 'D+', metric: 'ascent', fmt: (b) => `${Math.round(b.ascentM)} m` },
     { label: 'Temps', metric: 'time', fmt: (b) => formatDuration(b.elapsedTimeS) },
   ];
@@ -380,7 +380,7 @@ function buildWeeklyBarChart(daily, W, H) {
   values.forEach((w, i) => {
     if (w.v <= 0) return;
     const xx = M.l + i * slot + (slot - barW) / 2;
-    const label = `sem. du ${new Date(w.key + 'T00:00:00Z').toLocaleDateString('fr-FR', { timeZone: 'UTC' })} : ${Math.round(w.v * 10) / 10} km`;
+    const label = `sem. du ${new Date(w.key + 'T00:00:00Z').toLocaleDateString('fr-FR', { timeZone: 'UTC' })} : ${EF.dec(Math.round(w.v * 10) / 10)} km`;
     bars += `<rect x="${xx.toFixed(1)}" y="${y(w.v).toFixed(1)}" width="${barW.toFixed(1)}" height="${(y0 - y(w.v)).toFixed(1)}" rx="2" fill="#ead9b0" stroke="#7a5c2e" stroke-width="1"><title>${EF.esc(label)}</title></rect>`;
   });
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Distance par semaine ISO, de ${values[0].key} à ${values[values.length - 1].key}">
@@ -444,7 +444,7 @@ function buildCalendarHeatmap(daily, { weeks = 52, today = new Date() } = {}) {
       if (day > today) continue; // jamais de case pour un jour futur
       const distanceKm = byDate.get(dateKey) || 0;
       const level = distanceKm > 0 && maxDistance > 0 ? Math.max(1, Math.ceil((distanceKm / maxDistance) * 4)) : 0;
-      const label = `${EF.esc(new Date(dateKey + 'T00:00:00Z').toLocaleDateString('fr-FR', { timeZone: 'UTC' }))} : ${distanceKm > 0 ? Math.round(distanceKm * 10) / 10 + ' km' : 'aucune sortie'}`;
+      const label = `${EF.esc(new Date(dateKey + 'T00:00:00Z').toLocaleDateString('fr-FR', { timeZone: 'UTC' }))} : ${distanceKm > 0 ? EF.dec(Math.round(distanceKm * 10) / 10) + ' km' : 'aucune sortie'}`;
       cells += `<rect x="${M.l + w * step}" y="${M.t + d * step}" width="${cell}" height="${cell}" rx="2" fill="${heatmapColor(level)}"><title>${label}</title></rect>`;
     }
   }
@@ -531,7 +531,7 @@ async function renderStrava() {
       activities.map((a, i) => `<tr>
         <td>${a.startDate ? new Date(a.startDate).toLocaleDateString('fr-FR') : '—'}</td>
         <td>${EF.esc(a.name || 'Sortie ' + (i + 1))}</td>
-        <td>${a.distance_m ? (a.distance_m / 1000).toFixed(1) + ' km' : '—'}</td>
+        <td>${a.distance_m ? EF.dec((a.distance_m / 1000).toFixed(1)) + ' km' : '—'}</td>
         <td>${a.ascent_m ? Math.round(a.ascent_m) + ' m' : '—'}</td>
         <td><button data-id="${EF.esc(String(a.id))}" data-name="${EF.esc(a.name || '')}">Importer</button></td>
       </tr>`).join('') + '</tbody></table>';
@@ -591,7 +591,7 @@ function buildGearRows(gear, { canDelete = false } = {}) {
     return `<tr data-gear-id="${id}"${g.retired ? ' class="gear-retired"' : ''}>
         <td class="gear-name"><b>${EF.esc(g.name)}</b><br><span class="meta-line">${EF.esc(kind)}${g.retired ? ' · retiré' : ''}</span></td>
         <td>${Number(g.traceCount)}</td>
-        <td>${Number(g.distanceKm)} km</td>
+        <td>${EF.dec(Number(g.distanceKm))} km</td>
         <td>${Number(g.ascentM)} m</td>
         <td>${duration}</td>
         <td class="gear-actions">
@@ -707,7 +707,7 @@ function renderGear(g, all, canDelete) {
   document.querySelector('#gear-all-table tbody').innerHTML = all.traces.map((t) => `<tr>
       <td>${t.date ? EF.esc(new Date(t.date + 'T00:00:00Z').toLocaleDateString('fr-FR', { timeZone: 'UTC' })) : '—'}</td>
       <td><a href="/stage.html?id=${Number(t.id)}">${EF.esc(t.name)}</a></td>
-      <td>${Number(t.distanceKm)} km</td>
+      <td>${EF.dec(Number(t.distanceKm))} km</td>
       <td>${buildGearSelect(currentGear, t.id, t.gearId ?? null)}</td>
     </tr>`).join('');
 }
@@ -734,7 +734,7 @@ const EFFORT_REASONS = {
 function buildEffortRows(climbs) {
   return climbs.map((c) => {
     const title = `<b>${EF.esc(c.name || 'Côte sans nom')}</b><br><span class="meta-line">` +
-      `${c.category ? `cat. ${EF.esc(c.category)} · ` : ''}${c.summitEleM != null ? `${Math.round(c.summitEleM)} m · ` : ''}réf. ${Number(c.refLengthKm)} km</span>`;
+      `${c.category ? `cat. ${EF.esc(c.category)} · ` : ''}${c.summitEleM != null ? `${Math.round(c.summitEleM)} m · ` : ''}réf. ${EF.dec(Number(c.refLengthKm))} km</span>`;
     const items = c.passages.map((p) => {
       const date = p.date ? EF.esc(new Date(p.date + 'T00:00:00Z').toLocaleDateString('fr-FR', { timeZone: 'UTC' })) : 'date inconnue';
       const val = p.timeS != null
@@ -783,7 +783,7 @@ async function loadSummary() {
 
     const tiles = [
       { v: s.traceCount, l: `sortie${s.traceCount > 1 ? 's' : ''} importée${s.traceCount > 1 ? 's' : ''}` },
-      { v: `${s.totalDistanceKm} km`, l: 'distance totale' },
+      { v: `${EF.dec(s.totalDistanceKm)} km`, l: 'distance totale' },
       { v: `${s.totalAscentM} m`, l: 'D+ cumulé' },
     ];
     if (s.tracesWithTimeCount > 0) {
@@ -826,7 +826,7 @@ async function loadSummary() {
     recentBody.innerHTML = s.recent.map((t) => `<tr>
         <td>${t.date ? EF.esc(new Date(t.date + 'T00:00:00Z').toLocaleDateString('fr-FR', { timeZone: 'UTC' })) : '—'}</td>
         <td><a href="/stage.html?id=${t.id}">${EF.esc(t.name)}</a></td>
-        <td>${t.distanceKm} km</td>
+        <td>${EF.dec(t.distanceKm)} km</td>
         <td>${t.ascentM} m</td>
         <td>${t.elapsedTimeS != null ? EF.esc(formatDuration(t.elapsedTimeS)) : '—'}</td>
         <td>${g ? buildGearSelect(currentGear, t.id, t.gearId ?? null) : '—'}</td>

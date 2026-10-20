@@ -69,6 +69,14 @@ const EF = {
     return res.json();
   },
 
+  // Nombre affiché à la française : virgule décimale (revue globale du
+  // 19/10/2026 : « 460.3 km » côtoyait « 12,3 km »). Pas de séparateur de
+  // milliers, pour ne pas changer les entiers (« 1275 m »). null/undefined :
+  // rendu tel quel par l'appelant, qui a sa propre garde.
+  dec(v) {
+    return v == null ? v : String(v).replace('.', ',');
+  },
+
   esc(s) {
     return String(s == null ? '' : s)
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -117,7 +125,7 @@ const EF = {
   // "+X.X %" / "-X.X %" — même gabarit d'affichage répété à chaque site
   // qui utilise distanceDelta().
   formatDelta(delta) {
-    return `${delta >= 0 ? '+' : ''}${delta.toFixed(1)} %`;
+    return `${delta >= 0 ? '+' : ''}${EF.dec(delta.toFixed(1))} %`;
   },
 
   // "2h34" / "45min" — durée d'une sortie (stage.elapsed_time_s), utilisée

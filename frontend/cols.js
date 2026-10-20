@@ -31,8 +31,8 @@ function renderStats(rows) {
       l: 'par catégorie',
     },
     { v: highest ? highest.summit_ele_m + ' m' : '—', l: highest ? `plus haut (${highest.name})` : 'plus haut sommet' },
-    { v: longest ? longest.length_km + ' km' : '—', l: longest ? `plus long (${longest.name})` : 'plus longue montée' },
-    { v: steepest ? steepest.avg_gradient + ' %' : '—', l: steepest ? `plus pentu (${steepest.name})` : 'plus forte pente moy.' },
+    { v: longest ? EF.dec(longest.length_km) + ' km' : '—', l: longest ? `plus long (${longest.name})` : 'plus longue montée' },
+    { v: steepest ? EF.dec(steepest.avg_gradient) + ' %' : '—', l: steepest ? `plus pentu (${steepest.name})` : 'plus forte pente moy.' },
   ];
   document.getElementById('cols-stats').innerHTML = tiles
     .map((t) => `<div class="stat"><div class="v">${t.v}</div><div class="l">${EF.esc(t.l)}</div></div>`)
@@ -56,8 +56,8 @@ function render() {
       (c, i) => `<tr data-i="${i}" style="cursor:pointer" tabindex="0" aria-expanded="false" title="Entrée ou clic : déplier le profil">
         <td>${EF.esc(c.name || '—')}${c.simulated ? '<span class="badge partial-badge" title="étape générée en mode hors-ligne : profil d\'altitude synthétique (simulateur), pas une mesure réelle — pentes affichées possiblement irréalistes">simulé</span>' : ''}</td>
         <td><span class="pill" style="background:${EFProfile.CAT_COLORS[c.category]};color:${EFProfile.CAT_TEXT[c.category]}">${EF.esc(c.category)}</span></td>
-        <td>${c.summit_ele_m}</td><td>${c.length_km}</td><td>${c.avg_gradient}</td>
-        <td>${c.max_gradient}</td><td>${c.score}</td>
+        <td>${c.summit_ele_m}</td><td>${EF.dec(c.length_km)}</td><td>${EF.dec(c.avg_gradient)}</td>
+        <td>${EF.dec(c.max_gradient)}</td><td>${c.score}</td>
         <td><a href="/stage.html?id=${c.stage_id}">${EF.esc(c.stage_name)}</a></td>
         <td>${EF.esc(c.edition_name || '—')}</td>
       </tr>`

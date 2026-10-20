@@ -1490,11 +1490,21 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   utilise la virgule décimale avec le « ; » (convention d'Excel en
   français) (`test/mobileReadability.test.js`, vérification Playwright
   390 / 1280 px).
-- [ ] 35.19 Décimales homogènes — critères : les distances, vitesses et
-  pentes affichées utilisent toutes la virgule décimale (« 460,3 km »,
-  plus de « 460.3 km » à côté de « 12,3 km ») via un formateur commun ;
-  environ 40 interpolations dans `frontend/*.js` à reprendre une par une,
-  tests d'affichage existants mis à jour.
+- [x] 35.19 (PR #458) Décimales homogènes — critères : les distances, vitesses et
+  pentes affichées prennent la virgule décimale (« 460,3 km », plus de
+  « 460.3 km » à côté de « 12,3 km ») : `EF.dec` (interface), `dec` de
+  `profile.js` (aussi chargé seul dans les exports HTML), roadbook
+  (`backend/exports.js`) et messages de contrôle générés par
+  `pipeline/checks.js` (les messages déjà stockés gardent leur point
+  jusqu'à la prochaine génération) ; pas de séparateur de milliers, les
+  entiers ne changent pas ; aucun nombre à point décimal suivi de km, % ou
+  m dans le texte des fiches, du catalogue des cols et du comparateur
+  (`test/decimalComma.test.js`, attentes des tests d'affichage passées à la
+  virgule, balayage Playwright de l'accueil, des fiches, du catalogue, du
+  comparateur, du roadbook et de l'export HTML autonome). Les mini-sites
+  autonomes reçoivent `frDec` avec `escHtml`. Hors périmètre : les formats
+  de données (GPX, TCX, KML — y compris leurs champs de description —,
+  JSON ; CSV déjà traité en 35.18).
 - [x] 35.20 (PR #457) Dette : une source pour le rang des catégories et pour esc() —
   critères : le rang des catégories de côte n'existe plus qu'en
   `CATEGORY_RANK` (`pipeline/climbs.js`, repris par `apiHelpers` et
@@ -1510,7 +1520,11 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
 
 En attente de décision (proposées, non commencées) : méthode de lissage
 d'altitude (D+ et pente max sous-estimés en relief vallonné), export de la
-base par tout compte en mode public, phrase « 100 % local » du README.
+base par tout compte en mode public, phrase « 100 % local » du README,
+en-tête Content-Security-Policy (les pages ont des scripts et styles en
+ligne : il faudrait soit les extraire, soit autoriser `'unsafe-inline'`,
+ce qui en réduit l'intérêt) et compression HTTP (nouvelle dépendance
+`compression`, à justifier selon docs/BRIEF.md).
 
 ## Epic 24 — Bilan final
 

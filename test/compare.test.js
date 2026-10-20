@@ -8,7 +8,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert');
 
-global.EF = { esc: (s) => String(s ?? '') };
+global.EF = { dec: (v) => (v == null ? v : String(v).replace('.', ',')), esc: (s) => String(s ?? '') };
 global.EFProfile = require('../frontend/profile.js');
 
 const { overlaySVG, hasComparableProfile } = require('../frontend/compare.js');

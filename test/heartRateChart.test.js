@@ -4,7 +4,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert');
 
-global.EF = { qs: () => null, esc: (s) => String(s ?? '') };
+global.EF = { dec: (v) => (v == null ? v : String(v).replace('.', ',')), qs: () => null, esc: (s) => String(s ?? '') };
 const { buildHrChart } = require('../frontend/stage.js');
 
 const s = (dist_m, hr_bpm) => ({ dist_m, hr_bpm });

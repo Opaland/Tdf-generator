@@ -89,7 +89,7 @@ function overlaySVG(fa, fb, axis, alignStart, W = 1080) {
     const xx = M.l + (d / maxLen) * (W - M.l - M.r);
     axisTicks +=
       `<line x1="${xx.toFixed(1)}" y1="${y(eMin)}" x2="${xx.toFixed(1)}" y2="${y(eMin) + 5}" stroke="#888"/>` +
-      `<text x="${xx.toFixed(1)}" y="${y(eMin) + 17}" text-anchor="middle" font-size="10" fill="#666">${axis === 'pct' ? d + ' %' : d / 1000}</text>`;
+      `<text x="${xx.toFixed(1)}" y="${y(eMin) + 17}" text-anchor="middle" font-size="10" fill="#666">${axis === 'pct' ? d + ' %' : EF.dec(d / 1000)}</text>`;
   }
 
   const marker = (f, pts, len, color) =>
@@ -153,8 +153,8 @@ function metricRows(fa, fb) {
     `<tr><th>Métrique</th><th style="color:${COLOR_A}">${EF.esc(fa.stage.name)}</th><th style="color:${COLOR_B}">${EF.esc(fb.stage.name)}</th></tr>`;
   document.querySelector('#cmp-table tbody').innerHTML = Object.keys(A)
     .map((k) => `<tr><td>${k}</td>` +
-      `<td data-label="${EF.esc(fa.stage.name)}">${A[k] ?? '—'}</td>` +
-      `<td data-label="${EF.esc(fb.stage.name)}">${B[k] ?? '—'}</td></tr>`)
+      `<td data-label="${EF.esc(fa.stage.name)}">${EF.dec(A[k]) ?? '—'}</td>` +
+      `<td data-label="${EF.esc(fb.stage.name)}">${EF.dec(B[k]) ?? '—'}</td></tr>`)
     .join('');
 }
 
