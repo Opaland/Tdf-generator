@@ -83,9 +83,21 @@ function assertLatLonPaired(waypoints, prefix) {
 const FIELD_MAX = { name: 200, status: 200, stage_type: 40, label: 200, source: 60, hint: 60 };
 const WAYPOINT_KINDS = new Set(['start', 'via', 'col', 'sprint', 'finish']);
 
+/** Texte ramené à `max` unités UTF-16 (la mesure de checkLength) sans couper
+ * un caractère en deux (emoji). Non-chaîne : rendue telle quelle. */
+function truncateText(v, max) {
+  if (typeof v !== 'string' || v.length <= max) return v;
+  let out = '';
+  for (const ch of v) {
+    if (out.length + ch.length > max) break;
+    out += ch;
+  }
+  return out;
+}
+
 /** Rang numérique d'une catégorie de côte (plus haut = plus dur) — pour comparer
  * des étapes entre elles, pas pour un affichage (voir climbs.js pour le libellé).
  * Partagé par routes/stages.js (étapes similaires) et routes/traces.js (bilan). */
 const CLIMB_CATEGORY_RANK = { HC: 5, 1: 4, 2: 3, 3: 2, 4: 1 };
 
-module.exports = { FIELD_MAX, WAYPOINT_KINDS, CLIMB_CATEGORY_RANK, wrap, httpError, requireString, optionalString, optionalNumber, queryString, optionalIsoDay, assertLatLonPaired };
+module.exports = { truncateText, FIELD_MAX, WAYPOINT_KINDS, CLIMB_CATEGORY_RANK, wrap, httpError, requireString, optionalString, optionalNumber, queryString, optionalIsoDay, assertLatLonPaired };

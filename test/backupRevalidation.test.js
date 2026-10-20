@@ -1,7 +1,8 @@
 'use strict';
 // Epic 35.17 (revue globale du 19/10/2026) : POST /api/backup/import ne
-// revalidait ni les longueurs, ni les dates, ni les kinds, ni la catégorie,
-// ni les colonnes JSON que les pages relisent sans garde.
+// revalidait ni les longueurs, ni les kinds, ni la catégorie, ni les
+// colonnes JSON que les pages relisent sans garde. Ce que l'appli a pu écrire
+// elle-même (nom long, date en texte libre) reste réimportable.
 
 const os = require('os');
 const path = require('path');
@@ -49,11 +50,6 @@ test('backup/import : la sauvegarde telle qu\'exportée se réimporte', async ()
 });
 
 for (const [what, fn, re] of [
-  ['nom d\'étape trop long', (t) => { t.stages[0].name = 'x'.repeat(201); }, /stages\[0\]\.name : 200 caractères au plus/],
-  ['libellé de waypoint trop long', (t) => { t.waypoints[1].label = 'x'.repeat(201); }, /waypoints\[1\]\.label/],
-  ['nom de matériel trop long', (t) => { t.gear[0].name = 'x'.repeat(81); }, /gear\[0\]\.name : 80/],
-  ['date inexistante', (t) => { t.stages[0].date = '2001-02-30'; }, /stages\[0\]\.date : date inexistante/],
-  ['date au mauvais format', (t) => { t.stages[0].date = '07/07/2001'; }, /AAAA-MM-JJ/],
   ['kind inconnu', (t) => { t.waypoints[0].kind = 'teleport'; }, /waypoints\[0\]\.kind/],
   ['catégorie inconnue', (t) => { t.editions[0].category = 'mixte'; }, /editions\[0\]\.category/],
   ['bonus_sec en JSON mal formé', (t) => { t.waypoints[0].bonus_sec = '[3,2,'; }, /waypoints\[0\]\.bonus_sec : JSON mal formé/],
@@ -67,3 +63,37 @@ for (const [what, fn, re] of [
     assert.deepStrictEqual(again.waypoints.map((w) => [w.label, w.kind, w.bonus_sec]), exported.waypoints.map((w) => [w.label, w.kind, w.bonus_sec]));
   });
 }
+
+test('backup/import : un texte trop long est tronqué et compté, sans couper un emoji', async () => {
+  const r = await tamper((t) => {
+    t.stages[0].name = 'x'.repeat(199) + '🚴🚴';
+    t.waypoints[1].label = 'y'.repeat(250);
+    t.gear[0].name = 'z'.repeat(81);
+  });
+  const body = await r.json();
+  assert.strictEqual(r.status, 200, JSON.stringify(body));
+  assert.strictEqual(body.truncated_fields, 3);
+  const again = (await (await fetch(`${base}/api/backup/export`)).json()).tables;
+  assert.strictEqual(again.stages[0].name, 'x'.repeat(199));
+  assert.strictEqual(again.waypoints[1].label, 'y'.repeat(200));
+  assert.strictEqual(again.gear[0].name, 'z'.repeat(80));
+});
+
+test('backup/import : une date en texte libre (import Wikipédia non reconnu) reste réimportable', async () => {
+  const r = await tamper((t) => { t.stages[0].date = '1–2 Jul.'; });
+  assert.strictEqual(r.status, 200, await r.text());
+});
+
+test('import de trace : un nom de 250 caractères (Suunto, Strava, fichier GPX) est borné à 200', async () => {
+  const { importTrackAsStage } = require('../pipeline/importTrack');
+  const pts = [];
+  for (let k = 0; k < 20; k++) pts.push({ lat: 45 + k * 0.001, lon: 6, ele: 500 + k });
+  const id = await importTrackAsStage(pts, { name: 'S'.repeat(250), source: 'suunto', status: 'trace Suunto' });
+  const { getDb } = require('../backend/db');
+  assert.strictEqual(getDb().prepare('SELECT length(name) n FROM stages WHERE id = ?').get(id).n, 200);
+  const tables = (await (await fetch(`${base}/api/backup/export`)).json()).tables;
+  const r = await json('/api/backup/import', 'POST', { confirm: true, tables });
+  const body = await r.json();
+  assert.strictEqual(r.status, 200, JSON.stringify(body));
+  assert.strictEqual(body.truncated_fields, 0);
+});
