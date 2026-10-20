@@ -55,9 +55,16 @@ after(() => {
   fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true });
 });
 
+
+/** state émis par /connect (Epic 35.7 : le callback le vérifie). */
+async function oauthStateFrom(base, provider) {
+  const r = await fetch(`${base}/api/${provider}/connect`, { redirect: 'manual' });
+  return new URL(r.headers.get('location')).searchParams.get('state');
+}
+
 test('callback OAuth : le service Suunto qui ne répond jamais est abandonné bien avant sa vraie réponse à 2 s', async () => {
   const start = Date.now();
-  const res = await fetch(`${base}/api/suunto/callback?code=code-test`, { redirect: 'manual' });
+  const res = await fetch(`${base}/api/suunto/callback?code=code-test&state=${await oauthStateFrom(base, 'suunto')}`, { redirect: 'manual' });
   const elapsed = Date.now() - start;
   assert.strictEqual(res.status, 302);
   const location = res.headers.get('location');

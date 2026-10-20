@@ -54,12 +54,22 @@ async function notifyGenerationFailure(info, webhookUrl = WEBHOOK_URL, format = 
       headers: { 'Content-Type': isText ? 'text/plain; charset=utf-8' : 'application/json' },
       body,
     }, timeoutMs);
-    if (!res.ok) console.error(`Notification webhook échouée : HTTP ${res.status} (${webhookUrl})`);
+    // Hôte seulement : pour Slack, Discord ou ntfy, l'URL complète EST le
+    // secret, et elle finissait dans les logs (revue globale du 19/10/2026).
+    if (!res.ok) console.error(`Notification webhook échouée : HTTP ${res.status} (${safeHost(webhookUrl)})`);
     return res.ok;
   } catch (err) {
     const reason = err.name === 'AbortError' ? `délai de ${timeoutMs} ms dépassé` : err.message;
     console.error('Notification webhook injoignable :', reason);
     return false;
+  }
+}
+
+function safeHost(url) {
+  try {
+    return new URL(url).host;
+  } catch {
+    return 'URL invalide';
   }
 }
 

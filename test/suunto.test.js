@@ -140,6 +140,13 @@ after(() => {
   fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true });
 });
 
+
+/** state émis par /connect (Epic 35.7 : le callback le vérifie). */
+async function oauthStateFrom(base, provider) {
+  const r = await fetch(`${base}/api/${provider}/connect`, { redirect: 'manual' });
+  return new URL(r.headers.get('location')).searchParams.get('state');
+}
+
 test('statut : configuré mais pas connecté', async () => {
   const st = await (await fetch(`${base}/api/suunto/status`)).json();
   assert.strictEqual(st.configured, true);
@@ -202,7 +209,7 @@ test('POST /api/suunto/config sans body : accepté, no-op (rien de fourni à val
 });
 
 test("callback OAuth : échange du code contre un jeton (Basic auth vérifiée par le simulateur)", async () => {
-  const res = await fetch(`${base}/api/suunto/callback?code=code-test`, { redirect: 'manual' });
+  const res = await fetch(`${base}/api/suunto/callback?code=code-test&state=${await oauthStateFrom(base, 'suunto')}`, { redirect: 'manual' });
   assert.strictEqual(res.status, 302);
   assert.match(res.headers.get('location'), /suunto=ok/);
   const st = await (await fetch(`${base}/api/suunto/status`)).json();

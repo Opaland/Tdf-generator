@@ -224,10 +224,12 @@ module.exports = function register(app) {
       throw httpError(400, 'URL invalide');
     }
     if (parsed.protocol !== 'https:') throw httpError(400, 'Seules les URL https:// sont acceptées');
-    if (!ALLOWED_IMPORT_LINK_HOSTS.some((re) => re.test(parsed.hostname))) {
+    const allowed = (u) => u.protocol === 'https:' && ALLOWED_IMPORT_LINK_HOSTS.some((re) => re.test(u.hostname));
+    if (!allowed(parsed)) {
       throw httpError(400, `Domaine non autorisé pour l'import par lien (${parsed.hostname}). Domaines acceptés : sports-tracker.com (export Suunto).`);
     }
-    const text = await httpText(url, { retries: 1 });
+    // Chaque redirection est revérifiée contre la même liste blanche.
+    const text = await httpText(url, { retries: 1, allowRedirect: allowed });
     const { points, name } = parseGpx(text);
     if (points.length < 2) {
       throw httpError(400, "Le lien n'a pas renvoyé un GPX exploitable — vérifie que l'export choisi (dans Suunto/Sports-Tracker) est bien au format GPX.");

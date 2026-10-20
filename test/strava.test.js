@@ -124,6 +124,13 @@ after(() => {
   fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true });
 });
 
+
+/** state émis par /connect (Epic 35.7 : le callback le vérifie). */
+async function oauthStateFrom(base, provider) {
+  const r = await fetch(`${base}/api/${provider}/connect`, { redirect: 'manual' });
+  return new URL(r.headers.get('location')).searchParams.get('state');
+}
+
 test('statut : configuré mais pas connecté', async () => {
   const st = await (await fetch(`${base}/api/strava/status`)).json();
   assert.strictEqual(st.configured, true);
@@ -155,7 +162,7 @@ for (const [field, bad] of [['client_id', {}], ['client_secret', []]]) {
 }
 
 test("callback OAuth : échange du code contre un jeton (client_id/client_secret dans le corps, pas Basic)", async () => {
-  const res = await fetch(`${base}/api/strava/callback?code=code-test`, { redirect: 'manual' });
+  const res = await fetch(`${base}/api/strava/callback?code=code-test&state=${await oauthStateFrom(base, 'strava')}`, { redirect: 'manual' });
   assert.strictEqual(res.status, 302);
   assert.match(res.headers.get('location'), /strava=ok/);
   const st = await (await fetch(`${base}/api/strava/status`)).json();
