@@ -1269,7 +1269,7 @@ au moment de la revue : aucun des bugs ci-dessous n'était couvert. Chaque
 story commence par un test qui échoue sans le correctif, et se termine par un
 grep du même motif sur tout le dépôt (règles 1 et 10).
 
-- [ ] 35.1 Robustesse serveur — critères : deux inscriptions simultanées du
+- [x] 35.1 (PR #439) Robustesse serveur — critères : deux inscriptions simultanées du
   même email donnent 200 + 409 sans arrêter le process (`/register` et
   `/login` passent par `wrap()`) ; un cookie voisin mal encodé (`other=50%`)
   ne donne plus 500 ; un waypoint hors [-90, 90] × [-180, 180] est refusé en
