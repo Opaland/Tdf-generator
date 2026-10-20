@@ -101,6 +101,28 @@
    * @param opts { width, height, mini }
    * @returns markup SVG (string)
    */
+  /**
+   * Étiquette qui tient dans le cadre du profil (revue globale du
+   * 19/10/2026 : « Hauta », « Alpe d' », « Marse » coupés au bord droit,
+   * libellés de col rognés en haut). Largeur estimée à 0,58 em par caractère
+   * (10,5 px). Inclinée à 38° vers la droite d'ordinaire ; près du bord
+   * droit, posée à l'horizontale à gauche du point (`flip`) — inclinée vers
+   * la gauche, elle heurtait l'encart distance / D+. Trop longue pour la
+   * place restante, elle est raccourcie avec « … » (texte complet en
+   * infobulle).
+   * @returns { text, flip }
+   */
+  function fitLabel(text, ax, ay, W) {
+    const ch = 10.5 * 0.58;
+    const up = ch * Math.sin((38 * Math.PI) / 180);
+    const side = ch * Math.cos((38 * Math.PI) / 180);
+    const rightRoom = (W - ax - 6) / side;
+    const flip = text.length > rightRoom && ax > W / 2;
+    const room = flip ? (ax - 6) / ch : Math.min((ay - 2) / up, rightRoom);
+    const max = Math.max(4, Math.floor(room));
+    return { text: text.length > max ? `${text.slice(0, max - 1)}…` : text, flip };
+  }
+
   function renderProfileSVG(data, opts) {
     opts = opts || {};
     const W = opts.width || 1000;
@@ -200,9 +222,13 @@
         if (nearClimb) continue; // le sommet sera annoté par la côte
         const isSprint = w.kind === 'sprint';
         const bonusTxt = Array.isArray(w.bonus_sec) && w.bonus_sec.length ? ` — bonif. ${w.bonus_sec.join('/')}″` : '';
+        // Altitude mesurée (`r`) dans le texte, comme le roadbook et la
+        // fiche côte ; la lissée (`e`) ne sert qu'à poser l'étiquette sur
+        // la courbe. Ni l'une ni l'autre : pas de « 0 m » inventé.
+        const labelEle = prof[best].r ?? prof[best].e;
         labels.push({
           m: prof[best].d, e: prof[best].e,
-          text: `${w.label} (${Math.round(prof[best].e)} m)${bonusTxt}`,
+          text: `${w.label}${labelEle != null ? ` (${Math.round(labelEle)} m)` : ''}${bonusTxt}`,
           priority: w.kind === 'start' || w.kind === 'finish' ? 2 : (isSprint ? 2.5 : 1),
           cat: null,
           sprint: isSprint,
@@ -229,9 +255,13 @@
       for (const l of kept) {
         const xx = x(l.m);
         const yy = y(l.e);
+        const fit = fitLabel(l.text, xx, yy - 13, W);
+        const pos = fit.flip
+          ? `x="${(xx - 3).toFixed(1)}" y="${(yy - 13).toFixed(1)}" text-anchor="end"`
+          : `transform="translate(${(xx + 3).toFixed(1)} ${(yy - 13).toFixed(1)}) rotate(-38)"`;
         ann +=
           `<line x1="${xx.toFixed(1)}" y1="${yy.toFixed(1)}" x2="${xx.toFixed(1)}" y2="${(yy - 10).toFixed(1)}" stroke="#666" stroke-width="0.8"/>` +
-          `<text transform="translate(${(xx + 3).toFixed(1)} ${(yy - 13).toFixed(1)}) rotate(-38)" font-size="10.5" fill="#333">${esc(l.text)}</text>`;
+          `<text ${pos} font-size="10.5" fill="#333">${fit.text !== l.text ? `<title>${esc(l.text)}</title>` : ''}${esc(fit.text)}</text>`;
         if (l.cat) {
           const { color: cc, text: tc } = catStyle(l.cat);
           ann +=
@@ -519,7 +549,7 @@
     return out;
   }
 
-  const EFProfile = { renderProfileSVG, renderClimbSVG, renderRibbon3D, decimate, niceStep, CAT_COLORS, CAT_TEXT, gradStyle, catStyle, climbApproxOverlap, profileHoverAt };
+  const EFProfile = { renderProfileSVG, fitLabel, renderClimbSVG, renderRibbon3D, decimate, niceStep, CAT_COLORS, CAT_TEXT, gradStyle, catStyle, climbApproxOverlap, profileHoverAt };
   if (typeof module !== 'undefined' && module.exports) module.exports = EFProfile;
   global.EFProfile = EFProfile;
 })(typeof window !== 'undefined' ? window : globalThis);

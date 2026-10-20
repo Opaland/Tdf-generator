@@ -383,6 +383,25 @@ function nearestSampleIdx(w, samples, fromIdx = 0) {
 }
 
 /**
+ * Altitude affichée pour un point de passage, la même que partout ailleurs
+ * (revue globale du 19/10/2026 : le roadbook donnait 1442 m au point de
+ * passage et 1471 m au sommet de la côte, pour le même col).
+ * - col au sommet d'une côte détectée (à moins de 1,2 km, même règle que
+ *   les étiquettes du profil) : `summit_ele_m` de la côte ;
+ * - sinon l'altitude mesurée de l'échantillon, la lissée seulement si la
+ *   mesure manque ; `null` si les deux manquent (jamais 0, CLAUDE.md règle 10).
+ */
+function waypointEle(w, s, climbs) {
+  if (!s) return null;
+  if (w.kind === 'col') {
+    const c = climbs.find((c) => c.summit_ele_m != null && Math.abs(c.end_km * 1000 - s.dist_m) < 1200);
+    if (c) return Math.round(c.summit_ele_m);
+  }
+  const e = s.ele_raw_m ?? s.ele_smooth_m;
+  return e == null ? null : Math.round(e);
+}
+
+/**
  * Feuille de route imprimable d'une étape (backlog issue #14, "roadbook
  * exportable") : villes/points de passage avec km et temps écoulé indicatif,
  * côtes avec catégorie/pente, en une page HTML autonome pensée pour
@@ -402,6 +421,7 @@ function stageToRoadbookHtml(stageId) {
   const { stage, edition, waypoints, climbs, samples } = full;
 
   let fromIdx = 0;
+  const lastWp = waypoints[waypoints.length - 1];
   const points = waypoints
     .filter((w) => w.lat != null)
     .map((w) => {
@@ -410,21 +430,26 @@ function stageToRoadbookHtml(stageId) {
       const s = i >= 0 ? samples[i] : null;
       return {
         distM: s ? s.dist_m : 0,
-        ele: s ? Math.round(s.ele_smooth_m) : null,
+        ele: waypointEle(w, s, climbs),
         label: w.label,
         kind: w.kind,
+        // Arrivée au sommet : le dernier point est enregistré en « col »
+        // (pipeline/generate.js), mais c'est aussi l'arrivée.
+        isFinish: w === lastWp,
         bonus_sec: w.bonus_sec || null,
       };
     })
     .sort((a, b) => a.distM - b.distM);
 
   const KIND_LABELS = { start: 'Départ', finish: 'Arrivée', col: 'Col', sprint: 'Sprint intermédiaire', via: 'Passage' };
+  const kindLabel = (p) =>
+    p.isFinish && p.kind === 'col' ? 'Arrivée (col)' : p.isFinish ? 'Arrivée' : KIND_LABELS[p.kind] || 'Passage';
 
   const rowsHtml = points
     .map((p) => {
       const bonusTxt = p.bonus_sec ? ` — bonif. ${p.bonus_sec.join('/')}″` : '';
       return `<tr><td>${(p.distM / 1000).toFixed(1)}</td><td>${formatElapsed(p.distM)}</td>` +
-        `<td>${esc(KIND_LABELS[p.kind] || 'Passage')}</td>` +
+        `<td>${esc(kindLabel(p))}</td>` +
         `<td>${esc(p.label)}${esc(bonusTxt)}</td>` +
         `<td>${p.ele != null ? `${p.ele} m` : '—'}</td></tr>`;
     })
@@ -476,10 +501,12 @@ ${communes.communes.map((c) => `<tr><td>${Number(c.km).toFixed(1)}</td><td>${esc
   th { background: var(--jaune); }
   h2 { font-size: 1.1em; border-bottom: 2px solid var(--jaune); padding-bottom: 2px; }
   .note { font-size: 0.8em; color: #555; margin-top: 6px; }
+  .scrollx { overflow-x: auto; }
+  .scrollx table { min-width: 34em; }
   tr { break-inside: avoid; }
   .no-print { margin-bottom: 16px; }
   footer { font-size: 0.7em; color: #666; margin-top: 24px; }
-  @media print { .no-print { display: none; } }
+  @media print { .no-print { display: none; } .scrollx { overflow: visible; } .scrollx table { min-width: 0; } }
 </style>
 </head>
 <body>
@@ -497,12 +524,14 @@ ${rowsHtml}
 <p class="note">Temps écoulé calculé à une vitesse conventionnelle de 25 km/h depuis le départ — un repère indicatif, pas un horaire officiel.</p>
 
 <h2>Côtes</h2>
+<div class="scrollx">
 <table>
 <thead><tr><th>Km</th><th>Nom</th><th>Cat.</th><th>Longueur</th><th>Pente moy.</th><th>Pente max</th><th>Sommet</th></tr></thead>
 <tbody>
 ${climbsHtml}
 </tbody>
 </table>
+</div>
 
 ${communesHtml}<p class="note">Ravitaillements : non représentés — ÉtapeForge ne dispose d'aucune source sur l'emplacement réel des zones de ravitaillement d'une étape reconstituée (donnée non publiée par ASO).</p>
 

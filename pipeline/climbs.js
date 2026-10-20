@@ -409,7 +409,11 @@ async function nameClimbs(climbs, waypointsOnTrack, samples, reverseGeocodeFn) {
         // regéocodable tel quel ailleurs (voir le commentaire détaillé dans
         // reverseGeocode()).
         c.rawLabel = r.department ? `${r.label}, ${r.department}` : r.label;
-        c.name = `Côte de ${c.rawLabel}`;
+        // Le lieu trouvé est déjà un relief (« Col du Tourmalet », « Côte de
+        // Laffrey ») : pas de « Côte de Col du Tourmalet » (revue globale du
+        // 19/10/2026). require tardif : geocode.js tire la base (cache).
+        const { isColQuery } = require('./geocode');
+        c.name = isColQuery(r.label) ? c.rawLabel : `Côte de ${c.rawLabel}`;
         c.nameSource = 'reverse-geocode';
       } else {
         // Requête résolue sans exception, mais sans label exploitable (ex.
@@ -431,6 +435,11 @@ async function nameClimbs(climbs, waypointsOnTrack, samples, reverseGeocodeFn) {
     }
     void ele;
   }
+  // Un relief trouvé au géocodage inverse peut porter le nom d'une autre
+  // côte de l'étape (la rampe sous le Col du Pin-Bouchain, nommée elle aussi
+  // « Col du Pin-Bouchain ») : le km la distingue.
+  const dup = climbs.filter((c) => c.nameSource === 'reverse-geocode' && climbs.some((o) => o !== c && o.name === c.name));
+  for (const c of dup) c.name = `${c.name} (km ${(c.endM / 1000).toFixed(0)})`;
   return climbs;
 }
 
