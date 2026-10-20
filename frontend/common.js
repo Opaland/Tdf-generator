@@ -63,7 +63,9 @@ const EF = {
     else if (p === 'api/climbs') file = 'data/climbs.json';
     if (!file) throw new Error(EF.STATIC_MSG);
     const res = await fetch(file);
-    if (!res.ok) throw new Error(`Donnée statique manquante (${file})`);
+    // status : comme EF.api(), pour qu'un appelant distingue un 404 (fiche
+    // d'étape inexistante, stage.js) d'une panne — sur la démo statique aussi.
+    if (!res.ok) throw Object.assign(new Error(`Donnée statique manquante (${file})`), { status: res.status });
     return res.json();
   },
 

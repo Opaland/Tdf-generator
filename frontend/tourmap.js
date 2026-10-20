@@ -101,7 +101,10 @@ function renderStageList() {
   const rows = [...statRows].sort((a, b) => {
     let va = a[statSort.k];
     let vb = b[statSort.k];
-    if (statSort.k === 'maxcat') { va = CAT_ORDER[va] || 0; vb = CAT_ORDER[vb] || 0; }
+    // Étape sans côte → null (en dernier dans les deux sens, comme les
+    // autres colonnes vides), pas rang 0 (qui la mettait en tête au tri
+    // croissant).
+    if (statSort.k === 'maxcat') { va = CAT_ORDER[va] || null; vb = CAT_ORDER[vb] || null; }
     if (va == null) return 1;
     if (vb == null) return -1;
     const cmp = typeof va === 'string' ? String(va).localeCompare(String(vb)) : va - vb;
