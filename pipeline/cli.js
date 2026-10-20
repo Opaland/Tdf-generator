@@ -80,8 +80,17 @@ async function main() {
         continue;
       }
       console.log(`▶ ${s.name}`);
-      const full = await generateStage(s.id, { onProgress: progressPrinter() });
-      printStageSummary(full);
+      // Une étape en échec (réseau, ou aucune altitude exploitable depuis
+      // l'Epic 35.5) ne doit pas interrompre le lot : elle reste en
+      // state='error' avec son message, comme dans
+      // scripts/import-all-and-generate.js, et le code de sortie le signale.
+      try {
+        const full = await generateStage(s.id, { onProgress: progressPrinter() });
+        printStageSummary(full);
+      } catch (err) {
+        console.log(`✗ ${s.name} : ${err.message}`);
+        process.exitCode = 1;
+      }
     }
     return;
   }

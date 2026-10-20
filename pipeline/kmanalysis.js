@@ -51,7 +51,11 @@ function analyzeByKm(samples) {
       const dd = b.dist - a.dist;
       const overlap = Math.min(b.dist, toM) - Math.max(a.dist, fromM);
       if (dd > 0 && overlap > 0) {
-        if (Number.isFinite(raw(a)) && Number.isFinite(raw(b))) {
+        // La pente d'un segment ne compte que pour le km qui en porte la
+        // plus grande part (au moins la moitié, ou 500 m d'un segment plus
+        // long qu'un km) : un segment qui effleure un km plat de 1 m n'y
+        // affiche pas sa pente (relecture adverse).
+        if (overlap >= Math.min(dd / 2, 500) && Number.isFinite(raw(a)) && Number.isFinite(raw(b))) {
           const g = ((raw(b) - raw(a)) / dd) * 100;
           if (g > maxGradient) maxGradient = g;
         }

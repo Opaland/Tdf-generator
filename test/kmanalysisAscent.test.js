@@ -26,7 +26,7 @@ test('pas de 250 m : le D+ cumulé du dernier km égale le D+ total du profil', 
   }
 });
 
-test('un segment à cheval sur deux km est réparti au prorata, et sa pente compte dans les deux', () => {
+test('un segment à cheval sur deux km : D+ au prorata, pente dans chaque km qui en porte au moins la moitié', () => {
   const s = [
     { dist: 0, eleRaw: 0, eleSmooth: 0 },
     { dist: 800, eleRaw: 0, eleSmooth: 0 },
@@ -50,4 +50,24 @@ test('une altitude manquante n\'est jamais comptée comme 0 m (règle 10)', () =
   const rows = analyzeByKm(s);
   assert.strictEqual(rows[0].ascent, 0);
   assert.strictEqual(rows[0].maxGradient100, 0);
+});
+
+test("un segment qui effleure un km de 1 m n'y affiche pas sa pente", () => {
+  const s = [
+    { dist: 0, eleRaw: 0, eleSmooth: 0 },
+    { dist: 999, eleRaw: 0, eleSmooth: 0 },
+    { dist: 1250, eleRaw: 25, eleSmooth: 25 },
+    { dist: 2000, eleRaw: 25, eleSmooth: 25 },
+  ];
+  const rows = analyzeByKm(s);
+  assert.strictEqual(rows[0].maxGradient100, 0, 'km 1 plat');
+  assert.strictEqual(rows[1].maxGradient100, 10);
+  assert.strictEqual(rows[1].cumAscent, 25);
+});
+
+test("un segment plus long qu'un km : sa pente compte dans chaque km qu'il traverse en entier", () => {
+  const s = [{ dist: 0, eleRaw: 0, eleSmooth: 0 }, { dist: 3500, eleRaw: 175, eleSmooth: 175 }];
+  const rows = analyzeByKm(s);
+  assert.deepStrictEqual(rows.map((r) => r.maxGradient100), [5, 5, 5, 5]);
+  assert.deepStrictEqual(rows.map((r) => r.ascent), [50, 50, 50, 25]);
 });
