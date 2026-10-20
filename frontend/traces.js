@@ -792,10 +792,20 @@ function renderEfforts(data) {
 // vidée et redessinée à chaque rafraîchissement du bilan.
 let traceMap = null;
 let traceLayer = null;
-async function renderTraceMap() {
+let traceMapSeq = 0;
+let traceMapKey = null; // signature des traces déjà dessinées
+/** `key` (nombre de traces et distance totale du bilan) : tracés rechargés
+ * seulement s'il a changé — la réponse pèse ~7 Ko par trace, et le bilan se
+ * rafraîchit à chaque action (relecture adverse : 6,8 Mo à chaque clic pour
+ * 1000 traces). La distance couvre une trace supprimée puis une autre
+ * importée, à nombre égal. */
+async function renderTraceMap(key) {
   const box = document.getElementById('summary-tracemap-box');
   if (!box || typeof L === 'undefined') return;
+  if (traceMap && key === traceMapKey) return;
+  const seq = ++traceMapSeq;
   const data = await EF.api('/api/traces/lines').catch(() => null);
+  if (seq !== traceMapSeq) return; // une réponse plus récente est en route
   const lines = data && Array.isArray(data.lines) ? data.lines : [];
   if (!lines.length) { box.style.display = 'none'; return; }
   box.style.display = '';
@@ -813,6 +823,7 @@ async function renderTraceMap() {
       .addTo(traceLayer);
     bounds.push(...t.coords);
   }
+  traceMapKey = key;
   traceMap.invalidateSize();
   traceMap.fitBounds(bounds, { padding: [20, 20] });
 }
@@ -871,7 +882,7 @@ async function loadSummary() {
       .map((t) => `<div class="stat"><div class="v">${EF.esc(String(t.v))}</div><div class="l">${EF.esc(t.l)}</div></div>`)
       .join('');
     document.getElementById('summary-heatmap').innerHTML = buildCalendarHeatmap(s.daily);
-    renderTraceMap().catch(() => {}); // non bloquant : le bilan reste utilisable sans la carte
+    renderTraceMap(`${s.traceCount}:${s.totalDistanceKm}`).catch(() => {}); // non bloquant : le bilan reste utilisable sans la carte
     const citiesList = document.getElementById('summary-cities');
     citiesList.innerHTML = exploration.cities
       .map((c) => `<li class="fauxplat-item">${EF.esc(c.name)}${c.count > 1 ? ` — ${c.count} sorties` : ''}</li>`)

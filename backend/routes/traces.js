@@ -181,7 +181,6 @@ module.exports = function register(app) {
     });
   }));
 
-  // GPX brut dans le corps de la requête → étape « trace » (pipeline aval identique).
   /** Tracé simplifié de chaque trace importée (même marqueur que le bilan :
    * `tracks.router = 'trace'`), pour la carte « toutes mes traces » de
    * l'onglet Exploration. Un geojson illisible (sauvegarde ancienne ou
@@ -210,6 +209,7 @@ module.exports = function register(app) {
     res.json({ lines });
   }));
 
+  // GPX brut dans le corps de la requête → étape « trace » (pipeline aval identique).
   app.post('/api/import/gpx', wrap(async (req, res) => {
     const { points, name } = parseGpx(String(req.body || ''));
     if (points.length < 2) return res.status(400).json({ error: 'GPX illisible : aucun point de trace (trkpt/rtept)' });
