@@ -701,7 +701,7 @@ et côtes traversées avec leur kilomètre.
   simultanée : 159 étapes dans la tolérance (158 avant : 1993/6 passe
   de +5,1 % à +5,0 %, un tronçon voiture devenu vélo — verdict à la
   frontière), 1 tronçon voiture (25 avant).
-- [ ] 33.12 Tri des 188 tronçons suspects (33.11), édition par édition,
+- [x] 33.12 (PR #433 à #438) Tri des 188 tronçons suspects (33.11), édition par édition,
   contre l'image agrandie : km décalé d'un cran, graduation lue pour le
   point, homonyme, centre de commune loin du passage — ou profil
   réellement contradictoire, laissé tel quel avec une note. Protocole de
