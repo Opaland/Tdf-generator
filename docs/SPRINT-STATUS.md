@@ -1325,7 +1325,7 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   `stage_type`) et 500 qui devraient être des 400.
 - [ ] 35.7 Couche réseau : timeout du corps de réponse, `state` OAuth
   Strava/Suunto, redirections de l'import par lien.
-- [ ] 35.8 Frontend — critères : la colonne « Max cat. » de la carte globale
+- [x] 35.8 (PR #444) Frontend — critères : la colonne « Max cat. » de la carte globale
   affiche la catégorie la plus dure (`maxCategory`) ; une fiche d'étape
   inexistante (404) affiche « Étape introuvable » et cesse de sonder (une
   vraie panne réseau reste retentée) ; les jours calendaires (« AAAA-MM-JJ »)
