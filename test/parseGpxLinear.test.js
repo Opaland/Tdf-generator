@@ -44,3 +44,31 @@ test("la balise fermante d'un point n'est jamais cherchée au-delà du point sui
   const { points } = parseGpx(text);
   assert.deepStrictEqual(points.map((p) => p.ele), [null, 900]);
 });
+
+// Relecture adverse : deux autres chemins quadratiques, absents du premier
+// correctif (et déjà présents dans l'ancien parseur).
+test('entrées hostiles restantes : temps linéaire', () => {
+  const cases = {
+    "'<trkpt ' sans '>'": '<trkpt '.repeat(150000), // ~1 Mo ; avant : 53 s à 910 Ko
+    'attributs sans >': '<trkpt lat="1" lon="2" '.repeat(40000),
+    '<time> non fermé + espaces': '<trkpt lat="1" lon="2"><time>a' + ' '.repeat(1000000) + '</trkpt>',
+    'mot long dans <extensions>': '<trkpt lat="1" lon="2"><extensions>' + 'a'.repeat(1000000) + '</extensions></trkpt>',
+    'commentaires non fermés': '<!-- '.repeat(100000) + '<trkpt lat="1" lon="2"/>',
+  };
+  for (const [label, text] of Object.entries(cases)) {
+    const t0 = Date.now();
+    parseGpx(text);
+    const ms = Date.now() - t0;
+    assert.ok(ms < 2000, `${label} : ${ms} ms`);
+  }
+});
+
+test('attributs : data-lat n\'est pas lat, valeurs non décimales refusées', () => {
+  const { points } = parseGpx('<trkpt data-lat="7" lat="3" lon="4"/><trkpt lat="1e1" lon="2"/><trkpt lat="+1" lon="2"/><trkpt lat="1" lon="2.5abc"/><trkpt lat="1,5" lon="2"/><trkpt lat=".5" lon="-0.25"/>');
+  assert.deepStrictEqual(points.map((p) => [p.lat, p.lon]), [[3, 4], [0.5, -0.25]]);
+});
+
+test('un point commenté ou en CDATA n\'est pas un point', () => {
+  const { points } = parseGpx('<!-- <trkpt lat="9" lon="9"> --><![CDATA[<trkpt lat="8" lon="8"/>]]><trkpt lat="1" lon="2"><ele>10</ele></trkpt>');
+  assert.deepStrictEqual(points.map((p) => [p.lat, p.lon, p.ele]), [[1, 2, 10]]);
+});
