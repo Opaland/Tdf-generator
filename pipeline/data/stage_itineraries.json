@@ -7077,7 +7077,7 @@
        "lon": 8.41758,
        "how": "nominatim",
        "confidence": "ok",
-       "note": "aller-retour (33.14) : boucle Ettlingen → Malsch → Völkersbach → Schöllbronn → Ettlingen ; la côte de Völkersbach, non placée, manque au routeur, qui revient sur ses pas entre Malsch et Schöllbronn"
+       "note": "boucle Ettlingen → Malsch → Völkersbach → Schöllbronn → Ettlingen : routée sans aller-retour depuis le placement de la côte de Völkersbach (relecture adverse de la reprise 1987, 33.12)"
       },
       {
        "label": "Ettlingen",
@@ -7232,8 +7232,11 @@
        "label": "Hermannsweiler",
        "km": 168,
        "kind": "lieu-dit",
-       "confidence": "non-place",
-       "note": "non trouvé par la recherche Nominatim bornée autour des voisins (33.12)"
+       "confidence": "ok",
+       "note": "Hertmannsweiler (Winnenden), orthographe Nominatim ; MNT 300 m pour 290 imprimés (règle 21, relecture adverse de la reprise 1987 (33.12))",
+       "lat": 48.8878,
+       "lon": 9.4231,
+       "how": "nominatim"
       },
       {
        "label": "Winnenden",
@@ -7297,17 +7300,17 @@
        "lon": 9.18001,
        "how": "stage_towns",
        "confidence": "ok",
-       "note": "tronçon suspect (33.12) : 20 km au profil pour 8 à vol d’oiseau depuis Mühlhausen : boucle par les côtes de Feuerbach et du Birkenkopf, non placées"
+       "note": "le tronçon depuis Mühlhausen n’est plus suspect depuis le placement de la côte du Birkenkopf ; reste un aller-retour incertain de 1,8 km au Birkenkopf (point non placé sauté) (relecture adverse de la reprise 1987, 33.12)"
       }
      ],
      "route_check": {
-      "routed_km": 194.9,
+      "routed_km": 195.8,
       "profile_km": 206,
-      "delta_pct": -5.4,
+      "delta_pct": -5,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
-      "legs": 20,
+      "legs": 21,
       "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 1
@@ -7402,12 +7405,11 @@
        "label": "Côte de Birkenfeld",
        "km": 68,
        "kind": "côte",
-       "geocodeAs": "Birkenfeld",
-       "lat": 48.86926,
-       "lon": 8.63448,
+       "lat": 48.8695,
+       "lon": 8.636,
        "how": "nominatim",
        "confidence": "ok",
-       "note": "rattachée au centre de Birkenfeld (MNT 361 m pour 330 imprimés) ; placée, elle crée un tronçon suspect : laissée rattachée, non routée (33.12)"
+       "note": "placée au Rathaus de Birkenfeld (Nominatim) : au centroïde elle créait un tronçon suspect, pas à la mairie ; MNT 352 m pour 330 imprimés (règle 17, relecture adverse de la reprise 1987 (33.12))"
       },
       {
        "label": "Pforzheim",
@@ -7429,13 +7431,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 64,
+      "routed_km": 66.6,
       "profile_km": 65.5,
-      "delta_pct": -2.3,
+      "delta_pct": 1.7,
       "tolerance_pct": 5,
       "coverage_pct": 83,
       "car_legs": 0,
-      "legs": 8,
+      "legs": 9,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -7521,7 +7523,7 @@
        "lon": 8.22184,
        "how": "nominatim",
        "confidence": "ok",
-       "note": "tronçon suspect (33.12) : 12,5 km au profil pour 7,6 à vol d’oiseau, 18 routés : la route de montagne réelle n’est pas connue, cause non établie ; aller-retour (33.14) : 1,9 km repris après Staufenberg, même cause non établie que l’écart du tronçon"
+       "note": "ni tronçon suspect ni aller-retour depuis le placement des côtes de Dennach et d’Ebersteinburg (relecture adverse de la reprise 1987, 33.12)"
       },
       {
        "label": "Sinzheim",
@@ -7589,18 +7591,17 @@
        "km": 105,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "non trouvé par la recherche Nominatim bornée autour des voisins (33.12)"
+       "note": "trouvé (centre de Strasbourg, 48.5846 ; 7.7507) ; placé au centre, il crée deux tronçons suspects : le passage du km 105 n'est vraisemblablement pas au centre, non routé (relecture adverse de la reprise 1987 (33.12))"
       },
       {
        "label": "Strasbourg (Palais de l'Europe)",
        "km": 110,
        "kind": "lieu-dit",
-       "geocodeAs": "Strasbourg",
-       "lat": 48.57983,
-       "lon": 7.76145,
-       "how": "commune-ign",
+       "lat": 48.5952,
+       "lon": 7.7719,
+       "how": "nominatim",
        "confidence": "ok",
-       "note": "rattaché au centre de Strasbourg (MNT 146 m au point stocké) : lieu exact non sourcé — non routé (33.12)"
+       "note": "Palais de l'Europe (Nominatim) ; le lieu exact était noté « non sourcé » (relecture adverse de la reprise 1987, 33.12)"
       },
       {
        "label": "Strasbourg",
@@ -7614,13 +7615,13 @@
      ],
      "length_km": 112.5,
      "route_check": {
-      "routed_km": 106,
+      "routed_km": 106.7,
       "profile_km": 106.5,
-      "delta_pct": -0.5,
+      "delta_pct": 0.2,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 12,
+      "legs": 13,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -8136,12 +8137,11 @@
        "label": "Côte de Sexfontaines",
        "km": 125,
        "kind": "côte",
-       "geocodeAs": "Sexfontaines",
        "lat": 48.20179,
        "lon": 5.03854,
        "how": "commune-ign",
        "confidence": "ok",
-       "note": "rattaché au centre de Sexfontaines (MNT 383 m au point stocké) : lieu exact non sourcé — non routé (33.12)"
+       "note": "placée au point stocké (centre de Sexfontaines) : MNT 383 m pour 355 imprimés, déjà à l'altitude du sommet (règle 14, relecture adverse de la reprise 1987 (33.12))"
       },
       {
        "label": "Juzennecourt",
@@ -8254,13 +8254,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 213.6,
+      "routed_km": 213.9,
       "profile_km": 207,
-      "delta_pct": 3.2,
+      "delta_pct": 3.3,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 31,
+      "legs": 32,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -8443,10 +8443,13 @@
       },
       {
        "label": "Nemours",
-       "km": 115,
+       "km": 121.5,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "non trouvé par la recherche Nominatim bornée autour des voisins (33.12)"
+       "confidence": "ok",
+       "note": "km imprimé 115 sous la colonne de Nemours, mais la colonne est à la graduation ~121,5 (Villemer 111,5 et Larchant 131 ont leur chiffre à +0,5 km de leur colonne) : coquille vraisemblable de l'original, km retenu 121,5 d'après la colonne ; ville trouvée par Nominatim (relecture adverse de la reprise 1987, 33.12)",
+       "lat": 48.268,
+       "lon": 2.6953,
+       "how": "nominatim"
       },
       {
        "label": "Larchant",
@@ -8534,8 +8537,11 @@
        "label": "Croix-de-Villeroy",
        "km": 188.5,
        "kind": "lieu-dit",
-       "confidence": "non-place",
-       "note": "non trouvé par la recherche Nominatim bornée autour des voisins (33.12)"
+       "confidence": "ok",
+       "note": "« Croix de Villeroy » (Nominatim) ; MNT 86 m pour 80 imprimés (règle 21, relecture adverse de la reprise 1987 (33.12))",
+       "lat": 48.6605,
+       "lon": 2.5183,
+       "how": "nominatim"
       },
       {
        "label": "Varennes-Jarcy",
@@ -8568,13 +8574,13 @@
      ],
      "length_km": 206.5,
      "route_check": {
-      "routed_km": 205.5,
+      "routed_km": 205.7,
       "profile_km": 200.5,
-      "delta_pct": 2.5,
+      "delta_pct": 2.6,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 28,
+      "legs": 30,
       "suspect_legs": 1,
       "backtracks": 1,
       "backtracks_uncertain": 0
@@ -8803,8 +8809,11 @@
        "label": "Les Agets",
        "km": 205,
        "kind": "lieu-dit",
-       "confidence": "non-place",
-       "note": "non trouvé par la recherche Nominatim bornée autour des voisins (33.12)"
+       "confidence": "ok",
+       "note": "arrêt de bus « Les Agets Libération » (Nominatim) ; MNT 62 m pour 60 imprimés (règle 21, relecture adverse de la reprise 1987 (33.12))",
+       "lat": 47.8673,
+       "lon": -0.4269,
+       "how": "nominatim"
       },
       {
        "label": "Grez-en-Bouère",
@@ -8874,7 +8883,7 @@
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 25,
+      "legs": 26,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -8934,8 +8943,11 @@
        "label": "Geneston",
        "km": 45,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "libellé de l’image ; non placé (aucune commune Geneston sur ce tronçon)"
+       "confidence": "ok",
+       "note": "libellé de l’image ; « Geneton », hameau de La Roche-Rigault (Nominatim) ; MNT 115 m pour 115 imprimés (règle 21, relecture adverse de la reprise 1987 (33.12))",
+       "lat": 46.9642,
+       "lon": 0.1826,
+       "how": "nominatim"
       },
       {
        "label": "Monts-sur-Guesnes",
@@ -8995,12 +9007,11 @@
        "label": "Côte de Marigny",
        "km": 76,
        "kind": "côte",
-       "geocodeAs": "Marigny-Brizay",
        "lat": 46.74556,
        "lon": 0.37683,
        "how": "nominatim",
        "confidence": "ok",
-       "note": "rattaché au centre de Marigny-Brizay (MNT 106 m au point stocké) : lieu exact non sourcé — non routé (33.12)"
+       "note": "placée au point stocké (centre de Marigny-Brizay) : MNT 106 m pour 145 imprimés (écart de 39 m, sous le seuil de 100 m ; règle 14, relecture adverse de la reprise 1987 (33.12))"
       },
       {
        "label": "Parigny",
@@ -9034,13 +9045,13 @@
      ],
      "length_km": 87.5,
      "route_check": {
-      "routed_km": 82.1,
+      "routed_km": 82.2,
       "profile_km": 79.5,
-      "delta_pct": 3.3,
+      "delta_pct": 3.4,
       "tolerance_pct": 5,
       "coverage_pct": 91,
       "car_legs": 0,
-      "legs": 12,
+      "legs": 14,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -9117,12 +9128,11 @@
        "label": "Côte de Confolens",
        "km": 72.5,
        "kind": "côte",
-       "geocodeAs": "Confolens",
-       "lat": 46.02713,
-       "lon": 0.66318,
-       "how": "commune-ign",
+       "lat": 46.0151,
+       "lon": 0.6725,
+       "how": "nominatim",
        "confidence": "ok",
-       "note": "le centre de Confolens est à 171 m au MNT pour 175 imprimés, mais placée la côte crée un tronçon suspect : laissée rattachée, non routée (33.12)"
+       "note": "placée à la mairie de Confolens (Nominatim) : le centroïde est à 1,4 km et créait un tronçon suspect ; MNT 126 m pour 175 imprimés (règle 17, relecture adverse de la reprise 1987 (33.12))"
       },
       {
        "label": "Saint-Maurice-des-Lions",
@@ -9372,13 +9382,13 @@
      "length_km": 255,
      "note": "Partie des km illisibles à cette résolution : seuls les points lus sans doute sont repris.",
      "route_check": {
-      "routed_km": 236.5,
+      "routed_km": 237.2,
       "profile_km": 249,
-      "delta_pct": -5,
+      "delta_pct": -4.8,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 30,
+      "legs": 31,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -9406,11 +9416,14 @@
        "confidence": "ok"
       },
       {
-       "label": "Côte de Sadournat",
+       "label": "Côte de Sagournat",
        "km": 10,
        "kind": "côte",
-       "confidence": "non-place",
-       "note": "non trouvé par la recherche Nominatim bornée autour des voisins (33.12)"
+       "confidence": "ok",
+       "note": "« Sagournat » (Chavagnac, Nominatim) : l'image imprime « CÔTE DE SAGOURNAT » ; MNT 325 m pour 300 imprimés (règle 21, relecture adverse de la reprise 1987 (33.12))",
+       "lat": 45.0949,
+       "lon": 1.3864,
+       "how": "nominatim"
       },
       {
        "label": "Chavagnac",
@@ -9710,13 +9723,13 @@
      "circuit_km": 224.5,
      "note": "Arrivée sur un circuit dans Bordeaux, entrée au km 224,5 (circuit_km). Profil plus court que la route sur quatre tronçons (Larche → Chavagnac, Lalinde → Saint-Capraise, Bergerac → Lamonzie → Gardonne : 1 à 1,5 km de moins que la ligne droite) : km relus sur l’agrandissement, laissés tels quels — l’écart de l’étape vient du profil, pas de la transcription.",
      "route_check": {
-      "routed_km": 226.4,
+      "routed_km": 227.3,
       "profile_km": 209.5,
-      "delta_pct": 8.1,
+      "delta_pct": 8.5,
       "tolerance_pct": 5,
       "coverage_pct": 92,
       "car_legs": 0,
-      "legs": 27,
+      "legs": 28,
       "suspect_legs": 4,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -10191,8 +10204,11 @@
        "label": "Saint-Sauveur (station thermale)",
        "km": 152,
        "kind": "lieu-dit",
-       "confidence": "non-place",
-       "note": "non trouvé par la recherche Nominatim bornée autour des voisins (33.12)"
+       "confidence": "ok",
+       "note": "Saint-Sauveur, hameau de Luz (Nominatim, place=hamlet) ; MNT 734 m pour 750 imprimés (règle 21, relecture adverse de la reprise 1987 (33.12))",
+       "lat": 42.8631,
+       "lon": -0.0105,
+       "how": "nominatim"
       },
       {
        "label": "Luz Ardiden",
@@ -10205,13 +10221,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 132.1,
+      "routed_km": 133,
       "profile_km": 133.5,
-      "delta_pct": -1.1,
+      "delta_pct": -0.4,
       "tolerance_pct": 5,
       "coverage_pct": 80,
       "car_legs": 0,
-      "legs": 16,
+      "legs": 17,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -10366,12 +10382,13 @@
       },
       {
        "label": "Plaisance-du-Touch",
-       "km": 129,
+       "km": 130,
        "kind": "lieu-dit",
        "lat": 43.5651,
        "lon": 1.29568,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "km 130 d'après l'image (chiffre de point), 129 transcrit auparavant (relecture adverse de la reprise 1987 (33.12)) ; à 130, le tronçon vers Colomiers (5 km au profil pour 6,1 à vol d’oiseau, 7 routés) devient suspect : un profil plus court que la ligne droite vient des km imprimés, pas du routeur"
       },
       {
        "label": "Colomiers",
@@ -10419,7 +10436,7 @@
       "coverage_pct": 97,
       "car_legs": 0,
       "legs": 17,
-      "suspect_legs": 1,
+      "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -10713,14 +10730,17 @@
        "km": 73,
        "kind": "col",
        "confidence": "non-place",
-       "note": "non trouvé par la recherche Nominatim bornée autour des voisins (33.12)"
+       "note": "« Col de la Serreyrède » trouvé (Nominatim, mountain_pass, 44.1030 ; 3.5413 ; MNT 1298 m pour 1300 imprimés) ; placé, il crée un aller-retour : non routé (relecture adverse de la reprise 1987 (33.12))"
       },
       {
        "label": "Lapénarié",
        "km": 89.5,
        "kind": "lieu-dit",
-       "confidence": "non-place",
-       "note": "non trouvé par la recherche Nominatim bornée autour des voisins (33.12)"
+       "confidence": "ok",
+       "note": "« La Pénarie », hameau de Valleraugue (Nominatim) ; MNT 464 m pour 440 imprimés (règle 21, relecture adverse de la reprise 1987 (33.12))",
+       "lat": 44.0888,
+       "lon": 3.5966,
+       "how": "nominatim"
       },
       {
        "label": "Valleraugue",
@@ -10791,15 +10811,21 @@
        "label": "Marvejols-lès-Gardon",
        "km": 163.5,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "non trouvé par la recherche Nominatim bornée autour des voisins (33.12)"
+       "confidence": "ok",
+       "note": "commune de Maruéjols-lès-Gardon, orthographe officielle ; MNT 105 m pour 100 imprimés (règle 21, relecture adverse de la reprise 1987 (33.12))",
+       "lat": 44.0051,
+       "lon": 4.1304,
+       "how": "nominatim"
       },
       {
        "label": "La Réglisserie",
        "km": 173,
        "kind": "lieu-dit",
-       "confidence": "non-place",
-       "note": "non trouvé par la recherche Nominatim bornée autour des voisins (33.12)"
+       "confidence": "ok",
+       "note": "« La Réglisserie » (Nominatim) ; MNT 76 m pour 70 imprimés (règle 21, relecture adverse de la reprise 1987 (33.12))",
+       "lat": 43.9751,
+       "lon": 4.2147,
+       "how": "nominatim"
       },
       {
        "label": "Garrigues",
@@ -10867,13 +10893,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 234.1,
+      "routed_km": 234.5,
       "profile_km": 229,
-      "delta_pct": 2.2,
+      "delta_pct": 2.4,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 19,
+      "legs": 22,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 1
@@ -10925,8 +10951,11 @@
        "label": "Pavillon Rolland",
        "km": 23.5,
        "kind": "lieu-dit",
-       "confidence": "non-place",
-       "note": "non trouvé par la recherche Nominatim bornée autour des voisins (33.12)"
+       "confidence": "ok",
+       "note": "« Pavillon de Rolland » (Nominatim) ; MNT 855 m pour 845 imprimés (règle 21, relecture adverse de la reprise 1987 (33.12))",
+       "lat": 44.1253,
+       "lon": 5.2662,
+       "how": "nominatim"
       },
       {
        "label": "Chalet Reynard",
@@ -10949,13 +10978,13 @@
      ],
      "length_km": 36.5,
      "route_check": {
-      "routed_km": 21.6,
+      "routed_km": 21.8,
       "profile_km": 22,
-      "delta_pct": -1.8,
+      "delta_pct": -1.1,
       "tolerance_pct": 5,
       "coverage_pct": 60,
       "car_legs": 0,
-      "legs": 4,
+      "legs": 5,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -11098,12 +11127,13 @@
       },
       {
        "label": "La Chapelle-en-Vercors",
-       "km": 149.5,
+       "km": 150,
        "kind": "ville",
        "lat": 44.96819,
        "lon": 5.41614,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "km 150 d'après l'image (seul nombre sous la colonne), 149,5 transcrit auparavant (relecture adverse de la reprise 1987 (33.12))"
       },
       {
        "label": "Les Barraques-en-Vercors",
@@ -11361,12 +11391,11 @@
        "label": "Côte de Brié",
        "km": 139.5,
        "kind": "côte",
-       "geocodeAs": "Brié-et-Angonnes",
        "lat": 45.12628,
        "lon": 5.77683,
        "how": "commune-ign",
        "confidence": "ok",
-       "note": "laissée rattachée (33.15) : Nominatim ne donne que Brié Bas, le pied de la côte"
+       "note": "placée au point stocké (centre de Brié-et-Angonnes) : MNT 441 m pour 430 imprimés, Nominatim ne donnant que Brié Bas, le pied (règle 14, relecture adverse de la reprise 1987 (33.12))"
       },
       {
        "label": "Vizille",
@@ -11405,7 +11434,7 @@
        "lon": 5.87198,
        "how": "nominatim",
        "confidence": "ambigu",
-       "note": "tronçon suspect (33.12) : 20 km au profil depuis Vizille par la côte de Laffrey et Saint-Barthélemy-de-Séchilienne, non routés (rattachés à leur commune)"
+       "note": "la côte de Laffrey et Saint-Barthélemy-de-Séchilienne sont routés : le tronçon depuis Vizille n’est plus suspect (relecture adverse de la reprise 1987, 33.12)"
       },
       {
        "label": "Livet",
@@ -11456,13 +11485,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 191.9,
+      "routed_km": 189.8,
       "profile_km": 195,
-      "delta_pct": -1.6,
+      "delta_pct": -2.7,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 27,
+      "legs": 28,
       "suspect_legs": 1,
       "backtracks": 1,
       "backtracks_uncertain": 0
@@ -11868,8 +11897,11 @@
        "label": "Col de Ranfolly",
        "km": 173.5,
        "kind": "col",
-       "confidence": "non-place",
-       "note": "non trouvé par la recherche Nominatim bornée autour des voisins (33.12)"
+       "confidence": "ok",
+       "note": "« Col du Ranfolly » (Nominatim, mountain_pass) ; MNT 1656 m pour 1650 imprimés (règle 21, relecture adverse de la reprise 1987 (33.12))",
+       "lat": 46.1393,
+       "lon": 6.6957,
+       "how": "nominatim"
       },
       {
        "label": "Morzine",
@@ -11888,7 +11920,7 @@
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
-      "legs": 20,
+      "legs": 21,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -12131,11 +12163,11 @@
        "label": "Les Essards",
        "km": 167,
        "kind": "ville",
-       "geocodeAs": "Les Essards-Taignevaux",
-       "lat": 46.89853,
-       "lon": 5.41279,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 46.91129,
+       "lon": 5.41859,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "placé à la mairie des Essards (Nominatim) : le centroïde de la commune fusionnée est à 1,5 km ; MNT 215 m pour 210 imprimés (règle 17, relecture adverse de la reprise 1987 (33.12))"
       },
       {
        "label": "Chaussin",
@@ -12222,9 +12254,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 230.2,
+      "routed_km": 227.7,
       "profile_km": 219,
-      "delta_pct": 5.1,
+      "delta_pct": 4,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
@@ -12245,17 +12277,17 @@
        "lat": 47.32158,
        "lon": 5.04147,
        "how": "commune-ign",
-       "confidence": "ok",
-       "note": "tronçon suspect depuis Ahuy (33.12) : 6,6 km routés, 5,7 à vol d’oiseau, pour 4 au profil ; en voiture (OSRM) 6,9 km — pas le routeur, cause non établie"
+       "confidence": "ok"
       },
       {
        "label": "Messigny-et-Vantoux",
        "km": 7.5,
        "kind": "ville",
-       "lat": 47.42158,
-       "lon": 5.00386,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 47.40659,
+       "lon": 5.01842,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "placé à la mairie (Nominatim, townhall) : le centroïde IGN est à 2 km, MNT 426 m pour 300 imprimés ; la mairie est à 315 m (règle 17, relecture adverse de la reprise 1987 (33.12))"
       },
       {
        "label": "Sainte-Foy",
@@ -12296,7 +12328,7 @@
        "lon": 4.93976,
        "how": "commune-ign",
        "confidence": "ok",
-       "note": "tronçon suspect (33.12) : 17 km au profil depuis Messigny par Sainte-Foy et le Val-Suzon, non routés"
+       "note": "Sainte-Foy et Val-Suzon (Bas) sont routés : le tronçon depuis Messigny n’est plus suspect (relecture adverse de la reprise 1987, 33.12)"
       },
       {
        "label": "Hauteville-lès-Dijon",
@@ -12328,9 +12360,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 34,
+      "routed_km": 32.2,
       "profile_km": 30.5,
-      "delta_pct": 11.6,
+      "delta_pct": 5.7,
       "tolerance_pct": 5,
       "coverage_pct": 80,
       "car_legs": 0,
@@ -12467,12 +12499,11 @@
        "label": "Côte de Dourdan",
        "km": 87.5,
        "kind": "côte",
-       "geocodeAs": "Dourdan",
        "lat": 48.53577,
        "lon": 2.01224,
        "how": "commune-ign",
        "confidence": "ok",
-       "note": "rattaché au centre de Dourdan (MNT 129 m au point stocké) : lieu exact non sourcé — non routé (33.12)"
+       "note": "placée au point stocké (centre de Dourdan) : MNT 129 m pour 140 imprimés (règle 14, relecture adverse de la reprise 1987 (33.12))"
       },
       {
        "label": "Saint-Cyr-sous-Dourdan",
@@ -12525,12 +12556,11 @@
        "label": "Côte de Châteaufort",
        "km": 122,
        "kind": "côte",
-       "geocodeAs": "Châteaufort",
        "lat": 48.73644,
        "lon": 2.09429,
        "how": "commune-ign",
        "confidence": "ok",
-       "note": "rattaché au centre de Châteaufort (MNT 158 m au point stocké) : lieu exact non sourcé — non routé (33.12)"
+       "note": "placée au point stocké (centre de Châteaufort) : MNT 158 m pour 150 imprimés (règle 14, relecture adverse de la reprise 1987 (33.12))"
       },
       {
        "label": "Côte de l'Homme-Mort",
@@ -12584,13 +12614,13 @@
      ],
      "circuit_km": 150.5,
      "route_check": {
-      "routed_km": 147.6,
+      "routed_km": 146.6,
       "profile_km": 145.5,
-      "delta_pct": 1.4,
+      "delta_pct": 0.7,
       "tolerance_pct": 5,
       "coverage_pct": 76,
       "car_legs": 0,
-      "legs": 19,
+      "legs": 21,
       "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 0
