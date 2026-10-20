@@ -1416,7 +1416,7 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   plus « n'importe quelle étape … à partir de sources vérifiées » (environ
   130 étapes curées) ; le temps fort 2017 ne dit plus qu'un CLM a été
   « remporté par Marseille » (une ville).
-- [ ] 35.12 Petits correctifs backend — critères : le cache de
+- [x] 35.12 (PR #450) Petits correctifs backend — critères : le cache de
   `/api/search/near` voit un renommage, un changement de date, d'édition ou
   de coordonnées ; un intervalle de sauvegarde au-delà de 596 h (ou négatif,
   ou illisible) ne déclenche plus une sauvegarde par milliseconde ; le nom du
