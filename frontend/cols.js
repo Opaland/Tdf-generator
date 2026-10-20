@@ -53,7 +53,7 @@ function render() {
   const tbody = document.querySelector('#cols-table tbody');
   tbody.innerHTML = rows
     .map(
-      (c, i) => `<tr data-i="${i}" style="cursor:pointer" tabindex="0" aria-expanded="false" aria-label="${EF.esc(c.name || 'Côte')} : déplier le profil">
+      (c, i) => `<tr data-i="${i}" style="cursor:pointer" tabindex="0" aria-expanded="false" title="Entrée ou clic : déplier le profil">
         <td>${EF.esc(c.name || '—')}${c.simulated ? '<span class="badge partial-badge" title="étape générée en mode hors-ligne : profil d\'altitude synthétique (simulateur), pas une mesure réelle — pentes affichées possiblement irréalistes">simulé</span>' : ''}</td>
         <td><span class="pill" style="background:${EFProfile.CAT_COLORS[c.category]};color:${EFProfile.CAT_TEXT[c.category]}">${EF.esc(c.category)}</span></td>
         <td>${c.summit_ele_m}</td><td>${c.length_km}</td><td>${c.avg_gradient}</td>
