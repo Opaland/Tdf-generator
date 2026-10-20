@@ -1346,7 +1346,16 @@ Actionnables sans décision :
   (jamais 0 m supposé) (`test/fietsIndex.test.js`, vérification Playwright).
   Au passage : score, indice d'irrégularité, points et facteur de fatigue
   de l'indice de douleur à la virgule décimale (oubli de la 35.19).
-- [ ] 34.6 Profil coloré par surface et par FC (données déjà présentes).
+- [x] 34.6 (PR #466) Profil coloré par surface et par FC (données déjà présentes) —
+  critères : au pied du profil de la fiche, une bande « Rev. » colore les
+  tronçons non revêtus, non revêtus présumés et pavés (`track.surfaces`),
+  une bande « FC » colore chaque portion selon sa zone de FC (Z1 à Z5,
+  FC max saisie ; rien sous Z1 ni sans FC) ; teinte unique du clair au
+  foncé pour les zones (grandeur ordonnée), couleurs distinctes pour les
+  revêtements ; infobulle par portion, légende en texte sous le profil
+  (jamais la couleur seule) ; bande absente sans donnée ; redessinée quand
+  la FC max change (`test/profileStrips.test.js`, vérification Playwright
+  1280 / 390 px sur une trace avec FC et revêtements).
 - [x] 34.7 (PR #467) Zones de confidentialité autour du domicile dans les exports et
   mini-sites de traces (idée geo-activity-playground) — critères : jusqu'à
   5 zones (latitude, longitude, rayon de 100 à 5000 m), réglage de
