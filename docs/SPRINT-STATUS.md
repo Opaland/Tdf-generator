@@ -1258,17 +1258,33 @@ et côtes traversées avec leur kilomètre.
   (circuits finaux, côtes et hameaux exclus du calcul qui coupent la
   route) ou D (détours du profil vélo ; 1995/4 : pont de Normandie
   interdit aux vélos) — pas d'erreur de donnée trouvée, écart affiché.
-- [ ] 33.16 Examen des pistes Wikidata (`docs/WIKIDATA-RECOUPEMENT.md`,
+- [x] 33.16 (PR #468) Examen des pistes Wikidata, villes (`docs/WIKIDATA-RECOUPEMENT.md`,
   34.1) — critères : chacune des 41 lignes de villes signalées (32 villes
   distinctes, à plus de 10 km de la ville Wikidata) est classée « homonyme
   chez nous » (position corrigée dans `stage_towns_overrides.json`, source
   citée, étapes voisines re-contrôlées), « erreur ou date décalée côté
   Wikidata » (laissée, cause notée) ou « lieu de départ réel distinct de la
   ville-étape » (ex. 1903/1, Montgeron près de Villeneuve-Saint-Georges :
-  à sourcer avant toute décision) ; les 16 écarts de distance et 28 dates
-  décalées d'un ou deux jours sont triés de même ; aucune correction sans source
+  à sourcer avant toute décision) ; aucune correction sans source
   (règle 12). Curation de données : CI verte, pas de relecture adverse
-  dédiée (règle 11).
+  dédiée (règle 11). Fait : classement dans `docs/WIKIDATA-EXAMEN.md`,
+  17 lignes corrigées (Wikipédia cité par entrée), rapport régénéré de 41
+  à 24 lignes, 1993/16 recontrôlée (inchangée, −1,8 %). Les distances et
+  les dates, d'abord comptées dans cette story, passent en 33.17.
+- [ ] 33.17 Tri des 16 écarts de distance et des 28 dates décalées du
+  recoupement Wikidata — critères : chaque ligne classée « notre donnée
+  fausse » (corrigée, source citée), « Wikidata faux » (laissée, cause
+  notée) ou « non tranché » (deux sources qui divergent, les deux citées) ;
+  aucune correction sans source (règle 12) ; curation, pas de relecture
+  adverse dédiée.
+- [ ] 33.18 Libellé faux pris à un lien Wikipédia : 1984/6 part de
+  « Louvroil » parce que en.wikipedia écrit `[[Louvroil|Cergy-Pontoise]]`
+  — critères : `stage_towns_overrides.json` accepte un `label` facultatif
+  par occurrence (testé, `applyOverrides`) ; 1984/6 départ devient
+  Cergy-Pontoise, source citée (arrivée de 1984/5, Wikidata) ; recherche
+  dans les tableaux Wikipédia d'autres liens dont le texte diffère de la
+  cible pour une ville-étape (liste dans la PR) ; changement de code, donc
+  relecture adverse.
 
 ## Epic 34 — Idées venues d'autres dépôts (veille du 18/10/2026)
 

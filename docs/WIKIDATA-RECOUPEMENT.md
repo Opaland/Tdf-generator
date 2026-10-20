@@ -7,7 +7,7 @@ Source : Wikidata (CC0), query.wikidata.org. 118 éditions comparées à `pipeli
 géocodé chez nous que d'une erreur ou d'une date décalée sur Wikidata. Chaque
 correction passe par la curation, source citée (CLAUDE.md règle 12).
 
-- Villes à plus de 10 km de la ville Wikidata : 25 départs, 16 arrivées
+- Villes à plus de 10 km de la ville Wikidata : 18 départs, 6 arrivées
 - Distances à plus de 5 % (et 1 km) de Wikidata : 16
 - Dates décalées (mêmes villes, autre jour sur Wikidata) : 28
 - Étapes sans correspondance (ni mêmes villes à ±2 jours, ni même jour) : 0
@@ -24,8 +24,6 @@ une ville présente dans deux étapes apparaît deux fois.
 | 1903/1 (départ) | « Paris » placé à 15 km de « Villeneuve-Saint-Georges » (Wikidata Q244241) | ok |
 | 1903/6 (arrivée) | « Paris » placé à 12 km de « Ville-d'Avray » (Wikidata Q456327) | ok |
 | 1905/1 (départ) | « Paris » placé à 15 km de « Noisy-le-Grand » (Wikidata Q207605) | ok |
-| 1926/1 (arrivée) | « Mülhausen » placé à 127 km de « Mulhouse » (Wikidata Q79815) | ok |
-| 1926/2 (départ) | « Mülhausen » placé à 127 km de « Mulhouse » (Wikidata Q79815) | ok |
 | 1938/1 (départ) | « Paris » placé à 16 km de « Le Vésinet » (Wikidata Q641607) | ok |
 | 1939/16a (arrivée) | « Briançon » placé à 61 km de « Bonneval-sur-Arc » (Wikidata Q736370) | ok |
 | 1947/1 (départ) | « Paris » placé à 12 km de « Pierrefitte-sur-Seine » (Wikidata Q253939) | ok |
@@ -36,32 +34,17 @@ une ville présente dans deux étapes apparaît deux fois.
 | 1962/21 (arrivée) | « Nevers » placé à 11 km de « Pougues-les-Eaux » (Wikidata Q46575) | ok |
 | 1962/22 (départ) | « Nevers » placé à 11 km de « Pougues-les-Eaux » (Wikidata Q46575) | ok |
 | 1964/7 (départ) | « Besançon » placé à 55 km de « Champagnole » (Wikidata Q477013) | ok |
-| 1964/13 (arrivée) | « Andorra » placé à 49 km de « Andorre-la-Vieille » (Wikidata Q1863) | douteux |
-| 1964/14 (départ) | « Andorra » placé à 49 km de « Andorre-la-Vieille » (Wikidata Q1863) | douteux |
 | 1969/19 (départ) | « Bordeaux » placé à 28 km de « Libourne » (Wikidata Q6544) | ok |
-| 1970/8 (arrivée) | « Felsberg » placé à 287 km de « Émetteur d'Europe 1 » (Wikidata Q896321) | ok |
 | 1973/6 (départ) | « Mulhouse » placé à 38 km de « Belfort » (Wikidata Q171545) | ok |
-| 1973/7b (arrivée) | « Méribel » placé à 58 km de « Les Allues » (Wikidata Q537798) | douteux |
 | 1973/8 (départ) | « Moûtiers » placé à 419 km de « Moutiers » (Wikidata Q208732) | ambigu |
 | 1982/1 (départ) | « Basel » placé à 29 km de « Schupfart » (Wikidata Q66314) | ok |
 | 1982/11 (départ) | « Valence d'Agen » placé à 330 km de « Valence » (Wikidata Q8848) | ok |
 | 1982/11 (arrivée) | « Valence d'Agen » placé à 330 km de « Valence » (Wikidata Q8848) | ok |
 | 1984/6 (départ) | « Louvroil » placé à 193 km de « Cergy-Pontoise » (Wikidata Q18681428) | ok |
-| 1993/16 (départ) | « Andorra » placé à 49 km de « Andorre-la-Vieille » (Wikidata Q1863) | douteux |
 | 1994/3 (arrivée) | « Eurotunnel » placé à 29 km de « tunnel sous la Manche » (Wikidata Q10257) | verifie |
 | 1994/18 (départ) | « Moûtiers » placé à 419 km de « Moutiers » (Wikidata Q208732) | ambigu |
 | 1997/11 (départ) | « Andorra Arcalis » placé à 14 km de « Andorre-la-Vieille » (Wikidata Q1863) | ok |
-| 1997/16 (arrivée) | « Fribourg » placé à 14 km de « Fribourg » (Wikidata Q36378) | ok |
-| 1997/17 (départ) | « Fribourg » placé à 14 km de « Fribourg » (Wikidata Q36378) | ok |
-| 2001/19 (arrivée) | « Évry » placé à 73 km de « Évry » (Wikidata Q192393) | douteux |
 | 2003/1 (départ) | « Saint-Denis » placé à 27 km de « Montgeron » (Wikidata Q242569) | ok |
-| 2011/1 (arrivée) | « Mont des Alouettes » placé à 64 km de « mont des Alouettes » (Wikidata Q956593) | douteux |
-| 2014/21 (départ) | « Évry » placé à 73 km de « Évry » (Wikidata Q192393) | douteux |
-| 2015/2 (arrivée) | « Zeeland » placé à 23 km de « Neeltje Jans » (Wikidata Q2330240) | ok |
-| 2020/17 (arrivée) | « Méribel » placé à 61 km de « col de la Loze » (Wikidata Q86666408) | douteux |
-| 2020/18 (départ) | « Méribel » placé à 62 km de « Méribel » (Wikidata Q914361) | douteux |
-| 2024/1 (arrivée) | « Rimini » placé à 14 km de « Rimini » (Wikidata Q13369) | ok |
-| 2024/3 (départ) | « Piacenza » placé à 23 km de « Plaisance » (Wikidata Q13329) | ok |
 
 ## Distances
 
