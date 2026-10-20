@@ -1275,7 +1275,7 @@ Actionnables sans décision :
   fiche — couches relevées dans le GetCapabilities ; licence à confirmer
   couche par couche.
 - [ ] 34.3 Heatmap géographique de toutes ses traces (idée derive / VeloViewer).
-- [ ] 34.4 Nombre d'Eddington (distance et D+) dans le bilan (idée
+- [x] 34.4 (PR #461) Nombre d'Eddington (distance et D+) dans le bilan (idée
   geo-activity-playground, MIT) — critères : deux tuiles du bilan de Mes
   traces donnent le plus grand E tel qu'au moins E jours roulés atteignent
   E km (distance) et E × 100 m (D+, tranche choisie ici et écrite dans le
