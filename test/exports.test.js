@@ -451,6 +451,8 @@ test("stageToTcx : chaque waypoint est daté à sa position sur le tracé, pas �
   assert.strictEqual(depart, '2026-07-14T08:00:00.000Z');
   // 98,4 km à 25 km/h : 3 h 56 min 10 s après le départ.
   assert.strictEqual(arrivee, '2026-07-14T11:56:09.600Z');
+});
+
 // --- Trous de couverture altimétrique dans le tracé (Epic 35.5, règle 10) ---
 
 test('exports : un échantillon sans altitude n\'est jamais exporté à 0 m (GPX, TCX, KML)', () => {
