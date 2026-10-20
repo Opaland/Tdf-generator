@@ -160,11 +160,17 @@ function renderExplorerGrid(editions) {
     // visible directement sur la tuile, même esprit que ✓/⚠/✗ sur
     // .checks .st ailleurs dans l'app. Trouvaille de revue-personas.
     const glyph = status === 'complete' ? '✓' : status === 'partial' ? '½' : '';
-    return `<button type="button" class="explorer-tile explorer-tile-${status}" data-explorer-year="${e.year}" title="${EF.esc(title)}">${glyph ? `<span class="explorer-tile-glyph">${glyph}</span> ` : ''}${e.year}</button>`;
+    // Identifiée par l'id d'édition, pas par l'année : Hommes et Femmes de
+    // la même année donnaient deux tuiles « 2022 » identiques, et le clic sur
+    // la tuile Femmes ouvrait toujours l'édition Hommes (revue globale du
+    // 19/10/2026).
+    const label = e.category === 'femmes' ? `${e.year} F` : String(e.year);
+    const fullTitle = e.category === 'femmes' ? `Tour de France Femmes ${title}` : title;
+    return `<button type="button" class="explorer-tile explorer-tile-${status}" data-explorer-id="${e.id}" title="${EF.esc(fullTitle)}">${glyph ? `<span class="explorer-tile-glyph">${glyph}</span> ` : ''}${label}</button>`;
   }).join('');
-  grid.querySelectorAll('[data-explorer-year]').forEach((btn) =>
+  grid.querySelectorAll('[data-explorer-id]').forEach((btn) =>
     btn.addEventListener('click', async () => {
-      const edition = known.find((e) => String(e.year) === btn.dataset.explorerYear);
+      const edition = known.find((e) => String(e.id) === btn.dataset.explorerId);
       if (!edition) return;
       // Le filtre « entièrement sourcé » peut avoir retiré le <details> de
       // cette édition du DOM alors que sa tuile reste affichée (la grille
@@ -361,7 +367,7 @@ function nearResultsHtml(data) {
       ? ` · <a href="${EF.esc(r.sourceUrl)}" target="_blank" rel="noopener noreferrer">profil officiel</a>` : '';
     const check = String(r.basis).startsWith('itinerary-') ? EF.esc(routeCheckText(r.routeCheck)) : '';
     const warn = r.basis === 'endpoint' || String(r.basis).startsWith('itinerary-') ? EF.esc(GEOCODE_WARN[r.geocodeConfidence] || '') : '';
-    const date = r.date && /^\d{4}-\d{2}-\d{2}$/.test(r.date) ? ` (${EF.esc(new Date(r.date + 'T00:00:00Z').toLocaleDateString('fr-FR'))})` : '';
+    const date = r.date && /^\d{4}-\d{2}-\d{2}$/.test(r.date) ? ` (${EF.esc(new Date(r.date + 'T00:00:00Z').toLocaleDateString('fr-FR', { timeZone: 'UTC' }))})` : '';
     const link = r.stageId != null ? ` · <a href="/stage.html?id=${Number(r.stageId)}">voir l'étape</a>` : '';
     return `<li class="fauxplat-item">${title} — à <b>${km(r.distanceM)} km</b>${near}${link}${source}${date}<br><span class="meta-line">${EF.esc(NEAR_BASIS[r.basis] || r.basis)}${warn}${check}</span></li>`;
   }).join('');
