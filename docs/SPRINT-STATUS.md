@@ -1443,7 +1443,7 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   atteignables et dépliables au clavier (Entrée, Espace, `aria-expanded`) ;
   une recherche de cols sans résultat affiche un message (vérification
   Playwright au clavier).
-- [ ] 35.15 Roadbook et étiquettes du profil — critères : un col au sommet
+- [x] 35.15 (PR #453) Roadbook et étiquettes du profil — critères : un col au sommet
   d'une côte a la même altitude dans « Villes et points de passage » et
   dans « Côtes » (`summit_ele_m`), les autres points prennent l'altitude
   mesurée, « — » si elle manque (jamais 0 m) ; une arrivée au sommet
