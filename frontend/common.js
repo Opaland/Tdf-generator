@@ -181,6 +181,54 @@ const EF = {
     return EF.inFrance(lat, lon) ? EF.ignLayer() : EF.osmLayer();
   },
 
+  // Fonds historiques de l'IGN (backlog 34.2) : identifiants, matrices de
+  // tuiles et formats relevés dans le GetCapabilities de data.geopf.fr/wmts
+  // (20/10/2026) ; licence lue dans la fiche de métadonnées de chaque couche
+  // (CSW IGNF_SCAN-50-HISTO, IGNF_SCAN-EM-40K, IGNF_BD-ORTHO-HISTO) :
+  // Licence Ouverte / Open License. Couverture : France (tuiles blanches
+  // ou 404 ailleurs, vérifié aux frontières par la relecture adverse).
+  historicLayers() {
+    // Attribution : la Licence Ouverte demande la source et la date de
+    // dernière mise à jour, « ou un lien hypertexte vers la source » —
+    // la fiche de chaque couche (cartes.gouv.fr) donne les deux (relecture
+    // adverse). minZoom aligné sur la matrice de tuiles : en dessous, le
+    // service répond 404 pour chaque tuile.
+    const LICENCE = '<a href="https://www.etalab.gouv.fr/licence-ouverte-open-licence/">Licence Ouverte</a>';
+    const wmts = (layer, matrixSet, format, minZoom, maxNativeZoom, label, dataset) =>
+      L.tileLayer(
+        'https://data.geopf.fr/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0' +
+          `&LAYER=${layer}&STYLE=normal&TILEMATRIXSET=${matrixSet}&FORMAT=${format}` +
+          '&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
+        {
+          attribution: `© IGN — <a href="https://cartes.gouv.fr/catalogue/dataset/${dataset}">${label}</a> — ${LICENCE}`,
+          minZoom, maxNativeZoom, maxZoom: 18,
+        }
+      );
+    // « France » dans le libellé : tuiles blanches ailleurs, et inFrance()
+    // n'est qu'une boîte englobante (Barcelone ou Bruxelles y entrent).
+    return {
+      'Carte 1950 (IGN, France)': wmts('GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN50.1950', 'PM_3_15', 'image/jpeg', 3, 15, 'Carte 1950 (SCAN 50)', 'IGNF_SCAN-50-HISTO'),
+      "Carte de l'état-major 1820-1866 (France)": wmts('GEOGRAPHICALGRIDSYSTEMS.ETATMAJOR40', 'PM_6_15', 'image/jpeg', 6, 15, "carte de l'état-major", 'IGNF_SCAN-EM-40K'),
+      'Photos aériennes 1950-1965 (IGN, France)': wmts('ORTHOIMAGERY.ORTHOPHOTOS.1950-1965', 'PM_0_18', 'image/png', 0, 18, 'photographies aériennes 1950-1965', 'IGNF_BD-ORTHO-HISTO'),
+    };
+  },
+
+  /**
+   * Fond par défaut (IGN en France, OpenStreetMap ailleurs) posé sur la
+   * carte, et sélecteur de fonds : plan actuel, OpenStreetMap, et en France
+   * les trois fonds historiques — pour voir la route telle qu'elle était au
+   * temps de l'étape (backlog 34.2).
+   */
+  addBaseLayers(map, lat, lon) {
+    const france = EF.inFrance(lat, lon);
+    const ign = EF.ignLayer();
+    const osm = EF.osmLayer();
+    (france ? ign : osm).addTo(map);
+    const bases = { 'Plan IGN (actuel)': ign, OpenStreetMap: osm, ...(france ? EF.historicLayers() : {}) };
+    L.control.layers(bases, null, { collapsed: true, position: 'topright' }).addTo(map);
+    return bases;
+  },
+
   // Redirige vers /login.html si le serveur exige un compte (ETAPEFORGE_PUBLIC=1)
   // et qu'aucune session valide n'est présente. Retourne l'utilisateur connecté
   // (ou null si l'auth n'est pas activée).

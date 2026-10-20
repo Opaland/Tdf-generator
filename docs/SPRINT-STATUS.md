@@ -1295,10 +1295,25 @@ Actionnables sans décision :
   41 lignes de villes pour 32 villes distinctes, 16 distances, 28 dates
   décalées, 0 sans correspondance) ; comparaison pure testée sans réseau
   (`test/wikidataTowns.test.js`). L'examen des pistes est la story 33.16.
-- [ ] 34.2 Calques IGN historiques (Carte 1950 `GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN50.1950`,
+- [x] 34.2 (PR #465) Calques IGN historiques (Carte 1950 `GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN50.1950`,
   état-major `…ETATMAJOR40`, photos aériennes 1950-1965) dans l'éditeur et la
   fiche — couches relevées dans le GetCapabilities ; licence à confirmer
-  couche par couche.
+  couche par couche. — critères : un sélecteur de fond sur la carte de la
+  fiche et de l'éditeur propose le plan IGN actuel, OpenStreetMap et les
+  trois fonds historiques (carte 1950 SCAN 50, carte de l'état-major
+  1820-1866, photos aériennes 1950-1965), étiquetés « France » : leurs
+  tuiles sont blanches ou absentes ailleurs ; sur la fiche, ils ne sont
+  proposés que dans la boîte englobante `inFrance` (grossière : Barcelone ou
+  Bruxelles y entrent), OSM par défaut hors de cette boîte ; identifiants,
+  matrices de tuiles (PM_3_15, PM_6_15, PM_0_18, d'où `minZoom` 3, 6 et 0)
+  et formats relevés dans le GetCapabilities de data.geopf.fr le
+  20/10/2026 ; licence lue dans la fiche CSW de chaque couche
+  (IGNF_SCAN-50-HISTO, IGNF_SCAN-EM-40K, IGNF_BD-ORTHO-HISTO : Licence
+  Ouverte / Open License, aucune restriction d'accès) ; attribution avec
+  lien vers la fiche de la couche et vers la licence (la Licence Ouverte
+  demande source et date de mise à jour, ou un lien vers la source) ; une
+  tuile réelle de chaque couche répond 200 (`test/historicLayers.test.js`,
+  vérification Playwright avec les vraies tuiles).
 - [x] 34.3 (PR #463) Heatmap géographique de toutes ses traces (idée derive / VeloViewer)
   — critères : `GET /api/traces/lines` renvoie le tracé simplifié (au plus
   400 points, `[lat, lon]`) de chaque trace importée (`tracks.router =
