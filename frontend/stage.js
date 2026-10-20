@@ -381,7 +381,7 @@ function renderFiche() {
     const coords = track.geojson.geometry.coordinates.map(([lon, lat]) => [lat, lon]);
     const mid = coords[Math.floor(coords.length / 2)];
     const map = L.map('map');
-    EF.baseLayerFor(mid[0], mid[1]).addTo(map);
+    EF.addBaseLayers(map, mid[0], mid[1]);
     // Tracé coloré par pente locale (lisible d'un coup d'œil, façon VeloViewer) :
     // halo sombre + segments entre échantillons successifs, teintés par gradient.
     L.polyline(coords, { color: '#3a3a3a', weight: 6, opacity: 0.5 }).addTo(map);
