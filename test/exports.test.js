@@ -296,12 +296,12 @@ test('stageToKml : coordinates au format "lon,lat,ele" (KML inverse lon/lat par 
   assert.match(kml, /<coordinates>1\.35,43\.25,555<\/coordinates>/);
 });
 
-test('stageToKml : altitude manquante (undefined) -> "0" via ??, jamais "undefined" ni NaN', () => {
+test('stageToKml : altitude manquante (undefined) -> tuple "lon,lat" sans altitude, jamais "0", "undefined" ni NaN (règle 10)', () => {
   const full = makeFull({
     waypoints: [{ label: 'Sans altitude', kind: 'via', lat: 43.2, lon: 1.2, altitude_hint_m: undefined }],
   });
   const kml = stageToKml(full);
-  assert.match(kml, /<coordinates>1\.2,43\.2,0<\/coordinates>/);
+  assert.match(kml, /<coordinates>1\.2,43\.2<\/coordinates>/);
 });
 
 test('stageToKml : trackCoords un tuple par sample, joints par un espace', () => {
@@ -353,7 +353,7 @@ test('stageToKml : waypoint SANS altitude_hint_m -> pas d\'altitudeMode (reste c
     waypoints: [{ label: 'Sans altitude', kind: 'via', lat: 43.2, lon: 1.2, altitude_hint_m: undefined }],
   });
   const kml = stageToKml(full);
-  assert.match(kml, /<Point><coordinates>1\.2,43\.2,0<\/coordinates><\/Point>/, 'pas d\'altitudeMode devant ce Point précis, un 0 de repli ne doit jamais être présenté comme une vraie altitude');
+  assert.match(kml, /<Point><coordinates>1\.2,43\.2<\/coordinates><\/Point>/, 'pas d\'altitudeMode devant ce Point précis, un 0 de repli ne doit jamais être présenté comme une vraie altitude');
 });
 
 test('stageToKml : description d\'une côte échappée (esc) même si elle contient des caractères réservés XML', () => {
@@ -429,4 +429,29 @@ test('ATTRIBUTIONS : chaîne non vide citant les sources de données réellement
   assert.match(ATTRIBUTIONS, /IGN/);
   assert.match(ATTRIBUTIONS, /OpenStreetMap/);
   assert.match(ATTRIBUTIONS, /OSRM/);
+});
+
+// --- Trous de couverture altimétrique dans le tracé (Epic 35.5, règle 10) ---
+
+test('exports : un échantillon sans altitude n\'est jamais exporté à 0 m (GPX, TCX, KML)', () => {
+  const base = makeFull();
+  const samples = base.samples.map((s, i) => (i === 1 ? { ...s, ele_raw_m: null } : s));
+  assert.ok(samples.length >= 3 && samples.some((s) => Number.isFinite(s.ele_raw_m)), 'fixture');
+  const full = { ...base, samples };
+  const gpx = stageToGpx(full);
+  const trkpts = gpx.match(/<trkpt [^>]*>[\s\S]*?<\/trkpt>/g);
+  assert.strictEqual(trkpts.length, samples.length);
+  assert.doesNotMatch(trkpts[1], /<ele>/);
+  assert.doesNotMatch(gpx, /<ele>0<\/ele>/);
+  const tcx = stageToTcx(full);
+  const tps = tcx.match(/<Trackpoint>[\s\S]*?<\/Trackpoint>/g);
+  assert.doesNotMatch(tps[1], /<AltitudeMeters>/);
+  assert.match(tps[0], /<AltitudeMeters>/);
+  const kml = stageToKml(full);
+  const line = kml.match(/<LineString>[\s\S]*?<\/LineString>/)[0];
+  assert.doesNotMatch(line, /altitudeMode/, 'un tracé incomplet reste collé au sol plutôt que de plonger à 0 m');
+  const s1 = samples[1];
+  assert.ok(line.includes(`${s1.lon},${s1.lat} `) || line.includes(`${s1.lon},${s1.lat}<`));
+  const fullKml = stageToKml(base);
+  assert.match(fullKml.match(/<LineString>[\s\S]*?<\/LineString>/)[0], /<altitudeMode>absolute<\/altitudeMode>/);
 });
