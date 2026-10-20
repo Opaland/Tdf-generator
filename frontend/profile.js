@@ -125,8 +125,23 @@
    * profileHoverAt — un seul endroit qui sait comment le profil est projeté,
    * pour que le curseur de survol tombe exactement sur la silhouette tracée.
    */
-  function scaleFor(prof, W, H, mini) {
-    const M = mini ? { l: 6, r: 6, t: 8, b: 14 } : { l: 48, r: 24, t: 64, b: 40 };
+  // Hauteur d'une bande d'information (option `strips`) et pas vertical.
+  const STRIP_H = 7;
+  const STRIP_STEP = 9;
+  /** Bandes réellement dessinées : même filtre au rendu et au survol. */
+  function visibleStrips(opts, totalM) {
+    if (!opts || opts.mini || !Array.isArray(opts.strips)) return [];
+    return opts.strips
+      .map((strip) => ({
+        label: strip && strip.label,
+        segments: (strip && Array.isArray(strip.segments) ? strip.segments : [])
+          .filter((g) => Number.isFinite(g.fromM) && Number.isFinite(g.toM) && g.toM > g.fromM && g.fromM < totalM),
+      }))
+      .filter((s) => s.segments.length);
+  }
+
+  function scaleFor(prof, W, H, mini, extraBottom = 0) {
+    const M = mini ? { l: 6, r: 6, t: 8, b: 14 } : { l: 48, r: 24, t: 64, b: 40 + extraBottom };
     const totalM = prof[prof.length - 1].d;
     const eles = prof.map((p) => p.e);
     const eMin = Math.floor(Math.min.apply(null, eles) / 100) * 100;
@@ -188,7 +203,11 @@
     const prof = data.profile || [];
     if (!prof.length) return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}"></svg>`;
 
-    const { M, totalM, eMin, eMax, x, y } = scaleFor(prof, W, H, mini);
+    const stripList = visibleStrips(opts, prof[prof.length - 1].d);
+    // Les bandes vont sous les graduations km, dans une marge basse agrandie :
+    // posées au-dessus de la bande jaune, elles cachaient le bas de la courbe
+    // (relecture adverse). L'appelant agrandit `height` d'autant.
+    const { M, totalM, eMin, eMax, x, y } = scaleFor(prof, W, H, mini, stripList.length * STRIP_STEP);
 
     // Silhouette sable.
     let path = `M ${x(prof[0].d).toFixed(1)} ${y(prof[0].e).toFixed(1)}`;
@@ -238,6 +257,30 @@
       const xx = x(km * 1000);
       band += `<line x1="${xx.toFixed(1)}" y1="${bandY}" x2="${xx.toFixed(1)}" y2="${bandY + bandH}" stroke="#a08300" stroke-width="0.7"/>`;
       if (!mini) band += `<text x="${xx.toFixed(1)}" y="${bandY + bandH + 12}" text-anchor="middle" font-size="10" fill="#555">${km}</text>`;
+    }
+
+    // Bandes d'information au pied du profil (backlog 34.6) : revêtement,
+    // zone de FC… — `opts.strips` = [{ label, segments: [{ fromM, toM,
+    // color, title }] }], empilées sous les graduations kilométriques. Une
+    // bande sans segment n'est pas dessinée ; un segment hors du tracé ou
+    // de longueur nulle est ignoré (visibleStrips).
+    let strips = '';
+    {
+      let k = 0;
+      for (const { label, segments: segs } of stripList) {
+        const SH = STRIP_H;
+        const sy = bandY + bandH + 17 + k * STRIP_STEP;
+        for (const g of segs) {
+          const x0 = x(Math.max(0, g.fromM));
+          const x1 = x(Math.min(totalM, g.toM));
+          strips += `<rect x="${x0.toFixed(1)}" y="${sy.toFixed(1)}" width="${Math.max(0.6, x1 - x0).toFixed(1)}" height="${SH}" fill="${esc(g.color)}">` +
+            `${g.title ? `<title>${esc(g.title)}</title>` : ''}</rect>`;
+        }
+        // Libellé dans la marge gauche : sous les graduations km, il ne
+        // croise plus celles d'altitude.
+        strips += `<text x="${M.l - 4}" y="${(sy + SH - 0.5).toFixed(1)}" text-anchor="end" font-size="8" font-weight="bold" fill="#333">${esc(label)}</text>`;
+        k++;
+      }
     }
 
     // Annotations : départ/arrivée/vias + sommets des côtes (pastille catégorie).
@@ -361,7 +404,7 @@
     return (
       `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Profil de l'étape">` +
       `<rect x="0" y="0" width="${W}" height="${H}" fill="#faf6ec"/>` +
-      grid + silhouette + steepBands + band + ann +
+      grid + silhouette + steepBands + band + strips + ann +
       `</svg>`
     );
   }
@@ -607,7 +650,7 @@
     const mini = !!opts.mini;
     const prof = data.profile || [];
     if (!prof.length) return null;
-    const sc = scaleFor(prof, W, H, mini);
+    const sc = scaleFor(prof, W, H, mini, visibleStrips(opts, prof[prof.length - 1].d).length * STRIP_STEP);
     const frac = (pxX - sc.M.l) / (W - sc.M.l - sc.M.r);
     const distM = Math.max(0, Math.min(sc.totalM, frac * sc.totalM));
     let best = prof[0];
@@ -630,7 +673,7 @@
   // navigateur, reprise par cols.js et tourmap.js (même table que
   // CATEGORY_RANK, pipeline/climbs.js).
   const CAT_RANK = Object.freeze({ HC: 5, 1: 4, 2: 3, 3: 2, 4: 1 });
-  const EFProfile = { CAT_RANK, fietsIndex, renderProfileSVG, fitLabel, responsiveWidth, renderClimbSVG, renderRibbon3D, decimate, niceStep, CAT_COLORS, CAT_TEXT, gradStyle, catStyle, climbApproxOverlap, profileHoverAt };
+  const EFProfile = { STRIP_STEP, CAT_RANK, fietsIndex, renderProfileSVG, fitLabel, responsiveWidth, renderClimbSVG, renderRibbon3D, decimate, niceStep, CAT_COLORS, CAT_TEXT, gradStyle, catStyle, climbApproxOverlap, profileHoverAt };
   if (typeof module !== 'undefined' && module.exports) module.exports = EFProfile;
   global.EFProfile = EFProfile;
 })(typeof window !== 'undefined' ? window : globalThis);
