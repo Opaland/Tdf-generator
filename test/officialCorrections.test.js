@@ -101,11 +101,15 @@ test('fiche : la correction s\'affiche avec la valeur d\'origine et la source, Ã
     { field: 'distanceKm', wikipedia: 206, value: 237.5, source: 'fr <script>' },
     { field: 'dateIso', wikipedia: '1905-07-14', value: '1905-07-15', source: 'fr' },
     { field: 'inconnu', value: 1, source: 'x' },
+    { field: 'constructor', value: 1, source: 'x' },
+    { field: '__proto__', value: 1, source: 'x' },
+    { field: ['start'], value: 1, source: 'x' },
   ] });
   assert.match(html, /distance 237,5 km au lieu de 206 km/);
   assert.match(html, /date 15\/07\/1905 au lieu de 14\/07\/1905/);
   assert.match(html, /fr &lt;script>/);
-  assert.doesNotMatch(html, /inconnu/);
+  assert.doesNotMatch(html, /inconnu|constructor|proto/);
+  assert.strictEqual((html.match(/au lieu de/g) || []).length, 2);
   assert.strictEqual(correctionsHtml(null), '');
   assert.strictEqual(correctionsHtml({ villes: 'wikipedia' }), '');
 });

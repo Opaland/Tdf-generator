@@ -182,6 +182,8 @@ function profileLegendHtml(strips) {
 
 // Données officielles corrigées à l'import (Epic 33.19) : la valeur
 // Wikipédia d'origine reste affichée à côté, avec la source (règle 12).
+// `source` peut venir d'une sauvegarde importée : seul un champ propre de
+// CORRECTION_FIELDS est lu (« constructor » plantait la fiche, relecture).
 const CORRECTION_FIELDS = {
   distanceKm: ['distance', (v) => `${EF.dec(v)} km`],
   dateIso: ['date', (v) => EF.day(v)],
@@ -191,11 +193,11 @@ const CORRECTION_FIELDS = {
 function correctionsHtml(source) {
   const list = source && Array.isArray(source.corrections) ? source.corrections : [];
   const items = list
-    .filter((c) => c && CORRECTION_FIELDS[c.field])
+    .filter((c) => c && typeof c.field === 'string' && Object.prototype.hasOwnProperty.call(CORRECTION_FIELDS, c.field))
     .map((c) => {
       const [name, fmt] = CORRECTION_FIELDS[c.field];
       const was = c.wikipedia == null ? '—' : fmt(c.wikipedia);
-      return `${EF.esc(name)} ${EF.esc(fmt(c.value))} au lieu de ${EF.esc(was)} (tableau de en.wikipedia) — source : ${EF.esc(c.source)}`;
+      return `${EF.esc(name)} ${EF.esc(fmt(c.value))} au lieu de ${EF.esc(was)} (valeur lue dans en.wikipedia) — source : ${EF.esc(c.source)}`;
     });
   return items.length ? `<p class="meta-line">Donnée officielle corrigée : ${items.join(' ; ')}</p>` : '';
 }
