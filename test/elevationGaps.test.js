@@ -83,25 +83,26 @@ test('fillNearestValid : trou en queue -> voisin de gauche', () => {
   assert.deepStrictEqual(fillNearestValid([100, 200, null]), [100, 200, 200]);
 });
 
-test('fillNearestValid : plusieurs trous consécutifs comblés de proche en proche (même idiome que fillInvalidElevations, pipeline/climbs.js)', () => {
-  // Un seul passage gauche->droite, en place : une fois filled[1] rempli
-  // avec la valeur de gauche (100), filled[2] la trouve déjà comblée en
-  // remontant vers la gauche et la reprend — la valeur de gauche "gagne"
-  // en cascade sur tout le bloc de trous, ce n'est pas symétrique par
-  // rapport au trou le plus proche de chaque côté individuellement.
-  assert.deepStrictEqual(fillNearestValid([100, null, null, null, 500]), [100, 100, 100, 100, 500]);
+test('fillNearestValid : plusieurs trous consécutifs comblés par le voisin valide le plus proche (Epic 35.5)', () => {
+  // Avant : la valeur de gauche « gagnait » en cascade sur tout le bloc
+  // ([100, 100, 100, 100, 500]), contrairement à ce que dit la docstring.
+  // À égale distance, la gauche l'emporte.
+  assert.deepStrictEqual(fillNearestValid([100, null, null, null, 500]), [100, 100, 100, 500, 500]);
+  assert.deepStrictEqual(fillNearestValid([100, null, null, null, null, 900]), [100, 100, 100, 900, 900, 900]);
+  assert.deepStrictEqual(fillNearestValid([null, null, 300, null]), [300, 300, 300, 300]);
 });
 
 test('fillNearestValid : NaN et undefined traités comme null', () => {
-  assert.deepStrictEqual(fillNearestValid([100, NaN, undefined, 400]), [100, 100, 100, 400]);
+  assert.deepStrictEqual(fillNearestValid([100, NaN, undefined, 400]), [100, 100, 400, 400]);
 });
 
 test('fillNearestValid : aucun trou -> tableau inchangé (no-op, chemin hors-ligne jamais concerné)', () => {
   assert.deepStrictEqual(fillNearestValid([100, 200, 300]), [100, 200, 300]);
 });
 
-test('fillNearestValid : entièrement invalide -> 0 en dernier recours', () => {
-  assert.deepStrictEqual(fillNearestValid([null, null]), [0, 0]);
+test('fillNearestValid : entièrement invalide -> erreur explicite, jamais un profil à 0 m (règle 10, Epic 35.5)', () => {
+  assert.throws(() => fillNearestValid([null, null]), /Aucune altitude exploitable/);
+  assert.deepStrictEqual(fillNearestValid([]), []);
 });
 
 // --- buildProfile (intégration, httpJson mocké) -------------------------
