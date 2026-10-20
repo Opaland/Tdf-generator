@@ -64,11 +64,19 @@ const CAT_ORDER = { HC: 5, 1: 4, 2: 3, 3: 2, 4: 1 };
 let statRows = [];
 let statSort = { k: 'order', asc: true };
 
+/** Catégorie la plus dure parmi des côtes, '' si aucune. Le reduce partait de
+ * '' sans rang dans CAT_ORDER : `CAT_ORDER[c] > undefined` est toujours faux,
+ * et la colonne « Max cat. » affichait « — » pour chaque étape (revue
+ * globale du 19/10/2026). */
+function maxCategory(climbs) {
+  return (climbs || []).reduce((a, c) => ((CAT_ORDER[c.category] || 0) > (CAT_ORDER[a] || 0) ? c.category : a), '');
+}
+
 function buildStatRows(data) {
   statRows = data.stages.map((st, i) => {
     const s = st.stage;
     const climbs = st.climbs || [];
-    const maxCat = climbs.reduce((a, c) => (CAT_ORDER[c.category] > CAT_ORDER[a] ? c.category : a), '');
+    const maxCat = maxCategory(climbs);
     const delta = EF.distanceDelta(s.official_distance_km, s.generated_distance_km);
     return {
       id: s.id,
@@ -240,7 +248,7 @@ async function animate() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
+if (typeof document !== 'undefined') document.addEventListener('DOMContentLoaded', async () => {
   await EF.initChrome('tour');
   map = L.map('map').setView([46.6, 2.6], 6);
   EF.osmLayer().addTo(map);
@@ -267,3 +275,5 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (wanted && editions.some((e) => String(e.id) === wanted)) sel.value = wanted;
   if (sel.value) loadEdition(sel.value);
 });
+
+if (typeof module !== 'undefined' && module.exports) module.exports = { maxCategory };

@@ -31,6 +31,16 @@ function toPayload(full) {
 // avec le réseau — les y mêler produirait un message "connexion perdue"
 // trompeur et une boucle de nouvelle tentative qui ne peut jamais réussir).
 function pollRetryAfterNetworkError(err) {
+  // 404 : l'étape n'existe pas (favori vers une étape supprimée ou
+  // réimportée). Ce n'est pas une panne réseau : la relancer toutes les
+  // 1 à 10 s indéfiniment ne pourra jamais réussir (revue globale du
+  // 19/10/2026).
+  if (err && err.status === 404) {
+    document.getElementById('pg-title').textContent = 'Étape introuvable';
+    document.getElementById('pg-detail').textContent =
+      'Cette étape n\'existe pas ou plus (supprimée, ou édition réimportée). Retrouvez-la depuis l\'éditeur ou les archives.';
+    return;
+  }
   poll.failures = (poll.failures || 0) + 1;
   document.getElementById('pg-detail').textContent =
     `Connexion perdue, nouvelle tentative… (${err.message || err})`;

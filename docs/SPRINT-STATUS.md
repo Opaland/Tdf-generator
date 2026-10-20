@@ -1305,9 +1305,15 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   `stage_type`) et 500 qui devraient être des 400.
 - [ ] 35.7 Couche réseau : timeout du corps de réponse, `state` OAuth
   Strava/Suunto, redirections de l'import par lien.
-- [ ] 35.8 Frontend : « Max cat. » toujours vide, 404 de fiche relancé à
-  l'infini, dates décalées en UTC−, tuiles d'édition Hommes/Femmes de même
-  année.
+- [ ] 35.8 Frontend — critères : la colonne « Max cat. » de la carte globale
+  affiche la catégorie la plus dure (`maxCategory`) ; une fiche d'étape
+  inexistante (404) affiche « Étape introuvable » et cesse de sonder (une
+  vraie panne réseau reste retentée) ; les jours calendaires (« AAAA-MM-JJ »)
+  et les mois ne reculent plus d'un jour en UTC− (`timeZone: 'UTC'`, 10
+  occurrences dans traces.js et archives.js) ; les tuiles « Éditions
+  explorées » sont identifiées par l'id d'édition et marquent Femmes
+  (« 2022 F ») (`test/frontendReviewFixes.test.js`, vérification Playwright
+  en fuseau America/New_York).
 - [ ] 35.9 Export TCX : date non ISO, `CoursePoint` datés au départ.
 - [ ] 35.10 Wikipédia : `normalizeType` (« Medium mountain », CLM de
   montagne) et faux cols de `isColQuery` (Mont-de-Marsan, Le Mont-Dore…).

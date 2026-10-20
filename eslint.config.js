@@ -23,7 +23,7 @@ module.exports = [
     // l'autre ne doit se voir imposer sa propre déclaration comme un global
     // externe, sinon no-redeclare se déclenche sur le fichier qui la crée).
     files: ['frontend/**/*.js'],
-    ignores: ['frontend/common.js', 'frontend/profile.js', 'frontend/compare.js', 'frontend/editor.js', 'frontend/stage.js', 'frontend/archives.js', 'frontend/traces.js'],
+    ignores: ['frontend/common.js', 'frontend/profile.js', 'frontend/compare.js', 'frontend/editor.js', 'frontend/stage.js', 'frontend/archives.js', 'frontend/traces.js', 'frontend/tourmap.js'],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'script',
@@ -111,6 +111,17 @@ module.exports = [
       ecmaVersion: 2022,
       sourceType: 'script',
       globals: { ...globals.browser, ...globals.node, EF: 'readonly' },
+    },
+  },
+  {
+    // tourmap.js : require()-able côté test (maxCategory, voir
+    // test/frontendReviewFixes.test.js) sous la même garde `typeof
+    // document`/`typeof module`.
+    files: ['frontend/tourmap.js'],
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: 'script',
+      globals: { ...globals.browser, ...globals.node, EF: 'readonly', EFProfile: 'readonly', L: 'readonly' },
     },
   },
 ];
