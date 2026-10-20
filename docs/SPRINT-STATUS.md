@@ -1352,8 +1352,21 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   `CoursePoint` (ordre du XSD TCX v2 : les TCX de la démo valident désormais
   contre le schéma Garmin avec xmllint) ; une date impossible (30 février)
   n'est plus décalée au 2 mars (`test/exports.test.js`).
-- [ ] 35.10 Wikipédia : `normalizeType` (« Medium mountain », CLM de
-  montagne) et faux cols de `isColQuery` (Mont-de-Marsan, Le Mont-Dore…).
+- [ ] 35.10 Wikipédia — critères : « Medium mountain » et « Intermediate
+  stage » donnent `accidentée`, « Mountain time trial » garde `clm` ;
+  `isColQuery` n'accepte plus le mot-clé qu'en tête du libellé ou d'un de ses
+  segments (« / », « – », parenthèse), et un mot-clé suivi d'un trait
+  d'union seulement pour Mont-Ventoux, Plateau-de-Beille et Puy-de-Dôme :
+  Mont-de-Marsan, Le Mont-Dore, Mont-Saint-Père, Pagny-la-Blanche-Côte,
+  Montélimar ne sont plus des cols (`test/colQueryType.test.js`). Audit sur
+  les 5 048 libellés des données : aucun col de `historic_routes.json` ni de
+  `stage_towns.json` (données de génération) perdu ; dans
+  `stage_itineraries.json`, Mont-Theux, Mont-Rouault, La Grande-Côte et le
+  `geocodeAs` Mont-Ormel ne seraient plus reconnus par leur nom, mais ces
+  points portent leur `kind` explicite et ne passent pas par `isColQuery`.
+  Saisie libre : séparateurs « - » espacé, « , », « → » ; noms composés
+  « Col-de-… », « Alpe-d'Huez », « Côte-de-… » et une liste fermée de sommets
+  (Mont-Ventoux, Puy-de-Dôme…) restent des reliefs.
 
 En attente de décision (proposées, non commencées) : méthode de lissage
 d'altitude (D+ et pente max sous-estimés en relief vallonné), export de la
