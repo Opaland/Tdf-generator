@@ -9,6 +9,11 @@ const { loadStageFull } = require('../pipeline/generate');
 // Nombre affiché à la française dans les pages HTML générées (roadbook),
 // comme EF.dec côté interface (revue globale du 19/10/2026).
 const frDec = (v) => (v == null ? v : String(v).replace('.', ','));
+// Jour AAAA-MM-JJ affiché JJ/MM/AAAA, comme EF.day (frontend/common.js).
+const frDay = (v) => {
+  const m = typeof v === 'string' && v.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  return m ? `${m[3]}/${m[2]}/${m[1]}` : v;
+};
 
 function esc(s) {
   return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -29,6 +34,10 @@ const ESC_HTML_JS = `function escHtml(s) {
 }
 function frDec(v) {
   return v == null ? v : String(v).replace('.', ',');
+}
+function frDay(v) {
+  const m = typeof v === 'string' && v.match(/^(\\d{4})-(\\d{2})-(\\d{2})$/);
+  return m ? m[3] + '/' + m[2] + '/' + m[1] : v;
 }`;
 
 // Vitesse conventionnelle utilisée partout où ÉtapeForge synthétise un temps
@@ -527,7 +536,7 @@ ${communes.communes.map((c) => `<tr><td>${frDec(Number(c.km).toFixed(1))}</td><t
 <body>
 <button class="no-print" onclick="window.print()">Imprimer / enregistrer en PDF</button>
 <h1>${esc(stage.name)}</h1>
-<p class="meta">${editionLine}${stage.date ? `${esc(stage.date)} · ` : ''}${dist}${stage.total_ascent_m != null ? ` · D+ ${stage.total_ascent_m} m` : ''}</p>
+<p class="meta">${editionLine}${stage.date ? `${esc(frDay(stage.date))} · ` : ''}${dist}${stage.total_ascent_m != null ? ` · D+ ${stage.total_ascent_m} m` : ''}</p>
 
 <h2>Villes et points de passage</h2>
 <table>
@@ -651,7 +660,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ? ((st.stage.generated_distance_km - st.stage.official_distance_km) / st.stage.official_distance_km * 100)
       : null;
     card.innerHTML = '<h2>' + escHtml(st.stage.name) + '</h2>' +
-      '<div class="meta">' + [escHtml(st.stage.date), escHtml(st.stage.stage_type),
+      '<div class="meta">' + [escHtml(frDay(st.stage.date)), escHtml(st.stage.stage_type),
         (frDec(st.stage.generated_distance_km) || '?') + ' km', 'D+ ' + (st.stage.total_ascent_m || '?') + ' m',
         delta != null ? 'tracé reconstitué sur le réseau routier actuel — distance officielle : ' + frDec(st.stage.official_distance_km) + ' km / reconstitution : ' + frDec(st.stage.generated_distance_km) + ' km (écart ' + (delta >= 0 ? '+' : '') + frDec(delta.toFixed(1)) + ' %)' : null
       ].filter(Boolean).join(' · ') + '</div>' +
@@ -751,7 +760,7 @@ document.addEventListener('DOMContentLoaded', () => {
     : null;
   const card = document.getElementById('stagecard');
   card.className = 'stagecard';
-  card.innerHTML = '<div class="meta">' + [escHtml(STAGE.stage.date), escHtml(STAGE.stage.stage_type),
+  card.innerHTML = '<div class="meta">' + [escHtml(frDay(STAGE.stage.date)), escHtml(STAGE.stage.stage_type),
       (frDec(STAGE.stage.generated_distance_km) || '?') + ' km', 'D+ ' + (STAGE.stage.total_ascent_m || '?') + ' m',
       delta != null ? 'tracé reconstitué sur le réseau routier actuel — distance officielle : ' + frDec(STAGE.stage.official_distance_km) + ' km / reconstitution : ' + frDec(STAGE.stage.generated_distance_km) + ' km (écart ' + (delta >= 0 ? '+' : '') + frDec(delta.toFixed(1)) + ' %)' : null
     ].filter(Boolean).join(' · ') + '</div>' +

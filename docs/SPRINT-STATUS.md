@@ -1517,6 +1517,13 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   `profile.js`, chargé seul dans les exports HTML autonomes, et
   `CATEGORY_POINTS` (`pipeline/pain.js`), barème de l'indice de douleur aux
   mêmes valeurs aujourd'hui mais à pondération propre.
+- [x] 35.21 (PR #459) Dates en JJ/MM/AAAA partout — critères : un jour AAAA-MM-JJ
+  s'affiche JJ/MM/AAAA, comme Mes traces, sur la fiche, la liste des
+  archives, la carte globale (popup et tableau), le roadbook et les
+  mini-sites HTML autonomes (`EF.day`, `frDay`) ; lecture par chaînes, sans
+  `Date` (aucun décalage de fuseau, testé en `America/New_York`) ; une date
+  libre d'un import Wikipédia est rendue telle quelle ; les valeurs triées
+  et exportées restent en ISO (`test/dayFormat.test.js`).
 
 En attente de décision (proposées, non commencées) : méthode de lissage
 d'altitude (D+ et pente max sous-estimés en relief vallonné), export de la

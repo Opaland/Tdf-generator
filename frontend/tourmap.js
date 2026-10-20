@@ -17,7 +17,7 @@ function stagePopupHtml(st) {
   const delta = EF.distanceDelta(s.official_distance_km, s.generated_distance_km);
   return (
     `<div style="min-width:340px"><b><a href="/stage.html?id=${s.id}">${EF.esc(s.name)}</a></b><br>` +
-    `<span style="color:#666;font-size:0.85em">${[EF.esc(s.date), EF.esc(s.stage_type), (EF.dec(s.generated_distance_km) || '?') + ' km', 'D+ ' + (s.total_ascent_m || '?') + ' m'].filter(Boolean).join(' · ')}</span>` +
+    `<span style="color:#666;font-size:0.85em">${[EF.esc(EF.day(s.date)), EF.esc(s.stage_type), (EF.dec(s.generated_distance_km) || '?') + ' km', 'D+ ' + (s.total_ascent_m || '?') + ' m'].filter(Boolean).join(' · ')}</span>` +
     (delta != null ? `<br><span style="font-size:0.8em">officielle ${EF.dec(s.official_distance_km)} km / reconstituée ${EF.dec(s.generated_distance_km)} km (${EF.formatDelta(delta)})</span>` : '') +
     (st.profile && st.profile.length ? EFProfile.renderProfileSVG(st, { width: 340, height: 90, mini: true }) : '<em>non générée</em>') +
     `</div>`
@@ -124,7 +124,7 @@ function renderStageList() {
       (r) => `<tr>
         <td>${r.order}</td>
         <td><a href="/stage.html?id=${r.id}">${EF.esc(r.name)}</a></td>
-        <td>${EF.esc(r.date)}</td>
+        <td>${EF.esc(EF.day(r.date))}</td>
         <td><span style="color:${EF.typeColor(r.type)}">${EF.esc(r.type || '—')}</span></td>
         <td>${fmt(r.off)}</td><td>${fmt(r.gen, 1)}</td>
         <td>${r.delta == null ? '—' : (r.delta >= 0 ? '+' : '') + EF.dec(r.delta.toFixed(1))}</td>

@@ -73,6 +73,15 @@ const EF = {
   // 19/10/2026 : « 460.3 km » côtoyait « 12,3 km »). Pas de séparateur de
   // milliers, pour ne pas changer les entiers (« 1275 m »). null/undefined :
   // rendu tel quel par l'appelant, qui a sa propre garde.
+  // Jour AAAA-MM-JJ affiché JJ/MM/AAAA, comme Mes traces (revue globale du
+  // 19/10/2026 : ISO sur les fiches, JJ/MM/AAAA ailleurs). Lu par chaînes,
+  // sans Date : aucun décalage de fuseau possible. Autre texte (date libre
+  // d'un import Wikipédia) : rendu tel quel.
+  day(v) {
+    const m = typeof v === 'string' && v.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    return m ? `${m[3]}/${m[2]}/${m[1]}` : v;
+  },
+
   dec(v) {
     return v == null ? v : String(v).replace('.', ',');
   },

@@ -96,7 +96,7 @@ function stageRow(s) {
   return `<tr>
     <td><a href="/stage.html?id=${s.id}">${EF.esc(s.name)}</a>
       ${s.is_curated ? '<span class="badge sourced-badge" title="points de passage vérifiés (historic_routes.json), pas seulement villes Wikipédia">sourcé</span>' : ''}</td>
-    <td>${EF.esc(s.date || '')}</td>
+    <td>${EF.esc(EF.day(s.date) || '')}</td>
     <td>${EF.esc(s.stage_type || '—')}</td>
     <td>${s.official_distance_km ? EF.dec(s.official_distance_km) + ' km' : '—'}</td>
     <td>${s.generated_distance_km != null
