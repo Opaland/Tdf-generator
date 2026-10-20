@@ -94,6 +94,67 @@ function sampleAt(m) {
 const PROFILE_OPTS = { width: 1080, height: 300 };
 /** Profil 2D à la largeur du conteneur. Renvoie false sans rien toucher si
  * la largeur calculée n'a pas changé (redimensionnement sans effet). */
+// Bandes du pied de profil (backlog 34.6). Couleurs : revêtement en
+// catégories (ocre foncé, ocre clair, gris), zones de FC en une seule teinte
+// du clair au foncé (grandeur ordonnée).
+const SURFACE_STRIP = {
+  non_revetu: { color: '#8c510a', label: 'non revêtu' },
+  non_revetu_presume: { color: '#d8b365', label: 'piste, non revêtu présumé' },
+  paves: { color: '#5e5e5e', label: 'pavés' },
+};
+const HR_STRIP_COLORS = ['#fcbba1', '#fc9272', '#fb6a4a', '#de2d26', '#a50f15'];
+let profileHrMax = null; // FC max saisie (renderHrZones), pour la bande FC
+
+/** Tronçons non revêtus et pavés du tracé (track.surfaces.stretches). */
+function surfaceSegments(surf) {
+  return ((surf && surf.stretches) || [])
+    .filter((s) => SURFACE_STRIP[s.cls])
+    .map((s) => ({
+      fromM: s.fromM, toM: s.toM, color: SURFACE_STRIP[s.cls].color,
+      title: `km ${EF.dec((s.fromM / 1000).toFixed(1))} → ${EF.dec((s.toM / 1000).toFixed(1))} : ${SURFACE_STRIP[s.cls].label}${s.surfaces && s.surfaces.length ? ` (${s.surfaces.join(', ')})` : ''}`,
+    }));
+}
+
+/** Suites d'échantillons dans la même zone de FC (rien sous Z1, ni sans FC). */
+function hrSegments(samples, hrMax) {
+  if (!hrMax) return [];
+  const bounds = hrZoneBounds(hrMax);
+  const out = [];
+  for (let i = 0; i + 1 < (samples || []).length; i++) {
+    const a = samples[i];
+    const z = Number.isFinite(a.hr_bpm) ? bounds.findIndex((b) => a.hr_bpm >= b.lo && a.hr_bpm < b.hi) : -1;
+    if (z < 0) continue;
+    const last = out[out.length - 1];
+    if (last && last.zone === z && last.toM === a.dist_m) { last.toM = samples[i + 1].dist_m; continue; }
+    out.push({ zone: z, fromM: a.dist_m, toM: samples[i + 1].dist_m });
+  }
+  return out.map((g) => ({
+    fromM: g.fromM, toM: g.toM, color: HR_STRIP_COLORS[g.zone],
+    title: `km ${EF.dec((g.fromM / 1000).toFixed(1))} → ${EF.dec((g.toM / 1000).toFixed(1))} : ${HR_ZONES[g.zone].name}`,
+  }));
+}
+
+function profileStrips() {
+  const strips = [];
+  const surf = surfaceSegments(FULL && FULL.track && FULL.track.surfaces);
+  if (surf.length) strips.push({ label: 'Rev.', segments: surf });
+  const hr = hrSegments(FULL && FULL.samples, profileHrMax);
+  if (hr.length) strips.push({ label: 'FC', segments: hr });
+  return strips;
+}
+
+/** Légende des bandes, sous le profil : couleur = texte, jamais seule. */
+function renderProfileLegend(strips) {
+  const el = document.getElementById('profile-legend');
+  if (!el) return;
+  const sw = (c) => `<span aria-hidden="true" style="display:inline-block;width:10px;height:10px;background:${c};margin:0 3px 0 8px;vertical-align:middle"></span>`;
+  const parts = [];
+  if (strips.some((s) => s.label === 'Rev.')) parts.push('Bande « Rev. » :' + Object.values(SURFACE_STRIP).map((v) => `${sw(v.color)}${EF.esc(v.label)}`).join(''));
+  if (strips.some((s) => s.label === 'FC')) parts.push(`Bande « FC » (FC max ${Number(profileHrMax)} bpm) :` + HR_ZONES.map((z, i) => `${sw(HR_STRIP_COLORS[i])}${EF.esc(z.name)}`).join(''));
+  el.innerHTML = parts.join('<br>');
+  el.style.display = parts.length ? '' : 'none';
+}
+
 function drawProfile(payload, { onlyIfResized = false } = {}) {
   const profileBox = document.getElementById('profile-box');
   // Masqué (onglet 3D actif) : largeur 0, responsiveWidth renverrait 1080.
@@ -102,6 +163,8 @@ function drawProfile(payload, { onlyIfResized = false } = {}) {
   const width = EFProfile.responsiveWidth(profileBox.clientWidth, 1080);
   if (onlyIfResized && width === PROFILE_OPTS.width) return false;
   PROFILE_OPTS.width = width;
+  PROFILE_OPTS.strips = profileStrips();
+  renderProfileLegend(PROFILE_OPTS.strips);
   profileBox.innerHTML = EFProfile.renderProfileSVG(payload, PROFILE_OPTS);
   if (PROFILE_MAP) setupProfileMapHover(payload, PROFILE_MAP);
   return true;
@@ -745,6 +808,11 @@ async function renderHrZones(samples) {
   } catch {
     return; // non essentiel : la courbe reste affichée
   }
+  // Bande « FC » du profil : redessinée quand la FC max est connue ou change.
+  if (hrMax !== profileHrMax && FULL) {
+    profileHrMax = hrMax;
+    drawProfile(toPayload(FULL));
+  }
   const form = `<form class="row" id="hrmax-form" style="margin-top:var(--space-2)">
       <label class="field">FC max de référence (bpm)<input id="hrmax-input" type="number" min="100" max="240" step="1" required></label>
       <button type="submit">${hrMax ? 'Modifier' : 'Afficher les zones'}</button><span class="meta-line" id="hrmax-msg" aria-live="polite"></span></form>`;
@@ -786,7 +854,7 @@ function renderHeartRate(st, samples) {
   renderHrZones(samples || []);
 }
 
-if (typeof module !== 'undefined' && module.exports) module.exports = { csvRow, similarItemHtml, poll, climbNameSourceLabel, buildHrChart, hrZoneTimes, hrZoneBounds, buildZonesTable, HR_ZONES };
+if (typeof module !== 'undefined' && module.exports) module.exports = { surfaceSegments, hrSegments, csvRow, similarItemHtml, poll, climbNameSourceLabel, buildHrChart, hrZoneTimes, hrZoneBounds, buildZonesTable, HR_ZONES };
 
 // Communes traversées (Epic 12, option B) : calculées à la demande — environ
 // une requête geo.api.gouv.fr par kilomètre, donc jamais à la génération.

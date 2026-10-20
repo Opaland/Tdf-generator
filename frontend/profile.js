@@ -240,6 +240,33 @@
       if (!mini) band += `<text x="${xx.toFixed(1)}" y="${bandY + bandH + 12}" text-anchor="middle" font-size="10" fill="#555">${km}</text>`;
     }
 
+    // Bandes d'information au pied du profil (backlog 34.6) : revêtement,
+    // zone de FC… — `opts.strips` = [{ label, segments: [{ fromM, toM,
+    // color, title }] }], empilées au-dessus de la bande kilométrique. Une
+    // bande sans segment n'est pas dessinée ; un segment hors du tracé ou
+    // de longueur nulle est ignoré.
+    let strips = '';
+    if (!mini && Array.isArray(opts.strips)) {
+      const SH = 7;
+      let k = 0;
+      for (const strip of opts.strips) {
+        const segs = (strip && Array.isArray(strip.segments) ? strip.segments : [])
+          .filter((g) => Number.isFinite(g.fromM) && Number.isFinite(g.toM) && g.toM > g.fromM && g.fromM < totalM);
+        if (!segs.length) continue;
+        const sy = bandY - SH * (k + 1) - 1;
+        for (const g of segs) {
+          const x0 = x(Math.max(0, g.fromM));
+          const x1 = x(Math.min(totalM, g.toM));
+          strips += `<rect x="${x0.toFixed(1)}" y="${sy.toFixed(1)}" width="${Math.max(0.6, x1 - x0).toFixed(1)}" height="${SH}" fill="${esc(g.color)}">` +
+            `${g.title ? `<title>${esc(g.title)}</title>` : ''}</rect>`;
+        }
+        // Libellé dans le graphique, au début de la bande (dans la marge
+        // gauche, il chevauchait la graduation d'altitude la plus basse).
+        strips += `<text x="${M.l + 2}" y="${(sy + SH - 1).toFixed(1)}" font-size="7.5" font-weight="bold" fill="#222" stroke="#faf6ec" stroke-width="2.5" paint-order="stroke">${esc(strip.label)}</text>`;
+        k++;
+      }
+    }
+
     // Annotations : départ/arrivée/vias + sommets des côtes (pastille catégorie).
     let ann = '';
     if (!mini) {
@@ -361,7 +388,7 @@
     return (
       `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Profil de l'étape">` +
       `<rect x="0" y="0" width="${W}" height="${H}" fill="#faf6ec"/>` +
-      grid + silhouette + steepBands + band + ann +
+      grid + silhouette + steepBands + band + strips + ann +
       `</svg>`
     );
   }
