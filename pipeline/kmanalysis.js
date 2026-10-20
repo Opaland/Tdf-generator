@@ -39,16 +39,28 @@ function analyzeByKm(samples) {
 
     let maxGradient = 0;
     let ascent = 0;
-    while (si < samples.length - 1 && samples[si + 1].dist <= toM) {
+    // Chaque segment [a, b] est réparti au prorata de sa longueur entre les
+    // km qu'il recouvre. Avant : un segment à cheval sur une borne de km
+    // n'était compté par aucun des deux (`a.dist >= fromM - 1` le rejetait
+    // au km suivant), et le « D+ cumulé » finissait ~25 % sous le D+ de
+    // l'étape au pas de 250 m (revue globale du 19/10/2026). Un segment dont
+    // une altitude manque est ignoré, jamais compté comme 0 m (règle 10).
+    while (si < samples.length - 1 && samples[si].dist < toM) {
       const a = samples[si];
       const b = samples[si + 1];
       const dd = b.dist - a.dist;
-      if (dd > 0 && a.dist >= fromM - 1) {
-        const g = ((raw(b) - raw(a)) / dd) * 100;
-        if (g > maxGradient) maxGradient = g;
-        const ds = smooth(b) - smooth(a);
-        if (ds > 0) ascent += ds;
+      const overlap = Math.min(b.dist, toM) - Math.max(a.dist, fromM);
+      if (dd > 0 && overlap > 0) {
+        if (Number.isFinite(raw(a)) && Number.isFinite(raw(b))) {
+          const g = ((raw(b) - raw(a)) / dd) * 100;
+          if (g > maxGradient) maxGradient = g;
+        }
+        if (Number.isFinite(smooth(a)) && Number.isFinite(smooth(b))) {
+          const ds = smooth(b) - smooth(a);
+          if (ds > 0) ascent += ds * (overlap / dd);
+        }
       }
+      if (b.dist > toM) break; // la suite du segment appartient au km suivant
       si++;
     }
 

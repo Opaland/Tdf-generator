@@ -1285,9 +1285,16 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   personnalisé de la même année n'est jamais supprimé (`is_custom`).
 - [ ] 35.4 L'éditeur conserve la provenance des waypoints (`source`,
   `altitude_hint_m`, `bonus_sec`, `country_hint`, `region_hint`).
-- [ ] 35.5 Arithmétique de l'altitude : D+ cumulé km par km (segment à cheval
-  sur deux km), `?? 0` des exports GPX/TCX/KML, trace entièrement aberrante
-  présentée à 0 m.
+- [ ] 35.5 Arithmétique de l'altitude — critères : le « D+ cumulé » du
+  dernier km égale le D+ de l'étape (segment à cheval sur deux km réparti au
+  prorata ; démo : Paris → Lyon 1 592 m pour 1 592, contre 1 193 avant) ; un
+  échantillon sans altitude n'est plus exporté à 0 m (GPX `<ele>` et TCX
+  `<AltitudeMeters>` omis, KML `lon,lat` et tracé laissé au sol) ; une trace
+  aux altitudes toutes aberrantes passe par les fournisseurs au lieu d'un
+  profil à 0 m ; `fillNearestValid` prend vraiment le voisin le plus proche
+  et refuse un tableau entièrement vide (`test/kmanalysisAscent.test.js`,
+  `test/importTrackSentinel.test.js`, `test/exports.test.js`,
+  `test/elevationGaps.test.js`).
 - [ ] 35.6 Validation des longueurs et des valeurs (`name`, `date`, `kind`,
   `stage_type`) et 500 qui devraient être des 400.
 - [ ] 35.7 Couche réseau : timeout du corps de réponse, `state` OAuth
