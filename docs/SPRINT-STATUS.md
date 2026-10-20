@@ -1284,7 +1284,7 @@ Actionnables sans décision :
   `/api/traces/summary` (plusieurs sorties le même jour s'additionnent) ;
   valeurs absentes ou négatives ignorées, jamais comptées comme 0
   (`test/eddington.test.js`, vérification Playwright 1280 / 390 px).
-- [ ] 34.5 Indice FIETS à côté de la catégorie approchée (formule publique ;
+- [x] 34.5 (PR #462) Indice FIETS à côté de la catégorie approchée (formule publique ;
   bonus d'altitude à trancher par un test) — critères : la fiche d'une côte
   affiche « indice FIETS » = H² / (D × 10) + max(0, (sommet − 1000) / 1000),
   H et D en mètres (`EFProfile.fietsIndex`) ; forme donnée par Runalyze
