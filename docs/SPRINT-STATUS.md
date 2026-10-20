@@ -1347,7 +1347,7 @@ Actionnables sans décision :
   Au passage : score, indice d'irrégularité, points et facteur de fatigue
   de l'indice de douleur à la virgule décimale (oubli de la 35.19).
 - [ ] 34.6 Profil coloré par surface et par FC (données déjà présentes).
-- [ ] 34.7 Zones de confidentialité autour du domicile dans les exports et
+- [x] 34.7 (PR #467) Zones de confidentialité autour du domicile dans les exports et
   mini-sites de traces (idée geo-activity-playground) — critères : jusqu'à
   5 zones (latitude, longitude, rayon de 100 à 5000 m), réglage de
   l'instance comme la FC max (`PUT /api/profile`, admin seul en mode
