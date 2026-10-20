@@ -8,6 +8,7 @@
   <link rel="icon" type="image/png" href="/icons/icon-192.png">
   <link rel="apple-touch-icon" href="/icons/icon-192.png">
   <title>ÉtapeForge — Mes traces</title>
+  <link rel="stylesheet" href="/vendor/leaflet/leaflet.css">
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -35,6 +36,11 @@
     <h3>Exploration</h3>
     <div class="statgrid" id="summary-exploration-tiles"></div>
     <div id="summary-heatmap"></div>
+    <div id="summary-tracemap-box" style="display:none">
+      <h4>Toutes mes traces</h4>
+      <p class="meta-line">Chaque trace en trait semi-transparent : plus une route est parcourue souvent, plus elle fonce.</p>
+      <div id="summary-tracemap" class="stagemap" role="region" aria-label="Carte de toutes les traces importées"></div>
+    </div>
     <ul class="fauxplat-list" id="summary-cities"></ul>
 
     <h3>Cols gravis</h3>
@@ -110,6 +116,7 @@
     <p class="meta-line">chargement…</p>
   </div>
 </main>
+<script src="/vendor/leaflet/leaflet.js"></script>
 <script src="/common.js"></script>
 <script src="/traces.js"></script>
 </body>
