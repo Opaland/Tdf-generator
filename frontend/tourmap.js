@@ -17,8 +17,8 @@ function stagePopupHtml(st) {
   const delta = EF.distanceDelta(s.official_distance_km, s.generated_distance_km);
   return (
     `<div style="min-width:340px"><b><a href="/stage.html?id=${s.id}">${EF.esc(s.name)}</a></b><br>` +
-    `<span style="color:#666;font-size:0.85em">${[EF.esc(s.date), EF.esc(s.stage_type), (s.generated_distance_km || '?') + ' km', 'D+ ' + (s.total_ascent_m || '?') + ' m'].filter(Boolean).join(' · ')}</span>` +
-    (delta != null ? `<br><span style="font-size:0.8em">officielle ${s.official_distance_km} km / reconstituée ${s.generated_distance_km} km (${EF.formatDelta(delta)})</span>` : '') +
+    `<span style="color:#666;font-size:0.85em">${[EF.esc(s.date), EF.esc(s.stage_type), (EF.dec(s.generated_distance_km) || '?') + ' km', 'D+ ' + (s.total_ascent_m || '?') + ' m'].filter(Boolean).join(' · ')}</span>` +
+    (delta != null ? `<br><span style="font-size:0.8em">officielle ${EF.dec(s.official_distance_km)} km / reconstituée ${EF.dec(s.generated_distance_km)} km (${EF.formatDelta(delta)})</span>` : '') +
     (st.profile && st.profile.length ? EFProfile.renderProfileSVG(st, { width: 340, height: 90, mini: true }) : '<em>non générée</em>') +
     `</div>`
   );
@@ -117,7 +117,7 @@ function renderStageList() {
     const cmp = typeof va === 'string' ? String(va).localeCompare(String(vb)) : va - vb;
     return statSort.asc ? cmp : -cmp;
   });
-  const fmt = (v, d) => (v == null ? '—' : typeof v === 'number' ? v.toFixed(d ?? 0) : v);
+  const fmt = (v, d) => (v == null ? '—' : typeof v === 'number' ? EF.dec(v.toFixed(d ?? 0)) : v);
   document.querySelector('#tour-stages tbody').innerHTML = rows
     .map(
       (r) => `<tr>
@@ -126,7 +126,7 @@ function renderStageList() {
         <td>${EF.esc(r.date)}</td>
         <td><span style="color:${EF.typeColor(r.type)}">${EF.esc(r.type || '—')}</span></td>
         <td>${fmt(r.off)}</td><td>${fmt(r.gen, 1)}</td>
-        <td>${r.delta == null ? '—' : (r.delta >= 0 ? '+' : '') + r.delta.toFixed(1)}</td>
+        <td>${r.delta == null ? '—' : (r.delta >= 0 ? '+' : '') + EF.dec(r.delta.toFixed(1))}</td>
         <td>${fmt(r.dplus)}</td><td>${r.nclimbs || '—'}</td>
         <td>${r.maxcat ? `<span class="pill" style="background:${EFProfile.CAT_COLORS[r.maxcat]};color:${EFProfile.CAT_TEXT[r.maxcat]}">${r.maxcat}</span>` : '—'}</td>
         <td>${fmt(r.maxgrad, 1)}</td><td>${fmt(r.summit)}</td>
@@ -141,7 +141,7 @@ function renderStageList() {
   const partial = t.done < t.all ? ` <span class="meta-line">(${t.done}/${t.all} étapes générées)</span>` : '';
   document.querySelector('#tour-stages tfoot').innerHTML =
     `<tr><td></td><td>Total${partial}</td><td></td><td></td><td>${t.off || '—'}</td>` +
-    `<td>${t.gen.toFixed(1)}</td><td></td><td>${t.dplus}</td><td>${t.nclimbs}</td>` +
+    `<td>${EF.dec(t.gen.toFixed(1))}</td><td></td><td>${t.dplus}</td><td>${t.nclimbs}</td>` +
     `<td colspan="4"></td></tr>`;
 }
 

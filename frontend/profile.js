@@ -66,6 +66,10 @@
     return { color: CAT_COLORS[cat] || '#707070', text: CAT_TEXT[cat] || '#fff' };
   }
 
+  // Même règle qu'EF.dec (frontend/common.js) : profile.js est aussi chargé
+  // seul dans les exports HTML autonomes, sans common.js.
+  const dec = (v) => (v == null ? v : String(v).replace('.', ','));
+
   function esc(s) {
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
@@ -324,7 +328,7 @@
       const st = data.stage || {};
       const dist = st.generated_distance_km != null ? st.generated_distance_km : Math.round(totalM / 100) / 10;
       ann +=
-        `<text x="${W - M.r}" y="16" text-anchor="end" font-size="13" font-weight="bold" fill="#222">${dist} km — D+ ${st.total_ascent_m != null ? st.total_ascent_m : '?'} m</text>`;
+        `<text x="${W - M.r}" y="16" text-anchor="end" font-size="13" font-weight="bold" fill="#222">${dec(dist)} km — D+ ${st.total_ascent_m != null ? st.total_ascent_m : '?'} m</text>`;
     }
 
     return (
@@ -369,7 +373,7 @@
       // % au centre du bloc
       const cx = (x0 + x1) / 2;
       const cy = (y(b.ele0) + y(b.ele1)) / 2 + (y(eMin) - (y(b.ele0) + y(b.ele1)) / 2) / 2;
-      out += `<text x="${cx.toFixed(1)}" y="${cy.toFixed(1)}" text-anchor="middle" font-size="12" font-weight="bold" fill="${gs.text}">${b.gradient.toFixed(1)}%</text>`;
+      out += `<text x="${cx.toFixed(1)}" y="${cy.toFixed(1)}" text-anchor="middle" font-size="12" font-weight="bold" fill="${gs.text}">${dec(b.gradient.toFixed(1))}%</text>`;
       // altitude aux ruptures de km, le long de la pente
       out += `<text x="${x0.toFixed(1)}" y="${(y(b.ele0) - 5).toFixed(1)}" text-anchor="middle" font-size="9" fill="#555">${b.ele0}</text>`;
     }
@@ -397,7 +401,7 @@
     out +=
       `<circle cx="${M.l + 10}" cy="18" r="11" fill="${cc}" stroke="#fff" stroke-width="1.5"/>` +
       `<text x="${M.l + 10}" y="22" text-anchor="middle" font-size="10.5" font-weight="bold" fill="${tc}">${esc(climb.category)}</text>` +
-      `<text x="${M.l + 28}" y="22" font-size="13.5" font-weight="bold" fill="#222">${esc(climb.name)} — ${climb.length_km} km à ${climb.avg_gradient} % (max ${climb.max_gradient} %)</text>`;
+      `<text x="${M.l + 28}" y="22" font-size="13.5" font-weight="bold" fill="#222">${esc(climb.name)} — ${dec(climb.length_km)} km à ${dec(climb.avg_gradient)} % (max ${dec(climb.max_gradient)} %)</text>`;
 
     return (
       `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Profil de ${esc(climb.name)}">` +

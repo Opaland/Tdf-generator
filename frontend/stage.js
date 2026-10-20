@@ -138,7 +138,7 @@ function renderFiche() {
 
   const meta = [
     st.date, st.stage_type, st.status,
-    `${st.generated_distance_km} km`, `D+ ${st.total_ascent_m} m`,
+    `${EF.dec(st.generated_distance_km)} km`, `D+ ${st.total_ascent_m} m`,
     FULL.edition ? FULL.edition.name : null,
     FULL.track ? `routage : ${FULL.track.router}` : null,
   ].filter(Boolean).join(' · ');
@@ -153,8 +153,8 @@ function renderFiche() {
   if (st.elapsed_time_s != null) {
     const tiles = [
       { v: EF.formatDuration(st.elapsed_time_s), l: 'durée totale' },
-      { v: `${st.avg_speed_kmh} km/h`, l: 'vitesse moyenne' },
-      { v: `${st.max_speed_kmh} km/h`, l: 'vitesse maximale (lissée 30 s)' },
+      { v: `${EF.dec(st.avg_speed_kmh)} km/h`, l: 'vitesse moyenne' },
+      { v: `${EF.dec(st.max_speed_kmh)} km/h`, l: 'vitesse maximale (lissée 30 s)' },
     ];
     document.getElementById('ride-stats').innerHTML = tiles
       .map((t) => `<div class="stat"><div class="v">${t.v}</div><div class="l">${EF.esc(t.l)}</div></div>`)
@@ -169,7 +169,7 @@ function renderFiche() {
     document.getElementById('st-reconstruction').innerHTML =
       `<div class="reconstruction">Tracé <b>reconstitué sur le réseau routier actuel</b> — ` +
       `distance officielle ${FULL.edition && FULL.edition.year ? FULL.edition.year : ''} : ` +
-      `<b>${st.official_distance_km} km</b> / reconstitution : <b>${st.generated_distance_km} km</b> ` +
+      `<b>${EF.dec(st.official_distance_km)} km</b> / reconstitution : <b>${EF.dec(st.generated_distance_km)} km</b> ` +
       `(écart ${EF.formatDelta(delta)})</div>`;
   }
 
@@ -295,7 +295,7 @@ function renderFiche() {
       : '';
     div.innerHTML =
       EFProfile.renderClimbSVG({ ...c }, { width: 1040, height: 300 }) +
-      `<p class="meta-line">km ${c.start_km} → ${c.end_km} · du pied (${c.start_ele_m} m) au sommet (${c.summit_ele_m} m) · ` +
+      `<p class="meta-line">km ${EF.dec(c.start_km)} → ${EF.dec(c.end_km)} · du pied (${c.start_ele_m} m) au sommet (${c.summit_ele_m} m) · ` +
       `score ${c.score} → catégorie ${EF.esc(c.category)}` +
       `${c.irregularity_index != null ? ` · indice d'irrégularité ${c.irregularity_index} (écart-type des pentes par km — un mur peut noyer dans la moyenne)` : ''}` +
       ` · ${climbNameSourceLabel(c.name_source)} ${sourceBadge}${approxBadge}</p>`;
@@ -319,7 +319,7 @@ function renderFiche() {
     const orientation = fp.compass
       ? ` · cap ${COMPASS_FULL[fp.compass] || fp.compass} (${fp.bearingDeg}°) — exposition potentielle au vent latéral/de face selon le vent du jour`
       : '';
-    li.innerHTML = `<span class="badge fauxplat-badge">faux-plat</span> km ${fp.fromKm} → ${fp.toKm} · ${fp.lengthKm.toFixed(1)} km à ${fp.avgGradient.toFixed(1)} % en moyenne${orientation}`;
+    li.innerHTML = `<span class="badge fauxplat-badge">faux-plat</span> km ${EF.dec(fp.fromKm)} → ${EF.dec(fp.toKm)} · ${EF.dec(fp.lengthKm.toFixed(1))} km à ${EF.dec(fp.avgGradient.toFixed(1))} % en moyenne${orientation}`;
     fpList.appendChild(li);
   }
 
@@ -338,8 +338,8 @@ function renderFiche() {
       ? ` <span class="badge partial-badge" title="${EF.esc(overlapping.reason)} — pente non fiable sur ce tronçon">segment approximé</span>`
       : '';
     li.innerHTML = `<span class="badge fauxplat-badge">descente</span> ${EF.esc(d.name)} · ` +
-      `km ${d.start_km} → ${d.end_km} · ${d.length_km} km à ${d.avg_gradient} % en moyenne ` +
-      `(max ${d.max_gradient} %) · du sommet (${d.top_ele_m} m) au bas (${d.bottom_ele_m} m)` +
+      `km ${EF.dec(d.start_km)} → ${EF.dec(d.end_km)} · ${EF.dec(d.length_km)} km à ${EF.dec(d.avg_gradient)} % en moyenne ` +
+      `(max ${EF.dec(d.max_gradient)} %) · du sommet (${d.top_ele_m} m) au bas (${d.bottom_ele_m} m)` +
       `${d.irregularity_index != null ? ` · indice d'irrégularité ${d.irregularity_index}` : ''}${approxBadge}`;
     descList.appendChild(li);
   }
@@ -364,7 +364,7 @@ function renderFiche() {
       const g = dd > 0 ? ((b.ele_smooth_m - a.ele_smooth_m) / dd) * 100 : 0;
       const color = g < 1 ? '#3fa34d' : EFProfile.gradStyle(g).color;
       L.polyline([[a.lat, a.lon], [b.lat, b.lon]], { color, weight: 4, opacity: 0.95 })
-        .bindTooltip(`km ${(b.dist_m / 1000).toFixed(1)} · ${Math.round(b.ele_smooth_m)} m · ${g.toFixed(1)} %`)
+        .bindTooltip(`km ${EF.dec((b.dist_m / 1000).toFixed(1))} · ${Math.round(b.ele_smooth_m)} m · ${EF.dec(g.toFixed(1))} %`)
         .addTo(map);
     }
     // segments approximés en surimpression
@@ -527,7 +527,7 @@ function similarItemHtml(s) {
     s.edition_name ? `${s.edition_name}${s.edition_year ? ` (${s.edition_year})` : ''}` : null,
     s.total_ascent_m != null ? `D+ ${s.total_ascent_m} m` : null,
     s.max_category ? `côte cat. ${s.max_category}` : null,
-    s.max_gradient ? `${s.max_gradient} % max` : null,
+    s.max_gradient ? `${EF.dec(s.max_gradient)} % max` : null,
   ].filter(Boolean).join(' · ');
   return `<li class="fauxplat-item"><a href="/stage.html?id=${s.id}">${EF.esc(s.name)}</a>${meta ? ` — ${EF.esc(meta)}` : ''}</li>`;
 }
@@ -556,8 +556,8 @@ function renderKmTable() {
   tbody.innerHTML = rows
     .map(
       (r) =>
-        `<tr><td>${r.km}</td><td>${r.ele_end_m}</td><td>${r.avg_gradient.toFixed(1)}</td>` +
-        `<td>${r.max_gradient_100m.toFixed(1)}</td><td>${r.ascent_m}</td><td>${r.cum_ascent_m}</td></tr>`
+        `<tr><td>${r.km}</td><td>${r.ele_end_m}</td><td>${EF.dec(r.avg_gradient.toFixed(1))}</td>` +
+        `<td>${EF.dec(r.max_gradient_100m.toFixed(1))}</td><td>${r.ascent_m}</td><td>${r.cum_ascent_m}</td></tr>`
     )
     .join('');
 }
@@ -627,13 +627,13 @@ function buildHrChart(samples, W, H) {
     pen = true;
   }
   const km = Math.round(maxD / 100) / 10;
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Fréquence cardiaque de ${lo} à ${hi} bpm sur ${km} km">
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Fréquence cardiaque de ${lo} à ${hi} bpm sur ${EF.dec(km)} km">
     <line x1="${M.l}" y1="${y(lo)}" x2="${W - M.r}" y2="${y(lo)}" stroke="#ddd5c2"/>
     <line x1="${M.l}" y1="${y(hi)}" x2="${W - M.r}" y2="${y(hi)}" stroke="#ddd5c2"/>
     <text x="${M.l - 4}" y="${y(lo) + 3}" text-anchor="end" font-size="10" fill="#6b6b6b">${lo}</text>
     <text x="${M.l - 4}" y="${y(hi) + 3}" text-anchor="end" font-size="10" fill="#6b6b6b">${hi}</text>
     <text x="${M.l}" y="${H - 6}" font-size="10" fill="#6b6b6b">0 km</text>
-    <text x="${W - M.r}" y="${H - 6}" text-anchor="end" font-size="10" fill="#6b6b6b">${km} km</text>
+    <text x="${W - M.r}" y="${H - 6}" text-anchor="end" font-size="10" fill="#6b6b6b">${EF.dec(km)} km</text>
     <path d="${d}" fill="none" stroke="#b01c2f" stroke-width="1.5" stroke-linejoin="round"/>
   </svg>`;
 }

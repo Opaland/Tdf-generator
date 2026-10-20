@@ -24,7 +24,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert');
 
-global.EF = {
+global.EF = { dec: (v) => (v == null ? v : String(v).replace('.', ',')),
   qs: () => null,
   esc: (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'),
   distanceDelta(officialKm, generatedKm) {
@@ -32,7 +32,7 @@ global.EF = {
     return ((generatedKm - officialKm) / officialKm) * 100;
   },
   formatDelta(delta) {
-    return `${delta >= 0 ? '+' : ''}${delta.toFixed(1)} %`;
+    return `${delta >= 0 ? '+' : ''}${delta.toFixed(1).replace('.', ',')} %`;
   },
   stateBadge(state) {
     const labels = { done: 'générée', generating: 'génération…', error: 'erreur', draft: 'brouillon' };
@@ -60,8 +60,8 @@ test('stageRow() : distance reconstituée à 0 km (motif réel — ville départ
 
 test('stageRow() : cas nominal — distance et écart tous deux affichés', () => {
   const html = stageRow(baseStage());
-  assert.match(html, />172\.3 km/);
-  assert.match(html, /-6\.8 %/, 'écart calculé et affiché normalement quand les deux distances sont non nulles');
+  assert.match(html, />172,3 km/);
+  assert.match(html, /-6,8 %/, 'écart calculé et affiché normalement quand les deux distances sont non nulles');
 });
 
 test('stageRow() : aucune distance reconstituée (étape non générée) → tiret, pas d\'exception', () => {

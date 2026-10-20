@@ -10,6 +10,12 @@
 const { COL_TOLERANCE_M, BROUTER_PROFILE } = require('./routing');
 const { haversine } = require('./geo');
 
+// Nombres des messages à la française (virgule décimale), comme l'interface
+// (EF.dec, frontend/common.js — revue globale du 19/10/2026). Les messages
+// déjà stockés gardent leur point jusqu'à la prochaine génération.
+const frDec = (v) => (v == null ? v : String(v).replace('.', ','));
+const fr1 = (v) => frDec(v.toFixed(1));
+
 const ALT_TOLERANCE_M = 120;
 // Au-delà de ce taux d'échantillons manquants, le profil (D+, côtes
 // détectées) n'est plus seulement incomplet, il n'est plus fiable du tout —
@@ -109,7 +115,7 @@ function runChecks({ stage, distanceM, waypointsOnTrack, approxSegments, climbs,
           id: `via-gap-${l.from}-${l.to}`,
           label: `Points de passage espacés : ${l.from} → ${l.to}`,
           status: 'warn',
-          detail: `${(l.straightM / 1000).toFixed(1)} km à vol d'oiseau sans point de passage intermédiaire — ` +
+          detail: `${fr1(l.straightM / 1000)} km à vol d'oiseau sans point de passage intermédiaire — ` +
             `au-delà de ~${VIA_GAP_WARN_M / 1000} km, le routeur peut improviser un chemin plausible mais faux ` +
             `entre les deux (trouvaille Tour 1992 étape 10 : détour par Nidervisse/Porcelette, jamais empruntés ` +
             `par la course). Envisager un point de passage supplémentaire si une source existe.`,
@@ -204,15 +210,15 @@ function runChecks({ stage, distanceM, waypointsOnTrack, approxSegments, climbs,
       label: 'Distance reconstituée vs cible',
       status: ok ? 'ok' : 'fail',
       detail: !nearZero
-        ? `officielle ${target} km / reconstitution ${kmGen.toFixed(1)} km ` +
-          `(écart ${deltaPct >= 0 ? '+' : ''}${deltaPct.toFixed(1)} %, tolérance ±${DIST_TOLERANCE_PCT} %)`
+        ? `officielle ${frDec(target)} km / reconstitution ${fr1(kmGen)} km ` +
+          `(écart ${deltaPct >= 0 ? '+' : ''}${fr1(deltaPct)} %, tolérance ±${DIST_TOLERANCE_PCT} %)`
         : distinctCloseCities
-        ? `reconstitution quasi nulle (${kmGen.toFixed(1)} km pour ${target} km officiels) — ` +
+        ? `reconstitution quasi nulle (${fr1(kmGen)} km pour ${frDec(target)} km officiels) — ` +
           `${first.label} et ${last.label} sont deux communes distinctes mais proches ` +
-          `(${(straightM / 1000).toFixed(1)} km à vol d'oiseau), pas un circuit : sans point de passage ` +
+          `(${fr1(straightM / 1000)} km à vol d'oiseau), pas un circuit : sans point de passage ` +
           `intermédiaire curé, le routeur trace un aller direct au lieu du tracé réel — vérifier s'il ` +
           `manque des points de passage, voir pipeline/data/historic_routes.json`
-        : `reconstitution quasi nulle (${kmGen.toFixed(1)} km pour ${target} km officiels) — ` +
+        : `reconstitution quasi nulle (${fr1(kmGen)} km pour ${frDec(target)} km officiels) — ` +
           `probablement une étape en circuit (départ = arrivée) sans aucun point de passage curé : ` +
           `impossible de reconstruire un tracé réel sans via, voir pipeline/data/historic_routes.json`,
     });
@@ -221,7 +227,7 @@ function runChecks({ stage, distanceM, waypointsOnTrack, approxSegments, climbs,
       id: 'distance',
       label: 'Distance générée',
       status: 'ok',
-      detail: `${kmGen.toFixed(1)} km (pas de distance cible : étape créée)`,
+      detail: `${fr1(kmGen)} km (pas de distance cible : étape créée)`,
     });
   }
 
@@ -295,7 +301,7 @@ function runChecks({ stage, distanceM, waypointsOnTrack, approxSegments, climbs,
       label: 'Segments approximés',
       status: 'warn',
       detail: approxSegments
-        .map((s) => `km ${(s.fromM / 1000).toFixed(1)}–${(s.toM / 1000).toFixed(1)} : ${s.reason}`)
+        .map((s) => `km ${fr1(s.fromM / 1000)}–${fr1(s.toM / 1000)} : ${s.reason}`)
         .join(' ; '),
     });
   } else {
@@ -338,7 +344,7 @@ function runChecks({ stage, distanceM, waypointsOnTrack, approxSegments, climbs,
     const nearbyClimbs = (climbs || []).filter((c) => c.startM <= z.endM + 2000 && c.endM >= z.startM - 2000);
     items.push({
       id: `backtrack-${z.startM}-${z.endM}`,
-      label: `Aller-retour détecté : km ${(z.startM / 1000).toFixed(1)}–${(z.endM / 1000).toFixed(1)}`,
+      label: `Aller-retour détecté : km ${fr1(z.startM / 1000)}–${fr1(z.endM / 1000)}`,
       status: 'warn',
       detail:
         `le tracé repasse sur lui-même en sens inverse sur cette portion — peut signaler un point de passage ` +

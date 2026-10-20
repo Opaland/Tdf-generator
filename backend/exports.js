@@ -6,6 +6,10 @@ const path = require('path');
 const { getDb } = require('./db');
 const { loadStageFull } = require('../pipeline/generate');
 
+// Nombre affiché à la française dans les pages HTML générées (roadbook),
+// comme EF.dec côté interface (revue globale du 19/10/2026).
+const frDec = (v) => (v == null ? v : String(v).replace('.', ','));
+
 function esc(s) {
   return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
@@ -456,7 +460,7 @@ function stageToRoadbookHtml(stageId) {
   const rowsHtml = points
     .map((p) => {
       const bonusTxt = p.bonus_sec ? ` — bonif. ${p.bonus_sec.join('/')}″` : '';
-      return `<tr><td>${(p.distM / 1000).toFixed(1)}</td><td>${formatElapsed(p.distM)}</td>` +
+      return `<tr><td>${frDec((p.distM / 1000).toFixed(1))}</td><td>${formatElapsed(p.distM)}</td>` +
         `<td>${esc(kindLabel(p))}</td>` +
         `<td>${esc(p.label)}${esc(bonusTxt)}</td>` +
         `<td>${p.ele != null ? `${p.ele} m` : '—'}</td></tr>`;
@@ -467,8 +471,8 @@ function stageToRoadbookHtml(stageId) {
     ? climbs
         .map(
           (c) =>
-            `<tr><td>${c.start_km} → ${c.end_km}</td><td>${esc(c.name)}</td><td>${esc(c.category)}</td>` +
-            `<td>${c.length_km} km</td><td>${c.avg_gradient} %</td><td>${c.max_gradient} %</td><td>${c.summit_ele_m} m</td></tr>`
+            `<tr><td>${frDec(c.start_km)} → ${frDec(c.end_km)}</td><td>${esc(c.name)}</td><td>${esc(c.category)}</td>` +
+            `<td>${frDec(c.length_km)} km</td><td>${frDec(c.avg_gradient)} %</td><td>${frDec(c.max_gradient)} %</td><td>${c.summit_ele_m} m</td></tr>`
         )
         .join('\n')
     : '<tr><td colspan="7">Aucune côte détectée (seuil : ≥ 1,5 km à ≥ 3 %).</td></tr>';
@@ -482,14 +486,14 @@ function stageToRoadbookHtml(stageId) {
 <table>
 <thead><tr><th>Km d'entrée</th><th>Commune</th><th>Département</th></tr></thead>
 <tbody>
-${communes.communes.map((c) => `<tr><td>${Number(c.km).toFixed(1)}</td><td>${esc(c.nom)}</td><td>${esc(c.departement || '—')}</td></tr>`).join('\n')}
+${communes.communes.map((c) => `<tr><td>${frDec(Number(c.km).toFixed(1))}</td><td>${esc(c.nom)}</td><td>${esc(c.departement || '—')}</td></tr>`).join('\n')}
 </tbody>
 </table>
 <p class="note">Commune qui contient chaque point du tracé reconstitué, tous les ${Number(communes.stepM) / 1000} km (source : geo.api.gouv.fr, France seulement). Une commune traversée n'est pas forcément un bourg traversé ; une traversée plus courte que le pas peut manquer.</p>
 `
     : '';
 
-  const dist = stage.generated_distance_km != null ? `${stage.generated_distance_km} km` : '?';
+  const dist = stage.generated_distance_km != null ? `${frDec(stage.generated_distance_km)} km` : '?';
   const editionLine = edition ? `${esc(edition.name)} — ` : '';
 
   return `<!DOCTYPE html>

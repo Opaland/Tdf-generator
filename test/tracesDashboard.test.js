@@ -11,7 +11,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert');
 
-global.EF = { esc: (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;') };
+global.EF = { dec: (v) => (v == null ? v : String(v).replace('.', ',')), esc: (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;') };
 
 const {
   isoWeekKey, formatPeriodLabel, formatDuration, computeAwards, buildCumulativeChart, buildWeeklyBarChart,
@@ -132,7 +132,7 @@ test('buildCalendarHeatmap : un jour connu apparaît avec sa distance dans l\'in
   const today = new Date('2026-09-21T00:00:00Z');
   const daily = [day('2026-09-15', 45.2, 300, 3600)];
   const svg = buildCalendarHeatmap(daily, { today, weeks: 4 });
-  assert.ok(svg.includes('45.2 km'), `la distance du jour connu doit apparaître : ${svg}`);
+  assert.ok(svg.includes('45,2 km'), `la distance du jour connu doit apparaître : ${svg}`);
   // Le dernier jour de la grille (dimanche de la semaine en cours) est le 2026-09-20
   // (dimanche) ou avant — jamais le 21 (aujourd'hui, un lundi) ni au-delà : la grille
   // s'arrête au lundi de la semaine courante inclus, jamais un jour futur.

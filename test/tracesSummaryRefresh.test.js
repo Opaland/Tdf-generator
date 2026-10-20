@@ -27,7 +27,7 @@ function setup({ importOk, okFiles }) {
   };
   // Le bilan est demandé via EF.api : il suffit de compter ces appels, le
   // rendu échoue en silence (catch dans loadSummary) faute de DOM complet.
-  global.EF = {
+  global.EF = { dec: (v) => (v == null ? v : String(v).replace('.', ',')),
     esc: (s) => String(s ?? ''),
     api: async (url) => {
       calls.push(url);
@@ -79,7 +79,7 @@ test('import par lien réussi : le bilan est redemandé', async () => {
 });
 
 test('graphique hebdomadaire : une seule semaine ne remplit pas tout le graphique', () => {
-  global.EF = { esc: (s) => String(s ?? '') };
+  global.EF = { dec: (v) => (v == null ? v : String(v).replace('.', ',')), esc: (s) => String(s ?? '') };
   const { buildWeeklyBarChart } = require('../frontend/traces.js');
   const svg = buildWeeklyBarChart([{ date: '2026-06-10', distanceKm: 42 }], 600, 160);
   const w = Number(svg.match(/<rect [^>]* width="([\d.]+)"/)[1]);
