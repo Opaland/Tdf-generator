@@ -141,7 +141,8 @@ function metricRows(fa, fb) {
       'D+ (m)': f.stage.total_ascent_m,
       'D+ / km (m)': f.stage.generated_distance_km ? Math.round((f.stage.total_ascent_m / f.stage.generated_distance_km) * 10) / 10 : null,
       'Côtes détectées': climbs.length,
-      'Catégorie max': climbs.length ? climbs.reduce((a, c) => (['4','3','2','1','HC'].indexOf(c.category) > ['4','3','2','1','HC'].indexOf(a) ? c.category : a), '4') : '—',
+      // Rang partagé (EFProfile.CAT_RANK, 35.20) plutôt qu'une liste locale.
+      'Catégorie max': climbs.length ? climbs.reduce((a, c) => ((EFProfile.CAT_RANK[c.category] || 0) > (EFProfile.CAT_RANK[a] || 0) ? c.category : a), '4') : '—',
       'Sommet le plus haut (m)': climbs.length ? Math.max(...climbs.map((c) => c.summit_ele_m)) : '—',
       'Pente max (%)': maxG != null ? maxG : '—',
       'Altitude moyenne (m)': f.samples.length ? Math.round(f.samples.reduce((a, s) => a + s.ele_smooth_m, 0) / f.samples.length) : '—',
