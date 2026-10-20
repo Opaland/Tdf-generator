@@ -180,6 +180,28 @@ function profileLegendHtml(strips) {
   return parts.length ? `<p class="meta-line">${parts.join('<br>')}</p>` : '';
 }
 
+// Données officielles corrigées à l'import (Epic 33.19) : la valeur
+// Wikipédia d'origine reste affichée à côté, avec la source (règle 12).
+// `source` peut venir d'une sauvegarde importée : seul un champ propre de
+// CORRECTION_FIELDS est lu (« constructor » plantait la fiche, relecture).
+const CORRECTION_FIELDS = {
+  distanceKm: ['distance', (v) => `${EF.dec(v)} km`],
+  dateIso: ['date', (v) => EF.day(v)],
+  start: ['départ', (v) => v],
+  finish: ['arrivée', (v) => v],
+};
+function correctionsHtml(source) {
+  const list = source && Array.isArray(source.corrections) ? source.corrections : [];
+  const items = list
+    .filter((c) => c && typeof c.field === 'string' && Object.prototype.hasOwnProperty.call(CORRECTION_FIELDS, c.field))
+    .map((c) => {
+      const [name, fmt] = CORRECTION_FIELDS[c.field];
+      const was = c.wikipedia == null ? '—' : fmt(c.wikipedia);
+      return `${EF.esc(name)} ${EF.esc(fmt(c.value))} au lieu de ${EF.esc(was)} (valeur lue dans en.wikipedia) — source : ${EF.esc(c.source)}`;
+    });
+  return items.length ? `<p class="meta-line">Donnée officielle corrigée : ${items.join(' ; ')}</p>` : '';
+}
+
 function drawProfile(payload, { onlyIfResized = false } = {}) {
   const profileBox = document.getElementById('profile-box');
   // Masqué (onglet 3D actif) : largeur 0, responsiveWidth renverrait 1080.
@@ -285,13 +307,16 @@ function renderFiche() {
 
   // Bandeau reconstruction historique.
   const delta = EF.distanceDelta(st.official_distance_km, st.generated_distance_km);
+  let reconstruction = '';
   if (delta != null) {
-    document.getElementById('st-reconstruction').innerHTML =
+    reconstruction =
       `<div class="reconstruction">Tracé <b>reconstitué sur le réseau routier actuel</b> — ` +
       `distance officielle ${FULL.edition && FULL.edition.year ? FULL.edition.year : ''} : ` +
       `<b>${EF.dec(st.official_distance_km)} km</b> / reconstitution : <b>${EF.dec(st.generated_distance_km)} km</b> ` +
       `(écart ${EF.formatDelta(delta)})</div>`;
   }
+  reconstruction += correctionsHtml(st.source);
+  if (reconstruction) document.getElementById('st-reconstruction').innerHTML = reconstruction;
 
   // Profil 2D + profil 3D interactif (rotation à la souris, relief étirable —
   // visualisation inspirée des profils 3D VeloViewer).
@@ -881,7 +906,7 @@ function renderHeartRate(st, samples) {
   renderHrZones(samples || []);
 }
 
-if (typeof module !== 'undefined' && module.exports) module.exports = { surfaceSegments, hrSegments, csvRow, similarItemHtml, poll, climbNameSourceLabel, buildHrChart, hrZoneTimes, hrZoneBounds, buildZonesTable, HR_ZONES };
+if (typeof module !== 'undefined' && module.exports) module.exports = { correctionsHtml, surfaceSegments, hrSegments, csvRow, similarItemHtml, poll, climbNameSourceLabel, buildHrChart, hrZoneTimes, hrZoneBounds, buildZonesTable, HR_ZONES };
 
 // Communes traversées (Epic 12, option B) : calculées à la demande — environ
 // une requête geo.api.gouv.fr par kilomètre, donc jamais à la génération.

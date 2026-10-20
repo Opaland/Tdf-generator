@@ -18,7 +18,8 @@ const os = require('os');
 
 process.env.ETAPEFORGE_DATA_DIR = process.env.ETAPEFORGE_DATA_DIR || fs.mkdtempSync(path.join(os.tmpdir(), 'etapeforge-towns-'));
 
-const { fetchEditionHtml, parseStagesFromHtml, FRENCH_DEPARTMENTS, KNOWN_COLS } = require('../pipeline/wikipedia');
+const { fetchEditionHtml, parseStagesFromHtml, stageCurationKey, FRENCH_DEPARTMENTS, KNOWN_COLS } = require('../pipeline/wikipedia');
+const { correctStage } = require('../pipeline/officialCorrections');
 const { allTdfYears } = require('../pipeline/importer');
 const { communeCandidates, geocode, normName } = require('../pipeline/geocode');
 const { httpJson } = require('../pipeline/http');
@@ -393,7 +394,14 @@ async function main() {
       continue;
     }
     const out = [];
-    for (const s of stages) {
+    // Corrections sourcées (Epic 33.19), comme à l'import d'une édition.
+    const counts = new Map();
+    for (const st of stages) counts.set(st.number, (counts.get(st.number) || 0) + 1);
+    const seen = new Map();
+    for (const rawStage of stages) {
+      const occ = seen.get(rawStage.number) || 0;
+      seen.set(rawStage.number, occ + 1);
+      const s = correctStage(rawStage, `${key}/${stageCurationKey(rawStage.number, occ, counts.get(rawStage.number))}`).stage;
       const start = await resolveTown(s.start, s.startCountry, s.startDepartment);
       const finish = s.finish === s.start && s.finishCountry === s.startCountry ? start : await resolveTown(s.finish, s.finishCountry, s.finishDepartment);
       for (const [label, t] of [[s.start, start], [s.finish, finish]]) {

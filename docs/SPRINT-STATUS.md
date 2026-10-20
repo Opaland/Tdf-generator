@@ -1281,7 +1281,7 @@ et côtes traversées avec leur kilomètre.
   côté Wikidata, 2 non tranchées, 1998/12 gardée (distance courue) ;
   dates : 15 fausses chez nous, 13 côté Wikidata. La correction, faute de
   mécanisme pour une distance ou une date officielle, passe en 33.19.
-- [ ] 33.19 Corrections officielles sourcées appliquées à l'import — un
+- [x] 33.19 (PR #471) Corrections officielles sourcées appliquées à l'import — un
   fichier de données (`pipeline/data/official_corrections.json`) porte,
   par « édition/étape », une distance, une date ou une ville de départ
   ou d'arrivée corrigée, chacune avec sa source ; critères : appliqué par

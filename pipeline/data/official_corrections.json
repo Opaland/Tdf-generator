@@ -1,0 +1,101 @@
+{
+ "_notes": "Corrections sourcées des données officielles du tableau d'étapes de en.wikipedia (Epic 33.19) : distanceKm, dateIso, start, finish. Clé « édition/étape » (stageCurationKey : « 1970/5b » pour le 2e secteur). Appliquées par pipeline/importer.js et scripts/build-stage-towns.js ; la valeur Wikipédia d'origine est gardée dans la source de l'étape et affichée sur sa fiche (CLAUDE.md règle 12). Chaque entrée cite sa source.",
+ "corrections": {
+  "1927/15": {
+   "distanceKm": 280,
+   "source": "fr.wikipedia (« Tour de France 1927 », tableau des étapes) et Wikidata concordent sur 280 km ; en.wikipedia donne 220 km (docs/WIKIDATA-EXAMEN.md, Epic 33.17)"
+  },
+  "1964/20": {
+   "distanceKm": 237.5,
+   "source": "fr.wikipedia (« Tour de France 1964 », tableau des étapes) et Wikidata concordent sur 237,5 km ; en.wikipedia donne 217 km (docs/WIKIDATA-EXAMEN.md, Epic 33.17)"
+  },
+  "1965/20": {
+   "distanceKm": 298.5,
+   "source": "fr.wikipedia (« Tour de France 1965 », tableau des étapes) et Wikidata concordent sur 298,5 km ; en.wikipedia donne 198,5 km (docs/WIKIDATA-EXAMEN.md, Epic 33.17)"
+  },
+  "1970/5b": {
+   "distanceKm": 113,
+   "source": "fr.wikipedia (« Tour de France 1970 », tableau des étapes) et Wikidata concordent sur 113 km ; en.wikipedia donne 223 km (docs/WIKIDATA-EXAMEN.md, Epic 33.17)"
+  },
+  "1970/16": {
+   "distanceKm": 259.5,
+   "source": "fr.wikipedia (« Tour de France 1970 », tableau des étapes) et Wikidata concordent sur 259,5 km ; en.wikipedia donne 160 km (docs/WIKIDATA-EXAMEN.md, Epic 33.17)"
+  },
+  "1987/11": {
+   "distanceKm": 255,
+   "source": "fr.wikipedia (« Tour de France 1987 », tableau des étapes) et Wikidata concordent sur 255 km ; en.wikipedia donne 206 km (docs/WIKIDATA-EXAMEN.md, Epic 33.17)"
+  },
+  "1988/16": {
+   "distanceKm": 38,
+   "source": "fr.wikipedia (« Tour de France 1988 », tableau des étapes) et Wikidata concordent sur 38 km ; en.wikipedia donne 35 km (docs/WIKIDATA-EXAMEN.md, Epic 33.17)"
+  },
+  "2019/14": {
+   "distanceKm": 117.5,
+   "source": "fr.wikipedia (« Tour de France 2019 », tableau des étapes) et Wikidata concordent sur 117,5 km ; en.wikipedia donne 111 km (docs/WIKIDATA-EXAMEN.md, Epic 33.17)"
+  },
+  "1905/3": {
+   "dateIso": "1905-07-15",
+   "source": "fr.wikipedia (« Tour de France 1905 », tableau des étapes) et Wikidata concordent sur le 15/07/1905 ; en.wikipedia donne le 14/07/1905 (docs/WIKIDATA-EXAMEN.md, Epic 33.17)"
+  },
+  "1905/7": {
+   "dateIso": "1905-07-23",
+   "source": "fr.wikipedia (« Tour de France 1905 », tableau des étapes) et Wikidata concordent sur le 23/07/1905 ; en.wikipedia donne le 22/07/1905 (docs/WIKIDATA-EXAMEN.md, Epic 33.17)"
+  },
+  "1905/8": {
+   "dateIso": "1905-07-25",
+   "source": "fr.wikipedia (« Tour de France 1905 », tableau des étapes) et Wikidata concordent sur le 25/07/1905 ; en.wikipedia donne le 24/07/1905 (docs/WIKIDATA-EXAMEN.md, Epic 33.17)"
+  },
+  "1905/9": {
+   "dateIso": "1905-07-27",
+   "source": "fr.wikipedia (« Tour de France 1905 », tableau des étapes) et Wikidata concordent sur le 27/07/1905 ; en.wikipedia donne le 26/07/1905 (docs/WIKIDATA-EXAMEN.md, Epic 33.17)"
+  },
+  "1905/10": {
+   "dateIso": "1905-07-29",
+   "source": "fr.wikipedia (« Tour de France 1905 », tableau des étapes) et Wikidata concordent sur le 29/07/1905 ; en.wikipedia donne le 28/07/1905 (docs/WIKIDATA-EXAMEN.md, Epic 33.17)"
+  },
+  "1905/11": {
+   "dateIso": "1905-07-30",
+   "source": "fr.wikipedia (« Tour de France 1905 », tableau des étapes) et Wikidata concordent sur le 30/07/1905 ; en.wikipedia donne le 29/07/1905 (docs/WIKIDATA-EXAMEN.md, Epic 33.17)"
+  },
+  "1912/12": {
+   "dateIso": "1912-07-22",
+   "source": "fr.wikipedia (« Tour de France 1912 », tableau des étapes) et Wikidata concordent sur le 22/07/1912 ; en.wikipedia donne le 21/07/1912 (docs/WIKIDATA-EXAMEN.md, Epic 33.17)"
+  },
+  "1920/9": {
+   "dateIso": "1920-07-13",
+   "source": "fr.wikipedia (« Tour de France 1920 », tableau des étapes) et Wikidata concordent sur le 13/07/1920 ; en.wikipedia donne le 14/07/1920 (docs/WIKIDATA-EXAMEN.md, Epic 33.17)"
+  },
+  "1920/10": {
+   "dateIso": "1920-07-15",
+   "source": "fr.wikipedia (« Tour de France 1920 », tableau des étapes) et Wikidata concordent sur le 15/07/1920 ; en.wikipedia donne le 16/07/1920 (docs/WIKIDATA-EXAMEN.md, Epic 33.17)"
+  },
+  "1920/11": {
+   "dateIso": "1920-07-17",
+   "source": "fr.wikipedia (« Tour de France 1920 », tableau des étapes) et Wikidata concordent sur le 17/07/1920 ; en.wikipedia donne le 18/07/1920 (docs/WIKIDATA-EXAMEN.md, Epic 33.17)"
+  },
+  "1920/12": {
+   "dateIso": "1920-07-19",
+   "source": "fr.wikipedia (« Tour de France 1920 », tableau des étapes) et Wikidata concordent sur le 19/07/1920 ; en.wikipedia donne le 20/07/1920 (docs/WIKIDATA-EXAMEN.md, Epic 33.17)"
+  },
+  "1920/13": {
+   "dateIso": "1920-07-21",
+   "source": "fr.wikipedia (« Tour de France 1920 », tableau des étapes) et Wikidata concordent sur le 21/07/1920 ; en.wikipedia donne le 22/07/1920 (docs/WIKIDATA-EXAMEN.md, Epic 33.17)"
+  },
+  "1920/14": {
+   "dateIso": "1920-07-23",
+   "source": "fr.wikipedia (« Tour de France 1920 », tableau des étapes) et Wikidata concordent sur le 23/07/1920 ; en.wikipedia donne le 24/07/1920 (docs/WIKIDATA-EXAMEN.md, Epic 33.17)"
+  },
+  "1920/15": {
+   "dateIso": "1920-07-25",
+   "source": "fr.wikipedia (« Tour de France 1920 », tableau des étapes) et Wikidata concordent sur le 25/07/1920 ; en.wikipedia donne le 27/07/1920 (docs/WIKIDATA-EXAMEN.md, Epic 33.17)"
+  },
+  "1957/15b": {
+   "dateIso": "1957-07-12",
+   "source": "fr.wikipedia (« Tour de France 1957 », tableau des étapes) et Wikidata concordent sur le 12/07/1957 ; en.wikipedia donne le 13/07/1957 (docs/WIKIDATA-EXAMEN.md, Epic 33.17)"
+  },
+  "1984/6": {
+   "start": "Cergy-Pontoise",
+   "source": "en.wikipedia (« 1984 Tour de France ») affiche « Cergy-Pontoise to Alençon » mais le lien pointe vers Louvroil ([[Louvroil|Cergy-Pontoise]]) ; arrivée de la 5e étape la veille à Cergy-Pontoise et ville Wikidata du recoupement (Epic 33.18)"
+  }
+ }
+}
