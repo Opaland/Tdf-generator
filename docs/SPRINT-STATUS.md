@@ -1505,6 +1505,18 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   autonomes reçoivent `frDec` avec `escHtml`. Hors périmètre : les formats
   de données (GPX, TCX, KML — y compris leurs champs de description —,
   JSON ; CSV déjà traité en 35.18).
+- [x] 35.20 (PR #457) Dette : une source pour le rang des catégories et pour esc() —
+  critères : le rang des catégories de côte n'existe plus qu'en
+  `CATEGORY_RANK` (`pipeline/climbs.js`, repris par `apiHelpers` et
+  `climbEfforts`) et `EFProfile.CAT_RANK` (repris par `cols.js` et
+  `tourmap.js`), les deux tables restant identiques ; `esc()` côté Node
+  n'est défini que dans `backend/exports.js`, et le site statique
+  (`scripts/build-site.js`) l'utilise : sa copie locale n'échappait pas
+  « " » dans un attribut `alt` (`test/singleSource.test.js`). Hors
+  périmètre, volontairement : `EF.esc` (navigateur), l'`esc` de
+  `profile.js`, chargé seul dans les exports HTML autonomes, et
+  `CATEGORY_POINTS` (`pipeline/pain.js`), barème de l'indice de douleur aux
+  mêmes valeurs aujourd'hui mais à pondération propre.
 
 En attente de décision (proposées, non commencées) : méthode de lissage
 d'altitude (D+ et pente max sous-estimés en relief vallonné), export de la

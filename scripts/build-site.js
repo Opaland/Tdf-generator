@@ -10,7 +10,9 @@
 const fs = require('fs');
 const path = require('path');
 const { getDb } = require('../backend/db');
-const { tourToStandaloneHtml, stagePayload, ATTRIBUTIONS } = require('../backend/exports');
+// esc() de backend/exports.js : la copie locale n'échappait pas « " »
+// (revue globale du 19/10/2026), alors qu'elle sert dans un attribut alt.
+const { esc, tourToStandaloneHtml, stagePayload, ATTRIBUTIONS } = require('../backend/exports');
 const { loadStageFull } = require('../pipeline/generate');
 const { stageWithoutHr, fullWithoutHr } = require('../pipeline/heartRate');
 
@@ -18,10 +20,6 @@ const ROOT = path.join(__dirname, '..');
 // ETAPEFORGE_DIST_DIR : sortie ailleurs que dist/ (tests).
 const DIST = process.env.ETAPEFORGE_DIST_DIR || path.join(ROOT, 'dist');
 const FRONTEND = path.join(ROOT, 'frontend');
-
-function esc(s) {
-  return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-}
 
 const write = (rel, content) => {
   const p = path.join(DIST, rel);
@@ -225,7 +223,7 @@ function main() {
       <div class="d">L'interface de création — la génération nécessite la version locale</div></a>
   </div>
   <h2>Captures de la version locale</h2>
-  ${captures.map((c) => `<img class="cap" src="captures/${c}" alt="${esc(c)}" loading="lazy">`).join('\n  ')}
+  ${captures.map((c) => `<img class="cap" src="captures/${encodeURIComponent(c)}" alt="${esc(c)}" loading="lazy">`).join('\n  ')}
 </main>
 <script>window.EF_STATIC = true;</script>
 <script src="common.js"></script>
