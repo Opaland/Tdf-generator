@@ -306,6 +306,37 @@ function renderAwards(daily) {
   }).join('');
 }
 
+/**
+ * Nombre d'Eddington (idée geo-activity-playground, MIT ; formule publique
+ * d'Arthur Eddington) : le plus grand E tel qu'au moins E jours atteignent
+ * chacun E unités. `values` : une valeur par jour roulé (km, ou D+ divisé par
+ * l'unité choisie). `next` : jours qui manquent pour passer à E + 1.
+ * @returns { e, next }
+ */
+function eddington(values) {
+  const sorted = (values || []).filter((v) => Number.isFinite(v) && v > 0).sort((a, b) => b - a);
+  let e = 0;
+  while (e < sorted.length && sorted[e] >= e + 1) e++;
+  const next = Math.max(0, e + 1 - sorted.filter((v) => v >= e + 1).length);
+  return { e, next };
+}
+
+// D+ compté par tranches de 100 m : convention choisie ici (E = 8 → au moins
+// 8 jours à 800 m de D+ ou plus), pas une norme.
+const EDDINGTON_ASCENT_UNIT_M = 100;
+
+/** Tuiles Eddington du bilan, distance et D+ (backlog 34.4). */
+function eddingtonTiles(daily) {
+  const dist = eddington((daily || []).map((d) => d.distanceKm));
+  const asc = eddington((daily || []).map((d) => d.ascentM / EDDINGTON_ASCENT_UNIT_M));
+  const plural = (n) => (n > 1 ? 's' : '');
+  return [
+    // E = 0 : pas de « (0 jour ≥ 0 km) », seulement le premier palier.
+    { v: dist.e, l: `Eddington distance${dist.e ? ` (${dist.e} jour${plural(dist.e)} ≥ ${dist.e} km)` : ''} — prochain palier : ${dist.next} jour${plural(dist.next)} ≥ ${dist.e + 1} km` },
+    { v: asc.e, l: `Eddington D+, par 100 m${asc.e ? ` (${asc.e} jour${plural(asc.e)} ≥ ${asc.e * EDDINGTON_ASCENT_UNIT_M} m)` : ''} — prochain palier : ${asc.next} jour${plural(asc.next)} ≥ ${(asc.e + 1) * EDDINGTON_ASCENT_UNIT_M} m` },
+  ];
+}
+
 /** Graphique en aire : distance cumulée jour après jour (une seule série de
  * magnitude → même paire silhouette/trait que le profil altimétrique,
  * frontend/profile.js, pour rester cohérent avec la palette déjà en place). */
@@ -790,6 +821,7 @@ async function loadSummary() {
       tiles.push({ v: formatDuration(s.totalElapsedTimeS), l: `temps cumulé (${s.tracesWithTimeCount} sortie${s.tracesWithTimeCount > 1 ? 's' : ''} horodatée${s.tracesWithTimeCount > 1 ? 's' : ''})` });
     }
     if (s.highestSummit) tiles.push({ v: `${s.highestSummit.summit_ele_m} m`, l: `plus haut sommet — ${s.highestSummit.name}` });
+    tiles.push(...eddingtonTiles(s.daily));
     document.getElementById('summary-tiles').innerHTML = tiles
       .map((t) => `<div class="stat"><div class="v">${EF.esc(String(t.v))}</div><div class="l">${EF.esc(t.l)}</div></div>`)
       .join('');
@@ -894,5 +926,5 @@ document.addEventListener('DOMContentLoaded', async () => {
 }
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { importTraceFiles, importFromLink, isoWeekKey, formatPeriodLabel, formatDuration, computeAwards, buildCumulativeChart, buildWeeklyBarChart, buildCalendarHeatmap, heatmapColor, buildGearRows, buildGearSelect, buildEffortRows };
+  module.exports = { eddington, eddingtonTiles, importTraceFiles, importFromLink, isoWeekKey, formatPeriodLabel, formatDuration, computeAwards, buildCumulativeChart, buildWeeklyBarChart, buildCalendarHeatmap, heatmapColor, buildGearRows, buildGearSelect, buildEffortRows };
 }
