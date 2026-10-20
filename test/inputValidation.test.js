@@ -61,6 +61,12 @@ test('import GPX/FIT : ?name répété donne 400, pas 500', async () => {
   assert.strictEqual(r.status, 400);
   const f = await fetch(`${base}/api/import/fit?name=a&name=b`, { method: 'POST', headers: { 'Content-Type': 'application/octet-stream' }, body: Buffer.from([1, 2, 3]) });
   assert.ok([400].includes(f.status), String(f.status));
+  // Un nom de fichier long est tronqué, pas refusé (relecture adverse).
+  const long = await fetch(`${base}/api/import/gpx?name=${'a'.repeat(300)}`, { method: 'POST', headers: { 'Content-Type': 'application/gpx+xml' }, body: gpx });
+  assert.strictEqual(long.status, 200);
+  const { id } = await long.json();
+  const st = await (await fetch(`${base}/api/stages/${id}`)).json();
+  assert.strictEqual(st.stage.name.length, 200);
 });
 
 test('import de sauvegarde : une ligne null donne 400, pas 500', async () => {

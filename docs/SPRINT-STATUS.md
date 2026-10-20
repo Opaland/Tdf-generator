@@ -1328,8 +1328,10 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   date), un `kind` hors start/via/col/sprint/finish, un `edition_id`
   inexistant (violation de clé étrangère en 500 avant) ; `?name=a&name=b`
   à l'import GPX/FIT et une ligne null dans une sauvegarde donnent 400 au
-  lieu de 500 ; nom d'édition borné à 200 ; champs de l'éditeur en
-  `maxlength` (`test/inputValidation.test.js`).
+  lieu de 500 (un nom de fichier long est tronqué à 200, pas refusé) ; nom
+  d'édition borné à 200 ; champs de l'éditeur en `maxlength`
+  (`test/inputValidation.test.js`). Reste ouvert : l'import de sauvegarde ne
+  revalide ni longueurs, ni dates, ni kinds.
 - [ ] 35.7 Couche réseau : timeout du corps de réponse, `state` OAuth
   Strava/Suunto, redirections de l'import par lien.
 - [ ] 35.8 Frontend : « Max cat. » toujours vide, 404 de fiche relancé à
