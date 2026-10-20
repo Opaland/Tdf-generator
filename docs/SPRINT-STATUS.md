@@ -1283,9 +1283,26 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   (~1,8 Mo) et 200 000 `<name>` jamais fermés se lisent en moins de 2 s (avant :
   920 Ko figeaient le serveur 8,2 s) ; `lon` avant `lat`, guillemets simples et
   espaces autour de `=` sont acceptés ; la balise fermante d'un point n'est
-  jamais cherchée au-delà du point suivant (`test/parseGpxLinear.test.js`).
-- [ ] 35.3 Réimport d'une année : confirmation côté interface, et un tour
-  personnalisé de la même année n'est jamais supprimé (`is_custom`).
+  jamais cherchée au-delà du point suivant ; restent linéaires (< 2 s pour
+  ~1 Mo) des `<trkpt ` sans `>`, un `<time>` non fermé suivi d'espaces, des
+  commentaires non fermés ; `data-lat` n'est pas lu comme `lat`, seule une
+  valeur décimale simple est acceptée, un point commenté ou en CDATA n'est
+  pas un point (`test/parseGpxLinear.test.js`).
+- [ ] 35.3 Réimport d'une année — critères : un tour personnalisé de la même
+  année n'est jamais supprimé (`is_custom = 0` dans la recherche) ; l'API
+  refuse en 409 de réimporter une édition qui a des étapes générées ou en
+  génération, sans rien effacer, sauf `replace: true` ; l'interface (bouton,
+  vignettes mythiques, « défi du jour ») affiche le refus et un bouton
+  « Réimporter quand même » à double confirmation ; le contrôle est refait
+  dans la transaction qui supprime (une génération lancée pendant l'appel
+  Wikipédia fait refuser l'import) ; le bouton « Importer toutes les
+  éditions » laisse ces éditions intactes et les compte à part (`skipped`),
+  tandis que le catalogue complet (`import-all-and-generate.js`) et la démo
+  gardent le remplacement intégral pour reprendre une curation modifiée ;
+  le message de l'interface est annoncé (`aria-live`) ; une année non
+  entière (1903.7) est refusée en 400 (`test/reimportGuard.test.js`,
+  vérification Playwright). La CLI et `agent-curate-stage.js` gardent le
+  remplacement explicite.
 - [ ] 35.4 L'éditeur conserve la provenance des waypoints (`source`,
   `altitude_hint_m`, `bonus_sec`, `country_hint`, `region_hint`).
 - [ ] 35.5 Arithmétique de l'altitude : D+ cumulé km par km (segment à cheval
