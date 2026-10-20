@@ -1296,7 +1296,7 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   entière (1903.7) est refusée en 400 (`test/reimportGuard.test.js`,
   vérification Playwright). La CLI et `agent-curate-stage.js` gardent le
   remplacement explicite.
-- [ ] 35.4 L'éditeur conserve la provenance des waypoints — critères :
+- [x] 35.4 (PR #441) L'éditeur conserve la provenance des waypoints — critères :
   renommer une étape curée depuis l'éditeur garde à l'identique `source`,
   `altitude_hint_m`, `bonus_sec`, `country_hint` et `region_hint` de chaque
   point (POST et PUT écrivent tous ces champs, `bonus_sec` validé en liste
