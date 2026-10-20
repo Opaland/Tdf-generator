@@ -141,10 +141,13 @@ after(() => {
 });
 
 
-/** state émis par /connect (Epic 35.7 : le callback le vérifie). */
-async function oauthStateFrom(base, provider) {
+/** Callback OAuth comme le ferait le navigateur qui a lancé /connect : même
+ * state dans l'URL et cookie posé par /connect (Epic 35.7). */
+async function oauthCallback(base, provider, code) {
   const r = await fetch(`${base}/api/${provider}/connect`, { redirect: 'manual' });
-  return new URL(r.headers.get('location')).searchParams.get('state');
+  const state = new URL(r.headers.get('location')).searchParams.get('state');
+  const cookie = r.headers.getSetCookie().map((c) => c.split(';')[0]).join('; ');
+  return fetch(`${base}/api/${provider}/callback?code=${code}&state=${state}`, { redirect: 'manual', headers: { Cookie: cookie } });
 }
 
 test('statut : configuré mais pas connecté', async () => {
@@ -209,7 +212,7 @@ test('POST /api/suunto/config sans body : accepté, no-op (rien de fourni à val
 });
 
 test("callback OAuth : échange du code contre un jeton (Basic auth vérifiée par le simulateur)", async () => {
-  const res = await fetch(`${base}/api/suunto/callback?code=code-test&state=${await oauthStateFrom(base, 'suunto')}`, { redirect: 'manual' });
+  const res = await oauthCallback(base, 'suunto', 'code-test');
   assert.strictEqual(res.status, 302);
   assert.match(res.headers.get('location'), /suunto=ok/);
   const st = await (await fetch(`${base}/api/suunto/status`)).json();

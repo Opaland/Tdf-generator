@@ -163,7 +163,7 @@ router.get('/connect', (req, res) => {
     `${OAUTH_BASE}/oauth/authorize?response_type=code` +
     `&client_id=${encodeURIComponent(clientId)}` +
     `&redirect_uri=${encodeURIComponent(redirectUri(req))}` +
-    `&state=${encodeURIComponent(issueState('suunto'))}`;
+    `&state=${encodeURIComponent(issueState(res, 'suunto'))}`;
   res.redirect(url);
 });
 
@@ -171,7 +171,7 @@ router.get('/callback', async (req, res) => {
   try {
     const code = req.query.code;
     if (!code) throw new Error(`Autorisation refusée (${req.query.error || 'pas de code'})`);
-    if (!consumeState('suunto', req.query.state)) throw new Error('Lien de connexion invalide ou expiré : relancez « Se connecter »');
+    if (!consumeState(req, res, 'suunto')) throw new Error('Lien de connexion invalide ou expiré : relancez « Se connecter »');
     const json = await oauthToken({ grant_type: 'authorization_code', code, redirect_uri: redirectUri(req) });
     storeTokens(json);
     res.redirect('/traces.html?suunto=ok');

@@ -9,11 +9,14 @@ const http = require('http');
 process.env.ETAPEFORGE_DATA_DIR = path.join(os.tmpdir(), `etapeforge-network-test-${process.pid}`);
 delete process.env.ETAPEFORGE_OFFLINE;
 delete process.env.ETAPEFORGE_PUBLIC;
+// Identifiants fictifs : /connect doit pouvoir émettre un state (aucun appel
+// réel au fournisseur n'est fait par ces tests).
+process.env.STRAVA_CLIENT_ID = 'test-client';
+process.env.SUUNTO_CLIENT_ID = 'test-client';
 
 const { test, after } = require('node:test');
 const assert = require('node:assert');
 const { httpText, httpJson } = require('../pipeline/http');
-const { issueState, consumeState } = require('../backend/oauthState');
 
 const servers = [];
 after(() => {
@@ -55,16 +58,6 @@ test('httpText avec allowRedirect : une redirection hors liste est refusée, une
   assert.strictEqual(await httpText(`${base}/suivie`, { retries: 0, allowRedirect: onlyLocal }), '<gpx/>');
 });
 
-test('OAuth : state émis à /connect, à usage unique, propre au fournisseur', () => {
-  const s = issueState('strava');
-  assert.strictEqual(consumeState('suunto', s), false, 'pas pour un autre fournisseur');
-  const s2 = issueState('strava');
-  assert.strictEqual(consumeState('strava', s2), true);
-  assert.strictEqual(consumeState('strava', s2), false, 'usage unique');
-  assert.strictEqual(consumeState('strava', undefined), false);
-  assert.strictEqual(consumeState('strava', 'inventé'), false);
-});
-
 test('OAuth : un callback sans state valide ne connecte aucun compte', async () => {
   const { app } = require('../backend/server');
   const srv = await new Promise((r) => { const s = app.listen(0, '127.0.0.1', () => r(s)); });
@@ -74,6 +67,12 @@ test('OAuth : un callback sans state valide ne connecte aucun compte', async () 
     const r = await fetch(`${base}/api/${p}/callback?code=code-attaquant&state=forge`, { redirect: 'manual' });
     assert.strictEqual(r.status, 302);
     assert.match(decodeURIComponent(r.headers.get('location')), /invalide ou expiré/, p);
+    // L'attaquant obtient lui-même un state valide en appelant /connect, puis
+    // piège la victime : sans le cookie posé chez elle, le state est refusé.
+    const c = await fetch(`${base}/api/${p}/connect`, { redirect: 'manual' });
+    const stolen = new URL(c.headers.get('location')).searchParams.get('state');
+    const victim = await fetch(`${base}/api/${p}/callback?code=code-attaquant&state=${stolen}`, { redirect: 'manual', headers: { Cookie: 'ef_oauth_' + p + '=autre' } });
+    assert.match(decodeURIComponent(victim.headers.get('location')), /invalide ou expiré/, `${p} : state volé`);
   }
   const { getSetting } = require('../backend/settings');
   assert.ok(!getSetting('strava_access_token') && !getSetting('suunto_access_token'));

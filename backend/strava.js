@@ -207,7 +207,7 @@ router.get('/connect', (req, res) => {
     `&client_id=${encodeURIComponent(clientId)}` +
     `&redirect_uri=${encodeURIComponent(redirectUri(req))}` +
     `&approval_prompt=auto&scope=${encodeURIComponent(SCOPE)}` +
-    `&state=${encodeURIComponent(issueState('strava'))}`;
+    `&state=${encodeURIComponent(issueState(res, 'strava'))}`;
   res.redirect(url);
 });
 
@@ -215,7 +215,7 @@ router.get('/callback', async (req, res) => {
   try {
     const code = req.query.code;
     if (!code) throw new Error(`Autorisation refusée (${req.query.error || 'pas de code'})`);
-    if (!consumeState('strava', req.query.state)) throw new Error('Lien de connexion invalide ou expiré : relancez « Se connecter »');
+    if (!consumeState(req, res, 'strava')) throw new Error('Lien de connexion invalide ou expiré : relancez « Se connecter »');
     const json = await oauthToken({ grant_type: 'authorization_code', code });
     storeTokens(json);
     res.redirect('/traces.html?strava=ok');
