@@ -1367,7 +1367,7 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   d'édition borné à 200 ; champs de l'éditeur en `maxlength`
   (`test/inputValidation.test.js`). Reste ouvert : l'import de sauvegarde ne
   revalide ni longueurs, ni dates, ni kinds.
-- [ ] 35.7 Couche réseau — critères : un corps de réponse qui ne finit
+- [x] 35.7 (PR #448) Couche réseau — critères : un corps de réponse qui ne finit
   jamais est abandonné au délai (`fetchWithTimeout` lit le corps sous le
   timer : httpJson, httpText, Strava, Suunto) ; les connexions OAuth Strava
   et Suunto émettent un `state` aléatoire à usage unique (10 min), et un
