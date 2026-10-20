@@ -1480,6 +1480,21 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   Suunto, Strava, lien) est borné à 200 caractères ; la sauvegarde exportée
   telle quelle se réimporte (`test/backupRevalidation.test.js`,
   aller-retour sur la base de la démo).
+- [x] 35.18 (PR #456) Lisibilité mobile et CSV — critères : le profil de la fiche et
+  le comparateur règlent leur viewBox sur la largeur de l'écran (×1,2,
+  entre 420 et 1080) : texte d'au moins 8 px à 390 px au lieu d'environ
+  3 px ; légendes du comparateur l'une sous l'autre en étroit ; une
+  étiquette du profil posée à l'horizontale ne recouvre pas une étiquette
+  voisine et l'angle de l'encart distance / D+ reste libre ; le badge
+  hors-ligne affiche « hors-ligne » en entier en mobile ; le CSV km par km
+  utilise la virgule décimale avec le « ; » (convention d'Excel en
+  français) (`test/mobileReadability.test.js`, vérification Playwright
+  390 / 1280 px).
+- [ ] 35.19 Décimales homogènes — critères : les distances, vitesses et
+  pentes affichées utilisent toutes la virgule décimale (« 460,3 km »,
+  plus de « 460.3 km » à côté de « 12,3 km ») via un formateur commun ;
+  environ 40 interpolations dans `frontend/*.js` à reprendre une par une,
+  tests d'affichage existants mis à jour.
 
 En attente de décision (proposées, non commencées) : méthode de lissage
 d'altitude (D+ et pente max sous-estimés en relief vallonné), export de la

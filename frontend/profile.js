@@ -70,6 +70,18 @@
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
+  /**
+   * Largeur du viewBox d'un graphique pleine largeur, d'après la largeur
+   * réelle de son conteneur (revue globale du 19/10/2026) : un viewBox fixe
+   * de 1080 réduit à 330 px en mobile ramenait le texte à environ 3 px. Le
+   * viewBox suit l'écran (×1,2 : texte à environ 85 % de sa taille
+   * nominale) entre 420 et `max`. Conteneur absent ou invisible : `max`.
+   */
+  function responsiveWidth(clientWidth, max) {
+    if (!(clientWidth > 0)) return max;
+    return Math.max(420, Math.min(max, Math.round(clientWidth * 1.2)));
+  }
+
   function niceStep(rangeKm) {
     if (rangeKm <= 30) return 5;
     if (rangeKm <= 80) return 10;
@@ -110,17 +122,23 @@
    * plus de place (`right` ou `left`) — un sommet proche du haut du cadre
    * n'a que 13 caractères de place en oblique. Encore trop longue, elle est
    * raccourcie avec « … » (texte complet en infobulle), en gardant si
-   * possible l'altitude.
+   * possible l'altitude. `noFlat` interdit l'horizontale (elle recouvrirait
+   * une autre étiquette) : oblique raccourcie.
    * @returns { text, align: 'tilt' | 'right' | 'left' }
    */
-  function fitLabel(text, ax, ay, W) {
+  function fitLabel(text, ax, ay, W, { noFlat = false } = {}) {
     const ch = 10.5 * 0.58;
     const up = ch * Math.sin((38 * Math.PI) / 180);
     const side = ch * Math.cos((38 * Math.PI) / 180);
     const chars = Array.from(text);
-    if (chars.length <= Math.min((ay - 2) / up, (W - ax - 6) / side)) return { text, align: 'tilt' };
-    const align = ax < W / 2 ? 'right' : 'left';
-    const max = Math.max(4, Math.floor(align === 'right' ? (W - ax - 6) / ch : (ax - 6) / ch));
+    // Angle haut droit réservé à l'encart distance / D+ (y ≈ 4 à 20, environ
+    // 200 unités de large) : une oblique qui y monte s'arrête dessous.
+    const top = ax > W - 200 ? 24 : 2;
+    const tiltRoom = Math.min((ay - top) / up, (W - ax - 6) / side);
+    if (chars.length <= tiltRoom) return { text, align: 'tilt' };
+    // noFlat : la version horizontale recouvrirait une autre étiquette.
+    const align = noFlat ? 'tilt' : ax < W / 2 ? 'right' : 'left';
+    const max = Math.max(4, Math.floor(align === 'tilt' ? tiltRoom : align === 'right' ? (W - ax - 6) / ch : (ax - 6) / ch));
     if (chars.length <= max) return { text, align };
     // Par caractère (Array.from) : pas de demi-emoji. L'altitude « (1800 m) »
     // est gardée quand il reste de la place pour quelques lettres du nom.
@@ -260,10 +278,28 @@
         if (kept.some((k) => Math.abs(x(k.m) - x(l.m)) < 26 && l.priority < 3)) continue;
         kept.push(l);
       }
+      const ch = 10.5 * 0.58;
       for (const l of kept) {
         const xx = x(l.m);
         const yy = y(l.e);
-        const fit = fitLabel(l.text, xx, yy - 13, W);
+        let fit = fitLabel(l.text, xx, yy - 13, W);
+        if (fit.align !== 'tilt') {
+          // Étendue horizontale de l'étiquette : si elle passe au-dessus de
+          // l'ancre d'une autre étiquette, oblique raccourcie (en mobile, le
+          // nom du Galibier recouvrait celui de la Croix de Fer).
+          const w = Array.from(fit.text).length * ch;
+          const [x0, x1] = fit.align === 'right' ? [xx, xx + 3 + w] : [xx - 3 - w, xx];
+          // Ancre voisine en x, et à une hauteur où son étiquette (oblique,
+          // montante) peut croiser celle-ci.
+          const ay = yy - 13;
+          const clash = kept.some((k) => {
+            if (k === l) return false;
+            const kx = x(k.m);
+            const ky = y(k.e) - 13;
+            return kx > x0 - 6 && kx < x1 + 6 && ky > ay - 20 && ky < ay + 80;
+          });
+          if (clash) fit = fitLabel(l.text, xx, ay, W, { noFlat: true });
+        }
         const pos = fit.align === 'tilt'
           ? `transform="translate(${(xx + 3).toFixed(1)} ${(yy - 13).toFixed(1)}) rotate(-38)"`
           : fit.align === 'right'
@@ -559,7 +595,7 @@
     return out;
   }
 
-  const EFProfile = { renderProfileSVG, fitLabel, renderClimbSVG, renderRibbon3D, decimate, niceStep, CAT_COLORS, CAT_TEXT, gradStyle, catStyle, climbApproxOverlap, profileHoverAt };
+  const EFProfile = { renderProfileSVG, fitLabel, responsiveWidth, renderClimbSVG, renderRibbon3D, decimate, niceStep, CAT_COLORS, CAT_TEXT, gradStyle, catStyle, climbApproxOverlap, profileHoverAt };
   if (typeof module !== 'undefined' && module.exports) module.exports = EFProfile;
   global.EFProfile = EFProfile;
 })(typeof window !== 'undefined' ? window : globalThis);

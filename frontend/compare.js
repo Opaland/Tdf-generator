@@ -35,13 +35,14 @@ function hasComparableProfile(samples) {
 const emptyOverlaySVG = (fa, fb, W, H) =>
   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Profils superposés de ${EF.esc(fa.stage.name)} et ${EF.esc(fb.stage.name)}"></svg>`;
 
-function overlaySVG(fa, fb, axis, alignStart) {
-  const W = 1080;
+function overlaySVG(fa, fb, axis, alignStart, W = 1080) {
   const H = 320;
+  // Étroit (mobile) : légendes l'une sous l'autre, note raccourcie.
+  const narrow = W < 760;
   if (!hasComparableProfile(fa.samples) || !hasComparableProfile(fb.samples)) {
     return emptyOverlaySVG(fa, fb, W, H);
   }
-  const M = { l: 48, r: 24, t: 30, b: 34 };
+  const M = { l: 48, r: 24, t: narrow ? 58 : 30, b: 34 };
   const rawA = decimate(fa.samples, 700);
   const rawB = decimate(fb.samples, 700);
   // Align start (inspiré VeloViewer) : soustrait l'altitude de départ de
@@ -100,6 +101,19 @@ function overlaySVG(fa, fb, axis, alignStart) {
       })
       .join('');
 
+  // Légendes raccourcies avec « … » (nom complet en infobulle) : un nom long
+  // sortait du cadre en étroit, et recouvrait la légende B en large.
+  // Largeur estimée à 0,58 em par caractère (11,5 px).
+  const ch = 11.5 * 0.58;
+  const legendRoom = narrow
+    ? { a: (W - M.l - 17 - 6) / ch, b: (W - M.l - 17 - 6) / ch }
+    : { a: (330 - 17 - 10) / ch, b: (W - M.r - (M.l + 347) - (alignStart ? 470 : 0) - 10) / ch };
+  const legend = (name, room) => {
+    const chars = Array.from(String(name ?? ''));
+    const max = Math.max(4, Math.floor(room));
+    if (chars.length <= max) return EF.esc(chars.join(''));
+    return `<title>${EF.esc(chars.join(''))}</title>${EF.esc(chars.slice(0, max - 1).join('').trimEnd())}…`;
+  };
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Profils superposés de ${EF.esc(fa.stage.name)} et ${EF.esc(fb.stage.name)}">
     <rect width="${W}" height="${H}" fill="#faf6ec"/>
     ${grid}
@@ -109,9 +123,11 @@ function overlaySVG(fa, fb, axis, alignStart) {
     <path d="${path(pb, lenB)}" fill="none" stroke="${COLOR_B}" stroke-width="2"/>
     ${marker(fa, pa, lenA, COLOR_A)}${marker(fb, pb, lenB, COLOR_B)}
     ${axisTicks}
-    <rect x="${M.l}" y="8" width="12" height="12" fill="${COLOR_A}"/><text x="${M.l + 17}" y="18" font-size="11.5">${EF.esc(fa.stage.name)}</text>
-    <rect x="${M.l + 330}" y="8" width="12" height="12" fill="${COLOR_B}"/><text x="${M.l + 347}" y="18" font-size="11.5">${EF.esc(fb.stage.name)}</text>
-    ${alignStart ? `<text x="${W - M.r}" y="18" text-anchor="end" font-size="10.5" fill="#666" font-style="italic">altitudes de départ alignées — axe = dénivelé depuis le départ, pas l'altitude réelle</text>` : ''}
+    <rect x="${M.l}" y="8" width="12" height="12" fill="${COLOR_A}"/><text x="${M.l + 17}" y="18" font-size="11.5">${legend(fa.stage.name, legendRoom.a)}</text>
+    <rect x="${narrow ? M.l : M.l + 330}" y="${narrow ? 26 : 8}" width="12" height="12" fill="${COLOR_B}"/><text x="${narrow ? M.l + 17 : M.l + 347}" y="${narrow ? 36 : 18}" font-size="11.5">${legend(fb.stage.name, legendRoom.b)}</text>
+    ${alignStart ? (narrow
+      ? `<text x="${M.l}" y="52" font-size="10.5" fill="#666" font-style="italic">altitudes de départ alignées (dénivelé depuis le départ)</text>`
+      : `<text x="${W - M.r}" y="18" text-anchor="end" font-size="10.5" fill="#666" font-style="italic">altitudes de départ alignées — axe = dénivelé depuis le départ, pas l'altitude réelle</text>`) : ''}
   </svg>`;
 }
 
@@ -166,7 +182,8 @@ async function update() {
       box.innerHTML = '<p class="meta-line">Les deux étapes doivent être générées.</p>';
       return;
     }
-    box.innerHTML = overlaySVG(fa, fb, document.getElementById('sel-axis').value, document.getElementById('align-start').checked);
+    box.innerHTML = overlaySVG(fa, fb, document.getElementById('sel-axis').value, document.getElementById('align-start').checked,
+      EFProfile.responsiveWidth(box.clientWidth, 1080));
     metricRows(fa, fb);
   } catch (err) {
     if (seq === updateSeq) box.innerHTML = `<p class="meta-line">Erreur : ${EF.esc(err.message)}</p>`;
