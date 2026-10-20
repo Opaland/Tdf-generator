@@ -10,7 +10,9 @@ const {
   reconstructionWaypoints,
   curatedRoutingProfile,
   editionNotes,
+  stageCurationKey,
 } = require('./wikipedia');
+const { correctStage, editionKey } = require('./officialCorrections');
 const { isOffline } = require('./http');
 
 const CATEGORIES = ['hommes', 'femmes'];
@@ -116,10 +118,14 @@ async function importEdition(year, { category = 'hommes', onProgress, refuseIfGe
     const numberOccurrenceSeen = new Map();
 
     const stages = [];
-    for (const s of parsed) {
-      const occurrenceCount = numberOccurrenceCounts.get(s.number);
-      const occurrenceIndex = numberOccurrenceSeen.get(s.number) || 0;
-      numberOccurrenceSeen.set(s.number, occurrenceIndex + 1);
+    for (const raw of parsed) {
+      const occurrenceCount = numberOccurrenceCounts.get(raw.number);
+      const occurrenceIndex = numberOccurrenceSeen.get(raw.number) || 0;
+      numberOccurrenceSeen.set(raw.number, occurrenceIndex + 1);
+      // Corrections sourcées (Epic 33.19, pipeline/data/official_corrections.json) :
+      // la valeur Wikipédia d'origine reste dans la source de l'étape.
+      const { stage: s, applied } = correctStage(raw, `${editionKey(year, category)}/${stageCurationKey(raw.number, occurrenceIndex, occurrenceCount)}`);
+      const corrected = (f) => applied.some((a) => a.field === f);
       // Prologue (numéroté 0, voir wikipedia.js) : jamais « Étape 0 », son
       // propre libellé. Un circuit non-Prologue (contre-la-montre par
       // équipes en boucle, départ = arrivée) garde son numéro mais évite la
@@ -130,12 +136,13 @@ async function importEdition(year, { category = 'hommes', onProgress, refuseIfGe
           ? `Étape ${s.number} : ${s.start} (circuit)`
           : `Étape ${s.number} : ${s.start} → ${s.finish}`;
       const stageSource = {
-        villes: 'wikipedia',
-        distance_officielle: 'wikipedia',
-        date: 'wikipedia',
+        villes: corrected('start') || corrected('finish') ? 'wikipedia, corrigé (source citée)' : 'wikipedia',
+        distance_officielle: corrected('distanceKm') ? 'wikipedia, corrigé (source citée)' : 'wikipedia',
+        date: corrected('dateIso') ? 'wikipedia, corrigé (source citée)' : 'wikipedia',
         type: 'wikipedia',
         vainqueur: s.winner || null,
         ligne_source: s.sourceRow,
+        ...(applied.length ? { corrections: applied } : {}),
       };
       const r = insStage.run(
         editionId, s.number, name, s.dateIso || s.dateText, s.type || null,
