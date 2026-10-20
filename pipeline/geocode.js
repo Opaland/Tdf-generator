@@ -32,8 +32,17 @@ function looksLikeFrance(lat, lon) {
 // Sommets dont le nom courant s'écrit avec un trait d'union, comme une
 // commune : seule cette liste fermée les distingue de Mont-de-Marsan ou
 // Le Mont-Dore (relevés dans stage_towns.json, Wikipédia).
-const HYPHENATED_SUMMITS = new Set(['mont-ventoux', 'plateau-de-beille', 'puy-de-dome']);
-const COL_HEAD = /^(?:(?:le|la|les)\s+|l['’]\s*)?(col|cote|côte|montee|montée|pic|puy|mont|alpe|plateau|station)(\s|-|$)/i;
+const HYPHENATED_SUMMITS = new Set(['mont-ventoux', 'plateau-de-beille', 'puy-de-dome', 'mont-aigoual', 'mont-cenis', 'mont-faron', 'mont-blanc', 'puy-mary']);
+// « Col », « Montée », « Alpe » et « Pic » suivis d'un trait d'union restent
+// des reliefs (« Col-de-la-Madeleine », « Alpe-d'Huez ») ; « Côte » seulement
+// devant de/du/des/d' (« Côte-de-Laffrey »), « La Côte-Saint-André » étant une
+// commune.
+const HYPHEN_RELIEF = /^(?:col|montee|montée|alpe|pic)-|^(?:cote|côte)-(?:de|du|des|d['’])/i;
+const COL_HEAD = /^(?:(?:le|la|les)\s+|l['’]\s*)?((col|cote|côte|montee|montée|pic|puy|mont|alpe|plateau|station)(\s|-|$).*)$/i;
+// Séparateurs de segments : « / », tirets longs, parenthèses, virgule,
+// flèche, et le tiret court entouré d'espaces (« Pau - Col du Soulor ») — le
+// trait d'union collé, lui, fait partie d'un nom composé.
+const SEGMENT_SEP = /[/–—(),→]|\s-\s/;
 
 /** Le libellé désigne-t-il un col, une côte ou un sommet ? Le mot-clé doit
  * ouvrir le libellé, ou l'un de ses segments séparés par « / », « – » ou une
@@ -43,12 +52,15 @@ const COL_HEAD = /^(?:(?:le|la|les)\s+|l['’]\s*)?(col|cote|côte|montee|monté
  * Montélimar (`\b` coupe avant « é ») — revue globale du 19/10/2026. Un mot-clé
  * suivi d'un trait d'union n'est un col que pour HYPHENATED_SUMMITS. */
 function isColQuery(q) {
-  return String(q || '').split(/[/–—()]/).some((seg) => {
-    const t = seg.trim();
-    const m = t.match(COL_HEAD);
+  return String(q || '').split(SEGMENT_SEP).some((seg) => {
+    const m = seg.trim().match(COL_HEAD);
     if (!m) return false;
-    if (m[2] !== '-') return true;
-    return HYPHENATED_SUMMITS.has(t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''));
+    if (m[3] !== '-') return true;
+    // Nom composé : sans l'article (« Le Mont-Ventoux »), premier mot seul
+    // (« Mont-Ventoux sommet »).
+    const word = m[1].split(/\s/)[0];
+    if (HYPHEN_RELIEF.test(word)) return true;
+    return HYPHENATED_SUMMITS.has(word.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''));
   });
 }
 

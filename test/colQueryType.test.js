@@ -10,7 +10,8 @@ const { normalizeType } = require('../pipeline/wikipedia');
 test('isColQuery : les communes au nom de relief ne sont plus des cols', () => {
   for (const commune of ['Mont-de-Marsan', 'Le Mont-Dore', 'Mont-Dore', 'Mont-Saint-Père', 'Le Puy-en-Velay', 'Puy-Saint-Martin',
     'Mont-Saint-Michel', 'Pagny-la-Blanche-Côte', 'Saint-Gervais Mont-Blanc', 'Le Bouchet-Mont-Charvin', 'Montélimar',
-    'Chemin du Plateau de la Côte des Bar (secteur km 131.9, entrée)']) {
+    'Chemin du Plateau de la Côte des Bar (secteur km 131.9, entrée)', 'La Côte-Saint-André', 'Saint-Mont',
+    "Saint-Romain-au-Mont-d'Or", 'Mont-Ormel', 'Saint-Étienne - Montbrison']) {
     assert.strictEqual(isColQuery(commune), false, commune);
   }
 });
@@ -19,7 +20,11 @@ test('isColQuery : les cols, côtes et sommets restent reconnus, y compris en se
   for (const col of ['Col du Tourmalet', "Alpe d'Huez", 'Puy de Dôme', 'Mont Ventoux', 'Côte de la Croix Neuve', 'Montée de Laffrey',
     'Plateau de Beille', 'Station de Superbagnères', "Le Col de la Croix de Fer", "L'Alpe d'Huez", 'col de la Schlucht',
     'Mont-Ventoux', 'Plateau-de-Beille', 'Puy-de-Dôme', "Gourette–Col d'Aubisque", "Belfort/Col du Ballon d'Alsace",
-    'Serre Chevalier (col du Granon)', 'Villard-de-Lans (Côte 2000)', 'Tulle (Puy Pinçon)', 'Pic du Midi']) {
+    'Serre Chevalier (col du Granon)', 'Villard-de-Lans (Côte 2000)', 'Tulle (Puy Pinçon)', 'Pic du Midi',
+    // Relecture adverse : séparateurs et noms composés de saisie libre.
+    'Pau - Col du Soulor', 'Pau, Col du Soulor', 'Pau → Col du Soulor', 'Bédoin - Mont Ventoux',
+    'Col-de-la-Madeleine', "Alpe-d'Huez", 'Alpe-d’Huez', 'Montée-de-Laffrey', 'Côte-de-Laffrey', 'Pic-du-Midi',
+    'Le Mont-Ventoux', 'Le Puy-de-Dôme', 'Mont-Ventoux sommet', 'Mont-Ventoux, sommet', 'Mont-Cenis', 'Mont-Aigoual', 'Puy-Mary']) {
     assert.strictEqual(isColQuery(col), true, col);
   }
   assert.strictEqual(isColQuery(''), false);

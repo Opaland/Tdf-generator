@@ -1330,10 +1330,13 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   Mont-de-Marsan, Le Mont-Dore, Mont-Saint-Père, Pagny-la-Blanche-Côte,
   Montélimar ne sont plus des cols (`test/colQueryType.test.js`). Audit sur
   les 5 048 libellés des données : aucun col de `historic_routes.json` ni de
-  `stage_towns.json` (données de génération) perdu ; deux côtes de
-  `stage_itineraries.json` ne seraient plus reconnues par leur nom
-  (Côte-des-4-Routes, Mont-Theux), mais ces points portent leur `kind`
-  explicite et ne passent pas par `isColQuery`.
+  `stage_towns.json` (données de génération) perdu ; dans
+  `stage_itineraries.json`, Mont-Theux, Mont-Rouault, La Grande-Côte et le
+  `geocodeAs` Mont-Ormel ne seraient plus reconnus par leur nom, mais ces
+  points portent leur `kind` explicite et ne passent pas par `isColQuery`.
+  Saisie libre : séparateurs « - » espacé, « , », « → » ; noms composés
+  « Col-de-… », « Alpe-d'Huez », « Côte-de-… » et une liste fermée de sommets
+  (Mont-Ventoux, Puy-de-Dôme…) restent des reliefs.
 
 En attente de décision (proposées, non commencées) : méthode de lissage
 d'altitude (D+ et pente max sous-estimés en relief vallonné), export de la
