@@ -701,7 +701,7 @@ et côtes traversées avec leur kilomètre.
   simultanée : 159 étapes dans la tolérance (158 avant : 1993/6 passe
   de +5,1 % à +5,0 %, un tronçon voiture devenu vélo — verdict à la
   frontière), 1 tronçon voiture (25 avant).
-- [ ] 33.12 Tri des 188 tronçons suspects (33.11), édition par édition,
+- [x] 33.12 (PR #433 à #438) Tri des 188 tronçons suspects (33.11), édition par édition,
   contre l'image agrandie : km décalé d'un cran, graduation lue pour le
   point, homonyme, centre de commune loin du passage — ou profil
   réellement contradictoire, laissé tel quel avec une note. Protocole de
@@ -1367,7 +1367,7 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   d'édition borné à 200 ; champs de l'éditeur en `maxlength`
   (`test/inputValidation.test.js`). Reste ouvert : l'import de sauvegarde ne
   revalide ni longueurs, ni dates, ni kinds.
-- [ ] 35.7 Couche réseau — critères : un corps de réponse qui ne finit
+- [x] 35.7 (PR #448) Couche réseau — critères : un corps de réponse qui ne finit
   jamais est abandonné au délai (`fetchWithTimeout` lit le corps sous le
   timer : httpJson, httpText, Strava, Suunto) ; les connexions OAuth Strava
   et Suunto émettent un `state` aléatoire à usage unique (10 min), et un
@@ -1409,6 +1409,13 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   « Col-de-… », « Alpe-d'Huez », « Côte-de-… » et une liste fermée de sommets
   (Mont-Ventoux, Puy-de-Dôme…) restent des reliefs.
 
+- [x] 35.11 (PR #449) Textes faux ou surévalués — critères : `archives.html` ne dit plus
+  qu'aucune édition Femmes n'est curée (2022 Femmes : étapes 2 à 8) et liste
+  toutes les éditions curées de `historic_routes.json` (1992, 2002, 2015,
+  2017, 2018, 2019, 2022 Femmes manquaient) ; l'écran d'accueil ne promet
+  plus « n'importe quelle étape … à partir de sources vérifiées » (environ
+  130 étapes curées) ; le temps fort 2017 ne dit plus qu'un CLM a été
+  « remporté par Marseille » (une ville).
 - [ ] 35.12 Petits correctifs backend — critères : le cache de
   `/api/search/near` voit un renommage, un changement de date, d'édition ou
   de coordonnées ; un intervalle de sauvegarde au-delà de 596 h (ou négatif,
