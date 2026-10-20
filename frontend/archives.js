@@ -38,7 +38,9 @@ function showReimportChoice(msg, text) {
   again.textContent = 'Réimporter quand même';
   again.addEventListener('click', EF.confirmClick(again, {
     confirmText: 'confirmer : effacer les étapes générées ?',
-    onConfirm: () => importYear({ replace: true }),
+    // Le bouton disparaît avec le message : le focus va au message (annoncé
+    // par aria-live) plutôt que de retomber sur <body>.
+    onConfirm: async () => { msg.focus(); await importYear({ replace: true }); },
   }));
   msg.appendChild(again);
 }

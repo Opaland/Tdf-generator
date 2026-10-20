@@ -147,6 +147,7 @@ module.exports = function register(app) {
     }
     importAllJob = { running: true, total: 0, done: 0, imported: [], failed: [], skipped: [], startedAt: new Date().toISOString() };
     importAllEditions({
+      refuseIfGenerated: true,
       onProgress: (p) => {
         importAllJob.total = p.total;
         importAllJob.done = p.index;

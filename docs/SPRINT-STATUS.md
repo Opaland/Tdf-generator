@@ -1286,8 +1286,13 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   refuse en 409 de réimporter une édition qui a des étapes générées ou en
   génération, sans rien effacer, sauf `replace: true` ; l'interface (bouton,
   vignettes mythiques, « défi du jour ») affiche le refus et un bouton
-  « Réimporter quand même » à double confirmation ; l'import en masse laisse
-  ces éditions intactes et les compte à part (`skipped`) ; une année non
+  « Réimporter quand même » à double confirmation ; le contrôle est refait
+  dans la transaction qui supprime (une génération lancée pendant l'appel
+  Wikipédia fait refuser l'import) ; le bouton « Importer toutes les
+  éditions » laisse ces éditions intactes et les compte à part (`skipped`),
+  tandis que le catalogue complet (`import-all-and-generate.js`) et la démo
+  gardent le remplacement intégral pour reprendre une curation modifiée ;
+  le message de l'interface est annoncé (`aria-live`) ; une année non
   entière (1903.7) est refusée en 400 (`test/reimportGuard.test.js`,
   vérification Playwright). La CLI et `agent-curate-stage.js` gardent le
   remplacement explicite.
