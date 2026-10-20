@@ -757,4 +757,4 @@ document.addEventListener('DOMContentLoaded', () => {
 </html>`;
 }
 
-module.exports = { stageToGpx, stageToTcx, stageToKml, stagePayload, tourToStandaloneHtml, stageToStandaloneHtml, stageToRoadbookHtml, decimate, ATTRIBUTIONS };
+module.exports = { esc, stageToGpx, stageToTcx, stageToKml, stagePayload, tourToStandaloneHtml, stageToStandaloneHtml, stageToRoadbookHtml, decimate, ATTRIBUTIONS };
