@@ -1258,6 +1258,17 @@ et côtes traversées avec leur kilomètre.
   (circuits finaux, côtes et hameaux exclus du calcul qui coupent la
   route) ou D (détours du profil vélo ; 1995/4 : pont de Normandie
   interdit aux vélos) — pas d'erreur de donnée trouvée, écart affiché.
+- [ ] 33.16 Examen des pistes Wikidata (`docs/WIKIDATA-RECOUPEMENT.md`,
+  34.1) — critères : chacune des 45 villes signalées (27 départs, 18
+  arrivées à plus de 10 km de la ville Wikidata) est classée « homonyme
+  chez nous » (position corrigée dans `stage_towns_overrides.json`, source
+  citée, étapes voisines re-contrôlées), « erreur ou date décalée côté
+  Wikidata » (laissée, cause notée) ou « lieu de départ réel distinct de la
+  ville-étape » (ex. 1903/1, Montgeron près de Villeneuve-Saint-Georges :
+  à sourcer avant toute décision) ; les 25 écarts de distance et 26 étapes
+  sans correspondance sont triés de même ; aucune correction sans source
+  (règle 12). Curation de données : CI verte, pas de relecture adverse
+  dédiée (règle 11).
 
 ## Epic 34 — Idées venues d'autres dépôts (veille du 18/10/2026)
 
@@ -1269,7 +1280,16 @@ GoldenCheetah) : idées seulement.
 Actionnables sans décision :
 - [ ] 34.1 Départs/arrivées par identifiant Wikidata (CC0, 2 428 étapes
   1903→2026, ville de départ P1427, d'arrivée P1444, distance P3157) pour
-  recouper `stage_towns.json` : supprime les homonymes à la source.
+  recouper `stage_towns.json` : supprime les homonymes à la source —
+  critères : `scripts/wikidata-crosscheck.js` interroge Wikidata édition par
+  édition (étapes reliées par P361 à l'édition, libellé anglais exact ;
+  User-Agent identifié, 1,5 s au moins entre deux requêtes, cache disque) ;
+  apparie par date puis par distance la plus proche (demi-étapes) ; signale
+  sans rien modifier (règle 12) les villes placées à plus de 10 km de la
+  ville Wikidata, les distances à plus de 5 % et les étapes sans
+  correspondance ; rapport `docs/WIKIDATA-RECOUPEMENT.md` (118 éditions,
+  aucune erreur de requête) ; comparaison pure testée sans réseau
+  (`test/wikidataTowns.test.js`). L'examen des pistes est la story 33.16.
 - [ ] 34.2 Calques IGN historiques (Carte 1950 `GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN50.1950`,
   état-major `…ETATMAJOR40`, photos aériennes 1950-1965) dans l'éditeur et la
   fiche — couches relevées dans le GetCapabilities ; licence à confirmer
