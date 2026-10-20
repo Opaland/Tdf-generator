@@ -109,7 +109,18 @@ function movingAverageByDistance(samples, windowM) {
   return out;
 }
 
+/** Coordonnées finies et dans [-90, 90] × [-180, 180]. Un point hors bornes
+ * (lat 999) fait exploser haversine/resamplePolyline en millions
+ * d'échantillons, jusqu'à l'arrêt du process (revue globale du 19/10/2026) :
+ * tout chemin qui écrit ou route des coordonnées venues de l'extérieur passe
+ * par ce garde (API, import de sauvegarde, traces GPX/FIT/Strava/Suunto,
+ * génération). */
+function inLatLonBounds(lat, lon) {
+  return Number.isFinite(lat) && Number.isFinite(lon) && lat >= -90 && lat <= 90 && lon >= -180 && lon <= 180;
+}
+
 module.exports = {
+  inLatLonBounds,
   nearestRawIndices,
   haversine,
   bearing,

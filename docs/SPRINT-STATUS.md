@@ -1273,9 +1273,12 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   même email donnent 200 + 409 sans arrêter le process (`/register` et
   `/login` passent par `wrap()`) ; un cookie voisin mal encodé (`other=50%`)
   ne donne plus 500 ; un waypoint hors [-90, 90] × [-180, 180] est refusé en
-  400 à la création et à la modification ; un clic sur une copie du monde dans
-  l'éditeur donne une longitude ramenée dans [-180, 180]
-  (`test/authRobustness.test.js`).
+  400 à la création et à la modification, comme à l'import de sauvegarde ; un
+  point de trace (GPX, FIT, Strava, Suunto) hors bornes est écarté ; une
+  génération sur un waypoint déjà en base hors bornes échoue proprement au
+  lieu de saturer la mémoire ; un clic sur une copie du monde dans l'éditeur
+  donne une longitude ramenée dans [-180, 180) (`test/authRobustness.test.js`,
+  `test/backupBounds.test.js`).
 - [ ] 35.2 Parseur GPX linéaire (ReDoS de `parseGpx`) ; accepter `lon` avant
   `lat` et les guillemets simples.
 - [ ] 35.3 Réimport d'une année : confirmation côté interface, et un tour

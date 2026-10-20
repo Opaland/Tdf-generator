@@ -270,9 +270,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   markersLayer = L.layerGroup().addTo(map);
 
   map.on('click', async (e) => {
-    // wrap() : un clic sur une copie du monde donne une longitude hors
-    // [-180, 180] (359,6 au lieu de -0,4), que le serveur refuse.
-    const { lat, lng } = e.latlng.wrap();
+    // Un clic sur une copie du monde donne une longitude hors [-180, 180]
+    // (359,6 au lieu de -0,4), que le serveur refuse.
+    const lat = e.latlng.lat;
+    const lng = normalizeLon(e.latlng.lng);
     let label = `${lat.toFixed(4)}, ${lng.toFixed(4)}`;
     try {
       const r = await EF.api(`/api/reverse?lat=${lat}&lon=${lng}`);
@@ -355,4 +356,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 }
 
-if (typeof module !== 'undefined' && module.exports) module.exports = { challengeIndexForDate };
+/** Longitude ramenée dans [-180, 180) — fonction pure, testée côté Node. */
+function normalizeLon(lon) {
+  if (lon >= -180 && lon < 180) return lon; // pas d'arrondi flottant inutile
+  return ((((lon + 180) % 360) + 360) % 360) - 180;
+}
+
+if (typeof module !== 'undefined' && module.exports) module.exports = { challengeIndexForDate, normalizeLon };

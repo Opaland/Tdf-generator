@@ -86,3 +86,23 @@ test('waypoint hors bornes : 400 à la création comme à la modification', asyn
   });
   assert.strictEqual(put.status, 400);
 });
+
+test('trace importée : les points hors bornes sont écartés, une trace sans point valide est refusée', async () => {
+  const gpx = (pts) => `<gpx><trk><trkseg>${pts.map(([la, lo]) => `<trkpt lat="${la}" lon="${lo}"><ele>100</ele></trkpt>`).join('')}</trkseg></trk></gpx>`;
+  const send = (body) => fetch(`${base}/api/import/gpx?name=t`, { method: 'POST', headers: { 'Content-Type': 'application/gpx+xml', Cookie: cookie }, body, signal: AbortSignal.timeout(15000) });
+  const bad = await send(gpx([[999, -500], [999.1, -500.1]]));
+  assert.strictEqual(bad.status, 400);
+  const mixed = await send(gpx([[43, 0], [999, -500], [43, 0.01], [43, 0.02]]));
+  assert.strictEqual(mixed.status, 200);
+  const { id } = await mixed.json();
+  const st = await (await fetch(`${base}/api/stages/${id}`, { headers: { Cookie: cookie } })).json();
+  assert.ok(st.samples.every((s) => s.lat >= -90 && s.lat <= 90 && s.lon >= -180 && s.lon <= 180));
+});
+
+test("éditeur : la longitude d'un clic sur une copie du monde est ramenée dans [-180, 180)", () => {
+  const { normalizeLon } = require('../frontend/editor.js');
+  assert.ok(Math.abs(normalizeLon(359.6) - -0.4) < 1e-9);
+  assert.ok(Math.abs(normalizeLon(-361) - -1) < 1e-9);
+  assert.strictEqual(normalizeLon(2.35), 2.35);
+  assert.strictEqual(normalizeLon(-180), -180);
+});

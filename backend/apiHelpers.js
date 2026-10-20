@@ -1,4 +1,5 @@
 'use strict';
+const { inLatLonBounds } = require('../pipeline/geo');
 // Helpers partagés par les routes de l'API (extraits de backend/server.js,
 // Epic 27.2). CLAUDE.md règle 5 : un helper transverse se relit à chaque
 // nouvel appelant ; règle 8 : toute route qui écrit en base valide le type
@@ -48,7 +49,7 @@ function assertLatLonPaired(waypoints, prefix) {
     if ((w.lat == null) !== (w.lon == null)) {
       throw httpError(400, `${prefix}[${i}] : lat et lon doivent être fournis ensemble ou absents tous les deux`);
     }
-    if (w.lat != null && (w.lat < -90 || w.lat > 90 || w.lon < -180 || w.lon > 180)) {
+    if (w.lat != null && !inLatLonBounds(w.lat, w.lon)) {
       throw httpError(400, `${prefix}[${i}] : lat doit être entre -90 et 90, lon entre -180 et 180`);
     }
   });
