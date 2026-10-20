@@ -30,14 +30,14 @@ after(() => {
 const put = (body) => fetch(`${base}/api/profile`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
 
 test('/api/profile : null par défaut, entier 100–240 accepté, le reste refusé sans effet, null efface', async () => {
-  assert.deepStrictEqual(await (await fetch(`${base}/api/profile`)).json(), { hrMaxBpm: null });
+  assert.deepStrictEqual(await (await fetch(`${base}/api/profile`)).json(), { hrMaxBpm: null, privacyZones: [] });
   assert.strictEqual((await put({ hrMaxBpm: 187 })).status, 200);
   for (const bad of [99, 241, 187.5, '187', true, [187], {}, undefined]) {
     assert.strictEqual((await put({ hrMaxBpm: bad })).status, 400, JSON.stringify(bad));
   }
-  assert.deepStrictEqual(await (await fetch(`${base}/api/profile`)).json(), { hrMaxBpm: 187 });
+  assert.deepStrictEqual(await (await fetch(`${base}/api/profile`)).json(), { hrMaxBpm: 187, privacyZones: [] });
   assert.strictEqual((await put({ hrMaxBpm: null })).status, 200);
-  assert.deepStrictEqual(await (await fetch(`${base}/api/profile`)).json(), { hrMaxBpm: null });
+  assert.deepStrictEqual(await (await fetch(`${base}/api/profile`)).json(), { hrMaxBpm: null, privacyZones: [] });
 });
 
 const s = (elapsed_s, hr_bpm) => ({ elapsed_s, hr_bpm });
