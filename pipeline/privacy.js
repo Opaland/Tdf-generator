@@ -53,7 +53,9 @@ function parseZones(stored) {
   for (const z of list.slice(0, MAX_ZONES)) {
     try { zones.push(...validateZones([z])); } catch { /* zone écartée seule */ }
   }
-  return zones;
+  // Des zones enregistrées, toutes invalides : on ne sait plus où est le
+  // lieu à taire, comme pour un réglage illisible (seconde relecture).
+  return list.length && !zones.length ? null : zones;
 }
 
 const inZone = (p, zones) =>
@@ -67,8 +69,12 @@ const inZone = (p, zones) =>
  * - les côtes, descentes, faux-plats et lignes du km par km qui recouvrent
  *   une portion masquée (nom, altitude et position du lieu caché) ;
  * - la commune, la région et le pays déduits du premier point, s'il est
- *   masqué (`city_hint`, géocodage inverse du départ).
- * `zones === null` (réglage illisible) : tout est retiré de la trace.
+ *   masqué (`city_hint`, géocodage inverse du départ), et les communes
+ *   traversées (`track.communes`) dont le point de mesure est masqué ;
+ * - l'indice de pénibilité, dès qu'une côte est retirée (il trahirait la
+ *   côte cachée).
+ * `zones === null` (réglage illisible) : tout est retiré de la trace, et
+ * `privacyUnreadable` le signale aux exports.
  */
 function maskStage(full, zones) {
   if (!full || full.track?.router !== 'trace' || (zones && !zones.length)) return full;
@@ -80,22 +86,33 @@ function maskStage(full, zones) {
   const byKm = (a, b) => (row) => !touches(Number(row[a]) * 1000, Number(row[b]) * 1000);
   const coords = full.track.geojson?.geometry?.coordinates;
   const startHidden = full.samples.length && hidden(full.samples[0]);
+  const climbs = (full.climbs || []).filter(byKm('start_km', 'end_km'));
+  const communes = full.track.communes;
+  // Une commune est celle d'un point pris tous les `stepM` mètres : masquée
+  // si un échantillon masqué tombe à moins d'un demi-pas de ce point.
+  const halfStep = (Number(communes?.stepM) || 1000) / 2;
+  const maskedCommunes = communes && Array.isArray(communes.communes)
+    ? { ...communes, communes: communes.communes.filter((c) => !touches(Number(c.km) * 1000 - halfStep, Number(c.km) * 1000 + halfStep)) }
+    : communes;
   return {
     ...full,
     stage: startHidden ? { ...full.stage, city_hint: null, region_hint: null, country_hint: null } : full.stage,
     samples: full.samples.filter((p) => !hidden(p)),
     waypoints: (full.waypoints || []).filter((w) => w.lat == null || !hidden(w)),
-    climbs: (full.climbs || []).filter(byKm('start_km', 'end_km')),
+    climbs,
+    pain: climbs.length === (full.climbs || []).length ? full.pain : null,
     descents: (full.descents || []).filter(byKm('start_km', 'end_km')),
     fauxPlats: (full.fauxPlats || []).filter(byKm('fromKm', 'toKm')),
     kmAnalysis: (full.kmAnalysis || []).filter((r) => !touches((Number(r.km) - 1) * 1000, Number(r.km) * 1000)),
     track: {
       ...full.track,
+      communes: maskedCommunes,
       geojson: Array.isArray(coords)
         ? { ...full.track.geojson, geometry: { ...full.track.geojson.geometry, coordinates: coords.filter((c) => !hidden({ lat: c[1], lon: c[0] })) } }
         : full.track.geojson,
     },
     privacyMasked: true,
+    ...(zones === null ? { privacyUnreadable: true } : {}),
   };
 }
 

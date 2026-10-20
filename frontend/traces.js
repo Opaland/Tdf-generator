@@ -860,6 +860,10 @@ async function loadPrivacyZones() {
   const p = await EF.api('/api/profile').catch(() => null);
   privacyZones = (p && p.privacyZones) || [];
   renderPrivacyZones();
+  if (p && p.privacyZonesUnreadable) {
+    document.getElementById('privacy-msg').textContent =
+      'Zones enregistrées illisibles : les exports retirent tous les points des traces. Ajoutez vos zones à nouveau pour les remplacer.';
+  }
   document.getElementById('privacy-add').addEventListener('submit', (e) => {
     e.preventDefault();
     const zone = {

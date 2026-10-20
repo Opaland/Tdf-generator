@@ -7,6 +7,11 @@
 const { loadExportable, stageToGpx, stageToTcx, stageToKml, tourToStandaloneHtml, stageToStandaloneHtml, stageToRoadbookHtml } = require('../exports');
 const { wrap } = require('../apiHelpers');
 
+// Réglage des zones de confidentialité illisible : tous les points sont
+// retirés (pipeline/privacy.js). Le dire, plutôt que « non générée ».
+const UNREADABLE_MSG = 'Zones de confidentialité illisibles : export impossible tant qu\'elles ne sont pas enregistrées à nouveau (page Mes traces).';
+const unreadable = (full) => !!(full && full.privacyUnreadable);
+
 module.exports = function register(app) {
   // ---------------------------------------------------------------- exports
   app.get('/api/stages/:id/export.json', (req, res) => {
@@ -18,6 +23,7 @@ module.exports = function register(app) {
 
   app.get('/api/stages/:id/export.gpx', (req, res) => {
     const full = loadExportable(parseInt(req.params.id, 10));
+    if (unreadable(full)) return res.status(409).json({ error: UNREADABLE_MSG });
     if (!full || !full.samples.length) return res.status(404).json({ error: 'Étape non générée' });
     res.setHeader('Content-Type', 'application/gpx+xml');
     res.setHeader('Content-Disposition', `attachment; filename="etape-${full.stage.id}.gpx"`);
@@ -26,6 +32,7 @@ module.exports = function register(app) {
 
   app.get('/api/stages/:id/export.tcx', (req, res) => {
     const full = loadExportable(parseInt(req.params.id, 10));
+    if (unreadable(full)) return res.status(409).json({ error: UNREADABLE_MSG });
     if (!full || !full.samples.length) return res.status(404).json({ error: 'Étape non générée' });
     res.setHeader('Content-Type', 'application/vnd.garmin.tcx+xml');
     res.setHeader('Content-Disposition', `attachment; filename="etape-${full.stage.id}.tcx"`);
@@ -34,6 +41,7 @@ module.exports = function register(app) {
 
   app.get('/api/stages/:id/export.kml', (req, res) => {
     const full = loadExportable(parseInt(req.params.id, 10));
+    if (unreadable(full)) return res.status(409).json({ error: UNREADABLE_MSG });
     if (!full || !full.samples.length) return res.status(404).json({ error: 'Étape non générée' });
     res.setHeader('Content-Type', 'application/vnd.google-earth.kml+xml');
     res.setHeader('Content-Disposition', `attachment; filename="etape-${full.stage.id}.kml"`);

@@ -79,6 +79,9 @@ test('parseZones : une zone invalide est écartée seule ; un réglage illisible
   assert.strictEqual(parseZones('{cassé'), null);
   assert.strictEqual(parseZones('{"a":1}'), null);
   assert.deepStrictEqual(parseZones(null), []);
+  // Toutes les zones enregistrées invalides : plus rien ne dit où est le lieu.
+  assert.strictEqual(parseZones(JSON.stringify([{ lat: 45, lon: 6, radiusM: 50 }])), null);
+  assert.deepStrictEqual(parseZones('[]'), []);
   const full = { stage: {}, track: { router: 'trace', geojson: { geometry: { coordinates: [[6, 45.5]] } } }, samples: [{ dist_m: 0, lat: 45.5, lon: 6 }] };
   const m = maskStage(full, null);
   assert.deepStrictEqual([m.samples.length, m.track.geojson.geometry.coordinates.length], [0, 0]);
@@ -106,6 +109,34 @@ test('trace masquée : côtes, km par km et commune de départ retirés ; export
   assert.doesNotMatch(html, /Côte de chez moi/);
 });
 
+test('trace masquée : communes traversées et pénibilité retirées, site statique masqué aussi', async () => {
+  const { getDb } = require('../backend/db');
+  const db = getDb();
+  const communes = { stepM: 1000, points: 12, pointsHorsFrance: 0, pointsSansCommune: 0, communes: [
+    { km: 0, nom: 'VilleDomicile', departement: 'Isère' }, { km: 6, nom: 'VilleDuMilieu', departement: 'Isère' }] };
+  db.prepare('UPDATE tracks SET communes = ? WHERE stage_id = ?').run(JSON.stringify(communes), traceId);
+  const full = await (await fetch(`${base}/api/stages/${traceId}/export.json`)).json();
+  assert.deepStrictEqual(full.track.communes.communes.map((c) => c.nom), ['VilleDuMilieu']);
+  assert.strictEqual(full.pain, null, 'la pénibilité trahirait la côte retirée');
+  const roadbook = await (await fetch(`${base}/api/stages/${traceId}/roadbook.html`)).text();
+  assert.doesNotMatch(roadbook, /VilleDomicile/);
+  assert.match(roadbook, /VilleDuMilieu/);
+  // Site statique : processus enfant (CLAUDE.md règle 4), même base.
+  const dist = path.join(process.env.ETAPEFORGE_DATA_DIR, 'dist');
+  require('child_process').execFileSync(process.execPath, [path.join(__dirname, '..', 'scripts', 'build-site.js')], {
+    env: { ...process.env, ETAPEFORGE_DIST_DIR: dist }, stdio: 'ignore',
+  });
+  const edFile = fs.readdirSync(path.join(dist, 'data')).find((f) => /^edition-\d+\.json$/.test(f));
+  const ed = JSON.parse(fs.readFileSync(path.join(dist, 'data', edFile), 'utf8'));
+  assert.strictEqual(ed.stages.find((x) => x.id === traceId).city_hint, null);
+  const climbs = JSON.parse(fs.readFileSync(path.join(dist, 'data', 'climbs.json'), 'utf8'));
+  assert.deepStrictEqual(climbs.filter((c) => c.stage_id === traceId).map((c) => c.name), ['Côte du bout']);
+  for (const f of fs.readdirSync(path.join(dist, 'data'))) {
+    const txt = fs.readFileSync(path.join(dist, 'data', f), 'utf8');
+    assert.doesNotMatch(txt, /Côte de chez moi|Ma commune|VilleDomicile/, f);
+  }
+});
+
 test('réglage illisible en base : la carte des traces est vide, les exports ne publient aucun point', async () => {
   const { setSetting } = require('../backend/settings');
   setSetting('privacy_zones', '{cassé');
@@ -114,5 +145,11 @@ test('réglage illisible en base : la carte des traces est vide, les exports ne 
   assert.deepStrictEqual((await (await fetch(`${base}/api/traces/lines`)).json()).lines, []);
   const full = await (await fetch(`${base}/api/stages/${traceId}/export.json`)).json();
   assert.strictEqual(full.samples.length, 0);
+  // GPX, TCX, KML : un refus qui dit pourquoi, pas « Étape non générée ».
+  for (const ext of ['gpx', 'tcx', 'kml']) {
+    const r = await fetch(`${base}/api/stages/${traceId}/export.${ext}`);
+    assert.strictEqual(r.status, 409, ext);
+    assert.match((await r.json()).error, /confidentialité illisibles/);
+  }
   setSetting('privacy_zones', JSON.stringify([HOME]));
 });
