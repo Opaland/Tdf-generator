@@ -53,7 +53,7 @@ function render() {
   const tbody = document.querySelector('#cols-table tbody');
   tbody.innerHTML = rows
     .map(
-      (c, i) => `<tr data-i="${i}" style="cursor:pointer">
+      (c, i) => `<tr data-i="${i}" style="cursor:pointer" tabindex="0" aria-expanded="false" title="Entrée ou clic : déplier le profil">
         <td>${EF.esc(c.name || '—')}${c.simulated ? '<span class="badge partial-badge" title="étape générée en mode hors-ligne : profil d\'altitude synthétique (simulateur), pas une mesure réelle — pentes affichées possiblement irréalistes">simulé</span>' : ''}</td>
         <td><span class="pill" style="background:${EFProfile.CAT_COLORS[c.category]};color:${EFProfile.CAT_TEXT[c.category]}">${EF.esc(c.category)}</span></td>
         <td>${c.summit_ele_m}</td><td>${c.length_km}</td><td>${c.avg_gradient}</td>
@@ -63,20 +63,35 @@ function render() {
       </tr>`
     )
     .join('');
-  tbody.querySelectorAll('tr[data-i]').forEach((tr) =>
+  // Recherche sans résultat : un message plutôt qu'un tableau vide (revue
+  // globale du 19/10/2026).
+  if (!rows.length) tbody.innerHTML = '<tr><td colspan="9" class="meta-line">Aucune côte ne correspond à ces filtres.</td></tr>';
+  const toggle = (tr) => {
+    const existing = tr.nextElementSibling;
+    if (existing && existing.classList.contains('climb-expand')) { existing.remove(); tr.setAttribute('aria-expanded', 'false'); return; }
+    document.querySelectorAll('.climb-expand').forEach((x) => x.remove());
+    tbody.querySelectorAll('tr[aria-expanded="true"]').forEach((x) => x.setAttribute('aria-expanded', 'false'));
+    const c = rows[parseInt(tr.dataset.i, 10)];
+    if (!c.km_blocks || !c.km_blocks.length) return;
+    const exp = document.createElement('tr');
+    exp.className = 'climb-expand';
+    exp.innerHTML = `<td colspan="9">${EFProfile.renderClimbSVG(c, { width: 1000, height: 260 })}</td>`;
+    tr.after(exp);
+    tr.setAttribute('aria-expanded', 'true');
+  };
+  tbody.querySelectorAll('tr[data-i]').forEach((tr) => {
     tr.addEventListener('click', (e) => {
       if (e.target.closest('a')) return; // laisser le lien vers l'étape agir
-      const existing = tr.nextElementSibling;
-      if (existing && existing.classList.contains('climb-expand')) { existing.remove(); return; }
-      document.querySelectorAll('.climb-expand').forEach((x) => x.remove());
-      const c = rows[parseInt(tr.dataset.i, 10)];
-      if (!c.km_blocks || !c.km_blocks.length) return;
-      const exp = document.createElement('tr');
-      exp.className = 'climb-expand';
-      exp.innerHTML = `<td colspan="9">${EFProfile.renderClimbSVG(c, { width: 1000, height: 260 })}</td>`;
-      tr.after(exp);
-    })
-  );
+      toggle(tr);
+    });
+    // Ligne atteignable et dépliable au clavier (Entrée, Espace), pas
+    // seulement à la souris.
+    tr.addEventListener('keydown', (e) => {
+      if (e.target !== tr || (e.key !== 'Enter' && e.key !== ' ')) return;
+      e.preventDefault();
+      toggle(tr);
+    });
+  });
 }
 
 document.addEventListener('DOMContentLoaded', async () => {

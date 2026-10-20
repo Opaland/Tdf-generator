@@ -1425,7 +1425,7 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   et des sauvegardes en mode public ; PUT et DELETE d'une étape en cours de
   génération sont refusés en 409 ; un `stage_type` vide envoyé par
   l'éditeur n'efface plus le type stocké (`test/backendReviewFixes.test.js`).
-- [ ] 35.13 Petits correctifs frontend — critères : la page Archives
+- [x] 35.13 (PR #451) Petits correctifs frontend — critères : la page Archives
   demande les détails des éditions en parallèle et remplace la liste d'un
   bloc (plus de requêtes en série ni de liste vidée à chaque sondage) ;
   « Régénérer » demande une double confirmation et affiche l'erreur au lieu
@@ -1434,6 +1434,15 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   bouton à double confirmation retrouve son libellé après une action en
   échec ; accords « 1 étape », « 1 générée » (`test/frontendReviewFixes.test.js`,
   vérification Playwright).
+- [x] 35.14 (PR #452) Accessibilité — critères : le bouton ↻ des archives a un nom
+  accessible (« Régénérer l'étape … ») ; les onglets Profil 2D / 3D
+  exposent l'onglet actif (`aria-pressed`), le curseur de relief a un
+  libellé ; les champs de chaque point de l'éditeur ont un libellé et les
+  suggestions de géocodage se choisissent au clavier (↓/↑, Entrée, Échap ;
+  `combobox`/`listbox`/`option`, focus conservé après le choix) ; les lignes du catalogue des cols sont
+  atteignables et dépliables au clavier (Entrée, Espace, `aria-expanded`) ;
+  une recherche de cols sans résultat affiche un message (vérification
+  Playwright au clavier).
 
 En attente de décision (proposées, non commencées) : méthode de lissage
 d'altitude (D+ et pente max sous-estimés en relief vallonné), export de la

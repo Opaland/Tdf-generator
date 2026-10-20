@@ -468,6 +468,10 @@ function setup3D(payload) {
     ctl.style.display = three ? 'inline' : 'none';
     tab2d.className = three ? 'tab secondary' : 'tab active';
     tab3d.className = three ? 'tab active' : 'tab secondary';
+    // L'onglet actif n'était indiqué que par la couleur (revue globale du
+    // 19/10/2026) : aria-pressed pour les lecteurs d'écran.
+    tab2d.setAttribute('aria-pressed', String(!three));
+    tab3d.setAttribute('aria-pressed', String(three));
     if (three) draw();
   };
   tab2d.addEventListener('click', () => show(false));
