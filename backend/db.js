@@ -295,6 +295,25 @@ const MIGRATIONS = [
       ensureColumn(database, 'elevation_samples', 'elapsed_s', 'elapsed_s REAL');
     },
   },
+  {
+    version: 10,
+    description: 'compteur de version des données de recherche par lieu (Epic 35.12)',
+    up(database) {
+      // Incrémenté par trigger à toute écriture sur les tables que lit
+      // /api/search/near : sa clé de cache (compteurs, longueurs, dates à la
+      // seconde) laissait passer un renommage à longueur constante, une
+      // catégorie, un ordre d'étape… (relecture adverse). Les caches
+      // réseau (géocodage, altimétrie) n'y touchent pas.
+      database.exec(`CREATE TABLE IF NOT EXISTS search_data_version (id INTEGER PRIMARY KEY CHECK (id = 1), v INTEGER NOT NULL)`);
+      database.exec(`INSERT OR IGNORE INTO search_data_version (id, v) VALUES (1, 0)`);
+      for (const t of ['editions', 'stages', 'waypoints', 'tracks']) {
+        for (const ev of ['INSERT', 'UPDATE', 'DELETE']) {
+          database.exec(`CREATE TRIGGER IF NOT EXISTS search_version_${t}_${ev.toLowerCase()} AFTER ${ev} ON ${t}
+            BEGIN UPDATE search_data_version SET v = v + 1 WHERE id = 1; END`);
+        }
+      }
+    },
+  },
 ];
 const SCHEMA_VERSION = MIGRATIONS[MIGRATIONS.length - 1].version;
 
