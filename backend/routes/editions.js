@@ -81,7 +81,7 @@ module.exports = function register(app) {
 
   app.post('/api/editions', (req, res) => {
     const body = req.body || {};
-    const name = requireString(body.name, 'name');
+    const name = requireString(body.name, 'name', 200);
     const year = optionalNumber(body.year, 'year');
     const category = body.category || 'hommes';
     if (!CATEGORIES.includes(category)) {

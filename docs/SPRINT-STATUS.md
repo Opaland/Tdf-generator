@@ -973,6 +973,41 @@ et côtes traversées avec leur kilomètre.
     toutes trop courtes, ont une note d'étape. 15 tronçons suspects, 0
     aller-retour sûr et 3 incertains, tous notés ; aucun tronçon routé
     en voiture.
+  - 1987 repris (33.12, règles 14 et 21 appliquées après coup, le premier
+    tri de 1987 les précédait ; la règle 18, nom par nom, ne l'est pas
+    encore pour 1987/1, 1987/2 (Berlin : une dizaine de places et
+    quartiers imprimés omis), 1987/3 (Theodor Heuss Strasse) et 1987/20
+    (Hewlett-Packard) — à reprendre). Placés en deux passes (recherche
+    bornée, variantes d'orthographe, mairies, altitudes au MNT contrôlées
+    à l'altitude imprimée) :
+    - premier passage : 36 lieux-dits, villages, cols et côtes, dont les
+      côtes allemandes de 1987/3 à 1987/5, Laffrey à sa mairie, le Col
+      d'Haltza, Sainte-Colombe et Les Bruns (Ventoux), Sainte-Foy et
+      Val-Suzon (Bas), quatre côtes de 1987/15 ;
+    - relecture adverse : 22 de plus. Mairies au lieu du centroïde
+      (règle 17) : Messigny-et-Vantoux (1987/24 de +11,6 % à +5,7 %), Les
+      Essards (1987/23 de +5,1 % à +4,0 %), Birkenfeld et Confolens,
+      refusés à tort au centroïde. Variantes d'orthographe ou arrêt de
+      bus pour 13 points notés « non trouvé » à tort (Hertmannsweiler —
+      1987/3 de −5,4 % à −5,0 % —, La Pénarie, Maruéjols-lès-Gardon, La
+      Réglisserie, Sagournat — l'image imprime « SAGOURNAT » —, Croix de
+      Villeroy, Les Agets, Col du Ranfolly, Pavillon de Rolland,
+      Saint-Sauveur, Geneton, Palais de l'Europe, Nemours). Cinq côtes
+      dont le point stocké est déjà à l'altitude imprimée (Sexfontaines,
+      Marigny, Dourdan, Châteaufort, Brié ; règle 14).
+    Nemours : km imprimé 115, colonne du profil à ~121,5, coquille
+    vraisemblable, km retenu d'après la colonne (noté). Km relus à l'image :
+    Plaisance-du-Touch 130 (129 avant ; rend le tronçon vers Colomiers
+    suspect, noté), La Chapelle-en-Vercors 150 (149,5). Refus notés, lieu
+    trouvé : Col de la Serreyrède (aller-retour créé), Strasbourg au km 105
+    (deux tronçons suspects au centre). Cinq notes périmées réécrites
+    (Schöllbronn, Stuttgart, Haueneberstein, Gavet, Darois), une note mal
+    attribuée retirée (Ahuy sur le Dijon de départ). Tous les points non
+    routés ont une note.
+    Bilan : 19 étapes contrôlables sur 24 dans la tolérance (13 avant la
+    reprise) ; 19 tronçons suspects (22 avant), dont 8 portent leur
+    contre-test voiture dans la note ; 4 allers-retours sûrs et 2
+    incertains, notés ; aucun tronçon routé en voiture.
   - 1987 trié (32 tronçons suspects stockés avant le tri, 10
     allers-retours sûrs au premier passage 33.14) : 10 erreurs de
     position corrigées — Troo (2 km), Asasp-Arros (hameau d'Arros),
@@ -1321,8 +1356,17 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   et refuse un tableau entièrement vide (`test/kmanalysisAscent.test.js`,
   `test/importTrackSentinel.test.js`, `test/exports.test.js`,
   `test/elevationGaps.test.js`).
-- [ ] 35.6 Validation des longueurs et des valeurs (`name`, `date`, `kind`,
-  `stage_type`) et 500 qui devraient être des 400.
+- [ ] 35.6 Validation des longueurs et des valeurs — critères : POST/PUT
+  /api/stages refusent en 400 un nom ou un statut de plus de 200 caractères,
+  un type de plus de 40, un libellé de waypoint de plus de 200, une date qui
+  n'est pas un jour AAAA-MM-JJ réel (« 2026-02-30 » compris ; vide = pas de
+  date), un `kind` hors start/via/col/sprint/finish, un `edition_id`
+  inexistant (violation de clé étrangère en 500 avant) ; `?name=a&name=b`
+  à l'import GPX/FIT et une ligne null dans une sauvegarde donnent 400 au
+  lieu de 500 (un nom de fichier long est tronqué à 200, pas refusé) ; nom
+  d'édition borné à 200 ; champs de l'éditeur en `maxlength`
+  (`test/inputValidation.test.js`). Reste ouvert : l'import de sauvegarde ne
+  revalide ni longueurs, ni dates, ni kinds.
 - [ ] 35.7 Couche réseau : timeout du corps de réponse, `state` OAuth
   Strava/Suunto, redirections de l'import par lien.
 - [x] 35.8 (PR #444) Frontend — critères : la colonne « Max cat. » de la carte globale
@@ -1334,7 +1378,7 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   explorées » sont identifiées par l'id d'édition et marquent Femmes
   (« 2022 F ») (`test/frontendReviewFixes.test.js`, vérification Playwright
   en fuseau America/New_York).
-- [ ] 35.9 Export TCX — critères : une date d'étape qui n'est pas un jour
+- [x] 35.9 (PR #445) Export TCX — critères : une date d'étape qui n'est pas un jour
   AAAA-MM-JJ valide (texte Wikipédia non lu, « 2026-13-45 ») ne fait plus
   planter l'export (repli sur la date conventionnelle) ; chaque `CoursePoint`
   de waypoint est daté à sa position sur le tracé (arrivée de 98,4 km à
@@ -1343,7 +1387,7 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   `CoursePoint` (ordre du XSD TCX v2 : les TCX de la démo valident désormais
   contre le schéma Garmin avec xmllint) ; une date impossible (30 février)
   n'est plus décalée au 2 mars (`test/exports.test.js`).
-- [ ] 35.10 Wikipédia — critères : « Medium mountain » et « Intermediate
+- [x] 35.10 (PR #446) Wikipédia — critères : « Medium mountain » et « Intermediate
   stage » donnent `accidentée`, « Mountain time trial » garde `clm` ;
   `isColQuery` n'accepte plus le mot-clé qu'en tête du libellé ou d'un de ses
   segments (« / », « – », parenthèse), et un mot-clé suivi d'un trait
