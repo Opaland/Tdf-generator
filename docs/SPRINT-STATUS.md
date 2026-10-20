@@ -1443,6 +1443,15 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   atteignables et dépliables au clavier (Entrée, Espace, `aria-expanded`) ;
   une recherche de cols sans résultat affiche un message (vérification
   Playwright au clavier).
+- [ ] 35.17 Revalidation de l'import de sauvegarde — critères :
+  `POST /api/backup/import` applique les règles des routes d'écriture
+  (longueurs des noms, libellés, statuts, types et indices, date
+  AAAA-MM-JJ réelle, kind de waypoint, catégorie d'édition) et refuse une
+  colonne JSON mal formée que les pages relisent sans garde (`source`,
+  `checks`, `progress`, `bonus_sec`, `geocode`, `geojson`,
+  `approx_segments`, `km_blocks`) : 400 qui nomme table, ligne et colonne,
+  base inchangée ; la sauvegarde exportée telle quelle se réimporte
+  (`test/backupRevalidation.test.js`, aller-retour sur la base de la démo).
 
 En attente de décision (proposées, non commencées) : méthode de lissage
 d'altitude (D+ et pente max sous-estimés en relief vallonné), export de la

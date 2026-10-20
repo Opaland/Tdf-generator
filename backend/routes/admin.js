@@ -7,7 +7,9 @@
 const { getDb, SCHEMA_VERSION } = require('../db');
 const { isOffline, setOffline } = require('../../pipeline/http');
 const { getUsageStats: getApiUsageStats } = require('../../pipeline/apiUsage');
-const { wrap } = require('../apiHelpers');
+const { wrap, optionalString, optionalIsoDay, FIELD_MAX, WAYPOINT_KINDS } = require('../apiHelpers');
+const { CATEGORIES } = require('../../pipeline/importer');
+const { MAX_NAME_LEN: GEAR_NAME_MAX } = require('./gear');
 const { inLatLonBounds } = require('../../pipeline/geo');
 const SERVER_START_TIME = new Date().toISOString();
 module.exports = function register(app) {
@@ -58,6 +60,45 @@ module.exports = function register(app) {
   // `gear` avant `stages` : stages.gear_id y fait référence (migration 7) ;
   // la suppression parcourt la liste à l'envers.
   const BACKUP_TABLES = ['editions', 'gear', 'stages', 'waypoints', 'tracks', 'elevation_samples', 'climbs', 'descents', 'km_analysis'];
+
+  // Mêmes règles que les routes d'écriture (POST/PUT /api/stages, /api/gear,
+  // /api/editions) : la sauvegarde réimportée passait sans les longueurs, les
+  // dates, les kinds ni la catégorie (revue globale du 19/10/2026). Les
+  // colonnes JSON sont relues par JSON.parse sans garde (loadStageFull,
+  // GET /api/editions/:id…) : une valeur mal formée y donnait un 500 sur
+  // chaque page de l'étape.
+  const BACKUP_TEXT_MAX = {
+    editions: { name: FIELD_MAX.name },
+    gear: { name: GEAR_NAME_MAX },
+    stages: { name: FIELD_MAX.name, status: FIELD_MAX.status, stage_type: FIELD_MAX.stage_type, city_hint: FIELD_MAX.hint, region_hint: FIELD_MAX.hint, country_hint: FIELD_MAX.hint },
+    waypoints: { label: FIELD_MAX.label, source: FIELD_MAX.source, country_hint: FIELD_MAX.hint, region_hint: FIELD_MAX.hint },
+  };
+  const BACKUP_JSON_COLUMNS = {
+    editions: ['source'],
+    stages: ['source', 'checks', 'progress'],
+    waypoints: ['bonus_sec', 'geocode'],
+    tracks: ['geojson', 'approx_segments'],
+    climbs: ['km_blocks'],
+    descents: ['km_blocks'],
+  };
+  function checkBackupRow(t, row, i) {
+    const f = (c) => `${t}[${i}].${c}`;
+    for (const [c, max] of Object.entries(BACKUP_TEXT_MAX[t] || {})) {
+      if (c in row) optionalString(row[c], f(c), max);
+    }
+    for (const c of BACKUP_JSON_COLUMNS[t] || []) {
+      if (row[c] == null) continue;
+      if (typeof row[c] !== 'string') throw Object.assign(new Error(`${f(c)} : texte JSON attendu`), { status: 400 });
+      try { JSON.parse(row[c]); } catch { throw Object.assign(new Error(`${f(c)} : JSON mal formé`), { status: 400 }); }
+    }
+    if (t === 'stages' && 'date' in row) optionalIsoDay(row.date, f('date'));
+    if (t === 'waypoints' && 'kind' in row && !WAYPOINT_KINDS.has(row.kind)) {
+      throw Object.assign(new Error(`${f('kind')} : ${[...WAYPOINT_KINDS].join(', ')} attendu`), { status: 400 });
+    }
+    if (t === 'editions' && 'category' in row && !CATEGORIES.includes(row.category)) {
+      throw Object.assign(new Error(`${f('category')} : ${CATEGORIES.join(' ou ')} attendu`), { status: 400 });
+    }
+  }
 
   // Number.isFinite, pas juste typeof === 'number' : better-sqlite3 accepte
   // NaN/Infinity comme paramètre lié sans se plaindre (vérifié directement),
@@ -150,6 +191,12 @@ module.exports = function register(app) {
           if (v !== null && (declared === 'REAL' || declared === 'INTEGER') && typeof v !== 'number' && typeof v !== 'bigint') {
             return res.status(400).json({ error: `${t}[${i}].${c} : colonne numérique (${declared}), valeur reçue de type ${typeof v}` });
           }
+        }
+        try {
+          checkBackupRow(t, row, i);
+        } catch (err) {
+          if (!err.status) throw err;
+          return res.status(400).json({ error: err.message });
         }
       }
       perTable[t] = { cols, rows };

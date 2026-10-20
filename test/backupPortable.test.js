@@ -168,7 +168,9 @@ test('POST /api/backup/import : accepte un payload de plus de 2 Mo avec le Conte
   // plutôt qu'un second body-parser scopé à cette route (qui ne fonctionne
   // pas : le premier parseur qui matche le Content-Type rejette la requête
   // avant qu'un second, plus loin dans la chaîne, ne puisse la voir).
-  const bigSource = 'x'.repeat(3 * 1024 * 1024); // 3 Mo, dépasse l'ancienne limite de 2 Mo
+  // 3 Mo, dépasse l'ancienne limite de 2 Mo. Du JSON valide : la colonne est
+  // relue par JSON.parse (GET /api/editions), et l'import la vérifie (35.17).
+  const bigSource = JSON.stringify({ notes: 'x'.repeat(3 * 1024 * 1024) });
   const res = await importBackup({
     confirm: true,
     tables: { editions: [{ id: 1, year: 2024, name: 'Grosse édition', is_custom: 0, source: bigSource, created_at: '2024-01-01 00:00:00' }] },
