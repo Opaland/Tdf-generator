@@ -48,3 +48,33 @@ test('compareEdition : homonyme à plus de 10 km signalé, distance à plus de 5
   assert.match(f[0].detail, /« Paris » placé à 15 km de « Villeneuve-Saint-Georges »/);
   assert.match(f[1].detail, /420 km ici, 374 km sur Wikidata \(\+12\.3 %\)/);
 });
+
+test('date décalée d\'un jour sur deux étapes consécutives : appariées par les villes, pas de faux homonyme', () => {
+  // Cas réel 1905/10-11 : Rennes → Caen et Caen → Paris, un jour plus tard sur Wikidata.
+  const wd = stagesFromBindings([
+    b('Q28944178', '1905-07-29', ['Q647', 'Rennes'], 'Point(-1.68 48.11)', ['Q41185', 'Caen'], 'Point(-0.37 49.18)', 167),
+    b('Q28944179', '1905-07-30', ['Q41185', 'Caen'], 'Point(-0.37 49.18)', ['Q90', 'Paris'], 'Point(2.35 48.86)', 253),
+  ]);
+  const ours = [
+    { number: 10, date: '1905-07-28', distanceKm: 167, start: { label: 'Rennes', lat: 48.11, lon: -1.68 }, finish: { label: 'Caen', lat: 49.18, lon: -0.37 } },
+    { number: 11, date: '1905-07-29', distanceKm: 253, start: { label: 'Caen', lat: 49.18, lon: -0.37 }, finish: { label: 'Paris', lat: 48.86, lon: 2.35 } },
+  ];
+  const f = compareEdition('1905', ours, wd);
+  assert.deepStrictEqual(f.map((x) => `${x.where} ${x.kind}`), ['1905/10 date', '1905/11 date']);
+  assert.match(f[1].detail, /le 1905-07-29 ici, le 1905-07-30 sur Wikidata/);
+});
+
+test('prologue de 4 km : un écart d\'arrondi (4 contre 4,3) n\'est pas signalé ; demi-étapes : clés distinctes', () => {
+  const wd = stagesFromBindings([
+    b('Q1', '1980-06-26', ['Q7', 'Francfort'], 'Point(8.68 50.11)', ['Q7', 'Francfort'], 'Point(8.68 50.11)', 4.3),
+    b('Q2', '1977-07-12', ['Q8', 'A'], 'Point(5 45)', ['Q9', 'B'], 'Point(5.2 45.1)', 80),
+    b('Q3', '1977-07-12', ['Q9', 'B'], 'Point(5.2 45.1)', ['Q10', 'C'], 'Point(5.5 45.3)', 120),
+  ]);
+  const pro = compareEdition('1980', [{ number: 0, prologue: true, date: '1980-06-26', distanceKm: 4, start: { lat: 50.11, lon: 8.68 }, finish: { lat: 50.11, lon: 8.68 } }], wd);
+  assert.deepStrictEqual(pro, []);
+  const halves = compareEdition('1977', [
+    { number: 13, date: '1977-07-12', distanceKm: 95, start: { label: 'A', lat: 45, lon: 5 }, finish: { label: 'B', lat: 45.1, lon: 5.2 } },
+    { number: 13, date: '1977-07-12', distanceKm: 140, start: { label: 'B', lat: 45.1, lon: 5.2 }, finish: { label: 'C', lat: 45.3, lon: 5.5 } },
+  ], wd);
+  assert.deepStrictEqual(halves.map((x) => x.where), ['1977/13a', '1977/13b']);
+});

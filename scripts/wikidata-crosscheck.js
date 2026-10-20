@@ -28,16 +28,23 @@ let lastCall = 0;
 async function sparql(query, cacheDir) {
   const file = path.join(cacheDir, `${require('crypto').createHash('sha1').update(query).digest('hex')}.json`);
   if (fs.existsSync(file)) return JSON.parse(fs.readFileSync(file, 'utf8'));
-  const wait = lastCall + MIN_DELAY_MS - Date.now();
-  if (wait > 0) await new Promise((r) => setTimeout(r, wait));
-  lastCall = Date.now();
-  const res = await fetch(`${ENDPOINT}?query=${encodeURIComponent(query)}`, {
-    headers: { Accept: 'application/sparql-results+json', 'User-Agent': USER_AGENT },
-    signal: AbortSignal.timeout(90000),
-  });
+  let res;
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const wait = lastCall + (attempt ? 10000 : MIN_DELAY_MS) - Date.now();
+    if (wait > 0) await new Promise((r) => setTimeout(r, wait));
+    lastCall = Date.now();
+    res = await fetch(`${ENDPOINT}?query=${encodeURIComponent(query)}`, {
+      headers: { Accept: 'application/sparql-results+json', 'User-Agent': USER_AGENT },
+      signal: AbortSignal.timeout(90000),
+    });
+    // Une seule nouvelle tentative, 10 s plus tard, sur saturation ou panne.
+    if (res.status !== 429 && res.status < 500) break;
+  }
   if (!res.ok) throw new Error(`Wikidata ${res.status}`);
   const json = await res.json();
-  fs.writeFileSync(file, JSON.stringify(json));
+  // Réponse vide : pas mise en cache (un incident passager resterait sinon
+  // pour toujours).
+  if (json.results?.bindings?.length) fs.writeFileSync(file, JSON.stringify(json));
   return json;
 }
 
@@ -84,11 +91,17 @@ function toMarkdown(report) {
     'correction passe par la curation, source citée (CLAUDE.md règle 12).',
     '',
     `- Villes à plus de 10 km de la ville Wikidata : ${count('départ')} départs, ${count('arrivée')} arrivées`,
-    `- Distances à plus de 5 % de Wikidata : ${count('distance')}`,
-    `- Étapes sans étape Wikidata le même jour : ${count('absente')}`,
+    `- Distances à plus de 5 % (et 1 km) de Wikidata : ${count('distance')}`,
+    `- Dates décalées (mêmes villes, autre jour sur Wikidata) : ${count('date')}`,
+    `- Étapes sans correspondance (ni mêmes villes à ±2 jours, ni même jour) : ${count('absente')}`,
+    '',
+    'Appariement : mêmes villes (à 10 km près) le même jour, puis à ±2 jours',
+    '(date décalée), puis, à défaut, même jour et distance la plus proche — seul',
+    'ce dernier cas peut faire apparaître un homonyme. Une ligne par occurrence :',
+    'une ville présente dans deux étapes apparaît deux fois.',
     '',
   ];
-  for (const [kind, title] of [['ville', 'Villes'], ['distance', 'Distances'], ['absente', 'Étapes sans correspondance']]) {
+  for (const [kind, title] of [['ville', 'Villes'], ['distance', 'Distances'], ['date', 'Dates décalées'], ['absente', 'Étapes sans correspondance']]) {
     const rows = all.filter((f) => (kind === 'ville' ? f.kind === 'départ' || f.kind === 'arrivée' : f.kind === kind));
     if (!rows.length) continue;
     lines.push(`## ${title}`, '', '| Étape | Écart | Confiance actuelle |', '|---|---|---|');

@@ -61,40 +61,75 @@ function stagesFromBindings(bindings) {
   return [...byStage.values()];
 }
 
+// Une date peut différer d'un jour (parfois deux) entre les deux sources :
+// au-delà, ce n'est plus la même étape.
+const DATE_WINDOW_DAYS = 2;
+// Écart de distance ignoré en dessous de ce seuil absolu : les prologues de
+// quelques km dépassent 5 % sur un simple arrondi (4 km contre 4,3).
+const DISTANCE_MIN_GAP_KM = 1;
+
+const dayDiff = (a, b) => Math.round((Date.parse(`${a}T00:00:00Z`) - Date.parse(`${b}T00:00:00Z`)) / 86400000);
+const near = (a, b) => a && b && Number.isFinite(a.lat) && Number.isFinite(b.lat) && haversine(a, b) <= TOWN_MISMATCH_M;
+/** Mêmes villes de départ et d'arrivée (à 10 km près) : la même étape. */
+const sameTowns = (o, w) => near(o.start, w.start) && near(o.finish, w.finish);
+
 /**
- * Apparie nos étapes et celles de Wikidata : par date, puis, pour plusieurs
- * étapes le même jour (demi-étapes), par distance la plus proche.
- * @returns [{ ours, wd }] (wd null si aucune étape Wikidata ce jour-là)
+ * Apparie nos étapes et celles de Wikidata (relecture adverse : la date
+ * seule appariait l'étape voisine quand les deux sources diffèrent d'un
+ * jour, ce qui fabriquait de faux homonymes et de fausses « absences »).
+ * 1. mêmes villes, même jour ; 2. mêmes villes, à ±2 jours (date
+ *    décalée, signalée comme telle) ; 3. pour le reste, même jour, distance
+ *    la plus proche (demi-étapes) — c'est là qu'un homonyme se voit.
+ * Chaque étape Wikidata sert au plus une fois.
+ * @returns [{ ours, wd, dateShift }] (wd null si aucune étape ne convient)
  */
 function matchStages(ours, wdStages) {
-  const byDate = new Map();
-  for (const w of wdStages) {
-    if (!w.date) continue;
-    if (!byDate.has(w.date)) byDate.set(w.date, []);
-    byDate.get(w.date).push(w);
-  }
-  return ours.map((o) => {
-    const pool = byDate.get(o.date) || [];
-    if (!pool.length) return { ours: o, wd: null };
-    let best = 0;
-    if (pool.length > 1 && Number.isFinite(o.distanceKm)) {
-      const gap = (w) => (Number.isFinite(w.distanceKm) ? Math.abs(w.distanceKm - o.distanceKm) : Infinity);
-      pool.forEach((w, i) => { if (gap(w) < gap(pool[best])) best = i; });
+  const free = new Set(wdStages);
+  const out = ours.map((o) => ({ ours: o, wd: null, dateShift: 0 }));
+  const take = (m, w) => { m.wd = w; m.dateShift = m.ours.date && w.date ? dayDiff(w.date, m.ours.date) : 0; free.delete(w); };
+  for (const pass of [(d) => d === 0, (d) => Math.abs(d) <= DATE_WINDOW_DAYS]) {
+    for (const m of out) {
+      if (m.wd || !m.ours.date) continue;
+      const w = [...free].find((x) => x.date && pass(dayDiff(x.date, m.ours.date)) && sameTowns(m.ours, x));
+      if (w) take(m, w);
     }
-    return { ours: o, wd: pool.splice(best, 1)[0] };
+  }
+  for (const m of out) {
+    if (m.wd) continue;
+    const pool = [...free].filter((w) => w.date && w.date === m.ours.date);
+    if (!pool.length) continue;
+    const gap = (w) => (Number.isFinite(w.distanceKm) && Number.isFinite(m.ours.distanceKm) ? Math.abs(w.distanceKm - m.ours.distanceKm) : Infinity);
+    take(m, pool.reduce((a, b) => (gap(b) < gap(a) ? b : a)));
+  }
+  return out;
+}
+
+/** Libellé unique d'une étape (deux demi-étapes portent le même numéro). */
+function stageKeys(key, ours) {
+  const seen = new Map();
+  for (const o of ours) seen.set(o.number, (seen.get(o.number) || 0) + 1);
+  const rank = new Map();
+  return ours.map((o) => {
+    if (o.prologue) return `${key}/prologue`;
+    if (seen.get(o.number) === 1) return `${key}/${o.number}`;
+    const r = (rank.get(o.number) || 0) + 1;
+    rank.set(o.number, r);
+    return `${key}/${o.number}${String.fromCharCode(96 + r)}`;
   });
 }
 
 /**
  * Écarts d'une édition : position de ville (> 10 km de la ville Wikidata),
- * distance (> 5 %), étape absente de Wikidata. Une donnée manquante d'un
- * côté n'est jamais comptée comme un écart (rien à comparer).
+ * distance (> 5 % et > 1 km), date décalée, étape sans correspondance. Une
+ * donnée manquante d'un côté n'est jamais comptée comme un écart.
  */
 function compareEdition(key, ourStages, wdStages) {
   const findings = [];
-  for (const { ours, wd } of matchStages(ourStages, wdStages)) {
-    const where = `${key}/${ours.prologue ? 'prologue' : ours.number}`;
-    if (!wd) { findings.push({ where, kind: 'absente', detail: `aucune étape Wikidata le ${ours.date || '?'}` }); continue; }
+  const keys = stageKeys(key, ourStages);
+  matchStages(ourStages, wdStages).forEach(({ ours, wd, dateShift }, idx) => {
+    const where = keys[idx];
+    if (!wd) { findings.push({ where, kind: 'absente', detail: `aucune étape Wikidata aux mêmes villes à ±${DATE_WINDOW_DAYS} jours, ni le même jour (${ours.date || 'date inconnue'})` }); return; }
+    if (dateShift) findings.push({ where, kind: 'date', qid: wd.qid, detail: `le ${ours.date} ici, le ${wd.date} sur Wikidata (mêmes villes)` });
     for (const end of ['start', 'finish']) {
       const a = ours[end];
       const b = wd[end];
@@ -109,13 +144,14 @@ function compareEdition(key, ourStages, wdStages) {
       }
     }
     if (Number.isFinite(ours.distanceKm) && Number.isFinite(wd.distanceKm) && wd.distanceKm > 0) {
-      const pct = ((ours.distanceKm - wd.distanceKm) / wd.distanceKm) * 100;
-      if (Math.abs(pct) > DISTANCE_MISMATCH_PCT) {
+      const gap = ours.distanceKm - wd.distanceKm;
+      const pct = (gap / wd.distanceKm) * 100;
+      if (Math.abs(pct) > DISTANCE_MISMATCH_PCT && Math.abs(gap) >= DISTANCE_MIN_GAP_KM) {
         findings.push({ where, kind: 'distance', qid: wd.qid, detail: `${ours.distanceKm} km ici, ${wd.distanceKm} km sur Wikidata (${pct >= 0 ? '+' : ''}${pct.toFixed(1)} %)` });
       }
     }
-  }
+  });
   return findings;
 }
 
-module.exports = { editionQuery, parsePoint, stagesFromBindings, matchStages, compareEdition, TOWN_MISMATCH_M, DISTANCE_MISMATCH_PCT };
+module.exports = { editionQuery, parsePoint, stagesFromBindings, matchStages, compareEdition, stageKeys, TOWN_MISMATCH_M, DISTANCE_MISMATCH_PCT, DATE_WINDOW_DAYS, DISTANCE_MIN_GAP_KM };
