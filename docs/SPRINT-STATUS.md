@@ -1346,7 +1346,7 @@ Actionnables sans décision :
   (jamais 0 m supposé) (`test/fietsIndex.test.js`, vérification Playwright).
   Au passage : score, indice d'irrégularité, points et facteur de fatigue
   de l'indice de douleur à la virgule décimale (oubli de la 35.19).
-- [ ] 34.6 Profil coloré par surface et par FC (données déjà présentes) —
+- [x] 34.6 (PR #466) Profil coloré par surface et par FC (données déjà présentes) —
   critères : au pied du profil de la fiche, une bande « Rev. » colore les
   tronçons non revêtus, non revêtus présumés et pavés (`track.surfaces`),
   une bande « FC » colore chaque portion selon sa zone de FC (Z1 à Z5,
