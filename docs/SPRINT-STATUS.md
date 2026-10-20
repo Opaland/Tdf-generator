@@ -1524,6 +1524,15 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   `Date` (aucun décalage de fuseau, testé en `America/New_York`) ; une date
   libre d'un import Wikipédia est rendue telle quelle ; les valeurs triées
   et exportées restent en ISO (`test/dayFormat.test.js`).
+- [ ] 35.22 Suites des 35.18 et 35.20 — critères : le profil de la fiche
+  se redessine à la nouvelle largeur après un redimensionnement ou une
+  rotation (viewBox 1080 → 420 → 1080 vérifié), sans perdre le survol
+  profil ↔ carte ni dupliquer son guide ; le « Catégorie max » du
+  comparateur utilise `EFProfile.CAT_RANK` au lieu d'une liste locale
+  (vérification Playwright). Vérifié sans défaut : « 0 pays / 0 région »
+  dans Mes traces vient du mode hors-ligne — le géocodage inverse simulé
+  (`pipeline/simulator.js`) ne renvoie ni pays ni département ; en ligne,
+  la Géoplateforme donne `country: 'France'` et le département.
 
 En attente de décision (proposées, non commencées) : méthode de lissage
 d'altitude (D+ et pente max sous-estimés en relief vallonné), export de la
