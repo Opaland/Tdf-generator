@@ -1508,7 +1508,11 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
 
 En attente de décision (proposées, non commencées) : méthode de lissage
 d'altitude (D+ et pente max sous-estimés en relief vallonné), export de la
-base par tout compte en mode public, phrase « 100 % local » du README.
+base par tout compte en mode public, phrase « 100 % local » du README,
+en-tête Content-Security-Policy (les pages ont des scripts et styles en
+ligne : il faudrait soit les extraire, soit autoriser `'unsafe-inline'`,
+ce qui en réduit l'intérêt) et compression HTTP (nouvelle dépendance
+`compression`, à justifier selon docs/BRIEF.md).
 
 ## Epic 24 — Bilan final
 
