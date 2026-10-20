@@ -14,47 +14,117 @@ const { isOffline } = require('./http');
 const { computeRideStats, elapsedAtSamples } = require('./rideStats');
 const { plausibleHr, hrSummary, hrAtSamples } = require('./heartRate');
 
-/** Parse un GPX (texte) → [{lat, lon, ele?, time?, hr?}] (trkpt, ou rtept à défaut). */
+/** Valeur numérique de l'attribut `name` (guillemets doubles ou simples), ou
+ * NaN. L'attribut doit commencer après un blanc (`data-lat` n'est pas `lat`),
+ * et la valeur être un décimal simple — comme l'ancienne regex `-?[\d.]+` :
+ * parseFloat seul accepterait « 1e1 », « +1 » ou « 2.5abc ». */
+function numAttr(attrs, name) {
+  const m = attrs.match(new RegExp(`(?:^|\\s)${name}\\s*=\\s*(?:"([^"]*)"|'([^']*)')`));
+  const v = m ? (m[1] ?? m[2]).trim() : '';
+  return /^-?(?:\d+\.?\d*|\.\d+)$/.test(v) ? parseFloat(v) : NaN;
+}
+
+/** Contenu entre `<tag>` et `</tag>` (première occurrence), ou null. indexOf
+ * plutôt qu'une regex paresseuse `<tag>([\s\S]*?)</tag>` : sur un texte plein
+ * de `<tag>` jamais fermés, celle-ci relit tout le reste du texte à chaque
+ * ouverture (temps quadratique). */
+function tagContent(text, tag) {
+  const open = text.indexOf(`<${tag}>`);
+  if (open === -1) return null;
+  const from = open + tag.length + 2;
+  const close = text.indexOf(`</${tag}>`, from);
+  return close === -1 ? null : text.slice(from, close);
+}
+
+/** Balises ouvrantes <trkpt …> / <rtept …> du texte, en un seul passage.
+ * On avance de `<` en `<` ; une balise dont le `>` n'arrive pas avant le `<`
+ * suivant est ignorée. Aucune recherche ne dépasse le `<` suivant : une
+ * regex `<trkpt\b([^>]*)>` balayait tout le reste du texte à chaque
+ * `<trkpt ` jamais fermé (910 Ko : 53 s — relecture adverse). Commentaires
+ * et sections CDATA sont sautés : un `<trkpt>` commenté n'est pas un point. */
+function openingTags(text) {
+  const tags = [];
+  let pos = text.indexOf('<');
+  while (pos !== -1) {
+    if (text.startsWith('<!--', pos)) {
+      const end = text.indexOf('-->', pos + 4);
+      if (end === -1) break;
+      pos = text.indexOf('<', end + 3);
+      continue;
+    }
+    if (text.startsWith('<![CDATA[', pos)) {
+      const end = text.indexOf(']]>', pos + 9);
+      if (end === -1) break;
+      pos = text.indexOf('<', end + 3);
+      continue;
+    }
+    const next = text.indexOf('<', pos + 1);
+    const tag = text.startsWith('trkpt', pos + 1) ? 'trkpt' : text.startsWith('rtept', pos + 1) ? 'rtept' : null;
+    if (tag && !/[\w:.-]/.test(text.charAt(pos + 6))) {
+      const head = text.slice(pos + 6, next === -1 ? text.length : next);
+      const gt = head.indexOf('>');
+      if (gt !== -1) tags.push({ tag, attrs: head.slice(0, gt), start: pos, end: pos + 6 + gt + 1 });
+    }
+    pos = next;
+  }
+  return tags;
+}
+
+/** Parse un GPX (texte) → [{lat, lon, ele?, time?, hr?}] (trkpt, ou rtept à défaut).
+ *
+ * Temps linéaire (revue globale du 19/10/2026) : l'ancienne regex unique
+ * `<trkpt …>([\s\S]*?)</trkpt>` relisait tout le reste du texte à chaque
+ * balise jamais fermée — 920 Ko figeaient le serveur 8 s, 30 Mo des heures.
+ * Ici, chaque point ne cherche sa balise fermante que jusqu'à l'ouverture du
+ * point suivant : les segments lus sont disjoints. Les attributs lat/lon sont
+ * lus dans n'importe quel ordre, entre guillemets doubles ou simples. */
 function parseGpx(text) {
   const points = [];
-  const re = /<(trkpt|rtept)\b[^>]*\blat="(-?[\d.]+)"[^>]*\blon="(-?[\d.]+)"[^>]*>([\s\S]*?)<\/\1>|<(trkpt|rtept)\b[^>]*\blat="(-?[\d.]+)"[^>]*\blon="(-?[\d.]+)"[^>]*\/>/g;
-  let m;
-  while ((m = re.exec(text))) {
-    const lat = parseFloat(m[2] ?? m[6]);
-    const lon = parseFloat(m[3] ?? m[7]);
-    if (!Number.isFinite(lat) || !Number.isFinite(lon)) continue;
+  const opens = openingTags(text);
+  opens.forEach((o, i) => {
+    const lat = numAttr(o.attrs, 'lat');
+    const lon = numAttr(o.attrs, 'lon');
+    if (!Number.isFinite(lat) || !Number.isFinite(lon)) return;
+    let body = null;
+    if (!o.attrs.trimEnd().endsWith('/')) {
+      const segment = text.slice(o.end, i + 1 < opens.length ? opens[i + 1].start : text.length);
+      const close = segment.indexOf(`</${o.tag}>`);
+      if (close !== -1) body = segment.slice(0, close);
+    }
     let ele = null;
     let time = null;
     let hr = null;
-    if (m[4]) {
-      const em = m[4].match(/<ele>\s*(-?[\d.]+)\s*<\/ele>/);
-      if (em) ele = parseFloat(em[1]);
+    if (body) {
+      const eleText = tagContent(body, 'ele');
+      if (eleText != null && /^-?(?:\d+\.?\d*|\.\d+)$/.test(eleText.trim())) ele = parseFloat(eleText);
       // <time> (trkpt, format ISO 8601 UTC standard GPX) : absent d'un
       // rtept ou d'un export minimal — jamais supposé présent (voir
       // computeRideStats() dans pipeline/rideStats.js, qui tolère son
       // absence sur tout ou partie des points, plutôt que de planter
-      // l'import entier).
-      const tm = m[4].match(/<time>\s*([^<\s][^<]*?)\s*<\/time>/);
-      if (tm) {
-        const d = new Date(tm[1]);
+      // l'import entier). indexOf + trim : la regex `<time>\s*(…*?)\s*</time>`
+      // était quadratique sur un <time> non fermé suivi d'espaces.
+      const timeText = tagContent(body, 'time');
+      if (timeText != null && timeText.trim()) {
+        const d = new Date(timeText.trim());
         if (!Number.isNaN(d.getTime())) time = d;
       }
       // FC : extension Garmin TrackPointExtension (<gpxtpx:hr>), préfixe
       // d'espace de noms variable selon l'appli (ns3:, gpxtpx:…) ou absent.
       // Cherchée dans <extensions> seulement (un <hr> dans un <desc> n'est
-      // pas une mesure), première valeur plausible retenue.
-      const ext = m[4].match(/<extensions>([\s\S]*?)<\/extensions>/);
+      // pas une mesure), première valeur plausible retenue. Préfixe borné à
+      // 32 caractères : un long mot sans « : » serait relu à chaque position.
+      const ext = tagContent(body, 'extensions');
       if (ext) {
-        for (const hm of ext[1].matchAll(/<(?:[\w.-]+:)?hr>\s*([\d.]+)\s*<\/(?:[\w.-]+:)?hr>/g)) {
+        for (const hm of ext.matchAll(/<(?:[\w.-]{1,32}:)?hr>\s*([\d.]+)\s*<\/(?:[\w.-]{1,32}:)?hr>/g)) {
           hr = plausibleHr(parseFloat(hm[1]));
           if (hr != null) break;
         }
       }
     }
     points.push({ lat, lon, ele, time, hr });
-  }
-  const nameM = text.match(/<name>([\s\S]*?)<\/name>/);
-  return { points, name: nameM ? nameM[1].trim().slice(0, 120) : null };
+  });
+  const name = tagContent(text, 'name');
+  return { points, name: name != null ? name.trim().slice(0, 120) : null };
 }
 
 /** Points FIT (fit-file-parser) → [{lat, lon, ele?, time?, hr?}]. */
