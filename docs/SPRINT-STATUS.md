@@ -1311,7 +1311,7 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   refusé en 400 n'écrit plus rien (validation avant écriture, transaction) ;
   choisir un tour dans l'éditeur n'est plus refusé (`edition_id` envoyé en
   nombre) (`test/waypointProvenance.test.js`, vérification Playwright).
-- [ ] 35.5 Arithmétique de l'altitude — critères : le « D+ cumulé » du
+- [x] 35.5 (PR #442) Arithmétique de l'altitude — critères : le « D+ cumulé » du
   dernier km égale le D+ de l'étape (segment à cheval sur deux km réparti au
   prorata ; démo : Paris → Lyon 1 592 m pour 1 592, contre 1 193 avant) ; un
   échantillon sans altitude n'est plus exporté à 0 m (GPX `<ele>` et TCX
