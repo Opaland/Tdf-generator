@@ -4,7 +4,7 @@
 // analyse km par km, checks) est identique à une étape générée.
 
 const { getDb } = require('../backend/db');
-const { resamplePolyline, movingAverageByDistance } = require('./geo');
+const { resamplePolyline, movingAverageByDistance, inLatLonBounds } = require('./geo');
 const { sampleElevations, fillNearestValid, plausibleEle } = require('./elevation');
 const { detectClimbs, nameClimbs, detectBacktrackZones } = require('./climbs');
 const { analyzeByKm } = require('./kmanalysis');
@@ -97,7 +97,13 @@ async function parseFit(buffer) {
  * @returns stageId
  */
 async function importTrackAsStage(points, meta = {}) {
-  if (!points || points.length < 2) throw new Error('Trace vide ou illisible (aucun point)');
+  // Point par point, comme un lat/lon non numérique dans le parseur : un
+  // point GPS hors bornes (lat 999) est une mesure inexploitable, et le garder
+  // faisait exploser le ré-échantillonnage jusqu'à l'arrêt du process. Filtré
+  // ici plutôt que dans chaque parseur : GPX, FIT, Strava et Suunto passent
+  // tous par cette fonction.
+  points = (points || []).filter((p) => inLatLonBounds(p.lat, p.lon));
+  if (points.length < 2) throw Object.assign(new Error('Trace vide ou illisible (aucun point dans les bornes lat/lon)'), { status: 400 });
   const db = getDb();
 
   // meta.date (rare, fourni explicitement par un appelant) prévaut toujours

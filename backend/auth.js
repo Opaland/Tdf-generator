@@ -14,6 +14,7 @@ const crypto = require('crypto');
 const { promisify } = require('util');
 const express = require('express');
 const { getDb } = require('./db');
+const { wrap } = require('./apiHelpers');
 
 const scrypt = promisify(crypto.scrypt);
 const KEY_LEN = 64;
@@ -114,7 +115,17 @@ function parseCookies(req) {
   for (const part of header.split(';')) {
     const i = part.indexOf('=');
     if (i === -1) continue;
-    out[part.slice(0, i).trim()] = decodeURIComponent(part.slice(i + 1).trim());
+    const raw = part.slice(i + 1).trim();
+    // Un cookie voisin mal encodé (`other=50%`, posé par un autre service du
+    // même domaine) faisait lever decodeURIComponent dans requireAuth : 500
+    // sur toute l'API (revue globale du 19/10/2026). On garde la valeur brute.
+    let value = raw;
+    try {
+      value = decodeURIComponent(raw);
+    } catch {
+      /* valeur brute */
+    }
+    out[part.slice(0, i).trim()] = value;
   }
   return out;
 }
@@ -215,7 +226,9 @@ function requireAdmin(req, res, next) {
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const router = express.Router();
 
-router.post('/register', rateLimit, async (req, res) => {
+// wrap() : Express 4 ne rattrape pas le rejet d'un handler async, et un rejet
+// non géré arrête Node (revue globale du 19/10/2026, inscription concurrente).
+router.post('/register', rateLimit, wrap(async (req, res) => {
   const email = String((req.body || {}).email || '').trim().toLowerCase();
   const password = String((req.body || {}).password || '');
   if (!EMAIL_RE.test(email)) return res.status(400).json({ error: 'Email invalide' });
@@ -234,12 +247,21 @@ router.post('/register', rateLimit, async (req, res) => {
     return res.status(403).json({ error: 'Inscription d\'un compte administrateur : jeton ETAPEFORGE_ADMIN_TOKEN requis (champ admin_token)' });
   }
   const hash = await hashPassword(password);
-  const r = db.prepare('INSERT INTO users (email, password_hash) VALUES (?, ?)').run(email, hash);
+  // Deux inscriptions simultanées passent toutes deux le SELECT ci-dessus
+  // pendant l'await : la seconde INSERT lève une contrainte UNIQUE. C'est le
+  // même 409 que le SELECT, pas une panne.
+  let r;
+  try {
+    r = db.prepare('INSERT INTO users (email, password_hash) VALUES (?, ?)').run(email, hash);
+  } catch (err) {
+    if (err.code === 'SQLITE_CONSTRAINT_UNIQUE') return res.status(409).json({ error: 'Un compte existe déjà avec cet email' });
+    throw err;
+  }
   setSessionCookie(res, createSession(r.lastInsertRowid));
   res.json({ email });
-});
+}));
 
-router.post('/login', rateLimit, async (req, res) => {
+router.post('/login', rateLimit, wrap(async (req, res) => {
   const email = String((req.body || {}).email || '').trim().toLowerCase();
   const password = String((req.body || {}).password || '');
   const user = getDb().prepare('SELECT * FROM users WHERE email = ?').get(email);
@@ -247,7 +269,7 @@ router.post('/login', rateLimit, async (req, res) => {
   if (!user || !ok) return res.status(401).json({ error: 'Email ou mot de passe incorrect' });
   setSessionCookie(res, createSession(user.id));
   res.json({ email: user.email });
-});
+}));
 
 router.post('/logout', (req, res) => {
   deleteSession(parseCookies(req)[SESSION_COOKIE]);

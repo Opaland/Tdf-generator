@@ -1261,6 +1261,48 @@ En attente de décision (proposées, non commencées) :
   les collectivités (≥ 2010), LeTourDataSet (données issues de letour.fr,
   contraire à la règle actuelle du README).
 
+## Epic 35 — Correctifs de la revue globale du 19/10/2026
+
+Revue globale de `main` f0dd08e : chasse aux bugs backend/pipeline, QA
+Playwright (desktop 1280×800, mobile 390×844), 37 personas. 908 tests verts
+au moment de la revue : aucun des bugs ci-dessous n'était couvert. Chaque
+story commence par un test qui échoue sans le correctif, et se termine par un
+grep du même motif sur tout le dépôt (règles 1 et 10).
+
+- [ ] 35.1 Robustesse serveur — critères : deux inscriptions simultanées du
+  même email donnent 200 + 409 sans arrêter le process (`/register` et
+  `/login` passent par `wrap()`) ; un cookie voisin mal encodé (`other=50%`)
+  ne donne plus 500 ; un waypoint hors [-90, 90] × [-180, 180] est refusé en
+  400 à la création et à la modification, comme à l'import de sauvegarde ; un
+  point de trace (GPX, FIT, Strava, Suunto) hors bornes est écarté ; une
+  génération sur un waypoint déjà en base hors bornes échoue proprement au
+  lieu de saturer la mémoire ; un clic sur une copie du monde dans l'éditeur
+  donne une longitude ramenée dans [-180, 180) (`test/authRobustness.test.js`,
+  `test/backupBounds.test.js`).
+- [ ] 35.2 Parseur GPX linéaire (ReDoS de `parseGpx`) ; accepter `lon` avant
+  `lat` et les guillemets simples.
+- [ ] 35.3 Réimport d'une année : confirmation côté interface, et un tour
+  personnalisé de la même année n'est jamais supprimé (`is_custom`).
+- [ ] 35.4 L'éditeur conserve la provenance des waypoints (`source`,
+  `altitude_hint_m`, `bonus_sec`, `country_hint`, `region_hint`).
+- [ ] 35.5 Arithmétique de l'altitude : D+ cumulé km par km (segment à cheval
+  sur deux km), `?? 0` des exports GPX/TCX/KML, trace entièrement aberrante
+  présentée à 0 m.
+- [ ] 35.6 Validation des longueurs et des valeurs (`name`, `date`, `kind`,
+  `stage_type`) et 500 qui devraient être des 400.
+- [ ] 35.7 Couche réseau : timeout du corps de réponse, `state` OAuth
+  Strava/Suunto, redirections de l'import par lien.
+- [ ] 35.8 Frontend : « Max cat. » toujours vide, 404 de fiche relancé à
+  l'infini, dates décalées en UTC−, tuiles d'édition Hommes/Femmes de même
+  année.
+- [ ] 35.9 Export TCX : date non ISO, `CoursePoint` datés au départ.
+- [ ] 35.10 Wikipédia : `normalizeType` (« Medium mountain », CLM de
+  montagne) et faux cols de `isColQuery` (Mont-de-Marsan, Le Mont-Dore…).
+
+En attente de décision (proposées, non commencées) : méthode de lissage
+d'altitude (D+ et pente max sous-estimés en relief vallonné), export de la
+base par tout compte en mode public, phrase « 100 % local » du README.
+
 ## Epic 24 — Bilan final
 
 - [x] 24.1 Rapport de clôture par epic (17/10/2026), voir ci-dessous

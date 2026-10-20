@@ -8,6 +8,7 @@ const { getDb, SCHEMA_VERSION } = require('../db');
 const { isOffline, setOffline } = require('../../pipeline/http');
 const { getUsageStats: getApiUsageStats } = require('../../pipeline/apiUsage');
 const { wrap } = require('../apiHelpers');
+const { inLatLonBounds } = require('../../pipeline/geo');
 const SERVER_START_TIME = new Date().toISOString();
 module.exports = function register(app) {
   app.post('/api/offline', (req, res) => {
@@ -133,6 +134,11 @@ module.exports = function register(app) {
         const rowCols = Object.keys(row);
         if (rowCols.length !== cols.length || !rowCols.every((c) => cols.includes(c))) {
           return res.status(400).json({ error: `${t}[${i}] : colonnes incohérentes avec les autres lignes de cette table` });
+        }
+        // Mêmes bornes que POST/PUT /api/stages : sans elles, un waypoint à
+        // lat 999 réimporté ici faisait saturer la mémoire à la génération.
+        if (row.lat != null && row.lon != null && typeof row.lat === 'number' && typeof row.lon === 'number' && !inLatLonBounds(row.lat, row.lon)) {
+          return res.status(400).json({ error: `${t}[${i}] : lat doit être entre -90 et 90, lon entre -180 et 180` });
         }
         for (const c of cols) {
           const v = row[c];
