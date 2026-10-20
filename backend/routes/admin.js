@@ -7,7 +7,9 @@
 const { getDb, SCHEMA_VERSION } = require('../db');
 const { isOffline, setOffline } = require('../../pipeline/http');
 const { getUsageStats: getApiUsageStats } = require('../../pipeline/apiUsage');
-const { wrap } = require('../apiHelpers');
+const { wrap, truncateText, FIELD_MAX, WAYPOINT_KINDS } = require('../apiHelpers');
+const { CATEGORIES } = require('../../pipeline/importer');
+const { MAX_NAME_LEN: GEAR_NAME_MAX } = require('./gear');
 const { inLatLonBounds } = require('../../pipeline/geo');
 const SERVER_START_TIME = new Date().toISOString();
 module.exports = function register(app) {
@@ -58,6 +60,53 @@ module.exports = function register(app) {
   // `gear` avant `stages` : stages.gear_id y fait référence (migration 7) ;
   // la suppression parcourt la liste à l'envers.
   const BACKUP_TABLES = ['editions', 'gear', 'stages', 'waypoints', 'tracks', 'elevation_samples', 'climbs', 'descents', 'km_analysis'];
+
+  // Règles des routes d'écriture (revue globale du 19/10/2026) appliquées à
+  // la sauvegarde réimportée, sans refuser ce que l'appli a elle-même pu
+  // écrire (relecture adverse) :
+  // - un texte trop long est tronqué et compté, pas refusé : un nom de trace
+  //   Suunto/Strava de 250 caractères, ou une étape antérieure aux bornes de
+  //   l'Epic 35.6, rendait sinon l'export de l'appli non réimportable ;
+  // - pas de contrôle de date : l'import Wikipédia stocke le texte brut
+  //   (« 1–2 Jul. ») quand il ne reconnaît pas le mois (pipeline/importer.js) ;
+  // - kind, catégorie et JSON refusés s'ils sont hors de ce que l'appli
+  //   écrit. Les colonnes JSON sont relues par JSON.parse sans garde
+  //   (loadStageFull, GET /api/editions/:id…) : une valeur mal formée y
+  //   donnait un 500 sur chaque page de l'étape.
+  const BACKUP_TEXT_MAX = {
+    editions: { name: FIELD_MAX.name },
+    gear: { name: GEAR_NAME_MAX },
+    stages: { name: FIELD_MAX.name, status: FIELD_MAX.status, stage_type: FIELD_MAX.stage_type, city_hint: FIELD_MAX.hint, region_hint: FIELD_MAX.hint, country_hint: FIELD_MAX.hint },
+    waypoints: { label: FIELD_MAX.label, source: FIELD_MAX.source, country_hint: FIELD_MAX.hint, region_hint: FIELD_MAX.hint },
+  };
+  const BACKUP_JSON_COLUMNS = {
+    editions: ['source'],
+    stages: ['source', 'checks', 'progress'],
+    waypoints: ['bonus_sec', 'geocode'],
+    tracks: ['geojson', 'approx_segments'],
+    climbs: ['km_blocks'],
+    descents: ['km_blocks'],
+  };
+  /** Vérifie une ligne ; renvoie le nombre de champs tronqués (row modifiée). */
+  function checkBackupRow(t, row, i) {
+    const f = (c) => `${t}[${i}].${c}`;
+    let truncated = 0;
+    for (const [c, max] of Object.entries(BACKUP_TEXT_MAX[t] || {})) {
+      if (typeof row[c] === 'string' && row[c].length > max) { row[c] = truncateText(row[c], max); truncated++; }
+    }
+    for (const c of BACKUP_JSON_COLUMNS[t] || []) {
+      if (row[c] == null) continue;
+      if (typeof row[c] !== 'string') throw Object.assign(new Error(`${f(c)} : texte JSON attendu`), { status: 400 });
+      try { JSON.parse(row[c]); } catch { throw Object.assign(new Error(`${f(c)} : JSON mal formé`), { status: 400 }); }
+    }
+    if (t === 'waypoints' && 'kind' in row && !WAYPOINT_KINDS.has(row.kind)) {
+      throw Object.assign(new Error(`${f('kind')} : ${[...WAYPOINT_KINDS].join(', ')} attendu`), { status: 400 });
+    }
+    if (t === 'editions' && 'category' in row && !CATEGORIES.includes(row.category)) {
+      throw Object.assign(new Error(`${f('category')} : ${CATEGORIES.join(' ou ')} attendu`), { status: 400 });
+    }
+    return truncated;
+  }
 
   // Number.isFinite, pas juste typeof === 'number' : better-sqlite3 accepte
   // NaN/Infinity comme paramètre lié sans se plaindre (vérifié directement),
@@ -120,6 +169,7 @@ module.exports = function register(app) {
     }
     const db = getDb();
     const perTable = {};
+    let truncatedFields = 0;
     for (const t of BACKUP_TABLES) {
       const rows = Array.isArray(body.tables[t]) ? body.tables[t] : [];
       if (!rows.length) { perTable[t] = { cols: [], rows: [] }; continue; }
@@ -151,6 +201,12 @@ module.exports = function register(app) {
             return res.status(400).json({ error: `${t}[${i}].${c} : colonne numérique (${declared}), valeur reçue de type ${typeof v}` });
           }
         }
+        try {
+          truncatedFields += checkBackupRow(t, row, i);
+        } catch (err) {
+          if (!err.status) throw err;
+          return res.status(400).json({ error: err.message });
+        }
       }
       perTable[t] = { cols, rows };
     }
@@ -168,6 +224,6 @@ module.exports = function register(app) {
     } catch (err) {
       return res.status(400).json({ error: `Réimport échoué, base inchangée (transaction annulée) : ${err.message}` });
     }
-    res.json({ ok: true, counts: Object.fromEntries(BACKUP_TABLES.map((t) => [t, perTable[t].rows.length])) });
+    res.json({ ok: true, counts: Object.fromEntries(BACKUP_TABLES.map((t) => [t, perTable[t].rows.length])), truncated_fields: truncatedFields });
   });
 };

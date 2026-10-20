@@ -1468,6 +1468,18 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   empilées) (`test/tracesSummaryRefresh.test.js`, vérification Playwright).
   Vérifié sans défaut : `year=3000` répond déjà « attendu : un entier de
   1903 à 2100 ».
+- [x] 35.17 (PR #455) Revalidation de l'import de sauvegarde — critères :
+  `POST /api/backup/import` refuse un kind de waypoint ou une catégorie
+  d'édition que l'appli n'écrit pas, et une colonne JSON mal formée que les
+  pages relisent sans garde (`source`, `checks`, `progress`, `bonus_sec`,
+  `geocode`, `geojson`, `approx_segments`, `km_blocks`) : 400 qui nomme
+  table, ligne et colonne, base inchangée ; un texte au-delà des bornes des
+  routes d'écriture est tronqué (sans couper un emoji) et compté dans
+  `truncated_fields`, pas refusé ; une date en texte libre (import
+  Wikipédia) reste acceptée ; le nom d'une trace importée (fichier GPX,
+  Suunto, Strava, lien) est borné à 200 caractères ; la sauvegarde exportée
+  telle quelle se réimporte (`test/backupRevalidation.test.js`,
+  aller-retour sur la base de la démo).
 - [ ] 35.18 Lisibilité mobile et CSV — critères : le profil de la fiche et
   le comparateur règlent leur viewBox sur la largeur de l'écran (×1,2,
   entre 420 et 1080) : texte d'au moins 8 px à 390 px au lieu d'environ
