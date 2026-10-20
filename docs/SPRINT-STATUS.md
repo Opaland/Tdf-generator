@@ -1434,7 +1434,7 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   bouton à double confirmation retrouve son libellé après une action en
   échec ; accords « 1 étape », « 1 générée » (`test/frontendReviewFixes.test.js`,
   vérification Playwright).
-- [ ] 35.14 Accessibilité — critères : le bouton ↻ des archives a un nom
+- [x] 35.14 (PR #452) Accessibilité — critères : le bouton ↻ des archives a un nom
   accessible (« Régénérer l'étape … ») ; les onglets Profil 2D / 3D
   exposent l'onglet actif (`aria-pressed`), le curseur de relief a un
   libellé ; les champs de chaque point de l'éditeur ont un libellé et les
