@@ -72,6 +72,13 @@ function maxCategory(climbs) {
   return (climbs || []).reduce((a, c) => ((CAT_ORDER[c.category] || 0) > (CAT_ORDER[a] || 0) ? c.category : a), '');
 }
 
+/** Totaux du tableau sur les seules étapes générées (officiel compris). */
+function statTotals(rows) {
+  const done = rows.filter((r) => r.gen != null);
+  const tot = (k) => done.reduce((a, r) => a + (r[k] || 0), 0);
+  return { done: done.length, all: rows.length, off: tot('off'), gen: tot('gen'), dplus: tot('dplus'), nclimbs: tot('nclimbs') };
+}
+
 function buildStatRows(data) {
   statRows = data.stages.map((st, i) => {
     const s = st.stage;
@@ -126,10 +133,15 @@ function renderStageList() {
         <td>${EF.stateBadge(r.state)}</td></tr>`
     )
     .join('');
-  const tot = (k) => statRows.reduce((a, r) => a + (r[k] || 0), 0);
+  // Totaux sur les seules étapes générées, officiel compris : additionner
+  // l'officiel de toutes les étapes et le reconstitué des seules générées
+  // rendait deux totaux d'apparence comparable qui ne l'étaient pas (revue
+  // globale du 19/10/2026).
+  const t = statTotals(statRows);
+  const partial = t.done < t.all ? ` <span class="meta-line">(${t.done}/${t.all} étapes générées)</span>` : '';
   document.querySelector('#tour-stages tfoot').innerHTML =
-    `<tr><td></td><td>Total</td><td></td><td></td><td>${tot('off') || '—'}</td>` +
-    `<td>${tot('gen').toFixed(1)}</td><td></td><td>${tot('dplus')}</td><td>${tot('nclimbs')}</td>` +
+    `<tr><td></td><td>Total${partial}</td><td></td><td></td><td>${t.off || '—'}</td>` +
+    `<td>${t.gen.toFixed(1)}</td><td></td><td>${t.dplus}</td><td>${t.nclimbs}</td>` +
     `<td colspan="4"></td></tr>`;
 }
 
@@ -143,7 +155,7 @@ function renderStatTiles(data) {
   const highest = allClimbs.reduce((a, c) => (c.summit_ele_m > (a?.summit_ele_m || 0) ? c : a), null);
   const tiles = [
     { v: rows.length, l: 'étapes' },
-    { v: totalKm.toFixed(0) + ' km', l: 'distance reconstituée' },
+    { v: totalKm.toFixed(0) + ' km', l: rows.some((r) => r.gen == null) ? `distance reconstituée (${rows.filter((r) => r.gen != null).length}/${rows.length} étapes)` : 'distance reconstituée' },
     { v: 'D+ ' + totalDplus.toLocaleString('fr-FR') + ' m', l: 'dénivelé total' },
     { v: allClimbs.length, l: 'côtes détectées' },
     {
@@ -279,4 +291,4 @@ if (typeof document !== 'undefined') document.addEventListener('DOMContentLoaded
   if (sel.value) loadEdition(sel.value);
 });
 
-if (typeof module !== 'undefined' && module.exports) module.exports = { maxCategory };
+if (typeof module !== 'undefined' && module.exports) module.exports = { maxCategory, statTotals };

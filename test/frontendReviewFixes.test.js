@@ -49,3 +49,32 @@ test('fiche : un 404 affiche « Étape introuvable » et arrête le sondage', as
     global.setTimeout = realSetTimeout;
   }
 });
+
+// --- Epic 35.13 ---------------------------------------------------------
+
+test('carte globale : les totaux ne portent que sur les étapes générées, officiel compris', () => {
+  const { statTotals } = require('../frontend/tourmap.js');
+  const t = statTotals([
+    { off: 200, gen: 210.5, dplus: 1000, nclimbs: 2 },
+    { off: 180, gen: null, dplus: null, nclimbs: 0 },
+  ]);
+  assert.deepStrictEqual(t, { done: 1, all: 2, off: 200, gen: 210.5, dplus: 1000, nclimbs: 2 });
+});
+
+test('confirmClick : le libellé d\'origine revient au second clic, même si l\'action échoue', async () => {
+  const EF2 = require('../frontend/common.js');
+  const btn = { textContent: 'Supprimer', title: 'supprimer', dataset: {}, attrs: { 'aria-label': 'Supprimer l\'étape 3' },
+    hasAttribute(k) { return k in this.attrs; }, getAttribute(k) { return this.attrs[k]; }, setAttribute(k, v) { this.attrs[k] = v; } };
+  const realSet = global.setTimeout;
+  global.setTimeout = () => 1;
+  try {
+    const handler = EF2.confirmClick(btn, { confirmText: 'confirmer ✕', onConfirm: async () => { throw new Error('403'); } });
+    await handler();
+    assert.strictEqual(btn.textContent, 'confirmer ✕');
+    await assert.rejects(handler(), /403/);
+    assert.strictEqual(btn.textContent, 'Supprimer');
+    assert.strictEqual(btn.attrs['aria-label'], 'Supprimer l\'étape 3');
+  } finally {
+    global.setTimeout = realSet;
+  }
+});

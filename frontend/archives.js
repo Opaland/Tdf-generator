@@ -225,21 +225,28 @@ async function runLoadEditions() {
   const sourcedOnly = document.getElementById('f-sourced-only').checked;
   const openStates = {};
   box.querySelectorAll('details').forEach((d) => (openStates[d.dataset.ed] = d.open));
-  box.innerHTML = '';
   renderExplorerGrid(editions);
-  for (const e of editions.filter((x) => !x.is_custom && x.year)) {
+  // Détails des éditions demandés en parallèle, et liste remplacée d'un bloc
+  // une fois construite : une requête en série par édition (113 au catalogue
+  // complet) à chaque sondage de 1,5 s, avec la liste vidée d'abord,
+  // faisait clignoter la page et perdre le défilement (revue globale du
+  // 19/10/2026).
+  const shown = editions.filter((x) => !x.is_custom && x.year)
+    .filter((e) => !sourcedOnly || (e.stage_count > 0 && e.curated_stage_count === e.stage_count));
+  const fulls = await Promise.all(shown.map((e) => EF.api(`/api/editions/${e.id}`)));
+  const dets = [];
+  shown.forEach((e, i) => {
     const fullySourced = e.stage_count > 0 && e.curated_stage_count === e.stage_count;
-    if (sourcedOnly && !fullySourced) continue;
     const det = document.createElement('details');
     det.dataset.ed = e.id;
     det.open = openStates[e.id] !== undefined ? openStates[e.id] : String(e.year) === '1903';
-    const full = await EF.api(`/api/editions/${e.id}`);
+    const full = fulls[i];
     const sourceBadge = fullySourced
       ? '<span class="badge sourced-badge">entièrement sourcé</span>'
       : `<span class="badge partial-badge">reconstruction partielle (${e.curated_stage_count || 0}/${e.stage_count} étapes sourcées)</span>`;
     det.innerHTML = `
-      <summary style="cursor:pointer;font-weight:700;padding:8px 0">${EF.esc(e.name)} — ${e.stage_count} étapes
-        (${e.done_count || 0} générées) ${sourceBadge}</summary>
+      <summary style="cursor:pointer;font-weight:700;padding:8px 0">${EF.esc(e.name)} — ${e.stage_count} étape${e.stage_count > 1 ? 's' : ''}
+        (${e.done_count || 0} générée${(e.done_count || 0) > 1 ? 's' : ''}) ${sourceBadge}</summary>
       <div class="card">
         ${full.source && full.source.notes ? `<div class="note">${EF.esc(full.source.notes)}</div>` : ''}
         ${full.source ? `<p class="meta-line">Sources : liste des étapes — ${EF.esc(full.source.liste_etapes || '')} ; points de passage — ${EF.esc(full.source.points_de_passage || '')}</p>` : ''}
@@ -255,8 +262,9 @@ async function runLoadEditions() {
           </table>
         </div>
       </div>`;
-    box.appendChild(det);
-  }
+    dets.push(det);
+  });
+  box.replaceChildren(...dets);
   box.querySelectorAll('[data-gen]').forEach((b) =>
     b.addEventListener('click', async () => {
       await EF.api(`/api/stages/${b.dataset.gen}/generate`, { method: 'POST' });

@@ -385,6 +385,12 @@ const EF = {
       }
       clearTimeout(Number(btn.dataset.timer) || 0);
       btn.dataset.armed = '0';
+      // Libellé d'origine restauré avant l'action : après un échec (403 sur
+      // une suppression…), le bouton restait « confirmer ✕ » alors qu'il
+      // était désarmé (revue globale du 19/10/2026).
+      btn.textContent = originalText;
+      btn.title = originalTitle;
+      if (hasAriaLabel) btn.setAttribute('aria-label', originalAriaLabel);
       await onConfirm();
     };
   },

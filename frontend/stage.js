@@ -433,10 +433,21 @@ function renderFiche() {
   });
   document.getElementById('btn-edit').href = `/?id=${stageId}`;
   document.getElementById('btn-compare').href = `/compare.html?a=${stageId}`;
-  document.getElementById('btn-regen').addEventListener('click', async () => {
-    await EF.api(`/api/stages/${stageId}/generate`, { method: 'POST' });
-    location.reload();
-  });
+  // Double confirmation, comme une suppression : régénérer remplace la fiche
+  // courante. Erreur affichée au lieu d'un rejet non géré (revue globale du
+  // 19/10/2026).
+  const regen = document.getElementById('btn-regen');
+  regen.addEventListener('click', EF.confirmClick(regen, {
+    confirmText: '↻ confirmer : régénérer ?',
+    onConfirm: async () => {
+      try {
+        await EF.api(`/api/stages/${stageId}/generate`, { method: 'POST' });
+        location.reload();
+      } catch (err) {
+        regen.textContent = `↻ Régénérer — échec : ${err.message}`;
+      }
+    },
+  }));
 }
 
 function setup3D(payload) {
