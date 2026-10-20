@@ -1279,8 +1279,15 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   lieu de saturer la mémoire ; un clic sur une copie du monde dans l'éditeur
   donne une longitude ramenée dans [-180, 180) (`test/authRobustness.test.js`,
   `test/backupBounds.test.js`).
-- [ ] 35.2 Parseur GPX linéaire (ReDoS de `parseGpx`) ; accepter `lon` avant
-  `lat` et les guillemets simples.
+- [ ] 35.2 Parseur GPX linéaire — critères : 60 000 `<trkpt>` jamais fermés
+  (~1,8 Mo) et 200 000 `<name>` jamais fermés se lisent en moins de 2 s (avant :
+  920 Ko figeaient le serveur 8,2 s) ; `lon` avant `lat`, guillemets simples et
+  espaces autour de `=` sont acceptés ; la balise fermante d'un point n'est
+  jamais cherchée au-delà du point suivant ; restent linéaires (< 2 s pour
+  ~1 Mo) des `<trkpt ` sans `>`, un `<time>` non fermé suivi d'espaces, des
+  commentaires non fermés ; `data-lat` n'est pas lu comme `lat`, seule une
+  valeur décimale simple est acceptée, un point commenté ou en CDATA n'est
+  pas un point (`test/parseGpxLinear.test.js`).
 - [x] 35.3 (PR #440) Réimport d'une année — critères : un tour personnalisé de la même
   année n'est jamais supprimé (`is_custom = 0` dans la recherche) ; l'API
   refuse en 409 de réimporter une édition qui a des étapes générées ou en
@@ -1304,7 +1311,7 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   refusé en 400 n'écrit plus rien (validation avant écriture, transaction) ;
   choisir un tour dans l'éditeur n'est plus refusé (`edition_id` envoyé en
   nombre) (`test/waypointProvenance.test.js`, vérification Playwright).
-- [ ] 35.5 Arithmétique de l'altitude — critères : le « D+ cumulé » du
+- [x] 35.5 (PR #442) Arithmétique de l'altitude — critères : le « D+ cumulé » du
   dernier km égale le D+ de l'étape (segment à cheval sur deux km réparti au
   prorata ; démo : Paris → Lyon 1 592 m pour 1 592, contre 1 193 avant) ; un
   échantillon sans altitude n'est plus exporté à 0 m (GPX `<ele>` et TCX
