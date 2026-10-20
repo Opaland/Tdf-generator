@@ -1271,7 +1271,7 @@ et côtes traversées avec leur kilomètre.
   17 lignes corrigées (Wikipédia cité par entrée), rapport régénéré de 41
   à 24 lignes, 1993/16 recontrôlée (inchangée, −1,8 %). Les distances et
   les dates, d'abord comptées dans cette story, passent en 33.17.
-- [x] 33.17 (PR à venir) Tri des 16 écarts de distance et des 28 dates décalées du
+- [x] 33.17 (PR #470) Tri des 16 écarts de distance et des 28 dates décalées du
   recoupement Wikidata — critères : chaque ligne classée « notre donnée
   fausse » (corrigée, source citée), « Wikidata faux » (laissée, cause
   notée) ou « non tranché » (deux sources qui divergent, les deux citées) ;
