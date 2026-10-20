@@ -24,7 +24,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert');
 
-global.EF = { dec: (v) => (v == null ? v : String(v).replace('.', ',')),
+global.EF = { day: (v) => { const m = typeof v === 'string' && v.match(/^(\d{4})-(\d{2})-(\d{2})$/); return m ? `${m[3]}/${m[2]}/${m[1]}` : v; }, dec: (v) => (v == null ? v : String(v).replace('.', ',')),
   qs: () => null,
   esc: (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'),
   distanceDelta(officialKm, generatedKm) {
@@ -61,6 +61,7 @@ test('stageRow() : distance reconstituée à 0 km (motif réel — ville départ
 test('stageRow() : cas nominal — distance et écart tous deux affichés', () => {
   const html = stageRow(baseStage());
   assert.match(html, />172,3 km/);
+  assert.match(html, /<td>05\/07\/2025<\/td>/, 'date en JJ/MM/AAAA (35.21)');
   assert.match(html, /-6,8 %/, 'écart calculé et affiché normalement quand les deux distances sont non nulles');
 });
 

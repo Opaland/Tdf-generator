@@ -9,6 +9,11 @@ const { loadStageFull } = require('../pipeline/generate');
 // Nombre affiché à la française dans les pages HTML générées (roadbook),
 // comme EF.dec côté interface (revue globale du 19/10/2026).
 const frDec = (v) => (v == null ? v : String(v).replace('.', ','));
+// Jour AAAA-MM-JJ affiché JJ/MM/AAAA, comme EF.day (frontend/common.js).
+const frDay = (v) => {
+  const m = typeof v === 'string' && v.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  return m ? `${m[3]}/${m[2]}/${m[1]}` : v;
+};
 
 function esc(s) {
   return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -524,7 +529,7 @@ ${communes.communes.map((c) => `<tr><td>${frDec(Number(c.km).toFixed(1))}</td><t
 <body>
 <button class="no-print" onclick="window.print()">Imprimer / enregistrer en PDF</button>
 <h1>${esc(stage.name)}</h1>
-<p class="meta">${editionLine}${stage.date ? `${esc(stage.date)} · ` : ''}${dist}${stage.total_ascent_m != null ? ` · D+ ${stage.total_ascent_m} m` : ''}</p>
+<p class="meta">${editionLine}${stage.date ? `${esc(frDay(stage.date))} · ` : ''}${dist}${stage.total_ascent_m != null ? ` · D+ ${stage.total_ascent_m} m` : ''}</p>
 
 <h2>Villes et points de passage</h2>
 <table>

@@ -137,7 +137,7 @@ function renderFiche() {
   document.getElementById('st-name').textContent = st.name;
 
   const meta = [
-    st.date, st.stage_type, st.status,
+    EF.day(st.date), st.stage_type, st.status,
     `${EF.dec(st.generated_distance_km)} km`, `D+ ${st.total_ascent_m} m`,
     FULL.edition ? FULL.edition.name : null,
     FULL.track ? `routage : ${FULL.track.router}` : null,
