@@ -102,6 +102,7 @@ function wpRow(wp, i) {
     wp.label = input.value;
     wp.lat = null;
     wp.lon = null;
+    clearProvenance(wp); // un autre lieu : la source et les indices ne valent plus
     clearTimeout(debounce);
     debounce = setTimeout(async () => {
       if (input.value.trim().length < 2) { suggestBox.style.display = 'none'; return; }
@@ -224,7 +225,9 @@ async function generate() {
     date: document.getElementById('f-date').value || null,
     stage_type: document.getElementById('f-type').value,
     status: document.getElementById('f-status').value || null,
-    edition_id: document.getElementById('f-edition').value || null,
+    // Number() : la valeur d'un <select> est une chaîne, que le serveur
+    // refuse pour edition_id (optionalNumber) — choisir un tour donnait 400.
+    edition_id: Number(document.getElementById('f-edition').value) || null,
     waypoints: valid,
   };
   try {
@@ -252,7 +255,11 @@ async function loadForEdit(id) {
   if (st.stage_type) document.getElementById('f-type').value = st.stage_type;
   document.getElementById('f-status').value = st.status || '';
   if (st.edition_id) document.getElementById('f-edition').value = st.edition_id;
-  waypoints = full.waypoints.map((w) => ({ label: w.label, kind: w.kind, lat: w.lat, lon: w.lon }));
+  // Tous les champs de provenance sont conservés et renvoyés au PUT : ne
+  // garder que {label, kind, lat, lon} effaçait la mention « parcours curé »,
+  // l'altitude imprimée, les bonifications et les indices de pays/région
+  // d'une étape curée dès qu'on la modifiait (revue globale du 19/10/2026).
+  waypoints = full.waypoints.map(keepProvenance);
   document.querySelector('main h1').textContent = `Modifier : ${st.name}`;
   document.getElementById('btn-generate').textContent = 'Mettre à jour et régénérer ▶';
   render();
@@ -356,10 +363,31 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 }
 
+/** Champs d'un waypoint chargé depuis l'API que l'éditeur renvoie au PUT. */
+function keepProvenance(w) {
+  return {
+    label: w.label, kind: w.kind, lat: w.lat, lon: w.lon,
+    source: w.source ?? null,
+    altitude_hint_m: w.altitude_hint_m ?? null,
+    bonus_sec: w.bonus_sec ?? null,
+    country_hint: w.country_hint ?? null,
+    region_hint: w.region_hint ?? null,
+  };
+}
+
+/** Le libellé d'un point a été retapé : ce n'est plus le lieu sourcé. */
+function clearProvenance(wp) {
+  wp.source = 'éditeur';
+  wp.altitude_hint_m = null;
+  wp.bonus_sec = null;
+  wp.country_hint = null;
+  wp.region_hint = null;
+}
+
 /** Longitude ramenée dans [-180, 180) — fonction pure, testée côté Node. */
 function normalizeLon(lon) {
   if (lon >= -180 && lon < 180) return lon; // pas d'arrondi flottant inutile
   return ((((lon + 180) % 360) + 360) % 360) - 180;
 }
 
-if (typeof module !== 'undefined' && module.exports) module.exports = { challengeIndexForDate, normalizeLon };
+if (typeof module !== 'undefined' && module.exports) module.exports = { challengeIndexForDate, normalizeLon, keepProvenance, clearProvenance };
