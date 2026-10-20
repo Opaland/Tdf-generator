@@ -99,10 +99,14 @@ const PROFILE_OPTS = { width: 1080, height: 300 };
 // du clair au foncé (grandeur ordonnée).
 const SURFACE_STRIP = {
   non_revetu: { color: '#8c510a', label: 'non revêtu' },
-  non_revetu_presume: { color: '#d8b365', label: 'piste, non revêtu présumé' },
+  non_revetu_presume: { color: '#b8862b', label: 'piste, non revêtu présumé' },
   paves: { color: '#5e5e5e', label: 'pavés' },
 };
-const HR_STRIP_COLORS = ['#fcbba1', '#fc9272', '#fb6a4a', '#de2d26', '#a50f15'];
+// Toutes à 3:1 au moins sur le fond #faf6ec (WCAG, contenu graphique) ;
+// entre zones voisines l'écart reste d'environ 1,5:1, comme toute échelle à
+// cinq paliers d'une teinte : la légende écrite et l'infobulle de chaque
+// portion portent la zone (relecture adverse).
+const HR_STRIP_COLORS = ['#df6a4c', '#c4432a', '#9c2a17', '#70190d', '#420a04'];
 let profileHrMax = null; // FC max saisie (renderHrZones), pour la bande FC
 
 /** Tronçons non revêtus et pavés du tracé (track.surfaces.stretches). */
@@ -115,22 +119,46 @@ function surfaceSegments(surf) {
     }));
 }
 
-/** Suites d'échantillons dans la même zone de FC (rien sous Z1, ni sans FC). */
+/**
+ * Bande FC : la distance est découpée en tranches (300 au plus, 100 m au
+ * moins), chacune colorée par la zone où le cycliste a passé le plus de
+ * temps — une FC qui oscille autour d'une borne donnait sinon un rectangle
+ * par échantillon (relecture adverse). Même règle que hrZoneTimes : un
+ * intervalle sans temps, de durée nulle ou de plus de HR_ZONE_MAX_GAP_S
+ * (arrêt, trou d'enregistrement) n'est attribué à aucune zone.
+ */
 function hrSegments(samples, hrMax) {
-  if (!hrMax) return [];
+  if (!hrMax || !Array.isArray(samples) || samples.length < 2) return [];
   const bounds = hrZoneBounds(hrMax);
-  const out = [];
-  for (let i = 0; i + 1 < (samples || []).length; i++) {
-    const a = samples[i];
-    const z = Number.isFinite(a.hr_bpm) ? bounds.findIndex((b) => a.hr_bpm >= b.lo && a.hr_bpm < b.hi) : -1;
+  const totalM = samples[samples.length - 1].dist_m;
+  if (!(totalM > 0)) return [];
+  const binM = Math.max(100, totalM / 300);
+  const bins = new Map(); // index → temps par zone
+  for (let i = 1; i < samples.length; i++) {
+    const a = samples[i - 1];
+    const b = samples[i];
+    if (!Number.isFinite(a.elapsed_s) || !Number.isFinite(b.elapsed_s) || !Number.isFinite(a.hr_bpm)) continue;
+    const dt = b.elapsed_s - a.elapsed_s;
+    if (!(dt > 0) || dt > HR_ZONE_MAX_GAP_S) continue;
+    const z = bounds.findIndex((bd) => a.hr_bpm >= bd.lo && a.hr_bpm < bd.hi);
     if (z < 0) continue;
+    const k = Math.floor(a.dist_m / binM);
+    if (!bins.has(k)) bins.set(k, HR_ZONES.map(() => 0));
+    bins.get(k)[z] += dt;
+  }
+  const out = [];
+  for (const k of [...bins.keys()].sort((p, q) => p - q)) {
+    const t = bins.get(k);
+    const zone = t.indexOf(Math.max(...t));
+    const fromM = k * binM;
+    const toM = Math.min(totalM, (k + 1) * binM);
     const last = out[out.length - 1];
-    if (last && last.zone === z && last.toM === a.dist_m) { last.toM = samples[i + 1].dist_m; continue; }
-    out.push({ zone: z, fromM: a.dist_m, toM: samples[i + 1].dist_m });
+    if (last && last.zone === zone && Math.abs(last.toM - fromM) < 1e-6) { last.toM = toM; continue; }
+    out.push({ zone, fromM, toM });
   }
   return out.map((g) => ({
     fromM: g.fromM, toM: g.toM, color: HR_STRIP_COLORS[g.zone],
-    title: `km ${EF.dec((g.fromM / 1000).toFixed(1))} → ${EF.dec((g.toM / 1000).toFixed(1))} : ${HR_ZONES[g.zone].name}`,
+    title: `km ${EF.dec((g.fromM / 1000).toFixed(1))} → ${EF.dec((g.toM / 1000).toFixed(1))} : surtout ${HR_ZONES[g.zone].name}`,
   }));
 }
 
@@ -144,15 +172,12 @@ function profileStrips() {
 }
 
 /** Légende des bandes, sous le profil : couleur = texte, jamais seule. */
-function renderProfileLegend(strips) {
-  const el = document.getElementById('profile-legend');
-  if (!el) return;
+function profileLegendHtml(strips) {
   const sw = (c) => `<span aria-hidden="true" style="display:inline-block;width:10px;height:10px;background:${c};margin:0 3px 0 8px;vertical-align:middle"></span>`;
   const parts = [];
   if (strips.some((s) => s.label === 'Rev.')) parts.push('Bande « Rev. » :' + Object.values(SURFACE_STRIP).map((v) => `${sw(v.color)}${EF.esc(v.label)}`).join(''));
   if (strips.some((s) => s.label === 'FC')) parts.push(`Bande « FC » (FC max ${Number(profileHrMax)} bpm) :` + HR_ZONES.map((z, i) => `${sw(HR_STRIP_COLORS[i])}${EF.esc(z.name)}`).join(''));
-  el.innerHTML = parts.join('<br>');
-  el.style.display = parts.length ? '' : 'none';
+  return parts.length ? `<p class="meta-line">${parts.join('<br>')}</p>` : '';
 }
 
 function drawProfile(payload, { onlyIfResized = false } = {}) {
@@ -164,8 +189,10 @@ function drawProfile(payload, { onlyIfResized = false } = {}) {
   if (onlyIfResized && width === PROFILE_OPTS.width) return false;
   PROFILE_OPTS.width = width;
   PROFILE_OPTS.strips = profileStrips();
-  renderProfileLegend(PROFILE_OPTS.strips);
-  profileBox.innerHTML = EFProfile.renderProfileSVG(payload, PROFILE_OPTS);
+  // Hauteur agrandie d'une ligne par bande : le tracé garde sa hauteur.
+  PROFILE_OPTS.height = 300 + PROFILE_OPTS.strips.length * EFProfile.STRIP_STEP;
+  // Légende dans le même conteneur : masquée avec lui dans l'onglet 3D.
+  profileBox.innerHTML = EFProfile.renderProfileSVG(payload, PROFILE_OPTS) + profileLegendHtml(PROFILE_OPTS.strips);
   if (PROFILE_MAP) setupProfileMapHover(payload, PROFILE_MAP);
   return true;
 }
