@@ -1277,14 +1277,17 @@ et côtes traversées avec leur kilomètre.
   notée) ou « non tranché » (deux sources qui divergent, les deux citées) ;
   aucune correction sans source (règle 12) ; curation, pas de relecture
   adverse dédiée.
-- [ ] 33.18 Libellé faux pris à un lien Wikipédia : 1984/6 part de
+- [x] 33.18 (PR #469) Libellé faux pris à un lien Wikipédia : 1984/6 part de
   « Louvroil » parce que en.wikipedia écrit `[[Louvroil|Cergy-Pontoise]]`
   — critères : `stage_towns_overrides.json` accepte un `label` facultatif
-  par occurrence (testé, `applyOverrides`) ; 1984/6 départ devient
-  Cergy-Pontoise, source citée (arrivée de 1984/5, Wikidata) ; recherche
-  dans les tableaux Wikipédia d'autres liens dont le texte diffère de la
-  cible pour une ville-étape (liste dans la PR) ; changement de code, donc
-  relecture adverse.
+  par occurrence, refusé par libellé (testé, `applyOverrides`, réapplication
+  sans effet) ; 1984/6 départ devient Cergy-Pontoise, source citée
+  (arrivée de 1984/5, Wikidata) ; recherche dans les 113 tableaux
+  en.wikipedia des liens dont le texte ne nomme pas la cible (liste dans la
+  PR) ; le parseur (`pipeline/wikipedia.js`) n'est pas changé : préférer le
+  texte affiché aurait déplacé 10 autres cellules, souvent à tort (1976,
+  `[[Pla d'Adet|Saint-Lary-Soulan]]` : arrivée au sommet renvoyée dans la
+  vallée) ; changement de code, donc relecture adverse.
 
 ## Epic 34 — Idées venues d'autres dépôts (veille du 18/10/2026)
 
