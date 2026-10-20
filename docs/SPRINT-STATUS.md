@@ -1274,7 +1274,7 @@ Actionnables sans décision :
   état-major `…ETATMAJOR40`, photos aériennes 1950-1965) dans l'éditeur et la
   fiche — couches relevées dans le GetCapabilities ; licence à confirmer
   couche par couche.
-- [ ] 34.3 Heatmap géographique de toutes ses traces (idée derive / VeloViewer)
+- [x] 34.3 (PR #463) Heatmap géographique de toutes ses traces (idée derive / VeloViewer)
   — critères : `GET /api/traces/lines` renvoie le tracé simplifié (au plus
   400 points, `[lat, lon]`) de chaque trace importée (`tracks.router =
   'trace'`, comme le bilan) et écarte une trace au geojson illisible sans
