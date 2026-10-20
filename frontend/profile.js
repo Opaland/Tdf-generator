@@ -75,6 +75,33 @@
   }
 
   /**
+   * Indice FIETS d'une côte (magazine néerlandais Fiets), sous la forme que
+   * donne Runalyze (runalyze.com/help/article/climb-score) : H² / (D × 10) +
+   * (T − 1000) / 1000, H = dénivelé et D = longueur en mètres, T = sommet.
+   * Choix du dépôt : le bonus d'altitude est ramené à 0 sous 1000 m (pas de
+   * malus pour une côte basse). H est pris sur le profil lissé (premier
+   * `ele0` et dernier `ele1` des blocs de 1 km) quand ils existent : le
+   * sommet stocké est le maximum BRUT de la montée, et une pointe de bruit
+   * s'y retrouverait élevée au carré (relecture adverse). null si une donnée
+   * manque (jamais 0 m supposé, CLAUDE.md règle 10) ou si la côte ne monte pas.
+   */
+  function fietsIndex(c) {
+    const num = (v) => typeof v === 'number' && Number.isFinite(v);
+    const T = c && c.summit_ele_m;
+    const L = c && c.length_km;
+    if (!num(T) || !num(L) || L <= 0) return null;
+    const blocks = Array.isArray(c.km_blocks) ? c.km_blocks : null;
+    const first = blocks && blocks[0];
+    const last = blocks && blocks[blocks.length - 1];
+    const H = first && last && num(first.ele0) && num(last.ele1)
+      ? last.ele1 - first.ele0
+      : num(c.start_ele_m) ? T - c.start_ele_m : NaN;
+    if (!num(H) || H <= 0) return null;
+    const value = (H * H) / (L * 1000 * 10) + Math.max(0, (T - 1000) / 1000);
+    return Math.round(value * 10) / 10;
+  }
+
+  /**
    * Largeur du viewBox d'un graphique pleine largeur, d'après la largeur
    * réelle de son conteneur (revue globale du 19/10/2026) : un viewBox fixe
    * de 1080 réduit à 330 px en mobile ramenait le texte à environ 3 px. Le
@@ -603,7 +630,7 @@
   // navigateur, reprise par cols.js et tourmap.js (même table que
   // CATEGORY_RANK, pipeline/climbs.js).
   const CAT_RANK = Object.freeze({ HC: 5, 1: 4, 2: 3, 3: 2, 4: 1 });
-  const EFProfile = { CAT_RANK, renderProfileSVG, fitLabel, responsiveWidth, renderClimbSVG, renderRibbon3D, decimate, niceStep, CAT_COLORS, CAT_TEXT, gradStyle, catStyle, climbApproxOverlap, profileHoverAt };
+  const EFProfile = { CAT_RANK, fietsIndex, renderProfileSVG, fitLabel, responsiveWidth, renderClimbSVG, renderRibbon3D, decimate, niceStep, CAT_COLORS, CAT_TEXT, gradStyle, catStyle, climbApproxOverlap, profileHoverAt };
   if (typeof module !== 'undefined' && module.exports) module.exports = EFProfile;
   global.EFProfile = EFProfile;
 })(typeof window !== 'undefined' ? window : globalThis);

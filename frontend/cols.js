@@ -57,7 +57,7 @@ function render() {
         <td>${EF.esc(c.name || '—')}${c.simulated ? '<span class="badge partial-badge" title="étape générée en mode hors-ligne : profil d\'altitude synthétique (simulateur), pas une mesure réelle — pentes affichées possiblement irréalistes">simulé</span>' : ''}</td>
         <td><span class="pill" style="background:${EFProfile.CAT_COLORS[c.category]};color:${EFProfile.CAT_TEXT[c.category]}">${EF.esc(c.category)}</span></td>
         <td>${c.summit_ele_m}</td><td>${EF.dec(c.length_km)}</td><td>${EF.dec(c.avg_gradient)}</td>
-        <td>${EF.dec(c.max_gradient)}</td><td>${c.score}</td>
+        <td>${EF.dec(c.max_gradient)}</td><td>${EF.dec(c.score)}</td>
         <td><a href="/stage.html?id=${c.stage_id}">${EF.esc(c.stage_name)}</a></td>
         <td>${EF.esc(c.edition_name || '—')}</td>
       </tr>`

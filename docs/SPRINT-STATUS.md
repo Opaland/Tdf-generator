@@ -1293,8 +1293,19 @@ Actionnables sans décision :
   `/api/traces/summary` (plusieurs sorties le même jour s'additionnent) ;
   valeurs absentes ou négatives ignorées, jamais comptées comme 0
   (`test/eddington.test.js`, vérification Playwright 1280 / 390 px).
-- [ ] 34.5 Indice FIETS à côté de la catégorie approchée (formule publique ;
-  bonus d'altitude à trancher par un test).
+- [x] 34.5 (PR #462) Indice FIETS à côté de la catégorie approchée (formule publique ;
+  bonus d'altitude à trancher par un test) — critères : la fiche d'une côte
+  affiche « indice FIETS » = H² / (D × 10) + max(0, (sommet − 1000) / 1000),
+  H et D en mètres (`EFProfile.fietsIndex`) ; forme donnée par Runalyze
+  (vérifiée sur runalyze.com/help/article/climb-score), le plancher à 0 du
+  bonus sous 1000 m est un choix du dépôt ; d'autres variantes du bonus
+  (T / 1000, partie entière) sont citées par la veille mais non
+  revérifiées à la source ; formule affichée en infobulle, pas présentée
+  comme officielle ; H pris sur le profil lissé (blocs de 1 km), pas sur
+  le maximum brut du sommet ; donnée manquante ou côte qui ne monte pas : pas d'indice
+  (jamais 0 m supposé) (`test/fietsIndex.test.js`, vérification Playwright).
+  Au passage : score, indice d'irrégularité, points et facteur de fatigue
+  de l'indice de douleur à la virgule décimale (oubli de la 35.19).
 - [ ] 34.6 Profil coloré par surface et par FC (données déjà présentes).
 - [ ] 34.7 Zones de confidentialité autour du domicile dans les exports et
   mini-sites de traces (idée geo-activity-playground).
