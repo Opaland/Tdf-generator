@@ -75,8 +75,8 @@ function wpRow(wp, i) {
   });
   li.innerHTML = `
     <span class="idx" title="glisser pour réordonner" style="cursor:grab">⠿ ${i + 1}</span>
-    <input class="label" maxlength="200" value="${EF.esc(wp.label || '')}" placeholder="Ville, col, lieu-dit…">
-    <select class="kind">
+    <input class="label" maxlength="200" value="${EF.esc(wp.label || '')}" placeholder="Ville, col, lieu-dit…" aria-label="Lieu du point ${i + 1}" aria-autocomplete="list" role="combobox" aria-expanded="false">
+    <select class="kind" aria-label="Type du point ${i + 1}">
       <option value="start"${wp.kind === 'start' ? ' selected' : ''}>départ</option>
       <option value="via"${wp.kind === 'via' ? ' selected' : ''}>passage</option>
       <option value="col"${wp.kind === 'col' ? ' selected' : ''}>col / sommet</option>
@@ -95,7 +95,33 @@ function wpRow(wp, i) {
   const suggestBox = document.createElement('div');
   suggestBox.className = 'suggest';
   suggestBox.style.display = 'none';
+  suggestBox.setAttribute('role', 'listbox');
+  suggestBox.id = `suggest-${i}`;
+  input.setAttribute('aria-controls', suggestBox.id);
   li.appendChild(suggestBox);
+  // Clavier (revue globale du 19/10/2026 : les suggestions ne réagissaient
+  // qu'à la souris) : ↓/↑ parcourent, Entrée choisit, Échap ferme.
+  let active = -1;
+  const items = () => [...suggestBox.querySelectorAll('[role="option"]')];
+  const highlight = (n) => {
+    const list = items();
+    active = list.length ? (n + list.length) % list.length : -1;
+    list.forEach((el, k) => el.setAttribute('aria-selected', String(k === active)));
+    if (active >= 0) input.setAttribute('aria-activedescendant', list[active].id);
+  };
+  const closeSuggest = () => {
+    suggestBox.style.display = 'none';
+    input.setAttribute('aria-expanded', 'false');
+    input.removeAttribute('aria-activedescendant');
+    active = -1;
+  };
+  input.addEventListener('keydown', (e) => {
+    if (suggestBox.style.display === 'none') return;
+    if (e.key === 'ArrowDown') { e.preventDefault(); highlight(active + 1); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); highlight(active - 1); }
+    else if (e.key === 'Enter' && active >= 0) { e.preventDefault(); items()[active].dispatchEvent(new Event('mousedown')); }
+    else if (e.key === 'Escape') closeSuggest();
+  });
 
   let debounce;
   input.addEventListener('input', () => {
@@ -109,8 +135,11 @@ function wpRow(wp, i) {
       try {
         const hits = await EF.api(`/api/geocode?q=${encodeURIComponent(input.value)}`);
         suggestBox.innerHTML = '';
-        for (const h of hits) {
+        active = -1;
+        hits.forEach((h, k) => {
           const d = document.createElement('div');
+          d.setAttribute('role', 'option');
+          d.id = `suggest-${i}-${k}`;
           d.textContent = h.label + (h.kind === 'col' ? ' ⛰' : '');
           d.addEventListener('mousedown', () => {
             wp.label = h.label;
@@ -120,9 +149,10 @@ function wpRow(wp, i) {
             render();
           });
           suggestBox.appendChild(d);
-        }
+        });
         suggestBox.style.display = hits.length ? 'block' : 'none';
-      } catch { suggestBox.style.display = 'none'; }
+        input.setAttribute('aria-expanded', String(hits.length > 0));
+      } catch { closeSuggest(); }
     }, 250);
   });
   input.addEventListener('blur', () => setTimeout(() => (suggestBox.style.display = 'none'), 200));

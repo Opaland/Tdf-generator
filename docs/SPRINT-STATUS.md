@@ -1435,6 +1435,16 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   échec ; accords « 1 étape », « 1 générée » (`test/frontendReviewFixes.test.js`,
   vérification Playwright).
 
+- [ ] 35.14 Accessibilité — critères : le bouton ↻ des archives a un nom
+  accessible (« Régénérer l'étape … ») ; les onglets Profil 2D / 3D
+  exposent l'onglet actif (`aria-pressed`), le curseur de relief a un
+  libellé ; les champs de chaque point de l'éditeur ont un libellé et les
+  suggestions de géocodage se choisissent au clavier (↓/↑, Entrée, Échap ;
+  `combobox`/`listbox`/`option`) ; les lignes du catalogue des cols sont
+  atteignables et dépliables au clavier (Entrée, Espace, `aria-expanded`) ;
+  une recherche de cols sans résultat affiche un message (vérification
+  Playwright au clavier).
+
 En attente de décision (proposées, non commencées) : méthode de lissage
 d'altitude (D+ et pente max sous-estimés en relief vallonné), export de la
 base par tout compte en mode public, phrase « 100 % local » du README.
