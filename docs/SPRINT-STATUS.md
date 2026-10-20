@@ -1416,7 +1416,7 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   plus « n'importe quelle étape … à partir de sources vérifiées » (environ
   130 étapes curées) ; le temps fort 2017 ne dit plus qu'un CLM a été
   « remporté par Marseille » (une ville).
-- [ ] 35.12 Petits correctifs backend — critères : le cache de
+- [x] 35.12 (PR #450) Petits correctifs backend — critères : le cache de
   `/api/search/near` voit un renommage, un changement de date, d'édition ou
   de coordonnées ; un intervalle de sauvegarde au-delà de 596 h (ou négatif,
   ou illisible) ne déclenche plus une sauvegarde par milliseconde ; le nom du
@@ -1425,9 +1425,15 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   et des sauvegardes en mode public ; PUT et DELETE d'une étape en cours de
   génération sont refusés en 409 ; un `stage_type` vide envoyé par
   l'éditeur n'efface plus le type stocké (`test/backendReviewFixes.test.js`).
-- [ ] 35.13 Petits correctifs frontend (archives : requêtes en série et
-  liste vidée à chaque sondage ; « Régénérer » sans confirmation ; totaux
-  de la carte globale ; bouton de suppression non réarmé ; accords).
+- [ ] 35.13 Petits correctifs frontend — critères : la page Archives
+  demande les détails des éditions en parallèle et remplace la liste d'un
+  bloc (plus de requêtes en série ni de liste vidée à chaque sondage) ;
+  « Régénérer » demande une double confirmation et affiche l'erreur au lieu
+  d'un rejet non géré ; les totaux et la tuile « distance reconstituée » de
+  la carte globale ne portent que sur les étapes générées et le disent ; un
+  bouton à double confirmation retrouve son libellé après une action en
+  échec ; accords « 1 étape », « 1 générée » (`test/frontendReviewFixes.test.js`,
+  vérification Playwright).
 
 En attente de décision (proposées, non commencées) : méthode de lissage
 d'altitude (D+ et pente max sous-estimés en relief vallonné), export de la
