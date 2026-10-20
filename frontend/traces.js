@@ -331,8 +331,9 @@ function eddingtonTiles(daily) {
   const asc = eddington((daily || []).map((d) => d.ascentM / EDDINGTON_ASCENT_UNIT_M));
   const plural = (n) => (n > 1 ? 's' : '');
   return [
-    { v: dist.e, l: `Eddington distance (${dist.e} jour${plural(dist.e)} ≥ ${dist.e} km) — prochain palier : ${dist.next} jour${plural(dist.next)} ≥ ${dist.e + 1} km` },
-    { v: asc.e, l: `Eddington D+, par 100 m (${asc.e} jour${plural(asc.e)} ≥ ${asc.e * EDDINGTON_ASCENT_UNIT_M} m) — prochain palier : ${asc.next} jour${plural(asc.next)} ≥ ${(asc.e + 1) * EDDINGTON_ASCENT_UNIT_M} m` },
+    // E = 0 : pas de « (0 jour ≥ 0 km) », seulement le premier palier.
+    { v: dist.e, l: `Eddington distance${dist.e ? ` (${dist.e} jour${plural(dist.e)} ≥ ${dist.e} km)` : ''} — prochain palier : ${dist.next} jour${plural(dist.next)} ≥ ${dist.e + 1} km` },
+    { v: asc.e, l: `Eddington D+, par 100 m${asc.e ? ` (${asc.e} jour${plural(asc.e)} ≥ ${asc.e * EDDINGTON_ASCENT_UNIT_M} m)` : ''} — prochain palier : ${asc.next} jour${plural(asc.next)} ≥ ${(asc.e + 1) * EDDINGTON_ASCENT_UNIT_M} m` },
   ];
 }
 

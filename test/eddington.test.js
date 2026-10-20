@@ -31,3 +31,9 @@ test('tuiles : D+ par tranches de 100 m, libellés explicites', () => {
   assert.strictEqual(asc.v, 3);
   assert.match(asc.l, /par 100 m \(3 jours ≥ 300 m\) — prochain palier : 2 jours ≥ 400 m/);
 });
+
+test('tuiles à E = 0 : seulement le premier palier, pas « 0 jour ≥ 0 km »', () => {
+  const [dist, asc] = eddingtonTiles([{ distanceKm: 0.4, ascentM: 20 }]);
+  assert.strictEqual(dist.l, 'Eddington distance — prochain palier : 1 jour ≥ 1 km');
+  assert.strictEqual(asc.l, 'Eddington D+, par 100 m — prochain palier : 1 jour ≥ 100 m');
+});
