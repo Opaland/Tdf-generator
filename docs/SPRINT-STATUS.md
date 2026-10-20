@@ -1270,7 +1270,7 @@ Actionnables sans décision :
 - [ ] 34.1 Départs/arrivées par identifiant Wikidata (CC0, 2 428 étapes
   1903→2026, ville de départ P1427, d'arrivée P1444, distance P3157) pour
   recouper `stage_towns.json` : supprime les homonymes à la source.
-- [ ] 34.2 Calques IGN historiques (Carte 1950 `GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN50.1950`,
+- [x] 34.2 (PR #465) Calques IGN historiques (Carte 1950 `GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN50.1950`,
   état-major `…ETATMAJOR40`, photos aériennes 1950-1965) dans l'éditeur et la
   fiche — couches relevées dans le GetCapabilities ; licence à confirmer
   couche par couche. — critères : un sélecteur de fond sur la carte de la
