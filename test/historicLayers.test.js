@@ -24,9 +24,12 @@ test('fonds historiques : identifiants, matrices et formats du GetCapabilities, 
   assert.ok(urls.some((u) => /LAYER=GEOGRAPHICALGRIDSYSTEMS\.MAPS\.SCAN50\.1950&.*TILEMATRIXSET=PM_3_15&FORMAT=image\/jpeg/.test(u)));
   assert.ok(urls.some((u) => /LAYER=GEOGRAPHICALGRIDSYSTEMS\.ETATMAJOR40&.*TILEMATRIXSET=PM_6_15&FORMAT=image\/jpeg/.test(u)));
   assert.ok(urls.some((u) => /LAYER=ORTHOIMAGERY\.ORTHOPHOTOS\.1950-1965&.*TILEMATRIXSET=PM_0_18&FORMAT=image\/png/.test(u)));
+  // minZoom = premier niveau de la matrice (PM_3_15, PM_6_15, PM_0_18).
+  assert.deepStrictEqual(Object.values(h).map((l) => l.opts.minZoom), [3, 6, 0]);
   for (const l of Object.values(h)) {
-    assert.match(l.opts.attribution, /© IGN — .* — Licence Ouverte/);
-    assert.ok(l.opts.maxNativeZoom <= l.opts.maxZoom);
+    // Source en lien (Licence Ouverte : source et date, ou lien vers la source).
+    assert.match(l.opts.attribution, /© IGN — <a href="https:\/\/cartes\.gouv\.fr\/catalogue\/dataset\/IGNF_[A-Z0-9-]+">[^<]+<\/a> — <a href="[^"]+">Licence Ouverte<\/a>/);
+    assert.ok(l.opts.minZoom <= l.opts.maxNativeZoom && l.opts.maxNativeZoom <= l.opts.maxZoom);
   }
 });
 
