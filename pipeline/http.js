@@ -82,16 +82,43 @@ function retryDelayMs(res, attempt) {
   return 1000 * 2 ** attempt;
 }
 
-async function fetchWithTimeout(url, opts, timeoutMs) {
-  if (!timeoutMs) return fetch(url, opts);
+/**
+ * fetch() borné par `timeoutMs`. `read(res)` (facultatif) lit le corps SOUS
+ * le même délai et son résultat est renvoyé : sans lui, le timer était
+ * annulé dès l'arrivée des en-têtes, et un corps qui ne finit jamais
+ * bloquait res.json()/res.text() indéfiniment — avec rateLimited(), toutes
+ * les requêtes suivantes vers le même hôte restaient figées jusqu'au
+ * redémarrage (revue globale du 19/10/2026). Un abandon pendant la lecture
+ * rejette en AbortError, comme pendant la connexion.
+ */
+async function fetchWithTimeout(url, opts, timeoutMs, read) {
+  if (!timeoutMs) {
+    const res = await fetch(url, opts);
+    return read ? read(res) : res;
+  }
   const ctl = new AbortController();
   const timer = setTimeout(() => ctl.abort(), timeoutMs);
   try {
-    return await fetch(url, { ...opts, signal: ctl.signal });
+    const res = await fetch(url, { ...opts, signal: ctl.signal });
+    return read ? await read(res) : res;
   } finally {
     clearTimeout(timer);
   }
 }
+
+/** Lecture sous délai pour httpJson/httpText : corps lu seulement si 2xx. */
+const readIfOk = (kind) => async (res) => ({ res, body: res.ok ? await res[kind]() : null });
+
+/** Un AbortError (délai dépassé pendant la lecture) n'est jamais avalé. */
+const rethrowAbort = (fallback) => (err) => {
+  if (err && err.name === 'AbortError') throw err;
+  return fallback;
+};
+/** Connecteurs (Strava, Suunto) : JSON même en erreur, {} si illisible. */
+const readJsonLenient = async (res) => ({ res, json: await res.json().catch(rethrowAbort({})) });
+/** 2xx → json ; sinon texte d'erreur (300 premiers caractères affichés). */
+const readBodyOrError = async (res) => (res.ok ? { res, json: await res.json() } : { res, text: await res.text().catch(rethrowAbort('')) });
+const readBinaryOrError = async (res) => (res.ok ? { res, buffer: Buffer.from(await res.arrayBuffer()) } : { res, text: await res.text().catch(rethrowAbort('')) });
 
 /**
  * GET JSON avec rate-limit par hôte et retries (3 tentatives, backoff expo —
@@ -108,16 +135,16 @@ async function httpJson(url, { minDelayMs = 0, headers = {}, retries = 3, timeou
       lastRes = undefined;
       try {
         recordRequest(host);
-        const res = await fetchWithTimeout(url, {
+        const { res, body } = await fetchWithTimeout(url, {
           headers: { 'User-Agent': USER_AGENT, Accept: 'application/json', ...headers },
-        }, timeoutMs);
+        }, timeoutMs, readIfOk('json'));
         if (res.status === 429 || res.status >= 500) {
           lastErr = new Error(`HTTP ${res.status} sur ${host}`);
           lastRes = res;
         } else if (!res.ok) {
           throw Object.assign(new Error(`HTTP ${res.status} sur ${url}`), { nonRetryable: true });
         } else {
-          return await res.json();
+          return body;
         }
       } catch (err) {
         if (err.nonRetryable) throw err;
@@ -136,8 +163,33 @@ async function httpJson(url, { minDelayMs = 0, headers = {}, retries = 3, timeou
 }
 
 /** GET texte (pages Wikipédia HTML). Mêmes garanties que httpJson. */
-async function httpText(url, { minDelayMs = 0, headers = {}, retries = 3, timeoutMs = DEFAULT_TIMEOUT_MS } = {}) {
+/**
+ * `allowRedirect(url)` (facultatif) : les redirections sont alors suivies à
+ * la main (5 au plus), et chaque destination doit être acceptée — sans cela
+ * fetch() les suit seul, et un lien d'un hôte autorisé qui redirige vers une
+ * adresse interne contournait la liste blanche de l'import par lien (SSRF,
+ * revue globale du 19/10/2026).
+ */
+async function httpText(url, { minDelayMs = 0, headers = {}, retries = 3, timeoutMs = DEFAULT_TIMEOUT_MS, allowRedirect = null } = {}) {
   const host = new URL(url).host;
+  const fetchFollowing = async () => {
+    let current = url;
+    for (let hop = 0; hop <= 5; hop++) {
+      const out = await fetchWithTimeout(current, {
+        headers: { 'User-Agent': USER_AGENT, ...headers },
+        ...(allowRedirect ? { redirect: 'manual' } : {}),
+      }, timeoutMs, readIfOk('text'));
+      if (!allowRedirect || out.res.status < 300 || out.res.status >= 400) return out;
+      const location = out.res.headers.get('location');
+      if (!location) return out;
+      const next = new URL(location, current);
+      if (!allowRedirect(next)) {
+        throw Object.assign(new Error(`Redirection refusée vers ${next.protocol}//${next.host}`), { nonRetryable: true, status: 400 });
+      }
+      current = next.href;
+    }
+    throw Object.assign(new Error(`Trop de redirections depuis ${host}`), { nonRetryable: true, status: 400 });
+  };
   return rateLimited(host, minDelayMs, async () => {
     let lastErr;
     let lastRes;
@@ -145,14 +197,14 @@ async function httpText(url, { minDelayMs = 0, headers = {}, retries = 3, timeou
       lastRes = undefined;
       try {
         recordRequest(host);
-        const res = await fetchWithTimeout(url, { headers: { 'User-Agent': USER_AGENT, ...headers } }, timeoutMs);
+        const { res, body } = await fetchFollowing();
         if (res.status === 429 || res.status >= 500) {
           lastErr = new Error(`HTTP ${res.status} sur ${host}`);
           lastRes = res;
         } else if (!res.ok) {
           throw Object.assign(new Error(`HTTP ${res.status} sur ${url}`), { nonRetryable: true });
         } else {
-          return await res.text();
+          return body;
         }
       } catch (err) {
         if (err.nonRetryable) throw err;
@@ -168,4 +220,4 @@ async function httpText(url, { minDelayMs = 0, headers = {}, retries = 3, timeou
 // retries et bascule hors-ligne — hors sujet pour un webhook ou un flux
 // OAuth) : réutilisée telle quelle par backend/notify.js et backend/suunto.js,
 // mêmes appelants qui n'avaient elles non plus aucun timeout sur leur fetch().
-module.exports = { httpJson, httpText, isOffline, setOffline, fetchWithTimeout, USER_AGENT, retryDelayMs };
+module.exports = { httpJson, httpText, isOffline, setOffline, fetchWithTimeout, readJsonLenient, readBodyOrError, readBinaryOrError, USER_AGENT, retryDelayMs };

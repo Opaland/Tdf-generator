@@ -55,9 +55,19 @@ after(() => {
   fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true });
 });
 
+
+/** Callback OAuth comme le ferait le navigateur qui a lancé /connect : même
+ * state dans l'URL et cookie posé par /connect (Epic 35.7). */
+async function oauthCallback(base, provider, code) {
+  const r = await fetch(`${base}/api/${provider}/connect`, { redirect: 'manual' });
+  const state = new URL(r.headers.get('location')).searchParams.get('state');
+  const cookie = r.headers.getSetCookie().map((c) => c.split(';')[0]).join('; ');
+  return fetch(`${base}/api/${provider}/callback?code=${code}&state=${state}`, { redirect: 'manual', headers: { Cookie: cookie } });
+}
+
 test('callback OAuth : le service Suunto qui ne répond jamais est abandonné bien avant sa vraie réponse à 2 s', async () => {
   const start = Date.now();
-  const res = await fetch(`${base}/api/suunto/callback?code=code-test`, { redirect: 'manual' });
+  const res = await oauthCallback(base, 'suunto', 'code-test');
   const elapsed = Date.now() - start;
   assert.strictEqual(res.status, 302);
   const location = res.headers.get('location');

@@ -37,7 +37,8 @@
 const express = require('express');
 const { getSetting, setSetting } = require('./settings');
 const { importTrackAsStage } = require('../pipeline/importTrack');
-const { fetchWithTimeout } = require('../pipeline/http');
+const { fetchWithTimeout, readJsonLenient, readBodyOrError } = require('../pipeline/http');
+const { issueState, consumeState } = require('./oauthState');
 const { plausibleHr } = require('../pipeline/heartRate');
 
 // Surchargeables pour les tests d'intégration (serveur Strava simulé en local).
@@ -92,17 +93,19 @@ function storeTokens(json) {
 async function oauthToken(params) {
   const { clientId, clientSecret } = config();
   let res;
+  let json;
   try {
-    res = await fetchWithTimeout(`${OAUTH_BASE}/oauth/token`, {
+    // Corps lu sous le même délai que la connexion (fetchWithTimeout, 4e
+    // argument) : un corps qui ne finit jamais bloquait l'import.
+    ({ res, json } = await fetchWithTimeout(`${OAUTH_BASE}/oauth/token`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams({ ...params, client_id: clientId, client_secret: clientSecret }).toString(),
-    }, STRAVA_TIMEOUT_MS);
+    }, STRAVA_TIMEOUT_MS, readJsonLenient));
   } catch (err) {
     if (err.name === 'AbortError') throw new Error(`OAuth Strava : délai de ${STRAVA_TIMEOUT_MS} ms dépassé`, { cause: err });
     throw err;
   }
-  const json = await res.json().catch(() => ({}));
   if (!res.ok || !json.access_token) {
     throw new Error(`OAuth Strava : HTTP ${res.status} ${JSON.stringify(json).slice(0, 300)}`);
   }
@@ -122,20 +125,17 @@ async function accessToken() {
 
 async function apiGet(path) {
   const token = await accessToken();
-  let res;
+  let out;
   try {
-    res = await fetchWithTimeout(`${API_BASE}${path}`, {
+    out = await fetchWithTimeout(`${API_BASE}${path}`, {
       headers: { Authorization: `Bearer ${token}` },
-    }, STRAVA_TIMEOUT_MS);
+    }, STRAVA_TIMEOUT_MS, readBodyOrError);
   } catch (err) {
     if (err.name === 'AbortError') throw new Error(`Strava API ${path} : délai de ${STRAVA_TIMEOUT_MS} ms dépassé`, { cause: err });
     throw err;
   }
-  if (!res.ok) {
-    const body = await res.text().catch(() => '');
-    throw new Error(`Strava API ${path} : HTTP ${res.status} ${body.slice(0, 300)}`);
-  }
-  return res.json();
+  if (!out.res.ok) throw new Error(`Strava API ${path} : HTTP ${out.res.status} ${out.text.slice(0, 300)}`);
+  return out.json;
 }
 
 function redirectUri(req) {
@@ -206,7 +206,8 @@ router.get('/connect', (req, res) => {
     `${OAUTH_BASE}/oauth/authorize?response_type=code` +
     `&client_id=${encodeURIComponent(clientId)}` +
     `&redirect_uri=${encodeURIComponent(redirectUri(req))}` +
-    `&approval_prompt=auto&scope=${encodeURIComponent(SCOPE)}`;
+    `&approval_prompt=auto&scope=${encodeURIComponent(SCOPE)}` +
+    `&state=${encodeURIComponent(issueState(res, 'strava'))}`;
   res.redirect(url);
 });
 
@@ -214,6 +215,7 @@ router.get('/callback', async (req, res) => {
   try {
     const code = req.query.code;
     if (!code) throw new Error(`Autorisation refusée (${req.query.error || 'pas de code'})`);
+    if (!consumeState(req, res, 'strava')) throw new Error('Lien de connexion invalide ou expiré : relancez « Se connecter »');
     const json = await oauthToken({ grant_type: 'authorization_code', code });
     storeTokens(json);
     res.redirect('/traces.html?strava=ok');

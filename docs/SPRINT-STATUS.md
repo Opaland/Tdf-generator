@@ -1356,7 +1356,7 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   et refuse un tableau entièrement vide (`test/kmanalysisAscent.test.js`,
   `test/importTrackSentinel.test.js`, `test/exports.test.js`,
   `test/elevationGaps.test.js`).
-- [ ] 35.6 Validation des longueurs et des valeurs — critères : POST/PUT
+- [x] 35.6 (PR #447) Validation des longueurs et des valeurs — critères : POST/PUT
   /api/stages refusent en 400 un nom ou un statut de plus de 200 caractères,
   un type de plus de 40, un libellé de waypoint de plus de 200, une date qui
   n'est pas un jour AAAA-MM-JJ réel (« 2026-02-30 » compris ; vide = pas de
@@ -1367,8 +1367,14 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   d'édition borné à 200 ; champs de l'éditeur en `maxlength`
   (`test/inputValidation.test.js`). Reste ouvert : l'import de sauvegarde ne
   revalide ni longueurs, ni dates, ni kinds.
-- [ ] 35.7 Couche réseau : timeout du corps de réponse, `state` OAuth
-  Strava/Suunto, redirections de l'import par lien.
+- [ ] 35.7 Couche réseau — critères : un corps de réponse qui ne finit
+  jamais est abandonné au délai (`fetchWithTimeout` lit le corps sous le
+  timer : httpJson, httpText, Strava, Suunto) ; les connexions OAuth Strava
+  et Suunto émettent un `state` aléatoire à usage unique (10 min), et un
+  callback sans `state` valide ne connecte aucun compte ; l'import par lien
+  revérifie chaque redirection contre la liste blanche (une redirection vers
+  169.254.169.254 est refusée) ; l'URL d'un webhook n'est plus écrite en
+  entier dans les logs (`test/networkLayer.test.js`).
 - [x] 35.8 (PR #444) Frontend — critères : la colonne « Max cat. » de la carte globale
   affiche la catégorie la plus dure (`maxCategory`) ; une fiche d'étape
   inexistante (404) affiche « Étape introuvable » et cesse de sonder (une
