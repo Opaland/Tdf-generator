@@ -96,6 +96,9 @@ const PROFILE_OPTS = { width: 1080, height: 300 };
  * la largeur calculée n'a pas changé (redimensionnement sans effet). */
 function drawProfile(payload, { onlyIfResized = false } = {}) {
   const profileBox = document.getElementById('profile-box');
+  // Masqué (onglet 3D actif) : largeur 0, responsiveWidth renverrait 1080.
+  // On attend le retour sur l'onglet 2D (relecture adverse).
+  if (onlyIfResized && !(profileBox.clientWidth > 0)) return false;
   const width = EFProfile.responsiveWidth(profileBox.clientWidth, 1080);
   if (onlyIfResized && width === PROFILE_OPTS.width) return false;
   PROFILE_OPTS.width = width;
@@ -503,6 +506,8 @@ function setup3D(payload) {
     tab2d.setAttribute('aria-pressed', String(!three));
     tab3d.setAttribute('aria-pressed', String(three));
     if (three) draw();
+    // Fenêtre redimensionnée pendant la 3D : le profil 2D se recale au retour.
+    else if (FULL) drawProfile(toPayload(FULL), { onlyIfResized: true });
   };
   tab2d.addEventListener('click', () => show(false));
   tab3d.addEventListener('click', () => show(true));

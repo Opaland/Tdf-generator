@@ -1526,7 +1526,9 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   et exportées restent en ISO (`test/dayFormat.test.js`).
 - [ ] 35.22 Suites des 35.18 et 35.20 — critères : le profil de la fiche
   se redessine à la nouvelle largeur après un redimensionnement ou une
-  rotation (viewBox 1080 → 420 → 1080 vérifié), sans perdre le survol
+  rotation (viewBox 1080 → 420 → 1080 vérifié), y compris quand elle a
+  lieu pendant que l'onglet 3D masque le profil (recalé au retour sur 2D,
+  jamais redessiné à 1080 dans un conteneur de 316 px), sans perdre le survol
   profil ↔ carte ni dupliquer son guide ; le « Catégorie max » du
   comparateur utilise `EFProfile.CAT_RANK` au lieu d'une liste locale
   (vérification Playwright). Vérifié sans défaut : « 0 pays / 0 région »
