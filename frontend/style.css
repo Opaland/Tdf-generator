@@ -130,6 +130,10 @@ details > :not(summary) { margin-left: 2px; }
 }
 .row { display: flex; gap: 14px; flex-wrap: wrap; }
 .row > * { flex: 1; min-width: 240px; }
+/* Bouton d'un formulaire en ligne : à sa taille, aligné sur le bas des champs
+   (même marge que label.field), au lieu d'être étiré sur toute la hauteur et
+   240 px de large (revue globale du 19/10/2026). */
+.row > button { flex: 0 0 auto; min-width: 0; align-self: flex-end; margin-bottom: 10px; }
 label.field { display: block; font-size: 0.82em; color: var(--texte2); margin-bottom: 10px; }
 label.field input, label.field select {
   display: block; width: 100%; margin-top: 3px; padding: 7px 9px;

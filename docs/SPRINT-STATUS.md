@@ -1443,6 +1443,17 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   atteignables et dépliables au clavier (Entrée, Espace, `aria-expanded`) ;
   une recherche de cols sans résultat affiche un message (vérification
   Playwright au clavier).
+- [ ] 35.16 Mes traces, boutons et CI — critères : après un import GPX/FIT
+  (au moins un fichier réussi) ou par lien, le bilan de Mes traces est
+  redemandé ; avec une seule semaine, la barre du graphique hebdomadaire
+  ne dépasse pas 48 px et reste centrée ; les boutons des formulaires en
+  ligne (Ajouter, Importer, Chercher) gardent leur taille et s'alignent sur
+  le bas des champs ; le logo de la page de connexion reprend les couleurs
+  du bandeau (jaune et blanc sur noir) ; `ci.yml` ne tourne plus deux fois
+  par PR (push limité à main, pull_request sans filtre de base pour les PR
+  empilées) (`test/tracesSummaryRefresh.test.js`, vérification Playwright).
+  Vérifié sans défaut : `year=3000` répond déjà « attendu : un entier de
+  1903 à 2100 ».
 
 En attente de décision (proposées, non commencées) : méthode de lissage
 d'altitude (D+ et pente max sous-estimés en relief vallonné), export de la

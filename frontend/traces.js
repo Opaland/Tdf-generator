@@ -8,6 +8,17 @@ async function importTraceFiles(files) {
     msg.textContent = 'Aucun fichier reconnu — formats acceptés : .gpx et .fit.';
     return;
   }
+  // Bilan rafraîchi après coup, même si un fichier suivant échoue (revue
+  // globale du 19/10/2026 : il restait à l'état d'avant l'import).
+  let imported = 0;
+  try {
+    await importEach(files, msg, () => imported++);
+  } finally {
+    if (imported) loadSummary();
+  }
+}
+
+async function importEach(files, msg, onImported) {
   for (const file of files) {
     const isFit = /\.fit$/i.test(file.name);
     const isGpx = /\.gpx$/i.test(file.name);
@@ -38,6 +49,7 @@ async function importTraceFiles(files) {
       msg.innerHTML = `✔ ${EF.esc(file.name)} importé (${json.points} points) — ` +
         `<a href="/stage.html?id=${json.id}">ouvrir la fiche</a> · ` +
         `<a href="/compare.html?a=${json.id}">⇄ comparer avec une étape officielle</a>`;
+      onImported();
     } catch (err) {
       msg.textContent = `Erreur sur ${file.name} : ${err.message}`;
       return;
@@ -60,6 +72,7 @@ async function importFromLink() {
       `<a href="/stage.html?id=${json.id}">ouvrir la fiche</a> · ` +
       `<a href="/compare.html?a=${json.id}">⇄ comparer avec une étape officielle</a>`;
     input.value = '';
+    loadSummary();
   } catch (err) {
     msg.textContent = `Erreur : ${err.message}`;
   }
@@ -354,7 +367,10 @@ function buildWeeklyBarChart(daily, W, H) {
   const M = { l: 44, r: 12, t: 10, b: 22 };
   const maxV = Math.max(...values.map((v) => v.v), 1);
   const gap = 2;
-  const barW = Math.max(2, (W - M.l - M.r) / n - gap);
+  const slot = (W - M.l - M.r) / n;
+  // Largeur plafonnée : une seule semaine remplissait tout le graphique d'un
+  // rectangle plein (revue globale du 19/10/2026).
+  const barW = Math.min(48, Math.max(2, slot - gap));
   const y0 = H - M.b;
   const y = (v) => M.t + (1 - v / maxV) * (y0 - M.t);
   let grid = '';
@@ -366,7 +382,7 @@ function buildWeeklyBarChart(daily, W, H) {
   let bars = '';
   values.forEach((w, i) => {
     if (w.v <= 0) return;
-    const xx = M.l + i * ((W - M.l - M.r) / n) + gap / 2;
+    const xx = M.l + i * slot + (slot - barW) / 2;
     const label = `sem. du ${new Date(w.key + 'T00:00:00Z').toLocaleDateString('fr-FR', { timeZone: 'UTC' })} : ${Math.round(w.v * 10) / 10} km`;
     bars += `<rect x="${xx.toFixed(1)}" y="${y(w.v).toFixed(1)}" width="${barW.toFixed(1)}" height="${(y0 - y(w.v)).toFixed(1)}" rx="2" fill="#ead9b0" stroke="#7a5c2e" stroke-width="1"><title>${EF.esc(label)}</title></rect>`;
   });
@@ -881,5 +897,5 @@ document.addEventListener('DOMContentLoaded', async () => {
 }
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { isoWeekKey, formatPeriodLabel, formatDuration, computeAwards, buildCumulativeChart, buildWeeklyBarChart, buildCalendarHeatmap, heatmapColor, buildGearRows, buildGearSelect, buildEffortRows };
+  module.exports = { importTraceFiles, importFromLink, isoWeekKey, formatPeriodLabel, formatDuration, computeAwards, buildCumulativeChart, buildWeeklyBarChart, buildCalendarHeatmap, heatmapColor, buildGearRows, buildGearSelect, buildEffortRows };
 }
