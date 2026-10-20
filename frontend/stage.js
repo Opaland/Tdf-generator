@@ -85,6 +85,8 @@ function sampleAt(m) {
 // marqueur sur la carte, au point du tracé le plus proche. opts DOIT
 // correspondre exactement à l'appel de renderProfileSVG (même width/height)
 // pour que le curseur tombe pile sur la silhouette dessinée.
+// width recalculée à chaque rendu (EFProfile.responsiveWidth), avant le
+// renderProfileSVG que le survol doit refléter.
 const PROFILE_OPTS = { width: 1080, height: 300 };
 function setupProfileMapHover(payload, map) {
   const svg = document.querySelector('#profile-box svg');
@@ -174,7 +176,9 @@ function renderFiche() {
   // Profil 2D + profil 3D interactif (rotation à la souris, relief étirable —
   // visualisation inspirée des profils 3D VeloViewer).
   const payload = toPayload(FULL);
-  document.getElementById('profile-box').innerHTML = EFProfile.renderProfileSVG(payload, PROFILE_OPTS);
+  const profileBox = document.getElementById('profile-box');
+  PROFILE_OPTS.width = EFProfile.responsiveWidth(profileBox.clientWidth, 1080);
+  profileBox.innerHTML = EFProfile.renderProfileSVG(payload, PROFILE_OPTS);
   setup3D(payload);
 
   // Checks.
@@ -558,6 +562,14 @@ function renderKmTable() {
     .join('');
 }
 
+/** Ligne du CSV km par km : séparateur « ; » et virgule décimale, la
+ * convention d'Excel en français (revue globale du 19/10/2026 : « ; » avec
+ * des décimales à point y était lu comme du texte ou des dates). Valeur
+ * absente : cellule vide, jamais « null ». */
+function csvRow(values) {
+  return values.map((v) => (v == null ? '' : String(v).replace('.', ','))).join(';');
+}
+
 // Garde typeof : similarItemHtml est une fonction pure, testée directement
 // (voir test/similarStages.test.js) sans DOM — même schéma que
 // profile.js/compare.js/editor.js.
@@ -577,9 +589,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   );
   document.getElementById('exp-csv').addEventListener('click', () => {
     const head = 'km;alt_fin_m;pente_moy_pct;pente_max_pct;d_plus_km_m;d_plus_cumule_m';
-    const lines = FULL.kmAnalysis.map((r) =>
-      [r.km, r.ele_end_m, r.avg_gradient, r.max_gradient_100m, r.ascent_m, r.cum_ascent_m].join(';')
-    );
+    const lines = FULL.kmAnalysis.map((r) => csvRow([r.km, r.ele_end_m, r.avg_gradient, r.max_gradient_100m, r.ascent_m, r.cum_ascent_m]));
     EF.downloadText(`etape-${stageId}-km-par-km.csv`, [head, ...lines].join('\n'), 'text/csv');
   });
   poll();
@@ -743,7 +753,7 @@ function renderHeartRate(st, samples) {
   renderHrZones(samples || []);
 }
 
-if (typeof module !== 'undefined' && module.exports) module.exports = { similarItemHtml, poll, climbNameSourceLabel, buildHrChart, hrZoneTimes, hrZoneBounds, buildZonesTable, HR_ZONES };
+if (typeof module !== 'undefined' && module.exports) module.exports = { csvRow, similarItemHtml, poll, climbNameSourceLabel, buildHrChart, hrZoneTimes, hrZoneBounds, buildZonesTable, HR_ZONES };
 
 // Communes traversées (Epic 12, option B) : calculées à la demande — environ
 // une requête geo.api.gouv.fr par kilomètre, donc jamais à la génération.
