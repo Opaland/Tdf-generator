@@ -1372,8 +1372,26 @@ Actionnables sans décision :
   (jamais la couleur seule) ; bande absente sans donnée ; redessinée quand
   la FC max change (`test/profileStrips.test.js`, vérification Playwright
   1280 / 390 px sur une trace avec FC et revêtements).
-- [ ] 34.7 Zones de confidentialité autour du domicile dans les exports et
-  mini-sites de traces (idée geo-activity-playground).
+- [x] 34.7 (PR #467) Zones de confidentialité autour du domicile dans les exports et
+  mini-sites de traces (idée geo-activity-playground) — critères : jusqu'à
+  5 zones (latitude, longitude, rayon de 100 à 5000 m), réglage de
+  l'instance comme la FC max (`PUT /api/profile`, admin seul en mode
+  public ; un champ absent est laissé tel quel, aucun champ → 400) ; les
+  points d'une trace importée situés dans une zone sont retirés des exports
+  JSON, GPX, TCX, KML, HTML autonome, du roadbook, du mini-site, de l'export
+  et de la carte d'une édition à laquelle la trace est rattachée, du site
+  statique (`scripts/build-site.js`) et de la carte « Toutes mes traces »,
+  ainsi que les côtes, descentes, faux-plats et lignes du km par km qui
+  recouvrent une portion masquée, et la commune de départ (`city_hint`)
+  si le départ est masqué ; une zone stockée invalide est écartée seule,
+  un réglage illisible fait retirer tous les points (jamais publier faute
+  de savoir) ; les étapes historiques ne sont pas touchées ; la trace reste complète en base et dans la fiche de
+  l'application ; formulaire « Confidentialité » dans Mes traces
+  (`test/privacyZones.test.js`, vérification Playwright 1280 / 390 px).
+  Limites, écrites ici : couper la trace révèle le bord de la zone, pas
+  son centre ; en mode public, tout compte connecté voit encore la trace
+  entière dans l'application (traces partagées par l'instance, sans
+  propriétaire).
 
 En attente de décision (proposées, non commencées) :
 - 34.8 « Sur les traces du Tour » : part d'une étape historique déjà roulée,

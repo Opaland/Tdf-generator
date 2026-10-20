@@ -12,8 +12,7 @@ const path = require('path');
 const { getDb } = require('../backend/db');
 // esc() de backend/exports.js : la copie locale n'échappait pas « " »
 // (revue globale du 19/10/2026), alors qu'elle sert dans un attribut alt.
-const { esc, tourToStandaloneHtml, stagePayload, ATTRIBUTIONS } = require('../backend/exports');
-const { loadStageFull } = require('../pipeline/generate');
+const { esc, tourToStandaloneHtml, stagePayload, ATTRIBUTIONS, loadExportable } = require('../backend/exports');
 const { stageWithoutHr, fullWithoutHr } = require('../pipeline/heartRate');
 
 const ROOT = path.join(__dirname, '..');
@@ -58,6 +57,18 @@ function main() {
   fs.rmSync(DIST, { recursive: true, force: true });
   fs.mkdirSync(DIST, { recursive: true });
   const db = getDb();
+  // Étape telle qu'elle peut sortir de l'application (zones de
+  // confidentialité), calculée une fois par étape pour tout le site.
+  const exportable = new Map();
+  const exportOf = (id) => {
+    if (!exportable.has(id)) exportable.set(id, loadExportable(id));
+    return exportable.get(id);
+  };
+  const hintsOf = (id) => {
+    const st = exportOf(id)?.stage || {};
+    return { city_hint: st.city_hint ?? null, region_hint: st.region_hint ?? null, country_hint: st.country_hint ?? null };
+  };
+  const exportableClimbIds = (id) => new Set((exportOf(id)?.climbs || []).map((c) => c.id));
 
   // Données réelles (APIs IGN/OSRM) ou simulées (mode hors-ligne) ?
   const simulated = db
@@ -87,7 +98,9 @@ function main() {
     .all();
   writeJson('data/stages.json', stages);
   // Site publié : jamais de fréquence cardiaque (donnée de santé, Epic 30).
-  for (const s of stages) writeJson(`data/stage-${s.id}.json`, fullWithoutHr(loadStageFull(s.id)));
+  // loadExportable : une trace importée publiée sur le site statique passe par
+  // les zones de confidentialité, comme ses exports (relecture adverse).
+  for (const s of stages) writeJson(`data/stage-${s.id}.json`, fullWithoutHr(exportOf(s.id)));
 
   const editions = db
     .prepare(
@@ -102,14 +115,17 @@ function main() {
 
   const sitelinks = {};
   for (const e of editions) {
+    // Commune, région et pays de départ masqués comme dans les exports
+    // (zones de confidentialité, seconde relecture adverse).
     const full = db.prepare('SELECT * FROM stages WHERE edition_id = ? ORDER BY stage_order, id').all(e.id)
+      .map((s) => ({ ...s, ...hintsOf(s.id) }))
       .map(stageWithoutHr)
       .map((s) => ({ ...s, checks: s.checks ? JSON.parse(s.checks) : null, progress: null, source: s.source ? JSON.parse(s.source) : null }));
     writeJson(`data/edition-${e.id}.json`, { ...e, stages: full });
     const ids = full.filter((s) => s.state === 'done').map((s) => s.id);
     writeJson(`data/mapdata-${e.id}.json`, {
       edition: e,
-      stages: ids.map((id) => stagePayload(loadStageFull(id), { maxSamples: 200, maxTrack: 500 })),
+      stages: ids.map((id) => stagePayload(exportOf(id), { maxSamples: 200, maxTrack: 500 })),
     });
     const file = `tour-${e.year || 'perso'}-${e.id}.html`;
     write(file, tourToStandaloneHtml(e.id));
@@ -127,6 +143,8 @@ function main() {
        WHERE s.state = 'done' ORDER BY c.summit_ele_m DESC`
     )
     .all()
+    // Seulement les côtes que l'export de leur étape garde.
+    .filter((c) => exportableClimbIds(c.stage_id).has(c.id))
     .map((c) => ({ ...c, km_blocks: c.km_blocks ? JSON.parse(c.km_blocks) : [] }));
   writeJson('data/climbs.json', climbs);
 

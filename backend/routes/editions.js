@@ -5,10 +5,9 @@
 // le même ordre par server.js.
 
 const { getDb } = require('../db');
-const { loadStageFull } = require('../../pipeline/generate');
 const { importEdition, importAllEditions, CATEGORIES } = require('../../pipeline/importer');
 const { historicHighlights } = require('../../pipeline/wikipedia');
-const { stagePayload } = require('../exports');
+const { stagePayload, loadExportable } = require('../exports');
 const { wrap, requireString, optionalNumber } = require('../apiHelpers');
 
 module.exports = function register(app) {
@@ -180,7 +179,7 @@ module.exports = function register(app) {
     const edition = db.prepare('SELECT * FROM editions WHERE id = ?').get(editionId);
     if (!edition) return res.status(404).json({ error: 'Édition introuvable' });
     const ids = db.prepare('SELECT id FROM stages WHERE edition_id = ? ORDER BY stage_order, id').all(editionId);
-    const stages = ids.map((r) => stagePayload(loadStageFull(r.id), { maxSamples: 200, maxTrack: 500 }));
+    const stages = ids.map((r) => stagePayload(loadExportable(r.id), { maxSamples: 200, maxTrack: 500 }));
     res.json({ edition: { ...edition, source: edition.source ? JSON.parse(edition.source) : null }, stages });
   }));
 };

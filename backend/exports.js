@@ -5,6 +5,15 @@ const fs = require('fs');
 const path = require('path');
 const { getDb } = require('./db');
 const { loadStageFull } = require('../pipeline/generate');
+const { getSetting } = require('./settings');
+const { maskStage, parseZones, PRIVACY_ZONES_KEY } = require('../pipeline/privacy');
+
+/** Étape telle qu'elle sort de l'application (exports, mini-sites,
+ * roadbook) : une trace importée y perd ses points situés dans une zone de
+ * confidentialité (backlog 34.7). */
+function loadExportable(stageId) {
+  return maskStage(loadStageFull(stageId), parseZones(getSetting(PRIVACY_ZONES_KEY)));
+}
 
 // Nombre affiché à la française dans les pages HTML générées (roadbook),
 // comme EF.dec côté interface (revue globale du 19/10/2026).
@@ -436,7 +445,7 @@ function waypointEle(w, s, climbs) {
  * projet de rester à 4 dépendances directes (docs/BRIEF.md).
  */
 function stageToRoadbookHtml(stageId) {
-  const full = loadStageFull(stageId);
+  const full = loadExportable(stageId);
   if (!full) {
     const err = new Error(`Étape ${stageId} introuvable`);
     err.status = 404;
@@ -582,7 +591,9 @@ function tourToStandaloneHtml(editionId) {
   const stageRows = db
     .prepare(`SELECT id FROM stages WHERE edition_id = ? ORDER BY stage_order, id`)
     .all(editionId);
-  const payloads = stageRows.map((r) => stagePayload(loadStageFull(r.id)));
+  // loadExportable : une trace rattachée au tour passe par les zones de
+  // confidentialité, comme son export d'étape (relecture adverse).
+  const payloads = stageRows.map((r) => stagePayload(loadExportable(r.id)));
 
   const profileJs = fs.readFileSync(path.join(__dirname, '..', 'frontend', 'profile.js'), 'utf8');
   const title = edition.name;
@@ -686,7 +697,7 @@ document.addEventListener('DOMContentLoaded', () => {
  * embarqué) sont reprises ici à l'identique, pas réinventées.
  */
 function stageToStandaloneHtml(stageId) {
-  const full = loadStageFull(stageId);
+  const full = loadExportable(stageId);
   if (!full) {
     const err = new Error(`Étape ${stageId} introuvable`);
     err.status = 404;
@@ -773,4 +784,4 @@ document.addEventListener('DOMContentLoaded', () => {
 </html>`;
 }
 
-module.exports = { esc, stageToGpx, stageToTcx, stageToKml, stagePayload, tourToStandaloneHtml, stageToStandaloneHtml, stageToRoadbookHtml, decimate, ATTRIBUTIONS };
+module.exports = { loadExportable, esc, stageToGpx, stageToTcx, stageToKml, stagePayload, tourToStandaloneHtml, stageToStandaloneHtml, stageToRoadbookHtml, decimate, ATTRIBUTIONS };
