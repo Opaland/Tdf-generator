@@ -65,7 +65,14 @@ function loadDbStages(db) {
   const k = db.prepare(
     `SELECT (SELECT COUNT(*) FROM tracks) || ':' || (SELECT TOTAL(LENGTH(geojson)) FROM tracks) || ':' ||
             (SELECT COUNT(*) FROM waypoints WHERE lat IS NOT NULL) || ':' || (SELECT TOTAL(stage_id) FROM tracks) || ':' ||
-            (SELECT COUNT(*) FROM stages) AS k`
+            (SELECT COUNT(*) FROM stages) || ':' ||
+            -- Renommage, changement de date, d'édition ou de coordonnées à
+            -- nombre constant : la clé n'en voyait rien et servait des
+            -- résultats périmés (revue globale du 19/10/2026).
+            (SELECT TOTAL(LENGTH(name)) + TOTAL(LENGTH(COALESCE(date, ''))) + TOTAL(COALESCE(edition_id, 0)) FROM stages) || ':' ||
+            (SELECT COALESCE(MAX(updated_at), '') FROM stages) || ':' ||
+            (SELECT TOTAL(lat) + TOTAL(lon) FROM waypoints) || ':' ||
+            (SELECT COUNT(*) + TOTAL(LENGTH(name)) + TOTAL(COALESCE(year, 0)) FROM editions) AS k`
   ).get().k;
   if (cache.key !== k) cache = { key: k, value: readDbStages(db) };
   return cache.value;

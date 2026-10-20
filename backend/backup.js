@@ -12,7 +12,11 @@ const path = require('path');
 const { getDb } = require('./db');
 
 const BACKUP_DIR = process.env.ETAPEFORGE_BACKUP_DIR || null;
-const BACKUP_INTERVAL_HOURS = Number(process.env.ETAPEFORGE_BACKUP_INTERVAL_HOURS) || 24;
+// Intervalle borné : setInterval ramène à 1 ms tout délai au-delà de
+// 2³¹-1 ms (~596 h), et un négatif aussi — une sauvegarde mensuelle (720 h)
+// tournait en boucle, 887 sauvegardes en 3 s (revue globale du 19/10/2026).
+const rawHours = Number(process.env.ETAPEFORGE_BACKUP_INTERVAL_HOURS);
+const BACKUP_INTERVAL_HOURS = Number.isFinite(rawHours) && rawHours > 0 ? Math.min(rawHours, 24 * 366) : 24;
 const BACKUP_KEEP = Number(process.env.ETAPEFORGE_BACKUP_KEEP) || 7;
 const NAME_RE = /^etapeforge-\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}-\d{3}Z\.sqlite$/;
 
@@ -43,11 +47,16 @@ let timer = null;
 /** Démarre la sauvegarde périodique si ETAPEFORGE_BACKUP_DIR est défini — no-op sinon. */
 function startScheduledBackups() {
   if (!BACKUP_DIR || timer) return;
+  const intervalMs = BACKUP_INTERVAL_HOURS * 3600 * 1000;
+  let last = Date.now();
   runBackup().catch((err) => console.error('Sauvegarde automatique échouée :', err.message));
-  timer = setInterval(
-    () => runBackup().catch((err) => console.error('Sauvegarde automatique échouée :', err.message)),
-    BACKUP_INTERVAL_HOURS * 3600 * 1000
-  );
+  // Tic d'au plus une heure, sauvegarde quand l'intervalle est écoulé : reste
+  // sous la borne de setInterval quel que soit l'intervalle demandé.
+  timer = setInterval(() => {
+    if (Date.now() - last < intervalMs) return;
+    last = Date.now();
+    runBackup().catch((err) => console.error('Sauvegarde automatique échouée :', err.message));
+  }, Math.min(intervalMs, 3600 * 1000));
   timer.unref(); // ne doit jamais empêcher le process de s'arrêter proprement
 }
 

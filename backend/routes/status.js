@@ -12,6 +12,13 @@ const { AUTH_REQUIRED } = require('../auth');
 const { getBackupStatus } = require('../backup');
 const { version: APP_VERSION } = require('../../package.json');
 
+function publicBackupStatus() {
+  const b = getBackupStatus();
+  if (!AUTH_REQUIRED || !b.enabled) return b;
+  const { dir, ...rest } = b; // eslint-disable-line no-unused-vars
+  return rest;
+}
+
 module.exports = function register(app) {
   // ---------------------------------------------------------------- statut
   app.get('/api/status', (req, res) => {
@@ -23,8 +30,10 @@ module.exports = function register(app) {
       elevation_cache: db.prepare('SELECT COUNT(*) n FROM elevation_cache').get().n,
     };
     res.json({
-      offline: isOffline(), authRequired: AUTH_REQUIRED, db: DB_PATH, counts,
-      attributions: ATTRIBUTIONS, backup: getBackupStatus(), version: APP_VERSION,
+      // Route lisible sans compte, même en mode public : les chemins absolus
+      // du serveur (base, sauvegardes) n'y sont donnés qu'en mode local.
+      offline: isOffline(), authRequired: AUTH_REQUIRED, ...(AUTH_REQUIRED ? {} : { db: DB_PATH }), counts,
+      attributions: ATTRIBUTIONS, backup: publicBackupStatus(), version: APP_VERSION,
       notify: { enabled: !!notify.WEBHOOK_URL, format: notify.FORMAT },
     });
   });

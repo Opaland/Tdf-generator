@@ -129,10 +129,16 @@ module.exports = function register(app) {
     const id = parseInt(req.params.id, 10);
     const stage = db.prepare('SELECT id FROM stages WHERE id = ?').get(id);
     if (!stage) return res.status(404).json({ error: 'Étape introuvable' });
+    // Un PUT pendant la génération était écrasé à la fin (l'étape repassait
+    // « done » avec l'ancien tracé) ou faisait échouer la génération par
+    // violation de clé étrangère (revue globale du 19/10/2026).
+    if (running.has(id)) return res.status(409).json({ error: 'Génération en cours : modifiez l\'étape une fois la génération terminée' });
     const body = req.body || {};
     const name = optionalString(body.name, 'name', MAX.name);
     const date = optionalIsoDay(body.date, 'date');
-    const stage_type = optionalString(body.stage_type, 'stage_type', MAX.stage_type);
+    // '' (sélecteur de l'éditeur sans option correspondante, ex. type
+    // Wikipédia brut) ne doit pas effacer le type stocké.
+    const stage_type = optionalString(body.stage_type, 'stage_type', MAX.stage_type) || null;
     const status = optionalString(body.status, 'status', MAX.status);
     const edition_id = existingEditionId(getDb(), body.edition_id);
     const stage_order = optionalNumber(body.stage_order, 'stage_order');
@@ -161,6 +167,7 @@ module.exports = function register(app) {
     if (!Number.isInteger(id)) return res.status(400).json({ error: 'Identifiant invalide' });
     const stage = db.prepare('SELECT id FROM stages WHERE id = ?').get(id);
     if (!stage) return res.status(404).json({ error: 'Étape introuvable' });
+    if (running.has(id)) return res.status(409).json({ error: 'Génération en cours : supprimez l\'étape une fois la génération terminée' });
     db.prepare('DELETE FROM stages WHERE id = ?').run(id);
     res.json({ ok: true });
   });
