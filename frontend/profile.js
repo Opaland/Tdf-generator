@@ -75,6 +75,24 @@
   }
 
   /**
+   * Indice FIETS d'une côte (magazine néerlandais Fiets) : H² / (D × 10) plus
+   * un bonus d'altitude, H = dénivelé et D = longueur en mètres. Le bonus
+   * varie selon les sources ; retenu ici : (T − 1000) / 1000 au-dessus de
+   * 1000 m de sommet T (Runalyze), 0 en dessous. null si une donnée manque
+   * (jamais 0 m supposé, CLAUDE.md règle 10) ou si la côte ne monte pas.
+   */
+  function fietsIndex(c) {
+    const T = c && c.summit_ele_m;
+    const B = c && c.start_ele_m;
+    const L = c && c.length_km;
+    if (![T, B, L].every((v) => typeof v === 'number' && Number.isFinite(v)) || L <= 0) return null;
+    const H = T - B;
+    if (H <= 0) return null;
+    const value = (H * H) / (L * 1000 * 10) + Math.max(0, (T - 1000) / 1000);
+    return Math.round(value * 10) / 10;
+  }
+
+  /**
    * Largeur du viewBox d'un graphique pleine largeur, d'après la largeur
    * réelle de son conteneur (revue globale du 19/10/2026) : un viewBox fixe
    * de 1080 réduit à 330 px en mobile ramenait le texte à environ 3 px. Le
@@ -603,7 +621,7 @@
   // navigateur, reprise par cols.js et tourmap.js (même table que
   // CATEGORY_RANK, pipeline/climbs.js).
   const CAT_RANK = Object.freeze({ HC: 5, 1: 4, 2: 3, 3: 2, 4: 1 });
-  const EFProfile = { CAT_RANK, renderProfileSVG, fitLabel, responsiveWidth, renderClimbSVG, renderRibbon3D, decimate, niceStep, CAT_COLORS, CAT_TEXT, gradStyle, catStyle, climbApproxOverlap, profileHoverAt };
+  const EFProfile = { CAT_RANK, fietsIndex, renderProfileSVG, fitLabel, responsiveWidth, renderClimbSVG, renderRibbon3D, decimate, niceStep, CAT_COLORS, CAT_TEXT, gradStyle, catStyle, climbApproxOverlap, profileHoverAt };
   if (typeof module !== 'undefined' && module.exports) module.exports = EFProfile;
   global.EFProfile = EFProfile;
 })(typeof window !== 'undefined' ? window : globalThis);

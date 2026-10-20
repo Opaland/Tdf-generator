@@ -1278,7 +1278,16 @@ Actionnables sans décision :
 - [ ] 34.4 Nombre d'Eddington (distance et D+) dans le bilan (idée
   geo-activity-playground, MIT).
 - [ ] 34.5 Indice FIETS à côté de la catégorie approchée (formule publique ;
-  bonus d'altitude à trancher par un test).
+  bonus d'altitude à trancher par un test) — critères : la fiche d'une côte
+  affiche « indice FIETS » = H² / (D × 10) + max(0, (sommet − 1000) / 1000),
+  H et D en mètres (`EFProfile.fietsIndex`) ; le bonus d'altitude diffère
+  selon les sources (Runalyze : (T − 1000) / 1000 ; Unicyclist : T / 1000
+  au-dessus de 1000 m ; Tredict : partie entière) — variante Runalyze
+  retenue et la formule affichée en infobulle, pas présentée comme
+  officielle ; donnée manquante ou côte qui ne monte pas : pas d'indice
+  (jamais 0 m supposé) (`test/fietsIndex.test.js`, vérification Playwright).
+  Au passage : score, indice d'irrégularité et points de l'indice de
+  douleur à la virgule décimale (oubli de la 35.19).
 - [ ] 34.6 Profil coloré par surface et par FC (données déjà présentes).
 - [ ] 34.7 Zones de confidentialité autour du domicile dans les exports et
   mini-sites de traces (idée geo-activity-playground).
