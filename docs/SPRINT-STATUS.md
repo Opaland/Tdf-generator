@@ -1343,7 +1343,7 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   explorées » sont identifiées par l'id d'édition et marquent Femmes
   (« 2022 F ») (`test/frontendReviewFixes.test.js`, vérification Playwright
   en fuseau America/New_York).
-- [ ] 35.9 Export TCX — critères : une date d'étape qui n'est pas un jour
+- [x] 35.9 (PR #445) Export TCX — critères : une date d'étape qui n'est pas un jour
   AAAA-MM-JJ valide (texte Wikipédia non lu, « 2026-13-45 ») ne fait plus
   planter l'export (repli sur la date conventionnelle) ; chaque `CoursePoint`
   de waypoint est daté à sa position sur le tracé (arrivée de 98,4 km à
