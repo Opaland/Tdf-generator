@@ -83,9 +83,12 @@ test('roadbook.html : un waypoint d\'un kind non répertorié dans KIND_LABELS r
     method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       name: 'Étape kind inconnu',
-      waypoints: [{ label: 'Pau' }, { label: 'Point mystère', kind: 'kind_totalement_inconnu' }, { label: 'Tarbes' }],
+      waypoints: [{ label: 'Pau' }, { label: 'Point mystère', kind: 'via' }, { label: 'Tarbes' }],
     }),
   })).json();
+  // L'API refuse désormais un kind hors du schéma (Epic 35.6) : un tel kind
+  // ne peut plus venir que d'une base ancienne, posé ici directement.
+  require('../backend/db').getDb().prepare("UPDATE waypoints SET kind = 'kind_totalement_inconnu' WHERE stage_id = ? AND label = 'Point mystère'").run(create.id);
   await generateStage(create.id);
   const html = await (await fetch(`${base}/api/stages/${create.id}/roadbook.html`)).text();
   assert.match(html, /<td>Passage<\/td>\s*<td>Point mystère<\/td>/);

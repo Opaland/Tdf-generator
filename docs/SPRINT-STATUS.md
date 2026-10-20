@@ -1321,8 +1321,15 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   et refuse un tableau entièrement vide (`test/kmanalysisAscent.test.js`,
   `test/importTrackSentinel.test.js`, `test/exports.test.js`,
   `test/elevationGaps.test.js`).
-- [ ] 35.6 Validation des longueurs et des valeurs (`name`, `date`, `kind`,
-  `stage_type`) et 500 qui devraient être des 400.
+- [ ] 35.6 Validation des longueurs et des valeurs — critères : POST/PUT
+  /api/stages refusent en 400 un nom ou un statut de plus de 200 caractères,
+  un type de plus de 40, un libellé de waypoint de plus de 200, une date qui
+  n'est pas un jour AAAA-MM-JJ réel (« 2026-02-30 » compris ; vide = pas de
+  date), un `kind` hors start/via/col/sprint/finish, un `edition_id`
+  inexistant (violation de clé étrangère en 500 avant) ; `?name=a&name=b`
+  à l'import GPX/FIT et une ligne null dans une sauvegarde donnent 400 au
+  lieu de 500 ; nom d'édition borné à 200 ; champs de l'éditeur en
+  `maxlength` (`test/inputValidation.test.js`).
 - [ ] 35.7 Couche réseau : timeout du corps de réponse, `state` OAuth
   Strava/Suunto, redirections de l'import par lien.
 - [ ] 35.8 Frontend : « Max cat. » toujours vide, 404 de fiche relancé à

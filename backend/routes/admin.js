@@ -123,6 +123,9 @@ module.exports = function register(app) {
     for (const t of BACKUP_TABLES) {
       const rows = Array.isArray(body.tables[t]) ? body.tables[t] : [];
       if (!rows.length) { perTable[t] = { cols: [], rows: [] }; continue; }
+      // Une ligne null ou non-objet faisait planter Object.keys() en 500.
+      const badRow = rows.findIndex((r) => !r || typeof r !== 'object' || Array.isArray(r));
+      if (badRow !== -1) return res.status(400).json({ error: `${t}[${badRow}] : objet attendu` });
       const allowed = new Set(tableColumns(db, t));
       const colTypes = tableColumnTypes(db, t);
       const cols = Object.keys(rows[0]);
