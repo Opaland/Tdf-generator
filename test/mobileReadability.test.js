@@ -59,3 +59,16 @@ test('profil étroit : une étiquette horizontale qui recouvrirait une voisine r
   const flat = [...svg.matchAll(/<text x="[\d.]+" y="[\d.]+"( text-anchor="end")? font-size="10.5"[^>]*>(?:<title>[^<]*<\/title>)?([^<]*)<\/text>/g)].map((m) => m[2]);
   assert.ok(!flat.some((t) => t.startsWith('Col du Galibier')), `Galibier posé à l'horizontale : ${flat}`);
 });
+
+test('comparateur : un nom d\'étape long est raccourci dans la légende, nom complet en infobulle', () => {
+  const { overlaySVG } = require('../frontend/compare.js');
+  const full = (name) => ({ stage: { name }, climbs: [], samples: [0, 1, 2, 3, 4].map((i) => ({ dist_m: i * 1000, ele_smooth_m: 300 + i * 50, lat: 45, lon: 1 })) });
+  const long = 'Étape reine : Pau – Hautacam par le col du Soulor et Argelès-Gazost';
+  for (const W of [420, 1080]) {
+    const svg = overlaySVG(full(long), full('B'), 'km', true, W);
+    const shown = svg.match(/<text x="65" y="18" font-size="11.5"><title>([^<]*)<\/title>([^<]*)<\/text>/);
+    assert.ok(shown, `légende A raccourcie à W=${W}`);
+    assert.strictEqual(shown[1], long);
+    assert.ok(shown[2].endsWith('…') && (65 + Array.from(shown[2]).length * 11.5 * 0.58) < (W === 420 ? W : 378), shown[2]);
+  }
+});

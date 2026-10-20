@@ -101,6 +101,19 @@ function overlaySVG(fa, fb, axis, alignStart, W = 1080) {
       })
       .join('');
 
+  // Légendes raccourcies avec « … » (nom complet en infobulle) : un nom long
+  // sortait du cadre en étroit, et recouvrait la légende B en large.
+  // Largeur estimée à 0,58 em par caractère (11,5 px).
+  const ch = 11.5 * 0.58;
+  const legendRoom = narrow
+    ? { a: (W - M.l - 17 - 6) / ch, b: (W - M.l - 17 - 6) / ch }
+    : { a: (330 - 17 - 10) / ch, b: (W - M.r - (M.l + 347) - (alignStart ? 470 : 0) - 10) / ch };
+  const legend = (name, room) => {
+    const chars = Array.from(String(name ?? ''));
+    const max = Math.max(4, Math.floor(room));
+    if (chars.length <= max) return EF.esc(chars.join(''));
+    return `<title>${EF.esc(chars.join(''))}</title>${EF.esc(chars.slice(0, max - 1).join('').trimEnd())}…`;
+  };
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Profils superposés de ${EF.esc(fa.stage.name)} et ${EF.esc(fb.stage.name)}">
     <rect width="${W}" height="${H}" fill="#faf6ec"/>
     ${grid}
@@ -110,8 +123,8 @@ function overlaySVG(fa, fb, axis, alignStart, W = 1080) {
     <path d="${path(pb, lenB)}" fill="none" stroke="${COLOR_B}" stroke-width="2"/>
     ${marker(fa, pa, lenA, COLOR_A)}${marker(fb, pb, lenB, COLOR_B)}
     ${axisTicks}
-    <rect x="${M.l}" y="8" width="12" height="12" fill="${COLOR_A}"/><text x="${M.l + 17}" y="18" font-size="11.5">${EF.esc(fa.stage.name)}</text>
-    <rect x="${narrow ? M.l : M.l + 330}" y="${narrow ? 26 : 8}" width="12" height="12" fill="${COLOR_B}"/><text x="${narrow ? M.l + 17 : M.l + 347}" y="${narrow ? 36 : 18}" font-size="11.5">${EF.esc(fb.stage.name)}</text>
+    <rect x="${M.l}" y="8" width="12" height="12" fill="${COLOR_A}"/><text x="${M.l + 17}" y="18" font-size="11.5">${legend(fa.stage.name, legendRoom.a)}</text>
+    <rect x="${narrow ? M.l : M.l + 330}" y="${narrow ? 26 : 8}" width="12" height="12" fill="${COLOR_B}"/><text x="${narrow ? M.l + 17 : M.l + 347}" y="${narrow ? 36 : 18}" font-size="11.5">${legend(fb.stage.name, legendRoom.b)}</text>
     ${alignStart ? (narrow
       ? `<text x="${M.l}" y="52" font-size="10.5" fill="#666" font-style="italic">altitudes de départ alignées (dénivelé depuis le départ)</text>`
       : `<text x="${W - M.r}" y="18" text-anchor="end" font-size="10.5" fill="#666" font-style="italic">altitudes de départ alignées — axe = dénivelé depuis le départ, pas l'altitude réelle</text>`) : ''}
