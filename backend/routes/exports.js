@@ -42,9 +42,12 @@ module.exports = function register(app) {
   });
 
   app.get('/api/stages/:id/export.html', wrap(async (req, res) => {
-    const html = stageToStandaloneHtml(parseInt(req.params.id, 10));
+    // Id entier dans le nom de fichier : `req.params.id` brut permettait
+    // d'injecter un second filename= (parseInt tolère le suffixe).
+    const id = parseInt(req.params.id, 10);
+    const html = stageToStandaloneHtml(id);
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    res.setHeader('Content-Disposition', `attachment; filename="etape-${req.params.id}.html"`);
+    res.setHeader('Content-Disposition', `attachment; filename="etape-${id}.html"`);
     res.send(html);
   }));
 
@@ -64,9 +67,10 @@ module.exports = function register(app) {
   }));
 
   app.get('/api/editions/:id/export.html', wrap(async (req, res) => {
-    const html = tourToStandaloneHtml(parseInt(req.params.id, 10));
+    const id = parseInt(req.params.id, 10);
+    const html = tourToStandaloneHtml(id);
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    res.setHeader('Content-Disposition', `attachment; filename="tour-${req.params.id}.html"`);
+    res.setHeader('Content-Disposition', `attachment; filename="tour-${id}.html"`);
     res.send(html);
   }));
 

@@ -59,14 +59,15 @@ function readDbStages(db) {
 
 // Cache des tracés parsés : relire et parser tous les GeoJSON à chaque
 // recherche bloquait le serveur ~0,7 s pour 2 300 étapes (relecture adverse).
-// Clé bon marché qui change à toute génération, régénération ou suppression.
+// Clé : un compteur tenu par des triggers SQLite (voir loadDbStages).
 let cache = { key: null, value: null };
 function loadDbStages(db) {
-  const k = db.prepare(
-    `SELECT (SELECT COUNT(*) FROM tracks) || ':' || (SELECT TOTAL(LENGTH(geojson)) FROM tracks) || ':' ||
-            (SELECT COUNT(*) FROM waypoints WHERE lat IS NOT NULL) || ':' || (SELECT TOTAL(stage_id) FROM tracks) || ':' ||
-            (SELECT COUNT(*) FROM stages) AS k`
-  ).get().k;
+  // Version incrémentée par trigger à toute écriture sur editions, stages,
+  // waypoints et tracks (backend/db.js, migration 10) : l'ancienne clé de
+  // compteurs et de longueurs laissait passer un renommage, un changement de
+  // date, de catégorie ou d'ordre (revue globale du 19/10/2026), et relisait
+  // la longueur de tous les tracés à chaque recherche (~47 ms à 2 300 étapes).
+  const k = db.prepare('SELECT v FROM search_data_version WHERE id = 1').get().v;
   if (cache.key !== k) cache = { key: k, value: readDbStages(db) };
   return cache.value;
 }
