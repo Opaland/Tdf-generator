@@ -1277,7 +1277,7 @@ et côtes traversées avec leur kilomètre.
   notée) ou « non tranché » (deux sources qui divergent, les deux citées) ;
   aucune correction sans source (règle 12) ; curation, pas de relecture
   adverse dédiée.
-- [ ] 33.18 Libellé faux pris à un lien Wikipédia : 1984/6 part de
+- [x] 33.18 (PR #469) Libellé faux pris à un lien Wikipédia : 1984/6 part de
   « Louvroil » parce que en.wikipedia écrit `[[Louvroil|Cergy-Pontoise]]`
   — critères : `stage_towns_overrides.json` accepte un `label` facultatif
   par occurrence, refusé par libellé (testé, `applyOverrides`, réapplication
