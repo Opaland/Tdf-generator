@@ -115,6 +115,21 @@
   <div class="card" id="strava-box">
     <p class="meta-line">chargement…</p>
   </div>
+
+  <h2>Confidentialité</h2>
+  <div class="card" id="privacy-box">
+    <p class="meta-line">Autour de chaque zone (domicile, travail…), les points de vos traces importées sont retirés
+      des exports (GPX, TCX, KML, HTML, roadbook), des mini-sites et de la carte « Toutes mes traces ».
+      La trace reste complète dans l'application.</p>
+    <ul class="fauxplat-list" id="privacy-zones"></ul>
+    <form class="row" id="privacy-add">
+      <label class="field">Latitude<input id="pz-lat" type="number" step="any" min="-90" max="90" required></label>
+      <label class="field">Longitude<input id="pz-lon" type="number" step="any" min="-180" max="180" required></label>
+      <label class="field">Rayon (m)<input id="pz-radius" type="number" step="1" min="100" max="5000" value="500" required></label>
+      <button type="submit">Ajouter la zone</button>
+    </form>
+    <p id="privacy-msg" class="meta-line" aria-live="polite"></p>
+  </div>
 </main>
 <script src="/vendor/leaflet/leaflet.js"></script>
 <script src="/common.js"></script>

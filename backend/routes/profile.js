@@ -6,6 +6,11 @@
 
 const { getSetting, setSetting } = require('../settings');
 const { wrap, httpError } = require('../apiHelpers');
+const { validateZones, parseZones, PRIVACY_ZONES_KEY } = require('../../pipeline/privacy');
+
+// Zones de confidentialité (backlog 34.7), une liste pour l'instance comme
+// la FC max ; modifiables par l'admin seul en mode public (même route PUT).
+const privacyZones = () => parseZones(getSetting(PRIVACY_ZONES_KEY));
 
 const HR_MAX_KEY = 'hr_max_bpm';
 // Bornes physiologiques larges : en dehors, c'est une faute de saisie.
@@ -19,18 +24,27 @@ function hrMaxBpm() {
 
 module.exports = function register(app) {
   app.get('/api/profile', wrap(async (req, res) => {
-    res.json({ hrMaxBpm: hrMaxBpm() });
+    res.json({ hrMaxBpm: hrMaxBpm(), privacyZones: privacyZones() });
   }));
 
+  // Champs absents : inchangés (le formulaire FC et celui des zones
+  // n'envoient chacun que le leur).
   app.put('/api/profile', wrap(async (req, res) => {
-    const v = req.body?.hrMaxBpm;
-    if (v !== null && !(Number.isInteger(v) && v >= HR_MAX_MIN && v <= HR_MAX_MAX)) {
-      throw httpError(400, `hrMaxBpm doit être un entier entre ${HR_MAX_MIN} et ${HR_MAX_MAX} bpm, ou null`);
+    const body = req.body || {};
+    if (!('hrMaxBpm' in body) && !('privacyZones' in body)) throw httpError(400, 'hrMaxBpm ou privacyZones attendu');
+    if ('hrMaxBpm' in body) {
+      const v = body.hrMaxBpm;
+      if (v !== null && !(Number.isInteger(v) && v >= HR_MAX_MIN && v <= HR_MAX_MAX)) {
+        throw httpError(400, `hrMaxBpm doit être un entier entre ${HR_MAX_MIN} et ${HR_MAX_MAX} bpm, ou null`);
+      }
     }
-    setSetting(HR_MAX_KEY, v);
-    res.json({ hrMaxBpm: hrMaxBpm() });
+    const zones = 'privacyZones' in body ? validateZones(body.privacyZones) : null;
+    if ('hrMaxBpm' in body) setSetting(HR_MAX_KEY, body.hrMaxBpm);
+    if (zones) setSetting(PRIVACY_ZONES_KEY, JSON.stringify(zones));
+    res.json({ hrMaxBpm: hrMaxBpm(), privacyZones: privacyZones() });
   }));
 };
 
 module.exports.HR_MAX_MIN = HR_MAX_MIN;
+module.exports.privacyZones = privacyZones;
 module.exports.HR_MAX_MAX = HR_MAX_MAX;

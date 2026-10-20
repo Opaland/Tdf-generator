@@ -12,6 +12,8 @@ const { parseGpx, parseFit, importTrackAsStage } = require('../../pipeline/impor
 const { wrap, httpError, requireString, queryString, CLIMB_CATEGORY_RANK } = require('../apiHelpers');
 const { decimate } = require('../../frontend/profile');
 const { inLatLonBounds } = require('../../pipeline/geo');
+const { getSetting } = require('../settings');
+const { parseZones, inZone, PRIVACY_ZONES_KEY } = require('../../pipeline/privacy');
 
 // Carte de toutes ses traces (backlog 34.3) : points par trace, assez pour
 // une vue d'ensemble, pas pour un export.
@@ -193,6 +195,9 @@ module.exports = function register(app) {
       )
       .all();
     const lines = [];
+    // Zones de confidentialité (34.7) : points retirés avant la
+    // simplification, pour qu'aucun point gardé ne tombe dedans.
+    const zones = parseZones(getSetting(PRIVACY_ZONES_KEY));
     for (const r of rows) {
       let coords;
       try {
@@ -201,8 +206,8 @@ module.exports = function register(app) {
         continue;
       }
       if (!Array.isArray(coords)) continue;
-      const pts = decimate(coords, TRACE_LINE_MAX_POINTS)
-        .filter((c) => Array.isArray(c) && inLatLonBounds(c[1], c[0]))
+      const visible = coords.filter((c) => Array.isArray(c) && inLatLonBounds(c[1], c[0]) && !inZone({ lat: c[1], lon: c[0] }, zones));
+      const pts = decimate(visible, TRACE_LINE_MAX_POINTS)
         .map((c) => [Math.round(c[1] * 1e5) / 1e5, Math.round(c[0] * 1e5) / 1e5]);
       if (pts.length >= 2) lines.push({ id: r.id, name: r.name, date: r.date, coords: pts });
     }

@@ -828,6 +828,53 @@ async function renderTraceMap(key) {
   traceMap.fitBounds(bounds, { padding: [20, 20] });
 }
 
+// ---------------------------------------------------------------- confidentialité (34.7)
+
+let privacyZones = [];
+
+function renderPrivacyZones() {
+  const ul = document.getElementById('privacy-zones');
+  if (!ul) return;
+  ul.innerHTML = privacyZones.length
+    ? privacyZones.map((z, i) => `<li class="fauxplat-item">${EF.esc(EF.dec(z.lat))}, ${EF.esc(EF.dec(z.lon))} — rayon ${Number(z.radiusM)} m ` +
+      `<button type="button" class="secondary" data-pz-del="${i}" aria-label="Supprimer la zone ${i + 1}">Supprimer</button></li>`).join('')
+    : '<li class="fauxplat-item meta-line">Aucune zone : les exports contiennent la trace entière.</li>';
+}
+
+async function savePrivacyZones(zones) {
+  const msg = document.getElementById('privacy-msg');
+  try {
+    const r = await EF.api('/api/profile', { method: 'PUT', body: { privacyZones: zones } });
+    privacyZones = r.privacyZones || [];
+    msg.textContent = 'Enregistré.';
+    renderPrivacyZones();
+    traceMapKey = null; // la carte « Toutes mes traces » se redessine sans les points masqués
+    loadSummary();
+  } catch (err) {
+    msg.textContent = `Erreur : ${err.message}`;
+  }
+}
+
+async function loadPrivacyZones() {
+  if (window.EF_STATIC || !document.getElementById('privacy-box')) return;
+  const p = await EF.api('/api/profile').catch(() => null);
+  privacyZones = (p && p.privacyZones) || [];
+  renderPrivacyZones();
+  document.getElementById('privacy-add').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const zone = {
+      lat: Number(document.getElementById('pz-lat').value),
+      lon: Number(document.getElementById('pz-lon').value),
+      radiusM: Math.round(Number(document.getElementById('pz-radius').value)),
+    };
+    savePrivacyZones([...privacyZones, zone]);
+  });
+  document.getElementById('privacy-zones').addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-pz-del]');
+    if (btn) savePrivacyZones(privacyZones.filter((_, i) => i !== Number(btn.dataset.pzDel)));
+  });
+}
+
 async function loadSummary() {
   if (window.EF_STATIC) return;
   const seq = ++refreshSeq;
@@ -918,6 +965,7 @@ if (typeof document !== 'undefined') {
 document.addEventListener('DOMContentLoaded', async () => {
   await EF.initChrome('traces');
   loadSummary();
+  loadPrivacyZones();
   document.getElementById('gear-add').addEventListener('submit', addGear);
   document.querySelector('#gear-table tbody').addEventListener('click', (e) => {
     const btn = e.target.closest('button[data-gear-action]');
