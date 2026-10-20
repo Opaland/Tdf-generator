@@ -39,10 +39,17 @@ function optionalNumber(v, field) {
 // frontend/editor.js:85 fait `wp.lon.toFixed(4)` dès que `wp.lat != null`,
 // sans re-vérifier lon : une paire dépareillée y lève une TypeError qui
 // casse tout le rendu de la liste de waypoints (trouvaille de sprint dédié).
+// Bornes : un waypoint {lat: 999, lon: -500} passait, et sa génération
+// saturait la mémoire jusqu'à l'arrêt du process ; une longitude de 359,6
+// (clic sur une copie du monde dans la carte de l'éditeur) donnait une étape
+// de 29 000 km (revue globale du 19/10/2026).
 function assertLatLonPaired(waypoints, prefix) {
   waypoints.forEach((w, i) => {
     if ((w.lat == null) !== (w.lon == null)) {
       throw httpError(400, `${prefix}[${i}] : lat et lon doivent être fournis ensemble ou absents tous les deux`);
+    }
+    if (w.lat != null && (w.lat < -90 || w.lat > 90 || w.lon < -180 || w.lon > 180)) {
+      throw httpError(400, `${prefix}[${i}] : lat doit être entre -90 et 90, lon entre -180 et 180`);
     }
   });
 }

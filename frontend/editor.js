@@ -270,7 +270,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   markersLayer = L.layerGroup().addTo(map);
 
   map.on('click', async (e) => {
-    const { lat, lng } = e.latlng;
+    // wrap() : un clic sur une copie du monde donne une longitude hors
+    // [-180, 180] (359,6 au lieu de -0,4), que le serveur refuse.
+    const { lat, lng } = e.latlng.wrap();
     let label = `${lat.toFixed(4)}, ${lng.toFixed(4)}`;
     try {
       const r = await EF.api(`/api/reverse?lat=${lat}&lon=${lng}`);
