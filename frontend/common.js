@@ -296,7 +296,7 @@ const EF = {
          <a href="/traces.html" data-nav="traces">Mes traces</a>
          <a href="/archives.html" data-nav="archives">Archives 1903→</a>
        </nav>
-       <span class="offline-badge" id="offline-badge" title="mode hors-ligne — données simulées">mode hors-ligne — données simulées</span>`;
+       <span class="offline-badge" id="offline-badge" title="mode hors-ligne — données simulées">hors-ligne<span class="long"> — données simulées</span></span>`;
     document.body.prepend(header);
     const link = header.querySelector(`[data-nav="${active}"]`);
     if (link) link.classList.add('active');
