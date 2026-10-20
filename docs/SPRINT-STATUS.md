@@ -1258,7 +1258,7 @@ et côtes traversées avec leur kilomètre.
   (circuits finaux, côtes et hameaux exclus du calcul qui coupent la
   route) ou D (détours du profil vélo ; 1995/4 : pont de Normandie
   interdit aux vélos) — pas d'erreur de donnée trouvée, écart affiché.
-- [x] 33.16 (PR à venir) Examen des pistes Wikidata, villes (`docs/WIKIDATA-RECOUPEMENT.md`,
+- [x] 33.16 (PR #468) Examen des pistes Wikidata, villes (`docs/WIKIDATA-RECOUPEMENT.md`,
   34.1) — critères : chacune des 41 lignes de villes signalées (32 villes
   distinctes, à plus de 10 km de la ville Wikidata) est classée « homonyme
   chez nous » (position corrigée dans `stage_towns_overrides.json`, source
