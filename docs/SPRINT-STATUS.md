@@ -1321,8 +1321,17 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   et refuse un tableau entièrement vide (`test/kmanalysisAscent.test.js`,
   `test/importTrackSentinel.test.js`, `test/exports.test.js`,
   `test/elevationGaps.test.js`).
-- [ ] 35.6 Validation des longueurs et des valeurs (`name`, `date`, `kind`,
-  `stage_type`) et 500 qui devraient être des 400.
+- [ ] 35.6 Validation des longueurs et des valeurs — critères : POST/PUT
+  /api/stages refusent en 400 un nom ou un statut de plus de 200 caractères,
+  un type de plus de 40, un libellé de waypoint de plus de 200, une date qui
+  n'est pas un jour AAAA-MM-JJ réel (« 2026-02-30 » compris ; vide = pas de
+  date), un `kind` hors start/via/col/sprint/finish, un `edition_id`
+  inexistant (violation de clé étrangère en 500 avant) ; `?name=a&name=b`
+  à l'import GPX/FIT et une ligne null dans une sauvegarde donnent 400 au
+  lieu de 500 (un nom de fichier long est tronqué à 200, pas refusé) ; nom
+  d'édition borné à 200 ; champs de l'éditeur en `maxlength`
+  (`test/inputValidation.test.js`). Reste ouvert : l'import de sauvegarde ne
+  revalide ni longueurs, ni dates, ni kinds.
 - [ ] 35.7 Couche réseau : timeout du corps de réponse, `state` OAuth
   Strava/Suunto, redirections de l'import par lien.
 - [x] 35.8 (PR #444) Frontend — critères : la colonne « Max cat. » de la carte globale
@@ -1334,7 +1343,7 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   explorées » sont identifiées par l'id d'édition et marquent Femmes
   (« 2022 F ») (`test/frontendReviewFixes.test.js`, vérification Playwright
   en fuseau America/New_York).
-- [ ] 35.9 Export TCX — critères : une date d'étape qui n'est pas un jour
+- [x] 35.9 (PR #445) Export TCX — critères : une date d'étape qui n'est pas un jour
   AAAA-MM-JJ valide (texte Wikipédia non lu, « 2026-13-45 ») ne fait plus
   planter l'export (repli sur la date conventionnelle) ; chaque `CoursePoint`
   de waypoint est daté à sa position sur le tracé (arrivée de 98,4 km à
@@ -1343,7 +1352,7 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   `CoursePoint` (ordre du XSD TCX v2 : les TCX de la démo valident désormais
   contre le schéma Garmin avec xmllint) ; une date impossible (30 février)
   n'est plus décalée au 2 mars (`test/exports.test.js`).
-- [ ] 35.10 Wikipédia — critères : « Medium mountain » et « Intermediate
+- [x] 35.10 (PR #446) Wikipédia — critères : « Medium mountain » et « Intermediate
   stage » donnent `accidentée`, « Mountain time trial » garde `clm` ;
   `isColQuery` n'accepte plus le mot-clé qu'en tête du libellé ou d'un de ses
   segments (« / », « – », parenthèse), et un mot-clé suivi d'un trait

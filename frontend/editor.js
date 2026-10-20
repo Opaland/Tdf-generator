@@ -75,7 +75,7 @@ function wpRow(wp, i) {
   });
   li.innerHTML = `
     <span class="idx" title="glisser pour réordonner" style="cursor:grab">⠿ ${i + 1}</span>
-    <input class="label" value="${EF.esc(wp.label || '')}" placeholder="Ville, col, lieu-dit…">
+    <input class="label" maxlength="200" value="${EF.esc(wp.label || '')}" placeholder="Ville, col, lieu-dit…">
     <select class="kind">
       <option value="start"${wp.kind === 'start' ? ' selected' : ''}>départ</option>
       <option value="via"${wp.kind === 'via' ? ' selected' : ''}>passage</option>

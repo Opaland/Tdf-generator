@@ -19,13 +19,35 @@ const wrap = (fn) => (req, res) =>
 function httpError(status, message) {
   return Object.assign(new Error(message), { status });
 }
-function requireString(v, field) {
-  if (typeof v !== 'string' || !v.trim()) throw httpError(400, `${field} doit être une chaîne non vide`);
+// maxLen (facultatif) : un nom de 200 000 caractères passait, et élargissait
+// le tableau de l'éditeur mobile à plus de 2 millions de pixels (revue
+// globale du 19/10/2026).
+function checkLength(v, field, maxLen) {
+  if (maxLen != null && v.length > maxLen) throw httpError(400, `${field} : ${maxLen} caractères au plus`);
   return v;
 }
-function optionalString(v, field) {
+function requireString(v, field, maxLen) {
+  if (typeof v !== 'string' || !v.trim()) throw httpError(400, `${field} doit être une chaîne non vide`);
+  return checkLength(v, field, maxLen);
+}
+function optionalString(v, field, maxLen) {
   if (v == null) return null;
   if (typeof v !== 'string') throw httpError(400, `${field} doit être une chaîne (ou absent)`);
+  return checkLength(v, field, maxLen);
+}
+/** Paramètre de requête (?name=…) : `?name=a&name=b` en fait un tableau, que
+ * le bind SQL refusait en 500 (« Too many parameter values »). */
+function queryString(v, field, maxLen) {
+  if (v == null || v === '') return null;
+  if (typeof v !== 'string') throw httpError(400, `${field} : une seule valeur texte attendue`);
+  return checkLength(v, field, maxLen);
+}
+/** Jour calendaire AAAA-MM-JJ réel (aller-retour exact), ou null si vide. */
+function optionalIsoDay(v, field) {
+  if (v == null || v === '') return null;
+  if (typeof v !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(v)) throw httpError(400, `${field} : date AAAA-MM-JJ attendue`);
+  const t = Date.parse(`${v}T00:00:00Z`);
+  if (!Number.isFinite(t) || new Date(t).toISOString().slice(0, 10) !== v) throw httpError(400, `${field} : date inexistante (${v})`);
   return v;
 }
 function optionalNumber(v, field) {
@@ -60,4 +82,4 @@ function assertLatLonPaired(waypoints, prefix) {
  * Partagé par routes/stages.js (étapes similaires) et routes/traces.js (bilan). */
 const CLIMB_CATEGORY_RANK = { HC: 5, 1: 4, 2: 3, 3: 2, 4: 1 };
 
-module.exports = { CLIMB_CATEGORY_RANK, wrap, httpError, requireString, optionalString, optionalNumber, assertLatLonPaired };
+module.exports = { CLIMB_CATEGORY_RANK, wrap, httpError, requireString, optionalString, optionalNumber, queryString, optionalIsoDay, assertLatLonPaired };
