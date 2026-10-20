@@ -10,6 +10,12 @@ const { suuntoRouter } = require('../suunto');
 const { stravaRouter } = require('../strava');
 const { parseGpx, parseFit, importTrackAsStage } = require('../../pipeline/importTrack');
 const { wrap, httpError, requireString, queryString, CLIMB_CATEGORY_RANK } = require('../apiHelpers');
+const { decimate } = require('../../frontend/profile');
+const { inLatLonBounds } = require('../../pipeline/geo');
+
+// Carte de toutes ses traces (backlog 34.3) : points par trace, assez pour
+// une vue d'ensemble, pas pour un export.
+const TRACE_LINE_MAX_POINTS = 400;
 
 module.exports = function register(app) {
   // ---------------------------------------------------------------- import de traces
@@ -176,6 +182,34 @@ module.exports = function register(app) {
   }));
 
   // GPX brut dans le corps de la requête → étape « trace » (pipeline aval identique).
+  /** Tracé simplifié de chaque trace importée (même marqueur que le bilan :
+   * `tracks.router = 'trace'`), pour la carte « toutes mes traces » de
+   * l'onglet Exploration. Un geojson illisible (sauvegarde ancienne ou
+   * forgée) écarte la trace au lieu de faire échouer toute la carte. */
+  app.get('/api/traces/lines', wrap(async (req, res) => {
+    const rows = getDb()
+      .prepare(
+        `SELECT s.id, s.name, s.date, t.geojson FROM stages s JOIN tracks t ON t.stage_id = s.id
+         WHERE t.router = 'trace' AND s.state = 'done' ORDER BY s.id`
+      )
+      .all();
+    const lines = [];
+    for (const r of rows) {
+      let coords;
+      try {
+        coords = JSON.parse(r.geojson)?.geometry?.coordinates;
+      } catch {
+        continue;
+      }
+      if (!Array.isArray(coords)) continue;
+      const pts = decimate(coords, TRACE_LINE_MAX_POINTS)
+        .filter((c) => Array.isArray(c) && inLatLonBounds(c[1], c[0]))
+        .map((c) => [Math.round(c[1] * 1e5) / 1e5, Math.round(c[0] * 1e5) / 1e5]);
+      if (pts.length >= 2) lines.push({ id: r.id, name: r.name, date: r.date, coords: pts });
+    }
+    res.json({ lines });
+  }));
+
   app.post('/api/import/gpx', wrap(async (req, res) => {
     const { points, name } = parseGpx(String(req.body || ''));
     if (points.length < 2) return res.status(400).json({ error: 'GPX illisible : aucun point de trace (trkpt/rtept)' });
