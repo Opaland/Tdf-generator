@@ -386,18 +386,26 @@ function nearestSampleIdx(w, samples, fromIdx = 0) {
  * Altitude affichée pour un point de passage, la même que partout ailleurs
  * (revue globale du 19/10/2026 : le roadbook donnait 1442 m au point de
  * passage et 1471 m au sommet de la côte, pour le même col).
- * - col au sommet d'une côte détectée (à moins de 1,2 km, même règle que
- *   les étiquettes du profil) : `summit_ele_m` de la côte ;
+ * - col au sommet d'une côte détectée (la plus proche à moins de 1,2 km,
+ *   et dont le sommet est à moins de 100 m de l'altitude mesurée au point) :
+ *   `summit_ele_m` de la côte ;
  * - sinon l'altitude mesurée de l'échantillon, la lissée seulement si la
  *   mesure manque ; `null` si les deux manquent (jamais 0, CLAUDE.md règle 10).
  */
 function waypointEle(w, s, climbs) {
   if (!s) return null;
-  if (w.kind === 'col') {
-    const c = climbs.find((c) => c.summit_ele_m != null && Math.abs(c.end_km * 1000 - s.dist_m) < 1200);
-    if (c) return Math.round(c.summit_ele_m);
-  }
   const e = s.ele_raw_m ?? s.ele_smooth_m;
+  if (w.kind === 'col') {
+    // Côte la plus proche, et seulement si son sommet est bien celui du col :
+    // deux cols rapprochés ne doivent pas s'échanger leur altitude.
+    let best = null;
+    for (const c of climbs) {
+      if (c.summit_ele_m == null) continue;
+      const gap = Math.abs(c.end_km * 1000 - s.dist_m);
+      if (gap < 1200 && (!best || gap < best.gap)) best = { c, gap };
+    }
+    if (best && (e == null || Math.abs(best.c.summit_ele_m - e) <= 100)) return Math.round(best.c.summit_ele_m);
+  }
   return e == null ? null : Math.round(e);
 }
 

@@ -1450,10 +1450,12 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   s'affiche « Arrivée (col) » ; le tableau des côtes défile dans son cadre
   en mobile (390 px) sans couper l'impression ; sur le profil, l'étiquette
   d'arrivée n'est plus coupée au bord droit, une étiquette trop longue est
-  raccourcie avec « … » (texte complet en infobulle), et l'altitude des
+  raccourcie avec « … » en gardant l'altitude (texte complet en
+  infobulle, pas de demi-emoji), et l'altitude des
   points de passage est la mesurée ; une côte nommée par géocodage inverse
-  sur un relief ne s'appelle plus « Côte de Col du … », et un doublon dans
-  la même étape prend son km (`test/roadbookProfileFixes.test.js`,
+  sur un relief ne s'appelle plus « Côte de Col du … » ; un col ne prend
+  l'altitude que de la côte la plus proche dont le sommet est à moins de
+  100 m de sa mesure (`test/roadbookProfileFixes.test.js`,
   vérification Playwright).
 
 En attente de décision (proposées, non commencées) : méthode de lissage

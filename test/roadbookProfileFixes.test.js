@@ -86,13 +86,16 @@ test('roadbook : le tableau des côtes défile horizontalement au lieu de débor
 test('profil : une étiquette près du bord droit part vers la gauche, une trop longue est raccourcie', () => {
   const { fitLabel } = require('../frontend/profile.js');
   const near = fitLabel('Hautacam (1520 m)', 970, 200, 1000);
-  assert.strictEqual(near.flip, true);
+  assert.strictEqual(near.align, 'left');
   assert.strictEqual(near.text, 'Hautacam (1520 m)');
   const mid = fitLabel('Hautacam (1520 m)', 400, 200, 1000);
-  assert.strictEqual(mid.flip, false);
-  // Sommet en haut du graphique : peu de hauteur disponible.
+  assert.strictEqual(mid.align, 'tilt');
+  // Sommet en haut du graphique : peu de hauteur en oblique, à plat en entier.
   const top = fitLabel('Col du Grand Colombier (1501 m)', 400, 52, 1000);
-  assert.ok(top.text.endsWith('…') && top.text.length < 31, top.text);
+  assert.deepStrictEqual(top, { text: 'Col du Grand Colombier (1501 m)', align: 'right' });
+  // Ni en oblique ni à plat : raccourcie.
+  const tight = fitLabel('Col du Grand Colombier, versant de Culoz (1501 m)', 150, 52, 300);
+  assert.ok(tight.text.endsWith('… (1501 m)') && Array.from(tight.text).length <= 30, tight.text);
 });
 
 test('profil : l\'étiquette d\'un point de passage donne l\'altitude mesurée, et rien plutôt que « 0 m »', () => {
@@ -116,12 +119,42 @@ test('profil : l\'étiquette d\'un point de passage donne l\'altitude mesurée, 
   assert.doesNotMatch(svg, /Trou \(0 m\)/);
 });
 
-test('côtes : un lieu qui est déjà un relief n\'est pas préfixé « Côte de », et un doublon prend son km', async () => {
+test('côtes : un lieu qui est déjà un relief n\'est pas préfixé « Côte de »', async () => {
   const { nameClimbs } = require('../pipeline/climbs');
-  const climbs = [{ endM: 8000 }, { endM: 14000 }, { endM: 30000 }];
-  const samples = [{ dist: 8000, lat: 45, lon: 6 }, { dist: 14000, lat: 45.1, lon: 6 }, { dist: 30000, lat: 45.2, lon: 6 }];
-  const labels = { 45: 'Col du Pin-Bouchain', 45.1: 'Col du Pin-Bouchain', 45.2: 'Tarare' };
+  const climbs = [{ endM: 8000 }, { endM: 30000 }];
+  const samples = [{ dist: 8000, lat: 45, lon: 6 }, { dist: 30000, lat: 45.2, lon: 6 }];
+  const labels = { 45: 'Col du Pin-Bouchain', 45.2: 'Tarare' };
   await nameClimbs(climbs, [], samples, async (lat) => ({ label: labels[lat] }));
-  assert.deepStrictEqual(climbs.map((c) => c.name), ['Col du Pin-Bouchain (km 8)', 'Col du Pin-Bouchain (km 14)', 'Côte de Tarare']);
+  assert.deepStrictEqual(climbs.map((c) => c.name), ['Col du Pin-Bouchain', 'Côte de Tarare']);
   assert.strictEqual(climbs[0].rawLabel, 'Col du Pin-Bouchain');
+});
+
+test('roadbook : un col proche d\'une autre côte ne prend pas son altitude', async () => {
+  const id = await summitFinishStage();
+  const { getDb } = require('../backend/db');
+  const db = getDb();
+  // Le « Hameau » (km 5, 985 m mesurés) devient un col sans côte propre ;
+  // une grosse côte finit à 600 m de lui, à 2500 m d'altitude, une autre
+  // plus loin encore.
+  db.prepare("UPDATE waypoints SET kind = 'col' WHERE stage_id = ? AND idx = 1").run(id);
+  db.prepare(`INSERT INTO climbs (stage_id, name, category, score, start_km, end_km, length_km, start_ele_m, summit_ele_m, avg_gradient, max_gradient)
+              VALUES (?, 'Loin', '2', 100, 3, 6.1, 3.1, 700, 1000, 6, 8), (?, 'Grosse', 'HC', 900, 1, 5.6, 4.6, 600, 2500, 9, 12)`).run(id, id);
+  const html = await (await fetch(`${base}/api/stages/${id}/roadbook.html`)).text();
+  assert.strictEqual(waypointRows(html)[1][4], '985 m');
+  // Sans la grosse côte, la plus proche des restantes (1000 m, à 15 m de la
+  // mesure) est bien celle du col.
+  db.prepare("DELETE FROM climbs WHERE stage_id = ? AND name = 'Grosse'").run(id);
+  const html2 = await (await fetch(`${base}/api/stages/${id}/roadbook.html`)).text();
+  assert.strictEqual(waypointRows(html2)[1][4], '1000 m');
+});
+
+test('profil : la troncature garde l\'altitude et ne coupe pas un emoji', () => {
+  const { fitLabel } = require('../frontend/profile.js');
+  const t = fitLabel('Col du Galibier (Valloire) (2642 m)', 100, 52, 200).text;
+  assert.match(t, /… \(2642 m\)$/, t);
+  for (let ax = 100; ax <= 1000; ax += 5) {
+    const e = fitLabel('🚴'.repeat(60), ax, 150, 1000).text;
+    assert.ok(!/[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/.test(e), `demi-emoji à ax=${ax}`);
+  }
+  assert.doesNotMatch(fitLabel('Alpe d\' Huez et plus encore très long', 50, 40, 160).text, / …/);
 });

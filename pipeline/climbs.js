@@ -435,11 +435,6 @@ async function nameClimbs(climbs, waypointsOnTrack, samples, reverseGeocodeFn) {
     }
     void ele;
   }
-  // Un relief trouvé au géocodage inverse peut porter le nom d'une autre
-  // côte de l'étape (la rampe sous le Col du Pin-Bouchain, nommée elle aussi
-  // « Col du Pin-Bouchain ») : le km la distingue.
-  const dup = climbs.filter((c) => c.nameSource === 'reverse-geocode' && climbs.some((o) => o !== c && o.name === c.name));
-  for (const c of dup) c.name = `${c.name} (km ${(c.endM / 1000).toFixed(0)})`;
   return climbs;
 }
 

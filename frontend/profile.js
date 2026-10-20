@@ -105,22 +105,30 @@
    * Étiquette qui tient dans le cadre du profil (revue globale du
    * 19/10/2026 : « Hauta », « Alpe d' », « Marse » coupés au bord droit,
    * libellés de col rognés en haut). Largeur estimée à 0,58 em par caractère
-   * (10,5 px). Inclinée à 38° vers la droite d'ordinaire ; près du bord
-   * droit, posée à l'horizontale à gauche du point (`flip`) — inclinée vers
-   * la gauche, elle heurtait l'encart distance / D+. Trop longue pour la
-   * place restante, elle est raccourcie avec « … » (texte complet en
-   * infobulle).
-   * @returns { text, flip }
+   * (10,5 px). Inclinée à 38° vers la droite si elle y tient (`tilt`) ;
+   * sinon posée à l'horizontale au-dessus du point, du côté où il reste le
+   * plus de place (`right` ou `left`) — un sommet proche du haut du cadre
+   * n'a que 13 caractères de place en oblique. Encore trop longue, elle est
+   * raccourcie avec « … » (texte complet en infobulle), en gardant si
+   * possible l'altitude.
+   * @returns { text, align: 'tilt' | 'right' | 'left' }
    */
   function fitLabel(text, ax, ay, W) {
     const ch = 10.5 * 0.58;
     const up = ch * Math.sin((38 * Math.PI) / 180);
     const side = ch * Math.cos((38 * Math.PI) / 180);
-    const rightRoom = (W - ax - 6) / side;
-    const flip = text.length > rightRoom && ax > W / 2;
-    const room = flip ? (ax - 6) / ch : Math.min((ay - 2) / up, rightRoom);
-    const max = Math.max(4, Math.floor(room));
-    return { text: text.length > max ? `${text.slice(0, max - 1)}…` : text, flip };
+    const chars = Array.from(text);
+    if (chars.length <= Math.min((ay - 2) / up, (W - ax - 6) / side)) return { text, align: 'tilt' };
+    const align = ax < W / 2 ? 'right' : 'left';
+    const max = Math.max(4, Math.floor(align === 'right' ? (W - ax - 6) / ch : (ax - 6) / ch));
+    if (chars.length <= max) return { text, align };
+    // Par caractère (Array.from) : pas de demi-emoji. L'altitude « (1800 m) »
+    // est gardée quand il reste de la place pour quelques lettres du nom.
+    const m = text.match(/^(.*?)( \(-?\d+ m\))/);
+    const keep = m && Array.from(m[2]).length + 5 <= max ? m[2] : '';
+    const name = Array.from(keep ? m[1] : text);
+    const cut = name.slice(0, max - 1 - Array.from(keep).length).join('').trimEnd();
+    return { text: `${cut}…${keep}`, align };
   }
 
   function renderProfileSVG(data, opts) {
@@ -256,9 +264,11 @@
         const xx = x(l.m);
         const yy = y(l.e);
         const fit = fitLabel(l.text, xx, yy - 13, W);
-        const pos = fit.flip
-          ? `x="${(xx - 3).toFixed(1)}" y="${(yy - 13).toFixed(1)}" text-anchor="end"`
-          : `transform="translate(${(xx + 3).toFixed(1)} ${(yy - 13).toFixed(1)}) rotate(-38)"`;
+        const pos = fit.align === 'tilt'
+          ? `transform="translate(${(xx + 3).toFixed(1)} ${(yy - 13).toFixed(1)}) rotate(-38)"`
+          : fit.align === 'right'
+            ? `x="${(xx + 3).toFixed(1)}" y="${(yy - 13).toFixed(1)}"`
+            : `x="${(xx - 3).toFixed(1)}" y="${(yy - 13).toFixed(1)}" text-anchor="end"`;
         ann +=
           `<line x1="${xx.toFixed(1)}" y1="${yy.toFixed(1)}" x2="${xx.toFixed(1)}" y2="${(yy - 10).toFixed(1)}" stroke="#666" stroke-width="0.8"/>` +
           `<text ${pos} font-size="10.5" fill="#333">${fit.text !== l.text ? `<title>${esc(l.text)}</title>` : ''}${esc(fit.text)}</text>`;
