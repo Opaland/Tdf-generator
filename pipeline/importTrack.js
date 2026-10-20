@@ -215,7 +215,11 @@ async function importTrackAsStage(points, meta = {}) {
 
     // Altitudes : celles de la trace si suffisamment présentes (interpolation
     // par ré-échantillonnage), sinon échantillonnage par les fournisseurs.
-    const withEle = points.filter((p) => p.ele != null).length;
+    // plausibleEle : une trace dont toutes les altitudes sont des sentinelles
+    // « pas de fix » (-32768) comptait comme « avec altitudes », et
+    // fillNearestValid la remplissait de 0 m présentés comme réels (revue
+    // globale du 19/10/2026) ; elle passe désormais par les fournisseurs.
+    const withEle = points.filter((p) => plausibleEle(p.ele) != null).length;
     const { cumulativeDistances } = require('./geo');
     const { cum } = cumulativeDistances(points);
     const hrBySample = hrAtSamples(points, cum, resampled);

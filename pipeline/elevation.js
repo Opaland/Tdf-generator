@@ -242,24 +242,32 @@ async function buildProfile(trackPoints, { onProgress } = {}) {
 
 /**
  * Comble les altitudes non finies (null/undefined/NaN) par le voisin valide
- * le plus proche — même idiome que fillInvalidElevations
+ * le plus proche en indice — même idiome que fillInvalidElevations
  * (pipeline/climbs.js) et l'import de traces (pipeline/importTrack.js).
- * 0 en dernier recours si le tableau est entièrement invalide (jamais
- * observé en pratique : un paquet d'altimétrie totalement vide échoue plus
- * tôt dans sampleElevations, avant d'atteindre ce point).
+ * Le plus proche vraiment : l'ancienne boucle recopiait toujours le
+ * précédent, déjà rempli ([100, null×4, 900] → cinq 100).
+ * Tableau entièrement invalide : erreur explicite plutôt qu'un profil à
+ * 0 m présenté comme réel (règle 10 ; le chemin était atteint par une trace
+ * aux altitudes toutes aberrantes, voir importTrack.js).
  */
 function fillNearestValid(eles) {
-  const filled = eles.map((e) => (Number.isFinite(e) ? e : null));
-  for (let i = 0; i < filled.length; i++) {
-    if (filled[i] == null) {
-      let a = i;
-      let b = i;
-      while (a > 0 && filled[a] == null) a--;
-      while (b < filled.length - 1 && filled[b] == null) b++;
-      filled[i] = filled[a] ?? filled[b] ?? 0;
-    }
+  const valid = eles.map((e) => (Number.isFinite(e) ? e : null));
+  if (valid.length && valid.every((e) => e == null)) {
+    throw Object.assign(new Error('Aucune altitude exploitable sur ce tracé (couverture altimétrique absente)'), { status: 422 });
   }
-  return filled;
+  const n = valid.length;
+  const prev = new Array(n);
+  const next = new Array(n);
+  for (let i = 0, last = -1; i < n; i++) { if (valid[i] != null) last = i; prev[i] = last; }
+  for (let i = n - 1, last = -1; i >= 0; i--) { if (valid[i] != null) last = i; next[i] = last; }
+  return valid.map((e, i) => {
+    if (e != null) return e;
+    const a = prev[i];
+    const b = next[i];
+    if (a === -1) return valid[b];
+    if (b === -1) return valid[a];
+    return i - a <= b - i ? valid[a] : valid[b];
+  });
 }
 
 module.exports = { sampleElevations, buildProfile, fillNearestValid, plausibleEle, GEOPF_BATCH, OTD_BATCH };

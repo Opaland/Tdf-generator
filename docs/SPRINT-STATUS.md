@@ -1303,7 +1303,7 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   entière (1903.7) est refusée en 400 (`test/reimportGuard.test.js`,
   vérification Playwright). La CLI et `agent-curate-stage.js` gardent le
   remplacement explicite.
-- [ ] 35.4 L'éditeur conserve la provenance des waypoints — critères :
+- [x] 35.4 (PR #441) L'éditeur conserve la provenance des waypoints — critères :
   renommer une étape curée depuis l'éditeur garde à l'identique `source`,
   `altitude_hint_m`, `bonus_sec`, `country_hint` et `region_hint` de chaque
   point (POST et PUT écrivent tous ces champs, `bonus_sec` validé en liste
@@ -1311,9 +1311,16 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   refusé en 400 n'écrit plus rien (validation avant écriture, transaction) ;
   choisir un tour dans l'éditeur n'est plus refusé (`edition_id` envoyé en
   nombre) (`test/waypointProvenance.test.js`, vérification Playwright).
-- [ ] 35.5 Arithmétique de l'altitude : D+ cumulé km par km (segment à cheval
-  sur deux km), `?? 0` des exports GPX/TCX/KML, trace entièrement aberrante
-  présentée à 0 m.
+- [ ] 35.5 Arithmétique de l'altitude — critères : le « D+ cumulé » du
+  dernier km égale le D+ de l'étape (segment à cheval sur deux km réparti au
+  prorata ; démo : Paris → Lyon 1 592 m pour 1 592, contre 1 193 avant) ; un
+  échantillon sans altitude n'est plus exporté à 0 m (GPX `<ele>` et TCX
+  `<AltitudeMeters>` omis, KML `lon,lat` et tracé laissé au sol) ; une trace
+  aux altitudes toutes aberrantes passe par les fournisseurs au lieu d'un
+  profil à 0 m ; `fillNearestValid` prend vraiment le voisin le plus proche
+  et refuse un tableau entièrement vide (`test/kmanalysisAscent.test.js`,
+  `test/importTrackSentinel.test.js`, `test/exports.test.js`,
+  `test/elevationGaps.test.js`).
 - [ ] 35.6 Validation des longueurs et des valeurs (`name`, `date`, `kind`,
   `stage_type`) et 500 qui devraient être des 400.
 - [ ] 35.7 Couche réseau : timeout du corps de réponse, `state` OAuth

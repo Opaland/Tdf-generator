@@ -91,7 +91,9 @@ function stageToGpx(full) {
   const pts = samples
     .map(
       (s) =>
-        `      <trkpt lat="${s.lat.toFixed(6)}" lon="${s.lon.toFixed(6)}"><ele>${s.ele_raw_m ?? 0}</ele></trkpt>`
+        // <ele> omis sur un trou de couverture altimétrique (règle 10) : un
+        // 0 m de repli faisait recompter un D+ fantôme à tout GPS qui relit.
+        `      <trkpt lat="${s.lat.toFixed(6)}" lon="${s.lon.toFixed(6)}">${Number.isFinite(s.ele_raw_m) ? `<ele>${s.ele_raw_m}</ele>` : ''}</trkpt>`
     )
     .join('\n');
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -176,7 +178,7 @@ function stageToTcx(full) {
         `      <Trackpoint>\n` +
         `        <Time>${timeAt(s.dist_m)}</Time>\n` +
         `        <Position><LatitudeDegrees>${s.lat.toFixed(6)}</LatitudeDegrees><LongitudeDegrees>${s.lon.toFixed(6)}</LongitudeDegrees></Position>\n` +
-        `        <AltitudeMeters>${s.ele_raw_m ?? 0}</AltitudeMeters>\n` +
+        (Number.isFinite(s.ele_raw_m) ? `        <AltitudeMeters>${s.ele_raw_m}</AltitudeMeters>\n` : '') + // facultatif (minOccurs=0), omis plutôt que 0 m
         `        <DistanceMeters>${s.dist_m.toFixed(1)}</DistanceMeters>\n` +
         `      </Trackpoint>`
     )
@@ -216,7 +218,8 @@ ${coursePoints}
  */
 function stageToKml(full) {
   const { stage, samples, waypoints, climbs } = full;
-  const coordTuple = (lat, lon, ele) => `${lon},${lat},${ele ?? 0}`;
+  // Altitude omise quand elle manque (règle 10) plutôt qu'un 0 m de repli.
+  const coordTuple = (lat, lon, ele) => (Number.isFinite(ele) ? `${lon},${lat},${ele}` : `${lon},${lat}`);
   // Sans <altitudeMode>, la valeur par défaut KML (clampToGround) IGNORE
   // l'altitude de la coordonnée (référence OGC : « clampToGround —
   // (default) Indicates to ignore an altitude specification ») — trouvaille
@@ -255,6 +258,9 @@ function stageToKml(full) {
     .join('\n');
 
   const trackCoords = samples.map((s) => coordTuple(s.lat, s.lon, s.ele_raw_m)).join(' ');
+  // En absolute, un point sans altitude retomberait au niveau de la mer :
+  // s'il manque une seule altitude, le tracé reste collé au sol (défaut KML).
+  const trackAltitudeMode = samples.every((s) => Number.isFinite(s.ele_raw_m)) ? '\n        <altitudeMode>absolute</altitudeMode>' : '';
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2">
@@ -269,8 +275,7 @@ ${climbPlacemarks}
     <Placemark>
       <name>${esc(stage.name)}</name>
       <styleUrl>#etapeforge-track</styleUrl>
-      <LineString>
-        <altitudeMode>absolute</altitudeMode>
+      <LineString>${trackAltitudeMode}
         <coordinates>${trackCoords}</coordinates>
       </LineString>
     </Placemark>
