@@ -306,7 +306,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   loadChallengeOfTheDay();
   loadSuggestNext();
   map = L.map('map').setView([46.6, 2.6], 6);
-  EF.ignLayer().addTo(map);
+  EF.addBaseLayers(map, 46.6, 2.6);
   markersLayer = L.layerGroup().addTo(map);
 
   map.on('click', async (e) => {

@@ -1273,7 +1273,18 @@ Actionnables sans décision :
 - [ ] 34.2 Calques IGN historiques (Carte 1950 `GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN50.1950`,
   état-major `…ETATMAJOR40`, photos aériennes 1950-1965) dans l'éditeur et la
   fiche — couches relevées dans le GetCapabilities ; licence à confirmer
-  couche par couche.
+  couche par couche. — critères : un sélecteur de fond sur la carte de la fiche et de
+  l'éditeur propose, en France, le plan IGN actuel, OpenStreetMap, la carte
+  1950 (SCAN 50), la carte de l'état-major (1820-1866) et les photos
+  aériennes 1950-1965 ; hors de France, plan IGN et OpenStreetMap seulement
+  (OSM par défaut) ; identifiants, matrices de tuiles (PM_3_15, PM_6_15,
+  PM_0_18) et formats relevés dans le GetCapabilities de data.geopf.fr le
+  20/10/2026 ; licence lue dans la fiche CSW de chaque couche
+  (IGNF_SCAN-50-HISTO, IGNF_SCAN-EM-40K, IGNF_BD-ORTHO-HISTO : Licence
+  Ouverte / Open License, aucune restriction d'accès) et rappelée dans
+  l'attribution ; une tuile réelle de chaque couche répond 200
+  (`test/historicLayers.test.js`, vérification Playwright avec les vraies
+  tuiles).
 - [x] 34.3 (PR #463) Heatmap géographique de toutes ses traces (idée derive / VeloViewer)
   — critères : `GET /api/traces/lines` renvoie le tracé simplifié (au plus
   400 points, `[lat, lon]`) de chaque trace importée (`tracks.router =

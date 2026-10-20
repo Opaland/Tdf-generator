@@ -181,6 +181,42 @@ const EF = {
     return EF.inFrance(lat, lon) ? EF.ignLayer() : EF.osmLayer();
   },
 
+  // Fonds historiques de l'IGN (backlog 34.2) : identifiants, matrices de
+  // tuiles et formats relevés dans le GetCapabilities de data.geopf.fr/wmts
+  // (20/10/2026) ; licence lue dans la fiche de métadonnées de chaque couche
+  // (CSW IGNF_SCAN-50-HISTO, IGNF_SCAN-EM-40K, IGNF_BD-ORTHO-HISTO) :
+  // Licence Ouverte / Open License. Couverture : France métropolitaine.
+  historicLayers() {
+    const wmts = (layer, matrixSet, format, maxNativeZoom, label) =>
+      L.tileLayer(
+        'https://data.geopf.fr/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0' +
+          `&LAYER=${layer}&STYLE=normal&TILEMATRIXSET=${matrixSet}&FORMAT=${format}` +
+          '&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
+        { attribution: `© IGN — ${label} — Licence Ouverte`, maxNativeZoom, maxZoom: 18 }
+      );
+    return {
+      'Carte 1950 (IGN, SCAN 50)': wmts('GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN50.1950', 'PM_3_15', 'image/jpeg', 15, 'Carte 1950'),
+      "Carte de l'état-major (1820-1866)": wmts('GEOGRAPHICALGRIDSYSTEMS.ETATMAJOR40', 'PM_6_15', 'image/jpeg', 15, "carte de l'état-major"),
+      'Photos aériennes 1950-1965 (IGN)': wmts('ORTHOIMAGERY.ORTHOPHOTOS.1950-1965', 'PM_0_18', 'image/png', 18, 'photographies aériennes 1950-1965'),
+    };
+  },
+
+  /**
+   * Fond par défaut (IGN en France, OpenStreetMap ailleurs) posé sur la
+   * carte, et sélecteur de fonds : plan actuel, OpenStreetMap, et en France
+   * les trois fonds historiques — pour voir la route telle qu'elle était au
+   * temps de l'étape (backlog 34.2).
+   */
+  addBaseLayers(map, lat, lon) {
+    const france = EF.inFrance(lat, lon);
+    const ign = EF.ignLayer();
+    const osm = EF.osmLayer();
+    (france ? ign : osm).addTo(map);
+    const bases = { 'Plan IGN (actuel)': ign, OpenStreetMap: osm, ...(france ? EF.historicLayers() : {}) };
+    L.control.layers(bases, null, { collapsed: true, position: 'topright' }).addTo(map);
+    return bases;
+  },
+
   // Redirige vers /login.html si le serveur exige un compte (ETAPEFORGE_PUBLIC=1)
   // et qu'aucune session valide n'est présente. Retourne l'utilisateur connecté
   // (ou null si l'auth n'est pas activée).
