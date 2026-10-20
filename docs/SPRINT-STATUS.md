@@ -1314,7 +1314,12 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
 - [ ] 35.8 Frontend : « Max cat. » toujours vide, 404 de fiche relancé à
   l'infini, dates décalées en UTC−, tuiles d'édition Hommes/Femmes de même
   année.
-- [ ] 35.9 Export TCX : date non ISO, `CoursePoint` datés au départ.
+- [ ] 35.9 Export TCX — critères : une date d'étape qui n'est pas un jour
+  AAAA-MM-JJ valide (texte Wikipédia non lu, « 2026-13-45 ») ne fait plus
+  planter l'export (repli sur la date conventionnelle) ; chaque `CoursePoint`
+  de waypoint est daté à sa position sur le tracé (arrivée de 98,4 km à
+  25 km/h : départ + 3 h 56 min) au lieu de l'heure du départ
+  (`test/exports.test.js`).
 - [ ] 35.10 Wikipédia : `normalizeType` (« Medium mountain », CLM de
   montagne) et faux cols de `isColQuery` (Mont-de-Marsan, Le Mont-Dore…).
 

@@ -133,12 +133,26 @@ function tcxToken(s, n) {
  * valeur figée qui casserait l'ordre attendu par certains lecteurs. */
 function stageToTcx(full) {
   const { stage, samples, waypoints, climbs, track } = full;
-  const baseTime = new Date(`${stage.date || '2024-01-01'}T08:00:00Z`).getTime();
+  // Date de l'étape seulement si c'est un vrai jour AAAA-MM-JJ : l'import
+  // Wikipédia écrit le texte brut quand il ne sait pas la lire
+  // (pipeline/importer.js, dateIso || dateText), et `new Date('18 juillet
+  // T08:00:00Z').toISOString()` levait une RangeError — export en 500 (revue
+  // globale du 19/10/2026).
+  const isoDay = /^\d{4}-\d{2}-\d{2}$/.test(stage.date || '') && Number.isFinite(Date.parse(`${stage.date}T08:00:00Z`)) ? stage.date : '2024-01-01';
+  const baseTime = Date.parse(`${isoDay}T08:00:00Z`);
   const timeAt = (distM) => new Date(baseTime + (distM / AVG_SPEED_MPS) * 1000).toISOString();
 
+  // Chaque waypoint est daté à sa position sur le tracé (échantillon le plus
+  // proche, en avançant dans l'ordre des waypoints pour qu'une boucle ne
+  // renvoie pas l'arrivée au départ) — tous étaient datés à l'heure du
+  // départ, arrivée et cols compris.
+  let cursor = 0;
   const coursePoints = waypoints
     .filter((w) => w.lat != null)
     .map((w) => {
+      const idx = samples.length ? nearestSampleIdx(w, samples, cursor) : -1;
+      if (idx >= 0) cursor = idx;
+      const distM = idx >= 0 ? samples[idx].dist_m : 0;
       const pointType = w.kind === 'col' ? 'Summit' : 'Generic';
       // Même trouvaille que côté GPX (voir stageToGpx ci-dessus) : les
       // CoursePoint de côtes portent déjà <AltitudeMeters> plus bas, ceux
@@ -146,7 +160,7 @@ function stageToTcx(full) {
       const altitude = Number.isFinite(w.altitude_hint_m) ? `\n      <AltitudeMeters>${w.altitude_hint_m}</AltitudeMeters>` : '';
       return `    <CoursePoint>\n` +
         `      <Name>${esc(tcxToken(w.label, 10))}</Name>\n` +
-        `      <Time>${timeAt(0)}</Time>\n` +
+        `      <Time>${timeAt(distM)}</Time>\n` +
         `      <Position><LatitudeDegrees>${w.lat}</LatitudeDegrees><LongitudeDegrees>${w.lon}</LongitudeDegrees></Position>${altitude}\n` +
         `      <PointType>${pointType}</PointType>\n` +
         `      <Notes>${esc(w.label)}</Notes>\n` +

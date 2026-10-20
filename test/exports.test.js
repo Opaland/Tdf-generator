@@ -430,3 +430,25 @@ test('ATTRIBUTIONS : chaîne non vide citant les sources de données réellement
   assert.match(ATTRIBUTIONS, /OpenStreetMap/);
   assert.match(ATTRIBUTIONS, /OSRM/);
 });
+
+// --- TCX : date non ISO et heure des CoursePoint (Epic 35.9) ---------------
+
+test('stageToTcx : une date non ISO (texte Wikipédia non lu) ne fait plus planter l\'export', () => {
+  for (const date of ['18 juillet', 'pas-une-date', '2026-13-45', null]) {
+    const full = makeFull({ stage: { ...makeFull().stage, date } });
+    const tcx = stageToTcx(full);
+    assert.match(tcx, /<Time>2024-01-01T08:00:00\.000Z<\/Time>/, String(date));
+  }
+  const ok = stageToTcx(makeFull({ stage: { ...makeFull().stage, date: '2026-07-14' } }));
+  assert.match(ok, /<Time>2026-07-14T08:00:00\.000Z<\/Time>/);
+});
+
+test("stageToTcx : chaque waypoint est daté à sa position sur le tracé, pas à l'heure du départ", () => {
+  const tcx = stageToTcx(makeFull({ stage: { ...makeFull().stage, date: '2026-07-14' } }));
+  const pts = [...tcx.matchAll(/<CoursePoint>\s*<Name>([^<]*)<\/Name>\s*<Time>([^<]*)<\/Time>/g)].map((m) => [m[1], m[2]]);
+  const depart = pts.find(([n]) => n.startsWith('Départ'))[1];
+  const arrivee = pts.find(([n]) => n.startsWith('Arrivée'))[1];
+  assert.strictEqual(depart, '2026-07-14T08:00:00.000Z');
+  // 98,4 km à 25 km/h : 3 h 56 min 10 s après le départ.
+  assert.strictEqual(arrivee, '2026-07-14T11:56:09.600Z');
+});
