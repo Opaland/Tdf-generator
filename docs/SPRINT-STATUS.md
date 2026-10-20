@@ -1352,7 +1352,7 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   `CoursePoint` (ordre du XSD TCX v2 : les TCX de la démo valident désormais
   contre le schéma Garmin avec xmllint) ; une date impossible (30 février)
   n'est plus décalée au 2 mars (`test/exports.test.js`).
-- [ ] 35.10 Wikipédia — critères : « Medium mountain » et « Intermediate
+- [x] 35.10 (PR #446) Wikipédia — critères : « Medium mountain » et « Intermediate
   stage » donnent `accidentée`, « Mountain time trial » garde `clm` ;
   `isColQuery` n'accepte plus le mot-clé qu'en tête du libellé ou d'un de ses
   segments (« / », « – », parenthèse), et un mot-clé suivi d'un trait
