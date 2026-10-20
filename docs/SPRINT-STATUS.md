@@ -1443,6 +1443,20 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   atteignables et dépliables au clavier (Entrée, Espace, `aria-expanded`) ;
   une recherche de cols sans résultat affiche un message (vérification
   Playwright au clavier).
+- [x] 35.15 (PR #453) Roadbook et étiquettes du profil — critères : un col au sommet
+  d'une côte a la même altitude dans « Villes et points de passage » et
+  dans « Côtes » (`summit_ele_m`), les autres points prennent l'altitude
+  mesurée, « — » si elle manque (jamais 0 m) ; une arrivée au sommet
+  s'affiche « Arrivée (col) » ; le tableau des côtes défile dans son cadre
+  en mobile (390 px) sans couper l'impression ; sur le profil, l'étiquette
+  d'arrivée n'est plus coupée au bord droit, une étiquette trop longue est
+  raccourcie avec « … » en gardant l'altitude (texte complet en
+  infobulle, pas de demi-emoji), et l'altitude des
+  points de passage est la mesurée ; une côte nommée par géocodage inverse
+  sur un relief ne s'appelle plus « Côte de Col du … » ; un col ne prend
+  l'altitude que de la côte la plus proche dont le sommet est à moins de
+  100 m de sa mesure (`test/roadbookProfileFixes.test.js`,
+  vérification Playwright).
 - [x] 35.16 (PR #454) Mes traces, boutons et CI — critères : après un import GPX/FIT
   (au moins un fichier réussi) ou par lien, le bilan de Mes traces est
   redemandé ; avec une seule semaine, la barre du graphique hebdomadaire
