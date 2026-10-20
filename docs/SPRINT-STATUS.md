@@ -1480,7 +1480,7 @@ grep du même motif sur tout le dépôt (règles 1 et 10).
   Suunto, Strava, lien) est borné à 200 caractères ; la sauvegarde exportée
   telle quelle se réimporte (`test/backupRevalidation.test.js`,
   aller-retour sur la base de la démo).
-- [ ] 35.20 Dette : une source pour le rang des catégories et pour esc() —
+- [x] 35.20 (PR #457) Dette : une source pour le rang des catégories et pour esc() —
   critères : le rang des catégories de côte n'existe plus qu'en
   `CATEGORY_RANK` (`pipeline/climbs.js`, repris par `apiHelpers` et
   `climbEfforts`) et `EFProfile.CAT_RANK` (repris par `cols.js` et
