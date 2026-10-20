@@ -110,7 +110,7 @@ module.exports = [
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'script',
-      globals: { ...globals.browser, ...globals.node, EF: 'readonly' },
+      globals: { ...globals.browser, ...globals.node, EF: 'readonly', L: 'readonly' },
     },
   },
   {
