@@ -59,7 +59,12 @@ async function notifyGenerationFailure(info, webhookUrl = WEBHOOK_URL, format = 
     if (!res.ok) console.error(`Notification webhook échouée : HTTP ${res.status} (${safeHost(webhookUrl)})`);
     return res.ok;
   } catch (err) {
-    const reason = err.name === 'AbortError' ? `délai de ${timeoutMs} ms dépassé` : err.message;
+    // undici recopie l'URL entière dans certains messages (« Failed to parse
+    // URL from hooks.slack.com/services/… », URL avec identifiants) : elle
+    // est masquée avant d'écrire le message (relecture adverse).
+    const reason = err.name === 'AbortError'
+      ? `délai de ${timeoutMs} ms dépassé`
+      : String(err.message || err).split(String(webhookUrl)).join(`<${safeHost(webhookUrl)}>`);
     console.error('Notification webhook injoignable :', reason);
     return false;
   }

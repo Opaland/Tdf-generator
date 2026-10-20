@@ -77,3 +77,19 @@ test('OAuth : un callback sans state valide ne connecte aucun compte', async () 
   const { getSetting } = require('../backend/settings');
   assert.ok(!getSetting('strava_access_token') && !getSetting('suunto_access_token'));
 });
+
+test("webhook : ni l'URL ni son secret n'apparaissent dans les logs, même en erreur", async () => {
+  const { notifyGenerationFailure } = require('../backend/notify');
+  const logs = [];
+  const orig = console.error;
+  console.error = (...a) => logs.push(a.join(' '));
+  try {
+    for (const url of ['hooks.slack.com/services/T0/B0/SECRETKEY', 'https://user:SECRETPW@127.0.0.1:1/hook']) {
+      await notifyGenerationFailure({ stageId: 1, stageName: 'x', error: 'y' }, url, 'json', 500);
+    }
+  } finally {
+    console.error = orig;
+  }
+  assert.ok(logs.length >= 2, 'les échecs sont bien journalisés');
+  for (const l of logs) assert.doesNotMatch(l, /SECRETKEY|SECRETPW/, l);
+});
