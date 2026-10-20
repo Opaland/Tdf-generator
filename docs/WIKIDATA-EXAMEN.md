@@ -80,3 +80,70 @@ position n'est changée sans une source sur le lieu exact.
 | 1994/3 arrivée | Eurotunnel, à 29 km du « tunnel sous la Manche » | Déjà vérifié en curation (terminal de Coquelles, confiance « verifie »). Wikidata ne donne que le tunnel. |
 
 Total : 17 + 6 + 11 + 7 = 41 lignes.
+
+# Distances et dates (Epic 33.17)
+
+Notre distance et notre date officielles viennent du tableau d'étapes de
+en.wikipedia. Elles sont relues par `pipeline/wikipedia.js` à l'import d'une
+édition et par `scripts/build-stage-towns.js`. J'ai vérifié chaque ligne
+signalée sur les deux pages Wikipédia, relues le 20/10/2026 :
+- en.wikipedia : notre source, et sa valeur est bien la nôtre ;
+- fr.wikipedia : la troisième source.
+
+Classement :
+- **notre donnée fausse** : fr.wikipedia et Wikidata concordent contre en.wikipedia ;
+- **Wikidata faux** : fr.wikipedia confirme notre valeur ;
+- **non tranché** : les trois sources divergent, ou une autre source sérieuse
+  contredit les deux autres. Toutes sont citées.
+
+Aucune correction n'est appliquée ici. Il n'existe pas encore de mécanisme
+pour corriger une distance ou une date officielle à l'import d'une édition
+(`stage_towns_overrides.json` ne porte que des positions et des libellés).
+C'est la story 33.19.
+
+## Distances (16 lignes)
+
+| Étape | en.wikipedia (nous) | fr.wikipedia | Wikidata | Classement |
+|---|---|---|---|---|
+| 1906/6 Nice – Marseille | 292 | 292 | 308 | Wikidata faux |
+| 1906/13 Caen – Paris | 259 | 259 | 246 | Wikidata faux |
+| 1927/15 Toulon – Nice | 220 | 280 | 280 | notre donnée fausse |
+| 1952/15 Avignon – Perpignan | 255 | 255 | 275 | Wikidata faux |
+| 1964/20 Brive – Puy de Dôme | 217 | 237,5 | 237,5 | notre donnée fausse |
+| 1965/20 Lyon – Auxerre | 198,5 | 298,5 | 298,5 | notre donnée fausse |
+| 1970/5b Rouen – Amiens | 223 | 113 | 113 | notre donnée fausse |
+| 1970/16 Montpellier – Toulouse | 160 | 259,5 | 259,5 | notre donnée fausse |
+| 1980/5 Liège – Lille | 249 | 249,3 | 236,5 | Wikidata faux |
+| 1985/13 Villard-de-Lans (clm) | 32 | 31,8 | 38 | Wikidata faux |
+| 1987/11 Poitiers – Chaumeil | 206 | 255 | 255 | notre donnée fausse (le profil ledicodutour transcrit va jusqu'au km 249, `stage_itineraries.json`) |
+| 1988/prologue Pornichet – La Baule | 3,8 | « 3,8 + 1 » (préface non officielle) | 1 | non tranché : contre-la-montre par équipes de 3,8 km puis 1 km pour un seul coureur ; chaque source n'en garde qu'une partie |
+| 1988/16 Tarbes – Pau | 35 | 38 | 38 | notre donnée fausse |
+| 1988/17 Pau – Bordeaux | 198 | 210 | 210 | non tranché : le profil officiel transcrit (ledicodutour) va jusqu'au km 197,5, ce qui est cohérent avec 198 |
+| 1998/12 Tarascon-sur-Ariège – Le Cap d'Agde | 190 | 222 | 206 | notre donnée gardée : en.wikipedia note que l'étape, prévue sur 206 km, a été raccourcie à 190 km (grève des coureurs) ; Wikidata donne la distance prévue ; le 222 de fr.wikipedia n'est pas expliqué |
+| 2019/14 Tarbes – Tourmalet | 111 | 117,5 | 117,5 | notre donnée fausse |
+
+Bilan des distances : 8 fausses chez nous (1927/15, 1964/20, 1965/20, 1970/5b,
+1970/16, 1987/11, 1988/16, 2019/14), 5 fausses côté Wikidata, 2 non
+tranchées, et 1998/12 gardée (distance réellement courue).
+
+## Dates décalées (28 lignes)
+
+| Étapes | en.wikipedia (nous) | fr.wikipedia | Wikidata | Classement |
+|---|---|---|---|---|
+| 1905/3, 7, 8, 9, 10, 11 | un jour plus tôt | = Wikidata | = fr | notre donnée fausse (6) |
+| 1907/5 | 16/07 | 16/07 | 15/07 | Wikidata faux |
+| 1912/12 | 21/07 | 22/07 | 22/07 | notre donnée fausse |
+| 1920/9 à 1920/14 | un jour plus tard | = Wikidata | = fr | notre donnée fausse (6) |
+| 1920/15 | 27/07 | 25/07 | 25/07 | notre donnée fausse |
+| 1948/7, 17, 18 | = fr | 07/07, 21/07, 22/07 | un jour plus tôt | Wikidata faux (3) |
+| 1950/20 | 05/08 | 05/08 | 04/08 | Wikidata faux |
+| 1951/17 | 22/07 | 22/07 | 21/07 | Wikidata faux |
+| 1954/17 | 26/07 | 26/07 | 25/07 | Wikidata faux |
+| 1955/10 | 17/07 | 17/07 | 16/07 | Wikidata faux |
+| 1957/15b | 13/07 | 12/07 | 12/07 | notre donnée fausse (fr.wikipedia donne aussi le 12/07 au secteur a) |
+| 1977/13a, 13b | 15/07 | 15/07 | 14/07 | Wikidata faux (2) |
+| 1983/21 | 23/07 | 23/07 | 22/07 | Wikidata faux |
+| 1986/14, 18 | 17/07, 21/07 | 17/07, 21/07 | 18/07, 20/07 | Wikidata faux (2) |
+
+Bilan des dates : 15 fausses chez nous (1905, 1912, 1920, 1957), 13 côté
+Wikidata.

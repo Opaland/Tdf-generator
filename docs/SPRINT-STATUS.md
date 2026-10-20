@@ -1271,12 +1271,27 @@ et côtes traversées avec leur kilomètre.
   17 lignes corrigées (Wikipédia cité par entrée), rapport régénéré de 41
   à 24 lignes, 1993/16 recontrôlée (inchangée, −1,8 %). Les distances et
   les dates, d'abord comptées dans cette story, passent en 33.17.
-- [ ] 33.17 Tri des 16 écarts de distance et des 28 dates décalées du
+- [x] 33.17 (PR #470) Tri des 16 écarts de distance et des 28 dates décalées du
   recoupement Wikidata — critères : chaque ligne classée « notre donnée
   fausse » (corrigée, source citée), « Wikidata faux » (laissée, cause
   notée) ou « non tranché » (deux sources qui divergent, les deux citées) ;
   aucune correction sans source (règle 12) ; curation, pas de relecture
-  adverse dédiée.
+  adverse dédiée. Fait : classement dans `docs/WIKIDATA-EXAMEN.md`,
+  fr.wikipedia en troisième source — distances : 8 fausses chez nous, 5
+  côté Wikidata, 2 non tranchées, 1998/12 gardée (distance courue) ;
+  dates : 15 fausses chez nous, 13 côté Wikidata. La correction, faute de
+  mécanisme pour une distance ou une date officielle, passe en 33.19.
+- [ ] 33.19 Corrections officielles sourcées appliquées à l'import — un
+  fichier de données (`pipeline/data/official_corrections.json`) porte,
+  par « édition/étape », une distance, une date ou une ville de départ
+  ou d'arrivée corrigée, chacune avec sa source ; critères : appliqué par
+  l'import d'édition (`pipeline/wikipedia.js`, le tableau Wikipédia lu en
+  direct) et par `scripts/build-stage-towns.js` ; une entrée sans source
+  est refusée (test) ; la valeur Wikipédia d'origine reste visible
+  quelque part (note de l'étape, ou champ de l'export), jamais effacée en
+  silence (règle 12) ; les 8 distances et 15 dates « notre donnée fausse »
+  de `docs/WIKIDATA-EXAMEN.md`, plus 1984/6 (Cergy-Pontoise, 33.18),
+  saisies ; changement de code, donc relecture adverse.
 - [x] 33.18 (PR #469) Libellé faux pris à un lien Wikipédia : 1984/6 part de
   « Louvroil » parce que en.wikipedia écrit `[[Louvroil|Cergy-Pontoise]]`
   — critères : `stage_towns_overrides.json` accepte un `label` facultatif
