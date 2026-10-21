@@ -6940,6 +6940,43 @@
        "confidence": "ambigu"
       },
       {
+       "label": "Grosser Stern",
+       "km": 2,
+       "kind": "lieu-dit",
+       "lat": 52.51514,
+       "lon": 13.34999,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "Nominatim, recherche bornée à Berlin-Ouest (33.20)"
+      },
+      {
+       "label": "Müller Strasse",
+       "km": 7.5,
+       "kind": "lieu-dit",
+       "lat": 52.55519,
+       "lon": 13.34374,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "rue de Wedding : point renvoyé en premier par Nominatim, recherche bornée à Berlin-Ouest (33.20)"
+      },
+      {
+       "label": "Wittenau",
+       "km": 14.5,
+       "kind": "lieu-dit",
+       "lat": 52.5924,
+       "lon": 13.32494,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "Alt-Wittenau, vieux village, plutôt que le centre du quartier (règle 6) — Nominatim, recherche bornée à Berlin-Ouest (33.20)"
+      },
+      {
+       "label": "Berliner Strasse",
+       "km": 21,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "non placé (33.20) : homonyme non tranché — la Berliner Straße de Tegel, seule entre Wittenau et Spandau, est à 7,9 km du point de Spandau pour 6 km au profil"
+      },
+      {
        "label": "Spandau",
        "km": 27,
        "kind": "lieu-dit",
@@ -6949,18 +6986,98 @@
        "confidence": "ok"
       },
       {
+       "label": "Theodor Heuss Platz",
+       "km": 34,
+       "kind": "lieu-dit",
+       "lat": 52.50929,
+       "lon": 13.27233,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "Nominatim, recherche bornée à Berlin-Ouest (33.20)"
+      },
+      {
        "label": "Côte de Grunewald Turm",
        "km": 42,
        "kind": "côte",
+       "lat": 52.47819,
+       "lon": 13.19673,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "Grunewaldturm, sur la Havelchaussee — Nominatim, recherche bornée à Berlin-Ouest (33.20) ; les altitudes imprimées du profil (5 à 55 m) ne servent pas de témoin : Berlin est vers 35 m (règle 14 inapplicable)"
+      },
+      {
+       "label": "Côte de Nikolskoe",
+       "km": 55.5,
+       "kind": "côte",
+       "lat": 52.42428,
+       "lon": 13.11712,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "km mesuré à la colonne (règle 3 : quatre km 51,5 / 55,5 / 59,5 / 60,5 pour trois noms, 25,6 px/km entre les graduations 42 et 50 ; le km 51,5 n'a pas de nom) — Nominatim, recherche bornée à Berlin-Ouest (33.20)"
+      },
+      {
+       "label": "Boenig-Strasse",
+       "km": 59.5,
+       "kind": "lieu-dit",
        "confidence": "non-place",
-       "note": "non placé, lieu exact non sourcé (33.12)"
+       "note": "non placé (33.20) : introuvable sous Boenig-, Bönig- ou Boenigstraße autour de Wannsee"
       },
       {
        "label": "Pont de Wannsee",
        "km": 60.5,
        "kind": "lieu-dit",
+       "lat": 52.42081,
+       "lon": 13.17144,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "Wannseebrücke — Nominatim, recherche bornée à Berlin-Ouest (33.20)"
+      },
+      {
+       "label": "Astern Platz",
+       "km": 70.5,
+       "kind": "lieu-dit",
+       "lat": 52.44924,
+       "lon": 13.30405,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "Asternplatz, Lichterfelde — Nominatim, recherche bornée à Berlin-Ouest (33.20)"
+      },
+      {
+       "label": "Mohriner Allee",
+       "km": 84,
+       "kind": "lieu-dit",
+       "lat": 52.44034,
+       "lon": 13.41795,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "rue de Britz : point renvoyé en premier par Nominatim, recherche bornée à Berlin-Ouest (33.20)"
+      },
+      {
+       "label": "Nollendorf Platz",
+       "km": 95,
+       "kind": "lieu-dit",
+       "lat": 52.4993,
+       "lon": 13.3534,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "Nollendorfplatz — Nominatim, recherche bornée à Berlin-Ouest (33.20)"
+      },
+      {
+       "label": "Berlin (Martin-Luther-Strasse, 1er passage)",
+       "km": 97.5,
+       "kind": "lieu-dit",
        "confidence": "non-place",
-       "note": "non placé, lieu exact non sourcé (33.12)"
+       "note": "non placé (33.20) : point exact de la ligne sur la rue non sourcé ; imprimé « 1er passage arrivée », entrée du circuit final (circuit_km, règle 19)"
+      },
+      {
+       "label": "Breslauer Platz",
+       "km": 99.5,
+       "kind": "lieu-dit",
+       "lat": 52.47211,
+       "lon": 13.33551,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "Friedenau — Nominatim, recherche bornée à Berlin-Ouest (33.20)"
       },
       {
        "label": "Berlin (Martin-Luther-Strasse)",
@@ -6971,7 +7088,20 @@
       }
      ],
      "length_km": 105.5,
-     "note": "Contre-la-montre dans Berlin-Ouest : rues et quartiers seulement, aucune commune à placer — non contrôlable."
+     "note": "Étape en ligne dans Berlin-Ouest (en.wikipedia : « Plain stage », 105 km). Circuit final : 1er passage sur la ligne au km 97,5, arrivée au km 105,5 (circuit_km). Profil relu nom par nom (règle 18, 33.20) : 12 noms ajoutés, dont 9 placés ; Côte de Grunewald Turm et Pont de Wannsee, jusqu'ici non placés, le sont. Non repris : le km 51,5, sans nom. Hors tolérance (−6,4 % sur 88 % de l'étape) : Astern Platz → Mohriner Allee est routé à vélo sur 9,2 km pour 13,5 au profil, mais sur 13,2 km en voiture (OSRM) — écart du routeur (règle 20), points gardés ; aller-retour incertain autour de Nikolskoe, Boenig-Strasse n'étant pas placée.",
+     "circuit_km": 97.5,
+     "route_check": {
+      "routed_km": 87.1,
+      "profile_km": 93,
+      "delta_pct": -6.4,
+      "tolerance_pct": 5,
+      "coverage_pct": 88,
+      "car_legs": 0,
+      "legs": 10,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 1
+     }
     },
     "2": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1987/87_2.jpg",
@@ -6980,17 +7110,38 @@
        "label": "Berlin (Schloss Strasse)",
        "km": 0,
        "kind": "lieu-dit",
-       "confidence": "non-place",
-       "note": "non placé, lieu exact non sourcé (33.12)"
+       "lat": 52.51876,
+       "lon": 13.29629,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "Schloßstraße de Charlottenburg, à 1,9 km du Theodor-Heuss-Platz pour 2,5 au profil ; celle de Steglitz en est à plus de 7 km (règle 7) — Nominatim, recherche bornée à Berlin-Ouest (33.20)"
+      },
+      {
+       "label": "Theodor Heuss Platz",
+       "km": 2.5,
+       "kind": "lieu-dit",
+       "lat": 52.50929,
+       "lon": 13.27233,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "Nominatim, recherche bornée à Berlin-Ouest (33.20)"
       },
       {
        "label": "Spandau",
        "km": 6.5,
        "kind": "lieu-dit",
-       "lat": 52.53579,
-       "lon": 13.19779,
-       "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "non-place",
+       "note": "non placé (33.20) : le point de Spandau (vieille ville) est à 5,6 km du Theodor-Heuss-Platz pour 4 km au profil — passage par la Heerstraße, point exact non sourcé"
+      },
+      {
+       "label": "Potsdamer Chaussee / Ritterfelddamm",
+       "km": 15.5,
+       "kind": "lieu-dit",
+       "confidence": "ok",
+       "note": "carrefour : nœud OSM 27324730 (feux), commun aux deux voies — Overpass, 33.20 ; 10,9 km à vol d'oiseau du Theodor-Heuss-Platz pour 13 au profil, 4,1 km de Gatow pour 8",
+       "lat": 52.47753,
+       "lon": 13.12055,
+       "how": "osm"
       },
       {
        "label": "Gatow",
@@ -6999,41 +7150,79 @@
        "lat": 52.48564,
        "lon": 13.18013,
        "how": "nominatim",
-       "confidence": "ok",
-       "note": "tronçon suspect (33.12) : contre-la-montre par les rues de Berlin-Ouest, 17 km au profil pour 5,7 à vol d’oiseau depuis Spandau — tracé sinueux, pas une erreur de lecture"
+       "confidence": "ok"
       },
       {
-       "label": "Berlin (John-F.-Kennedy-Platz)",
+       "label": "Theodor Heuss Platz (Kaiserdamm)",
+       "km": 32.5,
+       "kind": "lieu-dit",
+       "lat": 52.50929,
+       "lon": 13.27233,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "second passage : aller et retour par la Heerstraße, imprimé tel quel — Nominatim, recherche bornée à Berlin-Ouest (33.20)"
+      },
+      {
+       "label": "Sophie Charlotten Platz",
+       "km": 34.5,
+       "kind": "lieu-dit",
+       "lat": 52.51142,
+       "lon": 13.2963,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "Nominatim, recherche bornée à Berlin-Ouest (33.20)"
+      },
+      {
+       "label": "Olivaer Platz",
+       "km": 36.5,
+       "kind": "lieu-dit",
+       "lat": 52.49945,
+       "lon": 13.31463,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "Nominatim, recherche bornée à Berlin-Ouest (33.20)"
+      },
+      {
+       "label": "Lietzenburg Str. / Martin Luther Str.",
+       "km": 38.5,
+       "kind": "lieu-dit",
+       "lat": 52.49844,
+       "lon": 13.34592,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "extrémité nord de la Martin-Luther-Straße, au débouché de la Lietzenburger Straße — Nominatim, recherche bornée à Berlin-Ouest (33.20)"
+      },
+      {
+       "label": "Berlin (John F. Kennedy Platz)",
        "km": 40.5,
        "kind": "lieu-dit",
        "lat": 52.4849,
        "lon": 13.34464,
        "how": "nominatim",
-       "confidence": "ok",
-       "note": "aller-retour (33.14) : pas de pont sur la Havel à hauteur de Gatow (vraisemblablement) : le routeur revient vers le nord ; le tracé réel du contre-la-montre n’est pas connu"
+       "confidence": "ok"
       }
      ],
      "length_km": 40.5,
-     "note": "Contre-la-montre dans Berlin-Ouest : rues et quartiers seulement, aucune commune à placer — non contrôlable.",
+     "note": "Contre-la-montre par équipes dans Berlin-Ouest (en.wikipedia : « Team time trial », 41 km). Profil relu nom par nom (règle 18, 33.20) : 6 noms ajoutés ; le Theodor-Heuss-Platz est imprimé à l'aller (km 2,5) et au retour (km 32,5).",
      "route_check": {
-      "routed_km": 22.8,
-      "profile_km": 34,
-      "delta_pct": -33.1,
+      "routed_km": 37.5,
+      "profile_km": 38,
+      "delta_pct": -1.2,
       "tolerance_pct": 5,
-      "coverage_pct": 84,
+      "coverage_pct": 94,
       "car_legs": 0,
-      "legs": 2,
-      "suspect_legs": 1,
-      "backtracks": 1,
-      "backtracks_uncertain": 0
+      "legs": 7,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 1
      }
     },
     "3": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1987/87_3.jpg",
-     "note": "Non repris : 1er au 4e passage du « Schwaben Bräu » (sprints dans la ville), sans commune. Hors tolérance après tri (33.12) : −5,4 % (−11,5 % avant, côtes et villages placés) ; Ettlingen → Grötzingen et Neckarrems → Stuttgart-Mühlhausen sont bien plus courts que le profil (détours non nommés dans Karlsruhe et Stuttgart), cause non établie.",
+     "note": "Non repris : 1er au 4e passage du « Schwaben Bräu » (sprints dans la ville), sans commune. Hors tolérance après 33.20 : −5,6 % sur 85 % de l'étape, circuit final de Stuttgart retiré de la mesure (circuit_km au 1er passage, km 207,5) ; −5,4 % avant, −11,5 % avant le tri 33.12 ; Ettlingen → Grötzingen et Neckarrems → Stuttgart-Mühlhausen sont bien plus courts que le profil (détours non nommés dans Karlsruhe et Stuttgart), cause non établie — en voiture aussi (OSRM : 15,9 km pour 19,5 et 5,9 pour 12), ce n'est donc pas le routeur (règle 20).",
      "towns": [
       {
-       "label": "Karlsruhe",
+       "label": "Karlsruhe (Fest Platz)",
        "km": 0,
        "kind": "ville",
        "lat": 49.00687,
@@ -7283,6 +7472,13 @@
        "note": "non trouvé par la recherche Nominatim bornée autour des voisins (33.12)"
       },
       {
+       "label": "Stuttgart (Theodor Heuss Strasse, 1er passage)",
+       "km": 207.5,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "non placé (33.20) : imprimé « Theodor Heuss Strasse (1er passage) » au km 207,5, omis à la transcription ; entrée du circuit final (circuit_km, règle 19)"
+      },
+      {
        "label": "Côte de Birkenkopf",
        "km": 212,
        "kind": "côte",
@@ -7293,7 +7489,7 @@
        "note": "sommet du Birkenkopf, Stuttgart (Nominatim, recherche bornée, 33.12) ; MNT 491 m pour 445 imprimés — était rattaché ou non placé, donc non routé (règle 21) ; aller-retour incertain de 1,8 km vers Stuttgart (le tronçon entrant saute la Côte de Feuerbach, non placée) : non tranché"
       },
       {
-       "label": "Stuttgart",
+       "label": "Stuttgart (Theodor Heuss Strasse)",
        "km": 219,
        "kind": "ville",
        "lat": 48.77845,
@@ -7304,17 +7500,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 195.8,
-      "profile_km": 206,
-      "delta_pct": -5,
+      "routed_km": 175.7,
+      "profile_km": 186,
+      "delta_pct": -5.6,
       "tolerance_pct": 5,
-      "coverage_pct": 94,
+      "coverage_pct": 85,
       "car_legs": 0,
-      "legs": 21,
+      "legs": 19,
       "suspect_legs": 2,
       "backtracks": 0,
-      "backtracks_uncertain": 1
-     }
+      "backtracks_uncertain": 0
+     },
+     "circuit_km": 207.5
     },
     "4": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1987/87_4.jpg",
