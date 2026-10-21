@@ -501,7 +501,7 @@ et côtes traversées avec leur kilomètre.
   à la mairie, notés (Trouville-Alliquerville, Saint-Malo-du-Bois,
   Grumesnil). Règles 22 à 24 ajoutées à CURATION-REGLES.
 
-- [x] Édition 1998 (PR à venir) : 19 étapes sur 22, 136 points placés sur 141.
+- [x] Édition 1998 (PR #478) : 19 étapes sur 22, 136 points placés sur 141.
   Non transcrits : le prologue de Dublin (rues), 1998/12 (profil de 222 km,
   ni l'étape prévue — 206 km — ni l'étape courue — 190 km, d'après
   en.wikipedia) et 1998/17 (annulée, grève des coureurs). Noms sans km
