@@ -1680,18 +1680,24 @@ README fait installer). Premier constat, au clone de `main` (80ce220) :
 Node 24 sous Windows, et sans Visual Studio il ne se compile pas) ; avec
 un Node 22, `npm test` donne 57 échecs, aucun sous Linux (CI).
 
-- [ ] 36.1 Installation et `npm test` sous Windows — critères :
+- [x] 36.1 (PR #472) Installation et `npm test` sous Windows — critères :
   `npm ci` réussit sous Windows avec Node 24 sans compilateur
   (better-sqlite3 en 12.x, binaires publiés pour Node 20, 22 et 24 sous
   Linux et Windows) ; `npm test` sans échec sous Windows, dans un chemin
   qui contient un caractère accentué (`C:\Users\Moretti Cédric\…`) ;
   causes traitées une à une : base SQLite supprimée encore ouverte
-  (EBUSY, 52 fichiers — et le serveur de test jamais fermé ensuite, qui
-  bloque `editionCategory`), chemins comparés avec `/` (`singleSource`),
+  (52 échecs EBUSY, `closeDb()` dans 58 fichiers de test — et le
+  serveur de test jamais fermé ensuite, qui bloque `editionCategory`),
+  chemins comparés avec `/` (`singleSource`),
   `fs.cpSync` natif qui plante sur un chemin non ASCII (`build-site`),
   fins de ligne CRLF à l'extraction (`core.autocrlf=true`) qui changent
   l'empreinte des migrations — `.gitattributes` force LF ; CI verte sur
   Node 20 et 22 ; changement de code, donc relecture adverse.
+  Fait : `npm test` 1 032 réussis, 0 échec sous Windows (Node 24) ;
+  chaque correctif, remis dans son état de `main`, refait échouer son
+  test. Relecture adverse : 3 trouvailles corrigées — better-sqlite3
+  épinglé en `~12.9.0` (la 12.10 retire Node 20), test de `copyDir` dans
+  un dossier accentué, décompte des fichiers corrigé.
 
 ## Epic 24 — Bilan final
 

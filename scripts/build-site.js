@@ -268,4 +268,6 @@ function main() {
   console.log(`✔ dist/ : app statique (${stages.length} étapes, ${editions.length} tours, ${climbs.length} côtes, ${captures.length} captures)`);
 }
 
-main();
+if (require.main === module) main();
+
+module.exports = { copyDir };
