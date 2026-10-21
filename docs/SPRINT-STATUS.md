@@ -1384,7 +1384,7 @@ et côtes traversées avec leur kilomètre.
   leur localité OSM, chacune vérifiée (altitude MNT, voisins), corrections
   dans `stage_towns_overrides.json` avec source ; si le générateur change,
   relecture adverse.
-- [x] 33.23 (PR à venir) Reprise de 1992 sur BRouter auto-hébergé, avec les
+- [x] 33.23 (PR #480) Reprise de 1992 sur BRouter auto-hébergé, avec les
   règles 17, 20 et 24. Critères : 0 tronçon en voiture ; chaque
   aller-retour corrigé ou noté avec sa mairie ; chaque « cause non
   établie » passée au contre-test voiture. Fait : Livet (1992/15) placé au
