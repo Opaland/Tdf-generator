@@ -1723,6 +1723,23 @@ un Node 22, `npm test` donne 57 échecs, aucun sous Linux (CI).
   test. Relecture adverse : 3 trouvailles corrigées — better-sqlite3
   épinglé en `~12.9.0` (la 12.10 retire Node 20), test de `copyDir` dans
   un dossier accentué, décompte des fichiers corrigé.
+- [ ] 36.2 `fs.rmSync` muet sur un chemin non ASCII (Node 24, Windows) —
+  constaté le 21/10 : sous Node 24.13, `fs.rmSync(p, { recursive: true,
+  force: true })` ne supprime rien et ne lève rien quand `p` contient un
+  caractère non ASCII (dossier comme simple fichier) ; Node 22.23,
+  `unlinkSync`, `rmdirSync` et `fs.promises.rm` ne sont pas touchés.
+  Conséquences dans un dépôt cloné sous `C:\Users\Moretti Cédric\…` :
+  `scripts/build-site.js` ne vide plus `dist/` (d'anciens fichiers
+  resteraient publiés), `scripts/import-all-and-generate.js` ne retire plus
+  son marqueur de fin au démarrage. Critères : `removeSync` (lstat +
+  unlink/rmdir) et `copyDir` dans un module partagé, utilisés par
+  build-site, import-all-and-generate et les scripts de banc ; test :
+  un `dist/` accentué contenant un fichier périmé est vidé par build-site
+  (échoue avec `fs.rmSync` sous Node 24 Windows) ; test garde-fou : aucun
+  `fs.rmSync` ni `fs.cpSync` dans `backend/`, `pipeline/`, `scripts/` ;
+  après `npm test` avec un dossier temporaire dédié, aucun dossier
+  `etapeforge-*` restant (4 aujourd'hui : copydir, deux db-index,
+  towns) ; changement de code, donc relecture adverse.
 
 ## Epic 24 — Bilan final
 

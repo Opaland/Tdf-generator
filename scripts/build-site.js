@@ -14,6 +14,9 @@ const { getDb } = require('../backend/db');
 // (revue globale du 19/10/2026), alors qu'elle sert dans un attribut alt.
 const { esc, tourToStandaloneHtml, stagePayload, ATTRIBUTIONS, loadExportable } = require('../backend/exports');
 const { stageWithoutHr, fullWithoutHr } = require('../pipeline/heartRate');
+// fs.cpSync et fs.rmSync échouent sous Windows dans un chemin non ASCII
+// (Epic 36.1, 36.2) : copie et suppression à la main.
+const { copyDir, removeSync } = require('../pipeline/fsPortable');
 
 const ROOT = path.join(__dirname, '..');
 // ETAPEFORGE_DIST_DIR : sortie ailleurs que dist/ (tests).
@@ -26,21 +29,6 @@ const write = (rel, content) => {
   fs.writeFileSync(p, content);
 };
 const writeJson = (rel, obj) => write(rel, JSON.stringify(obj));
-
-// Copie récursive à la main : fs.cpSync (binding natif cpSyncCopyDir,
-// constaté sous Node 22.23 et 24.13) échoue sous Windows dès que le chemin
-// contient un caractère non ASCII — sortie 127 sans message, ou EIO
-// « Access is denied » (C:\Users\Moretti Cédric\…, Epic 36.1 ; un chemin
-// tout ASCII passe).
-function copyDir(src, dest) {
-  fs.mkdirSync(dest, { recursive: true });
-  for (const e of fs.readdirSync(src, { withFileTypes: true })) {
-    const from = path.join(src, e.name);
-    const to = path.join(dest, e.name);
-    if (e.isDirectory()) copyDir(from, to);
-    else fs.copyFileSync(from, to);
-  }
-}
 
 // Réécriture des URL absolues en relatives (l'app est servie sous un sous-chemin).
 const TOKENS = [
@@ -69,7 +57,7 @@ function rewrite(content, { html = false } = {}) {
 }
 
 function main() {
-  fs.rmSync(DIST, { recursive: true, force: true });
+  removeSync(DIST);
   fs.mkdirSync(DIST, { recursive: true });
   const db = getDb();
   // Étape telle qu'elle peut sortir de l'application (zones de
@@ -268,6 +256,5 @@ function main() {
   console.log(`✔ dist/ : app statique (${stages.length} étapes, ${editions.length} tours, ${climbs.length} côtes, ${captures.length} captures)`);
 }
 
-if (require.main === module) main();
+main();
 
-module.exports = { copyDir };

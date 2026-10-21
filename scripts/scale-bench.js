@@ -13,6 +13,7 @@
 const os = require('os');
 const path = require('path');
 const fs = require('fs');
+const { removeSync } = require('../pipeline/fsPortable');
 
 const arg = (name, def) => {
   const i = process.argv.indexOf(name);
@@ -97,9 +98,9 @@ async function measure(ids) {
   const mb = fs.statSync(DB_PATH).size / 1024 / 1024;
   console.log(`Base : ${ids.length} étapes (${EDITIONS} éditions × ${STAGES}), générées en ${buildS.toFixed(0)} s, fichier SQLite ${mb.toFixed(1)} Mo (${(mb * 1024 / ids.length).toFixed(1)} Ko/étape)`);
   console.table(rows);
-  fs.rmSync(dataDir, { recursive: true, force: true });
+  removeSync(dataDir);
 })().catch((e) => {
   console.error(e);
-  fs.rmSync(dataDir, { recursive: true, force: true });
+  removeSync(dataDir);
   process.exit(1);
 });
