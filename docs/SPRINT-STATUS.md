@@ -1367,7 +1367,7 @@ et côtes traversées avec leur kilomètre.
   (km 207,5) ajouté, circuit final déclaré, libellés de départ et
   d'arrivée restaurés ; −5,6 % sur 85 % de l'étape. 1987/20 : aucun nom
   omis — « Hewlett-Packard » est le nom du sprint d'Eybens, pas un lieu.
-- [x] 33.21 (PR à venir) Ancre « Luchon » de `stage_towns.json` au centre de
+- [x] 33.21 (PR #479) Ancre « Luchon » de `stage_towns.json` au centre de
   la commune, 5,6 km au sud-est de la ville et à 1 198 m au MNT (ville à
   629 m), sur 76 départs et arrivées (1910-1998) — trouvée par le contrôle
   de 1998/10 (col de Peyresourde → Luchon : 22,0 km routés pour 15,5).
