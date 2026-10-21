@@ -1348,6 +1348,23 @@ et côtes traversées avec leur kilomètre.
   (km 207,5) ajouté, circuit final déclaré, libellés de départ et
   d'arrivée restaurés ; −5,6 % sur 85 % de l'étape. 1987/20 : aucun nom
   omis — « Hewlett-Packard » est le nom du sprint d'Eybens, pas un lieu.
+- [x] 33.21 (PR à venir) Ancre « Luchon » de `stage_towns.json` au centre de
+  la commune, 5,6 km au sud-est de la ville et à 1 198 m au MNT (ville à
+  629 m), sur 76 départs et arrivées (1910-1998) — trouvée par le contrôle
+  de 1998/10 (col de Peyresourde → Luchon : 22,0 km routés pour 15,5).
+  Critères : position vérifiée dans `stage_towns_overrides.json` avec sa
+  source ; les 76 occurrences, et elles seules, déplacées (diff sémantique
+  du fichier) ; `npm test` vert. Position : celle de « Bagnères-de-Luchon »
+  (même ville, recalée en 33.10).
+- [ ] 33.22 Balayage des ancres hors IGN de `stage_towns.json` : le recalage
+  sur le bourg OSM de 33.10 ne vise que les communes IGN ; 298 positions
+  géocodées autrement (135 `geocode+nominatim`, 113
+  `geocode-pays+nominatim`, 38 `nominatim`…) n'ont pas été recalées, et
+  Luchon (33.21) montre qu'une relation de commune peut y donner le
+  centre géographique. Critères : liste des positions à 3 km ou plus de
+  leur localité OSM, chacune vérifiée (altitude MNT, voisins), corrections
+  dans `stage_towns_overrides.json` avec source ; si le générateur change,
+  relecture adverse.
 
 ## Epic 34 — Idées venues d'autres dépôts (veille du 18/10/2026)
 
