@@ -21,21 +21,19 @@ function copyDir(src, dest) {
   }
 }
 
-/** Supprime un fichier ou un dossier et son contenu ; absent : rien (comme
- * rmSync { recursive, force }). Un lien symbolique est retiré, jamais suivi. */
+/** Supprime un fichier ou un dossier et son contenu ; absent, ou disparu
+ * pendant le parcours : rien (comme rmSync { recursive, force }). Un lien
+ * symbolique est retiré, jamais suivi. */
 function removeSync(p) {
-  let st;
   try {
-    st = fs.lstatSync(p);
+    if (fs.lstatSync(p).isDirectory()) {
+      for (const name of fs.readdirSync(p)) removeSync(path.join(p, name));
+      fs.rmdirSync(p);
+    } else {
+      fs.unlinkSync(p);
+    }
   } catch (err) {
-    if (err.code === 'ENOENT') return;
-    throw err;
-  }
-  if (st.isDirectory()) {
-    for (const name of fs.readdirSync(p)) removeSync(path.join(p, name));
-    fs.rmdirSync(p);
-  } else {
-    fs.unlinkSync(p);
+    if (err.code !== 'ENOENT') throw err;
   }
 }
 

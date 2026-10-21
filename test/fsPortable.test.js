@@ -64,6 +64,10 @@ test('aucun fs.rmSync ni fs.cpSync hors des tests : pipeline/fsPortable.js à la
   const files = (d) => fs.readdirSync(path.join(ROOT, d), { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? files(path.posix.join(d, e.name)) : e.name.endsWith('.js') ? [path.posix.join(d, e.name)] : []));
   const hits = ['backend', 'pipeline', 'scripts']
     .flatMap(files)
-    .filter((f) => /\b(rmSync|cpSync)\(/.test(fs.readFileSync(path.join(ROOT, f), 'utf8').replace(/\/\/.*$/gm, '')));
+    // Lignes de commentaire écartées entières : retirer « //… » en fin de
+    // ligne mangeait aussi une URL dans une chaîne (relecture adverse).
+    .filter((f) => fs.readFileSync(path.join(ROOT, f), 'utf8').split('\n')
+      .filter((l) => !/^\s*(\/\/|\/?\*)/.test(l))
+      .some((l) => /\b(rmSync|cpSync)\s*\(|\[\s*['"](rmSync|cpSync)['"]\s*\]/.test(l)));
   assert.deepStrictEqual(hits, []);
 });
