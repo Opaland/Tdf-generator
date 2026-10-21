@@ -88,6 +88,7 @@ before(() => { setOffline(false); realFetch = global.fetch; });
 after(() => {
   global.fetch = realFetch;
   setOffline(true);
+  require('../backend/db').closeDb();
   fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true });
 });
 

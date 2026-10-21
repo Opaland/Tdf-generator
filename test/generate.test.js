@@ -17,6 +17,7 @@ const { importTrackAsStage, parseGpx } = require('../pipeline/importTrack');
 const { stageConfidence } = require('../pipeline/wikipedia');
 
 after(() => {
+  require('../backend/db').closeDb();
   fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true });
 });
 

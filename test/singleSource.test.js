@@ -10,7 +10,9 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
-const files = (dir) => fs.readdirSync(path.join(ROOT, dir)).filter((f) => f.endsWith('.js')).map((f) => path.join(dir, f));
+// path.posix : chemins comparés avec « / » quel que soit le système (Windows,
+// Epic 36.1).
+const files = (dir) => fs.readdirSync(path.join(ROOT, dir)).filter((f) => f.endsWith('.js')).map((f) => path.posix.join(dir, f));
 
 test('rang des catégories : une table côté Node, une côté navigateur, identiques', () => {
   const { CATEGORY_RANK } = require('../pipeline/climbs');

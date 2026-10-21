@@ -21,6 +21,7 @@ const { httpText, httpJson } = require('../pipeline/http');
 const servers = [];
 after(() => {
   for (const s of servers) s.close();
+  require('../backend/db').closeDb();
   fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true });
 });
 

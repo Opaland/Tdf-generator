@@ -27,6 +27,21 @@ const write = (rel, content) => {
 };
 const writeJson = (rel, obj) => write(rel, JSON.stringify(obj));
 
+// Copie récursive à la main : fs.cpSync (binding natif cpSyncCopyDir,
+// constaté sous Node 22.23 et 24.13) échoue sous Windows dès que le chemin
+// contient un caractère non ASCII — sortie 127 sans message, ou EIO
+// « Access is denied » (C:\Users\Moretti Cédric\…, Epic 36.1 ; un chemin
+// tout ASCII passe).
+function copyDir(src, dest) {
+  fs.mkdirSync(dest, { recursive: true });
+  for (const e of fs.readdirSync(src, { withFileTypes: true })) {
+    const from = path.join(src, e.name);
+    const to = path.join(dest, e.name);
+    if (e.isDirectory()) copyDir(from, to);
+    else fs.copyFileSync(from, to);
+  }
+}
+
 // Réécriture des URL absolues en relatives (l'app est servie sous un sous-chemin).
 const TOKENS = [
   ["location.href = '/'", "location.href = 'editeur.html'"],
@@ -155,7 +170,7 @@ function main() {
   // binaires, aucune URL absolue à corriger dedans).
   for (const f of fs.readdirSync(FRONTEND, { withFileTypes: true })) {
     if (f.isDirectory()) {
-      fs.cpSync(path.join(FRONTEND, f.name), path.join(DIST, f.name), { recursive: true });
+      copyDir(path.join(FRONTEND, f.name), path.join(DIST, f.name));
       continue;
     }
     const srcPath = path.join(FRONTEND, f.name);
@@ -187,9 +202,9 @@ function main() {
   for (const f of ['leaflet.js', 'leaflet.css']) {
     write(path.join('vendor', 'leaflet', f), fs.readFileSync(path.join(leafletSrc, f)));
   }
-  fs.cpSync(path.join(leafletSrc, 'images'), path.join(DIST, 'vendor', 'leaflet', 'images'), { recursive: true });
+  copyDir(path.join(leafletSrc, 'images'), path.join(DIST, 'vendor', 'leaflet', 'images'));
   // Captures.
-  fs.cpSync(path.join(ROOT, 'docs', 'captures'), path.join(DIST, 'captures'), { recursive: true });
+  copyDir(path.join(ROOT, 'docs', 'captures'), path.join(DIST, 'captures'));
 
   // --- 3. Page d'accueil (hub de la démo) --------------------------------------
   const demoStage = stages.find((s) => /hautacam/i.test(s.name)) || stages[0];
@@ -253,4 +268,6 @@ function main() {
   console.log(`✔ dist/ : app statique (${stages.length} étapes, ${editions.length} tours, ${climbs.length} côtes, ${captures.length} captures)`);
 }
 
-main();
+if (require.main === module) main();
+
+module.exports = { copyDir };

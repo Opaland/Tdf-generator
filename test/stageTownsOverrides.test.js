@@ -14,7 +14,10 @@ const { test, after } = require('node:test');
 const assert = require('node:assert');
 const { applyOverrides, writeStageTowns, readOverrides } = require('../scripts/build-stage-towns');
 
-after(() => fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true }));
+after(() => {
+  require('../backend/db').closeDb();
+  fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true });
+});
 
 const DATA = path.join(__dirname, '..', 'pipeline', 'data');
 const overrides = JSON.parse(fs.readFileSync(path.join(DATA, 'stage_towns_overrides.json'), 'utf8'));

@@ -15,6 +15,7 @@ const { getDb } = require('../backend/db');
 const { cacheGet, cachePut, purgeExpiredCache, cacheKey } = require('../pipeline/cache');
 
 after(() => {
+  require('../backend/db').closeDb();
   fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true });
 });
 

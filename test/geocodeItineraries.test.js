@@ -13,7 +13,10 @@ const { test, after } = require('node:test');
 const assert = require('node:assert');
 const { geocodeStage, anchorsFor, stageAnchors, snapToTown, assembleCandidates } = require('../scripts/geocode-itineraries');
 
-after(() => fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true }));
+after(() => {
+  require('../backend/db').closeDb();
+  fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true });
+});
 
 const M = 111195;
 const at = (dN, dE) => ({ lat: 49 + dN / M, lon: 6 + dE / (M * Math.cos((49 * Math.PI) / 180)) });

@@ -11,7 +11,10 @@ const fs = require('fs');
 const { parseGpx, importTrackAsStage } = require('../pipeline/importTrack');
 const { loadStageFull } = require('../pipeline/generate');
 
-after(() => fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true }));
+after(() => {
+  require('../backend/db').closeDb();
+  fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true });
+});
 
 /** GPX synthétique : 10 km plat à 400 m puis 6 km à 7 % vers le nord. */
 function syntheticGpx({ withTime = false } = {}) {
