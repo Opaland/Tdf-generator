@@ -1303,7 +1303,7 @@ et côtes traversées avec leur kilomètre.
   texte affiché aurait déplacé 10 autres cellules, souvent à tort (1976,
   `[[Pla d'Adet|Saint-Lary-Soulan]]` : arrivée au sommet renvoyée dans la
   vallée) ; changement de code, donc relecture adverse.
-- [ ] 33.20 Règle 18 (nom par nom) sur 1987/1, 1987/2, 1987/3 et 1987/20,
+- [x] 33.20 (PR #474) Règle 18 (nom par nom) sur 1987/1, 1987/2, 1987/3 et 1987/20,
   restée à faire après 33.12 — critères : chaque profil relu sur
   agrandissement (tiers ×4,5, sixièmes ×5) contre la transcription ; tout
   nom omis ajouté avec son km, placé seulement si une recherche bornée le
