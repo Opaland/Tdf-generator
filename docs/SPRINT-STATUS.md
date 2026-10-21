@@ -480,6 +480,26 @@ et côtes traversées avec leur kilomètre.
   Mons (1995/6), Luchon et Cazaux-Layrisse (1995/15). Dourgne (1995/13)
   non repris : km imprimé « 119,5 » entre Castres (198) et Revel (245).
 
+- [x] Édition 1997 (PR à venir) : 21 étapes sur 22, 350 points placés sur 357
+  (prologue de Rouen non transcrit : des rues seulement, comme 1994-1996).
+  Non placés, avec note : côtes des forêts d'Eawy et d'Eu, Saint-Colomban,
+  Andorre, Méribel, côte des Rosselières, Paris (1997/21). 19 côtes
+  rattachées à leur lieu éponyme (`geocodeAs`), non routées. Contrôlée à
+  ±5 % sur un BRouter auto-hébergé, 0 tronçon en voiture : 16 étapes dans la
+  tolérance, 4 hors, cause écrite dans la note — 1997/1 (−11,1 % : détour
+  de 18 km par les forêts d'Eawy et de Torcy, non routables), 1997/14
+  (−7,3 % : 11,5 km de fond de vallée entre Saint-Étienne-de-Cuines et La
+  Chambre, à 2 km l'une de l'autre), 1997/18 (−5,3 % : détour de 8 km après
+  le col du Hundsruck), 1997/20 (−13,8 % : boucle par la côte de
+  Coulommiers, sommet inconnu) ; 1997/21 non contrôlable (circuit des
+  Champs-Élysées). Allers-retours corrigés (9 points) : Huez (église
+  Saint-Ferréol), La Léchère, Bonneval et Loulans (mairies, règle 17), La
+  Perrière (village), Ballon d'Alsace (jonction sous le col, 1 060 m
+  imprimés), pont de Brotonne (tête sud), arrivée de 1997/14 à l'altiport
+  de Courchevel (2 004 m imprimés). Restent 3 allers-retours avec le point
+  à la mairie, notés (Trouville-Alliquerville, Saint-Malo-du-Bois,
+  Grumesnil). Règles 22 à 24 ajoutées à CURATION-REGLES.
+
 - [x] Édition 1991 (PR #412) : 22 étapes sur 23 (prologue de Lyon non transcrit),
   418 points placés sur 444 (405 sur 442 avant le tri 33.12). Contrôlée à ±5 % avant PR : 20 étapes dans la tolérance, 2
   hors, affichées comme telles — 1991/1 (−22,7 %) et 1991/21 (−8,4 %),

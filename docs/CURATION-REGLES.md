@@ -100,7 +100,11 @@ dans la même PR que son correctif.
     de Salignac-Eyvigues tombait vers Eyvigues, 3,8 km du village de
     Salignac nommé par le profil (1987/12, aller-retour de 5 km) ;
     Beynac-et-Cazenac, Aime-la-Plagne, Asasp-Arros : même piège.
-16. **Trier sur un passage BRouter, pas sur le repli voiture.** Quand
+16. **Trier sur un passage BRouter, pas sur le repli voiture.** Un BRouter
+    auto-hébergé (`ETAPEFORGE_BROUTER=http://127.0.0.1:17777/brouter`,
+    tuiles `segments4` de brouter.de, profil `fastbike` de la même
+    version) n'a renvoyé aucun 403 ni aucun repli voiture sur deux contrôles
+    complets de 1997 (21/10/2026), de quelques minutes chacun. Quand
     BRouter refuse (403), OSRM route en voiture : 1992 passait de 10
     étapes hors tolérance à 6, et ses allers-retours changeaient, entre
     un passage voiture et un passage vélo. Relancer avant de trier ; un
@@ -175,3 +179,27 @@ dans la même PR que son correctif.
     Fresquière et Basse-Plaine 1989) se place sur cet arrêt, altitude
     contrôlée. Et un tronçon suspect ne fait pas refuser un lieu qui
     existe : il se note (règle 11 ; Bray, Berdorf 1989).
+
+22. **Vérifier le départ et l'arrivée de chaque étape avant le reste.**
+    Une ville-étape devenue commune déléguée n'est plus dans l'index IGN
+    des communes, et `stage_towns.json` peut n'en avoir aucune position
+    (Vire, Vire Normandie, 1997) : le géocodeur prend alors le premier
+    candidat Nominatim, ici un homonyme à 17 km. Il sert ensuite de repère
+    au point suivant, et toute l'étape décroche (1997/3 : 5 villes non
+    placées). Placer la ville à sa mairie (règle 17), puis relancer.
+23. **Un point qu'aucun voisin ne laisse placer est d'abord une lecture
+    à refaire.** « Lure » (1997/18), à 21 km à vol d'oiseau de son voisin
+    pour 8,5 au profil, était « Luze » sur l'agrandissement. Relire le nom
+    au zoom ×9 avant de conclure à un profil contradictoire.
+24. **Un « ok » obtenu avec un aller-retour n'est pas un ok.** Le
+    kilométrage d'un aller-retour compte deux fois et comble un détour
+    réel que le tracé n'a pas : 1997/14 passait à −0,6 % avec 5,3 km
+    repris à La Perrière ; le point corrigé (village, pas centre de
+    commune), l'étape tombe à −7,3 %, et l'écart vient d'un détour de
+    vallée que le profil ne nomme pas. 1997/18 : −2,4 % avec l'aller-retour
+    au col du Ballon d'Alsace, −5,3 % sans. Corriger tous les
+    allers-retours **avant** de lire l'écart, et noter la cause du nouvel
+    écart, jamais garder le point fautif parce qu'il « tombe juste ».
+    L'altitude imprimée aide à placer un sommet : 1 060 m au Ballon
+    d'Alsace désignaient la jonction sous le col (1 082 m), pas le col
+    (1 171 m) ; 2 004 m à Courchevel, l'altiport, pas le centre.
