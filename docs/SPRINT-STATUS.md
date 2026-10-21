@@ -501,6 +501,25 @@ et côtes traversées avec leur kilomètre.
   à la mairie, notés (Trouville-Alliquerville, Saint-Malo-du-Bois,
   Grumesnil). Règles 22 à 24 ajoutées à CURATION-REGLES.
 
+- [x] Édition 1998 (PR à venir) : 19 étapes sur 22, 136 points placés sur 141.
+  Non transcrits : le prologue de Dublin (rues), 1998/12 (profil de 222 km,
+  ni l'étape prévue — 206 km — ni l'étape courue — 190 km, d'après
+  en.wikipedia) et 1998/17 (annulée, grève des coureurs). Noms sans km
+  imprimé dans les notes d'étape (règle 4). Non placés, avec note : côtes
+  de Curtiswood, de la Secourette, des Treize Vents, de Bournas, pointage
+  du Creusot (1998/20). 6 côtes rattachées à leur village (altitude du
+  village loin du sommet imprimé). Contrôlée à ±5 % sur BRouter
+  auto-hébergé, 0 tronçon en voiture, aucun aller-retour : 12 étapes dans
+  la tolérance, 6 hors, cause écrite dans la note — 1998/1 (−11,9 %),
+  1998/3 (−6,9 %), 1998/7 et 1998/20 (contre-la-montre, −28,8 % et
+  −43,2 %), 1998/8 (−11,3 % : trois côtes rattachées non routées ; 107,4 km
+  par leurs villages pour 105,5 au profil), 1998/13 (−6,5 %) ; 1998/21 non
+  contrôlable. Corrigés au contrôle : Gavet (centre de la commune fusionnée
+  à 1 037 m pour 470 imprimés), côte de Montaigu-de-Quercy (lieu-dit
+  « La Côte » pris par le géocodeur), arrivée de Luchon à la mairie
+  (l'ancre `stage_towns` est à 5,6 km de la ville, story à part), altitude
+  « 1 » des Deux Alpes (catégorie, pas altitude).
+
 - [x] Édition 1991 (PR #412) : 22 étapes sur 23 (prologue de Lyon non transcrit),
   418 points placés sur 444 (405 sur 442 avant le tri 33.12). Contrôlée à ±5 % avant PR : 20 étapes dans la tolérance, 2
   hors, affichées comme telles — 1991/1 (−22,7 %) et 1991/21 (−8,4 %),

@@ -69,6 +69,9 @@ dans la même PR que son correctif.
     seulement passer `confidence` à `non-place` : sinon il reste tracé et
     routé (Le Champ du Feu, La Forêt-le-Roi — test d'invariant dans
     `test/placeSearch.test.js`).
+    L'inverse aussi : **placer à la main un point que le géocodeur avait
+    laissé, c'est retirer son `confidence: non-place`** (20 points de
+    1998, trouvés par ce même test).
 
 ## Contrôler avant la PR
 
