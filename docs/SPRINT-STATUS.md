@@ -1384,6 +1384,20 @@ et côtes traversées avec leur kilomètre.
   leur localité OSM, chacune vérifiée (altitude MNT, voisins), corrections
   dans `stage_towns_overrides.json` avec source ; si le générateur change,
   relecture adverse.
+- [x] 33.23 (PR #480) Reprise de 1992 sur BRouter auto-hébergé, avec les
+  règles 17, 20 et 24. Critères : 0 tronçon en voiture ; chaque
+  aller-retour corrigé ou noté avec sa mairie ; chaque « cause non
+  établie » passée au contre-test voiture. Fait : Livet (1992/15) placé au
+  village, comme en 1997 et 1998 — le centre de la commune, près de
+  Rioupéroux, raccourcissait Livet → Gavet de 3 km et cachait une partie
+  de l'écart (+5,1 % → +7,0 %, règle 24) ; La Garde et Roubaix : point à
+  la mairie, aller-retour noté (règle 17) ; Col de Wettstein → Schlucht :
+  17,1 km en voiture pour 17 au profil, c'est le routeur vélo (règle 20) ;
+  1992/15 et 1992/18 : « cause non établie » remplacée par le contre-test
+  voiture (profil plus court que la route). Résultat : 16 étapes dans la
+  tolérance, 4 hors (7, 8, 15, 18), toutes notées. Limite : les points de
+  1992 ne portent pas leur altitude imprimée, le contrôle d'altitude
+  (règle 14) n'a pas pu être rejoué.
 
 ## Epic 34 — Idées venues d'autres dépôts (veille du 18/10/2026)
 

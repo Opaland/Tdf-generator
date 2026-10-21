@@ -28916,7 +28916,7 @@
       }
      ],
      "route_check": {
-      "routed_km": 244.7,
+      "routed_km": 244.6,
       "profile_km": 237.5,
       "delta_pct": 3,
       "tolerance_pct": 5,
@@ -29116,7 +29116,7 @@
       }
      ],
      "route_check": {
-      "routed_km": 207.1,
+      "routed_km": 207,
       "profile_km": 201.5,
       "delta_pct": 2.8,
       "tolerance_pct": 5,
@@ -29455,7 +29455,8 @@
        "lat": 50.69159,
        "lon": 3.17417,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "point à 70 m de la mairie (Nominatim, Grand Place) : l'aller-retour de 2,1 km noté à Wasquehal reste avec elle (règle 17, reprise du 21/10/2026)"
       },
       {
        "label": "Wasquehal",
@@ -29469,9 +29470,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 191.8,
+      "routed_km": 191.9,
       "profile_km": 186,
-      "delta_pct": 3.1,
+      "delta_pct": 3.2,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
@@ -30477,7 +30478,7 @@
        "lon": 7.02266,
        "how": "nominatim",
        "confidence": "ok",
-       "note": "aller-retour (33.14) : depuis le Col du Wettstein (bien placé, panneau OSM), le routeur repart par la route des Crêtes (9 km repris) ; le profil (17 km) colle aussi à la descente par Soultzeren — tracé réel non établi"
+       "note": "aller-retour (33.14) : depuis le Col du Wettstein (bien placé, panneau OSM), le routeur repart par la route des Crêtes (9 km repris) ; le profil (17 km) colle aussi à la descente par Soultzeren — tracé réel non établi ; routage voiture (OSRM, règle 20) : 17,1 km du Wettstein à la Schlucht pour 17 au profil, contre 21,3 km et l'aller-retour en vélo — c'est le routeur vélo qui évite la descente par Soultzeren, pas le point (reprise du 21/10/2026)"
       },
       {
        "label": "Col de Bramont",
@@ -31144,7 +31145,8 @@
        "lat": 45.06681,
        "lon": 6.04897,
        "how": "commune-ign",
-       "confidence": "ok"
+       "confidence": "ok",
+       "note": "aller-retour de 1,6 km vers Huez (règle 9) : le point est à 15 m de la mairie (Nominatim, Mairie de la Garde) et l'aller-retour reste avec elle — laissé tel quel (règle 17, reprise du 21/10/2026)"
       },
       {
        "label": "Huez",
@@ -31197,10 +31199,11 @@
        "km": 12.5,
        "kind": "ville",
        "geocodeAs": "Livet-et-Gavet",
-       "lat": 45.08953,
-       "lon": 5.90189,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.10833,
+       "lon": 5.93387,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "village de Livet (Nominatim, place=village, 654 m au MNT), comme en 1997 et 1998 : le point IGN, centre de la commune Livet-et-Gavet près de Rioupéroux, donnait 16,8 km routés depuis Le Bourg-d'Oisans pour 12,5 et 3,5 jusqu'à Gavet pour 6,5 (13,3 et 7,1 au village) — règles 6 et 15, reprise du 21/10/2026"
       },
       {
        "label": "Gavet",
@@ -31372,9 +31375,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 194.9,
+      "routed_km": 198.6,
       "profile_km": 185.5,
-      "delta_pct": 5.1,
+      "delta_pct": 7,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
@@ -31383,7 +31386,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 1
      },
-     "note": "Hors tolérance (+5,1 %) : Saint-Marcel-lès-Annonay → Bourg-Argental fait 8 km routés pour 5 au profil (5,5 à vol d’oiseau) et Le Pont-de-Claix → Grenoble 8,4 pour 6,5 — profil plus court que la route, cause non établie."
+     "note": "Hors tolérance (+7,0 %, +5,1 % avant la correction de Livet, dont le faux point raccourcissait Livet → Gavet de 3 km) : Saint-Marcel-lès-Annonay → Bourg-Argental fait 8 km routés pour 5 au profil, plus court que la ligne droite (5,5 km) — km imprimé contradictoire ; Le Pont-de-Claix → Grenoble 8,4 pour 6,5. Le routage voiture (règle 20) donne les mêmes distances ou plus (7,9 et 10,4 km) : ce n’est pas le routeur vélo — écart réparti, profil plus court que la route."
     },
     "16": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1992/92_16.jpg",
@@ -31948,7 +31951,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Hors tolérance (+5,4 %) : écart réparti sur l’étape, pire tronçon Châteauroux → Levroux (23,9 km routés pour 21) ; cause non établie."
+     "note": "Hors tolérance (+5,4 %) : écart réparti sur l’étape, pire tronçon Châteauroux → Levroux (23,9 km routés pour 21). Le routage voiture (règle 20) donne des distances voisines (22,3 km sur ce tronçon, 12 tronçons sur 15 plus longs en voiture qu’au profil) : profil plus court que la route sur toute l’étape, pas un point mal placé."
     },
     "19": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1987_1996/1992/92_19.jpg",
