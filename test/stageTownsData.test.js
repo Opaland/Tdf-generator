@@ -3,11 +3,20 @@
 // aucune étape dont départ et arrivée contredisent sa longueur, hors celles
 // listées par la vérification (distance Wikipédia probablement mal lue).
 
-const { test } = require('node:test');
+const os = require('os');
+const path = require('path');
+// Sans dossier de données fixé, charger build-stage-towns en crée un
+// (mkdtemp) qui n'était jamais supprimé (Epic 36.2) ; rien ne s'y écrit ici.
+process.env.ETAPEFORGE_DATA_DIR = path.join(os.tmpdir(), `etapeforge-towns-data-test-${process.pid}`);
+
+const { test, after } = require('node:test');
 const assert = require('node:assert');
 const { haversine } = require('../pipeline/geo');
+const { removeSync } = require('../pipeline/fsPortable');
 const { maxCrowM } = require('../scripts/build-stage-towns');
 const doc = require('../pipeline/data/stage_towns.json');
+
+after(() => removeSync(process.env.ETAPEFORGE_DATA_DIR));
 
 const CONF = new Set(['ok', 'ambigu', 'verifie', 'douteux']);
 

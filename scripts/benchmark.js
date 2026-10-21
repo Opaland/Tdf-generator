@@ -18,6 +18,7 @@
 const os = require('os');
 const path = require('path');
 const fs = require('fs');
+const { removeSync } = require('../pipeline/fsPortable');
 
 const RUNS = (() => {
   const i = process.argv.indexOf('--runs');
@@ -154,11 +155,11 @@ async function main() {
   console.log(`\nRésultats bruts (JSON) :`);
   console.log(JSON.stringify(results, null, 2));
 
-  fs.rmSync(dataDir, { recursive: true, force: true });
+  removeSync(dataDir);
 }
 
 main().catch((err) => {
   console.error('ÉCHEC benchmark.js :', err);
-  fs.rmSync(dataDir, { recursive: true, force: true });
+  removeSync(dataDir);
   process.exit(1);
 });

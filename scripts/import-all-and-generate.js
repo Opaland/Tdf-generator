@@ -26,6 +26,7 @@ const fs = require('fs');
 const path = require('path');
 const { getDb, DATA_DIR } = require('../backend/db');
 const { importAllEditions } = require('../pipeline/importer');
+const { removeSync } = require('../pipeline/fsPortable');
 const { generateStage } = require('../pipeline/generate');
 
 // Marqueur de fin de passe complète (voir .github/workflows/pages.yml,
@@ -114,7 +115,7 @@ async function generateAllRemaining(db) {
 
 async function main() {
   const db = getDb();
-  fs.rmSync(COMPLETE_MARKER, { force: true });
+  removeSync(COMPLETE_MARKER);
   await importAll();
   await generateAllRemaining(db);
   fs.writeFileSync(COMPLETE_MARKER, new Date().toISOString());
