@@ -384,7 +384,7 @@ et côtes traversées avec leur kilomètre.
   agrandi. Toute transcription se fait sur l'image agrandie.
 - [ ] 33.2 Transcription édition par édition (une PR par lot), en
   commençant par les éditions passées par la Lorraine.
-  - [ ] Lot Lorraine : 14 étapes (1970/9, 1978/20, 1979/12-13, 1980/2-3,
+  - [x] Lot Lorraine (PR #404) : 14 étapes (1970/9, 1978/20, 1979/12-13, 1980/2-3,
     1985/8, 1990/6, 1999/7-8, 2002/2-3, 2006/2, 2012/6), 235 points placés
     sur 239 (Fresse-sur-Moselle 1979/13 retirée en relecture : km imprimé
     sous le libellé voisin). Porcelette : 1970/9 passe par Carling (km 18) et Saint-Avold
@@ -395,7 +395,7 @@ et côtes traversées avec leur kilomètre.
     1961/4-5, 1964/4, 1967/6-7), dont les km en italique sont illisibles à
     la résolution publiée — source à trouver (Gallica, Epic 34.12).
     Absents du Dico du Tour : 1950/1-2.
-  - [ ] Édition 1992 : 19 nouvelles étapes, soit 20 sur 22 (prologue et 9e étape,
+  - [x] Édition 1992 (PR #405) : 19 nouvelles étapes, soit 20 sur 22 (prologue et 9e étape,
     contre-la-montre à Saint-Sébastien et Luxembourg, sans profil publié),
     341 points placés sur 357. Seuls les km lisibles sans doute sont
     repris ; Vougy et Cluses (1992/12) retirés, leur km contredisant la
@@ -409,7 +409,7 @@ et côtes traversées avec leur kilomètre.
     Vovray-en-Bornes (7 km au sud) puis sur un homonyme de l'Ain, fixé au
     hameau d'Archamps ; une commune IGN trouvée par préfixe ne prime plus
     sur les autres sources.
-  - [ ] Édition 1993 : 20 étapes sur 21 (prologue du Puy du Fou, 6,8 km,
+  - [x] Édition 1993 (PR #406) : 20 étapes sur 21 (prologue du Puy du Fou, 6,8 km,
     sans km lisibles par point), 315 points placés sur 332. Col de Jau
     fixé au vrai col (Nominatim proposait aussi une route 10 km à l'est,
     retenue à tort comme « moins détournée ») ; communes déléguées placées
@@ -422,7 +422,7 @@ et côtes traversées avec leur kilomètre.
     Bolline). Les listes ne reprennent pas tous les points du profil
     (ex. 1993/12 : Côte des Glaciers, Côte de Périer) : « N points » compte
     les points transcrits, pas ceux de l'image.
-- [ ] 33.3 Bourg plutôt que centroïde : l'index IGN des communes donne le
+- [x] 33.3 (PR #407) Bourg plutôt que centroïde : l'index IGN des communes donne le
   centre géographique de la commune, pas le bourg (Bagnères-de-Bigorre à
   7,7 km, Laruns 4,2, Allemond 4,1). Une commune IGN au nom exact est
   recalée sur le point OpenStreetMap du même nom à moins de 8 km
@@ -435,7 +435,7 @@ et côtes traversées avec leur kilomètre.
   dont le point OSM n'est pas le bourg (Lamballe-Armor) — ces points
   restent au centroïde IGN, limite connue. Porcelette inchangée : 1970/9
   à 4,2 km, 1992/10 à 5,3 km.
-- [ ] Édition 1994 : 21 étapes sur 22 (prologue de Lille, rues seulement),
+- [x] Édition 1994 (PR #408) : 21 étapes sur 22 (prologue de Lille, rues seulement),
   279 points placés sur 293, dont les deux étapes anglaises (Douvres →
   Brighton, Portsmouth). Erreur trouvée dans `stage_towns.json` : l'arrivée
   « Eurotunnel » de 1994/3 était au terminal de Folkestone (Angleterre) ;
@@ -449,7 +449,7 @@ et côtes traversées avec leur kilomètre.
   superposés au centroïde de la commune, replacés. Étapes dont la
   transcription omet des points du profil marquées `partial` (avec leur
   longueur, la contrainte d'arrivée reste appliquée).
-- [ ] Édition 1995 : 20 étapes sur 21 (prologue de Saint-Brieuc non
+- [x] Édition 1995 (PR #409) : 20 étapes sur 21 (prologue de Saint-Brieuc non
   transcrit), 296 points placés sur 321. Limoges (arrivée de 1995/18),
   recalée sur son centre-ville, était rejetée à 3,9 km de l'ancre
   `stage_towns` (un centroïde IGN). Premier correctif (marge d'arrivée
@@ -460,7 +460,7 @@ et côtes traversées avec leur kilomètre.
   Mareuil et Auphelle replacés sur le hameau (étaient au centroïde de leur
   commune) ; libellés de l'image restaurés ; étapes 11, 13, 16, 18
   `partial` avec leur longueur, 10 et 12 complètes.
-- [ ] Édition 1996 : 20 étapes sur 22, 293 points placés sur 316 (283 sur 308 avant le tri 33.12).
+- [x] Édition 1996 (PR #410) : 20 étapes sur 22, 293 points placés sur 316 (283 sur 308 avant le tri 33.12).
   Non transcrits : le prologue de 's-Hertogenbosch et l'étape 9 — le
   profil publié (Val d'Isère → Iseran → Galibier → Sestrières, 189,5 km)
   est le parcours prévu, pas l'étape courue, raccourcie par la neige
@@ -480,7 +480,7 @@ et côtes traversées avec leur kilomètre.
   Mons (1995/6), Luchon et Cazaux-Layrisse (1995/15). Dourgne (1995/13)
   non repris : km imprimé « 119,5 » entre Castres (198) et Revel (245).
 
-- [ ] Édition 1991 : 22 étapes sur 23 (prologue de Lyon non transcrit),
+- [x] Édition 1991 (PR #412) : 22 étapes sur 23 (prologue de Lyon non transcrit),
   418 points placés sur 444 (405 sur 442 avant le tri 33.12). Contrôlée à ±5 % avant PR : 20 étapes dans la tolérance, 2
   hors, affichées comme telles — 1991/1 (−22,7 %) et 1991/21 (−8,4 %),
   circuits sinueux dont le profil ne liste qu'une partie des villages
@@ -1220,7 +1220,7 @@ et côtes traversées avec leur kilomètre.
   (−4,4 → −6,8 %, Spa replacée sur la ville, 2,2 km) et 1992/14 (+4,0 →
   +5,2 %, Le Bourg-d'Oisans désormais placé). Écarts affichés, pas
   ajustés.
-- [ ] 33.4 Contrôle à ±5 % des itinéraires (demande du 18/10/2026 : « 5 %
+- [x] 33.4 (PR #411) Contrôle à ±5 % des itinéraires (demande du 18/10/2026 : « 5 %
   max de tolérance ») : `scripts/check-itineraries.js` route l'itinéraire
   point par point et compare au kilométrage du profil, avec
   DIST_TOLERANCE_PCT (±5 %). Premier tronçon exclu (le km 0 est le départ
