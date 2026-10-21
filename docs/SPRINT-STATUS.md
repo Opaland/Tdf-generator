@@ -280,6 +280,7 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 - [ ] 28.5 **blocked** — Curer 2020/2 : aucune source détaillée trouvée le 17/10/2026 (pas de GPX cyclingstage pour 2020, dossier de presse LCL et Wikipédia limités aux 3 cols, pas de roadbook dimensionsvelo) ; reconstituer les liaisons entre vallées ne serait que de l'inférence géographique sur 186 km de montagne — critère « roadbook sourcé » non atteignable
 - [x] 28.6 Issue #280 : pickFeature préfère le nom exact parmi les reliefs — PR #378 ; différentiel réel sur 95 occurrences : 92 identiques, Aravis 1911/5 corrigé, Ballon d'Alsace figé pour ne pas régresser
 - [ ] 28.7 **en cours** — Issue #188 : Tour 2002 — 14 et 16 curées (PR #380) ; restent 2002/13 (+9,8 %), 2002/19 (-6,6 %), 2002/20 (-48 % : `laps` disponible, mais nombre de tours de 2002 introuvable dans les sources consultées)
+  - 21/10/2026 : ledicodutour.com, inaccessible depuis l'environnement cloud, répond depuis le poste local ; les profils 2002-13a, 2002-19a et 2002-20a ont été relus agrandis. Les vias de 2002/13 et 2002/19 dans `historic_routes.json` en sont déjà tirés, et leurs écarts restants ont une cause notée (aller-retour réel vers la Badourade, Charnay-lès-Mâcon au km 41,5 à 2,3 km de Mâcon). Le profil 2002/20 n'imprime pas les passages sur la ligne : après « Hauts des Champs » (km 80), il n'y a plus que l'arrivée. Compter les bosses du profil serait une inférence. Les sources consultées divergent aussi sur la longueur du tour : cyclingnews (compte rendu de l'étape) écrit « just over a lap (8 km) to go », alors que la source citée pour 1992 donne 6,5 km. `laps` reste donc non renseigné pour 2002/20 : il faut une source primaire sur le nombre de tours.
 
 ## Epic 29 — Inventaire matériel (issue #228, phase 7) — PR #394
 
@@ -1742,6 +1743,29 @@ un Node 22, `npm test` donne 57 échecs, aucun sous Linux (CI).
   test. Relecture adverse : 3 trouvailles corrigées — better-sqlite3
   épinglé en `~12.9.0` (la 12.10 retire Node 20), test de `copyDir` dans
   un dossier accentué, décompte des fichiers corrigé.
+- [x] 36.2 (PR #476) `fs.rmSync` muet sur un chemin non ASCII (Node 24, Windows) —
+  constaté le 21/10 : sous Node 24.13, `fs.rmSync(p, { recursive: true,
+  force: true })` ne supprime rien et ne lève rien quand `p` contient un
+  caractère non ASCII (dossier comme simple fichier) ; Node 22.23,
+  `unlinkSync`, `rmdirSync` et `fs.promises.rm` ne sont pas touchés.
+  Conséquences dans un dépôt cloné sous `C:\Users\Moretti Cédric\…` :
+  `scripts/build-site.js` ne vide plus `dist/` (d'anciens fichiers
+  resteraient publiés), `scripts/import-all-and-generate.js` ne retire plus
+  son marqueur de fin au démarrage. Critères : `removeSync` (lstat +
+  unlink/rmdir) et `copyDir` dans un module partagé, utilisés par
+  build-site, import-all-and-generate et les scripts de banc ; test :
+  un `dist/` accentué contenant un fichier périmé est vidé par build-site
+  (échoue avec `fs.rmSync` sous Node 24 Windows) ; test garde-fou : aucun
+  `fs.rmSync` ni `fs.cpSync` dans `backend/`, `pipeline/`, `scripts/` ;
+  après `npm test` avec un dossier temporaire dédié, aucun dossier
+  `etapeforge-*` restant (4 aujourd'hui : copydir, deux db-index,
+  towns) ; changement de code, donc relecture adverse.
+  Fait : 1 036 tests, 0 dossier temporaire restant (4 avant) ; avec
+  `fs.rmSync` remis, le test de build-site et celui de `removeSync`
+  échouent sous Windows. Relecture adverse : course ENOENT pendant le
+  parcours tolérée, garde-fou qui ne retire plus un « // » de chaîne ;
+  sous Linux (CI) seul le garde-fou protège, le défaut étant propre à
+  Windows.
 
 ## Epic 24 — Bilan final
 

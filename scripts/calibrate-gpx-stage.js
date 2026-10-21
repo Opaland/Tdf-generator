@@ -53,6 +53,7 @@
 const fs = require('fs');
 const path = require('path');
 const { DIST_TOLERANCE_PCT } = require('../pipeline/checks');
+const { removeSync } = require('../pipeline/fsPortable');
 
 function parseArgs(argv) {
   const positional = [];
@@ -242,7 +243,7 @@ async function main() {
     console.log(`Aucun pas testé ne rentre dans la tolérance ±${DIST_TOLERANCE_PCT}% — tester un pas plus fin ou vérifier le GPX/officialKm.`);
   }
 
-  fs.rmSync(dataDir, { recursive: true, force: true });
+  removeSync(dataDir);
 }
 
 main().catch((e) => {

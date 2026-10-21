@@ -11,8 +11,13 @@
 const { execFileSync } = require('node:child_process');
 const os = require('node:os');
 const path = require('node:path');
-const { test } = require('node:test');
+const { test, after } = require('node:test');
 const assert = require('node:assert');
+const { removeSync } = require('../pipeline/fsPortable');
+
+// Bases créées par les processus enfants, terminés avant le nettoyage.
+const dataDirs = [];
+after(() => dataDirs.forEach(removeSync));
 
 function runInChildProcess(dataDir) {
   const out = execFileSync(
@@ -32,12 +37,14 @@ function runInChildProcess(dataDir) {
 
 test('getDb() : stages porte un index sur edition_id (base fraîche)', () => {
   const dataDir = path.join(os.tmpdir(), `etapeforge-db-index-test-${process.pid}-${Date.now()}`);
+  dataDirs.push(dataDir);
   const { indexes } = runInChildProcess(dataDir);
   assert.ok(indexes.includes('idx_stages_edition'), `index attendus sur stages : ${indexes.join(', ')}`);
 });
 
 test('EXPLAIN QUERY PLAN : WHERE edition_id = ? ORDER BY stage_order, id utilise l\'index, pas un SCAN complet', () => {
   const dataDir = path.join(os.tmpdir(), `etapeforge-db-index-test2-${process.pid}-${Date.now()}`);
+  dataDirs.push(dataDir);
   const { plan } = runInChildProcess(dataDir);
   const details = plan.map((p) => p.detail).join(' | ');
   assert.ok(/SEARCH stages USING.*INDEX idx_stages_edition/.test(details), `plan obtenu : ${details}`);
