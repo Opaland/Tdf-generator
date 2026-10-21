@@ -123,6 +123,11 @@ dans la même PR que son correctif.
     Une arrivée imprimée avec son adresse (« Boulevard du Centenaire »,
     « avenue de la Zurriola ») est une source : la placer là, pas au
     centre-ville.
+    Un nom de sprint imprimé à côté d'une ville n'est pas un lieu :
+    « Hewlett-Packard » (Eybens, 1987/20), « Schwaben Bräu » (1987/3) sont
+    des sponsors. Un « 1er passage » imprimé avant l'arrivée annonce un
+    circuit final, comme une entrée de ville (règle 19 ; Berlin et
+    Stuttgart, 1987/1 et 1987/3).
 19. **Une entrée de ville imprimée annonce un circuit final.** « Bordeaux
     - entrée » au km 184,5 (1993/18) : l'arrivée est 16 km plus loin sur
     un circuit — `circuit_km` au km de l'entrée, sinon le circuit fausse

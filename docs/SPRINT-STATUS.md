@@ -977,7 +977,7 @@ et côtes traversées avec leur kilomètre.
     tri de 1987 les précédait ; la règle 18, nom par nom, ne l'est pas
     encore pour 1987/1, 1987/2 (Berlin : une dizaine de places et
     quartiers imprimés omis), 1987/3 (Theodor Heuss Strasse) et 1987/20
-    (Hewlett-Packard) — à reprendre). Placés en deux passes (recherche
+    (Hewlett-Packard) — repris en 33.20). Placés en deux passes (recherche
     bornée, variantes d'orthographe, mairies, altitudes au MNT contrôlées
     à l'altitude imprimée) :
     - premier passage : 36 lieux-dits, villages, cols et côtes, dont les
@@ -1303,6 +1303,30 @@ et côtes traversées avec leur kilomètre.
   texte affiché aurait déplacé 10 autres cellules, souvent à tort (1976,
   `[[Pla d'Adet|Saint-Lary-Soulan]]` : arrivée au sommet renvoyée dans la
   vallée) ; changement de code, donc relecture adverse.
+- [x] 33.20 (PR #474) Règle 18 (nom par nom) sur 1987/1, 1987/2, 1987/3 et 1987/20,
+  restée à faire après 33.12 — critères : chaque profil relu sur
+  agrandissement (tiers ×4,5, sixièmes ×5) contre la transcription ; tout
+  nom omis ajouté avec son km, placé seulement si une recherche bornée le
+  trouve et qu'il est compatible avec ses voisins à vol d'oiseau (règle 7),
+  sinon noté ; entrées de circuit final déclarées (règle 19) ;
+  `check-itineraries --write --legs` sur les étapes touchées, sur un
+  passage BRouter (`car_legs` à 0), chaque tronçon suspect trié (règle 20 :
+  contre-test voiture avant « cause non établie ») ; curation de données
+  pure, sans relecture adverse dédiée (CLAUDE.md, règle 11).
+  Fait : 1987/1 (étape en ligne, et non contre-la-montre comme le disait
+  sa note — en.wikipedia « Plain stage ») passe de 5 à 17 noms (12 ajoutés, dont 9
+  placés par recherche bornée dans Berlin-Ouest ; 2 points jusqu'ici non
+  placés le sont), Berliner Strasse (homonyme non
+  tranché) et Boenig-Strasse (introuvable) notés, circuit final au 1er
+  passage (km 97,5) ; contrôlable pour la première fois : −6,4 % — le
+  tronçon Astern Platz → Mohriner Allee est un écart du routeur vélo
+  (13,2 km en voiture pour 13,5). 1987/2 passe de 4 à 10 noms (6 ajoutés, tous placés), carrefour
+  Potsdamer Chaussee / Ritterfelddamm placé sur le nœud OSM commun
+  (Overpass), Spandau retiré (vieille ville incompatible, 5,6 km pour 4) :
+  de −33,1 % à −1,2 %. 1987/3 : « Theodor Heuss Strasse (1er passage) »
+  (km 207,5) ajouté, circuit final déclaré, libellés de départ et
+  d'arrivée restaurés ; −5,6 % sur 85 % de l'étape. 1987/20 : aucun nom
+  omis — « Hewlett-Packard » est le nom du sprint d'Eybens, pas un lieu.
 
 ## Epic 34 — Idées venues d'autres dépôts (veille du 18/10/2026)
 
