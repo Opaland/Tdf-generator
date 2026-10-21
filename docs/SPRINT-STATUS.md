@@ -1686,8 +1686,9 @@ un Node 22, `npm test` donne 57 échecs, aucun sous Linux (CI).
   Linux et Windows) ; `npm test` sans échec sous Windows, dans un chemin
   qui contient un caractère accentué (`C:\Users\Moretti Cédric\…`) ;
   causes traitées une à une : base SQLite supprimée encore ouverte
-  (EBUSY, 52 fichiers — et le serveur de test jamais fermé ensuite, qui
-  bloque `editionCategory`), chemins comparés avec `/` (`singleSource`),
+  (52 échecs EBUSY, `closeDb()` dans 58 fichiers de test — et le
+  serveur de test jamais fermé ensuite, qui bloque `editionCategory`),
+  chemins comparés avec `/` (`singleSource`),
   `fs.cpSync` natif qui plante sur un chemin non ASCII (`build-site`),
   fins de ligne CRLF à l'extraction (`core.autocrlf=true`) qui changent
   l'empreinte des migrations — `.gitattributes` force LF ; CI verte sur
