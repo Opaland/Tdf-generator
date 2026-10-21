@@ -23,6 +23,7 @@ const { importEdition } = require('../pipeline/importer');
 
 after(() => {
   oc.correctStage = realCorrect;
+  require('../backend/db').closeDb();
   fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true });
 });
 

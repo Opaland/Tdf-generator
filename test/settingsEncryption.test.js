@@ -20,6 +20,7 @@ const raw = (k) => getDb().prepare('SELECT value FROM settings WHERE key = ?').g
 
 after(() => {
   delete process.env.ETAPEFORGE_SECRET_KEY;
+  require('../backend/db').closeDb();
   fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true });
 });
 

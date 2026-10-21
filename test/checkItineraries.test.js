@@ -13,7 +13,10 @@ const { test, after } = require('node:test');
 const assert = require('node:assert');
 const { checkStage, checkStoredStage, officialKm, measuredTowns, isSuspectLeg, isBacktrack, isUncertainBacktrack, retracedKm } = require('../scripts/check-itineraries');
 
-after(() => fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true }));
+after(() => {
+  require('../backend/db').closeDb();
+  fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true });
+});
 
 const town = (label, km, extra = {}) => ({ label, km, kind: 'ville', lat: 49, lon: 6 + km / 100, ...extra });
 

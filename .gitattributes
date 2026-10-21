@@ -1,0 +1,6 @@
+# Fins de ligne LF dans l'arbre de travail, quel que soit core.autocrlf :
+# sous Windows (autocrlf=true par défaut avec Git for Windows), l'extraction
+# en CRLF change l'empreinte des migrations publiées (test/dbMigrations.test.js)
+# — Epic 36.1.
+* text=auto eol=lf
+*.png binary

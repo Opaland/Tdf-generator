@@ -352,4 +352,15 @@ function getDb() {
   return db;
 }
 
-module.exports = { getDb, DB_PATH, DATA_DIR, ensureColumn, migrate, MIGRATIONS, SCHEMA_VERSION };
+/**
+ * Ferme la connexion si elle est ouverte. Sous Windows, un fichier ouvert ne
+ * se supprime pas (EBUSY) : les tests ferment la base avant d'effacer leur
+ * dossier jetable (Epic 36.1). Le prochain getDb() rouvre le même DB_PATH.
+ */
+function closeDb() {
+  if (!db) return;
+  db.close();
+  db = null;
+}
+
+module.exports = { getDb, closeDb, DB_PATH, DATA_DIR, ensureColumn, migrate, MIGRATIONS, SCHEMA_VERSION };

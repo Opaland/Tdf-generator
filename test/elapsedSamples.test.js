@@ -14,7 +14,10 @@ const assert = require('node:assert');
 const { elapsedAtSamples } = require('../pipeline/rideStats');
 const { nearestRawIndices } = require('../pipeline/geo');
 
-after(() => fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true }));
+after(() => {
+  require('../backend/db').closeDb();
+  fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true });
+});
 
 const t0 = Date.UTC(2026, 5, 1, 8, 0, 0);
 const at = (s) => new Date(t0 + s * 1000);

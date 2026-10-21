@@ -13,7 +13,10 @@ process.env.TZ = 'America/New_York'; // aucun décalage de fuseau possible
 const { test, after } = require('node:test');
 const assert = require('node:assert');
 
-after(() => fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true }));
+after(() => {
+  require('../backend/db').closeDb();
+  fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true });
+});
 
 test('EF.day : AAAA-MM-JJ → JJ/MM/AAAA, tout autre texte rendu tel quel', () => {
   global.window = {};

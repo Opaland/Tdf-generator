@@ -16,7 +16,10 @@ const assert = require('node:assert');
 const { importTrackAsStage } = require('../pipeline/importTrack');
 const { loadStageFull } = require('../pipeline/generate');
 
-after(() => fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true }));
+after(() => {
+  require('../backend/db').closeDb();
+  fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true });
+});
 
 test('trace aux altitudes toutes aberrantes : profil des fournisseurs, pas 0 m partout', async () => {
   const points = [];
