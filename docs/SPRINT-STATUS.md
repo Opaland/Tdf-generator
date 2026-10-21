@@ -481,7 +481,7 @@ et côtes traversées avec leur kilomètre.
   Mons (1995/6), Luchon et Cazaux-Layrisse (1995/15). Dourgne (1995/13)
   non repris : km imprimé « 119,5 » entre Castres (198) et Revel (245).
 
-- [x] Édition 1997 (PR à venir) : 21 étapes sur 22, 350 points placés sur 357
+- [x] Édition 1997 (PR #477) : 21 étapes sur 22, 350 points placés sur 357
   (prologue de Rouen non transcrit : des rues seulement, comme 1994-1996).
   Non placés, avec note : côtes des forêts d'Eawy et d'Eu, Saint-Colomban,
   Andorre, Méribel, côte des Rosselières, Paris (1997/21). 19 côtes
