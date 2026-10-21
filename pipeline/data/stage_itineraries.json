@@ -49585,6 +49585,1680 @@
     }
    }
   },
+  "1998": {
+   "stages": {
+    "1": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1997_2006/1998/98_1.jpg",
+     "towns": [
+      {
+       "label": "Dublin",
+       "km": 0,
+       "kind": "ville",
+       "lat": 53.34938,
+       "lon": -6.26056,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Bray",
+       "km": 13.5,
+       "kind": "ville",
+       "note": "56 m imprimés ; ville de Bray (place=town), seul candidat ; 19,2 km à vol d'oiseau du centre de Dublin pour 13,5 km au profil : le km 0 est le départ réel, hors du centre (zone neutralisée) (Nominatim, recherche bornée autour des voisins)",
+       "lat": 53.20146,
+       "lon": -6.1105,
+       "how": "nominatim"
+      },
+      {
+       "label": "Arklow",
+       "km": 71.5,
+       "kind": "ville",
+       "note": "60 m imprimés",
+       "lat": 52.79822,
+       "lon": -6.154,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Avoca",
+       "km": 90,
+       "kind": "ville",
+       "note": "78 m imprimés",
+       "lat": 52.85723,
+       "lon": -6.21303,
+       "how": "nominatim",
+       "confidence": "ambigu"
+      },
+      {
+       "label": "Col de Wicklow Gap",
+       "km": 111,
+       "kind": "col",
+       "note": "540 m imprimés ; col de Wicklow Gap (mountain_pass), seul compatible avec Blessington (l'homonyme du Wexford est à 46,6 km de Blessington pour 28) ; le profil contredit la géographie en amont : 24 km à vol d'oiseau d'Avoca pour 21 km au profil, km imprimés relus (Nominatim, recherche bornée autour des voisins) ; MNT 476 m pour 540 imprimés",
+       "lat": 53.04179,
+       "lon": -6.39778,
+       "how": "nominatim"
+      },
+      {
+       "label": "Blessington",
+       "km": 139,
+       "kind": "ville",
+       "note": "275 m imprimés",
+       "lat": 53.16967,
+       "lon": -6.53019,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Dublin",
+       "km": 180.5,
+       "kind": "ville",
+       "lat": 53.34938,
+       "lon": -6.26056,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "route_check": {
+      "routed_km": 147.1,
+      "profile_km": 167,
+      "delta_pct": -11.9,
+      "tolerance_pct": 5,
+      "coverage_pct": 93,
+      "car_legs": 0,
+      "legs": 5,
+      "suspect_legs": 2,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     },
+     "note": "Hors tolérance (−11,9 %) : Blessington → arrivée à Dublin fait 41,5 km au profil pour 30,7 routés jusqu'au centre (31,6 en voiture) — tracé d'arrivée dans Dublin non connu ; Avoca (km 90) est contradictoire avec le profil (10,9 km routés depuis Arklow pour 18,5, puis 29,3 jusqu'au Wicklow Gap pour 21 : la somme, 40,2 km pour 39,5, est juste)."
+    },
+    "2": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1997_2006/1998/98_2.jpg",
+     "towns": [
+      {
+       "label": "Enniscorthy",
+       "km": 0,
+       "kind": "ville",
+       "lat": 52.50115,
+       "lon": -6.56749,
+       "how": "nominatim",
+       "confidence": "ambigu"
+      },
+      {
+       "label": "Waterford",
+       "km": 52,
+       "kind": "ville",
+       "note": "15 m imprimés",
+       "lat": 52.261,
+       "lon": -7.11191,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Carrick-on-Suir",
+       "km": 84,
+       "kind": "ville",
+       "note": "39 m imprimés",
+       "lat": 52.34917,
+       "lon": -7.41306,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Lemybrien",
+       "km": 111,
+       "kind": "ville",
+       "note": "89 m imprimés",
+       "lat": 52.16802,
+       "lon": -7.52073,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Curtiswood",
+       "km": 131,
+       "kind": "côte",
+       "note": "168 m imprimés ; non placée : le seul Curtiswood (townland, Waterford) est à 36,1 km à vol d'oiseau de Youghal pour 20 km au profil",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Youghal",
+       "km": 151,
+       "kind": "ville",
+       "note": "8 m imprimés",
+       "lat": 51.94947,
+       "lon": -7.84319,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Cork",
+       "km": 205.5,
+       "kind": "ville",
+       "lat": 51.89851,
+       "lon": -8.47264,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "note": "Km 88 : côte de 3e catégorie, 139 m, sans nom — non reprise (règle 4).",
+     "route_check": {
+      "routed_km": 148.3,
+      "profile_km": 153.5,
+      "delta_pct": -3.4,
+      "tolerance_pct": 5,
+      "coverage_pct": 75,
+      "car_legs": 0,
+      "legs": 4,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
+    },
+    "3": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1997_2006/1998/98_3.jpg",
+     "towns": [
+      {
+       "label": "Roscoff",
+       "km": 0,
+       "kind": "ville",
+       "lat": 48.72558,
+       "lon": -3.9829,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Commana",
+       "km": 39.5,
+       "kind": "ville",
+       "note": "251 m imprimés",
+       "lat": 48.41396,
+       "lon": -3.95546,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Roc-Trévézel",
+       "km": 46,
+       "kind": "côte",
+       "note": "354 m imprimés ; sommet du Roc'h Trévézel (natural=peak), au bord de la route (Nominatim, recherche bornée autour des voisins) ; MNT 380 m pour 354 imprimés",
+       "lat": 48.40663,
+       "lon": -3.90964,
+       "how": "nominatim"
+      },
+      {
+       "label": "Plonévez-du-Faou",
+       "km": 67.5,
+       "kind": "ville",
+       "note": "155 m imprimés",
+       "lat": 48.25321,
+       "lon": -3.82597,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Châteauneuf-du-Faou",
+       "km": 82,
+       "kind": "côte",
+       "note": "245 m imprimés ; rattachée à Châteauneuf-du-Faou, lieu qui lui donne son nom, trouvé compatible avec ses voisins par recherche bornée ; MNT 96 m pour 245 imprimés : pied ou centre, pas le sommet, non routée",
+       "geocodeAs": "Châteauneuf-du-Faou",
+       "lat": 48.1863,
+       "lon": -3.81286,
+       "how": "nominatim"
+      },
+      {
+       "label": "Scaër",
+       "km": 102,
+       "kind": "ville",
+       "note": "201 m imprimés",
+       "lat": 48.02681,
+       "lon": -3.702,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Moëlan-sur-Mer",
+       "km": 130.5,
+       "kind": "ville",
+       "note": "79 m imprimés",
+       "lat": 47.8134,
+       "lon": -3.63098,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Lorient",
+       "km": 169,
+       "kind": "ville",
+       "lat": 47.74773,
+       "lon": -3.36609,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "route_check": {
+      "routed_km": 120.6,
+      "profile_km": 129.5,
+      "delta_pct": -6.9,
+      "tolerance_pct": 5,
+      "coverage_pct": 77,
+      "car_legs": 0,
+      "legs": 5,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     },
+     "note": "Hors tolérance (−6,9 %) : Moëlan-sur-Mer → Lorient fait 38,5 km au profil pour 25,1 routés (31,0 en voiture) — détour que le profil ne nomme pas, non reconstitué."
+    },
+    "4": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1997_2006/1998/98_4.jpg",
+     "towns": [
+      {
+       "label": "Plouay",
+       "km": 0,
+       "kind": "ville",
+       "lat": 47.91379,
+       "lon": -3.3327,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Plumelec",
+       "km": 62,
+       "kind": "ville",
+       "note": "163 m imprimés",
+       "lat": 47.83785,
+       "lon": -2.63965,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de la Secourette",
+       "km": 95,
+       "kind": "côte",
+       "note": "70 m imprimés ; non placée : introuvable par recherche bornée (« Côte de la Secourette », « Secourette »)",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Saint-Nicolas-de-Redon",
+       "km": 120.5,
+       "kind": "ville",
+       "note": "6 m imprimés",
+       "lat": 47.64409,
+       "lon": -2.06899,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Le Boulay",
+       "km": 186,
+       "kind": "ville",
+       "note": "41 m imprimés",
+       "lat": 47.43029,
+       "lon": -1.33194,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Liré",
+       "km": 204,
+       "kind": "côte",
+       "note": "52 m imprimés ; village de Liré (place=village) (Nominatim, recherche bornée autour des voisins) ; MNT 47 m pour 52 imprimés",
+       "lat": 47.34257,
+       "lon": -1.16579,
+       "how": "nominatim"
+      },
+      {
+       "label": "Cholet",
+       "km": 252,
+       "kind": "ville",
+       "lat": 47.06173,
+       "lon": -0.88014,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "note": "Peillac imprimé entre les km 95 et 120,5, sans km — non repris (règle 4).",
+     "route_check": {
+      "routed_km": 188.2,
+      "profile_km": 190,
+      "delta_pct": -0.9,
+      "tolerance_pct": 5,
+      "coverage_pct": 75,
+      "car_legs": 0,
+      "legs": 4,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
+    },
+    "5": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1997_2006/1998/98_5.jpg",
+     "towns": [
+      {
+       "label": "Cholet",
+       "km": 0,
+       "kind": "ville",
+       "lat": 47.06173,
+       "lon": -0.88014,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Argenton-Château",
+       "km": 34.5,
+       "kind": "ville",
+       "note": "117 m imprimés",
+       "lat": 46.98544,
+       "lon": -0.45,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Loudun",
+       "km": 80,
+       "kind": "ville",
+       "note": "92 m imprimés",
+       "lat": 47.01023,
+       "lon": 0.08183,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Antogny-le-Tillac",
+       "km": 122,
+       "kind": "ville",
+       "note": "41 m imprimés",
+       "lat": 46.97868,
+       "lon": 0.5785,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Mézières-en-Brenne",
+       "km": 186,
+       "kind": "ville",
+       "note": "80 m imprimés",
+       "lat": 46.81974,
+       "lon": 1.21262,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Châteauroux",
+       "km": 228.5,
+       "kind": "ville",
+       "lat": 46.8047,
+       "lon": 1.69571,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "route_check": {
+      "routed_km": 194.8,
+      "profile_km": 194,
+      "delta_pct": 0.4,
+      "tolerance_pct": 5,
+      "coverage_pct": 85,
+      "car_legs": 0,
+      "legs": 4,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
+    },
+    "6": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1997_2006/1998/98_6.jpg",
+     "towns": [
+      {
+       "label": "La Châtre",
+       "km": 0,
+       "kind": "ville",
+       "lat": 46.58161,
+       "lon": 1.98674,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Genouillac",
+       "km": 26.5,
+       "kind": "ville",
+       "note": "300 m imprimés",
+       "lat": 46.35336,
+       "lon": 1.99203,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte du Chêne",
+       "km": 35,
+       "kind": "côte",
+       "note": "512 m imprimés ; hameau du Chêne, Jouillat (place=hamlet) (Nominatim, recherche bornée autour des voisins) ; MNT 496 m pour 512 imprimés",
+       "lat": 46.28681,
+       "lon": 1.94898,
+       "how": "nominatim"
+      },
+      {
+       "label": "Côte de la Croix des Bois",
+       "km": 57,
+       "kind": "côte",
+       "note": "665 m imprimés ; croix des Bois, sur la D940 (historic=wayside_cross) (Nominatim, recherche bornée autour des voisins) ; MNT 637 m pour 665 imprimés",
+       "lat": 46.13265,
+       "lon": 1.86459,
+       "how": "nominatim"
+      },
+      {
+       "label": "Côte des Treize Vents",
+       "km": 80,
+       "kind": "côte",
+       "note": "632 m imprimés ; non placée : les deux hameaux Treize-Vents (Mareilles, Peyrat-le-Château) sont incompatibles avec leurs voisins (30,8 km de Peyrat pour 25,5 ; 62,4 km de Genouillac pour 53,5)",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Peyrat-le-Château",
+       "km": 105.5,
+       "kind": "ville",
+       "note": "451 m imprimés",
+       "lat": 45.81361,
+       "lon": 1.77361,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte d'Eymoutiers",
+       "km": 117,
+       "kind": "côte",
+       "note": "528 m imprimés ; rattachée à Eymoutiers, lieu qui lui donne son nom, trouvé compatible avec ses voisins par recherche bornée ; MNT 418 m pour 528 imprimés : pied ou centre, pas le sommet, non routée",
+       "geocodeAs": "Eymoutiers",
+       "lat": 45.73892,
+       "lon": 1.74327,
+       "how": "nominatim"
+      },
+      {
+       "label": "Lacelle",
+       "km": 129.5,
+       "kind": "ville",
+       "note": "684 m imprimés",
+       "lat": 45.64088,
+       "lon": 1.82605,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Chamboulive",
+       "km": 164.5,
+       "kind": "ville",
+       "note": "469 m imprimés",
+       "lat": 45.43218,
+       "lon": 1.70372,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Brive-la-Gaillarde",
+       "km": 204.5,
+       "kind": "ville",
+       "lat": 45.1585,
+       "lon": 1.53324,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "route_check": {
+      "routed_km": 173.4,
+      "profile_km": 178,
+      "delta_pct": -2.6,
+      "tolerance_pct": 5,
+      "coverage_pct": 87,
+      "car_legs": 0,
+      "legs": 6,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
+    },
+    "7": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1997_2006/1998/98_7.jpg",
+     "towns": [
+      {
+       "label": "Meyrignac-l'Église",
+       "km": 0,
+       "kind": "ville",
+       "lat": 45.40083,
+       "lon": 1.85204,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Madranges",
+       "km": 13,
+       "kind": "ville",
+       "note": "621 m imprimés",
+       "lat": 45.47399,
+       "lon": 1.79146,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Bournas",
+       "km": 34,
+       "kind": "côte",
+       "note": "751 m imprimés ; non placée : introuvable par recherche bornée (« Côte de Bournas », « Bournas »)",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Sarran",
+       "km": 38,
+       "kind": "ville",
+       "note": "735 m imprimés",
+       "lat": 45.40973,
+       "lon": 1.93827,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Vitrac-sur-Montane",
+       "km": 45.5,
+       "kind": "ville",
+       "note": "626 m imprimés",
+       "lat": 45.37644,
+       "lon": 1.93589,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Corrèze",
+       "km": 58,
+       "kind": "ville",
+       "lat": 45.37196,
+       "lon": 1.87424,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "note": "Contre-la-montre. Contre-la-montre. Hors tolérance (−28,8 %) : chaque tronçon est plus court routé qu'au profil (Madranges → Sarran 19,7 km pour 25, Sarran → Vitrac 4,9 pour 7,5, Vitrac → Corrèze 7,4 pour 12,5, mêmes distances en voiture) — parcours sinueux entre des points trop espacés, non reconstitué.",
+     "route_check": {
+      "routed_km": 32,
+      "profile_km": 45,
+      "delta_pct": -28.8,
+      "tolerance_pct": 5,
+      "coverage_pct": 78,
+      "car_legs": 0,
+      "legs": 3,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
+    },
+    "8": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1997_2006/1998/98_8.jpg",
+     "towns": [
+      {
+       "label": "Brive-la-Gaillarde",
+       "km": 0,
+       "kind": "ville",
+       "lat": 45.1585,
+       "lon": 1.53324,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Chavagnac",
+       "km": 12.5,
+       "kind": "côte",
+       "note": "348 m imprimés ; village de Chavagnac, Les Coteaux Périgourdins (place=village) ; 14,8 km à vol d'oiseau de Brive pour 12,5 au profil, départ réel hors du centre (Nominatim, recherche bornée autour des voisins) ; MNT 325 m pour 348 imprimés",
+       "lat": 45.08911,
+       "lon": 1.37274,
+       "how": "nominatim"
+      },
+      {
+       "label": "Salignac-Eyvigues",
+       "km": 30,
+       "kind": "ville",
+       "note": "318 m imprimés",
+       "lat": 44.97541,
+       "lon": 1.32037,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Saint-Martial-de-Nabirat",
+       "km": 66.5,
+       "kind": "côte",
+       "note": "235 m imprimés ; commune de Saint-Martial-de-Nabirat (Nominatim, recherche bornée autour des voisins) ; MNT 209 m pour 235 imprimés",
+       "lat": 44.74389,
+       "lon": 1.25936,
+       "how": "nominatim"
+      },
+      {
+       "label": "Salviac",
+       "km": 77.5,
+       "kind": "ville",
+       "note": "172 m imprimés",
+       "lat": 44.6806,
+       "lon": 1.26114,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Cazals",
+       "km": 85,
+       "kind": "ville",
+       "note": "190 m imprimés",
+       "lat": 44.64319,
+       "lon": 1.22378,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Bourlens",
+       "km": 125.5,
+       "kind": "côte",
+       "note": "211 m imprimés ; rattachée à Bourlens, lieu qui lui donne son nom, trouvé compatible avec ses voisins par recherche bornée ; MNT 162 m pour 211 imprimés : pied ou centre, pas le sommet, non routée",
+       "geocodeAs": "Bourlens",
+       "lat": 44.41755,
+       "lon": 0.9701,
+       "how": "nominatim"
+      },
+      {
+       "label": "Côte de Montaigu-de-Quercy",
+       "km": 140,
+       "kind": "côte",
+       "note": "275 m imprimés ; rattachée à Montaigu-de-Quercy, lieu qui lui donne son nom (Nominatim, recherche bornée) ; MNT 161 m : le village n'est pas le sommet, non routée — le géocodeur avait pris le lieu-dit « La Côte » (236 m), qui n'est pas le nom cherché (règle 21)",
+       "lat": 44.33968,
+       "lon": 1.01784,
+       "how": "nominatim",
+       "confidence": "ok",
+       "geocodeAs": "Montaigu-de-Quercy"
+      },
+      {
+       "label": "Côte de Saint-Avit",
+       "km": 157,
+       "kind": "côte",
+       "note": "235 m imprimés ; rattachée à Saint-Avit, lieu qui lui donne son nom, trouvé compatible avec ses voisins par recherche bornée ; MNT 158 m pour 235 imprimés (hameau de Saint-Amans-de-Pellagal) : pied ou centre, pas le sommet, non routée",
+       "geocodeAs": "Saint-Avit",
+       "lat": 44.22535,
+       "lon": 1.13603,
+       "how": "nominatim"
+      },
+      {
+       "label": "Montauban",
+       "km": 190.5,
+       "kind": "ville",
+       "lat": 44.01758,
+       "lon": 1.355,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "note": "Tournon-d'Agenais, 187 m, et Côte de Maurets, 283 m, imprimés entre les km 125,5 et 140 sans km — non repris (règle 4). Hors tolérance (−11,3 %) : entre Cazals et Montauban, les côtes de Bourlens, de Montaigu-de-Quercy et de Saint-Avit sont rattachées à leur village, aucun n'étant au sommet imprimé (règle 21), donc non routées : 89,2 km routés en direct pour 105,5 au profil, 107,4 en passant par les trois villages — l'écart vient de ces trois côtes, pas de la transcription.",
+     "route_check": {
+      "routed_km": 157.9,
+      "profile_km": 178,
+      "delta_pct": -11.3,
+      "tolerance_pct": 5,
+      "coverage_pct": 93,
+      "car_legs": 0,
+      "legs": 5,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
+    },
+    "9": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1997_2006/1998/98_9.jpg",
+     "towns": [
+      {
+       "label": "Montauban",
+       "km": 0,
+       "kind": "ville",
+       "lat": 44.01758,
+       "lon": 1.355,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Saint-Léonard",
+       "km": 52.5,
+       "kind": "côte",
+       "note": "223 m imprimés ; commune de Saint-Léonard (Gers) (Nominatim, recherche bornée autour des voisins) ; MNT 191 m pour 223 imprimés",
+       "lat": 43.85917,
+       "lon": 0.76908,
+       "how": "nominatim"
+      },
+      {
+       "label": "Préchac",
+       "km": 73.5,
+       "kind": "ville",
+       "note": "207 m imprimés",
+       "lat": 43.79082,
+       "lon": 0.57568,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Saint-Jean-Poutge",
+       "km": 97,
+       "kind": "ville",
+       "note": "149 m imprimés",
+       "lat": 43.72577,
+       "lon": 0.37753,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Lisle-de-Noé",
+       "km": 114,
+       "kind": "ville",
+       "note": "200 m imprimés ; commune de L'Isle-de-Noé (graphie officielle ; « Lisle-de-Noé » imprimé) (Nominatim, recherche bornée autour des voisins)",
+       "lat": 43.58598,
+       "lon": 0.41312,
+       "how": "nominatim"
+      },
+      {
+       "label": "Maubourguet",
+       "km": 155,
+       "kind": "ville",
+       "note": "219 m imprimés",
+       "lat": 43.4657,
+       "lon": 0.04327,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Lahitte-Toupière",
+       "km": 160.5,
+       "kind": "côte",
+       "note": "336 m imprimés ; rattachée à Lahitte-Toupière, lieu qui lui donne son nom, trouvé compatible avec ses voisins par recherche bornée ; MNT 293 m pour 336 imprimés : pied ou centre, pas le sommet, non routée",
+       "geocodeAs": "Lahitte-Toupière",
+       "lat": 43.45571,
+       "lon": -0.01654,
+       "how": "nominatim"
+      },
+      {
+       "label": "Pau",
+       "km": 210,
+       "kind": "ville",
+       "lat": 43.29575,
+       "lon": -0.36857,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "note": "Côte de Loubère, 255 m, imprimée entre les km 73,5 et 97 sans km — non reprise (règle 4).",
+     "route_check": {
+      "routed_km": 157.2,
+      "profile_km": 157.5,
+      "delta_pct": -0.2,
+      "tolerance_pct": 5,
+      "coverage_pct": 75,
+      "car_legs": 0,
+      "legs": 5,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
+    },
+    "10": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1997_2006/1998/98_10.jpg",
+     "towns": [
+      {
+       "label": "Pau",
+       "km": 0,
+       "kind": "ville",
+       "lat": 43.29575,
+       "lon": -0.36857,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Laruns",
+       "km": 35.5,
+       "kind": "ville",
+       "note": "540 m imprimés",
+       "lat": 42.98824,
+       "lon": -0.42663,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col d'Aubisque",
+       "km": 54,
+       "kind": "col",
+       "note": "1709 m imprimés",
+       "lat": 42.97658,
+       "lon": -0.33979,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Lau-Balagnas",
+       "km": 84.5,
+       "kind": "ville",
+       "note": "463 m imprimés",
+       "lat": 42.99647,
+       "lon": -0.09249,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col du Tourmalet",
+       "km": 120,
+       "kind": "col",
+       "note": "2115 m imprimés",
+       "lat": 42.90839,
+       "lon": 0.1453,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col d'Aspin",
+       "km": 150,
+       "kind": "col",
+       "note": "1489 m imprimés",
+       "lat": 42.94233,
+       "lon": 0.32738,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col de Peyresourde",
+       "km": 181,
+       "kind": "col",
+       "note": "km lu sur la graduation : aucun km imprimé sous le col, ajouté comme col majeur indispensable à la mesure (règle 4) ; 1569 m imprimés",
+       "lat": 42.80231,
+       "lon": 0.46308,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Luchon",
+       "km": 196.5,
+       "kind": "ville",
+       "lat": 42.78909,
+       "lon": 0.59265,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "placé à la mairie de Bagnères-de-Luchon (Nominatim amenity=townhall) : l'ancre stage_towns (42,74121 / 0,62486) est le centre de la commune, 5,6 km au sud-est de la ville ; 14,0 km routés depuis le col de Peyresourde pour 15,5 au profil"
+      }
+     ],
+     "note": "Sprint du km 168 sans nom — non repris ; Peyresourde sans km imprimé (règle 4).",
+     "route_check": {
+      "routed_km": 155.3,
+      "profile_km": 161,
+      "delta_pct": -3.5,
+      "tolerance_pct": 5,
+      "coverage_pct": 82,
+      "car_legs": 0,
+      "legs": 6,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
+    },
+    "11": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1997_2006/1998/98_11.jpg",
+     "towns": [
+      {
+       "label": "Luchon",
+       "km": 0,
+       "kind": "ville",
+       "lat": 42.79106,
+       "lon": 0.59123,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col de Menté",
+       "km": 28,
+       "kind": "col",
+       "note": "1322 m imprimés",
+       "lat": 42.91935,
+       "lon": 0.76178,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col de Portet-d'Aspet",
+       "km": 43.5,
+       "kind": "col",
+       "note": "1069 m imprimés",
+       "lat": 42.944785,
+       "lon": 0.854002,
+       "how": "known-cols",
+       "confidence": "ok"
+      },
+      {
+       "label": "Castillon-en-Couserans",
+       "km": 62.5,
+       "kind": "ville",
+       "note": "553 m imprimés",
+       "lat": 42.92134,
+       "lon": 1.03085,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col de la Core",
+       "km": 79,
+       "kind": "col",
+       "note": "1395 m imprimés",
+       "lat": 42.86259,
+       "lon": 1.10818,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Oust",
+       "km": 95.5,
+       "kind": "ville",
+       "note": "517 m imprimés",
+       "lat": 42.87532,
+       "lon": 1.21644,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col de Port",
+       "km": 126.5,
+       "kind": "col",
+       "note": "1249 m imprimés",
+       "lat": 42.89904,
+       "lon": 1.45285,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Tarascon-sur-Ariège",
+       "km": 144.5,
+       "kind": "ville",
+       "note": "505 m imprimés",
+       "lat": 42.84921,
+       "lon": 1.60435,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Plateau de Beille",
+       "km": 170,
+       "kind": "lieu-dit",
+       "lat": 42.70967,
+       "lon": 1.7024,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "route_check": {
+      "routed_km": 148.3,
+      "profile_km": 142,
+      "delta_pct": 4.5,
+      "tolerance_pct": 5,
+      "coverage_pct": 84,
+      "car_legs": 0,
+      "legs": 7,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
+    },
+    "13": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1997_2006/1998/98_13.jpg",
+     "towns": [
+      {
+       "label": "Frontignan-la-Peyrade",
+       "km": 0,
+       "kind": "ville",
+       "lat": 43.42643,
+       "lon": 3.72661,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Caissargues",
+       "km": 75.5,
+       "kind": "ville",
+       "note": "20 m imprimés",
+       "lat": 43.79615,
+       "lon": 4.37831,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Jonquières-Saint-Vincent",
+       "km": 92.5,
+       "kind": "ville",
+       "note": "20 m imprimés",
+       "lat": 43.8304,
+       "lon": 4.55596,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Plan-d'Orgon",
+       "km": 130.5,
+       "kind": "ville",
+       "note": "56 m imprimés",
+       "lat": 43.80838,
+       "lon": 4.99828,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col de Murs",
+       "km": 173.5,
+       "kind": "col",
+       "note": "627 m imprimés",
+       "lat": 43.97708,
+       "lon": 5.22591,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Carpentras",
+       "km": 196,
+       "kind": "ville",
+       "lat": 44.0554,
+       "lon": 5.04877,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "route_check": {
+      "routed_km": 112.7,
+      "profile_km": 120.5,
+      "delta_pct": -6.5,
+      "tolerance_pct": 5,
+      "coverage_pct": 61,
+      "car_legs": 0,
+      "legs": 4,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     },
+     "note": "Hors tolérance (−6,5 %) : Plan-d'Orgon → Col de Murs fait 43 km au profil pour 34,8 routés (35,4 en voiture) — détour que le profil ne nomme pas, non reconstitué."
+    },
+    "14": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1997_2006/1998/98_14.jpg",
+     "towns": [
+      {
+       "label": "Valréas",
+       "km": 0,
+       "kind": "ville",
+       "lat": 44.38515,
+       "lon": 4.99061,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "La Montagne de la série",
+       "km": 16,
+       "kind": "côte",
+       "note": "486 m imprimés ; Montagne de la Série, Aleyrac (natural=peak), au bord de la route (Nominatim, recherche bornée autour des voisins) ; MNT 476 m pour 486 imprimés",
+       "lat": 44.48782,
+       "lon": 4.93471,
+       "how": "nominatim"
+      },
+      {
+       "label": "Puy-Saint-Martin",
+       "km": 34,
+       "kind": "ville",
+       "note": "197 m imprimés",
+       "lat": 44.62843,
+       "lon": 4.97333,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Die",
+       "km": 85.5,
+       "kind": "ville",
+       "note": "380 m imprimés",
+       "lat": 44.75337,
+       "lon": 5.36891,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col de Rousset",
+       "km": 106.5,
+       "kind": "col",
+       "note": "1254 m imprimés",
+       "lat": 44.83988,
+       "lon": 5.4065,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Lans-en-Vercors",
+       "km": 159.5,
+       "kind": "ville",
+       "note": "1004 m imprimés",
+       "lat": 45.12792,
+       "lon": 5.58855,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Grenoble",
+       "km": 186.5,
+       "kind": "ville",
+       "lat": 45.18756,
+       "lon": 5.73578,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "note": "Côte de Puy-Saint-Martin, 387 m, imprimée juste après le km 34 sans km — non reprise (règle 4).",
+     "route_check": {
+      "routed_km": 165.7,
+      "profile_km": 170.5,
+      "delta_pct": -2.8,
+      "tolerance_pct": 5,
+      "coverage_pct": 91,
+      "car_legs": 0,
+      "legs": 5,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
+    },
+    "15": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1997_2006/1998/98_15.jpg",
+     "towns": [
+      {
+       "label": "Grenoble",
+       "km": 0,
+       "kind": "ville",
+       "lat": 45.18756,
+       "lon": 5.73578,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Gavet",
+       "km": 23.5,
+       "kind": "ville",
+       "note": "470 m imprimés ; hameau de Gavet, Livet-et-Gavet (Nominatim, place=hamlet) : le premier candidat, centre de la commune fusionnée, était à 1 037 m au MNT pour 470 imprimés (règle 15)",
+       "lat": 45.06904,
+       "lon": 5.87198,
+       "how": "nominatim",
+       "confidence": "ambigu"
+      },
+      {
+       "label": "Livet",
+       "km": 30,
+       "kind": "ville",
+       "note": "651 m imprimés",
+       "lat": 45.10833,
+       "lon": 5.93387,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col de la Croix de Fer",
+       "km": 69,
+       "kind": "col",
+       "note": "2067 m imprimés",
+       "lat": 45.227482,
+       "lon": 6.203515,
+       "how": "known-cols",
+       "confidence": "ok"
+      },
+      {
+       "label": "Saint-Jean-de-Maurienne",
+       "km": 100,
+       "kind": "ville",
+       "note": "606 m imprimés",
+       "lat": 45.27755,
+       "lon": 6.34517,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col du Télégraphe",
+       "km": 123,
+       "kind": "col",
+       "note": "1566 m imprimés",
+       "lat": 45.2026999,
+       "lon": 6.4446143,
+       "how": "known-cols",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col du Galibier",
+       "km": 146.5,
+       "kind": "col",
+       "note": "2645 m imprimés",
+       "lat": 45.06414,
+       "lon": 6.40786,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Les Deux Alpes",
+       "km": 189,
+       "kind": "lieu-dit",
+       "note": "arrivée au sommet d'une montée de 1re catégorie, sans altitude imprimée (le « 1 » du profil est la catégorie)",
+       "lat": 45.00999,
+       "lon": 6.12376,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "route_check": {
+      "routed_km": 164.5,
+      "profile_km": 165.5,
+      "delta_pct": -0.6,
+      "tolerance_pct": 5,
+      "coverage_pct": 88,
+      "car_legs": 0,
+      "legs": 6,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
+    },
+    "16": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1997_2006/1998/98_16.jpg",
+     "towns": [
+      {
+       "label": "Vizille",
+       "km": 0,
+       "kind": "ville",
+       "lat": 45.07584,
+       "lon": 5.77159,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Grenoble",
+       "km": 20,
+       "kind": "ville",
+       "note": "228 m imprimés",
+       "lat": 45.18756,
+       "lon": 5.73578,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col de la Porte",
+       "km": 37.5,
+       "kind": "col",
+       "note": "1326 m imprimés ; Col de Porte (mountain_pass) : graphie OSM sans article (Nominatim, recherche bornée autour des voisins) ; MNT 1 323 m pour 1 326 imprimés",
+       "lat": 45.28994,
+       "lon": 5.767,
+       "how": "nominatim"
+      },
+      {
+       "label": "Col du Cucheron",
+       "km": 50,
+       "kind": "col",
+       "note": "1139 m imprimés",
+       "lat": 45.36546,
+       "lon": 5.83412,
+       "how": "nominatim",
+       "confidence": "ambigu"
+      },
+      {
+       "label": "Col du Granier",
+       "km": 68,
+       "kind": "col",
+       "note": "1134 m imprimés",
+       "lat": 45.48049,
+       "lon": 5.91498,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Pontcharra",
+       "km": 88,
+       "kind": "ville",
+       "note": "290 m imprimés",
+       "lat": 45.43275,
+       "lon": 6.02042,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Détrier",
+       "km": 94,
+       "kind": "ville",
+       "note": "371 m imprimés",
+       "lat": 45.4466,
+       "lon": 6.094,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col du Grand Cucheron",
+       "km": 115,
+       "kind": "col",
+       "note": "1188 m imprimés",
+       "lat": 45.48992,
+       "lon": 6.2481,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Épierre",
+       "km": 123,
+       "kind": "ville",
+       "note": "405 m imprimés ; km 123 imprimé contradictoire : 8 km au profil depuis le col du Grand Cucheron (1 188 m → 405 m, 10 % de moyenne) pour 14,7 km routés (14,2 en voiture), alors que col → Épierre → col de la Madeleine fait 45,7 km routés pour 45,5 au profil — point gardé, la somme est juste",
+       "lat": 45.454,
+       "lon": 6.29453,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col de la Madeleine",
+       "km": 160.5,
+       "kind": "col",
+       "note": "2000 m imprimés",
+       "lat": 45.434905,
+       "lon": 6.37553,
+       "how": "known-cols",
+       "confidence": "ok"
+      },
+      {
+       "label": "Albertville",
+       "km": 204,
+       "kind": "ville",
+       "lat": 45.67546,
+       "lon": 6.39254,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "route_check": {
+      "routed_km": 178.7,
+      "profile_km": 184,
+      "delta_pct": -2.9,
+      "tolerance_pct": 5,
+      "coverage_pct": 90,
+      "car_legs": 0,
+      "legs": 9,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
+    },
+    "18": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1997_2006/1998/98_18.jpg",
+     "towns": [
+      {
+       "label": "Aix-les-Bains",
+       "km": 0,
+       "kind": "ville",
+       "lat": 45.68863,
+       "lon": 5.91464,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Corbonod",
+       "km": 39,
+       "kind": "ville",
+       "note": "360 m imprimés",
+       "lat": 45.9668,
+       "lon": 5.82208,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Billiat",
+       "km": 53.5,
+       "kind": "ville",
+       "note": "513 m imprimés",
+       "lat": 46.07767,
+       "lon": 5.78413,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "La Grande Côte",
+       "km": 66,
+       "kind": "côte",
+       "note": "548 m imprimés ; lieu-dit Grande Côte, Lancrans (place=locality) (Nominatim, recherche bornée autour des voisins) ; MNT 571 m pour 548 imprimés",
+       "lat": 46.13752,
+       "lon": 5.83039,
+       "how": "nominatim"
+      },
+      {
+       "label": "Côte de Vattay",
+       "km": 104.5,
+       "kind": "côte",
+       "note": "1305 m imprimés ; hameau de La Vattay, Mijoux, sur la D1005 (place=hamlet) (Nominatim, recherche bornée autour des voisins) ; MNT 1 265 m pour 1 305 imprimés",
+       "lat": 46.38916,
+       "lon": 6.05335,
+       "how": "nominatim"
+      },
+      {
+       "label": "Bois-d'Amont",
+       "km": 126.5,
+       "kind": "ville",
+       "note": "1092 m imprimés",
+       "lat": 46.53724,
+       "lon": 6.13643,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col du Pétra-Félix",
+       "km": 150.5,
+       "kind": "col",
+       "note": "1156 m imprimés ; lieu-dit Pétra Félix, Le Pont (Vaud, place=locality) (Nominatim, recherche bornée autour des voisins) ; MNT 1 146 m pour 1 156 imprimés",
+       "lat": 46.65919,
+       "lon": 6.34802,
+       "how": "nominatim"
+      },
+      {
+       "label": "Onnens",
+       "km": 190.5,
+       "kind": "ville",
+       "note": "446 m imprimés",
+       "lat": 46.83911,
+       "lon": 6.68849,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Neuchâtel",
+       "km": 218.5,
+       "kind": "ville",
+       "lat": 46.98958,
+       "lon": 6.92926,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "route_check": {
+      "routed_km": 180.7,
+      "profile_km": 179.5,
+      "delta_pct": 0.6,
+      "tolerance_pct": 5,
+      "coverage_pct": 82,
+      "car_legs": 0,
+      "legs": 7,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
+    },
+    "19": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1997_2006/1998/98_19.jpg",
+     "towns": [
+      {
+       "label": "La Chaux-de-Fonds",
+       "km": 0,
+       "kind": "ville",
+       "lat": 47.10313,
+       "lon": 6.83258,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Cernans",
+       "km": 85.5,
+       "kind": "ville",
+       "note": "659 m imprimés",
+       "lat": 46.932,
+       "lon": 5.93256,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Ounans",
+       "km": 113.5,
+       "kind": "ville",
+       "note": "231 m imprimés",
+       "lat": 46.99423,
+       "lon": 5.66688,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "La Rochepot",
+       "km": 207,
+       "kind": "ville",
+       "note": "432 m imprimés",
+       "lat": 46.9578,
+       "lon": 4.67806,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Autun",
+       "km": 242,
+       "kind": "ville",
+       "lat": 46.95103,
+       "lon": 4.29895,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "note": "Côte de Changey, 489 m, imprimée après le km 207 sans km — non reprise (règle 4).",
+     "route_check": {
+      "routed_km": 149.9,
+      "profile_km": 156.5,
+      "delta_pct": -4.2,
+      "tolerance_pct": 5,
+      "coverage_pct": 65,
+      "car_legs": 0,
+      "legs": 3,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
+    },
+    "20": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1997_2006/1998/98_20.jpg",
+     "towns": [
+      {
+       "label": "Montceau-les-Mines",
+       "km": 0,
+       "kind": "ville",
+       "lat": 46.67405,
+       "lon": 4.36317,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Lac de la Sorme",
+       "km": 16,
+       "kind": "lieu-dit",
+       "note": "337 m imprimés",
+       "lat": 46.72893,
+       "lon": 4.36273,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Montchanin",
+       "km": 29.5,
+       "kind": "ville",
+       "note": "349 m imprimés",
+       "lat": 46.74743,
+       "lon": 4.46997,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Le Creusot (1er pointage)",
+       "km": 45,
+       "kind": "ville",
+       "geocodeAs": "Le Creusot",
+       "note": "438 m imprimés ; pointage intermédiaire dans Le Creusot, cherché sous ce nom ; non placé : position du pointage dans Le Creusot inconnue ; placé au centre, il tombait sur l'arrivée (0,2 km routé pour 7 au profil)"
+      },
+      {
+       "label": "Le Creusot",
+       "km": 52,
+       "kind": "ville",
+       "lat": 46.80541,
+       "lon": 4.4286,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "note": "Contre-la-montre. Contre-la-montre. Hors tolérance (−43,2 %) : le parcours boucle autour de Montceau-les-Mines et du Creusot (Montceau → lac de la Sorme 16 km au profil pour 7,9 routés, Montchanin → Le Creusot 22,5 pour 7,8, pointage intermédiaire dans Le Creusot non placé) — boucles non reconstituées.",
+     "route_check": {
+      "routed_km": 20.5,
+      "profile_km": 36,
+      "delta_pct": -43.2,
+      "tolerance_pct": 5,
+      "coverage_pct": 69,
+      "car_legs": 0,
+      "legs": 2,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
+    },
+    "21": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1997_2006/1998/98_21.jpg",
+     "towns": [
+      {
+       "label": "Melun",
+       "km": 0,
+       "kind": "ville",
+       "lat": 48.53993,
+       "lon": 2.66082,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Noisiel",
+       "km": 55,
+       "kind": "ville",
+       "note": "86 m imprimés",
+       "lat": 48.84573,
+       "lon": 2.62,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Champs-Élysées",
+       "km": 84.5,
+       "kind": "lieu-dit",
+       "note": "1er passage sur la ligne d'arrivée : entrée du circuit final (circuit_km, règle 19) ; 60 m imprimés",
+       "lat": 48.87076,
+       "lon": 2.30533,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Paris Champs-Élysées",
+       "km": 147.5,
+       "kind": "lieu-dit",
+       "lat": 48.8535,
+       "lon": 2.34839,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "circuit_km": 84.5,
+     "note": "Circuit des Champs-Élysées : 1er passage sur la ligne au km 84,5, arrivée au km 147,5 (circuit_km). Non contrôlable : le premier tronçon (km 0, départ réel) n'est pas mesuré, et la part mesurable avant le circuit (km 55 à 84,5) ne couvre que 20 % de l'étape, sous le seuil de 50 %."
+    }
+   }
+  },
   "1999": {
    "stages": {
     "7": {
