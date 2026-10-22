@@ -7,7 +7,7 @@
 const { getDb, SCHEMA_VERSION } = require('../db');
 const { isOffline, setOffline } = require('../../pipeline/http');
 const { getUsageStats: getApiUsageStats } = require('../../pipeline/apiUsage');
-const { wrap, truncateText, FIELD_MAX, WAYPOINT_KINDS } = require('../apiHelpers');
+const { wrap, truncateText, FIELD_MAX, WAYPOINT_KINDS, STAGE_STATES } = require('../apiHelpers');
 const { CATEGORIES } = require('../../pipeline/importer');
 const { MAX_NAME_LEN: GEAR_NAME_MAX } = require('./gear');
 const { inLatLonBounds } = require('../../pipeline/geo');
@@ -94,10 +94,31 @@ module.exports = function register(app) {
     for (const [c, max] of Object.entries(BACKUP_TEXT_MAX[t] || {})) {
       if (typeof row[c] === 'string' && row[c].length > max) { row[c] = truncateText(row[c], max); truncated++; }
     }
+    const bad = (c, msg) => Object.assign(new Error(`${f(c)} : ${msg}`), { status: 400 });
     for (const c of BACKUP_JSON_COLUMNS[t] || []) {
       if (row[c] == null) continue;
-      if (typeof row[c] !== 'string') throw Object.assign(new Error(`${f(c)} : texte JSON attendu`), { status: 400 });
-      try { JSON.parse(row[c]); } catch { throw Object.assign(new Error(`${f(c)} : JSON mal formé`), { status: 400 }); }
+      if (typeof row[c] !== 'string') throw bad(c, 'texte JSON attendu');
+      let parsed;
+      try { parsed = JSON.parse(row[c]); } catch { throw bad(c, 'JSON mal formé'); }
+      // La syntaxe ne suffit pas : le contenu ressort dans des pages (profil
+      // de côte, Archives) — issue #486, XSS par sauvegarde forgée.
+      if (c === 'km_blocks') {
+        if (!Array.isArray(parsed)) throw bad(c, 'tableau de blocs attendu');
+        for (const b of parsed) {
+          if (!b || typeof b !== 'object' || Array.isArray(b)) throw bad(c, 'bloc objet attendu');
+          for (const [k, v] of Object.entries(b)) {
+            if (v !== null && !(typeof v === 'number' && Number.isFinite(v))) throw bad(c, `${k} : nombre attendu`);
+          }
+        }
+      }
+      if (c === 'progress' && parsed !== null) {
+        if (typeof parsed !== 'object' || Array.isArray(parsed)) throw bad(c, 'objet attendu');
+        if ('percent' in parsed && !(typeof parsed.percent === 'number' && Number.isFinite(parsed.percent))) throw bad(c, 'percent : nombre attendu');
+        if ('step' in parsed && typeof parsed.step !== 'string') throw bad(c, 'step : texte attendu');
+      }
+    }
+    if (t === 'stages' && 'state' in row && !STAGE_STATES.has(row.state)) {
+      throw bad('state', `${[...STAGE_STATES].join(', ')} attendu`);
     }
     if (t === 'waypoints' && 'kind' in row && !WAYPOINT_KINDS.has(row.kind)) {
       throw Object.assign(new Error(`${f('kind')} : ${[...WAYPOINT_KINDS].join(', ')} attendu`), { status: 400 });

@@ -1899,6 +1899,51 @@ suivi double story + issue, et import des quatre éléments ci-dessous.
   générés) : aucun stash nu, `stash -u`, `restore .`, `checkout -- .`,
   `reset --hard` ; rouge avec l'ancien `/porte` et avec un stash nu ajouté.
 
+## Epic 38 — Revue globale du 22/10/2026
+
+Mesuré sans défaut : CI de `main` verte (CI et Pages) avant et après chaque
+fusion ; `npm audit --omit=dev` 0 vulnérabilité ; 27 routes d'écriture
+relues — aucun objet ou tableau n'atteint better-sqlite3 ; SSRF de
+`/api/import/link` fermé (https, hôte en liste blanche revérifié à chaque
+redirection) ; ~118 sinks HTML relus — hors les trois de 38.1, tous
+échappés ou numériques ; JSON embarqué des exports neutralise `</script>` ;
+positionnement « 100 % local / aucun compte » cohérent ; backlog #10 :
+6 ouverts, 47 faits ; issue #342 (branches mortes) close, il ne reste que
+`main` et les branches de PR ouvertes.
+
+- [x] 38.1 (PR #487) XSS stockée par sauvegarde forgée (issue #486, règle 1) —
+  critères : `POST /api/backup/import` refuse un `stages.state` hors de
+  draft/generating/done/error, un `km_blocks` (climbs, descents) qui n'est
+  pas un tableau d'objets aux champs numériques finis, un `progress` qui
+  n'est pas un objet (`percent` nombre, `step` texte) ; côté affichage,
+  `EF.stateBadge` n'insère jamais `state` brut (classe en liste blanche,
+  texte échappé), `renderClimbSVG` n'insère `ele0` que s'il est un nombre,
+  Archives n'insère `percent` que converti en nombre ; un test par couche,
+  chacun rouge sans son correctif ; relecture adverse.
+  Fait : 9 tests, chaque couche rouge sans son fichier (3 sinks, 5 refus
+  d'import) ; 1 066 tests, lint, démo, e2e verts. Relecture adverse : plus
+  aucune XSS sur 8 exports et tous les sinks clients (charge utile dans
+  chaque champ JSON et TEXT) ; aucune sauvegarde légitime refusée
+  (`git log -S` : km_blocks et state jamais d'un autre format) ; reste un
+  défaut de disponibilité préexistant → 38.4.
+- [x] 38.2 (PR #488) Skill `revue-globale` à jour — critères : le `grep` des routes
+  d'écriture couvre `backend/routes/` et les routeurs (27 routes), le
+  compte de dépendances est juste (5 directes, 6 en dev).
+- [ ] 38.3 Identifiant d'activité Strava/Suunto validé avant l'URL amont
+  (issue #491) — critères : `..` et tout non-entier (Strava) / toute forme
+  de clé inattendue ou non-chaîne (Suunto) refusés en 400 avant l'appel
+  réseau ; test rouge sans le correctif ; relecture adverse.
+- [ ] 38.4 Forme des colonnes JSON validée à l'import de sauvegarde
+  (issue #492) — critères : `tracks.geojson`, `approx_segments`,
+  `surfaces`, `communes`, `stages.checks`, `source`, `waypoints.bonus_sec`,
+  `geocode` refusés en 400 si leur forme diffère de ce que le code écrit ;
+  plus aucune sauvegarde forgée ne rend un export 500 ; une sauvegarde
+  exportée par l'appli passe toujours ; relecture adverse.
+- [ ] 38.5 Protection de `main` côté GitHub (issue #489) — **en attente de
+  décision** de l'utilisateur (réglage du dépôt).
+- [ ] 38.6 Essai réel des agents générés dans Copilot et Gemini CLI
+  (issue #490) — bloquée : aucun compte dans la session.
+
 ## Epic 24 — Bilan final
 
 - [x] 24.1 Rapport de clôture par epic (17/10/2026), voir ci-dessous
