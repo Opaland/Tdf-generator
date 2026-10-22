@@ -1869,7 +1869,7 @@ suivi double story + issue, et import des quatre éléments ci-dessous.
   --force` échappe à ask), `git log --output=` écrit un fichier, et
   `main` n'est protégée par aucune règle GitHub — décision à prendre
   par l'utilisateur (réglage du dépôt, hors de ce fichier).
-- [x] 37.5 (PR à venir) Intégrations Copilot et Gemini générées — critères :
+- [x] 37.5 (PR #483) Intégrations Copilot et Gemini générées — critères :
   `scripts/generer-integrations.js` écrit `.github/agents/*.agent.md` et
   `.gemini/` (agents, commandes `/henri` `/mireille`…, skills copiés,
   `settings.json` avec `AGENTS.md` en contexte et les seules commandes
@@ -1877,6 +1877,19 @@ suivi double story + issue, et import des quatre éléments ci-dessous.
   orphelin ; un test échoue si les fichiers générés ne sont plus à jour ;
   les outils d'écriture d'un agent ne passent jamais dans sa version
   générée.
+  Fait : 1 055 tests ; mutations rouges (Edit traduit, disallowedTools
+  ignoré, orphelins ignorés, source modifiée, `npm audit` exact) — la
+  dernière a révélé un test vide (regex sans antislashs), corrigé. Gemini
+  compare par préfixe : seules les règles `allow` déjà en préfixe passent
+  (`npm audit --audit-level=high` y couvrait `… fix`). Relecture adverse :
+  préambule « terminal » donné à Henri qui n'en a pas, corrigé. Non
+  vérifié : essai réel dans Copilot et Gemini CLI (aucun compte ici).
+- [ ] 37.6 `verificateur-de-tests` hors Claude Code — constat de la
+  relecture de #483 (raisonné, non reproduit) : sans `Edit`, son
+  préambule généré prescrit `git stash` / `git stash pop`, qui embarque
+  aussi le travail non commité de l'utilisateur. Critères : la consigne
+  générée cible le seul fichier du correctif (`git stash push -- <fichier>`)
+  ou une copie jetable ; test sur le préambule généré.
 
 ## Epic 24 — Bilan final
 
