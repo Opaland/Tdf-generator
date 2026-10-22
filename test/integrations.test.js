@@ -87,3 +87,34 @@ test('un outil interdit (disallowedTools) ou d\'écriture ne passe pas, même li
   assert.deepStrictEqual(translateTools(fields, TOOLS_COPILOT), ['read']);
   assert.deepStrictEqual(translateTools(fields, TOOLS_GEMINI), ['read_file']);
 });
+
+test('sans Edit, verificateur-de-tests ne met de côté que le fichier du correctif (story 37.6)', () => {
+  const files = expectedFiles();
+  for (const rel of ['.github/agents/verificateur-de-tests.agent.md', '.gemini/agents/verificateur-de-tests.md']) {
+    assert.match(files[rel], /git stash push -- <fichier du correctif>/, rel);
+    assert.match(files[rel], /git diff -- <fichier>` ne montre que le correctif/, rel);
+  }
+});
+
+test("aucune consigne ne met de côté ou n'efface le travail non commité (#484)", () => {
+  const sources = ['AGENTS.md', 'CLAUDE.md'];
+  for (const sub of ['agents', 'skills']) {
+    const walk = (d) => fs.readdirSync(d, { withFileTypes: true })
+      .flatMap((e) => (e.isDirectory() ? walk(path.join(d, e.name)) : [path.join(d, e.name)]));
+    sources.push(...walk(path.join(ROOT, '.claude', sub)).map((p) => path.relative(ROOT, p)));
+  }
+  const texts = { ...expectedFiles() };
+  for (const rel of sources) texts[rel] = fs.readFileSync(path.join(ROOT, rel), 'utf8');
+  // Seules formes admises : stash ciblé, pop, ou la mise en garde elle-même.
+  const allowed = /^git stash( push -- <fichier| pop|` sans chemin|` dans l'arbre courant)/;
+  const forbidden = /git checkout -- \.|git restore \.|git stash push -- \.|git stash -u|git stash save|git reset --hard/;
+  const bad = [];
+  for (const [rel, text] of Object.entries(texts)) {
+    for (const m of text.matchAll(/git stash/g)) {
+      const context = text.slice(m.index, m.index + 40).replace(/\s+/g, ' ');
+      if (!allowed.test(context)) bad.push(`${rel} : ${context}`);
+    }
+    if (forbidden.test(text)) bad.push(`${rel} : ${forbidden.exec(text)[0]}`);
+  }
+  assert.deepStrictEqual(bad, []);
+});

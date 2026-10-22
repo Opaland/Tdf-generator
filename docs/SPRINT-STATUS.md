@@ -1884,12 +1884,20 @@ suivi double story + issue, et import des quatre éléments ci-dessous.
   (`npm audit --audit-level=high` y couvrait `… fix`). Relecture adverse :
   préambule « terminal » donné à Henri qui n'en a pas, corrigé. Non
   vérifié : essai réel dans Copilot et Gemini CLI (aucun compte ici).
-- [ ] 37.6 `verificateur-de-tests` hors Claude Code — constat de la
+- [x] 37.6 (issue #484) `verificateur-de-tests` : stash ciblé — constat de la
   relecture de #483 (raisonné, non reproduit) : sans `Edit`, son
   préambule généré prescrit `git stash` / `git stash pop`, qui embarque
   aussi le travail non commité de l'utilisateur. Critères : la consigne
   générée cible le seul fichier du correctif (`git stash push -- <fichier>`)
   ou une copie jetable ; test sur le préambule généré.
+  Fait : retrait à la main de préférence ; `git stash push -- <fichier>`
+  seulement si le fichier est suivi et que `git diff -- <fichier>` ne montre
+  que le correctif (sinon le travail de l'utilisateur sur ce fichier part
+  aussi — relecture adverse, vérifié dans un dépôt jetable). `/porte` avait
+  le même `git stash` nu : l'arbre propre se teste dans un `git worktree`.
+  Test sur toutes les consignes (AGENTS, CLAUDE, agents, skills, fichiers
+  générés) : aucun stash nu, `stash -u`, `restore .`, `checkout -- .`,
+  `reset --hard` ; rouge avec l'ancien `/porte` et avec un stash nu ajouté.
 
 ## Epic 24 — Bilan final
 

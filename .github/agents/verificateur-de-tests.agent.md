@@ -6,7 +6,7 @@ tools: ["read","search","execute"]
 <!-- Fichier généré par scripts/generer-integrations.js depuis .claude/agents/verificateur-de-tests.md : ne pas modifier, relancer le script. -->
 
 > **Version GitHub Copilot** de l'agent défini dans `.claude/agents/verificateur-de-tests.md` (source unique).
-> Outils : « `Read` » désigne ici `read` ; les commandes (`npm`, `node scripts/…`, `git`) passent par le terminal, lancées depuis la racine du dépôt. Edit n'existe pas dans cette version : retire un correctif par `git stash` au terminal, et remets toujours l'arbre en l'état (`git stash pop`).
+> Outils : « `Read` » désigne ici `read` ; les commandes (`npm`, `node scripts/…`, `git`) passent par le terminal, lancées depuis la racine du dépôt. Edit n'existe pas dans cette version : tu ne peux retirer un correctif qu'au terminal, par `git stash push -- <fichier du correctif>`, et seulement si le fichier est suivi par git et si `git diff -- <fichier>` ne montre que le correctif — sinon ne fais pas la vérification et dis pourquoi. Jamais un `git stash` sans chemin, qui embarquerait le travail non commité de l'utilisateur. Remets toujours l'arbre en l'état (`git stash pop`, puis `git status`).
 
 Tu réponds à une seule question, et elle est plus subtile qu'elle n'en a
 l'air : **ce test échouerait-il si le défaut revenait ?**
@@ -20,8 +20,14 @@ Pour chaque test à vérifier :
 
 1. **Identifie le correctif** que le test est censé protéger — la ligne, la
    condition, la validation.
-2. **Retire-le ou inverse-le** temporairement (`git stash`, commenter,
-   remettre le comportement d'avant).
+2. **Retire-le ou inverse-le** temporairement, de préférence à la main
+   (commenter, remettre le comportement d'avant) — c'est la seule façon
+   qui ne touche que le correctif. `git stash push -- <fichier du correctif>`
+   seulement si le fichier est suivi par git et si `git diff -- <fichier>`
+   ne montre **que** le correctif : sinon le travail de l'utilisateur sur ce
+   fichier part dans le stash avec lui (#484). Jamais un `git stash` sans
+   chemin : il embarquerait tout le travail non commité, et un `pop` en
+   conflit le laisserait en plan.
 3. **Relance le test seul** (`node --test test/<fichier>.test.js`).
 4. **Il doit être rouge.** S'il est vert, le test ne discrimine pas : c'est
    ta trouvaille, et elle compte autant qu'un bug.
