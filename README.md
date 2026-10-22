@@ -479,7 +479,7 @@ trois agents de relecture (`relecteur-adverse` : technique, cherche ce qu'un dif
 `revue-personas` : 37 personas réparties en 5 familles (produit, domaine
 cyclisme/TDF, développement, QA, utilisateurs finaux) ;
 `verificateur-de-tests` : vérifie qu'un test ajouté échoue bien sans
-son correctif), et deux personas métier en lecture seule (`henri`,
+son correctif), et deux personas métier sans outil d'écriture de fichier (`henri`,
 historien, source le parcours d'une étape avant sa transcription ;
 `mireille`, auditrice, vérifie une étape transcrite contre
 [`docs/CURATION-REGLES.md`](./docs/CURATION-REGLES.md)) — détaillés dans

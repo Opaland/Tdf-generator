@@ -27,10 +27,14 @@ npm run demo      # démo hors ligne auto-vérifiée, avant toute PR (/porte)
   (règle 15).
 - Permissions (`.claude/settings.json`) : lecture et vérifications en
   `allow` ; en `ask`, l'irréversible (push forcé ou suppression de branche
-  distante, `reset --hard`, réglages du dépôt, releases, secrets) et les
-  imports réseau de plusieurs heures. Le push et la fusion ordinaires n'y
-  sont pas : la fusion est autonome (règle 15). Un refus ne se contourne
-  jamais.
+  distante, `reset --hard`, `branch -D`, `clean`, réglages du dépôt,
+  releases, secrets) et les imports réseau de plusieurs heures. Le push et
+  la fusion ordinaires ne sont ni en `allow` ni en `ask` : ce fichier ne
+  les autorise pas, il évite seulement d'ajouter une confirmation — qu'ils
+  passent sans demande dépend du mode de permission de la session. Les
+  motifs comparent par préfixe : `git push origin x --force` échappe à
+  `ask`, et rien côté GitHub ne protège `main` aujourd'hui. Un refus ne se
+  contourne jamais.
 
 ## Règles communes (Claude, Copilot, Gemini)
 

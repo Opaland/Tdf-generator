@@ -35,8 +35,7 @@
       "Bash(npm run demo)",
       "Bash(npm run monkey)",
       "Bash(npm run e2e)",
-      "Bash(npm audit)",
-      "Bash(npm audit --audit-level*)",
+      "Bash(npm audit --audit-level=high)",
       "Bash(git status*)",
       "Bash(git diff*)",
       "Bash(git log*)",
@@ -60,7 +59,11 @@
       "Bash(gh release*)",
       "Bash(gh secret*)",
       "Bash(npm run import*)",
-      "Bash(node scripts/import-all-and-generate.js*)"
+      "Bash(node scripts/import-all-and-generate.js*)",
+      "Bash(git branch -D*)",
+      "Bash(git clean*)",
+      "Bash(gh api -X DELETE*)",
+      "Bash(gh api --method DELETE*)"
     ]
   }
 }

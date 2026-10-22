@@ -202,7 +202,7 @@ session précédente). Jamais de push direct sur `main`.
 attendu), en plus de sa story dans `docs/SPRINT-STATUS.md` (règle 15) :
 l'issue dit ce qui ne va pas, la story dit ce qu'on livre et comment on le
 vérifie. **Un correctif = une PR** : une branche partie de `main` à jour
-(règle 7), un seul sujet, `Closes #n` dans la description — la fusion ferme
+(règle 7) — ou de la branche de la PR dont elle dépend (règle 15) —, un seul sujet, `Closes #n` dans la description — la fusion ferme
 l'issue. Un corps d'issue ou de PR s'écrit dans un fichier
 (`--body-file`), jamais en ligne dans une commande shell : les backticks y
 sont interprétés.
@@ -252,7 +252,9 @@ diffs récents, qui ne trouverait rien que `/revue-sprint` n'ait déjà couvert.
 Les personas métier (`henri`, `mireille`) ne remplacent ni l'une ni l'autre :
 Henri cherche les sources d'un parcours avant la transcription, Mireille
 audite une étape transcrite contre `docs/CURATION-REGLES.md` avant la PR de
-curation. Ni l'un ni l'autre n'écrit : leurs propositions passent par la
+curation. Aucun n'a d'outil d'écriture de fichier (Henri n'a pas non plus
+le terminal ; Mireille l'a pour les contrôles réels, et sa consigne, pas
+l'outil, lui interdit `--write`) : leurs propositions passent par la
 conversation principale, qui les applique et les vérifie par le pipeline réel.
 
 ## 14. `clearTimeout` après l'await réussi n'annule rien si le fetch rejette
@@ -305,7 +307,9 @@ quand toutes ces conditions tiennent :
 
 1. `main` à jour est fusionnée dans la branche juste avant (deux PR vertes
    séparément peuvent casser `main` ensemble) ;
-2. la CI est verte **sur ce commit-là**, pas sur un commit antérieur ;
+2. la CI est verte **sur ce commit-là**, pas sur un commit antérieur (pour
+   une PR, GitHub teste la fusion de ce commit avec la base telle qu'elle
+   était au lancement du run — d'où le point 1 juste avant) ;
 3. la relecture adverse est passée quand la règle 11 l'exige, et ses
    trouvailles sont corrigées ou écartées par écrit dans la PR ;
 4. `gh pr merge <n> --squash --match-head-commit <sha>` — le SHA vérifié
@@ -319,7 +323,9 @@ Ce qui reste un vrai arrêt, inchangé : contourner
 un refus de permission (jamais), trancher seul une décision produit,
 design, architecture ou marketing (proposer, noter la story « en attente de
 décision », passer à la suivante — pas attendre la réponse), publier quoi
-que ce soit hors du dépôt, et la règle 12. On ne rend la main que quand
+que ce soit hors du dépôt (le déploiement GitHub Pages que déclenche une
+fusion sur `main`, `.github/workflows/pages.yml`, en fait partie : il est
+prévu par le dépôt, il n'est pas une publication nouvelle), et la règle 12. On ne rend la main que quand
 **toutes** les stories restantes attendent une décision.
 
 ## 16. Avant le premier tracé d'une édition, relire les règles de curation

@@ -64,6 +64,13 @@ test('les personas interdisent explicitement Write et Edit', () => {
   }
 });
 
+test("henri lit le Web mais n'a pas de terminal ; mireille contrôle sans --write", () => {
+  const henri = readAgent(path.join(AGENTS_DIR, 'henri.md'));
+  assert.ok(!list(henri.fields.tools).includes('Bash'), 'henri : Bash dans tools');
+  assert.ok(list(henri.fields.disallowedTools).includes('Bash'), 'henri : Bash non interdit');
+  assert.match(readAgent(path.join(AGENTS_DIR, 'mireille.md')).body, /sans `--write`/);
+});
+
 test('mireille ne va pas sur le Web : elle juge sur pièces du dépôt', () => {
   const { fields } = readAgent(path.join(AGENTS_DIR, 'mireille.md'));
   for (const t of ['WebSearch', 'WebFetch']) {
@@ -84,7 +91,6 @@ test('les personas savent être sous-agents et ne bloquent jamais', () => {
   for (const name of PERSONAS) {
     const { body } = readAgent(path.join(AGENTS_DIR, `${name}.md`));
     for (const r of required) assert.ok(body.includes(r), `${name} : mention « ${r} » absente`);
-    assert.match(body, /jamais `--write`|sans `--write`/, `${name} : contrôles en lecture seule`);
   }
 });
 
@@ -121,7 +127,13 @@ test('CLAUDE.md importe AGENTS.md, et les « règle N » citées y existent', ()
 
 const settings = JSON.parse(fs.readFileSync(path.join(ROOT, '.claude', 'settings.json'), 'utf8'));
 
-/** « Bash(x*) » couvre tout ce qui commence par x ; « Bash(x) », x seul. */
+/** « Bash(x*) » couvre tout ce qui commence par x ; « Bash(x) », x seul.
+ * Réimplémentation du motif par préfixe de Claude Code : ces tests prouvent la
+ * cohérence du fichier, pas le comportement exact de l'outil. Limites connues
+ * (relecture adverse de la PR #482) : un drapeau placé après la branche
+ * (« git push origin x --force ») échappe à ask, et git diff/log/show
+ * acceptent --output=<fichier> — d'où la protection de main à décider côté
+ * GitHub, pas ici. */
 function matches(rule, command) {
   const m = /^Bash\((.*)\)$/.exec(rule);
   if (!m) return false;
@@ -135,7 +147,7 @@ test("allow ne couvre aucune commande qui écrit", () => {
     'git commit -m x', 'git push origin main', 'git push --force', 'git reset --hard HEAD',
     'git checkout -- .', 'gh pr merge 1 --squash', 'gh pr create', 'gh issue close 1',
     'gh issue create', 'npm audit fix', 'npm audit fix --force', 'npm install', 'npm run import',
-    'npm run generate', 'node scripts/check-itineraries.js --write 1998',
+    'npm run generate', 'npm audit --audit-level=high fix', 'node scripts/check-itineraries.js --write 1998',
     'node scripts/import-all-and-generate.js',
   ];
   const leaks = writes.filter((c) => covered(settings.permissions.allow, c));
@@ -147,12 +159,13 @@ test("ask couvre l'irréversible et les imports de plusieurs heures", () => {
     'git push --force origin x', 'git push -f origin x', 'git push --delete origin x',
     'git reset --hard origin/main', 'gh repo delete x', 'gh release create v2', 'gh secret set X',
     'npm run import -- 1903', 'node scripts/import-all-and-generate.js',
+    'git branch -D x', 'git clean -fdx', 'gh api -X DELETE repos/o/r/git/refs/heads/x',
   ];
   const missing = sensitive.filter((c) => !covered(settings.permissions.ask, c));
   assert.deepStrictEqual(missing, []);
 });
 
-test('le push et la fusion ordinaires ne sont pas en ask : la fusion est autonome', () => {
+test("le push et la fusion ordinaires ne sont pas en ask : ask n'ajoute pas de confirmation à la fusion autonome", () => {
   for (const c of ['git push -u origin epic-37', 'gh pr merge 1 --squash --match-head-commit abc']) {
     assert.ok(!covered(settings.permissions.ask, c), `${c} demanderait une confirmation`);
   }

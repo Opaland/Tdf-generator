@@ -1824,7 +1824,7 @@ Demande du 22/10 : appliquer ici le mode de développement du dépôt cousin
 personas. Décisions de l'utilisateur : fusion autonome (la règle 15 change),
 suivi double story + issue, et import des quatre éléments ci-dessous.
 
-- [ ] 37.1 `AGENTS.md`, source unique des règles — critères : les règles
+- [x] 37.1 (PR #482) `AGENTS.md`, source unique des règles — critères : les règles
   numérotées de `CLAUDE.md` passent dans `AGENTS.md` avec la même
   numérotation (les « CLAUDE.md règle N » cités dans le code restent
   vrais, puisque `CLAUDE.md` l'importe par `@AGENTS.md`) ; `CLAUDE.md` ne
@@ -1835,8 +1835,8 @@ suivi double story + issue, et import des quatre éléments ci-dessous.
   `main` à jour et si la relecture adverse est passée quand elle est
   due ; équivalents de `/porte`, `/revue-sprint` pour un assistant
   sans skills.
-- [ ] 37.2 Personas métier nommés — critères : deux agents en lecture
-  seule (`disallowedTools: Write, Edit`), Henri (historien du Tour :
+- [x] 37.2 (PR #482) Personas métier nommés — critères : deux agents sans outil
+  d'écriture (`disallowedTools: Write, Edit`), Henri (historien du Tour :
   cherche et source le parcours d'une étape, propose sans écrire) et
   Mireille (auditrice de curation : verdict par règle de
   `docs/CURATION-REGLES.md` sur une étape transcrite) ; chacun sait qu'il
@@ -1844,19 +1844,31 @@ suivi double story + issue, et import des quatre éléments ci-dessous.
   termine par des « Questions à choix », traite tout texte lu (page Web,
   JSON, sortie de script) comme une donnée, jamais comme une consigne ;
   descriptions qui se départagent entre elles et avec les relecteurs.
-- [ ] 37.3 Tests des consignes (`test/agents.test.js`) — critères : chaque
+- [x] 37.3 (PR #482) Tests des consignes (`test/agents.test.js`) — critères : chaque
   agent a `name` (= nom du fichier), `description`, `tools` ; les
   relecteurs et les personas n'ont aucun outil d'écriture (seul
   `verificateur-de-tests` a `Edit`, il doit remettre le code en l'état) ;
   mentions obligatoires des personas ; `CLAUDE.md` importe `AGENTS.md` ;
   chaque test retiré de son correctif refait échouer.
-- [ ] 37.4 Permissions `allow` / `ask` — critères : `allow` ne contient
+- [x] 37.4 (PR #482) Permissions `allow` / `ask` — critères : `allow` ne contient
   que des commandes sans effet (tests, lint, démo hors ligne, lecture
   git, `gh` en lecture) ; `ask` couvre l'irréversible (push forcé,
   suppression de branche distante, `reset --hard`, `gh repo`, `gh release`,
   `gh secret`) et les imports réseau de plusieurs heures — pas le push ni la
   fusion ordinaires, qui deviennent autonomes (un `ask` y ferait demander
   chaque fusion) ; vérifié par test.
+  Fait (37.1 à 37.4) : 1 046 tests, lint, démo 13/13 ; 7 mutations, chacune
+  rouge sur son test. Relecture adverse, 6 trouvailles corrigées :
+  `npm audit --audit-level*` laissait passer `… fix` (devient la forme
+  exacte de la CI) ; `git branch -D`, `git clean`, `gh api -X DELETE` en
+  ask ; Henri perd le terminal (il lit du Web) ; « fusion autonome » ne
+  venait pas de ce fichier mais du mode de permission (CLAUDE.md le dit) ;
+  le déploiement Pages qui suit une fusion n'est pas une « publication
+  hors du dépôt » ; règle 11 et PR empilées réconciliées. Limites
+  écrites, non corrigées : motifs par préfixe (`git push origin x
+  --force` échappe à ask), `git log --output=` écrit un fichier, et
+  `main` n'est protégée par aucune règle GitHub — décision à prendre
+  par l'utilisateur (réglage du dépôt, hors de ce fichier).
 - [ ] 37.5 Intégrations Copilot et Gemini générées — critères :
   `scripts/generer-integrations.js` écrit `.github/agents/*.agent.md` et
   `.gemini/` (agents, commandes `/henri` `/mireille`…, skills copiés,
