@@ -34,10 +34,14 @@ revue de sécurité qui avait corrigé la première.
 ### Validation d'entrée
 
 ```bash
-grep -rn "app\.\(post\|put\|delete\)(" backend/server.js
+grep -rnE "(app|router)\.(post|put|patch|delete)\(" backend/
 ```
 
-Pour chaque route qui écrit en base, vérifier que chaque champ passe par
+Les routes vivent dans `backend/routes/*.js` (`app.post(…)`) et dans
+`backend/{auth,strava,suunto}.js` (`router.post(…)`) — 27 routes d'écriture
+le 22/10/2026. Un `grep` limité à `backend/server.js` n'en trouvait plus
+aucune, sans rien signaler (revue globale du 22/10) : un compte à zéro est
+d'abord un `grep` à vérifier. Pour chaque route qui écrit en base, vérifier que chaque champ passe par
 `requireString`/`optionalString`/`optionalNumber` (ou équivalent) avant
 l'écriture SQL — better-sqlite3 plante en 500 avec fuite de stack trace sur
 un type inattendu sans cette garde.
@@ -69,9 +73,9 @@ grep -rn "ce que.*ne fait pas\|100 % local\|aucune dépendance cloud\|aucun comp
 cat package.json | grep -A6 '"dependencies"'
 ```
 
-4 dépendances directes au moment d'écrire ces lignes (`better-sqlite3`,
-`express`, `fit-file-parser`, `leaflet`) + `playwright` et
-`@stryker-mutator/core` en dev — toute nouvelle dépendance se justifie
+5 dépendances directes au 22/10/2026 (`better-sqlite3`, `express`,
+`fit-file-parser`, `leaflet`, `node-html-parser`) + 6 en dev (`eslint`,
+`@eslint/js`, `globals`, `espree`, `playwright`, `@stryker-mutator/core`) — toute nouvelle dépendance se justifie
 explicitement (voir `docs/BRIEF.md`, « ce qu'on ne fera pas » : pas de
 dépendance cloud propriétaire, pas de
 framework frontend).
