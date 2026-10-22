@@ -464,7 +464,7 @@ cousin dont plusieurs idées de ce README/backlog sont directement reprises).
 | [`docs/PRD.md`](./docs/PRD.md) | Dans quel ordre avancer, et à quoi voit-on qu'un sujet est fini |
 | [`docs/PERSONAS.md`](./docs/PERSONAS.md) | Six personnes suivies pas à pas, et l'endroit exact où elles s'arrêtent |
 | [`docs/DESIGN_SYSTEM.md`](./docs/DESIGN_SYSTEM.md) | Couleurs, espacement, boutons — et **pourquoi certaines duplications ne doivent pas être « corrigées »** |
-| [`AGENTS.md`](./AGENTS.md) | Les règles de travail qu'aucune machine ne vérifie — chacune vient d'un raté réel, daté ; communes à Claude Code (via [`CLAUDE.md`](./CLAUDE.md)) et GitHub Copilot |
+| [`AGENTS.md`](./AGENTS.md) | Les règles de travail qu'aucune machine ne vérifie — chacune vient d'un raté réel, daté ; communes à Claude Code (via [`CLAUDE.md`](./CLAUDE.md)), GitHub Copilot et Gemini CLI |
 | [`docs/DATA-BACKEND.md`](./docs/DATA-BACKEND.md) | Faut-il un backend de gestion des données de référence curées — état des lieux, pistes, pas de décision prise |
 | [`docs/PERF-PIPELINE.md`](./docs/PERF-PIPELINE.md) | La génération d'une étape est-elle lente — mesuré, pas supposé |
 | [`docs/PRESENTATION.md`](./docs/PRESENTATION.md) | Présenter le projet en une séance — architecture, choix assumés, FAQ anticipée |
@@ -483,7 +483,9 @@ son correctif), et deux personas métier sans outil d'écriture de fichier (`hen
 historien, source le parcours d'une étape avant sa transcription ;
 `mireille`, auditrice, vérifie une étape transcrite contre
 [`docs/CURATION-REGLES.md`](./docs/CURATION-REGLES.md)) — détaillés dans
-`AGENTS.md` et `.claude/`. Un hook `PreToolUse` lance `npm test` et
+`AGENTS.md` et `.claude/`, et générés pour GitHub Copilot
+(`.github/agents/`) et Gemini CLI (`.gemini/`) par
+`node scripts/generer-integrations.js`. Un hook `PreToolUse` lance `npm test` et
 eslint avant chaque `git commit` ; un hook
 `SessionStart` rapporte l'état de la CI sur `main` au démarrage.
 

@@ -1,0 +1,24 @@
+{
+  "context": {
+    "fileName": [
+      "AGENTS.md"
+    ]
+  },
+  "tools": {
+    "allowed": [
+      "run_shell_command(git status)",
+      "run_shell_command(git diff)",
+      "run_shell_command(git log)",
+      "run_shell_command(git show)",
+      "run_shell_command(git fetch)",
+      "run_shell_command(gh pr view)",
+      "run_shell_command(gh pr list)",
+      "run_shell_command(gh pr checks)",
+      "run_shell_command(gh pr diff)",
+      "run_shell_command(gh issue view)",
+      "run_shell_command(gh issue list)",
+      "run_shell_command(gh run view)",
+      "run_shell_command(gh run list)"
+    ]
+  }
+}

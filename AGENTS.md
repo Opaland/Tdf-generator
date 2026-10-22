@@ -1,7 +1,8 @@
 # Travailler sur ÉtapeForge — consignes communes aux assistants
 
-Source unique des règles de développement, lue par GitHub Copilot,
-importée par `CLAUDE.md` pour Claude Code — d'où les « CLAUDE.md règle N » cités dans le
+Source unique des règles de développement, lue par GitHub Copilot et Gemini
+CLI (`context.fileName` de `.gemini/settings.json`), importée par
+`CLAUDE.md` pour Claude Code — d'où les « CLAUDE.md règle N » cités dans le
 code : la numérotation est celle de ce fichier. Organisation reprise du
 dépôt cousin [ISTQBFinder](https://github.com/Opaland/ISTQBFinder) (Epic 37).
 Français partout (réponses, commits, commentaires).
@@ -13,7 +14,10 @@ qui relève du jugement est ici, et repose sur ma discipline.
 **Où est la méthode.** Source unique des agents : `.claude/agents/`
 (relecteurs et personas métier — Henri, historien ; Mireille, auditrice de
 curation) ; des skills : `.claude/skills/` (`porte`, `revue-sprint`,
-`revue-globale`). Sans les skills de Claude
+`revue-globale`). Fichiers **générés** par
+`node scripts/generer-integrations.js`, à ne jamais modifier à la main :
+`.github/agents/*.agent.md` et tout `.gemini/` (sous-agents `@henri`,
+commandes `/henri`, `/mireille`…). Sans les skills de Claude
 Code : `/porte` = `npm test` + `npm run lint` + `npm run demo` (+ Playwright
 si le frontend change) ; `/revue-sprint` = relire `git diff origin/main...`
 avec les consignes de `.claude/agents/relecteur-adverse.md`.
@@ -306,7 +310,8 @@ d'ISTQBFinder).** Une PR se fusionne en squash, sans attendre l'utilisateur,
 quand toutes ces conditions tiennent :
 
 1. `main` à jour est fusionnée dans la branche juste avant (deux PR vertes
-   séparément peuvent casser `main` ensemble) ;
+   séparément peuvent casser `main` ensemble), et `node
+   scripts/generer-integrations.js` relancé si `.claude/` a bougé ;
 2. la CI est verte **sur ce commit-là**, pas sur un commit antérieur (pour
    une PR, GitHub teste la fusion de ce commit avec la base telle qu'elle
    était au lancement du run — d'où le point 1 juste avant) ;

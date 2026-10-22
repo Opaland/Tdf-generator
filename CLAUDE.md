@@ -36,6 +36,10 @@ npm run demo      # démo hors ligne auto-vérifiée, avant toute PR (/porte)
   `ask`, et rien côté GitHub ne protège `main` aujourd'hui. Un refus ne se
   contourne jamais.
 
+Après toute modification d'un agent, d'un skill ou des permissions `allow` :
+`node scripts/generer-integrations.js` (fichiers Copilot et Gemini générés ;
+un test échoue s'ils ne sont plus à jour).
+
 ## Règles communes (Claude, Copilot, Gemini)
 
 Les règles numérotées — citées dans le code comme « CLAUDE.md règle N » —
