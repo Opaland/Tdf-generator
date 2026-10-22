@@ -92,10 +92,29 @@ test('sans Edit, verificateur-de-tests ne met de côté que le fichier du correc
   const files = expectedFiles();
   for (const rel of ['.github/agents/verificateur-de-tests.agent.md', '.gemini/agents/verificateur-de-tests.md']) {
     assert.match(files[rel], /git stash push -- <fichier du correctif>/, rel);
-    // Aucune consigne de stash global : chaque « git stash » cité est suivi de push --, pop ou d'une mise en garde.
-    for (const m of files[rel].matchAll(/`git stash( [^`]*)?`/g)) {
-      const context = files[rel].slice(m.index, m.index + m[0].length + 12);
-      assert.match(context, /^`git stash (push -- |pop)|^`git stash` sans chemin/, `${rel} : ${context}`);
-    }
+    assert.match(files[rel], /git diff -- <fichier>` ne montre que le correctif/, rel);
   }
+});
+
+test("aucune consigne ne met de côté ou n'efface le travail non commité (#484)", () => {
+  const sources = ['AGENTS.md', 'CLAUDE.md'];
+  for (const sub of ['agents', 'skills']) {
+    const walk = (d) => fs.readdirSync(d, { withFileTypes: true })
+      .flatMap((e) => (e.isDirectory() ? walk(path.join(d, e.name)) : [path.join(d, e.name)]));
+    sources.push(...walk(path.join(ROOT, '.claude', sub)).map((p) => path.relative(ROOT, p)));
+  }
+  const texts = { ...expectedFiles() };
+  for (const rel of sources) texts[rel] = fs.readFileSync(path.join(ROOT, rel), 'utf8');
+  // Seules formes admises : stash ciblé, pop, ou la mise en garde elle-même.
+  const allowed = /^git stash( push -- <fichier| pop|` sans chemin|` dans l'arbre courant)/;
+  const forbidden = /git checkout -- \.|git restore \.|git stash push -- \.|git stash -u|git stash save|git reset --hard/;
+  const bad = [];
+  for (const [rel, text] of Object.entries(texts)) {
+    for (const m of text.matchAll(/git stash/g)) {
+      const context = text.slice(m.index, m.index + 40).replace(/\s+/g, ' ');
+      if (!allowed.test(context)) bad.push(`${rel} : ${context}`);
+    }
+    if (forbidden.test(text)) bad.push(`${rel} : ${forbidden.exec(text)[0]}`);
+  }
+  assert.deepStrictEqual(bad, []);
 });

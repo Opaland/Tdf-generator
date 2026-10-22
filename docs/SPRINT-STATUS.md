@@ -1890,9 +1890,14 @@ suivi double story + issue, et import des quatre éléments ci-dessous.
   aussi le travail non commité de l'utilisateur. Critères : la consigne
   générée cible le seul fichier du correctif (`git stash push -- <fichier>`)
   ou une copie jetable ; test sur le préambule généré.
-  Fait : source et versions générées disent `git stash push -- <fichier
-  du correctif>`, jamais un stash sans chemin ; le test échoue avec
-  l'ancien préambule.
+  Fait : retrait à la main de préférence ; `git stash push -- <fichier>`
+  seulement si le fichier est suivi et que `git diff -- <fichier>` ne montre
+  que le correctif (sinon le travail de l'utilisateur sur ce fichier part
+  aussi — relecture adverse, vérifié dans un dépôt jetable). `/porte` avait
+  le même `git stash` nu : l'arbre propre se teste dans un `git worktree`.
+  Test sur toutes les consignes (AGENTS, CLAUDE, agents, skills, fichiers
+  générés) : aucun stash nu, `stash -u`, `restore .`, `checkout -- .`,
+  `reset --hard` ; rouge avec l'ancien `/porte` et avec un stash nu ajouté.
 
 ## Epic 24 — Bilan final
 

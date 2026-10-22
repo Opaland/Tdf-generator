@@ -78,10 +78,11 @@ function preamble(sourceName, fields, assistant, readTool) {
         ? 'les commandes (`npm`, `node scripts/…`, `git`) passent par le terminal, lancées depuis la racine du dépôt. '
         : "tu n'as pas de terminal. ") +
       (writes.length
-        ? `${writes.join(', ')} n'existe pas dans cette version : retire un correctif au terminal par ` +
-          '`git stash push -- <fichier du correctif>` (jamais un `git stash` sans chemin, qui embarquerait ' +
-          "le travail non commité de l'utilisateur), et remets toujours l'arbre en l'état (`git stash pop`, " +
-          'puis `git status`).'
+        ? `${writes.join(', ')} n'existe pas dans cette version : tu ne peux retirer un correctif qu'au ` +
+          'terminal, par `git stash push -- <fichier du correctif>`, et seulement si le fichier est suivi par ' +
+          'git et si `git diff -- <fichier>` ne montre que le correctif — sinon ne fais pas la vérification ' +
+          "et dis pourquoi. Jamais un `git stash` sans chemin, qui embarquerait le travail non commité de " +
+          "l'utilisateur. Remets toujours l'arbre en l'état (`git stash pop`, puis `git status`)."
         : 'Tu ne modifies aucun fichier.'),
   ];
   return lines.join('\n') + '\n\n';

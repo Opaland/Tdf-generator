@@ -56,8 +56,12 @@ mesurer après le premier correctif, pas seulement avant.
 ## Quand un test échoue
 
 1. Le relancer **isolément** (`node --test test/<fichier>.test.js`).
-2. `git stash` puis relancer la suite complète. Si l'arbre propre échoue
-   aussi, le défaut préexiste ; sinon il est du dernier changement.
+2. Relancer la suite complète sur l'arbre propre, **dans un arbre de
+   travail à part** (`git worktree add <dossier temporaire> origin/main`,
+   puis `npm ci` et `npm test` dedans, puis `git worktree remove`) — jamais
+   par `git stash` dans l'arbre courant, qui emporterait le travail non
+   commité de l'utilisateur (#484). Si l'arbre propre échoue aussi, le
+   défaut préexiste ; sinon il est du dernier changement.
 3. **Ne pas conclure « flaky » deux fois pour le même test.** La deuxième
    fois, chercher la cause.
 

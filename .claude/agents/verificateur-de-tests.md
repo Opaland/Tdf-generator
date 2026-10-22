@@ -17,10 +17,14 @@ Pour chaque test à vérifier :
 
 1. **Identifie le correctif** que le test est censé protéger — la ligne, la
    condition, la validation.
-2. **Retire-le ou inverse-le** temporairement (commenter, remettre le
-   comportement d'avant, ou `git stash push -- <fichier du correctif>`).
-   Jamais un `git stash` sans chemin : il embarquerait aussi le travail non
-   commité de l'utilisateur, et un `pop` en conflit le laisserait en plan.
+2. **Retire-le ou inverse-le** temporairement, de préférence à la main
+   (commenter, remettre le comportement d'avant) — c'est la seule façon
+   qui ne touche que le correctif. `git stash push -- <fichier du correctif>`
+   seulement si le fichier est suivi par git et si `git diff -- <fichier>`
+   ne montre **que** le correctif : sinon le travail de l'utilisateur sur ce
+   fichier part dans le stash avec lui (#484). Jamais un `git stash` sans
+   chemin : il embarquerait tout le travail non commité, et un `pop` en
+   conflit le laisserait en plan.
 3. **Relance le test seul** (`node --test test/<fichier>.test.js`).
 4. **Il doit être rouge.** S'il est vert, le test ne discrimine pas : c'est
    ta trouvaille, et elle compte autant qu'un bug.
