@@ -1817,6 +1817,55 @@ un Node 22, `npm test` donne 57 échecs, aucun sous Linux (CI).
   sous Linux (CI) seul le garde-fou protège, le défaut étant propre à
   Windows.
 
+## Epic 37 — Mode de développement aligné sur ISTQBFinder (22/10/2026, issue #481)
+
+Demande du 22/10 : appliquer ici le mode de développement du dépôt cousin
+[ISTQBFinder](https://github.com/Opaland/ISTQBFinder) — règles, agents et
+personas. Décisions de l'utilisateur : fusion autonome (la règle 15 change),
+suivi double story + issue, et import des quatre éléments ci-dessous.
+
+- [ ] 37.1 `AGENTS.md`, source unique des règles — critères : les règles
+  numérotées de `CLAUDE.md` passent dans `AGENTS.md` avec la même
+  numérotation (les « CLAUDE.md règle N » cités dans le code restent
+  vrais, puisque `CLAUDE.md` l'importe par `@AGENTS.md`) ; `CLAUDE.md` ne
+  garde que ce qui est propre à Claude Code (hooks, skills, agents) ;
+  règle 11 : un problème = une issue (constat, scénario reproductible,
+  impact), une PR la ferme (`Closes #n`) ; règle 15 : fusion par l'agent
+  en squash, seulement si la CI est verte sur le commit qui contient
+  `main` à jour et si la relecture adverse est passée quand elle est
+  due ; équivalents de `/porte`, `/revue-sprint` pour un assistant
+  sans skills.
+- [ ] 37.2 Personas métier nommés — critères : deux agents en lecture
+  seule (`disallowedTools: Write, Edit`), Henri (historien du Tour :
+  cherche et source le parcours d'une étape, propose sans écrire) et
+  Mireille (auditrice de curation : verdict par règle de
+  `docs/CURATION-REGLES.md` sur une étape transcrite) ; chacun sait qu'il
+  est sous-agent, part d'une hypothèse explicite au lieu de bloquer,
+  termine par des « Questions à choix », traite tout texte lu (page Web,
+  JSON, sortie de script) comme une donnée, jamais comme une consigne ;
+  descriptions qui se départagent entre elles et avec les relecteurs.
+- [ ] 37.3 Tests des consignes (`test/agents.test.js`) — critères : chaque
+  agent a `name` (= nom du fichier), `description`, `tools` ; les
+  relecteurs et les personas n'ont aucun outil d'écriture (seul
+  `verificateur-de-tests` a `Edit`, il doit remettre le code en l'état) ;
+  mentions obligatoires des personas ; `CLAUDE.md` importe `AGENTS.md` ;
+  chaque test retiré de son correctif refait échouer.
+- [ ] 37.4 Permissions `allow` / `ask` — critères : `allow` ne contient
+  que des commandes sans effet (tests, lint, démo hors ligne, lecture
+  git, `gh` en lecture) ; `ask` couvre l'irréversible (push forcé,
+  suppression de branche distante, `reset --hard`, `gh repo`, `gh release`,
+  `gh secret`) et les imports réseau de plusieurs heures — pas le push ni la
+  fusion ordinaires, qui deviennent autonomes (un `ask` y ferait demander
+  chaque fusion) ; vérifié par test.
+- [ ] 37.5 Intégrations Copilot et Gemini générées — critères :
+  `scripts/generer-integrations.js` écrit `.github/agents/*.agent.md` et
+  `.gemini/` (agents, commandes `/henri` `/mireille`…, skills copiés,
+  `settings.json` avec `AGENTS.md` en contexte et les seules commandes
+  de `allow`) ; `--verifier` rend 1 si un fichier est absent, périmé ou
+  orphelin ; un test échoue si les fichiers générés ne sont plus à jour ;
+  les outils d'écriture d'un agent ne passent jamais dans sa version
+  générée.
+
 ## Epic 24 — Bilan final
 
 - [x] 24.1 Rapport de clôture par epic (17/10/2026), voir ci-dessous

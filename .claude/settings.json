@@ -31,13 +31,36 @@
   "permissions": {
     "allow": [
       "Bash(npm test)",
+      "Bash(npm run lint)",
       "Bash(npm run demo)",
       "Bash(npm run monkey)",
-      "Bash(npm run lint)",
-      "Bash(npm audit*)",
+      "Bash(npm run e2e)",
+      "Bash(npm audit)",
+      "Bash(npm audit --audit-level*)",
       "Bash(git status*)",
       "Bash(git diff*)",
-      "Bash(git log*)"
+      "Bash(git log*)",
+      "Bash(git show*)",
+      "Bash(git fetch*)",
+      "Bash(gh pr view*)",
+      "Bash(gh pr list*)",
+      "Bash(gh pr checks*)",
+      "Bash(gh pr diff*)",
+      "Bash(gh issue view*)",
+      "Bash(gh issue list*)",
+      "Bash(gh run view*)",
+      "Bash(gh run list*)"
+    ],
+    "ask": [
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(git push --delete*)",
+      "Bash(git reset --hard*)",
+      "Bash(gh repo*)",
+      "Bash(gh release*)",
+      "Bash(gh secret*)",
+      "Bash(npm run import*)",
+      "Bash(node scripts/import-all-and-generate.js*)"
     ]
   }
 }
