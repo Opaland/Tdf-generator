@@ -142,15 +142,16 @@ function matches(rule, command) {
 }
 const covered = (rules, command) => rules.some((r) => matches(r, command));
 
+const WRITE_COMMANDS = [
+  'git commit -m x', 'git push origin main', 'git push --force', 'git reset --hard HEAD',
+  'git checkout -- .', 'gh pr merge 1 --squash', 'gh pr create', 'gh issue close 1',
+  'gh issue create', 'npm audit fix', 'npm audit fix --force', 'npm install', 'npm run import',
+  'npm run generate', 'npm audit --audit-level=high fix', 'node scripts/check-itineraries.js --write 1998',
+  'node scripts/import-all-and-generate.js',
+];
+
 test("allow ne couvre aucune commande qui écrit", () => {
-  const writes = [
-    'git commit -m x', 'git push origin main', 'git push --force', 'git reset --hard HEAD',
-    'git checkout -- .', 'gh pr merge 1 --squash', 'gh pr create', 'gh issue close 1',
-    'gh issue create', 'npm audit fix', 'npm audit fix --force', 'npm install', 'npm run import',
-    'npm run generate', 'npm audit --audit-level=high fix', 'node scripts/check-itineraries.js --write 1998',
-    'node scripts/import-all-and-generate.js',
-  ];
-  const leaks = writes.filter((c) => covered(settings.permissions.allow, c));
+  const leaks = WRITE_COMMANDS.filter((c) => covered(settings.permissions.allow, c));
   assert.deepStrictEqual(leaks, []);
 });
 
@@ -169,4 +170,13 @@ test("le push et la fusion ordinaires ne sont pas en ask : ask n'ajoute pas de c
   for (const c of ['git push -u origin epic-37', 'gh pr merge 1 --squash --match-head-commit abc']) {
     assert.ok(!covered(settings.permissions.ask, c), `${c} demanderait une confirmation`);
   }
+});
+
+test('les commandes pré-approuvées pour Gemini (préfixes) ne couvrent aucune commande qui écrit', () => {
+  const { expectedFiles } = require('../scripts/generer-integrations');
+  const allowed = JSON.parse(expectedFiles()['.gemini/settings.json']).tools.allowed
+    .map((r) => /^run_shell_command\((.*)\)$/.exec(r)[1]);
+  assert.ok(allowed.includes('git status'), 'préfixes mal extraits');
+  const leaks = WRITE_COMMANDS.filter((c) => allowed.some((prefix) => c.startsWith(prefix)));
+  assert.deepStrictEqual(leaks, []);
 });

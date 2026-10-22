@@ -1869,7 +1869,7 @@ suivi double story + issue, et import des quatre éléments ci-dessous.
   --force` échappe à ask), `git log --output=` écrit un fichier, et
   `main` n'est protégée par aucune règle GitHub — décision à prendre
   par l'utilisateur (réglage du dépôt, hors de ce fichier).
-- [ ] 37.5 Intégrations Copilot et Gemini générées — critères :
+- [x] 37.5 (PR à venir) Intégrations Copilot et Gemini générées — critères :
   `scripts/generer-integrations.js` écrit `.github/agents/*.agent.md` et
   `.gemini/` (agents, commandes `/henri` `/mireille`…, skills copiés,
   `settings.json` avec `AGENTS.md` en contexte et les seules commandes
