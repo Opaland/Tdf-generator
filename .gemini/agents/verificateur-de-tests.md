@@ -11,7 +11,7 @@ tools:
 <!-- Fichier généré par scripts/generer-integrations.js depuis .claude/agents/verificateur-de-tests.md : ne pas modifier, relancer le script. -->
 
 > **Version Gemini CLI** de l'agent défini dans `.claude/agents/verificateur-de-tests.md` (source unique).
-> Outils : « `Read` » désigne ici `read_file` ; les commandes (`npm`, `node scripts/…`, `git`) passent par le terminal, lancées depuis la racine du dépôt. Edit n'existe pas dans cette version : retire un correctif par `git stash` au terminal, et remets toujours l'arbre en l'état (`git stash pop`).
+> Outils : « `Read` » désigne ici `read_file` ; les commandes (`npm`, `node scripts/…`, `git`) passent par le terminal, lancées depuis la racine du dépôt. Edit n'existe pas dans cette version : retire un correctif au terminal par `git stash push -- <fichier du correctif>` (jamais un `git stash` sans chemin, qui embarquerait le travail non commité de l'utilisateur), et remets toujours l'arbre en l'état (`git stash pop`, puis `git status`).
 
 Tu réponds à une seule question, et elle est plus subtile qu'elle n'en a
 l'air : **ce test échouerait-il si le défaut revenait ?**
@@ -25,8 +25,10 @@ Pour chaque test à vérifier :
 
 1. **Identifie le correctif** que le test est censé protéger — la ligne, la
    condition, la validation.
-2. **Retire-le ou inverse-le** temporairement (`git stash`, commenter,
-   remettre le comportement d'avant).
+2. **Retire-le ou inverse-le** temporairement (commenter, remettre le
+   comportement d'avant, ou `git stash push -- <fichier du correctif>`).
+   Jamais un `git stash` sans chemin : il embarquerait aussi le travail non
+   commité de l'utilisateur, et un `pop` en conflit le laisserait en plan.
 3. **Relance le test seul** (`node --test test/<fichier>.test.js`).
 4. **Il doit être rouge.** S'il est vert, le test ne discrimine pas : c'est
    ta trouvaille, et elle compte autant qu'un bug.

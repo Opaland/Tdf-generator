@@ -87,3 +87,15 @@ test('un outil interdit (disallowedTools) ou d\'écriture ne passe pas, même li
   assert.deepStrictEqual(translateTools(fields, TOOLS_COPILOT), ['read']);
   assert.deepStrictEqual(translateTools(fields, TOOLS_GEMINI), ['read_file']);
 });
+
+test('sans Edit, verificateur-de-tests ne met de côté que le fichier du correctif (story 37.6)', () => {
+  const files = expectedFiles();
+  for (const rel of ['.github/agents/verificateur-de-tests.agent.md', '.gemini/agents/verificateur-de-tests.md']) {
+    assert.match(files[rel], /git stash push -- <fichier du correctif>/, rel);
+    // Aucune consigne de stash global : chaque « git stash » cité est suivi de push --, pop ou d'une mise en garde.
+    for (const m of files[rel].matchAll(/`git stash( [^`]*)?`/g)) {
+      const context = files[rel].slice(m.index, m.index + m[0].length + 12);
+      assert.match(context, /^`git stash (push -- |pop)|^`git stash` sans chemin/, `${rel} : ${context}`);
+    }
+  }
+});

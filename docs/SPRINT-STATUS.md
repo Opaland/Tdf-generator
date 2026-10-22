@@ -1884,12 +1884,15 @@ suivi double story + issue, et import des quatre éléments ci-dessous.
   (`npm audit --audit-level=high` y couvrait `… fix`). Relecture adverse :
   préambule « terminal » donné à Henri qui n'en a pas, corrigé. Non
   vérifié : essai réel dans Copilot et Gemini CLI (aucun compte ici).
-- [ ] 37.6 `verificateur-de-tests` hors Claude Code — constat de la
+- [x] 37.6 (issue #484) `verificateur-de-tests` : stash ciblé — constat de la
   relecture de #483 (raisonné, non reproduit) : sans `Edit`, son
   préambule généré prescrit `git stash` / `git stash pop`, qui embarque
   aussi le travail non commité de l'utilisateur. Critères : la consigne
   générée cible le seul fichier du correctif (`git stash push -- <fichier>`)
   ou une copie jetable ; test sur le préambule généré.
+  Fait : source et versions générées disent `git stash push -- <fichier
+  du correctif>`, jamais un stash sans chemin ; le test échoue avec
+  l'ancien préambule.
 
 ## Epic 24 — Bilan final
 

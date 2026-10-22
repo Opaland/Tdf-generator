@@ -19,7 +19,8 @@
 //   `AGENTS.md`, seules les commandes `allow` pré-approuvées).
 //
 // Un outil d'écriture (Write, Edit) ne passe jamais dans une version générée :
-// `verificateur-de-tests` y retire son correctif par `git stash` au terminal.
+// `verificateur-de-tests` y retire son correctif par `git stash push -- <fichier>`
+// au terminal (story 37.6 : un stash sans chemin emporterait le travail en cours).
 // test/integrations.test.js échoue si un fichier généré n'est pas à jour.
 
 const fs = require('fs');
@@ -77,8 +78,10 @@ function preamble(sourceName, fields, assistant, readTool) {
         ? 'les commandes (`npm`, `node scripts/…`, `git`) passent par le terminal, lancées depuis la racine du dépôt. '
         : "tu n'as pas de terminal. ") +
       (writes.length
-        ? `${writes.join(', ')} n'existe pas dans cette version : retire un correctif par \`git stash\` au terminal, ` +
-          "et remets toujours l'arbre en l'état (`git stash pop`)."
+        ? `${writes.join(', ')} n'existe pas dans cette version : retire un correctif au terminal par ` +
+          '`git stash push -- <fichier du correctif>` (jamais un `git stash` sans chemin, qui embarquerait ' +
+          "le travail non commité de l'utilisateur), et remets toujours l'arbre en l'état (`git stash pop`, " +
+          'puis `git status`).'
         : 'Tu ne modifies aucun fichier.'),
   ];
   return lines.join('\n') + '\n\n';
