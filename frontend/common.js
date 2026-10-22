@@ -120,7 +120,11 @@ const EF = {
     if (state === 'done' && checks && checks.ok === false) {
       return `<span class="badge done-checkfail" title="au moins un audit qualité en échec — voir la fiche étape">générée ⚠</span>`;
     }
-    return `<span class="badge ${state}">${labels[state] || state}</span>`;
+    // state vient de la base, donc aussi d'une sauvegarde réimportée : jamais
+    // inséré brut (issue #486, XSS par sauvegarde forgée). Classe en liste
+    // blanche, texte inconnu échappé.
+    if (!Object.hasOwn(labels, state)) return `<span class="badge">${EF.esc(String(state ?? ''))}</span>`;
+    return `<span class="badge ${state}">${labels[state]}</span>`;
   },
 
   // Écart en % entre distance reconstituée et distance officielle (fiche

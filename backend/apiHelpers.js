@@ -82,6 +82,10 @@ function assertLatLonPaired(waypoints, prefix) {
 // Partagées par routes/stages.js et l'import de sauvegarde (routes/admin.js).
 const FIELD_MAX = { name: 200, status: 200, stage_type: 40, label: 200, source: 60, hint: 60 };
 const WAYPOINT_KINDS = new Set(['start', 'via', 'col', 'sprint', 'finish']);
+// États d'une étape (backend/db.js : draft | generating | done | error), seuls
+// admis à l'import de sauvegarde (issue #486 : un state forgé finissait dans
+// le HTML du badge).
+const STAGE_STATES = new Set(['draft', 'generating', 'done', 'error']);
 
 /** Texte ramené à `max` unités UTF-16 (la mesure de checkLength) sans couper
  * un caractère en deux (emoji). Non-chaîne : rendue telle quelle. */
@@ -100,4 +104,4 @@ function truncateText(v, max) {
  * Partagé par routes/stages.js (étapes similaires) et routes/traces.js (bilan). */
 const { CATEGORY_RANK: CLIMB_CATEGORY_RANK } = require('../pipeline/climbs');
 
-module.exports = { truncateText, FIELD_MAX, WAYPOINT_KINDS, CLIMB_CATEGORY_RANK, wrap, httpError, requireString, optionalString, optionalNumber, queryString, optionalIsoDay, assertLatLonPaired };
+module.exports = { truncateText, FIELD_MAX, WAYPOINT_KINDS, STAGE_STATES, CLIMB_CATEGORY_RANK, wrap, httpError, requireString, optionalString, optionalNumber, queryString, optionalIsoDay, assertLatLonPaired };

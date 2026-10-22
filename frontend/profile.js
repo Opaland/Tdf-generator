@@ -445,7 +445,7 @@
       const cy = (y(b.ele0) + y(b.ele1)) / 2 + (y(eMin) - (y(b.ele0) + y(b.ele1)) / 2) / 2;
       out += `<text x="${cx.toFixed(1)}" y="${cy.toFixed(1)}" text-anchor="middle" font-size="12" font-weight="bold" fill="${gs.text}">${dec(b.gradient.toFixed(1))}%</text>`;
       // altitude aux ruptures de km, le long de la pente
-      out += `<text x="${x0.toFixed(1)}" y="${(y(b.ele0) - 5).toFixed(1)}" text-anchor="middle" font-size="9" fill="#555">${b.ele0}</text>`;
+      out += `<text x="${x0.toFixed(1)}" y="${(y(b.ele0) - 5).toFixed(1)}" text-anchor="middle" font-size="9" fill="#555">${Number.isFinite(b.ele0) ? b.ele0 : ''}</text>`;
     }
     const last = blocks[blocks.length - 1];
     out += `<text x="${x(last.toM).toFixed(1)}" y="${(y(last.ele1) - 8).toFixed(1)}" text-anchor="middle" font-size="10" font-weight="bold" fill="#222">${climb.summit_ele_m} m</text>`;

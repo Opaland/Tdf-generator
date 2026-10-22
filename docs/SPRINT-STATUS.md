@@ -1899,6 +1899,21 @@ suivi double story + issue, et import des quatre éléments ci-dessous.
   générés) : aucun stash nu, `stash -u`, `restore .`, `checkout -- .`,
   `reset --hard` ; rouge avec l'ancien `/porte` et avec un stash nu ajouté.
 
+## Epic 38 — Revue globale du 22/10/2026
+
+- [ ] 38.1 XSS stockée par sauvegarde forgée (issue #486, règle 1) —
+  critères : `POST /api/backup/import` refuse un `stages.state` hors de
+  draft/generating/done/error, un `km_blocks` (climbs, descents) qui n'est
+  pas un tableau d'objets aux champs numériques finis, un `progress` qui
+  n'est pas un objet (`percent` nombre, `step` texte) ; côté affichage,
+  `EF.stateBadge` n'insère jamais `state` brut (classe en liste blanche,
+  texte échappé), `renderClimbSVG` n'insère `ele0` que s'il est un nombre,
+  Archives n'insère `percent` que converti en nombre ; un test par couche,
+  chacun rouge sans son correctif ; relecture adverse.
+- [ ] 38.2 Skill `revue-globale` à jour — critères : le `grep` des routes
+  d'écriture couvre `backend/routes/` et les routeurs (27 routes), le
+  compte de dépendances est juste (5 directes, 6 en dev).
+
 ## Epic 24 — Bilan final
 
 - [x] 24.1 Rapport de clôture par epic (17/10/2026), voir ci-dessous
