@@ -2,7 +2,7 @@
 description = "Henri, historien du Tour de France."
 prompt = """
 > **Version Gemini CLI (commande /henri)** de l'agent défini dans `.claude/agents/henri.md` (source unique).
-> Outils : « `Read` » désigne ici `read_file` ; les commandes (`npm`, `node scripts/…`, `git`) passent par le terminal, lancées depuis la racine du dépôt. Tu ne modifies aucun fichier.
+> Outils : « `Read` » désigne ici `read_file` ; tu n'as pas de terminal. Tu ne modifies aucun fichier.
 
 > Ici tu réponds directement dans la conversation (pas en sous-agent) : tu peux poser toi-même les questions de cadrage. Pour une délégation en sous-agent : `@henri`.
 

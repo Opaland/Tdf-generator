@@ -72,8 +72,10 @@ function preamble(sourceName, fields, assistant, readTool) {
   const lines = [
     `<!-- ${MARK} depuis .claude/agents/${sourceName} : ne pas modifier, relancer le script. -->`, '',
     `> **Version ${assistant}** de l'agent défini dans \`.claude/agents/${sourceName}\` (source unique).`,
-    `> Outils : « \`Read\` » désigne ici \`${readTool}\` ; les commandes (\`npm\`, \`node scripts/…\`, \`git\`) ` +
-      'passent par le terminal, lancées depuis la racine du dépôt. ' +
+    `> Outils : « \`Read\` » désigne ici \`${readTool}\` ; ` +
+      (translateTools(fields, { Bash: 'shell' }).length
+        ? 'les commandes (`npm`, `node scripts/…`, `git`) passent par le terminal, lancées depuis la racine du dépôt. '
+        : "tu n'as pas de terminal. ") +
       (writes.length
         ? `${writes.join(', ')} n'existe pas dans cette version : retire un correctif par \`git stash\` au terminal, ` +
           "et remets toujours l'arbre en l'état (`git stash pop`)."
