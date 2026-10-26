@@ -110,7 +110,7 @@ before(async () => {
         return;
       }
       res.setHeader('Content-Type', 'application/json');
-      res.end(JSON.stringify({ payload: [{ workoutKey: 'wk1', workoutName: 'Sortie col test', activityId: 3, startTime: 1755500000000, totalDistance: 16000, totalAscent: 420 }] }));
+      res.end(JSON.stringify({ payload: [{ workoutKey: 'wk1', workoutName: 'Sortie col test', activityId: 3, startTime: 1755500000000, totalDistance: 16000, totalAscent: 420 }, { workoutName: 'Sortie sans clé' }] }));
       return;
     }
     if (req.url === '/v2/workout/exportFit/wk1') {
@@ -223,6 +223,8 @@ test("callback OAuth : échange du code contre un jeton (Basic auth vérifiée p
 
 test('liste des sorties avec les bons en-têtes (Bearer + Ocp-Apim-Subscription-Key)', async () => {
   const list = await (await fetch(`${base}/api/suunto/workouts`)).json();
+  // Relecture adverse de 38.3 : une sortie sans aucune clé est écartée de la
+  // liste — sinon traces.js affichait un bouton d'import avec la clé "undefined".
   assert.strictEqual(list.length, 1);
   assert.strictEqual(list[0].key, 'wk1');
   assert.strictEqual(list[0].name, 'Sortie col test');
@@ -265,3 +267,20 @@ test('POST /api/suunto/import avec name={} : 400 propre, pas 502 cryptique, pas 
   assert.match(json.error, /doit être une chaîne/);
   assert.strictEqual(mockCalls.length, callsBefore, 'la validation doit échouer avant tout aller-retour vers le serveur Suunto simulé');
 });
+
+// Issue #491 : encodeURIComponent('..') vaut '..' — key ".." faisait viser
+// un autre chemin de l'API Suunto que /v2/workout/exportFit/<key>. Une clé
+// de sortie est une chaîne de caractères sûrs (lettres, chiffres, - et _) :
+// tout le reste est refusé avant l'appel.
+for (const bad of ['..', '.', '../workouts', 'wk1/../x', 'wk 1', 'a'.repeat(129), 42, true, ['wk1'], { k: 'wk1' }]) {
+  test(`POST /api/suunto/import avec key=${JSON.stringify(bad).slice(0, 40)} : 400, pas d'appel réseau vers Suunto`, async () => {
+    const callsBefore = mockCalls.length;
+    const res = await fetch(`${base}/api/suunto/import`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ key: bad }),
+    });
+    assert.strictEqual(res.status, 400);
+    assert.strictEqual(mockCalls.length, callsBefore, 'la clé doit être refusée avant tout aller-retour vers Suunto');
+  });
+}

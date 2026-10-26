@@ -186,8 +186,9 @@ router.get('/workouts', async (req, res) => {
     const json = await apiGet(`/v2/workouts?limit=${limit}`);
     // Structure défensive : payload | workouts | tableau brut.
     const list = json.payload || json.workouts || (Array.isArray(json) ? json : []);
+    // Sans clé, pas d'import possible : traces.js en ferait la chaîne "undefined".
     res.json(
-      list.map((w) => ({
+      list.filter((w) => w && (w.workoutKey || w.workoutId || w.key || w.id)).map((w) => ({
         key: w.workoutKey || w.workoutId || w.key || w.id,
         name: w.workoutName || w.name || null,
         activityId: w.activityId ?? w.activityType ?? null,
@@ -205,7 +206,12 @@ router.get('/workouts', async (req, res) => {
 router.post('/import', async (req, res) => {
   try {
     const { key, name } = req.body || {};
-    if (!key) return res.status(400).json({ error: 'key du workout requis' });
+    // Issue #491 : la clé finit dans le chemin de l'URL amont, et
+    // encodeURIComponent('..') vaut '..' — on n'accepte qu'une chaîne de
+    // caractères sûrs (lettres, chiffres, - et _), jamais . ni /.
+    if (typeof key !== 'string' || !/^[A-Za-z0-9_-]{1,128}$/.test(key)) {
+      return res.status(400).json({ error: 'key du workout requis (lettres, chiffres, - ou _)' });
+    }
     // Trouvaille de revue globale : name partait brut jusqu'à
     // importTrackAsStage() (pipeline/importTrack.js), qui l'insère
     // directement en SQL — contrairement à client_id/client_secret/

@@ -247,8 +247,14 @@ router.get('/activities', async (req, res) => {
 router.post('/import', async (req, res) => {
   try {
     const { id, name } = req.body || {};
-    if (id == null || (typeof id !== 'number' && typeof id !== 'string')) {
-      return res.status(400).json({ error: "id de l'activité requis" });
+    // Issue #491 : l'id finit dans le chemin de l'URL amont, et
+    // encodeURIComponent('..') vaut '..' — un id ".." visait /streams au lieu
+    // de /activities/<id>/streams. Un identifiant d'activité Strava est un
+    // entier positif (nombre, ou chaîne de chiffres envoyée par traces.js).
+    const validId = typeof id === 'number' ? Number.isSafeInteger(id) && id > 0
+      : typeof id === 'string' && /^[1-9][0-9]{0,19}$/.test(id);
+    if (!validId) {
+      return res.status(400).json({ error: "id de l'activité requis (entier positif)" });
     }
     const validName = optionalString(name, 'name');
     const activity = await apiGet(`/activities/${encodeURIComponent(id)}`);

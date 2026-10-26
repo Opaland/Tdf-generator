@@ -1929,10 +1929,17 @@ positionnement « 100 % local / aucun compte » cohérent ; backlog #10 :
 - [x] 38.2 (PR #488) Skill `revue-globale` à jour — critères : le `grep` des routes
   d'écriture couvre `backend/routes/` et les routeurs (27 routes), le
   compte de dépendances est juste (5 directes, 6 en dev).
-- [ ] 38.3 Identifiant d'activité Strava/Suunto validé avant l'URL amont
+- [x] 38.3 (PR à venir) Identifiant d'activité Strava/Suunto validé avant l'URL amont
   (issue #491) — critères : `..` et tout non-entier (Strava) / toute forme
   de clé inattendue ou non-chaîne (Suunto) refusés en 400 avant l'appel
   réseau ; test rouge sans le correctif ; relecture adverse.
+  Fait : id Strava = entier positif (nombre sûr ou chaîne de chiffres),
+  clé Suunto = chaîne `[A-Za-z0-9_-]{1,128}` ; 23 cas refusés sans appel
+  réseau, 21 rouges sans le correctif. Relecture adverse : aucun faux refus
+  de ce qu'envoie traces.js, aucun autre chemin d'URL amont construit d'une
+  entrée ; trouvaille corrigée — une sortie Suunto sans clé est écartée de
+  `GET /workouts` (le bouton envoyait "undefined"). Hypothèse non vérifiée
+  (pas de compte Suunto) : aucune clé réelle ne contient `.` ni `:`.
 - [ ] 38.4 Forme des colonnes JSON validée à l'import de sauvegarde
   (issue #492) — critères : `tracks.geojson`, `approx_segments`,
   `surfaces`, `communes`, `stages.checks`, `source`, `waypoints.bonus_sec`,
