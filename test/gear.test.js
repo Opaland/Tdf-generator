@@ -47,7 +47,9 @@ function insertStage(db, { router = 'trace', state = 'done', distanceKm = 0, asc
   const id = db.prepare(
     `INSERT INTO stages (name, state, generated_distance_km, total_ascent_m, elapsed_time_s, gear_id) VALUES ('S', ?, ?, ?, ?, ?)`
   ).run(state, distanceKm, ascentM, elapsedTimeS, gearId).lastInsertRowid;
-  if (router) db.prepare(`INSERT INTO tracks (stage_id, geojson, distance_m, router) VALUES (?, '{}', 0, ?)`).run(id, router);
+  // Forme qu'écrit l'appli (Feature LineString) : un geojson '{}' est refusé
+  // à l'import de sauvegarde (issue #492), et ce test réimporte sa sauvegarde.
+  if (router) db.prepare(`INSERT INTO tracks (stage_id, geojson, distance_m, router) VALUES (?, '{"type":"Feature","properties":{},"geometry":{"type":"LineString","coordinates":[[0,45],[0.01,45]]}}', 0, ?)`).run(id, router);
   return id;
 }
 
