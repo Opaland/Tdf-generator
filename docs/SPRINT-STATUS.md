@@ -1375,7 +1375,7 @@ et côtes traversées avec leur kilomètre.
   source ; les 76 occurrences, et elles seules, déplacées (diff sémantique
   du fichier) ; `npm test` vert. Position : celle de « Bagnères-de-Luchon »
   (même ville, recalée en 33.10).
-- [ ] 33.22 Balayage des ancres hors IGN de `stage_towns.json` : le recalage
+- [x] 33.22 (PR #498) Balayage des ancres hors IGN de `stage_towns.json` : le recalage
   sur le bourg OSM de 33.10 ne vise que les communes IGN ; 298 positions
   géocodées autrement (135 `geocode+nominatim`, 113
   `geocode-pays+nominatim`, 38 `nominatim`…) n'ont pas été recalées, et
@@ -1384,6 +1384,21 @@ et côtes traversées avec leur kilomètre.
   leur localité OSM, chacune vérifiée (altitude MNT, voisins), corrections
   dans `stage_towns_overrides.json` avec source ; si le générateur change,
   relecture adverse.
+  Fait (issue #497) : 299 positions distinctes ; 17 à 3 km ou plus de la
+  localité OSM homonyme la plus proche, dont 8 sans erreur — l'homonyme est
+  simplement ailleurs (West Berlin, Mont Saint-Michel, Hautacam, Felsberg,
+  Puy Mary, Zeeland, La Défense, La Plagne : sites ou régions, pas des
+  localités). 83 sans homonyme OSM (cols, stations, sites) : les 11 villes
+  de la liste au nom ancien ou fusionné contrôlées aussi par géocodage
+  inverse. Corrigées, chacune par géocodage inverse et MNT : Chamonix
+  (12 occurrences, ancre à 2 271 m sur le massif), Escaldes-Engordany
+  (2 122 m), Aime (1 743 m, commune nouvelle), Cuneo (centre de la
+  province, 7,7 km), Colombey-les-Deux-Églises (sur Biernes), Rochefort
+  (Éprave), Cosne-sur-Loire (Saint-Père), Livarot (commune nouvelle),
+  Valkenburg (Berg en Terblijt) ; par occurrence, arrivées sourcées au
+  Bettex (2016/19) et à Avoriaz (2010/8, le départ 2010/9 reste à
+  Morzine). Vol d'oiseau des 26 étapes touchées : toutes sous 90 % de la
+  longueur officielle. Générateur inchangé : pas d'agent dédié.
 - [x] 33.23 (PR #480) Reprise de 1992 sur BRouter auto-hébergé, avec les
   règles 17, 20 et 24. Critères : 0 tronçon en voiture ; chaque
   aller-retour corrigé ou noté avec sa mairie ; chaque « cause non
