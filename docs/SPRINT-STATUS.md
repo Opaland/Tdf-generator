@@ -1943,6 +1943,13 @@ positionnement « 100 % local / aucun compte » cohérent ; backlog #10 :
   décision** de l'utilisateur (réglage du dépôt).
 - [ ] 38.6 Essai réel des agents générés dans Copilot et Gemini CLI
   (issue #490) — bloquée : aucun compte dans la session.
+- [x] 38.7 (PR à venir) Dépendances sous le seuil de `npm audit` (issue #494) —
+  critères : `npm audit --audit-level=high` sort en 0 ; seul
+  `package-lock.json` change (`npm audit fix` sans `--force`) ; tests, lint
+  et démo verts. Fait : body-parser 1.20.9 (production, via express), zod
+  4.6.7 et fast-uri 3.1.9 (dev, Stryker) ; reste `qs` modéré sous
+  typed-rest-client (Stryker, dev), sous le seuil. Mise à jour de version
+  de correctif sans code : pas d'agent dédié (règle 11).
 
 ## Epic 24 — Bilan final
 
