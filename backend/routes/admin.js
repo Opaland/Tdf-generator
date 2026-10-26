@@ -11,6 +11,7 @@ const { wrap, truncateText, FIELD_MAX, WAYPOINT_KINDS, STAGE_STATES } = require(
 const { CATEGORIES } = require('../../pipeline/importer');
 const { MAX_NAME_LEN: GEAR_NAME_MAX } = require('./gear');
 const { inLatLonBounds } = require('../../pipeline/geo');
+const { parseSurfaces, parseCommunes } = require('../../pipeline/generate');
 const SERVER_START_TIME = new Date().toISOString();
 module.exports = function register(app) {
   app.post('/api/offline', (req, res) => {
@@ -83,9 +84,40 @@ module.exports = function register(app) {
     editions: ['source'],
     stages: ['source', 'checks', 'progress'],
     waypoints: ['bonus_sec', 'geocode'],
-    tracks: ['geojson', 'approx_segments'],
+    tracks: ['geojson', 'approx_segments', 'surfaces', 'communes'],
     climbs: ['km_blocks'],
     descents: ['km_blocks'],
+  };
+  const isObj = (v) => v !== null && typeof v === 'object' && !Array.isArray(v);
+  const isNum = (v) => typeof v === 'number' && Number.isFinite(v);
+  /** Forme attendue par colonne JSON : message d'erreur, ou null si conforme. */
+  const JSON_SHAPES = {
+    // pipeline/generate.js et importTrack.js : Feature LineString d'au moins
+    // deux [lon, lat(, ele)] — la carte de la fiche lit le point du milieu.
+    geojson: (v) => (isObj(v) && v.type === 'Feature' && isObj(v.geometry) && v.geometry.type === 'LineString' &&
+      Array.isArray(v.geometry.coordinates) && v.geometry.coordinates.length >= 2 &&
+      v.geometry.coordinates.every((p) => Array.isArray(p) && p.length >= 2 && p.length <= 3 && p.every(isNum))
+      ? null : 'Feature LineString de coordonnées numériques attendue'),
+    // pipeline/routing.js : [{fromM, toM, reason}].
+    approx_segments: (v) => (Array.isArray(v) && v.every((a) => isObj(a) && isNum(a.fromM) && isNum(a.toM) &&
+      (a.reason == null || typeof a.reason === 'string'))
+      ? null : 'tableau de {fromM, toM, reason} attendu'),
+    // Mêmes gardes qu'à la lecture (loadStageFull) : ce qu'elles écartent ne
+    // s'afficherait de toute façon jamais.
+    surfaces: (v, raw) => (parseSurfaces(raw) ? null : 'résumé de revêtement attendu ({meters, stretches})'),
+    communes: (v, raw) => (parseCommunes(raw) ? null : 'liste de communes attendue ({communes, points, stepM})'),
+    // pipeline/checks.js : {ok, items: [{id, label, status, detail}]} (+ offline,
+    // imported) ; items toujours écrit, et parcouru sans garde par stage.js.
+    checks: (v) => (isObj(v) && (v.ok === undefined || typeof v.ok === 'boolean') &&
+      Array.isArray(v.items) && v.items.every(isObj)
+      ? null : 'objet {ok, items[]} attendu'),
+    // Toujours un objet (importer.js, importTrack.js) : un JSON `null` passait
+    // la garde `edition.source ?` d'exports.js puis plantait sur src.notes.
+    source: (v) => (isObj(v) ? null : 'objet attendu'),
+    // `null` écrit tel quel quand le géocodeur ne renvoie rien.
+    geocode: (v) => (v === null || isObj(v) ? null : 'objet attendu'),
+    // backend/routes/stages.js et pipeline/importer.js : liste de secondes.
+    bonus_sec: (v) => (Array.isArray(v) && v.every((b) => isNum(b) && b >= 0) ? null : 'liste de secondes attendue'),
   };
   /** Vérifie une ligne ; renvoie le nombre de champs tronqués (row modifiée). */
   function checkBackupRow(t, row, i) {
@@ -111,6 +143,11 @@ module.exports = function register(app) {
           }
         }
       }
+      // Issue #492 : forme de chaque colonne telle que l'appli l'écrit — une
+      // syntaxe valide mais une forme inattendue (geojson '{}', checks "x")
+      // passait l'import puis rendait l'export de l'étape et le mini-site 500.
+      const shapeError = JSON_SHAPES[c] && JSON_SHAPES[c](parsed, row[c]);
+      if (shapeError) throw bad(c, shapeError);
       if (c === 'progress' && parsed !== null) {
         if (typeof parsed !== 'object' || Array.isArray(parsed)) throw bad(c, 'objet attendu');
         if ('percent' in parsed && !(typeof parsed.percent === 'number' && Number.isFinite(parsed.percent))) throw bad(c, 'percent : nombre attendu');

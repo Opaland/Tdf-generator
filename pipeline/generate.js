@@ -387,4 +387,4 @@ function loadStageFull(stageId) {
   };
 }
 
-module.exports = { generateStage, loadStageFull, setProgress, geocodeOptsFor, resetInterruptedGenerations };
+module.exports = { generateStage, loadStageFull, setProgress, geocodeOptsFor, resetInterruptedGenerations, parseSurfaces, parseCommunes };

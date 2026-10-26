@@ -1940,12 +1940,22 @@ positionnement « 100 % local / aucun compte » cohérent ; backlog #10 :
   entrée ; trouvaille corrigée — une sortie Suunto sans clé est écartée de
   `GET /workouts` (le bouton envoyait "undefined"). Hypothèse non vérifiée
   (pas de compte Suunto) : aucune clé réelle ne contient `.` ni `:`.
-- [ ] 38.4 Forme des colonnes JSON validée à l'import de sauvegarde
+- [x] 38.4 (PR #496) Forme des colonnes JSON validée à l'import de sauvegarde
   (issue #492) — critères : `tracks.geojson`, `approx_segments`,
   `surfaces`, `communes`, `stages.checks`, `source`, `waypoints.bonus_sec`,
   `geocode` refusés en 400 si leur forme diffère de ce que le code écrit ;
   plus aucune sauvegarde forgée ne rend un export 500 ; une sauvegarde
   exportée par l'appli passe toujours ; relecture adverse.
+  Fait : `JSON_SHAPES` dans `checkBackupRow` (surfaces et communes par les
+  gardes de lecture `parseSurfaces`/`parseCommunes`) ; 23 tests, 21 rouges
+  sans le correctif, dont l'aller-retour d'une sauvegarde complète
+  (geojson, segments, revêtement, communes, checks, sources, géocodage,
+  bonifications) qui repasse et garde ses pages en 200. Fixture de
+  test/gear.test.js corrigée (geojson '{}' que l'appli n'écrit jamais).
+  Relecture adverse (serveur jetable, ~30 formes forgées × 14 routes) :
+  aucun faux refus ; trois formes passaient encore, corrigées — source
+  d'édition en JSON `null` (500 sur export.html), checks sans `items` et
+  geojson de moins de 2 points (fiche plantée côté client).
 - [ ] 38.5 Protection de `main` côté GitHub (issue #489) — **en attente de
   décision** de l'utilisateur (réglage du dépôt).
 - [ ] 38.6 Essai réel des agents générés dans Copilot et Gemini CLI
