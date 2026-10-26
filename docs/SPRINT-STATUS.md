@@ -1943,7 +1943,7 @@ positionnement « 100 % local / aucun compte » cohérent ; backlog #10 :
   décision** de l'utilisateur (réglage du dépôt).
 - [ ] 38.6 Essai réel des agents générés dans Copilot et Gemini CLI
   (issue #490) — bloquée : aucun compte dans la session.
-- [x] 38.7 (PR à venir) Dépendances sous le seuil de `npm audit` (issue #494) —
+- [x] 38.7 (PR #495) Dépendances sous le seuil de `npm audit` (issue #494) —
   critères : `npm audit --audit-level=high` sort en 0 ; seul
   `package-lock.json` change (`npm audit fix` sans `--force`) ; tests, lint
   et démo verts. Fait : body-parser 1.20.9 (production, via express), zod
