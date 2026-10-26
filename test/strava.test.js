@@ -249,3 +249,19 @@ test('POST /api/strava/import sans id : 400 propre', async () => {
   });
   assert.strictEqual(res.status, 400);
 });
+
+// Issue #491 : encodeURIComponent('..') vaut '..' — id ".." faisait viser
+// /api/v3/streams au lieu de /api/v3/activities/<id>/streams. L'identifiant
+// d'activité Strava est un entier : tout le reste est refusé avant l'appel.
+for (const bad of ['..', '../athlete', '12/streams', '1.5', '-3', '0', ' 42', '', 1.5, -3, 0, true, [42], { id: 42 }]) {
+  test(`POST /api/strava/import avec id=${JSON.stringify(bad)} : 400, pas d'appel réseau vers Strava`, async () => {
+    const callsBefore = mockCalls.length;
+    const res = await fetch(`${base}/api/strava/import`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: bad }),
+    });
+    assert.strictEqual(res.status, 400);
+    assert.strictEqual(mockCalls.length, callsBefore, "l'identifiant doit être refusé avant tout aller-retour vers Strava");
+  });
+}
