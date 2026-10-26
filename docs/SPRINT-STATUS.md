@@ -1929,7 +1929,7 @@ positionnement « 100 % local / aucun compte » cohérent ; backlog #10 :
 - [x] 38.2 (PR #488) Skill `revue-globale` à jour — critères : le `grep` des routes
   d'écriture couvre `backend/routes/` et les routeurs (27 routes), le
   compte de dépendances est juste (5 directes, 6 en dev).
-- [x] 38.3 (PR à venir) Identifiant d'activité Strava/Suunto validé avant l'URL amont
+- [x] 38.3 (PR #493) Identifiant d'activité Strava/Suunto validé avant l'URL amont
   (issue #491) — critères : `..` et tout non-entier (Strava) / toute forme
   de clé inattendue ou non-chaîne (Suunto) refusés en 400 avant l'appel
   réseau ; test rouge sans le correctif ; relecture adverse.
