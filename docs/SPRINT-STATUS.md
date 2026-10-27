@@ -590,17 +590,22 @@ et côtes traversées avec leur kilomètre.
   21), Mérignac à la mairie, Saint-Julia retiré, départ de Toulouse à la
   Cité de l'Espace ; règle 25 complétée (départ réel hors de la ville).
 
-- [ ] Édition 2004 : 20 étapes sur 21 (prologue de Liège non transcrit, des
-  rues seulement), depuis les profils de ledicodutour.com (`04_NNb.jpg`,
-  468 px, altitude devant chaque nom ; lus au triple). 489 points, dont 21
-  carrefours de routes. Critères : règles 1 à 5 (km incompatible avec
-  l'ordre noté : second « Pont de Franchesse », 2004/10) ; points placés
-  puis vérifiés (règles 6 à 10, 14 point par point, 15, 21, 22, 25) ;
-  contrôle à ±5 % avec 0 tronçon en voiture sur BRouter public, chaque
-  `--write` avec `car_legs` non nul relancé (règle 16) ; allers-retours
-  corrigés avant de lire l'écart (règle 24) ; cause notée pour chaque étape
-  hors tolérance ; audit Mireille avant la PR ; curation de données, pas de
-  relecture adverse dédiée (règle 11).
+- [x] Édition 2004 (PR #504) : 20 étapes sur 21 (prologue de Liège non
+  transcrit, des rues seulement), 431 points placés sur 489, depuis les
+  profils de ledicodutour.com (`04_NNb.jpg`, 468 px, altitudes imprimées ;
+  lus au triple). Non placés, avec note : 21 carrefours de routes, entrées
+  de ville, côtes sans lieu compatible ou d'altitude incompatible (règle
+  14). Altitude contrôlée point par point. Contrôlée à ±5 % sur BRouter
+  public, 0 tronçon en voiture : 16 étapes dans la tolérance, 4 hors, cause
+  notée — 2004/1 (+8,2 %), 2 (+7,5 %), 5 (+5,9 %), km du profil plus courts
+  que la route à vélo comme en voiture, et 16 (−6,3 %, contre-la-montre en
+  montée). Corrigés à l'audit Mireille : 2004/14 de +6,4 à +3,5 % (centre de
+  Montpellier retiré), 2004/19 de +6,8 à +2,3 % (arrivée à Micropolis),
+  2004/16 de −15,5 à −6,3 % (Huez à l'église, arrivée avenue du Rif Nel),
+  circuit d'arrivée de Guéret déclaré, Cap Fréhel retiré (aller-retour),
+  arrivée de Paris sur les Champs-Élysées, Mesnois, Lajoux, Les Planchettes,
+  le mémorial Casartelli, Les Planches et Dinan placés, Boutigny au village ;
+  départs hors de la ville et km imprimés incohérents notés.
 
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points

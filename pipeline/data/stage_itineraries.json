@@ -62030,14 +62030,14 @@
        "label": "Côte d'Avan",
        "km": 21,
        "kind": "côte",
-       "note": "227 m imprimés ; 4e catégorie ; 1,8 km à 4,1 % ; non placée : aucun lieu « Avan » connu de Nominatim entre Sprimont et Harre",
+       "note": "227 m imprimés ; 4e catégorie ; 1,8 km à 4,1 % ; non placée : Awan (Aywaille, Nominatim, 238 m au MNT) est à 8,1 km à vol d'oiseau de My pour 6,5 au profil (règle 7)",
        "confidence": "non-place"
       },
       {
        "label": "My",
        "km": 27.5,
        "kind": "ville",
-       "note": "339 m imprimés ; village de My (Ferrières, Nominatim), 224 m au MNT",
+       "note": "339 m imprimés ; village de My (Ferrières, Nominatim), 224 m au MNT ; 224 m au MNT pour 339 imprimés : l'altitude imprimée désigne vraisemblablement le plateau au-dessus du village",
        "confidence": "ambigu",
        "lat": 50.40579,
        "lon": 5.57364,
@@ -62293,7 +62293,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Hors tolérance (+8,2 %) : le profil est plus court que la route, à vélo comme en voiture (206,6 et 206,0 km pour 191) — points denses aux centres des villages ardennais ; Ferrières → Harre 12,3 km routés pour 9, Wanze → Héron 8,4 km à vol d'oiseau pour 6,5 ; la mairie n'améliore pas (règle 17)."
+     "note": "Hors tolérance (+8,2 %) : le profil est plus court que la route, à vélo comme en voiture (206,6 et 206,0 km pour 191) — points denses aux centres des villages ardennais ; Ferrières → Harre 12,3 km routés pour 9, Wanze → Héron 8,4 km à vol d'oiseau pour 6,5 ; la mairie n'améliore pas (règle 17). Départ : Liège → Sprimont 16,7 km à vol d'oiseau pour 11,5, départ réel hors de la ville, non situé (règle 25). Jemeppe-sur-Sambre → Farciennes : 15,6 km à vélo contre 11,2 en voiture, détour du routeur."
     },
     "2": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2004/04_02a.jpg",
@@ -62548,7 +62548,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Hors tolérance (+7,5 %) : profil plus court que la route à vélo comme en voiture (204,3 et 205,8 km pour 190) — Côte de l'Ermitage de Bomerée → Biesme-sous-Thuin 7,8 km à vol d'oiseau pour 7, Merbes-le-Château → Rouveroy 9,1 pour 7 ; à l'inverse Biesme → Ragnies 2,1 pour 7,5."
+     "note": "Hors tolérance (+7,5 %) : profil plus court que la route à vélo comme en voiture (204,3 et 205,8 km pour 190) — Côte de l'Ermitage de Bomerée → Biesme-sous-Thuin 7,8 km à vol d'oiseau pour 7, Merbes-le-Château → Rouveroy 9,1 pour 7 ; à l'inverse Biesme → Ragnies 2,1 pour 7,5. Merbes-le-Château → Rouveroy : Ragnies → Rouveroy fait déjà 16,6 km à vol d'oiseau pour 14,5 au profil, km imprimé incohérent."
     },
     "3": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2004/04_03b.jpg",
@@ -62862,7 +62862,8 @@
       "suspect_legs": 3,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Frasnes-lez-Buissenal → Thimougies : 8,4 km à vol d'oiseau pour 5,5 au profil, les deux villages à leur église — km imprimé incohérent."
     },
     "4": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2004/04_04b.jpg",
@@ -63018,7 +63019,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Contre-la-montre par équipes.",
+     "note": "Contre-la-montre par équipes. Haplincourt → Bapaume : 6,1 km à vol d'oiseau pour 5, km imprimé incohérent.",
      "route_check": {
       "routed_km": 63.5,
       "profile_km": 61,
@@ -63243,10 +63244,10 @@
        "label": "Boutigny-Prouais",
        "km": 157.5,
        "kind": "ville",
-       "note": "141 m imprimés ; imprimé « Boutigny-sur-Opton »",
-       "lat": 48.73622,
-       "lon": 1.5756,
-       "how": "commune-ign",
+       "note": "141 m imprimés ; imprimé « Boutigny-sur-Opton » ; village de Boutigny (Boutigny-Prouais, Nominatim), et non le centre de la commune fusionnée (règle 15)",
+       "lat": 48.74457,
+       "lon": 1.58552,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -63301,9 +63302,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 203.8,
+      "routed_km": 202.8,
       "profile_km": 191.5,
-      "delta_pct": 6.4,
+      "delta_pct": 5.9,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
@@ -63312,7 +63313,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Hors tolérance (+6,4 %) : profil plus court que la route à vélo comme en voiture (203,8 et 204,4 km pour 191,5) — Maintenon → Lèves 14,1 km à vol d'oiseau pour 13, Boubiers → Magny-en-Vexin 14,1 km routés pour 11."
+     "note": "Hors tolérance (+5,9 %) : profil plus court que la route à vélo comme en voiture (202,8 km à vélo pour 191,5) — Maintenon → Lèves 14,1 km à vol d'oiseau pour 13, Boubiers → Magny-en-Vexin 14,1 km routés pour 11. Départ : Amiens → Nampty 12,9 pour 9, départ réel hors de la ville, non situé (règle 25)."
     },
     "6": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2004/04_06b.jpg",
@@ -63512,7 +63513,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Entrée dans Angers au km 191, 5 km avant l'arrivée : point de passage, pas un circuit (règle 19 : moins de 6 km).",
+     "note": "Entrée dans Angers au km 191, 5 km avant l'arrivée : point de passage, pas un circuit (règle 19 : moins de 6 km). Départ : Bonneval → Dangeau 7,9 pour 6,5, départ réel hors de la ville, non situé (règle 25). Corné → Saint-Barthélemy-d'Anjou : 10,7 km à vol d'oiseau pour 9, km imprimé incohérent.",
      "route_check": {
       "routed_km": 183.5,
       "profile_km": 189.5,
@@ -63680,8 +63681,11 @@
        "label": "Côte de Dinan",
        "km": 113.5,
        "kind": "côte",
-       "note": "65 m imprimés ; 4e catégorie ; 1,1 km à 4,3 % ; non placée : aucun point compatible connu de Nominatim (les « Vieille Côte » sont à 8,6 km ou plus de Tréfort pour 5,5 au profil)",
-       "confidence": "non-place"
+       "note": "65 m imprimés ; 4e catégorie ; 1,1 km à 4,3 % ; non placée : aucun point compatible connu de Nominatim (les « Vieille Côte » sont à 8,6 km ou plus de Tréfort pour 5,5 au profil) ; placée à Dinan, intra-muros (Nominatim), 72 m au MNT, sommet de la montée depuis le port",
+       "confidence": "ambigu",
+       "lat": 48.45398,
+       "lon": -2.04769,
+       "how": "nominatim"
       },
       {
        "label": "Tréfort",
@@ -63734,11 +63738,8 @@
        "label": "Cap Fréhel",
        "km": 157,
        "kind": "lieu-dit",
-       "note": "57 m imprimés ; imprimé « Cap Frehel »",
-       "lat": 48.6792,
-       "lon": -2.31877,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "57 m imprimés ; imprimé « Cap Frehel » ; retiré : le Cap Fréhel est un bout de route, placé il imposait un aller-retour de 3,4 km (règles 9 et 24) ; le détour par le cap n'est donc pas routé",
+       "confidence": "non-place"
       },
       {
        "label": "Sables-d'Or-les-Pins",
@@ -63802,18 +63803,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 201.1,
+      "routed_km": 190.4,
       "profile_km": 198,
-      "delta_pct": 1.6,
+      "delta_pct": -3.8,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
       "legs": 23,
-      "suspect_legs": 0,
+      "suspect_legs": 1,
       "backtracks": 0,
-      "backtracks_uncertain": 1
+      "backtracks_uncertain": 0
      },
-     "note": "Côte de Saint-Aide (km 149) non placée : aller-retour « incertain » de 3,4 km signalé au Cap Fréhel, le routeur revenant vers Sables-d'Or faute de ce point."
+     "note": "Cap Fréhel retiré (aller-retour) : Port-à-la-Duc → Sables-d'Or-les-Pins, 6,9 km routés pour 18 au profil, le détour par le cap n'est pas reconstitué. Départ : Châteaubriant → Le Bourgneuf 7,7 pour 6,5, départ réel hors de la ville, non situé (règle 25)."
     },
     "8": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2004/04_08b.jpg",
@@ -64071,7 +64072,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Entrée dans Quimper au km 163,5, 4,5 km avant l'arrivée : point de passage.",
+     "note": "Entrée dans Quimper au km 163,5, 4,5 km avant l'arrivée : point de passage. Corlay → Plounévez-Quintin : 13,4 km à vol d'oiseau pour 12, km imprimé incohérent.",
      "route_check": {
       "routed_km": 163.4,
       "profile_km": 160.5,
@@ -64309,17 +64310,19 @@
       }
      ],
      "route_check": {
-      "routed_km": 143.1,
-      "profile_km": 149,
-      "delta_pct": -3.9,
+      "routed_km": 136.8,
+      "profile_km": 138,
+      "delta_pct": -0.9,
       "tolerance_pct": 5,
-      "coverage_pct": 93,
+      "coverage_pct": 86,
       "car_legs": 0,
-      "legs": 15,
-      "suspect_legs": 1,
+      "legs": 14,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "circuit_km": 154.5,
+     "note": "Entrée dans Guéret au km 154,5, 6 km avant l'arrivée (circuit_km, règle 19)."
     },
     "10": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2004/04_10b.jpg",
@@ -64338,8 +64341,11 @@
        "label": "Les Planchettes",
        "km": 5,
        "kind": "lieu-dit",
-       "note": "377 m imprimés ; non placé : les lieux « Les Planchettes » connus de Nominatim sont à 6 km ou plus de Limoges pour 5 au profil, de part et d'autre de la ville",
-       "confidence": "non-place"
+       "note": "377 m imprimés ; non placé : les lieux « Les Planchettes » connus de Nominatim sont à 6 km ou plus de Limoges pour 5 au profil, de part et d'autre de la ville ; lieu-dit Les Planchettes (Eyjeaux, Nominatim), 402 m au MNT ; 6,5 km à vol d'oiseau de Saint-Paul pour 6 au profil",
+       "confidence": "ambigu",
+       "lat": 45.785,
+       "lon": 1.37712,
+       "how": "nominatim"
       },
       {
        "label": "Saint-Paul",
@@ -64670,15 +64676,15 @@
        "confidence": "ok"
       }
      ],
-     "note": "Second « Pont de Franchesse » (589 m) imprimé au km 111, entre Égletons (89) et Lapleau (106,5) : km incompatible avec l'ordre des points, non repris.",
+     "note": "Second « Pont de Franchesse » (589 m) imprimé « 111 », sous un trait situé vers le km 100 d'après l'échelle (entre Égletons et Lapleau) : coquille vraisemblable, non repris. Départ : Limoges → Saint-Paul 16,9 pour 11, départ réel hors de la ville, non situé (règle 25). Côte de Chalvignac → Mauriac : 7,0 km à vol d'oiseau pour 6.",
      "route_check": {
-      "routed_km": 228.1,
-      "profile_km": 226,
-      "delta_pct": 0.9,
+      "routed_km": 236.3,
+      "profile_km": 232,
+      "delta_pct": 1.8,
       "tolerance_pct": 5,
-      "coverage_pct": 95,
+      "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 29,
+      "legs": 30,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -64910,7 +64916,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Pied de la côte de Bagnac imprimé au km 154 (270 m), sans nom : non repris (règle 4).",
+     "note": "Pied de la côte de Bagnac imprimé au km 154 (270 m), sans nom : non repris (règle 4). Départ : Saint-Flour → Côte des Ternes 7,4 pour 6,5, départ réel hors de la ville, non situé (règle 25).",
      "route_check": {
       "routed_km": 159.5,
       "profile_km": 157.5,
@@ -65206,7 +65212,8 @@
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Larrouy → Villefranche : 11,5 km à vol d'oiseau pour 10, km imprimé incohérent."
     },
     "13": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2004/04_13b.jpg",
@@ -65312,8 +65319,11 @@
        "label": "Stèle Fabio Casartelli",
        "km": 60,
        "kind": "lieu-dit",
-       "note": "683 m imprimés ; non placée : stèle non connue de Nominatim",
-       "confidence": "non-place"
+       "note": "683 m imprimés ; non placée : stèle non connue de Nominatim ; mémorial Fabio Casartelli (route du col de Portet, Boutx, Nominatim), 678 m au MNT",
+       "confidence": "ok",
+       "lat": 42.94999,
+       "lon": 0.8188,
+       "how": "nominatim"
       },
       {
        "label": "Col de Portet-d'Aspet",
@@ -65510,11 +65520,12 @@
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 25,
+      "legs": 26,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Départ : Lannemezan → Nestier 10,4 pour 9,5, départ réel hors de la ville, non situé (règle 25)."
     },
     "14": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2004/04_14b.jpg",
@@ -65553,7 +65564,7 @@
        "label": "Canal du Midi",
        "km": 26.5,
        "kind": "lieu-dit",
-       "note": "44 m imprimés ; non placé : le premier point « Canal du Midi » de Nominatim était à l'ouest de Puichéric, en arrière du parcours, et bloquait la suite de l'étape ; non placé : le canal est coupé plusieurs fois sur ce tronçon, aucun point de Nominatim compatible avec l'ordre du parcours",
+       "note": "44 m imprimés ; non placé : le canal est coupé plusieurs fois sur ce tronçon, aucun point de Nominatim compatible avec l'ordre du parcours",
        "confidence": "non-place"
       },
       {
@@ -65671,11 +65682,8 @@
        "label": "Montpellier",
        "km": 132,
        "kind": "ville",
-       "note": "63 m imprimés",
-       "lat": 43.61124,
-       "lon": 3.87673,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "63 m imprimés ; retiré : le centre de Montpellier est à 9,8 km à vol d'oiseau de Pignan pour 7,5 au profil et forçait un demi-tour vers la rue Marius-Carrieu, à l'ouest (règles 7 et 9) ; le nom imprimé désigne vraisemblablement l'entrée dans la ville",
+       "confidence": "non-place"
       },
       {
        "label": "Montpellier (rue Marius Carrieu)",
@@ -65772,16 +65780,16 @@
        "confidence": "ok"
       }
      ],
-     "note": "Montpellier, puis la rue Marius-Carrieu 3 km plus loin, imprimés tous deux. Hors tolérance (+6,3 %) : profil plus court que la route, à vélo (196,7 km) et plus encore en voiture (205,4) pour 185 — Capestang → Béziers 14,4 km à vol d'oiseau pour 12, Pignan → Montpellier 9,8 pour 7,5, Castelnau-le-Lez → Restinclières 13,7 pour 11 ; la traversée de Montpellier n'est pas reconstituée (Vendargues non placé).",
+     "note": "Montpellier, puis la rue Marius-Carrieu 3 km plus loin, imprimés tous deux. Capestang → Béziers : 13,7 km à vol d'oiseau pour 12 ; Castelnau-le-Lez → Restinclières : 13,7 pour 11 — Castelnau est à 4,9 km de Vendargues pour 1,5 au profil, vraisemblable coquille de km de la source. Départ : Carcassonne → Marseillette 15,8 pour 7,5, départ réel hors de la ville, non situé (règle 25).",
      "route_check": {
-      "routed_km": 196.7,
+      "routed_km": 191.6,
       "profile_km": 185,
-      "delta_pct": 6.3,
+      "delta_pct": 3.5,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 19,
-      "suspect_legs": 3,
+      "legs": 18,
+      "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -66083,10 +66091,10 @@
        "label": "Huez",
        "km": 9.5,
        "kind": "ville",
-       "note": "1415 m imprimés ; imprimé « Huez-en-Oisans » ; pointage intermédiaire",
-       "lat": 45.08209,
-       "lon": 6.05964,
-       "how": "commune-ign",
+       "note": "1415 m imprimés ; imprimé « Huez-en-Oisans » ; pointage intermédiaire ; église Saint-Ferréol (Huez, Nominatim), 1 393 m au MNT : le centre IGN de la commune était à 1 491 m (règles 6 et 14)",
+       "lat": 45.0774,
+       "lon": 6.05328,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -66100,18 +66108,18 @@
        "label": "L'Alpe d'Huez",
        "km": 15.5,
        "kind": "lieu-dit",
-       "note": "1850 m imprimés ; hors catégorie",
-       "lat": 45.09085,
-       "lon": 6.065,
-       "how": "stage_towns",
-       "confidence": "ok"
+       "note": "1850 m imprimés ; hors catégorie ; arrivée sur l'avenue du Rif Nel (L'Alpe d'Huez, Nominatim), 1 837 m au MNT pour 1 850 imprimés, au lieu de l'ancre à 1 780 m — lieu retenu sur l'altitude, non sourcé (règle 22)",
+       "lat": 45.09425,
+       "lon": 6.07107,
+       "how": "nominatim",
+       "confidence": "ambigu"
       }
      ],
-     "note": "Contre-la-montre individuel en montée. Hors tolérance (−15,5 %) : contre-la-montre en montée, mesuré sur 74 % de l'étape (pied de côte et entrée de la station non placés) ; 9,7 km à vélo et 9,6 en voiture pour 11,5 au profil, les lacets ne sont pas tous suivis par le routeur entre Le Ribot et Huez.",
+     "note": "Contre-la-montre individuel en montée. La Garde → Le Ribot : 1,3 km à vol d'oiseau pour 2 au profil, lacets. Hors tolérance (−6,3 %) : contre-la-montre en montée mesuré sur 74 % de l'étape (pied de côte et entrée de la station non placés), lacets du bas de la montée non tous suivis.",
      "route_check": {
-      "routed_km": 9.7,
+      "routed_km": 10.8,
       "profile_km": 11.5,
-      "delta_pct": -15.5,
+      "delta_pct": -6.3,
       "tolerance_pct": 5,
       "coverage_pct": 74,
       "car_legs": 0,
@@ -66572,10 +66580,10 @@
        "label": "Côte de Lajoux",
        "km": 87.5,
        "kind": "côte",
-       "note": "1198 m imprimés ; 3e catégorie ; 3,7 km à 5,4 % ; côte de Mijoux (Lajoux, Nominatim), 1 101 m au MNT, sommet non identifié",
+       "note": "1198 m imprimés ; 3e catégorie ; 3,7 km à 5,4 % ; côte de Mijoux (Lajoux, Nominatim), 1 101 m au MNT, sommet non identifié ; placée à la mairie de Lajoux (Nominatim), 1 177 m au MNT pour 1 198",
        "confidence": "ambigu",
-       "lat": 46.36598,
-       "lon": 5.98293,
+       "lat": 46.37638,
+       "lon": 5.96943,
        "how": "nominatim"
       },
       {
@@ -66602,7 +66610,7 @@
        "label": "Lavans-lès-Saint-Claude",
        "km": 113,
        "kind": "ville",
-       "note": "390 m imprimés ; imprimé « Lavans-les-St-Claude » ; à la mairie, 530 m au MNT pour 390 imprimés : l'altitude imprimée désigne vraisemblablement le passage en fond de vallée, sous le bourg",
+       "note": "390 m imprimés ; imprimé « Lavans-les-St-Claude » ; à la mairie, 530 m au MNT pour 390 imprimés : l'altitude imprimée désigne vraisemblablement le passage en fond de vallée, sous le bourg (écart supérieur à 100 m gardé, la mairie étant le seul point du bourg)",
        "lat": 46.38451,
        "lon": 5.78135,
        "how": "commune-ign",
@@ -66652,18 +66660,18 @@
        "label": "Rières-Mesnois",
        "km": 149.5,
        "kind": "lieu-dit",
-       "note": "469 m imprimés ; non placé : aucun lieu « Rières-Mesnois » connu de Nominatim",
-       "confidence": "non-place"
+       "note": "469 m imprimés ; non placé : aucun lieu « Rières-Mesnois » connu de Nominatim ; placé à la mairie de Mesnois (Nominatim), 471 m au MNT pour 469 : commune fusionnée de Rières et Mesnois",
+       "confidence": "ok",
+       "lat": 46.60091,
+       "lon": 5.68994,
+       "how": "nominatim"
       },
       {
        "label": "Côte de Nogna",
        "km": 153,
        "kind": "côte",
-       "note": "587 m imprimés ; 4e catégorie ; 2,2 km à 4,3 %",
-       "lat": 46.64952,
-       "lon": 5.65926,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "587 m imprimés ; 4e catégorie ; 2,2 km à 4,3 % ; retirée : le village de Nogna est à 5,9 km à vol d'oiseau de Mesnois pour 3,5 au profil (règle 7), sommet non identifié",
+       "confidence": "non-place"
       },
       {
        "label": "Revigny",
@@ -66687,17 +66695,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 163.7,
+      "routed_km": 160.9,
       "profile_km": 157.5,
-      "delta_pct": 4,
+      "delta_pct": 2.1,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
       "legs": 24,
-      "suspect_legs": 3,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Départ : Annemasse → Archamps 10,1 pour 9, départ réel hors de la ville, non situé (règle 25). Archamps → Saint-Julien-en-Genevois : 4,1 km à vol d'oiseau pour 2,5 ; Archamps (530 m au MNT pour 469) est vraisemblablement passé sous le village."
     },
     "19": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2004/04_19b.jpg",
@@ -66807,8 +66816,11 @@
        "label": "Les Planches",
        "km": 40,
        "kind": "lieu-dit",
-       "note": "366 m imprimés ; pointage intermédiaire ; non placé : aucun lieu compatible connu de Nominatim",
-       "confidence": "non-place"
+       "note": "366 m imprimés ; pointage intermédiaire ; non placé : aucun lieu compatible connu de Nominatim ; lotissement Les Planches (Charnay, Nominatim), 340 m au MNT pour 366",
+       "confidence": "ambigu",
+       "lat": 47.13404,
+       "lon": 5.95559,
+       "how": "nominatim"
       },
       {
        "label": "Chenecey-Buillon",
@@ -66844,22 +66856,22 @@
        "label": "Besançon",
        "km": 55,
        "kind": "ville",
-       "note": "262 m imprimés",
-       "lat": 47.23802,
-       "lon": 6.02436,
-       "how": "stage_towns",
-       "confidence": "ok"
+       "note": "262 m imprimés ; arrivée au parc des expositions Micropolis (Besançon, Nominatim), 263 m au MNT pour 262 imprimés, et non au centre de la ville (246 m) — lieu retenu sur l'altitude et la distance, non sourcé (règle 22)",
+       "lat": 47.22443,
+       "lon": 5.98028,
+       "how": "nominatim",
+       "confidence": "ambigu"
       }
      ],
-     "note": "Contre-la-montre individuel. Hors tolérance (+6,8 %) : contre-la-montre, profil plus court que la route à vélo comme en voiture (51,3 et 52,3 km pour 48) ; Beure → arrivée à Besançon, 5,5 km routés pour 3.",
+     "note": "Contre-la-montre individuel.",
      "route_check": {
-      "routed_km": 51.3,
+      "routed_km": 49.1,
       "profile_km": 48,
-      "delta_pct": 6.8,
+      "delta_pct": 2.3,
       "tolerance_pct": 5,
       "coverage_pct": 87,
       "car_legs": 0,
-      "legs": 10,
+      "legs": 11,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -67029,15 +67041,15 @@
        "label": "Paris Champs-Élysées",
        "km": 163,
        "kind": "lieu-dit",
-       "note": "45 m imprimés",
-       "lat": 48.8535,
-       "lon": 2.34839,
-       "how": "stage_towns",
+       "note": "45 m imprimés ; arrivée sur les Champs-Élysées et non au centre de Paris (règle 22)",
+       "lat": 48.87076,
+       "lon": 2.30533,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
      "circuit_km": 114,
-     "note": "Circuit des Champs-Élysées : 1er passage au km 114, passages imprimés jusqu'au 8e (km 157), arrivée au km 163 (circuit_km) ; seul le 1er passage est repris.",
+     "note": "Circuit des Champs-Élysées : 1er passage au km 114, passages imprimés jusqu'au 8e (km 157), arrivée au km 163 (circuit_km) ; seul le 1er passage est repris. Départ : Montereau → Échouboulains 8,8 pour 8, départ réel hors de la ville, non situé (règle 25). Place de la Bastille → Champs-Élysées : 5,0 km à vol d'oiseau pour 4, entrée sur le circuit par la Concorde.",
      "route_check": {
       "routed_km": 107.6,
       "profile_km": 106,
