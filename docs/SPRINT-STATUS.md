@@ -665,6 +665,24 @@ et côtes traversées avec leur kilomètre.
   retirés, notes fausses corrigées, tronçons suspects notés. Melle, Aisone
   et Peveragno replacés au village avant l'audit ; Port de la Besse retiré.
 
+- [ ] Édition 2009 **en cours** (audit Mireille avant la fusion) : 21 étapes
+  sur 21 (pas de prologue en 2009), 235 points placés sur 262, depuis les
+  profils de ledicodutour.com (`09_NN_1.gif`, `cols/2009/…` pour 9 étapes ;
+  470 px, altitudes imprimées, lus au triple). Critères : chaque point placé
+  ou non placé avec note ; altitude contrôlée point par point (règle 14) ;
+  contrôle à ±5 % sur BRouter public, 0 tronçon en voiture ; cause écrite
+  pour chaque étape hors tolérance, avec la comparaison vélo / voiture
+  (règle 20) ; curation de données, pas de relecture adverse dédiée (règle
+  11).
+  Fait : 13 étapes dans la tolérance, 8 hors, cause notée — 2009/1 (−71,7 %,
+  contre-la-montre de Monaco, deux points mesurables), 2009/2 (−5,4 %),
+  2009/4 (+10,0 %, contre-la-montre par équipes), 2009/5 (−8,0 %), 2009/6
+  (−13,2 %, −0,7 % en voiture), 2009/11 (−9,8 %), 2009/17 (−20,3 %, côte
+  d'Arâches non reconstituée), 2009/21 (−8,8 %, −1,7 % en voiture).
+  Arrivée de Paris sur les Champs-Élysées, Arles au centre-ville, villages
+  valdôtains (Gignod, La Salle, La Thuile) au village : le centre de la
+  commune tombait en montagne.
+
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
