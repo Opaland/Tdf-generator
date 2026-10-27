@@ -607,24 +607,28 @@ et côtes traversées avec leur kilomètre.
   le mémorial Casartelli, Les Planches et Dinan placés, Boutigny au village ;
   départs hors de la ville et km imprimés incohérents notés.
 
-- [ ] Édition 2005 **en cours** (audit Mireille avant la fusion) : 21 étapes
-  sur 21 (pas de prologue en 2005), 460 points placés sur 524, depuis les
-  profils de ledicodutour.com (`05_NNb.jpg` ou `05_NN_2.gif`, 468 px,
-  altitudes imprimées ; lus au triple, zooms ciblés sur les colonnes
-  serrées). Critères : chaque point placé ou non placé avec note ; altitude
-  contrôlée point par point (règle 14) ; contrôle à ±5 % sur BRouter public,
-  0 tronçon en voiture ; cause écrite pour chaque étape hors tolérance, avec
-  la comparaison vélo / voiture (règle 20) ; curation de données, pas de
-  relecture adverse dédiée (règle 11).
-  Fait : 17 étapes dans la tolérance, 4 hors, cause notée — 2005/1 (−30 %,
-  contre-la-montre, km du profil décalés des bourgs de l'île), 2005/4
-  (+8,4 %, km du profil plus courts que la route, vélo comme voiture),
-  2005/9 (−5,3 %, vallée du Chajoux non reconstituée), 2005/20 (+5,1 %,
-  +8,0 % en voiture). Bühl (2005/8) était placé à Bühl dans le Bas-Rhin
-  par le géocodage par commune : replacé dans le Bade, avec les villages de
-  la vallée du Rhin côté allemand. Circuits d'arrivée déclarés (règle 19) à
-  Karlsruhe, Mulhouse, Briançon, Montpellier, Pau, Revel et Paris.
-  Longueur imprimée de 2005/10 (192,5 km) déclarée : Wikipédia donne 177 km.
+- [x] Édition 2005 (PR #505) : 21 étapes sur 21 (pas de prologue en 2005),
+  459 points placés sur 524, depuis les profils de ledicodutour.com
+  (`05_NNb.jpg` ou `05_NN_2.gif`, 468 px, altitudes imprimées ; lus au
+  triple, zooms ciblés sur les colonnes serrées). Non placés, avec note :
+  carrefours de routes, entrées de ville, côtes sans sommet localisé.
+  Altitude contrôlée point par point (règle 14). Contrôlée à ±5 % sur
+  BRouter public, 0 tronçon en voiture : 16 étapes dans la tolérance, 4
+  hors, cause notée — 2005/4 (+8,4 %, km du profil plus courts que la
+  route, vélo comme voiture), 2005/9 (−6,1 %, vallée du Chajoux non
+  reconstituée), 2005/17 (+5,9 %, côte de Baleix non localisée), 2005/20
+  (+5,1 %, +8,0 % en voiture) ; 2005/1 non contrôlable (contre-la-montre
+  de Noirmoutier, km du profil décalés des bourgs, trop peu de points).
+  Bühl (2005/8) était placé à Bühl dans le Bas-Rhin par le géocodage par
+  commune : replacé dans le Bade, avec les villages de la vallée du Rhin
+  côté allemand. Corrigés à l'audit Mireille : arrivée de Paris sur les
+  Champs-Élysées (elle tombait au parvis Notre-Dame), Nachtigall et
+  Zimmerplatz placées, Appenweier au village, Grand Ballon au col routier,
+  La Chaise à la mairie, Le Bouinenc (la rivière) et Barbâtre retirés,
+  côtes posées au village sous le sommet retirées (Baleix, Montigny,
+  Joinville), notes de départ (règle 25), allers-retours et tronçons
+  suspects notés. Longueur imprimée de 2005/10 (192,5 km) déclarée :
+  Wikipédia donne 177 km.
 
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points

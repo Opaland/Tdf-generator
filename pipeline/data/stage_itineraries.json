@@ -67098,11 +67098,8 @@
        "label": "Barbâtre",
        "km": 4.5,
        "kind": "ville",
-       "note": "4 m imprimés",
-       "lat": 46.94472,
-       "lon": -2.17944,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "4 m imprimés ; retiré (audit, règle 7) : le bourg de Barbâtre est à 6,9 km à vol d'oiseau de Fromentine pour 4,5 au profil ; le point visé (entrée de la commune ?) n'est pas sourcé",
+       "confidence": "non-place"
       },
       {
        "label": "Carrefour D.38/D.948",
@@ -67160,19 +67157,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Contre-la-montre individuel. Hors tolérance (−30 %), cause notée : les km du profil ne collent pas aux bourgs. Barbâtre est imprimé au km 4,5, mais son bourg est à 9,6 km routés de Fromentine (6,9 à vol d'oiseau), vraisemblablement l'entrée de la commune au pied du pont ; Barbâtre → La Guérinière fait 5,1 km routés (vélo), 5,4 en voiture, pour 8,5 au profil. Le pont, le péage, les carrefours et l'entrée de Noirmoutier sont non placés, la mesure ne porte que sur trois points.",
-     "route_check": {
-      "routed_km": 10.2,
-      "profile_km": 14.5,
-      "delta_pct": -30,
-      "tolerance_pct": 5,
-      "coverage_pct": 76,
-      "car_legs": 0,
-      "legs": 2,
-      "suspect_legs": 1,
-      "backtracks": 0,
-      "backtracks_uncertain": 0
-     }
+     "note": "Contre-la-montre individuel. Non contrôlable : Barbâtre retiré (audit, règle 7), il ne reste que La Guérinière et Noirmoutier-en-l'Île comme points mesurables, moins de 50 % de l'étape. Les km du profil ne collent pas aux bourgs de l'île : Barbâtre, imprimé au km 4,5, est à 9,6 km routés de Fromentine."
     },
     "2": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2005/05_02b.jpg",
@@ -67426,7 +67411,8 @@
       "suspect_legs": 4,
       "backtracks": 1,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Départ : Challans → Le Perrier 9,4 km à vol d'oiseau pour 7 au profil, départ réel hors de la ville, non situé (règle 25). Aller-retour du routeur à Mainclaye (1,4 km, BRouter) : hameau juste (Nominatim place/hamlet), le profil passe vraisemblablement par le hameau ; laissé, noté (règle 17). Tronçons suspects triés à l'audit : Saint-Jean-de-Monts → Orouet (6,7 km à vol d'oiseau pour 5,5), Bretignolles → Olonne (12,0 pour 10,5) ; points vérifiés (mairie ou hameau Nominatim), ligne droite plus longue que le profil, écart du profil (règle 11)."
     },
     "3": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2005/05_03b.jpg",
@@ -67714,7 +67700,8 @@
       "suspect_legs": 3,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Tronçons suspects triés à l'audit : Le Puy-Saint-Bonnet → Cholet (7,3 pour 5 ; vraisemblablement l'entrée de la commune), Saint-Léger → Les Trois-Moutiers (4,7 pour 3,5) ; points vérifiés (mairie ou hameau Nominatim), ligne droite plus longue que le profil, écart du profil (règle 11)."
     },
     "4": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2005/05_04b.jpg",
@@ -68145,7 +68132,8 @@
       "suspect_legs": 0,
       "backtracks": 1,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Départ : Chambord → La Ferté-Saint-Cyr 12,5 km à vol d'oiseau pour 11 au profil, départ réel hors de la ville, non situé (règle 25). Aller-retour du routeur aux Bouffards (1,1 km, BRouter) : hameau juste (Nominatim place/hamlet) ; laissé, noté (règle 17)."
     },
     "6": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2005/05_06b.jpg",
@@ -68224,10 +68212,10 @@
        "label": "La Chaise",
        "km": 44,
        "kind": "ville",
-       "note": "165 m imprimés",
-       "lat": 48.35392,
-       "lon": 4.67204,
-       "how": "commune-ign",
+       "note": "165 m imprimés ; placé à la mairie (audit : le premier point faisait faire un aller-retour au routeur)",
+       "lat": 48.3616,
+       "lon": 4.65952,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -68361,11 +68349,8 @@
        "label": "Côte de Montigny",
        "km": 141,
        "kind": "côte",
-       "note": "364 m imprimés ; 4e catégorie ; 1,4 km à 5,2 % ; côte rattachée au village de Montigny-lès-Vaucouleurs (MNT 312 m), sommet non localisé",
-       "confidence": "ambiguous",
-       "lat": 48.58745,
-       "lon": 5.63335,
-       "how": "nominatim"
+       "note": "364 m imprimés ; 4e catégorie ; 1,4 km à 5,2 % ; côte rattachée au village de Montigny-lès-Vaucouleurs (MNT 312 m), sommet non localisé ; retirée (audit) : le village de Montigny-lès-Vaucouleurs est 52 m sous le sommet imprimé, sommet non localisé",
+       "confidence": "non-place"
       },
       {
        "label": "Chalaines",
@@ -68456,17 +68441,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 196.7,
+      "routed_km": 193.1,
       "profile_km": 190.5,
-      "delta_pct": 3.2,
+      "delta_pct": 1.4,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 27,
-      "suspect_legs": 1,
-      "backtracks": 1,
+      "legs": 26,
+      "suspect_legs": 0,
+      "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Départ : Troyes → Rouilly-Sacey 14,8 km à vol d'oiseau pour 8,5 au profil, départ réel hors de la ville, non situé (règle 25). Côte de Joinville, Côte de Montigny et Côte de Maron retirées ou non placées : sommets non localisés."
     },
     "7": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2005/05_07b.jpg",
@@ -68810,7 +68796,7 @@
       }
      ],
      "circuit_km": 220,
-     "note": "Entrée dans Karlsruhe au km 220, arrivée au km 228,5 (circuit_km, règle 19). La graduation du km 50,5 ne porte aucun nom : les noms suivants sont appariés un cran à droite (règle 3).",
+     "note": "Entrée dans Karlsruhe au km 220, arrivée au km 228,5 (circuit_km, règle 19). La graduation du km 50,5 ne porte aucun nom : les noms suivants sont appariés un cran à droite (règle 3). Départ : Lunéville → Gerbéviller 10,8 km à vol d'oiseau pour 9,5 au profil, départ réel hors de la ville, non situé (règle 25). Tronçons suspects triés à l'audit : Urmatt → Mutzig (9,7 pour 8,5), Neumalsch → Ettlingen (8,4 pour 7) ; points vérifiés (mairie ou hameau Nominatim), ligne droite plus longue que le profil, écart du profil (règle 11).",
      "route_check": {
       "routed_km": 206.8,
       "profile_km": 205,
@@ -68875,15 +68861,21 @@
        "label": "Côte de Nachtigal",
        "km": 38.5,
        "kind": "côte",
-       "note": "382 m imprimés ; 3e catégorie ; 3,8 km à 5,8 % ; non placée : aucun lieu « Nachtigal » trouvé par recherche bornée",
-       "confidence": "non-place"
+       "note": "382 m imprimés ; 3e catégorie ; 3,8 km à 5,8 % ; non placée : aucun lieu « Nachtigal » trouvé par recherche bornée ; placée au col de la Nachtigall (Nominatim mountain_pass, orthographe allemande en deux l), MNT 388 m",
+       "confidence": "ok",
+       "lat": 48.74689,
+       "lon": 8.30172,
+       "how": "nominatim"
       },
       {
        "label": "Côte de Zimmerplatz",
        "km": 48,
        "kind": "côte",
-       "note": "363 m imprimés ; 3e catégorie ; 1,9 km à 6,7 % ; non placée : les « Zimmerplatz » connus de Nominatim sont hors du parcours",
-       "confidence": "non-place"
+       "note": "363 m imprimés ; 3e catégorie ; 1,9 km à 6,7 % ; non placée : les « Zimmerplatz » connus de Nominatim sont hors du parcours ; placée à l'arrêt Zimmerplatz (B 500, Geroldsau), MNT 364 m",
+       "confidence": "ok",
+       "lat": 48.71549,
+       "lon": 8.22738,
+       "how": "nominatim"
       },
       {
        "label": "Bühl",
@@ -68919,10 +68911,10 @@
        "label": "Appenweier",
        "km": 79,
        "kind": "ville",
-       "note": "148 m imprimés",
+       "note": "148 m imprimés ; placé au village (le premier point était celui de la commune, à Zimmern)",
        "confidence": "ok",
-       "lat": 48.56054,
-       "lon": 7.9778,
+       "lat": 48.53872,
+       "lon": 7.98027,
        "how": "nominatim"
       },
       {
@@ -69124,17 +69116,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 238.3,
+      "routed_km": 231.1,
       "profile_km": 227,
-      "delta_pct": 5,
+      "delta_pct": 1.8,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 24,
-      "suspect_legs": 0,
+      "legs": 26,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Départ : Pforzheim → Neuenbürg 9,7 km à vol d'oiseau pour 4,5 au profil, départ réel hors de la ville, non situé (règle 25). Tronçon suspect : Côte de Zimmerplatz → Bühl, 11,9 km routés pour 8,5 au profil (8,0 à vol d'oiseau) ; descente de la B 500 par des lacets, laissé (règle 11)."
     },
     "9": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2005/05_09_2.gif",
@@ -69224,10 +69217,10 @@
        "label": "Le Grand Ballon",
        "km": 64,
        "kind": "col",
-       "note": "1338 m imprimés ; 2e catégorie ; 21,9 km à 3,6 % ; placé au sommet (MNT 1423 m) ; la route des Crêtes passe sous le sommet",
-       "confidence": "ambiguous",
-       "lat": 47.90084,
-       "lon": 7.0984,
+       "note": "1338 m imprimés ; 2e catégorie ; 21,9 km à 3,6 % ; déplacé au col routier du Grand Ballon (MNT 1 341 m)",
+       "confidence": "ok",
+       "lat": 47.90368,
+       "lon": 7.10326,
        "how": "nominatim"
       },
       {
@@ -69369,11 +69362,11 @@
       }
      ],
      "circuit_km": 164.5,
-     "note": "Entrée dans Mulhouse au km 164,5, arrivée au km 171 (circuit_km, règle 19). Hors tolérance (−5,3 %), cause notée : Le Chajoux-la-Cure et le carrefour D.34d/D.34 ne sont pas placés ; sans eux, le routeur coupe de Grosse Pierre aux Feignes (8,8 km pour 15,5 au profil) puis des Feignes au Bramont (6,3 pour 10,5), vélo comme voiture. Le profil passe vraisemblablement par la vallée du Chajoux (La Bresse), non reconstituée.",
+     "note": "Entrée dans Mulhouse au km 164,5, arrivée au km 171 (circuit_km, règle 19). Hors tolérance (−6,1 %), cause notée : Le Chajoux-la-Cure et le carrefour D.34d/D.34 ne sont pas placés ; sans eux, le routeur coupe de Grosse Pierre aux Feignes (8,8 km pour 15,5 au profil) puis des Feignes au Bramont (6,3 pour 10,5), vélo comme voiture. Le profil passe vraisemblablement par la vallée du Chajoux (La Bresse), non reconstituée.",
      "route_check": {
-      "routed_km": 143.9,
+      "routed_km": 142.8,
       "profile_km": 152,
-      "delta_pct": -5.3,
+      "delta_pct": -6.1,
       "tolerance_pct": 5,
       "coverage_pct": 89,
       "car_legs": 0,
@@ -69648,7 +69641,7 @@
       }
      ],
      "length_km": 192.5,
-     "note": "Longueur imprimée sur le profil : 192,5 km (length_km) ; stage_towns (Wikipédia) donne 177 km. Les km du profil sont cohérents entre eux (Grenoble → Albertville 77,5 km par Pontcharra, Albertville → Bourg-Saint-Maurice par le Cormet de Roselend 61 km) : l'écart vient vraisemblablement de la source Wikipédia, à confirmer.",
+     "note": "Longueur imprimée sur le profil : 192,5 km (length_km) ; stage_towns (Wikipédia) donne 177 km. Les km du profil sont cohérents entre eux (Grenoble → Albertville 77,5 km par Pontcharra, Albertville → Bourg-Saint-Maurice par le Cormet de Roselend 61 km) : l'écart vient vraisemblablement de la source Wikipédia, à confirmer. Départ : Grenoble → Villard-Bonnot 13,2 km à vol d'oiseau pour 10 au profil, départ réel hors de la ville, non situé (règle 25). Aller-retour du routeur à Aiton (1,3 km, BRouter) : point à la mairie, le bourg est à l'écart de la route de la vallée ; laissé, noté (règle 17). Tronçons suspects triés à l'audit : Grignon → Albertville (3,6 pour 1,5) ; points vérifiés (mairie ou hameau Nominatim), ligne droite plus longue que le profil, écart du profil (règle 11).",
      "route_check": {
       "routed_km": 189.9,
       "profile_km": 182.5,
@@ -70079,11 +70072,8 @@
        "label": "Le Bouinenc",
        "km": 133.5,
        "kind": "lieu-dit",
-       "note": "719 m imprimés",
-       "lat": 44.13421,
-       "lon": 6.30562,
-       "how": "nominatim",
-       "confidence": "ambigu"
+       "note": "719 m imprimés ; retiré (audit) : le point était la rivière du Bouinenc (Nominatim waterway/river), avec un aller-retour de 1,8 km ; hameau non localisé",
+       "confidence": "non-place"
       },
       {
        "label": "Digne-les-Bains",
@@ -70161,17 +70151,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 184.6,
+      "routed_km": 181,
       "profile_km": 179.5,
-      "delta_pct": 2.8,
+      "delta_pct": 0.8,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 22,
-      "suspect_legs": 1,
-      "backtracks": 1,
+      "legs": 21,
+      "suspect_legs": 0,
+      "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Départ : Briançon → Queyrières 9,7 km à vol d'oiseau pour 7,5 au profil, départ réel hors de la ville, non situé (règle 25)."
     },
     "13": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2005/05_13b.jpg",
@@ -70429,7 +70420,7 @@
       }
      ],
      "circuit_km": 156,
-     "note": "Entrée dans Montpellier au km 156, arrivée au km 173,5 (circuit_km, règle 19) ; Castelnau-le-Lez (160,5) et l'avenue de la Liberté (166) sont sur ce final.",
+     "note": "Entrée dans Montpellier au km 156, arrivée au km 173,5 (circuit_km, règle 19) ; Castelnau-le-Lez (160,5) et l'avenue de la Liberté (166) sont sur ce final. Départ : Miramas → Mouriès 15,9 km à vol d'oiseau pour 15 au profil, départ réel hors de la ville, non situé (règle 25). Aller-retour incertain au col de la Vayède (1,3 km) : le carrefour D.17/D.33a, non placé, est sauté (33.14). Tronçons suspects triés à l'audit : Les Cabanelles → Saint-Mathieu-de-Tréviers (5,1 pour 4) ; points vérifiés (mairie ou hameau Nominatim), ligne droite plus longue que le profil, écart du profil (règle 11).",
      "route_check": {
       "routed_km": 146.5,
       "profile_km": 141,
@@ -70514,8 +70505,11 @@
        "label": "Narbonne (avenue de Bordeaux)",
        "km": 50,
        "kind": "ville",
-       "note": "15 m imprimés ; non placé : point exact de l'entrée ou de la rue non sourcé",
-       "confidence": "non-place"
+       "note": "15 m imprimés ; placé sur l'avenue de Bordeaux, imprimée sur le profil (8,5 km à vol d'oiseau de Coursan pour 8,5)",
+       "confidence": "ok",
+       "lat": 43.18175,
+       "lon": 2.98362,
+       "how": "nominatim"
       },
       {
        "label": "Saint-Julien",
@@ -70742,11 +70736,12 @@
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
-      "legs": 24,
+      "legs": 25,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Départ : Agde → Cers 13,4 km à vol d'oiseau pour 13 au profil, départ réel hors de la ville, non situé (règle 25). Tronçons suspects triés à l'audit : Cers → Béziers (7,4 pour 5,5) ; points vérifiés (mairie ou hameau Nominatim), ligne droite plus longue que le profil, écart du profil (règle 11)."
     },
     "15": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2005/05_15_2.gif",
@@ -71060,7 +71055,8 @@
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Départ : Lézat-sur-Lèze → Sainte-Suzanne 8,2 km à vol d'oiseau pour 7 au profil, départ réel hors de la ville, non situé (règle 25)."
     },
     "16": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2005/05_16_2.gif",
@@ -71369,11 +71365,8 @@
        "label": "Côte de Baleix",
        "km": 22.5,
        "kind": "côte",
-       "note": "348 m imprimés ; 3e catégorie ; 1,6 km à 7,1 % ; côte rattachée au village de Baleix (MNT 269 m), sommet non localisé",
-       "confidence": "ambiguous",
-       "lat": 43.37843,
-       "lon": -0.13062,
-       "how": "nominatim"
+       "note": "348 m imprimés ; 3e catégorie ; 1,6 km à 7,1 % ; côte rattachée au village de Baleix (MNT 269 m), sommet non localisé ; retirée (audit) : le village de Baleix est 79 m sous le sommet imprimé, sommet non localisé",
+       "confidence": "non-place"
       },
       {
        "label": "Lamayou",
@@ -71656,16 +71649,16 @@
       }
      ],
      "circuit_km": 227.5,
-     "note": "Entrée dans Revel au km 227,5, arrivée au km 239,5 par la côte de Saint-Ferréol (circuit_km, règle 19).",
+     "note": "Entrée dans Revel au km 227,5, arrivée au km 239,5 par la côte de Saint-Ferréol (circuit_km, règle 19). Départ : Pau → Saint-Jammes 11,7 km à vol d'oiseau pour 8,5 au profil, départ réel hors de la ville, non situé (règle 25). Hors tolérance (+5,9 %), cause notée : la côte de Baleix, retirée (audit), laisse Saint-Jammes → Lamayou à 26,6 km routés pour 20,5 au profil ; sommet de la côte non localisé, le routeur ne passe pas par le même chemin. Tronçons suspects triés à l'audit : Lamayou → Vic-en-Bigorre (6,7 pour 5,5) ; points vérifiés (mairie ou hameau Nominatim), ligne droite plus longue que le profil, écart du profil (règle 11).",
      "route_check": {
-      "routed_km": 217.7,
+      "routed_km": 222.9,
       "profile_km": 210.5,
-      "delta_pct": 3.4,
+      "delta_pct": 5.9,
       "tolerance_pct": 5,
       "coverage_pct": 88,
       "car_legs": 0,
-      "legs": 22,
-      "suspect_legs": 2,
+      "legs": 21,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -71920,7 +71913,8 @@
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Départ : Albi → Villefranche-d'Albigeois 15 km à vol d'oiseau pour 13 au profil, départ réel hors de la ville, non situé (règle 25)."
     },
     "19": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2005/05_19_2.gif",
@@ -72174,7 +72168,8 @@
       "suspect_legs": 3,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Départ : Issoire → La Gravière 8,3 km à vol d'oiseau pour 6,5 au profil, départ réel hors de la ville, non situé (règle 25). Col des Fourches → Boisseyre : 6,2 km à vol d'oiseau pour 3,5 au profil, km 50,5 relu sur le profil ; col et hameau sont justes (MNT 975 et 692 m), écart du profil (règle 2). Autres tronçons suspects : Le Buisson → Saint-Éloy (8,6 km routés pour 5,5, Le Buisson d'Échandelys à l'écart de la route) et Malaveille → Craponne (2,7 pour 1,5, 2,5 à vol d'oiseau) ; écarts courts, laissés (règle 11)."
     },
     "20": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2005/05_20_2.gif",
@@ -72297,7 +72292,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Contre-la-montre individuel. Point chronométré intermédiaire au km 17 (823 m), sans nom : non repris (règle 4). Entrée dans Saint-Étienne au km 52,5, 3 km avant l'arrivée : point de passage. Hors tolérance (+5,1 %), cause notée : la voiture donne +8,0 % (55,6 km) ; écarts répartis sur des tronçons courts (Saint-Romain-en-Jarez → Col de la Gachet 6,9 km pour 5,5, Le Grelon → La Talaudière 5,7 pour 4,5).",
+     "note": "Contre-la-montre individuel. Point chronométré intermédiaire au km 17 (823 m), sans nom : non repris (règle 4). Entrée dans Saint-Étienne au km 52,5, 3 km avant l'arrivée : point de passage. Hors tolérance (+5,1 %), cause notée : la voiture donne +8,0 % (55,6 km) ; écarts répartis sur des tronçons courts (Saint-Romain-en-Jarez → Col de la Gachet 6,9 km pour 5,5, Le Grelon → La Talaudière 5,7 pour 4,5). Départ : Saint-Étienne → La Tour-en-Jarez 5 km à vol d'oiseau pour 4 au profil ; contre-la-montre sans défilé : km du profil ou premier point à revoir, non situé (règle 25).",
      "route_check": {
       "routed_km": 54.1,
       "profile_km": 51.5,
@@ -72469,15 +72464,15 @@
        "label": "Paris Champs-Élysées",
        "km": 144.5,
        "kind": "lieu-dit",
-       "note": "45 m imprimés",
-       "lat": 48.8535,
-       "lon": 2.34839,
-       "how": "stage_towns",
+       "note": "45 m imprimés ; arrivée placée sur les Champs-Élysées, comme 1994-2004 (le centre de Paris tombait au parvis Notre-Dame)",
+       "lat": 48.87076,
+       "lon": 2.30533,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
      "circuit_km": 92.5,
-     "note": "Circuit des Champs-Élysées : 1er passage au km 92,5, passages imprimés jusqu'au 8e (km 138), arrivée au km 144,5 ; seul le 1er passage est repris (circuit_km).",
+     "note": "Circuit des Champs-Élysées : 1er passage au km 92,5, passages imprimés jusqu'au 8e (km 138), arrivée au km 144,5 ; seul le 1er passage est repris (circuit_km). Départ : Corbeil-Essonnes → Saint-Vrain 13,5 km à vol d'oiseau pour 11,5 au profil, départ réel hors de la ville, non situé (règle 25). Tronçons suspects : Limours → Saint-Rémy-lès-Chevreuse (8,5 km routés pour 5,5), Igny → Châtenay-Malabry (6,6 pour 10,5) et Pont de l'Alma → Champs-Élysées (1,2 pour 5, le profil fait vraisemblablement un détour par le quai) : écarts du profil qui se compensent, laissés (règle 11).",
      "route_check": {
       "routed_km": 78.3,
       "profile_km": 81,
