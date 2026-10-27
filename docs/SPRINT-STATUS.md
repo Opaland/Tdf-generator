@@ -519,6 +519,21 @@ et côtes traversées avec leur kilomètre.
   « La Côte » pris par le géocodeur), arrivée de Luchon à la mairie
   (l'ancre `stage_towns` est à 5,6 km de la ville, story à part), altitude
   « 1 » des Deux Alpes (catégorie, pas altitude).
+- [x] Édition 1999 (PR #499) : 18 étapes ajoutées, 20 sur 21 (1999/7 et 8, du lot
+  Lorraine, déjà faites ; prologue du Puy du Fou non transcrit, des rues
+  seulement), 206 points placés sur 217, depuis les profils agrandis de
+  ledicodutour.com (`99_Na.jpg`). Non placés, avec note : Pornic,
+  Château-Gaillard, entrée de Laval, côtes du Procureur, de Fendeille, de
+  Chaudes-Aigues, de Cambargue, de Compolibat, de Saint-Rémy ; côtes de
+  Limay et de Védrines-Saint-Loup retirées (règle 14). Contrôlée à ±5 % sur
+  BRouter public, chaque contrôle avec un tronçon en voiture annulé et
+  relancé : 0 tronçon en voiture, aucun aller-retour ; 14 étapes dans la
+  tolérance, 3 hors, cause écrite dans la note — 1999/2 (−7,1 %), 1999/12
+  (−12,1 %), 1999/19 (contre-la-montre, −16,1 %) ; 1999/20 non contrôlable.
+  Corrigés à l'audit Mireille : côte du Port de la Besse replacée côté Tarn
+  (La Besse), côte de Duron à Durou (variante, ambigu), arrivée des
+  Champs-Élysées sur l'avenue et non au centre de Paris, allers-retours
+  d'Onzain et de Pamproux corrigés à la mairie (règle 17).
 
 - [x] Édition 1991 (PR #412) : 22 étapes sur 23 (prologue de Lyon non transcrit),
   418 points placés sur 444 (405 sur 442 avant le tri 33.12). Contrôlée à ±5 % avant PR : 20 étapes dans la tolérance, 2
