@@ -649,6 +649,22 @@ et côtes traversées avec leur kilomètre.
   posées au hameau au-dessus ou au pied du sommet retirées (Grandmont,
   Galbaux, Domecy), tronçons au profil contradictoire notés.
 
+- [x] Édition 2008 (PR #507) : 21 étapes sur 21 (pas de prologue en 2008),
+  251 points placés sur 269, depuis les profils de ledicodutour.com
+  (`08_NNa.jpg`, `cols/2008/…` pour 9 étapes ; 470 px, altitudes imprimées,
+  lus au triple). Non placés, avec note : côtes sans sommet localisé,
+  entrées de ville. Altitude contrôlée point par point (règle 14). Contrôlée
+  à ±5 % sur BRouter public, 0 tronçon en voiture : 14 étapes dans la
+  tolérance, 7 hors, cause notée — 2008/2 (−16,9 %, tracé sinueux sans point
+  imprimé), 2008/7 (−6,8 %), 2008/9 (−6,2 %, côte de Saint-Pey retirée),
+  2008/11 (−15,7 %, boucle après le col del Bouich non imprimée), 2008/19
+  (−5,2 %), 2008/20 (+6,0 %, contre-la-montre), 2008/21 (−5,4 %). Corrigés à
+  l'audit Mireille : arrivée de Paris sur les Champs-Élysées (elle tombait
+  au parvis Notre-Dame), Villanova Mondovì, Sampeyre, Demonte et Vinadio au
+  village, Les Huguets (homonyme de Roussillon) et Saint-Pey (impasse)
+  retirés, notes fausses corrigées, tronçons suspects notés. Melle, Aisone
+  et Peveragno replacés au village avant l'audit ; Port de la Besse retiré.
+
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
