@@ -569,7 +569,7 @@ et côtes traversées avec leur kilomètre.
   Règle 14 complétée : altitude mesurée point par point (la Géoplateforme
   dégrade la résolution d'un lot de points dispersés).
 
-- [ ] Recontrôle d'altitude point par point des éditions 1997 à 1999 : leurs
+- [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
   Le recontrôle point par point relève 17 points à plus de 100 m (1997 : 11,
@@ -578,6 +578,9 @@ et côtes traversées avec leur kilomètre.
   replacé (géocodage inverse et MNT), ou retiré avec note ; contrôle à ±5 %
   relancé sur les étapes touchées, 0 tronçon en voiture ; curation de
   données, pas de relecture adverse dédiée (règle 11).
+  Fait : Canillo et Ordino à la ville, Celliers à Celliers-Dessus, Allemont,
+  Aiton et Saint-Chamond à la mairie ; Vire, Barèges, Saint-Jean-d'Arves et
+  le départ de Courchevel notés ; 1997/10 passe de +4,7 % à +1,5 %.
 
 - [x] Édition 1991 (PR #412) : 22 étapes sur 23 (prologue de Lyon non transcrit),
   418 points placés sur 444 (405 sur 442 avant le tri 33.12). Contrôlée à ±5 % avant PR : 20 étapes dans la tolérance, 2
