@@ -53953,7 +53953,7 @@
        "label": "Carrefour D.62-D.757",
        "km": 8.5,
        "kind": "lieu-dit",
-       "note": "pointage intermédiaire ; non placé : carrefour des D62 et D757 non identifié par Nominatim",
+       "note": "pointage intermédiaire ; non placé : le croisement est au hameau des Quatre Vents (Vendeuvre-du-Poitou, Nominatim, 46.68597, 0.30322), mais placé il impose un aller-retour de 3,3 km au routeur, qui revient par la D62 faute de point entre les km 8,5 et 16,5 (règle 9)",
        "confidence": "non-place"
       },
       {
@@ -54141,8 +54141,11 @@
        "label": "La Roche des Grès",
        "km": 18.5,
        "kind": "lieu-dit",
-       "note": "pointage intermédiaire ; non placé : aucun lieu « La Roche des Grès » connu de Nominatim entre Nantes et Trompe-Moine",
-       "confidence": "non-place"
+       "note": "pointage intermédiaire ; lieu-dit La Roche de Grès (Brains, Nominatim), imprimé « La Roche des Grès »",
+       "confidence": "ok",
+       "lat": 47.18424,
+       "lon": -1.74775,
+       "how": "nominatim"
       },
       {
        "label": "Trompe-Moine",
@@ -54184,7 +54187,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Contre-la-montre par équipes. Non contrôlable : La Roche des Grès (km 18,5) n'est pas placée, et le premier tronçon (Nantes → Trompe-Moine) n'est pas mesuré."
+     "note": "Contre-la-montre par équipes.",
+     "route_check": {
+      "routed_km": 52.8,
+      "profile_km": 51.5,
+      "delta_pct": 2.6,
+      "tolerance_pct": 5,
+      "coverage_pct": 74,
+      "car_legs": 0,
+      "legs": 4,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "5": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1997_2006/2000/00_5.jpg",
@@ -54315,10 +54330,11 @@
        "label": "Vitré",
        "km": 0,
        "kind": "ville",
-       "lat": 48.11135,
-       "lon": -1.19262,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 48.12471,
+       "lon": -1.21536,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "départ placé à la mairie de Vitré (Nominatim) : le centre de la commune était à 2,2 km (règles 6 et 22)"
       },
       {
        "label": "Quelaines-Saint-Gault",
@@ -54465,10 +54481,11 @@
        "label": "Limoges",
        "km": 0,
        "kind": "ville",
-       "lat": 45.85616,
-       "lon": 1.22125,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 45.82712,
+       "lon": 1.26007,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "départ placé à la hôtel de ville de Limoges (Nominatim) : le centre de la commune était à 4,1 km (règles 6 et 22)"
       },
       {
        "label": "Côte de Petit-Puy-Mathieu",
@@ -54781,10 +54798,11 @@
        "label": "Bagnères-de-Bigorre",
        "km": 0,
        "kind": "ville",
-       "lat": 42.99935,
-       "lon": 0.12861,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 43.06807,
+       "lon": 0.15058,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "départ placé à la mairie de Bagnères-de-Bigorre (Nominatim) : le centre de la commune, en montagne, était à 7,9 km au sud (règles 6 et 22)"
       },
       {
        "label": "Côte de Mauvezin",
@@ -54988,10 +55006,11 @@
        "label": "Avignon",
        "km": 0,
        "kind": "ville",
-       "lat": 43.93635,
-       "lon": 4.84886,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 43.94928,
+       "lon": 4.80526,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "départ placé à la hôtel de ville d'Avignon (Nominatim) : le centre de la commune était à 3,7 km (règles 6 et 22)"
       },
       {
        "label": "Robion",
@@ -55072,7 +55091,8 @@
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Saint-Paul-lès-Durance → Côte de Cardache (placée à Cadarache, coquille supposée) : 4,8 km routés pour 8,5 au profil — le sommet est vraisemblablement plus loin sur la route de Vinon-sur-Verdon, point gardé en ambigu faute de lieu plus précis."
     },
     "14": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1997_2006/2000/00_14.jpg",
@@ -55163,7 +55183,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Col d’Izoard (hors catégorie) imprimé sans km, au sommet du profil vers le km 233 d’après la graduation : non repris (règle 4). Hors tolérance (−5,7 %) : le col d'Izoard, imprimé sans km, n'est pas repris — de Guillestre à Briançon le routage passe par la vallée de la Durance, 34,5 km à vélo et 34,4 en voiture pour 52 au profil.",
+     "note": "Col d’Izoard (hors catégorie) imprimé sans km, au sommet du profil, entre les km 226 et 249,5 (vers le km 229,5 d’après la route, la graduation n’étant pas linéaire) : non repris (règle 4). Hors tolérance (−5,7 %) : le col d'Izoard, imprimé sans km, n'est pas repris — de Guillestre à Briançon le routage passe par la vallée de la Durance, 34,5 km à vélo et 34,4 en voiture pour 52 au profil.",
      "route_check": {
       "routed_km": 216.9,
       "profile_km": 230,
@@ -55344,7 +55364,7 @@
        "label": "Col de Joux-Plane",
        "km": 184.5,
        "kind": "col",
-       "note": "hors catégorie ; col routier (mountain_pass, Nominatim), 1 688 m au MNT ; l'aller-retour de 2,9 km signalé au col vient du routeur, pas du point : BRouter (fastbike) ne franchit pas le col par la route de Samoëns (de Taninges à Morzine par Samoëns, il passe par Les Gets, 1 167 m au plus haut) et rejoint le col par le versant de Morzine",
+       "note": "hors catégorie ; col routier (mountain_pass, Nominatim), 1 688 m au MNT ; l'aller-retour de 2,9 km signalé au col vient du routeur, pas du point : faute de Samoëns sur le profil (non imprimé, donc non ajouté, règle 4), BRouter prend le raccourci de Taninges par Les Gets et le Ranfolly (15,4 km pour 22,5 au profil), monte au col puis redescend jusqu'à la jonction du Ranfolly ; forcé par Samoëns, il franchit bien le col (Samoëns → col 11,9 km)",
        "lat": 46.12962,
        "lon": 6.71291,
        "how": "nominatim",
@@ -55372,7 +55392,7 @@
       "backtracks": 1,
       "backtracks_uncertain": 0
      },
-     "note": "Col de Joux-Plane : aller-retour de 2,9 km signalé par le routeur, qui ne franchit pas le col par la route de Samoëns (voir la note du col) ; l'écart affiché (−3,0 %) compte ce kilométrage deux fois et sous-estime donc le manque réel."
+     "note": "Col de Joux-Plane : aller-retour de 2,9 km du routeur au col (voir la note du col). L'écart affiché (−3,0 %) compte ces 2,9 km deux fois : sans eux, l'étape est à −5,0 %, à la limite de la tolérance (règle 24) — le passage par Samoëns, non imprimé, n'est pas reconstitué."
     },
     "17": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1997_2006/2000/00_17.jpg",
@@ -55472,10 +55492,11 @@
        "label": "Dompierre",
        "km": 45,
        "kind": "ville",
-       "lat": 46.85768,
-       "lon": 6.99132,
+       "lat": 46.85208,
+       "lon": 6.99072,
        "how": "nominatim",
-       "confidence": "ambigu"
+       "confidence": "ok",
+       "note": "village de Dompierre FR (Belmont-Broye, Nominatim), et non le périmètre de l'ancienne commune fusionnée (règle 15)"
       },
       {
        "label": "Büren an der Aare",
@@ -55490,7 +55511,7 @@
       {
        "label": "Côte de Oberer-Hauenstein",
        "km": 139,
-       "kind": "col",
+       "kind": "côte",
        "note": "3e catégorie ; imprimé « Côte de Oberer-Hauenstein » ; col de l'Oberer Hauenstein (Langenbruck, Nominatim), 732 m au MNT",
        "confidence": "ok",
        "lat": 47.35166,
@@ -55553,9 +55574,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 196.1,
+      "routed_km": 196.4,
       "profile_km": 201.5,
-      "delta_pct": -2.7,
+      "delta_pct": -2.6,
       "tolerance_pct": 5,
       "coverage_pct": 82,
       "car_legs": 0,
