@@ -72841,10 +72841,10 @@
        "label": "Tenterden",
        "km": 140.5,
        "kind": "ville",
-       "note": "70 m imprimés",
+       "note": "70 m imprimés ; placé au Town Hall ; le premier point faisait faire un aller-retour au routeur",
        "confidence": "ok",
-       "lat": 51.0701,
-       "lon": 0.68883,
+       "lat": 51.06881,
+       "lon": 0.68794,
        "how": "nominatim"
       },
       {
@@ -72879,18 +72879,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 177.6,
+      "routed_km": 176.3,
       "profile_km": 184.5,
-      "delta_pct": -3.8,
+      "delta_pct": -4.5,
       "tolerance_pct": 5,
       "coverage_pct": 91,
       "car_legs": 0,
       "legs": 11,
       "suspect_legs": 1,
-      "backtracks": 1,
+      "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Aller-retour du routeur à Tenterden (1,4 km, BRouter) : point au centre de la ville, laissé, noté (règle 17)."
+     "note": "Ashford → Farthing Common : 16,3 km à vélo, 16,5 en voiture, pour 23,5 au profil ; aucun nom imprimé entre les km 159,5 et 183, détour non imprimé (cause à sourcer)."
     },
     "2": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2007/07_02a.gif",
@@ -72899,10 +72899,10 @@
        "label": "Dunkerque",
        "km": 0,
        "kind": "ville",
-       "note": "10 m imprimés",
-       "lat": 51.02826,
-       "lon": 2.34653,
-       "how": "commune-ign",
+       "note": "10 m imprimés ; départ placé à l'hôtel de ville",
+       "lat": 51.03775,
+       "lon": 2.37666,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -72998,7 +72998,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Hors tolérance (−7,5 %), cause notée : la voiture donne +3,7 % (146,7 km) ; le routeur vélo coupe par de petites routes (Torhout → Aarsele 27,3 km à vélo, 35,9 en voiture) et Poperinge → Boezinge fait 10,9 km pour 18 au profil, trop peu de points imprimés pour suivre le tracé réel. Départ : Dunkerque → Poperinge 32,8 km à vol d'oiseau pour 27 au profil, départ réel hors de la ville, non situé (règle 25)."
+     "note": "Hors tolérance (−7,5 %), cause notée : la voiture donne +3,7 % (146,7 km) ; le routeur vélo coupe par de petites routes (Torhout → Aarsele 27,3 km à vélo, 35,9 en voiture) et Poperinge → Boezinge fait 10,9 km pour 18 au profil, trop peu de points imprimés pour suivre le tracé réel. Départ : Dunkerque → Poperinge 31,8 km à vol d'oiseau pour 27 au profil, départ réel hors de la ville, non situé (règle 25)."
     },
     "3": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2007/07_03a.gif",
@@ -73067,7 +73067,7 @@
        "label": "Jonqueuse",
        "km": 140.5,
        "kind": "lieu-dit",
-       "note": "16 m imprimés ; altitude imprimée invraisemblable pour l'Aisne (vraisemblable coquille) ; hameau de La Jonqueuse (Macquigny), MNT 148 m : l'altitude imprimée est une coquille",
+       "note": "16 m imprimés ; « 16 m » relu au zoom ×10, altitude imprimée invraisemblable pour l'Aisne (coquille) ; hameau de La Jonqueuse (Macquigny), MNT 148 m : l'altitude imprimée est une coquille",
        "confidence": "ok",
        "lat": 49.8685,
        "lon": 3.56605,
@@ -73239,11 +73239,8 @@
        "label": "Côte de Galbaux",
        "km": 142.5,
        "kind": "côte",
-       "note": "173 m imprimés ; 4e catégorie ; hameau de Galbaux (Voisines), MNT 216 m",
-       "confidence": "ambiguous",
-       "lat": 48.26673,
-       "lon": 3.41428,
-       "how": "nominatim"
+       "note": "173 m imprimés ; 4e catégorie ; hameau de Galbaux (Voisines), MNT 216 m ; retirée (audit) : le hameau de Galbaux est 43 m au-dessus du sommet imprimé, sommet non localisé",
+       "confidence": "non-place"
       },
       {
        "label": "Côte de Bel-Air",
@@ -73284,13 +73281,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 176.4,
+      "routed_km": 170.1,
       "profile_km": 169.5,
-      "delta_pct": 4.1,
+      "delta_pct": 0.3,
       "tolerance_pct": 5,
       "coverage_pct": 88,
       "car_legs": 0,
-      "legs": 9,
+      "legs": 8,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -73333,18 +73330,15 @@
        "label": "Côte des Grandes-Châtelaines",
        "km": 39.5,
        "kind": "côte",
-       "note": "284 m imprimés ; 4e catégorie ; non placée : lieu inconnu de Nominatim",
+       "note": "284 m imprimés ; 4e catégorie ; non placée : seuls « Les Petites Chatelaines » et la route des Châtelaines (Avallon) sont connus de Nominatim, pas ce nom",
        "confidence": "non-place"
       },
       {
        "label": "Côte de Domecy-sur-Cure",
        "km": 52.5,
        "kind": "côte",
-       "note": "238 m imprimés ; 4e catégorie ; côte rattachée au village de Domecy-sur-Cure (MNT 192 m)",
-       "confidence": "ambiguous",
-       "lat": 47.41572,
-       "lon": 3.81045,
-       "how": "nominatim"
+       "note": "238 m imprimés ; 4e catégorie ; côte rattachée au village de Domecy-sur-Cure (MNT 192 m) ; retirée (audit) : le village est le pied de la côte (192 m au MNT pour 238), sommet non localisé",
+       "confidence": "non-place"
       },
       {
        "label": "Côte de Champignolles-le-Bas",
@@ -73414,10 +73408,10 @@
        "label": "Haut-Folin",
        "km": 135.5,
        "kind": "col",
-       "note": "867 m imprimés ; 2e catégorie ; placé au sommet du Haut-Folin (MNT 900 m), la route passe en dessous",
+       "note": "867 m imprimés ; 2e catégorie ; déplacé sur la route forestière du Bois du Roi, à 0,5 km du sommet (859 m au MNT)",
        "confidence": "ambiguous",
-       "lat": 46.99615,
-       "lon": 4.03711,
+       "lat": 46.9975,
+       "lon": 4.044,
        "how": "nominatim"
       },
       {
@@ -73431,10 +73425,10 @@
        "label": "Mesvres",
        "km": 166,
        "kind": "ville",
-       "note": "282 m imprimés",
-       "lat": 46.87835,
-       "lon": 4.25276,
-       "how": "commune-ign",
+       "note": "282 m imprimés ; placé à la mairie (285 m au MNT) ; le premier point faisait faire un aller-retour au routeur",
+       "lat": 46.86244,
+       "lon": 4.2406,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -73459,18 +73453,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 160.5,
+      "routed_km": 151.4,
       "profile_km": 162.5,
-      "delta_pct": -1.2,
+      "delta_pct": -6.8,
       "tolerance_pct": 5,
       "coverage_pct": 89,
       "car_legs": 0,
-      "legs": 11,
+      "legs": 10,
       "suspect_legs": 0,
       "backtracks": 0,
-      "backtracks_uncertain": 2
+      "backtracks_uncertain": 0
      },
-     "note": "Départ : Chablis → Joux-la-Ville 23,7 km à vol d'oiseau pour 20 au profil, départ réel hors de la ville, non situé (règle 25)."
+     "note": "Départ : Chablis → Joux-la-Ville 23,7 km à vol d'oiseau pour 20 au profil, départ réel hors de la ville, non situé (règle 25). Hors tolérance (−6,8 %), cause notée : les côtes des Grandes-Châtelaines, de Domecy-sur-Cure et de Champignolles-le-Bas ne sont pas placées ; sans elles, Avallon → Lormes fait 27,8 km routés (29,4 en voiture) pour 36 au profil (−5,4 % en voiture sur l'étape)."
     },
     "6": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2007/07_06a.jpg",
@@ -73509,11 +73503,8 @@
        "label": "Côte de Grandmont",
        "km": 55,
        "kind": "côte",
-       "note": "479 m imprimés ; 4e catégorie ; hameau de Grandmont (Montceau-et-Écharnant), MNT 525 m",
-       "confidence": "ambiguous",
-       "lat": 47.07058,
-       "lon": 4.65091,
-       "how": "nominatim"
+       "note": "479 m imprimés ; 4e catégorie ; hameau de Grandmont (Montceau-et-Écharnant), MNT 525 m ; retirée (audit) : le hameau de Grandmont est à 525 m au MNT pour 479 imprimés, et à 4,6 km à vol d'oiseau de Bligny pour 3,5 au profil ; sommet non localisé",
+       "confidence": "non-place"
       },
       {
        "label": "Bel-Air",
@@ -73607,14 +73598,14 @@
       }
      ],
      "route_check": {
-      "routed_km": 166.3,
+      "routed_km": 165,
       "profile_km": 161.5,
-      "delta_pct": 3,
+      "delta_pct": 2.2,
       "tolerance_pct": 5,
       "coverage_pct": 81,
       "car_legs": 0,
-      "legs": 11,
-      "suspect_legs": 1,
+      "legs": 10,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
@@ -73825,10 +73816,10 @@
        "label": "Albertville",
        "km": 60,
        "kind": "ville",
-       "note": "317 m imprimés",
-       "lat": 45.671,
-       "lon": 6.39677,
-       "how": "commune-ign",
+       "note": "317 m imprimés ; placé à l'hôtel de ville (344 m au MNT) ; le premier point était la cité haute de Conflans",
+       "lat": 45.67515,
+       "lon": 6.39272,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -73920,9 +73911,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 137.1,
+      "routed_km": 136.1,
       "profile_km": 149.5,
-      "delta_pct": -8.3,
+      "delta_pct": -9,
       "tolerance_pct": 5,
       "coverage_pct": 91,
       "car_legs": 0,
@@ -73931,7 +73922,7 @@
       "backtracks": 1,
       "backtracks_uncertain": 0
      },
-     "note": "Hors tolérance (−8,3 %), cause notée : la montée d'Hauteville (km 136,5), non placée, n'est pas reconstituée ; sans elle, Bourg-Saint-Maurice → Sainte-Foy-Tarentaise fait 12,1 km routés pour 27 au profil, vélo comme voiture (−8,4 % en voiture). Aller-retour du routeur à Queige (1,0 km) : point à la mairie, laissé, noté (règle 17)."
+     "note": "Hors tolérance (−9,0 %), cause notée : la montée d'Hauteville (km 136,5), non placée, n'est pas reconstituée ; sans elle, Bourg-Saint-Maurice → Sainte-Foy-Tarentaise fait 12,1 km routés pour 27 au profil, vélo comme voiture (−8,4 % en voiture). Aller-retour du routeur à Queige (1,0 km) : point à la mairie, laissé, noté (règle 17)."
     },
     "9": {
      "source_url": "https://www.ledicodutour.com/images/cols/2007/07_9.jpg",
@@ -74068,7 +74059,8 @@
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Tronçon suspect : Modane → Saint-Michel-de-Maurienne, 15,6 km à vol d'oiseau, 17,6 à vélo comme en voiture, pour 14,5 au profil ; km relus sur l'image, les deux points sont à leur mairie : écart du profil (règle 11)."
     },
     "10": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2007/07_10a.jpg",
@@ -74154,11 +74146,8 @@
        "label": "Cadarache",
        "km": 116.5,
        "kind": "lieu-dit",
-       "note": "259 m imprimés",
-       "lat": 43.70891,
-       "lon": 5.73986,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "259 m imprimés ; retiré (audit) : le point était le bassin d'éclusées de Cadarache (un réservoir), le château est vraisemblablement dans l'enceinte du CEA ; lieu du passage non sourcé",
+       "confidence": "non-place"
       },
       {
        "label": "Carrefour D.3/V.O.",
@@ -74239,17 +74228,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 212.3,
+      "routed_km": 207.6,
       "profile_km": 208.5,
-      "delta_pct": 1.8,
+      "delta_pct": -0.4,
       "tolerance_pct": 5,
       "coverage_pct": 91,
       "car_legs": 0,
-      "legs": 13,
+      "legs": 12,
       "suspect_legs": 1,
       "backtracks": 0,
-      "backtracks_uncertain": 1
-     }
+      "backtracks_uncertain": 0
+     },
+     "note": "Col de la Gineste → Marseille : 14,0 km à vélo, 14,1 en voiture, 9,0 à vol d'oiseau, pour 10 au profil ; arrivée au centre-ville, lieu exact non imprimé ni sourcé (règle 22)."
     },
     "11": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2007/07_11a.jpg",
@@ -74361,7 +74351,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Hors tolérance (−5,6 %), cause notée : Lansargues → Montpellier fait 20,4 km routés (23,7 en voiture) pour 29 au profil, 16,4 à vol d'oiseau : le profil passe vraisemblablement par un détour non imprimé ; la voiture donne +6,2 %. Arles était placé au centre de la commune (en Camargue) : replacé au centre-ville. Départ : Marseille → Calas 18,3 km à vol d'oiseau pour 12,5 au profil, départ réel hors de la ville, non situé (règle 25)."
+     "note": "Hors tolérance (−5,6 %), cause notée : Lansargues → Montpellier fait 20,4 km routés (23,7 en voiture) pour 29 au profil, 16,4 à vol d'oiseau : le profil passe vraisemblablement par un détour non imprimé ; la voiture donne +6,2 %. Arles était placé au centre de la commune (en Camargue) : replacé au centre-ville. Départ : Marseille → Calas 18,3 km à vol d'oiseau pour 12,5 au profil, départ réel hors de la ville, non situé (règle 25). Arrivée au centre de Montpellier, lieu exact non sourcé (règle 22)."
     },
     "12": {
      "source_url": "https://www.ledicodutour.com/images/cols/2007/07_12.jpg",
@@ -74669,7 +74659,8 @@
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Tronçon suspect : Campagne-sur-Aude → Quillan, 4,9 km à vol d'oiseau, 6,1 à vélo, 6,7 en voiture, pour 2,5 au profil (91,5 et 94 lus sur l'image) : profil contradictoire (règles 11 et 23)."
     },
     "15": {
      "source_url": "https://www.ledicodutour.com/images/cols/2007/07_15.jpg",
@@ -75343,7 +75334,7 @@
      ],
      "partial": true,
      "length_km": 146,
-     "note": "Transcription partielle : le profil imprime « 130 KM » mais place le 7e passage sur la ligne au km 133 (incohérent ; 146 km dans stage_towns), sans le km d'entrée sur le circuit des Champs-Élysées ni le nombre de tours. Repris jusqu'à Châtenay-Malabry (km 74) ; le 7e passage n'est pas repris."
+     "note": "Transcription partielle : le profil imprime « 130 KM » mais place le 7e passage sur la ligne au km 133 (incohérent ; 146 km dans stage_towns), sans le km d'entrée sur le circuit des Champs-Élysées ni le nombre de tours. Repris jusqu'à Châtenay-Malabry (km 74), plus le sprint du haut des Champs-Élysées (km 108) non placé ; le 7e passage n'est pas repris. Pas de point d'arrivée : le km d'arrivée n'est pas imprimé, et sans km d'entrée sur le circuit, un point au km 146 (stage_towns) ferait mesurer Châtenay → Champs-Élysées d'un seul tronçon."
     }
    }
   },

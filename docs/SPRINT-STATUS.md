@@ -630,25 +630,24 @@ et côtes traversées avec leur kilomètre.
   suspects notés. Longueur imprimée de 2005/10 (192,5 km) déclarée :
   Wikipédia donne 177 km.
 
-- [ ] Édition 2007 **en cours** (audit Mireille avant la fusion) : 20 étapes
-  sur 21 (prologue de Londres non transcrit, des rues seulement), 205 points
-  placés sur 236, depuis les profils de ledicodutour.com (`07_NNa`, et
-  `cols/2007/07_N.jpg` pour les 8 étapes sans profil sur la page de
-  l'édition ; 469 px, altitudes imprimées, lus au triple). Critères : chaque
-  point placé ou non placé avec note ; altitude contrôlée point par point
-  (règle 14) ; contrôle à ±5 % sur BRouter public, 0 tronçon en voiture ;
-  cause écrite pour chaque étape hors tolérance, avec la comparaison vélo /
-  voiture (règle 20) ; curation de données, pas de relecture adverse dédiée
-  (règle 11).
-  Fait : 13 étapes dans la tolérance, 5 hors, cause notée — 2007/2 (−7,5 %,
-  +3,7 % en voiture), 2007/8 (−8,3 %, montée d'Hauteville non
-  reconstituée), 2007/11 (−5,6 %, détour non imprimé avant Montpellier),
-  2007/12 (−8,4 %, quatre points non placés), 2007/19 (−11,1 %,
-  contre-la-montre) ; 2007/13 et 2007/20 non contrôlables (2007/20 partielle :
-  le profil imprime 130 km et un passage au km 133, sans le circuit).
-  Angleterre et Belgique géocodées par pays (le géocodage par commune n'y
-  trouvait rien) ; Arles (2007/11) replacée au centre-ville, le centre de la
-  commune tombait en Camargue.
+- [x] Édition 2007 (PR #506) : 20 étapes sur 21 (prologue de Londres non
+  transcrit, des rues seulement), 201 points placés sur 236, depuis les
+  profils de ledicodutour.com (`07_NNa`, et `cols/2007/07_N.jpg` pour les 8
+  étapes sans profil sur la page de l'édition ; 469 px, altitudes imprimées,
+  lus au triple). Non placés, avec note : carrefours, entrées de ville,
+  côtes sans sommet localisé. Altitude contrôlée point par point (règle 14).
+  Contrôlée à ±5 % sur BRouter public, 0 tronçon en voiture : 12 étapes dans
+  la tolérance, 6 hors, cause notée — 2007/2 (−7,5 %, +3,7 % en voiture),
+  2007/5 (−6,8 %, trois côtes non placées), 2007/8 (−9,0 %, montée
+  d'Hauteville non reconstituée), 2007/11 (−5,6 %, détour non imprimé avant
+  Montpellier), 2007/12 (−8,4 %, quatre points non placés), 2007/19
+  (−11,1 %, contre-la-montre) ; 2007/13 et 2007/20 non contrôlables
+  (2007/20 partielle, sans arrivée : km d'arrivée et du circuit non
+  imprimés). Angleterre et Belgique géocodées par pays. Corrigés à l'audit
+  Mireille : Mesvres, Albertville, Tenterden et le départ de Dunkerque à la
+  mairie, Haut-Folin sur la route, Cadarache (un réservoir) retiré, côtes
+  posées au hameau au-dessus ou au pied du sommet retirées (Grandmont,
+  Galbaux, Domecy), tronçons au profil contradictoire notés.
 
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
