@@ -572,6 +572,18 @@ et côtes traversées avec leur kilomètre.
   (Altillac), notes de Mont-Theux, Lostanges et du Puntous, côtes de
   Rozeille et de Bossy en ambigu.
 
+- [ ] Édition 2003 : 20 étapes sur 21 (prologue de Paris non transcrit, des
+  rues seulement), depuis les profils de ledicodutour.com (`03_NNb.jpg`,
+  468 px, altitude devant chaque nom ; lus au triple). Profils denses : 401
+  points, dont une vingtaine de carrefours de routes, que Nominatim ne
+  connaît pas. Critères : règles 1 à 5 (noms et km comptés, km coupé par le
+  cadre noté) ; points placés puis vérifiés (règles 6 à 10, 14 point par
+  point, 15, 21, 22, 25) ; contrôle à ±5 % avec 0 tronçon en voiture sur
+  BRouter public, chaque `--write` avec `car_legs` non nul relancé (règle
+  16) ; allers-retours corrigés avant de lire l'écart (règle 24) ; cause
+  notée pour chaque étape hors tolérance ; audit Mireille avant la PR ;
+  curation de données, pas de relecture adverse dédiée (règle 11).
+
 - [ ] Recontrôle d'altitude point par point des éditions 1997 à 1999 : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
