@@ -630,6 +630,22 @@ et côtes traversées avec leur kilomètre.
   suspects notés. Longueur imprimée de 2005/10 (192,5 km) déclarée :
   Wikipédia donne 177 km.
 
+- [ ] Édition 2008 **en cours** (audit Mireille avant la fusion) : 21 étapes
+  sur 21 (pas de prologue en 2008), 252 points placés sur 269, depuis les
+  profils de ledicodutour.com (`08_NNa.jpg`, `cols/2008/…` pour 9 étapes ;
+  470 px, altitudes imprimées, lus au triple). Critères : chaque point placé
+  ou non placé avec note ; altitude contrôlée point par point (règle 14) ;
+  contrôle à ±5 % sur BRouter public, 0 tronçon en voiture ; cause écrite
+  pour chaque étape hors tolérance, avec la comparaison vélo / voiture
+  (règle 20) ; curation de données, pas de relecture adverse dédiée (règle
+  11).
+  Fait : 15 étapes dans la tolérance, 6 hors, cause notée — 2008/2 (−16,9 %,
+  tracé sinueux sans point imprimé), 2008/7 (−6,8 %), 2008/11 (−15,7 %,
+  boucle après le col del Bouich non imprimée), 2008/19 (−5,2 %), 2008/20
+  (+6,0 %, contre-la-montre), 2008/21 (−5,4 %). Melle, Aisone et Peveragno
+  (Piémont) replacés au village, le centre de la commune tombait en
+  montagne ; Port de la Besse retiré (2008/8 de +5,4 à +0,7 %).
+
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
