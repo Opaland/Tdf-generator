@@ -590,6 +590,18 @@ et côtes traversées avec leur kilomètre.
   21), Mérignac à la mairie, Saint-Julia retiré, départ de Toulouse à la
   Cité de l'Espace ; règle 25 complétée (départ réel hors de la ville).
 
+- [ ] Édition 2004 : 20 étapes sur 21 (prologue de Liège non transcrit, des
+  rues seulement), depuis les profils de ledicodutour.com (`04_NNb.jpg`,
+  468 px, altitude devant chaque nom ; lus au triple). 489 points, dont 21
+  carrefours de routes. Critères : règles 1 à 5 (km incompatible avec
+  l'ordre noté : second « Pont de Franchesse », 2004/10) ; points placés
+  puis vérifiés (règles 6 à 10, 14 point par point, 15, 21, 22, 25) ;
+  contrôle à ±5 % avec 0 tronçon en voiture sur BRouter public, chaque
+  `--write` avec `car_legs` non nul relancé (règle 16) ; allers-retours
+  corrigés avant de lire l'écart (règle 24) ; cause notée pour chaque étape
+  hors tolérance ; audit Mireille avant la PR ; curation de données, pas de
+  relecture adverse dédiée (règle 11).
+
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
