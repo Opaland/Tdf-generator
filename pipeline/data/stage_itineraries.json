@@ -76038,7 +76038,8 @@
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Tronçon suspect : Murol → Super-Besse, 16,4 km routés pour 25,5 au profil (9,8 à vol d'oiseau) ; le profil fait vraisemblablement un détour non imprimé avant la montée finale (règle 11)."
     },
     "7": {
      "source_url": "https://www.ledicodutour.com/images/cols/2008/profil_2008_7.gif",
@@ -76353,11 +76354,8 @@
        "label": "Côte de Saint-Pey",
        "km": 42,
        "kind": "côte",
-       "note": "324 m imprimés ; 4e catégorie ; lieu-dit Saint-Pey (Lacaugne), MNT 276 m",
-       "confidence": "ambiguous",
-       "lat": 43.27705,
-       "lon": 1.28886,
-       "how": "nominatim"
+       "note": "324 m imprimés ; 4e catégorie ; lieu-dit Saint-Pey (Lacaugne), MNT 276 m ; retirée (audit) : le lieu-dit Saint-Pey (Lacaugne) est en impasse, aller-retour de 2,2 km, et 48 m sous le sommet imprimé",
+       "confidence": "non-place"
       },
       {
        "label": "Côte de Sainte-Quitterie",
@@ -76488,18 +76486,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 186.9,
+      "routed_km": 182.5,
       "profile_km": 194.5,
-      "delta_pct": -3.9,
+      "delta_pct": -6.2,
       "tolerance_pct": 5,
       "coverage_pct": 87,
       "car_legs": 0,
-      "legs": 13,
-      "suspect_legs": 0,
-      "backtracks": 1,
+      "legs": 12,
+      "suspect_legs": 1,
+      "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Toulouse → Saint-Sulpice-sur-Lèze 32,3 km à vol d'oiseau pour 29,5 au profil, départ réel hors de la ville, non situé (règle 25). Aller-retour incertain à Mauran : la côte de Mane, non placée, est sautée (33.14)."
+     "note": "Départ : Toulouse → Saint-Sulpice-sur-Lèze 32,3 km à vol d'oiseau pour 29,5 au profil, départ réel hors de la ville, non situé (règle 25). Hors tolérance (−6,2 %), cause notée : la côte de Saint-Pey, retirée (lieu-dit en impasse), laisse Saint-Sulpice-sur-Lèze → Côte de Sainte-Quitterie à 10,2 km routés pour 16,5 au profil (7,5 à vol d'oiseau) ; tracé par les coteaux non reconstitué."
     },
     "10": {
      "source_url": "https://www.ledicodutour.com/images/cols/2008/08_10.jpg",
@@ -76633,7 +76631,8 @@
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Tronçon suspect : Lamarque-Pontacq → Lourdes, 10,7 km à vol d'oiseau pour 8,5 au profil (12,2 routés) ; km relus sur l'image, Lourdes à 0,25 km de sa mairie : écart du profil (règle 11)."
     },
     "11": {
      "source_url": "https://www.ledicodutour.com/images/cols/2008/08_11.jpg",
@@ -76915,7 +76914,8 @@
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Tronçon suspect : Sainte-Colombe-sur-l'Hers → Puivert, 9,7 km routés pour 16 au profil (7,5 à vol d'oiseau) ; vraisemblable passage par Chalabre, non imprimé ni sourcé (règle 11)."
     },
     "13": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2008/08_13_1.gif",
@@ -77156,11 +77156,8 @@
        "label": "Les Huguets",
        "km": 80.5,
        "kind": "lieu-dit",
-       "note": "180 m imprimés ; imprimé « Les Huguets (Bonnieux) »",
-       "lat": 43.87592,
-       "lon": 5.29938,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "180 m imprimés ; imprimé « Les Huguets (Bonnieux) » ; retiré (audit, règle 7) : le point était le hameau des Huguets à Roussillon, le profil imprime Bonnieux ; aucun « Les Huguets » de Bonnieux connu de Nominatim",
+       "confidence": "non-place"
       },
       {
        "label": "Apt",
@@ -77244,18 +77241,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 187.2,
+      "routed_km": 185.8,
       "profile_km": 182.5,
-      "delta_pct": 2.6,
+      "delta_pct": 1.8,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
-      "legs": 13,
-      "suspect_legs": 1,
+      "legs": 12,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Nîmes → Jonquières-Saint-Vincent 15,7 km à vol d'oiseau pour 12 au profil, départ réel hors de la ville, non situé (règle 25)."
+     "note": "Départ : Nîmes → Jonquières-Saint-Vincent 15,7 km à vol d'oiseau pour 12 au profil, départ réel hors de la ville, non situé (règle 25). Les Huguets (profil : « Les Huguets (Bonnieux) ») retiré : le point était l'homonyme de Roussillon (règle 7)."
     },
     "15": {
      "source_url": "https://www.ledicodutour.com/images/cols/2008/profil_2008_15.gif",
@@ -77324,9 +77321,9 @@
        "label": "Sampeyre",
        "km": 88.5,
        "kind": "ville",
-       "note": "1022 m imprimés",
-       "lat": 44.58334,
-       "lon": 7.18543,
+       "note": "1022 m imprimés ; placé à l'église Santi Pietro e Paolo, au village (984 m au MNT) ; le premier point (Borgata Chiotti) faisait faire un aller-retour au routeur",
+       "lat": 44.57913,
+       "lon": 7.18856,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -77384,9 +77381,9 @@
        "label": "Villanova Mondovì",
        "km": 163,
        "kind": "ville",
-       "note": "521 m imprimés ; imprimé « Villanova Mondovi »",
-       "lat": 44.36079,
-       "lon": 7.75662,
+       "note": "521 m imprimés ; imprimé « Villanova Mondovi » ; placé au municipio (544 m au MNT) ; le premier point (Nucleo Rai) faisait faire un aller-retour au routeur",
+       "lat": 44.3443,
+       "lon": 7.76214,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -77404,7 +77401,7 @@
        "label": "Prato Nevoso",
        "km": 183,
        "kind": "col",
-       "note": "1440 m imprimés ; 1re catégorie",
+       "note": "1440 m imprimés ; 1re catégorie ; point au village (1 548 m au MNT pour 1 440 imprimés) : la ligne d'arrivée n'est pas localisée",
        "lat": 44.25529,
        "lon": 7.78559,
        "how": "stage_towns",
@@ -77412,18 +77409,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 180.5,
+      "routed_km": 172.3,
       "profile_km": 174.5,
-      "delta_pct": 3.4,
+      "delta_pct": -1.2,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
       "legs": 13,
-      "suspect_legs": 1,
-      "backtracks": 2,
+      "suspect_legs": 0,
+      "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Allers-retours du routeur à Sampeyre (1,4 km) et à Villanova Mondovì : centres de commune (municipio non trouvé par Nominatim), laissés, notés (règle 17). Colle del Morte → Villanova Mondovì : 10,7 km à vélo pour 6 au profil, 6,9 à vol d'oiseau, écart du profil. Départ : Embrun → Saint-Clément-sur-Durance 11,4 km à vol d'oiseau pour 8,5 au profil, départ réel hors de la ville, non situé (règle 25)."
+     "note": "Départ : Embrun → Saint-Clément-sur-Durance 11,4 km à vol d'oiseau pour 8,5 au profil, départ réel hors de la ville, non situé (règle 25)."
     },
     "16": {
      "source_url": "https://www.ledicodutour.com/images/cols/2008/profil_2008_16.gif",
@@ -77482,9 +77479,9 @@
        "label": "Demonte",
        "km": 39,
        "kind": "ville",
-       "note": "748 m imprimés",
-       "lat": 44.32431,
-       "lon": 7.30335,
+       "note": "748 m imprimés ; placé au comune (781 m au MNT) ; le premier point était le hameau de Cornaletto Soprano",
+       "lat": 44.3152,
+       "lon": 7.29761,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -77502,8 +77499,11 @@
        "label": "Vinadio",
        "km": 50,
        "kind": "ville",
-       "note": "886 m imprimés ; non placé : le centre de la commune de Vinadio tombe en montagne (1 976 m au MNT), le village n'est pas trouvé par Nominatim (seul le contour communal)",
-       "confidence": "non-place"
+       "note": "886 m imprimés ; placé au village (Nominatim place=village, 916 m au MNT)",
+       "confidence": "ok",
+       "lat": 44.30903,
+       "lon": 7.17603,
+       "how": "nominatim"
       },
       {
        "label": "Col de la Lombarde",
@@ -77557,13 +77557,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 153.6,
+      "routed_km": 151.5,
       "profile_km": 150.5,
-      "delta_pct": 2.1,
+      "delta_pct": 0.7,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 10,
+      "legs": 11,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -78330,10 +78330,10 @@
        "label": "Paris Champs-Élysées",
        "km": 143,
        "kind": "lieu-dit",
-       "note": "45 m imprimés",
-       "lat": 48.8535,
-       "lon": 2.34839,
-       "how": "stage_towns",
+       "note": "45 m imprimés ; arrivée sur les Champs-Élysées et non au centre de Paris (règle 22)",
+       "lat": 48.87076,
+       "lon": 2.30533,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
