@@ -535,6 +535,24 @@ et côtes traversées avec leur kilomètre.
   Champs-Élysées sur l'avenue et non au centre de Paris, allers-retours
   d'Onzain et de Pamproux corrigés à la mairie (règle 17).
 
+- [x] Édition 2000 (PR #500) : 21 étapes sur 21, 155 points placés sur 162,
+  depuis les profils de ledicodutour.com (`00_N.jpg`, 468 px, sans
+  altitude imprimée ; lus au triple). Noms sans km imprimé en note
+  (règle 4) : col d'Izoard, côte de Saint-Ferréol. Non placés, avec note :
+  carrefour D62-D757 (aller-retour imposé), côtes de Maison-Neuve, de
+  Lausanne, de Waldhof et d'Alun, Villefranche-de-Lauragais (24,3 km de
+  Revel pour 20,5 au profil), second passage au haut des Champs-Élysées.
+  Contrôlée à ±5 % sur BRouter public, chaque contrôle avec un tronçon en
+  voiture annulé et relancé : 0 tronçon en voiture ; 12 étapes dans la
+  tolérance, 9 hors, cause écrite dans la note avec la comparaison
+  vélo / voiture — 2000/1 (contre-la-montre, −65,2 %), 2 (−9,2 %),
+  3 (−9,0 %), 6 (−5,9 %), 11 (−8,4 %), 12 (−11,0 %), 14 (−5,7 %, Izoard
+  non repris), 17 (−12,3 %), 21 (−86,4 %, boucle dans Paris). Seul
+  aller-retour restant : col de Joux-Plane (2000/16), artefact du routeur
+  noté (−5,0 % sans lui). Corrigés à l'audit Mireille : La Roche de Grès
+  placée (Brains), départs de Bagnères-de-Bigorre, Limoges, Avignon et
+  Vitré à la mairie (règle 25 ajoutée), Dompierre au village.
+
 - [x] Édition 1991 (PR #412) : 22 étapes sur 23 (prologue de Lyon non transcrit),
   418 points placés sur 444 (405 sur 442 avant le tri 33.12). Contrôlée à ±5 % avant PR : 20 étapes dans la tolérance, 2
   hors, affichées comme telles — 1991/1 (−22,7 %) et 1991/21 (−8,4 %),

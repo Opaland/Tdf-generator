@@ -206,3 +206,12 @@ dans la même PR que son correctif.
     L'altitude imprimée aide à placer un sommet : 1 060 m au Ballon
     d'Alsace désignaient la jonction sous le col (1 082 m), pas le col
     (1 171 m) ; 2 004 m à Courchevel, l'altiport, pas le centre.
+25. **Le départ (km 0) n'est jamais contrôlé : le vérifier à la main.**
+    `check-itineraries --legs` ne mesure pas le premier tronçon (départ
+    fictif, zone neutralisée) et le géocodeur laisse 10 km de marge au
+    point suivant : une ville de départ posée au centre IGN de sa commune
+    passe donc inaperçue. En 2000, Bagnères-de-Bigorre était à 7,9 km au
+    sud de sa mairie, Limoges à 4,1 km, Avignon à 3,7 (audit de l'édition).
+    Comparer chaque départ à sa mairie (géocodage inverse), et la ligne
+    droite départ → premier point au km du profil ; au-delà de 2 km de
+    la mairie, placer le départ à la mairie avec une note.
