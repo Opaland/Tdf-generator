@@ -553,21 +553,24 @@ et côtes traversées avec leur kilomètre.
   placée (Brains), départs de Bagnères-de-Bigorre, Limoges, Avignon et
   Vitré à la mairie (règle 25 ajoutée), Dompierre au village.
 
-- [ ] Édition 2001 : 19 étapes sur 21, 133 points placés sur 140, depuis les
-  profils de ledicodutour.com (`2001-Na.jpg`, 468 px, altitudes imprimées ;
-  lus au triple). Non transcrits : le prologue de Dunkerque (rues) et
-  2001/11, contre-la-montre de Chamrousse (aucun profil publié). Noms sans
-  km imprimé en note (règle 4) : côtes du Cap Gris-Nez, des Forges, du
-  Sart-Tilman, de Void-Vacon, de Saint-Adrian, col du Chioula, Dinsheim,
-  Montbenoît, Rumilly, Le Bourg-d'Oisans, Budelière, Itteville. Critères :
-  règles 1 à 5 ; points placés puis vérifiés (règles 6 à 10, 14 mesurée
-  point par point, 15, 21, 22, 25) ; contrôle à ±5 % avec 0 tronçon en
-  voiture sur BRouter public, chaque `--write` avec `car_legs` non nul
-  relancé (règle 16) ; allers-retours corrigés avant de lire l'écart (règle
-  24) ; cause notée pour chaque étape hors tolérance ; audit Mireille avant
-  la PR ; curation de données, pas de relecture adverse dédiée (règle 11).
-  Règle 14 complétée : altitude mesurée point par point (la Géoplateforme
-  dégrade la résolution d'un lot de points dispersés).
+- [x] Édition 2001 (PR #501) : 19 étapes sur 21, 132 points placés sur 139,
+  depuis les profils de ledicodutour.com (`2001-Na.jpg`, 468 px, altitudes
+  imprimées ; lus au triple). Non transcrits : le prologue de Dunkerque
+  (rues) et 2001/11, contre-la-montre de Chamrousse (aucun profil publié).
+  Noms sans km imprimé en note (règle 4) : Stekene, côtes du Cap Gris-Nez,
+  des Forges, du Sart-Tilman, de Void-Vacon, de Saint-Adrian, col du
+  Chioula, Dinsheim, Montbenoît, Rumilly, Le Bourg-d'Oisans, Budelière,
+  Itteville. Non placés, avec note : Sainte-Marie-aux-Mines (7,8 km de
+  Lièpvre pour 4), côtes de Saint-Hippolyte, de Pralon, de la Tricherie, du
+  Puntous, de Lostanges, de la Forêt de la Feuillade. Altitude contrôlée
+  point par point (règle 14 complétée). Contrôlée à ±5 % sur BRouter public,
+  0 tronçon en voiture : 9 étapes dans la tolérance, 10 hors, cause écrite
+  dans la note avec la comparaison vélo / voiture ; allers-retours du
+  routeur notés à Mont-Theux (2001/3, −8,3 % sans lui) et au col du
+  Calvaire (2001/7, −9,0 %). Corrigés à l'audit Mireille : Stekene sans km
+  (étiquette décalée, règle 3 complétée), Les Escures sur la D940
+  (Altillac), notes de Mont-Theux, Lostanges et du Puntous, côtes de
+  Rozeille et de Bossy en ambigu.
 
 - [ ] Recontrôle d'altitude point par point des éditions 1997 à 1999 : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points

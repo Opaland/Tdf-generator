@@ -55951,16 +55951,6 @@
        "confidence": "ok"
       },
       {
-       "label": "Stekene",
-       "km": 175.5,
-       "kind": "ville",
-       "note": "35 m imprimés",
-       "lat": 51.20623,
-       "lon": 4.03969,
-       "how": "nominatim",
-       "confidence": "ok"
-      },
-      {
        "label": "Anvers",
        "km": 218.5,
        "kind": "ville",
@@ -55972,18 +55962,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 166.5,
+      "routed_km": 165.4,
       "profile_km": 177.5,
-      "delta_pct": -6.2,
+      "delta_pct": -6.8,
       "tolerance_pct": 5,
       "coverage_pct": 80,
       "car_legs": 0,
-      "legs": 4,
-      "suspect_legs": 2,
+      "legs": 3,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Hors tolérance (−6,2 %) : Stekene → Anvers, 28,3 km à vélo et 32,8 en voiture pour 43 au profil, détour non nommé ; en sens inverse, Knesselare → Stekene fait 44,4 km à vol d'oiseau pour 42,5 au profil (points aux centres des communes), 52,2 à vélo et 57,5 en voiture. En voiture, l'étape mesurée ferait 187,7 km (+5,7 %)."
+     "note": "Stekene (35 m imprimés), imprimé sans km vers le km 184 d'après la graduation (l'étiquette « 175.5 », décalée, est celle du trait précédent, sans nom) : non repris (règle 4). Hors tolérance (−6,8 %) : le routage vélo prend des routes plus courtes que la course (règle 20) — en voiture, 180,7 km (+1,8 %) ; Dunkerque → Ichtegem, 51,6 km à vélo et 57,0 en voiture pour 57,5 ; Knesselare → Anvers, 79,4 et 83,4 pour 85,5."
     },
     "3": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2001/2001-3a.jpg",
@@ -56057,7 +56047,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Côte des Forges (301 m imprimés) et côte de Sart-Tilman-Tilff (3e catégorie), imprimées sans km, vers les km 174 et 186 d'après la graduation : non reprises (règle 4). Hors tolérance (−6,5 %) : le routage vélo prend des routes plus courtes que la course (règle 20) — en voiture, 163,3 km (+3,7 %) ; Visé → Côte de Mont-Theux, 31,1 km à vélo et 39,5 en voiture pour 36. Aller-retour de 2,7 km signalé à la côte de Mont-Theux : faute des côtes des Forges et du Sart-Tilman (imprimées sans km), le routeur redescend vers Theux avant de rejoindre Seraing ; sans ces 2,7 km comptés deux fois, l'étape est à −8,3 % (règle 24).",
+     "note": "Côte des Forges (301 m imprimés) et côte de Sart-Tilman-Tilff (3e catégorie), imprimées sans km, vers les km 174 et 186 d'après la graduation : non reprises (règle 4). Hors tolérance (−6,5 %) : le routage vélo prend des routes plus courtes que la course (règle 20) — en voiture, 163,3 km (+3,7 %) ; Visé → Côte de Mont-Theux, 31,1 km à vélo et 39,5 en voiture pour 36. Aller-retour de 2,7 km signalé à la côte de Mont-Theux (point juste : 338 m au MNT pour 330) : le routeur aborde Mont par l'ouest (Tancrémont) et repart par le même chemin ; par Theux, non imprimé, Visé → Mont fait 33,4 km à vélo pour 36 au profil, vraisemblablement le passage réel. Sans ces 2,7 km comptés deux fois, l'étape est à −8,3 % (règle 24).",
      "route_check": {
       "routed_km": 147.2,
       "profile_km": 157.5,
@@ -56460,7 +56450,7 @@
       "backtracks": 1,
       "backtracks_uncertain": 0
      },
-     "note": "Hors tolérance (−6,9 %) : détours non nommés — en voiture, 136,3 km (−3,7 %). Aller-retour de 2,9 km signalé au col du Calvaire (col routier, Nominatim) : le routeur redescend vers le lac Blanc avant de rejoindre le collet du Linge ; sans ces 2,9 km comptés deux fois, l'étape est à −9,0 % (règle 24)."
+     "note": "Hors tolérance (−6,9 %) : détours non nommés — en voiture, 136,3 km (−3,7 %). Aller-retour de 2,9 km signalé au col du Calvaire (col routier, Nominatim) : le routeur aborde le col par le lac Blanc et repart par le même chemin vers le collet du Linge, faute de point imprimé sur l'approche réelle ; sans ces 2,9 km comptés deux fois, l'étape est à −9,0 % (règle 24)."
     },
     "8": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2001/2001-8a.jpg",
@@ -56608,8 +56598,8 @@
        "label": "Côte de Bossy",
        "km": 145,
        "kind": "côte",
-       "note": "520 m imprimés ; 3e catégorie ; hameau de Bossy (Frangy, Nominatim), 450 m au MNT",
-       "confidence": "ok",
+       "note": "520 m imprimés ; 3e catégorie ; hameau de Bossy (Frangy, Nominatim), 450 m au MNT, pour 520 imprimés : sommet non identifié",
+       "confidence": "ambigu",
        "lat": 46.00984,
        "lon": 5.9198,
        "how": "nominatim"
@@ -57098,7 +57088,7 @@
        "label": "Côte du Puntous",
        "km": 50.5,
        "kind": "côte",
-       "note": "260 m imprimés ; 4e catégorie ; imprimé « Côte du Puntous (Laguian-Mazous) » ; non placée : la commune imprimée, Laguian-Mazous (Nominatim), est à 9,5 km à vol d'oiseau de Rabastens-de-Bigorre pour 6 au profil ; aucun lieu « Puntous » compatible (le Puntous de Nominatim est à 27,5 km)",
+       "note": "260 m imprimés ; 4e catégorie ; imprimé « Côte du Puntous (Laguian-Mazous) » ; non placée : Laguian-Mazous (Nominatim) est à 9,5 km à vol d'oiseau de Rabastens-de-Bigorre pour 6 au profil, l'avenue des Puntous (N21, Laguian-Mazous) à 8,6 km et la table d'orientation du Puntous (Aux-Aussat) à 11,2 ; le trait voisin du km 58,5, sans nom, irait mieux (lecture à confirmer, règle 23)",
        "confidence": "non-place"
       },
       {
@@ -57190,10 +57180,10 @@
        "label": "Les Escures",
        "km": 155.5,
        "kind": "lieu-dit",
-       "note": "150 m imprimés ; imprimé « Les Escures (Beaulieu-sur-Dordogne) » ; lieu-dit non trouvé à Beaulieu, placé à la mairie de Beaulieu-sur-Dordogne, commune imprimée entre parenthèses (Nominatim), 147 m au MNT — le hameau des Escures de Bilhac, sur l'autre rive, imposait 19,5 km de route pour 10,5 au profil",
+       "note": "150 m imprimés ; imprimé « Les Escures (Beaulieu-sur-Dordogne) » ; lieu-dit des Escures sur la D940 (Siran, Altillac, Nominatim), commune voisine de Beaulieu, 152 m au MNT : Labastide-Murat → Les Escures 55,9 km à vélo pour 50, Les Escures → Laroche 7,9 pour 10,5",
        "confidence": "ambigu",
-       "lat": 44.97826,
-       "lon": 1.84028,
+       "lat": 44.96775,
+       "lon": 1.8554,
        "how": "nominatim"
       },
       {
@@ -57210,7 +57200,7 @@
        "label": "Côte de Lostanges",
        "km": 172.5,
        "kind": "côte",
-       "note": "500 m imprimés ; 3e catégorie ; non placée : le village de Lostanges (Nominatim) est à 309 m au MNT pour 500 imprimés (règle 14) et à 10,3 km à vol d'oiseau de Laroche pour 6,5 au profil",
+       "note": "500 m imprimés ; 3e catégorie ; non placée : le village de Lostanges (Nominatim) est à 309 m au MNT pour 500 imprimés (règle 14), le sommet n'est pas identifié",
        "confidence": "non-place"
       },
       {
@@ -57226,14 +57216,14 @@
      ],
      "note": "Côte de Saint-Adrian (345 m imprimés, 4e catégorie), imprimée sans km vers le km 201 d'après la graduation : non reprise (règle 4).",
      "route_check": {
-      "routed_km": 149.5,
+      "routed_km": 149.3,
       "profile_km": 143,
-      "delta_pct": 4.5,
+      "delta_pct": 4.4,
       "tolerance_pct": 5,
       "coverage_pct": 62,
       "car_legs": 0,
       "legs": 4,
-      "suspect_legs": 1,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -57281,11 +57271,11 @@
        "label": "Côte de Rozeille",
        "km": 125.5,
        "kind": "côte",
-       "note": "534 m imprimés ; 4e catégorie ; imprimé « Côte de Rozeille (Moutier-Rozeille) »",
+       "note": "534 m imprimés ; 4e catégorie ; imprimé « Côte de Rozeille (Moutier-Rozeille) » ; point sur la D982 au lieu-dit Côte Ribière, 447 m au MNT : sommet non identifié",
        "lat": 45.94393,
        "lon": 2.17351,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ambigu"
       },
       {
        "label": "Montluçon",
