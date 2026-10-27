@@ -553,6 +553,35 @@ et côtes traversées avec leur kilomètre.
   placée (Brains), départs de Bagnères-de-Bigorre, Limoges, Avignon et
   Vitré à la mairie (règle 25 ajoutée), Dompierre au village.
 
+- [x] Édition 2001 (PR #501) : 19 étapes sur 21, 132 points placés sur 139,
+  depuis les profils de ledicodutour.com (`2001-Na.jpg`, 468 px, altitudes
+  imprimées ; lus au triple). Non transcrits : le prologue de Dunkerque
+  (rues) et 2001/11, contre-la-montre de Chamrousse (aucun profil publié).
+  Noms sans km imprimé en note (règle 4) : Stekene, côtes du Cap Gris-Nez,
+  des Forges, du Sart-Tilman, de Void-Vacon, de Saint-Adrian, col du
+  Chioula, Dinsheim, Montbenoît, Rumilly, Le Bourg-d'Oisans, Budelière,
+  Itteville. Non placés, avec note : Sainte-Marie-aux-Mines (7,8 km de
+  Lièpvre pour 4), côtes de Saint-Hippolyte, de Pralon, de la Tricherie, du
+  Puntous, de Lostanges, de la Forêt de la Feuillade. Altitude contrôlée
+  point par point (règle 14 complétée). Contrôlée à ±5 % sur BRouter public,
+  0 tronçon en voiture : 9 étapes dans la tolérance, 10 hors, cause écrite
+  dans la note avec la comparaison vélo / voiture ; allers-retours du
+  routeur notés à Mont-Theux (2001/3, −8,3 % sans lui) et au col du
+  Calvaire (2001/7, −9,0 %). Corrigés à l'audit Mireille : Stekene sans km
+  (étiquette décalée, règle 3 complétée), Les Escures sur la D940
+  (Altillac), notes de Mont-Theux, Lostanges et du Puntous, côtes de
+  Rozeille et de Bossy en ambigu.
+
+- [ ] Recontrôle d'altitude point par point des éditions 1997 à 1999 : leurs
+  contrôles d'altitude (règle 14) ont été faits par lots de points
+  dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
+  Le recontrôle point par point relève 17 points à plus de 100 m (1997 : 11,
+  1998 : 3, 1999 : 3), dont une partie déjà notée (côtes rattachées au
+  village, départ de Sestrières). Critères : chaque point trié — déjà noté,
+  replacé (géocodage inverse et MNT), ou retiré avec note ; contrôle à ±5 %
+  relancé sur les étapes touchées, 0 tronçon en voiture ; curation de
+  données, pas de relecture adverse dédiée (règle 11).
+
 - [x] Édition 1991 (PR #412) : 22 étapes sur 23 (prologue de Lyon non transcrit),
   418 points placés sur 444 (405 sur 442 avant le tri 33.12). Contrôlée à ±5 % avant PR : 20 étapes dans la tolérance, 2
   hors, affichées comme telles — 1991/1 (−22,7 %) et 1991/21 (−8,4 %),
