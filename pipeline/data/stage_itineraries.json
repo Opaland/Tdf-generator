@@ -55820,6 +55820,1699 @@
     }
    }
   },
+  "2001": {
+   "stages": {
+    "1": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2001/2001-1a.jpg",
+     "towns": [
+      {
+       "label": "Saint-Omer",
+       "km": 0,
+       "kind": "ville",
+       "lat": 50.75158,
+       "lon": 2.25342,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Burbure",
+       "km": 30,
+       "kind": "ville",
+       "note": "82 m imprimés",
+       "lat": 50.53849,
+       "lon": 2.46497,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Montreuil-sur-Mer",
+       "km": 91,
+       "kind": "ville",
+       "note": "6 m imprimés",
+       "lat": 50.46389,
+       "lon": 1.76311,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Berck",
+       "km": 107,
+       "kind": "ville",
+       "note": "0 m imprimés ; placé à la mairie (règle 17) : le centre de la commune, sur la plage, faisait un aller-retour de 1,8 km",
+       "lat": 50.40819,
+       "lon": 1.59262,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Camiers",
+       "km": 126.5,
+       "kind": "ville",
+       "note": "23 m imprimés",
+       "lat": 50.5638,
+       "lon": 1.61441,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Desvres",
+       "km": 155,
+       "kind": "côte",
+       "note": "90 m imprimés ; 4e catégorie ; placée au bourg de Desvres (Nominatim), 105 m au MNT, sommet non identifié",
+       "confidence": "ambigu",
+       "lat": 50.66787,
+       "lon": 1.83483,
+       "how": "nominatim"
+      },
+      {
+       "label": "Boulogne-sur-Mer",
+       "km": 194.5,
+       "kind": "ville",
+       "lat": 50.726,
+       "lon": 1.61188,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "note": "Côte du Cap Gris-Nez (116 m imprimés, 4e catégorie) imprimée sans km, son trait caché par le total en gras, vers le km 177 d'après la graduation : non reprise (règle 4). Hors tolérance (−14,7 %) : la boucle côtière par le cap Gris-Nez (non reprise, sans km) n'est pas reconstituée — Côte de Desvres → Boulogne-sur-Mer, 21,0 km à vélo et 18,6 en voiture pour 39,5 au profil. En voiture, l'étape mesurée ferait 151,2 km (−8,1 %).",
+     "route_check": {
+      "routed_km": 140.3,
+      "profile_km": 164.5,
+      "delta_pct": -14.7,
+      "tolerance_pct": 5,
+      "coverage_pct": 85,
+      "car_legs": 0,
+      "legs": 5,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
+    },
+    "2": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2001/2001-2a.jpg",
+     "towns": [
+      {
+       "label": "Calais",
+       "km": 0,
+       "kind": "ville",
+       "lat": 50.95248,
+       "lon": 1.85384,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Dunkerque",
+       "km": 41,
+       "kind": "ville",
+       "note": "21 m imprimés",
+       "lat": 51.03477,
+       "lon": 2.37725,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Ichtegem",
+       "km": 98.5,
+       "kind": "ville",
+       "note": "55 m imprimés",
+       "lat": 51.09253,
+       "lon": 3.01027,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Knesselare",
+       "km": 133,
+       "kind": "ville",
+       "note": "38 m imprimés",
+       "lat": 51.13929,
+       "lon": 3.41239,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Stekene",
+       "km": 175.5,
+       "kind": "ville",
+       "note": "35 m imprimés",
+       "lat": 51.20623,
+       "lon": 4.03969,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Anvers",
+       "km": 218.5,
+       "kind": "ville",
+       "note": "218,5 km au profil, 220,5 dans stage_towns",
+       "lat": 51.22111,
+       "lon": 4.39971,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "route_check": {
+      "routed_km": 166.5,
+      "profile_km": 177.5,
+      "delta_pct": -6.2,
+      "tolerance_pct": 5,
+      "coverage_pct": 80,
+      "car_legs": 0,
+      "legs": 4,
+      "suspect_legs": 2,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     },
+     "note": "Hors tolérance (−6,2 %) : Stekene → Anvers, 28,3 km à vélo et 32,8 en voiture pour 43 au profil, détour non nommé ; en sens inverse, Knesselare → Stekene fait 44,4 km à vol d'oiseau pour 42,5 au profil (points aux centres des communes), 52,2 à vélo et 57,5 en voiture. En voiture, l'étape mesurée ferait 187,7 km (+5,7 %)."
+    },
+    "3": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2001/2001-3a.jpg",
+     "towns": [
+      {
+       "label": "Antwerpen",
+       "km": 0,
+       "kind": "ville",
+       "lat": 51.22111,
+       "lon": 4.39971,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Westerlo",
+       "km": 41,
+       "kind": "ville",
+       "note": "15 m imprimés",
+       "lat": 51.08669,
+       "lon": 4.91687,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Beverst",
+       "km": 93.5,
+       "kind": "ville",
+       "note": "51 m imprimés ; imprimé « Beverst (Bilzen) »",
+       "lat": 50.89216,
+       "lon": 5.47349,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Tongeren",
+       "km": 106.5,
+       "kind": "ville",
+       "note": "105 m imprimés",
+       "lat": 50.78063,
+       "lon": 5.46392,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Visé",
+       "km": 128.5,
+       "kind": "ville",
+       "note": "75 m imprimés",
+       "lat": 50.73478,
+       "lon": 5.69364,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Mont-Theux",
+       "km": 164.5,
+       "kind": "côte",
+       "note": "330 m imprimés ; 3e catégorie ; Thier du Mont, au hameau de Mont (Theux, Nominatim), 338 m au MNT",
+       "confidence": "ok",
+       "lat": 50.53303,
+       "lon": 5.775,
+       "how": "nominatim"
+      },
+      {
+       "label": "Seraing",
+       "km": 198.5,
+       "kind": "ville",
+       "lat": 50.61524,
+       "lon": 5.50894,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "note": "Côte des Forges (301 m imprimés) et côte de Sart-Tilman-Tilff (3e catégorie), imprimées sans km, vers les km 174 et 186 d'après la graduation : non reprises (règle 4). Hors tolérance (−6,5 %) : le routage vélo prend des routes plus courtes que la course (règle 20) — en voiture, 163,3 km (+3,7 %) ; Visé → Côte de Mont-Theux, 31,1 km à vélo et 39,5 en voiture pour 36. Aller-retour de 2,7 km signalé à la côte de Mont-Theux : faute des côtes des Forges et du Sart-Tilman (imprimées sans km), le routeur redescend vers Theux avant de rejoindre Seraing ; sans ces 2,7 km comptés deux fois, l'étape est à −8,3 % (règle 24).",
+     "route_check": {
+      "routed_km": 147.2,
+      "profile_km": 157.5,
+      "delta_pct": -6.5,
+      "tolerance_pct": 5,
+      "coverage_pct": 79,
+      "car_legs": 0,
+      "legs": 5,
+      "suspect_legs": 0,
+      "backtracks": 1,
+      "backtracks_uncertain": 0
+     }
+    },
+    "4": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2001/2001-4a.jpg",
+     "towns": [
+      {
+       "label": "Huy",
+       "km": 0,
+       "kind": "ville",
+       "lat": 50.51809,
+       "lon": 5.24081,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Ciney",
+       "km": 28,
+       "kind": "ville",
+       "note": "225 m imprimés",
+       "lat": 50.29649,
+       "lon": 5.10087,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Celles",
+       "km": 43,
+       "kind": "côte",
+       "note": "277 m imprimés ; 4e catégorie ; placée au village de Celles (Houyet, Nominatim), 219 m au MNT, sommet non identifié",
+       "confidence": "ambigu",
+       "lat": 50.23126,
+       "lon": 5.00583,
+       "how": "nominatim"
+      },
+      {
+       "label": "Côte de la Marquisette",
+       "km": 46.5,
+       "kind": "côte",
+       "note": "265 m imprimés ; 4e catégorie ; lieu-dit La Marquisette (Sanzinnes, Houyet, Nominatim), 264 m au MNT",
+       "confidence": "ok",
+       "lat": 50.19862,
+       "lon": 5.03315,
+       "how": "nominatim"
+      },
+      {
+       "label": "Côte d'Ave-et-Auffe",
+       "km": 59,
+       "kind": "côte",
+       "note": "233 m imprimés ; 4e catégorie ; imprimé « Ave-et-Auffe (Côte de) » ; placée au village d'Ave-et-Auffe (Nominatim), 192 m au MNT, sommet non identifié",
+       "confidence": "ambigu",
+       "lat": 50.10885,
+       "lon": 5.14425,
+       "how": "nominatim"
+      },
+      {
+       "label": "Côte de Redu",
+       "km": 72,
+       "kind": "côte",
+       "note": "420 m imprimés ; 3e catégorie ; placée au village de Redu (Libin, Nominatim), 373 m au MNT, sommet non identifié",
+       "confidence": "ambigu",
+       "lat": 50.00779,
+       "lon": 5.16018,
+       "how": "nominatim"
+      },
+      {
+       "label": "Recogne",
+       "km": 90,
+       "kind": "ville",
+       "note": "460 m imprimés ; imprimé « Recogne (Libramont) »",
+       "lat": 49.91129,
+       "lon": 5.36079,
+       "how": "nominatim",
+       "confidence": "ambigu"
+      },
+      {
+       "label": "Florenville",
+       "km": 125,
+       "kind": "ville",
+       "note": "316 m imprimés",
+       "lat": 49.69932,
+       "lon": 5.31005,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Damvillers",
+       "km": 175.5,
+       "kind": "ville",
+       "note": "151 m imprimés",
+       "lat": 49.34267,
+       "lon": 5.40046,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Verdun",
+       "km": 215,
+       "kind": "ville",
+       "lat": 49.15893,
+       "lon": 5.38673,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "route_check": {
+      "routed_km": 171.6,
+      "profile_km": 187,
+      "delta_pct": -8.2,
+      "tolerance_pct": 5,
+      "coverage_pct": 87,
+      "car_legs": 0,
+      "legs": 8,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     },
+     "note": "Hors tolérance (−8,2 %) : Damvillers → Verdun, 24,6 km à vélo comme en voiture pour 39,5 au profil, détour non nommé ; Recogne → Florenville, 30,1 et 32,7 pour 35."
+    },
+    "5": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2001/2001-5a.jpg",
+     "towns": [
+      {
+       "label": "Verdun",
+       "km": 0,
+       "kind": "ville",
+       "lat": 49.15893,
+       "lon": 5.38673,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Senoncourt-les-Maujouy",
+       "km": 19.5,
+       "kind": "ville",
+       "note": "286 m imprimés ; pointage intermédiaire",
+       "lat": 49.05813,
+       "lon": 5.33267,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Érize-la-Petite",
+       "km": 41.5,
+       "kind": "ville",
+       "note": "262 m imprimés ; imprimé « Erize-la-Petite »",
+       "lat": 48.91347,
+       "lon": 5.23183,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Raival",
+       "km": 45,
+       "kind": "ville",
+       "note": "280 m imprimés ; imprimé « Erize-la-Grande (Raival) » ; pointage intermédiaire ; village d'Érize-la-Grande (Nominatim), 256 m au MNT, et non le centre de la commune nouvelle de Raival (règle 15)",
+       "lat": 48.9018,
+       "lon": 5.2371,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Bar-le-Duc",
+       "km": 67,
+       "kind": "ville",
+       "lat": 48.77127,
+       "lon": 5.16238,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "note": "Contre-la-montre par équipes. Hors tolérance (−15,3 %) : détours non nommés du contre-la-montre — Senoncourt-les-Maujouy → Érize-la-Petite, 19,9 km à vélo comme en voiture pour 22 ; Érize-la-Grande → Bar-le-Duc, 18,1 et 18,2 pour 22.",
+     "route_check": {
+      "routed_km": 40.2,
+      "profile_km": 47.5,
+      "delta_pct": -15.3,
+      "tolerance_pct": 5,
+      "coverage_pct": 71,
+      "car_legs": 0,
+      "legs": 3,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
+    },
+    "6": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2001/2001-6a.jpg",
+     "towns": [
+      {
+       "label": "Commercy",
+       "km": 0,
+       "kind": "ville",
+       "lat": 48.7632,
+       "lon": 5.59148,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Colombey-les-Belles",
+       "km": 40,
+       "kind": "ville",
+       "note": "308 m imprimés",
+       "lat": 48.52832,
+       "lon": 5.89804,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Baccarat",
+       "km": 114,
+       "kind": "ville",
+       "note": "253 m imprimés",
+       "lat": 48.44874,
+       "lon": 6.73814,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Badonviller",
+       "km": 129,
+       "kind": "ville",
+       "note": "300 m imprimés",
+       "lat": 48.50043,
+       "lon": 6.89262,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de la Chapelotte",
+       "km": 135.5,
+       "kind": "côte",
+       "note": "431 m imprimés ; 4e catégorie ; imprimé « Côte de Chapelotte » ; col de la Chapelotte (Angomont, Nominatim), 446 m au MNT",
+       "confidence": "ok",
+       "lat": 48.48362,
+       "lon": 6.95609,
+       "how": "nominatim"
+      },
+      {
+       "label": "Col du Donon",
+       "km": 153,
+       "kind": "col",
+       "note": "727 m imprimés ; 2e catégorie",
+       "lat": 48.50725,
+       "lon": 7.14623,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Strasbourg",
+       "km": 211.5,
+       "kind": "ville",
+       "lat": 48.58461,
+       "lon": 7.75071,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "note": "Non repris, imprimés sans km (règle 4) : côte de Void-Vacon (350 m, 4e catégorie), vers le km 9 d'après la graduation ; Dinsheim (180 m), vers le km 183.",
+     "route_check": {
+      "routed_km": 169.2,
+      "profile_km": 171.5,
+      "delta_pct": -1.3,
+      "tolerance_pct": 5,
+      "coverage_pct": 81,
+      "car_legs": 0,
+      "legs": 5,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
+    },
+    "7": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2001/2001-7a.jpg",
+     "towns": [
+      {
+       "label": "Strasbourg",
+       "km": 0,
+       "kind": "ville",
+       "lat": 48.58461,
+       "lon": 7.75071,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Obernai",
+       "km": 21,
+       "kind": "ville",
+       "note": "187 m imprimés",
+       "lat": 48.46234,
+       "lon": 7.48171,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col du Kreuzweg",
+       "km": 48.5,
+       "kind": "col",
+       "note": "768 m imprimés ; 3e catégorie",
+       "lat": 48.38709,
+       "lon": 7.29412,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Fouchy",
+       "km": 61,
+       "kind": "ville",
+       "note": "310 m imprimés",
+       "lat": 48.32876,
+       "lon": 7.26979,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col de Fouchy",
+       "km": 67,
+       "kind": "col",
+       "note": "608 m imprimés ; 3e catégorie",
+       "lat": 48.30469,
+       "lon": 7.26023,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Lièpvre",
+       "km": 75,
+       "kind": "ville",
+       "note": "300 m imprimés",
+       "lat": 48.27308,
+       "lon": 7.28335,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Sainte-Marie-aux-Mines",
+       "km": 79,
+       "kind": "ville",
+       "note": "327 m imprimés ; non placée : la ville (Nominatim, mairie 48.2457, 7.1826) est à 7,8 km à vol d'oiseau de Lièpvre pour 4 au profil, à 372 m au MNT pour 327 imprimés",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Col d'Adelspach",
+       "km": 90.5,
+       "kind": "col",
+       "note": "850 m imprimés ; 2e catégorie ; col d'Adelspach (D11, Sainte-Marie-aux-Mines, Nominatim), 878 m au MNT",
+       "confidence": "ok",
+       "lat": 48.22571,
+       "lon": 7.21213,
+       "how": "nominatim"
+      },
+      {
+       "label": "Col du Calvaire",
+       "km": 124,
+       "kind": "col",
+       "note": "1135 m imprimés ; 2e catégorie",
+       "lat": 48.1367,
+       "lon": 7.08661,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Collet du Linge",
+       "km": 138,
+       "kind": "col",
+       "note": "976 m imprimés ; 3e catégorie",
+       "lat": 48.0834,
+       "lon": 7.13983,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Colmar",
+       "km": 162.5,
+       "kind": "ville",
+       "lat": 48.07775,
+       "lon": 7.35796,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "route_check": {
+      "routed_km": 131.7,
+      "profile_km": 141.5,
+      "delta_pct": -6.9,
+      "tolerance_pct": 5,
+      "coverage_pct": 87,
+      "car_legs": 0,
+      "legs": 8,
+      "suspect_legs": 0,
+      "backtracks": 1,
+      "backtracks_uncertain": 0
+     },
+     "note": "Hors tolérance (−6,9 %) : détours non nommés — en voiture, 136,3 km (−3,7 %). Aller-retour de 2,9 km signalé au col du Calvaire (col routier, Nominatim) : le routeur redescend vers le lac Blanc avant de rejoindre le collet du Linge ; sans ces 2,9 km comptés deux fois, l'étape est à −9,0 % (règle 24)."
+    },
+    "8": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2001/2001-8a.jpg",
+     "towns": [
+      {
+       "label": "Colmar",
+       "km": 0,
+       "kind": "ville",
+       "lat": 48.07775,
+       "lon": 7.35796,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Heiwiller",
+       "km": 70.5,
+       "kind": "ville",
+       "note": "308 m imprimés",
+       "lat": 47.62343,
+       "lon": 7.31896,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Faverois",
+       "km": 101.5,
+       "kind": "ville",
+       "note": "367 m imprimés",
+       "lat": 47.52239,
+       "lon": 7.03484,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Beaucourt",
+       "km": 111.5,
+       "kind": "côte",
+       "note": "440 m imprimés ; 4e catégorie ; imprimé « Beaucourt (Côte de) » ; placée au bourg de Beaucourt (Nominatim), 428 m au MNT, sommet non identifié",
+       "confidence": "ambigu",
+       "lat": 47.48514,
+       "lon": 6.92564,
+       "how": "nominatim"
+      },
+      {
+       "label": "Côte de Saint-Hippolyte",
+       "km": 156.5,
+       "kind": "côte",
+       "note": "786 m imprimés ; 3e catégorie ; non placée : le bourg de Saint-Hippolyte (Nominatim) est à 379 m au MNT pour 786 imprimés, au pied de la côte (règle 14) ; sommet non identifié",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Les Fins",
+       "km": 184.5,
+       "kind": "ville",
+       "note": "908 m imprimés",
+       "lat": 47.08601,
+       "lon": 6.63172,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Pontarlier",
+       "km": 222.5,
+       "kind": "ville",
+       "lat": 46.90403,
+       "lon": 6.35463,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "note": "Montbenoît (776 m), imprimé sans km vers le km 206 d'après la graduation : non repris (règle 4).",
+     "route_check": {
+      "routed_km": 146.1,
+      "profile_km": 152,
+      "delta_pct": -3.9,
+      "tolerance_pct": 5,
+      "coverage_pct": 68,
+      "car_legs": 0,
+      "legs": 4,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
+    },
+    "9": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2001/2001-9a.jpg",
+     "towns": [
+      {
+       "label": "Pontarlier",
+       "km": 0,
+       "kind": "ville",
+       "lat": 46.90403,
+       "lon": 6.35463,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Mouthe",
+       "km": 28,
+       "kind": "ville",
+       "note": "901 m imprimés",
+       "lat": 46.7116,
+       "lon": 6.19324,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col des Rousses",
+       "km": 68,
+       "kind": "col",
+       "note": "1060 m imprimés ; 3e catégorie ; placé au village des Rousses (Jura, Nominatim), 1 109 m au MNT ; aucun « col des Rousses » jurassien connu de Nominatim (seul un homonyme en Savoie)",
+       "confidence": "ambigu",
+       "lat": 46.48555,
+       "lon": 6.06035,
+       "how": "nominatim"
+      },
+      {
+       "label": "La Vattay",
+       "km": 80.5,
+       "kind": "lieu-dit",
+       "note": "1200 m imprimés",
+       "lat": 46.38916,
+       "lon": 6.05335,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Pralon",
+       "km": 131.5,
+       "kind": "côte",
+       "note": "469 m imprimés ; 4e catégorie ; non placée : aucun lieu « Pralon » connu de Nominatim entre La Vattay et Frangy",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Frangy",
+       "km": 141.5,
+       "kind": "ville",
+       "note": "260 m imprimés",
+       "lat": 46.01907,
+       "lon": 5.92934,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Bossy",
+       "km": 145,
+       "kind": "côte",
+       "note": "520 m imprimés ; 3e catégorie ; hameau de Bossy (Frangy, Nominatim), 450 m au MNT",
+       "confidence": "ok",
+       "lat": 46.00984,
+       "lon": 5.9198,
+       "how": "nominatim"
+      },
+      {
+       "label": "Aix-les-Bains",
+       "km": 185,
+       "kind": "ville",
+       "lat": 45.68863,
+       "lon": 5.91464,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "note": "Rumilly (275 m), imprimé sans km vers le km 161 d'après la graduation : non repris (règle 4).",
+     "route_check": {
+      "routed_km": 156.1,
+      "profile_km": 157,
+      "delta_pct": -0.6,
+      "tolerance_pct": 5,
+      "coverage_pct": 85,
+      "car_legs": 0,
+      "legs": 5,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
+    },
+    "10": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2001/2001-10a.jpg",
+     "towns": [
+      {
+       "label": "Aix-les-Bains",
+       "km": 0,
+       "kind": "ville",
+       "lat": 45.68863,
+       "lon": 5.91464,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col du Frêne",
+       "km": 40.5,
+       "kind": "col",
+       "note": "950 m imprimés ; 3e catégorie",
+       "lat": 45.58244,
+       "lon": 6.13558,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Albertville",
+       "km": 68.5,
+       "kind": "ville",
+       "note": "330 m imprimés",
+       "lat": 45.67546,
+       "lon": 6.39254,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Rognaix",
+       "km": 87,
+       "kind": "ville",
+       "note": "390 m imprimés",
+       "lat": 45.5863,
+       "lon": 6.44695,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col de la Madeleine",
+       "km": 114,
+       "kind": "col",
+       "note": "2000 m imprimés ; hors catégorie",
+       "lat": 45.434905,
+       "lon": 6.37553,
+       "how": "known-cols",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col du Glandon",
+       "km": 156.5,
+       "kind": "col",
+       "note": "1924 m imprimés ; hors catégorie",
+       "lat": 45.23961,
+       "lon": 6.17554,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "L'Alpe d'Huez",
+       "km": 209,
+       "kind": "lieu-dit",
+       "note": "hors catégorie",
+       "lat": 45.09085,
+       "lon": 6.065,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "note": "Le Bourg-d'Oisans, imprimé sans km ni altitude vers le km 193 d'après la graduation : non repris (règle 4). Hors tolérance (−5,5 %) : le routage vélo prend un raccourci du Glandon à l'Alpe d'Huez (règle 20) — 42,9 km à vélo, 50,1 en voiture pour 52,5 au profil (Le Bourg-d'Oisans non repris) ; en voiture, l'étape mesurée ferait 169,0 km (+0,3 %).",
+     "route_check": {
+      "routed_km": 159.2,
+      "profile_km": 168.5,
+      "delta_pct": -5.5,
+      "tolerance_pct": 5,
+      "coverage_pct": 81,
+      "car_legs": 0,
+      "legs": 5,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
+    },
+    "12": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2001/2001-12a.jpg",
+     "towns": [
+      {
+       "label": "Perpignan",
+       "km": 0,
+       "kind": "ville",
+       "lat": 42.69853,
+       "lon": 2.89531,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Prades",
+       "km": 40.5,
+       "kind": "ville",
+       "note": "325 m imprimés",
+       "lat": 42.61812,
+       "lon": 2.42309,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col de Jau",
+       "km": 68,
+       "kind": "col",
+       "note": "1506 m imprimés ; 1e catégorie ; col routier (mountain_pass, Mosset, Nominatim), 1 504 m au MNT : le géocodeur avait pris un hébergement « Col de Jau » à Campôme, 552 m",
+       "lat": 42.68791,
+       "lon": 2.25071,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Quillan",
+       "km": 100,
+       "kind": "ville",
+       "note": "285 m imprimés",
+       "lat": 42.87515,
+       "lon": 2.18351,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col de Coudons",
+       "km": 113,
+       "kind": "col",
+       "note": "883 m imprimés ; 2e catégorie",
+       "lat": 42.86165,
+       "lon": 2.12181,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Belcaire",
+       "km": 129.5,
+       "kind": "ville",
+       "note": "1000 m imprimés",
+       "lat": 42.81636,
+       "lon": 1.96039,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col des Sept Frères",
+       "km": 135.5,
+       "kind": "col",
+       "note": "1253 m imprimés ; 3e catégorie ; imprimé « Col des 7 Frères »",
+       "lat": 42.7972,
+       "lon": 1.92424,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Plateau de Bonascre",
+       "km": 166.5,
+       "kind": "lieu-dit",
+       "note": "imprimé « Ax-les-Thermes » ; 1e catégorie",
+       "lat": 42.70159,
+       "lon": 1.81559,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "note": "Col du Chioula (1 431 m imprimés, 3e catégorie), imprimé sans km vers le km 146 d'après la graduation : non repris (règle 4).",
+     "route_check": {
+      "routed_km": 124.7,
+      "profile_km": 126,
+      "delta_pct": -1,
+      "tolerance_pct": 5,
+      "coverage_pct": 76,
+      "car_legs": 0,
+      "legs": 6,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
+    },
+    "13": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2001/2001-13a.jpg",
+     "towns": [
+      {
+       "label": "Foix",
+       "km": 0,
+       "kind": "ville",
+       "lat": 42.9639,
+       "lon": 1.60538,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col de Portet-d'Aspet",
+       "km": 73.5,
+       "kind": "col",
+       "note": "1069 m imprimés ; 2e catégorie ; imprimé « Col du Portet d'Aspet »",
+       "lat": 42.944785,
+       "lon": 0.854002,
+       "how": "known-cols",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col de Menté",
+       "km": 89,
+       "kind": "col",
+       "note": "1349 m imprimés ; 1e catégorie",
+       "lat": 42.91935,
+       "lon": 0.76178,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Saint-Béat",
+       "km": 98.5,
+       "kind": "ville",
+       "note": "502 m imprimés ; placé à la mairie (règle 17), 499 m au MNT : le premier point était à 624 m (règle 14)",
+       "lat": 42.91503,
+       "lon": 0.69217,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Fos",
+       "km": 106,
+       "kind": "ville",
+       "note": "550 m imprimés",
+       "lat": 42.87225,
+       "lon": 0.73654,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col du Portillon",
+       "km": 126,
+       "kind": "col",
+       "note": "1320 m imprimés ; 1e catégorie",
+       "lat": 42.7691,
+       "lon": 0.6601,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col de Peyresourde",
+       "km": 150.5,
+       "kind": "col",
+       "note": "1569 m imprimés ; 1e catégorie",
+       "lat": 42.80231,
+       "lon": 0.46308,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Loudenvielle",
+       "km": 161.5,
+       "kind": "ville",
+       "note": "960 m imprimés",
+       "lat": 42.79587,
+       "lon": 0.41122,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col de Val-Louron-Azet",
+       "km": 170.5,
+       "kind": "col",
+       "note": "1580 m imprimés ; 1e catégorie",
+       "lat": 42.79188,
+       "lon": 0.38095,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Pla d'Adet",
+       "km": 194,
+       "kind": "lieu-dit",
+       "note": "imprimé « Saint-Lary-Soulan » ; hors catégorie",
+       "lat": 42.8136,
+       "lon": 0.2983,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "route_check": {
+      "routed_km": 122.1,
+      "profile_km": 120.5,
+      "delta_pct": 1.3,
+      "tolerance_pct": 5,
+      "coverage_pct": 62,
+      "car_legs": 0,
+      "legs": 8,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
+    },
+    "14": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2001/2001-14a.jpg",
+     "towns": [
+      {
+       "label": "Tarbes",
+       "km": 0,
+       "kind": "ville",
+       "lat": 43.23286,
+       "lon": 0.0781,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Bagnères-de-Bigorre",
+       "km": 17,
+       "kind": "ville",
+       "note": "534 m imprimés",
+       "lat": 43.06582,
+       "lon": 0.15309,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Haut-de-la-Côte",
+       "km": 21,
+       "kind": "côte",
+       "note": "650 m imprimés ; 4e catégorie ; imprimé « Haut-de-la-côte (Côte de) » ; hameau de Haut-de-la-Côte (Bagnères-de-Bigorre, Nominatim), 634 m au MNT",
+       "confidence": "ok",
+       "lat": 43.08338,
+       "lon": 0.16563,
+       "how": "nominatim"
+      },
+      {
+       "label": "Côte de Mauvezin",
+       "km": 34.5,
+       "kind": "côte",
+       "note": "520 m imprimés ; 3e catégorie ; imprimé « Mauvezin (Côte de) » ; placée au village de Mauvezin (Nominatim), 515 m au MNT, sommet non identifié",
+       "confidence": "ambigu",
+       "lat": 43.11531,
+       "lon": 0.28224,
+       "how": "nominatim"
+      },
+      {
+       "label": "Côte de Capvern-les-Bains",
+       "km": 37,
+       "kind": "côte",
+       "note": "601 m imprimés ; 4e catégorie ; imprimé « Capvern-les-Bains (Côte de) » ; placée au village de Capvern (Nominatim), 613 m au MNT, sommet non identifié",
+       "confidence": "ambigu",
+       "lat": 43.10236,
+       "lon": 0.31622,
+       "how": "nominatim"
+      },
+      {
+       "label": "Sarrancolin",
+       "km": 61,
+       "kind": "ville",
+       "note": "630 m imprimés",
+       "lat": 42.96667,
+       "lon": 0.37817,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col d'Aspin",
+       "km": 80,
+       "kind": "col",
+       "note": "1489 m imprimés ; 1e catégorie",
+       "lat": 42.94233,
+       "lon": 0.32738,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Sainte-Marie-de-Campan",
+       "km": 92.5,
+       "kind": "lieu-dit",
+       "note": "845 m imprimés ; imprimé « Sainte-Marie-de-Campan (Campan) »",
+       "lat": 42.98481,
+       "lon": 0.22762,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Col du Tourmalet",
+       "km": 109.5,
+       "kind": "col",
+       "note": "2115 m imprimés ; hors catégorie",
+       "lat": 42.90839,
+       "lon": 0.1453,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Luz Ardiden",
+       "km": 144.5,
+       "kind": "lieu-dit",
+       "note": "hors catégorie ; 144,5 km au profil, 141,5 dans stage_towns",
+       "lat": 42.88781,
+       "lon": -0.06167,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "route_check": {
+      "routed_km": 117.5,
+      "profile_km": 127.5,
+      "delta_pct": -7.9,
+      "tolerance_pct": 5,
+      "coverage_pct": 90,
+      "car_legs": 0,
+      "legs": 8,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     },
+     "note": "Hors tolérance (−7,9 %) : détours non nommés — Côte de Capvern-les-Bains → Sarrancolin, 18,0 km à vélo et 18,4 en voiture pour 24 ; Col du Tourmalet → Luz Ardiden, 32,6 et 32,6 pour 35. En voiture, 119,0 km (−6,7 %)."
+    },
+    "15": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2001/2001-15a.jpg",
+     "towns": [
+      {
+       "label": "Pau",
+       "km": 0,
+       "kind": "ville",
+       "lat": 43.29575,
+       "lon": -0.36857,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de la Tricherie",
+       "km": 22,
+       "kind": "côte",
+       "note": "351 m imprimés ; 3e catégorie ; non placée : aucun lieu « La Tricherie » connu de Nominatim entre Pau et Rabastens-de-Bigorre",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Côte de Lamayou",
+       "km": 27,
+       "kind": "côte",
+       "note": "340 m imprimés ; 4e catégorie ; placée au village de Lamayou (Nominatim), 332 m au MNT, sommet non identifié",
+       "confidence": "ambigu",
+       "lat": 43.38178,
+       "lon": -0.02819,
+       "how": "nominatim"
+      },
+      {
+       "label": "Rabastens-de-Bigorre",
+       "km": 44.5,
+       "kind": "ville",
+       "note": "216 m imprimés",
+       "lat": 43.3878,
+       "lon": 0.15025,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte du Puntous",
+       "km": 50.5,
+       "kind": "côte",
+       "note": "260 m imprimés ; 4e catégorie ; imprimé « Côte du Puntous (Laguian-Mazous) » ; non placée : la commune imprimée, Laguian-Mazous (Nominatim), est à 9,5 km à vol d'oiseau de Rabastens-de-Bigorre pour 6 au profil ; aucun lieu « Puntous » compatible (le Puntous de Nominatim est à 27,5 km)",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Côte de Bidalon",
+       "km": 71.5,
+       "kind": "côte",
+       "note": "270 m imprimés ; 4e catégorie ; imprimé « Côte de Bidalon (Saint-Michel) » ; placée au village de Saint-Michel (Gers, Nominatim), commune imprimée entre parenthèses, 177 m au MNT : sommet non identifié",
+       "confidence": "ambigu",
+       "lat": 43.43,
+       "lon": 0.41556,
+       "how": "nominatim"
+      },
+      {
+       "label": "Molas",
+       "km": 104,
+       "kind": "ville",
+       "note": "203 m imprimés",
+       "lat": 43.3992,
+       "lon": 0.78577,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Saint-Léon",
+       "km": 180.5,
+       "kind": "ville",
+       "note": "252 m imprimés",
+       "lat": 43.40098,
+       "lon": 1.56075,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Lavaur",
+       "km": 232.5,
+       "kind": "ville",
+       "lat": 43.69893,
+       "lon": 1.81519,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "route_check": {
+      "routed_km": 203,
+      "profile_km": 205.5,
+      "delta_pct": -1.2,
+      "tolerance_pct": 5,
+      "coverage_pct": 88,
+      "car_legs": 0,
+      "legs": 5,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
+    },
+    "16": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2001/2001-16a.jpg",
+     "towns": [
+      {
+       "label": "Castelsarrasin",
+       "km": 0,
+       "kind": "ville",
+       "lat": 44.03952,
+       "lon": 1.10729,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Vers",
+       "km": 84.5,
+       "kind": "ville",
+       "note": "141 m imprimés ; placé à la mairie déléguée de Vers (Saint-Géry-Vers, Nominatim), 131 m au MNT : le premier point était à 275 m (règle 14)",
+       "lat": 44.48547,
+       "lon": 1.55311,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Labastide-Murat",
+       "km": 105.5,
+       "kind": "ville",
+       "note": "445 m imprimés",
+       "lat": 44.64755,
+       "lon": 1.56807,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Les Escures",
+       "km": 155.5,
+       "kind": "lieu-dit",
+       "note": "150 m imprimés ; imprimé « Les Escures (Beaulieu-sur-Dordogne) » ; lieu-dit non trouvé à Beaulieu, placé à la mairie de Beaulieu-sur-Dordogne, commune imprimée entre parenthèses (Nominatim), 147 m au MNT — le hameau des Escures de Bilhac, sur l'autre rive, imposait 19,5 km de route pour 10,5 au profil",
+       "confidence": "ambigu",
+       "lat": 44.97826,
+       "lon": 1.84028,
+       "how": "nominatim"
+      },
+      {
+       "label": "Laroche",
+       "km": 166,
+       "kind": "lieu-dit",
+       "note": "205 m imprimés ; imprimé « Laroche (Nonards) » ; hameau de Laroche (Nonards, Nominatim), commune imprimée entre parenthèses, 178 m au MNT",
+       "lat": 45.0219,
+       "lon": 1.80907,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Lostanges",
+       "km": 172.5,
+       "kind": "côte",
+       "note": "500 m imprimés ; 3e catégorie ; non placée : le village de Lostanges (Nominatim) est à 309 m au MNT pour 500 imprimés (règle 14) et à 10,3 km à vol d'oiseau de Laroche pour 6,5 au profil",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Sarran",
+       "km": 227.5,
+       "kind": "ville",
+       "note": "227,5 km au profil, 229,5 dans stage_towns",
+       "lat": 45.40973,
+       "lon": 1.93827,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "note": "Côte de Saint-Adrian (345 m imprimés, 4e catégorie), imprimée sans km vers le km 201 d'après la graduation : non reprise (règle 4).",
+     "route_check": {
+      "routed_km": 149.5,
+      "profile_km": 143,
+      "delta_pct": 4.5,
+      "tolerance_pct": 5,
+      "coverage_pct": 62,
+      "car_legs": 0,
+      "legs": 4,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
+    },
+    "17": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2001/2001-17a.jpg",
+     "towns": [
+      {
+       "label": "Brive-la-Gaillarde",
+       "km": 0,
+       "kind": "ville",
+       "lat": 45.1585,
+       "lon": 1.53324,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Saint-Hilaire-les-Courbes",
+       "km": 64.5,
+       "kind": "ville",
+       "note": "615 m imprimés",
+       "lat": 45.61003,
+       "lon": 1.83404,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de la Forêt de la Feuillade",
+       "km": 87,
+       "kind": "côte",
+       "note": "670 m imprimés ; 4e catégorie ; non placée : aucun lieu « Forêt de la Feuillade » connu de Nominatim entre Saint-Hilaire-les-Courbes et Gentioux",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Gentioux",
+       "km": 92.5,
+       "kind": "ville",
+       "note": "730 m imprimés ; placé à la mairie de Gentioux (Gentioux-Pigerolles, Nominatim), 784 m au MNT : le premier point était à 831 m",
+       "lat": 45.78498,
+       "lon": 1.99591,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Rozeille",
+       "km": 125.5,
+       "kind": "côte",
+       "note": "534 m imprimés ; 4e catégorie ; imprimé « Côte de Rozeille (Moutier-Rozeille) »",
+       "lat": 45.94393,
+       "lon": 2.17351,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Montluçon",
+       "km": 194,
+       "kind": "ville",
+       "lat": 46.34003,
+       "lon": 2.6074,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "note": "Budelière (397 m), imprimée sans km vers le km 172 d'après la graduation : non reprise (règle 4).",
+     "route_check": {
+      "routed_km": 132.2,
+      "profile_km": 129.5,
+      "delta_pct": 2.1,
+      "tolerance_pct": 5,
+      "coverage_pct": 67,
+      "car_legs": 0,
+      "legs": 3,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
+    },
+    "18": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2001/2001-18a.jpg",
+     "towns": [
+      {
+       "label": "Montluçon",
+       "km": 0,
+       "kind": "ville",
+       "lat": 46.34003,
+       "lon": 2.6074,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Vallon-en-Sully",
+       "km": 21.5,
+       "kind": "ville",
+       "note": "200 m imprimés ; pointage intermédiaire",
+       "lat": 46.53548,
+       "lon": 2.60809,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Sologne",
+       "km": 41.5,
+       "kind": "lieu-dit",
+       "note": "238 m imprimés ; imprimé « Sologne (Saint-Bonnet-Tronçais) » ; pointage intermédiaire",
+       "lat": 46.64679,
+       "lon": 2.70605,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Saint-Amand-Montrond",
+       "km": 61,
+       "kind": "ville",
+       "lat": 46.72271,
+       "lon": 2.50465,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "note": "Contre-la-montre individuel.",
+     "route_check": {
+      "routed_km": 39.2,
+      "profile_km": 39.5,
+      "delta_pct": -0.6,
+      "tolerance_pct": 5,
+      "coverage_pct": 65,
+      "car_legs": 0,
+      "legs": 2,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
+    },
+    "19": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2001/2001-19a.jpg",
+     "towns": [
+      {
+       "label": "Orléans",
+       "km": 0,
+       "kind": "ville",
+       "lat": 47.90273,
+       "lon": 1.90861,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Puiseaux",
+       "km": 62.5,
+       "kind": "ville",
+       "note": "90 m imprimés",
+       "lat": 48.20402,
+       "lon": 2.47246,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Ronceveaux",
+       "km": 72.5,
+       "kind": "lieu-dit",
+       "note": "68 m imprimés ; imprimé « Ronceveaux (Buthiers) » ; lieu-dit non trouvé, placé au village de Buthiers, commune imprimée entre parenthèses (Nominatim), 75 m au MNT",
+       "confidence": "ambigu",
+       "lat": 48.28479,
+       "lon": 2.42687,
+       "how": "nominatim"
+      },
+      {
+       "label": "Côte de Gironville",
+       "km": 87,
+       "kind": "côte",
+       "note": "113 m imprimés ; 4e catégorie ; Gironville-sur-Essonne (Nominatim), le bandeau du profil plaçant le km 87 en Essonne — et non Gironville (Seine-et-Marne), près de Puiseaux, qui imposait un aller-retour par Buthiers ; placée au village, 69 m au MNT, sommet non identifié",
+       "confidence": "ambigu",
+       "lat": 48.37297,
+       "lon": 2.37882,
+       "how": "nominatim"
+      },
+      {
+       "label": "Évry",
+       "km": 149.5,
+       "kind": "ville",
+       "lat": 48.62417,
+       "lon": 2.42897,
+       "how": "stage_towns",
+       "confidence": "ok"
+      }
+     ],
+     "note": "Itteville (63 m), imprimée sans km vers le km 125 d'après la graduation : non reprise (règle 4). Hors tolérance (−34,0 %) : la boucle entre la côte de Gironville et Évry, par Itteville (imprimée sans km), n'est pas reconstituée — 33,6 km à vélo et 39,0 en voiture pour 62,5 au profil.",
+     "route_check": {
+      "routed_km": 57.4,
+      "profile_km": 87,
+      "delta_pct": -34,
+      "tolerance_pct": 5,
+      "coverage_pct": 58,
+      "car_legs": 0,
+      "legs": 3,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
+    },
+    "20": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2001/2001-20a.jpg",
+     "towns": [
+      {
+       "label": "Corbeil-Essonnes",
+       "km": 0,
+       "kind": "ville",
+       "lat": 48.61377,
+       "lon": 2.48181,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Breux-Jouy",
+       "km": 28.5,
+       "kind": "ville",
+       "note": "60 m imprimés",
+       "lat": 48.55085,
+       "lon": 2.16396,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Côte de Gif-sur-Yvette",
+       "km": 60,
+       "kind": "côte",
+       "note": "153 m imprimés ; 4e catégorie ; imprimé « Gif-sur-Yvette (Côte de) »",
+       "lat": 48.70461,
+       "lon": 2.15566,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Châtenay-Malabry",
+       "km": 78,
+       "kind": "ville",
+       "note": "155 m imprimés",
+       "lat": 48.76704,
+       "lon": 2.27753,
+       "how": "commune-ign",
+       "confidence": "ok"
+      },
+      {
+       "label": "Haut des Champs-Élysées",
+       "km": 110,
+       "kind": "lieu-dit",
+       "note": "30 m imprimés ; imprimé « Hauts des Champs » ; 1er passage imprimé ; haut de l'avenue des Champs-Élysées, place Charles-de-Gaulle (Nominatim)",
+       "confidence": "ok",
+       "lat": 48.87336,
+       "lon": 2.29574,
+       "how": "nominatim"
+      },
+      {
+       "label": "Paris Champs-Élysées",
+       "km": 160.5,
+       "kind": "lieu-dit",
+       "lat": 48.87076,
+       "lon": 2.30533,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "arrivée placée sur les Champs-Élysées et non au centre de Paris"
+      }
+     ],
+     "circuit_km": 110,
+     "note": "Circuit des Champs-Élysées : passages imprimés au haut des Champs aux km 110, 116,5, 123 et 129,5, puis deux autres sans km, et arrivée au km 160,5 (circuit_km) ; seul le premier est repris. Hors tolérance (−37,2 %) : la boucle dans Paris entre Châtenay-Malabry et le premier passage au haut des Champs-Élysées n'est pas reconstituée — 13,9 km à vélo et 20,5 en voiture pour 32 au profil ; Breux-Jouy → Côte de Gif-sur-Yvette, 22,0 et 23,7 pour 31,5.",
+     "route_check": {
+      "routed_km": 51.2,
+      "profile_km": 81.5,
+      "delta_pct": -37.2,
+      "tolerance_pct": 5,
+      "coverage_pct": 51,
+      "car_legs": 0,
+      "legs": 3,
+      "suspect_legs": 2,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
+    }
+   }
+  },
   "2002": {
    "stages": {
     "2": {

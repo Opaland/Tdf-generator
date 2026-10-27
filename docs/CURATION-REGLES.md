@@ -99,6 +99,14 @@ dans la même PR que son correctif.
     une nouvelle recherche Nominatim : en 1988, sept côtes notées « au
     pied » l'étaient pour le centroïde administratif, alors que le point
     stocké était à l'altitude du sommet (Saint-Romain, 420 m pour 415).
+    **Un point par requête, jamais un lot de points dispersés** : la
+    Géoplateforme dégrade la résolution du MNT quand la requête porte sur
+    beaucoup de points étalés (vérifié en 2001 : Pla d'Adet à 1 622 m seul,
+    1 599 dans un lot de 40 points étalés sur quelques centaines de km,
+    1 451 dans un lot
+    de 100). Sur un tracé continu, l'effet reste sous 2 m (300 points sur
+    120 km). Un contrôle d'altitude d'édition entière par lot donne donc de
+    faux écarts — et en masque de vrais.
 15. **Commune nouvelle : le village, pas la commune fusionnée.** Le centre
     de Salignac-Eyvigues tombait vers Eyvigues, 3,8 km du village de
     Salignac nommé par le profil (1987/12, aller-retour de 5 km) ;

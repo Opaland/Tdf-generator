@@ -553,6 +553,32 @@ et côtes traversées avec leur kilomètre.
   placée (Brains), départs de Bagnères-de-Bigorre, Limoges, Avignon et
   Vitré à la mairie (règle 25 ajoutée), Dompierre au village.
 
+- [ ] Édition 2001 : 19 étapes sur 21, 133 points placés sur 140, depuis les
+  profils de ledicodutour.com (`2001-Na.jpg`, 468 px, altitudes imprimées ;
+  lus au triple). Non transcrits : le prologue de Dunkerque (rues) et
+  2001/11, contre-la-montre de Chamrousse (aucun profil publié). Noms sans
+  km imprimé en note (règle 4) : côtes du Cap Gris-Nez, des Forges, du
+  Sart-Tilman, de Void-Vacon, de Saint-Adrian, col du Chioula, Dinsheim,
+  Montbenoît, Rumilly, Le Bourg-d'Oisans, Budelière, Itteville. Critères :
+  règles 1 à 5 ; points placés puis vérifiés (règles 6 à 10, 14 mesurée
+  point par point, 15, 21, 22, 25) ; contrôle à ±5 % avec 0 tronçon en
+  voiture sur BRouter public, chaque `--write` avec `car_legs` non nul
+  relancé (règle 16) ; allers-retours corrigés avant de lire l'écart (règle
+  24) ; cause notée pour chaque étape hors tolérance ; audit Mireille avant
+  la PR ; curation de données, pas de relecture adverse dédiée (règle 11).
+  Règle 14 complétée : altitude mesurée point par point (la Géoplateforme
+  dégrade la résolution d'un lot de points dispersés).
+
+- [ ] Recontrôle d'altitude point par point des éditions 1997 à 1999 : leurs
+  contrôles d'altitude (règle 14) ont été faits par lots de points
+  dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
+  Le recontrôle point par point relève 17 points à plus de 100 m (1997 : 11,
+  1998 : 3, 1999 : 3), dont une partie déjà notée (côtes rattachées au
+  village, départ de Sestrières). Critères : chaque point trié — déjà noté,
+  replacé (géocodage inverse et MNT), ou retiré avec note ; contrôle à ±5 %
+  relancé sur les étapes touchées, 0 tronçon en voiture ; curation de
+  données, pas de relecture adverse dédiée (règle 11).
+
 - [x] Édition 1991 (PR #412) : 22 étapes sur 23 (prologue de Lyon non transcrit),
   418 points placés sur 444 (405 sur 442 avant le tri 33.12). Contrôlée à ±5 % avant PR : 20 étapes dans la tolérance, 2
   hors, affichées comme telles — 1991/1 (−22,7 %) et 1991/21 (−8,4 %),
