@@ -535,6 +535,20 @@ et côtes traversées avec leur kilomètre.
   Champs-Élysées sur l'avenue et non au centre de Paris, allers-retours
   d'Onzain et de Pamproux corrigés à la mairie (règle 17).
 
+- [ ] Édition 2000 : 21 étapes à transcrire depuis les profils de
+  ledicodutour.com (`00_N.jpg`, 468 px, pas de version agrandie ; agrandis
+  au triple pour la lecture). Profils sans altitude imprimée : seuls les
+  sprints, côtes, ravitaillements et pointages sont nommés. Critères :
+  règles 1 à 5 (noms sans km imprimé — col d'Izoard, côte de
+  Saint-Ferréol — en note d'étape), points placés par
+  `geocode-itineraries.js` puis vérifiés (règles 6 à 10, 21, 22 ; règle 14
+  par la catégorie et le relief faute d'altitude imprimée) ; contrôle à
+  ±5 % avec 0 tronçon en voiture sur BRouter public, chaque `--write` avec
+  `car_legs` non nul annulé et relancé (règle 16) ; allers-retours corrigés
+  avant de lire l'écart (règle 24) ; cause notée pour chaque étape hors
+  tolérance ; audit Mireille avant la PR ; curation de données, pas de
+  relecture adverse dédiée (règle 11).
+
 - [x] Édition 1991 (PR #412) : 22 étapes sur 23 (prologue de Lyon non transcrit),
   418 points placés sur 444 (405 sur 442 avant le tri 33.12). Contrôlée à ±5 % avant PR : 20 étapes dans la tolérance, 2
   hors, affichées comme telles — 1991/1 (−22,7 %) et 1991/21 (−8,4 %),
