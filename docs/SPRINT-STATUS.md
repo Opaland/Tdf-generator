@@ -607,6 +607,29 @@ et côtes traversées avec leur kilomètre.
   le mémorial Casartelli, Les Planches et Dinan placés, Boutigny au village ;
   départs hors de la ville et km imprimés incohérents notés.
 
+- [x] Édition 2005 (PR #505) : 21 étapes sur 21 (pas de prologue en 2005),
+  459 points placés sur 524, depuis les profils de ledicodutour.com
+  (`05_NNb.jpg` ou `05_NN_2.gif`, 468 px, altitudes imprimées ; lus au
+  triple, zooms ciblés sur les colonnes serrées). Non placés, avec note :
+  carrefours de routes, entrées de ville, côtes sans sommet localisé.
+  Altitude contrôlée point par point (règle 14). Contrôlée à ±5 % sur
+  BRouter public, 0 tronçon en voiture : 16 étapes dans la tolérance, 4
+  hors, cause notée — 2005/4 (+8,4 %, km du profil plus courts que la
+  route, vélo comme voiture), 2005/9 (−6,1 %, vallée du Chajoux non
+  reconstituée), 2005/17 (+5,9 %, côte de Baleix non localisée), 2005/20
+  (+5,1 %, +8,0 % en voiture) ; 2005/1 non contrôlable (contre-la-montre
+  de Noirmoutier, km du profil décalés des bourgs, trop peu de points).
+  Bühl (2005/8) était placé à Bühl dans le Bas-Rhin par le géocodage par
+  commune : replacé dans le Bade, avec les villages de la vallée du Rhin
+  côté allemand. Corrigés à l'audit Mireille : arrivée de Paris sur les
+  Champs-Élysées (elle tombait au parvis Notre-Dame), Nachtigall et
+  Zimmerplatz placées, Appenweier au village, Grand Ballon au col routier,
+  La Chaise à la mairie, Le Bouinenc (la rivière) et Barbâtre retirés,
+  côtes posées au village sous le sommet retirées (Baleix, Montigny,
+  Joinville), notes de départ (règle 25), allers-retours et tronçons
+  suspects notés. Longueur imprimée de 2005/10 (192,5 km) déclarée :
+  Wikipédia donne 177 km.
+
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
