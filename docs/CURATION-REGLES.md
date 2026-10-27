@@ -226,3 +226,8 @@ dans la même PR que son correctif.
     Comparer chaque départ à sa mairie (géocodage inverse), et la ligne
     droite départ → premier point au km du profil ; au-delà de 2 km de
     la mairie, placer le départ à la mairie avec une note.
+    Si la ligne droite départ → premier point dépasse le km du profil, le
+    km 0 réel est hors de la ville (départ fictif après un défilé) : le
+    noter dans l'étape, et ne pas placer le départ quand l'écart dépasse
+    la marge du départ (Lyon 2003/7 : Jons à 20,2 km pour 8). Audit 2003 :
+    Toulouse, Bordeaux, Troyes, Nevers, Charleville-Mézières.

@@ -572,6 +572,24 @@ et côtes traversées avec leur kilomètre.
   (Altillac), notes de Mont-Theux, Lostanges et du Puntous, côtes de
   Rozeille et de Bossy en ambigu.
 
+- [x] Édition 2003 (PR #503) : 20 étapes sur 21 (prologue de Paris non
+  transcrit, des rues seulement), 356 points placés sur 401, depuis les
+  profils de ledicodutour.com (`03_NNb.jpg`, 468 px, altitudes imprimées ;
+  lus au triple). Non placés, avec note : 23 carrefours de routes (Nominatim
+  ne connaît pas les intersections), départ de Lyon (2003/7), Paray-le-Monial
+  (km de Digoin vraisemblablement fautif), côtes sans lieu compatible ou à
+  l'altitude incompatible (règle 14). Altitude contrôlée point par point.
+  Contrôlée à ±5 % sur BRouter public, chaque contrôle avec un tronçon en
+  voiture relancé : 0 tronçon en voiture ; 17 étapes dans la tolérance, 3
+  hors, cause écrite dans la note avec la comparaison vélo / voiture —
+  2003/1 (−10,3 %), 2003/19 (contre-la-montre, +14,4 %), 2003/20 (−19,8 %,
+  boucle dans Paris ; aller-retour du routeur à la Bastille noté). Corrigés
+  à l'audit Mireille : 2003/12 de +13,9 % à +1,1 % (Blaye-les-Mines au
+  bourg, arrivée sur le site de Cap'Découverte), arrivée de 2003/20 sur les
+  Champs-Élysées, Chousse, Iratzordoki et Logibar placés (variantes, règle
+  21), Mérignac à la mairie, Saint-Julia retiré, départ de Toulouse à la
+  Cité de l'Espace ; règle 25 complétée (départ réel hors de la ville).
+
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
