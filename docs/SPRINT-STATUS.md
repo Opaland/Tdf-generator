@@ -1796,6 +1796,19 @@ et côtes traversées avec leur kilomètre.
   1992 ne portent pas leur altitude imprimée, le contrôle d'altitude
   (règle 14) n'a pas pu être rejoué.
 
+- [x] 33.24 (issue #517, PR #518) Points placés à la main notés `ambiguous` : la
+  recherche par lieu ne connaît que `ambigu`, et 118 points
+  (éditions 2002 et 2005 à 2015) passaient pour sûrs. Critères : un résultat dont
+  le point le plus proche est `ambiguous` affiche « position du point
+  approchée », texte distinct de l'homonyme possible ; le test
+  d'invariant de `stage_itineraries.json` refuse une valeur de
+  `confidence` inconnue ; test vérifié en échec sans le correctif.
+  Fait : `GEOCODE_WARN` reçoit `ambiguous` (« position du point approchée,
+  voir la note de l'étape ») ; test d'invariant : valeurs permises
+  {ok, ambigu, ambiguous, non-place}, et chacune des valeurs incertaines a
+  son avertissement (le test échoue si l'une manque, relecture adverse).
+  Vérifié à 1440 et 375 px sur la recherche « Mauvezin » (2015/11).
+
 ## Epic 34 — Idées venues d'autres dépôts (veille du 18/10/2026)
 
 Veille open source (dépôts clonés, licences et derniers commits relevés,

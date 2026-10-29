@@ -341,6 +341,9 @@ const NEAR_BASIS = {
 };
 const GEOCODE_WARN = {
   ambigu: ' — ville homonyme possible (la plus peuplée a été retenue)',
+  // Point placé à la main au plus près (côte rattachée au village sous le
+  // sommet, route ou hameau voisin) : la note de l'étape dit pourquoi.
+  ambiguous: ' — position du point approchée (voir la note de l\'étape)',
   approx: ' — position de la ville approximative',
   verifie: ' — position de la ville corrigée automatiquement (seule compatible avec la longueur des étapes)',
 };
@@ -465,4 +468,4 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 }
 
-if (typeof module !== 'undefined' && module.exports) module.exports = { pollWhileGenerating, stageRow, nearResultsHtml, nearCandidatesHtml };
+if (typeof module !== 'undefined' && module.exports) module.exports = { pollWhileGenerating, stageRow, nearResultsHtml, nearCandidatesHtml, GEOCODE_WARN };
