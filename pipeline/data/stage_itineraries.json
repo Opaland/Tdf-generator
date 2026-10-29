@@ -94993,7 +94993,7 @@
        "lat": 50.61524,
        "lon": 5.50894,
        "how": "stage_towns",
-       "confidence": "ok"
+       "confidence": "ambiguous"
       }
      ],
      "note": "En Belgique, la Géoplateforme ne mesure pas : altitudes contrôlées sur EU-DEM (opentopodata eudem25m). Arrivée de Seraing au sommet d'une côte de 4e catégorie (204 m imprimés) : le point de stage_towns est en ville, à 63 m, ligne d'arrivée non sourcée. Hors tolérance (−17,1 %), cause notée : −19,1 % en voiture (141,6 km) ; les boucles de l'Amblève et de l'Ourthe ne sont pas imprimées (Érezée → Plainevaux 46,1 km routés pour 53,5, côtes de Lierneux et de Barvaux non placées) et le final Flémalle → Seraing fait 4,5 km pour 14 (montée finale non sourcée). Côte de Cokaifagne → côte de Francorchamps : 3,2 km routés pour 7, laissé (règle 11).",
@@ -95124,7 +95124,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Le profil publié porte par erreur l'en-tête d'arrivée de l'étape 1 (« Seraing 204 m ») ; le tracé imprimé finit vers Tournai (Gaurain-Ramecroix au km 196,5), arrivée de stage_towns. En Belgique, altitudes contrôlées sur EU-DEM (opentopodata eudem25m), à 53 m au plus de l'imprimé (Gaurain-Ramecroix).",
+     "note": "Le profil publié porte par erreur l'en-tête d'arrivée de l'étape 1 (« Seraing 204 m ») ; le tracé imprimé finit vers Tournai (Gaurain-Ramecroix au km 196,5), arrivée de stage_towns. En Belgique, altitudes contrôlées sur EU-DEM (opentopodata eudem25m), à 53 m au plus de l'imprimé (Gaurain-Ramecroix). Temploux → Nivelles : 32,8 km à vol d'oiseau pour 30,5 au profil (34,4 à vélo, 42,8 en voiture) : km imprimé incohérent, ou passage en lisière de Nivelles, non sourcé (règle 11). Gaurain-Ramecroix → Tournai : 7,4 km routés à vélo comme en voiture pour 11 au profil : final non imprimé dans Tournai (règle 20).",
      "route_check": {
       "routed_km": 173.3,
       "profile_km": 177.5,
@@ -95364,10 +95364,10 @@
        "label": "Côte de Toussaint",
        "km": 143,
        "kind": "côte",
-       "note": "105 m imprimés ; placée au village de Toussaint (104 m au MNT)",
+       "note": "105 m imprimés ; placée à la mairie de Toussaint (109 m au MNT) : le centre de la commune créait un tronçon suspect depuis Fécamp (règle 17)",
        "confidence": "ok",
-       "lat": 49.73688,
-       "lon": 0.42238,
+       "lat": 49.73915,
+       "lon": 0.4244,
        "how": "nominatim"
       },
       {
@@ -95412,14 +95412,14 @@
       }
      ],
      "route_check": {
-      "routed_km": 177.5,
+      "routed_km": 177.7,
       "profile_km": 176.5,
-      "delta_pct": 0.6,
+      "delta_pct": 0.7,
       "tolerance_pct": 5,
       "coverage_pct": 82,
       "car_legs": 0,
       "legs": 8,
-      "suspect_legs": 1,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -95558,7 +95558,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Rouen → Ménesqueville 24,9 km à vol d'oiseau pour 24 au profil, départ réel hors de la ville, non situé (règle 25). Départ : km 0 imprimé à 141 m, sur les hauteurs de Rouen (centre à 15 m au MNT) : départ réel hors du centre, non situé (règle 25).",
+     "note": "Départ : km 0 imprimé à 141 m, sur les hauteurs de Rouen (centre à 15 m au MNT), et Rouen → Ménesqueville fait 24,9 km à vol d'oiseau pour 24 au profil : départ réel hors du centre, non situé (règle 25).",
      "route_check": {
       "routed_km": 170.5,
       "profile_km": 172.5,
@@ -95862,11 +95862,8 @@
        "label": "Côte de Bondeval",
        "km": 20,
        "kind": "côte",
-       "note": "499 m imprimés",
-       "lat": 47.44121,
-       "lon": 6.85628,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "499 m imprimés ; non placée : le point du géocodeur est au pied (410 m au MNT pour 499 imprimés), sommet non localisé (règle 21)",
+       "confidence": "non-place"
       },
       {
        "label": "Côte du Passage de la Douleur",
@@ -95889,8 +95886,11 @@
        "label": "Côte de Saignelégier",
        "km": 73,
        "kind": "côte",
-       "note": "979 m imprimés ; non placée : le point Nominatim (900 m au MNT, 79 m sous le sommet) créait un aller-retour de 2,9 km vers Le Bémont (règle 9)",
-       "confidence": "non-place"
+       "note": "979 m imprimés ; placée au point Nominatim de la côte (986 m sur EU-DEM pour 979 imprimés) : sans aller-retour (audit Mireille ; le premier essai, à 900 m, en créait un)",
+       "confidence": "ok",
+       "lat": 47.2558,
+       "lon": 6.99636,
+       "how": "nominatim"
       },
       {
        "label": "Le Bémont",
@@ -95973,13 +95973,13 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Belfort → Côte de Bondeval 21,9 km à vol d'oiseau pour 20 au profil, départ réel hors de la ville, non situé (règle 25). En Suisse, altitudes contrôlées sur EU-DEM (opentopodata eudem25m), à 30 m au plus de l'imprimé. Hors tolérance (−8,1 %), cause notée : −4,1 % en voiture (131,9 km) ; Saint-Brais → côte de Saulcy fait 6,4 km à vélo et 13,8 en voiture pour 13,5 (le routeur vélo coupe), col de la Croix → Porrentruy 9,7 pour 16. Allers-retours du routeur restant au village de Saulcy (1,1 km) et au col de la Croix (3,6 km, point au col, 785 m pour 789 imprimés), laissés (règle 9).",
+     "note": "En Suisse, altitudes contrôlées sur EU-DEM (opentopodata eudem25m), à 30 m au plus de l'imprimé. Hors tolérance (−11,9 %, mesuré sur 68 % de l'étape : la côte de Bondeval, au pied, n'est plus placée et le premier tronçon mesuré part du km 50), cause notée : −6,7 % en voiture (100,3 km) ; Saint-Brais → côte de Saulcy fait 6,4 km à vélo et 13,8 en voiture pour 13,5 (le routeur vélo coupe), col de la Croix → Porrentruy 9,7 pour 16. Allers-retours du routeur au village de Saulcy (1,1 km) et au col de la Croix (3,6 km, point au col, 785 m pour 789 imprimés) : le routeur vélo monte au col par le nord (côté Porrentruy) et coupe vers Saulcy, alors qu'en voiture Caquerelle → Croix fait 11,2 km pour 11 et Saint-Brais → Saulcy 13,8 pour 13,5 (règle 20) ; le −11,9 % inclut ces 4,7 km repris, l'écart réel est donc plus grand (règle 24).",
      "route_check": {
-      "routed_km": 126.4,
-      "profile_km": 137.5,
-      "delta_pct": -8.1,
+      "routed_km": 94.7,
+      "profile_km": 107.5,
+      "delta_pct": -11.9,
       "tolerance_pct": 5,
-      "coverage_pct": 87,
+      "coverage_pct": 68,
       "car_legs": 0,
       "legs": 9,
       "suspect_legs": 2,
@@ -96182,7 +96182,7 @@
        "label": "Béon",
        "km": 130.5,
        "kind": "ville",
-       "note": "255 m imprimés ; non placé : le village (317 m au MNT pour 255 imprimés) créait un aller-retour de 2,3 km vers le Grand Colombier (règle 9)",
+       "note": "255 m imprimés ; non placé : la commune (317 m au MNT pour 255) et le village (267 m) créent chacun un aller-retour de plus de 2 km, le routeur montant au Grand Colombier par l'ouest (Virieu-le-Petit, Lochieu) et non par Culoz (règle 9)",
        "confidence": "non-place"
       },
       {
@@ -96818,7 +96818,7 @@
       }
      ],
      "circuit_km": 178,
-     "note": "1er passage à Foix au km 178, arrivée au km 191 (circuit_km, règle 19 : 13 km de final non imprimés).",
+     "note": "Final dans Foix non imprimé : un passage à Foix est imprimé au km 178, arrivée au km 191 (circuit_km au km 178, règle 19 : 13 km de final ; le tracé de ce final n'est pas sourcé).",
      "route_check": {
       "routed_km": 152.2,
       "profile_km": 156,
@@ -97142,7 +97142,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Pau → Bielle 27,3 km à vol d'oiseau pour 26 au profil, départ réel hors de la ville, non situé (règle 25).",
+     "note": "Départ : Pau → Bielle 27,3 km à vol d'oiseau pour 26 au profil, départ réel hors de la ville, non situé (règle 25). Bielle → Laruns : 8,0 km routés (8,6 en voiture) pour 14,5 au profil : détour non imprimé, pas le routeur (règle 20).",
      "route_check": {
       "routed_km": 165.4,
       "profile_km": 171,
@@ -97193,8 +97193,11 @@
        "label": "Hennemorte",
        "km": 39,
        "kind": "lieu-dit",
-       "note": "653 m imprimés ; non placé : lieu inconnu de Nominatim (recherche bornée)",
-       "confidence": "non-place"
+       "note": "653 m imprimés ; placée au lieu-dit La Henne Morte (orthographe OSM), 611 m au MNT",
+       "confidence": "ok",
+       "lat": 42.95298,
+       "lon": 0.81371,
+       "how": "nominatim"
       },
       {
        "label": "Juzet-d'Izaut",
@@ -97304,15 +97307,15 @@
        "confidence": "ok"
       }
      ],
-     "note": "Le sommet de la montée de Peyragudes (1 603 m imprimés, km 142,5) est à 1 km de l'arrivée : non repris, même lieu que l'arrivée. Hors tolérance (−7,7 %), cause notée : −5,7 % en voiture (119,3 km) ; Génos → Loures-Barousse fait 11,5 km routés pour 17,5 (côte de Burs retirée) et col de Peyresourde → Peyragudes 2,7 pour 6,5.",
+     "note": "Le sommet de la montée de Peyragudes (1 603 m imprimés, km 142,5) est à 1 km de l'arrivée : non repris, même lieu que l'arrivée. Hors tolérance (−7,7 %), cause notée : −5,7 % en voiture (119,3 km) ; Génos → Loures-Barousse fait 11,5 km routés pour 17,5 (côte de Burs retirée) et col de Peyresourde → Peyragudes 2,7 pour 6,5. Arrivée de Peyragudes : le profil met la limite des départements au km 142,5, la course passait vraisemblablement côté Les Agudes, non sourcé.",
      "route_check": {
-      "routed_km": 116.7,
+      "routed_km": 117,
       "profile_km": 126.5,
-      "delta_pct": -7.7,
+      "delta_pct": -7.5,
       "tolerance_pct": 5,
       "coverage_pct": 88,
       "car_legs": 0,
-      "legs": 11,
+      "legs": 12,
       "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -97667,6 +97670,13 @@
        "confidence": "ok"
       },
       {
+       "label": "Haut des Champs-Élysées",
+       "km": 84.5,
+       "kind": "lieu-dit",
+       "note": "53 m imprimés ; sprint, sur le circuit final ; non placé : point exact sur le circuit non sourcé",
+       "confidence": "non-place"
+      },
+      {
        "label": "Paris Champs-Élysées",
        "km": 120,
        "kind": "lieu-dit",
@@ -97677,8 +97687,8 @@
        "confidence": "ok"
       }
      ],
-     "circuit_km": 71.5,
-     "note": "Circuit des Champs-Élysées : entrée du circuit au km 69, 1er passage sur la ligne au km 71,5, passages imprimés jusqu'au 7e (km 108), arrivée au km 120 ; seul le 1er passage est repris (circuit_km). Non contrôlable : hors circuit, la partie mesurable ne couvre pas assez l'étape."
+     "circuit_km": 69,
+     "note": "Circuit des Champs-Élysées : entrée du circuit au km 69 (circuit_km, règle 19), 1er passage sur la ligne au km 71,5, passages imprimés jusqu'au 7e (km 108), arrivée au km 120 ; seuls l'entrée et le 1er passage sont repris. Non contrôlable : hors circuit, la partie mesurable ne couvre pas assez l'étape."
     }
    }
   }
