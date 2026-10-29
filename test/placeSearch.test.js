@@ -105,6 +105,15 @@ test('itinéraire : prioritaire sur la curation, segment coupé par un point non
   assert.strictEqual(coverage.curatedStages, 0);
 });
 
+// Valeurs lues par la recherche par lieu (frontend/archives.js, GEOCODE_WARN) :
+// une valeur inconnue y passerait pour un point sûr (issue #517).
+const CONFIDENCE = new Set(['ok', 'ambigu', 'ambiguous', 'non-place']);
+
+test('confidence des itinéraires : chaque valeur incertaine a son avertissement dans la recherche par lieu', () => {
+  const { GEOCODE_WARN } = require('../frontend/archives.js');
+  for (const c of CONFIDENCE) if (c !== 'ok' && c !== 'non-place') assert.ok(GEOCODE_WARN[c], `${c} sans avertissement (issue #517)`);
+});
+
 test('stage_itineraries.json : source https citée, km croissants, chaque point placé atteignable depuis le précédent', () => {
   const doc = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'pipeline', 'data', 'stage_itineraries.json'), 'utf8'));
   const { haversine } = require('../pipeline/geo');
@@ -118,6 +127,7 @@ test('stage_itineraries.json : source https citée, km croissants, chaque point 
         if (i) assert.ok(t.km > st.towns[i - 1].km, `${where} : km non croissant à ${t.label}`);
         // Un point « non placé » qui garde ses coordonnées reste tracé et routé
         // (Le Champ du Feu 1987/6, La Forêt-le-Roi 1986/23 — relecture 1986).
+        assert.ok(t.confidence === undefined || CONFIDENCE.has(t.confidence), `${where} : ${t.label} confidence inconnue « ${t.confidence} »`);
         if (t.confidence === 'non-place') assert.ok(!Number.isFinite(t.lat) && !Number.isFinite(t.lon), `${where} : ${t.label} non placé mais avec coordonnées`);
         if (!Number.isFinite(t.lat) || (t.geocodeAs && t.kind !== 'ville')) return;
         // Même contrainte que scripts/geocode-itineraries.js (marge du départ réel comprise).
@@ -185,6 +195,9 @@ test('nearResultsHtml : échappement, couverture toujours affichée, « aucun r�
     results: [{ ...data.results[0], basis: 'itinerary-point', nearestLabel: 'Longeville', nearestKm: 83.5, sourceUrl: 'https://x.test/a"b.jpg' }] });
   assert.match(itin, /près de Longeville \(km 83,5\)/);
   assert.match(nearResultsHtml({ ...data, results: [{ ...data.results[0], basis: 'itinerary-point', geocodeConfidence: 'ambigu' }] }), /homonyme possible/);
+  const approx = nearResultsHtml({ ...data, results: [{ ...data.results[0], basis: 'itinerary-point', geocodeConfidence: 'ambiguous' }] });
+  assert.match(approx, /position du point approchée/);
+  assert.doesNotMatch(approx, /homonyme possible/);
   assert.match(itin, /href="https:\/\/x\.test\/a&quot;b\.jpg"[^>]*>profil officiel/);
   assert.match(itin, /1 étape\(s\) au profil officiel détaillé/);
   const ok = nearResultsHtml({ ...data, results: [{ ...data.results[0], basis: 'itinerary-point', routeCheck: { deltaPct: 3.2, tolerancePct: 5, carLegs: 1, legs: 10 } }] });
