@@ -181,14 +181,18 @@ dans la même PR que son correctif.
     renvoyé est bien celui cherché (« Thier de Theux » n'est pas
     « Mont-Theux ») ; pour une côte, l'altitude MNT du point est celle
     du sommet imprimé — un hameau au bord de l'eau (Hallembaye,
-    Pourville) est le pied de la côte, pas son sommet.
+    Pourville) est le pied de la côte, pas son sommet. Pour un col, le
+    type de l'objet renvoyé est `mountain_pass` : « Col de la core »
+    (2011/14) était un terrain de loisirs (`leisure=pitch`) à 0,5 km et
+    67 m au-dessus du col.
     **Chercher borné autour des voisins** (`viewbox` des deux points
     voisins, `bounded=1`) avant de conclure « introuvable » : un nom
     courant (Don, L'Étoile, Le Calvaire, Blanzy) se noie sous ses
     homonymes dans une recherche globale — onze lieux de 1991 n’étaient
     trouvés qu'ainsi. Essayer aussi la variante d'orthographe (Pallud /
     Palud, Pongivart / Pontgivart, Cazaux / Cazeaux, Monpach / Mompach,
-    Pétrou / Peyrou). Un lieu-dit que Nominatim ne connaît que par son
+    Pétrou / Peyrou, Perthus / Pertus — le col du Perthus de 2011/9, noté
+    « inconnu de Nominatim », y est sous « Col du Pertus »). Un lieu-dit que Nominatim ne connaît que par son
     arrêt de bus ou un poteau homonyme sur la route (Lavey 1991, La
     Fresquière et Basse-Plaine 1989) se place sur cet arrêt, altitude
     contrôlée. Et un tronçon suspect ne fait pas refuser un lieu qui
