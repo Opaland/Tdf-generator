@@ -856,6 +856,28 @@ et côtes traversées avec leur kilomètre.
   sourcées ; « km imprimé incohérent, mairies vérifiées » sur quatre
   tronçons ; allers-retours incertains notés en 2014/9 et 2014/11.
 
+- [ ] Édition 2016 **en cours** : 21 étapes sur 21 (pas de prologue en
+  2016), depuis les profils de ledicodutour.com
+  (`cartes_etapes/2016/2016_Na.jpg`, 604 px, altitudes imprimées).
+  Critères d'acceptation : chaque nom imprimé est transcrit avec son km,
+  lu sur un agrandissement ; l'altitude est contrôlée point par point
+  (règle 14, EU-DEM hors de France) ; le contrôle à ±5 % passe sur BRouter
+  public avec 0 tronçon en voiture, et chaque étape hors tolérance a sa
+  cause notée ; le test d'invariant passe ; l'audit Mireille est fait
+  avant la fusion.
+  Fait : 261 points placés sur 283. Contrôlée à ±5 % sur BRouter public,
+  0 tronçon en voiture : 17 étapes dans la tolérance (dont 2016/15, non
+  probante : son −2,2 % compte un aller-retour de 5,0 km à Cerdon, règle
+  24), 3 hors, cause notée avec la comparaison en voiture — 2016/1
+  (−15,5 %, −12,1 %), 2016/2 (−12,1 %, −9,0 %), 2016/13 (+7,0 %, +7,0 %,
+  contre-la-montre mesuré sur 59 %) ; 2016/21 non contrôlable. Étape 12
+  arrêtée au Chalet Reynard (raccourcie à 178 km à cause du vent, le
+  sommet du Ventoux imprimé au profil n'a pas été monté). Arrivée d'Arcalis
+  replacée (780 m trop bas), Paris sur les Champs-Élysées ; départ de
+  Montpellier non placé (Sommières à 25,7 km pour 13, règle 25) ; circuit
+  final de Culoz déclaré (circuit_km 122) ; abbaye de Valmagne placée sur
+  la D 5 (hors réseau routable) ; montée de Bisanne retirée (aller-retour).
+
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
