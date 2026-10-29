@@ -572,6 +572,29 @@ et côtes traversées avec leur kilomètre.
   (Altillac), notes de Mont-Theux, Lostanges et du Puntous, côtes de
   Rozeille et de Bossy en ambigu.
 
+- [x] Édition 2002 (PR #512) : les 18 étapes en ligne qui manquaient
+  (2002/2 et 3 sont déjà transcrites par le lot Lorraine ; prologue de
+  Luxembourg non transcrit, des rues seulement), 191 points placés sur
+  213, depuis les profils de ledicodutour.com
+  (`cartes_etapes/2002/2002-Na.jpg`, 468 px, altitudes imprimées, lus au
+  triple). Altitude contrôlée point par point (règle 14), Luxembourg sur
+  EU-DEM. Contrôlée à ±5 % sur BRouter public, 0 tronçon en voiture : 13
+  étapes dans la tolérance, 6 hors, cause notée — 2002/1 (−15,1 %, −11,1 %
+  en voiture : côtes de Vianden et de Hostert non placées), 2002/2
+  (−11,8 %, du lot Lorraine, −5,7 % en voiture), 2002/8 (−7,9 %, −6,3 % en
+  voiture), 2002/9 (−8,2 %, −4,3 % en voiture), 2002/18 (−7,2 %, +2,8 % en
+  voiture : le routeur vélo coupe), 2002/19 (−10,4 %, −7,4 % en voiture) ;
+  2002/20 non contrôlable (circuit des Champs-Élysées, nombre de tours non
+  sourcé). Les vias de `historic_routes.json` (Epic 28.7) ne changent
+  pas ; la Badourade, les Bois de Serves et l'arrivée de La Plagne (Plagne
+  Centre) en sont repris. Corrigés à l'audit Mireille : Fût d'Avenas à la
+  bifurcation sous le col et La Chapelle-Urée à l'église (les deux « ok »
+  obtenus avec un aller-retour disparaissent, règle 24), Génissiat placé
+  (son refus reposait sur un point retiré), Igny-le-Jard à la mairie
+  d'Igny-Comblizy ; col de Saint-Benoît (col de Dieudé, autre col) et
+  lieu-dit Traverses retirés ; notes des tronçons à mairies vérifiées
+  réécrites. Règles 9 et 21 de `docs/CURATION-REGLES.md` complétées.
+
 - [x] Édition 2003 (PR #503) : 20 étapes sur 21 (prologue de Paris non
   transcrit, des rues seulement), 356 points placés sur 401, depuis les
   profils de ledicodutour.com (`03_NNb.jpg`, 468 px, altitudes imprimées ;
