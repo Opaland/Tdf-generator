@@ -100274,7 +100274,7 @@
        "label": "Côte de Buttertubs",
        "km": 103.5,
        "kind": "côte",
-       "note": "532 m imprimés ; non placée : lieu inconnu de Nominatim (recherche bornée) ; Buttertubs Pass (mountain_pass), 524 m sur le MNT ; recherché sous « Buttertubs Pass »",
+       "note": "532 m imprimés ; Buttertubs Pass (mountain_pass), 524 m sur le MNT ; recherché sous « Buttertubs Pass »",
        "confidence": "ok",
        "lat": 54.35523,
        "lon": -2.20479,
@@ -100328,7 +100328,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Leeds → Skipton 36,0 km à vol d'oiseau pour 34,5 au profil, départ réel hors de la ville, non situé (règle 25). Hors de France (Royaume-Uni, Belgique), la Géoplateforme ne mesure pas : altitudes contrôlées sur EU-DEM ou le MNT de repli (règle 14). Côte de Grinton Moor retirée (aller-retour, règle 9), Buttertubs placé au col ; Newbiggin → Gunnerside fait 18,7 km routés pour 38 au profil (boucle par Hawes non imprimée).",
+     "note": "Départ : Leeds → Skipton 36,0 km à vol d'oiseau pour 34,5 au profil, départ réel hors de la ville, non situé (règle 25). Hors de France (Royaume-Uni, Belgique), la Géoplateforme ne mesure pas : altitudes contrôlées sur EU-DEM ou le MNT de repli (règle 14). Côte de Grinton Moor retirée (aller-retour, règle 9), Buttertubs placé au col.",
      "route_check": {
       "routed_km": 154.3,
       "profile_km": 156,
@@ -100396,14 +100396,17 @@
        "label": "Côte de Ripponden",
        "km": 112.5,
        "kind": "côte",
-       "note": "252 m imprimés ; non placée : Ripponden est à 131 m sur le MNT, 121 m sous le sommet",
-       "confidence": "non-place"
+       "note": "252 m imprimés ; placée sur Ripponden New Bank, montée au-dessus du village, 229 m sur EU-DEM, sommet exact non localisé",
+       "confidence": "ambiguous",
+       "lat": 53.67591,
+       "lon": -1.92933,
+       "how": "nominatim"
       },
       {
        "label": "Côte de Greetland",
        "km": 119.5,
        "kind": "côte",
-       "note": "200 m imprimés ; placée au village de Greetland, 149 m sur le MNT, 51 m sous le sommet",
+       "note": "200 m imprimés ; placée au village de Greetland, 149 m sur EU-DEM pour 200 imprimés, 51 m sous le sommet, sommet non localisé",
        "confidence": "ambiguous",
        "lat": 53.6878,
        "lon": -1.87145,
@@ -100430,18 +100433,18 @@
        "label": "Côte de Bradfield",
        "km": 175,
        "kind": "côte",
-       "note": "350 m imprimés ; placée au centre de la paroisse de Bradfield (297 m sur le MNT, 53 m sous le sommet)",
-       "lat": 53.43498,
-       "lon": -1.63008,
-       "how": "nominatim",
-       "confidence": "ambiguous"
+       "note": "350 m imprimés ; retirée : le point au centre de la paroisse de Bradfield (297 m) est arbitraire et créait un risque d'aller-retour, sommet non localisé (règle 9)",
+       "confidence": "non-place"
       },
       {
        "label": "Côte d'Oughtibridge",
        "km": 182,
        "kind": "côte",
-       "note": "241 m imprimés ; non placée : le village d'Oughtibridge est à 99 m sur le MNT, 142 m sous le sommet",
-       "confidence": "non-place"
+       "note": "241 m imprimés ; placée sur Oughtibridge Lane, montée au-dessus du village, 243 m sur EU-DEM",
+       "confidence": "ambiguous",
+       "lat": 53.43726,
+       "lon": -1.51202,
+       "how": "nominatim"
       },
       {
        "label": "Côte de Jenkin Road",
@@ -100457,25 +100460,25 @@
        "label": "Sheffield",
        "km": 201,
        "kind": "ville",
-       "note": "45 m imprimés",
+       "note": "45 m imprimés ; arrivée placée au centre de Sheffield (stage_towns), ligne d'arrivée exacte non sourcée",
        "lat": 53.38066,
        "lon": -1.47023,
        "how": "stage_towns",
        "confidence": "ok"
       }
      ],
-     "note": "Départ : York → Knaresborough 25,8 km à vol d'oiseau pour 21 au profil, départ réel hors de la ville, non situé (règle 25). Hors de France (Royaume-Uni, Belgique), la Géoplateforme ne mesure pas : altitudes contrôlées sur EU-DEM ou le MNT de repli (règle 14). Hors tolérance (−12,7 %), cause notée : −9,9 % en voiture (162,1 km) ; Knaresborough → Keighley 39,8 km pour 47,5 et Oxenhope Moor → Greetland 20,8 pour 34,5 (côtes de Blubberhouses et de Ripponden non placées : le « −3,8 % » obtenu avec Blubberhouses incluait un aller-retour de 4 km, règle 24). Aller-retour incertain de 7,3 km au Holme Moss, Midhopestones n'étant pas placée (règle 9).",
+     "note": "Départ : York → Knaresborough 25,8 km à vol d'oiseau pour 21 au profil, départ réel hors de la ville, non situé (règle 25). Hors de France (Royaume-Uni, Belgique), la Géoplateforme ne mesure pas : altitudes contrôlées sur EU-DEM ou le MNT de repli (règle 14). Hors tolérance (−14,1 %), cause notée : −13,8 % en voiture (155,1 km) ; Knaresborough → Keighley 39,8 km pour 47,5 (côte de Blubberhouses non placée : le « −3,8 % » obtenu avec elle incluait un aller-retour de 4 km, règle 24), Oxenhope Moor → Ripponden 20,3 pour 27,5 et Oughtibridge → Jenkin Road 7,6 pour 14 : boucles des landes non imprimées. Aller-retour incertain de 7,3 km au Holme Moss, Midhopestones et Bradfield n'étant pas placées (règle 9).",
      "route_check": {
-      "routed_km": 157.1,
+      "routed_km": 154.7,
       "profile_km": 180,
-      "delta_pct": -12.7,
+      "delta_pct": -14.1,
       "tolerance_pct": 5,
       "coverage_pct": 90,
       "car_legs": 0,
-      "legs": 7,
+      "legs": 8,
       "suspect_legs": 1,
       "backtracks": 0,
-      "backtracks_uncertain": 2
+      "backtracks_uncertain": 1
      }
     },
     "3": {
@@ -100535,11 +100538,8 @@
        "label": "Epping Forest",
        "km": 108,
        "kind": "lieu-dit",
-       "note": "108 m imprimés",
-       "lat": 51.7133,
-       "lon": 0.1536,
-       "how": "nominatim",
-       "confidence": "ambigu"
+       "note": "108 m imprimés ; retiré : le point du géocodeur est au centre du district d'Epping Forest, pas sur la route de la course",
+       "confidence": "non-place"
       },
       {
        "label": "Londres (entrée)",
@@ -100570,19 +100570,7 @@
       }
      ],
      "circuit_km": 118,
-     "note": "Entrée dans Londres au km 118, arrivée au km 155 (circuit_km, règle 19) ; l'Olympic Park (km 130) est sur ce final. Départ : Cambridge → Saffron Walden 20,8 km à vol d'oiseau pour 19,5 au profil, départ réel hors de la ville, non situé (règle 25). Hors de France (Royaume-Uni, Belgique), la Géoplateforme ne mesure pas : altitudes contrôlées sur EU-DEM ou le MNT de repli (règle 14). Hors tolérance (−21,3 %), cause notée : −22,7 % en voiture (68,4 km), mesuré sur 57 % de l'étape (final dans Londres exclu) ; Felsted → Moreton 26,0 km pour 34 et Moreton → Epping Forest 9,2 pour 13,5 : détours non imprimés.",
-     "route_check": {
-      "routed_km": 69.7,
-      "profile_km": 88.5,
-      "delta_pct": -21.3,
-      "tolerance_pct": 5,
-      "coverage_pct": 57,
-      "car_legs": 0,
-      "legs": 4,
-      "suspect_legs": 1,
-      "backtracks": 0,
-      "backtracks_uncertain": 0
-     }
+     "note": "Entrée dans Londres au km 118, arrivée au km 155 (circuit_km, règle 19) ; l'Olympic Park (km 130) est sur ce final. Départ : Cambridge → Saffron Walden 20,8 km à vol d'oiseau pour 19,5 au profil, départ réel hors de la ville, non situé (règle 25). Hors de France (Royaume-Uni, Belgique), la Géoplateforme ne mesure pas : altitudes contrôlées sur EU-DEM ou le MNT de repli (règle 14). Non contrôlable : Epping Forest retiré (point au centre du district), les points routables s'arrêtent à Moreton (km 94,5) ; le −21,3 % obtenu avec Epping Forest (−22,7 % en voiture) reposait sur ce point non probant ; Felsted → Moreton fait 26,0 km routés pour 34 : détours non imprimés."
     },
     "4": {
      "source_url": "https://www.ledicodutour.com/images/cols/2014/profil_2014_4.png",
@@ -100611,8 +100599,11 @@
        "label": "Côte de Campagnette",
        "km": 34,
        "kind": "côte",
-       "note": "159 m imprimés ; non placée : le seul « Campagnette » connu (Wavrans-sur-l'Aa) est à 33,5 km de Montreuil pour 16",
-       "confidence": "non-place"
+       "note": "159 m imprimés ; La Campagnette (Bimont), 161 m sur le MNT",
+       "confidence": "ok",
+       "lat": 50.54723,
+       "lon": 1.90202,
+       "how": "nominatim"
       },
       {
        "label": "Lumbres",
@@ -100696,13 +100687,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 140.5,
+      "routed_km": 141.4,
       "profile_km": 145.5,
-      "delta_pct": -3.4,
+      "delta_pct": -2.8,
       "tolerance_pct": 5,
       "coverage_pct": 89,
       "car_legs": 0,
-      "legs": 8,
+      "legs": 9,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -100873,7 +100864,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Neuf secteurs pavés numérotés 9 à 1 (les secteurs 7 et 6, Mons-en-Pévèle et Bersée, ont un seul km, 110) ; chaque secteur est repris à son village de départ. Hors de France (Royaume-Uni, Belgique), la Géoplateforme ne mesure pas : altitudes contrôlées sur EU-DEM ou le MNT de repli (règle 14). Hors tolérance (−13,1 %), cause notée : −2,3 % en voiture (128,5 km) : le routeur vélo évite les secteurs pavés. Orchies → Sars-et-Rosières : 7,0 km à vol d'oiseau pour 5,5, villages de départ des secteurs, laissé (règle 11).",
+     "note": "Neuf secteurs pavés numérotés 9 à 1 (les secteurs 7 et 6, Mons-en-Pévèle et Bersée, ont un seul km, 110) ; chaque secteur est repris à son village de départ. Hors de France (Royaume-Uni, Belgique), la Géoplateforme ne mesure pas : altitudes contrôlées sur EU-DEM ou le MNT de repli (règle 14). Hors tolérance (−13,1 %), cause notée : −2,3 % en voiture (128,5 km) : le routeur vélo évite les secteurs pavés. Orchies → Sars-et-Rosières : 7,0 km à vol d'oiseau pour 5,5, villages de départ des secteurs, km imprimé incohérent, mairies vérifiées (règle 11).",
      "route_check": {
       "routed_km": 114.2,
       "profile_km": 131.5,
@@ -100954,8 +100945,11 @@
        "label": "Chemin des Dames",
        "km": 125,
        "kind": "lieu-dit",
-       "note": "184 m imprimés ; non placé : la route du Chemin des Dames connue est à plus de 20 km de Pinon pour 6 au profil ; point d'accès non localisé",
-       "confidence": "non-place"
+       "note": "184 m imprimés ; placé sur la route du Chemin des Dames à Aizy-Jouy, 185 m sur le MNT ; point d'accès exact non sourcé",
+       "confidence": "ambiguous",
+       "lat": 49.45595,
+       "lon": 3.49055,
+       "how": "nominatim"
       },
       {
        "label": "Cerny-en-Laonnois",
@@ -100995,15 +100989,15 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Arras → Bapaume 21,5 km à vol d'oiseau pour 16,5 au profil, départ réel hors de la ville, non situé (règle 25). Hors tolérance (−6,2 %), cause notée : −1,7 % en voiture (174,8 km), le routeur vélo coupe ; côtes de Coucy et de Roucy, Chemin des Dames non placés.",
+     "note": "Départ : Arras → Bapaume 21,5 km à vol d'oiseau pour 16,5 au profil, départ réel hors de la ville, non situé (règle 25). Hors tolérance (−6,0 %), cause notée : −1,4 % en voiture (175,0 km), le routeur vélo coupe ; côte de Roucy non placée.",
      "route_check": {
-      "routed_km": 166.6,
+      "routed_km": 166.8,
       "profile_km": 177.5,
-      "delta_pct": -6.2,
+      "delta_pct": -6,
       "tolerance_pct": 5,
       "coverage_pct": 91,
       "car_legs": 0,
-      "legs": 7,
+      "legs": 8,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -101066,11 +101060,11 @@
        "label": "Douaumont",
        "km": 116.5,
        "kind": "ville",
-       "note": "362 m imprimés",
-       "lat": 49.1951,
-       "lon": 5.42292,
+       "note": "362 m imprimés ; placé au hameau de Douaumont, 360 m sur le MNT",
+       "lat": 49.21079,
+       "lon": 5.42763,
        "how": "nominatim",
-       "confidence": "ambigu"
+       "confidence": "ok"
       },
       {
        "label": "Moulainville",
@@ -101140,11 +101134,11 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Épernay → Châlons-en-Champagne 31,4 km à vol d'oiseau pour 23 au profil, départ réel hors de la ville, non situé (règle 25). Hors tolérance (−6,3 %), cause notée : −5,2 % en voiture (200,6 km) ; Bernécourt → côte de Boufflers fait 37,7 km pour 51,5 (côte de Maron non placée). Auve → Sainte-Menehould : 16,0 km à vol d'oiseau pour 15, laissé (règle 11).",
+     "note": "Départ : Épernay → Châlons-en-Champagne 31,4 km à vol d'oiseau pour 23 au profil, départ réel hors de la ville, non situé (règle 25). Hors tolérance (−6,2 %), cause notée : −4,3 % en voiture (202,3 km) ; Bernécourt → côte de Boufflers fait 37,7 km pour 51,5 (côte de Maron non placée). Auve → Sainte-Menehould : 16,0 km à vol d'oiseau pour 15, km imprimé incohérent, mairies vérifiées (règle 11).",
      "route_check": {
-      "routed_km": 198.1,
+      "routed_km": 198.5,
       "profile_km": 211.5,
-      "delta_pct": -6.3,
+      "delta_pct": -6.2,
       "tolerance_pct": 5,
       "coverage_pct": 90,
       "car_legs": 0,
@@ -101442,7 +101436,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 1
      },
-     "note": "Hors tolérance (−6,7 %), cause notée : −8,0 % en voiture (145,8 km) ; col de la Schlucht → col du Wettstein 21,3 km pour 29,5 (Orbey non placé) et côte des Cinq Châteaux → col du Bannstein 18,7 pour 30 (côte de Gueberschwihr non placée)."
+     "note": "Hors tolérance (−6,7 %), cause notée : −8,0 % en voiture (145,8 km) ; col de la Schlucht → col du Wettstein 21,3 km pour 29,5 (Orbey non placé) et côte des Cinq Châteaux → col du Bannstein 18,7 pour 30 (côte de Gueberschwihr non placée). Aller-retour incertain de 1,2 km aux Cinq Châteaux, côte de Gueberschwihr non placée (règle 9)."
     },
     "10": {
      "source_url": "https://www.ledicodutour.com/images/cols/2014/profil_2014_10.png",
@@ -101478,11 +101472,14 @@
        "confidence": "ok"
       },
       {
-       "label": "Muhlbach-sur-Munster",
+       "label": "Muhlele",
        "km": 39.5,
        "kind": "ville",
-       "note": "330 m imprimés ; imprimé « Muhlele » (Mühlbach, vallée de Munster), lecture à confirmer ; non placé : la commune de Muhlbach-sur-Munster est à 467 m au MNT pour 330 imprimés, et le nom imprimé (« Muhlele ») n'est pas établi",
-       "confidence": "non-place"
+       "note": "330 m imprimés ; imprimé « Muhlele », lieu-dit de Gunsbach, 338 m sur le MNT",
+       "confidence": "ambiguous",
+       "lat": 48.04282,
+       "lon": 7.17593,
+       "how": "nominatim"
       },
       {
        "label": "Munster",
@@ -101575,7 +101572,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Mulhouse → Soultzmatt 25,1 km à vol d'oiseau pour 20 au profil, départ réel hors de la ville, non situé (règle 25). Aller-retour du routeur de 1,3 km au col des Chevrères, point au col (règle 9), laissé avec cette note.",
+     "note": "Départ : Mulhouse → Soultzmatt 25,1 km à vol d'oiseau pour 20 au profil, départ réel hors de la ville, non situé (règle 25). Aller-retour du routeur de 1,3 km au col des Chevrères, point au col (règle 9), laissé avec cette note : le « ok » de la vérification compte cet aller-retour, non probant ; sans lui l'étape serait hors tolérance (règle 24).",
      "route_check": {
       "routed_km": 135.5,
       "profile_km": 141.5,
@@ -101583,7 +101580,7 @@
       "tolerance_pct": 5,
       "coverage_pct": 88,
       "car_legs": 0,
-      "legs": 10,
+      "legs": 11,
       "suspect_legs": 0,
       "backtracks": 1,
       "backtracks_uncertain": 0
@@ -101740,7 +101737,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Besançon → Arc-et-Senans 29,2 km à vol d'oiseau pour 26 au profil, départ réel hors de la ville, non situé (règle 25). Hors tolérance (−10,5 %), cause notée : −9,2 % en voiture (146,6 km) ; côte de Désertin → Oyonnax fait 18,5 km pour 35 au profil (côte d'Échallon non placée).",
+     "note": "Départ : Besançon → Arc-et-Senans 29,2 km à vol d'oiseau pour 26 au profil, départ réel hors de la ville, non situé (règle 25). Hors tolérance (−10,5 %), cause notée : −9,2 % en voiture (146,6 km) ; côte de Désertin → Oyonnax fait 18,5 km pour 35 au profil (côte d'Échallon non placée). Aller-retour incertain de 2,1 km à Désertin, côte d'Échallon non placée (règle 9).",
      "route_check": {
       "routed_km": 144.6,
       "profile_km": 161.5,
@@ -101861,7 +101858,7 @@
        "label": "Côte de Grammond",
        "km": 164,
        "kind": "côte",
-       "note": "778 m imprimés",
+       "note": "778 m imprimés ; 728 m sur le MNT pour 778 imprimés, sommet exact non localisé",
        "lat": 45.57056,
        "lon": 4.44314,
        "how": "nominatim",
@@ -102174,7 +102171,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Grenoble → Vizille 12,7 km à vol d'oiseau pour 8,5 au profil, départ réel hors de la ville, non situé (règle 25). La Paute → Le Bourg-d'Oisans : 2,8 km à vol d'oiseau pour 1,5 au profil, centres de commune, laissé (règle 11).",
+     "note": "Départ : Grenoble → Vizille 12,7 km à vol d'oiseau pour 8,5 au profil, départ réel hors de la ville, non situé (règle 25). La Paute → Le Bourg-d'Oisans : 2,8 km à vol d'oiseau pour 1,5 au profil, centres de commune, km imprimé incohérent, mairies vérifiées (règle 11).",
      "route_check": {
       "routed_km": 163.2,
       "profile_km": 168.5,
@@ -102711,7 +102708,7 @@
        "label": "Hautacam",
        "km": 145.5,
        "kind": "lieu-dit",
-       "note": "1520 m imprimés",
+       "note": "1520 m imprimés ; arrivée placée au point de stage_towns, ligne d'arrivée exacte non sourcée",
        "lat": 42.97052,
        "lon": -0.00498,
        "how": "stage_towns",
@@ -102730,7 +102727,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Trébons → Bagnères-de-Bigorre : 4,7 km à vol d'oiseau pour 3,5 au profil, laissé (règle 11)."
+     "note": "Trébons → Bagnères-de-Bigorre : 4,7 km à vol d'oiseau pour 3,5 au profil, km imprimé incohérent, mairies vérifiées (règle 11)."
     },
     "19": {
      "source_url": "https://www.ledicodutour.com/images/cols/2014/profil_2014_19.png",
