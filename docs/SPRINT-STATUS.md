@@ -572,6 +572,30 @@ et côtes traversées avec leur kilomètre.
   (Altillac), notes de Mont-Theux, Lostanges et du Puntous, côtes de
   Rozeille et de Bossy en ambigu.
 
+- [ ] Édition 2002 **en cours** : les 18 étapes en ligne qui manquent
+  (2002/2 et 3 sont déjà transcrites par le lot Lorraine ; prologue de
+  Luxembourg non transcrit, des rues seulement), depuis les profils de
+  ledicodutour.com (`cartes_etapes/2002/2002-Na.jpg`, 468 px, altitudes
+  imprimées). Critères d'acceptation : chaque nom imprimé est transcrit
+  avec son km, lu sur un agrandissement ; l'altitude est contrôlée point
+  par point (règle 14) ; le contrôle à ±5 % passe sur BRouter public avec
+  0 tronçon en voiture, et chaque étape hors tolérance a sa cause notée ;
+  le test d'invariant passe ; l'audit Mireille est fait avant la fusion.
+  Les vias de `historic_routes.json` (Epic 28.7) ne changent pas.
+  Fait : 190 points placés sur 213 dans les 18 étapes ajoutées. Contrôlée
+  à ±5 % sur BRouter public, 0 tronçon en voiture : 15 étapes dans la
+  tolérance (dont 2002/19, non probant : +0,0 % avec un aller-retour de
+  2,4 km au col du Fût d'Avenas, règle 24), 4 hors, cause notée — 2002/1
+  (−15,1 %, −11,1 % en voiture : côtes de Vianden et de Hostert non
+  placées), 2002/2 (−11,8 %, du lot Lorraine, −5,7 % en voiture), 2002/8
+  (−7,9 %, −6,3 % en voiture : détour non imprimé avant Plouay), 2002/9
+  (−8,2 %, −4,3 % en voiture) ; 2002/20 non contrôlable (circuit des
+  Champs-Élysées, nombre de tours non sourcé). Cols de la Badourade et du
+  Fût d'Avenas repris de `historic_routes.json`. Altitude : Aime et
+  Beaufort replacés, Serres-Castet, Rogues et la côte de la Sémine non
+  placés ; Luxembourg contrôlé sur EU-DEM. Arrivées : Plateau de Beille au
+  parking, Paris sur les Champs-Élysées, La Plagne non sourcée (notée).
+
 - [x] Édition 2003 (PR #503) : 20 étapes sur 21 (prologue de Paris non
   transcrit, des rues seulement), 356 points placés sur 401, depuis les
   profils de ledicodutour.com (`03_NNb.jpg`, 468 px, altitudes imprimées ;
