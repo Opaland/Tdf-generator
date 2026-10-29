@@ -780,6 +780,29 @@ et côtes traversées avec leur kilomètre.
   17). Règle 21 de `docs/CURATION-REGLES.md` complétée (variante
   Perthus / Pertus, type `mountain_pass` d'un col).
 
+- [x] Édition 2012 (PR #513) : les 19 étapes qui manquaient (2012/6 est
+  déjà transcrite par le lot Lorraine ; prologue de Liège non transcrit),
+  222 points placés sur 240, depuis les profils de ledicodutour.com
+  (`cartes_etapes/2012/12_NN_pro.jpg`, 470 px, altitudes imprimées, lus au
+  triple). Altitude contrôlée point par point (règle 14), Belgique et Suisse
+  sur EU-DEM. Contrôlée à ±5 % sur BRouter public, 0 tronçon en voiture :
+  10 étapes dans la tolérance, 9 hors, cause notée avec la comparaison en
+  voiture — 2012/1 (−17,1 %, −19,1 % en voiture : boucles ardennaises et
+  final de Seraing non imprimés), 2012/3 (−12,1 %, −5,2 %), 2012/6 (−6,1 %,
+  du lot Lorraine, −3,8 %), 2012/8 (−11,9 % sur 68 %, −6,7 %, allers-retours
+  du routeur au col de la Croix, règle 24), 2012/9 (−7,6 %, −3,9 %,
+  contre-la-montre), 2012/10 (−8,2 %, −7,6 %), 2012/11 (−6,1 %, −5,2 %),
+  2012/17 (−7,5 %, −5,7 %), 2012/19 (−5,9 %, −5,4 %, contre-la-montre) ;
+  2012/20 non contrôlable. Côte de Burs et Béon retirés pour aller-retour.
+  Altitude : La Toussuire reprise de 2006/16, Belmont à la mairie,
+  Castelnau-Montratier non placé. Le profil de 2012/2 porte par erreur
+  l'en-tête de l'étape 1. Corrigés à l'audit Mireille : côte de
+  Saignelégier placée sans aller-retour, côte de Toussaint à la mairie,
+  La Henne Morte placée (« Hennemorte »), côte de Bondeval (au pied)
+  retirée, Haut des Champs-Élysées transcrit, `circuit_km` de 2012/20 à
+  l'entrée du circuit ; tronçons suspects de 2012/2 et 16 notés avec la
+  mesure en voiture.
+
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
