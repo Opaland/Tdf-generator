@@ -827,6 +827,35 @@ et côtes traversées avec leur kilomètre.
   départ de Montpellier à l'hôtel de ville, `circuit_km` de 2013/21 à
   l'entrée ; notes de cause réécrites (2013/1, 2, 16).
 
+- [x] Édition 2014 (PR #515) : 21 étapes sur 21 (pas de prologue en
+  2014), depuis les profils de ledicodutour.com
+  (`cols/2014/profil_2014_N.png`, 600 px, altitudes imprimées).
+  Critères d'acceptation : chaque nom imprimé est transcrit avec son km,
+  lu sur un agrandissement ; l'altitude est contrôlée point par point
+  (règle 14, EU-DEM hors de France) ; le contrôle à ±5 % passe sur BRouter
+  public avec 0 tronçon en voiture, et chaque étape hors tolérance a sa
+  cause notée ; le test d'invariant passe ; l'audit Mireille est fait
+  avant la fusion.
+  Fait : 240 points placés sur 258. Contrôlée à ±5 % sur BRouter public,
+  0 tronçon en voiture : 12 étapes dans la tolérance (dont 2014/10, non
+  probante : son −4,2 % compte un aller-retour de 1,3 km au col des
+  Chevrères, règle 24), 7 hors, cause notée avec la comparaison en
+  voiture — 2014/2 (−14,1 %, −13,8 %), 2014/5 (−13,1 %, −2,3 % : le
+  routeur vélo évite les pavés), 2014/6 (−6,0 %, −1,4 %), 2014/7 (−6,2 %,
+  −4,3 %), 2014/9 (−6,7 %, −8,0 %), 2014/11 (−10,5 %, −9,2 %), 2014/12
+  (−9,0 %, −4,3 %) ; 2014/3 et 2014/21 non contrôlables. Arrivées de La
+  Mauselaine et de Risoul 1850 replacées (le point de stage_towns tombait
+  en ville, 190 à 750 m trop bas) ; Blubberhouses et Grinton Moor retirés
+  pour aller-retour (le −3,8 % de 2014/2 n'était pas probant, règle 24).
+  Audit Mireille : Oughtibridge et Ripponden placées sur la montée qui
+  porte leur nom (243 et 229 m sur EU-DEM) ; Bradfield (centre de
+  paroisse arbitraire) et Epping Forest (centre du district) retirés,
+  2014/3 devient non contrôlable ; Campagnette (Bimont), Muhlele
+  (Gunsbach), Chemin des Dames (Aizy-Jouy) et Douaumont (hameau) placés,
+  écart d'altitude ≤ 8 m ; arrivées de Sheffield et d'Hautacam notées non
+  sourcées ; « km imprimé incohérent, mairies vérifiées » sur quatre
+  tronçons ; allers-retours incertains notés en 2014/9 et 2014/11.
+
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
