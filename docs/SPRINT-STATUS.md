@@ -856,6 +856,33 @@ et côtes traversées avec leur kilomètre.
   sourcées ; « km imprimé incohérent, mairies vérifiées » sur quatre
   tronçons ; allers-retours incertains notés en 2014/9 et 2014/11.
 
+- [ ] Édition 2015 **en cours** : 21 étapes sur 21 (pas de prologue en
+  2015, contre-la-montre d'Utrecht en 1re étape), depuis les profils de
+  ledicodutour.com (`cartes_etapes/2015/etape_N.png`, 600 px, altitudes
+  imprimées).
+  Critères d'acceptation : chaque nom imprimé est transcrit avec son km,
+  lu sur un agrandissement ; l'altitude est contrôlée point par point
+  (règle 14, EU-DEM hors de France) ; le contrôle à ±5 % passe sur BRouter
+  public avec 0 tronçon en voiture, et chaque étape hors tolérance a sa
+  cause notée ; le test d'invariant passe ; l'audit Mireille est fait
+  avant la fusion.
+  Fait : 237 points placés sur 263. Contrôlée à ±5 % sur BRouter public,
+  0 tronçon en voiture : 12 étapes dans la tolérance (dont 2015/19, non
+  probante : son +0,4 % compte un aller-retour de 8,1 km à Épierre, que
+  l'ordre du profil impose, règle 24), 7 hors, cause notée avec la
+  comparaison en voiture — 2015/2 (−12,7 %, −6,9 %), 2015/3 (−13,3 %,
+  −12,8 %), 2015/4 (−5,6 %, +2,4 %), 2015/5 (−18,8 %, −13,4 % : boucle
+  par Péronne non située), 2015/7 (−6,6 %, −4,4 %), 2015/9 (+26,4 %,
+  +30,0 % : contre-la-montre par équipes dont les points ne sont pas sur
+  le tracé réel), 2015/14 (−11,4 %, −8,8 %) ; 2015/1 et 2015/21 non
+  contrôlables. Étape 20 transcrite depuis le profil modifié (Galibier
+  remplacé par la Croix de Fer, tunnel du Chambon fermé). Arrivées du
+  Mur de Huy, de Mûr-de-Bretagne, de La Pierre-Saint-Martin, du Plateau
+  de Beille, de Mende, de La Toussuire et de Paris replacées (le point
+  de stage_towns tombait en ville ou au col, 128 à 512 m d'écart) ;
+  Rieu Claret (un ruisseau), la côte de Cherave et Péronne retirés pour
+  aller-retour ou homonymie.
+
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
