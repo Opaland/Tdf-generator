@@ -726,6 +726,30 @@ et côtes traversées avec leur kilomètre.
   de Puylaurens et de Saint-Barthélemy et doublon de Braine-le-Comte
   retirés ; notes fausses corrigées (Cuq-Toulza, Zeeland au km 73, Renoir).
 
+- [x] Édition 2011 (PR #510) : 21 étapes sur 21 (pas de prologue en 2011),
+  219 points placés sur 233, depuis les profils de ledicodutour.com
+  (`11_NN_1.gif`, `cols/2011/…` pour 9 étapes ; 470 px, altitudes
+  imprimées, lus au triple). Altitude contrôlée point par point (règle
+  14). Contrôlée à ±5 % sur BRouter public, 0 tronçon en voiture : 15
+  étapes dans la tolérance (dont 2011/11, non probant : −2,2 % avec un
+  aller-retour du routeur de 10,7 km à Larroque, règle 24), 5 hors, cause
+  notée — 2011/2 (−29,8 %, contre-la-montre par équipes en boucle),
+  2011/5 (−5,7 %), 2011/9 (−6,7 %, −9,1 % en voiture : tronçons plus
+  courts que le profil), 2011/13 (−7,8 %), 2011/20 (−8,9 %,
+  contre-la-montre) ; 2011/21 non contrôlable (circuit des
+  Champs-Élysées). Arrivées de Mûr-de-Bretagne au sommet de la côte, du
+  Plateau de Beille au parking, de Paris sur les Champs-Élysées ;
+  Éraines (imprimé « Eraines ») et non Ernes. Corrigés à l'audit
+  Mireille : côte de Laz placée au village (2011/4 passe de −8,8 à
+  −1,8 %), col du Perthus placé sous l'orthographe « Col du Pertus »
+  (les allers-retours incertains de 2011/9 disparaissent), col de la Core
+  au col et non sur un terrain de loisirs, Vire et Vassy à la mairie,
+  départ de Blaye-les-Mines à la mairie ; entrée de Montpellier (placée à
+  Clapiers) et doublon de Spézet retirés ; `circuit_km` de 2011/21 à
+  l'entrée du circuit (km 44) ; tronçons suspects notés (2011/3, 10, 16,
+  17). Règle 21 de `docs/CURATION-REGLES.md` complétée (variante
+  Perthus / Pertus, type `mountain_pass` d'un col).
+
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
