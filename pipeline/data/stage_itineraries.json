@@ -72758,7 +72758,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Strasbourg → Ittenheim 11,9 km à vol d'oiseau pour 9 au profil, départ réel hors de la ville, non situé (règle 25). Tronçons dont la ligne droite dépasse le profil : Saverne → Singrist (8,1 km à vol d'oiseau pour 6,5) ; points au bourg ou à la mairie (vérifié, règle 17), km relus sur l'agrandissement : écart du profil, laissé (règle 11).",
+     "note": "Départ : Strasbourg → Ittenheim 11,9 km à vol d'oiseau pour 9 au profil, départ réel hors de la ville, non situé (règle 25). Tronçons dont la ligne droite dépasse le profil : Saverne → Singrist (8,1 km à vol d'oiseau pour 6,5) ; points au bourg ou à la mairie (vérifié, règle 17), km relus sur l'agrandissement : écart du profil, laissé (règle 11). Kehl → Strasbourg : 5,4 km routés pour 9 au profil, l'arrivée étant au centre de Strasbourg (ligne non sourcée), laissé (règle 11).",
      "route_check": {
       "routed_km": 179.7,
       "profile_km": 175.5,
@@ -72833,12 +72833,11 @@
        "label": "Engenthal-le-Bas",
        "km": 43.5,
        "kind": "lieu-dit",
-       "note": "370 m imprimés",
-       "lat": 48.63424,
-       "lon": 7.29811,
+       "note": "370 m imprimés ; placé à l'arrêt « Wangenbourg - Engenthal-le-Bas » (368 m au MNT), et non plus rattaché à Engenthal (règle 21)",
+       "lat": 48.63452,
+       "lon": 7.30564,
        "how": "nominatim",
-       "confidence": "ok",
-       "geocodeAs": "Engenthal"
+       "confidence": "ok"
       },
       {
        "label": "Col du Valsberg",
@@ -73021,7 +73020,7 @@
        "label": "Côte de Kédange-sur-Canner",
        "km": 187.5,
        "kind": "côte",
-       "note": "253 m imprimés ; 1,2 km à 5,9 %",
+       "note": "253 m imprimés ; 1,2 km à 5,9 % ; rattachée au village de Kédange-sur-Canner (186 m au MNT, au pied de la côte) : sommet non localisé (règle 21)",
        "lat": 49.3095,
        "lon": 6.3412,
        "how": "nominatim",
@@ -73079,13 +73078,13 @@
      ],
      "length_km": 228.5,
      "route_check": {
-      "routed_km": 219.7,
+      "routed_km": 220.9,
       "profile_km": 216.5,
-      "delta_pct": 1.5,
+      "delta_pct": 2,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 21,
+      "legs": 22,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -73426,7 +73425,7 @@
        "label": "Le Cauberg",
        "km": 214.5,
        "kind": "côte",
-       "note": "135 m imprimés ; imprimé « 800 km à 7,3 % » (800 m) ; placé sur la route du Cauberg (Valkenburg), 140 m au MNT ; retiré : aller-retour de 1,2 km vers le centre de Valkenburg (règle 9) ; le centre est à 72 m au MNT pour 128 imprimés à l'arrivée, qui est vraisemblablement en haut du Cauberg, non sourcé",
+       "note": "135 m imprimés ; imprimé « 800 km à 7,3 % » (800 m) ; non placé : placé au sommet (route du Cauberg, 140 m au MNT), il crée un aller-retour de 1,2 km vers l'arrivée, posée au centre de Valkenburg (72 m pour 128 imprimés) ; l'arrivée est vraisemblablement sur le Cauberg, ligne non sourcée (règles 9 et 22)",
        "confidence": "non-place"
       },
       {
@@ -73440,7 +73439,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Les km 138, 144 et 157 sont imprimés deux fois (rangée haute et rangée basse) sous une seule graduation chacun : un seul point par graduation (mesure px/km, règle 3). Départ : Esch-sur-Alzette → Roedgen 9,4 km à vol d'oiseau pour 8,5 au profil, départ réel hors de la ville, non situé (règle 25). De Strassen à Ettelbruck (km 16 à 48), le MNT renvoie 0 m (trou de couverture au centre du Luxembourg) : altitude de ces six points non contrôlée (règle 14). Tronçons dont la ligne droite dépasse le profil : Trois-Ponts → Stavelot (4,9 pour 3,5) ; points au bourg ou à la mairie (vérifié, règle 17), km relus sur l'agrandissement : écart du profil, laissé (règle 11).",
+     "note": "Les km 138, 144 et 157 sont imprimés deux fois (rangée haute et rangée basse) sous une seule graduation chacun : un seul point par graduation (mesure px/km, règle 3). Départ : Esch-sur-Alzette → Roedgen 9,4 km à vol d'oiseau pour 8,5 au profil, départ réel hors de la ville, non situé (règle 25). De Strassen à Ettelbruck (km 16 à 48), le MNT de la Géoplateforme renvoie 0 m (trou de couverture au centre du Luxembourg) : ces six points sont contrôlés sur EU-DEM (opentopodata eudem25m), à 61 m au plus de l'altitude imprimée (règle 14). Tronçons dont la ligne droite dépasse le profil : Trois-Ponts → Stavelot (4,9 pour 3,5) ; points au bourg ou à la mairie (vérifié, règle 17), km relus sur l'agrandissement : écart du profil, laissé (règle 11).",
      "route_check": {
       "routed_km": 211.7,
       "profile_km": 208,
@@ -73765,7 +73764,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Huy → Andenne 10,7 km à vol d'oiseau pour 7 au profil, départ réel hors de la ville, non situé (règle 25). Tronçons dont la ligne droite dépasse le profil : Assesse → Dorinne (7,0 pour 5), Flavion → Villers-le-Gambon (10,0 pour 8,5), Philippeville → Daussois (6,8 pour 5), Silenrieux → Barbençon (8,9 pour 7), Thenelles → Harly (10,6 pour 9,5) ; points au bourg ou à la mairie (vérifié, règle 17), km relus sur l'agrandissement : écart du profil, laissé (règle 11).",
+     "note": "Départ : Huy → Andenne 10,7 km à vol d'oiseau pour 7 au profil, départ réel hors de la ville, non situé (règle 25). Tronçons dont la ligne droite dépasse le profil : Assesse → Dorinne (7,0 pour 5), Flavion → Villers-le-Gambon (10,0 pour 8,5), Philippeville → Daussois (6,8 pour 5), Silenrieux → Barbençon (8,9 pour 7), Thenelles → Harly (10,6 pour 9,5) ; points au bourg ou à la mairie (vérifié, règle 17), km relus sur l'agrandissement : écart du profil, laissé (règle 11). Barbençon → Beaumont : 4,4 km routés pour 8 au profil, détour non imprimé, laissé (règle 11).",
      "route_check": {
       "routed_km": 208.6,
       "profile_km": 200,
@@ -74457,7 +74456,7 @@
       }
      ],
      "circuit_km": 180.5,
-     "note": "Entrée dans Vitré au km 180,5, arrivée au km 189 (circuit_km, règle 19) ; le carrefour D.178/D.857 (184,5) est sur ce final. Départ : Lisieux → Livarot 16,5 km à vol d'oiseau pour 14,5 au profil, départ réel hors de la ville, non situé (règle 25). Tronçons dont la ligne droite dépasse le profil : Saint-Georges-d'Annebecq → La Ferté-Macé (8,4 pour 7), La Baroche-Gondouin → Lassay-les-Châteaux (5,2 pour 4), Chantrigné → Ambrières-les-Vallées (4,7 pour 3,5), Saint-Denis-de-Gastines → Ernée (7,7 pour 6,5) ; points au bourg ou à la mairie (vérifié, règle 17), km relus sur l'agrandissement : écart du profil, laissé (règle 11).",
+     "note": "Entrée dans Vitré au km 180,5, arrivée au km 189 (circuit_km, règle 19) ; le carrefour D.178/D.857 (184,5) est sur ce final. Départ : Lisieux → Livarot 16,5 km à vol d'oiseau pour 14,5 au profil, départ réel hors de la ville, non situé (règle 25). Tronçons dont la ligne droite dépasse le profil : Saint-Georges-d'Annebecq → La Ferté-Macé (8,4 pour 7), La Baroche-Gondouin → Lassay-les-Châteaux (5,2 pour 4), Chantrigné → Ambrières-les-Vallées (4,7 pour 3,5), Saint-Denis-de-Gastines → Ernée (7,7 pour 6,5) ; points au bourg ou à la mairie (vérifié, règle 17), km relus sur l'agrandissement : écart du profil, laissé (règle 11). Villedieu-lès-Bailleul → Argentan : 8,5 km à vol d'oiseau pour 7,5, points à la mairie, laissé (règle 11).",
      "route_check": {
       "routed_km": 163.8,
       "profile_km": 157.5,
@@ -75744,7 +75743,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Tarbes → Bénac 9,8 km à vol d'oiseau pour 9 au profil, départ réel hors de la ville, non situé (règle 25).",
+     "note": "Départ : Tarbes → Bénac 9,8 km à vol d'oiseau pour 9 au profil, départ réel hors de la ville, non situé (règle 25). Arcizac-ez-Angles → Lugagnan : 8,9 km routés pour 13,5 au profil, col de Lingous non placé (règle 11).",
      "route_check": {
       "routed_km": 194.9,
       "profile_km": 197.5,
@@ -77192,8 +77191,11 @@
        "label": "Gévaudaz",
        "km": 157.5,
        "kind": "lieu-dit",
-       "note": "810 m imprimés ; non placé : lieu inconnu de Nominatim (recherche bornée)",
-       "confidence": "non-place"
+       "note": "810 m imprimés ; hameau de Gevoudaz (Albiez-le-Vieux), orthographe OSM « Gevoudaz », 802 m au MNT",
+       "confidence": "ok",
+       "lat": 45.23088,
+       "lon": 6.31444,
+       "how": "nominatim"
       },
       {
        "label": "Saint-Jean-de-Maurienne (2e passage)",
@@ -77209,8 +77211,11 @@
        "label": "Les Adrets",
        "km": 168.5,
        "kind": "lieu-dit",
-       "note": "1005 m imprimés ; non placé : aucun lieu « Les Adrets » compatible avec les voisins",
-       "confidence": "non-place"
+       "note": "1005 m imprimés ; placé sur la route des Adrets (Fontcouverte-la-Toussuire), 976 m au MNT ; hameau non connu de Nominatim",
+       "confidence": "ambiguous",
+       "lat": 45.2492,
+       "lon": 6.31103,
+       "how": "nominatim"
       },
       {
        "label": "Villarembert",
@@ -77234,13 +77239,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 175.8,
+      "routed_km": 175.6,
       "profile_km": 173,
-      "delta_pct": 1.6,
+      "delta_pct": 1.5,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 18,
+      "legs": 20,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -77334,10 +77339,10 @@
        "label": "Queige",
        "km": 59.5,
        "kind": "ville",
-       "note": "536 m imprimés",
-       "lat": 45.71981,
-       "lon": 6.45972,
-       "how": "commune-ign",
+       "note": "536 m imprimés ; placé sur la D925 (542 m au MNT) : à la mairie, le routeur faisait un aller-retour de 1,1 km (audit Mireille)",
+       "lat": 45.71683,
+       "lon": 6.46224,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -77494,9 +77499,9 @@
        "label": "Côte de Châtillon-sur-Cluses",
        "km": 162,
        "kind": "côte",
-       "note": "735 m imprimés ; 5,1 km à 4,9 %",
-       "lat": 46.09627,
-       "lon": 6.58242,
+       "note": "735 m imprimés ; 5,1 km à 4,9 % ; placée au col sur la D902 (737 m au MNT)",
+       "lat": 46.08803,
+       "lon": 6.58318,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -77548,18 +77553,18 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Saint-Jean-de-Maurienne → Saint-Rémy-de-Maurienne 14,2 km à vol d'oiseau pour 9 au profil, départ réel hors de la ville, non situé (règle 25). Aller-retour du routeur de 1,1 km à Queige, le point étant à la mairie (règle 17) ; aller-retour incertain de 1,4 km vers Samoëns, la côte de Châtillon-sur-Cluses n'étant pas placée.",
+     "note": "Départ : Saint-Jean-de-Maurienne → Saint-Rémy-de-Maurienne 14,2 km à vol d'oiseau pour 9 au profil, départ réel hors de la ville, non situé (règle 25). Queige placé sur la D925 et côte de Châtillon-sur-Cluses au col sur la D902 (audit Mireille) : les allers-retours de Queige (1,1 km) et de la côte (1,4 km, avec Verchaix non placé) disparaissent. Cluses → côte de Châtillon-sur-Cluses : 5,2 km routés pour 9,5 au profil, détour non imprimé, laissé (règle 11).",
      "route_check": {
-      "routed_km": 194.1,
+      "routed_km": 189.7,
       "profile_km": 191.5,
-      "delta_pct": 1.4,
+      "delta_pct": -1,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
       "legs": 27,
-      "suspect_legs": 0,
-      "backtracks": 1,
-      "backtracks_uncertain": 1
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "18": {
@@ -77867,7 +77872,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Entrée dans Mâcon au km 193, 4 km avant l'arrivée : point de passage (règle 19). Départ : Morzine → Les Gets 4,5 km à vol d'oiseau pour 3 au profil, départ réel hors de la ville, non situé (règle 25). Tronçons dont la ligne droite dépasse le profil : Ceyzériat → Bourg-en-Bresse (8,2 pour 5,5), Longeray → Léaz (1,9 pour 0,5) ; points au bourg ou à la mairie (vérifié, règle 17), km relus sur l'agrandissement : écart du profil, laissé (règle 11).",
+     "note": "Entrée dans Mâcon au km 193, 4 km avant l'arrivée : point de passage (règle 19). Départ : Morzine → Les Gets 4,5 km à vol d'oiseau pour 3 au profil, départ réel hors de la ville, non situé (règle 25). Tronçons dont la ligne droite dépasse le profil : Ceyzériat → Bourg-en-Bresse (8,2 pour 5,5), Longeray → Léaz (1,9 pour 0,5) ; points au bourg ou à la mairie (vérifié, règle 17), km relus sur l'agrandissement : écart du profil, laissé (règle 11). Annemasse → Étrembières : 2,1 km routés pour 5,5 au profil, et Replonges → Mâcon : 4,8 pour 8 (entrée de Mâcon non placée) : détours non imprimés, laissés (règle 11).",
      "route_check": {
       "routed_km": 200.5,
       "profile_km": 194,
@@ -78203,7 +78208,7 @@
       }
      ],
      "circuit_km": 102.5,
-     "note": "Circuit des Champs-Élysées : entrée dans Paris au km 94, entrée du circuit au km 100, 1er passage au km 102,5, passages imprimés jusqu'au 8e (km 147,5), arrivée au km 154,5 ; seul le 1er passage est repris (circuit_km). Le sprint du Haut des Champs-Élysées (km 116,5) est sur le circuit, non repris. Hors tolérance (−19,7 %), cause notée : −10,3 % en voiture (83,4 km) ; presque tous les tronçons de banlieue sont plus courts que le profil, à vélo comme en voiture (Massy → Orsay 9,3 pour 12, Boulogne-Billancourt → Champs-Élysées 7,4 pour 10,5) : tracé sinueux non imprimé. La côte de Gif-sur-Yvette n'est pas placée. Mesuré sur 60 % de l'étape (circuit des Champs-Élysées exclu).",
+     "note": "Circuit des Champs-Élysées : entrée dans Paris au km 94, entrée du circuit au km 100, 1er passage au km 102,5, passages imprimés jusqu'au 8e (km 147,5), arrivée au km 154,5 ; seul le 1er passage est repris (circuit_km). Le sprint du Haut des Champs-Élysées (km 116,5) est sur le circuit, non repris. Hors tolérance (−19,7 %), cause notée : −10,3 % en voiture (83,4 km) ; presque tous les tronçons de banlieue sont plus courts que le profil, à vélo comme en voiture (Massy → Orsay 9,3 pour 12, Boulogne-Billancourt → Champs-Élysées 7,4 pour 10,5) : tracé sinueux non imprimé. La côte de Gif-sur-Yvette n'est pas placée. Mesuré sur 60 % de l'étape (circuit des Champs-Élysées exclu). Vélizy-Villacoublay → Chaville : 3,1 km à vol d'oiseau pour 2 au profil, Vélizy à 0,2 km de sa mairie : écart du profil, laissé (règle 11).",
      "route_check": {
       "routed_km": 74.7,
       "profile_km": 93,

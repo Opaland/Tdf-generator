@@ -630,9 +630,9 @@ et côtes traversées avec leur kilomètre.
   suspects notés. Longueur imprimée de 2005/10 (192,5 km) déclarée :
   Wikipédia donne 177 km.
 
-- [ ] Édition 2006 **en cours** (audit Mireille avant la fusion) : 20
+- [x] Édition 2006 (PR #511) : 20
   étapes sur 21 (prologue de Strasbourg non transcrit, des rues seulement),
-  483 points placés sur 559, depuis les profils de ledicodutour.com
+  485 points placés sur 559, depuis les profils de ledicodutour.com
   (`cartes_etapes/2006/06_NNb.jpg`, 468 px, altitudes imprimées, lus au
   triple, zooms ×9 sur les groupes serrés). 2006/2, déjà transcrite en
   partie par le lot Lorraine, est reprise en entier (6 points de plus),
@@ -652,7 +652,14 @@ et côtes traversées avec leur kilomètre.
   du Luxembourg noté. « Dufort » relu « Durfort » au zoom ×9. Les km du
   profil 2006 sont souvent plus courts que la ligne droite entre bourgs
   pourtant placés à leur mairie : tronçons notés étape par étape (règle
-  11).
+  11). Corrigés à l'audit Mireille : Queige sur la D925 et côte de
+  Châtillon-sur-Cluses au col (les deux allers-retours de 2006/17
+  disparaissent, +1,4 % → −1,0 %), Engenthal-le-Bas à son arrêt et non
+  plus rattaché, Gévaudaz placé sous l'orthographe OSM « Gevoudaz », Les
+  Adrets sur la route des Adrets ; retrait du Cauberg requalifié (l'aller-
+  retour vient de l'arrivée au centre de Valkenburg, ligne non sourcée) ;
+  altitudes du Luxembourg contrôlées sur EU-DEM ; sept tronçons suspects
+  de plus notés. Règles 14 et 21 de `docs/CURATION-REGLES.md` complétées.
 
 - [x] Édition 2007 (PR #506) : 20 étapes sur 21 (prologue de Londres non
   transcrit, des rues seulement), 201 points placés sur 236, depuis les
