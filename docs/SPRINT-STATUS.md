@@ -918,6 +918,27 @@ et côtes traversées avec leur kilomètre.
   (sans lui, 2016/15 vers −11,8 %) et de Vervex chiffrés ; départs de
   Vielha et d'Escaldes notés (règle 14).
 
+- [ ] Édition 2018 **en cours** : 21 étapes sur 21 (pas de prologue en
+  2018), depuis les profils de ledicodutour.com
+  (`cartes_etapes/2018/N_b.jpg` ou équivalent, altitudes imprimées).
+  Critères d'acceptation : chaque nom imprimé est transcrit avec son km,
+  lu sur un agrandissement ; l'altitude est contrôlée point par point
+  (règle 14, EU-DEM hors de France) ; le contrôle à ±5 % passe sur BRouter
+  public avec 0 tronçon en voiture, et chaque étape hors tolérance a sa
+  cause notée ; le test d'invariant passe ; l'audit Mireille est fait
+  avant la fusion.
+  Fait : 381 points placés sur 419 (dont quinze secteurs pavés en 2018/9).
+  Contrôlée à ±5 % sur BRouter public, 0 tronçon en voiture : 18 étapes
+  dans la tolérance, 2 hors, cause notée avec la comparaison en voiture —
+  2018/3 (−13,8 %, −9,0 % : final dans Cholet non situé), 2018/5 (−10,7 %,
+  −1,7 % : le routeur vélo coupe) ; 2018/21 non contrôlable. Arrivée du
+  col du Portet replacée au sommet (le point de stage_towns était à
+  Saint-Lary, 817 m pour 2 215), arrivées de Mûr-de-Bretagne et de Mende
+  aux points des éditions précédentes ; Entremont, Bonneval et Pontamafrey
+  au village (le centre de commune était 180 à 640 m trop haut) ; six
+  points retirés pour aller-retour (plateau des Glières, Arêches,
+  Sainte-Eulalie, Luzençon, Avezac) ou homonymie (L'Essert).
+
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
