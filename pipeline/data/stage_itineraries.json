@@ -81313,9 +81313,9 @@
       },
       {
        "label": "Zeeland",
-       "km": 67,
+       "km": 73,
        "kind": "lieu-dit",
-       "note": "15 m imprimés ; imprimé « Zeeland » (nom de province) ; la graduation du km 73 (sprint) ne porte aucun nom ; non placé : « Zeeland » est le nom de la province, lieu du passage non imprimé",
+       "note": "15 m imprimés ; imprimé « Zeeland » (nom de province), au km 73 (relu au zoom ×9 : la graduation du km 67 ne porte aucun nom) ; non placé : « Zeeland » est le nom de la province, lieu du passage non imprimé",
        "confidence": "non-place"
       },
       {
@@ -81532,11 +81532,8 @@
        "label": "Basse-Bodeux",
        "km": 148.5,
        "kind": "ville",
-       "note": "462 m imprimés ; imprimé « Basse-Bodeux (Trois-Ponts) » ; 324 m au MNT au village pour 462 imprimés : le point imprimé est vraisemblablement sur le plateau au-dessus du village, non situé",
-       "lat": 50.35797,
-       "lon": 5.82679,
-       "how": "nominatim",
-       "confidence": "ambiguous"
+       "note": "462 m imprimés ; imprimé « Basse-Bodeux (Trois-Ponts) » ; 324 m au MNT au village pour 462 imprimés : le point imprimé est vraisemblablement sur le plateau au-dessus du village, non situé ; retiré (audit, règle 14) : le village est à 324 m au MNT pour 462 imprimés",
+       "confidence": "non-place"
       },
       {
        "label": "Côte d'Aisomont",
@@ -81587,18 +81584,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 152.5,
+      "routed_km": 156.6,
       "profile_km": 182.5,
-      "delta_pct": -16.4,
+      "delta_pct": -14.2,
       "tolerance_pct": 5,
       "coverage_pct": 91,
       "car_legs": 0,
-      "legs": 11,
-      "suspect_legs": 3,
+      "legs": 10,
+      "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 1
      },
-     "note": "Hors tolérance (−16,4 %), cause notée : les Ardennes sont parcourues par des boucles sans point imprimé (Côte d'Aisomont → Coo 7,5 km routés pour 15,5, Col du Rosier → Spa 5,8 pour 12) ; quatre côtes non placées ; −4,4 % en voiture. Départ : Bruxelles → Wavre 23,2 km à vol d'oiseau pour 18,5 au profil, départ réel hors de la ville, non situé (règle 25)."
+     "note": "Hors tolérance (−14,2 %), cause notée : les Ardennes sont parcourues par des boucles sans point imprimé (Côte d'Aisomont → Coo 7,5 km routés pour 15,5, Col du Rosier → Spa 5,8 pour 12) ; quatre côtes non placées ; −4,4 % en voiture. Départ : Bruxelles → Wavre 23,2 km à vol d'oiseau pour 18,5 au profil, départ réel hors de la ville, non situé (règle 25). Basse-Bodeux retiré (règle 14) : Ouffet → Côte d'Aisomont est mesuré d'un seul tronçon, l'aller-retour incertain à Aisomont vient de ce saut."
     },
     "3": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2010/10_03_1.gif",
@@ -81627,11 +81624,8 @@
        "label": "Saint-Servais",
        "km": 35,
        "kind": "ville",
-       "note": "124 m imprimés ; imprimé « Saint-Servais (Namur) »",
-       "lat": 50.47787,
-       "lon": 4.84524,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "124 m imprimés ; imprimé « Saint-Servais (Namur) » ; retiré (audit) : Saint-Servais (Namur) est à 26,9 km à vol d'oiseau de Sart-Dames-Avelines pour 25 au profil ; lieu du sprint non sourcé",
+       "confidence": "non-place"
       },
       {
        "label": "Côte de Bothey",
@@ -81674,11 +81668,8 @@
        "label": "Braine-le-Comte (2)",
        "km": 93,
        "kind": "lieu-dit",
-       "note": "85 m imprimés ; imprimé « Braine-le-Comte » une seconde fois (ravitaillement), 3,5 km plus loin ; non placé",
-       "lat": 50.61071,
-       "lon": 4.13607,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "85 m imprimés ; imprimé « Braine-le-Comte » une seconde fois (ravitaillement), 3,5 km plus loin ; non placé ; (doublon du point précédent)",
+       "confidence": "non-place"
       },
       {
        "label": "Secteur pavé d'Ormeignies",
@@ -81772,18 +81763,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 184.3,
+      "routed_km": 184.8,
       "profile_km": 203,
-      "delta_pct": -9.2,
+      "delta_pct": -8.9,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 14,
-      "suspect_legs": 5,
+      "legs": 12,
+      "suspect_legs": 3,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Hors tolérance (−9,2 %), cause notée : les secteurs pavés sont rattachés à leur village, pas au tronçon pavé lui-même (point exact non localisé) ; le parcours entre secteurs fait des détours non imprimés ; −2,8 % en voiture."
+     "note": "Hors tolérance (−8,9 %), cause notée : les secteurs pavés sont rattachés à leur village, pas au tronçon pavé lui-même (point exact non localisé) ; le parcours fait des détours non imprimés (Ormeignies → Pipaix 15,3 km routés pour 23,5) ; Saint-Servais retiré (ligne droite plus longue que le profil) ; −2,8 % en voiture."
     },
     "4": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2010/10_04_1.gif",
@@ -82051,10 +82042,10 @@
        "label": "Préfontaines",
        "km": 169.5,
        "kind": "ville",
-       "note": "76 m imprimés",
-       "lat": 48.10627,
-       "lon": 2.68792,
-       "how": "commune-ign",
+       "note": "76 m imprimés ; placé à la mairie",
+       "lat": 48.11135,
+       "lon": 2.69222,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -82069,18 +82060,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 160.8,
+      "routed_km": 160.4,
       "profile_km": 174.5,
-      "delta_pct": -7.9,
+      "delta_pct": -8.1,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
       "legs": 9,
-      "suspect_legs": 1,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Hors tolérance (−7,9 %), cause notée : Ville-Saint-Jacques → Château-Landon fait 29,5 km routés pour 39,5 au profil (25,7 à vol d'oiseau) et Préfontaines → Montargis 13,5 pour 18, détours non imprimés ; −6,5 % en voiture. Départ : Épernay → Mareuil-en-Brie 17,7 km à vol d'oiseau pour 13 au profil, départ réel hors de la ville, non situé (règle 25)."
+     "note": "Hors tolérance (−8,1 %), cause notée : Ville-Saint-Jacques → Château-Landon fait 29,5 km routés pour 39,5 au profil (25,7 à vol d'oiseau) et Préfontaines → Montargis 13,5 pour 18, détours non imprimés ; −6,5 % en voiture. Départ : Épernay → Mareuil-en-Brie 17,7 km à vol d'oiseau pour 13 au profil, départ réel hors de la ville, non situé (règle 25). Préfontaines placé à la mairie (la ligne droite depuis Château-Landon dépassait le profil)."
     },
     "6": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2010/10_06_%C3%A81.gif",
@@ -82311,8 +82302,11 @@
        "label": "Côte des Granges",
        "km": 69,
        "kind": "côte",
-       "note": "581 m imprimés ; 4e catégorie ; imprimé « Côte des Granges (Dessia) » ; non placée : aucun lieu « Granges » compatible près de Dessia",
-       "confidence": "non-place"
+       "note": "581 m imprimés ; 4e catégorie ; imprimé « Côte des Granges (Dessia) » ; hameau des Granges (Dessia, Montlainsia), 588 m au MNT",
+       "confidence": "ok",
+       "lat": 46.39215,
+       "lon": 5.50427,
+       "how": "nominatim"
       },
       {
        "label": "Côte d'Arinthod",
@@ -82379,26 +82373,26 @@
        "label": "Station des Rousses",
        "km": 165.5,
        "kind": "ville",
-       "note": "1168 m imprimés",
-       "lat": 46.48555,
-       "lon": 6.06035,
-       "how": "stage_towns",
-       "confidence": "ok"
+       "note": "1168 m imprimés ; arrivée placée à la Station des Rousses, massif de la Serra (Lamoura), 1 178 m au MNT pour 1 168 : position déduite du profil (4 km après la côte de Lamoura), ligne non sourcée (règle 22)",
+       "lat": 46.41264,
+       "lon": 5.99754,
+       "how": "nominatim",
+       "confidence": "ambiguous"
       }
      ],
      "route_check": {
-      "routed_km": 164,
+      "routed_km": 153.3,
       "profile_km": 153.5,
-      "delta_pct": 6.9,
+      "delta_pct": -0.1,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
-      "legs": 8,
-      "suspect_legs": 1,
+      "legs": 9,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Hors tolérance (+6,9 %), cause notée : la côte de Lamoura n'est pas placée ; sans elle, Col de la Croix de la Serra → Station des Rousses fait 44,9 km routés pour 31 au profil (29,7 à vol d'oiseau) : le routeur ne passe pas par Lajoux et Lamoura. Départ : Tournus → Romenay 13,6 km à vol d'oiseau pour 12 au profil, départ réel hors de la ville, non situé (règle 25)."
+     "note": "Dans la tolérance (−0,1 %) une fois l'arrivée placée à la Station des Rousses (massif de la Serra) : à la mairie des Rousses, l'étape était à +6,9 %. Départ : Tournus → Romenay 13,6 km à vol d'oiseau pour 12 au profil, départ réel hors de la ville, non situé (règle 25)."
     },
     "8": {
      "source_url": "https://www.ledicodutour.com/images/cols/2010/10_profil_etape8.gif",
@@ -82407,11 +82401,11 @@
        "label": "Station des Rousses",
        "km": 0,
        "kind": "ville",
-       "note": "1089 m imprimés",
-       "lat": 46.48792,
-       "lon": 6.0965,
+       "note": "1089 m imprimés ; départ placé à la mairie des Rousses (1 108 m au MNT) ; départ réel non situé (règle 25)",
+       "lat": 46.48495,
+       "lon": 6.06037,
        "how": "nominatim",
-       "confidence": "ambigu"
+       "confidence": "ok"
       },
       {
        "label": "Prémanon",
@@ -82675,7 +82669,7 @@
        "label": "La Rochette",
        "km": 145,
        "kind": "lieu-dit",
-       "note": "374 m imprimés ; La Rochette (La Léchère) ; hameau de La Rochette (Rognaix), MNT 401 m",
+       "note": "374 m imprimés ; imprimé « La Rochette » ; hameau de La Rochette (Rognaix), MNT 401 m",
        "confidence": "ok",
        "lat": 45.56466,
        "lon": 6.46358,
@@ -82733,7 +82727,8 @@
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 1
-     }
+     },
+     "note": "Aller-retour incertain au col des Saisies : Le Mont Rond, retiré, est sauté (33.14)."
     },
     "10": {
      "source_url": "https://www.ledicodutour.com/images/cols/2010/10_profil_etape10.gif",
@@ -82782,11 +82777,11 @@
        "label": "Côte de Laffrey",
        "km": 77,
        "kind": "côte",
-       "note": "886 m imprimés ; 1re catégorie",
+       "note": "886 m imprimés ; 1re catégorie ; point sur la route des Josserands (963 m au MNT pour 886), pas sur la rampe de Laffrey",
        "lat": 45.01824,
        "lon": 5.78622,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ambiguous"
       },
       {
        "label": "Pierre-Châtel",
@@ -82946,10 +82941,10 @@
        "label": "Vercheny",
        "km": 115,
        "kind": "ville",
-       "note": "322 m imprimés",
-       "lat": 44.7103,
-       "lon": 5.254,
-       "how": "commune-ign",
+       "note": "322 m imprimés ; placé à Vercheny La Plaine, sur la D93 (300 m au MNT) ; le centre de commune est sur le versant à 410 m",
+       "lat": 44.70643,
+       "lon": 5.25998,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -83004,18 +82999,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 164.8,
+      "routed_km": 161.7,
       "profile_km": 168,
-      "delta_pct": -1.9,
+      "delta_pct": -3.8,
       "tolerance_pct": 5,
       "coverage_pct": 91,
       "car_legs": 0,
       "legs": 11,
       "suspect_legs": 1,
-      "backtracks": 1,
+      "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Aller-retour du routeur à Vercheny (1,6 km) : centre de commune, laissé, noté (règle 17)."
+     "note": "Aller-retour du routeur à Vercheny (1,6 km) : centre de commune, laissé, noté (règle 17). Tronçon suspect : Montélier → Bourg-lès-Valence, 13,8 km routés pour 23 au profil (10,6 à vol d'oiseau), détour non imprimé (règle 11)."
     },
     "12": {
      "source_url": "https://www.ledicodutour.com/images/cols/2010/10_profil_etape12.gif",
@@ -83044,11 +83039,8 @@
        "label": "Côte de Saint-Barthélemy-le-Plain",
        "km": 31,
        "kind": "côte",
-       "note": "489 m imprimés ; 3e catégorie",
-       "lat": 45.03736,
-       "lon": 4.75425,
-       "how": "nominatim",
-       "confidence": "ambigu"
+       "note": "489 m imprimés ; 3e catégorie ; retirée (audit) : le point était au bas de la côte (Chemin de Côte Plaine, 396 m pour 489), sommet non localisé",
+       "confidence": "non-place"
       },
       {
        "label": "Le Crestet",
@@ -83084,15 +83076,18 @@
        "label": "Suc de Montivernoux",
        "km": 96,
        "kind": "col",
-       "note": "1315 m imprimés ; 2e catégorie ; retiré : placé au sommet du suc (1 441 m au MNT pour 1 315), point de passage de la route non localisé",
+       "note": "1315 m imprimés ; 2e catégorie ; retiré : placé au sommet du suc (1 441 m au MNT pour 1 315), point de passage de la route non localisé ; le col du Montivernoux (1 317 m au MNT) est à 6,5 km du Gerbier pour 1 km au profil : le profil se contredit",
        "confidence": "non-place"
       },
       {
        "label": "Le Gerbier de Jonc",
        "km": 97,
        "kind": "lieu-dit",
-       "note": "1417 m imprimés ; non placé : seule la route du Gerbier est connue de Nominatim, à 886 m au MNT pour 1 417",
-       "confidence": "non-place"
+       "note": "1417 m imprimés ; col du Gerbier de Jonc (1 417 m au MNT)",
+       "confidence": "ok",
+       "lat": 44.84071,
+       "lon": 4.22448,
+       "how": "nominatim"
       },
       {
        "label": "Lachamp-Raphaël",
@@ -83150,18 +83145,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 192.6,
+      "routed_km": 204,
       "profile_km": 196,
-      "delta_pct": -1.7,
+      "delta_pct": 4.1,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
       "legs": 8,
-      "suspect_legs": 2,
+      "suspect_legs": 0,
       "backtracks": 0,
-      "backtracks_uncertain": 0
+      "backtracks_uncertain": 2
      },
-     "note": "Départ : Bourg-de-Péage → Tournon-sur-Rhône 17,6 km à vol d'oiseau pour 14,5 au profil, départ réel hors de la ville, non situé (règle 25)."
+     "note": "Départ : Bourg-de-Péage → Tournon-sur-Rhône 17,6 km à vol d'oiseau pour 14,5 au profil, départ réel hors de la ville, non situé (règle 25). Allers-retours incertains au Gerbier de Jonc et à Lachamp-Raphaël : le suc de Montivernoux, retiré, est sauté (33.14) ; le profil se contredit à cet endroit (voir la note du suc)."
     },
     "13": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2010/10_13_1.gif",
@@ -83247,11 +83242,8 @@
        "label": "Lombers",
        "km": 93,
        "kind": "ville",
-       "note": "263 m imprimés",
-       "lat": 43.8046,
-       "lon": 2.15009,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "263 m imprimés ; retiré (audit) : le village est à 193 m au MNT pour 263, et Mouzieys → Lombers → Réalmont fait au moins 16,5 km à vol d'oiseau pour 15 ; passage dans la commune non localisé",
+       "confidence": "non-place"
       },
       {
        "label": "Réalmont",
@@ -83277,11 +83269,8 @@
        "label": "Côte de Puylaurens",
        "km": 125,
        "kind": "côte",
-       "note": "368 m imprimés ; 4e catégorie",
-       "lat": 43.57339,
-       "lon": 2.0167,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "368 m imprimés ; 4e catégorie ; retirée (audit) : le point était dans le bourg (325 m pour 368), à 7,8 km de Vielmur pour 5,5 ; sommet non localisé",
+       "confidence": "non-place"
       },
       {
        "label": "Cuq-Toulza",
@@ -83332,18 +83321,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 186,
+      "routed_km": 182.6,
       "profile_km": 187,
-      "delta_pct": -0.6,
+      "delta_pct": -2.4,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 13,
-      "suspect_legs": 3,
+      "legs": 11,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Aller-retour du routeur à Cuq-Toulza (1,1 km) : centre de commune, laissé, noté (règle 17)."
+     "note": "Aller-retour du routeur à Cuq-Toulza (1,1 km) : centre de commune, laissé, noté (règle 17). Tronçon suspect : Saint-Félix-Lauragais → Revel, 10,4 km routés pour 21,5 au profil, côte de Saint-Ferréol non placée (règle 11)."
     },
     "14": {
      "source_url": "https://www.ledicodutour.com/images/cols/2010/10_profil_etape14.gif",
@@ -83689,7 +83678,7 @@
       "backtracks": 1,
       "backtracks_uncertain": 0
      },
-     "note": "Hors tolérance (−5,9 %), cause notée : Côte de Carla-Bayle → Le Mas-d'Azil et Saint-Girons → Engomer sont plus courts que le profil, vélo comme voiture (−6,9 % en voiture)."
+     "note": "Hors tolérance (−5,9 %), cause notée : Côte de Carla-Bayle → Le Mas-d'Azil et Saint-Girons → Engomer sont plus courts que le profil, vélo comme voiture (−6,9 % en voiture). Côte de Carla-Bayle à la mairie : l'aller-retour du routeur (4,1 km) persiste ; sans ces kilomètres doublés, l'écart serait d'environ −8 %."
     },
     "16": {
      "source_url": "https://www.ledicodutour.com/images/cols/2010/10_profil_etape16.gif",
@@ -83867,7 +83856,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Bagnères-de-Luchon → Garin 6,2 km à vol d'oiseau pour 5 au profil, départ réel hors de la ville, non situé (règle 25)."
+     "note": "Départ : Bagnères-de-Luchon → Garin 6,2 km à vol d'oiseau pour 5 au profil, départ réel hors de la ville, non situé (règle 25). Tronçon suspect : Gan → Pau, 9,5 km routés pour 14 au profil, même valeur en voiture : détour non imprimé (règle 11)."
     },
     "17": {
      "source_url": "https://www.ledicodutour.com/images/cols/2010/10_profil_etape17.gif",
@@ -83886,7 +83875,7 @@
        "label": "Côte de Renoir",
        "km": 13.5,
        "kind": "côte",
-       "note": "347 m imprimés ; 4e catégorie ; non placée : aucun lieu « Renoir » compatible hors de Pau",
+       "note": "347 m imprimés ; 4e catégorie ; non placée : seul le chemin de Renoir (Lasseube, 338-383 m au MNT) est connu de Nominatim, position sur la route du Tour non vérifiée",
        "confidence": "non-place"
       },
       {
@@ -84231,20 +84220,20 @@
        "label": "Arcins",
        "km": 36.5,
        "kind": "ville",
-       "note": "7 m imprimés ; imprimé « Arcins-en-Médoc »",
-       "lat": 45.07261,
-       "lon": -0.72578,
-       "how": "commune-ign",
+       "note": "7 m imprimés ; imprimé « Arcins-en-Médoc » ; placé à la mairie",
+       "lat": 45.07451,
+       "lon": -0.72638,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
        "label": "Cussac-Fort-Médoc",
        "km": 40.5,
        "kind": "ville",
-       "note": "11 m imprimés",
-       "lat": 45.11903,
-       "lon": -0.72885,
-       "how": "commune-ign",
+       "note": "11 m imprimés ; placé à la mairie",
+       "lat": 45.1128,
+       "lon": -0.73021,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -84258,16 +84247,16 @@
        "confidence": "ok"
       }
      ],
-     "note": "Contre-la-montre individuel. Hors tolérance (+6,6 %), cause notée : contre-la-montre mesuré sur 65 % de l'étape ; Le Pian-Médoc → Labarde fait 10,9 km routés pour 7,5 au profil (7,9 à vol d'oiseau), vélo comme voiture (+7,1 % en voiture).",
+     "note": "Contre-la-montre individuel. Hors tolérance (+5,8 %), cause notée : contre-la-montre mesuré sur 65 % de l'étape ; Le Pian-Médoc → Labarde fait 10,9 km routés pour 7,5 au profil (7,9 à vol d'oiseau), vélo comme voiture (+7,1 % en voiture).",
      "route_check": {
-      "routed_km": 36.3,
+      "routed_km": 36,
       "profile_km": 34,
-      "delta_pct": 6.6,
+      "delta_pct": 5.8,
       "tolerance_pct": 5,
       "coverage_pct": 65,
       "car_legs": 0,
       "legs": 6,
-      "suspect_legs": 2,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }

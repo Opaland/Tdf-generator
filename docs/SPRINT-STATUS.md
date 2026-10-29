@@ -683,23 +683,24 @@ et côtes traversées avec leur kilomètre.
   (Montpellier, Barcelone, Aubenas), notes fausses corrigées (Montredon,
   Saint-Bauzille, Arâches), tronçons suspects notés.
 
-- [ ] Édition 2010 **en cours** (audit Mireille avant la fusion) : 20 étapes
-  sur 21 (prologue de Rotterdam non transcrit : deux ponts seulement), 255
-  points placés sur 284, depuis les profils de ledicodutour.com
-  (`10_NN_1.gif`, `cols/2010/…` pour 9 étapes ; 470 px, altitudes
-  imprimées, lus au triple). Critères : chaque point placé ou non placé
-  avec note ; altitude contrôlée point par point (règle 14) ; contrôle à
-  ±5 % sur BRouter public, 0 tronçon en voiture ; cause écrite pour chaque
-  étape hors tolérance, avec la comparaison vélo / voiture (règle 20) ;
-  curation de données, pas de relecture adverse dédiée (règle 11).
-  Fait : 11 étapes dans la tolérance, 8 hors, cause notée — 2010/1 (−6,2 %,
-  +2,9 % en voiture), 2010/2 (−16,4 %, boucles ardennaises non imprimées),
-  2010/3 (−9,2 %, secteurs pavés rattachés à leur village), 2010/4 (−6,4 %,
-  −1,2 % en voiture), 2010/5 (−7,9 %), 2010/7 (+6,9 %, côte de Lamoura non
-  placée), 2010/15 (−5,9 %), 2010/19 (+6,6 %, contre-la-montre) ; 2010/20
+- [x] Édition 2010 (PR #509) : 20 étapes sur 21 (prologue de Rotterdam non
+  transcrit : deux ponts seulement), 251 points placés sur 284, depuis les
+  profils de ledicodutour.com (`10_NN_1.gif`, `cols/2010/…` pour 9 étapes ;
+  470 px, altitudes imprimées, lus au triple). Non placés, avec note : côtes
+  sans sommet localisé, entrées de ville. Altitude contrôlée point par point
+  (règle 14). Contrôlée à ±5 % sur BRouter public, 0 tronçon en voiture : 12
+  étapes dans la tolérance, 7 hors, cause notée — 2010/1 (−6,2 %, +2,9 % en
+  voiture), 2010/2 (−14,2 %, boucles ardennaises non imprimées), 2010/3
+  (−8,9 %, secteurs pavés rattachés à leur village), 2010/4 (−6,4 %), 2010/5
+  (−8,1 %), 2010/15 (−5,9 %), 2010/19 (+5,8 %, contre-la-montre) ; 2010/20
   non contrôlable (circuit des Champs-Élysées). La Thuile (2010/9) était
-  placée sur un sommet homonyme à 2 283 m : replacée au hameau de Celliers ;
-  arrivée de Paris sur les Champs-Élysées, de Mende à l'aérodrome.
+  placée sur un sommet homonyme à 2 283 m. Corrigés à l'audit Mireille :
+  arrivée de 2010/7 à la Station des Rousses (massif de la Serra, l'étape
+  passe de +6,9 à −0,1 %), départ de 2010/8 à la mairie, Vercheny sur la
+  D93, col du Gerbier de Jonc et hameau des Granges placés, Préfontaines,
+  Cussac et Arcins à la mairie ; Basse-Bodeux, Saint-Servais, Lombers, côtes
+  de Puylaurens et de Saint-Barthélemy et doublon de Braine-le-Comte
+  retirés ; notes fausses corrigées (Cuq-Toulza, Zeeland au km 73, Renoir).
 
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
