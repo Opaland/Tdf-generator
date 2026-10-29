@@ -683,6 +683,24 @@ et côtes traversées avec leur kilomètre.
   (Montpellier, Barcelone, Aubenas), notes fausses corrigées (Montredon,
   Saint-Bauzille, Arâches), tronçons suspects notés.
 
+- [ ] Édition 2010 **en cours** (audit Mireille avant la fusion) : 20 étapes
+  sur 21 (prologue de Rotterdam non transcrit : deux ponts seulement), 255
+  points placés sur 284, depuis les profils de ledicodutour.com
+  (`10_NN_1.gif`, `cols/2010/…` pour 9 étapes ; 470 px, altitudes
+  imprimées, lus au triple). Critères : chaque point placé ou non placé
+  avec note ; altitude contrôlée point par point (règle 14) ; contrôle à
+  ±5 % sur BRouter public, 0 tronçon en voiture ; cause écrite pour chaque
+  étape hors tolérance, avec la comparaison vélo / voiture (règle 20) ;
+  curation de données, pas de relecture adverse dédiée (règle 11).
+  Fait : 10 étapes dans la tolérance, 9 hors, cause notée — 2010/1 (−6,2 %,
+  +2,9 % en voiture), 2010/2 (−16,4 %, boucles ardennaises non imprimées),
+  2010/3 (−9,2 %, secteurs pavés rattachés à leur village), 2010/4 (−6,4 %,
+  −1,2 % en voiture), 2010/5 (−7,9 %), 2010/7 (+6,9 %, côte de Lamoura non
+  placée), 2010/15 (−5,9 %), 2010/19 (+6,6 %, contre-la-montre) ; 2010/20
+  non contrôlable (circuit des Champs-Élysées). La Thuile (2010/9) était
+  placée sur un sommet homonyme à 2 283 m : replacée au hameau de Celliers ;
+  arrivée de Paris sur les Champs-Élysées, de Mende à l'aérodrome.
+
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
