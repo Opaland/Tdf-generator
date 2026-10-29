@@ -683,6 +683,23 @@ et côtes traversées avec leur kilomètre.
   (Montpellier, Barcelone, Aubenas), notes fausses corrigées (Montredon,
   Saint-Bauzille, Arâches), tronçons suspects notés.
 
+- [ ] Édition 2011 **en cours** (audit Mireille avant la fusion) : 21 étapes
+  sur 21 (pas de prologue en 2011), 219 points placés sur 233, depuis les
+  profils de ledicodutour.com (`11_NN_1.gif`, `cols/2011/…` pour 9 étapes ;
+  470 px, altitudes imprimées, lus au triple). Critères : chaque point placé
+  ou non placé avec note ; altitude contrôlée point par point (règle 14) ;
+  contrôle à ±5 % sur BRouter public, 0 tronçon en voiture ; cause écrite
+  pour chaque étape hors tolérance, avec la comparaison vélo / voiture
+  (règle 20) ; curation de données, pas de relecture adverse dédiée (règle
+  11).
+  Fait : 14 étapes dans la tolérance, 6 hors, cause notée — 2011/2 (−29,8 %,
+  contre-la-montre par équipes en boucle), 2011/4 (−8,8 %), 2011/5
+  (−5,7 %), 2011/9 (−5,1 %, col du Perthus inconnu de Nominatim), 2011/13
+  (−7,8 %), 2011/20 (−8,9 %, contre-la-montre) ; 2011/21 non contrôlable
+  (circuit des Champs-Élysées). Arrivées de Mûr-de-Bretagne au sommet de la
+  côte, du Plateau de Beille au parking, de Paris sur les Champs-Élysées ;
+  Éraines (imprimé « Eraines ») et non Ernes.
+
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
