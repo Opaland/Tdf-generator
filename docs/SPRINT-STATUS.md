@@ -780,6 +780,29 @@ et côtes traversées avec leur kilomètre.
   17). Règle 21 de `docs/CURATION-REGLES.md` complétée (variante
   Perthus / Pertus, type `mountain_pass` d'un col).
 
+- [ ] Édition 2013 **en cours** : 20 étapes sur 21, depuis les profils de
+  ledicodutour.com (`cartes_etapes/2013/2013_NN_profil.png` ou
+  `2013_NN.png`, 502 px, altitudes imprimées). Le contre-la-montre par
+  équipes de Nice (2013/4) n'est pas transcrit : son profil n'imprime que
+  Nice. Critères d'acceptation : chaque nom imprimé est transcrit avec son
+  km, lu sur un agrandissement ; l'altitude est contrôlée point par point
+  (règle 14) ; le contrôle à ±5 % passe sur BRouter public avec 0 tronçon
+  en voiture, et chaque étape hors tolérance a sa cause notée ; le test
+  d'invariant passe ; l'audit Mireille est fait avant la fusion.
+  Fait : 196 points placés sur 225. Contrôlée à ±5 % sur BRouter public,
+  0 tronçon en voiture : 11 étapes dans la tolérance, 9 hors, cause notée
+  avec la comparaison en voiture — 2013/1 (−10,0 %, −9,9 % : final de
+  Bastia non imprimé), 2013/2 (−6,4 %, −6,5 %), 2013/7 (−5,4 %, −4,2 %),
+  2013/10 (−8,5 %, −8,5 %), 2013/14 (−5,3 %, −2,4 %), 2013/17 (−30,0 %,
+  −28,2 %, contre-la-montre : côte de Réallon non placée), 2013/18
+  (−22,7 %, −22,6 % : descente de Sarenne par La Ferrière non placée),
+  2013/19 (−7,5 %, −6,5 %) ; 2013/21 non contrôlable. Altitude : villages
+  perchés corses (Solaro, San-Giuliano) et de montagne (Fayence, Quet,
+  Valbonnais) non placés, Biguglia à sa mairie, Castello-di-Rostino à
+  Ponte-Novo ; côte de la Quintaine et Mont Revard retirés (tronçon de 28
+  km pour 14, aller-retour). En 2013/1, deux km imprimés sans nom : noms
+  appariés par la distance (règle 3).
+
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
