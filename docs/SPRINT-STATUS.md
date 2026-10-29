@@ -757,6 +757,30 @@ et côtes traversées avec leur kilomètre.
   17). Règle 21 de `docs/CURATION-REGLES.md` complétée (variante
   Perthus / Pertus, type `mountain_pass` d'un col).
 
+- [ ] Édition 2012 **en cours** : les 19 étapes qui manquent (2012/6 est
+  déjà transcrite par le lot Lorraine ; prologue de Liège non transcrit),
+  depuis les profils de ledicodutour.com (`cartes_etapes/2012/12_NN_pro.jpg`,
+  470 px, altitudes imprimées). Critères d'acceptation : chaque nom
+  imprimé est transcrit avec son km, lu sur un agrandissement ;
+  l'altitude est contrôlée point par point (règle 14) ; le contrôle à
+  ±5 % passe sur BRouter public avec 0 tronçon en voiture, et chaque étape
+  hors tolérance a sa cause notée ; le test d'invariant passe ; l'audit
+  Mireille est fait avant la fusion.
+  Fait : 221 points placés sur 239 dans les 19 étapes ajoutées. Contrôlée
+  à ±5 % sur BRouter public, 0 tronçon en voiture : 10 étapes dans la
+  tolérance, 9 hors, cause notée avec la comparaison en voiture — 2012/1
+  (−17,1 %, −19,1 % en voiture : boucles ardennaises et final de Seraing
+  non imprimés), 2012/3 (−12,1 %, −5,2 %), 2012/6 (−6,1 %, du lot
+  Lorraine, −3,8 %), 2012/8 (−8,1 %, −4,1 %), 2012/9 (−7,6 %, −3,9 %,
+  contre-la-montre), 2012/10 (−8,2 %, −7,6 %), 2012/11 (−6,1 %, −5,2 %),
+  2012/17 (−7,7 %, −5,7 %), 2012/19 (−5,9 %, −5,4 %, contre-la-montre) ;
+  2012/20 non contrôlable. Trois points retirés pour aller-retour
+  (côtes de Saignelégier et de Burs, Béon) : les « ok » qu'ils donnaient
+  n'étaient pas probants (règle 24). Altitude : La Toussuire reprise de
+  2006/16 (le point de stage_towns tombait 500 m trop bas), Belmont à la
+  mairie, Castelnau-Montratier non placé ; Belgique et Suisse contrôlées
+  sur EU-DEM. Le profil de 2012/2 porte par erreur l'en-tête de l'étape 1.
+
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
