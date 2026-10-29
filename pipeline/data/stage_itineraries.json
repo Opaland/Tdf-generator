@@ -81568,7 +81568,8 @@
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Saint-Philbert-de-Grand-Lieu → Saint-Mars-de-Coutais : 17,3 km routés à vélo comme en voiture pour 11 au profil (11,1 à vol d'oiseau), les deux points à moins de 200 m de leur mairie : pas le routeur, cause non établie (règle 20)."
     },
     "4": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2011/11_04_1.gif",
@@ -81617,8 +81618,11 @@
        "label": "Côte de Laz",
        "km": 79,
        "kind": "côte",
-       "note": "237 m imprimés ; 4e catégorie ; non placée : lieu inconnu de Nominatim",
-       "confidence": "non-place"
+       "note": "237 m imprimés ; 4e catégorie ; au village de Laz (235 m au MNT pour 237 imprimés)",
+       "confidence": "ok",
+       "lat": 48.13717,
+       "lon": -3.83647,
+       "how": "nominatim"
       },
       {
        "label": "Spézet",
@@ -81634,11 +81638,8 @@
        "label": "Spézet (2)",
        "km": 93,
        "kind": "lieu-dit",
-       "note": "105 m imprimés ; imprimé « Spézet » une seconde fois (ravitaillement), 500 m plus loin ; non placé",
-       "lat": 48.19259,
-       "lon": -3.71651,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "105 m imprimés ; imprimé « Spézet » une seconde fois (ravitaillement), 500 m plus loin ; non placé : même point que Spézet (km 92,5)",
+       "confidence": "non-place"
       },
       {
        "label": "La Trinité-Langonnet",
@@ -81682,18 +81683,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 143.2,
+      "routed_km": 154.2,
       "profile_km": 157,
-      "delta_pct": -8.8,
+      "delta_pct": -1.8,
       "tolerance_pct": 5,
       "coverage_pct": 91,
       "car_legs": 0,
       "legs": 8,
-      "suspect_legs": 1,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Hors tolérance (−8,8 %), cause notée : Scaër → Spézet fait 21,1 km à vélo, 24,9 en voiture, pour 34,5 au profil (côte de Laz non placée) ; Cléguérec → Mûr-de-Bretagne 14,9 pour 20 ; −3,6 % en voiture. Départ : Lorient → Plouay 18,6 km à vol d'oiseau pour 15,5 au profil, départ réel hors de la ville, non situé (règle 25)."
+     "note": "Côte de Laz placée au village (audit Mireille) : l'étape passe de −8,8 % à −1,8 %, dans la tolérance ; Cléguérec → Mûr-de-Bretagne fait 14,9 km routés pour 20. Départ : Lorient → Plouay 18,6 km à vol d'oiseau pour 15,5 au profil, départ réel hors de la ville, non situé (règle 25)."
     },
     "5": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2011/11_05_1.gif",
@@ -81880,19 +81881,19 @@
        "label": "Vire",
        "km": 114,
        "kind": "ville",
-       "note": "137 m imprimés",
-       "lat": 48.8201,
-       "lon": -0.87648,
-       "how": "commune-ign-prefixe",
-       "confidence": "ambigu"
+       "note": "137 m imprimés ; à l'hôtel de ville de Vire (le centre de Vire Normandie tombait à 2,2 km, règles 6 et 15)",
+       "lat": 48.83785,
+       "lon": -0.8885,
+       "how": "nominatim",
+       "confidence": "ok"
       },
       {
        "label": "Vassy",
        "km": 131,
        "kind": "ville",
-       "note": "156 m imprimés",
-       "lat": 48.86542,
-       "lon": -0.65846,
+       "note": "156 m imprimés ; à la mairie (le point précédent, hameau de L'Angotière, était à 1,9 km, règle 6)",
+       "lat": 48.85289,
+       "lon": -0.67693,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -81948,9 +81949,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 206.4,
+      "routed_km": 199.8,
       "profile_km": 206,
-      "delta_pct": 0.2,
+      "delta_pct": -3,
       "tolerance_pct": 5,
       "coverage_pct": 91,
       "car_legs": 0,
@@ -82288,8 +82289,11 @@
        "label": "Col du Perthus",
        "km": 116,
        "kind": "col",
-       "note": "1309 m imprimés ; 2e catégorie ; non placé : col inconnu de Nominatim",
-       "confidence": "non-place"
+       "note": "1309 m imprimés ; 2e catégorie ; Nominatim l'écrit « Col du Pertus » (1 310 m au MNT pour 1 309 imprimés)",
+       "confidence": "ok",
+       "lat": 45.05809,
+       "lon": 2.67363,
+       "how": "nominatim"
       },
       {
        "label": "Col de Cère",
@@ -82350,18 +82354,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 181.8,
+      "routed_km": 178.6,
       "profile_km": 191.5,
-      "delta_pct": -5.1,
+      "delta_pct": -6.7,
       "tolerance_pct": 5,
       "coverage_pct": 92,
       "car_legs": 0,
-      "legs": 7,
+      "legs": 8,
       "suspect_legs": 1,
       "backtracks": 0,
-      "backtracks_uncertain": 2
+      "backtracks_uncertain": 0
      },
-     "note": "Hors tolérance (−5,1 %), cause notée : Dienne → Pas de Peyrol fait 12,2 km routés pour 18 et Neuvéglise → Saint-Flour 21,2 pour 30 (côte du château d'Alleuze non placée). Le col du Perthus, inconnu de Nominatim, n'est pas placé : allers-retours incertains autour du Pas de Peyrol et du col de Cère (33.14) ; −9,1 % en voiture. Départ : Issoire → Lempdes-sur-Allagnon 17,6 km à vol d'oiseau pour 16,5 au profil, départ réel hors de la ville, non situé (règle 25)."
+     "note": "Hors tolérance (−6,7 %), cause notée : Dienne → Pas de Peyrol fait 12,2 km routés pour 18, à vélo comme en voiture, et Neuvéglise → Saint-Flour 21,2 pour 30 (18,0 en voiture ; côte du château d'Alleuze non placée) ; −9,1 % en voiture (174,1 km), ce n'est donc pas le routeur. Col du Perthus placé (Nominatim l'écrit « Col du Pertus ») : les allers-retours incertains du Pas de Peyrol et du col de Cère disparaissent, l'étape passe de −5,1 % (avec 25 km repris) à −6,7 % (règle 24). Départ : Issoire → Lempdes-sur-Allagnon 17,6 km à vol d'oiseau pour 16,5 au profil, départ réel hors de la ville, non situé (règle 25)."
     },
     "10": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2011/11_10_1.gif",
@@ -82500,7 +82504,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Aurillac → Sansac-de-Marmiesse 9,1 km à vol d'oiseau pour 8 au profil, départ réel hors de la ville, non situé (règle 25)."
+     "note": "Départ : Aurillac → Sansac-de-Marmiesse 9,1 km à vol d'oiseau pour 8 au profil, départ réel hors de la ville, non situé (règle 25). Villeneuve → Saint-Rémy : 6,0 km routés à vélo, 5,9 en voiture, pour 10 au profil : détour non imprimé, pas le routeur (règle 20)."
     },
     "11": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2011/11_11_1.gif",
@@ -82509,10 +82513,10 @@
        "label": "Blaye-les-Mines",
        "km": 0,
        "kind": "ville",
-       "note": "325 m imprimés",
-       "lat": 44.03012,
-       "lon": 2.13233,
-       "how": "commune-ign",
+       "note": "325 m imprimés ; départ placé à la mairie, place Jean-Coutouly (le centre IGN de la commune était à 2,15 km, règle 25)",
+       "lat": 44.03368,
+       "lon": 2.15871,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -82645,7 +82649,7 @@
       "backtracks": 1,
       "backtracks_uncertain": 0
      },
-     "note": "Aller-retour du routeur à Larroque (10,7 km) : point à la mairie, au fond de la vallée de la Vère ; le profil (23 km depuis Vaour, 11,9 à vol d'oiseau) descend vraisemblablement au village et remonte, laissé, noté (règle 17). Lautrec → Saint-Paul-Cap-de-Joux : 20,1 km routés pour 32 au profil (côte de Puylaurens non placée)."
+     "note": "« Dans la tolérance » non probant (règle 24) : le −2,2 % inclut un aller-retour du routeur de 10,7 km à Larroque. Le point est à la mairie ; le profil imprime le passage en Tarn-et-Garonne entre les km 50,5 et 58 environ, la course arrive donc à Larroque par l'ouest (vallée de l'Aveyron), sans demi-tour : l'aller-retour vient du routeur, et le parcours exact entre Vaour et Larroque reste à sourcer. Lautrec → Saint-Paul-Cap-de-Joux : 20,1 km routés pour 32 au profil (côte de Puylaurens non placée). Départ placé à la mairie de Blaye-les-Mines (règle 25)."
     },
     "12": {
      "source_url": "https://www.ledicodutour.com/images/cols/2011/11_profil_etape_12.gif",
@@ -82970,9 +82974,9 @@
        "label": "Col de la Core",
        "km": 62.5,
        "kind": "col",
-       "note": "1395 m imprimés ; 1re catégorie",
-       "lat": 42.86259,
-       "lon": 1.10818,
+       "note": "1395 m imprimés ; 1re catégorie ; au col (mountain_pass, 1 394 m au MNT) ; le point précédent était un terrain de loisirs à 1 461 m",
+       "lat": 42.8589,
+       "lon": 1.10499,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -83058,9 +83062,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 160.8,
+      "routed_km": 160.2,
       "profile_km": 157.5,
-      "delta_pct": 2.1,
+      "delta_pct": 1.7,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
@@ -83198,11 +83202,8 @@
        "label": "Montpellier (entrée)",
        "km": 184,
        "kind": "lieu-dit",
-       "note": "55 m imprimés",
-       "lat": 43.65555,
-       "lon": 3.8748,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "55 m imprimés ; non placé : point exact de l'entrée non sourcé (le point Nominatim tombait à Clapiers, au nord de la ville, règle 7)",
+       "confidence": "non-place"
       },
       {
        "label": "Montpellier",
@@ -83216,16 +83217,16 @@
       }
      ],
      "circuit_km": 184,
-     "note": "Entrée dans Montpellier au km 184, arrivée au km 193 (circuit_km, règle 19).",
+     "note": "Entrée dans Montpellier au km 184, arrivée au km 193 (circuit_km, règle 19) ; l'entrée n'est pas placée (point exact non sourcé, le point Nominatim tombait à Clapiers).",
      "route_check": {
-      "routed_km": 173.4,
-      "profile_km": 169.5,
-      "delta_pct": 2.3,
+      "routed_km": 149.3,
+      "profile_km": 150.5,
+      "delta_pct": -0.8,
       "tolerance_pct": 5,
-      "coverage_pct": 88,
+      "coverage_pct": 78,
       "car_legs": 0,
-      "legs": 11,
-      "suspect_legs": 1,
+      "legs": 10,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -83352,7 +83353,8 @@
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 1
-     }
+     },
+     "note": "Boucle Gap → col de Manse → Gap : le 1er passage dans Gap (km 139) n'est pas placé, d'où un aller-retour incertain de 2,2 km vers Gap au col de Manse (règle 9) ; il disparaîtrait avec un point de passage sourcé."
     },
     "17": {
      "source_url": "https://www.ledicodutour.com/images/cols/2011/11_profil_etape_17.gif",
@@ -83504,7 +83506,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Gap → Chorges 15,4 km à vol d'oiseau pour 14 au profil, départ réel hors de la ville, non situé (règle 25)."
+     "note": "Départ : Gap → Chorges 15,4 km à vol d'oiseau pour 14 au profil, départ réel hors de la ville, non situé (règle 25). Villar Perosa → Pinerolo : 11,1 km routés pour 16 au profil (côte de Pramartino non placée)."
     },
     "18": {
      "source_url": "https://www.ledicodutour.com/images/cols/2011/11_profil_etape_18.gif",
@@ -83917,8 +83919,8 @@
        "confidence": "ok"
       }
      ],
-     "circuit_km": 46,
-     "note": "Circuit des Champs-Élysées : 1er passage sur la ligne au km 46, passages imprimés jusqu'au 7e (km 83), arrivée au km 95 ; seul le 1er passage est repris (circuit_km). Non contrôlable : hors circuit, la partie mesurable couvre moins de la moitié de l'étape."
+     "circuit_km": 44,
+     "note": "Circuit des Champs-Élysées : entrée du circuit au km 44 (circuit_km, règle 19), 1er passage sur la ligne au km 46, passages imprimés jusqu'au 7e (km 83), arrivée au km 95 ; seul le 1er passage est repris (circuit_km). Non contrôlable : hors circuit, la partie mesurable couvre moins de la moitié de l'étape."
     }
    }
   },
