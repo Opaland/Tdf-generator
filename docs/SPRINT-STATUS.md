@@ -856,7 +856,7 @@ et côtes traversées avec leur kilomètre.
   sourcées ; « km imprimé incohérent, mairies vérifiées » sur quatre
   tronçons ; allers-retours incertains notés en 2014/9 et 2014/11.
 
-- [ ] Édition 2015 **en cours** : 21 étapes sur 21 (pas de prologue en
+- [x] Édition 2015 (PR #516) : 21 étapes sur 21 (pas de prologue en
   2015, contre-la-montre d'Utrecht en 1re étape), depuis les profils de
   ledicodutour.com (`cartes_etapes/2015/etape_N.png`, 600 px, altitudes
   imprimées).
@@ -866,22 +866,28 @@ et côtes traversées avec leur kilomètre.
   public avec 0 tronçon en voiture, et chaque étape hors tolérance a sa
   cause notée ; le test d'invariant passe ; l'audit Mireille est fait
   avant la fusion.
-  Fait : 237 points placés sur 263. Contrôlée à ±5 % sur BRouter public,
+  Fait : 241 points placés sur 263. Contrôlée à ±5 % sur BRouter public,
   0 tronçon en voiture : 12 étapes dans la tolérance (dont 2015/19, non
-  probante : son +0,4 % compte un aller-retour de 8,1 km à Épierre, que
+  probante : son +0,5 % compte un aller-retour de 8,1 km à Épierre, que
   l'ordre du profil impose, règle 24), 7 hors, cause notée avec la
-  comparaison en voiture — 2015/2 (−12,7 %, −6,9 %), 2015/3 (−13,3 %,
-  −12,8 %), 2015/4 (−5,6 %, +2,4 %), 2015/5 (−18,8 %, −13,4 % : boucle
+  comparaison en voiture — 2015/2 (−12,7 %, −6,9 %), 2015/3 (−12,9 %,
+  −11,8 %), 2015/4 (−5,6 %, +2,4 %), 2015/5 (−18,8 %, −13,4 % : boucle
   par Péronne non située), 2015/7 (−6,6 %, −4,4 %), 2015/9 (+26,4 %,
   +30,0 % : contre-la-montre par équipes dont les points ne sont pas sur
-  le tracé réel), 2015/14 (−11,4 %, −8,8 %) ; 2015/1 et 2015/21 non
+  le tracé réel), 2015/14 (−11,2 %, −8,7 %) ; 2015/1 et 2015/21 non
   contrôlables. Étape 20 transcrite depuis le profil modifié (Galibier
   remplacé par la Croix de Fer, tunnel du Chambon fermé). Arrivées du
   Mur de Huy, de Mûr-de-Bretagne, de La Pierre-Saint-Martin, du Plateau
   de Beille, de Mende, de La Toussuire et de Paris replacées (le point
-  de stage_towns tombait en ville ou au col, 128 à 512 m d'écart) ;
-  Rieu Claret (un ruisseau), la côte de Cherave et Péronne retirés pour
-  aller-retour ou homonymie.
+  de stage_towns tombait en ville ou au col, 128 à 512 m d'écart) ; la
+  côte de Cherave et Péronne retirés pour aller-retour.
+  Audit Mireille : côte de Bohissau (nom alternatif OSM de la voie
+  Bousalle), Pierre-Pin Dessous, Grand Tunnel (MNT aux portails), Rieu
+  Claret (croisement avec la D 526), Le Mas (Compeyre) et Saint-Sorlin
+  (sur la D926, 1 639 m pour 1 642) placés ; Mourenx à la mairie de
+  Mourenx-Bourg (tronçon suspect disparu) ; notes de règle 11 ajoutées
+  (2015/6, 2015/15) ; règles 14 et 21 complétées (tunnel, `alt_name`,
+  Pierre-Pin).
 
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points

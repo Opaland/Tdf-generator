@@ -103312,8 +103312,11 @@
        "label": "Côte de Bohissau",
        "km": 109,
        "kind": "côte",
-       "note": "220 m imprimés ; non placée : la recherche « Bohissau » renvoie des routes nommées Bousalle et rue de Perwez (127 à 203 m), nom non confirmé (règle 21)",
-       "confidence": "non-place"
+       "note": "220 m imprimés ; placée au sommet de la voie Bousalle, dont le nom alternatif OSM est « Côte de Bohissau », 213 m sur EU-DEM (audit Mireille)",
+       "confidence": "ok",
+       "lat": 50.48325,
+       "lon": 5.13263,
+       "how": "nominatim"
       },
       {
        "label": "Havelange",
@@ -103364,18 +103367,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 111,
+      "routed_km": 111.6,
       "profile_km": 128,
-      "delta_pct": -13.3,
+      "delta_pct": -12.9,
       "tolerance_pct": 5,
       "coverage_pct": 80,
       "car_legs": 0,
-      "legs": 7,
+      "legs": 8,
       "suspect_legs": 1,
-      "backtracks": 0,
-      "backtracks_uncertain": 1
+      "backtracks": 1,
+      "backtracks_uncertain": 0
      },
-     "note": "Départ : Anvers → Aarschot 40,3 km à vol d'oiseau pour 31,5 au profil, départ réel hors de la ville, non situé (règle 25). Hors de France (Pays-Bas, Belgique), la Géoplateforme ne mesure pas : altitudes contrôlées sur EU-DEM (règle 14). Hors tolérance (−13,3 %), cause notée : −12,8 % en voiture (111,6 km) ; Tirlemont → Hannut 19,8 km routés pour 26,5 et Huy → Mur de Huy 1,3 pour 9 (boucle finale dans Huy non imprimée, côte de Cherave retirée). Aller-retour incertain de 1,8 km à Havelange, la côte de Bohissau n'étant pas placée (règle 9)."
+     "note": "Départ : Anvers → Aarschot 40,3 km à vol d'oiseau pour 31,5 au profil, départ réel hors de la ville, non situé (règle 25). Hors de France (Pays-Bas, Belgique), la Géoplateforme ne mesure pas : altitudes contrôlées sur EU-DEM (règle 14). Hors tolérance (−12,9 %), cause notée : −11,8 % en voiture (112,9 km) ; Tirlemont → Hannut 19,8 km routés pour 26,5 et Huy → Mur de Huy 1,3 pour 9 (boucle finale dans Huy non imprimée, côte de Cherave retirée). Aller-retour de 1,8 km à Havelange : il reste avec le point à la maison communale (règle 17), passage exact dans le bourg non situé."
     },
     "4": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2015/etape_4.png",
@@ -103870,7 +103873,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Abbeville → Gamaches 24,0 km à vol d'oiseau pour 20,5 au profil, départ réel hors de la ville, non situé (règle 25)."
+     "note": "Départ : Abbeville → Gamaches 24,0 km à vol d'oiseau pour 20,5 au profil, départ réel hors de la ville, non situé (règle 25). Veules-les-Roses → Saint-Valery-en-Caux : 6,5 km à vol d'oiseau pour 5 (Saint-Valery à sa mairie : 6,3 km, l'étape passe hors tolérance), km imprimé incohérent, laissé (règle 11) ; Sainte-Adresse → Le Havre : 2,8 km routés pour 7, final non imprimé, arrivée au centre non sourcée."
     },
     "7": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2015/etape_7.png",
@@ -104364,10 +104367,10 @@
        "label": "Mourenx",
        "km": 78.5,
        "kind": "ville",
-       "note": "108 m imprimés",
-       "lat": 43.37089,
-       "lon": -0.62943,
-       "how": "commune-ign",
+       "note": "108 m imprimés ; placé à la mairie annexe de Mourenx-Bourg (règle 17), 105 m au MNT ; la ville nouvelle, à 122 m, faisait un tronçon de 5,5 km à vol d'oiseau depuis Artix pour 3",
+       "lat": 43.3779,
+       "lon": -0.61054,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -104436,14 +104439,14 @@
       }
      ],
      "route_check": {
-      "routed_km": 145.9,
+      "routed_km": 145.7,
       "profile_km": 150.5,
-      "delta_pct": -3,
+      "delta_pct": -3.2,
       "tolerance_pct": 5,
       "coverage_pct": 90,
       "car_legs": 0,
       "legs": 10,
-      "suspect_legs": 1,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -104953,8 +104956,11 @@
        "label": "Le Mas",
        "km": 89.5,
        "kind": "lieu-dit",
-       "note": "371 m imprimés ; non placé : les « Le Mas » connus entre Millau et Les Vignes sont à 500 m et plus au MNT pour 371 imprimés, homonymes probables",
-       "confidence": "non-place"
+       "note": "371 m imprimés ; Le Mas (Compeyre, zone résidentielle OSM), 384 m au MNT, 7,0 km à vol d'oiseau de Millau pour 11 (audit Mireille)",
+       "confidence": "ambiguous",
+       "lat": 44.16017,
+       "lon": 3.10723,
+       "how": "nominatim"
       },
       {
        "label": "Les Vignes",
@@ -105031,15 +105037,15 @@
        "confidence": "ok"
       }
      ],
-     "note": "La Malène, imprimée entre Les Vignes (km 112) et Sainte-Énimie (km 137) sans km, n'est pas reprise (règle 4). Hors tolérance (−11,4 %), cause notée : −8,8 % en voiture (133,6 km) ; col de Vernhette → Millau 24,4 km routés pour 34,5 (vallée du Tarn et Le Mas non placés). Aller-retour incertain à la côte de Chabrits, Mende et la côte de la Croix Neuve n'étant pas placées (règle 9).",
+     "note": "La Malène, imprimée entre Les Vignes (km 112) et Sainte-Énimie (km 137) sans km, n'est pas reprise (règle 4). Hors tolérance (−11,2 %), cause notée : −8,7 % en voiture (133,8 km) ; col de Vernhette → Millau 24,4 km routés pour 34,5 (vallée du Tarn non placée) et Millau → Le Mas 8,0 pour 11. Aller-retour incertain à la côte de Chabrits, Mende et la côte de la Croix Neuve n'étant pas placées (règle 9).",
      "route_check": {
-      "routed_km": 129.8,
+      "routed_km": 130.1,
       "profile_km": 146.5,
-      "delta_pct": -11.4,
+      "delta_pct": -11.2,
       "tolerance_pct": 5,
       "coverage_pct": 82,
       "car_legs": 0,
-      "legs": 8,
+      "legs": 9,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 1
@@ -105187,7 +105193,8 @@
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Charmes-sur-Rhône → Valence : 10,9 km routés pour 16,5, final non imprimé, arrivée au centre non sourcée (règle 11)."
     },
     "16": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2015/etape_16.png",
@@ -105322,7 +105329,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 1
      },
-     "note": "Aller-retour incertain de 2,2 km au col de Manse, le 1er passage à Gap n'étant pas placé (règle 9)."
+     "note": "Aller-retour incertain de 2,2 km au col de Manse (col placé, 1 272 m pour 1 268) : le 1er passage à Gap n'est pas placé ; à la mairie de Gap, l'aller-retour devient certain (3,0 km, audit Mireille), passage exact non sourcé (règle 9)."
     },
     "17": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2015/etape_17.png",
@@ -105719,10 +105726,10 @@
        "label": "Saint-Sorlin-d'Arves",
        "km": 88,
        "kind": "ville",
-       "note": "1642 m imprimés ; village de Saint-Sorlin-d'Arves à 1 522 m au MNT pour 1 642 imprimés ; le même village est imprimé à 1 486 m en 2015/20, point gardé au village",
-       "lat": 45.22139,
-       "lon": 6.22905,
-       "how": "commune-ign",
+       "note": "1642 m imprimés ; placé sur la D926 au-dessus du village (lieu-dit Turin), 1 639 m au MNT ; le centre du village est à 1 522 m, et le village est imprimé à 1 486 m en 2015/20 (règle 14, audit Mireille)",
+       "lat": 45.2209,
+       "lon": 6.2184,
+       "how": "nominatim",
        "confidence": "ambiguous"
       },
       {
@@ -105767,9 +105774,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 123,
+      "routed_km": 123.1,
       "profile_km": 122.5,
-      "delta_pct": 0.4,
+      "delta_pct": 0.5,
       "tolerance_pct": 5,
       "coverage_pct": 89,
       "car_legs": 0,
@@ -105778,7 +105785,7 @@
       "backtracks": 1,
       "backtracks_uncertain": 0
      },
-     "note": "Le profil impose La Chambre → Épierre → Saint-Rémy-de-Maurienne : la course descend la vallée de l'Arc jusqu'à Épierre puis la remonte, vraisemblablement par l'autre rive (non sourcé). Le routeur reprend 8,1 km en sens inverse : le « ok » (+0,4 %) compte cet aller-retour et n'est pas probant (règle 24)."
+     "note": "Le profil impose La Chambre → Épierre → Saint-Rémy-de-Maurienne : la course descend la vallée de l'Arc jusqu'à Épierre puis la remonte, vraisemblablement par l'autre rive (non sourcé). Le routeur reprend 8,1 km en sens inverse : le « ok » (+0,5 %) compte cet aller-retour et n'est pas probant (règle 24)."
     },
     "20": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2015/2015_20.jpg",
@@ -105817,18 +105824,21 @@
        "label": "Pierrepin-Dessous",
        "km": 31,
        "kind": "lieu-dit",
-       "note": "851 m imprimés ; placé au hameau de Pierrepin (Nominatim), 920 m au MNT : Pierrepin-Dessous, partie basse, n'est pas connu",
-       "confidence": "ambiguous",
-       "lat": 45.25468,
-       "lon": 6.31607,
+       "note": "851 m imprimés ; hameau « Pierre-Pin Dessous » (Nominatim, variante d'orthographe, règle 21), 863 m au MNT (audit Mireille)",
+       "confidence": "ok",
+       "lat": 45.25272,
+       "lon": 6.31637,
        "how": "nominatim"
       },
       {
        "label": "Grand Tunnel",
        "km": 39,
        "kind": "lieu-dit",
-       "note": "1320 m imprimés ; non placé : la route nommée « Grand Tunnel » (Nominatim) a son point à 1 465 m au MNT, 145 m au-dessus",
-       "confidence": "non-place"
+       "note": "1320 m imprimés ; route du Grand Tunnel (OSM, tunnel) ; portails à 1 281 et 1 288 m au MNT, le MNT au point mesure le rocher au-dessus (audit Mireille)",
+       "confidence": "ok",
+       "lat": 45.2139,
+       "lon": 6.3064,
+       "how": "nominatim"
       },
       {
        "label": "Saint-Sorlin-d'Arves",
@@ -105854,8 +105864,11 @@
        "label": "Rieu Claret",
        "km": 62,
        "kind": "lieu-dit",
-       "note": "1758 m imprimés ; non placé : le seul « Rieu Claret » connu est un ruisseau, point à 2 002 m au MNT",
-       "confidence": "non-place"
+       "note": "1758 m imprimés ; placé au croisement du ruisseau Rieu Claret et de la D 526 (Vaujany), 1 760 m au MNT, altitude contrôlée (règle 21, audit Mireille)",
+       "confidence": "ambiguous",
+       "lat": 45.22442,
+       "lon": 6.13907,
+       "how": "nominatim"
       },
       {
        "label": "Le Rivier d'Allemont",
@@ -105908,18 +105921,18 @@
        "confidence": "ok"
       }
      ],
-     "note": "Parcours modifié avant la course (fermeture du tunnel du Chambon) : le col du Galibier est remplacé par le col de la Croix de Fer ; transcrit depuis le profil modifié publié sur la même page de ledicodutour.com, et non depuis le profil initial (etape_20.png). Départ : Modane → Saint-Michel-de-Maurienne 15,6 km à vol d'oiseau pour 13,5 au profil, départ réel hors de la ville, non situé (règle 25). Aller-retour incertain de 1,2 km à Pierrepin, Grand Tunnel n'étant pas placé (règle 9).",
+     "note": "Parcours modifié avant la course (fermeture du tunnel du Chambon) : le col du Galibier est remplacé par le col de la Croix de Fer ; transcrit depuis le profil modifié publié sur la même page de ledicodutour.com, et non depuis le profil initial (etape_20.png). Départ : Modane → Saint-Michel-de-Maurienne 15,6 km à vol d'oiseau pour 13,5 au profil, départ réel hors de la ville, non situé (règle 25).",
      "route_check": {
-      "routed_km": 96.4,
+      "routed_km": 94.3,
       "profile_km": 97,
-      "delta_pct": -0.6,
+      "delta_pct": -2.8,
       "tolerance_pct": 5,
       "coverage_pct": 88,
       "car_legs": 0,
-      "legs": 9,
+      "legs": 11,
       "suspect_legs": 0,
       "backtracks": 0,
-      "backtracks_uncertain": 1
+      "backtracks_uncertain": 0
      }
     },
     "21": {
