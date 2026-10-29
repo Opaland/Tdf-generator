@@ -112052,11 +112052,8 @@
        "label": "Les Herbiers",
        "km": 44.5,
        "kind": "ville",
-       "note": "132 m imprimés",
-       "lat": 46.87138,
-       "lon": -1.01506,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "132 m imprimés ; retiré : même à sa mairie, Les Herbiers est à 11,0 km à vol d'oiseau de Saint-Michel-Mont-Mercure pour 9,5 ; passage en bordure est, non situé (audit Mireille)",
+       "confidence": "non-place"
       },
       {
        "label": "La Gaubretière",
@@ -112170,14 +112167,14 @@
       }
      ],
      "route_check": {
-      "routed_km": 178.4,
+      "routed_km": 178.7,
       "profile_km": 178,
-      "delta_pct": 0.2,
+      "delta_pct": 0.4,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 15,
-      "suspect_legs": 1,
+      "legs": 14,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
@@ -112261,7 +112258,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Contre-la-montre par équipes en boucle à Cholet ; entrée dans Cholet au km 30. Hors tolérance (−13,8 %), cause notée : −9,0 % en voiture (28,2 km) ; La Séguinière → arrivée 5,2 km routés pour 10,5 : la côte de la Séguinière et l'entrée dans Cholet ne sont pas placées, final dans Cholet non situé.",
+     "note": "Contre-la-montre par équipes en boucle à Cholet ; entrée dans Cholet au km 30. Hors tolérance (−13,8 %), cause notée : −9,0 % en voiture (28,2 km) ; La Séguinière → arrivée 5,2 km routés pour 10,5 : la côte de la Séguinière et l'entrée dans Cholet ne sont pas placées, final dans Cholet non situé. La via sourcée « Rue de la Bastille, La Séguinière » (historic_routes) ne fait que le pied de la côte (65 à 72 m pour 106) : elle ne place pas le sommet.",
      "route_check": {
       "routed_km": 26.7,
       "profile_km": 31,
@@ -112392,8 +112389,11 @@
        "label": "Les Quatre Routes",
        "km": 125.5,
        "kind": "lieu-dit",
-       "note": "67 m imprimés ; non placé : les « Quatre Routes » connus sont à plus de 20 km de Guémené-Penfao pour 15 au profil, homonymes",
-       "confidence": "non-place"
+       "note": "67 m imprimés ; hameau des Quatre Routes (Avessac), 67 m au MNT (audit Mireille)",
+       "confidence": "ok",
+       "lat": 47.64037,
+       "lon": -2.01225,
+       "how": "nominatim"
       },
       {
        "label": "Redon",
@@ -112480,7 +112480,7 @@
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
-      "legs": 16,
+      "legs": 17,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -112614,7 +112614,7 @@
        "label": "Côte de Kalforn",
        "km": 106,
        "kind": "côte",
-       "note": "208 m imprimés ; 1,7 km à 7,1 % ; non placée : inconnue de Nominatim, même en recherche bornée",
+       "note": "208 m imprimés ; non placée : la variante « Kaliforn » (hameau de Saint-Goazec, 192 m) crée un aller-retour de 2,1 km au bourg de Saint-Goazec (audit Mireille)",
        "confidence": "non-place"
       },
       {
@@ -112681,7 +112681,7 @@
        "label": "Côte de Menez Quelerc'h",
        "km": 159.5,
        "kind": "côte",
-       "note": "210 m imprimés ; 3 km à 6,2 % ; non placée : inconnue de Nominatim, même en variante (Menez Kelerc'h)",
+       "note": "210 m imprimés ; non placée : le pic « Menez Quelc'h » (Cast) est à 251 m, 41 m au-dessus de la route, sommet de la route non localisé (audit Mireille)",
        "confidence": "non-place"
       },
       {
@@ -112774,7 +112774,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 1
      },
-     "note": "Départ : Lorient → Guidel-Plages 11,8 km à vol d'oiseau pour 7 au profil, départ réel hors de la ville, non situé (règle 25). Hors tolérance (−10,7 %), cause notée : −1,7 % en voiture (194,2 km) : le routeur vélo coupe (Saint-Goazec → côte de Trimen 5,3 km pour 10, Châteaulin → Cast 8,3 pour 12). Aller-retour incertain de 3,7 km à la côte de Trimen, la côte de Kalforn n'étant pas placée (règle 9)."
+     "note": "Départ : Lorient → Guidel-Plages 11,8 km à vol d'oiseau pour 7 au profil, départ réel hors de la ville, non situé (règle 25). Hors tolérance (−10,7 %), cause notée : −1,7 % en voiture (194,2 km) : le routeur vélo coupe (Saint-Goazec → côte de Trimen 5,3 km pour 10, Châteaulin → Cast 8,3 pour 12, Châteauneuf-du-Faou → Lennon 9,1 en voiture pour 10,5). Aller-retour incertain de 3,7 km à la côte de Trimen, la côte de Kalforn n'étant pas placée (règle 9)."
     },
     "6": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2018/6b.jpg",
@@ -112840,8 +112840,11 @@
        "label": "Ty Douar",
        "km": 63.5,
        "kind": "lieu-dit",
-       "note": "221 m imprimés ; non placé : les « Ty Douar » connus sont à plus de 18 km de Sizun pour 9,5",
-       "confidence": "non-place"
+       "note": "221 m imprimés ; hameau Ti Douar (Commana), 225 m au MNT (audit Mireille)",
+       "confidence": "ok",
+       "lat": 48.41155,
+       "lon": -3.96897,
+       "how": "nominatim"
       },
       {
        "label": "Côte de Roc'h Trévézel",
@@ -113003,7 +113006,7 @@
       "tolerance_pct": 5,
       "coverage_pct": 83,
       "car_legs": 0,
-      "legs": 14,
+      "legs": 15,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -113183,18 +113186,18 @@
        "label": "Berd'huis",
        "km": 168,
        "kind": "ville",
-       "note": "156 m imprimés",
-       "lat": 48.3458,
-       "lon": 0.74557,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "156 m imprimés ; retiré : le bourg de Berd'huis est à 18,7 km à vol d'oiseau de Thiron-Gardais pour 17, sprint non situé (audit Mireille)",
+       "confidence": "non-place"
       },
       {
        "label": "Nogent-le-Rotrou",
        "km": 169.5,
        "kind": "ville",
-       "note": "127 m imprimés ; non placé : le centre de Nogent-le-Rotrou est à 6,2 km de Berd'huis pour 1,5 au profil ; passage en bordure de ville non situé",
-       "confidence": "non-place"
+       "note": "127 m imprimés ; placé à la mairie de Nogent-le-Rotrou, 117 m au MNT (audit Mireille)",
+       "confidence": "ok",
+       "lat": 48.32175,
+       "lon": 0.82167,
+       "how": "nominatim"
       },
       {
        "label": "Thiron-Gardais",
@@ -113248,18 +113251,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 236.2,
+      "routed_km": 235.4,
       "profile_km": 227,
-      "delta_pct": 4,
+      "delta_pct": 3.7,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
       "legs": 20,
-      "suspect_legs": 2,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Fougères → La Chapelle-Janson 7,0 km à vol d'oiseau pour 4 au profil, départ réel hors de la ville, non situé (règle 25)."
+     "note": "Départ : Fougères → La Chapelle-Janson 7,0 km à vol d'oiseau pour 4 au profil, départ réel hors de la ville, non situé (règle 25). Mayenne → Aron : 4,9 km routés pour 8, détour non imprimé."
     },
     "8": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2018/8b.jpg",
@@ -113375,11 +113378,8 @@
        "label": "Montroty",
        "km": 96.5,
        "kind": "lieu-dit",
-       "note": "162 m imprimés",
-       "lat": 49.43861,
-       "lon": 1.66589,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "162 m imprimés ; retiré : La Neuve-Grange → Montroty faisait 11,6 km à vol d'oiseau pour 10, et le point est à 197 m pour 162 ; lieu non sourcé (audit Mireille)",
+       "confidence": "non-place"
       },
       {
        "label": "Gournay-en-Bray",
@@ -113463,18 +113463,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 175.6,
+      "routed_km": 174.8,
       "profile_km": 172.5,
-      "delta_pct": 1.8,
+      "delta_pct": 1.3,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 17,
-      "suspect_legs": 2,
+      "legs": 16,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Dreux → Anet 14,3 km à vol d'oiseau pour 9 au profil, départ réel hors de la ville, non situé (règle 25)."
+     "note": "Départ : Dreux → Anet 14,3 km à vol d'oiseau pour 9 au profil, départ réel hors de la ville, non situé (règle 25). Salouël → Amiens : 5,4 km routés pour 9,5, final non imprimé."
     },
     "9": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2018/2018_9.jpg",
@@ -113730,7 +113730,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Quinze secteurs pavés numérotés 15 à 1 ; chaque secteur est repris à son village de départ. Départ : Arras → Biache-Saint-Vaast 12,1 km à vol d'oiseau pour 10,5 au profil, départ réel hors de la ville, non situé (règle 25).",
+     "note": "Quinze secteurs pavés numérotés 15 à 1 ; chaque secteur est repris à son village de départ. Départ : Arras → Biache-Saint-Vaast 12,1 km à vol d'oiseau pour 10,5 au profil, départ réel hors de la ville, non situé (règle 25). Mons-en-Pévèle (secteur 8) et Camphin-en-Pévèle (secteur 2) sont placés au village et non au début de secteur : Auchy → Mons 7,6 km à vol d'oiseau pour 5,5, Wannehain → Camphin 2,9 pour 1 ; Mons → Mérignies et Baisieux → Willems sont plus courts que le profil (règle 11).",
      "route_check": {
       "routed_km": 139.8,
       "profile_km": 146,
@@ -113851,8 +113851,11 @@
        "label": "L'Essert",
        "km": 62.5,
        "kind": "lieu-dit",
-       "note": "730 m imprimés ; retiré : le hameau de L'Essert du Petit-Bornand faisait un tronçon de 11,5 km routés pour 6 (règle 11), homonyme probable",
-       "confidence": "non-place"
+       "note": "730 m imprimés ; hameau de L'Essert (Le Petit-Bornand), 766 m au MNT ; sans le point de la montée des Glières, il ne fait plus de tronçon suspect (audit Mireille)",
+       "confidence": "ambiguous",
+       "lat": 45.98904,
+       "lon": 6.3899,
+       "how": "nominatim"
       },
       {
        "label": "Montée du plateau des Glières",
@@ -113996,7 +113999,7 @@
       "tolerance_pct": 5,
       "coverage_pct": 92,
       "car_legs": 0,
-      "legs": 20,
+      "legs": 21,
       "suspect_legs": 1,
       "backtracks": 1,
       "backtracks_uncertain": 0
@@ -114639,7 +114642,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Vizille → côte de Brié : 4,3 km à vol d'oiseau pour 3, km imprimé incohérent, mairie vérifiée (règle 11) ; Pont-en-Royans → Saint-Nazaire 9,5 km routés pour 15 (côte de Sainte-Eulalie retirée)."
+     "note": "Vizille → côte de Brié : 4,3 km à vol d'oiseau pour 3, car la côte est placée au centre du village, 1,3 km après le sommet ; le point est gardé, sans lui Vizille → Eybens fait 14,2 km routés pour 9,5 (règle 11) ; Pont-en-Royans → Saint-Nazaire 9,5 km routés pour 15 (côte de Sainte-Eulalie retirée)."
     },
     "14": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2018/14b.jpg",
@@ -114735,8 +114738,11 @@
        "label": "Côte du Grand Châtaignier",
        "km": 81,
        "kind": "côte",
-       "note": "321 m imprimés ; 1 km à 7,4 % ; non placée : inconnue de Nominatim près de Saint-Paul-le-Jeune",
-       "confidence": "non-place"
+       "note": "321 m imprimés ; poteau OSM « Col du Grand Châtaignier », 315 m au MNT (audit Mireille)",
+       "confidence": "ok",
+       "lat": 44.31915,
+       "lon": 4.14102,
+       "how": "nominatim"
       },
       {
        "label": "Gagnières",
@@ -114757,6 +114763,13 @@
        "lon": 4.10326,
        "how": "commune-ign",
        "confidence": "ok"
+      },
+      {
+       "label": "Bessèges (2e passage)",
+       "km": 93,
+       "kind": "ville",
+       "note": "208 m imprimés ; imprimé « Bessèges », zone de ravitaillement ; non placé : second passage, point exact non sourcé (audit Mireille)",
+       "confidence": "non-place"
       },
       {
        "label": "Peyremale",
@@ -114887,13 +114900,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 177.8,
+      "routed_km": 179.9,
       "profile_km": 179,
-      "delta_pct": -0.7,
+      "delta_pct": 0.5,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 20,
+      "legs": 21,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -115061,11 +115074,14 @@
        "confidence": "ok"
       },
       {
-       "label": "Moulin Meunier",
+       "label": "Moulin-Maurel",
        "km": 127.5,
        "kind": "lieu-dit",
-       "note": "433 m imprimés ; imprimé « Moulin Meurel » sur l'agrandissement, lecture à confirmer ; non placé : nom imprimé incertain (« Moulin Meurel ») inconnu de Nominatim",
-       "confidence": "non-place"
+       "note": "439 m imprimés ; lieu-dit Moulin-Maurel (Hautpoul, Mazamet), 403 m au MNT ; imprimé « Moulin Maurel », 439 m sur l'agrandissement (audit Mireille)",
+       "confidence": "ambiguous",
+       "lat": 43.47263,
+       "lon": 2.39457,
+       "how": "nominatim"
       },
       {
        "label": "Les Yes",
@@ -115145,7 +115161,7 @@
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 20,
+      "legs": 21,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 1
@@ -115379,7 +115395,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Carcassonne → Montréal 16,8 km à vol d'oiseau pour 12,5 au profil, départ réel hors de la ville, non situé (règle 25)."
+     "note": "Départ : Carcassonne → Montréal 16,8 km à vol d'oiseau pour 12,5 au profil, départ réel hors de la ville, non situé (règle 25). Pailhès → Le Mas-d'Azil : 12,9 km routés en vélo, 10,1 en voiture, pour 7,5 (règle 20) ; Gouzes, au km 80, n'est pas placé."
     },
     "17": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2018/17_b.jpg",
@@ -115747,8 +115763,11 @@
        "label": "Haut de la Côte",
        "km": 20,
        "kind": "lieu-dit",
-       "note": "639 m imprimés ; non placé : les « Haut de la Côte » connus sont en Lorraine",
-       "confidence": "non-place"
+       "note": "639 m imprimés ; hameau Haut-de-la-Côte (Bagnères-de-Bigorre), 634 m au MNT (audit Mireille)",
+       "confidence": "ok",
+       "lat": 43.08338,
+       "lon": 0.16563,
+       "how": "nominatim"
       },
       {
        "label": "Mauvezin",
@@ -116005,7 +116024,7 @@
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 25,
+      "legs": 26,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -116039,25 +116058,28 @@
        "label": "Hergaray",
        "km": 4,
        "kind": "lieu-dit",
-       "note": "146 m imprimés ; non placé : le seul « Hergaray » connu est à Saint-Jean-de-Luz, à 9 km pour 4",
-       "confidence": "non-place"
+       "note": "146 m imprimés ; hameau Hergaraï (Saint-Pée-sur-Nivelle), 97 m au MNT (audit Mireille)",
+       "confidence": "ok",
+       "lat": 43.36403,
+       "lon": -1.53323,
+       "how": "nominatim"
       },
       {
        "label": "Ustaritz",
        "km": 9,
        "kind": "ville",
-       "note": "113 m imprimés",
-       "lat": 43.39876,
-       "lon": -1.45622,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "113 m imprimés ; retiré : le centre d'Ustaritz est à 16 m pour 113 imprimés, passage non situé (audit Mireille)",
+       "confidence": "non-place"
       },
       {
        "label": "Carrefour D250-D88",
        "km": 12,
        "kind": "lieu-dit",
-       "note": "53 m imprimés ; non placé : carrefour non localisé",
-       "confidence": "non-place"
+       "note": "53 m imprimés ; croisement D250 × D88 (route du Château de Haïtze, Ustaritz), 57 m au MNT (audit Mireille)",
+       "confidence": "ok",
+       "lat": 43.39246,
+       "lon": -1.45947,
+       "how": "nominatim"
       },
       {
        "label": "Ustaritz (pointage)",
@@ -116097,8 +116119,11 @@
        "label": "Larraldea",
        "km": 23.5,
        "kind": "lieu-dit",
-       "note": "104 m imprimés ; non placé : la ferme Larraldea connue (Cambo) est à 37 m pour 104, homonyme probable",
-       "confidence": "non-place"
+       "note": "104 m imprimés ; Larraldea de Souraïde, 110 m au MNT ; celle de Cambo était un homonyme (audit Mireille)",
+       "confidence": "ok",
+       "lat": 43.34955,
+       "lon": -1.49716,
+       "how": "nominatim"
       },
       {
        "label": "Souraïde (2e passage)",
@@ -116137,16 +116162,16 @@
      ],
      "note": "Contre-la-montre individuel.",
      "route_check": {
-      "routed_km": 30.1,
+      "routed_km": 29.5,
       "profile_km": 29.5,
-      "delta_pct": 2.1,
+      "delta_pct": -0.1,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 5,
-      "suspect_legs": 1,
+      "legs": 7,
+      "suspect_legs": 0,
       "backtracks": 0,
-      "backtracks_uncertain": 1
+      "backtracks_uncertain": 0
      }
     },
     "21": {
