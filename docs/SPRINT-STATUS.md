@@ -918,6 +918,33 @@ et côtes traversées avec leur kilomètre.
   (sans lui, 2016/15 vers −11,8 %) et de Vervex chiffrés ; départs de
   Vielha et d'Escaldes notés (règle 14).
 
+- [x] Édition 2017 (PR #520) : 21 étapes sur 21 (pas de prologue en
+  2017, contre-la-montre de Düsseldorf en 1re étape), depuis les profils
+  de ledicodutour.com (`2017/2017_parcours/2017_Na.jpg`, 600 px,
+  altitudes imprimées).
+  Critères d'acceptation : chaque nom imprimé est transcrit avec son km,
+  lu sur un agrandissement ; l'altitude est contrôlée point par point
+  (règle 14, EU-DEM hors de France) ; le contrôle à ±5 % passe sur BRouter
+  public avec 0 tronçon en voiture, et chaque étape hors tolérance a sa
+  cause notée ; le test d'invariant passe ; l'audit Mireille est fait
+  avant la fusion.
+  Fait : 222 points placés sur 239. Contrôlée à ±5 % sur BRouter public,
+  0 tronçon en voiture : 10 étapes dans la tolérance, 10 hors, cause notée
+  avec la comparaison en voiture — 2017/1 (−13,8 %, −24,7 % : le
+  Rheinkniebrücke, sourcé mais non imprimé, n'est pas repris), 2017/2
+  (−11,7 %, +3,3 %), 2017/3 (−8,2 %, −1,4 %), 2017/5 (−6,4 %, −10,4 %),
+  2017/7 (−10,0 %, −6,7 %), 2017/8 (−6,0 %, −7,5 %, aller-retour de Viry
+  compté deux fois), 2017/9 (−6,1 %, −4,9 %), 2017/15 (−12,0 %, −2,3 % :
+  le routeur vélo coupe), 2017/16 (−8,2 %, −4,6 %), 2017/20 (−20,8 %,
+  −7,8 % : rond-point du MuCEM non localisé) ; 2017/21 non contrôlable.
+  Audit Mireille : départ et arrivée de 2017/1 à la Messe Düsseldorf et de
+  2017/20 au stade Vélodrome (vias sourcées de historic_routes ; les
+  « ok » et −78,3 % d'avant reposaient sur des arrivées fausses) ; Serre
+  Chevalier au hameau de Villeneuve (1 392 m pour 1 403) ; côte de Domme à
+  la mairie (le point était le lieu-dit « Côte de Flauquet », 112 m pour
+  184) ; Jongieux-le-Haut, Langres, Longwy-Haut, Saint-Pierre de Rodez,
+  départ de Laissac et sud d'Antony placés ; Viry à la mairie.
+
 - [ ] Édition 2018 **en cours** : 21 étapes sur 21 (pas de prologue en
   2018), depuis les profils de ledicodutour.com
   (`cartes_etapes/2018/N_b.jpg` ou équivalent, altitudes imprimées).
