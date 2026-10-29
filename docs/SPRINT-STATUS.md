@@ -692,7 +692,7 @@ et côtes traversées avec leur kilomètre.
   ±5 % sur BRouter public, 0 tronçon en voiture ; cause écrite pour chaque
   étape hors tolérance, avec la comparaison vélo / voiture (règle 20) ;
   curation de données, pas de relecture adverse dédiée (règle 11).
-  Fait : 10 étapes dans la tolérance, 9 hors, cause notée — 2010/1 (−6,2 %,
+  Fait : 11 étapes dans la tolérance, 8 hors, cause notée — 2010/1 (−6,2 %,
   +2,9 % en voiture), 2010/2 (−16,4 %, boucles ardennaises non imprimées),
   2010/3 (−9,2 %, secteurs pavés rattachés à leur village), 2010/4 (−6,4 %,
   −1,2 % en voiture), 2010/5 (−7,9 %), 2010/7 (+6,9 %, côte de Lamoura non
