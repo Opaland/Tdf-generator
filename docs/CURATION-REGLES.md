@@ -114,6 +114,10 @@ dans la même PR que son correctif.
     **Hors de France, la Géoplateforme ne mesure pas** : elle renvoie
     −99999 en Belgique et aux Pays-Bas, 0 au centre du Luxembourg (2006/3).
     Le témoin y est EU-DEM (opentopodata `eudem25m`), un point par requête.
+    **Un point sur un tunnel se mesure aux portails** : le MNT au point
+    mesure le rocher au-dessus (Grand Tunnel, 2015/20 : 1 465 m au point,
+    1 281 et 1 288 aux portails pour 1 320 imprimés) — le point avait été
+    refusé à tort.
 15. **Commune nouvelle : le village, pas la commune fusionnée.** Le centre
     de Salignac-Eyvigues tombait vers Eyvigues, 3,8 km du village de
     Salignac nommé par le profil (1987/12, aller-retour de 5 km) ;
@@ -195,14 +199,14 @@ dans la même PR que son correctif.
     homonymes dans une recherche globale — onze lieux de 1991 n’étaient
     trouvés qu'ainsi. Essayer aussi la variante d'orthographe (Pallud /
     Palud, Pongivart / Pontgivart, Cazaux / Cazeaux, Monpach / Mompach,
-    Pétrou / Peyrou, Gévaudaz / Gevoudaz, Perthus / Pertus — le col du Perthus de 2011/9, noté
+    Pétrou / Peyrou, Gévaudaz / Gevoudaz, Pierrepin / Pierre-Pin, Perthus / Pertus — le col du Perthus de 2011/9, noté
     « inconnu de Nominatim », y est sous « Col du Pertus »). Un lieu-dit que Nominatim ne connaît que par son
     arrêt de bus ou un poteau homonyme sur la route (Lavey 1991, La
     Fresquière et Basse-Plaine 1989) se place sur cet arrêt, altitude
     contrôlée. **Relire les vias curées de `historic_routes.json` pour l'étape**
     avant de conclure « introuvable » ou « non sourcé » : en 2002, les Bois
     de Serves, la Badourade et l'arrivée de La Plagne y étaient déjà
-    placés et sourcés (Epic 28.7). Et un tronçon suspect ne fait pas refuser un lieu qui
+    placés et sourcés (Epic 28.7). Le nom alternatif OSM (`alt_name`) d'une voie peut porter le nom de la côte : « Côte de Bohissau » (2015/3) était l'`alt_name` de la voie Bousalle, notée « nom non confirmé » avant l'audit. Et un tronçon suspect ne fait pas refuser un lieu qui
     existe : il se note (règle 11 ; Bray, Berdorf 1989).
 
 22. **Vérifier le départ et l'arrivée de chaque étape avant le reste.**
