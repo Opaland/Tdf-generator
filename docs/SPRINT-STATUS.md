@@ -889,6 +889,29 @@ et côtes traversées avec leur kilomètre.
   (2015/6, 2015/15) ; règles 14 et 21 complétées (tunnel, `alt_name`,
   Pierre-Pin).
 
+- [ ] Édition 2017 **en cours** : 21 étapes sur 21 (pas de prologue en
+  2017, contre-la-montre de Düsseldorf en 1re étape), depuis les profils
+  de ledicodutour.com (`2017/2017_parcours/2017_Na.jpg`, 600 px,
+  altitudes imprimées).
+  Critères d'acceptation : chaque nom imprimé est transcrit avec son km,
+  lu sur un agrandissement ; l'altitude est contrôlée point par point
+  (règle 14, EU-DEM hors de France) ; le contrôle à ±5 % passe sur BRouter
+  public avec 0 tronçon en voiture, et chaque étape hors tolérance a sa
+  cause notée ; le test d'invariant passe ; l'audit Mireille est fait
+  avant la fusion.
+  Fait : 221 points placés sur 239. Contrôlée à ±5 % sur BRouter public,
+  0 tronçon en voiture : 10 étapes dans la tolérance, 10 hors, cause notée
+  avec la comparaison en voiture — 2017/1 (−78,3 %, boucle du chrono sans
+  point imprimé, non probant), 2017/2 (−11,7 %, +3,3 %), 2017/3 (−8,7 %,
+  −2,3 %), 2017/5 (−6,4 %, −10,4 %), 2017/7 (−10,0 %, −6,7 %), 2017/8
+  (−5,1 %, −6,6 %), 2017/9 (−7,5 %, −4,9 %), 2017/15 (−12,0 %, −2,3 % :
+  le routeur vélo coupe), 2017/16 (−8,2 %, −4,6 %), 2017/20 (−16,2 %,
+  −1,5 % : chrono urbain sur routes fermées) ; 2017/21 non contrôlable.
+  Arrivée de Serre Chevalier replacée à Chantemerle (le point de
+  stage_towns était le col du Granon, 2 481 m pour 1 403) ; Saint-Geniez
+  à sa mairie (le géocodeur donnait 969 m pour 440) ; Allas non identifié
+  (2017/10) ; Sainte-Germaine et le MuCEM retirés pour aller-retour.
+
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
