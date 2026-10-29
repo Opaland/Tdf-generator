@@ -827,6 +827,27 @@ et côtes traversées avec leur kilomètre.
   départ de Montpellier à l'hôtel de ville, `circuit_km` de 2013/21 à
   l'entrée ; notes de cause réécrites (2013/1, 2, 16).
 
+- [ ] Édition 2014 **en cours** : 21 étapes sur 21 (pas de prologue en
+  2014), depuis les profils de ledicodutour.com
+  (`cols/2014/profil_2014_N.png`, 600 px, altitudes imprimées).
+  Critères d'acceptation : chaque nom imprimé est transcrit avec son km,
+  lu sur un agrandissement ; l'altitude est contrôlée point par point
+  (règle 14, EU-DEM hors de France) ; le contrôle à ±5 % passe sur BRouter
+  public avec 0 tronçon en voiture, et chaque étape hors tolérance a sa
+  cause notée ; le test d'invariant passe ; l'audit Mireille est fait
+  avant la fusion.
+  Fait : 237 points placés sur 258. Contrôlée à ±5 % sur BRouter public,
+  0 tronçon en voiture : 11 étapes dans la tolérance, 9 hors, cause notée
+  avec la comparaison en voiture — 2014/2 (−12,7 %, −9,9 %), 2014/3
+  (−21,3 %, −22,7 %, sur 57 %), 2014/5 (−13,1 %, −2,3 % : le routeur vélo
+  évite les pavés), 2014/6 (−6,2 %, −1,7 %), 2014/7 (−6,3 %, −5,2 %),
+  2014/9 (−6,7 %, −8,0 %), 2014/11 (−10,5 %, −9,2 %), 2014/12 (−9,0 %,
+  −4,3 %) ; 2014/21 non contrôlable. Arrivées de La Mauselaine et de
+  Risoul 1850 replacées (le point de stage_towns tombait en ville, 190 à
+  750 m trop bas) ; Midhopestones et Bradfield, géocodés au même point,
+  séparés ; Blubberhouses et Grinton Moor retirés pour aller-retour (le
+  −3,8 % de 2014/2 n'était pas probant, règle 24).
+
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
