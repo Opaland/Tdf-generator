@@ -106037,11 +106037,11 @@
        "label": "Côte d'Avranches",
        "km": 20.5,
        "kind": "côte",
-       "note": "98 m imprimés",
-       "lat": 48.68881,
-       "lon": -1.48343,
+       "note": "98 m imprimés ; placée au centre d'Avranches, 95 m au MNT ; le premier point (camping de Genêts, 11 m) était un homonyme (audit Mireille)",
+       "lat": 48.68621,
+       "lon": -1.35795,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ambiguous"
       },
       {
        "label": "Côte des falaises de Champeaux",
@@ -106155,18 +106155,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 141.6,
+      "routed_km": 150.3,
       "profile_km": 167.5,
-      "delta_pct": -15.5,
+      "delta_pct": -10.3,
       "tolerance_pct": 5,
       "coverage_pct": 89,
       "car_legs": 0,
       "legs": 11,
-      "suspect_legs": 2,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Hors tolérance (−15,5 %), cause notée : −12,1 % en voiture (147,3 km) ; côte d'Avranches → côte des falaises de Champeaux 7,8 km routés pour 18,5, Granville → Montmartin-sur-Mer 20,1 pour 27 et Montebourg → Sainte-Mère-Église 12,4 pour 23 : détours non imprimés (côte de la baie, côte est du Cotentin)."
+     "note": " Hors tolérance (−10,3 %), cause notée : −5,9 % en voiture (157,7 km) ; Granville → Montmartin-sur-Mer 20,1 km routés pour 27 et Montebourg → Sainte-Mère-Église 12,4 pour 23 : détours non imprimés (côte est du Cotentin)."
     },
     "2": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2016/2016_2a.jpg",
@@ -106338,7 +106338,7 @@
       "backtracks": 1,
       "backtracks_uncertain": 0
      },
-     "note": "Hors tolérance (−12,1 %), cause notée : −9,0 % en voiture (145,6 km) ; Les Pieux → Helleville 6,9 km routés pour 12,5 et côte d'Octeville → Cherbourg-en-Cotentin 3,3 pour 7,5 (côte de La Glacerie non placée, final non imprimé). Aller-retour de 3,1 km à Sainte-Croix-Hague : il reste avec le point à la mairie déléguée (règle 17). Arrivée imprimée à 169 m : le point de stage_towns (centre de Cherbourg) est à 6 m au MNT, arrivée réelle au-dessus de la ville, non située."
+     "note": "Hors tolérance (−12,1 %), cause notée : −9,0 % en voiture (145,6 km) ; Les Pieux → Helleville 6,9 km routés pour 12,5 et côte d'Octeville → Cherbourg-en-Cotentin 3,3 pour 7,5 (côte de La Glacerie non placée, final non imprimé). Aller-retour de 3,1 km à Sainte-Croix-Hague : il reste avec le point à la mairie déléguée (règle 17). Arrivée imprimée à 169 m : le point de stage_towns (centre de Cherbourg) est à 6 m au MNT, arrivée réelle au-dessus de la ville (vers La Glacerie), non sourcée, point gardé au centre."
     },
     "3": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2016/2016_3a.jpg",
@@ -106875,7 +106875,7 @@
        "label": "Decazeville",
        "km": 63.5,
        "kind": "ville",
-       "note": "217 m imprimés",
+       "note": "217 m imprimés ; 2,3 km à vol d'oiseau du col des Estaques pour 1,5 au profil : passage vraisemblablement en bordure nord de la ville, non situé",
        "lat": 44.55851,
        "lon": 2.25421,
        "how": "commune-ign",
@@ -107299,7 +107299,7 @@
        "label": "Vielha",
        "km": 0,
        "kind": "ville",
-       "note": "1105 m imprimés ; imprimé « Vielha Val d'Aran »",
+       "note": "1105 m imprimés ; imprimé « Vielha Val d'Aran » ; départ à la mairie de Vielha, 974 m au MNT : altitude imprimée sans rapport avec la ville, départ réel non situé (règle 14)",
        "lat": 42.70176,
        "lon": 0.79547,
        "how": "nominatim",
@@ -107426,7 +107426,7 @@
        "label": "Escaldes-Engordany",
        "km": 0,
        "kind": "ville",
-       "note": "1200 m imprimés",
+       "note": "1200 m imprimés ; départ à la mairie d'Escaldes-Engordany, 1 055 m au MNT : altitude imprimée sans rapport avec la ville, départ réel non situé (règle 14)",
        "lat": 42.509,
        "lon": 1.54041,
        "how": "nominatim",
@@ -107833,11 +107833,8 @@
        "label": "Côte de Gordes",
        "km": 131.5,
        "kind": "côte",
-       "note": "449 m imprimés",
-       "lat": 43.91106,
-       "lon": 5.2002,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "449 m imprimés ; non placée : Gordes est à 351 m au MNT, 98 m sous le sommet (audit Mireille)",
+       "confidence": "non-place"
       },
       {
        "label": "Col des Trois Termes",
@@ -107882,13 +107879,13 @@
      ],
      "note": "Étape raccourcie le jour même à cause du vent : arrivée au Chalet Reynard (km 178, 1 435 m) au lieu du sommet du Mont Ventoux (km 184, 1 912 m) imprimé au profil (ledicodutour.com) ; l'étape s'arrête au Chalet Reynard.",
      "route_check": {
-      "routed_km": 160.2,
+      "routed_km": 160.1,
       "profile_km": 165,
-      "delta_pct": -2.9,
+      "delta_pct": -3,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
-      "legs": 12,
+      "legs": 11,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -108302,7 +108299,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Bourg-en-Bresse → Bohas 13,5 km à vol d'oiseau pour 9 au profil, départ réel hors de la ville, non situé (règle 25). Entrée sur le circuit final imprimée au km 122 (circuit_km, règle 19) : le circuit Culoz → lacets du Grand Colombier → Anglefort → Culoz, dont les lacets ne sont pas placés, faisait reprendre au routeur 10,9 km en sens inverse ; il n'est pas mesuré. Le « ok » (−2,2 %) compte un aller-retour de 5,0 km à Cerdon, qui reste avec le point à la mairie (règle 17) : il n'est pas probant (règle 24) ; col du Berthiand → Peyriat 5,6 km routés pour 9.",
+     "note": "Départ : Bourg-en-Bresse → Bohas 13,5 km à vol d'oiseau pour 9 au profil, départ réel hors de la ville, non situé (règle 25). Entrée sur le circuit final imprimée au km 122 (circuit_km, règle 19) : le circuit Culoz → lacets du Grand Colombier → Anglefort → Culoz, dont les lacets ne sont pas placés, faisait reprendre au routeur 10,9 km en sens inverse ; il n'est pas mesuré. Le « ok » (−2,2 %) compte un aller-retour de 5,0 km à Cerdon, qui reste avec le point à la mairie (règle 17) : le routeur descend de Peyriat par les lacets de la D 1084 et y remonte (Peyriat → Cerdon 13,0 km pour 9,5, autant en voiture) ; sans cet aller-retour l'étape serait vers −11,8 %, hors tolérance, et ce « ok » n'est pas probant (règle 24). Col du Berthiand → Peyriat : 5,6 km routés pour 9, 5,6 aussi en voiture, détour non imprimé (règle 20).",
      "route_check": {
       "routed_km": 101.7,
       "profile_km": 104,
@@ -108622,26 +108619,26 @@
        "label": "Lac d'Émosson",
        "km": 184.5,
        "kind": "lieu-dit",
-       "note": "1960 m imprimés ; arrivée imprimée « Finhaut-Emosson »",
-       "lat": 46.08361,
-       "lon": 6.91163,
-       "how": "stage_towns",
+       "note": "1960 m imprimés ; arrivée placée au lieu-dit Émosson près du barrage (Nominatim), 1 966 m sur EU-DEM ; le point de stage_towns était le centre du réservoir (règle 22, audit Mireille)",
+       "lat": 46.06831,
+       "lon": 6.9359,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
      "route_check": {
-      "routed_km": 170.1,
+      "routed_km": 164.8,
       "profile_km": 166,
-      "delta_pct": 2.5,
+      "delta_pct": -0.7,
       "tolerance_pct": 5,
       "coverage_pct": 90,
       "car_legs": 0,
       "legs": 13,
-      "suspect_legs": 1,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Berne → Wattenwil 20,4 km à vol d'oiseau pour 18,5 au profil, départ réel hors de la ville, non situé (règle 25). Finhaut → Lac d'Émosson : 13,1 km routés pour 7 (point de Finhaut au centre, imprimé « Finhaut (près) ») : le routeur fait le tour par la route du barrage, passage exact non situé."
+     "note": "Départ : Berne → Wattenwil 20,4 km à vol d'oiseau pour 18,5 au profil, départ réel hors de la ville, non situé (règle 25)."
     },
     "18": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2016/2016_18_2.jpg",
@@ -108835,8 +108832,11 @@
        "label": "Montée de Bisanne",
        "km": 96.5,
        "kind": "col",
-       "note": "1723 m imprimés ; retirée : le point de la route du Signal (télésiège, 1 770 m au MNT) faisait un aller-retour de 1,4 km (règle 9) ; col de la route non localisé",
-       "confidence": "non-place"
+       "note": "1723 m imprimés ; placée sur la route du Signal (Villard-sur-Doron), 1 726 m au MNT ; nom renvoyé « Route du Signal », pas « Bisanne » (audit Mireille)",
+       "confidence": "ambiguous",
+       "lat": 45.74652,
+       "lon": 6.52801,
+       "how": "nominatim"
       },
       {
        "label": "Notre-Dame-de-Bellecombe",
@@ -108880,18 +108880,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 139.4,
+      "routed_km": 136.6,
       "profile_km": 137.5,
-      "delta_pct": 1.4,
+      "delta_pct": -0.6,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
-      "legs": 11,
+      "legs": 12,
       "suspect_legs": 0,
       "backtracks": 1,
       "backtracks_uncertain": 0
      },
-     "note": "Aller-retour de 3,0 km à Vervex, hameau au pied de la montée du Bettex : le « ok » (+1,4 %) le compte, sans lui l'étape reste dans la tolérance."
+     "note": "Aller-retour de 3,0 km à Vervex, hameau de Domancy (point juste, à 25 m du poteau) : le routeur descend de Megève par Saint-Gervais (12,0 km) au lieu de Combloux → Domancy (13,3, 13,4 en voiture, plus près des 14,5 du profil) ; sans l'aller-retour l'étape reste dans la tolérance (vers +0,3 %)."
     },
     "20": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2016/2016_20a.jpg",
@@ -109067,11 +109067,11 @@
        "label": "Forêt de Montmorency",
        "km": 21,
        "kind": "lieu-dit",
-       "note": "152 m imprimés",
+       "note": "152 m imprimés ; point au centre de la forêt (place=region), passage exact non situé : Attainville → forêt 8,1 km routés pour 5,5",
        "lat": 49.02886,
        "lon": 2.27944,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ambiguous"
       },
       {
        "label": "Eaubonne",
@@ -109087,8 +109087,11 @@
        "label": "Côte de l'Ermitage",
        "km": 32.5,
        "kind": "côte",
-       "note": "130 m imprimés ; non placée : la rue de l'Ermitage (Montmorency) est à 9,6 km de Colombes pour 6 au profil, et à 109 m au MNT",
-       "confidence": "non-place"
+       "note": "130 m imprimés ; rue de l'Ermitage (Sannois), 130 m au MNT (audit Mireille)",
+       "confidence": "ambiguous",
+       "lat": 48.97026,
+       "lon": 2.23615,
+       "how": "nominatim"
       },
       {
        "label": "Colombes",
