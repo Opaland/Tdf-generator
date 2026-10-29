@@ -945,6 +945,35 @@ et côtes traversées avec leur kilomètre.
   184) ; Jongieux-le-Haut, Langres, Longwy-Haut, Saint-Pierre de Rodez,
   départ de Laissac et sud d'Antony placés ; Viry à la mairie.
 
+- [x] Édition 2018 (PR #521) : 21 étapes sur 21 (pas de prologue en
+  2018), depuis les profils de ledicodutour.com
+  (`cartes_etapes/2018/N_b.jpg` ou équivalent, altitudes imprimées).
+  Critères d'acceptation : chaque nom imprimé est transcrit avec son km,
+  lu sur un agrandissement ; l'altitude est contrôlée point par point
+  (règle 14, EU-DEM hors de France) ; le contrôle à ±5 % passe sur BRouter
+  public avec 0 tronçon en voiture, et chaque étape hors tolérance a sa
+  cause notée ; le test d'invariant passe ; l'audit Mireille est fait
+  avant la fusion.
+  Fait : 387 points placés sur 420 (dont quinze secteurs pavés en 2018/9).
+  Contrôlée à ±5 % sur BRouter public, 0 tronçon en voiture : 18 étapes
+  dans la tolérance, 2 hors, cause notée avec la comparaison en voiture —
+  2018/3 (−13,8 %, −9,0 % : final dans Cholet non situé), 2018/5 (−10,7 %,
+  −1,7 % : le routeur vélo coupe) ; 2018/21 non contrôlable. Arrivée du
+  col du Portet replacée au sommet (le point de stage_towns était à
+  Saint-Lary, 817 m pour 2 215), arrivées de Mûr-de-Bretagne et de Mende
+  aux points des éditions précédentes ; Entremont, Bonneval et Pontamafrey
+  au village (le centre de commune était 180 à 640 m trop haut) ; cinq
+  points retirés pour aller-retour (plateau des Glières, Arêches,
+  Sainte-Eulalie, Luzençon, Avezac).
+  Audit Mireille : 2018/20 recalé (carrefour D250-D88 placé au croisement
+  OSM, Hergaraï et Larraldea de Souraïde, Ustaritz retiré : +2,1 % →
+  −0,1 %) ; Berd'huis, Les Herbiers et Montroty retirés (lignes droites
+  plus longues que le profil, règle 11), Nogent-le-Rotrou à sa mairie ;
+  Grand Châtaignier, Moulin-Maurel (nom imprimé rétabli), Les Quatre
+  Routes (Avessac), Ti Douar, L'Essert et Haut-de-la-Côte retrouvés par
+  recherche bornée ; Bessèges (2e passage) ajouté ; notes de règle 11
+  complétées (2018/5, 8, 9, 13, 16).
+
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
