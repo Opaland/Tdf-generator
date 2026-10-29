@@ -109162,9 +109162,9 @@
        "label": "Düsseldorf",
        "km": 0,
        "kind": "ville",
-       "note": "35 m imprimés",
-       "lat": 51.2254,
-       "lon": 6.77631,
+       "note": "35 m imprimés ; départ à la Messe Düsseldorf (exhibition_centre), sourcé dans historic_routes (cyclingstage.com) ; 37 m sur EU-DEM (audit Mireille)",
+       "lat": 51.25978,
+       "lon": 6.74178,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -109192,23 +109192,23 @@
        "label": "Düsseldorf (arrivée)",
        "km": 14,
        "kind": "ville",
-       "note": "35 m imprimés",
-       "lat": 51.2254,
-       "lon": 6.77631,
-       "how": "stage_towns",
+       "note": "35 m imprimés ; arrivée à la Messe Düsseldorf, sourcée dans historic_routes (audit Mireille)",
+       "lat": 51.25978,
+       "lon": 6.74178,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
-     "note": "Contre-la-montre individuel à Düsseldorf. Hors de France (Allemagne, Belgique, Luxembourg), la Géoplateforme ne mesure pas : altitudes contrôlées sur EU-DEM (règle 14). Hors tolérance (−78,3 %), non probant : contre-la-montre en boucle, départ et arrivée au même point ; entre Königsallee et l'arrivée, 5,9 km au profil pour 0,3 à vol d'oiseau : la boucle finale n'a aucun point imprimé.",
+     "note": "Contre-la-montre individuel à Düsseldorf. Hors de France (Allemagne, Belgique, Luxembourg), la Géoplateforme ne mesure pas : altitudes contrôlées sur EU-DEM (règle 14). Départ et arrivée à la Messe Düsseldorf (historic_routes, cyclingstage.com). Hors tolérance (−13,8 %), cause notée : −24,7 % en voiture (7,3 km) ; Oberkasseler Brücke → Königsallee 1,6 km routés pour 3,8 : le passage par le Rheinkniebrücke, sourcé mais non imprimé, n'est pas repris (règle 4).",
      "route_check": {
-      "routed_km": 2.1,
+      "routed_km": 8.4,
       "profile_km": 9.7,
-      "delta_pct": -78.3,
+      "delta_pct": -13.8,
       "tolerance_pct": 5,
       "coverage_pct": 69,
       "car_legs": 0,
       "legs": 2,
-      "suspect_legs": 1,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -109340,7 +109340,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Hors de France (Allemagne, Belgique, Luxembourg), la Géoplateforme ne mesure pas : altitudes contrôlées sur EU-DEM (règle 14). Hors tolérance (−11,7 %), cause notée : +3,3 % en voiture (173,5 km) : le routeur vélo coupe ; Düsseldorf (2e passage, placé à l'hôtel de ville) → Neuss 8,2 km routés pour 22, boucle dans Düsseldorf non imprimée ; Aix-la-Chapelle non placé (hôtel de ville à 35 km de Titz pour 29)."
+     "note": "Hors de France (Allemagne, Belgique, Luxembourg), la Géoplateforme ne mesure pas : altitudes contrôlées sur EU-DEM (règle 14). Hors tolérance (−11,7 %), cause notée : +3,3 % en voiture (173,5 km) : le routeur vélo coupe ; Düsseldorf (2e passage, placé à l'hôtel de ville) → Neuss 8,2 km routés pour 22, boucle dans Düsseldorf non imprimée ; Aix-la-Chapelle non placé (hôtel de ville à 35 km de Titz pour 29) ; Titz → Henri-Chapelle fait 50,6 km à vol d'oiseau pour 50,5 au profil, la mairie de Titz n'y change rien : km imprimé incohérent, laissé (règle 11) ; Chaudfontaine → Liège 8,5 km à vol d'oiseau pour 8, arrivée au centre de Liège non sourcée."
     },
     "3": {
      "source_url": "https://www.ledicodutour.com/images/2017/2017_parcours/2017_3a.jpg",
@@ -109483,17 +109483,17 @@
        "label": "Côte des Religieuses",
        "km": 212.5,
        "kind": "côte",
-       "note": "379 m imprimés ; arrivée imprimée « Longwy - Côte des Religieuses » ; arrivée placée au lieu-dit « Côte aux Religieuses » (Longwy), 323 m au MNT ; sommet exact non sourcé",
-       "lat": 49.52562,
-       "lon": 5.77167,
+       "note": "379 m imprimés ; arrivée placée à Longwy-Haut, 381 m au MNT ; ligne exacte non sourcée (audit Mireille)",
+       "lat": 49.52396,
+       "lon": 5.76363,
        "how": "nominatim",
        "confidence": "ambiguous"
       }
      ],
      "route_check": {
-      "routed_km": 164.8,
+      "routed_km": 165.7,
       "profile_km": 180.5,
-      "delta_pct": -8.7,
+      "delta_pct": -8.2,
       "tolerance_pct": 5,
       "coverage_pct": 85,
       "car_legs": 0,
@@ -109502,7 +109502,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Hors de France (Allemagne, Belgique, Luxembourg), la Géoplateforme ne mesure pas : altitudes contrôlées sur EU-DEM (règle 14). Hors tolérance (−8,7 %), cause notée : −2,3 % en voiture (176,4 km) ; côte de Villers-la-Montagne → côte des Religieuses 9,5 km routés pour 15,5 : boucle autour de Longwy non imprimée."
+     "note": "Hors de France (Allemagne, Belgique, Luxembourg), la Géoplateforme ne mesure pas : altitudes contrôlées sur EU-DEM (règle 14). Hors tolérance (−8,2 %), cause notée : −1,4 % en voiture (177,9 km) ; côte de Villers-la-Montagne → côte des Religieuses 10,3 km routés pour 15,5 : boucle autour de Longwy non imprimée."
     },
     "4": {
      "source_url": "https://www.ledicodutour.com/images/2017/2017_parcours/2017_4a.jpg",
@@ -109786,11 +109786,11 @@
        "label": "Côte de Langres",
        "km": 69,
        "kind": "côte",
-       "note": "458 m imprimés",
-       "lat": 47.9309,
-       "lon": 5.38063,
+       "note": "458 m imprimés ; placée à la mairie de Langres (469 m), sommet non localisé ; le premier point était un bois « La Côte » à Changey (audit Mireille)",
+       "lat": 47.86551,
+       "lon": 5.33144,
        "how": "nominatim",
-       "confidence": "ambigu"
+       "confidence": "ambiguous"
       },
       {
        "label": "Beauchemin",
@@ -109861,9 +109861,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 196.7,
+      "routed_km": 190.6,
       "profile_km": 197,
-      "delta_pct": -0.2,
+      "delta_pct": -3.2,
       "tolerance_pct": 5,
       "coverage_pct": 91,
       "car_legs": 0,
@@ -110089,9 +110089,9 @@
        "label": "Côte de Viry",
        "km": 138.5,
        "kind": "côte",
-       "note": "748 m imprimés",
-       "lat": 46.30553,
-       "lon": 5.74745,
+       "note": "748 m imprimés ; placée à la mairie de Viry (764 m au MNT, règle 17) (audit Mireille)",
+       "lat": 46.29994,
+       "lon": 5.73777,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -110124,9 +110124,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 151.3,
+      "routed_km": 149.9,
       "profile_km": 159.5,
-      "delta_pct": -5.1,
+      "delta_pct": -6,
       "tolerance_pct": 5,
       "coverage_pct": 85,
       "car_legs": 0,
@@ -110135,7 +110135,7 @@
       "backtracks": 1,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Dole → Arbois 29,9 km à vol d'oiseau pour 28 au profil, départ réel hors de la ville, non situé (règle 25). Hors tolérance (−5,1 %), cause notée : −6,6 % en voiture (149,0 km) ; Bonlieu → col de la Joux 12,1 km routés pour 17,5 : détour non imprimé. Aller-retour de 9,9 km à la côte de Viry, point au centre de Viry (751 m pour 748) : le routeur redescend par la route de montée vers Saint-Claude, descente réelle non sourcée (règle 9)."
+     "note": "Départ : Dole → Arbois 29,9 km à vol d'oiseau pour 28 au profil, départ réel hors de la ville, non situé (règle 25). Hors tolérance (−6,0 %), cause notée : −7,5 % en voiture (147,6 km) ; Bonlieu → col de la Joux 12,1 km routés pour 17,5 : détour non imprimé. Aller-retour de 9,2 km à la côte de Viry, point à la mairie (764 m pour 748, règle 17) : le profil reste sur le plateau après Viry, le routeur redescend par la route de montée vers Saint-Claude ; le −6,0 % compte ces km deux fois (règle 24), descente réelle non sourcée. Arrivée de la Station des Rousses à 1 109 m pour 1 178 imprimés, ligne exacte non sourcée."
     },
     "9": {
      "source_url": "https://www.ledicodutour.com/images/2017/2017_parcours/2017_9a2.jpg",
@@ -110251,8 +110251,11 @@
        "label": "Côte de Jongieux",
        "km": 134,
        "kind": "côte",
-       "note": "414 m imprimés ; non placée : Jongieux est à 318 m pour 414, sommet non localisé",
-       "confidence": "non-place"
+       "note": "414 m imprimés ; hameau de Jongieux-le-Haut, 395 m au MNT (audit Mireille)",
+       "confidence": "ok",
+       "lat": 45.73238,
+       "lon": 5.80185,
+       "how": "nominatim"
       },
       {
        "label": "Mont du Chat",
@@ -110286,18 +110289,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 157.8,
+      "routed_km": 160.1,
       "profile_km": 170.5,
-      "delta_pct": -7.5,
+      "delta_pct": -6.1,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
-      "legs": 11,
+      "legs": 12,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Hors tolérance (−7,5 %), cause notée : −4,9 % en voiture (162,2 km) ; Grand Colombier → Culoz 17,5 km routés pour 23,5 et Massignieu-de-Rives → Mont du Chat 24,3 pour 29 : détours non imprimés."
+     "note": "Hors tolérance (−6,1 %), cause notée : −4,9 % en voiture (162,1 km) ; Grand Colombier → Culoz 17,5 km routés pour 23,5 : détour non imprimé."
     },
     "10": {
      "source_url": "https://www.ledicodutour.com/images/2017/2017_parcours/2017_10a.jpg",
@@ -110346,7 +110349,7 @@
        "label": "Allas",
        "km": 77.5,
        "kind": "ville",
-       "note": "143 m imprimés ; imprimé « Allas » ; imprimé « Allas » ; non placé : Allas-les-Mines est à 68 m au MNT et à 12,3 km des Eyzies pour 11, Saint-André-d'Allas à 207 m et 13,3 km : lieu imprimé non identifié",
+       "note": "143 m imprimés ; imprimé « Allas » ; non placé : Allas-les-Mines est à 68 m au MNT et à 12,3 km des Eyzies pour 11, Saint-André-d'Allas à 207 m et 13,3 km : lieu imprimé non identifié",
        "confidence": "non-place"
       },
       {
@@ -110370,11 +110373,11 @@
        "label": "Côte de Domme",
        "km": 100.5,
        "kind": "côte",
-       "note": "184 m imprimés",
-       "lat": 44.81945,
-       "lon": 1.23799,
+       "note": "184 m imprimés ; placée à la mairie de Domme (206 m au MNT) ; le premier point était le lieu-dit « Côte de Flauquet », à 112 m (audit Mireille)",
+       "lat": 44.803,
+       "lon": 1.21452,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ambiguous"
       },
       {
        "label": "Saint-Cyprien",
@@ -110418,18 +110421,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 146,
+      "routed_km": 147.3,
       "profile_km": 151.5,
-      "delta_pct": -3.6,
+      "delta_pct": -2.8,
       "tolerance_pct": 5,
       "coverage_pct": 85,
       "car_legs": 0,
       "legs": 8,
-      "suspect_legs": 1,
+      "suspect_legs": 0,
       "backtracks": 0,
-      "backtracks_uncertain": 1
+      "backtracks_uncertain": 0
      },
-     "note": "Départ : Périgueux → Thenon 28,2 km à vol d'oiseau pour 26,5 au profil, départ réel hors de la ville, non situé (règle 25). Allas, imprimé sans autre précision, n'est pas placé ; Sarlat placé au centre. Sarlat → côte de Domme 9,6 km routés pour 14,5 (second passage à Sarlat non placé) ; aller-retour incertain de 2,0 km à Domme, village perché (règle 9)."
+     "note": "Départ : Périgueux → Thenon 28,2 km à vol d'oiseau pour 26,5 au profil, départ réel hors de la ville, non situé (règle 25). Allas, imprimé sans autre précision, n'est pas placé ; Sarlat placé au centre, second passage non placé ; côte de Domme placée à la mairie de Domme (le premier point, « Côte de Flauquet », faisait un aller-retour)."
     },
     "11": {
      "source_url": "https://www.ledicodutour.com/images/2017/2017_parcours/2017_11a.jpg",
@@ -110709,7 +110712,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Un km 200 est imprimé sans nom entre le Port de Balès et le col de Peyresourde : non repris (règle 4). Départ : Pau → Tarbes 36,8 km à vol d'oiseau pour 29 au profil, départ réel hors de la ville, non situé (règle 25).",
+     "note": "Un km 200 est imprimé sans nom entre le Port de Balès et le col de Peyresourde : non repris (règle 4). Départ : Pau → Tarbes 36,8 km à vol d'oiseau pour 29 au profil, départ réel hors de la ville, non situé (règle 25). Côte de Capvern → La Barthe-de-Neste : 6,0 km à vol d'oiseau pour 6, point de la côte au village (règle 7).",
      "route_check": {
       "routed_km": 176.4,
       "profile_km": 185.5,
@@ -110945,17 +110948,17 @@
        "label": "Côte de Saint-Pierre",
        "km": 181.5,
        "kind": "côte",
-       "note": "563 m imprimés ; arrivée imprimée « Rodez - Côte de Saint-Pierre »",
-       "lat": 44.35114,
-       "lon": 2.57285,
-       "how": "stage_towns",
-       "confidence": "ok"
+       "note": "563 m imprimés ; arrivée imprimée « Rodez - Côte de Saint-Pierre » ; arrivée placée au lieu-dit Saint-Pierre (Bourran, Rodez), 559 m au MNT ; le centre de Rodez est à 623 m (audit Mireille)",
+       "lat": 44.35683,
+       "lon": 2.55329,
+       "how": "nominatim",
+       "confidence": "ambiguous"
       }
      ],
      "route_check": {
-      "routed_km": 149.9,
+      "routed_km": 149.1,
       "profile_km": 152.5,
-      "delta_pct": -1.7,
+      "delta_pct": -2.3,
       "tolerance_pct": 5,
       "coverage_pct": 84,
       "car_legs": 0,
@@ -110963,7 +110966,8 @@
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Rabastens → Gaillac : 16,5 km à vol d'oiseau pour 16, km imprimé incohérent, mairies vérifiées (règle 11)."
     },
     "15": {
      "source_url": "https://www.ledicodutour.com/images/2017/2017_parcours/2017_15a2.jpg",
@@ -110972,10 +110976,10 @@
        "label": "Laissac-Sévérac l'Église",
        "km": 0,
        "kind": "ville",
-       "note": "578 m imprimés",
-       "lat": 44.36918,
-       "lon": 2.83871,
-       "how": "commune-ign",
+       "note": "578 m imprimés ; départ placé à la mairie de Laissac (595 m au MNT) ; le centre IGN de la commune nouvelle était à 1,85 km (règles 15 et 25) (audit Mireille)",
+       "lat": 44.38101,
+       "lon": 2.82224,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -111230,7 +111234,7 @@
       "backtracks": 1,
       "backtracks_uncertain": 0
      },
-     "note": "Hors tolérance (−8,2 %), cause notée : −4,6 % en voiture (137,9 km) ; Châteauneuf-sur-Isère → Romans-sur-Isère 12,0 km routés pour 18,5 : final non imprimé. Aller-retour de 2,7 km à Saint-Donat-sur-l'Herbasse : il reste avec le point à la mairie (règle 17)."
+     "note": "Hors tolérance (−8,2 %), cause notée : −4,6 % en voiture (137,9 km) ; Châteauneuf-sur-Isère → Romans-sur-Isère 12,0 km routés pour 18,5 : final non imprimé. Aller-retour de 2,7 km à Saint-Donat-sur-l'Herbasse : il reste avec le point à la mairie (règle 17), et le −8,2 % compte ces km deux fois (règle 24)."
     },
     "17": {
      "source_url": "https://www.ledicodutour.com/images/2017/2017_parcours/2017_17a2.jpg",
@@ -111359,23 +111363,23 @@
        "label": "Serre Chevalier",
        "km": 183,
        "kind": "lieu-dit",
-       "note": "1403 m imprimés ; arrivée placée au hameau de Chantemerle (Saint-Chaffrey, Serre Chevalier), 1 377 m au MNT ; le point de stage_towns était celui du col du Granon de 1986 (2 481 m) ; ligne d'arrivée exacte non sourcée",
-       "lat": 44.93253,
-       "lon": 6.59259,
+       "note": "1403 m imprimés ; arrivée placée au hameau de Villeneuve (La Salle-les-Alpes, Serre Chevalier), 1 392 m au MNT, 5,0 km à vol d'oiseau du Monêtier pour 6,5 ; ligne exacte non sourcée (audit Mireille)",
+       "lat": 44.94796,
+       "lon": 6.55995,
        "how": "nominatim",
        "confidence": "ambiguous"
       }
      ],
-     "note": "Un km 94,5 est imprimé sans nom entre la Croix de Fer et Saint-Jean-de-Maurienne : non repris (règle 4). Le Monêtier-les-Bains → Serre Chevalier : 8,1 km à vol d'oiseau pour 6,5, arrivée placée au hameau de Chantemerle, ligne exacte non sourcée (règle 11).",
+     "note": "Un km 94,5 est imprimé sans nom entre la Croix de Fer et Saint-Jean-de-Maurienne : non repris (règle 4). Arrivée placée au hameau de Villeneuve (Serre Chevalier), ligne exacte non sourcée.",
      "route_check": {
-      "routed_km": 172.6,
+      "routed_km": 169.4,
       "profile_km": 172.5,
-      "delta_pct": 0.1,
+      "delta_pct": -1.8,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
       "legs": 11,
-      "suspect_legs": 1,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -111671,7 +111675,7 @@
        "label": "Orange Vélodrome",
        "km": 0,
        "kind": "lieu-dit",
-       "note": "11 m imprimés ; départ imprimé « Marseille Orange Vélodrome »",
+       "note": "11 m imprimés ; départ imprimé « Marseille Orange Vélodrome » ; départ au stade Vélodrome (Nominatim leisure=stadium)",
        "lat": 43.26985,
        "lon": 5.39591,
        "how": "nominatim",
@@ -111728,28 +111732,28 @@
        "label": "Avenue du Prado (retour)",
        "km": 19.8,
        "kind": "lieu-dit",
-       "note": "2 m imprimés ; imprimé « Avenue du Prado » ; avenue du Prado (Saint-Giniez)",
+       "note": "2 m imprimés ; imprimé « Avenue du Prado » ; avenue du Prado (Saint-Giniez) ; avenue du Prado côté plage (géocodage inverse), 3 m au MNT (audit Mireille)",
        "confidence": "ok",
-       "lat": 43.27323,
-       "lon": 5.39056,
+       "lat": 43.265,
+       "lon": 5.38,
        "how": "nominatim"
       },
       {
        "label": "Orange Vélodrome (arrivée)",
        "km": 22.5,
        "kind": "lieu-dit",
-       "note": "11 m imprimés ; arrivée imprimée « Marseille Orange Vélodrome »",
-       "lat": 43.2964,
-       "lon": 5.37779,
-       "how": "stage_towns",
+       "note": "11 m imprimés ; arrivée imprimée « Marseille Orange Vélodrome » ; arrivée placée au stade Vélodrome (Nominatim leisure=stadium), comme le départ ; historic_routes source l'arrivée au Stade Vélodrome (audit Mireille)",
+       "lat": 43.26985,
+       "lon": 5.39591,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
-     "note": "Contre-la-montre individuel en boucle, départ et arrivée à l'Orange Vélodrome de Marseille. Hors tolérance (−16,2 %), cause notée : −1,5 % en voiture (20,1 km) : contre-la-montre urbain sur routes fermées, le routeur vélo coupe ; le rond-point du MuCEM, retiré, faisait reprendre 1,7 km au routeur.",
+     "note": "Contre-la-montre individuel en boucle, départ et arrivée à l'Orange Vélodrome de Marseille (stade Vélodrome, historic_routes). Hors tolérance (−20,8 %), cause notée : −7,8 % en voiture (18,8 km) ; le rond-point du MuCEM (km 12,8), non localisé, n'est pas placé : Palais du Pharo → Notre-Dame de la Garde fait 2,7 km routés pour 5,4 ; avec un point vraisemblable au quai de la Tourette (non sourcé, non ajouté) l'étape serait à +4,0 % (audit Mireille).",
      "route_check": {
-      "routed_km": 17.1,
+      "routed_km": 16.1,
       "profile_km": 20.4,
-      "delta_pct": -16.2,
+      "delta_pct": -20.8,
       "tolerance_pct": 5,
       "coverage_pct": 91,
       "car_legs": 0,
@@ -111796,11 +111800,11 @@
        "label": "Antony",
        "km": 24,
        "kind": "ville",
-       "note": "84 m imprimés",
-       "lat": 48.75361,
-       "lon": 2.2958,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "84 m imprimés ; placé au sud d'Antony près de la RN 20 (81 m au MNT), à la limite des Hauts-de-Seine imprimée sous le km 24 ; la mairie faisait un tronçon de +1,1 km (règle 11) (audit Mireille)",
+       "lat": 48.739,
+       "lon": 2.3075,
+       "how": "nominatim",
+       "confidence": "ambiguous"
       },
       {
        "label": "Porte d'Orléans",
