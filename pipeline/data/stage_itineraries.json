@@ -57630,7 +57630,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Au Luxembourg, la Géoplateforme renvoie 0 m : altitudes contrôlées sur EU-DEM (opentopodata eudem25m), à 50 m au plus de l'altitude imprimée (règle 14). Hors tolérance (−15,1 %), cause notée : −11,1 % en voiture (158,3 km) ; Côte de Hoscheid → Bettendorf fait 16,1 km routés pour 26,5 au profil (côte de Vianden non placée) et Remich → Luxembourg 23,9 pour 32,5 (côte de Hostert non placée) : boucles non placées. Aller-retour incertain de 1,6 km vers Bettendorf à la côte de Hoscheid, placée au village (règle 9).",
+     "note": "Au Luxembourg, la Géoplateforme renvoie 0 m : altitudes contrôlées sur EU-DEM (opentopodata eudem25m), à 50 m au plus de l'altitude imprimée (règle 14). Hors tolérance (−15,1 %), cause notée : −11,1 % en voiture (158,3 km) ; Côte de Hoscheid → Bettendorf fait 16,1 km routés pour 26,5 au profil (côte de Vianden non placée) et Remich → Luxembourg 23,9 pour 32,5 (côte de Hostert non placée) : boucles non placées. Aller-retour incertain de 1,6 km vers Bettendorf à la côte de Hoscheid : il vient de la côte de Vianden non placée (essai de l'audit Mireille : Vianden placée, il disparaît et l'étape passe à −8,5 %, mais la ville est 135 m sous le sommet imprimé).",
      "route_check": {
       "routed_km": 151.2,
       "profile_km": 178,
@@ -57771,7 +57771,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Hors tolérance (−11,8 %), cause notée : −5,7 % en voiture (154,6 km) ; Primstal → Uchtelfangen fait 25,0 km routés pour 38,5 au profil, à vélo comme en voiture : détour non imprimé."
+     "note": "Hors tolérance (−11,8 %), cause notée : −5,7 % en voiture (154,6 km) ; Primstal → Uchtelfangen fait 25,0 km routés pour 38,5 au profil, à vélo comme en voiture : détour non imprimé ; Uchtelfangen → Riegelsberg fait 12,9 km routés pour 10,5 et Riegelsberg → Saarbrücken 10,4 pour 15, écarts du profil qui se compensent en partie."
     },
     "3": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2002/2002-3a.jpg",
@@ -57917,7 +57917,7 @@
        "label": "La Cave",
        "km": 10.5,
        "kind": "lieu-dit",
-       "note": "76 m imprimés ; non placé : le seul « La Cave » connu (Festigny) est à 166 m au MNT et à 13,4 km d'Épernay pour 10,5",
+       "note": "76 m imprimés ; non placé : « Le Port de la Cave » (Œuilly) et « Les Prés de la Cave » (Reuil), aux bonnes distances, créent chacun un aller-retour (1,9 et 1,1 km) ; le lieu de Festigny est à 166 m au MNT",
        "confidence": "non-place"
       },
       {
@@ -57944,8 +57944,11 @@
        "label": "Igny-le-Jard",
        "km": 33,
        "kind": "ville",
-       "note": "212 m imprimés ; non placé : lieu inconnu de Nominatim (recherche bornée)",
-       "confidence": "non-place"
+       "note": "212 m imprimés ; placé à la mairie d'Igny-Comblizy, à Igny (207 m au MNT) : commune nouvelle (règle 15)",
+       "confidence": "ok",
+       "lat": 49.01939,
+       "lon": 3.71336,
+       "how": "nominatim"
       },
       {
        "label": "Le Breuil",
@@ -58000,13 +58003,13 @@
      ],
      "note": "Contre-la-montre par équipes. Départ : Épernay → La Chaussée 5,9 km à vol d'oiseau pour 5,5 au profil, départ réel hors de la ville, non situé (règle 25).",
      "route_check": {
-      "routed_km": 60.4,
+      "routed_km": 60.7,
       "profile_km": 62,
-      "delta_pct": -2.6,
+      "delta_pct": -2.1,
       "tolerance_pct": 5,
       "coverage_pct": 92,
       "car_legs": 0,
-      "legs": 7,
+      "legs": 8,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -58158,7 +58161,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Noyers-Saint-Martin → Crèvecœur-le-Grand : 14,6 km à vol d'oiseau pour 13 au profil, laissé (règle 11)."
+     "note": "Noyers-Saint-Martin → Crèvecœur-le-Grand : 14,6 km à vol d'oiseau pour 13 au profil, mairies vérifiées aux deux bouts : km imprimé incohérent (règle 11)."
     },
     "6": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2002/2002-6a.jpg",
@@ -58204,7 +58207,7 @@
        "label": "Côte de Saint-Vigor",
        "km": 71.5,
        "kind": "côte",
-       "note": "136 m imprimés ; placée au village de Saint-Vigor (134 m au MNT)",
+       "note": "136 m imprimés ; placée au centre de la commune de Saint-Vigor (134 m au MNT)",
        "confidence": "ambiguous",
        "lat": 49.07485,
        "lon": 1.25832,
@@ -58293,7 +58296,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Côte de Saint-Vigor → Conches-en-Ouche : 26,3 km à vol d'oiseau pour 25 au profil, côte placée au village, laissé (règle 11)."
+     "note": "Côte de Saint-Vigor → Conches-en-Ouche : 26,3 km à vol d'oiseau pour 25 au profil, côte placée au centre de la commune de Saint-Vigor (la mairie allonge la ligne droite) : km imprimé incohérent (règle 11)."
     },
     "7": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2002/2002-7a.jpg",
@@ -58402,10 +58405,10 @@
        "label": "Côte de La Chapelle-Urée",
        "km": 154,
        "kind": "côte",
-       "note": "210 m imprimés ; imprimé « La Chapelle-Urée » (côte de 4e catégorie) ; placée au village de La Chapelle-Urée (197 m au MNT) : retirée, l'étape tombait de +0,1 à −7,2 %, la course passe donc par le village ; aller-retour du routeur de 1,1 km au centre de la commune, mairie inconnue de Nominatim, laissé (règles 17 et 24)",
-       "confidence": "ambiguous",
-       "lat": 48.66345,
-       "lon": -1.15081,
+       "note": "210 m imprimés ; imprimé « La Chapelle-Urée » (côte de 4e catégorie) ; placée à l'église de La Chapelle-Urée, sur la D5 (204 m au MNT) : au centre de la commune, le routeur faisait un aller-retour de 1,1 km (règles 6 et 17)",
+       "confidence": "ok",
+       "lat": 48.6672,
+       "lon": -1.15044,
        "how": "nominatim"
       },
       {
@@ -58430,18 +58433,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 160.1,
+      "routed_km": 158.7,
       "profile_km": 160,
-      "delta_pct": 0.1,
+      "delta_pct": -0.8,
       "tolerance_pct": 5,
       "coverage_pct": 91,
       "car_legs": 0,
       "legs": 11,
       "suspect_legs": 1,
-      "backtracks": 1,
+      "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Caumont-l'Éventé → Saint-Amand : 12,8 km à vol d'oiseau pour 10 au profil, laissé (règle 11). Aller-retour de 1,1 km au village de La Chapelle-Urée (voir le point) : sans les 2,2 km repris, l'étape reste à −1,3 %."
+     "note": "Caumont-l'Éventé → Saint-Amand : 12,8 km à vol d'oiseau pour 10 au profil, mairies vérifiées aux deux bouts : km imprimé incohérent (règle 11)."
     },
     "8": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2002/2002-8a.jpg",
@@ -58490,7 +58493,7 @@
        "label": "Côte de Bécherel",
        "km": 72,
        "kind": "côte",
-       "note": "142 m imprimés ; placée au bourg de Bécherel (174 m au MNT, au-dessus du sommet imprimé)",
+       "note": "142 m imprimés ; placée au centre de la commune de Bécherel (174 m au MNT, au-dessus du sommet imprimé)",
        "confidence": "ambiguous",
        "lat": 48.29499,
        "lon": -1.94406,
@@ -58584,7 +58587,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Saint-Martin-de-Landelles → Saint-James 11,5 km à vol d'oiseau pour 10,5 au profil, départ réel hors de la ville, non situé (règle 25). Hors tolérance (−7,9 %), cause notée : −6,3 % en voiture (193,9 km) ; Côte de Kervalan → Plouay fait 17,4 km routés pour 30,5 au profil, à vélo comme en voiture : détour non imprimé, la côte de Ty-Marrec étant retirée (aller-retour). Bazouges-la-Pérouse → Combourg : 13,1 km à vol d'oiseau pour 12 au profil, laissé (règle 11).",
+     "note": "Départ : Saint-Martin-de-Landelles → Saint-James 11,5 km à vol d'oiseau pour 10,5 au profil, départ réel hors de la ville, non situé (règle 25). Hors tolérance (−7,9 %), cause notée : −6,3 % en voiture (193,9 km) ; Côte de Kervalan → Plouay fait 17,4 km routés pour 30,5 au profil, à vélo comme en voiture : détour non imprimé, la côte de Ty-Marrec étant retirée (aller-retour). Bazouges-la-Pérouse → Combourg : 13,1 km à vol d'oiseau pour 12 au profil, mairies vérifiées aux deux bouts : km imprimé incohérent (règle 11).",
      "route_check": {
       "routed_km": 190.6,
       "profile_km": 207,
@@ -58679,7 +58682,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Contre-la-montre individuel. Hors tolérance (−8,2 %), cause notée : −4,3 % en voiture (44,5 km) ; Pont-Scorff → Guidel fait 11,2 km routés pour 16 au profil (passage près de Rédené non placé), Guidel-Plages → Larmor-Plage 15,1 pour 11 (12,3 à vol d'oiseau).",
+     "note": "Contre-la-montre individuel. Hors tolérance (−8,2 %), cause notée : −4,3 % en voiture (44,5 km) ; Pont-Scorff → Guidel fait 11,2 km routés pour 16 au profil (passage près de Rédené non placé), Guidel-Plages → Larmor-Plage 15,1 pour 11 (12,3 à vol d'oiseau ; la mairie de Larmor-Plage allonge la ligne droite) : km imprimé incohérent (règle 11).",
      "route_check": {
       "routed_km": 42.7,
       "profile_km": 46.5,
@@ -58720,11 +58723,8 @@
        "label": "Traverses",
        "km": 29.5,
        "kind": "lieu-dit",
-       "note": "112 m imprimés ; imprimé « Traverses (Retjons) » ; placé sur la route des Traverses (Retjons), 106 m au MNT",
-       "confidence": "ambiguous",
-       "lat": 44.13254,
-       "lon": -0.2893,
-       "how": "nominatim"
+       "note": "112 m imprimés ; imprimé « Traverses (Retjons) » ; non placé : Nominatim ne connaît que la route des Traverses (point arbitraire sur la route), à 3,4 km de Retjons pour 8,5 au profil",
+       "confidence": "non-place"
       },
       {
        "label": "Retjons",
@@ -58818,7 +58818,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Bazas → Captieux 16,0 km à vol d'oiseau pour 13,5 au profil, départ réel hors de la ville, non situé (règle 25). Tronçons dont la ligne droite dépasse le profil : Captieux → Traverses (17,9 km pour 16), Retjons → Roquefort (7,9 pour 5,5), Roquefort → Mont-de-Marsan (21,4 pour 19) ; points au bourg, laissés (règle 11).",
+     "note": "Départ : Bazas → Captieux 16,0 km à vol d'oiseau pour 13,5 au profil, départ réel hors de la ville, non situé (règle 25). Tronçons dont la ligne droite dépasse le profil : Captieux → Traverses (17,9 km pour 16), Retjons → Roquefort (7,9 pour 5,5), Roquefort → Mont-de-Marsan (21,4 pour 19) ; mairies vérifiées pour Retjons, Roquefort et Mont-de-Marsan : km imprimés incohérents (règle 11) ; le lieu-dit Traverses n'est plus placé.",
      "route_check": {
       "routed_km": 132,
       "profile_km": 133.5,
@@ -58826,8 +58826,8 @@
       "tolerance_pct": 5,
       "coverage_pct": 91,
       "car_legs": 0,
-      "legs": 8,
-      "suspect_legs": 4,
+      "legs": 7,
+      "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -59151,7 +59151,7 @@
        "label": "Col de Badourade",
        "km": 31,
        "kind": "col",
-       "note": "670 m imprimés ; non placé : col inconnu de Nominatim (variantes « Col de Badourade », « Col de la Badourade ») ; placé à la position de historic_routes.json (Epic 28.7 : sommet local du tracé sur la D117 à Puivert, « côte de la Babourade »)",
+       "note": "670 m imprimés ; placé à la position de historic_routes.json (Epic 28.7 : sommet local du tracé sur la D117 à Puivert, « côte de la Babourade »)",
        "confidence": "ambiguous",
        "lat": 42.90933,
        "lon": 2.01912,
@@ -59171,11 +59171,8 @@
        "label": "Col de Saint-Benoît",
        "km": 48.5,
        "kind": "col",
-       "note": "630 m imprimés",
-       "lat": 43.00595,
-       "lon": 2.09368,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "630 m imprimés ; non placé : Nominatim ne renvoie que le col de Dieudé (541 m au MNT pour 630 imprimés), un autre col ; le col del Tuquet (717 m) ne convient pas non plus",
+       "confidence": "non-place"
       },
       {
        "label": "Limoux",
@@ -59256,18 +59253,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 168.8,
+      "routed_km": 168.9,
       "profile_km": 162.5,
       "delta_pct": 3.9,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 10,
-      "suspect_legs": 2,
+      "legs": 9,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Chalabre → col de Saint-Benoît : 7,6 km à vol d'oiseau pour 5,5 au profil, et Carcassonne → Marseillette : 15,8 pour 13, laissés (règle 11). Le col de la Badourade est placé à la position de historic_routes.json (Epic 28.7)."
+     "note": "Carcassonne → Marseillette : 15,8 km à vol d'oiseau pour 13 au profil, Carcassonne à 0,34 km de son hôtel de ville : km imprimé incohérent (règle 11) ; le col de Saint-Benoît n'est plus placé (col de Dieudé, autre col). Le col de la Badourade est placé à la position de historic_routes.json (Epic 28.7)."
     },
     "14": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2002/2002-14a.jpg",
@@ -59500,14 +59497,14 @@
        "label": "Col de Ponsonnas",
        "km": 160,
        "kind": "col",
-       "note": "750 m imprimés ; non placé : col inconnu de Nominatim (recherche bornée)",
+       "note": "750 m imprimés ; non placé : col inconnu de Nominatim (recherche bornée) ; imprimé « Col de Ponsonas »",
        "confidence": "non-place"
       },
       {
        "label": "Col d'Ornon",
        "km": 190,
        "kind": "col",
-       "note": "1371 m imprimés",
+       "note": "1371 m imprimés ; imprimé « Col d'Ormon »",
        "lat": 45.00889,
        "lon": 5.9675,
        "how": "known-cols",
@@ -59661,18 +59658,18 @@
        "label": "La Plagne",
        "km": 179.5,
        "kind": "lieu-dit",
-       "note": "1880 m imprimés ; arrivée non sourcée, 2 072 m au MNT pour 1 880 imprimés (Plagne Bellecôte est à 1 922 m, Plagne Centre à 1 985 m)",
-       "lat": 45.5043,
-       "lon": 6.70491,
-       "how": "stage_towns",
-       "confidence": "ambiguous"
+       "note": "1880 m imprimés ; arrivée placée à Plagne Centre (1 985 m au MNT, 105 m au-dessus de l'imprimé), comme historic_routes.json (Epic 28.7, source cyclingnews), et non à Belle Plagne (2 072 m)",
+       "lat": 45.50588,
+       "lon": 6.67436,
+       "how": "historic_routes",
+       "confidence": "ok"
       }
      ],
-     "note": "Départ : km 0 imprimé à 1 055 m, au pied de la station (1 648 m au point des Deux Alpes) : le départ réel est en bas de la descente, non situé (règle 25). Arrivée de La Plagne non sourcée : le point (stage_towns) est à 2 072 m au MNT pour 1 880 imprimés, laissé avec cette note.",
+     "note": "Départ : km 0 imprimé à 1 055 m, au pied de la station (1 648 m au point des Deux Alpes) : le départ réel est en bas de la descente, non situé (règle 25). Arrivée placée à Plagne Centre comme historic_routes.json (1 985 m au MNT pour 1 880 imprimés).",
      "route_check": {
-      "routed_km": 158.9,
+      "routed_km": 156.5,
       "profile_km": 154.5,
-      "delta_pct": 2.9,
+      "delta_pct": 1.3,
       "tolerance_pct": 5,
       "coverage_pct": 86,
       "car_legs": 0,
@@ -59844,8 +59841,11 @@
        "label": "Côte des Bois de Serves",
        "km": 41,
        "kind": "côte",
-       "note": "830 m imprimés ; non placée : lieu inconnu de Nominatim (recherche bornée)",
-       "confidence": "non-place"
+       "note": "830 m imprimés ; placée au lieu-dit la Serve, position de historic_routes.json (Epic 28.7), 792 m au MNT",
+       "confidence": "ambiguous",
+       "lat": 46.043961,
+       "lon": 6.125448,
+       "how": "historic_routes"
       },
       {
        "label": "Cruseilles",
@@ -59861,7 +59861,7 @@
        "label": "Côte de Marlioz",
        "km": 57.5,
        "kind": "côte",
-       "note": "580 m imprimés ; non placée : le village de Marlioz est à 28,5 km de la côte de la Sémine pour 16,5 au profil",
+       "note": "580 m imprimés ; non placée : la mairie de Marlioz est à 519 m au MNT, 61 m sous le sommet imprimé",
        "confidence": "non-place"
       },
       {
@@ -59875,8 +59875,11 @@
        "label": "Génissiat",
        "km": 84.5,
        "kind": "lieu-dit",
-       "note": "447 m imprimés ; non placé : Génissiat est à 24 km de la côte de la Sémine à vol d'oiseau pour 10,5 au profil",
-       "confidence": "non-place"
+       "note": "447 m imprimés ; placé au village de Génissiat (368 m au MNT) : 11 km du Petit-Abergement à vol d'oiseau pour 27 au profil",
+       "confidence": "ok",
+       "lat": 46.05153,
+       "lon": 5.80403,
+       "how": "nominatim"
       },
       {
        "label": "Col de Richemont",
@@ -59943,15 +59946,15 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Cluses → La Roche-sur-Foron 20,7 km à vol d'oiseau pour 20 au profil, départ réel hors de la ville, non situé (règle 25).",
+     "note": "Départ : Cluses → La Roche-sur-Foron 20,7 km à vol d'oiseau pour 20 au profil, départ réel hors de la ville, non situé (règle 25). Hors tolérance (−7,2 %), cause notée : +2,8 % en voiture (160,9 km), le routeur vélo coupe — Cruseilles → Génissiat fait 34,4 km à vélo et 47,2 en voiture pour 41,5 au profil (côtes de Marlioz et de la Sémine non placées) ; Col de la Cheminée → Col du Berthiand 28,2 pour 32,5 (côte de Giriat non placée).",
      "route_check": {
-      "routed_km": 158.9,
+      "routed_km": 145.3,
       "profile_km": 156.5,
-      "delta_pct": 1.5,
+      "delta_pct": -7.2,
       "tolerance_pct": 5,
       "coverage_pct": 89,
       "car_legs": 0,
-      "legs": 7,
+      "legs": 9,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -59984,10 +59987,10 @@
        "label": "Côte du Fût d'Avenas",
        "km": 10.5,
        "kind": "côte",
-       "note": "635 m imprimés ; non placée : le col du Fût d'Avenas est à 744 m au MNT pour 635 imprimés (règle 14) ; placée malgré tout au col du Fût d'Avenas (mountain_pass), passage repris par historic_routes.json (Epic 28.7) : sans lui, Villié-Morgon → Fleurie fait 4,9 km pour 14,5 au profil ; l'altitude imprimée reste inexpliquée",
-       "confidence": "ambiguous",
-       "lat": 46.19247,
-       "lon": 4.61943,
+       "note": "635 m imprimés ; placée à la bifurcation sous le col, route des Saignes à Chiroubles (606 m au MNT) : le col (744 m) créait un aller-retour de 2,4 km (règles 9 et 24, comme le Ballon d'Alsace) ; passage repris par historic_routes.json (Epic 28.7)",
+       "confidence": "ok",
+       "lat": 46.18721,
+       "lon": 4.6341,
        "how": "nominatim"
       },
       {
@@ -60041,17 +60044,17 @@
        "confidence": "ok"
       }
      ],
-     "note": "Contre-la-montre individuel. « Dans la tolérance » non probant (règle 24) : le +0,0 % inclut un aller-retour du routeur de 2,4 km au col du Fût d'Avenas, placé au col (744 m au MNT pour 635 imprimés) ; sans le col, l'étape tombait à −34,7 %. Charnay-lès-Mâcon → Mâcon : 4,2 km routés pour 8,5 au profil (vraisemblablement un final non imprimé dans Mâcon).",
+     "note": "Contre-la-montre individuel. Hors tolérance (−10,4 %), cause notée : −7,4 % en voiture (42,6 km) ; côte du Fût d'Avenas placée à la bifurcation sous le col (audit Mireille), l'aller-retour de 2,4 km qui donnait +0,0 % disparaît ; Fleurie → Romanèche-Thorins fait 3,6 km routés pour 6 et Charnay-lès-Mâcon → Mâcon 4,2 km routés pour 8,5 au profil (vraisemblablement un final non imprimé dans Mâcon).",
      "route_check": {
-      "routed_km": 46,
+      "routed_km": 41.2,
       "profile_km": 46,
-      "delta_pct": 0,
+      "delta_pct": -10.4,
       "tolerance_pct": 5,
       "coverage_pct": 92,
       "car_legs": 0,
       "legs": 6,
-      "suspect_legs": 2,
-      "backtracks": 1,
+      "suspect_legs": 1,
+      "backtracks": 0,
       "backtracks_uncertain": 0
      }
     },
@@ -60120,7 +60123,7 @@
       }
      ],
      "circuit_km": 80,
-     "note": "Circuit des Champs-Élysées : le profil n'imprime pas les passages sur la ligne ; le sprint des Hauts des Champs (km 80) est le seul point du circuit, repris comme entrée du circuit (circuit_km) ; arrivée au km 140. Nombre de tours non sourcé (Epic 28.7). Départ : Melun → Lissy 9,9 km à vol d'oiseau pour 9,5 au profil, départ réel hors de la ville, non situé (règle 25)."
+     "note": "Circuit des Champs-Élysées : le profil n'imprime pas les passages sur la ligne ; le sprint des Hauts des Champs (km 80) est le seul point du circuit, repris comme entrée du circuit (circuit_km) ; arrivée au km 140. Nombre de tours non sourcé (Epic 28.7). Départ : Melun → Lissy 9,9 km à vol d'oiseau pour 9,5 au profil, départ réel hors de la ville, non situé (règle 25). Non contrôlable : hors circuit, la partie mesurable ne couvre pas assez l'étape ; aucun écart n'est affiché."
     }
    }
   },
