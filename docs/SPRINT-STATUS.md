@@ -683,6 +683,25 @@ et côtes traversées avec leur kilomètre.
   (Montpellier, Barcelone, Aubenas), notes fausses corrigées (Montredon,
   Saint-Bauzille, Arâches), tronçons suspects notés.
 
+- [x] Édition 2010 (PR #509) : 20 étapes sur 21 (prologue de Rotterdam non
+  transcrit : deux ponts seulement), 251 points placés sur 284, depuis les
+  profils de ledicodutour.com (`10_NN_1.gif`, `cols/2010/…` pour 9 étapes ;
+  470 px, altitudes imprimées, lus au triple). Non placés, avec note : côtes
+  sans sommet localisé, entrées de ville. Altitude contrôlée point par point
+  (règle 14). Contrôlée à ±5 % sur BRouter public, 0 tronçon en voiture : 12
+  étapes dans la tolérance, 7 hors, cause notée — 2010/1 (−6,2 %, +2,9 % en
+  voiture), 2010/2 (−14,2 %, boucles ardennaises non imprimées), 2010/3
+  (−8,9 %, secteurs pavés rattachés à leur village), 2010/4 (−6,4 %), 2010/5
+  (−8,1 %), 2010/15 (−5,9 %), 2010/19 (+5,8 %, contre-la-montre) ; 2010/20
+  non contrôlable (circuit des Champs-Élysées). La Thuile (2010/9) était
+  placée sur un sommet homonyme à 2 283 m. Corrigés à l'audit Mireille :
+  arrivée de 2010/7 à la Station des Rousses (massif de la Serra, l'étape
+  passe de +6,9 à −0,1 %), départ de 2010/8 à la mairie, Vercheny sur la
+  D93, col du Gerbier de Jonc et hameau des Granges placés, Préfontaines,
+  Cussac et Arcins à la mairie ; Basse-Bodeux, Saint-Servais, Lombers, côtes
+  de Puylaurens et de Saint-Barthélemy et doublon de Braine-le-Comte
+  retirés ; notes fausses corrigées (Cuq-Toulza, Zeeland au km 73, Renoir).
+
 - [x] Édition 2011 (PR #510) : 21 étapes sur 21 (pas de prologue en 2011),
   219 points placés sur 233, depuis les profils de ledicodutour.com
   (`11_NN_1.gif`, `cols/2011/…` pour 9 étapes ; 470 px, altitudes
