@@ -803,28 +803,29 @@ et côtes traversées avec leur kilomètre.
   l'entrée du circuit ; tronçons suspects de 2012/2 et 16 notés avec la
   mesure en voiture.
 
-- [ ] Édition 2013 **en cours** : 20 étapes sur 21, depuis les profils de
+- [x] Édition 2013 (PR #514) : 20 étapes sur 21, depuis les profils de
   ledicodutour.com (`cartes_etapes/2013/2013_NN_profil.png` ou
-  `2013_NN.png`, 502 px, altitudes imprimées). Le contre-la-montre par
-  équipes de Nice (2013/4) n'est pas transcrit : son profil n'imprime que
-  Nice. Critères d'acceptation : chaque nom imprimé est transcrit avec son
-  km, lu sur un agrandissement ; l'altitude est contrôlée point par point
-  (règle 14) ; le contrôle à ±5 % passe sur BRouter public avec 0 tronçon
-  en voiture, et chaque étape hors tolérance a sa cause notée ; le test
-  d'invariant passe ; l'audit Mireille est fait avant la fusion.
-  Fait : 196 points placés sur 225. Contrôlée à ±5 % sur BRouter public,
-  0 tronçon en voiture : 11 étapes dans la tolérance, 9 hors, cause notée
-  avec la comparaison en voiture — 2013/1 (−10,0 %, −9,9 % : final de
-  Bastia non imprimé), 2013/2 (−6,4 %, −6,5 %), 2013/7 (−5,4 %, −4,2 %),
-  2013/10 (−8,5 %, −8,5 %), 2013/14 (−5,3 %, −2,4 %), 2013/17 (−30,0 %,
-  −28,2 %, contre-la-montre : côte de Réallon non placée), 2013/18
-  (−22,7 %, −22,6 % : descente de Sarenne par La Ferrière non placée),
-  2013/19 (−7,5 %, −6,5 %) ; 2013/21 non contrôlable. Altitude : villages
-  perchés corses (Solaro, San-Giuliano) et de montagne (Fayence, Quet,
-  Valbonnais) non placés, Biguglia à sa mairie, Castello-di-Rostino à
-  Ponte-Novo ; côte de la Quintaine et Mont Revard retirés (tronçon de 28
-  km pour 14, aller-retour). En 2013/1, deux km imprimés sans nom : noms
-  appariés par la distance (règle 3).
+  `2013_NN.png`, 502 px, altitudes imprimées, lus au triple). Le
+  contre-la-montre par équipes de Nice (2013/4) n'est pas transcrit : son
+  profil n'imprime que Nice. 199 points placés sur 225. Contrôlée à ±5 %
+  sur BRouter public, 0 tronçon en voiture : 13 étapes dans la tolérance
+  (dont 2013/7, non probant : +2,3 % avec un tronçon de 28 km pour 14), 6
+  hors, cause notée avec la comparaison en voiture — 2013/2 (−6,4 %,
+  −6,5 % : arrivée d'Ajaccio vraisemblablement à l'ouest, non sourcée),
+  2013/10 (−8,5 %), 2013/14 (−5,3 %, −2,4 % en voiture), 2013/17 (−30,0 %,
+  contre-la-montre, côte de Réallon non placée), 2013/18 (−22,7 % :
+  descente de Sarenne par La Ferrière non placée), 2013/19 (−7,5 %) ;
+  2013/21 non contrôlable. En 2013/1, deux km imprimés sans nom : noms
+  appariés par la distance (règle 3). Altitude : villages perchés et de
+  montagne non placés (Fayence, Quet, Valbonnais), Biguglia à sa mairie,
+  Castello-di-Rostino à Ponte-Novo. Corrigés à l'audit Mireille : Solaro et
+  San-Giuliano placés sur la côte (Marine de Solaro, Alistro) et côte de
+  Sotta au village (2013/1 passe de −10,0 à −4,5 %), Mont Revard au hameau
+  du Revard (sans aller-retour), col de la Vayède retiré (le « ok » de
+  2013/6 ne tenait qu'à un aller-retour, règle 24), Lens-Lestang (autre
+  lieu) retirée, Quintaine replacée avec son tronçon noté (règle 21),
+  départ de Montpellier à l'hôtel de ville, `circuit_km` de 2013/21 à
+  l'entrée ; notes de cause réécrites (2013/1, 2, 16).
 
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points

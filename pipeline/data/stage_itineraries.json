@@ -97721,8 +97721,11 @@
        "label": "Côte de Sotta",
        "km": 45.5,
        "kind": "côte",
-       "note": "147 m imprimés ; non placée : le village de Sotta est à 98 m au MNT, 49 m sous le sommet",
-       "confidence": "non-place"
+       "note": "147 m imprimés ; placée au village de Sotta, 49 m sous le sommet imprimé",
+       "confidence": "ambiguous",
+       "lat": 41.5445735,
+       "lon": 9.1952238,
+       "how": "nominatim"
       },
       {
        "label": "Porto-Vecchio (2e passage)",
@@ -97748,8 +97751,11 @@
        "label": "Solaro",
        "km": 103.5,
        "kind": "ville",
-       "note": "11 m imprimés ; km 86,5 et 112 imprimés sans nom (règle 3) ; Solaro apparié au km 103,5 par la distance depuis Sainte-Lucie ; non placé : le village de Solaro est à 510 m au MNT pour 11 imprimés (règle 14) ; le passage est sur la côte, non sourcé",
-       "confidence": "non-place"
+       "note": "11 m imprimés ; km 86,5 et 112 imprimés sans nom (règle 3) ; placé à Marine de Solaro, sur la N198 (2 m au MNT) : le village perché est à 510 m",
+       "confidence": "ok",
+       "lat": 41.8915279,
+       "lon": 9.4009119,
+       "how": "nominatim"
       },
       {
        "label": "Aléria",
@@ -97765,8 +97771,11 @@
        "label": "San-Giuliano",
        "km": 150.5,
        "kind": "ville",
-       "note": "13 m imprimés ; non placé : le village de San-Giuliano est à 195 m au MNT pour 13 imprimés (règle 14) ; le passage est sur la côte, non sourcé",
-       "confidence": "non-place"
+       "note": "13 m imprimés ; placé à Alistro, sur la côte (19 m au MNT) : le village perché est à 195 m",
+       "confidence": "ok",
+       "lat": 42.2604939,
+       "lon": 9.5458604,
+       "how": "nominatim"
       },
       {
        "label": "Arena",
@@ -97796,16 +97805,16 @@
        "confidence": "ok"
       }
      ],
-     "note": "Les km 86,5 et 112 sont imprimés sans nom ; les noms suivants sont appariés par la distance (règle 3). Départ : Porto-Vecchio → Bonifacio 24,8 km à vol d'oiseau pour 21,5 au profil, départ réel hors de la ville, non situé (règle 25). Hors tolérance (−10,0 %), cause notée : −9,9 % en voiture (172,6 km) ; Biguglia → Bastia fait 9,8 km routés pour 22,5 au profil (final non imprimé, vraisemblablement par le Cap Corse) ; Solaro et San-Giuliano, villages perchés, ne sont pas placés (passage sur la côte non localisé).",
+     "note": "Les km 86,5 et 112 sont imprimés sans nom ; les noms suivants sont appariés par la distance (règle 3). Départ : Porto-Vecchio → Bonifacio 24,8 km à vol d'oiseau pour 21,5 au profil, départ réel hors de la ville, non situé (règle 25). Solaro (Marine de Solaro) et San-Giuliano (Alistro) placés sur la côte, côte de Sotta au village (audit Mireille) : l'étape passe de −10,0 à −4,5 %. Biguglia → Bastia fait 9,8 km routés (10,4 en voiture) pour 22,5 au profil : final dans Bastia non établi, non sourcé ; Côte de Sotta → Porto-Vecchio 10,4 pour 15.",
      "route_check": {
-      "routed_km": 172.3,
+      "routed_km": 182.8,
       "profile_km": 191.5,
-      "delta_pct": -10,
+      "delta_pct": -4.5,
       "tolerance_pct": 5,
       "coverage_pct": 90,
       "car_legs": 0,
-      "legs": 5,
-      "suspect_legs": 1,
+      "legs": 8,
+      "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -97912,7 +97921,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Bastia → Borgo 13,0 km à vol d'oiseau pour 9,5 au profil, départ réel hors de la ville, non situé (règle 25). Hors tolérance (−6,4 %), cause notée : −6,5 % en voiture (137,0 km) ; cols de Bellagranajo et de la Serra non placés.",
+     "note": "Départ : Bastia → Borgo 13,0 km à vol d'oiseau pour 9,5 au profil, départ réel hors de la ville, non situé (règle 25). Hors tolérance (−6,4 %), cause notée : −6,5 % en voiture (137,0 km) ; Bocognano → Ajaccio fait 37,8 km routés pour 53 au profil : Peraccia et la côte du Salario ne sont pas placés, et l'arrivée, au centre d'Ajaccio, est vraisemblablement plus à l'ouest (la carte officielle d'étape fait partir le tracé vers la Parata, non sourcé).",
      "route_check": {
       "routed_km": 137.1,
       "profile_km": 146.5,
@@ -97943,7 +97952,7 @@
        "label": "Col de San Bastiano",
        "km": 12,
        "kind": "col",
-       "note": "415 m imprimés ; non placé : seul un terrain de loisirs « San-bastiano » est connu, à 683 m au MNT pour 415 imprimés",
+       "note": "415 m imprimés ; non placé : Nominatim ne connaît qu'un terrain de loisirs (683 m au MNT) et la route du col (340 m), pas le col lui-même",
        "confidence": "non-place"
       },
       {
@@ -98108,11 +98117,11 @@
        "label": "Côte de la Roquebrussanne",
        "km": 154,
        "kind": "côte",
-       "note": "418 m imprimés",
+       "note": "418 m imprimés ; placée au centre de la commune, 53 m sous le sommet imprimé",
        "lat": 43.34023,
        "lon": 5.97632,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ambiguous"
       },
       {
        "label": "Signes",
@@ -98215,11 +98224,8 @@
        "label": "Col de la Vayède",
        "km": 68,
        "kind": "col",
-       "note": "179 m imprimés",
-       "lat": 43.74539,
-       "lon": 4.79769,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "179 m imprimés ; retiré : point au col (183 m au MNT), mais le routeur y fait un aller-retour de 1,3 km vers Beaucaire, et le « ok +0,0 % » ne tenait qu'à lui (règles 9 et 24)",
+       "confidence": "non-place"
       },
       {
        "label": "Beaucaire",
@@ -98283,17 +98289,17 @@
       }
      ],
      "circuit_km": 167,
-     "note": "Entrée dans Montpellier au km 167, arrivée au km 176,5 (circuit_km, règle 19). Départ : Aix-en-Provence → Lambesc 20,3 km à vol d'oiseau pour 17,5 au profil, départ réel hors de la ville, non situé (règle 25). Aller-retour du routeur de 1,3 km au col de la Vayède, point au col (183 m au MNT pour 179 imprimés), laissé avec cette note (règle 9). Beaucaire → Saint-Gilles : 22,2 km à vol d'oiseau pour 21 au profil, centres de commune, laissé (règle 11).",
+     "note": "Entrée dans Montpellier au km 167, arrivée au km 176,5 (circuit_km, règle 19). Départ : Aix-en-Provence → Lambesc 20,3 km à vol d'oiseau pour 17,5 au profil, départ réel hors de la ville, non situé (règle 25). Beaucaire → Saint-Gilles : 22,2 km à vol d'oiseau pour 21 au profil, mairies vérifiées : km imprimé incohérent (règle 11).",
      "route_check": {
-      "routed_km": 149.5,
+      "routed_km": 145.3,
       "profile_km": 149.5,
-      "delta_pct": 0,
+      "delta_pct": -2.8,
       "tolerance_pct": 5,
       "coverage_pct": 85,
       "car_legs": 0,
-      "legs": 8,
+      "legs": 7,
       "suspect_legs": 1,
-      "backtracks": 1,
+      "backtracks": 0,
       "backtracks_uncertain": 0
      }
     },
@@ -98304,10 +98310,10 @@
        "label": "Montpellier",
        "km": 0,
        "kind": "ville",
-       "note": "42 m imprimés",
-       "lat": 43.61124,
-       "lon": 3.87673,
-       "how": "commune-ign",
+       "note": "42 m imprimés ; départ placé à l'hôtel de ville (place Georges-Frêche), le centre IGN de la commune en étant à 2,14 km (règle 25)",
+       "lat": 43.59852,
+       "lon": 3.89663,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -98394,8 +98400,11 @@
        "label": "Côte de la Quintaine",
        "km": 149,
        "kind": "côte",
-       "note": "739 m imprimés ; placée sur le chemin de la Quintaine (Paulinet), 670 m au MNT ; retirée : le chemin de la Quintaine (Paulinet) faisait 28 km routés depuis Viane, à vélo comme en voiture, pour 14 au profil (11,7 à vol d'oiseau) : lieu sans doute homonyme ou mal situé (règle 11)",
-       "confidence": "non-place"
+       "note": "739 m imprimés ; placée sur le chemin de la Quintaine (Paulinet), 670 m au MNT ; tronçon suspect depuis Viane (28 km routés pour 14, 11,7 à vol d'oiseau), noté et non refusé (règle 21)",
+       "confidence": "ambiguous",
+       "lat": 43.81342,
+       "lon": 2.48449,
+       "how": "nominatim"
       },
       {
        "label": "Côte de Teillet",
@@ -98428,16 +98437,16 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Montpellier → Villeveyrac 24,9 km à vol d'oiseau pour 21 au profil, départ réel hors de la ville, non situé (règle 25). Hors tolérance (−5,4 %), cause notée : −4,2 % en voiture (176,8 km) ; la côte de la Quintaine, mal située, est retirée (le « +2,3 % » qu'elle donnait ne tenait qu'à un tronçon de 28 km pour 14). Col de la Croix de Mounis → Murat-sur-Vèbre : 8,7 km à vol d'oiseau pour 6,5 au profil, laissé (règle 11).",
+     "note": "Départ : Montpellier (hôtel de ville) → Villeveyrac 25,7 km à vol d'oiseau pour 21 au profil, départ réel hors de la ville, non situé (règle 25). « Dans la tolérance » (+2,3 %) non probant : il inclut le tronçon Viane → côte de la Quintaine, 28 km routés pour 14 ; sans la côte, l'étape est à −5,4 % (−4,2 % en voiture). Col de la Croix de Mounis → Murat-sur-Vèbre : 8,7 km à vol d'oiseau pour 6,5 au profil, points au col et à la mairie : km imprimé incohérent (règle 11) ; Viane → côte de la Quintaine : 28 km routés, à vélo comme en voiture, pour 14 au profil, laissé.",
      "route_check": {
-      "routed_km": 174.5,
+      "routed_km": 188.8,
       "profile_km": 184.5,
-      "delta_pct": -5.4,
+      "delta_pct": 2.3,
       "tolerance_pct": 5,
       "coverage_pct": 90,
       "car_legs": 0,
-      "legs": 10,
-      "suspect_legs": 1,
+      "legs": 11,
+      "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -99027,7 +99036,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Fougères → Le Bourgneuf-la-Forêt 26,6 km à vol d'oiseau pour 25,5 au profil, départ réel hors de la ville, non situé (règle 25). Durtal → Baugé : 17,8 km à vol d'oiseau pour 16 au profil, centres de commune, laissé (règle 11).",
+     "note": "Départ : Fougères → Le Bourgneuf-la-Forêt 26,6 km à vol d'oiseau pour 25,5 au profil, départ réel hors de la ville, non situé (règle 25). Durtal → Baugé : 17,8 km à vol d'oiseau pour 16 au profil, mairies vérifiées : km imprimé incohérent (règle 11).",
      "route_check": {
       "routed_km": 185.5,
       "profile_km": 192.5,
@@ -99088,7 +99097,7 @@
        "label": "Côte de Crotz",
        "km": 77.5,
        "kind": "côte",
-       "note": "165 m imprimés ; non placée : le seul « Crotz » connu (Gehée) est à 13 km d'Écueillé pour 15 et à 121 m au MNT pour 165",
+       "note": "165 m imprimés ; non placée : le seul « Crotz » connu (Croz, Gehée) est à 10,1 km de Levroux à vol d'oiseau pour 7 au profil, et à 121 m au MNT pour 165",
        "confidence": "non-place"
       },
       {
@@ -99162,7 +99171,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Tours → Azay-sur-Indre 27,9 km à vol d'oiseau pour 22,5 au profil, départ réel hors de la ville, non situé (règle 25). Écueillé → Levroux : 23,3 km à vol d'oiseau pour 22 au profil, laissé (règle 11) ; la côte de Crotz n'est pas placée.",
+     "note": "Départ : Tours → Azay-sur-Indre 27,9 km à vol d'oiseau pour 22,5 au profil, départ réel hors de la ville, non situé (règle 25). Écueillé → Levroux : 23,3 km à vol d'oiseau pour 22 au profil, mairies vérifiées : km imprimé incohérent (règle 11) ; la côte de Crotz n'est pas placée.",
      "route_check": {
       "routed_km": 150.3,
       "profile_km": 150.5,
@@ -99321,7 +99330,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Saint-Pourçain-sur-Sioule → Saint-Gérand-le-Puy 18,0 km à vol d'oiseau pour 16,5 au profil, départ réel hors de la ville, non situé (règle 25). Hors tolérance (−5,3 %), cause notée : −2,4 % en voiture (170,3 km), le routeur vélo coupe ; côte de la Croix-Rousse → Lyon : 3,5 km routés pour 9,5 (final non imprimé). Mars → col de la Croix Couverte : 5,8 km à vol d'oiseau pour 4,5, laissé (règle 11).",
+     "note": "Départ : Saint-Pourçain-sur-Sioule → Saint-Gérand-le-Puy 18,0 km à vol d'oiseau pour 16,5 au profil, départ réel hors de la ville, non situé (règle 25). Hors tolérance (−5,3 %), cause notée : −2,4 % en voiture (170,3 km), le routeur vélo coupe ; côte de la Croix-Rousse → Lyon : 3,5 km routés pour 9,5 (final non imprimé). Mars → col de la Croix Couverte : 5,8 km à vol d'oiseau pour 4,5, points à la mairie et au col : km imprimé incohérent (règle 11). Thizy-les-Bourgs, commune nouvelle, reste au centre fusionné (469 m pour 382) : Bourg-de-Thizy, essayé, aggrave l'écart.",
      "route_check": {
       "routed_km": 165.3,
       "profile_km": 174.5,
@@ -99359,7 +99368,7 @@
        "label": "Côte de Primarette",
        "km": 26.5,
        "kind": "côte",
-       "note": "459 m imprimés ; placée au centre de Primarette (423 m au MNT)",
+       "note": "459 m imprimés ; placée au centre de Primarette (423 m au MNT), 36 m sous le sommet imprimé",
        "confidence": "ambiguous",
        "lat": 45.4022,
        "lon": 5.02956,
@@ -99369,11 +99378,8 @@
        "label": "Côte de Lens-Lestang",
        "km": 44.5,
        "kind": "côte",
-       "note": "424 m imprimés",
-       "lat": 45.2852,
-       "lon": 5.01591,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "424 m imprimés ; non placée : le point du géocodeur tombait chemin de Combet à Moras-en-Valloire (376 m au MNT pour 424), un autre lieu ; sommet non localisé (règle 21)",
+       "confidence": "non-place"
       },
       {
        "label": "Montélier",
@@ -99485,13 +99491,13 @@
      ],
      "note": "Départ : Givors → Côte de Primarette 28,7 km à vol d'oiseau pour 26,5 au profil, départ réel hors de la ville, non situé (règle 25).",
      "route_check": {
-      "routed_km": 224.1,
+      "routed_km": 221.5,
       "profile_km": 216,
-      "delta_pct": 3.8,
+      "delta_pct": 2.5,
       "tolerance_pct": 5,
       "coverage_pct": 89,
       "car_legs": 0,
-      "legs": 11,
+      "legs": 10,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -99647,7 +99653,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 1
      },
-     "note": "Boucle Gap → col de Manse → Gap : le 1er passage dans Gap n'est pas placé (point non sourcé), d'où un aller-retour incertain vers Gap au col de Manse, apparu en voiture (règle 9). Veynes → La Roche-des-Arnauds : 11,1 km à vol d'oiseau pour 9 au profil, laissé (règle 11)."
+     "note": "Boucle Gap → col de Manse → Gap : le 1er passage dans Gap n'est pas placé (point non sourcé), d'où un aller-retour incertain vers Gap au col de Manse, sur BRouter comme en voiture (2,2 km, règle 9). Veynes → La Roche-des-Arnauds : 11,1 km à vol d'oiseau pour 9 au profil, mairies vérifiées : km imprimé incohérent (règle 11)."
     },
     "17": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2013/2013_17_profil.png",
@@ -100035,7 +100041,7 @@
        "label": "Côte d'Aillon-le-Vieux",
        "km": 43,
        "kind": "côte",
-       "note": "929 m imprimés ; placée au village d'Aillon-le-Vieux (922 m au MNT)",
+       "note": "929 m imprimés ; placée au centre de la commune d'Aillon-le-Vieux (922 m au MNT)",
        "confidence": "ambiguous",
        "lat": 45.6503,
        "lon": 6.09365,
@@ -100065,8 +100071,11 @@
        "label": "Mont Revard",
        "km": 78.5,
        "kind": "col",
-       "note": "1463 m imprimés ; retiré : le point Nominatim, au sommet (1 538 m au MNT pour 1 463 imprimés), créait un aller-retour de 1,6 km vers Montcel (règle 9)",
-       "confidence": "non-place"
+       "note": "1463 m imprimés ; placé au hameau du Revard (1 500 m au MNT) ; au sommet (1 538 m), le routeur faisait un aller-retour (audit Mireille)",
+       "confidence": "ok",
+       "lat": 45.6803934,
+       "lon": 5.9772358,
+       "how": "nominatim"
       },
       {
        "label": "Montcel",
@@ -100100,18 +100109,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 111.6,
+      "routed_km": 114.8,
       "profile_km": 112.5,
-      "delta_pct": -0.8,
+      "delta_pct": 2.1,
       "tolerance_pct": 5,
       "coverage_pct": 90,
       "car_legs": 0,
-      "legs": 8,
+      "legs": 9,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Le Mont Revard, au sommet, est retiré (aller-retour, règle 9). Montcel → Quintal : 27,7 km routés pour 20 au profil, laissé (règle 11)."
+     "note": "Montcel → Quintal : 27,7 km routés pour 20 au profil, laissé (règle 11)."
     },
     "21": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/2013/2013_21_profil.png",
@@ -100157,7 +100166,7 @@
        "label": "Côte de Châteaufort",
        "km": 33.5,
        "kind": "côte",
-       "note": "155 m imprimés ; placée au village de Châteaufort (155 m au MNT)",
+       "note": "155 m imprimés ; placée au centre de la commune de Châteaufort (155 m au MNT)",
        "confidence": "ok",
        "lat": 48.73585,
        "lon": 2.09032,
@@ -100201,8 +100210,8 @@
        "confidence": "ok"
       }
      ],
-     "circuit_km": 65.5,
-     "note": "Circuit des Champs-Élysées : entrée du circuit au km 64, 1er passage sur la ligne au km 65,5, passages imprimés jusqu'au 9e (km 120), arrivée au km 133,5 ; seul le 1er passage est repris (circuit_km)."
+     "circuit_km": 64,
+     "note": "Circuit des Champs-Élysées : entrée du circuit au km 64 (circuit_km, règle 19), 1er passage sur la ligne au km 65,5, sprint du Haut des Champs-Élysées au km 87, passages imprimés jusqu'au 9e (km 120), arrivée au km 133,5 ; seul le 1er passage est repris (circuit_km). Non contrôlable : hors circuit, la partie mesurable ne couvre pas assez l'étape."
     }
    }
   }
