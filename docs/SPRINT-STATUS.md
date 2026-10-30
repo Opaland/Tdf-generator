@@ -1008,6 +1008,27 @@ et côtes traversées avec leur kilomètre.
   Villers-lès-Nancy retirés (lignes droites, règle 14) ; départ de Nîmes,
   Uzès et Servance à la mairie (règles 17, 25) ; côte du Haut-Kœnigsbourg
   au col du Schaentzel (approchée) ; notes de règle 11 complétées.
+- [ ] Édition 2020 **en cours** : 21 étapes sur 21 (pas de prologue en
+  2020), depuis les profils de ledicodutour.com (`images/2020/20_N.jpg`,
+  altitudes imprimées). Critères d'acceptation : chaque nom imprimé est
+  transcrit avec son km, lu sur un agrandissement ; l'altitude est
+  contrôlée point par point (règle 14) ; le contrôle à ±5 % passe sur
+  BRouter public avec 0 tronçon en voiture, et chaque étape hors
+  tolérance a sa cause notée ; les lieux-dits introuvables dans Nominatim
+  sont cherchés aussi dans l'index POI de la Géoplateforme (leçon de
+  l'audit 2019) ; le test d'invariant passe ; l'audit Mireille est fait
+  avant la fusion.
+  Fait : 441 points placés sur 465, dont une quarantaine de lieux-dits
+  trouvés par l'index POI de la Géoplateforme. Contrôlée à ±5 % sur
+  BRouter public, 0 tronçon en voiture : les 21 étapes dans la tolérance
+  (de −3,4 % à +4,5 %). Carros (plaine du Var), Rimiez, Villefranche-sur-
+  Mer, Voiron, Le Sappey, Seyssins, Celliers, La Clusaz et Les Payas
+  retirés (règle 14) ; Saint-François-Longchamp, Bonneval, Aime et
+  Entremont au village, arrivée au Pas de Peyrol (le point de
+  stage_towns était au Puy Mary) et sur la route de la Côte 2000 ;
+  Saint-Rome-de-Tarn (près), La Balmette et le plateau des Glières
+  retirés pour aller-retour (règle 9) ; départs non situés notés (règle
+  25), dont Méribel (491 m imprimés).
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
