@@ -134937,7 +134937,7 @@
        "label": "Ibarrangelu",
        "km": 106.3,
        "kind": "ville",
-       "note": "75 m imprimés ; mairie d'Ibarrangelu (règle 17) ; aller-retour de 3,9 km vers Nabarniz conservé (règle 9, retesté) : sans Ibarrangelu, le routeur fait un aller-retour plus long (9,6 km) entre Gernika et Nabarniz ; la boucle réelle par la côte n'est pas située",
+       "note": "75 m imprimés ; mairie d'Ibarrangelu (règle 17) ; le GPX officiel (vias curées de historic_routes.json, km 96 et km 104 à Laida) fait passer la course par Laida puis Ibarrangelu : l'aller-retour de 3,9 km vers Nabarniz vient du routeur, qui coupe la boucle de Laida (audit Mireille)",
        "confidence": "ok",
        "lat": 43.39049,
        "lon": -2.63185,
@@ -135040,7 +135040,7 @@
       "backtracks": 1,
       "backtracks_uncertain": 0
      },
-     "note": "Hors tolérance (−15,5 % ; −8,5 % en voiture, 143,5 km pour 156,8) : boucles non situées — Larrabetzu → Lezama 3,7 km routés pour 15,5 (côte de Vivero non placée), côte de Pike → arrivée 4,2 pour 9,6 (9,7 en voiture), Gernika → Ibarrangelu 11,2 pour 18,1 ; aller-retour de 3,9 km à Ibarrangelu conservé (voir le point)."
+     "note": "Hors tolérance (−15,5 % avec 3,9 km d'aller-retour à Ibarrangelu ; −23,3 % mesuré sans ce point ; −8,5 % en voiture, 143,5 km pour 156,8) : le routeur coupe la boucle de Laida (vias du GPX officiel aux km 96 et 104 dans historic_routes.json) et d'autres boucles ne sont pas situées — Larrabetzu → Lezama 3,7 km routés pour 15,5 (côte de Vivero non placée), côte de Pike → arrivée 4,2 pour 9,6 (9,7 en voiture), Gernika → Ibarrangelu 11,2 pour 18,1."
     },
     "2": {
      "source_url": "https://www.ledicodutour.com/images/2023/2023_2.jpg",
@@ -135281,9 +135281,9 @@
        "label": "Amorebieta-Etxano",
        "km": 0,
        "kind": "ville",
-       "note": "86 m imprimés",
-       "lat": 43.21588,
-       "lon": -2.70946,
+       "note": "86 m imprimés ; centre de la ville (nœud place=town), le point du géocodeur était le centroïde administratif à 1,9 km (audit Mireille)",
+       "lat": 43.22018,
+       "lon": -2.73232,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -138174,7 +138174,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 1
      },
-     "note": "Tronçon suspect (règle 11) : Flumet → Megève 10,1 km routés (9,1 à vol d'oiseau) pour 8,1 ; aller-retour incertain de 1,3 km à Thônes (col du Marais non placé)."
+     "note": "Tronçon suspect (règle 11) : Flumet → Megève 10,1 km routés (9,1 à vol d'oiseau) pour 8,1 : km relus sur l'image et altitudes MNT conformes, le profil est plus court que la route Flumet–Megève ; aller-retour incertain de 1,3 km à Thônes (col du Marais non placé)."
     },
     "16": {
      "source_url": "https://www.ledicodutour.com/images/2023/2023_16.jpg",
@@ -138493,8 +138493,11 @@
        "label": "Tours-en-Savoie",
        "km": 5.8,
        "kind": "ville",
-       "note": "355 m imprimés ; point de 2004/17 ; non placé (règle 11) : le centroïde de Tours-en-Savoie (point de 2004/17) est à 4,8 km à vol d'oiseau de l'hôtel de ville d'Albertville pour 3,4 au profil",
-       "confidence": "non-place"
+       "note": "355 m imprimés ; placé à la mairie (règle 17, audit Mireille) : 4,0 km à vol d'oiseau de l'hôtel de ville d'Albertville pour 3,4 au profil, MNT 362 m",
+       "confidence": "ok",
+       "lat": 45.65551,
+       "lon": 6.43603,
+       "how": "nominatim"
       },
       {
        "label": "Albertville",
@@ -138708,13 +138711,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 176.5,
-      "profile_km": 175.70000000000002,
-      "delta_pct": 0.4,
+      "routed_km": 181.6,
+      "profile_km": 179.1,
+      "delta_pct": 1.4,
       "tolerance_pct": 5,
-      "coverage_pct": 95,
+      "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 20,
+      "legs": 21,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -138946,8 +138949,11 @@
        "label": "Bracon",
        "km": 129.7,
        "kind": "ville",
-       "note": "392 m imprimés ; non placé (règle 11) : le centroïde de Bracon est à 6,9 km à vol d'oiseau de Pont-d'Héry pour 5,5 au profil",
-       "confidence": "non-place"
+       "note": "392 m imprimés ; rétabli (règle 9 : refus retesté après le retrait de Pont-d'Héry) : 11,7 km à vol d'oiseau de Valempoulières pour 12,8 au profil, MNT 372 m (audit Mireille)",
+       "confidence": "ok",
+       "lat": 46.93159,
+       "lon": 5.87742,
+       "how": "nominatim"
       },
       {
        "label": "Salins-les-Bains",
@@ -139038,18 +139044,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 173,
+      "routed_km": 173.3,
       "profile_km": 164.8,
-      "delta_pct": 5,
+      "delta_pct": 5.2,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 25,
+      "legs": 26,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 1
      },
-     "note": "Départ : Moirans-en-Montagne → La Tour-du-Meix 11,8 km à vol d'oiseau pour 8 au profil, départ réel hors du centre, non situé (règle 25). Aller-retour incertain de 4,7 km à Arinthod vers Sarrogna (côte du Bois de Lionge non placée)."
+     "note": "Départ : Moirans-en-Montagne → La Tour-du-Meix 11,8 km à vol d'oiseau pour 8 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (+5,2 % ; +6,1 % en voiture, 174,8 km pour 164,8) : écart réparti (côte d'Ivory → Arbois 8,6 km routés pour 6,3 ; Pretin → côte d'Ivory 6,7 pour 5,6), et la mesure compte un aller-retour incertain de 4,7 km à Arinthod vers Sarrogna (côte du Bois de Lionge non placée, poteau trouvé à 606 m pour 686 imprimés, sur la pente)."
     },
     "20": {
      "source_url": "https://www.ledicodutour.com/images/2023/2023_20.jpg",
@@ -139461,15 +139467,25 @@
        "label": "Paris (1er passage sur la ligne)",
        "km": 60.6,
        "kind": "lieu-dit",
-       "note": "38 m imprimés ; imprimé « 1er passage sur la ligne d'arrivée »",
-       "lat": 48.8535,
-       "lon": 2.34839,
-       "how": "stage_towns",
+       "note": "38 m imprimés ; imprimé « 1er passage sur la ligne d'arrivée » ; placé sur les Champs-Élysées comme 2019 à 2022 (le point était au centroïde de Paris, audit Mireille)",
+       "lat": 48.87076,
+       "lon": 2.30533,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Paris Champs-Élysées",
+       "km": 115.1,
+       "kind": "ville",
+       "note": "38 m imprimés ; arrivée sur les Champs-Élysées, point de 2018/21 (règle 22)",
+       "lat": 48.87076,
+       "lon": 2.30533,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
      "circuit_km": 48.8,
-     "note": "Circuit des Champs-Élysées : entrée dans Paris (quai d'Issy) au km 48,8 (circuit_km, règle 19, comme 2020/21 et 2021/21), entrée du circuit au km 58,9, 1er passage sur la ligne au km 60,6, passages imprimés jusqu'au 8e (km 108,3), arrivée au km 115,1 ; seuls l'entrée et le 1er passage sont repris. Départ : Saint-Quentin-en-Yvelines → Les Clayes-sous-Bois 4,9 km à vol d'oiseau pour 3,3 au profil, départ réel hors du centre, non situé (règle 25). Non contrôlable selon scripts/check-itineraries.js (points routables insuffisants avant le circuit_km)."
+     "note": "Circuit des Champs-Élysées : entrée dans Paris (quai d'Issy) au km 48,8 (circuit_km, règle 19, comme 2020/21 et 2021/21), entrée du circuit au km 58,9, 1er passage sur la ligne au km 60,6, passages imprimés jusqu'au 8e (km 108,3), arrivée au km 115,1 ; seuls l'entrée, le 1er passage et l'arrivée sont repris. Départ : Saint-Quentin-en-Yvelines → Les Clayes-sous-Bois 4,9 km à vol d'oiseau pour 3,3 au profil, départ réel hors du centre, non situé (règle 25). Non contrôlable selon scripts/check-itineraries.js (points routables insuffisants avant le circuit_km)."
     }
    }
   }
