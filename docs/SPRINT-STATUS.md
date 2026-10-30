@@ -1073,6 +1073,56 @@ et côtes traversées avec leur kilomètre.
   Vineuil, Le Stum, Bertineau et Château Corbin recalés au bourg, au
   lieu-dit ou à la mairie ; notes de départ (règle 25), de hors-tolérance
   et de tronçons suspects régénérées après le recontrôle complet.
+- [x] Édition 2022 (PR #525) : 21 étapes sur 21 (pas de prologue en
+  2022), depuis les profils de ledicodutour.com (`images/2022/etape_Na.jpg`,
+  `etape_Nb.jpg`, `etape_18c.jpg` : profils simplifiés seulement, villes
+  et cols avec leurs km, pas de km au dixième). Critères d'acceptation :
+  chaque nom imprimé est transcrit avec son km, lu sur un agrandissement ;
+  la longueur du profil est comparée à la distance officielle
+  (stage_towns.json) avant le placement ; l'altitude est contrôlée point
+  par point (règle 14) ; les lieux-dits introuvables dans Nominatim sont
+  cherchés aussi dans l'index POI de la Géoplateforme ; le contrôle à
+  ±5 % passe sur BRouter public avec 0 tronçon en voiture, chaque étape
+  hors tolérance a sa cause notée ; le test d'invariant passe ; l'audit
+  Mireille est fait avant la fusion.
+  Fait : 307 points placés sur 335 ; longueurs des 21 profils conformes à
+  stage_towns.json (±0,6 km). Contrôlée à ±5 % sur BRouter public : 12
+  étapes dans la tolérance, 8 hors avec la comparaison en voiture et la
+  cause notée — surtout le profil simplifié, qui ne donne aucun point sur
+  les boucles (2022/1 Copenhague −32,3 %, 2022/2 côtes du Seeland
+  −11,9 %, 2022/3 −14,0 %, 2022/4 −17,4 %, 2022/5 secteurs pavés
+  −16,5 %), puis des retraits pour aller-retour ou des montées non
+  situées (2022/9 −6,6 %, 2022/10 −6,3 %), et un écart réparti entre
+  bourgs en 2022/20 (+10,9 %, +10,0 % en voiture) ; 2022/21 non
+  contrôlable. Deux tronçons en voiture inévitables en 2022/2 : BRouter
+  refuse le pont du Grand Belt (HTTP 400, profil vélo). Homonymes
+  corrigés : Cerfontaine (Nord au lieu de la province de Namur, règle 7),
+  Charleville-Mézières (centroïde de l'arrondissement), col de l'Espinas
+  (non placé). Arrivées au sommet ou au lieu réel (Longwy-Haut, Super
+  Planche, stade olympique de Lausanne, Pré-la-Joux, altiport de Megève,
+  col du Granon, aérodrome de Mende, plateau de L'Hospitalet à
+  Rocamadour). Audinghen et Marquise non placés : le profil les imprime
+  dans l'ordre inverse de la carte de la même page. Points retirés : sept
+  pour ligne droite plus longue que le profil (règle 11), deux pour
+  aller-retour (règles 9 et 24), six pour l'altitude (règle 14), quatre
+  côtes posées au pied (règle 21).
+  Audit Mireille : deux traits coudés lus sur la colonne voisine
+  (2022/6 côte de Montigny-sur-Chiers et Cons-la-Grandville, côte de
+  Pulventeux au km 214,6 à la place de la côte des Religieuses, imprimée
+  sans km ; 2022/10 Megève et la montée de l'altiport) — règle 2 précisée
+  dans CURATION-REGLES.md ; arrivée de Rocamadour déplacée de la cité au
+  plateau de L'Hospitalet (règle 22, ligne exacte à confirmer), côte de
+  l'Hospitalet rétablie ; côtes de Remilly-Wirquin, Nielles-lès-Bléquin,
+  Hejlsminde Strand et Genner Strand retirées (règle 21, choix par
+  défaut) ; côte de Châtillon-sur-Cluses retestée après la correction de
+  Megève, toujours en aller-retour, retirée ; mairie d'Auberchicourt
+  essayée (règle 17). Hors règles proposés par l'audit (point
+  `ambigu` tracé, contrôle d'altitude hors de France par EU-DEM à
+  documenter, départ de Copenhague au Rådhus) laissés à des stories
+  dédiées.
+  Leçon : `geocode-itineraries.js` ne relance jamais un point « non-place »
+  qui porte une note, or chaque point porte son altitude imprimée en note
+  — il faut retirer `confidence` avant de relancer le géocodage.
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
