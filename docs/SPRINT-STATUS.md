@@ -279,7 +279,7 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 - [x] 28.4 1919/11 curée : 329,3 km (+1,3 %), 3 cols au bon point, 0 aller-retour — PR #377 (empilée sur #375)
 - [ ] 28.5 **blocked** — Curer 2020/2 : aucune source détaillée trouvée le 17/10/2026 (pas de GPX cyclingstage pour 2020, dossier de presse LCL et Wikipédia limités aux 3 cols, pas de roadbook dimensionsvelo) ; reconstituer les liaisons entre vallées ne serait que de l'inférence géographique sur 186 km de montagne — critère « roadbook sourcé » non atteignable
 - [x] 28.6 Issue #280 : pickFeature préfère le nom exact parmi les reliefs — PR #378 ; différentiel réel sur 95 occurrences : 92 identiques, Aravis 1911/5 corrigé, Ballon d'Alsace figé pour ne pas régresser
-- [ ] 28.7 **en cours** — Issue #188 : Tour 2002 — 14 et 16 curées (PR #380) ; restent 2002/13 (+9,8 %), 2002/19 (-6,6 %), 2002/20 (-48 % : `laps` disponible, mais nombre de tours de 2002 introuvable dans les sources consultées)
+- [ ] 28.7 **en cours** — Issue #188 : Tour 2002 — 14 et 16 curées (PR #380) ; 2002/13 (+9,8 %) et 2002/19 (-6,6 %) remesurés le 30/10, dans la tolérance (39.3, suite en 39.5) ; reste 2002/20 (-48 % : `laps` disponible, mais nombre de tours de 2002 introuvable dans les sources consultées)
   - 21/10/2026 : ledicodutour.com, inaccessible depuis l'environnement cloud, répond depuis le poste local ; les profils 2002-13a, 2002-19a et 2002-20a ont été relus agrandis. Les vias de 2002/13 et 2002/19 dans `historic_routes.json` en sont déjà tirés, et leurs écarts restants ont une cause notée (aller-retour réel vers la Badourade, Charnay-lès-Mâcon au km 41,5 à 2,3 km de Mâcon). Le profil 2002/20 n'imprime pas les passages sur la ligne : après « Hauts des Champs » (km 80), il n'y a plus que l'arrivée. Compter les bosses du profil serait une inférence. Les sources consultées divergent aussi sur la longueur du tour : cyclingnews (compte rendu de l'étape) écrit « just over a lap (8 km) to go », alors que la source citée pour 1992 donne 6,5 km. `laps` reste donc non renseigné pour 2002/20 : il faut une source primaire sur le nombre de tours.
 
 ## Epic 29 — Inventaire matériel (issue #228, phase 7) — PR #394
@@ -2806,18 +2806,30 @@ dont 1 146 non placés, aucune étape sans URL de source.
   tests, lint et démo verts. Fait : qs 6.16.0 → 6.16.2. Avis modéré, non
   exploitable ici (`qs.stringify` en `arrayFormat: 'comma'` : express et
   body-parser n'appellent que `qs.parse`, le dépôt n'utilise pas `qs`).
-- [x] 39.2 README : recherche par lieu et itinéraires détaillés absents (Epics
+- [x] 39.2 (PR #532) README : recherche par lieu et itinéraires détaillés absents (Epics
   32-33) — critères : le README décrit la recherche par lieu et la source
   des itinéraires (Dico du Tour, faits repris, pas les images), avec les
   chiffres mesurés ci-dessus.
-- [ ] 39.3 Reprendre 28.7 (issue #188) à la lumière de 33.2 : le bilan du 17/10
+- [x] 39.3 Reprendre 28.7 (issue #188) à la lumière de 33.2 : le bilan du 17/10
   classe 2002/13 et 2002/19 « pas de source kilométrée accessible », or
   leurs profils kilométrés sont transcrits depuis la PR #512 — critères :
-  écart à la distance officielle remesuré par une régénération réelle ;
-  28.7 et #188 mis à jour avec ces chiffres, ou fermés si l'écart s'explique.
-- [ ] 39.4 34 branches distantes mortes, suppression automatique désactivée
-  (`delete_branch_on_merge: false`) — **en attente de décision** de
-  l'utilisateur (suppression distante et réglage du dépôt).
+  écart remesuré par une régénération réelle ; 28.7 et #188 mis à jour.
+  Fait (base jetable, BRouter public, 30/10) : 2002/13 187,7 km pour 171
+  (+9,8 %), 2002/19 46,7 km pour 50 (−6,6 %), inchangés et dans la tolérance
+  de ±10 % : le générateur ne lit que `historic_routes.json`, pas
+  `stage_itineraries.json`. Reste : aller-retours détectés (2002/13 km
+  76,7-79,5 ; 2002/19 km 10,5-15,4) → 39.5.
+- [x] 39.4 Branches distantes mortes, suppression automatique désactivée —
+  décision de l'utilisateur (30/10) : tout nettoyer. Fait : 38 branches distantes
+  et 7 locales supprimées, chacune vérifiée sur le head d'une PR fusionnée ;
+  `delete_branch_on_merge` activé.
+- [ ] 39.5 Reporter dans `historic_routes.json` ce que les profils transcrits
+  apprennent sur 2002/13 et 2002/19 (aller-retours ci-dessus ; la note de
+  2002/19 place le Fût d'Avenas à la bifurcation sous le col) — critères :
+  plus d'aller-retour à ces km, écart remesuré par une régénération réelle.
+- [ ] 39.6 Le générateur doit-il exploiter `stage_itineraries.json` ? Aujourd'hui
+  seule la recherche par lieu le lit : 14 183 points n'améliorent aucun tracé
+  — **en attente de décision** de l'utilisateur (architecture).
 
 ## Epic 24 — Bilan final
 
