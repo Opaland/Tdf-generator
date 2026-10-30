@@ -144,6 +144,20 @@ function stageLabels(numbers) {
   });
 }
 
+/** Étape de stage_towns.json désignée par une clé d'itinéraire (« 18 »,
+ * « 18b ») : par son libellé stageLabels(), pour qu'une demi-étape trouve
+ * la sienne et non la première de son numéro (1985/18b, Laruns → Pau,
+ * prenait les villes de 18a, Luz-Saint-Sauveur → Aubisque). Une clé
+ * suffixée sans demi-étape de ce numéro est ramenée à son numéro. */
+function townsStageFor(stages, key) {
+  const list = stages || [];
+  const k = String(key).toLowerCase();
+  const i = stageLabels(list.map((s) => s.number)).indexOf(k);
+  if (i >= 0) return list[i];
+  const same = list.filter((s) => String(s.number) === k.replace(/[a-z]$/, ''));
+  return same.length === 1 ? same[0] : undefined;
+}
+
 /** Itinéraires détaillés (Epic 33) : [{ year, category, stage, sourceUrl,
  * points: [{label, km, lat, lon}], segments: [[a, b]] }]. Seuls les points
  * placés comptent ; une côte placée au village éponyme (geocodeAs) est
@@ -303,4 +317,4 @@ function searchNear(place, radiusM, db, curated = curatedStages(), towns = stage
   };
 }
 
-module.exports = { searchNear, curatedStages, stageTowns, stageItineraries, buildItinerary, stageLabels, distanceToLineM, pointSegmentM, MAX_SEGMENT_M };
+module.exports = { searchNear, curatedStages, stageTowns, stageItineraries, buildItinerary, stageLabels, townsStageFor, distanceToLineM, pointSegmentM, MAX_SEGMENT_M };

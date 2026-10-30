@@ -23,6 +23,7 @@ process.env.ETAPEFORGE_DATA_DIR = process.env.ETAPEFORGE_DATA_DIR || fs.mkdtempS
 const { communeCandidates, normName } = require('../pipeline/geocode');
 const { haversine } = require('../pipeline/geo');
 const { KNOWN_COLS } = require('../pipeline/wikipedia');
+const { townsStageFor } = require('../pipeline/placeSearch');
 
 const FILE = path.join(__dirname, '..', 'pipeline', 'data', 'stage_itineraries.json');
 const TOWNS_FILE = path.join(__dirname, '..', 'pipeline', 'data', 'stage_towns.json');
@@ -155,7 +156,7 @@ async function geocodeStage(towns, anchors = {}, candidatesFor = defaultCandidat
 function anchorsFor(townsDoc, edition, stage) {
   const ed = townsDoc?.editions?.[edition];
   if (!ed) return {};
-  const s = ed.stages.find((x) => String(x.number) === String(stage).replace(/[a-z]$/, ''));
+  const s = townsStageFor(ed.stages, stage);
   const ok = (t) => (t && Number.isFinite(t.lat) && t.confidence !== 'douteux' ? { lat: t.lat, lon: t.lon } : undefined);
   return s ? { start: ok(s.start), finish: ok(s.finish) } : {};
 }

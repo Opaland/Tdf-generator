@@ -66,6 +66,20 @@ test('anchorsFor : ancres de stage_towns, ville douteuse ignorée, étape scind�
   assert.deepStrictEqual(anchorsFor(doc, '1993', '1'), {});
 });
 
+test('anchorsFor : une demi-étape prend ses propres villes, pas celles de la première de son numéro (1985/18b)', () => {
+  const doc = { editions: { 1985: { stages: [
+    { number: 17, start: { lat: 9, lon: 9 }, finish: { lat: 9, lon: 9 } },
+    { number: 18, start: { lat: 1, lon: 1 }, finish: { lat: 2, lon: 2 } },
+    { number: 18, start: { lat: 3, lon: 3 }, finish: { lat: 4, lon: 4 } },
+  ] } } };
+  assert.deepStrictEqual(anchorsFor(doc, '1985', '18a'), { start: { lat: 1, lon: 1 }, finish: { lat: 2, lon: 2 } });
+  assert.deepStrictEqual(anchorsFor(doc, '1985', '18b'), { start: { lat: 3, lon: 3 }, finish: { lat: 4, lon: 4 } });
+  assert.deepStrictEqual(anchorsFor(doc, '1985', '18B'), { start: { lat: 3, lon: 3 }, finish: { lat: 4, lon: 4 } });
+  // Clé sans suffixe sur un numéro scindé : ambiguë, aucune ancre plutôt que la mauvaise.
+  assert.deepStrictEqual(anchorsFor(doc, '1985', '18'), {});
+  assert.deepStrictEqual(anchorsFor(doc, '1985', '18c'), {});
+});
+
 test('geocodeStage : longueur d\'étape fournie (totalKm) utilisée pour la contrainte vers l\'arrivée, pas le dernier point transcrit', async () => {
   const cands = { A: [at(0, 0)], B: [at(0, 10000)] };
   const towns = [{ label: 'A', km: 0, kind: 'ville' }, { label: 'B', km: 10, kind: 'ville' }];
