@@ -116611,7 +116611,7 @@
       }
      ],
      "circuit_km": 186.5,
-     "note": "Entrée dans Bruxelles au km 186,5 (circuit_km, règle 19), arrivée au km 194,5. Départ : Bruxelles → Sint-Anna-Pede 8,6 km à vol d'oiseau pour 7,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "note": "Entrée dans Bruxelles au km 186,5 (circuit_km, règle 19), arrivée au km 194,5. Départ : Bruxelles → Sint-Anna-Pede 8,6 km à vol d'oiseau pour 7,5 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : Pont-à-Celles → Secteur pavé de Thiméon 6,5 km routés (5,3 à vol d'oiseau) pour 14,5 ; Les Bons Villers → Villers-la-Ville 10,7 km routés (7,7 à vol d'oiseau) pour 7. Les Bons Villers (commune fusionnée) est au point de la commune, village traversé non situé.",
      "route_check": {
       "routed_km": 173.1,
       "profile_km": 174,
@@ -117232,11 +117232,8 @@
        "label": "Villers-lès-Nancy",
        "km": 203.5,
        "kind": "ville",
-       "note": "349 m imprimés ; point de la commune à 234 m au MNT pour 349 imprimés : passage sur le plateau (Brabois) vraisemblable, non situé",
-       "lat": 48.67313,
-       "lon": 6.15364,
-       "how": "commune-ign",
-       "confidence": "ambiguous"
+       "note": "349 m imprimés ; point de la commune à 234 m au MNT pour 349 imprimés : passage sur le plateau (Brabois) vraisemblable, non situé ; retiré (règle 14) : 234 m au MNT pour 349 imprimés",
+       "confidence": "non-place"
       },
       {
        "label": "Vandœuvre-lès-Nancy",
@@ -117260,18 +117257,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 208.4,
+      "routed_km": 208.1,
       "profile_km": 205.5,
-      "delta_pct": 1.4,
+      "delta_pct": 1.3,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 23,
-      "suspect_legs": 3,
+      "legs": 22,
+      "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Reims → Craon de Ludes 13 km à vol d'oiseau pour 8 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Reims → Craon de Ludes 13 km à vol d'oiseau pour 8 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : Recy → Châlons-en-Champagne 5,3 km routés (5,0 à vol d'oiseau) pour 4 ; Lérouville → Commercy 5,2 km routés (4,8 à vol d'oiseau) pour 3."
     },
     "5": {
      "source_url": "https://www.ledicodutour.com/images/2019/etape_5b.jpg",
@@ -117410,8 +117407,11 @@
        "label": "Côte du Haut-Kœnigsbourg",
        "km": 109.5,
        "kind": "côte",
-       "note": "554 m imprimés ; 5,9 km à 5,9 %",
-       "confidence": "non-place"
+       "note": "554 m imprimés ; 5,9 km à 5,9 % ; col du Schaentzel (Nominatim, audit Mireille), 582 m au MNT : sommet routier de la montée vers le Haut-Kœnigsbourg vraisemblable, non sourcé",
+       "confidence": "ambiguous",
+       "lat": 48.24397,
+       "lon": 7.32661,
+       "how": "nominatim"
       },
       {
        "label": "Ribeauvillé",
@@ -117502,18 +117502,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 148.9,
+      "routed_km": 157.5,
       "profile_km": 167,
-      "delta_pct": -10.9,
+      "delta_pct": -5.7,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 19,
-      "suspect_legs": 4,
+      "legs": 20,
+      "suspect_legs": 3,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Saint-Dié-des-Vosges → Provenchères-sur-Fave 10 km à vol d'oiseau pour 8,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−10,9 % ; −2,1 % en voiture, 163,5 km pour 167) : le routeur vélo coupe (règle 20) — Sélestat → Kintzheim 5,2 km pour 9,5 et Kintzheim → Ribeauvillé 10,6 pour 16,5 sans la côte du Haut-Kœnigsbourg (non placée : le château est à 727 m pour 554 imprimés), Saint-Gilles → Eguisheim 6,8 pour 13 sans la côte des Cinq Châteaux (retirée)."
+     "note": "Départ : Saint-Dié-des-Vosges → Provenchères-sur-Fave 10 km à vol d'oiseau pour 8,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−5,7 % ; +2,8 % en voiture, 171,6 km pour 167) : le routeur vélo coupe (règle 20) — Sélestat → Kintzheim 5,2 km pour 9,5, Saint-Gilles → Eguisheim 6,8 pour 13 sans la côte des Cinq Châteaux (retirée), Eguisheim → Colmar 6,6 pour 11."
     },
     "6": {
      "source_url": "https://www.ledicodutour.com/images/2019/etape_6b.jpg",
@@ -117712,9 +117712,9 @@
        "label": "Servance",
        "km": 129.5,
        "kind": "ville",
-       "note": "418 m imprimés",
-       "lat": 47.8108,
-       "lon": 6.6808,
+       "note": "418 m imprimés ; placé à la mairie (règle 17), 6,8 km à vol d'oiseau du col des Croix pour 6 au profil",
+       "lat": 47.8154,
+       "lon": 6.68359,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -117760,14 +117760,14 @@
       }
      ],
      "route_check": {
-      "routed_km": 156.4,
+      "routed_km": 156.5,
       "profile_km": 158,
       "delta_pct": -1,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
       "legs": 22,
-      "suspect_legs": 1,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
@@ -117870,11 +117870,8 @@
        "label": "Étalans (près)",
        "km": 77,
        "kind": "ville",
-       "note": "596 m imprimés ; imprimé « Étalans (près) (VC-D469) »",
-       "lat": 47.19777,
-       "lon": 6.27257,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "596 m imprimés ; imprimé « Étalans (près) (VC-D469) » ; retiré : « près (VC-D469) », le point de la commune fait 14,0 km à vol d'oiseau vers Ornans pour 11,5 au profil (règle 11) ; carrefour non situé",
+       "confidence": "non-place"
       },
       {
        "label": "Ornans",
@@ -117967,11 +117964,8 @@
        "label": "La Chaux-en-Bresse (près)",
        "km": 170,
        "kind": "ville",
-       "note": "212 m imprimés ; imprimé « La Chaux-en-Bresse (près) (D95-D1) » ; imprimé « près (D95-D1) » : point au bourg de La Chaux-en-Bresse (221 m au MNT), la course passe au carrefour voisin",
-       "confidence": "ambiguous",
-       "lat": 46.82751,
-       "lon": 5.47963,
-       "how": "nominatim"
+       "note": "212 m imprimés ; imprimé « La Chaux-en-Bresse (près) (D95-D1) » ; imprimé « près (D95-D1) » : point au bourg de La Chaux-en-Bresse (221 m au MNT), la course passe au carrefour voisin ; retiré : le bourg de La Chaux-en-Bresse n'est pas le carrefour D95-D1 imprimé",
+       "confidence": "non-place"
       },
       {
        "label": "Bellevesvre",
@@ -118025,18 +118019,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 223.1,
+      "routed_km": 222.6,
       "profile_km": 227.5,
-      "delta_pct": -1.9,
+      "delta_pct": -2.1,
       "tolerance_pct": 5,
       "coverage_pct": 99,
       "car_legs": 0,
-      "legs": 22,
-      "suspect_legs": 3,
+      "legs": 20,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Belfort → Héricourt 10,3 km à vol d'oiseau pour 2,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Belfort → Héricourt 10,3 km à vol d'oiseau pour 2,5 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : Saint-Marcel → Chalon-sur-Saône 3,1 km routés (2,7 à vol d'oiseau) pour 9."
     },
     "8": {
      "source_url": "https://www.ledicodutour.com/images/2019/etape_8b.jpg",
@@ -118245,8 +118239,11 @@
        "label": "Côte de la Croix de Part",
        "km": 133,
        "kind": "côte",
-       "note": "738 m imprimés ; 4,9 km à 7,9 % ; col de la Croix de Part (mountain_pass, Nominatim), 812 m au MNT pour 738 imprimés : le sommet de la côte classée n'est vraisemblablement pas le col ; retiré : le col de la Croix de Part (812 m au MNT pour 738) faisait 14,5 km routés vers Sainte-Foy-l'Argentière pour 9,5 ; sommet de la côte non situé",
-       "confidence": "non-place"
+       "note": "738 m imprimés ; 4,9 km à 7,9 % ; col de la Croix de Part (mountain_pass, Nominatim), 812 m au MNT pour 738 imprimés : le sommet de la côte classée n'est vraisemblablement pas le col ; retiré : le col de la Croix de Part (812 m au MNT pour 738) faisait 14,5 km routés vers Sainte-Foy-l'Argentière pour 9,5 ; sommet de la côte non situé ; rétabli : en vélo, Courzieu → col 5,8 km pour 5 et col → Sainte-Foy-l'Argentière 11,9 pour 9,5 (le retrait reposait sur un tronçon routé en voiture, règle 16)",
+       "confidence": "ambiguous",
+       "lat": 45.72082,
+       "lon": 4.56818,
+       "how": "nominatim"
       },
       {
        "label": "Sainte-Foy-l'Argentière",
@@ -118322,8 +118319,11 @@
        "label": "Côte de la Jaillère",
        "km": 187.5,
        "kind": "côte",
-       "note": "689 m imprimés ; 1,9 km à 7,9 % ; hameau de La Jaillère (Saint-Christo-en-Jarez), 743 m au MNT pour 689 imprimés ; 9,9 km à vol d'oiseau de Saint-Priest-en-Jarez pour 8,5 au profil ; retiré : le hameau de La Jaillère (Saint-Christo-en-Jarez) imposait deux allers-retours de 6 km (règle 9) : homonyme ou lieu-dit hors parcours ; sommet non situé",
-       "confidence": "non-place"
+       "note": "689 m imprimés ; 1,9 km à 7,9 % ; hameau de La Jaillère (Saint-Christo-en-Jarez), 743 m au MNT pour 689 imprimés ; 9,9 km à vol d'oiseau de Saint-Priest-en-Jarez pour 8,5 au profil ; retiré : le hameau de La Jaillère (Saint-Christo-en-Jarez) imposait deux allers-retours de 6 km (règle 9) : homonyme ou lieu-dit hors parcours ; sommet non situé ; lieu-dit La Jaillère (Sorbiers), index POI de la Géoplateforme (audit Mireille), 680 m au MNT ; l'homonyme de Saint-Christo-en-Jarez, d'abord retenu, imposait deux allers-retours",
+       "confidence": "ok",
+       "lat": 45.51674,
+       "lon": 4.4301,
+       "how": "ign"
       },
       {
        "label": "Saint-Priest-en-Jarez",
@@ -118347,18 +118347,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 189.7,
+      "routed_km": 202.8,
       "profile_km": 195,
-      "delta_pct": -2.7,
+      "delta_pct": 4,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 27,
-      "suspect_legs": 1,
-      "backtracks": 0,
-      "backtracks_uncertain": 1
+      "legs": 29,
+      "suspect_legs": 0,
+      "backtracks": 2,
+      "backtracks_uncertain": 0
      },
-     "note": "Départ : Mâcon → Crêches-sur-Saône 7,3 km à vol d'oiseau pour 5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Mâcon → Crêches-sur-Saône 7,3 km à vol d'oiseau pour 5 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : aller-retour de 1,7 km à Côte de la Croix de Part ; aller-retour de 1,2 km à Côte de la Jaillère."
     },
     "9": {
      "source_url": "https://www.ledicodutour.com/images/2019/etape_9b.jpg",
@@ -118551,8 +118551,11 @@
        "label": "La Vialette",
        "km": 154,
        "kind": "lieu-dit",
-       "note": "463 m imprimés",
-       "confidence": "non-place"
+       "note": "463 m imprimés ; lieu-dit La Vialette (Villeneuve-d'Allier), index POI de la Géoplateforme (audit Mireille), 472 m au MNT ; le camping homonyme n'est pas retenu",
+       "confidence": "ok",
+       "lat": 45.2095,
+       "lon": 3.39583,
+       "how": "ign"
       },
       {
        "label": "Côte de Saint-Just",
@@ -118583,18 +118586,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 147.7,
+      "routed_km": 155.7,
       "profile_km": 164,
-      "delta_pct": -9.9,
+      "delta_pct": -5.1,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 17,
-      "suspect_legs": 1,
+      "legs": 18,
+      "suspect_legs": 0,
       "backtracks": 1,
-      "backtracks_uncertain": 1
+      "backtracks_uncertain": 0
      },
-     "note": "Départ : Saint-Étienne → Saint-Just-Saint-Rambert 13,1 km à vol d'oiseau pour 6,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−9,9 % ; −1,8 % en voiture, 161,0 km pour 164) : le routeur vélo coupe — Javaugues → Vieille-Brioude 9,9 km (14,2 en voiture) pour 14, Vieille-Brioude → Saint-Just-près-Brioude 7,3 (12,4 en voiture) pour 15,5, La Vialette et la côte de Saint-Just non placées. Aller-retour de 3,3 km à Arlanc, imprimé deux fois (km 92 et 93,5) : la course entre dans le bourg et en ressort."
+     "note": "Départ : Saint-Étienne → Saint-Just-Saint-Rambert 13,1 km à vol d'oiseau pour 6,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−5,1 % ; 0,0 % en voiture, 164,0 km pour 164) : le routeur vélo coupe — Javaugues → Vieille-Brioude 9,9 km (14,2 en voiture) pour 14, Vieille-Brioude → Saint-Just-près-Brioude 7,3 (12,4 en voiture) pour 15,5. Aller-retour de 3,3 km à Arlanc, imprimé deux fois (km 92 et 93,5) : la course entre dans le bourg et en ressort."
     },
     "10": {
      "source_url": "https://www.ledicodutour.com/images/2019/etape_10.jpg",
@@ -118640,8 +118643,11 @@
        "label": "Bellevue",
        "km": 27,
        "kind": "lieu-dit",
-       "note": "965 m imprimés",
-       "confidence": "non-place"
+       "note": "965 m imprimés ; lieu-dit Bellevue (Maurines), Nominatim, 980 m au MNT",
+       "confidence": "ok",
+       "lat": 44.87454,
+       "lon": 3.08037,
+       "how": "nominatim"
       },
       {
        "label": "Chaudes-Aigues",
@@ -118771,8 +118777,11 @@
        "label": "Tonkin",
        "km": 145.5,
        "kind": "lieu-dit",
-       "note": "631 m imprimés",
-       "confidence": "non-place"
+       "note": "631 m imprimés ; lieu-dit Le Tonkin (Cassagnes-Bégonhès), index POI de la Géoplateforme (audit Mireille), 625 m au MNT",
+       "confidence": "ok",
+       "lat": 44.17974,
+       "lon": 2.52258,
+       "how": "ign"
       },
       {
        "label": "Centrès (près)",
@@ -118858,8 +118867,11 @@
        "label": "Le Lac",
        "km": 207,
        "kind": "lieu-dit",
-       "note": "281 m imprimés",
-       "confidence": "non-place"
+       "note": "281 m imprimés ; lieu-dit Le Lac (Cagnac-les-Mines), index POI de la Géoplateforme (audit Mireille), 281 m au MNT",
+       "confidence": "ok",
+       "lat": 43.97975,
+       "lon": 2.08577,
+       "how": "ign"
       },
       {
        "label": "Albi",
@@ -118873,14 +118885,14 @@
       }
      ],
      "route_check": {
-      "routed_km": 205.2,
+      "routed_km": 208.5,
       "profile_km": 211,
-      "delta_pct": -2.8,
+      "delta_pct": -1.2,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 21,
-      "suspect_legs": 1,
+      "legs": 24,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
@@ -118953,8 +118965,11 @@
        "label": "Col de Liberté",
        "km": 38,
        "kind": "col",
-       "note": "430 m imprimés",
-       "confidence": "non-place"
+       "note": "430 m imprimés ; col de Liberté (Roussayrolles), index POI de la Géoplateforme (audit Mireille), 437 m au MNT",
+       "confidence": "ok",
+       "lat": 44.08522,
+       "lon": 1.82052,
+       "how": "ign"
       },
       {
        "label": "Vaour",
@@ -119097,11 +119112,8 @@
        "label": "Flourens (près)",
        "km": 153.5,
        "kind": "ville",
-       "note": "229 m imprimés ; imprimé « près » : point au bourg de Flourens (203 m au MNT), la course passe à côté",
-       "confidence": "ambiguous",
-       "lat": 43.59474,
-       "lon": 1.56209,
-       "how": "nominatim"
+       "note": "229 m imprimés ; imprimé « près » : point au bourg de Flourens (203 m au MNT), la course passe à côté ; retiré : « près », le bourg fait Flourens → Balma 5,4 km à vol d'oiseau pour 4 au profil (règle 11)",
+       "confidence": "non-place"
       },
       {
        "label": "Balma",
@@ -119125,18 +119137,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 154.5,
+      "routed_km": 154.6,
       "profile_km": 154.5,
-      "delta_pct": 0,
+      "delta_pct": 0.1,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
       "legs": 20,
-      "suspect_legs": 2,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Albi → Cestayrols 14,3 km à vol d'oiseau pour 12,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Albi → Cestayrols 14,3 km à vol d'oiseau pour 12,5 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : Balma → Toulouse 4,7 km routés (4,4 à vol d'oiseau) pour 9,5."
     },
     "12": {
      "source_url": "https://www.ledicodutour.com/images/2019/etape_12b.jpg",
@@ -119325,8 +119337,8 @@
        "label": "Arreau (près)",
        "km": 163.5,
        "kind": "ville",
-       "note": "744 m imprimés ; point de 2018/19",
-       "confidence": "ok",
+       "note": "744 m imprimés ; point de 2018/19 ; imprimé « près » : point au bourg, la course passe à côté",
+       "confidence": "ambiguous",
        "lat": 42.90546,
        "lon": 0.35898,
        "how": "commune-ign"
@@ -119433,15 +119445,21 @@
        "label": "Cériset",
        "km": 7.7,
        "kind": "lieu-dit",
-       "note": "312 m imprimés ; point intermédiaire du chrono",
-       "confidence": "non-place"
+       "note": "312 m imprimés ; point intermédiaire du chrono ; lieu-dit Cériset (Uzos), index POI de la Géoplateforme (audit Mireille), 300 m au MNT",
+       "confidence": "ok",
+       "lat": 43.25881,
+       "lon": -0.35678,
+       "how": "ign"
       },
       {
        "label": "Côte d'Esquillot",
        "km": 15.5,
        "kind": "côte",
-       "note": "307 m imprimés ; point intermédiaire du chrono",
-       "confidence": "non-place"
+       "note": "307 m imprimés ; point intermédiaire du chrono ; lieu-dit Esquillot (Bosdarros), index POI de la Géoplateforme (audit Mireille), 318 m au MNT",
+       "confidence": "ok",
+       "lat": 43.22464,
+       "lon": -0.36228,
+       "how": "ign"
       },
       {
        "label": "Gan",
@@ -119457,11 +119475,8 @@
        "label": "Jurançon",
        "km": 21.9,
        "kind": "ville",
-       "note": "185 m imprimés ; point intermédiaire du chrono",
-       "lat": 43.28718,
-       "lon": -0.38964,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "185 m imprimés ; point intermédiaire du chrono ; retiré : le point de la commune fait Gan → Jurançon 6,5 km de mairie à mairie pour 4,4 au profil (règle 11) ; pointage au sud de Jurançon, non situé",
+       "confidence": "non-place"
       },
       {
        "label": "Pau (Rue du Maquis Le Béarn)",
@@ -119474,18 +119489,18 @@
        "confidence": "ok"
       }
      ],
-     "note": "Contre-la-montre individuel en boucle à Pau. Hors tolérance (−19,9 % ; −17,4 % en voiture) : Cériset et la côte d'Esquillot ne sont pas placés (introuvables dans Nominatim) ; sans eux la boucle par la D209, Medout et la D24 (carte de l'étape) se réduit à Gelos → Gan en ligne directe, 8,7 km routés pour 13,8.",
+     "note": "Contre-la-montre individuel en boucle à Pau.",
      "route_check": {
-      "routed_km": 18.8,
+      "routed_km": 23.1,
       "profile_km": 23.5,
-      "delta_pct": -19.9,
+      "delta_pct": -1.8,
       "tolerance_pct": 5,
       "coverage_pct": 86,
       "car_legs": 0,
-      "legs": 3,
-      "suspect_legs": 2,
+      "legs": 4,
+      "suspect_legs": 0,
       "backtracks": 0,
-      "backtracks_uncertain": 1
+      "backtracks_uncertain": 0
      }
     },
     "14": {
@@ -119704,7 +119719,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Tarbes → Ossun 10,1 km à vol d'oiseau pour 4 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Tarbes → Ossun 10,1 km à vol d'oiseau pour 4 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : Côte de Labatmale → Bénéjacq 5,9 km routés (4,9 à vol d'oiseau) pour 3."
     },
     "15": {
      "source_url": "https://www.ledicodutour.com/images/2019/etape_15b.jpg",
@@ -119981,10 +119996,10 @@
        "label": "Nîmes",
        "km": 0,
        "kind": "ville",
-       "note": "70 m imprimés",
-       "lat": 43.81465,
-       "lon": 4.35629,
-       "how": "commune-ign",
+       "note": "70 m imprimés ; départ placé à la mairie de Nîmes (règle 25) : le point géocodé était à 2,5 km, à 32 m au MNT pour 70",
+       "lat": 43.8367,
+       "lon": 4.36014,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -120128,10 +120143,10 @@
        "label": "Uzès",
        "km": 148.5,
        "kind": "ville",
-       "note": "122 m imprimés",
-       "lat": 44.02128,
-       "lon": 4.41559,
-       "how": "commune-ign",
+       "note": "122 m imprimés ; placé à la mairie (règle 17) : le centre de la commune imposait un aller-retour de 1,4 km",
+       "lat": 44.01368,
+       "lon": 4.42021,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -120163,17 +120178,17 @@
       }
      ],
      "circuit_km": 169.5,
-     "note": "Entrée dans Nîmes au km 169,5 (circuit_km, règle 19), arrivée au km 177. Aller-retour de 1,4 km à Uzès (point au centre de la ville, contournée par la course).",
+     "note": "Entrée dans Nîmes au km 169,5 (circuit_km, règle 19), arrivée au km 177. Tronçons suspects (règle 11) : Alès → Côte de Saint-Jean-du-Pin 4,0 km routés (3,0 à vol d'oiseau) pour 8,5 ; Côte de Saint-Jean-du-Pin → Anduze 12,6 km routés (8,9 à vol d'oiseau) pour 8,5.",
      "route_check": {
-      "routed_km": 154.1,
+      "routed_km": 152.7,
       "profile_km": 150,
-      "delta_pct": 2.7,
+      "delta_pct": 1.8,
       "tolerance_pct": 5,
       "coverage_pct": 85,
       "car_legs": 0,
       "legs": 14,
       "suspect_legs": 2,
-      "backtracks": 1,
+      "backtracks": 0,
       "backtracks_uncertain": 0
      }
     },
@@ -120284,8 +120299,11 @@
        "label": "Le Moulin",
        "km": 93.5,
        "kind": "lieu-dit",
-       "note": "559 m imprimés",
-       "confidence": "non-place"
+       "note": "559 m imprimés ; arrêt de bus « Vercoiran - Le Moulin » (Nominatim), 513 m au MNT pour 559",
+       "confidence": "ambiguous",
+       "lat": 44.3008,
+       "lon": 5.34636,
+       "how": "nominatim"
       },
       {
        "label": "Saint-Auban-sur-l'Ouvèze",
@@ -120321,8 +120339,11 @@
        "label": "La Malautière",
        "km": 116,
        "kind": "lieu-dit",
-       "note": "785 m imprimés",
-       "confidence": "non-place"
+       "note": "785 m imprimés ; lieu-dit La Malautière (Séderon), index POI de la Géoplateforme (audit Mireille), 808 m au MNT",
+       "confidence": "ok",
+       "lat": 44.21518,
+       "lon": 5.5439,
+       "how": "ign"
       },
       {
        "label": "La Calandre",
@@ -120395,10 +120416,10 @@
        "label": "Curbans",
        "km": 174,
        "kind": "ville",
-       "note": "601 m imprimés",
-       "lat": 44.41259,
-       "lon": 6.00662,
-       "how": "commune-ign",
+       "note": "601 m imprimés ; point Nominatim (audit Mireille) : Tallard à 4,1 km à vol d'oiseau pour 5,5 au profil",
+       "lat": 44.42906,
+       "lon": 6.03872,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -120443,17 +120464,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 201.5,
+      "routed_km": 202.2,
       "profile_km": 194.5,
-      "delta_pct": 3.6,
+      "delta_pct": 3.9,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 22,
-      "suspect_legs": 1,
-      "backtracks": 0,
-      "backtracks_uncertain": 1
-     }
+      "legs": 24,
+      "suspect_legs": 0,
+      "backtracks": 2,
+      "backtracks_uncertain": 0
+     },
+     "note": "Tronçons suspects (règle 11) : aller-retour de 1,1 km à Saint-Auban-sur-l'Ouvèze ; aller-retour de 1,1 km à Tallard."
     },
     "18": {
      "source_url": "https://www.ledicodutour.com/images/2019/etape_18b.jpg",
@@ -120522,10 +120544,10 @@
        "label": "Les Thuiles",
        "km": 45,
        "kind": "ville",
-       "note": "1121 m imprimés",
-       "lat": 44.39519,
-       "lon": 6.56517,
-       "how": "commune-ign",
+       "note": "1121 m imprimés ; point Nominatim (audit Mireille) : Barcelonnette à 5,8 km à vol d'oiseau pour 5,5",
+       "lat": 44.39351,
+       "lon": 6.57447,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -120730,18 +120752,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 208.2,
+      "routed_km": 207.5,
       "profile_km": 202,
-      "delta_pct": 3.1,
+      "delta_pct": 2.7,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
       "legs": 25,
-      "suspect_legs": 2,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Embrun → Savines-le-Lac 8,7 km à vol d'oiseau pour 6 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Embrun → Savines-le-Lac 8,7 km à vol d'oiseau pour 6 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : Col de Vars → Vars-les-Claux 4,7 km routés (4,1 à vol d'oiseau) pour 3."
     },
     "19": {
      "source_url": "https://www.ledicodutour.com/images/2019/etape_19b.jpg",
@@ -120800,11 +120822,8 @@
        "label": "Côte de Saint-André",
        "km": 25,
        "kind": "côte",
-       "note": "1165 m imprimés ; 3,1 km à 6,8 % ; côte rattachée au village de Saint-André (1 101 m au MNT) ; position du sommet non sourcée",
-       "confidence": "ambiguous",
-       "lat": 45.2014,
-       "lon": 6.61877,
-       "how": "nominatim"
+       "note": "1165 m imprimés ; 3,1 km à 6,8 % ; côte rattachée au village de Saint-André (1 101 m au MNT) ; position du sommet non sourcée ; retiré : le village de Saint-André, au-dessus de la route, imposait un aller-retour de 1,5 km (règle 9) ; sommet non situé",
+       "confidence": "non-place"
       },
       {
        "label": "Freney",
@@ -120927,17 +120946,17 @@
        "confidence": "ok"
       }
      ],
-     "note": "Étape arrêtée au sommet du col de l'Iseran (km 89) : grêle et route impraticable après Val-d'Isère, temps pris au sommet (ledicodutour.com, page de l'étape). Le profil prévu continuait jusqu'à Tignes (126,5 km : Pont Saint-Charles, Val-d'Isère, Le Chevril, Tignes Les Brévières, Tignes 1800 Les Boisses, montée de Tignes) ; seuls les points jusqu'à l'Iseran sont repris. Départ : Saint-Jean-de-Maurienne → Le Bochet 4,9 km à vol d'oiseau pour 2 au profil, départ réel hors du centre, non situé (règle 25). Aller-retour de 1,5 km à la côte de Saint-André, rattachée au village au-dessus de la route.",
+     "note": "Étape arrêtée au sommet du col de l'Iseran (km 89) : grêle et route impraticable après Val-d'Isère, temps pris au sommet (ledicodutour.com, page de l'étape). Le profil prévu continuait jusqu'à Tignes (126,5 km : Pont Saint-Charles, Val-d'Isère, Le Chevril, Tignes Les Brévières, Tignes 1800 Les Boisses, montée de Tignes) ; seuls les points jusqu'à l'Iseran sont repris. Départ : Saint-Jean-de-Maurienne → Le Bochet 4,9 km à vol d'oiseau pour 2 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : Freney → Modane 4,4 km routés (3,7 à vol d'oiseau) pour 2,5.",
      "route_check": {
-      "routed_km": 91.1,
+      "routed_km": 88.1,
       "profile_km": 87,
-      "delta_pct": 4.7,
+      "delta_pct": 1.3,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 16,
+      "legs": 15,
       "suspect_legs": 1,
-      "backtracks": 1,
+      "backtracks": 0,
       "backtracks_uncertain": 0
      }
     },
@@ -120995,8 +121014,11 @@
        "label": "Les Menuires",
        "km": 48,
        "kind": "lieu-dit",
-       "note": "1746 m imprimés ; km imprimé 118,5 au profil prévu ; point de 1994/17 ; retiré : le point du village (Nominatim, 1994/17) imposait un aller-retour de 2,2 km vers Val Thorens (règle 9) ; passage dans la station non situé",
-       "confidence": "non-place"
+       "note": "1746 m imprimés ; km imprimé 118,5 au profil prévu ; point de 1994/17 ; retiré : le point du village (Nominatim, 1994/17) imposait un aller-retour de 2,2 km vers Val Thorens (règle 9) ; passage dans la station non situé ; rétabli au point de la station (place=village), 1 815 m au MNT, à revérifier au contrôle",
+       "confidence": "ok",
+       "lat": 45.32427,
+       "lon": 6.5389,
+       "how": "nominatim"
       },
       {
        "label": "Val Thorens",
@@ -121009,15 +121031,15 @@
        "confidence": "ok"
       }
      ],
-     "note": "Parcours modifié le jour de la course (météo, éboulements) : d'Albertville, la course a pris la N90 directement jusqu'à Moûtiers pour rejoindre le parcours final au rond-point N90 – D915, à 36 km de l'arrivée, soit 59,5 km au lieu des 130 prévus (ledicodutour.com, page de l'étape). Seuls Albertville et la fin du profil prévu (à partir de Moûtiers, km 94) sont repris, km recalés de −70,5 ; Villard-sur-Doron, Beaufort, le Cormet de Roselend, Bourg-Saint-Maurice et la côte de Longefoy, sur le profil prévu, n'ont pas été courus.",
+     "note": "Parcours modifié le jour de la course (météo, éboulements) : d'Albertville, la course a pris la N90 directement jusqu'à Moûtiers pour rejoindre le parcours final au rond-point N90 – D915, à 36 km de l'arrivée, soit 59,5 km au lieu des 130 prévus (ledicodutour.com, page de l'étape). Seuls Albertville et la fin du profil prévu (à partir de Moûtiers, km 94) sont repris, km recalés de −70,5 ; Villard-sur-Doron, Beaufort, le Cormet de Roselend, Bourg-Saint-Maurice et la côte de Longefoy, sur le profil prévu, n'ont pas été courus. Hors tolérance (−5,5 % sur 36 km mesurés, le 1er tronçon Albertville → Moûtiers étant exclu ; +10,6 % en voiture) : le routeur vélo coupe entre Les Menuires et Val Thorens (8,5 km pour 11,5 ; 12,7 en voiture).",
      "route_check": {
-      "routed_km": 34.5,
+      "routed_km": 34,
       "profile_km": 36,
-      "delta_pct": -4.3,
+      "delta_pct": -5.5,
       "tolerance_pct": 5,
       "coverage_pct": 61,
       "car_legs": 0,
-      "legs": 3,
+      "legs": 4,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -121259,7 +121281,7 @@
       }
      ],
      "circuit_km": 72,
-     "note": "Circuit des Champs-Élysées : entrée dans Paris au km 62, entrée du circuit au km 72 (circuit_km, règle 19), 1er passage sur la ligne au km 73,5, passages imprimés jusqu'au 8e (km 121,5), arrivée au km 128 ; seuls l'entrée et le 1er passage sont repris. Départ : Rambouillet → Les Bréviaires 8 km à vol d'oiseau pour 6,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Circuit des Champs-Élysées : entrée dans Paris au km 62, entrée du circuit au km 72 (circuit_km, règle 19), 1er passage sur la ligne au km 73,5, passages imprimés jusqu'au 8e (km 121,5), arrivée au km 128 ; seuls l'entrée et le 1er passage sont repris. Départ : Rambouillet → Les Bréviaires 8 km à vol d'oiseau pour 6,5 au profil, départ réel hors du centre, non situé (règle 25). Non contrôlable selon scripts/check-itineraries.js (points routables insuffisants ou longueur inconnue) ; l'entrée du circuit, au km 72 (circuit_km), n'est pas située. Tronçons suspects (règle 11) : Vélizy-Villacoublay → Chaville 3,1 km à vol d'oiseau pour 2."
     }
    }
   }
