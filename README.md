@@ -71,6 +71,14 @@ la visualisation de cols, utilisé jusque dans les retransmissions TV) :
   officiels/reconstitués, écart, D+, nombre de côtes, catégorie max, pente max,
   toit de l'étape — avec tuiles de totaux (distance, D+, côtes par catégorie,
   toit du tour).
+- **Recherche par lieu** (page Archives) : un Tour est-il passé près de ce
+  village, et en quelle année ? La réponse s'appuie sur la source la plus
+  fiable pour chaque étape (tracé reconstitué, points de passage, itinéraire
+  détaillé, villes-étapes), dit ce qu'elle couvre et signale les estimations :
+  « aucun résultat » ne veut pas dire « aucun Tour n'est passé ici ».
+  Itinéraires détaillés : profils du [Dico du Tour](https://www.ledicodutour.com)
+  transcrits à la main, noms de lieux et kilomètres seulement, sans les images
+  (au 30/10/2026 : 45 éditions, 840 étapes, 14 183 points dont 1 146 non placés).
 - **Catalogue des cols** (`/cols.html`) : toutes les côtes détectées, toutes
   étapes confondues — liste triable et filtrable (catégorie, édition,
   recherche), profil de la montée déroulable par ligne, records (plus haut,
