@@ -974,6 +974,40 @@ et côtes traversées avec leur kilomètre.
   recherche bornée ; Bessèges (2e passage) ajouté ; notes de règle 11
   complétées (2018/5, 8, 9, 13, 16).
 
+- [x] Édition 2019 (PR #522) : 21 étapes sur 21 (pas de prologue en
+  2019), depuis les profils de ledicodutour.com
+  (`images/2019/etape_N.jpg` ou `etape_Nb.jpg`, altitudes imprimées).
+  Critères d'acceptation : chaque nom imprimé est transcrit avec son km,
+  lu sur l'image ou un agrandissement ; l'altitude est contrôlée point
+  par point (règle 14, EU-DEM hors de France) ; le contrôle à ±5 % passe
+  sur BRouter public avec 0 tronçon en voiture, et chaque étape hors
+  tolérance a sa cause notée ; les étapes 19 (arrêtée à l'Iseran) et 20
+  (raccourcie à 59,5 km) suivent le parcours couru, source citée ; le
+  test d'invariant passe ; l'audit Mireille est fait avant la fusion.
+  Fait : 440 points placés sur 466. Contrôlée à ±5 % sur BRouter public,
+  0 tronçon en voiture : 15 étapes dans la tolérance, 5 hors, cause notée
+  avec la comparaison en voiture — 2019/2 (+16,8 % : contre-la-montre
+  urbain, points de commune au centre), 2019/5 (−5,7 %, +2,8 % en
+  voiture), 2019/9 (−5,1 %, 0,0 %), 2019/20 (−5,5 %, +10,6 %) : le
+  routeur vélo coupe ; 2019/15 (+6,3 %, +8,8 % : profil plus court que
+  la route) ; 2019/21 non contrôlable. Étape 19 arrêtée au col de
+  l'Iseran (km 89) et étape 20 ramenée à 59,5 km (N90 jusqu'à Moûtiers,
+  km du profil prévu recalés de −70,5), d'après les pages d'étape de
+  ledicodutour.com. Arrivée de la Planche des Belles Filles au sommet
+  (1 140 m imprimés), Embrun, Le Monêtier-les-Bains et
+  Saint-Michel-de-Maurienne remis aux points des éditions précédentes (le
+  nouveau géocodage les plaçait 104 à 579 m trop haut), Aÿ au village
+  (règle 15) ; Montans non placé (km imprimé contradictoire).
+  Audit Mireille : onze lieux non placés retrouvés, dont huit par l'index
+  POI de la Géoplateforme (Cériset et Esquillot, qui ramènent 2019/13 de
+  −19,9 % à −1,8 %, La Jaillère de Sorbiers à la place d'un homonyme, La
+  Vialette, Le Tonkin, Le Lac, col de Liberté, La Malautière) et trois
+  par Nominatim (Bellevue, Le Moulin, Les Menuires) ; col de la Croix de
+  Part rétabli (son retrait reposait sur un tronçon en voiture, règle
+  16) ; Étalans, Flourens, La Chaux-en-Bresse, Jurançon et
+  Villers-lès-Nancy retirés (lignes droites, règle 14) ; départ de Nîmes,
+  Uzès et Servance à la mairie (règles 17, 25) ; côte du Haut-Kœnigsbourg
+  au col du Schaentzel (approchée) ; notes de règle 11 complétées.
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
