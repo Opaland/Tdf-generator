@@ -2197,7 +2197,7 @@ et côtes traversées avec leur kilomètre.
   {ok, ambigu, ambiguous, non-place}, et chacune des valeurs incertaines a
   son avertissement (le test échoue si l'une manque, relecture adverse).
   Vérifié à 1440 et 375 px sur la recherche « Mauvezin » (2015/11).
-- [x] 33.25 (PR à venir) Demi-étapes : `geocode-itineraries.js` et `check-itineraries.js`
+- [x] 33.25 (PR #534) Demi-étapes : `geocode-itineraries.js` et `check-itineraries.js`
   prenaient, pour une clé « 18b », la première étape 18 de
   stage_towns.json (trouvé en transcrivant 1985 : 1985/18b, Laruns → Pau,
   recevait les villes de 18a, Luz-Saint-Sauveur → Aubisque, et Laruns, le
