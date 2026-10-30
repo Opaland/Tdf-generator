@@ -1123,6 +1123,34 @@ et côtes traversées avec leur kilomètre.
   Leçon : `geocode-itineraries.js` ne relance jamais un point « non-place »
   qui porte une note, or chaque point porte son altitude imprimée en note
   — il faut retirer `confidence` avant de relancer le géocodage.
+- [ ] Édition 2023 **en cours** : 21 étapes sur 21 (pas de prologue en
+  2023), depuis les profils de ledicodutour.com (`images/2023/2023_N.jpg`,
+  altitudes imprimées, km au dixième). Critères d'acceptation : chaque
+  nom imprimé est transcrit avec son km, lu sur des agrandissements, en
+  suivant chaque trait coudé jusqu'à son pointillé (règle 2, leçon de
+  l'audit 2022) ; la longueur du profil est comparée à la distance
+  officielle avant le placement ; l'altitude est contrôlée point par
+  point (règle 14) ; les lieux-dits introuvables sont cherchés aussi dans
+  l'index POI de la Géoplateforme ; le contrôle à ±5 % passe sur BRouter
+  public avec 0 tronçon en voiture, chaque étape hors tolérance a sa
+  cause notée ; le test d'invariant passe ; l'audit Mireille est fait
+  avant la fusion.
+  Fait : 393 points placés sur 440 ; longueurs des profils conformes à
+  stage_towns.json (±0,4 km), sauf 2023/3 (187,4 km pour 193,5 annoncés
+  sur la page, écart noté). Contrôlée à ±5 % sur BRouter public : 14
+  étapes dans la tolérance, 6 hors avec la comparaison en voiture et la
+  cause notée — 2023/1 (−15,5 %, −8,5 %), 2023/2 (−8,9 %, +2,1 %),
+  2023/12 (−7,8 %, −6,4 %), 2023/13 (−7,5 %, −3,5 %), 2023/16 (−6,2 %,
+  −1,6 %), 2023/20 (−7,3 %, −4,7 %) ; 2023/21 non contrôlable. Un
+  tronçon en voiture inévitable en 2023/9 : BRouter refuse la route du
+  puy de Dôme (HTTP 400). Arrivées au sommet ou au lieu réel (Cambasque,
+  puy de Dôme, Grand Colombier, Le Bettex, altiport de Courchevel).
+  Départs fictifs notés (règle 25), Moûtiers et Les Gets non placés.
+  Centroïdes d'arrondissement renvoyés par Nominatim pour Albertville et
+  Chambéry, remplacés par l'hôtel de ville et le centre. Points retirés :
+  douze pour ligne droite plus longue que le profil (règle 11), trois
+  pour aller-retour (règles 9 et 24, mairie essayée avant), cinq pour
+  l'altitude (règle 14).
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
