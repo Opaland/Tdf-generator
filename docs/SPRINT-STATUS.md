@@ -1239,6 +1239,45 @@ et côtes traversées avec leur kilomètre.
   repasse sur la ligne sans « 1er passage » imprimé ; 2025/21 non
   contrôlable malgré 13 points avant circuit_km — laissés à des stories
   dédiées.
+- [x] Édition 2026 (PR #533) : 21 étapes sur 21 (Grand Départ de Barcelone, pas de
+  prologue), depuis les profils de ledicodutour.com
+  (`images/2026/2026_Na.jpg`, noms verticaux, altitudes imprimées, km au
+  dixième), transcrits par un agent dédié sur agrandissements (règles 1 à
+  5, traits coudés suivis). Critères d'acceptation : chaque nom imprimé
+  est transcrit avec son km ; la longueur du profil est comparée à la
+  distance officielle (stage_towns.json) ; l'altitude est contrôlée point
+  par point (règle 14) ; les vias curées de historic_routes.json (étapes
+  1, 2, 3, 6, 19, 20) servent de témoin de position ; le contrôle à ±5 %
+  passe sur BRouter public, chaque étape hors tolérance a sa cause notée ;
+  le test d'invariant passe ; l'audit Mireille est fait avant la fusion.
+  Fait : 463 points placés sur 485. 2026/9 suit le parcours raccourci
+  en course (encart de la page de l'étape : vigilance rouge canicule,
+  D921 jusqu'à Lanteuil, 155,5 km au lieu de 185,5) et 2026/21 le
+  circuit seul (89 km au lieu de 133, départ donné sur la ligne) ; les
+  autres longueurs sont égales à stage_towns.json. Contrôlée à ±5 % sur
+  BRouter public, 0 tronçon en voiture : 15 étapes dans la tolérance,
+  4 hors avec la comparaison en voiture et la cause notée — 2026/2
+  (+13,0 %, +25,2 % : km imprimés en limite de commune sur la côte
+  catalane), 2026/3 (+17,3 %, +14,7 % : détour de BRouter autour de la
+  C-17), 2026/12 (+5,1 %, +13,4 %), 2026/16 (−21,5 %, −18,4 % : boucle
+  du chrono dans Thonon) ; 2026/1 et 2026/21 non contrôlables.
+  Audit Mireille : transcription exacte sur les 7 profils relus (2, 3,
+  4, 9, 14, 18, 20), lectures des encarts de 2026/9 et 2026/21
+  confirmées. Corrigés : le Hartmannswillerkopf posé au sommet faisait
+  faire demi-tour au tracé (placé à l'Historial sur la D431, Uffholtz
+  rétabli à sa mairie : 2026/14 passe de −6,6 % à −0,8 %) ; Grand
+  Tunnel, Payolle, Pouzac et Floirac placés (points des éditions déjà
+  curées, mairie) ; douze points retirés pour simple tronçon suspect
+  replacés avec le tronçon noté (« un tronçon suspect ne fait pas
+  refuser un lieu qui existe »), sauf Caldes de Montbui, au-delà de la
+  marge du test d'invariant ; Tona à son ajuntament, Lamayou à sa
+  mairie ; mairie essayée et notée pour les retraits confirmés ; chaque
+  tronçon suspect noté avec la comparaison en voiture ; notes de départ
+  de 2026/9 et 2026/16 ajoutées. Hors règles proposés : crochet réel de
+  la course hors circuit final (2026/20, Alpe d'Huez → carrefour
+  D211F-D211 → arrivée) ; retraits qui font entrer une étape dans la
+  tolérance (2026/2 passait de +8,6 % à +0,6 %) ; comparaison de chaque
+  départ à sa mairie (règle 25) — laissés à des stories dédiées.
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
