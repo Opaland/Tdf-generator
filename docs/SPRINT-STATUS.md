@@ -2618,6 +2618,10 @@ suivi double story + issue, et import des quatre éléments ci-dessous.
   Test sur toutes les consignes (AGENTS, CLAUDE, agents, skills, fichiers
   générés) : aucun stash nu, `stash -u`, `restore .`, `checkout -- .`,
   `reset --hard` ; rouge avec l'ancien `/porte` et avec un stash nu ajouté.
+- [ ] 37.7 (issue #529) Hook `etat-deploiement.sh` : un run en cours n'est pas un
+  échec — critères : `conclusion` vide ne déclenche plus « main EN ÉCHEC » et
+  s'affiche « en cours » ; un vrai échec reste annoncé ; le séparateur `·`
+  n'est plus coupé ; test avec un faux `gh`, rouge sans le correctif.
 
 ## Epic 38 — Revue globale du 22/10/2026
 
