@@ -1008,6 +1008,35 @@ et côtes traversées avec leur kilomètre.
   Villers-lès-Nancy retirés (lignes droites, règle 14) ; départ de Nîmes,
   Uzès et Servance à la mairie (règles 17, 25) ; côte du Haut-Kœnigsbourg
   au col du Schaentzel (approchée) ; notes de règle 11 complétées.
+- [x] Édition 2020 (PR #523) : 21 étapes sur 21 (pas de prologue en
+  2020), depuis les profils de ledicodutour.com (`images/2020/20_N.jpg`,
+  `20_18a.jpg` pour l'étape 18, altitudes imprimées). Critères
+  d'acceptation : chaque nom imprimé est transcrit avec son km, lu sur un
+  agrandissement ; l'altitude est contrôlée point par point (règle 14) ;
+  le contrôle à ±5 % passe sur BRouter public avec 0 tronçon en voiture,
+  et chaque étape hors tolérance a sa cause notée ; les lieux-dits
+  introuvables dans Nominatim sont cherchés aussi dans l'index POI de la
+  Géoplateforme (leçon de l'audit 2019) ; le test d'invariant passe ;
+  l'audit Mireille est fait avant la fusion.
+  Fait : 424 points placés sur 458. Contrôlée à ±5 % sur BRouter public, 0 tronçon en
+  voiture : 18 étapes dans la tolérance, 2 hors avec la comparaison en
+  voiture — 2020/10 (−5,1 %, +7,9 % : écart réparti), 2020/20 (−7,5 %,
+  −4,8 % : premier tronçon exclu) ; 2020/21 non contrôlable (circuit_km à
+  l'entrée de Paris). Neuf points retirés pour l'altitude (règle 14),
+  arrivées du Pas de Peyrol et de la Côte 2000 recalées.
+  Audit Mireille : 2020/18 retranscrite depuis le profil simplifié de la
+  page (175 km, distance officielle, avec la côte de la route des Villes)
+  au lieu du profil détaillé de 167,5 km — choix pris sans demander à
+  Henri, noté dans l'étape ; arrivée de Saint-Martin-de-Ré, Mallemoisson,
+  Lestards à la mairie, Brouage au lieu-dit (le point était à Hiers) ;
+  Pont de la Baume, Les Payas, La Balmette, Celliers, La Palmyre trouvés
+  par l'index POI ; onze points retirés pour ligne droite plus longue que
+  le profil (règle 11, choix par défaut), sauf Nice (2020/2), rétabli :
+  sans lui le routeur coupe et l'étape tombe à −7,4 % ; circuit_km de
+  2020/21 à l'entrée imprimée (règle 19). Hors règles proposés par
+  l'audit (comparer le profil à distanceKm et au second profil de la
+  page avant de transcrire ; respect du délai et de l'User-Agent de
+  curation par check-itineraries.js) laissés à des stories dédiées.
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
