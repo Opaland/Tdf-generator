@@ -2197,6 +2197,24 @@ et côtes traversées avec leur kilomètre.
   {ok, ambigu, ambiguous, non-place}, et chacune des valeurs incertaines a
   son avertissement (le test échoue si l'une manque, relecture adverse).
   Vérifié à 1440 et 375 px sur la recherche « Mauvezin » (2015/11).
+- [x] 33.25 (PR #534) Demi-étapes : `geocode-itineraries.js` et `check-itineraries.js`
+  prenaient, pour une clé « 18b », la première étape 18 de
+  stage_towns.json (trouvé en transcrivant 1985 : 1985/18b, Laruns → Pau,
+  recevait les villes de 18a, Luz-Saint-Sauveur → Aubisque, et Laruns, le
+  col d'Aubisque et Gourette restaient non placés). Critères : la clé
+  d'itinéraire désigne l'étape de même libellé `stageLabels()` (a, b, c
+  dans l'ordre, convention de la recherche par lieu) ; une clé suffixée sur
+  un numéro non scindé reste ramenée à son numéro ; une clé sans suffixe
+  sur un numéro scindé n'a aucune ancre plutôt que la mauvaise ; test
+  vérifié en échec sans le correctif ; aucune étape déjà transcrite ne
+  change d'ancres (toutes les clés actuelles ont leur libellé exact).
+  Fait : `townsStageFor()` (pipeline/placeSearch.js) partagé par les deux
+  scripts ; aucune des 861 étapes transcrites ne change d'ancres
+  (comparaison ancienne/nouvelle recherche). Relecture adverse : aucun
+  défaut ; fragilité relevée (une clé nue dont le numéro deviendrait scindé
+  à une régénération de stage_towns.json perdrait ses ancres sans bruit),
+  fermée par un test d'invariant : chaque clé de stage_itineraries.json
+  désigne une étape de stage_towns.json.
 
 ## Epic 34 — Idées venues d'autres dépôts (veille du 18/10/2026)
 
