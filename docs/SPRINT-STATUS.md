@@ -1927,7 +1927,7 @@ et côtes traversées avec leur kilomètre.
   Premier passage sur les 245 étapes mesurées (avant les corrections de
   1987) : 80 allers-retours sûrs sur 65 étapes, 53 incertains — à trier
   édition par édition avec 33.12 (1992 : 15, 1987 : 10, 1993 : 9…).
-- [ ] Édition 1985 : les 23 étapes absentes (1985/8 est déjà transcrite
+- [x] Édition 1985 (PR #535) : les 23 étapes absentes (1985/8 est déjà transcrite
   dans le lot Lorraine, PR #404), depuis les profils de ledicodutour.com
   (`images/cartes_etapes/1977_1986/1985/85_NN.jpg`, 468 px de large,
   demi-étapes 18a et 18b). Critères d'acceptation : chaque nom imprimé
@@ -1936,6 +1936,30 @@ et côtes traversées avec leur kilomètre.
   l'altitude est contrôlée point par point (règle 14) ; le contrôle à ±5 %
   passe sur BRouter public, chaque étape hors tolérance a sa cause notée ;
   le test d'invariant passe ; l'audit Mireille est fait avant la fusion.
+  Fait : 22 étapes sur 23, 478 points placés sur 536 (dont 22 noms
+  imprimés sans km, gardés non placés, règle 4). 1985/3 (contre-la-montre
+  par équipes Vitré → Fougères) n'est pas transcrite : l'image publiée
+  pour elle est une copie exacte de celle de 1985/2 (même md5). Longueurs
+  à 1 km près de stage_towns.json. Contrôlée à ±5 % sur BRouter public,
+  0 tronçon en voiture (refus 403 remesurés plus tard) : 18 étapes dans la
+  tolérance, 3 hors avec la comparaison en voiture et la cause notée —
+  1985/6 (+9,9 %, +13,7 %, écart réparti), 1985/7 (+5,9 %, +9,6 %),
+  1985/9 (−8,6 %, −6,6 % : le Champ du Feu, imprimé sans km de point) ;
+  prologue non contrôlable. Arrivées au Larmont (sources citées), au stade
+  de neige des Montagnes de Lans et au Haut du Lièvre. Trouvé en chemin :
+  les demi-étapes prenaient les villes de la première de leur numéro
+  (story 33.25, PR #534).
+  Audit Mireille : Ribérac omis dans un groupe serré de 1985/20 et
+  Villetoureix décalé d'un cran (33 → 35), rétablis ; Mareuil et
+  Villagrains placés au village, pas au centre de la commune nouvelle ;
+  entrée d'Aurillac retirée (ligne droite trop longue) ; « Consans » lu
+  Gonsans ; côte de Passavant retirée ; mairies essayées (Mazingarbe,
+  Ploërmel, Flers, Autruy-sur-Juine placés, Bègles noté) ; 1er passage des
+  Champs-Élysées sur la ligne ; 22 noms sans km ajoutés non placés.
+  Hors règles proposés : la consigne « un km douteux n'est pas repris »
+  appliquée en supprimant le nom entier (la règle 4 dit de le garder,
+  à rappeler dans la consigne de transcription) ; seuil d'un 1er passage
+  sur la ligne (règle 19) ; 1er passage de 1998/21 au centre de Paris.
 - [x] Édition 1986 (PR #423) : 23 étapes en ligne sur 23 (prologue de Boulogne-
   Billancourt non transcrit), 532 points placés sur 560 (491 sur 539 avant le tri 33.12). Contrôlée à
   ±5 % avant PR : 21 étapes dans la tolérance, 2 hors, affichées comme

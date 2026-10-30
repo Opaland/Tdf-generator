@@ -1283,10 +1283,10 @@
        "label": "Ploërmel",
        "km": 58,
        "kind": "ville",
-       "note": "80 m imprimés",
-       "lat": 47.93238,
-       "lon": -2.39808,
-       "how": "commune-ign",
+       "note": "80 m imprimés ; mairie de Ploërmel (index POI de la Géoplateforme), règle 17, audit Mireille",
+       "lat": 47.92924,
+       "lon": -2.39676,
+       "how": "ign",
        "confidence": "ok"
       },
       {
@@ -1512,18 +1512,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 232.6,
+      "routed_km": 232.7,
       "profile_km": 241.5,
-      "delta_pct": -3.7,
+      "delta_pct": -3.6,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
       "legs": 23,
-      "suspect_legs": 2,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Vannes → Elven 15,1 km à vol d'oiseau pour 14,5 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : La Chapelle-Caro → Ploërmel 7,6 km à vol d'oiseau pour 6,5 (8,3 en voiture), km imprimé en limite de commune ; Quéven → Lanester 8,1 km routés pour 15 (9,6 en voiture), traversée de Lorient non située (Lorient non placé)."
+     "note": "Départ : Vannes → Elven 15,1 km à vol d'oiseau pour 14,5 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect (règle 11) : Quéven → Lanester 8,1 km routés pour 15 (9,6 en voiture), traversée de Lorient non située (Lorient non placé)."
     },
     "2": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1985/85_02.jpg",
@@ -1604,6 +1604,13 @@
        "lon": -2.72296,
        "how": "commune-ign",
        "confidence": "ok"
+      },
+      {
+       "label": "Plumelec",
+       "km": 70,
+       "kind": "ville",
+       "note": "105 m imprimés ; aucun km imprimé (trait sur la graduation 70), non placé (règle 4) ; relevé à l'audit Mireille",
+       "confidence": "non-place"
       },
       {
        "label": "Trédion",
@@ -1756,6 +1763,13 @@
        "confidence": "ok"
       },
       {
+       "label": "Brie",
+       "km": 190,
+       "kind": "ville",
+       "note": "80 m imprimés ; aucun km imprimé (trait sur la graduation 190), non placé (règle 4) ; relevé à l'audit Mireille",
+       "confidence": "non-place"
+      },
+      {
        "label": "Piré-sur-Seiche",
        "km": 201.5,
        "kind": "ville",
@@ -1764,6 +1778,13 @@
        "lon": -1.42994,
        "how": "nominatim",
        "confidence": "ok"
+      },
+      {
+       "label": "Louvigné-de-Bais",
+       "km": 210,
+       "kind": "ville",
+       "note": "90 m imprimés ; aucun km imprimé (trait sur la graduation 210), non placé (règle 4) ; relevé à l'audit Mireille",
+       "confidence": "non-place"
       },
       {
        "label": "Domagné",
@@ -1797,7 +1818,7 @@
       }
      ],
      "circuit_km": 238.5,
-     "note": "Circuit final dans Vitré : 1er passage sur la ligne au km 238,5 (circuit_km, règle 19), passages imprimés aux km 240,5 et arrivée au km 242 ; seul le 1er passage est repris. Départ : Lorient → Kervignac 9,7 km à vol d'oiseau pour 5 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect (règle 11) : Piré-sur-Seiche → Domagné 9,2 km routés pour 14,5 (9,3 en voiture), détour non situé.",
+     "note": "Circuit final dans Vitré : 1er passage sur la ligne au km 238,5 (circuit_km, règle 19), passages imprimés aux km 240,5 et arrivée au km 242 ; seul le 1er passage est repris. Départ : Lorient → Kervignac 9,7 km à vol d'oiseau pour 5 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect (règle 11) : Piré-sur-Seiche → Domagné 9,2 km routés pour 14,5 (9,3 en voiture), par Louvigné-de-Bais, imprimé sans km et non placé.",
      "route_check": {
       "routed_km": 226.9,
       "profile_km": 233.5,
@@ -1918,10 +1939,10 @@
        "label": "Flers",
        "km": 73,
        "kind": "ville",
-       "note": "200 m imprimés",
-       "lat": 48.74842,
-       "lon": -0.56973,
-       "how": "commune-ign",
+       "note": "200 m imprimés ; mairie de Flers (index POI de la Géoplateforme), règle 17, audit Mireille",
+       "lat": 48.74994,
+       "lon": -0.57585,
+       "how": "ign",
        "confidence": "ok"
       },
       {
@@ -1995,6 +2016,13 @@
        "confidence": "ok"
       },
       {
+       "label": "Saint-Pierre-sur-Dives",
+       "km": 140,
+       "kind": "ville",
+       "note": "30 m imprimés ; aucun km imprimé (trait sur la graduation 140), non placé (règle 4) ; relevé à l'audit Mireille",
+       "confidence": "non-place"
+      },
+      {
        "label": "Côte de la Croix-Blanche",
        "km": 152.5,
        "kind": "côte",
@@ -2062,6 +2090,13 @@
        "confidence": "non-place"
       },
       {
+       "label": "Sainte-Opportune-la-Mare",
+       "km": 207,
+       "kind": "ville",
+       "note": "130 m imprimés ; km illisible (vers 207-208) ; aucun km imprimé lisible, position sur l'axe approchée, non placé (règle 4) ; relevé à l'audit Mireille",
+       "confidence": "non-place"
+      },
+      {
        "label": "Quillebeuf-sur-Seine",
        "km": 214,
        "kind": "ville",
@@ -2099,16 +2134,16 @@
        "confidence": "ok"
       }
      ],
-     "note": "Passage à Pont-Audemer au km 198, puis boucle par Quillebeuf-sur-Seine jusqu'à l'arrivée à Pont-Audemer au km 239 : ce n'est pas un circuit final (règle 19), tous les points sont repris. Départ : Fougères → Landéan 7,6 km à vol d'oiseau pour 6,5 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect (règle 11) : La Chapelle-Biche → Flers 6,1 km à vol d'oiseau pour 5 (6,6 en voiture), km imprimé en limite de commune. Aller-retour incertain de 2,5 km à Quillebeuf-sur-Seine, la côte de Quillebeuf voisine n'étant pas placée.",
+     "note": "Passage à Pont-Audemer au km 198, puis boucle par Quillebeuf-sur-Seine jusqu'à l'arrivée à Pont-Audemer au km 239 : ce n'est pas un circuit final (règle 19), tous les points sont repris. Départ : Fougères → Landéan 7,6 km à vol d'oiseau pour 6,5 au profil, départ réel hors du centre, non situé (règle 25). Aller-retour incertain de 2,5 km à Quillebeuf-sur-Seine : le point sauté est la côte de la Haule, non placée (audit Mireille).",
      "route_check": {
-      "routed_km": 239.5,
+      "routed_km": 240.3,
       "profile_km": 232.5,
-      "delta_pct": 3,
+      "delta_pct": 3.4,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
       "legs": 25,
-      "suspect_legs": 1,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 1
      }
@@ -2142,6 +2177,13 @@
        "lon": 1.50738,
        "how": "commune-ign",
        "confidence": "ok"
+      },
+      {
+       "label": "Richemont",
+       "km": 20,
+       "kind": "ville",
+       "note": "aucun km imprimé (trait sur la graduation 20), non placé (règle 4) ; relevé à l'audit Mireille",
+       "confidence": "non-place"
       },
       {
        "label": "Vieux-Rouen-sur-Bresle",
@@ -2179,6 +2221,13 @@
        "lon": 2.02323,
        "how": "commune-ign",
        "confidence": "ok"
+      },
+      {
+       "label": "Fourdrinoy",
+       "km": 60,
+       "kind": "ville",
+       "note": "aucun km imprimé (trait sur la graduation 60), non placé (règle 4) ; relevé à l'audit Mireille",
+       "confidence": "non-place"
       },
       {
        "label": "La Chaussée-Tirancourt",
@@ -2291,10 +2340,10 @@
        "label": "Mazingarbe",
        "km": 143,
        "kind": "ville",
-       "note": "40 m imprimés",
-       "lat": 50.46883,
-       "lon": 2.7399,
-       "how": "commune-ign",
+       "note": "40 m imprimés ; mairie de Mazingarbe (arrêt « Mairie », Nominatim), règle 17, audit Mireille",
+       "lat": 50.46913,
+       "lon": 2.71815,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -2306,6 +2355,13 @@
        "lon": 2.80885,
        "how": "commune-ign",
        "confidence": "ok"
+      },
+      {
+       "label": "Marquillies",
+       "km": 160,
+       "kind": "ville",
+       "note": "aucun km imprimé (trait sur la graduation 160), non placé (règle 4) ; relevé à l'audit Mireille",
+       "confidence": "non-place"
       },
       {
        "label": "Wavrin",
@@ -2358,6 +2414,13 @@
        "confidence": "ok"
       },
       {
+       "label": "Marcq-en-Barœul",
+       "km": 210,
+       "kind": "ville",
+       "note": "aucun km imprimé (trait sur la graduation 210), non placé (règle 4) ; relevé à l'audit Mireille",
+       "confidence": "non-place"
+      },
+      {
        "label": "Tourcoing",
        "km": 213.5,
        "kind": "ville",
@@ -2379,11 +2442,11 @@
       }
      ],
      "circuit_km": 220.5,
-     "note": "Circuit final : 1er passage sur la ligne à Roubaix au km 220,5 (circuit_km, règle 19), arrivée au km 224 ; seul le 1er passage est repris. Tronçons suspects (règle 11) : Sains-en-Gohelle → Mazingarbe 4,4 km à vol d'oiseau pour 2 (7,6 en voiture), km imprimé en limite de commune ; Hallennes-lez-Haubourdin → Capinghem 5,0 km routés pour 9,5, Quesnoy-sur-Deûle → Bondues 8,3 pour 15 et Tourcoing → Roubaix 4,0 pour 7 (4,8, 8,6 et 4,5 en voiture), détours de la métropole lilloise non situés.",
+     "note": "Circuit final : 1er passage sur la ligne à Roubaix au km 220,5 (circuit_km, règle 19), arrivée au km 224 ; seul le 1er passage est repris. Tronçons suspects (règle 11) : Hallennes-lez-Haubourdin → Capinghem 5,0 km routés pour 9,5, Quesnoy-sur-Deûle → Bondues 8,3 pour 15 et Tourcoing → Roubaix 4,0 pour 7 (4,8, 8,6 et 4,5 en voiture), détours de la métropole lilloise non situés.",
      "route_check": {
-      "routed_km": 207.4,
+      "routed_km": 204.9,
       "profile_km": 213.5,
-      "delta_pct": -2.8,
+      "delta_pct": -4,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
@@ -3280,6 +3343,13 @@
        "confidence": "ok"
       },
       {
+       "label": "Le Champ du Feu",
+       "km": 60,
+       "kind": "col",
+       "note": "1100 m imprimés ; 1re catégorie ; aucun km imprimé (trait sur la graduation 60), non placé (règle 4) ; relevé à l'audit Mireille",
+       "confidence": "non-place"
+      },
+      {
        "label": "Schirmeck",
        "km": 83,
        "kind": "ville",
@@ -3449,7 +3519,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Strasbourg → Achenheim 9,9 km à vol d'oiseau pour 4,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−8,6 % ; −6,6 % en voiture, 157,9 km pour 169) : le Champ du Feu (1 100 m), imprimé sur le profil mais sans km de point (trait sur la graduation 60), n'est pas transcrit ; le routeur va droit du col du Kreuzweg à Schirmeck (29,5 km au profil). Tronçon suspect (règle 11) : Jeuxey → Épinal 5,4 km routés pour 10 (5,8 en voiture), arrivée par le parc des Expositions non située."
+     "note": "Départ : Strasbourg → Achenheim 9,9 km à vol d'oiseau pour 4,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−8,6 % ; −6,6 % en voiture, 157,9 km pour 169) : le Champ du Feu (1 100 m), imprimé sans km de point (trait sur la graduation 60), n'est pas placé (règle 4) ; le routeur va droit du col du Kreuzweg à Schirmeck (29,5 km au profil). Tronçon suspect (règle 11) : Jeuxey → Épinal 5,4 km routés pour 10 (5,8 en voiture), arrivée par le parc des Expositions non située."
     },
     "10": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1985/85_10.jpg",
@@ -3636,11 +3706,8 @@
        "label": "Côte de Passavant",
        "km": 127,
        "kind": "côte",
-       "note": "450 m imprimés ; 3e catégorie ; sommet de la côte à la mairie d'Adam-lès-Passavant, index POI de la Géoplateforme, MNT 450 m",
-       "confidence": "ok",
-       "lat": 47.29609,
-       "lon": 6.36012,
-       "how": "ign"
+       "note": "450 m imprimés ; 3e catégorie ; sommet de la côte à la mairie d'Adam-lès-Passavant, index POI de la Géoplateforme, MNT 450 m ; non placé : sommet non situé : la mairie d'Adam-lès-Passavant est à 0,1 km d'Adam pour 2 km de profil (règles 7 et 21, audit Mireille)",
+       "confidence": "non-place"
       },
       {
        "label": "Adam-lès-Passavant",
@@ -3653,11 +3720,14 @@
        "confidence": "ok"
       },
       {
-       "label": "Consans",
+       "label": "Gonsans",
        "km": 137.5,
        "kind": "lieu-dit",
-       "note": "550 m imprimés ; nom lu « CONSANS », lecture incertaine ; non placé : lieu introuvable, nom lu « CONSANS » sans certitude",
-       "confidence": "non-place"
+       "note": "550 m imprimés ; imprimé « GONSANS », lu « CONSANS » à la 1re transcription (règle 23, audit Mireille) ; mairie de Gonsans, MNT 530 m",
+       "confidence": "ok",
+       "lat": 47.23309,
+       "lon": 6.29969,
+       "how": "ign"
       },
       {
        "label": "Verrières-du-Grosbois",
@@ -3678,6 +3748,13 @@
        "lon": 6.19859,
        "how": "commune-ign",
        "confidence": "ok"
+      },
+      {
+       "label": "Ornans",
+       "km": 160,
+       "kind": "ville",
+       "note": "aucun km imprimé (trait sur la graduation 160), non placé (règle 4) ; relevé à l'audit Mireille",
+       "confidence": "non-place"
       },
       {
        "label": "Chantrans",
@@ -4274,6 +4351,13 @@
        "confidence": "ok"
       },
       {
+       "label": "Saint-Jean-de-Moirans",
+       "km": 200,
+       "kind": "ville",
+       "note": "aucun km imprimé (trait sur la graduation 200), non placé (règle 4) ; relevé à l'audit Mireille",
+       "confidence": "non-place"
+      },
+      {
        "label": "Vourey",
        "km": 207,
        "kind": "ville",
@@ -4362,7 +4446,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Morzine → Les Gets 5,6 km à vol d'oiseau pour 4 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect (règle 11) : col de Leschaux → Bellecombe-en-Bauges 7,5 km routés pour 3,5 (7,7 en voiture), km imprimés serrés dans la descente des Bauges."
+     "note": "Départ : Morzine → Les Gets 5,6 km à vol d'oiseau pour 4 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect (règle 11) : col de Leschaux → Bellecombe-en-Bauges 7,5 km routés pour 3,5 (7,7 en voiture) ; la mairie de Bellecombe ne change rien (audit Mireille)."
     },
     "13": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1985/85_13.jpg",
@@ -5007,11 +5091,8 @@
        "label": "Aurillac (entrée)",
        "km": 229,
        "kind": "ville",
-       "note": "640 m imprimés",
-       "lat": 44.92854,
-       "lon": 2.44331,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "640 m imprimés ; non placé : entrée dans Aurillac non située : le centre de la ville est à 11,7 km de Velzic pour 10,5 au profil (règle 11, audit Mireille)",
+       "confidence": "non-place"
       },
       {
        "label": "Aurillac",
@@ -5025,19 +5106,19 @@
       }
      ],
      "route_check": {
-      "routed_km": 218,
-      "profile_km": 213.5,
-      "delta_pct": 2.1,
+      "routed_km": 210.6,
+      "profile_km": 208.5,
+      "delta_pct": 1,
       "tolerance_pct": 5,
-      "coverage_pct": 90,
+      "coverage_pct": 88,
       "car_legs": 0,
-      "legs": 28,
-      "suspect_legs": 1,
+      "legs": 27,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
      "circuit_km": 229,
-     "note": "Arrivée à Aurillac après une boucle de 8,5 km depuis l'entrée dans la ville (km 229, circuit_km, règle 19) ; la boucle n'est pas mesurée. Tronçon suspect (règle 11) : Belliac → Aurillac 6,6 km à vol d'oiseau pour 5 (9,2 en voiture), km de Belliac lu sur la rangée haute et nom incertain."
+     "note": "Arrivée à Aurillac après une boucle de 8,5 km depuis l'entrée dans la ville (km 229, circuit_km, règle 19) ; la boucle n'est pas mesurée, l'entrée elle-même n'est pas située (audit Mireille)."
     },
     "16": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1985/85_16.jpg",
@@ -5081,6 +5162,13 @@
        "lon": 2.3916,
        "how": "commune-ign",
        "confidence": "ok"
+      },
+      {
+       "label": "Côte de Marcolès",
+       "km": 30,
+       "kind": "côte",
+       "note": "aucun km imprimé (trait sur la graduation 30), non placé (règle 4) ; relevé à l'audit Mireille",
+       "confidence": "non-place"
       },
       {
        "label": "Calvinet",
@@ -5228,6 +5316,20 @@
        "lon": 2.0409,
        "how": "commune-ign",
        "confidence": "ok"
+      },
+      {
+       "label": "Laguépie",
+       "km": 147,
+       "kind": "ville",
+       "note": "aucun km imprimé lisible, position sur l'axe approchée, non placé (règle 4) ; relevé à l'audit Mireille",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Côte de Saint-Martin",
+       "km": 151,
+       "kind": "côte",
+       "note": "aucun km imprimé lisible, position sur l'axe approchée, non placé (règle 4) ; relevé à l'audit Mireille",
+       "confidence": "non-place"
       },
       {
        "label": "Cordes-sur-Ciel",
@@ -5673,6 +5775,13 @@
        "confidence": "ok"
       },
       {
+       "label": "Côte de la Quitterie",
+       "km": 10,
+       "kind": "côte",
+       "note": "300 m imprimés ; 4e catégorie ; aucun km imprimé (trait sur la graduation 10), non placé (règle 4) ; relevé à l'audit Mireille",
+       "confidence": "non-place"
+      },
+      {
        "label": "Doumy",
        "km": 13,
        "kind": "ville",
@@ -5698,6 +5807,13 @@
        "lon": -0.41167,
        "how": "commune-ign",
        "confidence": "ok"
+      },
+      {
+       "label": "Samadet",
+       "km": 40,
+       "kind": "ville",
+       "note": "150 m imprimés ; aucun km imprimé (trait sur la graduation 40), non placé (règle 4) ; relevé à l'audit Mireille",
+       "confidence": "non-place"
       },
       {
        "label": "Aubagnan",
@@ -5813,11 +5929,11 @@
        "label": "Villagrains",
        "km": 163,
        "kind": "lieu-dit",
-       "note": "50 m imprimés",
-       "lat": 44.60656,
-       "lon": -0.55338,
+       "note": "50 m imprimés ; hameau de Villagrains, MNT 55 m ; le point était au centre de Cabanac-et-Villagrains (règles 6 et 15, audit Mireille ; points de 1988/17 et 2003/17)",
+       "lat": 44.56966,
+       "lon": -0.59406,
        "how": "nominatim",
-       "confidence": "ambigu"
+       "confidence": "ok"
       },
       {
        "label": "Saucats",
@@ -5853,7 +5969,7 @@
        "label": "Bègles",
        "km": 191,
        "kind": "ville",
-       "note": "10 m imprimés",
+       "note": "10 m imprimés ; mairie essayée (44.80815, -0.54366) : 4,0 km de Villenave-d'Ornon pour 3 au profil, pas mieux (règle 17)",
        "lat": 44.80746,
        "lon": -0.54885,
        "how": "commune-ign",
@@ -5871,18 +5987,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 199.6,
+      "routed_km": 201.1,
       "profile_km": 198,
-      "delta_pct": 0.8,
+      "delta_pct": 1.6,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
       "legs": 19,
-      "suspect_legs": 3,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Pau → Serres-Castet 10,1 km à vol d'oiseau pour 5 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : Origne → Villagrains 13,3 km à vol d'oiseau pour 12 (14,3 en voiture), Villenave-d'Ornon → Bègles 3,8 pour 3 (5,1 en voiture), km imprimés en limite de commune ; Villagrains → Saucats 6,9 km routés pour 10 et Bègles → Bordeaux 5,0 pour 12 (8,0 et 5,7 en voiture), détours non situés avant l'arrivée."
+     "note": "Départ : Pau → Serres-Castet 10,1 km à vol d'oiseau pour 5 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect (règle 11) : Bègles → Bordeaux 5,0 km routés pour 12 (5,7 en voiture), détour non situé avant l'arrivée."
     },
     "20": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1985/85_20.jpg",
@@ -5938,17 +6054,30 @@
        "confidence": "ok"
       },
       {
-       "label": "Villetoureix",
+       "label": "Ribérac",
        "km": 33,
        "kind": "ville",
-       "note": "85 m imprimés ; imprimé « Villetoureix-la-Bourie » ; attribution du km 33 par l'échelle px/km (groupe serré Ribérac/Villetoureix/Fayolle), à vérifier ; non placé : le bourg de Villetoureix est à 7,5 km de Vanxains pour 5 km de profil (règle 11) ; km attribué à l'échelle dans un groupe serré, douteux",
-       "confidence": "non-place"
+       "note": "altitude imprimée peu lisible (60 ou 80 m) ; omis à la 1re transcription, km 33 attribué à l'audit Mireille (groupe serré) ; mairie de Ribérac (Nominatim, amenity=townhall)",
+       "lat": 45.24652,
+       "lon": 0.33753,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Villetoureix",
+       "km": 35,
+       "kind": "ville",
+       "note": "85 m imprimés ; imprimé « Villetoureix-la-Bourie » ; km lu sur la rangée haute (audit Mireille : échelle 2,05 px/km, 33 sous Ribérac, 35 sous Villetoureix) ; mairie de Villetoureix (Nominatim, amenity=townhall)",
+       "confidence": "ok",
+       "lat": 45.26308,
+       "lon": 0.36338,
+       "how": "nominatim"
       },
       {
        "label": "Côte de Fayolle",
        "km": 37,
        "kind": "côte",
-       "note": "145 m imprimés ; 4e catégorie ; attribution par l'échelle px/km, à vérifier ; domaine de Fayolle (Villetoureix), index POI de la Géoplateforme, MNT 139 m",
+       "note": "145 m imprimés ; 4e catégorie ; attribution par l'échelle px/km, confirmé à l'audit ; domaine de Fayolle (Villetoureix), index POI de la Géoplateforme, MNT 139 m",
        "confidence": "ok",
        "lat": 45.28049,
        "lon": 0.34102,
@@ -5968,11 +6097,11 @@
        "label": "Mareuil",
        "km": 58,
        "kind": "ville",
-       "note": "120 m imprimés ; imprimé « Mareuil-sur-Belle »",
-       "lat": 45.44362,
-       "lon": 0.50376,
-       "how": "commune-ign-prefixe",
-       "confidence": "ambigu"
+       "note": "120 m imprimés ; imprimé « Mareuil-sur-Belle » ; village de Mareuil (Nominatim, place=village), MNT 118 m ; le centre de la commune nouvelle Mareuil en Périgord était à 4,3 km (règle 15, audit Mireille)",
+       "lat": 45.45153,
+       "lon": 0.45294,
+       "how": "nominatim",
+       "confidence": "ok"
       },
       {
        "label": "Saint-Martial-de-Valette",
@@ -6010,6 +6139,13 @@
        "lon": 0.86241,
        "how": "nominatim",
        "confidence": "ok"
+      },
+      {
+       "label": "Dournazac",
+       "km": 110,
+       "kind": "ville",
+       "note": "380 m imprimés ; aucun km imprimé (trait sur la graduation 110), non placé (règle 4) ; relevé à l'audit Mireille",
+       "confidence": "non-place"
       },
       {
        "label": "Chanteloube",
@@ -6122,6 +6258,13 @@
        "confidence": "ok"
       },
       {
+       "label": "Saint-Paul",
+       "km": 200,
+       "kind": "ville",
+       "note": "330 m imprimés ; aucun km imprimé (trait sur la graduation 200), non placé (règle 4) ; relevé à l'audit Mireille",
+       "confidence": "non-place"
+      },
+      {
        "label": "Feytiat",
        "km": 211,
        "kind": "ville",
@@ -6153,18 +6296,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 215.2,
+      "routed_km": 214.5,
       "profile_km": 216.5,
-      "delta_pct": -0.6,
+      "delta_pct": -0.9,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 23,
-      "suspect_legs": 2,
+      "legs": 25,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Tronçons suspects (règle 11) : Verteillac → Mareuil 15,2 km à vol d'oiseau pour 13 (21,2 en voiture), km imprimé en limite de commune ; Crézin → Limoges 4,9 km routés pour 11,5 (5,0 en voiture), détour avant l'arrivée non situé."
+     "note": "Tronçon suspect (règle 11) : Crézin → Limoges 4,9 km routés pour 11,5 (5,0 en voiture), détour avant l'arrivée non situé."
     },
     "21": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1985/85_21.jpg",
@@ -6188,6 +6331,13 @@
        "lon": 1.87227,
        "how": "nominatim",
        "confidence": "ok"
+      },
+      {
+       "label": "Royère-de-Vassivière",
+       "km": 10,
+       "kind": "ville",
+       "note": "720 m imprimés ; aucun km imprimé (trait sur la graduation 10), non placé (règle 4) ; relevé à l'audit Mireille",
+       "confidence": "non-place"
       },
       {
        "label": "Faux-la-Montagne",
@@ -6298,10 +6448,10 @@
        "label": "Autruy-sur-Juine",
        "km": 42,
        "kind": "ville",
-       "note": "120 m imprimés",
-       "lat": 48.27582,
-       "lon": 2.10353,
-       "how": "commune-ign",
+       "note": "120 m imprimés ; point de la commune d'Autruy-sur-Juine (index POI de la Géoplateforme), règle 17, audit Mireille",
+       "lat": 48.2754,
+       "lon": 2.09461,
+       "how": "ign",
        "confidence": "ok"
       },
       {
@@ -6415,6 +6565,13 @@
        "confidence": "ok"
       },
       {
+       "label": "Les Dix-Sept-Tournants",
+       "km": 110,
+       "kind": "côte",
+       "note": "170 m imprimés ; 4e catégorie ; aucun km imprimé (trait sur la graduation 110), non placé (règle 4) ; relevé à l'audit Mireille",
+       "confidence": "non-place"
+      },
+      {
        "label": "Côte de la Madeleine",
        "km": 116.5,
        "kind": "côte",
@@ -6498,24 +6655,24 @@
        "label": "Paris Champs-Élysées (1er passage)",
        "km": 159.7,
        "kind": "ville",
-       "note": "imprimé « 1er passage » (circuit des Champs-Élysées, passages suivants 166.7, 171.8, 177.8, 183.9, 189.9 ; « Haut des Champs » 50 m au km 172.4)",
-       "lat": 48.8535,
-       "lon": 2.34839,
-       "how": "stage_towns",
+       "note": "imprimé « 1er passage » (circuit des Champs-Élysées, passages suivants 166.7, 171.8, 177.8, 183.9, 189.9 ; « Haut des Champs » 50 m au km 172.4) ; ligne des Champs-Élysées, point de 1986 à 2000 (audit Mireille)",
+       "lat": 48.87076,
+       "lon": 2.30533,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
      "circuit_km": 156,
-     "note": "Circuit des Champs-Élysées : entrée au pont de la Concorde au km 156 (circuit_km, règle 19), 1er passage sur la ligne au km 159,7, passages suivants aux km 166,7, 171,8, 177,8, 183,9 et 189,9, arrivée au km 196 ; seuls l'entrée et le 1er passage sont repris. Départ : Orléans → Fleury-les-Aubrais 3,3 km à vol d'oiseau pour 2 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect (règle 11) : Acquebouille → Autruy-sur-Juine 8,7 km à vol d'oiseau pour 7,5 (8,8 en voiture), km imprimé en limite de commune.",
+     "note": "Circuit des Champs-Élysées : entrée au pont de la Concorde au km 156 (circuit_km, règle 19), 1er passage sur la ligne au km 159,7, passages suivants aux km 166,7, 171,8, 177,8, 183,9 et 189,9, arrivée au km 196 ; seuls l'entrée et le 1er passage sont repris. Départ : Orléans → Fleury-les-Aubrais 3,3 km à vol d'oiseau pour 2 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 157.5,
+      "routed_km": 157.8,
       "profile_km": 154,
-      "delta_pct": 2.3,
+      "delta_pct": 2.4,
       "tolerance_pct": 5,
       "coverage_pct": 79,
       "car_legs": 0,
       "legs": 22,
-      "suspect_legs": 1,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -6626,6 +6783,13 @@
        "lon": -0.42663,
        "how": "commune-ign",
        "confidence": "ok"
+      },
+      {
+       "label": "Eaux-Bonnes",
+       "km": 5,
+       "kind": "ville",
+       "note": "730 m imprimés ; aucun km imprimé (trait sur la graduation 5), non placé (règle 4) ; relevé à l'audit Mireille",
+       "confidence": "non-place"
       },
       {
        "label": "Gourette",
