@@ -131574,11 +131574,8 @@
        "label": "Côte de Hejlsminde Strand",
        "km": 82.8,
        "kind": "côte",
-       "note": "40 m imprimés ; 800 m à 5,5 % ; plage de Hejlsminde, au pied de la côte (MNT 0 m pour 40 imprimés)",
-       "confidence": "ok",
-       "lat": 55.36258,
-       "lon": 9.60154,
-       "how": "nominatim"
+       "note": "40 m imprimés ; 800 m à 5,5 % ; retiré (règle 21, audit Mireille) : la plage de Hejlsminde est au pied (MNT 0 m pour 40 imprimés), sommet non situé",
+       "confidence": "non-place"
       },
       {
        "label": "Christiansfeld",
@@ -131614,11 +131611,8 @@
        "label": "Côte de Genner Strand",
        "km": 123.3,
        "kind": "côte",
-       "note": "61 m imprimés ; 1,7 km à 3,4 % ; hameau de Genner Strand (MNT 28 m)",
-       "confidence": "ok",
-       "lat": 55.12822,
-       "lon": 9.46555,
-       "how": "nominatim"
+       "note": "61 m imprimés ; 1,7 km à 3,4 % ; retiré (règle 21, audit Mireille) : le hameau de Genner Strand est au pied (MNT 28 m pour 61 imprimés), sommet non situé",
+       "confidence": "non-place"
       },
       {
        "label": "Aabenraa",
@@ -131662,18 +131656,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 154.6,
+      "routed_km": 146.2,
       "profile_km": 170,
-      "delta_pct": -9,
+      "delta_pct": -14,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
-      "legs": 14,
-      "suspect_legs": 1,
+      "legs": 12,
+      "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Hors tolérance (−9,0 % ; −5,3 % en voiture, 161,0 km pour 170,0) : détours non situés sur le profil simplifié — Nybøl → Sønderborg 7,8 km routés pour 16,3, Aabenraa → Felsted 10,5 pour 13,9, Vester Nebel → Sjølund 22,3 pour 25,4."
+     "note": "Hors tolérance (−14,0 % ; −10,5 % en voiture, 152,2 km pour 170,0) : détours non situés sur le profil simplifié — Sjølund → Christiansfeld 7,9 km routés pour 17,0 (côte de Hejlsminde Strand retirée, au pied), Nybøl → Sønderborg 7,8 pour 16,3, Aabenraa → Felsted 10,5 pour 13,9."
     },
     "4": {
      "source_url": "https://www.ledicodutour.com/images/2022/etape_4a.jpg",
@@ -131742,11 +131736,8 @@
        "label": "Côte de Remilly-Wirquin",
        "km": 71.8,
        "kind": "côte",
-       "note": "133 m imprimés ; 1,1 km à 6,8 % ; côte rattachée au village de Remilly-Wirquin (MNT 52 m pour 133 imprimés)",
-       "confidence": "ok",
-       "lat": 50.66749,
-       "lon": 2.16435,
-       "how": "nominatim"
+       "note": "133 m imprimés ; 1,1 km à 6,8 % ; retiré (règle 21, audit Mireille) : le village de Remilly-Wirquin est au pied (MNT 52 m pour 133 imprimés), sommet non situé",
+       "confidence": "non-place"
       },
       {
        "label": "Ouve-Wirquin",
@@ -131762,11 +131753,8 @@
        "label": "Côte de Nielles-lès-Bléquin",
        "km": 97.2,
        "kind": "côte",
-       "note": "170 m imprimés ; 1,1 km à 7,7 % ; côte rattachée au village de Nielles-lès-Bléquin (MNT 82 m pour 170 imprimés)",
-       "confidence": "ok",
-       "lat": 50.67347,
-       "lon": 2.03038,
-       "how": "nominatim"
+       "note": "170 m imprimés ; 1,1 km à 7,7 % ; retiré (règle 21, audit Mireille) : le village de Nielles-lès-Bléquin est au pied (MNT 82 m pour 170 imprimés), sommet non situé",
+       "confidence": "non-place"
       },
       {
        "label": "Coulomby",
@@ -131854,18 +131842,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 133.4,
+      "routed_km": 133.3,
       "profile_km": 161.5,
       "delta_pct": -17.4,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
-      "legs": 14,
+      "legs": 12,
       "suspect_legs": 2,
       "backtracks": 0,
-      "backtracks_uncertain": 0
+      "backtracks_uncertain": 1
      },
-     "note": "Hors tolérance (−17,4 % ; −8,4 % en voiture, 147,9 km pour 161,5) : Audinghen et Marquise non placés (ordre contradictoire entre profil et carte), Hardinghen → cap Blanc-Nez 19,6 km routés pour 33,2 ; la boucle entre la côte de Remilly-Wirquin et Ouve-Wirquin n'est pas située (2,8 km routés pour 13,0)."
+     "note": "Hors tolérance (−17,4 % ; −9,6 % en voiture, 146,0 km pour 161,5) : Audinghen et Marquise non placés (ordre contradictoire entre profil et carte), Hardinghen → cap Blanc-Nez 19,6 km routés pour 33,2 ; côtes de Remilly-Wirquin et de Nielles-lès-Bléquin retirées (villages au pied), Lumbres → Ouve-Wirquin 8,4 km routés pour 21,6 et aller-retour incertain de 7,9 km d'Ouve-Wirquin vers Coulomby (la boucle par Nielles-lès-Bléquin n'est plus tracée)."
     },
     "5": {
      "source_url": "https://www.ledicodutour.com/images/2022/etape_5a.jpg",
@@ -131994,7 +131982,7 @@
        "label": "Auberchicourt",
        "km": 114.1,
        "kind": "ville",
-       "note": "59 m imprimés ; secteur pavé n° 7, imprimé « d'Auberchicourt à Émerchicourt »",
+       "note": "59 m imprimés ; secteur pavé n° 7, imprimé « d'Auberchicourt à Émerchicourt » ; mairie essayée (50.33179, 3.23476, à 0,13 km du point) : l'aller-retour vers Abscon subsiste (règle 17)",
        "lat": 50.33198,
        "lon": 3.23293,
        "how": "commune-ign",
@@ -132239,34 +132227,40 @@
        "confidence": "ok"
       },
       {
-       "label": "Cons-la-Grandville",
+       "label": "Côte de Montigny-sur-Chiers",
        "km": 205,
+       "kind": "côte",
+       "note": "297 m imprimés ; 1,6 km à 4,4 % ; km relu au zoom (le trait coudé descend sur 205, audit Mireille) ; côte placée au village de Montigny-sur-Chiers (MNT 303 m)",
+       "lat": 49.4804,
+       "lon": 5.6702,
+       "how": "nominatim",
+       "confidence": "ok"
+      },
+      {
+       "label": "Cons-la-Grandville",
+       "km": 207.5,
        "kind": "ville",
-       "note": "244 m imprimés",
+       "note": "244 m imprimés ; km relu au zoom (audit Mireille)",
        "lat": 49.48498,
        "lon": 5.702,
        "how": "commune-ign",
        "confidence": "ok"
       },
       {
-       "label": "Côte de Montigny-sur-Chiers",
-       "km": 207.5,
-       "kind": "côte",
-       "note": "297 m imprimés ; 1,6 km à 4,4 % ; retiré (règles 9 et 24) : le point Nominatim, à l'ouest de Cons-la-Grandville, imposait un aller-retour de 4,0 km ; sommet non situé",
-       "confidence": "non-place"
-      },
-      {
-       "label": "Côte des Religieuses",
+       "label": "Côte de Pulventeux",
        "km": 214.6,
        "kind": "côte",
-       "note": "1,6 km à 5,8 % ; altitude non imprimée ; non placé : la côte des Religieuses mène à l'arrivée de Longwy-Haut, à 9,5 km à vol d'oiseau de la côte de Montigny pour 7,1 au profil",
-       "confidence": "non-place"
+       "note": "351 m imprimés ; 800 m à 12,3 % ; lieu-dit Pulventeux (Longwy), Nominatim, MNT 354 m (audit Mireille)",
+       "lat": 49.51268,
+       "lon": 5.75139,
+       "how": "nominatim",
+       "confidence": "ok"
       },
       {
        "label": "Longwy",
        "km": 219.9,
        "kind": "ville",
-       "note": "379 m imprimés ; côte de Pulventeux (351 m, 800 m à 12,3 %) imprimée sans km, non reprise (règle 4) ; arrivée au sommet de la côte des Religieuses, à Longwy-Haut : point de 2017/3 (règle 22)",
+       "note": "379 m imprimés ; côte des Religieuses (1,6 km à 5,8 %) imprimée sans km ni trait, non reprise (règle 4) : elle mène à l'arrivée ; arrivée au sommet de la côte des Religieuses, à Longwy-Haut : point de 2017/3 (règle 22)",
        "lat": 49.52396,
        "lon": 5.76363,
        "how": "nominatim",
@@ -132274,18 +132268,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 197.5,
+      "routed_km": 199.2,
       "profile_km": 201,
-      "delta_pct": -1.7,
+      "delta_pct": -0.9,
       "tolerance_pct": 5,
       "coverage_pct": 91,
       "car_legs": 0,
-      "legs": 15,
+      "legs": 17,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Binche → Beaumont 20,1 km à vol d'oiseau pour 18,9 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect (règle 11) : Cons-la-Grandville → Longwy 7,5 km routés (6,2 à vol d'oiseau) pour 14,9, côte de Montigny-sur-Chiers retirée et côte des Religieuses non placée."
+     "note": "Départ : Binche → Beaumont 20,1 km à vol d'oiseau pour 18,9 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect (règle 11) : côte de Pulventeux → Longwy 2,1 km routés (1,5 à vol d'oiseau) pour 5,3, montée de la côte des Religieuses vers Longwy-Haut non située."
     },
     "7": {
      "source_url": "https://www.ledicodutour.com/images/2022/etape_7b.jpg",
@@ -132959,7 +132953,7 @@
        "label": "Côte de Châtillon-sur-Cluses",
        "km": 97.3,
        "kind": "côte",
-       "note": "661 m imprimés ; 4,5 km à 3,9 % ; retiré (règles 9 et 24) : le point du géocodeur imposait un aller-retour de 1,5 km vers Cluses (6,4 km à vol d’oiseau de Marignier pour 5,4 au profil) ; sommet non situé",
+       "note": "661 m imprimés ; 4,5 km à 3,9 % ; retiré (règles 9 et 24) : retesté après la correction de Megève (audit Mireille), le point du géocodeur impose toujours un aller-retour de 1,5 km vers Cluses (6,4 km à vol d’oiseau de Marignier pour 5,4 au profil) ; sommet non situé",
        "confidence": "non-place"
       },
       {
@@ -132983,17 +132977,20 @@
        "confidence": "ok"
       },
       {
-       "label": "Montée de l'altiport de Megève",
+       "label": "Megève",
        "km": 139.3,
-       "kind": "côte",
-       "note": "1382 m imprimés ; 19,2 km à 4,1 % ; non placé : la montée finit à l'altiport, déjà placé à l'arrivée (km 148,1)",
-       "confidence": "non-place"
+       "kind": "ville",
+       "note": "1111 m imprimés ; km relu au zoom (le trait de la montée est coudé, audit Mireille) ; placé à la mairie (MNT 1 097 m)",
+       "lat": 45.8569,
+       "lon": 6.61773,
+       "how": "nominatim",
+       "confidence": "ok"
       },
       {
-       "label": "Megève",
+       "label": "Montée de l'altiport de Megève",
        "km": 145.9,
-       "kind": "ville",
-       "note": "1111 m imprimés ; non placé : le centre de Megève est à 4,5 km à vol d'oiseau de l'altiport pour 2,2 au profil (règle 11), passage dans la commune non situé",
+       "kind": "côte",
+       "note": "1382 m imprimés ; 19,2 km à 4,1 % ; non placé : sommet de la montée non situé, entre Megève et l'altiport",
        "confidence": "non-place"
       },
       {
@@ -133008,18 +133005,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 122.9,
+      "routed_km": 123.3,
       "profile_km": 131.5,
-      "delta_pct": -6.5,
+      "delta_pct": -6.3,
       "tolerance_pct": 5,
       "coverage_pct": 89,
       "car_legs": 0,
-      "legs": 11,
+      "legs": 12,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Morzine → Bioge 18,6 km à vol d'oiseau pour 16,6 au profil, départ réel hors du centre, non situé (règle 25) ; centre de Morzine à 977 m au MNT pour 864 imprimés au km 0. Hors tolérance (−6,5 % ; −2,4 % en voiture, 128,4 km pour 131,5) : côte de Châtillon-sur-Cluses retirée pour aller-retour (règle 24), Megève non placé ; Passy-Marlioz → altiport 20,6 km routés pour 24,3."
+     "note": "Départ : Morzine → Bioge 18,6 km à vol d'oiseau pour 16,6 au profil, départ réel hors du centre, non situé (règle 25) ; centre de Morzine à 977 m au MNT pour 864 imprimés au km 0. Hors tolérance (−6,3 % ; −1,7 % en voiture, 129,2 km pour 131,5) : côte de Châtillon-sur-Cluses retirée pour aller-retour (règle 24) ; Megève → altiport 6,0 km routés pour 8,8 (7,7 en voiture), la montée de l'altiport n'est pas située."
     },
     "11": {
      "source_url": "https://www.ledicodutour.com/images/2022/etape_11b.jpg",
@@ -134696,29 +134693,32 @@
        "label": "Côte de l'Hospitalet",
        "km": 40.4,
        "kind": "côte",
-       "note": "253 m imprimés ; 1,5 km à 7,8 % ; chapelle de L'Hospitalet (Rocamadour), MNT 257 m ; retiré (règles 9 et 24) : la chapelle de L'Hospitalet est à 0,8 km à vol d'oiseau de l'arrivée pour 0,3 au profil et imposait un aller-retour de 1,3 km",
-       "confidence": "non-place"
+       "note": "253 m imprimés ; 1,5 km à 7,8 % ; chapelle de L'Hospitalet (Rocamadour), MNT 257 m",
+       "confidence": "ok",
+       "lat": 44.80438,
+       "lon": 1.62633,
+       "how": "nominatim"
       },
       {
        "label": "Rocamadour",
        "km": 40.7,
        "kind": "ville",
-       "note": "258 m imprimés",
-       "lat": 44.79955,
-       "lon": 1.61817,
-       "how": "stage_towns",
+       "note": "258 m imprimés ; arrivée sur le plateau de L'Hospitalet (parking, MNT 254 m pour 258 imprimés), comme la carte de la page : le point de stage_towns était dans la cité (MNT 166 m) ; ligne exacte à confirmer (audit Mireille, règle 22)",
+       "lat": 44.80676,
+       "lon": 1.62882,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
-     "note": "Contre-la-montre individuel. Hors tolérance (+6,9 % ; +3,7 % en voiture, 31,2 km pour 30,1) sur 30,1 km mesurés : écart réparti (Bio → Gramat 5,9 km routés pour 5,0) ; côte de l'Hospitalet retirée pour aller-retour (règle 24).",
+     "note": "Contre-la-montre individuel. Hors tolérance (+10,9 % ; +10,0 % en voiture, 33,1 km pour 30,1) sur 30,1 km mesurés : écart réparti entre les bourgs (Bio → Gramat 5,9 km routés pour 5,0, Gramat → Couzou 11,2 pour 10,5, côte de Magès → côte de l'Hospitalet 4,4 pour 3,7) ; arrivée placée sur le plateau de L'Hospitalet (audit Mireille).",
      "route_check": {
-      "routed_km": 32.2,
+      "routed_km": 33.4,
       "profile_km": 30.1,
-      "delta_pct": 6.9,
+      "delta_pct": 10.9,
       "tolerance_pct": 5,
       "coverage_pct": 74,
       "car_legs": 0,
-      "legs": 5,
+      "legs": 6,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0

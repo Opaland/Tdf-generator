@@ -19,6 +19,11 @@ dans la même PR que son correctif.
    km faux sur 7 étapes en 1987, Col du Kreuzweg au km 60, une graduation
    (1987/6 ; même erreur en 1988). Pour chaque point : le chiffre doit être **sous la
    colonne du nom**, pas seulement voisin.
+   **Un trait coudé se suit jusqu'à son pointillé**, au zoom : le nom posé
+   au-dessus d'une colonne peut appartenir à la voisine. En 2022, la côte
+   de Montigny-sur-Chiers et Cons-la-Grandville (2022/6), Megève et la
+   montée de l'altiport (2022/10) avaient été inversées ainsi — et les
+   points justes retirés ensuite pour un « aller-retour » (audit Mireille).
 3. **Compter noms et chiffres d'un groupe serré.** Quatre noms pour trois
    chiffres : un nom n'a pas de km. Mesurer la position de chaque colonne
    contre deux graduations (px/km) pour savoir lequel (1986/23 : La
