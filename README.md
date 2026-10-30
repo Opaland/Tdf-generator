@@ -78,7 +78,7 @@ la visualisation de cols, utilisé jusque dans les retransmissions TV) :
   « aucun résultat » ne veut pas dire « aucun Tour n'est passé ici ».
   Itinéraires détaillés : profils du [Dico du Tour](https://www.ledicodutour.com)
   transcrits à la main, noms de lieux et kilomètres seulement, sans les images
-  (au 30/10/2026 : 45 éditions, 840 étapes, 14 183 points dont 1 146 non placés).
+  (transcription en cours, voir la story 33.2 de `docs/SPRINT-STATUS.md`).
 - **Catalogue des cols** (`/cols.html`) : toutes les côtes détectées, toutes
   étapes confondues — liste triable et filtrable (catégorie, édition,
   recherche), profil de la montée déroulable par ligne, records (plus haut,
