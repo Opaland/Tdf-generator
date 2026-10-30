@@ -139638,7 +139638,7 @@
        "label": "Côte de Barbotto",
        "km": 135.6,
        "kind": "côte",
-       "note": "584 m imprimés ; 5,8 km à 7,6 % ; Barbotto, via curée de historic_routes.json, MNT 532 m",
+       "note": "584 m imprimés ; 5,8 km à 7,6 % ; Barbotto, via curée de historic_routes.json, MNT 532 m ; 52 m sous l'altitude imprimée, sommet approché",
        "confidence": "ok",
        "lat": 43.93906,
        "lon": 12.22573,
@@ -139804,18 +139804,18 @@
        "label": "Dozza",
        "km": 108.1,
        "kind": "ville",
-       "note": "71 m imprimés ; municipio de Dozza (Toscanella, sur la via Emilia), MNT 70 m ; le point du géocodeur était le bourg perché (180 m)",
-       "lat": 44.38303,
-       "lon": 11.63869,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "71 m imprimés ; municipio de Dozza (Toscanella, sur la via Emilia), MNT 70 m ; le point du géocodeur était le bourg perché (180 m) ; non placé (règle 7) : le municipio de Dozza (Toscanella) est à 4,7 km à vol d'oiseau de Castel San Pietro Terme pour 1,1 au profil ; sprint non situé (audit Mireille)",
+       "confidence": "non-place"
       },
       {
        "label": "Castel San Pietro Terme",
        "km": 109.2,
        "kind": "ville",
-       "note": "71 m imprimés ; non placé (règle 11) : Castel San Pietro Terme est à 4,7 km à vol d'oiseau du municipio de Dozza pour 1,1 au profil",
-       "confidence": "non-place"
+       "note": "71 m imprimés ; municipio de Castel San Pietro Terme, EU-DEM 83 m (audit Mireille)",
+       "confidence": "ok",
+       "lat": 44.39794,
+       "lon": 11.5891,
+       "how": "nominatim"
       },
       {
        "label": "Ozzano dell'Emilia",
@@ -139831,9 +139831,9 @@
        "label": "San Lazzaro di Savena",
        "km": 127.6,
        "kind": "ville",
-       "note": "66 m imprimés",
-       "lat": 44.47157,
-       "lon": 11.40486,
+       "note": "66 m imprimés ; municipio de San Lazzaro di Savena (règle 17) (audit Mireille)",
+       "lat": 44.47059,
+       "lon": 11.408,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -139858,7 +139858,7 @@
        "label": "Côte de Montecalvo",
        "km": 151.2,
        "kind": "côte",
-       "note": "309 m imprimés ; 2,7 km à 7,7 % ; village de Montecalvo (Pianoro), MNT 308 m ; via curée de historic_routes.json (MNT 388 m pour 309) : le village de Montecalvo, sur un autre versant, imposait un aller-retour",
+       "note": "309 m imprimés ; 2,7 km à 7,7 % ; via curée de historic_routes.json, MNT 388 m pour 309 (79 m au-dessus, sommet approché) : le village de Montecalvo (308 m), sur un autre versant, imposait un aller-retour",
        "confidence": "ok",
        "lat": 44.42428,
        "lon": 11.37434,
@@ -139883,16 +139883,16 @@
       }
      ],
      "circuit_km": 162.5,
-     "note": "Circuit final dans Bologne : 1er passage sur la ligne au km 162,5 (circuit_km, règle 19 ; aucune entrée imprimée), côte de San Luca aux km 168,3 et 186,6, 2e passage au km 180,9, arrivée au km 199,2 ; seul le 1er passage est repris. Départ : Cesenatico → Ravenne 28,6 km à vol d'oiseau pour 22,6 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−8,0 % ; −2,5 % en voiture, 136,4 km pour 139,9) sur 70 % de l'étape (circuit final dans Bologne exclu) : San Lazzaro di Savena → Carteria di Sesto 8,5 km routés pour 18,7 (côte de Botteghino di Zocca non placée, la boucle n'est pas située), Imola → Dozza 7,0 pour 11,5 ; la voiture rallonge ailleurs (côte de Monticino → Riolo Terme 16,1 pour 9,6).",
+     "note": "Circuit final dans Bologne : 1er passage sur la ligne au km 162,5 (circuit_km, règle 19 ; aucune entrée imprimée), côte de San Luca aux km 168,3 et 186,6, 2e passage au km 180,9, arrivée au km 199,2 ; seul le 1er passage est repris. Départ : Cesenatico → Ravenne 28,6 km à vol d'oiseau pour 22,6 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−7,7 % ; −1,7 % en voiture, 137,5 km pour 139,9) sur 70 % de l'étape (circuit final dans Bologne exclu) : San Lazzaro di Savena → Carteria di Sesto 8,7 km routés pour 18,7 (côte de Botteghino di Zocca non placée, la boucle n'est pas située), Dozza non placé (sprint non situé) ; la voiture rallonge ailleurs (côte de Monticino → Riolo Terme 16,1 pour 9,6).",
      "route_check": {
-      "routed_km": 128.8,
+      "routed_km": 129.1,
       "profile_km": 139.9,
-      "delta_pct": -8,
+      "delta_pct": -7.7,
       "tolerance_pct": 5,
       "coverage_pct": 70,
       "car_legs": 0,
       "legs": 11,
-      "suspect_legs": 3,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -140522,8 +140522,11 @@
        "label": "Côte du Cheval Blanc",
        "km": 104.6,
        "kind": "côte",
-       "note": "335 m imprimés ; 1,5 km à 4,3 % ; non placé : aucun lieu « Cheval Blanc » compatible (la route du Cheval Blanc est à Saint-Jean-de-Couz, à 9 km)",
-       "confidence": "non-place"
+       "note": "335 m imprimés ; 1,5 km à 4,3 % ; lieu-dit le Cheval Blanc (Domessin), index POI de la Géoplateforme, MNT 329 m (audit Mireille)",
+       "confidence": "ok",
+       "lat": 45.53162,
+       "lon": 5.71605,
+       "how": "ign"
       },
       {
        "label": "Domessin",
@@ -140597,13 +140600,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 142.4,
+      "routed_km": 142.5,
       "profile_km": 148.4,
       "delta_pct": -4,
       "tolerance_pct": 5,
       "coverage_pct": 84,
       "car_legs": 0,
-      "legs": 14,
+      "legs": 15,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -141483,11 +141486,8 @@
        "label": "Côte de Chacenay",
        "km": 121.2,
        "kind": "côte",
-       "note": "314 m imprimés ; 3 km à 4,3 % ; côte rattachée au village de Chacenay (MNT 249 m pour 314)",
-       "confidence": "ok",
-       "lat": 48.11518,
-       "lon": 4.52778,
-       "how": "nominatim"
+       "note": "314 m imprimés ; 3 km à 4,3 % ; côte rattachée au village de Chacenay (MNT 249 m pour 314) ; retiré (règle 21) : le village de Chacenay est au pied (MNT 249 m pour 314) et environ 3 km après le sommet sur le tracé GPX curé (audit Mireille)",
+       "confidence": "non-place"
       },
       {
        "label": "Éguilly-sous-Bois",
@@ -141624,18 +141624,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 175.9,
+      "routed_km": 176.9,
       "profile_km": 195.1,
-      "delta_pct": -9.8,
+      "delta_pct": -9.3,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 18,
-      "suspect_legs": 1,
+      "legs": 17,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 1
      },
-     "note": "Départ : Troyes → Laubressel 10,3 km à vol d'oiseau pour 3,9 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−9,8 % ; −6,6 % en voiture, 182,3 km pour 195,1) : les quatorze secteurs de chemins blancs ne sont pas situés, le routeur relie les villages au plus court (côte de Chacenay → Éguilly-sous-Bois 3,0 km pour 6,2, Montaulin → arrivée 13,1 pour 18,6, 18,6 en voiture) ; aller-retour incertain de 1,2 km à Montaulin."
+     "note": "Départ : Troyes → Laubressel 10,3 km à vol d'oiseau pour 3,9 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−9,3 % ; −6,3 % en voiture, 182,8 km pour 195,1) : les quatorze secteurs de chemins blancs ne sont pas situés, le routeur relie les villages au plus court (Montaulin → arrivée 13,1 km pour 18,6, 18,6 en voiture) ; côtes de Bergères, Baroville et Chacenay retirées (villages au pied) ; aller-retour incertain de 1,2 km à Montaulin."
     },
     "10": {
      "source_url": "https://www.ledicodutour.com/images/2024/2024_10a.jpg",
@@ -142368,7 +142368,7 @@
        "label": "Côte de Montcléra",
        "km": 135.5,
        "kind": "côte",
-       "note": "286 m imprimés ; 2 km à 4,6 % ; côte rattachée au village de Montcléra (MNT 238 m pour 286)",
+       "note": "286 m imprimés ; 2 km à 4,6 % ; côte rattachée au village de Montcléra (MNT 238 m pour 286) ; 48 m sous l'altitude imprimée, sommet approché",
        "confidence": "ok",
        "lat": 44.61966,
        "lon": 1.21069,
@@ -143284,25 +143284,31 @@
        "label": "Fleury",
        "km": 7.2,
        "kind": "ville",
-       "note": "41 m imprimés",
-       "lat": 43.20319,
-       "lon": 3.19073,
-       "how": "commune-ign",
+       "note": "41 m imprimés ; mairie de Fleury-d'Aude, MNT 33 m ; le centroïde de la commune était à Saint-Pierre-la-Mer (MNT 3 m) ; tracé GPX km 8 à 0,4 km (audit Mireille)",
+       "lat": 43.22843,
+       "lon": 3.13517,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
        "label": "Lespignan",
        "km": 13.3,
        "kind": "ville",
-       "note": "23 m imprimés ; non placé (règle 11) : la mairie de Lespignan est à 7,9 km à vol d'oiseau de Fleury pour 6,1 au profil",
-       "confidence": "non-place"
+       "note": "23 m imprimés ; mairie de Lespignan, 5,9 km à vol d'oiseau de Fleury pour 6,1 au profil (audit Mireille)",
+       "confidence": "ok",
+       "lat": 43.27309,
+       "lon": 3.174,
+       "how": "nominatim"
       },
       {
        "label": "Béziers",
        "km": 21,
        "kind": "ville",
-       "note": "39 m imprimés ; non placé (règle 11) : le centroïde de Béziers est à 9,2 km à vol d'oiseau de Lespignan pour 7,7 au profil (hôtel de ville non trouvé)",
-       "confidence": "non-place"
+       "note": "39 m imprimés ; mairie de Béziers (place Gabriel-Péri) ; tracé GPX km 24 à 0,5 km (audit Mireille)",
+       "confidence": "ok",
+       "lat": 43.34299,
+       "lon": 3.21373,
+       "how": "nominatim"
       },
       {
        "label": "Lieuran-lès-Béziers",
@@ -143408,8 +143414,11 @@
        "label": "Les Matellettes",
        "km": 96.1,
        "kind": "lieu-dit",
-       "note": "287 m imprimés ; non placé : inconnu de Nominatim (recherche bornée)",
-       "confidence": "non-place"
+       "note": "287 m imprimés ; lieu-dit les Matelettes (Viols-le-Fort), index POI de la Géoplateforme, MNT 282 m ; tracé GPX km 96 à 70 m (audit Mireille)",
+       "confidence": "ok",
+       "lat": 43.73123,
+       "lon": 3.68449,
+       "how": "ign"
       },
       {
        "label": "Viols-le-Fort",
@@ -143593,18 +143602,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 184.5,
+      "routed_km": 179.3,
       "profile_km": 181.4,
-      "delta_pct": 1.7,
+      "delta_pct": -1.1,
       "tolerance_pct": 5,
       "coverage_pct": 96,
-      "car_legs": 0,
-      "legs": 28,
-      "suspect_legs": 2,
+      "car_legs": 3,
+      "legs": 31,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Gruissan → Fleury 13,6 km à vol d'oiseau pour 7,2 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : Vergèze → Vestric-et-Candiac 3,9 km routés pour 7,6, Caissargues → Nîmes 5,6 pour 12,4 : boucles finales autour de Nîmes non situées."
+     "note": "Départ : Gruissan → Fleury 13,6 km à vol d'oiseau pour 7,2 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect (règle 11) : Caissargues → Nîmes 5,6 km routés pour 12,4, boucle finale autour de Nîmes non située."
     },
     "17": {
      "source_url": "https://www.ledicodutour.com/images/2024/2024_17a.jpg",
@@ -143922,9 +143931,9 @@
        "label": "Côte de Corps",
        "km": 57.5,
        "kind": "côte",
-       "note": "930 m imprimés ; 2,1 km à 7,2 %",
-       "lat": 44.80192,
-       "lon": 5.98166,
+       "note": "930 m imprimés ; 2,1 km à 7,2 % ; côte rattachée au bourg de Corps (MNT 945 m pour 930) ; le point précédent était à Aspres-lès-Corps (audit Mireille)",
+       "lat": 44.818,
+       "lon": 5.94804,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -144040,9 +144049,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 168.7,
+      "routed_km": 167.6,
       "profile_km": 174.5,
-      "delta_pct": -3.3,
+      "delta_pct": -4,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
@@ -144420,7 +144429,7 @@
        "label": "Èze",
        "km": 13.4,
        "kind": "ville",
-       "note": "446 m imprimés ; non placé (règle 11) : Èze est à 3,7 km à vol d'oiseau de La Turbie pour 2,2 au profil",
+       "note": "446 m imprimés ; non placé (règle 11) : Èze est à 3,7 km à vol d'oiseau de La Turbie pour 2,2 au profil ; tracé GPX curé km 14 (MNT 453 m), non repris",
        "confidence": "non-place"
       },
       {
@@ -144437,37 +144446,40 @@
        "label": "Villefranche-sur-Mer",
        "km": 21.6,
        "kind": "ville",
-       "note": "335 m imprimés ; non placé (règle 14) : la mairie de Villefranche-sur-Mer est au bord de mer (26 m pour 335 imprimés) : la course passe par la Moyenne Corniche",
+       "note": "335 m imprimés ; non placé (règle 14) : la mairie de Villefranche-sur-Mer est au bord de mer (26 m pour 335 imprimés) : la course passe par la Moyenne Corniche ; le tracé GPX curé (km 22, 43.71693, 7.31738, MNT 362 m) passe au-dessus du village, non repris faute de source pour le point imprimé",
        "confidence": "non-place"
       },
       {
        "label": "Nice (place Île de Beauté)",
        "km": 28.6,
        "kind": "lieu-dit",
-       "note": "12 m imprimés ; point intermédiaire du chrono ; non placé : place Île de Beauté inconnue de Nominatim (recherche bornée)",
-       "confidence": "non-place"
+       "note": "12 m imprimés ; point intermédiaire du chrono ; place de l'Île-de-Beauté (Nominatim, « Place de l'Ile de Beauté »), MNT 7 m (audit Mireille)",
+       "confidence": "ok",
+       "lat": 43.69854,
+       "lon": 7.28531,
+       "how": "nominatim"
       },
       {
        "label": "Nice",
        "km": 33.7,
        "kind": "ville",
-       "note": "12 m imprimés ; arrivée sur la promenade des Anglais",
+       "note": "12 m imprimés",
        "lat": 43.70094,
        "lon": 7.26839,
        "how": "stage_towns",
        "confidence": "ok"
       }
      ],
-     "note": "Contre-la-montre individuel, de Monaco à Nice (pas d'arrivée à Paris en 2024). Hors tolérance (−26,2 % ; −20,8 % en voiture, 23,6 km pour 29,8) : contre-la-montre par les corniches, le routeur prend les routes directes (Beausoleil → La Turbie 3,8 km pour 7,3, 7,4 en voiture ; col d'Èze → Nice 12,7 pour 16,6) ; Èze, Villefranche-sur-Mer et la place Île de Beauté non placées.",
+     "note": "Contre-la-montre individuel, de Monaco à Nice (pas d'arrivée à Paris en 2024). Hors tolérance (−32,9 % ; −19,8 % en voiture, 23,9 km pour 29,8) : contre-la-montre par les corniches, le routeur prend les routes directes (Beausoleil → La Turbie 3,8 km pour 7,3, 7,4 en voiture ; col d'Èze → Nice 12,7 pour 16,6) ; place Île-de-Beauté → arrivée 1,6 km pour 5,1 (arrivée au centre de Nice, ligne exacte non imprimée) ; Èze et Villefranche-sur-Mer non placées (le tracé GPX curé est cité dans leurs notes).",
      "route_check": {
-      "routed_km": 22,
+      "routed_km": 20,
       "profile_km": 29.800000000000004,
-      "delta_pct": -26.2,
+      "delta_pct": -32.9,
       "tolerance_pct": 5,
       "coverage_pct": 88,
       "car_legs": 0,
-      "legs": 3,
-      "suspect_legs": 1,
+      "legs": 4,
+      "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }

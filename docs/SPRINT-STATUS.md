@@ -1161,7 +1161,7 @@ et côtes traversées avec leur kilomètre.
   de 2023/15 et 2023/19 complétées. Hors règles proposés par l'audit
   (relire les vias curées avant d'écrire « non situé » dans une note ;
   statut des points `ambigu`) laissés à des stories dédiées.
-- [ ] Édition 2024 **en cours** : 21 étapes sur 21 (pas de prologue en
+- [x] Édition 2024 (PR #527) : 21 étapes sur 21 (pas de prologue en
   2024 ; départ de Florence, arrivée en contre-la-montre à Nice), depuis
   les profils de ledicodutour.com (`images/2024/2024_Na.jpg`, altitudes
   imprimées, km au dixième). Critères d'acceptation : chaque nom imprimé
@@ -1173,20 +1173,32 @@ et côtes traversées avec leur kilomètre.
   contrôle à ±5 % passe sur BRouter public avec 0 tronçon en voiture,
   chaque étape hors tolérance a sa cause notée ; le test d'invariant
   passe ; l'audit Mireille est fait avant la fusion.
-  Fait : 419 points placés sur 478 ; longueurs des 21 profils identiques
+  Fait : 423 points placés sur 478 ; longueurs des 21 profils identiques
   à stage_towns.json. Contrôlée à ±5 % sur BRouter public, 0 tronçon en
-  voiture : 16 étapes dans la tolérance, 5 hors avec la comparaison en
-  voiture et la cause notée — 2024/2 (−8,0 %, −2,5 %), 2024/6 (+8,2 %,
-  +9,7 %), 2024/9 (−9,8 %, −6,6 % : quatorze secteurs de chemins blancs
-  non situés), 2024/21 (−26,2 %, −20,8 % : contre-la-montre par les
+  voiture : 17 étapes dans la tolérance, 4 hors avec la comparaison en
+  voiture et la cause notée — 2024/2 (−7,7 %, −1,7 %), 2024/6 (+8,2 %,
+  +9,7 %), 2024/9 (−9,3 %, −6,3 % : quatorze secteurs de chemins blancs
+  non situés), 2024/21 (−32,9 %, −19,8 % : contre-la-montre par les
   corniches) ; 2024/2 mesurée hors circuit final de Bologne (circuit_km
   au 1er passage). Côtes d'Italie placées aux vias curées de
-  historic_routes.json quand l'altitude et les voisins le permettaient
-  (Barbotto, San Leo, Montemaggio, San Marino, Monticino, Montecalvo).
+  historic_routes.json quand l'altitude et les voisins le permettaient.
   Arrivées au lieu réel (Pla d'Adet, plateau de Beille). Points retirés
   avec note : lignes droites plus longues que le profil (règle 11),
   allers-retours (règles 9 et 24, mairie essayée avant), côtes posées au
   pied (règle 21) ou altitude (règle 14).
+  Audit Mireille : trois points faux trouvés par le tracé GPX curé, que
+  ni l'altitude ni les voisins n'avaient signalés — Fleury au centroïde
+  de la commune (Saint-Pierre-la-Mer, au lieu de la mairie de
+  Fleury-d'Aude), côte de Corps à Aspres-lès-Corps, côte de Chacenay
+  3 km après le sommet ; Lespignan et Béziers rétablis à leur mairie une
+  fois Fleury corrigé (règle 23) ; Castel San Pietro Terme placé et Dozza
+  retiré (choix par défaut) ; San Lazzaro à son municipio ; Cheval Blanc
+  et Les Matelettes trouvés par l'index POI ; place Île-de-Beauté par
+  l'orthographe sans accent ; arrivée de Nice sans « promenade des
+  Anglais », non imprimée. Hors règles proposés (comparer au tracé GPX
+  curé quand il existe ; GPX de 2024/8 qui contredit le profil entre
+  Chaumont et Juzennecourt ; statut `ambigu`) laissés à des stories
+  dédiées.
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
