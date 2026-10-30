@@ -1037,6 +1037,28 @@ et côtes traversées avec leur kilomètre.
   l'audit (comparer le profil à distanceKm et au second profil de la
   page avant de transcrire ; respect du délai et de l'User-Agent de
   curation par check-itineraries.js) laissés à des stories dédiées.
+- [ ] Édition 2021 **en cours** : 21 étapes sur 21 (pas de prologue en
+  2021), depuis les profils de ledicodutour.com (`images/2021/2021_Na.jpg`,
+  altitudes imprimées, km au dixième). Critères d'acceptation : chaque
+  nom imprimé est transcrit avec son km, lu sur un agrandissement ; la
+  longueur du profil est comparée à la distance officielle
+  (stage_towns.json) avant le placement (leçon de l'audit 2020) ;
+  l'altitude est contrôlée point par point (règle 14) ; les lieux-dits
+  introuvables dans Nominatim sont cherchés aussi dans l'index POI de la
+  Géoplateforme ; le contrôle à ±5 % passe sur BRouter public avec 0
+  tronçon en voiture, chaque étape hors tolérance a sa cause notée ; le
+  test d'invariant passe ; l'audit Mireille est fait avant la fusion.
+  Fait : 439 points placés sur 483 ; longueurs des 21 profils conformes à
+  stage_towns.json (±0,6 km). Contrôlée à ±5 % sur BRouter public, 0
+  tronçon en voiture : 19 étapes dans la tolérance, 2021/20 hors (+6,0 %,
+  +5,8 % en voiture : contre-la-montre entre vignobles, écart réparti),
+  2021/21 non contrôlable. Arrivées de Mûr-de-Bretagne et du col du
+  Portet aux points des éditions précédentes, Mont Ventoux au sommet ;
+  Landerneau laissée au centre (sommet de la Fosse aux Loups non situé) ;
+  onze points retirés pour aller-retour et quinze pour ligne droite plus
+  longue que le profil (règles 9 et 11, comme l'audit 2020), sauf
+  Montagne Saint-Michel, Menez Meur et Cluses (près), rétablis : sans eux
+  le routeur coupe et l'étape tombe hors tolérance.
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
