@@ -121684,21 +121684,18 @@
        "label": "Nice",
        "km": 141.5,
        "kind": "ville",
-       "note": "46 m imprimés",
+       "note": "46 m imprimés ; rétabli au point de la ville : sans lui, le routeur coupe du col de Nice au col d'Èze (17,3 km pour 25,5, étape à −7,4 %) ; ligne droite col de Nice → Nice de 15,5 km pour 14 au profil (règle 11), passage par l'est de la ville non situé",
+       "confidence": "ambiguous",
        "lat": 43.70094,
        "lon": 7.26839,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "how": "commune-ign"
       },
       {
        "label": "Col des Quatre Chemins",
        "km": 151,
        "kind": "col",
-       "note": "338 m imprimés",
-       "lat": 43.71684,
-       "lon": 7.31253,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "338 m imprimés ; retiré (règle 11) : col des Quatre Chemins → col d'Èze 3,3 km à vol d'oiseau pour 2 au profil ; le col d'Èze, au km imprimé, est gardé",
+       "confidence": "non-place"
       },
       {
        "label": "Col d'Èze",
@@ -121755,7 +121752,7 @@
        "confidence": "ambiguous"
       }
      ],
-     "note": "Boucle au départ de Nice ; 1er passage sur la ligne d'arrivée au km 168,5, puis boucle finale par le col des Quatre Chemins et Villefranche-sur-Mer. Tronçons suspects (règle 11) : Col de Nice → Nice 19,6 km routés (15,5 à vol d'oiseau) pour 14 ; Nice → Col des Quatre Chemins 5,9 km routés (4,0 à vol d'oiseau) pour 9,5 ; Col des Quatre Chemins → Col d'Èze 4,6 km routés (3,3 à vol d'oiseau) pour 2 ; aller-retour incertain de 4,6 km à Col d'Èze ; aller-retour incertain de 2,7 km à Nice (1er passage).",
+     "note": "Boucle au départ de Nice ; 1er passage sur la ligne d'arrivée au km 168,5, puis boucle finale par le col des Quatre Chemins et Villefranche-sur-Mer. Tronçons suspects (règle 11) : Col de Nice → Nice 19,6 km routés (15,5 à vol d'oiseau) pour 14 ; aller-retour incertain de 6,6 km à Col d'Èze (Villefranche-sur-Mer retirée) ; aller-retour incertain de 2,7 km à Nice (1er passage) (Villefranche-sur-Mer retirée).",
      "route_check": {
       "routed_km": 170.2,
       "profile_km": 170,
@@ -121763,8 +121760,8 @@
       "tolerance_pct": 5,
       "coverage_pct": 91,
       "car_legs": 0,
-      "legs": 18,
-      "suspect_legs": 3,
+      "legs": 17,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 2
      }
@@ -121843,11 +121840,8 @@
        "label": "Col du Pilon",
        "km": 55,
        "kind": "col",
-       "note": "782 m imprimés ; 8,4 km à 5,1 %",
-       "lat": 43.68501,
-       "lon": 6.88264,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "782 m imprimés ; 8,4 km à 5,1 % ; retiré (règle 11) : le point du col fait 3,2 km à vol d'oiseau de Saint-Vallier-de-Thiey pour 1 au profil",
+       "confidence": "non-place"
       },
       {
        "label": "Saint-Vallier-de-Thiey",
@@ -121973,10 +121967,10 @@
        "label": "Mallemoisson",
        "km": 171,
        "kind": "ville",
-       "note": "509 m imprimés",
-       "lat": 44.04924,
-       "lon": 6.12432,
-       "how": "commune-ign",
+       "note": "509 m imprimés ; placé à la mairie (règle 17, audit Mireille), 508 m au MNT : le point de la commune imposait un aller-retour de 1,1 km",
+       "lat": 44.04251,
+       "lon": 6.1253,
+       "how": "ign",
        "confidence": "ok"
       },
       {
@@ -122001,18 +121995,17 @@
       }
      ],
      "route_check": {
-      "routed_km": 195.2,
+      "routed_km": 193.4,
       "profile_km": 187.5,
-      "delta_pct": 4.1,
+      "delta_pct": 3.1,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 20,
-      "suspect_legs": 1,
-      "backtracks": 1,
+      "legs": 19,
+      "suspect_legs": 0,
+      "backtracks": 0,
       "backtracks_uncertain": 0
-     },
-     "note": "Tronçons suspects (règle 11) : Col du Pilon → Saint-Vallier-de-Thiey 3,3 km routés (3,2 à vol d'oiseau) pour 1 ; aller-retour de 1,1 km à Mallemoisson."
+     }
     },
     "4": {
      "source_url": "https://www.ledicodutour.com/images/2020/20_4.jpg",
@@ -122111,15 +122104,21 @@
        "label": "Pont de la Beaume",
        "km": 84.5,
        "kind": "lieu-dit",
-       "note": "921 m imprimés",
-       "confidence": "non-place"
+       "note": "921 m imprimés ; pont de la Baume (variante « Baume », index POI de la Géoplateforme), 907 m au MNT",
+       "confidence": "ok",
+       "lat": 44.75095,
+       "lon": 5.88467,
+       "how": "ign"
       },
       {
        "label": "Les Payas",
        "km": 91,
        "kind": "lieu-dit",
-       "note": "926 m imprimés ; retiré (règle 14) : le point Nominatim était à 1 303 m au MNT pour 926 imprimés, 20 km du barrage du Sautet pour 3 au profil",
-       "confidence": "non-place"
+       "note": "926 m imprimés ; retiré (règle 14) : le point Nominatim était à 1 303 m au MNT pour 926 imprimés, 20 km du barrage du Sautet pour 3 au profil ; lieu-dit Les Payas (Pellafol), index POI de la Géoplateforme, 922 m au MNT ; l'homonyme de Saint-Bonnet, d'abord retenu, a été retiré",
+       "confidence": "ok",
+       "lat": 44.79799,
+       "lon": 5.908,
+       "how": "ign"
       },
       {
        "label": "Barrage du Sautet",
@@ -122233,13 +122232,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 155.6,
+      "routed_km": 156,
       "profile_km": 155,
-      "delta_pct": 0.4,
+      "delta_pct": 0.7,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 18,
+      "legs": 20,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -122273,11 +122272,8 @@
        "label": "La Roche-des-Arnauds",
        "km": 10.5,
        "kind": "ville",
-       "note": "930 m imprimés",
-       "lat": 44.56343,
-       "lon": 5.95869,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "930 m imprimés ; retiré (règle 11) : La Roche-des-Arnauds → Veynes 11,1 km à vol d'oiseau pour 10 au profil",
+       "confidence": "non-place"
       },
       {
        "label": "Veynes",
@@ -122403,11 +122399,8 @@
        "label": "Col de Serre Colon",
        "km": 130,
        "kind": "col",
-       "note": "434 m imprimés ; 4,1 km à 3,7 % ; sommet de Serre Colon (Montjoyer), 436 m au MNT : le col routier est vraisemblablement à son pied, non sourcé",
-       "confidence": "ambiguous",
-       "lat": 44.48082,
-       "lon": 4.90548,
-       "how": "ign"
+       "note": "434 m imprimés ; 4,1 km à 3,7 % ; sommet de Serre Colon (Montjoyer), 436 m au MNT : le col routier est vraisemblablement à son pied, non sourcé ; retiré : le point Nominatim est un sommet, pas le col routier ; col non situé",
+       "confidence": "non-place"
       },
       {
        "label": "Montélimar",
@@ -122471,18 +122464,17 @@
       }
      ],
      "route_check": {
-      "routed_km": 186,
+      "routed_km": 185.1,
       "profile_km": 178,
-      "delta_pct": 4.5,
+      "delta_pct": 4,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 20,
-      "suspect_legs": 1,
+      "legs": 18,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     },
-     "note": "Tronçons suspects (règle 11) : La Roche-des-Arnauds → Veynes 11,8 km routés (11,1 à vol d'oiseau) pour 10."
+     }
     },
     "6": {
      "source_url": "https://www.ledicodutour.com/images/2020/20_6.jpg",
@@ -122561,11 +122553,8 @@
        "label": "Saint-Julien-les-Rosiers",
        "km": 83.5,
        "kind": "ville",
-       "note": "213 m imprimés",
-       "lat": 44.17393,
-       "lon": 4.10899,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "213 m imprimés ; retiré (règle 11) : Saint-Julien-les-Rosiers → Alès 5,7 km à vol d'oiseau pour 4,5 au profil",
+       "confidence": "non-place"
       },
       {
        "label": "Alès",
@@ -122709,18 +122698,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 180.2,
+      "routed_km": 180.1,
       "profile_km": 175,
       "delta_pct": 2.9,
       "tolerance_pct": 5,
       "coverage_pct": 92,
       "car_legs": 0,
-      "legs": 20,
-      "suspect_legs": 4,
+      "legs": 19,
+      "suspect_legs": 3,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Tronçons suspects (règle 11) : Les Pommiers → Lavilledieu 8,2 km routés (4,7 à vol d'oiseau) pour 5 ; Saint-Julien-les-Rosiers → Alès 7,1 km routés (5,7 à vol d'oiseau) pour 4,5 ; Alès → Bagard 7,3 km routés (6,5 à vol d'oiseau) pour 11,5 ; Bagard → Anduze 8,6 km routés (5,6 à vol d'oiseau) pour 5."
+     "note": "Tronçons suspects (règle 11) : Les Pommiers → Lavilledieu 8,2 km routés (4,7 à vol d'oiseau) pour 5 ; Alès → Bagard 7,3 km routés (6,5 à vol d'oiseau) pour 11,5 ; Bagard → Anduze 8,6 km routés (5,6 à vol d'oiseau) pour 5."
     },
     "7": {
      "source_url": "https://www.ledicodutour.com/images/2020/20_7.jpg",
@@ -122856,11 +122845,8 @@
        "label": "Castres",
        "km": 124.5,
        "kind": "ville",
-       "note": "185 m imprimés",
-       "lat": 43.60538,
-       "lon": 2.24113,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "185 m imprimés ; retiré (règle 11) : Roquecourbe → centre de Castres 7,8 km à vol d'oiseau pour 6 au profil ; passage dans Castres non situé",
+       "confidence": "non-place"
       },
       {
        "label": "Guitalens-L'Albarède",
@@ -122894,18 +122880,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 169.2,
+      "routed_km": 166.7,
       "profile_km": 163,
-      "delta_pct": 3.8,
+      "delta_pct": 2.3,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 14,
-      "suspect_legs": 1,
+      "legs": 13,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 1
      },
-     "note": "Départ : Millau → Saint-Georges-de-Luzençon 8,5 km à vol d'oiseau pour 5 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : Roquecourbe → Castres 9,3 km routés (7,8 à vol d'oiseau) pour 6 ; aller-retour incertain de 2,6 km à Côte de Luzençon."
+     "note": "Départ : Millau → Saint-Georges-de-Luzençon 8,5 km à vol d'oiseau pour 5 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : aller-retour incertain de 2,6 km à Côte de Luzençon (Saint-Rome-de-Tarn (près) retiré)."
     },
     "8": {
      "source_url": "https://www.ledicodutour.com/images/2020/20_8.jpg",
@@ -123353,20 +123339,17 @@
        "label": "Forêt de la Coubre",
        "km": 17.5,
        "kind": "lieu-dit",
-       "note": "22 m imprimés",
-       "lat": 45.74348,
-       "lon": -1.20758,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "22 m imprimés ; retiré : le point est le centroïde de la forêt, 6,8 km à vol d'oiseau de Ronce-les-Bains pour 4 au profil (règle 11)",
+       "confidence": "non-place"
       },
       {
        "label": "La Palmyre",
        "km": 33,
        "kind": "lieu-dit",
-       "note": "6 m imprimés",
-       "lat": 45.69124,
-       "lon": -1.17762,
-       "how": "nominatim",
+       "note": "6 m imprimés ; lieu-dit La Palmyre (Les Mathes), index POI de la Géoplateforme, 7 m au MNT",
+       "lat": 45.68631,
+       "lon": -1.17342,
+       "how": "ign",
        "confidence": "ok"
       },
       {
@@ -123423,10 +123406,10 @@
        "label": "Brouage",
        "km": 86.5,
        "kind": "lieu-dit",
-       "note": "3 m imprimés",
-       "lat": 45.84975,
-       "lon": -1.07526,
-       "how": "nominatim",
+       "note": "3 m imprimés ; lieu-dit Brouage (Hiers-Brouage), index POI de la Géoplateforme, 4 m au MNT : le premier point était le clocher de Hiers (règle 15)",
+       "lat": 45.8664,
+       "lon": -1.07058,
+       "how": "ign",
        "confidence": "ok"
       },
       {
@@ -123523,26 +123506,26 @@
        "label": "Saint-Martin-de-Ré",
        "km": 168.5,
        "kind": "ville",
-       "note": "9 m imprimés ; imprimé « Île de Ré Saint-Martin-de-Ré »",
-       "lat": 46.19689,
-       "lon": -1.41979,
-       "how": "stage_towns",
+       "note": "9 m imprimés ; imprimé « Île de Ré Saint-Martin-de-Ré » ; arrivée placée à la mairie de Saint-Martin-de-Ré (audit Mireille, règle 22) : le point de stage_towns était au centre de l'île, à 4 km",
+       "lat": 46.20226,
+       "lon": -1.3685,
+       "how": "ign",
        "confidence": "ok"
       }
      ],
      "route_check": {
-      "routed_km": 164.3,
+      "routed_km": 153.3,
       "profile_km": 161.5,
-      "delta_pct": 1.7,
+      "delta_pct": -5.1,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 19,
-      "suspect_legs": 8,
+      "legs": 18,
+      "suspect_legs": 3,
       "backtracks": 0,
-      "backtracks_uncertain": 0
+      "backtracks_uncertain": 1
      },
-     "note": "Départ : Le Château-d'Oléron → Marennes 10,2 km à vol d'oiseau pour 7 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : Ronce-les-Bains → Forêt de la Coubre 10,7 km routés (6,8 à vol d'oiseau) pour 4 ; Forêt de la Coubre → La Palmyre 10,4 km routés (6,3 à vol d'oiseau) pour 15,5 ; La Palmyre → Saint-Palais-sur-Mer 9,7 km routés (8,9 à vol d'oiseau) pour 7,5 ; Royan → Jaffé 4,4 km routés (4,0 à vol d'oiseau) pour 7,5 ; Le Gua → Marennes 17,9 km routés (16,5 à vol d'oiseau) pour 15,5 ; Brouage → Moëze 9,1 km routés (6,8 à vol d'oiseau) pour 5,5 ; La Rochelle → Pont de l'Île de Ré 8,1 km routés (7,1 à vol d'oiseau) pour 13,5 ; La Flotte → Saint-Martin-de-Ré 8,0 km routés (6,8 à vol d'oiseau) pour 4,5."
+     "note": "Départ : Le Château-d'Oléron → Marennes 10,2 km à vol d'oiseau pour 7 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−5,1 % ; +7,9 % en voiture, 174,2 km pour 161,5) : écart réparti, le routeur vélo coupe (Soubise → Rochefort 5,9 km pour 8, La Rochelle → pont de l'île de Ré 8,1 pour 13,5) et la voiture rallonge (Angoulins → La Rochelle 14,4 pour 6,5). Tronçons suspects (règle 11) : Royan → Jaffé 4,4 km routés (4,0 à vol d'oiseau) pour 7,5 ; Le Gua → Marennes 17,9 km routés (16,5 à vol d'oiseau) pour 15,5 ; La Rochelle → Pont de l'Île de Ré 8,1 km routés (7,1 à vol d'oiseau) pour 13,5 ; aller-retour incertain de 1,3 km à Ronce-les-Bains (forêt de la Coubre retirée)."
     },
     "11": {
      "source_url": "https://www.ledicodutour.com/images/2020/20_11.jpg",
@@ -123661,11 +123644,8 @@
        "label": "Côte de Cherveux",
        "km": 91,
        "kind": "côte",
-       "note": "106 m imprimés ; 1,1 km à 4,4 % ; côte rattachée au bourg de Cherveux (86 m au MNT) ; position du sommet non sourcée",
-       "confidence": "ambiguous",
-       "lat": 46.41529,
-       "lon": -0.35786,
-       "how": "ign"
+       "note": "106 m imprimés ; 1,1 km à 4,4 % ; côte rattachée au bourg de Cherveux (86 m au MNT) ; position du sommet non sourcée ; retiré : la côte rattachée au bourg (86 m au MNT pour 106) créait un tronçon suspect ; sommet non situé",
+       "confidence": "non-place"
       },
       {
        "label": "Saint-Maixent-l'École",
@@ -123756,16 +123736,16 @@
       }
      ],
      "circuit_km": 159,
-     "note": "Entrée dans Poitiers au km 159 (circuit_km, règle 19), arrivée au km 167,5. Tronçons suspects (règle 11) : Échiré → Côte de Cherveux 6,7 km routés (5,1 à vol d'oiseau) pour 10,5 ; Côte de Cherveux → Saint-Maixent-l'École 16,0 km routés (12,0 à vol d'oiseau) pour 9,5.",
+     "note": "Entrée dans Poitiers au km 159 (circuit_km, règle 19), arrivée au km 167,5.",
      "route_check": {
-      "routed_km": 153.5,
+      "routed_km": 150.9,
       "profile_km": 148.5,
-      "delta_pct": 3.4,
+      "delta_pct": 1.6,
       "tolerance_pct": 5,
       "coverage_pct": 89,
       "car_legs": 0,
-      "legs": 17,
-      "suspect_legs": 2,
+      "legs": 16,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -123917,11 +123897,8 @@
        "label": "Surdoux",
        "km": 152,
        "kind": "ville",
-       "note": "575 m imprimés",
-       "lat": 45.60599,
-       "lon": 1.65017,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "575 m imprimés ; retiré (règle 11) : La Croisille-sur-Briance → Surdoux 5,9 km à vol d'oiseau pour 4 au profil",
+       "confidence": "non-place"
       },
       {
        "label": "Chamberet",
@@ -123947,10 +123924,10 @@
        "label": "Lestards",
        "km": 177.5,
        "kind": "ville",
-       "note": "826 m imprimés",
-       "lat": 45.5426,
-       "lon": 1.85956,
-       "how": "commune-ign",
+       "note": "826 m imprimés ; placé à la mairie (règle 17, audit Mireille), 802 m au MNT : le point de la commune était à 3,2 km",
+       "lat": 45.51534,
+       "lon": 1.87411,
+       "how": "ign",
        "confidence": "ok"
       },
       {
@@ -124025,18 +124002,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 214.7,
+      "routed_km": 211.9,
       "profile_km": 209,
-      "delta_pct": 2.7,
+      "delta_pct": 1.4,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 23,
-      "suspect_legs": 3,
+      "legs": 22,
+      "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Chauvigny → Leignes-sur-Fontaine 12,3 km à vol d'oiseau pour 9 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : Côte de Saint-Martin-Terressus → Saint-Léonard-de-Noblat 14,3 km routés (9,7 à vol d'oiseau) pour 10 ; La Croisille-sur-Briance → Surdoux 6,9 km routés (5,9 à vol d'oiseau) pour 4 ; Lestards → Côte de la Croix du Pey 4,8 km routés (2,6 à vol d'oiseau) pour 0,5."
+     "note": "Départ : Chauvigny → Leignes-sur-Fontaine 12,3 km à vol d'oiseau pour 9 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : Côte de Saint-Martin-Terressus → Saint-Léonard-de-Noblat 14,3 km routés (9,7 à vol d'oiseau) pour 10 ; La Croisille-sur-Briance → Chamberet 14,7 km routés (12,0 à vol d'oiseau) pour 10,5."
     },
     "13": {
      "source_url": "https://www.ledicodutour.com/images/2020/20_13.jpg",
@@ -125000,11 +124977,8 @@
        "label": "Côte de Revel",
        "km": 94.5,
        "kind": "côte",
-       "note": "752 m imprimés ; 6 km à 8 % ; côte rattachée au bourg de Revel (644 m au MNT pour 752 au sommet) ; position du sommet non sourcée",
-       "confidence": "ambiguous",
-       "lat": 45.18612,
-       "lon": 5.87031,
-       "how": "ign"
+       "note": "752 m imprimés ; 6 km à 8 % ; côte rattachée au bourg de Revel (644 m au MNT pour 752 au sommet) ; position du sommet non sourcée ; retiré (règle 14) : le bourg de Revel est à 644 m au MNT pour 752 imprimés au sommet ; sommet non situé",
+       "confidence": "non-place"
       },
       {
        "label": "Saint-Martin-d'Uriage",
@@ -125097,8 +125071,11 @@
        "label": "La Balmette",
        "km": 161.5,
        "kind": "lieu-dit",
-       "note": "998 m imprimés ; retiré : le point imposait un aller-retour de 1,6 km vers l'arrivée (règle 9), non situé",
-       "confidence": "non-place"
+       "note": "998 m imprimés ; retiré : le point imposait un aller-retour de 1,6 km vers l'arrivée (règle 9), non situé ; rétabli au lieu-dit La Balmette (Villard-de-Lans), index POI de la Géoplateforme, 997 m au MNT, avec l'arrivée recalée sur la route de la Côte 2000",
+       "confidence": "ok",
+       "lat": 45.05779,
+       "lon": 5.54614,
+       "how": "ign"
       },
       {
        "label": "Villard-de-Lans Côte 2000",
@@ -125112,17 +125089,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 158.7,
+      "routed_km": 159.6,
       "profile_km": 160,
-      "delta_pct": -0.8,
+      "delta_pct": -0.3,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
       "legs": 20,
       "suspect_legs": 0,
       "backtracks": 0,
-      "backtracks_uncertain": 0
-     }
+      "backtracks_uncertain": 1
+     },
+     "note": "Tronçons suspects (règle 11) : aller-retour incertain de 2,7 km à Saint-Martin-d'Uriage (côte de Revel retirée)."
     },
     "17": {
      "source_url": "https://www.ledicodutour.com/images/2020/20_17.jpg",
@@ -125281,8 +125259,11 @@
        "label": "Celliers",
        "km": 116.5,
        "kind": "lieu-dit",
-       "note": "1369 m imprimés ; retiré (règle 14) : le village de Celliers est à 1 265 m au MNT pour 1 369 imprimés ; point de passage non situé",
-       "confidence": "non-place"
+       "note": "1369 m imprimés ; retiré (règle 14) : le village de Celliers est à 1 265 m au MNT pour 1 369 imprimés ; point de passage non situé ; rétabli au lieu-dit Celliers dessus (index POI de la Géoplateforme), 1 364 m au MNT",
+       "confidence": "ok",
+       "lat": 45.4719,
+       "lon": 6.41395,
+       "how": "ign"
       },
       {
        "label": "Bonneval-Tarentaise",
@@ -125318,11 +125299,8 @@
        "label": "Moûtiers",
        "km": 144,
        "kind": "ville",
-       "note": "497 m imprimés",
-       "lat": 45.48499,
-       "lon": 6.53401,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "497 m imprimés ; retiré (règle 11) : Moûtiers → Brides-les-Bains 4,4 km à vol d'oiseau pour 3 au profil",
+       "confidence": "non-place"
       },
       {
        "label": "Brides-les-Bains",
@@ -125366,31 +125344,31 @@
       }
      ],
      "route_check": {
-      "routed_km": 171.8,
+      "routed_km": 171.4,
       "profile_km": 164.5,
-      "delta_pct": 4.4,
+      "delta_pct": 4.2,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
       "legs": 21,
-      "suspect_legs": 1,
-      "backtracks": 0,
-      "backtracks_uncertain": 1
+      "suspect_legs": 0,
+      "backtracks": 1,
+      "backtracks_uncertain": 0
      },
-     "note": "Départ : Grenoble → Saint-Ismier 9,8 km à vol d'oiseau pour 5,5 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : Moûtiers → Brides-les-Bains 6,4 km routés (4,4 à vol d'oiseau) pour 3 ; aller-retour incertain de 1,1 km à Bonneval-Tarentaise."
+     "note": "Départ : Grenoble → Saint-Ismier 9,8 km à vol d'oiseau pour 5,5 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : aller-retour de 1,1 km à Bonneval-Tarentaise (village au-dessus de la route)."
     },
     "18": {
-     "source_url": "https://www.ledicodutour.com/images/2020/20_18.jpg",
+     "source_url": "https://www.ledicodutour.com/images/2020/20_18a.jpg",
      "towns": [
       {
        "label": "Méribel",
        "km": 0,
        "kind": "lieu-dit",
        "note": "491 m imprimés ; départ placé à Méribel (Les Allues), 1 433 m au MNT : 491 m imprimés, départ réel dans la vallée non situé (règle 25)",
-       "confidence": "ambiguous",
        "lat": 45.39752,
        "lon": 6.56436,
-       "how": "ign"
+       "how": "ign",
+       "confidence": "ambiguous"
       },
       {
        "label": "Aime",
@@ -125403,16 +125381,6 @@
        "confidence": "ok"
       },
       {
-       "label": "Bellentre",
-       "km": 19.5,
-       "kind": "lieu-dit",
-       "note": "761 m imprimés",
-       "lat": 45.5691,
-       "lon": 6.71293,
-       "how": "nominatim",
-       "confidence": "ok"
-      },
-      {
        "label": "Bourg-Saint-Maurice",
        "km": 25,
        "kind": "ville",
@@ -125421,26 +125389,6 @@
        "lon": 6.76953,
        "how": "commune-ign",
        "confidence": "ok"
-      },
-      {
-       "label": "Bonneval-les-Bains",
-       "km": 32,
-       "kind": "lieu-dit",
-       "note": "1063 m imprimés",
-       "lat": 45.65376,
-       "lon": 6.78757,
-       "how": "nominatim",
-       "confidence": "ok"
-      },
-      {
-       "label": "Pont Saint-Antoine",
-       "km": 39,
-       "kind": "lieu-dit",
-       "note": "1493 m imprimés ; pont Saint-Antoine (Bourg-Saint-Maurice), index POI de la Géoplateforme, 1 491 m au MNT",
-       "confidence": "ok",
-       "lat": 45.67768,
-       "lon": 6.74491,
-       "how": "ign"
       },
       {
        "label": "Cormet de Roselend",
@@ -125456,25 +125404,32 @@
        "label": "Col du Méraillet",
        "km": 54.5,
        "kind": "col",
-       "note": "1615 m imprimés",
+       "note": "1605 m imprimés",
        "lat": 45.69491,
        "lon": 6.63364,
        "how": "nominatim",
        "confidence": "ok"
       },
       {
-       "label": "Beaufort",
-       "km": 66,
-       "kind": "ville",
-       "note": "760 m imprimés ; point de 2018/11",
-       "lat": 45.71778,
-       "lon": 6.57578,
+       "label": "Côte de la route des Villes",
+       "km": 67.5,
+       "kind": "côte",
+       "note": "1093 m imprimés ; 3,2 km à 6,6 % ; route des Villes aux Villes Dessus (Beaufort), Nominatim, 1 098 m au MNT",
+       "lat": 45.71877,
+       "lon": 6.59337,
        "how": "nominatim",
        "confidence": "ok"
       },
       {
+       "label": "Beaufort",
+       "km": 73.5,
+       "kind": "ville",
+       "note": "760 m imprimés ; retiré : le point de la mairie imposait un aller-retour de 3,3 km vers Hauteluce (règle 9), passage non situé",
+       "confidence": "non-place"
+      },
+      {
        "label": "Hauteluce",
-       "km": 77.5,
+       "km": 84.5,
        "kind": "ville",
        "note": "1195 m imprimés",
        "lat": 45.75064,
@@ -125484,27 +125439,17 @@
       },
       {
        "label": "Col des Saisies",
-       "km": 83.5,
+       "km": 91,
        "kind": "col",
-       "note": "1624 m imprimés ; 14 km à 6,4 %",
+       "note": "1650 m imprimés ; 14,6 km à 6,4 %",
        "lat": 45.76156,
        "lon": 6.53336,
        "how": "nominatim",
        "confidence": "ok"
       },
       {
-       "label": "Notre-Dame-de-Bellecombe",
-       "km": 94.5,
-       "kind": "ville",
-       "note": "1193 m imprimés",
-       "lat": 45.8084,
-       "lon": 6.51715,
-       "how": "commune-ign",
-       "confidence": "ok"
-      },
-      {
        "label": "Flumet",
-       "km": 98.5,
+       "km": 106,
        "kind": "ville",
        "note": "920 m imprimés",
        "lat": 45.81759,
@@ -125514,7 +125459,7 @@
       },
       {
        "label": "La Giettaz",
-       "km": 104.5,
+       "km": 111.5,
        "kind": "ville",
        "note": "1076 m imprimés ; point de 2006/17",
        "lat": 45.86222,
@@ -125524,7 +125469,7 @@
       },
       {
        "label": "Col des Aravis",
-       "km": 110.5,
+       "km": 117.5,
        "kind": "col",
        "note": "1487 m imprimés ; 6,7 km à 7 %",
        "lat": 45.87228,
@@ -125534,24 +125479,14 @@
       },
       {
        "label": "La Clusaz",
-       "km": 116,
+       "km": 123.5,
        "kind": "ville",
        "note": "1149 m imprimés ; retiré (règle 14) : la mairie de La Clusaz est à 1 028 m au MNT pour 1 149 imprimés ; point de passage non situé",
        "confidence": "non-place"
       },
       {
-       "label": "Saint-Jean-de-Sixt",
-       "km": 120,
-       "kind": "ville",
-       "note": "993 m imprimés",
-       "lat": 45.92271,
-       "lon": 6.41064,
-       "how": "commune-ign",
-       "confidence": "ok"
-      },
-      {
        "label": "Entremont",
-       "km": 125.5,
+       "km": 132.5,
        "kind": "ville",
        "note": "798 m imprimés ; village d'Entremont (Glières-Val-de-Borne), Nominatim, 773 m au MNT ; le point de la commune était à 979 m",
        "lat": 45.95873,
@@ -125560,45 +125495,15 @@
        "confidence": "ok"
       },
       {
-       "label": "L'Essert",
-       "km": 130,
-       "kind": "lieu-dit",
-       "note": "731 m imprimés ; lieu-dit l'Essert (Glières-Val-de-Borne), index POI de la Géoplateforme, 770 m au MNT",
-       "confidence": "ok",
-       "lat": 45.98791,
-       "lon": 6.38855,
-       "how": "ign"
-      },
-      {
        "label": "Montée du plateau des Glières",
-       "km": 136,
+       "km": 143.5,
        "kind": "côte",
-       "note": "1390 m imprimés ; 6 km à 11,2 % ; plateau des Glières (index POI de la Géoplateforme), 1 489 m au MNT pour 1 390 ; sommet de la montée non situé ; retiré : le point du plateau imposait un aller-retour de 1,8 km vers le col des Glières (règle 9) ; sommet de la montée non situé",
+       "note": "1390 m imprimés ; 6 km à 11,2 % ; non placé : le point du plateau des Glières (index POI), à 1 489 m au MNT, imposait un aller-retour (règle 9) ; sommet non situé",
        "confidence": "non-place"
       },
       {
-       "label": "Col des Glières",
-       "km": 138,
-       "kind": "col",
-       "note": "1433 m imprimés ; imprimé « Col des Glières - Fin de secteur empierré »",
-       "lat": 45.96672,
-       "lon": 6.33222,
-       "how": "nominatim",
-       "confidence": "ok"
-      },
-      {
-       "label": "Usillon",
-       "km": 148.5,
-       "kind": "lieu-dit",
-       "note": "766 m imprimés",
-       "lat": 45.9848,
-       "lon": 6.27971,
-       "how": "nominatim",
-       "confidence": "ok"
-      },
-      {
        "label": "Thorens-Glières",
-       "km": 151.5,
+       "km": 159,
        "kind": "ville",
        "note": "662 m imprimés",
        "lat": 45.99648,
@@ -125608,9 +125513,9 @@
       },
       {
        "label": "Col des Fleuries",
-       "km": 158,
+       "km": 165,
        "kind": "col",
-       "note": "933 m imprimés",
+       "note": "930 m imprimés",
        "lat": 46.0252,
        "lon": 6.28755,
        "how": "nominatim",
@@ -125618,7 +125523,7 @@
       },
       {
        "label": "La Roche-sur-Foron",
-       "km": 167.5,
+       "km": 175,
        "kind": "ville",
        "note": "543 m imprimés",
        "lat": 46.06722,
@@ -125627,19 +125532,19 @@
        "confidence": "ok"
       }
      ],
+     "note": "Transcrite depuis le profil simplifié de la page (20_18a.jpg, 175 km, comme la distance officielle de stage_towns.json, avec la côte de la route des Villes) : le profil détaillé (20_18.jpg) fait 167,5 km, sans cette côte, et ses bornes sont décalées d'environ 7 km après le Méraillet ; la page de l'étape donne 167,5 km. Les noms imprimés seulement sur le profil détaillé (Bellentre, Bonneval-les-Bains, Pont Saint-Antoine, Notre-Dame-de-Bellecombe, Saint-Jean-de-Sixt, L'Essert, Col des Glières, Usillon) ne sont pas repris. Départ : Méribel → Aime 19 km à vol d'oiseau pour 14 au profil, départ réel hors du centre, non situé (règle 25) ; km 0 imprimé à 491 m, dans la vallée, le point de Méribel est à 1 433 m. Tronçons suspects (règle 11) : Côte de la route des Villes → Hauteluce 8,6 km routés (3,6 à vol d'oiseau) pour 17 ; aller-retour incertain de 5,6 km à Thorens-Glières (col des Glières non repris sur ce profil).",
      "route_check": {
-      "routed_km": 154.1,
-      "profile_km": 153.5,
-      "delta_pct": 0.4,
+      "routed_km": 156.1,
+      "profile_km": 161,
+      "delta_pct": -3,
       "tolerance_pct": 5,
-      "coverage_pct": 88,
+      "coverage_pct": 92,
       "car_legs": 0,
-      "legs": 21,
+      "legs": 13,
       "suspect_legs": 1,
       "backtracks": 0,
-      "backtracks_uncertain": 0
-     },
-     "note": "Tronçons suspects (règle 11) : Bellentre → Bourg-Saint-Maurice 7,8 km routés (7,0 à vol d'oiseau) pour 5,5."
+      "backtracks_uncertain": 1
+     }
     },
     "19": {
      "source_url": "https://www.ledicodutour.com/images/2020/20_19.jpg",
@@ -125798,11 +125703,8 @@
        "label": "Crotenay",
        "km": 101,
        "kind": "ville",
-       "note": "530 m imprimés",
-       "lat": 46.7513,
-       "lon": 5.81458,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "530 m imprimés ; retiré (règle 11) : Crotenay → Montrond 5,3 km à vol d'oiseau pour 3,5 au profil ; le profil simplifié de la page (20_19a.jpg) place Crotenay au km 99",
+       "confidence": "non-place"
       },
       {
        "label": "Montrond",
@@ -125926,18 +125828,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 164.7,
+      "routed_km": 162.8,
       "profile_km": 164,
-      "delta_pct": 0.4,
+      "delta_pct": -0.7,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 26,
-      "suspect_legs": 1,
+      "legs": 25,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Bourg-en-Bresse → Jasseron 7,8 km à vol d'oiseau pour 2,5 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : Crotenay → Montrond 6,0 km routés (5,3 à vol d'oiseau) pour 3,5."
+     "note": "Départ : Bourg-en-Bresse → Jasseron 7,8 km à vol d'oiseau pour 2,5 au profil, départ réel hors du centre, non situé (règle 25)."
     },
     "20": {
      "source_url": "https://www.ledicodutour.com/images/2020/20_20.jpg",
@@ -125956,18 +125858,15 @@
        "label": "Le Grand Bois",
        "km": 3.8,
        "kind": "lieu-dit",
-       "note": "340 m imprimés",
+       "note": "340 m imprimés ; retiré : le bois du Grand Bois (Froideterre) faisait 7,2 km à vol d'oiseau de Mélisey pour 5,3 au profil (règle 11)",
        "confidence": "non-place"
       },
       {
        "label": "Saint-Germain",
        "km": 5.6,
        "kind": "ville",
-       "note": "311 m imprimés",
-       "lat": 47.7212,
-       "lon": 6.52848,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "311 m imprimés ; retiré (règle 11) : Saint-Germain → Mélisey 5,3 km à vol d'oiseau pour 3,5 au profil",
+       "confidence": "non-place"
       },
       {
        "label": "Mélisey",
@@ -126050,16 +125949,16 @@
        "confidence": "ok"
       }
      ],
-     "note": "Contre-la-montre individuel. Tronçons suspects (règle 11) : Saint-Germain → Mélisey 5,5 km routés (5,3 à vol d'oiseau) pour 3,5.",
+     "note": "Contre-la-montre individuel. Hors tolérance (−7,5 % ; −4,8 % en voiture) sur 27,1 km mesurés : Le Grand Bois et Saint-Germain retirés, le 1er tronçon Lure → Mélisey (9,1 km) est exclu de la mesure ; profil plus long que la route sur Mélisey → Belonchamp (3,0 km pour 4,1) et Plancher-les-Mines → arrivée (8,0 pour 8,7).",
      "route_check": {
-      "routed_km": 30.6,
-      "profile_km": 30.6,
-      "delta_pct": 0,
+      "routed_km": 25.1,
+      "profile_km": 27.1,
+      "delta_pct": -7.5,
       "tolerance_pct": 5,
-      "coverage_pct": 85,
+      "coverage_pct": 75,
       "car_legs": 0,
-      "legs": 8,
-      "suspect_legs": 1,
+      "legs": 7,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -126228,20 +126127,8 @@
        "confidence": "ok"
       }
      ],
-     "circuit_km": 68,
-     "note": "Circuit des Champs-Élysées : entrée dans Paris (quai d'Issy) au km 56,5, 1er passage sur la ligne au km 68 (circuit_km, règle 19), passages imprimés jusqu'au 8e (km 115,5), arrivée au km 122,5 ; seuls l'entrée et le 1er passage sont repris. Départ : Mantes-la-Jolie → Aubergenville 10,8 km à vol d'oiseau pour 5,5 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : Quai d'Issy → Champs-Élysées 5,4 km routés (4,9 à vol d'oiseau) pour 11,5.",
-     "route_check": {
-      "routed_km": 60.4,
-      "profile_km": 62.5,
-      "delta_pct": -3.3,
-      "tolerance_pct": 5,
-      "coverage_pct": 51,
-      "car_legs": 0,
-      "legs": 13,
-      "suspect_legs": 1,
-      "backtracks": 0,
-      "backtracks_uncertain": 0
-     }
+     "circuit_km": 56.5,
+     "note": "Circuit des Champs-Élysées : entrée dans Paris (quai d'Issy) au km 56,5 (circuit_km, règle 19), 1er passage sur la ligne au km 68, passages imprimés jusqu'au 8e (km 115,5, « Paris - Haut des Champs-Élysées » au km 82,5), arrivée au km 122,5 ; seuls l'entrée et le 1er passage sont repris. Départ : Mantes-la-Jolie → Aubergenville 10,8 km à vol d'oiseau pour 5,5 au profil, départ réel hors du centre, non situé (règle 25). Non contrôlable selon scripts/check-itineraries.js : la mesure s'arrête à l'entrée de Paris (circuit_km 56,5)."
     }
    }
   }
