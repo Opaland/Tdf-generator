@@ -1239,6 +1239,17 @@ et côtes traversées avec leur kilomètre.
   repasse sur la ligne sans « 1er passage » imprimé ; 2025/21 non
   contrôlable malgré 13 points avant circuit_km — laissés à des stories
   dédiées.
+- [ ] Édition 2026 : 21 étapes sur 21 (Grand Départ de Barcelone, pas de
+  prologue), depuis les profils de ledicodutour.com
+  (`images/2026/2026_Na.jpg`, noms verticaux, altitudes imprimées, km au
+  dixième), transcrits par un agent dédié sur agrandissements (règles 1 à
+  5, traits coudés suivis). Critères d'acceptation : chaque nom imprimé
+  est transcrit avec son km ; la longueur du profil est comparée à la
+  distance officielle (stage_towns.json) ; l'altitude est contrôlée point
+  par point (règle 14) ; les vias curées de historic_routes.json (étapes
+  1, 2, 3, 6, 19, 20) servent de témoin de position ; le contrôle à ±5 %
+  passe sur BRouter public, chaque étape hors tolérance a sa cause notée ;
+  le test d'invariant passe ; l'audit Mireille est fait avant la fusion.
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
