@@ -29,8 +29,9 @@ if [ -z "$etat" ] || [ "$etat" = "[]" ]; then
   exit 0
 fi
 
-rouge=$(printf '%s' "$etat" | jq -r '[.[] | select(.conclusion != null and .conclusion != "success")] | length')
-resume=$(printf '%s' "$etat" | jq -r '.[] | "\(.name): \(.conclusion // "en cours")"' | paste -sd' · ' -)
+# Un run en cours a pour conclusion "" (pas null) : ce n'est pas un échec.
+rouge=$(printf '%s' "$etat" | jq -r '[.[] | select((.conclusion // "") != "" and .conclusion != "success")] | length')
+resume=$(printf '%s' "$etat" | jq -r '[.[] | "\(.name): \(if (.conclusion // "") == "" then "en cours" else .conclusion end)"] | join(" · ")')
 
 if [ "$rouge" -gt 0 ]; then
   message "⚠ main EN ÉCHEC — $resume. Ne rien empiler dessus : corriger d'abord (voir CLAUDE.md, règle 12)."
