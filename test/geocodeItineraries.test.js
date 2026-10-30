@@ -80,6 +80,17 @@ test('anchorsFor : une demi-étape prend ses propres villes, pas celles de la pr
   assert.deepStrictEqual(anchorsFor(doc, '1985', '18c'), {});
 });
 
+test('stage_itineraries.json : chaque clé d\'étape désigne une étape de stage_towns.json (demi-étapes comprises)', () => {
+  const { townsStageFor } = require('../pipeline/placeSearch');
+  const data = (f) => JSON.parse(require('fs').readFileSync(require('path').join(__dirname, '..', 'pipeline', 'data', f), 'utf8'));
+  const towns = data('stage_towns.json').editions;
+  // Une clé nue sur un numéro devenu scindé perdrait en silence ses ancres
+  // et sa longueur officielle (relecture adverse, story 33.25).
+  for (const [year, ed] of Object.entries(data('stage_itineraries.json').editions)) {
+    for (const key of Object.keys(ed.stages)) assert.ok(townsStageFor(towns[year]?.stages, key), `${year}/${key} sans étape dans stage_towns.json`);
+  }
+});
+
 test('geocodeStage : longueur d\'étape fournie (totalKm) utilisée pour la contrainte vers l\'arrivée, pas le dernier point transcrit', async () => {
   const cands = { A: [at(0, 0)], B: [at(0, 10000)] };
   const towns = [{ label: 'A', km: 0, kind: 'ville' }, { label: 'B', km: 10, kind: 'ville' }];
