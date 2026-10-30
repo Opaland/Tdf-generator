@@ -25,7 +25,7 @@ process.env.ETAPEFORGE_DATA_DIR = process.env.ETAPEFORGE_DATA_DIR || fs.mkdtempS
 
 const { routeLeg } = require('../pipeline/routing');
 const { DIST_TOLERANCE_PCT } = require('../pipeline/checks');
-const { buildItinerary } = require('../pipeline/placeSearch');
+const { buildItinerary, townsStageFor } = require('../pipeline/placeSearch');
 const { haversine } = require('../pipeline/geo');
 
 const FILE = path.join(__dirname, '..', 'pipeline', 'data', 'stage_itineraries.json');
@@ -198,7 +198,7 @@ async function main() {
   const doc = JSON.parse(fs.readFileSync(FILE, 'utf8'));
   let townsDoc = null;
   try { townsDoc = JSON.parse(fs.readFileSync(TOWNS_FILE, 'utf8')); } catch { /* longueurs facultatives */ }
-  const townsStage = (edition, stage) => (townsDoc?.editions?.[edition]?.stages || []).find((x) => String(x.number) === String(stage).replace(/[a-z]$/, ''));
+  const townsStage = (edition, stage) => townsStageFor(townsDoc?.editions?.[edition]?.stages, stage);
   const router = (a, b) => routeLeg(a, b);
   for (const [edition, ed] of Object.entries(doc.editions)) {
     for (const [stage, st] of Object.entries(ed.stages)) {
