@@ -144495,7 +144495,7 @@
        "label": "Lille Métropole",
        "km": 0,
        "kind": "ville",
-       "note": "41 m imprimés",
+       "note": "41 m imprimés ; le point Nominatim d'« Lille Métropole » est à Sequedin, à environ 5 km du centre de Lille ; hôtel de ville non trouvé par Nominatim, départ réel non situé (règle 25) (audit Mireille)",
        "lat": 50.62586,
        "lon": 2.99902,
        "how": "nominatim",
@@ -144692,7 +144692,7 @@
        "label": "Méteren",
        "km": 133.1,
        "kind": "ville",
-       "note": "56 m imprimés ; retiré (règles 9 et 24) : Méteren, déjà à sa mairie, imposait un aller-retour de 2,4 km vers Saint-Jans-Cappel ; passage non situé",
+       "note": "56 m imprimés ; passage non situé ; mairie de Méteren, retestée (sur le tracé GPX officiel à 0,7 km) (audit Mireille) ; retiré (règles 9 et 24) : Méteren, à sa mairie et à 0,7 km du tracé GPX officiel, impose encore un aller-retour de 2,4 km vers Saint-Jans-Cappel (retesté après l'audit) ; passage non situé (audit Mireille)",
        "confidence": "non-place"
       },
       {
@@ -144759,7 +144759,7 @@
        "label": "Verlinghem",
        "km": 171.6,
        "kind": "ville",
-       "note": "19 m imprimés ; retiré (règles 9 et 24) : Verlinghem, déjà à sa mairie, imposait un aller-retour de 2,4 km vers Pérenchies ; passage non situé",
+       "note": "19 m imprimés ; passage non situé ; mairie de Verlinghem, retestée (sur le tracé GPX officiel à 0,2 km) (audit Mireille) ; retiré (règles 9 et 24) : Verlinghem, à sa mairie, impose encore un aller-retour de 2,4 km vers Pérenchies (retesté après l'audit) ; passage non situé (audit Mireille)",
        "confidence": "non-place"
       },
       {
@@ -144805,7 +144805,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Lille Métropole → Seclin 9,2 km à vol d'oiseau pour 4,8 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−11,6 % ; −3,6 % en voiture, 173,7 km pour 180,1) : boucles des monts de Flandre non situées (mont Cassel → Steenvoorde 7,8 km routés pour 13,3, mont des Cats → Saint-Jans-Cappel 5,3 pour 9,3, Armentières → Houplines 2,6 pour 8,1, Houplines → Pérenchies 5,9 pour 10,2) ; Méteren et Verlinghem retirés pour aller-retour."
+     "note": "Départ : Lille Métropole → Seclin 9,2 km à vol d'oiseau pour 4,8 au profil, départ réel hors du centre, non situé (règle 25) ; le point d'« Lille Métropole » est à Sequedin, hôtel de ville non trouvé (règle 25). Hors tolérance (−11,6 % ; −3,6 % en voiture, 173,7 km pour 180,1) : boucles des monts de Flandre non situées (mont Cassel → Steenvoorde 7,8 km routés pour 13,3, mont des Cats → Saint-Jans-Cappel 5,3 pour 9,3, Armentières → Houplines 2,6 pour 8,1, Houplines → Pérenchies 5,9 pour 10,2) ; Méteren et Verlinghem, à leur mairie et sur le tracé GPX officiel, imposent quand même un aller-retour (retirés, règle 24) : le routeur ne suit pas la boucle."
     },
     "2": {
      "source_url": "https://www.ledicodutour.com/images/2025/2025_2d.jpg",
@@ -145001,8 +145001,11 @@
        "label": "Clenceu",
        "km": 128.9,
        "kind": "ville",
-       "note": "71 m imprimés ; libellé imprimé tel quel ; vraisemblablement Clenleu (commune voisine de Hucqueliers), à confirmer ; non placé : « Clenceu » imprimé, inconnu de Nominatim (vraisemblablement Clenleu, à confirmer)",
-       "confidence": "non-place"
+       "note": "71 m imprimés ; libellé imprimé tel quel ; vraisemblablement Clenleu (commune voisine de Hucqueliers), à confirmer ; imprimé « Clenceu » : le tracé GPX officiel passe à Clenleu au km 129,4, point placé sur le tracé (altitude GPX 99 m) (audit Mireille)",
+       "confidence": "ok",
+       "lat": 50.52243,
+       "lon": 1.88025,
+       "how": "historic_routes"
       },
       {
        "label": "Aix-en-Issart",
@@ -145028,9 +145031,9 @@
        "label": "Énocq",
        "km": 154.6,
        "kind": "lieu-dit",
-       "note": "5 m imprimés ; imprimé « ÉNOCQ (BRÉXENT-ÉNOCQ) » ; sprint ; km lu au zoom (trait coudé)",
-       "lat": 50.51005,
-       "lon": 1.72917,
+       "note": "5 m imprimés ; imprimé « ÉNOCQ (BRÉXENT-ÉNOCQ) » ; sprint ; km lu au zoom (trait coudé) ; village d'Énocq (nœud place=village), à 0,2 km du tracé GPX officiel ; le point était le centre de la commune fusionnée Bréxent-Énocq (audit Mireille)",
+       "lat": 50.49873,
+       "lon": 1.70348,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -145107,16 +145110,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 206.1,
+      "routed_km": 204.3,
       "profile_km": 203,
-      "delta_pct": 1.5,
+      "delta_pct": 0.7,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 24,
+      "legs": 25,
       "suspect_legs": 0,
       "backtracks": 0,
-      "backtracks_uncertain": 1
+      "backtracks_uncertain": 0
      },
      "note": "Départ : Lauwin-Planque → Tortequesne 11,3 km à vol d'oiseau pour 6,1 au profil, départ réel hors du centre, non situé (règle 25)."
     },
@@ -145187,18 +145190,21 @@
        "label": "Nomain",
        "km": 36.5,
        "kind": "ville",
-       "note": "36 m imprimés",
-       "lat": 50.49944,
-       "lon": 3.24803,
-       "how": "commune-ign",
+       "note": "36 m imprimés ; hameau de La Coquerie (Nomain), sur le tracé GPX officiel (km 37,1) : la course ne passe pas au village (audit Mireille)",
+       "lat": 50.5025,
+       "lon": 3.20239,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
        "label": "Pont-à-Marcq",
        "km": 43.4,
        "kind": "ville",
-       "note": "41 m imprimés ; non placé (règle 11) : Pont-à-Marcq est à 9,7 km à vol d'oiseau de Nomain pour 6,9 au profil",
-       "confidence": "non-place"
+       "note": "41 m imprimés ; sur le tracé GPX officiel (km 44,0) (audit Mireille)",
+       "confidence": "ok",
+       "lat": 50.51982,
+       "lon": 3.11344,
+       "how": "historic_routes"
       },
       {
        "label": "Thumeries",
@@ -145359,13 +145365,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 170.6,
+      "routed_km": 172.5,
       "profile_km": 175,
-      "delta_pct": -2.5,
+      "delta_pct": -1.4,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 20,
+      "legs": 21,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -145379,9 +145385,9 @@
        "label": "Amiens Métropole",
        "km": 0,
        "kind": "ville",
-       "note": "69 m imprimés",
-       "lat": 49.87955,
-       "lon": 2.27091,
+       "note": "69 m imprimés ; départ placé à l'hôtel de ville d'Amiens (règle 25) ; le point Nominatim d'« Amiens Métropole » était à 2,3 km (audit Mireille)",
+       "lat": 49.89291,
+       "lon": 2.29543,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -145539,11 +145545,11 @@
        "label": "Côte Jacques Anquetil",
        "km": 128.2,
        "kind": "côte",
-       "note": "149 m imprimés ; 3,5 km à 3,6 % ; route « Côte Jacques Anquetil », MNT 93 m",
+       "note": "149 m imprimés ; 3,5 km à 3,6 % ; route « Côte Jacques Anquetil », MNT 93 m ; sur le tracé GPX officiel (km 127,9), MNT 152 m (audit Mireille)",
        "confidence": "ok",
-       "lat": 49.33986,
-       "lon": 1.25338,
-       "how": "nominatim"
+       "lat": 49.35697,
+       "lon": 1.25724,
+       "how": "historic_routes"
       },
       {
        "label": "Quévreville-la-Poterie",
@@ -145599,10 +145605,10 @@
        "label": "Rouen",
        "km": 158.7,
        "kind": "ville",
-       "note": "14 m imprimés ; passage dans Rouen avant la boucle finale",
-       "lat": 49.44046,
-       "lon": 1.09397,
-       "how": "commune-ign",
+       "note": "14 m imprimés ; passage dans Rouen avant la boucle finale ; quartier du Mont Gargan (Rouen), à 0,4 km du tracé GPX officiel (km 159) (audit Mireille)",
+       "lat": 49.43339,
+       "lon": 1.1274,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -145634,9 +145640,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 170.9,
+      "routed_km": 166.4,
       "profile_km": 167.7,
-      "delta_pct": 1.9,
+      "delta_pct": -0.7,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
@@ -145645,7 +145651,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 1
      },
-     "note": "Départ : Amiens Métropole → Nampty 10,6 km à vol d'oiseau pour 6,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Amiens Métropole → Nampty 12,8 km à vol d'oiseau pour 6,5 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect (règle 11) : côte de la Grand'Mare → Rouen 6,0 km routés pour 12,1 dans la boucle finale (rampe Saint-Hilaire non placée), aller-retour incertain de 2,6 km."
     },
     "5": {
      "source_url": "https://www.ledicodutour.com/images/2025/2025_5a.jpg",
@@ -146083,34 +146089,34 @@
        "label": "Vire Normandie",
        "km": 188.4,
        "kind": "ville",
-       "note": "126 m imprimés ; 1er passage avant la boucle finale",
-       "lat": 48.81995,
-       "lon": -0.86858,
-       "how": "commune-ign",
+       "note": "126 m imprimés ; 1er passage avant la boucle finale ; sur le tracé GPX officiel (km 188,9) ; le centre de Vire est à 2,3 km du tracé (audit Mireille)",
+       "lat": 48.8359,
+       "lon": -0.89777,
+       "how": "historic_routes",
        "confidence": "ok"
       },
       {
        "label": "Côte de Vaudry",
        "km": 197.1,
        "kind": "côte",
-       "note": "225 m imprimés ; 1,2 km à 7,2 % ; km lu au zoom (trait coudé) ; village de Vaudry, MNT 230 m ; retiré (règles 9 et 24) : le village de Vaudry imposait un aller-retour de 2,8 km vers Vire ; passage non situé",
+       "note": "225 m imprimés ; 1,2 km à 7,2 % ; km lu au zoom (trait coudé) ; village de Vaudry, MNT 230 m ; passage non situé ; sur le tracé GPX officiel (km 197,6) (audit Mireille) ; retiré (règles 9 et 24) : le point du tracé GPX (km 197,6) impose encore un aller-retour de 1,5 km vers Vire ; passage non situé (audit Mireille)",
        "confidence": "non-place"
       },
       {
        "label": "Vire Normandie",
        "km": 201.5,
        "kind": "ville",
-       "note": "209 m imprimés",
-       "lat": 48.81995,
-       "lon": -0.86858,
-       "how": "stage_towns",
+       "note": "209 m imprimés ; arrivée à la fin du tracé GPX officiel (MNT 208 m), règle 22 (audit Mireille)",
+       "lat": 48.84205,
+       "lon": -0.87394,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
      "route_check": {
-      "routed_km": 190,
+      "routed_km": 188.9,
       "profile_km": 194.7,
-      "delta_pct": -2.4,
+      "delta_pct": -3,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
@@ -146119,7 +146125,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Bayeux → La Belle Épine 10,5 km à vol d'oiseau pour 6,8 au profil, départ réel hors du centre, non situé (règle 25). Boucle finale autour de Vire (km 188,4 → arrivée au km 201,5) : seule la côte de Vaudry y était imprimée, retirée pour aller-retour ; la boucle n'est pas mesurée."
+     "note": "Départ : Bayeux → La Belle Épine 10,5 km à vol d'oiseau pour 6,8 au profil, départ réel hors du centre, non situé (règle 25). Boucle finale autour de Vire (passage au km 188,4 → arrivée au km 201,5) : le routeur relie les deux points de Vire au plus court (2,7 km pour 13,1), côte de Vaudry retirée pour aller-retour."
     },
     "7": {
      "source_url": "https://www.ledicodutour.com/images/2025/2025_7b.jpg",
@@ -146393,18 +146399,19 @@
       }
      ],
      "route_check": {
-      "routed_km": 174.7,
-      "profile_km": 190.7,
-      "delta_pct": -8.4,
+      "routed_km": 167,
+      "profile_km": 175.39999999999998,
+      "delta_pct": -4.8,
       "tolerance_pct": 5,
-      "coverage_pct": 97,
+      "coverage_pct": 89,
       "car_legs": 0,
-      "legs": 24,
-      "suspect_legs": 2,
-      "backtracks": 1,
+      "legs": 22,
+      "suspect_legs": 1,
+      "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Saint-Malo → La Gouesnière 11 km à vol d'oiseau pour 6,3 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−8,4 % ; −2,1 % en voiture, 186,7 km pour 190,7) : boucle finale de Mûr-de-Bretagne non située : Saint-Mayeux → arrivée 3,8 km routés pour 11,5, avec un aller-retour de 3,8 km à Saint-Mayeux entre le 1er passage et l'arrivée, au même point ; Langueux → Plédran 8,9 pour 13,8."
+     "note": "Départ : Saint-Malo → La Gouesnière 11 km à vol d'oiseau pour 6,3 au profil, départ réel hors du centre, non situé (règle 25). Circuit final : le sommet de la côte de Mûr au km 181,7 est sur la ligne d'arrivée (tracé GPX officiel), d'où circuit_km 181,7 (règle 19, audit Mireille) ; la boucle par Saint-Mayeux n'est pas mesurée. Tronçon suspect (règle 11) : Langueux → Plédran 8,9 km routés pour 13,8.",
+     "circuit_km": 181.7
     },
     "8": {
      "source_url": "https://www.ledicodutour.com/images/2025/2025_8.jpg",
@@ -146600,17 +146607,17 @@
        "label": "Laval Espace Mayenne",
        "km": 171.4,
        "kind": "ville",
-       "note": "94 m imprimés ; imprimé « LAVAL ESPACE MAYENNE »",
-       "lat": 48.07067,
-       "lon": -0.7734,
-       "how": "stage_towns",
+       "note": "94 m imprimés ; imprimé « LAVAL ESPACE MAYENNE » ; arrivée à la fin du tracé GPX officiel, Espace Mayenne (MNT 96 m), règle 22 (audit Mireille)",
+       "lat": 48.08234,
+       "lon": -0.79422,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
      "route_check": {
-      "routed_km": 148.9,
+      "routed_km": 150.7,
       "profile_km": 163,
-      "delta_pct": -8.6,
+      "delta_pct": -7.5,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
@@ -146619,7 +146626,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Saint-Méen-le-Grand → Montauban-de-Bretagne 10,8 km à vol d'oiseau pour 8,4 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−8,7 % ; −5,2 % en voiture, 154,5 km pour 163,0) : détours non situés (L'Huisserie → Laval Espace Mayenne 6,5 km routés pour 13,5 ; Vitré → Argentré-du-Plessis 10,1 pour 8,7) ; écart réparti."
+     "note": "Départ : Saint-Méen-le-Grand → Montauban-de-Bretagne 10,8 km à vol d'oiseau pour 8,4 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−7,5 % ; −4,4 % en voiture, 155,8 km pour 163,0) : détours non situés (L'Huisserie → arrivée de l'Espace Mayenne 8,3 km routés pour 13,5, Vitré → Argentré-du-Plessis 10,1 pour 8,7) ; écart réparti."
     },
     "9": {
      "source_url": "https://www.ledicodutour.com/images/2025/2025_9a.jpg",
@@ -146862,17 +146869,17 @@
        "label": "Châteauroux",
        "km": 174.1,
        "kind": "ville",
-       "note": "158 m imprimés",
-       "lat": 46.8047,
-       "lon": 1.69571,
-       "how": "stage_towns",
+       "note": "158 m imprimés ; arrivée à la fin du tracé GPX officiel (MNT 155 m), règle 22 (audit Mireille)",
+       "lat": 46.8019,
+       "lon": 1.71928,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
      "route_check": {
-      "routed_km": 167,
+      "routed_km": 168.3,
       "profile_km": 167,
-      "delta_pct": 0,
+      "delta_pct": 0.8,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
@@ -146881,7 +146888,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Chinon → Champigny-sur-Veude 12,8 km à vol d'oiseau pour 7,1 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Chinon → Champigny-sur-Veude 12,8 km à vol d'oiseau pour 7,1 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect (règle 11) : Chezelles → Vineuil 5,8 km routés pour 9,1, détour non situé."
     },
     "10": {
      "source_url": "https://www.ledicodutour.com/images/2025/2025_10c.jpg",
@@ -146910,10 +146917,10 @@
        "label": "Côte de Loubeyrat",
        "km": 11.8,
        "kind": "côte",
-       "note": "707 m imprimés ; 4,1 km à 6,3 %",
-       "lat": 45.9405,
-       "lon": 2.97632,
-       "how": "nominatim",
+       "note": "707 m imprimés ; 4,1 km à 6,3 % ; sur le tracé GPX officiel (km 12,1), MNT 710 m ; le point Nominatim était à 2,75 km du tracé (audit Mireille)",
+       "lat": 45.93023,
+       "lon": 3.01708,
+       "how": "historic_routes",
        "confidence": "ok"
       },
       {
@@ -147202,18 +147209,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 168,
+      "routed_km": 161.5,
       "profile_km": 159.60000000000002,
-      "delta_pct": 5.2,
+      "delta_pct": 1.2,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
       "legs": 28,
-      "suspect_legs": 1,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Ennezat → Châtel-Guyon 12,6 km à vol d'oiseau pour 5,7 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (+5,3 % ; +10,1 % en voiture, 175,7 km pour 159,6) : le routeur rallonge dans les Combrailles et autour des puys (Châtel-Guyon → côte de Loubeyrat 9,1 km routés pour 6,1) ; la voiture rallonge davantage, écart réparti."
+     "note": "Départ : Ennezat → Châtel-Guyon 12,6 km à vol d'oiseau pour 5,7 au profil, départ réel hors du centre, non situé (règle 25)."
     },
     "11": {
      "source_url": "https://www.ledicodutour.com/images/2025/2025_11.jpg",
@@ -147413,18 +147420,15 @@
        "label": "Rebigue",
        "km": 129.2,
        "kind": "ville",
-       "note": "249 m imprimés ; km lu au zoom (trait coudé) ; retiré (règles 9 et 24) : Rebigue, déjà à sa mairie, imposait un aller-retour de 3,3 km vers Vigoulet-Auzil ; passage non situé",
+       "note": "249 m imprimés ; km lu au zoom (trait coudé) ; passage non situé ; mairie de Rebigue (règle 17), refus retesté après le recalage du 2e passage à Vigoulet-Auzil (audit Mireille) ; retiré (règles 9 et 24) : Rebigue, à sa mairie, impose encore un aller-retour de 3,2 km vers Vigoulet-Auzil ; passage non situé (audit Mireille)",
        "confidence": "non-place"
       },
       {
        "label": "Vigoulet-Auzil",
        "km": 134.8,
        "kind": "ville",
-       "note": "175 m imprimés ; km lu au zoom (trait coudé) ; 2e passage, imprimé deux fois (125,6 et 134,8)",
-       "lat": 43.50779,
-       "lon": 1.45802,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "175 m imprimés ; km lu au zoom (trait coudé) ; 2e passage, imprimé deux fois (125,6 et 134,8) ; 2e passage dans la commune, sur le tracé GPX officiel (km 133,0) ; le tracé ne repasse pas au centre (audit Mireille) ; retiré (règles 9 et 24) : le point du tracé GPX du 2e passage impose un aller-retour de 1,8 km vers la côte de Vieille-Toulouse ; passage non situé (audit Mireille)",
+       "confidence": "non-place"
       },
       {
        "label": "Côte de Vieille-Toulouse",
@@ -147471,12 +147475,12 @@
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
-      "legs": 19,
-      "suspect_legs": 4,
+      "legs": 18,
+      "suspect_legs": 3,
       "backtracks": 0,
-      "backtracks_uncertain": 0
+      "backtracks_uncertain": 1
      },
-     "note": "Départ : Toulouse → Merville 17,5 km à vol d'oiseau pour 10,1 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−13,0 % ; −9,1 % en voiture, 133,3 km pour 146,7) : boucle des côtes du sud de Toulouse non située (Vigoulet-Auzil imprimé deux fois, aux km 125,6 et 134,8 : 9,2 km au profil entre les deux passages, au même point ; Rebigue retiré pour aller-retour) ; Montgiscard → Castanet-Tolosan 9,4 km routés pour 14,8 (côtes de Montgiscard et de Corronsac non placées)."
+     "note": "Départ : Toulouse → Merville 17,5 km à vol d'oiseau pour 10,1 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−13,0 % ; −9,1 % en voiture, 133,3 km pour 146,7) : boucle des côtes du sud de Toulouse non située (Rebigue et le 2e passage à Vigoulet-Auzil retirés pour aller-retour ; Vigoulet-Auzil → côte de Vieille-Toulouse 3,3 km routés pour 16,9) ; Montgiscard → Castanet-Tolosan 9,4 pour 14,8 (côtes de Montgiscard et de Corronsac non placées)."
     },
     "12": {
      "source_url": "https://www.ledicodutour.com/images/2025/2025_12e.jpg",
@@ -147868,7 +147872,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Contre-la-montre individuel en montée, de Loudenvielle à Peyragudes. Hors tolérance (+11,9 % ; +11,9 % en voiture, 11,3 km pour 10,1) : contre-la-montre en montée : la route de Peyragudes est plus longue que le profil (La Sapinière → arrivée 3,2 km routés pour 2,4).",
+     "note": "Contre-la-montre individuel en montée, de Loudenvielle à Peyragudes. Hors tolérance (+11,8 % ; +11,9 % en voiture) sur 10,1 km mesurés : le tracé GPX officiel fait 10,9 km comme le profil ; l'écart vient des points placés, que le routeur relie par des lacets plus longs (La Sapinière → arrivée 3,2 km routés pour 2,4).",
      "route_check": {
       "routed_km": 11.3,
       "profile_km": 10.1,
@@ -148029,8 +148033,11 @@
        "label": "Payolle",
        "km": 112.9,
        "kind": "lieu-dit",
-       "note": "1090 m imprimés ; non placé (règle 11) : Payolle est à 7,9 km à vol d'oiseau de Sainte-Marie-de-Campan pour 6,6 au profil",
-       "confidence": "non-place"
+       "note": "1090 m imprimés ; hameau de Payolle, à 0,04 km du tracé GPX officiel, MNT 1 093 m (audit Mireille)",
+       "confidence": "ok",
+       "lat": 42.94253,
+       "lon": 0.28512,
+       "how": "nominatim"
       },
       {
        "label": "Col d'Aspin",
@@ -148128,13 +148135,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 164.3,
+      "routed_km": 164.4,
       "profile_km": 165.4,
-      "delta_pct": -0.7,
+      "delta_pct": -0.6,
       "tolerance_pct": 5,
       "coverage_pct": 91,
       "car_legs": 0,
-      "legs": 20,
+      "legs": 21,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -148371,7 +148378,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Muret → Lagardelle-sur-Lèze 7,2 km à vol d'oiseau pour 4,4 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−9,0 % ; −9,5 % en voiture, 149,3 km pour 164,9) : Sorèze → Dourgne 7,1 km routés pour 21,5 : la boucle par la côte de Sorèze (non placée, village au pied) et la montagne Noire n'est pas située."
+     "note": "Départ : Muret → Lagardelle-sur-Lèze 7,2 km à vol d'oiseau pour 4,4 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−9,0 % ; −9,5 % en voiture, 149,3 km pour 164,9) : Sorèze → Dourgne 7,1 km routés pour 21,5, la boucle par la côte de Sorèze (non placée, village au pied) et la montagne Noire n'est pas située."
     },
     "16": {
      "source_url": "https://www.ledicodutour.com/images/2025/2025_16b.jpg",
@@ -148380,18 +148387,18 @@
        "label": "Montpellier",
        "km": 0,
        "kind": "ville",
-       "note": "67 m imprimés",
-       "lat": 43.61124,
-       "lon": 3.87673,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "67 m imprimés ; non placé (règle 25) : départ fictif ; Saint-Mathieu-de-Tréviers est à 17,6 km à vol d'oiseau du centre de Montpellier pour 6,8 au profil, au-delà de la marge du départ",
+       "confidence": "non-place"
       },
       {
        "label": "Saint-Mathieu-de-Tréviers",
        "km": 6.8,
        "kind": "ville",
-       "note": "91 m imprimés ; non placé : le centroïde de Saint-Mathieu-de-Tréviers est à 17,6 km de Montpellier pour 6,8 au profil (départ fictif)",
-       "confidence": "non-place"
+       "note": "91 m imprimés ; mairie de Saint-Mathieu-de-Tréviers, à 0,3 km du tracé GPX officiel (audit Mireille)",
+       "confidence": "ok",
+       "lat": 43.76945,
+       "lon": 3.86437,
+       "how": "nominatim"
       },
       {
        "label": "Valflaunès",
@@ -148632,18 +148639,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 162,
-      "profile_km": 160.3,
+      "routed_km": 166.4,
+      "profile_km": 164.7,
       "delta_pct": 1.1,
       "tolerance_pct": 5,
-      "coverage_pct": 93,
+      "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 22,
+      "legs": 23,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Montpellier → Valflaunès 21 km à vol d'oiseau pour 11,2 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Montpellier non placé, départ fictif (Saint-Mathieu-de-Tréviers à 17,6 km à vol d'oiseau pour 6,8 au profil, règle 25)."
     },
     "17": {
      "source_url": "https://www.ledicodutour.com/images/2025/2025_17.jpg",
@@ -148812,18 +148819,18 @@
        "label": "Sauzet",
        "km": 105,
        "kind": "ville",
-       "note": "138 m imprimés",
-       "lat": 44.6021,
-       "lon": 4.81842,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "138 m imprimés ; mairie de Sauzet (règle 17) (audit Mireille) ; retiré (règles 9 et 24) : Sauzet, à sa mairie, impose un aller-retour de 1,2 km vers Marsanne ; passage non situé (audit Mireille)",
+       "confidence": "non-place"
       },
       {
        "label": "Marsanne",
        "km": 109.8,
        "kind": "ville",
-       "note": "256 m imprimés ; non placé (règle 11) : Marsanne est à 6,3 km à vol d'oiseau de Sauzet pour 4,8 au profil",
-       "confidence": "non-place"
+       "note": "256 m imprimés ; village de Marsanne, sur le tracé GPX officiel (km 110,1), altitude GPX 258 m (audit Mireille)",
+       "confidence": "ok",
+       "lat": 44.64145,
+       "lon": 4.87196,
+       "how": "historic_routes"
       },
       {
        "label": "Col de Tartaiguille",
@@ -148879,33 +148886,36 @@
        "label": "Chabeuil",
        "km": 151.9,
        "kind": "ville",
-       "note": "199 m imprimés ; non placé (règle 11) : Chabeuil est à 10,6 km à vol d'oiseau de Valence pour 8,5 au profil",
-       "confidence": "non-place"
+       "note": "199 m imprimés ; refus retesté après le recalage de l'arrivée de Valence (règle 9) (audit Mireille)",
+       "confidence": "ok",
+       "lat": 44.90036,
+       "lon": 5.01871,
+       "how": "commune-ign"
       },
       {
        "label": "Valence",
        "km": 160.4,
        "kind": "ville",
-       "note": "150 m imprimés",
-       "lat": 44.93323,
-       "lon": 4.89208,
-       "how": "stage_towns",
+       "note": "150 m imprimés ; arrivée à la fin du tracé GPX officiel (MNT 149 m), règle 22 (audit Mireille)",
+       "lat": 44.92031,
+       "lon": 4.91523,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
      "route_check": {
-      "routed_km": 151.5,
+      "routed_km": 145.1,
       "profile_km": 150.1,
-      "delta_pct": 0.9,
+      "delta_pct": -3.3,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
-      "legs": 21,
-      "suspect_legs": 0,
+      "legs": 22,
+      "suspect_legs": 1,
       "backtracks": 0,
-      "backtracks_uncertain": 1
+      "backtracks_uncertain": 0
      },
-     "note": ""
+     "note": "Tronçon suspect (règle 11) : Cléon-d'Andran → Marsanne 6,7 km routés pour 13,7 (Sauzet retiré pour aller-retour)."
     },
     "18": {
      "source_url": "https://www.ledicodutour.com/images/2025/2025_18e.jpg",
@@ -148944,17 +148954,20 @@
        "label": "Rioupéroux",
        "km": 23.7,
        "kind": "ville",
-       "note": "574 m imprimés ; sprint ; non placé (règle 11) : Rioupéroux est à 11,8 km à vol d'oiseau de Allemond pour 9,8 au profil",
-       "confidence": "non-place"
+       "note": "574 m imprimés ; sprint ; village de Rioupéroux, sur le tracé GPX officiel (km 23,6) (audit Mireille)",
+       "confidence": "ok",
+       "lat": 45.09234,
+       "lon": 5.90352,
+       "how": "nominatim"
       },
       {
        "label": "Allemond",
        "km": 33.5,
        "kind": "ville",
-       "note": "716 m imprimés ; point de 2018/12",
-       "lat": 45.13284,
-       "lon": 6.04227,
-       "how": "nominatim",
+       "note": "716 m imprimés ; point de 2018/12 ; sur le tracé GPX officiel (km 34,3), altitude GPX 718 m : la mairie d'Allemond est 3 km plus loin sur le tracé (audit Mireille)",
+       "lat": 45.1213,
+       "lon": 6.0224,
+       "how": "historic_routes",
        "confidence": "ok"
       },
       {
@@ -149166,13 +149179,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 166.3,
+      "routed_km": 165.6,
       "profile_km": 164.8,
-      "delta_pct": 0.9,
+      "delta_pct": 0.5,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 22,
+      "legs": 23,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -149206,8 +149219,11 @@
        "label": "Arêches",
        "km": 20.8,
        "kind": "lieu-dit",
-       "note": "1031 m imprimés ; km du profil prévu (57,6) moins 36,8 : parcours raccourci en course ; retiré (règles 9 et 24) : le hameau d'Arêches imposait un aller-retour de 1,4 km vers Boudin ; passage non situé",
-       "confidence": "non-place"
+       "note": "1031 m imprimés ; km du profil prévu (57,6) moins 36,8 : parcours raccourci en course ; passage non situé ; sur la route, tracé GPX officiel (km 58,4 du parcours prévu), altitude GPX 1 031 m (audit Mireille)",
+       "confidence": "ok",
+       "lat": 45.68782,
+       "lon": 6.56881,
+       "how": "historic_routes"
       },
       {
        "label": "Boudin",
@@ -149355,7 +149371,7 @@
       "tolerance_pct": 5,
       "coverage_pct": 83,
       "car_legs": 0,
-      "legs": 13,
+      "legs": 14,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -149828,10 +149844,10 @@
        "label": "Paris Champs-Élysées, 1er passage sur la ligne",
        "km": 61.6,
        "kind": "lieu-dit",
-       "note": "33 m imprimés ; imprimé « 1er passage sur la ligne d'arrivée » ; circuit final jusqu'à l'arrivée au km 132,3",
-       "lat": 48.8535,
-       "lon": 2.34839,
-       "how": "stage_towns",
+       "note": "33 m imprimés ; imprimé « 1er passage sur la ligne d'arrivée » ; circuit final jusqu'à l'arrivée au km 132,3 ; 1er passage sur la ligne des Champs-Élysées, point de 2018 à 2024 (le point était au centre de Paris) (audit Mireille)",
+       "lat": 48.87076,
+       "lon": 2.30533,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],

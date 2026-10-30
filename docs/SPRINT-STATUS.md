@@ -1199,7 +1199,7 @@ et côtes traversées avec leur kilomètre.
   curé quand il existe ; GPX de 2024/8 qui contredit le profil entre
   Chaumont et Juzennecourt ; statut `ambigu`) laissés à des stories
   dédiées.
-- [ ] Édition 2025 **en cours** : 21 étapes sur 21 (pas de prologue en
+- [x] Édition 2025 (PR #528) : 21 étapes sur 21 (pas de prologue en
   2025), depuis les profils de ledicodutour.com (`images/2025/2025_N*.jpg`,
   noms verticaux, altitudes imprimées, km au dixième), transcrits par un
   agent dédié sur agrandissements (règles 1 à 5, traits coudés suivis).
@@ -1212,22 +1212,33 @@ et côtes traversées avec leur kilomètre.
   quand ils existent (leçon de l'audit 2024) ; le contrôle à ±5 % passe
   sur BRouter public, chaque étape hors tolérance a sa cause notée ; le
   test d'invariant passe ; l'audit Mireille est fait avant la fusion.
-  Fait : 464 points placés sur 513 ; longueurs des 21 profils égales à
+  Fait : 469 points placés sur 513 ; longueurs des 21 profils égales à
   stage_towns.json (2025/19 recalée sur le parcours raccourci). Contrôlée
-  à ±5 % sur BRouter public, 0 tronçon en voiture : 13 étapes dans la
-  tolérance, 7 hors avec la comparaison en voiture et la cause notée —
-  2025/1 (−11,6 %, −3,6 %), 2025/7 (−8,4 %, −2,1 %), 2025/8 (−8,6 %,
-  −5,2 %), 2025/10 (+5,2 %, +10,1 %), 2025/11 (−13,0 %, −9,1 %), 2025/13
-  (+11,8 %, +11,9 % : contre-la-montre en montée), 2025/15 (−9,0 %,
-  −9,5 %), surtout des boucles que le profil ne situe pas ; 2025/21 non
-  contrôlable. Position de chaque point comparée au tracé GPX curé de
-  historic_routes.json (scratchpad gpxwit.js) ; arrivées au lieu réel
-  (côte de Mûr, puy de Sancy, col de la Loze, La Plagne) ; col du
-  Pertuis : l'homonyme de Dieulefit (886 m) remplacé par celui de Comps
-  (627 m imprimés, règle 7). Points retirés avec note : lignes droites
-  plus longues que le profil (règle 11), allers-retours (règles 9 et 24,
-  mairie essayée avant), côtes posées au pied (règle 21) ou altitude
-  (règle 14).
+  à ±5 % sur BRouter public, 0 tronçon en voiture : 15 étapes dans la
+  tolérance, 5 hors avec la comparaison en voiture et la cause notée —
+  2025/1 (−11,6 %, −3,6 %), 2025/8 (−7,5 %, −4,4 %), 2025/11 (−13,0 %,
+  −9,1 %), 2025/13 (+11,8 %, +11,9 % : contre-la-montre en montée),
+  2025/15 (−9,0 %, −9,5 %), surtout des boucles que le profil ne situe
+  pas ; 2025/21 non contrôlable. Arrivées au lieu réel (côte de Mûr,
+  puy de Sancy, col de la Loze, La Plagne, fins des tracés GPX officiels
+  de Vire, Laval, Châteauroux et Valence).
+  Audit Mireille : la transcription relue sur 9 profils est exacte ; les
+  écarts portaient sur le placement, trouvés par les GPX officiels
+  (cyclingstage, déjà cités dans historic_routes.json) : côte de
+  Loubeyrat, Énocq, Nomain (hameau de La Coquerie), Rouen (Mont Gargan),
+  côte Jacques Anquetil, Arêches, Allemond, Rioupéroux, Payolle, Marsanne,
+  Saint-Mathieu-de-Tréviers et Pont-à-Marcq recalés ou placés sur le
+  tracé ; « Clenceu » imprimé placé sur le tracé à Clenleu ; 2025/7
+  déclarée en circuit final au 1er passage sur la côte de Mûr (circuit_km
+  181,7) au lieu de garder l'aller-retour de Saint-Mayeux ; Méteren,
+  Verlinghem, Rebigue, le 2e passage à Vigoulet-Auzil, Sauzet et la côte
+  de Vaudry retestés à leur mairie ou sur le tracé, toujours en
+  aller-retour, retirés ; départ d'Amiens à l'hôtel de ville, de
+  Montpellier non placé (départ fictif). Hors règles proposés : comparer
+  chaque point au GPX officiel quand il existe ; boucle finale qui
+  repasse sur la ligne sans « 1er passage » imprimé ; 2025/21 non
+  contrôlable malgré 13 points avant circuit_km — laissés à des stories
+  dédiées.
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
