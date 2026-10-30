@@ -1161,6 +1161,32 @@ et côtes traversées avec leur kilomètre.
   de 2023/15 et 2023/19 complétées. Hors règles proposés par l'audit
   (relire les vias curées avant d'écrire « non situé » dans une note ;
   statut des points `ambigu`) laissés à des stories dédiées.
+- [ ] Édition 2024 **en cours** : 21 étapes sur 21 (pas de prologue en
+  2024 ; départ de Florence, arrivée en contre-la-montre à Nice), depuis
+  les profils de ledicodutour.com (`images/2024/2024_Na.jpg`, altitudes
+  imprimées, km au dixième). Critères d'acceptation : chaque nom imprimé
+  est transcrit avec son km, lu sur des agrandissements, en suivant
+  chaque trait coudé (règle 2) ; la longueur du profil est comparée à la
+  distance officielle avant le placement ; l'altitude est contrôlée point
+  par point (règle 14) ; les vias curées de historic_routes.json sont
+  relues avant d'écrire « non situé » (leçon de l'audit 2023) ; le
+  contrôle à ±5 % passe sur BRouter public avec 0 tronçon en voiture,
+  chaque étape hors tolérance a sa cause notée ; le test d'invariant
+  passe ; l'audit Mireille est fait avant la fusion.
+  Fait : 419 points placés sur 478 ; longueurs des 21 profils identiques
+  à stage_towns.json. Contrôlée à ±5 % sur BRouter public, 0 tronçon en
+  voiture : 16 étapes dans la tolérance, 5 hors avec la comparaison en
+  voiture et la cause notée — 2024/2 (−8,0 %, −2,5 %), 2024/6 (+8,2 %,
+  +9,7 %), 2024/9 (−9,8 %, −6,6 % : quatorze secteurs de chemins blancs
+  non situés), 2024/21 (−26,2 %, −20,8 % : contre-la-montre par les
+  corniches) ; 2024/2 mesurée hors circuit final de Bologne (circuit_km
+  au 1er passage). Côtes d'Italie placées aux vias curées de
+  historic_routes.json quand l'altitude et les voisins le permettaient
+  (Barbotto, San Leo, Montemaggio, San Marino, Monticino, Montecalvo).
+  Arrivées au lieu réel (Pla d'Adet, plateau de Beille). Points retirés
+  avec note : lignes droites plus longues que le profil (règle 11),
+  allers-retours (règles 9 et 24, mairie essayée avant), côtes posées au
+  pied (règle 21) ou altitude (règle 14).
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
