@@ -149945,15 +149945,21 @@
        "label": "Creixell",
        "km": 14.8,
        "kind": "ville",
-       "note": "8 m imprimés ; non placé : le centre de Creixell est à 4,4 km de Torredembarra pour 2,1 km de profil (règle 11), km imprimé à l'entrée de la commune",
-       "confidence": "non-place"
+       "note": "8 m imprimés ; centre de Creixell (Nominatim)",
+       "confidence": "ok",
+       "lat": 41.16773,
+       "lon": 1.44071,
+       "how": "nominatim"
       },
       {
        "label": "El Vendrell",
        "km": 25.4,
        "kind": "ville",
-       "note": "35 m imprimés ; non placé : le centre d'El Vendrell est à 14,2 km de Torredembarra pour 12,7 km de profil (règle 11), km imprimé à l'entrée de la commune",
-       "confidence": "non-place"
+       "note": "35 m imprimés ; centre d'El Vendrell (Nominatim)",
+       "confidence": "ok",
+       "lat": 41.22,
+       "lon": 1.5349,
+       "how": "nominatim"
       },
       {
        "label": "Calafell",
@@ -149999,8 +150005,11 @@
        "label": "Sant Pere de Ribes",
        "km": 47.8,
        "kind": "ville",
-       "note": "30 m imprimés ; non placé : le centre de Sant Pere de Ribes est à 5,7 km de Vilanova i la Geltrú pour 3,4 km de profil (règle 11), km imprimé à l'entrée de la commune",
-       "confidence": "non-place"
+       "note": "30 m imprimés ; centre de Sant Pere de Ribes (Nominatim)",
+       "confidence": "ok",
+       "lat": 41.2619,
+       "lon": 1.7721,
+       "how": "nominatim"
       },
       {
        "label": "Sitges",
@@ -150026,8 +150035,11 @@
        "label": "Castelldefels",
        "km": 71.5,
        "kind": "ville",
-       "note": "4 m imprimés ; non placé : le centre de Castelldefels est à 7,5 km du hameau de Garraf pour 4,5 km de profil (règle 11), km imprimé à l'entrée de la commune",
-       "confidence": "non-place"
+       "note": "4 m imprimés ; ajuntament de Castelldefels (Nominatim, amenity=townhall), règle 17",
+       "confidence": "ok",
+       "lat": 41.28008,
+       "lon": 1.97668,
+       "how": "nominatim"
       },
       {
        "label": "Viladecans",
@@ -150043,8 +150055,11 @@
        "label": "Gavà",
        "km": 86,
        "kind": "ville",
-       "note": "18 m imprimés ; km lu au zoom (trait coudé) ; non placé : le centre de Gavà est à 1,5 km de Viladecans pour 0,4 km de profil (règle 11), traits imprimés à 2 px l'un de l'autre",
-       "confidence": "non-place"
+       "note": "18 m imprimés ; km lu au zoom (trait coudé) ; centre de Gavà (Nominatim)",
+       "confidence": "ok",
+       "lat": 41.3051,
+       "lon": 2.0063,
+       "how": "nominatim"
       },
       {
        "label": "Côte de Begues",
@@ -150107,8 +150122,11 @@
        "label": "Molins de Rei",
        "km": 123.4,
        "kind": "ville",
-       "note": "27 m imprimés ; non placé : le centre de Molins de Rei est à 4,3 km de Sant Feliu de Llobregat pour 2,2 km de profil (règle 11)",
-       "confidence": "non-place"
+       "note": "27 m imprimés ; centre de Molins de Rei (Nominatim)",
+       "confidence": "ok",
+       "lat": 41.41381,
+       "lon": 2.01596,
+       "how": "nominatim"
       },
       {
        "label": "Sant Feliu de Llobregat",
@@ -150169,16 +150187,16 @@
       }
      ],
      "circuit_km": 137.6,
-     "note": "Circuit final de Montjuïc : entrée aux fontaines de Montjuïc au km 137,6 (circuit_km, règle 19), 1er passage sur la ligne au stade olympique au km 144,1, côte du Château de Montjuïc aux km 141,6, 153,8 et 166, arrivée au km 168,5 ; seuls l'entrée et le 1er passage sont repris.",
+     "note": "Circuit final de Montjuïc : entrée aux fontaines de Montjuïc au km 137,6 (circuit_km, règle 19), 1er passage sur la ligne au stade olympique au km 144,1, côte du Château de Montjuïc aux km 141,6, 153,8 et 166, arrivée au km 168,5 ; seuls l'entrée et le 1er passage sont repris. Hors tolérance (+13,0 % ; +25,2 % en voiture, 156,4 km pour 124,9, mesuré sur 74 % de l'étape) : km imprimés en limite de commune sur la côte catalane, centres plus loin que le profil ne le permet (Torredembarra → Creixell 4,4 km à vol d'oiseau pour 2,1 ; Vilanova i la Geltrú → Sant Pere de Ribes 5,7 pour 3,4 ; Garraf → Castelldefels 6,9 pour 4,5 ; Viladecans → Gavà 1,5 pour 0,4 ; Molins de Rei → Sant Feliu de Llobregat 4,3 pour 2,2) ; points gardés et tronçons notés (règle 21, audit Mireille).",
      "route_check": {
-      "routed_km": 125.7,
+      "routed_km": 141.1,
       "profile_km": 124.89999999999999,
-      "delta_pct": 0.6,
+      "delta_pct": 13,
       "tolerance_pct": 5,
       "coverage_pct": 74,
       "car_legs": 0,
-      "legs": 15,
-      "suspect_legs": 0,
+      "legs": 21,
+      "suspect_legs": 7,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -150210,7 +150228,7 @@
        "label": "Caldes de Montbui",
        "km": 7.5,
        "kind": "ville",
-       "note": "226 m imprimés ; non placé : le centre de Caldes de Montbui est à 5,9 km de Santa Eulàlia de Ronçana pour 2,6 km de profil (règle 11), km imprimé à l'entrée de la commune",
+       "note": "226 m imprimés ; non placé : le centre et l'ajuntament de Caldes de Montbui (41.63449, 2.16236, Nominatim) sont à 5,9 km à vol d'oiseau de Santa Eulàlia de Ronçana pour 2,6 km de profil, au-delà de la marge du test d'invariant (profil + 3 km) : km imprimé en limite de commune",
        "confidence": "non-place"
       },
       {
@@ -150244,8 +150262,11 @@
        "label": "Tona",
        "km": 41.7,
        "kind": "ville",
-       "note": "599 m imprimés ; Tona (Nominatim borné), MNT 585 m ; non placé : le centre de Tona fait un aller-retour de 1,0 km au routage (règles 9 et 24), l'itinéraire contourne le bourg",
-       "confidence": "non-place"
+       "note": "599 m imprimés ; Tona (Nominatim borné), MNT 585 m ; ajuntament de Tona (Nominatim, amenity=townhall), règle 17",
+       "confidence": "ok",
+       "lat": 41.84994,
+       "lon": 2.22919,
+       "how": "nominatim"
       },
       {
        "label": "Taradell",
@@ -150466,18 +150487,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 222.3,
+      "routed_km": 224,
       "profile_km": 191,
-      "delta_pct": 16.4,
+      "delta_pct": 17.3,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 23,
+      "legs": 24,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Granollers → Santa Eulàlia de Ronçana 6,9 km à vol d'oiseau pour 4,9 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (+16,4 % ; +13,9 % en voiture, 217,6 km pour 191) : Sant Quirze de Besora → Ripoll 29,4 km routés à vélo (14,5 en voiture) pour 11,3, BRouter évite la C-17 ; montée vers Sant Feliu de Codines non située (Caldes de Montbui et le sommet de la côte non placés), Santa Eulàlia de Ronçana → Les Comes 28,5 km routés (32,2 en voiture) pour 26."
+     "note": "Départ : Granollers → Santa Eulàlia de Ronçana 6,9 km à vol d'oiseau pour 4,9 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (+17,3 % ; +14,7 % en voiture, 219,1 km pour 191) : Sant Quirze de Besora → Ripoll 29,4 km routés à vélo (14,5 en voiture) pour 11,3, BRouter évite la C-17 ; montée vers Sant Feliu de Codines non située (Caldes de Montbui et le sommet de la côte non placés)."
     },
     "4": {
      "source_url": "https://www.ledicodutour.com/images/2026/2026_4a.jpg",
@@ -150686,8 +150707,11 @@
        "label": "Fougax-et-Barrineuf",
        "km": 135.2,
        "kind": "ville",
-       "note": "528 m imprimés ; non placé : le centre de Fougax-et-Barrineuf est à 4,8 km de Bélesta pour 3 km de profil (règle 11)",
-       "confidence": "non-place"
+       "note": "528 m imprimés ; point de 2019/15",
+       "confidence": "ok",
+       "lat": 42.87233,
+       "lon": 1.89302,
+       "how": "commune-ign"
       },
       {
        "label": "Col de Montségur",
@@ -150758,18 +150782,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 180.8,
+      "routed_km": 182.9,
       "profile_km": 175.9,
-      "delta_pct": 2.8,
+      "delta_pct": 4,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 24,
-      "suspect_legs": 1,
+      "legs": 25,
+      "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Carcassonne → Monze 10,9 km à vol d'oiseau pour 6 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Carcassonne → Monze 10,9 km à vol d'oiseau pour 6 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : Bélesta → Fougax-et-Barrineuf 4,8 km à vol d'oiseau pour 3 (6,0 en voiture) et Montferrier → Lavelanet 6,2 pour 5,1 (6,6 en voiture), km imprimés en limite de commune ; points gardés (règle 21)."
     },
     "5": {
      "source_url": "https://www.ledicodutour.com/images/2026/2026_5a.jpg",
@@ -150908,8 +150932,11 @@
        "label": "Lamayou",
        "km": 122.2,
        "kind": "ville",
-       "note": "339 m imprimés ; non placé : le centre de la commune de Lamayou fait un aller-retour de 1,1 km au routage (règles 9 et 24)",
-       "confidence": "non-place"
+       "note": "339 m imprimés ; mairie de Lamayou (règle 17, audit Mireille) : 0,96 km repris en sens inverse, sous le seuil de 1 km",
+       "confidence": "ok",
+       "lat": 43.38094,
+       "lon": -0.02834,
+       "how": "nominatim"
       },
       {
        "label": "Maure",
@@ -150960,13 +150987,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 154.4,
+      "routed_km": 156.4,
       "profile_km": 149,
-      "delta_pct": 3.7,
+      "delta_pct": 4.9,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
-      "legs": 15,
+      "legs": 16,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -151060,8 +151087,11 @@
        "label": "Pouzac",
        "km": 59.1,
        "kind": "ville",
-       "note": "509 m imprimés ; sprint ; non placé : le village de Pouzac est à 2,6 km du centre de Bagnères-de-Bigorre pour 1 km de profil (règle 11), km imprimé en limite de commune",
-       "confidence": "non-place"
+       "note": "509 m imprimés ; sprint ; bourg de Pouzac, point de 2021/18 (audit Mireille)",
+       "confidence": "ok",
+       "lat": 43.08426,
+       "lon": 0.13585,
+       "how": "nominatim"
       },
       {
        "label": "Bagnères-de-Bigorre",
@@ -151147,8 +151177,11 @@
        "label": "Payolle",
        "km": 122.9,
        "kind": "lieu-dit",
-       "note": "1120 m imprimés ; non placé : le point de Payolle fait un aller-retour de 1,4 km au routage (règles 9 et 24)",
-       "confidence": "non-place"
+       "note": "1120 m imprimés ; point de 2006, 2018 et 2019, MNT 1 093 m, sans aller-retour (audit Mireille)",
+       "confidence": "ok",
+       "lat": 42.94253,
+       "lon": 0.28512,
+       "how": "nominatim"
       },
       {
        "label": "Sainte-Marie-de-Campan",
@@ -151222,18 +151255,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 173.3,
+      "routed_km": 173.5,
       "profile_km": 169,
-      "delta_pct": 2.6,
+      "delta_pct": 2.7,
       "tolerance_pct": 5,
       "coverage_pct": 91,
       "car_legs": 0,
-      "legs": 21,
+      "legs": 23,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Pau → Coarraze 17,9 km à vol d'oiseau pour 17,2 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Pau → Coarraze 17,9 km à vol d'oiseau pour 17,2 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect (règle 11) : Pouzac → Bagnères-de-Bigorre 2,5 km à vol d'oiseau pour 1 (3,7 en voiture), km de Bagnères imprimé à l'entrée de la ville."
     },
     "7": {
      "source_url": "https://www.ledicodutour.com/images/2026/2026_7a.jpg",
@@ -151429,8 +151462,11 @@
        "label": "Floirac",
        "km": 169.6,
        "kind": "ville",
-       "note": "6 m imprimés ; non placé : le centre de la commune de Floirac fait un aller-retour de 1,3 km au routage (règles 9 et 24)",
-       "confidence": "non-place"
+       "note": "6 m imprimés ; mairie de Floirac, MNT 6 m, sans aller-retour (audit Mireille)",
+       "confidence": "ok",
+       "lat": 44.83048,
+       "lon": -0.52765,
+       "how": "nominatim"
       },
       {
        "label": "Bordeaux",
@@ -151444,13 +151480,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 166.7,
+      "routed_km": 168.1,
       "profile_km": 166,
-      "delta_pct": 0.4,
+      "delta_pct": 1.3,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 17,
+      "legs": 18,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -151700,7 +151736,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Périgueux → Saint-Pierre-de-Chignac 12,9 km à vol d'oiseau pour 8,4 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Périgueux → Saint-Pierre-de-Chignac 12,9 km à vol d'oiseau pour 8,4 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect (règle 11) : Creysse → Bergerac 8,4 km routés pour 13,6 (8,0 en voiture), détour avant l'arrivée non situé."
     },
     "9": {
      "source_url": "https://www.ledicodutour.com/images/2026/2026_9a.jpg",
@@ -151849,7 +151885,7 @@
        "label": "Gourdon-Murat",
        "km": 106.5,
        "kind": "ville",
-       "note": "728 m imprimés ; km 136,5 du profil prévu, moins 30 ; non placé : le centre de la commune de Gourdon-Murat fait un aller-retour de 1,1 km au routage (règles 9 et 24)",
+       "note": "728 m imprimés ; km 136,5 du profil prévu, moins 30 ; non placé : le centre de la commune fait un aller-retour de 1,1 km au routage, son point dans l'index POI de la Géoplateforme (45.54421, 1.89624) de 1,6 km (règles 9, 17 et 24 ; mairie absente des index)",
        "confidence": "non-place"
       },
       {
@@ -151933,7 +151969,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Parcours raccourci en course (encart « Adaptation du parcours de la 9ᵉ étape » de la page de l'étape) : vigilance rouge canicule en Corrèze ; après le défilé dans Brive-la-Gaillarde, la course a pris la D921 et rejoint l'itinéraire initial à Lanteuil, à 147,8 km de l'arrivée, 155,5 km au lieu de 185,5. Jugeals-Nazareth, Turenne, Turenne-Gare, Collonges-la-Rouge, Meyssac et La Croix d'Antignac, imprimés sur le profil prévu, ne sont pas repris ; les km suivants sont ceux du profil moins 30.",
+     "note": "Parcours raccourci en course (encart « Adaptation du parcours de la 9ᵉ étape » de la page de l'étape) : vigilance rouge canicule en Corrèze ; après le défilé dans Brive-la-Gaillarde, la course a pris la D921 et rejoint l'itinéraire initial à Lanteuil, à 147,8 km de l'arrivée, 155,5 km au lieu de 185,5. Jugeals-Nazareth, Turenne, Turenne-Gare, Collonges-la-Rouge, Meyssac et La Croix d'Antignac, imprimés sur le profil prévu, ne sont pas repris ; les km suivants sont ceux du profil moins 30. Départ : Malemort → Lanteuil 7,8 km à vol d'oiseau pour 7,7 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect (règle 11) : Tulle → côte de Naves 6,1 km routés pour 11,3 (6,0 en voiture), détour de la montée non situé.",
      "route_check": {
       "routed_km": 145.6,
       "profile_km": 147.8,
@@ -152475,7 +152511,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Vichy → Saint-Germain-des-Fossés 9,2 km à vol d'oiseau pour 4,4 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Vichy → Saint-Germain-des-Fossés 9,2 km à vol d'oiseau pour 4,4 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : Saint-Germain-des-Fossés → Billy 3,6 km routés pour 7,8 (4,0 en voiture), détour non situé ; Chemilly → Moulins 8,7 km à vol d'oiseau pour 7,4 (9,7 en voiture), km imprimé à l'entrée de Moulins."
     },
     "12": {
      "source_url": "https://www.ledicodutour.com/images/2026/2026_12a.jpg",
@@ -152544,8 +152580,11 @@
        "label": "Cercy-la-Tour",
        "km": 59,
        "kind": "ville",
-       "note": "205 m imprimés ; non placé : le centre de Cercy-la-Tour est à 14,7 km de Decize pour 13,2 km de profil et 8,2 km de Fours pour 7,1 (règle 11)",
-       "confidence": "non-place"
+       "note": "205 m imprimés ; mairie de Cercy-la-Tour (index POI de la Géoplateforme)",
+       "confidence": "ok",
+       "lat": 46.86982,
+       "lon": 3.64548,
+       "how": "ign"
       },
       {
        "label": "Fours",
@@ -152608,8 +152647,11 @@
        "label": "Saint-Berain-sous-Sanvignes",
        "km": 122.2,
        "kind": "ville",
-       "note": "306 m imprimés ; non placé : le centre de la commune de Saint-Berain-sous-Sanvignes est à 6,4 km de Montceau-les-Mines pour 4,3 km de profil (règle 11)",
-       "confidence": "non-place"
+       "note": "306 m imprimés ; point de 2006/19",
+       "confidence": "ok",
+       "lat": 46.70672,
+       "lon": 4.29473,
+       "how": "commune-ign"
       },
       {
        "label": "Montceau-les-Mines",
@@ -152703,17 +152745,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 171.6,
+      "routed_km": 175.9,
       "profile_km": 167.4,
-      "delta_pct": 2.5,
+      "delta_pct": 5.1,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
-      "legs": 18,
-      "suspect_legs": 1,
+      "legs": 20,
+      "suspect_legs": 4,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Hors tolérance (+5,1 % ; +13,4 % en voiture, 189,8 km pour 167,4) : centres de commune plus loin que le profil ne le permet (Decize → Cercy-la-Tour 14,7 km à vol d'oiseau pour 13,2, Cercy-la-Tour → Fours 8,2 pour 7,1, Saint-Berain-sous-Sanvignes → Montceau-les-Mines 6,4 pour 4,3), km imprimés en limite de commune ; côte de Lanty → Luzy 14,3 km routés pour 9,9."
     },
     "13": {
      "source_url": "https://www.ledicodutour.com/images/2026/2026_13a.jpg",
@@ -153001,7 +153044,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Dole → Falletans 5,5 km à vol d'oiseau pour 1,4 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Dole → Falletans 5,5 km à vol d'oiseau pour 1,4 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : Dampierre → Saint-Vit 6,0 km à vol d'oiseau pour 4,8 (6,4 en voiture) et Villersexel → Vy-lès-Lure 11,0 pour 9,8 (12,7 en voiture), km imprimés en limite de commune."
     },
     "14": {
      "source_url": "https://www.ledicodutour.com/images/2026/2026_14a.jpg",
@@ -153040,17 +153083,20 @@
        "label": "Uffholtz",
        "km": 14.4,
        "kind": "ville",
-       "note": "298 m imprimés ; non placé : le centre de la commune d'Uffholtz fait un aller-retour de 2,7 km au routage (règles 9 et 24)",
-       "confidence": "non-place"
+       "note": "298 m imprimés ; mairie d'Uffholtz (index POI de la Géoplateforme) ; l'aller-retour venait du point du Hartmannswillerkopf posé au sommet (audit Mireille)",
+       "confidence": "ok",
+       "lat": 47.82,
+       "lon": 7.17793,
+       "how": "ign"
       },
       {
        "label": "Hartmannswillerkopf Vieil-Armand",
        "km": 25.5,
        "kind": "lieu-dit",
-       "note": "889 m imprimés ; km lu au zoom (trait coudé)",
-       "lat": 47.86091,
-       "lon": 7.16102,
-       "how": "nominatim",
+       "note": "889 m imprimés ; km lu au zoom (trait coudé) ; Historial du Hartmannswillerkopf sur la D431 (index POI de la Géoplateforme), MNT 898 m ; le sommet faisait faire demi-tour au tracé (audit Mireille)",
+       "lat": 47.85775,
+       "lon": 7.14902,
+       "how": "ign",
        "confidence": "ok"
       },
       {
@@ -153237,7 +153283,7 @@
        "label": "Saint-Amarin",
        "km": 137.1,
        "kind": "ville",
-       "note": "400 m imprimés ; non placé : le centre de la commune de Saint-Amarin fait un aller-retour de 1,6 km au routage (règles 9 et 24)",
+       "note": "400 m imprimés ; non placé : le centre de la commune de Saint-Amarin fait un aller-retour de 1,6 km au routage (règles 9 et 24) ; mairie essayée (47.87369, 7.03153) : 1,66 km encore repris en sens inverse, retrait confirmé (règle 17, audit Mireille)",
        "confidence": "non-place"
       },
       {
@@ -153271,16 +153317,16 @@
        "confidence": "ok"
       }
      ],
-     "note": "1er passage sur la ligne d'arrivée du Markstein au km 43,9, puis grande boucle par le col d'Oderen, le Ballon d'Alsace et le col du Haag jusqu'à l'arrivée au même endroit au km 155,3 : ce n'est pas un circuit final (règle 19), tous les points sont repris. Départ : Mulhouse → Bollwiller 13,8 km à vol d'oiseau pour 5,3 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−6,6 % ; +14,8 % en voiture, 172,2 km pour 150) : Wattwiller → Hartmannswillerkopf 3,7 km routés pour 12,9, la montée du Vieil-Armand par ses lacets n'est pas située (Uffholtz retiré pour aller-retour).",
+     "note": "1er passage sur la ligne d'arrivée du Markstein au km 43,9, puis grande boucle par le col d'Oderen, le Ballon d'Alsace et le col du Haag jusqu'à l'arrivée au même endroit au km 155,3 : ce n'est pas un circuit final (règle 19), tous les points sont repris. Départ : Mulhouse → Bollwiller 13,8 km à vol d'oiseau pour 5,3 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 140,
+      "routed_km": 148.8,
       "profile_km": 150,
-      "delta_pct": -6.6,
+      "delta_pct": -0.8,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 23,
-      "suspect_legs": 1,
+      "legs": 24,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -153701,7 +153747,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Contre-la-montre individuel d'Évian-les-Bains à Thonon-les-Bains. Hors tolérance (−21,5 % ; −18,4 % en voiture, 20,4 km pour 25) : boucle du chrono dans Thonon-les-Bains non située (Château Vieux et les bords de Dranse non placés ; place du Château → arrivée 0,2 km routés pour 3,2).",
+     "note": "Contre-la-montre individuel d'Évian-les-Bains à Thonon-les-Bains. Départ : Évian-les-Bains → Neuvecelle 1,8 km à vol d'oiseau pour 1,1 au profil, point de Neuvecelle au centre de la commune ; le départ du chrono est à Évian-les-Bains (règle 25). Hors tolérance (−21,5 % ; −18,4 % en voiture, 20,4 km pour 25) : boucle du chrono dans Thonon-les-Bains non située (Château Vieux et les bords de Dranse non placés ; place du Château → arrivée 0,2 km routés pour 3,2).",
      "route_check": {
       "routed_km": 19.6,
       "profile_km": 25,
@@ -153982,7 +154028,7 @@
        "label": "Colombe",
        "km": 147.5,
        "kind": "ville",
-       "note": "463 m imprimés ; sprint ; non placé : le centre de la commune de Colombe fait un aller-retour de 1,5 km au routage (règles 9 et 24)",
+       "note": "463 m imprimés ; sprint ; non placé : le centre de la commune de Colombe fait un aller-retour de 1,5 km au routage (règles 9 et 24) ; mairie essayée (45.39801, 5.44907) : 1,51 km encore repris en sens inverse, retrait confirmé (règle 17, audit Mireille)",
        "confidence": "non-place"
       },
       {
@@ -154058,7 +154104,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Chambéry → Viviers-du-Lac 9,2 km à vol d'oiseau pour 1,2 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Chambéry → Viviers-du-Lac 9,2 km à vol d'oiseau pour 1,2 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : Saint-Béron → Le Pont-de-Beauvoisin 5,9 km à vol d'oiseau pour 4,5 (7,0 en voiture), km imprimé en limite de commune ; Charavines → Oyeu 4,8 km routés pour 8,1 et Oyeu → Beaucroissant 10,7 pour 16 (4,8 et 11,0 en voiture), détours non situés."
     },
     "18": {
      "source_url": "https://www.ledicodutour.com/images/2026/2026_18a.jpg",
@@ -154077,8 +154123,11 @@
        "label": "Tullins-Fures",
        "km": 1.3,
        "kind": "ville",
-       "note": "198 m imprimés ; km lu au zoom (trait coudé) ; non placé : le village de Fures est à 9,5 km de Voiron pour 1,3 km de profil, départ réel hors du centre (règle 25)",
-       "confidence": "non-place"
+       "note": "198 m imprimés ; km lu au zoom (trait coudé) ; village de Fures (Tullins), point de 1997/13, MNT 207 m",
+       "confidence": "ok",
+       "lat": 45.30771,
+       "lon": 5.49799,
+       "how": "nominatim"
       },
       {
        "label": "Saint-Quentin-sur-Isère",
@@ -154114,7 +154163,7 @@
        "label": "Côte d'Engins",
        "km": 36.7,
        "kind": "côte",
-       "note": "854 m imprimés ; 11,4 km à 5,4 % ; point de 1990/12, MNT 935 m ; non placé : sommet non situé : le centre de la commune d'Engins fait un aller-retour de 1,5 km au routage (règles 9 et 24)",
+       "note": "854 m imprimés ; 11,4 km à 5,4 % ; point de 1990/12, MNT 935 m ; non placé : sommet non situé : le centre de la commune d'Engins fait un aller-retour de 1,5 km au routage (règles 9 et 24) ; mairie d'Engins essayée (45.18061, 5.61693) : MNT 920 m, le village n'est pas le sommet imprimé (règle 17, audit Mireille)",
        "confidence": "non-place"
       },
       {
@@ -154191,7 +154240,7 @@
        "label": "Côte de Monteynard",
        "km": 92.2,
        "kind": "côte",
-       "note": "844 m imprimés ; 9,7 km à 5 % ; km lu au zoom (trait coudé) ; non placé : sommet non situé : le point de Monteynard fait un aller-retour de 1,2 km au routage (règles 9 et 24)",
+       "note": "844 m imprimés ; 9,7 km à 5 % ; km lu au zoom (trait coudé) ; non placé : sommet non situé : le point de Monteynard fait un aller-retour de 1,2 km au routage (règles 9 et 24) ; mairie de Monteynard essayée (44.9768, 5.70368) : MNT 765 m pour 844, pas le sommet (règle 17, audit Mireille)",
        "confidence": "non-place"
       },
       {
@@ -154366,18 +154415,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 178.7,
-      "profile_km": 178.1,
-      "delta_pct": 0.3,
+      "routed_km": 185,
+      "profile_km": 183.89999999999998,
+      "delta_pct": 0.6,
       "tolerance_pct": 5,
-      "coverage_pct": 96,
+      "coverage_pct": 99,
       "car_legs": 0,
-      "legs": 26,
+      "legs": 27,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Voiron → Saint-Quentin-sur-Isère 9,7 km à vol d'oiseau pour 7,1 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Voiron → Tullins-Fures 9,5 km à vol d'oiseau pour 1,3 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect (règle 11) : Noyarey → Sassenage 4,8 km à vol d'oiseau pour 3,6 (5,3 en voiture), km imprimé en limite de commune."
     },
     "19": {
      "source_url": "https://www.ledicodutour.com/images/2026/2026_19a.jpg",
@@ -154734,8 +154783,11 @@
        "label": "Grand Tunnel",
        "km": 49.9,
        "kind": "lieu-dit",
-       "note": "1299 m imprimés ; non placé : tunnel introuvable (Nominatim borné, index POI de la Géoplateforme)",
-       "confidence": "non-place"
+       "note": "1299 m imprimés ; point de 2015/20 (route du Grand Tunnel) ; MNT aux portails 1 281 et 1 288 m (audit Mireille)",
+       "confidence": "ok",
+       "lat": 45.2139,
+       "lon": 6.3064,
+       "how": "nominatim"
       },
       {
        "label": "La Combe Bérard",
@@ -154922,7 +154974,7 @@
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 23,
+      "legs": 24,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
