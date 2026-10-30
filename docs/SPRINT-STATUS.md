@@ -2744,12 +2744,12 @@ directes et 6 en dev, inchangées ; backlog #10 : 6 ouverts, 47 faits,
 inchangé ; `stage_itineraries.json` : 45 éditions, 840 étapes, 14 183 points
 dont 1 146 non placés, aucune étape sans URL de source.
 
-- [x] 39.1 `qs` sous l'avis GHSA-6pq8-jhm2-2vcw — critères : `npm audit --omit=dev`
+- [x] 39.1 (PR #531) `qs` sous l'avis GHSA-6pq8-jhm2-2vcw — critères : `npm audit --omit=dev`
   à 0 ; seul `package-lock.json` change (`npm audit fix` sans `--force`) ;
   tests, lint et démo verts. Fait : qs 6.16.0 → 6.16.2. Avis modéré, non
   exploitable ici (`qs.stringify` en `arrayFormat: 'comma'` : express et
   body-parser n'appellent que `qs.parse`, le dépôt n'utilise pas `qs`).
-- [ ] 39.2 README : recherche par lieu et itinéraires détaillés absents (Epics
+- [x] 39.2 README : recherche par lieu et itinéraires détaillés absents (Epics
   32-33) — critères : le README décrit la recherche par lieu et la source
   des itinéraires (Dico du Tour, faits repris, pas les images), avec les
   chiffres mesurés ci-dessus.
