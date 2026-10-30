@@ -251,3 +251,8 @@ dans la même PR que son correctif.
     noter dans l'étape, et ne pas placer le départ quand l'écart dépasse
     la marge du départ (Lyon 2003/7 : Jons à 20,2 km pour 8). Audit 2003 :
     Toulouse, Bordeaux, Troyes, Nevers, Charleville-Mézières.
+26. **Une via de `historic_routes.json` se teste sur un import neuf.** Les
+    vias sont copiées en base à l'import : `--stage <id> --force` ne relit
+    pas le JSON et redonne le même écart, ce qui fait conclure à tort que
+    la correction ne change rien (2002/13 et 2002/19, story 39.5). Importer
+    dans un `ETAPEFORGE_DATA_DIR` jetable, puis générer l'étape.
