@@ -126341,11 +126341,8 @@
        "label": "Montagne Saint-Michel",
        "km": 141.5,
        "kind": "lieu-dit",
-       "note": "295 m imprimés ; rétabli malgré un aller-retour signalé (règle 9) : sans lui le routeur coupe la boucle des monts d'Arrée et l'étape tombe à −8,8 % (−8,0 % en voiture) ; point de passage exact non situé",
-       "confidence": "ambiguous",
-       "lat": 48.35021,
-       "lon": -3.94574,
-       "how": "nominatim"
+       "note": "295 m imprimés ; retiré (règles 9 et 24, audit Mireille) : le point imposait un aller-retour ; sans lui le routeur coupe, l'écart de l'étape est noté",
+       "confidence": "non-place"
       },
       {
        "label": "Côte de Saint-Rivoal",
@@ -126371,11 +126368,8 @@
        "label": "Menez Meur",
        "km": 158.1,
        "kind": "lieu-dit",
-       "note": "312 m imprimés ; rétabli malgré un aller-retour signalé (règle 9) : sans lui le routeur coupe la boucle des monts d'Arrée et l'étape tombe à −8,8 % (−8,0 % en voiture) ; point de passage exact non situé",
-       "confidence": "ambiguous",
-       "lat": 48.34422,
-       "lon": -4.05312,
-       "how": "nominatim"
+       "note": "312 m imprimés ; retiré (règles 9 et 24, audit Mireille) : le point imposait un aller-retour ; sans lui le routeur coupe, l'écart de l'étape est noté",
+       "confidence": "non-place"
       },
       {
        "label": "Saint-Éloy",
@@ -126421,14 +126415,17 @@
        "label": "Le Stum",
        "km": 187.9,
        "kind": "lieu-dit",
-       "note": "146 m imprimés",
-       "confidence": "non-place"
+       "note": "146 m imprimés ; lieu-dit Stum (Dirinon), index POI de la Géoplateforme, 147 m au MNT ; l'homonyme de Rumengol est écarté",
+       "confidence": "ok",
+       "lat": 48.40827,
+       "lon": -4.25573,
+       "how": "ign"
       },
       {
        "label": "Landerneau",
        "km": 197.8,
        "kind": "ville",
-       "note": "176 m imprimés ; côte de la Fosse aux Loups, 3 km à 5,7 % ; arrivée au sommet ; point de stage_towns au centre de Landerneau (11 m au MNT) : la ligne, au sommet de la côte de la Fosse aux Loups, n'est pas située (l'arrêt de bus « Fosse aux Loups » est à 26 m, au pied de la côte) (règle 22)",
+       "note": "176 m imprimés ; côte de la Fosse aux Loups, 3 km à 5,7 % ; arrivée au sommet ; point de stage_towns au centre de Landerneau (11 m au MNT) : la ligne, au sommet de la montée qui prolonge la rue de la Fosse aux Loups vers Kerzioc'h et Kerivin, au-dessus de la ville (le MNT y atteint 171 m), n'est pas sourcée (règles 14 et 22) ; le tronçon suspect Le Stum → Landerneau en découle",
        "lat": 48.45148,
        "lon": -4.25579,
        "how": "stage_towns",
@@ -126436,18 +126433,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 190.3,
+      "routed_km": 176.6,
       "profile_km": 192.4,
-      "delta_pct": -1.1,
+      "delta_pct": -8.2,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 27,
-      "suspect_legs": 2,
-      "backtracks": 2,
+      "legs": 26,
+      "suspect_legs": 4,
+      "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Brest → Loperhet 13,3 km à vol d'oiseau pour 5,4 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : Côte de Saint-Rivoal → Kermarquer 6,2 km routés (3,6 à vol d'oiseau) pour 3,2 ; Saint-Urbain → Landerneau 8,4 km routés (6,2 à vol d'oiseau) pour 12,8 ; aller-retour de 1,2 km à Montagne Saint-Michel ; aller-retour de 3,4 km à Menez Meur."
+     "note": "Départ : Brest → Loperhet 13,3 km à vol d'oiseau pour 5,4 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−8,2 % ; −6,6 % en voiture, 179,7 km pour 192,4) : dans les monts d'Arrée, Montagne Saint-Michel et Menez Meur retirés (ils imposaient un aller-retour, règles 9 et 24, audit), le routeur coupe la boucle : Brasparts → côte de Saint-Rivoal 8,0 km routés pour 15,6, Kermarquer → Saint-Éloy 7,7 pour 16,6. Tronçons suspects (règle 11) : côte de Saint-Rivoal → Kermarquer 6,2 km routés (3,6 à vol d'oiseau) pour 3,2, la côte est rattachée au bourg de Saint-Rivoal ; côte de Locronan → Plogonnec 3,9 km routés (2,5 à vol d'oiseau) pour 1,7 ; Le Stum → Landerneau 6,6 km routés pour 9,9, arrivée laissée au centre de Landerneau (sommet de la Fosse aux Loups non situé)."
     },
     "2": {
      "source_url": "https://www.ledicodutour.com/images/2021/2021_2a.jpg",
@@ -126546,8 +126543,11 @@
        "label": "Lézardrieux",
        "km": 62.2,
        "kind": "ville",
-       "note": "45 m imprimés ; retiré : aller-retour de 1 km vers Paimpol (règle 9)",
-       "confidence": "non-place"
+       "note": "45 m imprimés ; placé au bourg de Lézardrieux (règle 17, audit Mireille) : l'ancien point imposait un aller-retour",
+       "confidence": "ok",
+       "lat": 48.78632,
+       "lon": -3.10572,
+       "how": "nominatim"
       },
       {
        "label": "Paimpol",
@@ -126732,15 +126732,15 @@
       }
      ],
      "circuit_km": 166.2,
-     "note": "Entrée du circuit final de Mûr-de-Bretagne au km 166,2 (circuit_km, règle 19) : 1er passage sur la ligne au km 168,2, Saint-Mayeux, puis retour et arrivée au sommet au km 183,5. Départ : Perros-Guirec → Trégastel 4,2 km à vol d'oiseau pour 2,7 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : Lannion → Petit Camp 5,3 km routés (4,8 à vol d'oiseau) pour 8,6.",
+     "note": "Entrée du circuit final de Mûr-de-Bretagne au km 166,2 (circuit_km, règle 19) : 1er passage sur la ligne au km 168,2, Saint-Mayeux, puis retour et arrivée au sommet au km 183,5. Départ : Perros-Guirec → Trégastel 4,2 km à vol d'oiseau pour 2,7 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect (règle 11) : Lannion → Petit Camp 5,3 km routés (4,8 à vol d'oiseau) pour 8,6, détour du parcours non situé.",
      "route_check": {
-      "routed_km": 161.1,
+      "routed_km": 162.4,
       "profile_km": 162.5,
-      "delta_pct": -0.9,
+      "delta_pct": -0.1,
       "tolerance_pct": 5,
       "coverage_pct": 89,
       "car_legs": 0,
-      "legs": 20,
+      "legs": 21,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -127038,7 +127038,8 @@
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Départ : Lorient → Merlevenez (près) 9,3 km à vol d'oiseau pour 8,9 au profil, départ réel hors du centre, non situé (règle 25)."
     },
     "4": {
      "source_url": "https://www.ledicodutour.com/images/2021/2021_4a.jpg",
@@ -127057,8 +127058,11 @@
        "label": "Saint-Marcellin",
        "km": 3.1,
        "kind": "lieu-dit",
-       "note": "77 m imprimés",
-       "confidence": "non-place"
+       "note": "77 m imprimés ; hameau de Saint-Marcellin (Bains-sur-Oust), Nominatim, 75 m au MNT",
+       "confidence": "ok",
+       "lat": 47.73651,
+       "lon": -2.05006,
+       "how": "nominatim"
       },
       {
        "label": "Pipriac",
@@ -127171,25 +127175,31 @@
        "label": "Balazé (près)",
        "km": 121.7,
        "kind": "ville",
-       "note": "82 m imprimés",
-       "confidence": "non-place"
+       "note": "82 m imprimés ; imprimé « près » : lieu-dit Balazé (index POI de la Géoplateforme), 90 m au MNT",
+       "confidence": "ambiguous",
+       "lat": 48.16883,
+       "lon": -1.19144,
+       "how": "ign"
       },
       {
        "label": "Châtillon-en-Vendelais (près)",
        "km": 127.8,
        "kind": "ville",
-       "note": "123 m imprimés ; imprimé « près » : point au bourg de Châtillon-en-Vendelais, la course passe à côté ; retiré : imprimé « près » ; Châtillon-en-Vendelais → Luitré 10,2 km à vol d'oiseau pour 8,3 au profil (règle 11)",
-       "confidence": "non-place"
+       "note": "123 m imprimés ; imprimé « près » : point au bourg de Châtillon-en-Vendelais, la course passe à côté ; rétabli : la ligne droite trop longue venait de l'homonyme de Luitré",
+       "confidence": "ambiguous",
+       "lat": 48.22514,
+       "lon": -1.17913,
+       "how": "ign"
       },
       {
        "label": "Luitré",
        "km": 136.1,
        "kind": "ville",
-       "note": "127 m imprimés",
-       "lat": 48.31042,
-       "lon": -1.1269,
-       "how": "nominatim",
-       "confidence": "ambigu"
+       "note": "127 m imprimés ; lieu-dit Luitré (index POI de la Géoplateforme), 142 m au MNT : le point géocodé était à La Selle-en-Luitré, homonyme (règle 7, audit Mireille)",
+       "lat": 48.28172,
+       "lon": -1.11851,
+       "how": "ign",
+       "confidence": "ok"
       },
       {
        "label": "Beaucé",
@@ -127213,18 +127223,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 132.8,
-      "profile_km": 135.6,
-      "delta_pct": -2.1,
+      "routed_km": 147.7,
+      "profile_km": 147.3,
+      "delta_pct": 0.3,
       "tolerance_pct": 5,
-      "coverage_pct": 90,
+      "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 12,
-      "suspect_legs": 1,
+      "legs": 15,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Redon → Pipriac 20,4 km à vol d'oiseau pour 14,8 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : Luitré → Beaucé 4,8 km routés (3,8 à vol d'oiseau) pour 9,8."
+     "note": "Départ : Redon → Saint-Marcellin 9,8 km à vol d'oiseau pour 3,1 au profil, départ réel hors du centre, non situé (règle 25)."
     },
     "5": {
      "source_url": "https://www.ledicodutour.com/images/2021/2021_5a.jpg",
@@ -127303,7 +127313,7 @@
        "label": "Laval (entrée)",
        "km": 21.2,
        "kind": "ville",
-       "note": "58 m imprimés ; imprimé « Laval (entrée) »",
+       "note": "58 m imprimés ; imprimé « Laval (entrée) » ; non déclarée en circuit_km : contre-la-montre sans circuit final, l'entrée imprimée est un point de passage (règle 19)",
        "confidence": "non-place"
       },
       {
@@ -127320,18 +127330,18 @@
        "label": "Laval Espace Mayenne",
        "km": 27.2,
        "kind": "lieu-dit",
-       "note": "90 m imprimés",
-       "lat": 48.07067,
-       "lon": -0.7734,
-       "how": "stage_towns",
+       "note": "90 m imprimés ; arrivée à l'Espace Mayenne (Nominatim), 92 m au MNT : le point de stage_towns était au centre de Laval (règle 22)",
+       "lat": 48.08236,
+       "lon": -0.79175,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
-     "note": "Contre-la-montre individuel.",
+     "note": "Contre-la-montre individuel. Hors tolérance (+7,3 % ; +21,8 % en voiture, 30,7 km pour 25,2) : l'arrivée est à l'Espace Mayenne, à l'ouest de Laval (règle 22) ; Saint-Jean-sur-Mayenne → Louverné 3,5 km routés pour 2,1 au profil, 2,8 km à vol d'oiseau entre les deux bourgs (km du profil vraisemblablement arrondis).",
      "route_check": {
-      "routed_km": 26.4,
+      "routed_km": 27,
       "profile_km": 25.2,
-      "delta_pct": 4.9,
+      "delta_pct": 7.3,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
@@ -127525,8 +127535,11 @@
        "label": "Vineuil (près)",
        "km": 145.9,
        "kind": "ville",
-       "note": "173 m imprimés ; retiré : imprimé « près » ; aller-retour de 2,1 km vers Châteauroux (règle 9)",
-       "confidence": "non-place"
+       "note": "173 m imprimés ; imprimé « près » : placé à la mairie de Vineuil (règle 17, audit Mireille)",
+       "confidence": "ambiguous",
+       "lat": 46.90165,
+       "lon": 1.63582,
+       "how": "nominatim"
       },
       {
        "label": "Châteauroux",
@@ -127546,12 +127559,12 @@
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 16,
+      "legs": 17,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Tours → Vouvray 8,8 km à vol d'oiseau pour 4,3 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : Vouvray → Noizay 8,4 km routés (7,1 à vol d'oiseau) pour 13,4."
+     "note": "Départ : Tours → Vouvray 8,8 km à vol d'oiseau pour 4,3 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect (règle 11) : Vouvray → Noizay 8,4 km routés (7,1 à vol d'oiseau) pour 13,4, détour du parcours non situé."
     },
     "7": {
      "source_url": "https://www.ledicodutour.com/images/2021/2021_7a.jpg",
@@ -128070,11 +128083,8 @@
        "label": "Cluses (près)",
        "km": 113.1,
        "kind": "ville",
-       "note": "482 m imprimés ; point de 2018/10 ; imprimé « près » : la course passe à côté du bourg ; imprimé « près » ; rétabli malgré un aller-retour de 1,4 km (règle 9) : sans lui le routeur coupe de Scionzier au col de Romme (4,4 km pour 11,5) et l'étape tombe à −7,7 %",
-       "confidence": "ambiguous",
-       "lat": 46.06032,
-       "lon": 6.58042,
-       "how": "commune-ign"
+       "note": "482 m imprimés ; imprimé « près » : la course passe à côté du bourg ; imprimé « près » ; retiré (règles 9 et 24, audit Mireille) : le point imposait un aller-retour ; sans lui le routeur coupe, l'écart de l'étape est noté",
+       "confidence": "non-place"
       },
       {
        "label": "Col de Romme",
@@ -128128,18 +128138,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 139.9,
+      "routed_km": 134.6,
       "profile_km": 145.8,
-      "delta_pct": -4,
+      "delta_pct": -7.7,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 22,
-      "suspect_legs": 1,
-      "backtracks": 1,
+      "legs": 21,
+      "suspect_legs": 2,
+      "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Tronçons suspects (règle 11) : Le Chinaillon → Le Grand-Bornand 6,3 km routés (4,1 à vol d'oiseau) pour 10,6 ; aller-retour de 1,4 km à Cluses (près)."
+     "note": "Départ : Oyonnax → Forêt d'Échallon 5,1 km à vol d'oiseau pour 5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−7,7 % ; +1,0 % en voiture, 147,3 km pour 145,8) : Cluses (près) retiré (il imposait un aller-retour, règles 9 et 24, audit) ; le routeur vélo coupe vers le col de Romme (Scionzier → col de Romme 4,4 km routés pour 11,5, 15,3 en voiture) et Thuet → Scionzier 9,4 pour 13,3. Tronçon suspect (règle 11) : Le Chinaillon → Le Grand-Bornand 6,3 km routés (4,1 à vol d'oiseau) pour 10,6, détour final non situé."
     },
     "9": {
      "source_url": "https://www.ledicodutour.com/images/2021/2021_9a.jpg",
@@ -128491,8 +128501,11 @@
        "label": "Saint-Quentin-sur-Isère",
        "km": 107,
        "kind": "ville",
-       "note": "183 m imprimés ; retiré : aller-retour de 1,9 km vers Cognin-les-Gorges (règle 9)",
-       "confidence": "non-place"
+       "note": "183 m imprimés ; placé à la mairie (règle 17, audit Mireille) : le centre de la commune imposait un aller-retour",
+       "confidence": "ok",
+       "lat": 45.27998,
+       "lon": 5.54417,
+       "how": "nominatim"
       },
       {
        "label": "Cognin-les-Gorges",
@@ -128593,18 +128606,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 161.7,
+      "routed_km": 165.1,
       "profile_km": 164,
-      "delta_pct": -1.4,
+      "delta_pct": 0.7,
       "tolerance_pct": 5,
       "coverage_pct": 86,
       "car_legs": 0,
-      "legs": 18,
+      "legs": 19,
       "suspect_legs": 0,
       "backtracks": 0,
-      "backtracks_uncertain": 0
+      "backtracks_uncertain": 1
      },
-     "note": "Départ : Albertville → Montmélian 32,4 km à vol d'oiseau pour 26,7 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Albertville → Montmélian 32,4 km à vol d'oiseau pour 26,7 au profil, départ réel hors du centre, non situé (règle 25). Aller-retour incertain de 1,7 km à Saint-Quentin-sur-Isère (point non placé sauté) vers Cognin-les-Gorges."
     },
     "11": {
      "source_url": "https://www.ledicodutour.com/images/2021/2021_11a.jpg",
@@ -128717,8 +128730,11 @@
        "label": "Sault",
        "km": 96.3,
        "kind": "ville",
-       "note": "750 m imprimés ; retiré : aller-retour de 2,8 km vers le Chalet Reynard (règle 9)",
-       "confidence": "non-place"
+       "note": "750 m imprimés ; placé à la mairie de Sault (règle 17, audit Mireille) : le centre IGN, à 2,9 km, imposait un aller-retour",
+       "confidence": "ok",
+       "lat": 44.09182,
+       "lon": 5.40873,
+       "how": "ign"
       },
       {
        "label": "Chalet Reynard",
@@ -128826,13 +128842,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 180,
+      "routed_km": 180.7,
       "profile_km": 183.4,
-      "delta_pct": -1.8,
+      "delta_pct": -1.5,
       "tolerance_pct": 5,
       "coverage_pct": 92,
       "car_legs": 0,
-      "legs": 16,
+      "legs": 17,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -129342,8 +129358,11 @@
        "label": "Escueillens",
        "km": 31.7,
        "kind": "ville",
-       "note": "320 m imprimés ; retiré : aller-retour de 1,3 km vers Peyrefitte-du-Razès (règle 9)",
-       "confidence": "non-place"
+       "note": "320 m imprimés ; village d'Escueillens (règle 15, audit Mireille) : le centre de la commune, à 1,1 km, imposait un aller-retour",
+       "confidence": "ok",
+       "lat": 43.10858,
+       "lon": 2.02144,
+       "how": "nominatim"
       },
       {
        "label": "Peyrefitte-du-Razès",
@@ -129554,13 +129573,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 166.3,
+      "routed_km": 170.7,
       "profile_km": 170.89999999999998,
-      "delta_pct": -2.7,
+      "delta_pct": -0.1,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
-      "legs": 21,
+      "legs": 22,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -129644,10 +129663,10 @@
        "label": "Marquixanes",
        "km": 45.5,
        "kind": "ville",
-       "note": "264 m imprimés",
-       "lat": 42.64209,
-       "lon": 2.48524,
-       "how": "commune-ign",
+       "note": "264 m imprimés ; placé à la mairie de Marquixanes (règle 17, audit Mireille) : le point de la commune faisait 5,7 km vers Prades pour 4,7",
+       "lat": 42.64015,
+       "lon": 2.48509,
+       "how": "ign",
        "confidence": "ok"
       },
       {
@@ -129869,18 +129888,17 @@
       }
      ],
      "route_check": {
-      "routed_km": 190.7,
+      "routed_km": 191.1,
       "profile_km": 184.8,
-      "delta_pct": 3.2,
+      "delta_pct": 3.4,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
       "legs": 27,
-      "suspect_legs": 1,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     },
-     "note": "Tronçons suspects (règle 11) : Marquixanes → Prades 6,1 km routés (5,7 à vol d'oiseau) pour 4,7."
+     }
     },
     "16": {
      "source_url": "https://www.ledicodutour.com/images/2021/2021_16a.jpg",
@@ -129889,25 +129907,28 @@
        "label": "Pas de la Case",
        "km": 0,
        "kind": "lieu-dit",
-       "note": "1134 m imprimés ; départ placé au Pas de la Case (2 081 m au MNT) : le km 0 imprimé à 1 134 m est le départ réel, en contrebas, non situé (règle 25)",
-       "lat": 42.54471,
-       "lon": 1.73349,
-       "how": "nominatim",
-       "confidence": "ambiguous"
+       "note": "1134 m imprimés ; non placé (règle 25, audit Mireille) : le Pas de la Case est à 15,3 km à vol d'oiseau de Mérens pour 2,4 au profil ; le km 0 imprimé à 1 134 m est le départ réel, en contrebas, non situé",
+       "confidence": "non-place"
       },
       {
        "label": "Mérens-les-Vals",
        "km": 2.4,
        "kind": "ville",
-       "note": "1067 m imprimés ; non placé : le village est à 15,3 km à vol d'oiseau du Pas de la Case pour 2,4 au profil ; le km 0 imprimé (1 134 m) est le départ réel, en contrebas du Pas de la Case, non situé",
-       "confidence": "non-place"
+       "note": "1067 m imprimés ; village de Mérens-les-Vals (mairie à 30 m), 1 060 m au MNT",
+       "confidence": "ok",
+       "lat": 42.65753,
+       "lon": 1.83787,
+       "how": "nominatim"
       },
       {
        "label": "Ax-les-Thermes (près)",
        "km": 9.4,
        "kind": "ville",
-       "note": "798 m imprimés",
-       "confidence": "non-place"
+       "note": "798 m imprimés ; imprimé « près » : point près d'Ax-les-Thermes (audit Mireille)",
+       "confidence": "ambiguous",
+       "lat": 42.7191,
+       "lon": 1.8406,
+       "how": "nominatim"
       },
       {
        "label": "Luzenac",
@@ -130108,18 +130129,17 @@
       }
      ],
      "route_check": {
-      "routed_km": 152.6,
-      "profile_km": 150.6,
-      "delta_pct": 1.3,
+      "routed_km": 170.1,
+      "profile_km": 166.6,
+      "delta_pct": 2.1,
       "tolerance_pct": 5,
-      "coverage_pct": 89,
+      "coverage_pct": 99,
       "car_legs": 0,
-      "legs": 18,
+      "legs": 20,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     },
-     "note": "Départ : Pas de la Case → Luzenac 24,4 km à vol d'oiseau pour 18,4 au profil, départ réel hors du centre, non situé (règle 25)."
+     }
     },
     "17": {
      "source_url": "https://www.ledicodutour.com/images/2021/2021_17a.jpg",
@@ -130496,18 +130516,18 @@
        "label": "Pouzac",
        "km": 62.7,
        "kind": "ville",
-       "note": "514 m imprimés ; retiré : Pouzac → Bagnères-de-Bigorre 2,3 km à vol d'oiseau pour 0,9 au profil (règle 11)",
-       "confidence": "non-place"
+       "note": "514 m imprimés ; rétabli au bourg de Pouzac (audit Mireille), Bagnères-de-Bigorre étant retiré",
+       "confidence": "ok",
+       "lat": 43.08426,
+       "lon": 0.13585,
+       "how": "ign"
       },
       {
        "label": "Bagnères-de-Bigorre",
        "km": 63.6,
        "kind": "ville",
-       "note": "524 m imprimés ; point de 2000/11",
-       "lat": 43.06807,
-       "lon": 0.15058,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "524 m imprimés ; retiré (règle 11, audit Mireille) : Montgaillard → Bagnères-de-Bigorre 7,1 km à vol d'oiseau pour 5,9 au profil",
+       "confidence": "non-place"
       },
       {
        "label": "Asté",
@@ -130611,18 +130631,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 128.9,
+      "routed_km": 128.5,
       "profile_km": 122.99999999999999,
-      "delta_pct": 4.8,
+      "delta_pct": 4.5,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
       "legs": 19,
-      "suspect_legs": 1,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Pau → Bosdarros (près) 9,2 km à vol d'oiseau pour 6,7 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : Montgaillard → Bagnères-de-Bigorre 7,7 km routés (7,1 à vol d'oiseau) pour 5,9."
+     "note": "Départ : Pau → Bosdarros (près) 9,2 km à vol d'oiseau pour 6,7 au profil, départ réel hors du centre, non situé (règle 25)."
     },
     "19": {
      "source_url": "https://www.ledicodutour.com/images/2021/2021_19a.jpg",
@@ -130688,11 +130708,8 @@
        "label": "Castaignos-Souslens (près)",
        "km": 33.2,
        "kind": "ville",
-       "note": "140 m imprimés ; imprimé « près » : point au bourg de Castaignos-Souslens (133 m au MNT)",
-       "confidence": "ambiguous",
-       "lat": 43.58665,
-       "lon": -0.65015,
-       "how": "ign"
+       "note": "140 m imprimés ; imprimé « près » : point au bourg de Castaignos-Souslens (133 m au MNT) ; retiré (règle 11) : Castaignos-Souslens (près) → Hagetmau 8,9 km à vol d'oiseau pour 7,5 au profil",
+       "confidence": "non-place"
       },
       {
        "label": "Momuy",
@@ -130873,18 +130890,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 211.7,
+      "routed_km": 210.6,
       "profile_km": 202.1,
-      "delta_pct": 4.8,
+      "delta_pct": 4.2,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 21,
-      "suspect_legs": 1,
+      "legs": 20,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Mourenx → Maslacq 9,4 km à vol d'oiseau pour 4,9 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : Castaignos-Souslens (près) → Hagetmau 10,4 km routés (8,9 à vol d'oiseau) pour 7,5."
+     "note": "Départ : Mourenx → Maslacq 9,4 km à vol d'oiseau pour 4,9 au profil, départ réel hors du centre, non situé (règle 25)."
     },
     "20": {
      "source_url": "https://www.ledicodutour.com/images/2021/2021_20a.jpg",
@@ -130943,8 +130960,11 @@
        "label": "Bertineau",
        "km": 12.4,
        "kind": "lieu-dit",
-       "note": "47 m imprimés ; lieu-dit Bertineau (Néac), index POI de la Géoplateforme, 45 m au MNT ; retiré : Néac → Bertineau 2,4 km à vol d'oiseau pour 1,5 au profil (règle 11)",
-       "confidence": "non-place"
+       "note": "47 m imprimés ; rétabli au lieu-dit Bertineau (Néac) : l'excès de ligne droite (0,9 km) est sous le seuil d'un kilomètre (audit Mireille)",
+       "confidence": "ok",
+       "lat": 44.94906,
+       "lon": -0.16053,
+       "how": "ign"
       },
       {
        "label": "Fontmurée",
@@ -130990,11 +131010,11 @@
        "label": "Corbin",
        "km": 25.1,
        "kind": "lieu-dit",
-       "note": "35 m imprimés ; lieu-dit Corbin Michotte (Saint-Émilion), index POI de la Géoplateforme, 37 m au MNT",
-       "confidence": "ok",
-       "lat": 44.92392,
-       "lon": -0.18391,
-       "how": "ign"
+       "note": "35 m imprimés ; château Corbin (Saint-Émilion), Nominatim ; l'index POI ne connaît que Corbin Michotte",
+       "confidence": "ambiguous",
+       "lat": 44.9219,
+       "lon": -0.1767,
+       "how": "nominatim"
       },
       {
        "label": "Figeac",
@@ -131017,15 +131037,15 @@
        "confidence": "ok"
       }
      ],
-     "note": "Contre-la-montre individuel. Hors tolérance (+6,0 % ; +5,8 % en voiture, 27,4 km) : contre-la-montre entre vignobles, lignes droites entre lieux-dits proches du profil, écart réparti ; 1er tronçon exclu.",
+     "note": "Contre-la-montre individuel. Hors tolérance (+6,7 % ; +5,8 % en voiture, 27,4 km pour 25,9) sur 25,9 km mesurés : écart réparti entre les lieux-dits du vignoble (Néac → Bertineau 2,7 km routés pour 1,5, Corbin → Figeac 3,6 pour 3,0, Figeac → Saint-Émilion 3,5 pour 2,7).",
      "route_check": {
-      "routed_km": 27.5,
+      "routed_km": 27.6,
       "profile_km": 25.9,
-      "delta_pct": 6,
+      "delta_pct": 6.7,
       "tolerance_pct": 5,
       "coverage_pct": 84,
       "car_legs": 0,
-      "legs": 10,
+      "legs": 11,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -131068,11 +131088,8 @@
        "label": "Feucherolles (près)",
        "km": 10.1,
        "kind": "ville",
-       "note": "173 m imprimés ; point de 1986/2 ; imprimé « près » : la course passe à côté du bourg",
-       "confidence": "ambiguous",
-       "lat": 48.8726,
-       "lon": 1.9724,
-       "how": "commune-ign"
+       "note": "173 m imprimés ; imprimé « près » : la course passe à côté du bourg ; retiré (règle 11) : côte des Grès → Feucherolles 4,6 km à vol d'oiseau pour 2,7 au profil",
+       "confidence": "non-place"
       },
       {
        "label": "Chavenay",
@@ -131148,21 +131165,15 @@
        "label": "Meudon",
        "km": 36.6,
        "kind": "ville",
-       "note": "166 m imprimés",
-       "lat": 48.81267,
-       "lon": 2.23854,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "166 m imprimés ; retiré (règle 11) : Chaville → Meudon 3,7 km à vol d'oiseau pour 2,3 au profil",
+       "confidence": "non-place"
       },
       {
        "label": "Issy-les-Moulineaux",
        "km": 39.4,
        "kind": "ville",
-       "note": "31 m imprimés",
-       "lat": 48.82505,
-       "lon": 2.27346,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "31 m imprimés ; retiré (règle 11) : Chaville → Issy-les-Moulineaux 6,5 km à vol d'oiseau pour 5,1 au profil ; le quai d'Issy sert de repère",
+       "confidence": "non-place"
       },
       {
        "label": "Quai d'Issy",

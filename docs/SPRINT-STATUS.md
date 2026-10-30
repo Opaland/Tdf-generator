@@ -1037,7 +1037,7 @@ et côtes traversées avec leur kilomètre.
   l'audit (comparer le profil à distanceKm et au second profil de la
   page avant de transcrire ; respect du délai et de l'User-Agent de
   curation par check-itineraries.js) laissés à des stories dédiées.
-- [ ] Édition 2021 **en cours** : 21 étapes sur 21 (pas de prologue en
+- [x] Édition 2021 (PR #524) : 21 étapes sur 21 (pas de prologue en
   2021), depuis les profils de ledicodutour.com (`images/2021/2021_Na.jpg`,
   altitudes imprimées, km au dixième). Critères d'acceptation : chaque
   nom imprimé est transcrit avec son km, lu sur un agrandissement ; la
@@ -1048,17 +1048,31 @@ et côtes traversées avec leur kilomètre.
   Géoplateforme ; le contrôle à ±5 % passe sur BRouter public avec 0
   tronçon en voiture, chaque étape hors tolérance a sa cause notée ; le
   test d'invariant passe ; l'audit Mireille est fait avant la fusion.
-  Fait : 439 points placés sur 483 ; longueurs des 21 profils conformes à
+  Fait : 443 points placés sur 483 ; longueurs des 21 profils conformes à
   stage_towns.json (±0,6 km). Contrôlée à ±5 % sur BRouter public, 0
-  tronçon en voiture : 19 étapes dans la tolérance, 2021/20 hors (+6,0 %,
-  +5,8 % en voiture : contre-la-montre entre vignobles, écart réparti),
-  2021/21 non contrôlable. Arrivées de Mûr-de-Bretagne et du col du
-  Portet aux points des éditions précédentes, Mont Ventoux au sommet ;
-  Landerneau laissée au centre (sommet de la Fosse aux Loups non situé) ;
-  onze points retirés pour aller-retour et quinze pour ligne droite plus
-  longue que le profil (règles 9 et 11, comme l'audit 2020), sauf
-  Montagne Saint-Michel, Menez Meur et Cluses (près), rétablis : sans eux
-  le routeur coupe et l'étape tombe hors tolérance.
+  tronçon en voiture : 16 étapes dans la tolérance, 4 hors avec la
+  comparaison en voiture — 2021/1 (−8,2 %, −6,6 % : le routeur coupe dans
+  les monts d'Arrée), 2021/5 (+7,3 %, +21,8 % : arrivée à l'Espace
+  Mayenne, km du profil arrondis), 2021/8 (−7,7 %, +1,0 % : le routeur
+  vélo coupe vers le col de Romme), 2021/20 (+6,7 %, +5,8 % : écart
+  réparti) ; 2021/21 non contrôlable (circuit_km à l'entrée de Paris).
+  Arrivées de Mûr-de-Bretagne et du col du Portet aux points des éditions
+  précédentes, Mont Ventoux au sommet, Laval à l'Espace Mayenne ;
+  Landerneau laissée au centre (sommet de la Fosse aux Loups non situé).
+  Points retirés : dix-huit pour ligne droite plus longue que le profil
+  (règle 11), six pour aller-retour (règles 9 et 24), trois pour
+  l'altitude (règle 14).
+  Audit Mireille : Luitré était l'homonyme de La Selle-en-Luitré (rétabli
+  au bon bourg) ; départ du Pas de la Case non placé (règle 25) ;
+  Montagne Saint-Michel, Menez Meur et Cluses (près) retirés pour
+  aller-retour malgré la coupe du routeur (choix par défaut, cause notée
+  dans l'étape) ; Feucherolles (près), Meudon, Issy-les-Moulineaux,
+  Bagnères-de-Bigorre et Castaignos-Souslens retirés (règle 11) ;
+  Balazé, Châtillon-en-Vendelais, Saint-Marcellin, Mérens, Ax,
+  Marquixanes, Pouzac, Sault, Lézardrieux, Escueillens, Saint-Quentin,
+  Vineuil, Le Stum, Bertineau et Château Corbin recalés au bourg, au
+  lieu-dit ou à la mairie ; notes de départ (règle 25), de hors-tolérance
+  et de tronçons suspects régénérées après le recontrôle complet.
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
