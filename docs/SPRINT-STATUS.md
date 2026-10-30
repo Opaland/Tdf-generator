@@ -1037,6 +1037,18 @@ et côtes traversées avec leur kilomètre.
   l'audit (comparer le profil à distanceKm et au second profil de la
   page avant de transcrire ; respect du délai et de l'User-Agent de
   curation par check-itineraries.js) laissés à des stories dédiées.
+- [ ] Édition 2022 **en cours** : 21 étapes sur 21 (pas de prologue en
+  2022), depuis les profils de ledicodutour.com (`images/2022/etape_Na.jpg`,
+  `etape_Nb.jpg`, `etape_18c.jpg` : profils simplifiés seulement, villes
+  et cols avec leurs km, pas de km au dixième). Critères d'acceptation :
+  chaque nom imprimé est transcrit avec son km, lu sur un agrandissement ;
+  la longueur du profil est comparée à la distance officielle
+  (stage_towns.json) avant le placement ; l'altitude est contrôlée point
+  par point (règle 14) ; les lieux-dits introuvables dans Nominatim sont
+  cherchés aussi dans l'index POI de la Géoplateforme ; le contrôle à
+  ±5 % passe sur BRouter public avec 0 tronçon en voiture, chaque étape
+  hors tolérance a sa cause notée ; le test d'invariant passe ; l'audit
+  Mireille est fait avant la fusion.
 - [x] Recontrôle d'altitude point par point des éditions 1997 à 1999 (PR #502) : leurs
   contrôles d'altitude (règle 14) ont été faits par lots de points
   dispersés, dont la Géoplateforme dégrade la résolution (trouvé en 2001).
