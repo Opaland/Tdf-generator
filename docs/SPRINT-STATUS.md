@@ -2734,6 +2734,34 @@ positionnement « 100 % local / aucun compte » cohérent ; backlog #10 :
   typed-rest-client (Stryker, dev), sous le seuil. Mise à jour de version
   de correctif sans code : pas d'agent dédié (règle 11).
 
+## Epic 39 — Revue globale du 30/10/2026
+
+Mesuré sans défaut : CI de `main` verte ; 27 routes d'écriture et 118 sinks
+HTML, comme au 22/10, le seul changement de frontend depuis (`GEOCODE_WARN`,
+frontend/archives.js) étant une constante sans donnée utilisateur ;
+positionnement « 100 % local / aucun compte » cohérent ; 5 dépendances
+directes et 6 en dev, inchangées ; backlog #10 : 6 ouverts, 47 faits,
+inchangé ; `stage_itineraries.json` : 45 éditions, 840 étapes, 14 183 points
+dont 1 146 non placés, aucune étape sans URL de source.
+
+- [x] 39.1 `qs` sous l'avis GHSA-6pq8-jhm2-2vcw — critères : `npm audit --omit=dev`
+  à 0 ; seul `package-lock.json` change (`npm audit fix` sans `--force`) ;
+  tests, lint et démo verts. Fait : qs 6.16.0 → 6.16.2. Avis modéré, non
+  exploitable ici (`qs.stringify` en `arrayFormat: 'comma'` : express et
+  body-parser n'appellent que `qs.parse`, le dépôt n'utilise pas `qs`).
+- [ ] 39.2 README : recherche par lieu et itinéraires détaillés absents (Epics
+  32-33) — critères : le README décrit la recherche par lieu et la source
+  des itinéraires (Dico du Tour, faits repris, pas les images), avec les
+  chiffres mesurés ci-dessus.
+- [ ] 39.3 Reprendre 28.7 (issue #188) à la lumière de 33.2 : le bilan du 17/10
+  classe 2002/13 et 2002/19 « pas de source kilométrée accessible », or
+  leurs profils kilométrés sont transcrits depuis la PR #512 — critères :
+  écart à la distance officielle remesuré par une régénération réelle ;
+  28.7 et #188 mis à jour avec ces chiffres, ou fermés si l'écart s'explique.
+- [ ] 39.4 34 branches distantes mortes, suppression automatique désactivée
+  (`delete_branch_on_merge: false`) — **en attente de décision** de
+  l'utilisateur (suppression distante et réglage du dépôt).
+
 ## Epic 24 — Bilan final
 
 - [x] 24.1 Rapport de clôture par epic (17/10/2026), voir ci-dessous
