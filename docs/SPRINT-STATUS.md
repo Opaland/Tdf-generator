@@ -2874,7 +2874,7 @@ dont 1 146 non placés, aucune étape sans URL de source.
   essai sur une édition, écarts avant/après. Critères de l'essai : génération
   réelle dans une base jetable, aucune donnée ni code de production modifié,
   écart à la distance officielle mesuré par étape, routeur publié.
-  - [x] Essai (PR à venir, `scripts/essai-itineraires.js`), 31/10. Écart absolu
+  - [x] Essai (PR #541, `scripts/essai-itineraires.js`), 31/10. Écart absolu
     moyen, puis étapes à ±5 %, sur 21 étapes :
     - 2003, sans via curée : 31,4 % → 11,5 %, 5 → 10 ; sur les 12 étapes sans
       aucun repli voiture : 41,0 % → 17,0 %, 3 → 5. Le cas le plus favorable.
@@ -2884,7 +2884,7 @@ dont 1 146 non placés, aucune étape sans URL de source.
     - Coût : 167 s → 604 s de génération sur 2003, et 54 refus BRouter contre 0.
     - Limites : le circuit final n'est pas parcouru (2003/20 : −89,7 % → −47,5 %) ;
       les points de 2003/19 donnent +16,3 %, déjà hors tolérance au contrôle des
-      itinéraires (+14,4 %) ; le prologue reste à 0 km (39.8).
+      itinéraires (+14,4 %) ; le prologue reste à 0 km, ce que le contrôle « distance » signale déjà (39.8).
   - [ ] Remesurer 2002 sans repli voiture, sur un BRouter local (règle 16) :
     l'exécution du serveur a été refusée par le mode de permission de la session.
   - [ ] Généralisation — **en attente de décision** de l'utilisateur (architecture).
@@ -2894,9 +2894,9 @@ dont 1 146 non placés, aucune étape sans URL de source.
   compte d'itinéraires périmé à chaque édition (39.2 en donnait un, dépassé le
   jour même) ; 1.3 cochée. Mesure du 30/10 sur `f0cce48` : 46 éditions, 861
   étapes, 14 668 points dont 1 168 non placés.
-- [ ] 39.8 Prologue généré à 0 km (issue #540) : 2003/0, Paris, 6,5 km officiels,
-  sans via, passe en `done` avec 0 km — critères : une étape en boucle sans via
-  ne se présente plus comme un tracé généré ; test qui échoue sans le correctif.
+- [x] 39.8 Prologue généré à 0 km (issue #540) — fausse alerte, sans code : le
+  contrôle « distance » échoue déjà sur ce cas, avec le message dédié au circuit
+  sans via (`pipeline/checks.js`, testé dans `test/checks.test.js`, issue #189).
 
 ## Epic 24 — Bilan final
 
