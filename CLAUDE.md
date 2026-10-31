@@ -33,8 +33,9 @@ npm run demo      # démo hors ligne auto-vérifiée, avant toute PR (/porte)
   les autorise pas, il évite seulement d'ajouter une confirmation — qu'ils
   passent sans demande dépend du mode de permission de la session. Les
   motifs comparent par préfixe : `git push origin x --force` échappe à
-  `ask`, et rien côté GitHub ne protège `main` aujourd'hui. Un refus ne se
-  contourne jamais.
+  `ask` ; côté GitHub, `main` est protégée depuis le 31/10/2026 (PR
+  obligatoire, les 5 checks de CI requis, push forcé et suppression interdits,
+  administrateurs compris). Un refus ne se contourne jamais.
 
 Après toute modification d'un agent, d'un skill ou des permissions `allow` :
 `node scripts/generer-integrations.js` (fichiers Copilot et Gemini générés ;
