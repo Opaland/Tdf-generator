@@ -1927,6 +1927,19 @@ et côtes traversées avec leur kilomètre.
   Premier passage sur les 245 étapes mesurées (avant les corrections de
   1987) : 80 allers-retours sûrs sur 65 étapes, 53 incertains — à trier
   édition par édition avec 33.12 (1992 : 15, 1987 : 10, 1993 : 9…).
+- [ ] Édition 1984 : les 24 étapes (prologue, 1 à 23), absentes du fichier,
+  depuis les profils de ledicodutour.com
+  (`images/cartes_etapes/1977_1986/1984/84_N.jpg`, 468 px de large).
+  Critères d'acceptation : chaque nom imprimé est transcrit ; un nom au km
+  douteux ou sans km reste présent non placé, avec une note (règle 4 : ne
+  jamais supprimer le nom) ; la longueur du profil est comparée à
+  stage_towns.json ; l'altitude est contrôlée point par point, un point par
+  requête (règle 14) ; les départs sont vérifiés à la main (règle 25) ; le
+  contrôle à ±5 % passe sur BRouter public, chaque étape hors tolérance a sa
+  cause notée ; chaque tronçon suspect et aller-retour est trié (règles 11,
+  17, 20, 24) ; les circuits finaux sont en `circuit_km` (règle 19) ; le
+  test d'invariant de `test/placeSearch.test.js` passe ; l'audit Mireille
+  est fait avant la fusion.
 - [x] Édition 1985 (PR #535) : les 23 étapes absentes (1985/8 est déjà transcrite
   dans le lot Lorraine, PR #404), depuis les profils de ledicodutour.com
   (`images/cartes_etapes/1977_1986/1985/85_NN.jpg`, 468 px de large,
