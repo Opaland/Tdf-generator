@@ -2812,8 +2812,14 @@ positionnement « 100 % local / aucun compte » cohérent ; backlog #10 :
   aucun faux refus ; trois formes passaient encore, corrigées — source
   d'édition en JSON `null` (500 sur export.html), checks sans `items` et
   geojson de moins de 2 points (fiche plantée côté client).
-- [ ] 38.5 Protection de `main` côté GitHub (issue #489) — **en attente de
-  décision** de l'utilisateur (réglage du dépôt).
+- [x] 38.5 (PR à venir) Protection de `main` côté GitHub (issue #489) — décision de
+  l'utilisateur (31/10/2026) : comme proposé. Critères : PR obligatoire, checks
+  `test (20)`, `test (22)`, `lint`, `e2e`, `docker` requis, push forcé et
+  suppression interdits, administrateurs compris. Fait, relu par
+  `gh api …/branches/main/protection` ; aucun push direct tenté pour le
+  prouver. Pas d'approbation requise (0) ni de branche à jour imposée : la
+  fusion autonome (règle 15) reste possible, et sa condition « `main` fusionnée
+  juste avant » reste une discipline, pas un blocage de GitHub.
 - [ ] 38.6 Essai réel des agents générés dans Copilot et Gemini CLI
   (issue #490) — bloquée : aucun compte dans la session.
 - [x] 38.7 (PR #495) Dépendances sous le seuil de `npm audit` (issue #494) —
