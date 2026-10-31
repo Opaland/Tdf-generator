@@ -84,7 +84,7 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 
 - [x] 1.1 Identifier les branches dont le dernier commit est un ancêtre fusionné de `main`
 - [x] 1.2 Vérifier chaque branche contre l'historique des PR (aucune liée à un travail ouvert)
-- [ ] 1.3 **blocked** — Supprimer le lot : HTTP 403 du remote sur chaque tentative, aucun outil de contournement (issue #342)
+- [x] 1.3 Supprimer le lot : HTTP 403 du remote à l'époque (issue #342) ; suppression passée le 30/10/2026, voir 39.4
 
 ## Epic 2 — Sprint 1 : fiabilité du routage
 
@@ -2866,6 +2866,10 @@ dont 1 146 non placés, aucune étape sans URL de source.
 - [ ] 39.6 Le générateur doit-il exploiter `stage_itineraries.json` ? Aujourd'hui
   seule la recherche par lieu le lit : 14 183 points n'améliorent aucun tracé
   — **en attente de décision** de l'utilisateur (architecture).
+- [x] 39.7 Cohérence après la revue — critères : le README ne porte plus de
+  compte d'itinéraires périmé à chaque édition (39.2 en donnait un, dépassé le
+  jour même) ; 1.3 cochée. Mesure du 30/10 sur `f0cce48` : 46 éditions, 861
+  étapes, 14 668 points dont 1 168 non placés.
 
 ## Epic 24 — Bilan final
 
