@@ -1950,8 +1950,8 @@ et côtes traversées avec leur kilomètre.
   En cours, non livré : 507 points placés sur 583 (24 étapes). Noms relus par
   géocodage inverse, altitude contrôlée sur l'état final, départs comparés
   à la mairie, profil relu contre l'image. Reste : le contrôle à ±5 % à
-  faire à vélo (BRouter public en 403 ; `route_check` de 1984 retirés, ils
-  étaient périmés et en voiture), puis les causes des étapes hors tolérance
+  faire à vélo (BRouter public en 403 ; `route_check` de 1984 en voiture, voir
+  la réserve ci-dessus), puis les causes des étapes hors tolérance
   et le tri définitif, les tronçons suspects et allers-retours n'étant triés
   qu'en voiture. Hypothèses propres à cette transcription, pas des règles : côtes
   gardées routées au centre de leur commune à 25 m ou moins de l'altitude
@@ -2287,9 +2287,10 @@ et côtes traversées avec leur kilomètre.
   à une régénération de stage_towns.json perdrait ses ancres sans bruit),
   fermée par un test d'invariant : chaque clé de stage_itineraries.json
   désigne une étape de stage_towns.json.
-- [ ] 33.26 (issue #544) Col de la Core sur le terrain de loisirs en 1998/11, 2002/12,
+- [x] 33.26 (issue #544, PR à numéroter) Col de la Core sur le terrain de loisirs en 1998/11, 2002/12,
   2004/13, 2015/12 et 2021/16 (règle 21) — critères : point au col, comme 2011/14 ;
-  les cinq étapes remesurées sur BRouter ; test d'invariant vert.
+  les cinq étapes remesurées ; test d'invariant vert. Fait, en voiture quand
+  BRouter refuse (`car_legs` publié) : à remesurer à vélo avec 1984.
 
 ## Epic 34 — Idées venues d'autres dépôts (veille du 18/10/2026)
 
