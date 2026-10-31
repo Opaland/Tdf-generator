@@ -2878,18 +2878,19 @@ dont 1 146 non placés, aucune étape sans URL de source.
     moyen, puis étapes à ±5 %, sur 21 étapes :
     - 2003, sans via curée : 31,4 % → 11,5 %, 5 → 10 ; sur les 12 étapes sans
       aucun repli voiture : 41,0 % → 17,0 %, 3 → 5. Le cas le plus favorable.
-    - 2002, 149 vias curées : 6,5 % → 7,1 %, 13 → 10. **Non concluant** : BRouter
-      public a refusé 178 requêtes (403), 19 étapes sur 21 du mode « après » ont
-      un repli voiture (règle de curation 16), contre 6 dans le mode « avant ».
-    - Coût : 167 s → 604 s de génération sur 2003, et 54 refus BRouter contre 0.
+    - 2002, 149 vias curées, remesurée une fois BRouter rétabli : 6,2 % → 6,7 %,
+      13 → 9 ; sur les 10 étapes sans aucun repli voiture : 5,8 % → 6,3 %, 4 → 3.
+      Aucun gain. La première passe (178 refus BRouter, 19 étapes « après » avec
+      repli voiture) a été écartée (règle de curation 16). La seconde garde 11
+      étapes avec repli dans l'un des deux modes (23 refus).
+    - Coût : 167 s → 604 s de génération sur 2003, et 54 refus BRouter contre 0 ;
+      sur 2002, 455 s → 453 s.
     - Limites : le circuit final n'est pas parcouru (2003/20 : −89,7 % → −47,5 %) ;
       les points de 2003/19 donnent +16,3 %, déjà hors tolérance au contrôle des
       itinéraires (+14,4 %) ; le prologue reste à 0 km, ce que le contrôle « distance » signale déjà (39.8).
-  - [ ] Remesurer 2002 sans repli voiture, sur un BRouter local (règle 16) :
-    l'exécution du serveur a été refusée par le mode de permission de la session.
   - [ ] Généralisation — **en attente de décision** de l'utilisateur (architecture).
-    Proposition : remplir les étapes sans via curée, sans toucher aux vias curées
-    tant que 2002 n'est pas remesurée.
+    Proposition, deux éditions à l'appui seulement : remplir les étapes sans via
+    curée, ne pas remplacer les vias curées.
 - [x] 39.7 Cohérence après la revue — critères : le README ne porte plus de
   compte d'itinéraires périmé à chaque édition (39.2 en donnait un, dépassé le
   jour même) ; 1.3 cochée. Mesure du 30/10 sur `f0cce48` : 46 éditions, 861
