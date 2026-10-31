@@ -2812,7 +2812,7 @@ positionnement « 100 % local / aucun compte » cohérent ; backlog #10 :
   aucun faux refus ; trois formes passaient encore, corrigées — source
   d'édition en JSON `null` (500 sur export.html), checks sans `items` et
   geojson de moins de 2 points (fiche plantée côté client).
-- [x] 38.5 (PR à venir) Protection de `main` côté GitHub (issue #489) — décision de
+- [x] 38.5 (PR #539) Protection de `main` côté GitHub (issue #489) — décision de
   l'utilisateur (31/10/2026) : comme proposé. Critères : PR obligatoire, checks
   `test (20)`, `test (22)`, `lint`, `e2e`, `docker` requis, push forcé et
   suppression interdits, administrateurs compris. Fait, relu par
@@ -2870,12 +2870,33 @@ dont 1 146 non placés, aucune étape sans URL de source.
   affiché (règles 13 et 24 : l'aller-retour masquait le déficit). Plus aucun
   aller-retour sur les deux. Leçon : règle de curation 26.
 - [ ] 39.6 Le générateur doit-il exploiter `stage_itineraries.json` ? Aujourd'hui
-  seule la recherche par lieu le lit : 14 183 points n'améliorent aucun tracé
-  — **en attente de décision** de l'utilisateur (architecture).
+  seule la recherche par lieu le lit. Décision de l'utilisateur (31/10/2026) :
+  essai sur une édition, écarts avant/après. Critères de l'essai : génération
+  réelle dans une base jetable, aucune donnée ni code de production modifié,
+  écart à la distance officielle mesuré par étape, routeur publié.
+  - [x] Essai (PR à venir, `scripts/essai-itineraires.js`), 31/10. Écart absolu
+    moyen, puis étapes à ±5 %, sur 21 étapes :
+    - 2003, sans via curée : 31,4 % → 11,5 %, 5 → 10 ; sur les 12 étapes sans
+      aucun repli voiture : 41,0 % → 17,0 %, 3 → 5. Le cas le plus favorable.
+    - 2002, 149 vias curées : 6,5 % → 7,1 %, 13 → 10. **Non concluant** : BRouter
+      public a refusé 178 requêtes (403), 19 étapes sur 21 du mode « après » ont
+      un repli voiture (règle de curation 16), contre 6 dans le mode « avant ».
+    - Coût : 167 s → 604 s de génération sur 2003, et 54 refus BRouter contre 0.
+    - Limites : le circuit final n'est pas parcouru (2003/20 : −89,7 % → −47,5 %) ;
+      les points de 2003/19 donnent +16,3 %, déjà hors tolérance au contrôle des
+      itinéraires (+14,4 %) ; le prologue reste à 0 km (39.8).
+  - [ ] Remesurer 2002 sans repli voiture, sur un BRouter local (règle 16) :
+    l'exécution du serveur a été refusée par le mode de permission de la session.
+  - [ ] Généralisation — **en attente de décision** de l'utilisateur (architecture).
+    Proposition : remplir les étapes sans via curée, sans toucher aux vias curées
+    tant que 2002 n'est pas remesurée.
 - [x] 39.7 Cohérence après la revue — critères : le README ne porte plus de
   compte d'itinéraires périmé à chaque édition (39.2 en donnait un, dépassé le
   jour même) ; 1.3 cochée. Mesure du 30/10 sur `f0cce48` : 46 éditions, 861
   étapes, 14 668 points dont 1 168 non placés.
+- [ ] 39.8 Prologue généré à 0 km (issue #540) : 2003/0, Paris, 6,5 km officiels,
+  sans via, passe en `done` avec 0 km — critères : une étape en boucle sans via
+  ne se présente plus comme un tracé généré ; test qui échoue sans le correctif.
 
 ## Epic 24 — Bilan final
 
