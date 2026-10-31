@@ -214,6 +214,13 @@ dans la même PR que son correctif.
     placés et sourcés (Epic 28.7). Le nom alternatif OSM (`alt_name`) d'une voie peut porter le nom de la côte : « Côte de Bohissau » (2015/3) était l'`alt_name` de la voie Bousalle, notée « nom non confirmé » avant l'audit. Et un tronçon suspect ne fait pas refuser un lieu qui
     existe : il se note (règle 11 ; Bray, Berdorf 1989).
 
+    **Une passe de placement automatique ne prouve pas le nom** : une
+    recherche bornée qui prend le premier candidat compatible avec les
+    voisins et l'altitude a placé La Houga sur le lieu-dit « La Jalousie »
+    et Bas-Mornex sur Mornex (1984). Comparer le nom renvoyé au nom cherché
+    pour chaque point, et le relire par géocodage inverse, avant de compter
+    le point comme placé ; la compatibilité géométrique ne suffit pas.
+
 22. **Vérifier le départ et l'arrivée de chaque étape avant le reste.**
     Une ville-étape devenue commune déléguée n'est plus dans l'index IGN
     des communes, et `stage_towns.json` peut n'en avoir aucune position

@@ -1979,7 +1979,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Bobigny → Aulnay-sous-Bois 5,0 km à vol d'oiseau pour 4,5 au profil, départ réel hors du centre, non situé (règle 25). Départ : mairie de proximité de Bobigny à 1,4 km du point, hôtel de ville lui-même non retrouvé par Nominatim (règle 25)."
+     "note": "Départ : Bobigny → Aulnay-sous-Bois 5,0 km à vol d'oiseau pour 4,5 au profil, départ réel hors du centre, non situé (règle 25). Départ : mairie de proximité de Bobigny à 1,4 km du point, hôtel de ville lui-même non retrouvé par Nominatim (règle 25). Circuit (règle 19) : Louvroil « entrée du circuit » au km 240,3 (circuit_km), lecture des km verticaux à confirmer."
     },
     "3": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_3.jpg",
@@ -2568,7 +2568,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Béthune → Nœux-les-Mines 5,8 km à vol d'oiseau pour 5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Béthune → Nœux-les-Mines 5,8 km à vol d'oiseau pour 5 au profil, départ réel hors du centre, non situé (règle 25). Circuit (règle 19) : 1er passage à Cergy-Pontoise au km 204,5 (circuit_km), arrivée au km 207,2 : moins de 6 km, déclaré comme le 1er passage de 1985/5, hypothèse."
     },
     "6": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_6.jpg",
@@ -4072,7 +4072,8 @@
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Circuit (règle 19) : 1er passage à Blagnac au km 107,2 (circuit_km), arrivée au km 111 : moins de 6 km, déclaré comme le 1er passage de 1985/5, hypothèse."
     },
     "13": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_13.jpg",
@@ -4664,7 +4665,7 @@
       "backtracks": 1,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Rodez → Agen-d'Aveyron 8,3 km à vol d'oiseau pour 6,5 au profil, départ réel hors du centre, non situé (règle 25). Arrivée au Domaine du Rouret : même point, village de vacances Le Rouret (Grospierres), identification par le nom, sans source de 1984."
+     "note": "Départ : Rodez → Agen-d'Aveyron 8,3 km à vol d'oiseau pour 6,5 au profil, départ réel hors du centre, non situé (règle 25). Arrivée au Domaine du Rouret : même point, village de vacances Le Rouret (Grospierres), identification par le nom, sans source de 1984. Circuit (règle 19) : 1er passage au Domaine du Rouret au km 223,1 (circuit_km), arrivée au km 227,5 : moins de 6 km, déclaré comme le 1er passage de 1985/5, hypothèse."
     },
     "15": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_15.jpg",
@@ -5765,7 +5766,7 @@
        "label": "Col de la Colombière",
        "km": 120,
        "kind": "col",
-       "note": "1 618 m imprimés ; 1re catégorie",
+       "note": "1 618 m imprimés ; 1re catégorie ; aucun km imprimé, km lu sur la graduation 120 ; gardé placé : col majeur indispensable à la mesure (exception de la règle 4)",
        "lat": 45.99223,
        "lon": 6.47569,
        "how": "nominatim",
@@ -6651,11 +6652,8 @@
        "label": "Saint-Maurice-de-Rémens",
        "km": 270,
        "kind": "ville",
-       "note": "230 m imprimés",
-       "lat": 45.95855,
-       "lon": 5.2781,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "230 m imprimés ; aucun km imprimé (trait sur la graduation 270), non placé (règle 4)",
+       "confidence": "non-place"
       },
       {
        "label": "Côte de Gévrieux",
@@ -6745,7 +6743,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Crans-Montana imprimé en tête du profil, mais le km 0 réel est à Sion (480 m) : départ fictif, le nom reste ici plutôt qu'en point (deux points au km 0 sont exclus par le format). Image très floue (468×141) : km lus à l'échelle quand les chiffres se devinent, les autres gardés non placés. Départ : Sion → Magnot 7,3 km à vol d'oiseau pour 5,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "note": "Crans-Montana, imprimé en tête du profil, n'est pas un point : Sion (480 m) est au km 0 réel et le test d'invariant de test/placeSearch.test.js impose des km strictement croissants, donc deux points au km 0 sont refusés, et lui donner un autre km l'inventerait. Image très floue (468×141) : km lus à l'échelle quand les chiffres se devinent, les autres gardés non placés. Départ : Sion → Magnot 7,3 km à vol d'oiseau pour 5,5 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
       "routed_km": 335.8,
       "profile_km": 314,
@@ -7200,7 +7198,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Pantin → Rosny-sous-Bois 6,8 km à vol d'oiseau pour 6,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Pantin → Rosny-sous-Bois 6,8 km à vol d'oiseau pour 6,5 au profil, départ réel hors du centre, non situé (règle 25). Circuit (règle 19) : entrée au pont de la Concorde au km 155 (circuit_km), arrivée au km 196,5."
     }
    }
   },
