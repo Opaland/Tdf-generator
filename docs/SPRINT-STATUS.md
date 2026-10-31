@@ -2248,6 +2248,9 @@ et côtes traversées avec leur kilomètre.
   à une régénération de stage_towns.json perdrait ses ancres sans bruit),
   fermée par un test d'invariant : chaque clé de stage_itineraries.json
   désigne une étape de stage_towns.json.
+- [ ] 33.26 (issue #544) Col de la Core sur le terrain de loisirs en 1998/11, 2002/12,
+  2004/13, 2015/12 et 2021/16 (règle 21) — critères : point au col, comme 2011/14 ;
+  les cinq étapes remesurées sur BRouter ; test d'invariant vert.
 
 ## Epic 34 — Idées venues d'autres dépôts (veille du 18/10/2026)
 
