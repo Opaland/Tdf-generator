@@ -1927,6 +1927,45 @@ et côtes traversées avec leur kilomètre.
   Premier passage sur les 245 étapes mesurées (avant les corrections de
   1987) : 80 allers-retours sûrs sur 65 étapes, 53 incertains — à trier
   édition par édition avec 33.12 (1992 : 15, 1987 : 10, 1993 : 9…).
+- **Fusionnée avec réserve (décision du 31/10/2026, règle de curation 13) :** contrôle
+  entièrement en voiture, BRouter public refusant tout (432 tronçons sur 432,
+  `car_legs` publié) : 10 étapes dans la tolérance, 13 hors (1 −17,6 ; 2 +6,1 ; 3 +11,4 ;
+  4 +10,5 ; 5 +8,1 ; 7 +6,7 ; 12 +8,5 ; 14 +6,5 ; 16 +7,4 ; 18 +14,8 ; 21 +6,9 ; 22 +7 ;
+  23 +8), 1984/0 non contrôlable ; 18 tronçons suspects, 8 allers-retours, 4 incertains.
+  **Reste, story non cochée :** remesurer à vélo, puis trier ces écarts et noter
+  leurs causes (règle 16). Chiffres de voiture : à ne pas lire comme un résultat.
+- [ ] Édition 1984 : les 24 étapes (prologue, 1 à 23), absentes du fichier,
+  depuis les profils de ledicodutour.com
+  (`images/cartes_etapes/1977_1986/1984/84_N.jpg`, 468 px de large).
+  Critères d'acceptation : chaque nom imprimé est transcrit ; un nom au km
+  douteux ou sans km reste présent non placé, avec une note (règle 4 : ne
+  jamais supprimer le nom) ; la longueur du profil est comparée à
+  stage_towns.json ; l'altitude est contrôlée point par point, un point par
+  requête (règle 14) ; les départs sont vérifiés à la main (règle 25) ; le
+  contrôle à ±5 % passe sur BRouter public, chaque étape hors tolérance a sa
+  cause notée ; chaque tronçon suspect et aller-retour est trié (règles 11,
+  17, 20, 24) ; les circuits finaux sont en `circuit_km` (règle 19) ; le
+  test d'invariant de `test/placeSearch.test.js` passe ; l'audit Mireille
+  est fait avant la fusion.
+  En cours, non livré : 507 points placés sur 583 (24 étapes). Noms relus par
+  géocodage inverse, altitude contrôlée sur l'état final, départs comparés
+  à la mairie, profil relu contre l'image. Reste : le contrôle à ±5 % à
+  faire à vélo (BRouter public en 403 ; `route_check` de 1984 retirés, ils
+  étaient périmés et en voiture), puis les causes des étapes hors tolérance
+  et le tri définitif, les tronçons suspects et allers-retours n'étant triés
+  qu'en voiture. Hypothèses propres à cette transcription, pas des règles : côtes
+  gardées routées au centre de leur commune à 25 m ou moins de l'altitude
+  imprimée.
+  Audit Mireille, corrections appliquées : `circuit_km` 120 en 1984/1, dont
+  l'écart reste non résolu (−17,6 % en voiture) ; règle 19 précisée (un
+  1er passage imprimé annonce un circuit sans seuil) ; 1984/21 relue à
+  l'échelle (Anglefort non placé, Culoz et Artemare placés) ; arrivée de
+  1984/23 sur les Champs-Élysées ; Ramponneau placé, Côte de Gagny non
+  routée, mairies essayées et notes écrites. Trouvé en corrigeant :
+  1984/5, Houssoy, Troissereux et Fouquenies décalés d'un cran (règle 3) ;
+  1984/14, Recoules et Lapanouse imprimés 620 et 630, pas 820 et 830 (règle
+  14). Altitudes : 507 points, un par requête, 0 échec, 7 écarts de plus de
+  100 m tous notés.
 - [x] Édition 1985 (PR #535) : les 23 étapes absentes (1985/8 est déjà transcrite
   dans le lot Lorraine, PR #404), depuis les profils de ledicodutour.com
   (`images/cartes_etapes/1977_1986/1985/85_NN.jpg`, 468 px de large,
