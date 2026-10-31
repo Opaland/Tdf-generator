@@ -1535,7 +1535,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Circuit (règle 19) : « Saint-Denis 1er passage » imprimé au km 120 (circuit_km) ; Épinay, L'Île-Saint-Denis, Saint-Ouen, Aubervilliers et Saint-Denis reviennent ensuite dans le même ordre : un tour répété, hors mesure. Le circuit ne corrige pas l'écart : −17,6 % en voiture sur les km 7,5 → 117 (90,2 km routés pour 109,5) une fois la Côte de Gagny sortie de la route, environ −14 % avant : cause non résolue. Neuilly-Plaisance → Livry-Gargan : aller-retour incertain de 4,2 km, point non placé sauté. Tronçons (mesures en voiture, repli OSRM, tri provisoire à refaire à vélo) : Montfermeil → Neuilly-Plaisance 8,3 km pour 14, Livry-Gargan → Les Pavillons 2,5 pour 9, Épinay → L'Île-Saint-Denis 3,6 pour 7 : route directe plus courte que le profil, boucles urbaines que le profil ne nomme pas (hypothèse ; deux noms du premier tronçon sont non placés) ; Saint-Ouen → Aubervilliers 3,5 km en ligne droite pour 2,5, km imprimés 114,5 et 117, le second passage donne 3 : écart de la source ou point de commune, non tranché."
+     "note": "Circuit (règle 19) : « Saint-Denis 1er passage » imprimé au km 120 (circuit_km) ; Épinay, L'Île-Saint-Denis, Saint-Ouen, Aubervilliers et Saint-Denis reviennent ensuite dans le même ordre : un tour répété, hors mesure. Le circuit ne corrige pas l'écart : −17,6 % en voiture sur les km 7,5 → 117 (90,2 km routés pour 109,5) une fois la Côte de Gagny sortie de la route, environ −14 % avant : cause non résolue. Neuilly-Plaisance → Livry-Gargan : aller-retour incertain de 4,2 km, point non placé sauté. Tronçons (mesures en voiture, repli OSRM, tri provisoire à refaire à vélo) : Montfermeil → Neuilly-Plaisance 8,3 km pour 14, Livry-Gargan → Les Pavillons 2,5 pour 9, Épinay → L'Île-Saint-Denis 3,6 pour 7 : route directe plus courte que le profil, boucles urbaines que le profil ne nomme pas (hypothèse ; deux noms du premier tronçon sont non placés) ; Saint-Ouen → Aubervilliers 3,5 km en ligne droite pour 2,5, km imprimés 114,5 et 117, le second passage donne 3 : écart de la source ou point de commune, non tranché.",
+     "route_check": {
+      "routed_km": 90.2,
+      "profile_km": 109.5,
+      "delta_pct": -17.6,
+      "tolerance_pct": 5,
+      "coverage_pct": 73,
+      "car_legs": 16,
+      "legs": 16,
+      "suspect_legs": 4,
+      "backtracks": 1,
+      "backtracks_uncertain": 2
+     }
     },
     "2": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_2.jpg",
@@ -1957,7 +1969,19 @@
       }
      ],
      "circuit_km": 240.3,
-     "note": "Départ : Bobigny → Aulnay-sous-Bois 5,0 km à vol d'oiseau pour 4,5 au profil, départ réel hors du centre, non situé (règle 25). Départ : mairie de proximité de Bobigny à 1,4 km du point, hôtel de ville lui-même non retrouvé par Nominatim (règle 25). Circuit (règle 19) : Louvroil « entrée du circuit » au km 240,3 (circuit_km), lecture des km verticaux à confirmer."
+     "note": "Départ : Bobigny → Aulnay-sous-Bois 5,0 km à vol d'oiseau pour 4,5 au profil, départ réel hors du centre, non situé (règle 25). Départ : mairie de proximité de Bobigny à 1,4 km du point, hôtel de ville lui-même non retrouvé par Nominatim (règle 25). Circuit (règle 19) : Louvroil « entrée du circuit » au km 240,3 (circuit_km), lecture des km verticaux à confirmer.",
+     "route_check": {
+      "routed_km": 250.3,
+      "profile_km": 235.8,
+      "delta_pct": 6.1,
+      "tolerance_pct": 5,
+      "coverage_pct": 95,
+      "car_legs": 34,
+      "legs": 34,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "3": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_3.jpg",
@@ -2130,7 +2154,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Aulnoy-lez-Valenciennes → Marly : 3,4 km routés, 2,3 à vol d'oiseau, pour 0,5 au profil (mesures en voiture, repli OSRM, tri provisoire à refaire à vélo) ; km 47,5 et 48 bien imprimés ; les deux mairies essayées donnent 3,4 et 2,2 : écart de la source."
+     "note": "Aulnoy-lez-Valenciennes → Marly : 3,4 km routés, 2,3 à vol d'oiseau, pour 0,5 au profil (mesures en voiture, repli OSRM, tri provisoire à refaire à vélo) ; km 47,5 et 48 bien imprimés ; les deux mairies essayées donnent 3,4 et 2,2 : écart de la source.",
+     "route_check": {
+      "routed_km": 52.9,
+      "profile_km": 47.5,
+      "delta_pct": 11.4,
+      "tolerance_pct": 5,
+      "coverage_pct": 93,
+      "car_legs": 14,
+      "legs": 14,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "4": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_4.jpg",
@@ -2181,7 +2217,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Hénin-Beaumont → Lens : aller-retour de 1,5 km en voiture, resté sur la mairie (essayée, règle 17) ; à revoir à vélo."
+     "note": "Hénin-Beaumont → Lens : aller-retour de 1,5 km en voiture, resté sur la mairie (essayée, règle 17) ; à revoir à vélo.",
+     "route_check": {
+      "routed_km": 66.9,
+      "profile_km": 60.5,
+      "delta_pct": 10.5,
+      "tolerance_pct": 5,
+      "coverage_pct": 73,
+      "car_legs": 3,
+      "legs": 3,
+      "suspect_legs": 0,
+      "backtracks": 1,
+      "backtracks_uncertain": 0
+     }
     },
     "5": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_5.jpg",
@@ -2515,7 +2563,19 @@
       }
      ],
      "circuit_km": 204.5,
-     "note": "Départ : Béthune → Nœux-les-Mines 5,8 km à vol d'oiseau pour 5 au profil, départ réel hors du centre, non situé (règle 25). Circuit (règle 19) : 1er passage à Cergy-Pontoise au km 204,5 (circuit_km), arrivée au km 207,2 : moins de 6 km, déclaré comme le 1er passage de 1985/5, hypothèse. Rubempré → Rainneville : 5,5 km à vol d'oiseau pour 4 au profil ; km 75 et 79 bien imprimés, mairies sans effet : écart de la source (5,8 km en voiture)."
+     "note": "Départ : Béthune → Nœux-les-Mines 5,8 km à vol d'oiseau pour 5 au profil, départ réel hors du centre, non situé (règle 25). Circuit (règle 19) : 1er passage à Cergy-Pontoise au km 204,5 (circuit_km), arrivée au km 207,2 : moins de 6 km, déclaré comme le 1er passage de 1985/5, hypothèse. Rubempré → Rainneville : 5,5 km à vol d'oiseau pour 4 au profil ; km 75 et 79 bien imprimés, mairies sans effet : écart de la source (5,8 km en voiture).",
+     "route_check": {
+      "routed_km": 215.7,
+      "profile_km": 199.5,
+      "delta_pct": 8.1,
+      "tolerance_pct": 5,
+      "coverage_pct": 96,
+      "car_legs": 24,
+      "legs": 24,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "6": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_6.jpg",
@@ -2755,7 +2815,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Côte d'Ivry-la-Bataille → Saint-André-de-l'Eure : 13,7 km à vol d'oiseau pour 12 au profil, km 60,5 et 72,5 bien imprimés ; la côte est au centre d'Ivry, son sommet n'est pas situé : cause vraisemblable, non prouvée."
+     "note": "Côte d'Ivry-la-Bataille → Saint-André-de-l'Eure : 13,7 km à vol d'oiseau pour 12 au profil, km 60,5 et 72,5 bien imprimés ; la côte est au centre d'Ivry, son sommet n'est pas situé : cause vraisemblable, non prouvée.",
+     "route_check": {
+      "routed_km": 199.5,
+      "profile_km": 193.5,
+      "delta_pct": 3.1,
+      "tolerance_pct": 5,
+      "coverage_pct": 96,
+      "car_legs": 20,
+      "legs": 20,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "7": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_7.jpg",
@@ -2918,7 +2990,19 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "route_check": {
+      "routed_km": 56,
+      "profile_km": 52.5,
+      "delta_pct": 6.7,
+      "tolerance_pct": 5,
+      "coverage_pct": 78,
+      "car_legs": 11,
+      "legs": 11,
+      "suspect_legs": 0,
+      "backtracks": 1,
+      "backtracks_uncertain": 0
+     }
     },
     "8": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_8.jpg",
@@ -2991,7 +3075,19 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "route_check": {
+      "routed_km": 138.9,
+      "profile_km": 144.5,
+      "delta_pct": -3.9,
+      "tolerance_pct": 5,
+      "coverage_pct": 75,
+      "car_legs": 4,
+      "legs": 4,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "9": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_9.jpg",
@@ -3114,7 +3210,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Nantes → La Planche 24,2 km à vol d'oiseau pour 23,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Nantes → La Planche 24,2 km à vol d'oiseau pour 23,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "route_check": {
+      "routed_km": 326.6,
+      "profile_km": 314.5,
+      "delta_pct": 3.8,
+      "tolerance_pct": 5,
+      "coverage_pct": 93,
+      "car_legs": 9,
+      "legs": 9,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "10": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_10.jpg",
@@ -3426,7 +3534,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Langon → Roaillan 6,7 km à vol d'oiseau pour 6 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Langon → Roaillan 6,7 km à vol d'oiseau pour 6 au profil, départ réel hors du centre, non situé (règle 25).",
+     "route_check": {
+      "routed_km": 201.3,
+      "profile_km": 192,
+      "delta_pct": 4.9,
+      "tolerance_pct": 5,
+      "coverage_pct": 97,
+      "car_legs": 25,
+      "legs": 25,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "11": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_11.jpg",
@@ -3733,7 +3853,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Pau → Bordes 9,8 km à vol d'oiseau pour 7 au profil, départ réel hors du centre, non situé (règle 25). Trébons → Bagnères-de-Bigorre : 4,7 km à vol d'oiseau pour 3 au profil (4,4 sur la mairie de Bagnères, essayée, point gardé) ; km 55,5 et 58,5 bien imprimés : écart de la source, non établi plus avant."
+     "note": "Départ : Pau → Bordes 9,8 km à vol d'oiseau pour 7 au profil, départ réel hors du centre, non situé (règle 25). Trébons → Bagnères-de-Bigorre : 4,7 km à vol d'oiseau pour 3 au profil (4,4 sur la mairie de Bagnères, essayée, point gardé) ; km 55,5 et 58,5 bien imprimés : écart de la source, non établi plus avant.",
+     "route_check": {
+      "routed_km": 216.7,
+      "profile_km": 219.5,
+      "delta_pct": -1.3,
+      "tolerance_pct": 5,
+      "coverage_pct": 97,
+      "car_legs": 26,
+      "legs": 26,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "12": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_12.jpg",
@@ -3937,7 +4069,19 @@
       }
      ],
      "circuit_km": 107.2,
-     "note": "Circuit (règle 19) : 1er passage à Blagnac au km 107,2 (circuit_km), arrivée au km 111 : moins de 6 km, déclaré comme le 1er passage de 1985/5, hypothèse."
+     "note": "Circuit (règle 19) : 1er passage à Blagnac au km 107,2 (circuit_km), arrivée au km 111 : moins de 6 km, déclaré comme le 1er passage de 1985/5, hypothèse.",
+     "route_check": {
+      "routed_km": 111.4,
+      "profile_km": 102.7,
+      "delta_pct": 8.5,
+      "tolerance_pct": 5,
+      "coverage_pct": 93,
+      "car_legs": 15,
+      "legs": 15,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "13": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_13.jpg",
@@ -4225,7 +4369,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Blagnac → Seilh 7,7 km à vol d'oiseau pour 5,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Blagnac → Seilh 7,7 km à vol d'oiseau pour 5,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "route_check": {
+      "routed_km": 204.6,
+      "profile_km": 215,
+      "delta_pct": -4.8,
+      "tolerance_pct": 5,
+      "coverage_pct": 98,
+      "car_legs": 22,
+      "legs": 22,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "14": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_14.jpg",
@@ -4505,7 +4661,19 @@
       }
      ],
      "circuit_km": 223.1,
-     "note": "Départ : Rodez → Agen-d'Aveyron 8,3 km à vol d'oiseau pour 6,5 au profil, départ réel hors du centre, non situé (règle 25). Arrivée au Domaine du Rouret : même point, village de vacances Le Rouret (Grospierres) ; nom confirmé par le Château du Rouret de Nominatim, lien avec 1984 sans source. Circuit (règle 19) : 1er passage au Domaine du Rouret au km 223,1 (circuit_km), arrivée au km 227,5 : moins de 6 km, déclaré comme le 1er passage de 1985/5, hypothèse."
+     "note": "Départ : Rodez → Agen-d'Aveyron 8,3 km à vol d'oiseau pour 6,5 au profil, départ réel hors du centre, non situé (règle 25). Arrivée au Domaine du Rouret : même point, village de vacances Le Rouret (Grospierres) ; nom confirmé par le Château du Rouret de Nominatim, lien avec 1984 sans source. Circuit (règle 19) : 1er passage au Domaine du Rouret au km 223,1 (circuit_km), arrivée au km 227,5 : moins de 6 km, déclaré comme le 1er passage de 1985/5, hypothèse.",
+     "route_check": {
+      "routed_km": 230.8,
+      "profile_km": 216.6,
+      "delta_pct": 6.5,
+      "tolerance_pct": 5,
+      "coverage_pct": 95,
+      "car_legs": 19,
+      "legs": 19,
+      "suspect_legs": 1,
+      "backtracks": 2,
+      "backtracks_uncertain": 0
+     }
     },
     "15": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_15.jpg",
@@ -4817,7 +4985,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Domaine du Rouret → Grospierres-la-Gare 3,8 km à vol d'oiseau pour 2,5 au profil, départ réel hors du centre, non situé (règle 25). Départ : le Domaine du Rouret est un lieu-dit sans mairie ; point sur le village de vacances Le Rouret (Grospierres), identification par le nom, sans source de 1984."
+     "note": "Départ : Domaine du Rouret → Grospierres-la-Gare 3,8 km à vol d'oiseau pour 2,5 au profil, départ réel hors du centre, non situé (règle 25). Départ : le Domaine du Rouret est un lieu-dit sans mairie ; point sur le village de vacances Le Rouret (Grospierres), identification par le nom, sans source de 1984.",
+     "route_check": {
+      "routed_km": 243.1,
+      "profile_km": 239,
+      "delta_pct": 1.7,
+      "tolerance_pct": 5,
+      "coverage_pct": 99,
+      "car_legs": 24,
+      "legs": 24,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "16": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_16.jpg",
@@ -4902,7 +5082,19 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "route_check": {
+      "routed_km": 22.6,
+      "profile_km": 21,
+      "delta_pct": 7.4,
+      "tolerance_pct": 5,
+      "coverage_pct": 95,
+      "car_legs": 6,
+      "legs": 6,
+      "suspect_legs": 0,
+      "backtracks": 1,
+      "backtracks_uncertain": 0
+     }
     },
     "17": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_17.jpg",
@@ -5166,7 +5358,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Grenoble → Saint-Égrève 6,5 km à vol d'oiseau pour 4,5 au profil, départ réel hors du centre, non situé (règle 25). Côte de Saint-Pierre-de-Chartreuse → Col du Coq : 9,4 km en voiture pour 13,5 au profil ; non trié, à revoir à vélo."
+     "note": "Départ : Grenoble → Saint-Égrève 6,5 km à vol d'oiseau pour 4,5 au profil, départ réel hors du centre, non situé (règle 25). Côte de Saint-Pierre-de-Chartreuse → Col du Coq : 9,4 km en voiture pour 13,5 au profil ; non trié, à revoir à vélo.",
+     "route_check": {
+      "routed_km": 145.5,
+      "profile_km": 146.5,
+      "delta_pct": -0.7,
+      "tolerance_pct": 5,
+      "coverage_pct": 97,
+      "car_legs": 21,
+      "legs": 21,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 1
+     }
     },
     "18": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_18.jpg",
@@ -5386,7 +5590,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Écart largement dû à Celliers → Doucy (voir ce point). Saint-Michel-de-Maurienne → Saint-Jean-de-Maurienne : 12,1 km à vol d'oiseau pour 11 au profil, points de commune, non corrigé."
+     "note": "Écart largement dû à Celliers → Doucy (voir ce point). Saint-Michel-de-Maurienne → Saint-Jean-de-Maurienne : 12,1 km à vol d'oiseau pour 11 au profil, points de commune, non corrigé.",
+     "route_check": {
+      "routed_km": 200.3,
+      "profile_km": 174.5,
+      "delta_pct": 14.8,
+      "tolerance_pct": 5,
+      "coverage_pct": 94,
+      "car_legs": 18,
+      "legs": 18,
+      "suspect_legs": 2,
+      "backtracks": 1,
+      "backtracks_uncertain": 0
+     }
     },
     "19": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_19.jpg",
@@ -5681,7 +5897,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Le km 0 (690 m imprimés) est dans la vallée, pas à la station de La Plagne : départ réel non situé (règle 25)."
+     "note": "Le km 0 (690 m imprimés) est dans la vallée, pas à la station de La Plagne : départ réel non situé (règle 25).",
+     "route_check": {
+      "routed_km": 183.5,
+      "profile_km": 181.5,
+      "delta_pct": 1.1,
+      "tolerance_pct": 5,
+      "coverage_pct": 98,
+      "car_legs": 24,
+      "legs": 24,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "20": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_20.jpg",
@@ -5985,7 +6213,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Morzine → Saint-Jean-d'Aulps 7,4 km à vol d'oiseau pour 7 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Morzine → Saint-Jean-d'Aulps 7,4 km à vol d'oiseau pour 7 au profil, départ réel hors du centre, non situé (règle 25).",
+     "route_check": {
+      "routed_km": 138.1,
+      "profile_km": 133.5,
+      "delta_pct": 3.4,
+      "tolerance_pct": 5,
+      "coverage_pct": 95,
+      "car_legs": 25,
+      "legs": 25,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "21": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_21.jpg",
@@ -6515,7 +6755,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Crans-Montana, imprimé en tête du profil, n'est pas un point : Sion (480 m) est au km 0 réel et le test d'invariant de test/placeSearch.test.js impose des km strictement croissants, donc deux points au km 0 sont refusés, et lui donner un autre km l'inventerait. Image très floue (468×141) : km lus à l'échelle quand les chiffres se devinent (graduations 210 et 220 ; km 216 d'Artemare et 226,5 de Pugieu tirés de l'échelle, pas d'un chiffre lisible), les autres gardés non placés. Départ : Sion → Magnot 7,3 km à vol d'oiseau pour 5,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Crans-Montana, imprimé en tête du profil, n'est pas un point : Sion (480 m) est au km 0 réel et le test d'invariant de test/placeSearch.test.js impose des km strictement croissants, donc deux points au km 0 sont refusés, et lui donner un autre km l'inventerait. Image très floue (468×141) : km lus à l'échelle quand les chiffres se devinent (graduations 210 et 220 ; km 216 d'Artemare et 226,5 de Pugieu tirés de l'échelle, pas d'un chiffre lisible), les autres gardés non placés. Départ : Sion → Magnot 7,3 km à vol d'oiseau pour 5,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "route_check": {
+      "routed_km": 335.8,
+      "profile_km": 314,
+      "delta_pct": 6.9,
+      "tolerance_pct": 5,
+      "coverage_pct": 98,
+      "car_legs": 43,
+      "legs": 43,
+      "suspect_legs": 3,
+      "backtracks": 0,
+      "backtracks_uncertain": 1
+     }
     },
     "22": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_22.jpg",
@@ -6637,7 +6889,19 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "route_check": {
+      "routed_km": 51.4,
+      "profile_km": 48,
+      "delta_pct": 7,
+      "tolerance_pct": 5,
+      "coverage_pct": 94,
+      "car_legs": 9,
+      "legs": 9,
+      "suspect_legs": 0,
+      "backtracks": 1,
+      "backtracks_uncertain": 0
+     }
     },
     "23": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_23.jpg",
@@ -6934,7 +7198,19 @@
       }
      ],
      "circuit_km": 155,
-     "note": "Départ : Pantin → Rosny-sous-Bois 6,8 km à vol d'oiseau pour 6,5 au profil, départ réel hors du centre, non situé (règle 25). Circuit (règle 19) : entrée au pont de la Concorde au km 155 (circuit_km), arrivée au km 196,5."
+     "note": "Départ : Pantin → Rosny-sous-Bois 6,8 km à vol d'oiseau pour 6,5 au profil, départ réel hors du centre, non situé (règle 25). Circuit (règle 19) : entrée au pont de la Concorde au km 155 (circuit_km), arrivée au km 196,5.",
+     "route_check": {
+      "routed_km": 160.4,
+      "profile_km": 148.5,
+      "delta_pct": 8,
+      "tolerance_pct": 5,
+      "coverage_pct": 75,
+      "car_legs": 20,
+      "legs": 20,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     }
    }
   },

@@ -1927,6 +1927,13 @@ et côtes traversées avec leur kilomètre.
   Premier passage sur les 245 étapes mesurées (avant les corrections de
   1987) : 80 allers-retours sûrs sur 65 étapes, 53 incertains — à trier
   édition par édition avec 33.12 (1992 : 15, 1987 : 10, 1993 : 9…).
+- **Fusionnée avec réserve (décision du 31/10/2026, règle de curation 13) :** contrôle
+  entièrement en voiture, BRouter public refusant tout (432 tronçons sur 432,
+  `car_legs` publié) : 10 étapes dans la tolérance, 13 hors (1 −17,6 ; 2 +6,1 ; 3 +11,4 ;
+  4 +10,5 ; 5 +8,1 ; 7 +6,7 ; 12 +8,5 ; 14 +6,5 ; 16 +7,4 ; 18 +14,8 ; 21 +6,9 ; 22 +7 ;
+  23 +8), 1984/0 non contrôlable ; 18 tronçons suspects, 8 allers-retours, 4 incertains.
+  **Reste, story non cochée :** remesurer à vélo, puis trier ces écarts et noter
+  leurs causes (règle 16). Chiffres de voiture : à ne pas lire comme un résultat.
 - [ ] Édition 1984 : les 24 étapes (prologue, 1 à 23), absentes du fichier,
   depuis les profils de ledicodutour.com
   (`images/cartes_etapes/1977_1986/1984/84_N.jpg`, 468 px de large).
