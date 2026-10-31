@@ -31,7 +31,9 @@ dans la même PR que son correctif.
    Une étiquette de km peut être décalée pour ne pas toucher sa voisine :
    « 175.5 » centré entre deux traits (2001/2) appartenait au trait
    précédent, sans nom, et Stekene n'avait pas de km — seule l'échelle
-   px/km départage.
+   px/km départage. Houssoy-le-Farcy, Troissereux, Fouquenies et Beauvais
+   (1984/5) : quatre noms pour trois chiffres, tout avait glissé d'un cran,
+   6,2 km de ligne droite pour 5 au profil trahissaient l'erreur.
 4. **Un nom sans km imprimé n'est pas placé**, même si sa position sur
    l'axe semble lisible — il garde une note qui le dit (Le Champ du Feu
    1987/6). Exception tolérée : un col majeur indispensable à la mesure,
@@ -105,6 +107,10 @@ dans la même PR que son correctif.
     983 m pour 650 imprimés, Aime à 895 pour 680, La Giettaz à 1 304 pour
     1 080, et « Chaumeil (village) » à 630 pour 530 : ce dernier n’était
     vraisemblablement pas le village (relecture 1987).
+    **Avant de conclure à un écart de la source, relire le chiffre et le
+    situer sur la courbe** : Recoules-Prévinquières et Lapanouse (1984/14),
+    transcrits 820 et 830, étaient imprimés 620 et 630 ; le centre de la
+    commune, jugé bon par erreur sur ce témoin, cachait la vraie position.
     **Mesurer l'altitude au point stocké**, pas au centre que renvoie
     une nouvelle recherche Nominatim : en 1988, sept côtes notées « au
     pied » l'étaient pour le centroïde administratif, alors que le point
@@ -167,7 +173,10 @@ dans la même PR que son correctif.
     revoir) :
     6 km ou plus entre l’entrée et l’arrivée (Pau 1995/16 : 6 km). En
     deçà, l'entrée reste un point de passage (non déclarée en 1991 :
-    Argentan, Alençon, Castres, Aix-les-Bains, Mâcon).
+    Argentan, Alençon, Castres, Aix-les-Bains, Mâcon). Ce seuil vise une
+    « entrée » : un « 1er passage » imprimé (règle 18) annonce un circuit
+    sans seuil (1985/2, 1985/5, 2024/2, 1984/1, 5, 12, 14 ; 2018/10 fait
+    exception).
 20. **Avant d'accuser la transcription — ou d'écrire « cause non
     établie » —, comparer au routage voiture.** Pontorson → Précey
     (1993/4), noté « cause non établie », faisait 12,8 km en voiture pour

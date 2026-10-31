@@ -1224,6 +1224,7 @@
     },
     "1": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_1.jpg",
+     "circuit_km": 120,
      "towns": [
       {
        "label": "Bondy",
@@ -1321,11 +1322,12 @@
        "label": "Côte de Gagny",
        "km": 47,
        "kind": "côte",
-       "note": "130 m imprimés ; 4e catégorie",
-       "lat": 48.88013,
-       "lon": 2.55427,
+       "note": "130 m imprimés ; 4e catégorie ; placé à la mairie de Gagny (65 m au MNT) : non routé, comme Coubron et Rosny. Sommet non trouvé : l'ancien point, sur le lieu-dit « Côte du Chênet » (autre nom), était à 70 m, Côte de Bellevue 86 m et Côte de Montguichet 83 m au MNT, aucune à 130",
+       "lat": 48.88485,
+       "lon": 2.53668,
        "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "ok",
+       "geocodeAs": "Gagny"
       },
       {
        "label": "Clichy-sous-Bois",
@@ -1429,7 +1431,7 @@
        "label": "Épinay-sur-Seine",
        "km": 103.5,
        "kind": "ville",
-       "note": "65 m imprimés ; imprimé « 113,5 », coquille : le chiffre et le trait sont entre les graduations 100 et 110 ; lu 103,5 à l'échelle",
+       "note": "65 m imprimés ; imprimé « 113,5 », coquille : le chiffre et le trait sont entre les graduations 100 et 110 ; lu 103,5 à l'échelle ; aller-retour de 1,6 km vers L'Île-Saint-Denis en voiture, identique sur la mairie (essayée, règle 17), à revoir à vélo",
        "lat": 48.95252,
        "lon": 2.3145,
        "how": "commune-ign",
@@ -1469,7 +1471,7 @@
        "label": "Saint-Denis (1er passage)",
        "km": 120,
        "kind": "ville",
-       "note": "50 m imprimés ; aucun km imprimé (trait sur la graduation 120), non placé (règle 4)",
+       "note": "50 m imprimés ; aucun km imprimé (trait sur la graduation 120), non placé (règle 4) ; entrée du circuit (circuit_km 120)",
        "confidence": "non-place"
       },
       {
@@ -1533,19 +1535,7 @@
        "confidence": "ok"
       }
      ],
-     "route_check": {
-      "routed_km": 125.2,
-      "profile_km": 141,
-      "delta_pct": -11.2,
-      "tolerance_pct": 5,
-      "coverage_pct": 95,
-      "car_legs": 23,
-      "legs": 23,
-      "suspect_legs": 4,
-      "backtracks": 2,
-      "backtracks_uncertain": 2
-     },
-     "note": "Hypothèse (règle 19) : aucun circuit_km. « Saint-Denis 1er passage » (trait sur la graduation 120, sans km) ouvre une boucle de 28,5 km dont les points sont imprimés un à un, pas des tours répétés : elle est mesurée, ce que la carte de l'image rend vraisemblable sans le prouver."
+     "note": "Circuit (règle 19) : « Saint-Denis 1er passage » imprimé au km 120 (circuit_km) ; Épinay, L'Île-Saint-Denis, Saint-Ouen, Aubervilliers et Saint-Denis reviennent ensuite dans le même ordre : un tour répété, hors mesure. Le circuit ne corrige pas l'écart : −17,6 % en voiture sur les km 7,5 → 117 (90,2 km routés pour 109,5) une fois la Côte de Gagny sortie de la route, environ −14 % avant : cause non résolue. Neuilly-Plaisance → Livry-Gargan : aller-retour incertain de 4,2 km, point non placé sauté. Tronçons (mesures en voiture, repli OSRM, tri provisoire à refaire à vélo) : Montfermeil → Neuilly-Plaisance 8,3 km pour 14, Livry-Gargan → Les Pavillons 2,5 pour 9, Épinay → L'Île-Saint-Denis 3,6 pour 7 : route directe plus courte que le profil, boucles urbaines que le profil ne nomme pas (hypothèse ; deux noms du premier tronçon sont non placés) ; Saint-Ouen → Aubervilliers 3,5 km en ligne droite pour 2,5, km imprimés 114,5 et 117, le second passage donne 3 : écart de la source ou point de commune, non tranché."
     },
     "2": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_2.jpg",
@@ -1967,18 +1957,6 @@
       }
      ],
      "circuit_km": 240.3,
-     "route_check": {
-      "routed_km": 250.3,
-      "profile_km": 235.8,
-      "delta_pct": 6.1,
-      "tolerance_pct": 5,
-      "coverage_pct": 95,
-      "car_legs": 34,
-      "legs": 34,
-      "suspect_legs": 0,
-      "backtracks": 0,
-      "backtracks_uncertain": 0
-     },
      "note": "Départ : Bobigny → Aulnay-sous-Bois 5,0 km à vol d'oiseau pour 4,5 au profil, départ réel hors du centre, non situé (règle 25). Départ : mairie de proximité de Bobigny à 1,4 km du point, hôtel de ville lui-même non retrouvé par Nominatim (règle 25). Circuit (règle 19) : Louvroil « entrée du circuit » au km 240,3 (circuit_km), lecture des km verticaux à confirmer."
     },
     "3": {
@@ -2058,8 +2036,11 @@
        "label": "Villereau (Le Ramponneau)",
        "km": 28.5,
        "kind": "ville",
-       "note": "100 m imprimés ; imprimé « Villereau-le-Ramponneau » ; non placé : lieu-dit introuvable (Nominatim), le centre de Villereau ne le situe pas",
-       "confidence": "non-place"
+       "note": "100 m imprimés ; imprimé « Villereau-le-Ramponneau » ; arrêt de bus « Ramponneau » (graphie Ramponeau sur la route, règle 21), 101,6 m au MNT",
+       "confidence": "ok",
+       "lat": 50.2568,
+       "lon": 3.6523,
+       "how": "nominatim"
       },
       {
        "label": "Le Quesnoy",
@@ -2149,18 +2130,7 @@
        "confidence": "ok"
       }
      ],
-     "route_check": {
-      "routed_km": 52.9,
-      "profile_km": 47.5,
-      "delta_pct": 11.4,
-      "tolerance_pct": 5,
-      "coverage_pct": 93,
-      "car_legs": 13,
-      "legs": 13,
-      "suspect_legs": 1,
-      "backtracks": 0,
-      "backtracks_uncertain": 0
-     }
+     "note": "Aulnoy-lez-Valenciennes → Marly : 3,4 km routés, 2,3 à vol d'oiseau, pour 0,5 au profil (mesures en voiture, repli OSRM, tri provisoire à refaire à vélo) ; km 47,5 et 48 bien imprimés ; les deux mairies essayées donnent 3,4 et 2,2 : écart de la source."
     },
     "4": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_4.jpg",
@@ -2211,18 +2181,7 @@
        "confidence": "ok"
       }
      ],
-     "route_check": {
-      "routed_km": 66.9,
-      "profile_km": 60.5,
-      "delta_pct": 10.5,
-      "tolerance_pct": 5,
-      "coverage_pct": 73,
-      "car_legs": 3,
-      "legs": 3,
-      "suspect_legs": 0,
-      "backtracks": 1,
-      "backtracks_uncertain": 0
-     }
+     "note": "Hénin-Beaumont → Lens : aller-retour de 1,5 km en voiture, resté sur la mairie (essayée, règle 17) ; à revoir à vélo."
     },
     "5": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_5.jpg",
@@ -2444,19 +2403,16 @@
       },
       {
        "label": "Houssoy-le-Farcy",
-       "km": 142.5,
+       "km": 140,
        "kind": "ville",
-       "note": "180 m imprimés",
-       "lat": 49.48829,
-       "lon": 2.06958,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "180 m imprimés ; aucun km imprimé (trait sur la graduation 140), non placé (règle 4) : relecture, quatre noms pour trois chiffres (règle 3), « 142,5 » était celui de Troissereux",
+       "confidence": "non-place"
       },
       {
        "label": "Troissereux",
-       "km": 146,
+       "km": 142.5,
        "kind": "ville",
-       "note": "105 m imprimés",
+       "note": "105 m imprimés ; km relu à l'échelle : trait à 142,5, dans la descente",
        "lat": 49.48052,
        "lon": 2.04482,
        "how": "commune-ign",
@@ -2464,10 +2420,13 @@
       },
       {
        "label": "Fouquenies",
-       "km": 148.5,
+       "km": 146,
        "kind": "ville",
-       "note": "60 m imprimés ; aucun chiffre sous la colonne (entre 146 et 151) ; aucun km imprimé lisible, km interpolé entre les voisins pour l'ordre seulement, non placé (règle 4)",
-       "confidence": "non-place"
+       "note": "60 m imprimés ; km relu à l'échelle : « 146 » est sous son trait ; mairie",
+       "confidence": "ok",
+       "lat": 49.46625,
+       "lon": 2.04131,
+       "how": "nominatim"
       },
       {
        "label": "Beauvais",
@@ -2556,19 +2515,7 @@
       }
      ],
      "circuit_km": 204.5,
-     "route_check": {
-      "routed_km": 215.4,
-      "profile_km": 199.5,
-      "delta_pct": 8,
-      "tolerance_pct": 5,
-      "coverage_pct": 96,
-      "car_legs": 24,
-      "legs": 24,
-      "suspect_legs": 2,
-      "backtracks": 0,
-      "backtracks_uncertain": 0
-     },
-     "note": "Départ : Béthune → Nœux-les-Mines 5,8 km à vol d'oiseau pour 5 au profil, départ réel hors du centre, non situé (règle 25). Circuit (règle 19) : 1er passage à Cergy-Pontoise au km 204,5 (circuit_km), arrivée au km 207,2 : moins de 6 km, déclaré comme le 1er passage de 1985/5, hypothèse."
+     "note": "Départ : Béthune → Nœux-les-Mines 5,8 km à vol d'oiseau pour 5 au profil, départ réel hors du centre, non situé (règle 25). Circuit (règle 19) : 1er passage à Cergy-Pontoise au km 204,5 (circuit_km), arrivée au km 207,2 : moins de 6 km, déclaré comme le 1er passage de 1985/5, hypothèse. Rubempré → Rainneville : 5,5 km à vol d'oiseau pour 4 au profil ; km 75 et 79 bien imprimés, mairies sans effet : écart de la source (5,8 km en voiture)."
     },
     "6": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_6.jpg",
@@ -2808,18 +2755,7 @@
        "confidence": "ok"
       }
      ],
-     "route_check": {
-      "routed_km": 199.5,
-      "profile_km": 193.5,
-      "delta_pct": 3.1,
-      "tolerance_pct": 5,
-      "coverage_pct": 96,
-      "car_legs": 20,
-      "legs": 20,
-      "suspect_legs": 1,
-      "backtracks": 0,
-      "backtracks_uncertain": 0
-     }
+     "note": "Côte d'Ivry-la-Bataille → Saint-André-de-l'Eure : 13,7 km à vol d'oiseau pour 12 au profil, km 60,5 et 72,5 bien imprimés ; la côte est au centre d'Ivry, son sommet n'est pas situé : cause vraisemblable, non prouvée."
     },
     "7": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_7.jpg",
@@ -2982,19 +2918,7 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ],
-     "route_check": {
-      "routed_km": 56,
-      "profile_km": 52.5,
-      "delta_pct": 6.7,
-      "tolerance_pct": 5,
-      "coverage_pct": 78,
-      "car_legs": 11,
-      "legs": 11,
-      "suspect_legs": 0,
-      "backtracks": 1,
-      "backtracks_uncertain": 0
-     }
+     ]
     },
     "8": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_8.jpg",
@@ -3067,19 +2991,7 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ],
-     "route_check": {
-      "routed_km": 138.9,
-      "profile_km": 144.5,
-      "delta_pct": -3.9,
-      "tolerance_pct": 5,
-      "coverage_pct": 75,
-      "car_legs": 4,
-      "legs": 4,
-      "suspect_legs": 0,
-      "backtracks": 0,
-      "backtracks_uncertain": 0
-     }
+     ]
     },
     "9": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_9.jpg",
@@ -3202,18 +3114,6 @@
        "confidence": "ok"
       }
      ],
-     "route_check": {
-      "routed_km": 326.6,
-      "profile_km": 314.5,
-      "delta_pct": 3.8,
-      "tolerance_pct": 5,
-      "coverage_pct": 93,
-      "car_legs": 9,
-      "legs": 9,
-      "suspect_legs": 0,
-      "backtracks": 0,
-      "backtracks_uncertain": 0
-     },
      "note": "Départ : Nantes → La Planche 24,2 km à vol d'oiseau pour 23,5 au profil, départ réel hors du centre, non situé (règle 25)."
     },
     "10": {
@@ -3526,18 +3426,6 @@
        "confidence": "ok"
       }
      ],
-     "route_check": {
-      "routed_km": 201.4,
-      "profile_km": 192,
-      "delta_pct": 4.9,
-      "tolerance_pct": 5,
-      "coverage_pct": 97,
-      "car_legs": 25,
-      "legs": 25,
-      "suspect_legs": 1,
-      "backtracks": 0,
-      "backtracks_uncertain": 0
-     },
      "note": "Départ : Langon → Roaillan 6,7 km à vol d'oiseau pour 6 au profil, départ réel hors du centre, non situé (règle 25)."
     },
     "11": {
@@ -3845,19 +3733,7 @@
        "confidence": "ok"
       }
      ],
-     "route_check": {
-      "routed_km": 216.7,
-      "profile_km": 219.5,
-      "delta_pct": -1.3,
-      "tolerance_pct": 5,
-      "coverage_pct": 97,
-      "car_legs": 26,
-      "legs": 26,
-      "suspect_legs": 1,
-      "backtracks": 0,
-      "backtracks_uncertain": 0
-     },
-     "note": "Départ : Pau → Bordes 9,8 km à vol d'oiseau pour 7 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Pau → Bordes 9,8 km à vol d'oiseau pour 7 au profil, départ réel hors du centre, non situé (règle 25). Trébons → Bagnères-de-Bigorre : 4,7 km à vol d'oiseau pour 3 au profil (4,4 sur la mairie de Bagnères, essayée, point gardé) ; km 55,5 et 58,5 bien imprimés : écart de la source, non établi plus avant."
     },
     "12": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_12.jpg",
@@ -4061,18 +3937,6 @@
       }
      ],
      "circuit_km": 107.2,
-     "route_check": {
-      "routed_km": 112,
-      "profile_km": 102.7,
-      "delta_pct": 9,
-      "tolerance_pct": 5,
-      "coverage_pct": 93,
-      "car_legs": 16,
-      "legs": 16,
-      "suspect_legs": 1,
-      "backtracks": 0,
-      "backtracks_uncertain": 0
-     },
      "note": "Circuit (règle 19) : 1er passage à Blagnac au km 107,2 (circuit_km), arrivée au km 111 : moins de 6 km, déclaré comme le 1er passage de 1985/5, hypothèse."
     },
     "13": {
@@ -4361,18 +4225,6 @@
        "confidence": "ok"
       }
      ],
-     "route_check": {
-      "routed_km": 204.6,
-      "profile_km": 215,
-      "delta_pct": -4.8,
-      "tolerance_pct": 5,
-      "coverage_pct": 98,
-      "car_legs": 22,
-      "legs": 22,
-      "suspect_legs": 0,
-      "backtracks": 0,
-      "backtracks_uncertain": 0
-     },
      "note": "Départ : Blagnac → Seilh 7,7 km à vol d'oiseau pour 5,5 au profil, départ réel hors du centre, non situé (règle 25)."
     },
     "14": {
@@ -4439,9 +4291,9 @@
        "label": "Recoules-Prévinquières",
        "km": 53,
        "kind": "ville",
-       "note": "820 m imprimés",
-       "lat": 44.32466,
-       "lon": 2.9425,
+       "note": "620 m imprimés, relu au zoom (820 lu d'abord) ; mairie déléguée, au Cayrol (645 m au MNT) : le centre de la commune, à 796 m, donnait 7 km routés depuis Vézins pour 14,5 au profil (règle 17)",
+       "lat": 44.34168,
+       "lon": 2.97148,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -4449,7 +4301,7 @@
        "label": "Lapanouse",
        "km": 59,
        "kind": "ville",
-       "note": "830 m imprimés ; village à 657 m au MNT pour 830 imprimés : écart de la source, seul Lapanouse sur la route",
+       "note": "630 m imprimés, relu au zoom (830 lu d'abord) ; village à 657 m au MNT ; depuis Recoules 7,6 km routés, 4,8 à vol d'oiseau, pour 6 au profil, aller-retour de 1,1 km en voiture à revoir à vélo",
        "lat": 44.33488,
        "lon": 3.03068,
        "how": "nominatim",
@@ -4459,7 +4311,7 @@
        "label": "Côte de Sévérac-le-Château",
        "km": 63,
        "kind": "côte",
-       "note": "735 m imprimés ; 4e catégorie",
+       "note": "735 m imprimés ; 4e catégorie ; point sur la D 809 (Montalies), 700 m au MNT : relu, gardé, le sommet exact n'est pas situé",
        "lat": 44.3151,
        "lon": 3.07313,
        "how": "nominatim",
@@ -4499,7 +4351,7 @@
        "label": "Côte des Vignes",
        "km": 90.5,
        "kind": "côte",
-       "note": "880 m imprimés ; 2e catégorie ; placé à « Les Vignes » (Nominatim borné), altitude 946 m ; village éponyme, pas le sommet : non routé",
+       "note": "880 m imprimés ; 2e catégorie ; point administratif de la commune chez Nominatim, à 946 m au MNT, route de la Malène, à 2,5 km à vol d'oiseau du village (425 m) : ni le village ni le sommet ; aucun objet de ce nom sur la route : non routé (règle 21)",
        "confidence": "ok",
        "lat": 44.26502,
        "lon": 3.25238,
@@ -4625,7 +4477,7 @@
        "label": "Grospierres",
        "km": 219.5,
        "kind": "ville",
-       "note": "120 m imprimés",
+       "note": "120 m imprimés ; aller-retour de 3,6 km vers le Domaine du Rouret en voiture, identique sur la mairie (essayée, règle 17) ; Saint-Paul-le-Jeune → bourg 12,7 km à vol d'oiseau pour 10,5 au profil, km 209 et 219,5 bien imprimés, mais le Rouret, à l'ouest de la commune, n'en est qu'à 10,1 : le passage du km 219,5 serait à l'ouest du bourg (hypothèse)",
        "lat": 44.4002,
        "lon": 4.28953,
        "how": "commune-ign",
@@ -4635,7 +4487,7 @@
        "label": "Domaine du Rouret (1er passage)",
        "km": 223.1,
        "kind": "ville",
-       "note": "150 m imprimés ; imprimé « Domaine du Château de Rouret (premier passage) » ; village de vacances Le Rouret (150 m au MNT)",
+       "note": "150 m imprimés ; imprimé « Domaine du Château de Rouret (premier passage) » ; village de vacances Le Rouret (150 m au MNT), à environ 150 m du « Château du Rouret » que Nominatim connaît à Grospierres (44.3791, 4.2667 ; 141 m) : le nom est confirmé, pas son lien avec 1984",
        "lat": 44.37941,
        "lon": 4.26849,
        "how": "nominatim",
@@ -4645,7 +4497,7 @@
        "label": "Domaine du Rouret",
        "km": 227.5,
        "kind": "ville",
-       "note": "150 m imprimés ; village de vacances Le Rouret (150 m au MNT)",
+       "note": "150 m imprimés ; village de vacances Le Rouret (150 m au MNT), à environ 150 m du « Château du Rouret » que Nominatim connaît à Grospierres (44.3791, 4.2667 ; 141 m) : le nom est confirmé, pas son lien avec 1984",
        "lat": 44.37941,
        "lon": 4.26849,
        "how": "nominatim",
@@ -4653,19 +4505,7 @@
       }
      ],
      "circuit_km": 223.1,
-     "route_check": {
-      "routed_km": 223.2,
-      "profile_km": 216.6,
-      "delta_pct": 3.1,
-      "tolerance_pct": 5,
-      "coverage_pct": 95,
-      "car_legs": 19,
-      "legs": 19,
-      "suspect_legs": 3,
-      "backtracks": 1,
-      "backtracks_uncertain": 0
-     },
-     "note": "Départ : Rodez → Agen-d'Aveyron 8,3 km à vol d'oiseau pour 6,5 au profil, départ réel hors du centre, non situé (règle 25). Arrivée au Domaine du Rouret : même point, village de vacances Le Rouret (Grospierres), identification par le nom, sans source de 1984. Circuit (règle 19) : 1er passage au Domaine du Rouret au km 223,1 (circuit_km), arrivée au km 227,5 : moins de 6 km, déclaré comme le 1er passage de 1985/5, hypothèse."
+     "note": "Départ : Rodez → Agen-d'Aveyron 8,3 km à vol d'oiseau pour 6,5 au profil, départ réel hors du centre, non situé (règle 25). Arrivée au Domaine du Rouret : même point, village de vacances Le Rouret (Grospierres) ; nom confirmé par le Château du Rouret de Nominatim, lien avec 1984 sans source. Circuit (règle 19) : 1er passage au Domaine du Rouret au km 223,1 (circuit_km), arrivée au km 227,5 : moins de 6 km, déclaré comme le 1er passage de 1985/5, hypothèse."
     },
     "15": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_15.jpg",
@@ -4977,18 +4817,6 @@
        "confidence": "ok"
       }
      ],
-     "route_check": {
-      "routed_km": 243.1,
-      "profile_km": 239,
-      "delta_pct": 1.7,
-      "tolerance_pct": 5,
-      "coverage_pct": 99,
-      "car_legs": 24,
-      "legs": 24,
-      "suspect_legs": 0,
-      "backtracks": 0,
-      "backtracks_uncertain": 0
-     },
      "note": "Départ : Domaine du Rouret → Grospierres-la-Gare 3,8 km à vol d'oiseau pour 2,5 au profil, départ réel hors du centre, non situé (règle 25). Départ : le Domaine du Rouret est un lieu-dit sans mairie ; point sur le village de vacances Le Rouret (Grospierres), identification par le nom, sans source de 1984."
     },
     "16": {
@@ -5074,19 +4902,7 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ],
-     "route_check": {
-      "routed_km": 22.6,
-      "profile_km": 21,
-      "delta_pct": 7.4,
-      "tolerance_pct": 5,
-      "coverage_pct": 95,
-      "car_legs": 6,
-      "legs": 6,
-      "suspect_legs": 0,
-      "backtracks": 1,
-      "backtracks_uncertain": 0
-     }
+     ]
     },
     "17": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_17.jpg",
@@ -5219,10 +5035,10 @@
        "label": "Meylan",
        "km": 72,
        "kind": "ville",
-       "note": "280 m imprimés",
-       "lat": 45.20974,
-       "lon": 5.77836,
-       "how": "commune-ign",
+       "note": "280 m imprimés ; arrêt « Ancienne Mairie », avenue de Chartreuse (287 m au MNT) : sur la route de Grenoble, la mairie actuelle laissait 5,8 km de ligne droite depuis Saint-Ismier pour 4,5 au profil (règle 17)",
+       "lat": 45.21786,
+       "lon": 5.77973,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -5269,9 +5085,9 @@
        "label": "Côte de Laffrey",
        "km": 104,
        "kind": "côte",
-       "note": "910 m imprimés ; 1re catégorie",
-       "lat": 45.01824,
-       "lon": 5.78622,
+       "note": "910 m imprimés ; 1re catégorie ; point de la commune (905 m au MNT, Le Pey) : l'ancien point, Côte Froide, était à 963 m et faisait un aller-retour de 2,3 km en voiture vers Séchilienne",
+       "lat": 45.0257,
+       "lon": 5.77303,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -5350,19 +5166,7 @@
        "confidence": "ok"
       }
      ],
-     "route_check": {
-      "routed_km": 152.5,
-      "profile_km": 146.5,
-      "delta_pct": 4.1,
-      "tolerance_pct": 5,
-      "coverage_pct": 97,
-      "car_legs": 21,
-      "legs": 21,
-      "suspect_legs": 2,
-      "backtracks": 1,
-      "backtracks_uncertain": 1
-     },
-     "note": "Départ : Grenoble → Saint-Égrève 6,5 km à vol d'oiseau pour 4,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Grenoble → Saint-Égrève 6,5 km à vol d'oiseau pour 4,5 au profil, départ réel hors du centre, non situé (règle 25). Côte de Saint-Pierre-de-Chartreuse → Col du Coq : 9,4 km en voiture pour 13,5 au profil ; non trié, à revoir à vélo."
     },
     "18": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_18.jpg",
@@ -5521,7 +5325,7 @@
        "label": "Doucy",
        "km": 141.5,
        "kind": "ville",
-       "note": "950 m imprimés ; village (978 m au MNT), pas le centre de la commune",
+       "note": "950 m imprimés ; village (978 m au MNT), pas le centre de la commune ; point à revoir : Celliers → Doucy 26,8 km routés en voiture, 4,7 à vol d'oiseau, pour 9,5 au profil, en passant par Saint-Oyen (aller-retour de 5,5 km) ; le centre de la commune donne 30,1 km ; Celliers → Saint-Oyen 21,3 km pour 14,5 : pas de route directe chez OSRM, tracé de 1984 non établi",
        "lat": 45.5026,
        "lon": 6.46988,
        "how": "nominatim",
@@ -5582,18 +5386,7 @@
        "confidence": "ok"
       }
      ],
-     "route_check": {
-      "routed_km": 200.3,
-      "profile_km": 174.5,
-      "delta_pct": 14.8,
-      "tolerance_pct": 5,
-      "coverage_pct": 94,
-      "car_legs": 18,
-      "legs": 18,
-      "suspect_legs": 2,
-      "backtracks": 1,
-      "backtracks_uncertain": 0
-     }
+     "note": "Écart largement dû à Celliers → Doucy (voir ce point). Saint-Michel-de-Maurienne → Saint-Jean-de-Maurienne : 12,1 km à vol d'oiseau pour 11 au profil, points de commune, non corrigé."
     },
     "19": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_19.jpg",
@@ -5888,18 +5681,6 @@
        "confidence": "ok"
       }
      ],
-     "route_check": {
-      "routed_km": 183.5,
-      "profile_km": 181.5,
-      "delta_pct": 1.1,
-      "tolerance_pct": 5,
-      "coverage_pct": 98,
-      "car_legs": 24,
-      "legs": 24,
-      "suspect_legs": 0,
-      "backtracks": 0,
-      "backtracks_uncertain": 0
-     },
      "note": "Le km 0 (690 m imprimés) est dans la vallée, pas à la station de La Plagne : départ réel non situé (règle 25)."
     },
     "20": {
@@ -6140,9 +5921,9 @@
        "label": "Granges",
        "km": 116,
        "kind": "ville",
-       "note": "510 m imprimés ; imprimé « Granges Gare »",
-       "lat": 46.25885,
-       "lon": 7.46305,
+       "note": "510 m imprimés ; imprimé « Granges Gare », placé sur Granges-Gare (529 m EU-DEM) : le point précédent faisait un aller-retour de 1,2 km",
+       "lat": 46.2656,
+       "lon": 7.4583,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -6150,9 +5931,9 @@
        "label": "Sierre",
        "km": 121,
        "kind": "ville",
-       "note": "534 m imprimés",
-       "lat": 46.29225,
-       "lon": 7.53232,
+       "note": "534 m imprimés ; Hôtel de ville (543 m EU-DEM) ; depuis Granges-Gare 6,6 km à vol d'oiseau pour 5 au profil, km 116 et 121 bien imprimés : écart de la source",
+       "lat": 46.29305,
+       "lon": 7.534,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -6204,18 +5985,6 @@
        "confidence": "ok"
       }
      ],
-     "route_check": {
-      "routed_km": 140.6,
-      "profile_km": 133.5,
-      "delta_pct": 5.3,
-      "tolerance_pct": 5,
-      "coverage_pct": 95,
-      "car_legs": 25,
-      "legs": 25,
-      "suspect_legs": 1,
-      "backtracks": 1,
-      "backtracks_uncertain": 0
-     },
      "note": "Départ : Morzine → Saint-Jean-d'Aulps 7,4 km à vol d'oiseau pour 7 au profil, départ réel hors du centre, non situé (règle 25)."
     },
     "21": {
@@ -6255,7 +6024,7 @@
        "label": "Martigny",
        "km": 25.5,
        "kind": "ville",
-       "note": "476 m imprimés",
+       "note": "476 m imprimés ; Saxon → Martigny 9,6 km à vol d'oiseau pour 8,5 au profil ; le même tronçon fait 9,5 km sur le profil de 1984/20 : écart de la source",
        "lat": 46.10312,
        "lon": 7.07274,
        "how": "nominatim",
@@ -6302,9 +6071,9 @@
        "label": "Muraz",
        "km": 51.5,
        "kind": "ville",
-       "note": "400 m imprimés",
-       "lat": 46.26767,
-       "lon": 6.94607,
+       "note": "400 m imprimés ; village de Muraz (403 m EU-DEM), pas la commune, qui donnait 8,9 km de ligne droite vers Vouvry pour 7",
+       "lat": 46.27898,
+       "lon": 6.92767,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -6349,7 +6118,7 @@
        "label": "Locum",
        "km": 73.5,
        "kind": "ville",
-       "note": "380 m imprimés",
+       "note": "380 m imprimés ; km 73,5 relu au zoom ×12, colonne vers 73 à 74 : 72,5 écarté",
        "lat": 46.40249,
        "lon": 6.75555,
        "how": "nominatim",
@@ -6359,7 +6128,7 @@
        "label": "Meillerie",
        "km": 75,
        "kind": "ville",
-       "note": "380 m imprimés",
+       "note": "380 m imprimés ; chiffre « 75 » lu, colonne vers 77 à l'échelle : Locum → Meillerie 2,8 km à vol d'oiseau pour 1,5, écart du chiffre ou de l'image floue, non tranché",
        "lat": 46.40726,
        "lon": 6.7196,
        "how": "commune-ign",
@@ -6556,19 +6325,16 @@
       },
       {
        "label": "Anglefort",
-       "km": 205,
+       "km": 200,
        "kind": "ville",
-       "note": "270 m imprimés",
-       "lat": 45.91181,
-       "lon": 5.80868,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "270 m imprimés ; sur la graduation 200, sans km imprimé, non placé (règle 4)",
+       "confidence": "non-place"
       },
       {
        "label": "Châtel",
-       "km": 208.5,
+       "km": 205,
        "kind": "ville",
-       "note": "260 m imprimés ; km lu sur l'image floue, à l'échelle ; Nominatim borné : « Châtel »",
+       "note": "260 m imprimés ; km 205 lu à l'échelle sur l'image floue ; Nominatim borné : « Châtel »",
        "lat": 45.86762,
        "lon": 5.80203,
        "how": "nominatim",
@@ -6576,17 +6342,23 @@
       },
       {
        "label": "Culoz",
-       "km": 212,
+       "km": 208.5,
        "kind": "ville",
-       "note": "258 m imprimés ; km illisible (rangée haute) sur l'image floue, km interpolé pour l'ordre seulement, non placé (règle 4)",
-       "confidence": "non-place"
+       "note": "258 m imprimés ; km 208,5 lu à l'échelle sur l'image floue ; mairie",
+       "confidence": "ok",
+       "lat": 45.84746,
+       "lon": 5.78103,
+       "how": "nominatim"
       },
       {
        "label": "Artemare",
-       "km": 214,
+       "km": 216,
        "kind": "ville",
-       "note": "260 m imprimés ; km illisible sur l'image floue ; aucun km imprimé lisible, km interpolé entre les voisins pour l'ordre seulement, non placé (règle 4)",
-       "confidence": "non-place"
+       "note": "260 m imprimés ; km 216 environ, lu à l'échelle sur l'image floue ; mairie",
+       "confidence": "ok",
+       "lat": 45.87522,
+       "lon": 5.69332,
+       "how": "nominatim"
       },
       {
        "label": "Côte de Massignieu",
@@ -6600,9 +6372,9 @@
       },
       {
        "label": "Pugieu",
-       "km": 228.5,
+       "km": 226.5,
        "kind": "ville",
-       "note": "258 m imprimés",
+       "note": "258 m imprimés ; km 226,5 lu à l'échelle sur l'image floue",
        "lat": 45.82067,
        "lon": 5.64855,
        "how": "nominatim",
@@ -6716,7 +6488,7 @@
        "label": "Ars-sur-Formans",
        "km": 308.5,
        "kind": "ville",
-       "note": "240 m imprimés ; imprimé « Ars »",
+       "note": "240 m imprimés ; imprimé « Ars » ; Ambérieux → Ars 6,2 km à vol d'oiseau pour 5 au profil ; chiffre très flou, 308,5 ou 309,5 : non tranché",
        "lat": 45.9925,
        "lon": 4.82247,
        "how": "commune-ign",
@@ -6743,19 +6515,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Crans-Montana, imprimé en tête du profil, n'est pas un point : Sion (480 m) est au km 0 réel et le test d'invariant de test/placeSearch.test.js impose des km strictement croissants, donc deux points au km 0 sont refusés, et lui donner un autre km l'inventerait. Image très floue (468×141) : km lus à l'échelle quand les chiffres se devinent, les autres gardés non placés. Départ : Sion → Magnot 7,3 km à vol d'oiseau pour 5,5 au profil, départ réel hors du centre, non situé (règle 25).",
-     "route_check": {
-      "routed_km": 335.8,
-      "profile_km": 314,
-      "delta_pct": 6.9,
-      "tolerance_pct": 5,
-      "coverage_pct": 98,
-      "car_legs": 43,
-      "legs": 43,
-      "suspect_legs": 6,
-      "backtracks": 0,
-      "backtracks_uncertain": 1
-     }
+     "note": "Crans-Montana, imprimé en tête du profil, n'est pas un point : Sion (480 m) est au km 0 réel et le test d'invariant de test/placeSearch.test.js impose des km strictement croissants, donc deux points au km 0 sont refusés, et lui donner un autre km l'inventerait. Image très floue (468×141) : km lus à l'échelle quand les chiffres se devinent (graduations 210 et 220 ; km 216 d'Artemare et 226,5 de Pugieu tirés de l'échelle, pas d'un chiffre lisible), les autres gardés non placés. Départ : Sion → Magnot 7,3 km à vol d'oiseau pour 5,5 au profil, départ réel hors du centre, non situé (règle 25)."
     },
     "22": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_22.jpg",
@@ -6804,9 +6564,9 @@
        "label": "Villié-Morgon (passage)",
        "km": 15.5,
        "kind": "ville",
-       "note": "280 m imprimés ; imprimé « Villié-Morgon »",
-       "lat": 46.15621,
-       "lon": 4.66517,
+       "note": "280 m imprimés ; imprimé « Villié-Morgon » ; au bourg (281 m au MNT), comme le départ",
+       "lat": 46.16124,
+       "lon": 4.68127,
        "how": "commune-ign",
        "confidence": "ok"
       },
@@ -6841,7 +6601,7 @@
        "label": "Vaux-en-Beaujolais",
        "km": 34.5,
        "kind": "ville",
-       "note": "320 m imprimés ; mairie (352 m au MNT, règle 17)",
+       "note": "320 m imprimés ; mairie (352 m au MNT, règle 17) ; aller-retour de 3,9 km vers Blacéret en voiture, resté sur la mairie : à revoir à vélo",
        "lat": 46.05543,
        "lon": 4.59104,
        "how": "nominatim",
@@ -6877,19 +6637,7 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ],
-     "route_check": {
-      "routed_km": 50.8,
-      "profile_km": 48,
-      "delta_pct": 5.8,
-      "tolerance_pct": 5,
-      "coverage_pct": 94,
-      "car_legs": 9,
-      "legs": 9,
-      "suspect_legs": 0,
-      "backtracks": 1,
-      "backtracks_uncertain": 0
-     }
+     ]
     },
     "23": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1984/84_23.jpg",
@@ -7178,26 +6926,14 @@
        "label": "Paris",
        "km": 196.5,
        "kind": "ville",
-       "note": "35 m imprimés",
-       "lat": 48.8535,
-       "lon": 2.34839,
-       "how": "stage_towns",
+       "note": "35 m imprimés ; arrivée sur les Champs-Élysées (comme 1986/23), pas le parvis Notre-Dame",
+       "lat": 48.87076,
+       "lon": 2.30533,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
      "circuit_km": 155,
-     "route_check": {
-      "routed_km": 160.4,
-      "profile_km": 148.5,
-      "delta_pct": 8,
-      "tolerance_pct": 5,
-      "coverage_pct": 75,
-      "car_legs": 20,
-      "legs": 20,
-      "suspect_legs": 0,
-      "backtracks": 0,
-      "backtracks_uncertain": 0
-     },
      "note": "Départ : Pantin → Rosny-sous-Bois 6,8 km à vol d'oiseau pour 6,5 au profil, départ réel hors du centre, non situé (règle 25). Circuit (règle 19) : entrée au pont de la Concorde au km 155 (circuit_km), arrivée au km 196,5."
     }
    }
