@@ -91,6 +91,12 @@ dans la même PR que son correctif.
     `<année>/<étape>`). **Chaque tronçon suspect est trié avant la PR** :
     corrigé, ou justifié par une note. Une ligne droite plus longue que le
     profil (+1 km) est toujours une erreur, de km ou de position.
+    Avant d'écrire « km imprimé en limite de commune » ou « mairie
+    essayée sans gain », relire le chiffre contre la colonne voisine et
+    l'ancre de `stage_towns.json` contre le nom imprimé : en 1983/10 toute
+    une série était décalée d'un cran, en 1983/7 l'arrivée de
+    Saint-Pierre-d'Oléron était l'ancre « Île d'Oléron », tombée dans la
+    commune voisine (audit Mireille).
 12. **Le contrôle ne voit pas tout** : un km décalé de 1 km n'est jamais
     signalé, de 2 km une fois sur cinq. La relecture contre l'image reste
     obligatoire ; « dans la tolérance » ne prouve pas la transcription.
