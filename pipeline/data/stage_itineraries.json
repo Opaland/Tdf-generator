@@ -3083,26 +3083,26 @@
        "label": "Saint-Pierre-d'Oléron",
        "km": 211,
        "kind": "ville",
-       "note": "0 m imprimés ; arrivée (titre « ÎLE D'OLÉRON ») au km total imprimé 211",
-       "lat": 45.97047,
-       "lon": -1.32405,
-       "how": "stage_towns",
+       "note": "0 m imprimés ; arrivée (titre « ÎLE D'OLÉRON ») au km total imprimé 211 ; arrivée placée à la mairie de Saint-Pierre-d'Oléron (Nominatim, amenity=townhall) ; le point de stage_towns « Île d'Oléron » tombait à Chéray, commune de Saint-Georges-d'Oléron (règles 6 et 22, audit Mireille)",
+       "lat": 45.94278,
+       "lon": -1.3073,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
      "route_check": {
-      "routed_km": 210.1,
+      "routed_km": 206,
       "profile_km": 202.5,
-      "delta_pct": 3.7,
+      "delta_pct": 1.7,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
       "legs": 19,
-      "suspect_legs": 3,
+      "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Nantes → Viais 11,3 km à vol d'oiseau pour 8,5 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : Rocheservière → Les Lucs-sur-Boulogne 11,3 km routés, 10,6 à vol d'oiseau, pour 9,5 (11,1 en voiture), km imprimé en limite de commune ; La Roche-sur-Yon → Saint-Florent-des-Bois 12,8 km routés, 12 à vol d'oiseau, pour 11 (12,9 en voiture) ; Les Chasseries → Saint-Pierre-d'Oléron 10,4 km routés, 8,9 à vol d'oiseau, pour 6 (10,4 en voiture), km imprimé en limite de commune (mairie essayée sans gain, règle 17)."
+     "note": "Départ : Nantes → Viais 11,3 km à vol d'oiseau pour 8,5 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : Rocheservière → Les Lucs-sur-Boulogne 11,3 km routés, 10,6 à vol d'oiseau, pour 9,5 (11,1 en voiture), km imprimé en limite de commune ; La Roche-sur-Yon → Saint-Florent-des-Bois 12,8 km routés, 12 à vol d'oiseau, pour 11 (12,9 en voiture)."
     },
     "8": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1983/83_8.jpg",
@@ -3687,19 +3687,25 @@
        "label": "Pau (entrée du circuit)",
        "km": 203,
        "kind": "lieu-dit",
-       "note": "210 m imprimés ; km lu sur la rangée haute",
+       "note": "210 m imprimés ; km lu sur la rangée haute ; non placé : entrée du circuit non située (le point était le centre de Pau)",
+       "confidence": "non-place"
+      },
+      {
+       "label": "Pau",
+       "km": 204.5,
+       "kind": "ville",
+       "note": "arrivée (circuit de 1,5 km depuis l'entrée, sous le seuil d'un circuit final, audit Mireille)",
        "lat": 43.29575,
        "lon": -0.36857,
        "how": "stage_towns",
        "confidence": "ok"
       }
      ],
-     "circuit_km": 203,
-     "note": "Entrée du circuit de Pau au km 203 (circuit_km, règle 19), arrivée au km 204,5. Départ : Bordeaux → Léognan 12,5 km à vol d'oiseau pour 7 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect (règle 11) : Le Vignau → Aire-sur-l'Adour 9,7 km routés, 8,9 à vol d'oiseau, pour 7,5 (9,7 en voiture), km imprimé en limite de commune (mairie essayée sans gain, règle 17).",
+     "note": "Entrée dans Pau au km 203 et arrivée au km 204,5 : 1,5 km, pas un circuit final (règle 19, audit Mireille). Départ : Bordeaux → Léognan 12,5 km à vol d'oiseau pour 7 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect (règle 11) : Le Vignau → Aire-sur-l'Adour 9,7 km routés, 8,9 à vol d'oiseau, pour 7,5 (9,7 en voiture), km imprimé en limite de commune (mairie essayée sans gain, règle 17).",
      "route_check": {
       "routed_km": 198.4,
-      "profile_km": 196,
-      "delta_pct": 1.2,
+      "profile_km": 197.5,
+      "delta_pct": 0.5,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
@@ -3954,19 +3960,16 @@
       },
       {
        "label": "Bordères-Louron",
-       "km": 176.5,
+       "km": 170,
        "kind": "ville",
-       "note": "850 m imprimés ; imprimé « BORDERES-LOURON »",
-       "lat": 42.87204,
-       "lon": 0.3952,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "850 m imprimés ; imprimé « BORDERES-LOURON » ; aucun km imprimé sous le libellé (trait vers 170) (audit Mireille : chiffres décalés d'un cran à la 1re lecture) ; non placé : km approché (règle 4)",
+       "confidence": "non-place"
       },
       {
        "label": "Estarvielle",
-       "km": 181,
+       "km": 176.5,
        "kind": "ville",
-       "note": "1050 m imprimés ; km lu sur la rangée haute, en partie masqué (« 18? », vers 181)",
+       "note": "1050 m imprimés ; km 176,5 sous le libellé (audit Mireille : chiffres décalés d'un cran à la 1re lecture)",
        "lat": 42.81992,
        "lon": 0.4156,
        "how": "commune-ign",
@@ -3974,9 +3977,9 @@
       },
       {
        "label": "Col de Peyresourde",
-       "km": 189.5,
+       "km": 182.5,
        "kind": "col",
-       "note": "1563 m imprimés ; 1re catégorie",
+       "note": "1563 m imprimés ; 1re catégorie ; km lu « 18? », vers 182,5 à l'échelle (audit Mireille : chiffres décalés d'un cran à la 1re lecture) ; col majeur placé malgré le km approché (exception de la règle 4)",
        "lat": 42.80231,
        "lon": 0.46308,
        "how": "nominatim",
@@ -3984,9 +3987,9 @@
       },
       {
        "label": "Garin",
-       "km": 192,
+       "km": 189.5,
        "kind": "ville",
-       "note": "1106 m imprimés",
+       "note": "1106 m imprimés ; km 189,5 sous le libellé (audit Mireille : chiffres décalés d'un cran à la 1re lecture)",
        "lat": 42.8085,
        "lon": 0.51926,
        "how": "commune-ign",
@@ -3994,10 +3997,13 @@
       },
       {
        "label": "Saint-Aventin",
-       "km": 195,
+       "km": 192,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "940 m imprimés ; aucun km imprimé (estimé à l'échelle, vers 195) ; non placé : km approché (règle 4)"
+       "confidence": "ok",
+       "note": "940 m imprimés ; km 192 sous le libellé (audit Mireille : chiffres décalés d'un cran à la 1re lecture) ; bourg de Saint-Aventin (index POI de la Géoplateforme), MNT 915 m",
+       "lat": 42.80632,
+       "lon": 0.54671,
+       "how": "ign"
       },
       {
        "label": "Bagnères-de-Luchon",
@@ -4011,18 +4017,17 @@
       }
      ],
      "route_check": {
-      "routed_km": 189.3,
+      "routed_km": 189.2,
       "profile_km": 188.5,
       "delta_pct": 0.4,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
       "legs": 27,
-      "suspect_legs": 3,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     },
-     "note": "Tronçons suspects (règle 11) : Arreau → Bordères-Louron 5,4 km routés, 4,7 à vol d'oiseau, pour 11 (5,8 en voiture), détour non situé ; Bordères-Louron → Estarvielle 6,5 km routés, 6 à vol d'oiseau, pour 4,5 (6,5 en voiture), km imprimé en limite de commune (mairie essayée sans gain, règle 17) ; Col de Peyresourde → Garin 6,1 km routés, 4,6 à vol d'oiseau, pour 2,5 (6,1 en voiture), km imprimé en limite de commune (mairie essayée sans gain, règle 17)."
+     }
     },
     "11": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1983/83_11.jpg",
@@ -6160,9 +6165,9 @@
       },
       {
        "label": "Col de Joux-Plane",
-       "km": 228.5,
+       "km": 232.5,
        "kind": "col",
-       "note": "1713 m imprimés ; km peu lisible (« 228,5 » sous la graduation 230) ; catégorie non lue",
+       "note": "1713 m imprimés ; 1re catégorie ; km 232,5 lu au zoom après la graduation 230 (audit Mireille ; 1re lecture 228,5)",
        "lat": 46.12962,
        "lon": 6.71291,
        "how": "nominatim",
@@ -6170,9 +6175,9 @@
       },
       {
        "label": "Col du Ranfolly",
-       "km": 236,
+       "km": 235,
        "kind": "col",
-       "note": "1650 m imprimés",
+       "note": "1650 m imprimés ; km 235 (audit Mireille ; 1re lecture 236)",
        "lat": 46.13929,
        "lon": 6.69572,
        "how": "nominatim",
@@ -6196,7 +6201,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ fictif à L'Alpe d'Huez (titre imprimé) ; le km 0 est imprimé sous La Paute, départ réel. Tronçons suspects (règle 11) : Samoëns → Col de Joux-Plane 11,9 km routés, 5,3 à vol d'oiseau, pour 7 (12,5 en voiture) ; Col de Joux-Plane → Col du Ranfolly 2,8 km routés, 1,7 à vol d'oiseau, pour 7,5 (2,8 en voiture), détour non situé.",
+     "note": "Départ fictif à L'Alpe d'Huez (titre imprimé) ; le km 0 est imprimé sous La Paute, départ réel.",
      "route_check": {
       "routed_km": 240.4,
       "profile_km": 243,
@@ -6205,7 +6210,7 @@
       "coverage_pct": 98,
       "car_legs": 0,
       "legs": 30,
-      "suspect_legs": 2,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -6935,19 +6940,19 @@
        "label": "Paris Champs-Élysées (1er passage)",
        "km": 157.1,
        "kind": "ville",
-       "note": "1er passage sur la ligne ; imprimé « 1er PASSAGE LA LIGNE D'ARRIVÉE »",
-       "lat": 48.8535,
-       "lon": 2.34839,
-       "how": "stage_towns",
+       "note": "1er passage sur la ligne ; imprimé « 1er PASSAGE LA LIGNE D'ARRIVÉE » ; ligne des Champs-Élysées, point de 1984-1996 et 1999-2026 (audit Mireille)",
+       "lat": 48.87076,
+       "lon": 2.30533,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
      "circuit_km": 157.1,
      "note": "Circuit des Champs-Élysées : entrée au pont de la Concorde au km 153,5, 1er passage sur la ligne au km 157,1 (circuit_km, règle 19), passages suivants aux km 163,4, 169,7, 176, 182,3 et 188,6, arrivée au km 195 ; seuls l'entrée et le 1er passage sont repris. Départ : Alfortville → Saint-Maur-des-Fossés 4,8 km à vol d'oiseau pour 4 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : Saint-Maur-des-Fossés → Côte d'Ormesson-sur-Marne 5,6 km routés, 4,5 à vol d'oiseau, pour 9 (5,8 en voiture), détour non situé ; Côte des Dix-Sept Tournants → Côte de la Madeleine 9,5 km routés, 6,5 à vol d'oiseau, pour 6 (10,3 en voiture).",
      "route_check": {
-      "routed_km": 152.6,
+      "routed_km": 151.6,
       "profile_km": 153.1,
-      "delta_pct": -0.3,
+      "delta_pct": -1,
       "tolerance_pct": 5,
       "coverage_pct": 79,
       "car_legs": 0,

@@ -1934,7 +1934,7 @@ et côtes traversées avec leur kilomètre.
   23 +8), 1984/0 non contrôlable ; 18 tronçons suspects, 8 allers-retours, 4 incertains.
   **Reste, story non cochée :** remesurer à vélo, puis trier ces écarts et noter
   leurs causes (règle 16). Chiffres de voiture : à ne pas lire comme un résultat.
-- [ ] Édition 1983 : les 23 étapes (prologue, 1 à 22), absentes du fichier,
+- [x] Édition 1983 (PR #547) : les 23 étapes (prologue, 1 à 22), absentes du fichier,
   depuis les profils de ledicodutour.com
   (`images/cartes_etapes/1977_1986/1983/83_N.jpg`, 468 px de large).
   Critères d'acceptation : chaque nom imprimé est transcrit ; un nom au km
@@ -1946,6 +1946,32 @@ et côtes traversées avec leur kilomètre.
   cause notée ; chaque tronçon suspect et aller-retour est trié (règles 11,
   17, 20, 24) ; les circuits finaux sont en `circuit_km` (règle 19) ; le
   test d'invariant passe ; l'audit Mireille est fait avant la fusion.
+  Fait : 472 points placés sur 567 (dont 47 noms sans km ou au km
+  illisible gardés non placés, règle 4). 1983/3 est un schéma des secteurs
+  pavés, pas un profil : km au début de chaque secteur. Contrôlée à ±5 % sur
+  BRouter public : 15 étapes dans la tolérance, 5 hors avec la comparaison
+  en voiture et la cause notée — 1983/1 (−18,4 %, −12,6 % : boucles du
+  Val-de-Marne), 1983/3 (−11,2 %, −7,9 % : schéma des pavés), 1983/4
+  (+5,3 %, +9,1 %), 1983/14 (−5,8 %, −0,7 %), 1983/15 (−21,0 % : chrono du
+  puy de Dôme) ; prologue et chronos 19 et 21 non contrôlables ; un seul
+  tronçon en voiture, inévitable (route du puy de Dôme fermée, HTTP 400,
+  comme 2023/9). Plusieurs profils sont plus courts que stage_towns.json
+  (12 : −7 km, 13 : −9,5, 20 : −9, total 282 confirmé sur l'image), noté
+  sans être tranché. Les refus 403 de BRouter en fin d'étape longue
+  (1983/17) se contournent sans code : un ETAPEFORGE_DATA_DIR persistant
+  garde en cache les tronçons déjà routés, le second passage ne redemande
+  que les refusés.
+  Audit Mireille : 1983/10, chiffres décalés d'un cran (Estarvielle 176,5,
+  Peyresourde vers 182,5, Garin 189,5, Saint-Aventin 192, Bordères-Louron
+  sans km) ; 1983/18, Joux-Plane 232,5 et Ranfolly 235 ; arrivée de
+  1983/7 à la mairie de Saint-Pierre-d'Oléron (le point de stage_towns
+  tombait à Saint-Georges-d'Oléron) ; 1er passage de 1983/22 sur les
+  Champs-Élysées ; 1983/9 sans circuit final (1,5 km), arrivée de Pau
+  ajoutée. Hors règles proposés : une note « mairie essayée sans gain » ne
+  prouve rien — quand la ligne droite dépasse le profil, comparer d'abord
+  le chiffre à la colonne voisine et l'ancre de stage_towns au nom imprimé ;
+  1998/21 a le 1er passage au centre de Paris ; altitudes de 1983/20 à
+  relire.
 - [ ] Édition 1984 : les 24 étapes (prologue, 1 à 23), absentes du fichier,
   depuis les profils de ledicodutour.com
   (`images/cartes_etapes/1977_1986/1984/84_N.jpg`, 468 px de large).
