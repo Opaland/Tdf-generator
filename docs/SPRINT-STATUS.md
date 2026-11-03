@@ -1972,7 +1972,7 @@ et côtes traversées avec leur kilomètre.
   le chiffre à la colonne voisine et l'ancre de stage_towns au nom imprimé ;
   1998/21 a le 1er passage au centre de Paris ; altitudes de 1983/20 à
   relire.
-- [x] Édition 1984 (PR #545, contrôle à vélo PR à numéroter) : les 24 étapes (prologue, 1 à 23), absentes du fichier,
+- [x] Édition 1984 (PR #545, contrôle à vélo PR #548) : les 24 étapes (prologue, 1 à 23), absentes du fichier,
   depuis les profils de ledicodutour.com
   (`images/cartes_etapes/1977_1986/1984/84_N.jpg`, 468 px de large).
   Critères d'acceptation : chaque nom imprimé est transcrit ; un nom au km
