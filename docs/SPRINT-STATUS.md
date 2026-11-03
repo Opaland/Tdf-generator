@@ -1972,7 +1972,7 @@ et côtes traversées avec leur kilomètre.
   le chiffre à la colonne voisine et l'ancre de stage_towns au nom imprimé ;
   1998/21 a le 1er passage au centre de Paris ; altitudes de 1983/20 à
   relire.
-- [ ] Édition 1984 : les 24 étapes (prologue, 1 à 23), absentes du fichier,
+- [x] Édition 1984 (PR #545, contrôle à vélo PR à numéroter) : les 24 étapes (prologue, 1 à 23), absentes du fichier,
   depuis les profils de ledicodutour.com
   (`images/cartes_etapes/1977_1986/1984/84_N.jpg`, 468 px de large).
   Critères d'acceptation : chaque nom imprimé est transcrit ; un nom au km
@@ -2004,6 +2004,23 @@ et côtes traversées avec leur kilomètre.
   1984/14, Recoules et Lapanouse imprimés 620 et 630, pas 820 et 830 (règle
   14). Altitudes : 507 points, un par requête, 0 échec, 7 écarts de plus de
   100 m tous notés.
+  Contrôle à vélo terminé (03/11/2026) : 24 étapes remesurées sur BRouter
+  public, 0 tronçon en voiture (les 432 tronçons de `route_check` étaient en
+  voiture). Les refus 403 évités par un `ETAPEFORGE_DATA_DIR` persistant :
+  un premier passage remplit le cache, le second ne redemande que les refus
+  (aucun cette fois). 14 étapes dans la tolérance, 9 hors avec la
+  comparaison en voiture et la cause notée — 1984/1 (−24,4 %, −17,6 %,
+  cause non résolue), 1984/2 (+5,2 %, +6,1 %), 1984/3 (+11,4 %, chrono par
+  équipes, écart de la source à Marly), 1984/4 (−9,6 %, +10,6 % : quatre
+  points sur 83 km), 1984/7 (+7,7 %, +6,7 %, chrono), 1984/8 (−6,9 %,
+  −3,9 % : rien entre Saint-Mars-la-Jaille et Nantes), 1984/16 (+10,9 %,
+  +7,6 %, chrono de La Ruchère), 1984/18 (+5,3 %, +14,8 %), 1984/22
+  (−6,7 %, +7,1 %, chrono) ; prologue non contrôlable. À vélo, les
+  allers-retours vus en voiture disparaissent (Épinay, Lapanouse,
+  Grospierres, Vaux-en-Beaujolais, Hénin-Beaumont → Lens) et Celliers →
+  Doucy passe de 26,8 km (OSRM, sans route directe) à 10,2 pour 9,5 ;
+  notes réécrites, tronçons suspects à vélo ajoutés (1984/10, 12, 20, 21),
+  aller-retour incertain de 1984/23 noté.
 - [x] Édition 1985 (PR #535) : les 23 étapes absentes (1985/8 est déjà transcrite
   dans le lot Lorraine, PR #404), depuis les profils de ledicodutour.com
   (`images/cartes_etapes/1977_1986/1985/85_NN.jpg`, 468 px de large,
