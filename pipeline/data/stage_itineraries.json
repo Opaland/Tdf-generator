@@ -1238,18 +1238,18 @@
        "label": "Binningen",
        "km": 7.4,
        "kind": "ville",
-       "note": "arrivée ; km 7,4 marqué sur le plan (double cercle)",
-       "lat": 47.55811,
-       "lon": 7.58783,
-       "how": "stage_towns",
+       "note": "arrivée ; km 7,4 marqué sur le plan (double cercle) ; arrivée au point du départ (même double cercle « 7,4 » sur le plan) ; l'ancre stage_towns était le centre de Bâle (audit Mireille, règle 22)",
+       "lat": 47.53656,
+       "lon": 7.57008,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
-     "note": "Prologue contre-la-montre individuel à Binningen (Bâle), publié en plan sans profil : km marqués sur le plan (2, 4, 7,4), Bottmingen sans km gardé non placé, un point « 5 » sans nom non repris ; non contrôlable. Départ : Binningen → Oberwil 2,9 km à vol d'oiseau pour 2 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance : +19,9 % à vélo, +35 % en voiture (règle 20) : plan sans profil, km du plan arrondis, Bottmingen et la Hohestrasse non situés ; écart affiché, cause : la source.",
+     "note": "Prologue contre-la-montre individuel à Binningen (Bâle), publié en plan sans profil : km marqués sur le plan (2, 4, 7,4), Bottmingen sans km gardé non placé, un point « 5 » sans nom non repris ; non contrôlable. Départ : Binningen → Oberwil 2,9 km à vol d'oiseau pour 2 au profil, départ réel hors du centre, non situé (règle 25). Arrivée au point du départ (double cercle « 7,4 » du plan ; l'ancre stage_towns était le centre de Bâle). Hors tolérance : −36,1 % à vélo, −33 % en voiture (règle 20) : la boucle de la Hohestrasse (km 4 à 5 du plan) n'est pas située, Oberwil → Binningen est mesuré en ligne directe (3,4 km routés pour 5,4) ; écart affiché, cause : plan sans profil, boucle non transcrite.",
      "route_check": {
-      "routed_km": 6.5,
+      "routed_km": 3.4,
       "profile_km": 5.4,
-      "delta_pct": 19.9,
+      "delta_pct": -36.1,
       "tolerance_pct": 5,
       "coverage_pct": 77,
       "car_legs": 0,
@@ -1367,7 +1367,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Circuit de Möhlin (23 km) à parcourir 9 fois : le profil publié ne montre qu'un tour, seul ce tour est transcrit ; les passages suivants (tableau imprimé) sont dans les notes de la côte de Wegenstetten et de Möhlin."
+     "note": "Circuit de Möhlin (23 km) à parcourir 9 fois : le profil publié ne montre qu'un tour, seul ce tour est transcrit ; les passages suivants (tableau imprimé) sont dans les notes de la côte de Wegenstetten et de Möhlin. Tronçon non mesuré (étape non contrôlable) : Zuzgen → Zeiningen 2,8 km à vol d'oiseau pour 1 au profil (17,5 et 18,5 relus) ; profil schématique, Hellikon → Möhlin 8,4 km à vol d'oiseau pour 8."
     },
     "2": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1982/82_2.jpg",
@@ -1688,10 +1688,10 @@
       },
       {
        "label": "Nancy",
-       "km": 240,
+       "km": 242.5,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "225 m imprimés ; km illisible (vers 240) ; premier « NANCY » (225 m), avant l'arrivée ; rangée basse lue « 24?,5 » au bord de l'image ; non placé : km approché (règle 4)"
+       "note": "225 m imprimés ; km illisible (« 24?,5 », vers 242,5) ; premier « NANCY » (225 m), avant l'arrivée ; rangée basse lue « 24?,5 » au bord de l'image ; non placé : km approché (règle 4)"
       },
       {
        "label": "Nancy",
@@ -1937,7 +1937,7 @@
        "label": "Givet",
        "km": 10,
        "kind": "ville",
-       "note": "103 m imprimés ; aucun km imprimé (graduation 10) : le « 14 » lu d'abord est imprimé dans la rangée des départements, à la frontière Ardennes / Belgique, pas sous la colonne de Givet (audit du test d'invariant, règle 2) ; non placé : km approché (règle 4)",
+       "note": "103 m imprimés ; km illisible (vers 10) : un « 14 » est imprimé sous la colonne voisine, attribution incertaine (la colonne de Givet tombe sur la graduation 10) ; non placé : Givet → Philippeville fait 21,1 km à vol d'oiseau, pour 16,5 au km 14 et 20,5 au km 10, la route réelle étant plus longue encore (audit Mireille) ; non placé : km approché (règle 4)",
        "confidence": "non-place"
       },
       {
@@ -2203,7 +2203,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Givet n'a pas de km imprimé (le « 14 » sous lui marque la frontière) : non placé. Philippeville placée à la ville (le centre de l'entité communale, 7 km plus au sud, faussait les tronçons voisins). Tronçons suspects (règle 11, à vélo) : Brakel → Renaix 12,6 km pour 11, Flobecq non placé entre les deux ; Renaix → Amougies 6,7 km pour 5, Renaix imprimé deux fois (« RONSE (RENAIX) » 156,5 et « RENAIX » 159), placé au centre de Ronse. Mouscron (Herseaux) → Mouscron 2,7 km à vol d'oiseau pour 15,5 au profil : boucle finale dans Mouscron, sans point imprimé. Hors tolérance à vélo (−6,4 %), dans la tolérance en voiture (+0,7 %, règle 20) : la boucle finale non imprimée dans Mouscron (15,5 km au profil, 5,2 en voiture) manque à la mesure, et le vélo prend des routes plus courtes que la voiture ailleurs ; écart affiché, cause : la boucle de Mouscron non transcrite. Longueur imprimée 207 km, stage_towns.json : 219."
+     "note": "Givet non placé : son km est incertain (un « 14 » sous la colonne voisine, sa colonne sur la graduation 10) et aucun des deux ne s'accorde avec Philippeville (21,1 km à vol d'oiseau). Départ : Beauraing → Philippeville, premier point placé, 30,8 km à vol d'oiseau pour 30,5 au profil (règle 25). Philippeville placée à la ville (le centre de l'entité communale, 7 km plus au sud, faussait les tronçons voisins). Tronçons suspects (règle 11, à vélo) : Brakel → Renaix 12,6 km pour 11, Flobecq non placé entre les deux ; Renaix → Amougies 6,7 km pour 5, Renaix imprimé deux fois (« RONSE (RENAIX) » 156,5 et « RENAIX » 159), placé au centre de Ronse. Mouscron (Herseaux) → Mouscron 2,7 km à vol d'oiseau pour 15,5 au profil : boucle finale dans Mouscron, sans point imprimé. Hors tolérance à vélo (−6,4 %), dans la tolérance en voiture (+0,7 %, règle 20) : la boucle finale non imprimée dans Mouscron (15,5 km au profil, 5,2 en voiture) manque à la mesure, et le vélo prend des routes plus courtes que la voiture ailleurs ; écart affiché, cause : la boucle de Mouscron non transcrite. Longueur imprimée 207 km, stage_towns.json : 219."
     },
     "6": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1982/82_6.jpg",
@@ -2452,10 +2452,10 @@
        "label": "Broons",
        "km": 58.5,
        "kind": "ville",
-       "note": "80 m imprimés ; km sur la rangée haute (« 58,5 »)",
-       "lat": 48.31342,
-       "lon": -2.24399,
-       "how": "commune-ign",
+       "note": "80 m imprimés ; km sur la rangée haute (« 58,5 ») ; hôtel de ville de Broons (Nominatim, amenity=townhall), 1,4 km à l'ouest du centre IGN (règle 17, audit Mireille)",
+       "lat": 48.31717,
+       "lon": -2.26204,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -2719,18 +2719,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 231.2,
+      "routed_km": 229.5,
       "profile_km": 221.5,
-      "delta_pct": 4.4,
+      "delta_pct": 3.6,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
       "legs": 29,
-      "suspect_legs": 1,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Cancale → Châteauneuf-d'Ille-et-Vilaine 14 km à vol d'oiseau pour 13 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect (règle 11, à vélo) : Broons → Éréac 8,8 km à vol d'oiseau pour 7 au profil (11,2 routés), centres de commune, écart de la source vraisemblable (hypothèse)."
+     "note": "Départ : Cancale → Châteauneuf-d'Ille-et-Vilaine 14 km à vol d'oiseau pour 13 au profil, départ réel hors du centre, non situé (règle 25). Broons placé à son hôtel de ville (règle 17, audit Mireille) : Broons → Éréac n'est plus un tronçon suspect."
     },
     "8": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1982/82_8.jpg",
@@ -2935,11 +2935,11 @@
        "label": "Châteaulin (1er passage)",
        "km": 125.5,
        "kind": "lieu-dit",
-       "note": "imprimé « 1er passage ligne arrivée », pas d'altitude",
-       "lat": 48.24525,
-       "lon": -4.20047,
-       "how": "nominatim",
-       "confidence": "ambigu"
+       "note": "imprimé « 1er passage ligne arrivée », pas d'altitude ; 1er passage sur la ligne : point de l'arrivée (audit Mireille : le géocodeur l'avait placé à Dinéault, à 9,7 km)",
+       "lat": 48.1968,
+       "lon": -4.09169,
+       "how": "stage_towns",
+       "confidence": "ok"
       },
       {
        "label": "Châteaulin",
@@ -2953,11 +2953,11 @@
       }
      ],
      "circuit_km": 125.5,
-     "note": "Circuit final de Châteaulin : entrée au km 119,3, 1er passage sur la ligne au km 125,5 (circuit_km, règle 19), puis 12 passages de la côte de Stang-ar-Garront et 11 sur la ligne imprimés (un tour de 6,8 km environ), arrivée au km 200,85 ; seuls l'entrée, la 1re côte et le 1er passage sont repris. Départ : Concarneau → Côte de Beg-Menez 4,3 km à vol d'oiseau pour 4 au profil, départ réel hors du centre, non situé (règle 25).",
+     "note": "Circuit final de Châteaulin : entrée au km 119,3, 1er passage sur la ligne au km 125,5 (circuit_km, règle 19), puis 12 passages de la côte de Stang-ar-Garront et 11 sur la ligne imprimés (un tour de 6,8 km environ), arrivée au km 200,85 ; seuls l'entrée, la 1re côte et le 1er passage sont repris. Départ : Concarneau → Côte de Beg-Menez 4,3 km à vol d'oiseau pour 4 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance à vélo (−5,4 %), dans la tolérance en voiture (−3,0 %, règle 20) : Douarnenez → Châteaulin 34 km au profil pour 26,3 en voiture, par Kerlaz, Cast et la Côte de Cast, non placés ; le 1er passage sur la ligne de Châteaulin était placé à Dinéault (9,7 km) avant l'audit Mireille, d'où le « ok » précédent. Douarnenez imprimé deux fois (89,5 et 91,5), même point.",
      "route_check": {
-      "routed_km": 117.1,
+      "routed_km": 115,
       "profile_km": 121.5,
-      "delta_pct": -3.6,
+      "delta_pct": -5.4,
       "tolerance_pct": 5,
       "coverage_pct": 60,
       "car_legs": 0,
@@ -3475,11 +3475,8 @@
        "label": "Laulet",
        "km": 104,
        "kind": "lieu-dit",
-       "note": "340 m imprimés ; libellé peu lisible (« LAULET » ?) ; lieu-dit Laulet (Montaner), index POI de la Géoplateforme, MNT 339 m",
-       "confidence": "ok",
-       "lat": 43.34787,
-       "lon": 0.00243,
-       "how": "ign"
+       "note": "340 m imprimés ; libellé peu lisible (« LAULET » ?) ; lieu-dit Laulet (Montaner), index POI de la Géoplateforme, MNT 339 m ; non placé : le km 104 est confirmé par l'échelle (colonne vers 104,8), et le lieu-dit Laulet de Montaner reste à 5,9 km à vol d'oiseau d'Oroix pour 4,5 au profil : ce n'est pas le lieu du passage (règle 7, audit Mireille)",
+       "confidence": "non-place"
       },
       {
        "label": "Oroix",
@@ -3647,18 +3644,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 233.7,
+      "routed_km": 233.6,
       "profile_km": 234,
-      "delta_pct": -0.1,
+      "delta_pct": -0.2,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
-      "legs": 24,
-      "suspect_legs": 2,
+      "legs": 23,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Fleurance → Préchac 9,6 km à vol d'oiseau pour 9,5 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect (règle 11, à vélo) : Laulet → Oroix 5,9 km à vol d'oiseau pour 4,5 (Oroix à sa mairie, Laulet au lieu-dit IGN à l'altitude imprimée) : km de Laulet vraisemblablement décalé, hypothèse."
+     "note": "Départ : Fleurance → Préchac 9,6 km à vol d'oiseau pour 9,5 au profil, départ réel hors du centre, non situé (règle 25). Laulet non placé (le lieu-dit de Montaner, à l'altitude imprimée, reste à 5,9 km d'Oroix pour 4,5, km 104 confirmé par l'échelle ; audit Mireille). Tronçon suspect (règle 11, à vélo) : Gan → Gelos 6,6 km à vol d'oiseau pour 14,5 au profil, par la Côte de Rontignon non placée : le détour d'environ 6 km manque à la mesure, le −0,2 % est compensé ailleurs."
     },
     "13": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1982/82_13.jpg",
@@ -3843,7 +3840,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Pau → Mirepeix 15,2 km à vol d'oiseau pour 13,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Pau → Mirepeix 15,2 km à vol d'oiseau pour 13,5 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect (règle 11, à vélo) : Bagnères-de-Bigorre → Campan 6,0 km à vol d'oiseau pour 5 au profil, les deux à leur mairie : écart d'un km, vraisemblablement dans la source (hypothèse)."
     },
     "14": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1982/82_14.jpg",
@@ -4290,7 +4287,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 1
      },
-     "note": "Aller-retour incertain (point non placé sauté) : Achinard → Orcières, 4,3 km repris, la Côte de Serre-Heyraud (1 614 m, sommet non situé) étant entre les deux ; Orcières est imprimé à 1 420 m, le profil monte au sommet puis redescend : pas un aller-retour du parcours."
+     "note": "Aller-retour incertain (point non placé sauté) : Achinard → Orcières, 4,3 km repris, la Côte de Serre-Heyraud (1 614 m, sommet non situé) étant entre les deux ; Orcières est imprimé à 1 420 m, le profil monte au sommet puis redescend : pas un aller-retour du parcours ; les 4,3 km repris comptent deux fois dans la mesure : sans eux, l'étape serait vers −3,0 % (règle 24)."
     },
     "16": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1982/82_16.jpg",
@@ -4852,7 +4849,7 @@
        "label": "Le Reposoir",
        "km": 186,
        "kind": "ville",
-       "note": "1092 m imprimés ; mairie du Reposoir (Nominatim, amenity=townhall)",
+       "note": "1092 m imprimés ; mairie du Reposoir (Nominatim, amenity=townhall) ; 976 m au MNT à la mairie pour 1 092 imprimés (chiffre relu au zoom) : écart de 116 m, lieu à 1 092 m non situé (règle 14)",
        "lat": 46.01124,
        "lon": 6.53524,
        "how": "nominatim",
@@ -4951,7 +4948,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ fictif à L'Alpe d'Huez (titre imprimé), km 0 réel à Rochetaillée (règle 25). Tronçons suspects (règle 11, à vélo) : Domène → Froges 10,4 km à vol d'oiseau pour 9 et Notre-Dame-des-Millières → Albertville 6,6 pour 4,5 (centres et mairies), écart vraisemblablement dans la source, hypothèse ; Verchaix et Montgilbert non placés (altitude imprimée de la vallée, règle 14)."
+     "note": "Départ fictif à L'Alpe d'Huez (titre imprimé), km 0 réel à Rochetaillée (règle 25). Tronçons suspects (règle 11, à vélo) : Domène → Froges 10,4 km à vol d'oiseau pour 9 et Notre-Dame-des-Millières → Albertville 6,6 pour 4,5 (centres et mairies), écart vraisemblablement dans la source, hypothèse ; Verchaix et Montgilbert non placés (altitude imprimée de la vallée, règle 14). Col des Aravis → La Clusaz : 4,8 km à vol d'oiseau pour 4,5, 7,7 routés par les lacets, conforme. Le Reposoir à sa mairie, 976 m au MNT pour 1 092 imprimés, écart noté (règle 14)."
     },
     "18": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1982/82_18.jpg",
@@ -5354,7 +5351,7 @@
       }
      ],
      "circuit_km": 226,
-     "note": "Circuit final de Saint-Priest : 1er passage sur la ligne au km 226 (circuit_km, règle 19), arrivée au km 230 (total lu sur la dernière graduation, aucun « km » imprimé).",
+     "note": "Circuit final de Saint-Priest : 1er passage sur la ligne au km 226 (circuit_km, règle 19), arrivée au km 230 (total lu sur la dernière graduation, aucun « km » imprimé). Tronçons suspects (règle 11, à vélo) : Cercier → Sallenôves 4,4 km à vol d'oiseau pour 6,5 au profil mais 9,6 routés (le vélo contourne par une autre vallée) ; Chamagnieu → Heyrieux 10,0 km pour 9, centres de commune, écart d'un km ; Côte de Groisy → Allonzier-la-Caille 4,6 pour 4, conforme.",
      "route_check": {
       "routed_km": 226.7,
       "profile_km": 219,
@@ -5510,7 +5507,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Contre-la-montre individuel en boucle au départ de Saint-Priest ; total coupé au bord de l'image, lu 48 sur la graduation. Hors tolérance : −5,4 % à vélo, −8,2 % en voiture : Valencin (Le Fayet) → Saint-Just-Chaleyssin 3,9 km à vol d'oiseau pour 8 au profil, par La Fayette (non placée, imprimée « D53-D75-D36 ») ; aller-retour incertain de 1,9 km au Fayet, le point non placé de La Fayette étant sauté.",
+     "note": "Contre-la-montre individuel en boucle au départ de Saint-Priest ; total coupé au bord de l'image, lu 48 sur la graduation. Hors tolérance : −5,4 % à vélo, −8,2 % en voiture : Valencin (Le Fayet) → Saint-Just-Chaleyssin 3,9 km à vol d'oiseau pour 8 au profil, par La Fayette (non placée, imprimée « D53-D75-D36 ») ; aller-retour incertain de 1,9 km au Fayet, le point non placé de La Fayette étant sauté ; sans ces 1,9 km comptés deux fois, l'étape serait vers −17 % (règle 24), le détour par La Fayette manquant à la mesure.",
      "route_check": {
       "routed_km": 31.2,
       "profile_km": 33,
@@ -5557,11 +5554,8 @@
        "label": "Côte de Thorigny",
        "km": 12.5,
        "kind": "côte",
-       "note": "210 m imprimés ; 4e catégorie",
-       "lat": 48.26177,
-       "lon": 3.35391,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "210 m imprimés ; 4e catégorie ; non placé : Nominatim avait renvoyé « Bois de la Côte » (Fleurigny), pas la Côte de Thorigny (règle 21, audit Mireille)",
+       "confidence": "non-place"
       },
       {
        "label": "Barrault",
@@ -5787,15 +5781,15 @@
        "confidence": "ok"
       }
      ],
-     "note": "Aulnay-sous-Bois imprimé en petit au km 156,8, 2,2 km avant l'arrivée : point de passage, pas une entrée de circuit (moins de 6 km, règle 19). Départ : Sens → Saligny 5,5 km à vol d'oiseau pour 3,5 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect (règle 11, à vélo) : Donnemarie-Dontilly → Villeneuve-les-Bordes 6,7 km à vol d'oiseau pour 5 au profil, Villeneuve-les-Bordes à sa mairie : écart vraisemblablement dans la source, hypothèse.",
+     "note": "Aulnay-sous-Bois imprimé en petit au km 156,8, 2,2 km avant l'arrivée : point de passage, pas une entrée de circuit (moins de 6 km, règle 19). Départ : Sens → Saligny 5,5 km à vol d'oiseau pour 3,5 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect (règle 11, à vélo) : Donnemarie-Dontilly → Villeneuve-les-Bordes 6,7 km à vol d'oiseau pour 5 au profil, Villeneuve-les-Bordes à sa mairie : écart vraisemblablement dans la source, hypothèse. Côte de Thorigny non placée (Nominatim renvoyait le « Bois de la Côte » de Fleurigny, audit Mireille). Tronçons suspects (règle 11, à vélo) : Noisy-le-Grand → Neuilly-Plaisance 3,6 km à vol d'oiseau pour 8,5 au profil et Bondy → Aulnay-sous-Bois 3,7 pour 8,8 : détours dans la banlieue est non transcrits.",
      "route_check": {
-      "routed_km": 152.7,
+      "routed_km": 148.8,
       "profile_km": 155.5,
-      "delta_pct": -1.8,
+      "delta_pct": -4.3,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 22,
+      "legs": 21,
       "suspect_legs": 3,
       "backtracks": 0,
       "backtracks_uncertain": 0
