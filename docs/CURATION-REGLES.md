@@ -183,6 +183,11 @@ dans la même PR que son correctif.
     « entrée » : un « 1er passage » imprimé (règle 18) annonce un circuit
     sans seuil (1985/2, 1985/5, 2024/2, 1984/1, 5, 12, 14 ; 2018/10 fait
     exception).
+    **Un « 1er passage sur la ligne » prend le point de l'arrivée**, posé
+    à la main : laissé au géocodeur, celui de Châteaulin (1982/8) tombait à
+    Dinéault, 9,7 km plus loin, et faisait passer l'étape « ok » (audit
+    Mireille). Même chose pour une arrivée imprimée au point du départ
+    (prologue de Binningen, 1982/0, qui tombait sur l'ancre de Bâle).
 20. **Avant d'accuser la transcription — ou d'écrire « cause non
     établie » —, comparer au routage voiture.** Pontorson → Précey
     (1993/4), noté « cause non établie », faisait 12,8 km en voiture pour
@@ -229,8 +234,10 @@ dans la même PR que son correctif.
     placés et sourcés (Epic 28.7). Le nom alternatif OSM (`alt_name`) d'une voie peut porter le nom de la côte : « Côte de Bohissau » (2015/3) était l'`alt_name` de la voie Bousalle, notée « nom non confirmé » avant l'audit. Et un tronçon suspect ne fait pas refuser un lieu qui
     existe : il se note (règle 11 ; Bray, Berdorf 1989).
 
-    **Une passe de placement automatique ne prouve pas le nom** : une
-    recherche bornée qui prend le premier candidat compatible avec les
+    **Une passe de placement automatique ne prouve pas le nom** — celle de
+    `geocode-itineraries.js` comprise : la « Côte de Thorigny » (1982/20)
+    était le « Bois de la Côte » de Fleurigny. Une recherche bornée qui
+    prend le premier candidat compatible avec les
     voisins et l'altitude a placé La Houga sur le lieu-dit « La Jalousie »
     et Bas-Mornex sur Mornex (1984). Comparer le nom renvoyé au nom cherché
     pour chaque point, et le relire par géocodage inverse, avant de compter
