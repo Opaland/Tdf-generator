@@ -385,6 +385,27 @@ et côtes traversées avec leur kilomètre.
   agrandi. Toute transcription se fait sur l'image agrandie.
 - [ ] 33.2 Transcription édition par édition (une PR par lot), en
   commençant par les éditions passées par la Lorraine.
+  - **Reprises de la routine quotidienne** (routine du matin demandée le
+    06/11/2026 : reprises d'abord, puis une édition ; ce qui n'est pas fait
+    le jour même s'ajoute ici avec une issue `routine-curation`, reprise le
+    lendemain).
+    - [x] 07/11 (issue #549) — 1998/21 : arrivée au centre de Paris (ancre
+      stage_towns), replacée sur les Champs-Élysées (règle 22) ; seule
+      arrivée parisienne dans ce cas sur tout le fichier (contrôlé).
+    - [x] 07/11 (issue #549) — 1984/12, 20, 21 : « km imprimé en limite de
+      commune (hypothèse) » remplacé par la relecture demandée par la règle
+      11 : chiffres 48/52 et 116/121 nets à l'agrandissement, mairies
+      essayées sans gain (5,2 et 6,7 km), écart de la source ; le km d'Ars
+      (1984/21) reste illisible à la résolution publiée.
+    - [x] 07/11 (issue #549) — 1983/20 : altitudes relues à l'agrandissement
+      ×5, 14 reprises (lues sans hésiter sur le chiffre ; les 12 placées à moins de
+      20 m du MNT), les autres restent vides.
+    - [x] 07/11 (issue #549) — 1983/12, 13, 20 plus courtes que stage_towns :
+      totaux 254, 200,5 et 282 confirmés sur l'échelle des profils,
+      stage_towns.json et Wikipédia donnent 261, 210 et 291 ; écart affiché
+      dans la note d'étape, non tranché (règle 12), vraisemblablement le
+      parcours prévu contre le parcours couru — à reprendre seulement si une
+      troisième source (L'Équipe, Gallica) se présente.
   - [x] Lot Lorraine (PR #404) : 14 étapes (1970/9, 1978/20, 1979/12-13, 1980/2-3,
     1985/8, 1990/6, 1999/7-8, 2002/2-3, 2006/2, 2012/6), 235 points placés
     sur 239 (Fresse-sur-Moselle 1979/13 retirée en relecture : km imprimé

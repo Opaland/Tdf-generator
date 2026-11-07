@@ -4663,7 +4663,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 1
      },
-     "note": "Aller-retour incertain de 1,0 km à Brousse-le-Château, le point voisin n'étant pas placé."
+     "note": "Longueur : le profil imprime 254 km, stage_towns.json et Wikipédia 261 ; écart non tranché, affiché (règle 12). Aller-retour incertain de 1,0 km à Brousse-le-Château, le point voisin n'étant pas placé."
     },
     "13": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1983/83_13.jpg",
@@ -4919,7 +4919,7 @@
       }
      ],
      "circuit_km": 197,
-     "note": "Circuit final d'Aurillac : avenue du Général-Leclerc au km 194,5, 1er passage sur la ligne vers le km 197 (aucun km imprimé, circuit_km, règle 19), arrivée au km 200,5. Départ : Roquefort-sur-Soulzon imprimé à 370 m, le centre de la commune est à 566 m au MNT : départ réel en contrebas du village, non situé (règle 25). Tronçon suspect (règle 11) : Marcolès → Roannes-Saint-Mary 9,6 km routés, 7,2 à vol d'oiseau, pour 15 (9,6 en voiture), détour non situé.",
+     "note": "Longueur : le profil imprime 200,5 km, stage_towns.json et Wikipédia 210 ; écart non tranché, affiché (règle 12). Circuit final d'Aurillac : avenue du Général-Leclerc au km 194,5, 1er passage sur la ligne vers le km 197 (aucun km imprimé, circuit_km, règle 19), arrivée au km 200,5. Départ : Roquefort-sur-Soulzon imprimé à 370 m, le centre de la commune est à 566 m au MNT : départ réel en contrebas du village, non situé (règle 25). Tronçon suspect (règle 11) : Marcolès → Roannes-Saint-Mary 9,6 km routés, 7,2 à vol d'oiseau, pour 15 (9,6 en voiture), détour non situé.",
      "route_check": {
       "routed_km": 172.4,
       "profile_km": 175,
@@ -6262,7 +6262,7 @@
        "label": "Morzine",
        "km": 0,
        "kind": "ville",
-       "note": "altitudes de cette étape trop floues pour être lues (image 148 px de haut) : laissées vides",
+       "note": "960 m imprimés ; altitude peu lisible, relue à l'agrandissement ×5",
        "lat": 46.17996,
        "lon": 6.70911,
        "how": "commune-ign",
@@ -6272,7 +6272,7 @@
        "label": "Côte des Gets",
        "km": 7,
        "kind": "côte",
-       "note": "altitude illisible (« 1 1?0 ») ; point de 2003/7, MNT 1164 m",
+       "note": "1 160 m imprimés ; altitude peu lisible, relue à l'agrandissement ×5 ; point de 2003/7, MNT 1164 m",
        "confidence": "ok",
        "lat": 46.16038,
        "lon": 6.66908,
@@ -6302,7 +6302,7 @@
        "label": "Saint-Jeoire-en-Faucigny",
        "km": 30.5,
        "kind": "ville",
-       "note": "altitude illisible",
+       "note": "580 m imprimés ; altitude peu lisible, relue à l'agrandissement ×5",
        "lat": 46.13863,
        "lon": 6.45823,
        "how": "nominatim",
@@ -6349,7 +6349,7 @@
        "label": "Saint-Julien-en-Genevois",
        "km": 69,
        "kind": "ville",
-       "note": "altitude illisible",
+       "note": "460 m imprimés ; altitude peu lisible, relue à l'agrandissement ×5",
        "lat": 46.14448,
        "lon": 6.08125,
        "how": "commune-ign",
@@ -6487,13 +6487,13 @@
        "km": 200,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "aucun km imprimé (graduation 200) ; altitude illisible ; non placé : km approché (règle 4)"
+       "note": "200 m imprimés ; altitude peu lisible, relue à l'agrandissement ×5 ; aucun km imprimé (graduation 200) ; non placé : km approché (règle 4)"
       },
       {
        "label": "Chaumergy",
        "km": 211.5,
        "kind": "ville",
-       "note": "altitude illisible",
+       "note": "210 m imprimés ; altitude peu lisible, relue à l'agrandissement ×5",
        "lat": 46.84649,
        "lon": 5.47803,
        "how": "commune-ign",
@@ -6503,7 +6503,7 @@
        "label": "Chaussin",
        "km": 228,
        "kind": "ville",
-       "note": "altitude illisible",
+       "note": "190 m imprimés ; altitude peu lisible, relue à l'agrandissement ×5",
        "lat": 46.9634,
        "lon": 5.40694,
        "how": "commune-ign",
@@ -6513,7 +6513,7 @@
        "label": "Saint-Aubin",
        "km": 238,
        "kind": "ville",
-       "note": "altitude illisible",
+       "note": "180 m imprimés ; altitude peu lisible, relue à l'agrandissement ×5",
        "lat": 47.03257,
        "lon": 5.32963,
        "how": "commune-ign",
@@ -6523,7 +6523,7 @@
        "label": "Losne",
        "km": 247.5,
        "kind": "ville",
-       "note": "altitude illisible ; un « 242 » imprimé juste avant (sous Saint-Aubin/Losne), sans nom identifié au-dessus",
+       "note": "180 m imprimés ; altitude peu lisible, relue à l'agrandissement ×5 ; un « 242 » imprimé juste avant (sous Saint-Aubin/Losne), sans nom identifié au-dessus",
        "lat": 47.0981,
        "lon": 5.26423,
        "how": "commune-ign",
@@ -6533,7 +6533,7 @@
        "label": "Brazey-en-Plaine",
        "km": 254,
        "kind": "ville",
-       "note": "altitude illisible",
+       "note": "185 m imprimés ; altitude peu lisible, relue à l'agrandissement ×5",
        "lat": 47.12994,
        "lon": 5.22225,
        "how": "commune-ign",
@@ -6543,7 +6543,7 @@
        "label": "Thorey-en-Plaine",
        "km": 266,
        "kind": "ville",
-       "note": "altitude illisible",
+       "note": "200 m imprimés ; altitude peu lisible, relue à l'agrandissement ×5",
        "lat": 47.21508,
        "lon": 5.13281,
        "how": "commune-ign",
@@ -6553,14 +6553,14 @@
        "label": "Longvic",
        "km": 272,
        "kind": "ville",
-       "note": "km lu sur la rangée haute, illisible (« 27? », vers 272) ; altitude illisible ; non placé : la mairie de Longvic est à 9,4 km du point précédent pour 6 km de profil (règle 11)",
+       "note": "225 m imprimés ; altitude peu lisible, relue à l'agrandissement ×5 ; km lu sur la rangée haute, illisible (« 27? », vers 272) ; non placé : la mairie de Longvic est à 9,4 km du point précédent pour 6 km de profil (règle 11)",
        "confidence": "non-place"
       },
       {
        "label": "Dijon (cours Charles-de-Gaulle)",
        "km": 278.5,
        "kind": "lieu-dit",
-       "note": "km peu lisible (278,5) ; entrée de ville ; cours du Général-de-Gaulle, Dijon (Nominatim), MNT 236 m",
+       "note": "240 m imprimés ; altitude peu lisible, relue à l'agrandissement ×5 ; km peu lisible (278,5) ; entrée de ville ; cours du Général-de-Gaulle, Dijon (Nominatim), MNT 236 m",
        "confidence": "ok",
        "lat": 47.31205,
        "lon": 5.04473,
@@ -6570,7 +6570,7 @@
        "label": "Dijon",
        "km": 282,
        "kind": "ville",
-       "note": "total peu lisible (« 282 » sur la rangée haute, peut-être 291) ; altitude illisible",
+       "note": "245 m imprimés ; altitude peu lisible, relue à l'agrandissement ×5 ; total 282 imprimé sur la rangée haute, confirmé par l'échelle (stage_towns.json : 291)",
        "lat": 47.32158,
        "lon": 5.04147,
        "how": "stage_towns",
@@ -6589,7 +6589,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Tronçons suspects (règle 11) : Côte de Longeray → Bellegarde 8,7 km routés, 4,5 à vol d'oiseau, pour 5,5 (8,7 en voiture) ; Saint-Germain-de-Joux → Côte de la Pallud-Échallon 6,3 km routés, 3,7 à vol d'oiseau, pour 10 (6,3 en voiture), détour non situé ; Côte de la Pallud-Échallon → Oyonnax 12,3 km routés, 8 à vol d'oiseau, pour 8 (12,4 en voiture)."
+     "note": "Altitudes relues à l'agrandissement ×5 (reprise de la routine) : seules celles lues sans hésiter sur le chiffre sont reprises, les autres restent vides. Longueur : le profil imprime 282 km (échelle jusqu'au-delà de 280), stage_towns.json et Wikipédia 291 ; écart non tranché, affiché (règle 12). Tronçons suspects (règle 11) : Côte de Longeray → Bellegarde 8,7 km routés, 4,5 à vol d'oiseau, pour 5,5 (8,7 en voiture) ; Saint-Germain-de-Joux → Côte de la Pallud-Échallon 6,3 km routés, 3,7 à vol d'oiseau, pour 10 (6,3 en voiture), détour non situé ; Côte de la Pallud-Échallon → Oyonnax 12,3 km routés, 8 à vol d'oiseau, pour 8 (12,4 en voiture)."
     },
     "21": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1983/83_21.jpg",
@@ -9840,7 +9840,7 @@
       }
      ],
      "circuit_km": 107.2,
-     "note": "Circuit (règle 19) : 1er passage à Blagnac au km 107,2 (circuit_km), arrivée au km 111 : moins de 6 km, déclaré comme le 1er passage de 1985/5, hypothèse. Tronçon suspect (règle 11, à vélo) : Carbonne → Lafitte-Vigordane 6,1 km routés, 5,0 à vol d'oiseau, pour 4, km imprimé en limite de commune (hypothèse).",
+     "note": "Circuit (règle 19) : 1er passage à Blagnac au km 107,2 (circuit_km), arrivée au km 111 : moins de 6 km, déclaré comme le 1er passage de 1985/5, hypothèse. Tronçon suspect (règle 11, à vélo) : Carbonne → Lafitte-Vigordane 6,1 km routés, 5,0 à vol d'oiseau, pour 4 : km 48 et 52 nets sur l'image agrandie, 5,2 km aussi de mairie à mairie, écart de la source (règle 11).",
      "route_check": {
       "routed_km": 107.1,
       "profile_km": 102.7,
@@ -11985,7 +11985,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Morzine → Saint-Jean-d'Aulps 7,4 km à vol d'oiseau pour 7 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect (règle 11, à vélo) : Granges → Sierre 6,8 km routés, 6,6 à vol d'oiseau, pour 5, km imprimé en limite de commune (hypothèse).",
+     "note": "Départ : Morzine → Saint-Jean-d'Aulps 7,4 km à vol d'oiseau pour 7 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect (règle 11, à vélo) : Granges → Sierre 6,8 km routés, 6,6 à vol d'oiseau, pour 5 : km 116 et 121 nets sur l'image agrandie, 6,7 km aussi depuis le village de Granges (Granges est rattachée à Sierre, pas de mairie propre), écart de la source (règle 11).",
      "route_check": {
       "routed_km": 134,
       "profile_km": 133.5,
@@ -12527,7 +12527,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Crans-Montana, imprimé en tête du profil, n'est pas un point : Sion (480 m) est au km 0 réel et le test d'invariant de test/placeSearch.test.js impose des km strictement croissants, donc deux points au km 0 sont refusés, et lui donner un autre km l'inventerait. Image très floue (468×141) : km lus à l'échelle quand les chiffres se devinent (graduations 210 et 220 ; km 216 d'Artemare et 226,5 de Pugieu tirés de l'échelle, pas d'un chiffre lisible), les autres gardés non placés. Départ : Sion → Magnot 7,3 km à vol d'oiseau pour 5,5 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect (règle 11, à vélo) : Ambérieux-en-Dombes → Ars-sur-Formans 6,8 km routés, 6,2 à vol d'oiseau, pour 5, km imprimé en limite de commune (hypothèse).",
+     "note": "Crans-Montana, imprimé en tête du profil, n'est pas un point : Sion (480 m) est au km 0 réel et le test d'invariant de test/placeSearch.test.js impose des km strictement croissants, donc deux points au km 0 sont refusés, et lui donner un autre km l'inventerait. Image très floue (468×141) : km lus à l'échelle quand les chiffres se devinent (graduations 210 et 220 ; km 216 d'Artemare et 226,5 de Pugieu tirés de l'échelle, pas d'un chiffre lisible), les autres gardés non placés. Départ : Sion → Magnot 7,3 km à vol d'oiseau pour 5,5 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect (règle 11, à vélo) : Ambérieux-en-Dombes → Ars-sur-Formans 6,8 km routés, 6,2 à vol d'oiseau, pour 5 : 6,2 km aussi de mairie à mairie ; le km d'Ars reste illisible à la résolution publiée (308,5 ou 309,5, trait vers 309 sur l'échelle), non tranché — 309,5 tiendrait dans la règle 11.",
      "route_check": {
       "routed_km": 324.2,
       "profile_km": 314,
@@ -68608,10 +68608,11 @@
        "label": "Paris Champs-Élysées",
        "km": 147.5,
        "kind": "lieu-dit",
-       "lat": 48.8535,
-       "lon": 2.34839,
-       "how": "stage_towns",
-       "confidence": "ok"
+       "lat": 48.87076,
+       "lon": 2.30533,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "arrivée placée sur les Champs-Élysées, point de 1997/21, et non au centre de Paris où tombe l'ancre stage_towns (règle 22, reprise de la routine)"
       }
      ],
      "circuit_km": 84.5,
