@@ -1934,6 +1934,23 @@ et côtes traversées avec leur kilomètre.
   23 +8), 1984/0 non contrôlable ; 18 tronçons suspects, 8 allers-retours, 4 incertains.
   **Reste, story non cochée :** remesurer à vélo, puis trier ces écarts et noter
   leurs causes (règle 16). Chiffres de voiture : à ne pas lire comme un résultat.
+- [ ] Édition 1982 (routine quotidienne du 07/11/2026) : les étapes absentes du
+  fichier, depuis les profils de ledicodutour.com
+  (`images/cartes_etapes/1977_1986/1982/82_N.jpg`, 0 à 21, md5 tous
+  distincts). Critères d'acceptation : chaque nom imprimé est transcrit ;
+  un nom au km douteux ou sans km reste présent non placé, avec une note
+  (règle 4) ; la longueur du profil est comparée à stage_towns.json ;
+  l'altitude est contrôlée point par point (règle 14) ; les départs sont
+  vérifiés à la main (règle 25) ; le contrôle à ±5 % passe sur BRouter
+  public sans tronçon en voiture (sauf inévitable, noté), chaque étape
+  hors tolérance a sa cause notée ; chaque tronçon suspect et aller-retour
+  est trié (règles 11, 17, 20, 24) ; les circuits finaux sont en
+  `circuit_km` (règle 19) ; le test d'invariant passe ; l'audit Mireille
+  est fait avant la fusion, ce qu'il laisse part en reprise avec une issue.
+  Cas connus avant transcription : 1982/5 (contre-la-montre par équipes
+  Orchies → Fontaine-au-Pire) n'a pas été couru, profil prévu seulement ;
+  1982/9 : un seul profil Lorient → Nantes annoté en rouge pour les
+  demi-étapes 9a et 9b ; 1982/6 est un schéma des secteurs pavés.
 - [x] Édition 1983 (PR #547) : les 23 étapes (prologue, 1 à 22), absentes du fichier,
   depuis les profils de ledicodutour.com
   (`images/cartes_etapes/1977_1986/1983/83_N.jpg`, 468 px de large).
