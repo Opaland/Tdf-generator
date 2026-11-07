@@ -385,6 +385,36 @@ et côtes traversées avec leur kilomètre.
   agrandi. Toute transcription se fait sur l'image agrandie.
 - [ ] 33.2 Transcription édition par édition (une PR par lot), en
   commençant par les éditions passées par la Lorraine.
+  - **Reprises de la routine quotidienne** (routine du matin demandée le
+    06/11/2026 : reprises d'abord, puis une édition ; ce qui n'est pas fait
+    le jour même s'ajoute ici avec une issue `routine-curation`, reprise le
+    lendemain).
+    - [x] 07/11 (issue #549) — 1998/21 : arrivée au centre de Paris (ancre
+      stage_towns), replacée sur les Champs-Élysées (règle 22) ; seule
+      arrivée parisienne dans ce cas sur tout le fichier (contrôlé).
+    - [x] 07/11 (issue #549) — 1984/12, 20, 21 : « km imprimé en limite de
+      commune (hypothèse) » remplacé par la relecture demandée par la règle
+      11 : chiffres 48/52 et 116/121 nets à l'agrandissement ; mairies
+      essayées (5,2 km, 1984/12 ; 6,2 km, 1984/21) ; en 1984/20 Sierre était
+      déjà à sa mairie et Granges, sans mairie, reste à 6,7 km depuis le
+      village : écart vraisemblablement dans la source (hypothèse) ; le km
+      d'Ars (1984/21) reste illisible à la résolution publiée.
+    - [x] 07/11 (issue #549) — 1983/20 : altitudes relues à l'agrandissement
+      ×5, 14 reprises, notées « peu lisible » (les 12 placées à moins de
+      20 m du MNT ; la partie Jura–Dijon lue avant toute mesure MNT), les
+      autres restent vides. Limite (audit Mireille) : l'agrandissement
+      n'ajoute pas d'information et le MNT de quelques points figurait
+      déjà dans leur note, une lecture guidée n'est donc pas exclue.
+    - [x] 07/11 (issue #549) — 1983/12, 13, 20 plus courtes que stage_towns :
+      totaux 254, 200,5 et 282 confirmés sur l'échelle des profils,
+      stage_towns.json et Wikipédia donnent 261, 210 et 291 ; écart affiché
+      dans la note d'étape, non tranché (règle 12), vraisemblablement le
+      parcours prévu contre le parcours couru — à reprendre seulement si une
+      troisième source (L'Équipe, Gallica) se présente.
+    - [ ] 07/11 (issue #551) — audit Mireille de #550, hors sujet de la
+      PR : 8 notes « km imprimé en limite de commune » sans relecture du
+      chiffre (1983/7, 2026/2, 4, 12, 13, 17, 18) ; 1983/13 sans point
+      d'arrivée au km 200,5 après le 1er passage estimé (règles 4, 19, 22).
   - [x] Lot Lorraine (PR #404) : 14 étapes (1970/9, 1978/20, 1979/12-13, 1980/2-3,
     1985/8, 1990/6, 1999/7-8, 2002/2-3, 2006/2, 2012/6), 235 points placés
     sur 239 (Fresse-sur-Moselle 1979/13 retirée en relecture : km imprimé
