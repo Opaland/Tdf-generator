@@ -415,6 +415,10 @@ et côtes traversées avec leur kilomètre.
       PR : 8 notes « km imprimé en limite de commune » sans relecture du
       chiffre (1983/7, 2026/2, 4, 12, 13, 17, 18) ; 1983/13 sans point
       d'arrivée au km 200,5 après le 1er passage estimé (règles 4, 19, 22).
+    - [ ] 07/11 (issue #552) — 1982/9a et 9b : profil prévu barré en rouge,
+      parcours couru à sourcer (Gallica) avant toute transcription.
+    - [ ] 07/11 (issue #553) — 1982 : arrivée de Martigues (14), Brakel et
+      boucle de Mouscron (4), Courbieu (11), trois pistes de règles.
   - [x] Lot Lorraine (PR #404) : 14 étapes (1970/9, 1978/20, 1979/12-13, 1980/2-3,
     1985/8, 1990/6, 1999/7-8, 2002/2-3, 2006/2, 2012/6), 235 points placés
     sur 239 (Fresse-sur-Moselle 1979/13 retirée en relecture : km imprimé
@@ -1964,7 +1968,7 @@ et côtes traversées avec leur kilomètre.
   23 +8), 1984/0 non contrôlable ; 18 tronçons suspects, 8 allers-retours, 4 incertains.
   **Reste, story non cochée :** remesurer à vélo, puis trier ces écarts et noter
   leurs causes (règle 16). Chiffres de voiture : à ne pas lire comme un résultat.
-- [ ] Édition 1982 (routine quotidienne du 07/11/2026) : les étapes absentes du
+- [x] Édition 1982 (routine quotidienne du 07/11/2026, PR #554) : les étapes absentes du
   fichier, depuis les profils de ledicodutour.com
   (`images/cartes_etapes/1977_1986/1982/82_N.jpg`, 0 à 21, md5 tous
   distincts). Critères d'acceptation : chaque nom imprimé est transcrit ;
@@ -1981,6 +1985,23 @@ et côtes traversées avec leur kilomètre.
   Orchies → Fontaine-au-Pire) n'a pas été couru, profil prévu seulement ;
   1982/9 : un seul profil Lorient → Nantes annoté en rouge pour les
   demi-étapes 9a et 9b ; 1982/6 est un schéma des secteurs pavés.
+  Fait : 20 étapes sur 22 (5 annulée, 9a/9b reportées en issue #552), 386
+  points placés sur 484, noms sans km gardés non placés (règle 4).
+  Longueurs imprimées contre stage_towns.json : à 3 km près sauf 4 (207
+  pour 219), 6 (221,5 pour 233, schéma des pavés), 12 (243,5 pour 249), 17
+  (244 pour 251) et 1 (un tour de 23 km sur 9). Contrôle à vélo sur BRouter
+  public, 0 tronçon en voiture (cache persistant) : 11 étapes dans la
+  tolérance, 7 hors avec la comparaison en voiture et la cause notée —
+  0 (−36,1 %, −33 % : plan, boucle non transcrite), 3 (+5,4 %, +8,4 %),
+  4 (−6,4 %, +0,7 % : boucle finale de Mouscron), 8 (−5,4 %, −3,0 %),
+  14 (+14,8 %, +21,5 % : carrefours non situés), 19 (−5,4 %, −8,2 %),
+  21 (−11,3 %, −7,3 %) ; 1 et 6 non contrôlables. Départs fictifs relus :
+  1982/16 (1 120 m imprimés au km 0, non placé) et 1982/17 (km 0 à
+  Rochetaillée) ; arrivées placées à Longwy-Haut et au point du départ
+  (prologue). Audit Mireille : 1er passage de Châteaulin et arrivée de
+  Binningen replacés, Laulet et Côte de Thorigny retirés, Broons à sa
+  mairie, Givet et Le Reposoir notés, tronçons suspects triés étape par
+  étape ; règles 19 et 21 précisées. Reprises : issues #552 et #553.
 - [x] Édition 1983 (PR #547) : les 23 étapes (prologue, 1 à 22), absentes du fichier,
   depuis les profils de ledicodutour.com
   (`images/cartes_etapes/1977_1986/1983/83_N.jpg`, 468 px de large).
