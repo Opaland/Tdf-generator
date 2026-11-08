@@ -1705,17 +1705,17 @@
        "label": "Narbonne-Plage",
        "km": 232,
        "kind": "ville",
-       "note": "0 m imprimés ; arrivée",
-       "lat": 43.18378,
-       "lon": 3.00419,
-       "how": "stage_towns",
+       "note": "0 m imprimés ; arrivée ; arrivée imprimée « NARBONNE-PLAGE » : Narbonne-Plage (Nominatim place=suburb), MNT 2 m pour 0 ; l'ancre stage_towns était le centre de Narbonne (règle 22, audit Mireille)",
+       "lat": 43.15986,
+       "lon": 3.16591,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
      "route_check": {
-      "routed_km": 237.8,
+      "routed_km": 234.7,
       "profile_km": 229,
-      "delta_pct": 3.8,
+      "delta_pct": 2.5,
       "tolerance_pct": 5,
       "coverage_pct": 99,
       "car_legs": 0,
@@ -1724,7 +1724,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Martigues → Fos-sur-Mer 9,5 km à vol d'oiseau pour 3 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Martigues → Fos-sur-Mer 9,5 km à vol d'oiseau pour 3 au profil, km 0 réel non situé (règle 25)."
     },
     "4": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1981/1981_5.jpg",
@@ -1796,11 +1796,14 @@
        "how": "commune-ign"
       },
       {
-       "label": "Laredorte",
+       "label": "La Redorte",
        "km": 43.5,
        "kind": "ville",
-       "note": "53 m imprimés ; non placé : seul candidat : le bureau de poste « Laredorte » ; le village de La Redorte reste à chercher sous cette orthographe (règle 21)",
-       "confidence": "non-place"
+       "note": "53 m imprimés ; imprimé « LAREDORTE » ; mairie de La Redorte (Nominatim), MNT 59 m pour 53 (variante d'orthographe, règle 21, audit Mireille)",
+       "confidence": "ok",
+       "lat": 43.25067,
+       "lon": 2.65661,
+       "how": "nominatim"
       },
       {
        "label": "Rieux-Minervois",
@@ -1859,13 +1862,13 @@
      ],
      "note": "Contre-la-montre par équipes Narbonne → Carcassonne (77,2 km imprimés).",
      "route_check": {
-      "routed_km": 70.2,
+      "routed_km": 70.3,
       "profile_km": 69.2,
-      "delta_pct": 1.5,
+      "delta_pct": 1.6,
       "tolerance_pct": 5,
       "coverage_pct": 90,
       "car_legs": 0,
-      "legs": 8,
+      "legs": 9,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -2083,7 +2086,8 @@
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": ""
     },
     "6": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1981/1981_7.jpg",
@@ -2341,15 +2345,21 @@
        "label": "Cère",
        "km": 89,
        "kind": "ville",
-       "note": "imprimé CERE ; km 89 serré contre la graduation 90 ; non placé : seul candidat : le centre administratif de Cère, à 7,2 km de Parentis-de-Marsan pour 1 au profil (règles 6 et 7)",
-       "confidence": "non-place"
+       "note": "imprimé CERE ; km 89 serré contre la graduation 90 ; bourg de Cère (Nominatim) : refusé d'abord par rapport à Parentis, lui-même non placé (règle 9, audit Mireille)",
+       "confidence": "ok",
+       "lat": 43.9912,
+       "lon": -0.53508,
+       "how": "nominatim"
       },
       {
        "label": "Brocas",
        "km": 95,
        "kind": "ville",
-       "note": "74 m imprimés ; non placé : seul candidat : le centre administratif de Brocas, à 13 km de Parentis-de-Marsan pour 7 au profil (règles 6 et 7)",
-       "confidence": "non-place"
+       "note": "74 m imprimés ; bourg de Brocas (Nominatim), MNT 75 m pour 74 : refusé d'abord par rapport à Parentis, lui-même non placé (règle 9, audit Mireille)",
+       "confidence": "ok",
+       "lat": 44.04435,
+       "lon": -0.53575,
+       "how": "nominatim"
       },
       {
        "label": "Labrit",
@@ -2401,11 +2411,11 @@
        "label": "Villagrains",
        "km": 165,
        "kind": "lieu-dit",
-       "note": "47 m imprimés",
-       "lat": 44.60656,
-       "lon": -0.55338,
+       "note": "47 m imprimés ; hameau de Villagrains (Nominatim place=hamlet), MNT 55 m pour 47 : le premier point tombait sur une route de Cabanac (règles 6 et 21, audit Mireille)",
+       "lat": 44.56966,
+       "lon": -0.59406,
        "how": "nominatim",
-       "confidence": "ambigu"
+       "confidence": "ok"
       },
       {
        "label": "Saucats",
@@ -2475,18 +2485,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 215.9,
+      "routed_km": 218.2,
       "profile_km": 212.5,
-      "delta_pct": 1.6,
+      "delta_pct": 2.7,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
-      "legs": 19,
-      "suspect_legs": 1,
+      "legs": 21,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Pau → Doumy 16,9 km à vol d'oiseau pour 14,5 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect (règle 11, à vélo) : Villagrains → Saucats 6,1 km à vol d'oiseau pour 10 au profil, détour non transcrit. Parentis-de-Marsan non placé (homonyme impossible avec les distances). Arrivée placée à Bordeaux-Lac, lieu imprimé."
+     "note": "Départ : Pau → Doumy 16,9 km à vol d'oiseau pour 14,5 au profil, km 0 réel non situé (règle 25). Villagrains placé au hameau (audit Mireille) : Origne → Villagrains 11,3 km à vol d'oiseau pour 12,5, Villagrains → Saucats 9,2 pour 10. Parentis-de-Marsan non placé (homonyme impossible avec les distances). Arrivée placée à Bordeaux-Lac, lieu imprimé."
     },
     "8": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1981/1981_9.jpg",
@@ -2691,7 +2701,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Entrée du circuit imprimée au km 176,8, arrivée au km 180 : moins de 6 km, point de passage (règle 19). Départ : Rochefort-sur-Mer → Aigrefeuille-d'Aunis 20,1 km à vol d'oiseau pour 18 au profil, départ réel hors du centre, non situé (règle 25). « Avant le pont Aristide-Briand » → Nantes : 1,3 km à vol d'oiseau pour 9,5 au profil, boucle d'arrivée dans Nantes non transcrite (entrée du circuit non située). Loiré non placé (le point de préfixe était Loire-les-Marais, au sud d'Aigrefeuille).",
+     "note": "Entrée du circuit imprimée au km 176,8, arrivée au km 180 : moins de 6 km, point de passage (règle 19). Départ : Rochefort-sur-Mer → Aigrefeuille-d'Aunis 20,1 km à vol d'oiseau pour 18 au profil, km 0 réel non situé (règle 25). « Avant le pont Aristide-Briand » → Nantes : 1,3 km à vol d'oiseau pour 9,5 au profil, boucle d'arrivée dans Nantes non transcrite (entrée du circuit non située). Loiré non placé (le point de préfixe était Loire-les-Marais, au sud d'Aigrefeuille).",
      "route_check": {
       "routed_km": 162,
       "profile_km": 162,
@@ -2943,7 +2953,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "« Le Mans, place de la République » imprimé au km 184, arrivée au km 194 : aucune « entrée » ni « 1er passage » imprimé, pas de circuit_km déclaré (règle 19). Départ : Nantes → Carquefou 9,9 km à vol d'oiseau pour 5 au profil, départ réel hors du centre, non situé (règle 25). Le Mans, place de la République → arrivée : 0,3 km à vol d'oiseau pour 10 au profil : boucle finale non imprimée, écart affiché sans circuit_km (règle 19).",
+     "note": "« Le Mans, place de la République » imprimé au km 184, arrivée au km 194 : aucune « entrée » ni « 1er passage » imprimé, pas de circuit_km déclaré (règle 19). Départ : Nantes → Carquefou 9,9 km à vol d'oiseau pour 5 au profil, km 0 réel non situé (règle 25). Le Mans, place de la République → arrivée : 0,3 km à vol d'oiseau pour 10 au profil : boucle finale non imprimée, écart affiché sans circuit_km (règle 19).",
      "route_check": {
       "routed_km": 179.7,
       "profile_km": 189,
@@ -3069,11 +3079,11 @@
        "label": "Auneau",
        "km": 143,
        "kind": "ville",
-       "note": "150 m imprimés ; altitude peu lisible",
-       "lat": 48.44183,
-       "lon": 1.80819,
+       "note": "150 m imprimés ; altitude peu lisible ; mairie d'Auneau (Nominatim), MNT 144 m pour 150 : le premier point était à Aunay-sous-Auneau (règle 21, audit Mireille)",
+       "lat": 48.46318,
+       "lon": 1.77545,
        "how": "nominatim",
-       "confidence": "ambigu"
+       "confidence": "ok"
       },
       {
        "label": "Sainte-Mesme",
@@ -3175,11 +3185,11 @@
       }
      ],
      "circuit_km": 254.3,
-     "note": "Circuit final d'Aulnay-sous-Bois : 1er passage au km 254,3 (km peu lisible, 254,3 ou 258,3 ; circuit_km, règle 19), arrivée au km 258,5 (peu lisible). Départ : Le Mans → Lavaré 33,9 km à vol d'oiseau pour 30,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "note": "Circuit final d'Aulnay-sous-Bois : 1er passage au km 254,3 (km peu lisible, 254,3 ou 258,3 ; circuit_km, règle 19), arrivée au km 258,5 (peu lisible). Départ : Le Mans → Lavaré 33,9 km à vol d'oiseau pour 30,5 au profil, km 0 réel non situé (règle 25).",
      "route_check": {
-      "routed_km": 220.7,
+      "routed_km": 220.9,
       "profile_km": 223.8,
-      "delta_pct": -1.4,
+      "delta_pct": -1.3,
       "tolerance_pct": 5,
       "coverage_pct": 85,
       "car_legs": 0,
@@ -3236,7 +3246,7 @@
        "label": "Béthancourt",
        "km": 36,
        "kind": "ville",
-       "note": "imprimé BÉTHANCOURT (vraisemblablement Béthancourt-en-Vaux, à confirmer)",
+       "note": "imprimé BÉTHANCOURT (, à confirmer) ; hameau de Béthancourt (Guiscard, Oise), cohérent avec Noyon (9,5 km pour 12,5) ; ce n'est pas Béthancourt-en-Vaux (audit Mireille)",
        "lat": 49.66223,
        "lon": 3.03887,
        "how": "nominatim",
@@ -3690,7 +3700,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Profil et schéma des secteurs pavés (1981_12b.jpg) de la même étape : les 20 secteurs pavés sont repris au km de leur début, les noms du seul schéma gardés non placés quand le km n'est pas imprimé. Départ : Compiègne → Saint-Léger-aux-Bois 11,6 km à vol d'oiseau pour 10,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance à vélo (−9,6 %), dans la tolérance en voiture (−3,7 %, règle 20) : le vélo coupe les boucles des secteurs pavés que la voiture contourne. Tronçons suspects (règle 11, à vélo) : Quérénaing → Monchaux-sur-Écaillon 4,1 km à vol d'oiseau pour 9,5, Wandignies-Hamage → Marchiennes 3,2 pour 11,5 et Hem → Roubaix 2,6 pour 9 : détours des secteurs pavés non transcrits ; aller-retour incertain de 1,4 km à Templeuve vers Nomain, le secteur non placé étant sauté.",
+     "note": "Profil et schéma des secteurs pavés (1981_12b.jpg) de la même étape : les 20 secteurs pavés sont repris au km de leur début, les noms du seul schéma gardés non placés quand le km n'est pas imprimé. Départ : Compiègne → Saint-Léger-aux-Bois 11,6 km à vol d'oiseau pour 10,5 au profil, km 0 réel non situé (règle 25). Hors tolérance à vélo (−9,6 %), dans la tolérance en voiture (−3,7 %, règle 20) : vraisemblablement parce que le vélo coupe les boucles des secteurs pavés que la voiture contourne (hypothèse). Tronçons suspects (règle 11, à vélo) : Quérénaing → Monchaux-sur-Écaillon 4,1 km à vol d'oiseau pour 9,5, Wandignies-Hamage → Marchiennes 3,2 pour 11,5 et Hem → Roubaix 2,6 pour 9 : détours des secteurs pavés non transcrits ; aller-retour incertain de 1,4 km à Templeuve vers Nomain, le secteur non placé étant sauté.",
      "route_check": {
       "routed_km": 212.8,
       "profile_km": 235.5,
@@ -3705,7 +3715,7 @@
      }
     },
     "13": {
-     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1981/1981_14.jpg",
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1981/1981_15.jpg",
      "towns": [
       {
        "label": "Beringen",
@@ -3721,16 +3731,19 @@
        "label": "Heusden (Centre)",
        "km": 7.3,
        "kind": "ville",
-       "note": "45 m imprimés ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
-       "confidence": "non-place"
+       "note": "45 m imprimés ; village de Heusden (Nominatim), même point qu'au km 121,9 (audit Mireille)",
+       "confidence": "ok",
+       "lat": 51.04162,
+       "lon": 5.28388,
+       "how": "nominatim"
       },
       {
        "label": "Zolder",
        "km": 10.5,
        "kind": "ville",
-       "note": "40 m imprimés",
-       "lat": 51.02335,
-       "lon": 5.27505,
+       "note": "40 m imprimés ; section de Zolder (Nominatim) : le premier point tombait dans la section de Heusden (audit Mireille)",
+       "lat": 51.02366,
+       "lon": 5.31352,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -3785,8 +3798,11 @@
        "label": "Heusden (Centre)",
        "km": 64.3,
        "kind": "ville",
-       "note": "imprimé HEUDSEN (CENTRE), coquille vraisemblable pour Heusden ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
-       "confidence": "non-place"
+       "note": "imprimé HEUDSEN (CENTRE), coquille vraisemblable pour Heusden ; village de Heusden (Nominatim), même point qu'au km 121,9 (audit Mireille)",
+       "confidence": "ok",
+       "lat": 51.04162,
+       "lon": 5.28388,
+       "how": "nominatim"
       },
       {
        "label": "Viversel",
@@ -3838,9 +3854,9 @@
        "label": "Heusden",
        "km": 121.9,
        "kind": "ville",
-       "note": "45 m imprimés",
-       "lat": 51.03276,
-       "lon": 5.27971,
+       "note": "45 m imprimés ; village de Heusden (Nominatim), MNT 42 m pour 45 : le premier point était le centre de la commune fusionnée Heusden-Zolder (règle 15, audit Mireille)",
+       "lat": 51.04162,
+       "lon": 5.28388,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -3872,23 +3888,23 @@
        "confidence": "ok"
       }
      ],
-     "note": "Étape en boucles Beringen → Hasselt : trois passages à Hasselt et deux à Beringen, gardés comme points du parcours (ce ne sont pas des passages d'un circuit final). Circuit final de Hasselt : 3e passage sur la ligne (Kol. Dussartplein) au km 144,9 (circuit_km, règle 19), arrivée au km 157. Hors tolérance : −24,4 % à vélo, −13,1 % en voiture (règle 20) : étape en boucles entre Beringen et Hasselt, dont les rues ne sont pas imprimées ; les passages sont placés au point de leur ville (Kuringen → Hasselt 2,7 km à vol d'oiseau pour 10,8, Beringen → Viversel 5,8 pour 17,7, Heusden → Hasselt 12,1 pour 23) ; aller-retour incertain de 2 km à Hasselt vers Lummen, Kuringersteenweg étant sauté.",
+     "note": "Étape en boucles Beringen → Hasselt : trois passages à Hasselt et deux à Beringen, gardés comme points du parcours (ce ne sont pas des passages d'un circuit final). Circuit final de Hasselt : 3e passage sur la ligne (Kol. Dussartplein) au km 144,9 (circuit_km, règle 19), arrivée au km 157. Hors tolérance : −17,6 % à vélo, −8,8 % en voiture (règle 20), après l'audit Mireille (Heusden au village, Zolder à sa section) : étape en boucles entre Beringen et Hasselt, dont les rues ne sont pas imprimées ; les passages sont placés au point de leur ville (Kuringen → Hasselt 2,7 km à vol d'oiseau pour 10,8) ; aller-retour incertain de 2 km à Hasselt vers Lummen, Kuringersteenweg étant sauté.",
      "circuit_km": 144.9,
      "route_check": {
-      "routed_km": 101.6,
-      "profile_km": 134.4,
-      "delta_pct": -24.4,
+      "routed_km": 113.4,
+      "profile_km": 137.6,
+      "delta_pct": -17.6,
       "tolerance_pct": 5,
-      "coverage_pct": 86,
+      "coverage_pct": 88,
       "car_legs": 0,
-      "legs": 10,
-      "suspect_legs": 3,
+      "legs": 12,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 1
      }
     },
     "14": {
-     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1981/1981_15.jpg",
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1981/1981_16.jpg",
      "towns": [
       {
        "label": "Mulhouse",
@@ -3975,7 +3991,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Contre-la-montre individuel à Mulhouse ; « Entrée Mulhouse » au km 34, arrivée au km 38,5 (moins de 6 km, règle 19). Départ : Mulhouse → Frœningen 8 km à vol d'oiseau pour 6,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "note": "Contre-la-montre individuel à Mulhouse ; « Entrée Mulhouse » au km 34, arrivée au km 38,5 (moins de 6 km, règle 19). Départ : Mulhouse → Frœningen 8 km à vol d'oiseau pour 6,5 au profil, km 0 réel non situé (règle 25).",
      "route_check": {
       "routed_km": 31.8,
       "profile_km": 32,
@@ -3990,7 +4006,7 @@
      }
     },
     "15": {
-     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1981/1981_16.jpg",
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1981/1981_17.jpg",
      "towns": [
       {
        "label": "Besançon",
@@ -4273,10 +4289,10 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Besançon → Épeugney 13,5 km à vol d'oiseau pour 13 au profil, départ réel hors du centre, non situé (règle 25). Saint-Laurent-en-Grandvaux → Col de la Savine : 4,1 km à vol d'oiseau pour 9 au profil, lacets non transcrits. Pont-d'Héry non placé (le village est à 597 m pour 462 imprimés)."
+     "note": "Départ : Besançon → Épeugney 13,5 km à vol d'oiseau pour 13 au profil, km 0 réel non situé (règle 25). Saint-Laurent-en-Grandvaux → Col de la Savine : 4,1 km à vol d'oiseau pour 9 au profil, lacets vraisemblablement non transcrits (hypothèse). Pont-d'Héry non placé (le village est à 597 m pour 462 imprimés)."
     },
     "16": {
-     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1981/1981_17.jpg",
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1981/1981_18.jpg",
      "towns": [
       {
        "label": "Thonon-les-Bains",
@@ -4399,7 +4415,7 @@
        "label": "Col de la Ramaz",
        "km": 111,
        "kind": "col",
-       "note": "1781 m imprimés ; 1c ; imprimé COL DE LA RAMAZ (PRAZ-DE-LYS) ; altitude imprimée 1 781 m alors que le col de la Ramaz est à 1 612 m au MNT (1 619 m) : chiffre à relire ou sommet différent (Praz-de-Lys), non tranché",
+       "note": "1781 m imprimés ; 1c ; imprimé COL DE LA RAMAZ (PRAZ-DE-LYS) ; altitude imprimée 1 781 m alors que le col de la Ramaz est à 1 612 m au MNT (1 619 m) : chiffre à relire ou sommet différent (Praz-de-Lys), non tranché ; 1 781 relu au zoom le 08/11 ({M}) : écart avec le col maintenu, non tranché",
        "lat": 46.15932,
        "lon": 6.58066,
        "how": "nominatim",
@@ -4426,10 +4442,10 @@
        "confidence": "ok"
       },
       {
-       "label": "Verclaix",
+       "label": "Verchaix",
        "km": 133.5,
        "kind": "lieu-dit",
-       "note": "787 m imprimés ; km imprimé au-dessus de la rangée (graduation 130 imprimée « 170 ») ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
+       "note": "787 m imprimés ; km imprimé au-dessus de la rangée (graduation 130 imprimée « 170 ») ; imprimé « VERCLAIX », lu Verchaix ; mairie de Verchaix (Nominatim), MNT 792 m pour 787 (règles 21 et 23, audit Mireille) ; non placé : à sa mairie, Verchaix crée un aller-retour de 1,8 km vers Samoëns (la mairie est sur la hauteur, la route passe en contrebas, comme en 1982/17) ; lieu de passage non situé (règle 9)",
        "confidence": "non-place"
       },
       {
@@ -4513,7 +4529,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Morzine « 1er passage » au km 164,5, arrivée au km 199,5 : boucle de 35 km, pas un circuit final ; point gardé comme passage. Départ : Thonon-les-Bains → Perrignier 8,1 km à vol d'oiseau pour 6,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance : −15,4 % à vélo, −10,3 % en voiture (règle 20) : la montée et la descente du Salève (point hors de la route, non placé) manquent, Bas-Mornex → La Muraz 5,7 km à vol d'oiseau pour 23 au profil ; La Bergue → Bas-Mornex 4,8 pour 13, Montriond → Ardent 5,3 pour 9,5, Col de la Joux-Verte → Morzine 4,5 pour 17,5 (boucle par Avoriaz non transcrite) ; aller-retour incertain de 4,5 km à La Muraz vers Reignier, le Salève étant sauté. Morzine « 1er passage » au km 164,5 à la mairie, 35 km avant l'arrivée à Morzine.",
+     "note": "Verchaix non placé (aller-retour depuis sa mairie, sur la hauteur). Morzine « 1er passage » au km 164,5, arrivée au km 199,5 : boucle de 35 km, pas un circuit final ; point gardé comme passage. Départ : Thonon-les-Bains → Perrignier 8,1 km à vol d'oiseau pour 6,5 au profil, km 0 réel non situé (règle 25). Hors tolérance : −15,4 % à vélo, −10,3 % en voiture (règle 20) : la montée et la descente du Salève (point hors de la route, non placé) manquent, Bas-Mornex → La Muraz 5,7 km à vol d'oiseau pour 23 au profil ; La Bergue → Bas-Mornex 4,8 pour 13, Montriond → Ardent 5,3 pour 9,5, Col de la Joux-Verte → Morzine 4,5 pour 17,5 (boucle vraisemblablement par Avoriaz, hypothèse) ; aller-retour incertain de 4,5 km à La Muraz vers Reignier, le Salève étant sauté. Verchaix non placé (aller-retour depuis sa mairie, sur la hauteur). Morzine « 1er passage » au km 164,5 à la mairie, 35 km avant l'arrivée à Morzine.",
      "route_check": {
       "routed_km": 163.3,
       "profile_km": 193,
@@ -4528,7 +4544,7 @@
      }
     },
     "17": {
-     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1981/1981_18.jpg",
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1981/1981_19.jpg",
      "towns": [
       {
        "label": "Morzine",
@@ -4598,8 +4614,11 @@
        "label": "Megève",
        "km": 61.5,
        "kind": "ville",
-       "note": "1113 m imprimés ; imprimé MEGEVE ; non placé : Megève (lieu-dit habité IGN) à 5,3 km de la Côte de Combloux pour 2 au profil ; le point de la Côte de Combloux (km 59,5) est à vérifier (règle 7)",
-       "confidence": "non-place"
+       "note": "1113 m imprimés ; imprimé MEGEVE ; mairie de Megève (Nominatim), MNT 1 097 m pour 1 113 : refusée d'abord par rapport à la Côte de Combloux, non placée (audit Mireille)",
+       "confidence": "ok",
+       "lat": 45.8569,
+       "lon": 6.61773,
+       "how": "nominatim"
       },
       {
        "label": "Praz-sur-Arly",
@@ -4797,13 +4816,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 218.1,
+      "routed_km": 218.4,
       "profile_km": 223.5,
-      "delta_pct": -2.4,
+      "delta_pct": -2.3,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 21,
+      "legs": 22,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -4811,7 +4830,7 @@
      "note": "Côte de Combloux non placée (le point Nominatim était à 8,5 km de Praz-sur-Arly pour 6,5) ; Le Planet non placé (le seul homonyme compatible est à 1 226 m pour 900 imprimés)."
     },
     "18": {
-     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1981/1981_19.jpg",
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1981/1981_20.jpg",
      "towns": [
       {
        "label": "Le Bourg-d'Oisans",
@@ -5001,7 +5020,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ fictif à L'Alpe d'Huez (titre imprimé), km 0 au Bourg-d'Oisans ; « 1860 m » imprimé devant le nom du départ est l'altitude de L'Alpe d'Huez. Départ : Le Bourg-d'Oisans → Rochetaillée 6,8 km à vol d'oiseau pour 6 au profil, départ réel hors du centre, non situé (règle 25).",
+     "note": "Départ fictif à L'Alpe d'Huez (titre imprimé), km 0 au Bourg-d'Oisans ; « 1860 m » imprimé devant le nom du départ est l'altitude de L'Alpe d'Huez. Départ : Le Bourg-d'Oisans → Rochetaillée 6,8 km à vol d'oiseau pour 6 au profil, km 0 réel non situé (règle 25).",
      "route_check": {
       "routed_km": 125,
       "profile_km": 128,
@@ -5016,7 +5035,7 @@
      }
     },
     "19": {
-     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1981/1981_20.jpg",
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1981/1981_21.jpg",
      "towns": [
       {
        "label": "Veurey-Voroize",
@@ -5206,7 +5225,7 @@
      }
     },
     "20": {
-     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1981/1981_21.jpg",
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1981/1981_22.jpg",
      "towns": [
       {
        "label": "Saint-Priest",
@@ -5360,7 +5379,7 @@
      }
     },
     "21": {
-     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1981/1981_22.jpg",
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1981/1981_23.jpg",
      "towns": [
       {
        "label": "Auxerre",
@@ -5581,7 +5600,7 @@
       }
      ],
      "circuit_km": 199.5,
-     "note": "Circuit final de Fontenay-sous-Bois : 1er passage vers le km 199,5, 2e vers 203 (aucun km imprimé, positions à l'échelle ; circuit_km au km approché, règle 19), arrivée au km 207 ; le 2e passage n'est pas repris. Départ : Auxerre → Bleury 14,2 km à vol d'oiseau pour 13 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance : −10,3 % à vélo, −7,5 % en voiture (règle 20) : détours de la vallée de la Seine non transcrits (Montereau → Le Châtelet-en-Brie 17,9 km à vol d'oiseau pour 30,5, Le Châtelet → Melun 10,5 pour 16,5). Tronçons suspects (règle 11, à vélo) : Melun → Coubert 15,0 km pour 13,5 et Malnoue → Noisy-le-Grand 4,1 pour 2, centres de commune, km vraisemblablement aux entrées de ville (hypothèse).",
+     "note": "Circuit final de Fontenay-sous-Bois : 1er passage vers le km 199,5, 2e vers 203 (aucun km imprimé, positions à l'échelle ; circuit_km au km approché, règle 19), arrivée au km 207 ; le 2e passage n'est pas repris. Départ : Auxerre → Bleury 14,2 km à vol d'oiseau pour 13 au profil, km 0 réel non situé (règle 25). Hors tolérance : −10,3 % à vélo, −7,5 % en voiture (règle 20) : détours de la vallée de la Seine non transcrits (Montereau → Le Châtelet-en-Brie 17,9 km à vol d'oiseau pour 30,5, Le Châtelet → Melun 10,5 pour 16,5). Tronçons suspects (règle 11, à vélo) : Melun → Coubert 15,0 km pour 13,5 et Malnoue → Noisy-le-Grand 4,1 pour 2 (Malnoue → Nogent-sur-Marne 7,9 pour 10,5) : mairies essayées : Melun, Coubert et Noisy-le-Grand y sont déjà (moins de 100 m), km vraisemblablement aux entrées de ville (hypothèse). Le 1er passage de Fontenay n'a pas de km imprimé : placé au point de l'arrivée et gardé pour la mesure du circuit (exception de mesure à la règle 4, audit Mireille).",
      "route_check": {
       "routed_km": 167.2,
       "profile_km": 186.5,
@@ -5596,7 +5615,7 @@
      }
     },
     "22": {
-     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1981/1981_23.jpg",
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1981/1981_24.jpg",
      "towns": [
       {
        "label": "Fontenay-sous-Bois",
@@ -6004,7 +6023,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Circuit au départ de Nice par Levens et Tourrette-Levens, parcourus deux fois (passages gardés comme points du parcours). « SHD » imprimé au km 93 n'est pas un lieu (sigle), gardé non placé. Départ : Nice → Tourrette-Levens 9,7 km à vol d'oiseau pour 7 au profil, départ réel hors du centre, non situé (règle 25). Aller-retour incertain de 4,1 km à Castagniers vers Nice, le point non placé de la Côte d'Aspremont étant sauté : le parcours monte à la côte et redescend vers Nice, pas un aller-retour du tracé.",
+     "note": "Circuit au départ de Nice par Levens et Tourrette-Levens, parcourus deux fois (passages gardés comme points du parcours). « SHD » imprimé au km 93 n'est pas un lieu (sigle), gardé non placé. Départ : Nice → Tourrette-Levens 9,7 km à vol d'oiseau pour 7 au profil, km 0 réel non situé (règle 25). Aller-retour incertain de 4,1 km à Castagniers vers Nice : le point sauté est le Carrefour D.614/N.202 (non placé, sans lieu nommé) ; le parcours descend vers le Var, le routeur revient par Aspremont. Le « ok » (−2,1 %) compte donc ces km deux fois et n'est pas garanti (règle 24, audit Mireille).",
      "route_check": {
       "routed_km": 88.1,
       "profile_km": 90,
@@ -6145,7 +6164,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Demi-étape Roubaix → Bruxelles ; « Bruxelles Bourse » au km 103, arrivée à la Gare centrale au km 105,5. Départ : Roubaix → Wattrelos 3,1 km à vol d'oiseau pour 2,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "note": "Demi-étape Roubaix → Bruxelles ; « Bruxelles Bourse » au km 103, arrivée à la Gare centrale au km 105,5. Départ : Roubaix → Wattrelos 3,1 km à vol d'oiseau pour 2,5 au profil, km 0 réel non situé (règle 25).",
      "route_check": {
       "routed_km": 100.7,
       "profile_km": 103,
@@ -6186,9 +6205,9 @@
        "label": "Bertem",
        "km": 17.5,
        "kind": "ville",
-       "note": "50 m imprimés",
-       "lat": 50.85445,
-       "lon": 4.59499,
+       "note": "50 m imprimés ; village de Bertem (Nominatim) : le premier point était à Leefdaal (règle 6, audit Mireille)",
+       "lat": 50.86598,
+       "lon": 4.63063,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -6305,16 +6324,16 @@
       }
      ],
      "circuit_km": 129.5,
-     "note": "Demi-étape Bruxelles → Zolder ; circuit final de Zolder : 1er passage au km 129,5 (circuit_km, règle 19), arrivée au km 133,8. Départ : Bruxelles → Tervuren 11,6 km à vol d'oiseau pour 7,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance à vélo (−11,7 %), dans la tolérance en voiture (−2,1 %, règle 20). Tronçons suspects (règle 11, à vélo) : Tervuren → Bertem 6,6 km à vol d'oiseau pour 10 ; Bertem → Louvain 7,9 pour 6, Louvain au centre de la ville, km vraisemblablement à l'entrée de Louvain (hypothèse) ; Hasselt (Kuringersteenweg) → Zolder (1er passage) 7,0 pour 18,5, boucle autour du circuit de Zolder non transcrite (Zolder Circuit et Zolder « plaque jaune » non placés) ; aller-retour incertain de 4 km vers Zolder, même cause. Longueur imprimée 133,8 km, stage_towns.json : 138.",
+     "note": "Demi-étape Bruxelles → Zolder ; circuit final de Zolder : 1er passage au km 129,5 (circuit_km, règle 19), arrivée au km 133,8. Départ : Bruxelles → Tervuren 11,6 km à vol d'oiseau pour 7,5 au profil, km 0 réel non situé (règle 25). Hors tolérance à vélo (−11,5 %), dans la tolérance en voiture (−1,4 %, règle 20). Bertem placé au village (audit Mireille : le premier point était à Leefdaal) : Tervuren → Bertem 9,4 km pour 10, Bertem → Louvain 5,2 pour 6. Tronçons suspects (règle 11, à vélo) : Hasselt (Kuringersteenweg) → Zolder (1er passage) 7,0 pour 18,5, boucle autour du circuit de Zolder non transcrite (Zolder Circuit et Zolder « plaque jaune » non placés) ; aller-retour incertain de 4 km vers Zolder, même cause. Longueur imprimée 133,8 km, stage_towns.json : 138.",
      "route_check": {
-      "routed_km": 107.7,
+      "routed_km": 107.9,
       "profile_km": 122,
-      "delta_pct": -11.7,
+      "delta_pct": -11.5,
       "tolerance_pct": 5,
       "coverage_pct": 88,
       "car_legs": 0,
       "legs": 9,
-      "suspect_legs": 3,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 1
      }

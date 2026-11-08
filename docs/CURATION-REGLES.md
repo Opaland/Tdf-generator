@@ -13,6 +13,12 @@ dans la même PR que son correctif.
    depuis des agrandissements (moitiés ×3, tiers ×4,5 pour les images
    courtes, zoom ×2,5 sur une zone dense). La première transcription faite
    sur l'image non agrandie inventait des km (Epic 33, story 33.1).
+   **La source citée est l'image transcrite.** Quand les fichiers ne
+   suivent pas la numérotation des étapes (demi-étapes, schéma en plus :
+   1981, où `1981_14.jpg` est la 12b), vérifier chaque `source_url` contre
+   l'image réellement lue (même md5) : en 1981, les étapes 13 à 22 citaient
+   l'image de l'étape précédente, ce qu'aucun contrôle ne voyait (audit
+   Mireille).
 2. **Deux rangées de chiffres : graduations et km des points.** La rangée
    des graduations rondes (10, 20, 30…) n'est pas celle des points. Lire
    une graduation pour un point décale le km d'un cran — une trentaine de
@@ -242,6 +248,9 @@ dans la même PR que son correctif.
     et Bas-Mornex sur Mornex (1984). Comparer le nom renvoyé au nom cherché
     pour chaque point, et le relire par géocodage inverse, avant de compter
     le point comme placé ; la compatibilité géométrique ne suffit pas.
+    Un point laissé `confidence: ambigu` par le géocodeur se relit par
+    géocodage inverse avant d'être gardé : en 1981, Villagrains tombait sur
+    une route de Cabanac et Auneau à Aunay-sous-Auneau (audit Mireille).
 
 22. **Vérifier le départ et l'arrivée de chaque étape avant le reste.**
     Une ville-étape devenue commune déléguée n'est plus dans l'index IGN
