@@ -411,14 +411,40 @@ et côtes traversées avec leur kilomètre.
       dans la note d'étape, non tranché (règle 12), vraisemblablement le
       parcours prévu contre le parcours couru — à reprendre seulement si une
       troisième source (L'Équipe, Gallica) se présente.
-    - [ ] 07/11 (issue #551) — audit Mireille de #550, hors sujet de la
+    - [x] 07/11 (issue #551, repris le 08/11) — audit Mireille de #550, hors sujet de la
       PR : 8 notes « km imprimé en limite de commune » sans relecture du
       chiffre (1983/7, 2026/2, 4, 12, 13, 17, 18) ; 1983/13 sans point
       d'arrivée au km 200,5 après le 1er passage estimé (règles 4, 19, 22).
-    - [ ] 07/11 (issue #552) — 1982/9a et 9b : profil prévu barré en rouge,
-      parcours couru à sourcer (Gallica) avant toute transcription.
-    - [ ] 07/11 (issue #553) — 1982 : arrivée de Martigues (14), Brakel et
-      boucle de Mouscron (4), Courbieu (11), trois pistes de règles.
+      Fait : 25 tronçons relus à l'échelle avec mairies essayées (1983/3, 4,
+      5, 7, 8, 9, 16 ; 2026/2, 4, 12, 13, 17, 18) — Taillebourg (1983/8) lu
+      66 et non 68 ; Fougax-et-Barrineuf et Vy-lès-Lure (2026/4, 13) placés
+      au village ; Fours, Rocheservière, Les Lucs, Bruay, Saint-Laurent-en-Caux
+      et Doudeville à leur mairie ; Sant Pere de Ribes noté hors parcours
+      vraisemblable ; les 18 autres en « écart vraisemblablement dans la
+      source, hypothèse » ; 1983/4 à +5,1 %, 2026/12 dans la tolérance
+      (+5,0 %). Arrivée d'Aurillac ajoutée à 1983/13. Audit Mireille : notes
+      d'étape réécrites (hypothèse de position du rapport, tronçons qui ne
+      sont plus suspects mis à jour), Sant Pere de Ribes retiré (2026/2,
+      +9,9 % au lieu de +13,0 %), deux tronçons de 2026/2 triés.
+    - [ ] 08/11 (issue #555) — audit Mireille des reprises : 1983/9,
+      2026/17 et 2026/18 encore routés en partie en voiture (403) ;
+      route_check de 1983/3 à réécrire (−11,9 % mesuré) ; les corrections
+      de lieux à propager aux autres éditions (Fougax 2019/15, Vy-lès-Lure
+      1985/10, Les Lucs 2011/3 et 2018/2) ; une étape transcrite sous
+      hypothèse (1982/9b) n'a aucun champ qui le signale.
+    - [x] 07/11 (issue #552, repris le 08/11) — 1982/9a et 9b : profil prévu
+      barré en rouge. Henri n'a trouvé aucune source du parcours couru ;
+      choix par défaut retenus : 9b transcrite depuis le profil prévu à partir
+      de la marque rouge du km 64 (entre les sommets de Cadoudal), km recalés
+      de −64 (132,5 km pour 132 au Dico et 138 dans stage_towns), hypothèse
+      écrite dans la note (−5,0 % à vélo) ; audit Mireille appliqué ;
+      9a non transcrite (parcours non sourcé ; piste : article enenvor.fr,
+      El Mundo Deportivo du 13/07/1982).
+    - [x] 07/11 (issue #553, repris le 08/11) — 1982 : arrivée de Martigues
+      (14) toujours non située (le carrefour du chemin des Rayettes, placé,
+      créait un aller-retour vers l'ancre : gardé non placé, noté) ; Opbrakel
+      et Courbieu Nord-Ouest essayés et non retenus (règles 6, 8, 21) ; trois
+      précisions ajoutées aux règles 5 et 19 de CURATION-REGLES.md.
   - [x] Lot Lorraine (PR #404) : 14 étapes (1970/9, 1978/20, 1979/12-13, 1980/2-3,
     1985/8, 1990/6, 1999/7-8, 2002/2-3, 2006/2, 2012/6), 235 points placés
     sur 239 (Fresse-sur-Moselle 1979/13 retirée en relecture : km imprimé
