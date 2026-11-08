@@ -1968,6 +1968,23 @@ et côtes traversées avec leur kilomètre.
   23 +8), 1984/0 non contrôlable ; 18 tronçons suspects, 8 allers-retours, 4 incertains.
   **Reste, story non cochée :** remesurer à vélo, puis trier ces écarts et noter
   leurs causes (règle 16). Chiffres de voiture : à ne pas lire comme un résultat.
+- [ ] Édition 1981 (routine quotidienne du 08/11/2026) : les étapes absentes du
+  fichier, depuis les profils de ledicodutour.com
+  (`images/cartes_etapes/1977_1986/1981/1981_N.jpg` — noms en `1981_N`, pas
+  `81_N` ; `1981_1` est l'étape 1a, `1981_N` l'étape N−1 ensuite, `1981_12b`
+  le schéma des pavés de l'étape 11, `1981_13` et `1981_14` les demi-étapes
+  12a et 12b ; md5 tous distincts ; prologue et 1b sans profil publié).
+  Critères d'acceptation : chaque nom imprimé est transcrit ; un nom au km
+  douteux ou sans km reste présent non placé, avec une note (règle 4) ; la
+  longueur du profil est comparée à stage_towns.json ; l'altitude est
+  contrôlée point par point (règle 14) ; les départs sont vérifiés à la main
+  (règle 25) ; le contrôle à ±5 % passe sur BRouter public sans tronçon en
+  voiture (sauf inévitable, noté), chaque étape hors tolérance a sa cause
+  notée ; chaque tronçon suspect et aller-retour est trié (règles 11, 17,
+  20, 24) ; les circuits finaux sont en `circuit_km`, leur 1er passage au
+  point de l'arrivée (règle 19) ; le test d'invariant passe ; l'audit
+  Mireille est fait avant la fusion, ce qu'il laisse part en reprise avec
+  une issue.
 - [x] Édition 1982 (routine quotidienne du 07/11/2026, PR #554) : les étapes absentes du
   fichier, depuis les profils de ledicodutour.com
   (`images/cartes_etapes/1977_1986/1982/82_N.jpg`, 0 à 21, md5 tous
