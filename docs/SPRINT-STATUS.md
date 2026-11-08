@@ -422,12 +422,22 @@ et côtes traversées avec leur kilomètre.
       et Doudeville à leur mairie ; Sant Pere de Ribes noté hors parcours
       vraisemblable ; les 18 autres en « écart vraisemblablement dans la
       source, hypothèse » ; 1983/4 à +5,1 %, 2026/12 dans la tolérance
-      (+5,0 %). Arrivée d'Aurillac ajoutée à 1983/13.
+      (+5,0 %). Arrivée d'Aurillac ajoutée à 1983/13. Audit Mireille : notes
+      d'étape réécrites (hypothèse de position du rapport, tronçons qui ne
+      sont plus suspects mis à jour), Sant Pere de Ribes retiré (2026/2,
+      +9,9 % au lieu de +13,0 %), deux tronçons de 2026/2 triés.
+    - [ ] 08/11 (issue #555) — audit Mireille des reprises : 1983/9,
+      2026/17 et 2026/18 encore routés en partie en voiture (403) ;
+      route_check de 1983/3 à réécrire (−11,9 % mesuré) ; les corrections
+      de lieux à propager aux autres éditions (Fougax 2019/15, Vy-lès-Lure
+      1985/10, Les Lucs 2011/3 et 2018/2) ; une étape transcrite sous
+      hypothèse (1982/9b) n'a aucun champ qui le signale.
     - [x] 07/11 (issue #552, repris le 08/11) — 1982/9a et 9b : profil prévu
       barré en rouge. Henri n'a trouvé aucune source du parcours couru ;
       choix par défaut retenus : 9b transcrite depuis le profil prévu à partir
-      de la côte de Cadoudal, km recalés de −62,5 (134 km pour 132 au Dico et
-      138,5 sur Wikipédia), hypothèse écrite dans la note (−5,0 % à vélo) ;
+      de la marque rouge du km 64 (entre les sommets de Cadoudal), km recalés
+      de −64 (132,5 km pour 132 au Dico et 138 dans stage_towns), hypothèse
+      écrite dans la note (−5,0 % à vélo) ; audit Mireille appliqué ;
       9a non transcrite (parcours non sourcé ; piste : article enenvor.fr,
       El Mundo Deportivo du 13/07/1982).
     - [x] 07/11 (issue #553, repris le 08/11) — 1982 : arrivée de Martigues
