@@ -432,6 +432,9 @@ et côtes traversées avec leur kilomètre.
       de lieux à propager aux autres éditions (Fougax 2019/15, Vy-lès-Lure
       1985/10, Les Lucs 2011/3 et 2018/2) ; une étape transcrite sous
       hypothèse (1982/9b) n'a aucun champ qui le signale.
+    - [ ] 08/11 (issue #557) — 1981 : Pont-de-Gennes, « Cestres »,
+      La Chapelle-Guillaume, Pézenas ; relecture nom par nom des étapes que
+      l'audit n'a pas relues ; aller-retour incertain de 1a ; Ramaz 1 781 m.
     - [x] 07/11 (issue #552, repris le 08/11) — 1982/9a et 9b : profil prévu
       barré en rouge. Henri n'a trouvé aucune source du parcours couru ;
       choix par défaut retenus : 9b transcrite depuis le profil prévu à partir
@@ -1994,6 +1997,38 @@ et côtes traversées avec leur kilomètre.
   23 +8), 1984/0 non contrôlable ; 18 tronçons suspects, 8 allers-retours, 4 incertains.
   **Reste, story non cochée :** remesurer à vélo, puis trier ces écarts et noter
   leurs causes (règle 16). Chiffres de voiture : à ne pas lire comme un résultat.
+- [x] Édition 1981 (routine quotidienne du 08/11/2026, PR #558) : les étapes absentes du
+  fichier, depuis les profils de ledicodutour.com
+  (`images/cartes_etapes/1977_1986/1981/1981_N.jpg` — noms en `1981_N`, pas
+  `81_N` ; `1981_1` est l'étape 1a, `1981_N` l'étape N−1 ensuite, `1981_12b`
+  le schéma des pavés de l'étape 11, `1981_13` et `1981_14` les demi-étapes
+  12a et 12b ; md5 tous distincts ; prologue et 1b sans profil publié).
+  Critères d'acceptation : chaque nom imprimé est transcrit ; un nom au km
+  douteux ou sans km reste présent non placé, avec une note (règle 4) ; la
+  longueur du profil est comparée à stage_towns.json ; l'altitude est
+  contrôlée point par point (règle 14) ; les départs sont vérifiés à la main
+  (règle 25) ; le contrôle à ±5 % passe sur BRouter public sans tronçon en
+  voiture (sauf inévitable, noté), chaque étape hors tolérance a sa cause
+  notée ; chaque tronçon suspect et aller-retour est trié (règles 11, 17,
+  20, 24) ; les circuits finaux sont en `circuit_km`, leur 1er passage au
+  point de l'arrivée (règle 19) ; le test d'invariant passe ; l'audit
+  Mireille est fait avant la fusion, ce qu'il laisse part en reprise avec
+  une issue.
+  Fait : 23 étapes sur 25 (prologue et 1b sans profil publié), 388 points
+  placés sur 510, noms sans km gardés non placés (règle 4). Longueurs à 3 km
+  près de stage_towns.json sauf 10 (258,5 pour 264) et 12b (133,8 pour 138).
+  Contrôle à vélo sur BRouter public, 0 tronçon en voiture : 15 étapes dans
+  la tolérance, 8 hors avec la comparaison en voiture et la cause notée —
+  6 (−13,3 %, −12,9 %), 11 (−9,6 %, −3,7 % : boucles des pavés), 12b
+  (−11,5 %, −1,4 %), 13 (−17,6 %, −8,8 % : boucles Beringen–Hasselt), 16
+  (−15,4 %, −10,3 % : Salève non situé), 20 (−23,5 %, −23,1 %), 21 (−10,3 %,
+  −7,5 %), 22 (−8,4 %, −6,8 %). Circuits finaux au 1er passage, au point de
+  l'arrivée (2, 10, 12b, 19, 21, 22 ; 13 au 3e passage). Audit Mireille :
+  source_url des étapes 13 à 22 décalés d'une image (erreur de construction,
+  corrigée, règle 1 précisée) ; Narbonne-Plage, Villagrains, Bertem,
+  Auneau, Heusden, Zolder, Cère, Brocas, Megève, La Redorte replacés,
+  Verchaix retiré ; règle 21 précisée (point « ambigu » relu). Reprise :
+  issue #557.
 - [x] Édition 1982 (routine quotidienne du 07/11/2026, PR #554) : les étapes absentes du
   fichier, depuis les profils de ledicodutour.com
   (`images/cartes_etapes/1977_1986/1982/82_N.jpg`, 0 à 21, md5 tous
