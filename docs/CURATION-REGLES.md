@@ -42,6 +42,16 @@ dans la même PR que son correctif.
 5. **Km strictement croissants** ; un nom présent deux fois dans une étape
    (Ettlingen 1987/3) se corrige sur la bonne occurrence, pas la première
    trouvée.
+   **Un même nom imprimé deux fois à quelques km d'intervalle** (entrée et
+   sortie de ville, « RONSE (RENAIX) » puis « RENAIX ») tombe au même point
+   s'il est géocodé deux fois : le tronçon de 0 km pour 2 km ou plus au
+   profil échappe au contrôle (Mons, Ronse, Douarnenez, Möhlin, Aulnay en
+   1982, audit Mireille). Le dire dans la note d'étape, ou placer la
+   seconde occurrence sur un lieu de sortie sourcé.
+   **« Près X » se traite d'une seule façon** : le bourg de X si la
+   ligne droite vers les deux voisins tient dans le profil (+1 km), sinon
+   non placé avec la note (Dompaire et Saint-Aignan placés, Saint-Méloir
+   non placé, 1982).
 
 ## Placer les points
 
@@ -188,6 +198,10 @@ dans la même PR que son correctif.
     Dinéault, 9,7 km plus loin, et faisait passer l'étape « ok » (audit
     Mireille). Même chose pour une arrivée imprimée au point du départ
     (prologue de Binningen, 1982/0, qui tombait sur l'ancre de Bâle).
+    **Une boucle finale non imprimée** (Mouscron, 1982/4 : 15,5 km au
+    profil après le dernier point, 2,7 à vol d'oiseau) ne se déclare pas en
+    `circuit_km` sans km d'entrée imprimé : l'écart s'affiche, avec la boucle
+    pour cause dans la note d'étape.
 20. **Avant d'accuser la transcription — ou d'écrire « cause non
     établie » —, comparer au routage voiture.** Pontorson → Précey
     (1993/4), noté « cause non établie », faisait 12,8 km en voiture pour
