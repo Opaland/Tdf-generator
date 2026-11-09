@@ -1834,7 +1834,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "« Entrée de Marchiennes » imprimée au km 46 (point de passage). Départ : Lille → Avelin 11 km à vol d'oiseau pour 10,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−5,7 % ; −5,3 % en voiture, 198,0 km pour 209) : Avelin → La Neuville 6,8 km routés pour 10, Denain → Verchain-Maugré 11,1 pour 16 et Ribécourt → Choisy-au-Bac 9,0 pour 13, détours non situés (carrefour D.113/D.134 et côte de Thiescourt non placés) ; Dives → Ribécourt 16,1 routés pour 11,5 (9,1 à vol d'oiseau). Longueur : 219,5 km au profil, 216 dans stage_towns.",
+     "note": "« Entrée de Marchiennes » imprimée au km 46 (point de passage). Départ : Lille → Avelin 11 km à vol d'oiseau pour 10,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−5,7 % ; −5,3 % en voiture, 198,0 km pour 209) : Avelin → La Neuville 6,8 km routés pour 10, Denain → Verchain-Maugré 11,1 pour 16 et Ribécourt → Choisy-au-Bac 9,0 pour 13, détours non situés (carrefour D.113/D.134 et côte de Thiescourt non placés) ; Dives → Ribécourt 16,1 routés pour 11,5 (9,1 à vol d'oiseau). Longueur : 219,5 km au profil, 216 dans stage_towns. Fontaine-lès-Clercs → Tugny-et-Pont 6,9 km à vol d'oiseau pour 5,5 : centres de commune (IGN), passage vraisemblablement par le hameau de Pont (hypothèse).",
      "route_check": {
       "routed_km": 197.1,
       "profile_km": 209,
@@ -1909,7 +1909,7 @@
        "label": "Saint-Hilaire-du-Harcouët",
        "km": 49.5,
        "kind": "ville",
-       "note": "194 m imprimés ; imprimé « SAINT-HILAIRE-DU-HARCOUET » ; MNT 82 m pour 194 imprimés : la ville est en fond de vallée, chiffre imprimé vraisemblablement mal lu ou fautif (règle 14)",
+       "note": "194 m imprimés ; imprimé « SAINT-HILAIRE-DU-HARCOUET » ; MNT 82 m pour 194 imprimés : la ville est en fond de vallée, chiffre imprimé net, vraisemblablement fautif (règle 14)",
        "lat": 48.57677,
        "lon": -1.09274,
        "how": "commune-ign",
@@ -2219,7 +2219,7 @@
        "label": "Nantes, carrefour boulevard des Anglais / boulevard Pierre-de-Coubertin",
        "km": 196,
        "kind": "lieu-dit",
-       "note": "imprimé « NANTES = CARREFOUR BD DES ANGLAIS BD PIERRE-DE-COUBERTIN » ; aucune altitude imprimée ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
+       "note": "imprimé « NANTES = CARREFOUR BD DES ANGLAIS BD PIERRE-DE-COUBERTIN » ; aucune altitude imprimée ; non placé : le carrefour existe (quartier de Carcouët), position exacte du croisement à relever (reprise)",
        "confidence": "non-place"
       },
       {
@@ -2227,7 +2227,7 @@
        "km": 198.5,
        "kind": "ville",
        "confidence": "ok",
-       "note": "8 m imprimés ; 1er passage ; aucun km imprimé (graduation 200) ; 1er passage sur la ligne : point de l'arrivée (règle 19)",
+       "note": "8 m imprimés ; 1er passage ; aucun km imprimé (graduation 200) ; 1er passage sur la ligne : point de l'arrivée (règle 19) ; aucun km imprimé : exception de la règle 4 étendue au 1er passage indispensable au circuit",
        "lat": 47.21864,
        "lon": -1.55414,
        "how": "stage_towns"
@@ -2446,7 +2446,7 @@
        "label": "Bordeaux (Le Lac)",
        "km": 162,
        "kind": "ville",
-       "note": "5 m imprimés ; arrivée ; quartier de Bordeaux-Lac (Nominatim), point d'une autre édition ; l'ancre stage_towns était le centre de Bordeaux, 5 km au sud (règle 22)",
+       "note": "5 m imprimés ; arrivée ; point de 1981/7 (objet « Bordeaux lac » de Nominatim, une pelouse du quartier de Bordeaux-Lac) ; l'ancre stage_towns était le centre de Bordeaux, 5 km au sud (règle 22)",
        "lat": 44.88819,
        "lon": -0.5777,
        "how": "nominatim",
@@ -2760,7 +2760,7 @@
        "label": "Ladevèze",
        "km": 133,
        "kind": "ville",
-       "note": "150 m imprimés ; imprimé « LADEVEZE » (Ladevèze-Rivière ou Ladevèze-Ville, à trancher) ; altitude peu lisible (150 ou 160)",
+       "note": "150 m imprimés ; imprimé « LADEVEZE » (Ladevèze-Rivière : le point est dans cette commune, MNT 152 m ; Ladevèze-Ville est à 8,2 km de Plaisance pour 6,5 au profil, incompatible, règle 7) ; altitude peu lisible (150 ou 160)",
        "lat": 43.55094,
        "lon": 0.07781,
        "how": "commune-ign-prefixe",
@@ -2790,7 +2790,7 @@
        "label": "Simacourbe",
        "km": 165.5,
        "kind": "ville",
-       "note": "187 m imprimés ; MNT 309 m au centre de la commune pour 187 imprimés : passage vraisemblablement en contrebas du village (hypothèse, règle 14)",
+       "note": "187 m imprimés ; MNT 309 m à la mairie pour 187 imprimés : passage vraisemblablement en contrebas du village (hypothèse, règle 14)",
        "lat": 43.44584,
        "lon": -0.16626,
        "how": "commune-ign",
@@ -3362,30 +3362,33 @@
        "label": "La Paillade, carrefour Z.U.P.",
        "km": 185.5,
        "kind": "lieu-dit",
-       "note": "imprimé « LA PAILLADE - CARREFOUR Z.U.P. » ; aucune altitude imprimée ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
-       "confidence": "non-place"
+       "note": "imprimé « LA PAILLADE - CARREFOUR Z.U.P. » ; aucune altitude imprimée ; quartier de La Paillade (Nominatim, place=neighbourhood), le carrefour Z.U.P. n'est pas situé ; d'abord refusé à cause de l'arrivée mal placée (règle 23)",
+       "confidence": "ok",
+       "lat": 43.62258,
+       "lon": 3.81638,
+       "how": "nominatim"
       },
       {
        "label": "Montpellier",
        "km": 189.5,
        "kind": "ville",
-       "note": "50 m imprimés ; arrivée ; total imprimé peu lisible (189,5 ou 189,6) ; point de 2013/7",
-       "lat": 43.59852,
-       "lon": 3.89663,
-       "how": "nominatim",
+       "note": "50 m imprimés ; arrivée ; total imprimé peu lisible (189,5 ou 189,6) ; ancre stage_towns (MNT 48 m) : le point d'abord repris de 2013/7 est l'hôtel de ville de Port-Marianne, construit en 2011 (MNT 17,5 m), audit Mireille",
+       "lat": 43.61124,
+       "lon": 3.87673,
+       "how": "stage_towns",
        "confidence": "ok"
       }
      ],
-     "note": "Arrivée à Montpellier au km 189,5 (189,5 ou 189,6) ; « La Paillade, carrefour Z.U.P. » au km 185,5 (point de passage). Hors tolérance (+9,2 % ; +11,9 % en voiture, 205,3 km pour 183,5) : Saint-Privat → Montpeyroux 20,7 km routés pour 10 (9,4 à vol d'oiseau), côte des Salces non placée (le hameau des Salces est à 0,8 km de Saint-Privat pour 7 au profil), route réelle vraisemblablement plus directe que celle du routeur (hypothèse) ; La Boissière → Montarnaud 10,1 routés pour 6,5 (4,7 à vol d'oiseau, centres de commune).",
+     "note": "Arrivée à Montpellier au km 189,5 (189,5 ou 189,6) ; « La Paillade, carrefour Z.U.P. » au km 185,5 (point de passage). Hors tolérance (+9,1 % ; +11,8 % en voiture, 205,2 km pour 183,5) : Saint-Privat → Montpeyroux 20,7 km routés pour 10 (9,4 à vol d'oiseau), côte des Salces non placée (le hameau des Salces est à 0,8 km de Saint-Privat pour 7 au profil), route réelle vraisemblablement plus directe que celle du routeur (hypothèse) ; La Boissière → Montarnaud 10,1 routés pour 6,5 (4,7 à vol d'oiseau, centres de commune). Montpeyroux → Saint-Jean-de-Fos 3,9 km routés pour 7,5 : km relus sur l'image, détour non situé. La Paillade → Montpellier 5,0 km à vol d'oiseau pour 4 : arrivée au centre (ancre stage_towns), lieu exact de l'arrivée non situé.",
      "route_check": {
-      "routed_km": 200.4,
+      "routed_km": 200.2,
       "profile_km": 183.5,
-      "delta_pct": 9.2,
+      "delta_pct": 9.1,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 18,
-      "suspect_legs": 3,
+      "legs": 19,
+      "suspect_legs": 4,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -3397,10 +3400,10 @@
        "label": "Montpellier",
        "km": 0,
        "kind": "ville",
-       "note": "27 m imprimés ; départ ; point de 2013/7",
-       "lat": 43.59852,
-       "lon": 3.89663,
-       "how": "nominatim",
+       "note": "27 m imprimés ; départ ; ancre stage_towns : le point de 2013/7 (hôtel de ville de Port-Marianne, 2011) ne vaut pas pour 1980 (audit Mireille)",
+       "lat": 43.61124,
+       "lon": 3.87673,
+       "how": "stage_towns",
        "confidence": "ok"
       },
       {
@@ -3539,7 +3542,7 @@
       }
      ],
      "circuit_km": 148,
-     "note": "Circuit final de Martigues : 1er passage au km 148 (circuit_km, règle 19), 2e passage au km 153 non repris, arrivée au km 158. Départ : Montpellier → Palavas-les-Flots 8,4 km à vol d'oiseau pour 7,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "note": "Circuit final de Martigues : 1er passage au km 148 (circuit_km, règle 19), 2e passage au km 153 non repris, arrivée au km 158. Départ : Montpellier → Palavas-les-Flots 10,3 km à vol d'oiseau pour 7,5 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
       "routed_km": 136.1,
       "profile_km": 140.5,
@@ -3617,7 +3620,7 @@
        "label": "Les Hameaux",
        "km": 43.5,
        "kind": "lieu-dit",
-       "note": "279 m imprimés ; lieu-dit habité IGN « le Hameau » (Vinon-sur-Verdon), seul lieu de ce nom compatible, MNT 281 m",
+       "note": "279 m imprimés ; lieu-dit habité IGN « le Hameau » (Vinon-sur-Verdon), nom imprimé au pluriel, à confirmer (seul lieu proche compatible), MNT 281 m",
        "confidence": "ok",
        "lat": 43.73074,
        "lon": 5.81417,
@@ -3890,8 +3893,11 @@
        "label": "Le Lautaret",
        "km": 0,
        "kind": "col",
-       "note": "2058 m imprimés ; départ fictif : titre SERRE-CHEVALIER ; imprimé LE LAUTARET 2058 m (S.H.D.) ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
-       "confidence": "non-place"
+       "note": "2058 m imprimés ; départ fictif : titre SERRE-CHEVALIER ; imprimé LE LAUTARET 2058 m (S.H.D.) ; hameau du Col du Lautaret (Nominatim), MNT 2 059 m",
+       "confidence": "ok",
+       "lat": 45.03523,
+       "lon": 6.40511,
+       "how": "nominatim"
       },
       {
        "label": "Col du Galibier",
@@ -3967,7 +3973,7 @@
        "label": "Le Planet",
        "km": 76.5,
        "kind": "lieu-dit",
-       "note": "900 m imprimés ; point de 2025/18 ; MNT 1 228 m pour 900 imprimés : même hameau qu'en 2025/18 (1 226 m imprimés), chiffre de 1980 vraisemblablement mal lu (règle 14)",
+       "note": "900 m imprimés ; point de 2025/18 ; MNT 1 228 m pour 900 imprimés : même hameau qu'en 2025/18 (1 226 m imprimés), chiffre imprimé net, vraisemblablement fautif (règle 14)",
        "confidence": "ok",
        "lat": 45.39998,
        "lon": 6.33788,
@@ -4034,7 +4040,7 @@
        "label": "Ugine",
        "km": 140.5,
        "kind": "ville",
-       "note": "339 m imprimés ; altitude peu lisible (339 ou 389) ; point de 2003/8 ; MNT 474 m pour 339 imprimés (473 imprimés pour Ugine à l'étape 18) : chiffre vraisemblablement mal lu (règle 14)",
+       "note": "339 m imprimés ; altitude peu lisible (339 ou 389) ; point de 2003/8 ; MNT 474 m pour 339 imprimés (473 imprimés pour Ugine à l'étape 18) : chiffre imprimé net, vraisemblablement fautif (règle 14)",
        "lat": 45.75267,
        "lon": 6.41987,
        "how": "nominatim",
@@ -4352,11 +4358,8 @@
        "label": "Aiton",
        "km": 127,
        "kind": "ville",
-       "note": "306 m imprimés ; sprint ; altitude peu lisible (306 ou 305)",
-       "lat": 45.5606,
-       "lon": 6.25655,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "306 m imprimés ; sprint ; altitude peu lisible (306 ou 305) ; non placé : village à flanc de coteau, la mairie (à 0,13 km du point du géocodeur) donne le même aller-retour de 1,3 km vers le col de Champlaurent (règles 9 et 17)",
+       "confidence": "non-place"
       },
       {
        "label": "Col de Champlaurent",
@@ -4443,17 +4446,17 @@
        "confidence": "ok"
       }
      ],
-     "note": "Allevard : entrée et sortie imprimées pour un seul km (168), donné à l'entrée par la position de sa colonne ; la sortie (vers 170,5) n'a aucun km imprimé. Aller-retour du routeur à Aiton (1,3 km) vers le col de Champlaurent : vraisemblablement un effet du point de la commune, pas du parcours (hypothèse).",
+     "note": "Allevard : entrée et sortie imprimées pour un seul km (168), donné à l'entrée par la position de sa colonne ; la sortie (vers 170,5) n'a aucun km imprimé. Aiton non placé : son point donnait un aller-retour de 1,3 km vers le col de Champlaurent (règle 9).",
      "route_check": {
-      "routed_km": 188.7,
+      "routed_km": 186.2,
       "profile_km": 188.5,
-      "delta_pct": 0.1,
+      "delta_pct": -1.2,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 22,
+      "legs": 21,
       "suspect_legs": 0,
-      "backtracks": 1,
+      "backtracks": 0,
       "backtracks_uncertain": 0
      }
     },
@@ -5048,7 +5051,7 @@
        "km": 200,
        "kind": "ville",
        "confidence": "ok",
-       "note": "60 m imprimés ; 1er passage ; imprimé FONTENAY 1er PASSAGE ; aucun km imprimé (graduation 200) ; 1er passage sur la ligne : point de l'arrivée (règle 19)",
+       "note": "60 m imprimés ; 1er passage ; imprimé FONTENAY 1er PASSAGE ; aucun km imprimé (graduation 200) ; 1er passage sur la ligne : point de l'arrivée (règle 19) ; aucun km imprimé : exception de la règle 4 étendue au 1er passage indispensable au circuit",
        "lat": 48.84907,
        "lon": 2.47493,
        "how": "stage_towns"
@@ -5065,7 +5068,7 @@
       }
      ],
      "circuit_km": 200,
-     "note": "Circuit final de Fontenay-sous-Bois : 1er passage vers le km 200, 2e vers 203,5 (aucun km imprimé, positions à l'échelle ; circuit_km au km approché, règle 19), arrivée au km 207 ; le 2e passage n'est pas repris. Départ : Auxerre → Bleury 14,2 km à vol d'oiseau pour 13 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−8,6 % ; −3,4 % en voiture, 180,6 km pour 187) : Montereau → Melun 32,6 km routés pour 47, côte de Champagne non placée, Le Châtelet-en-Brie et Fontaine-le-Port au km approché, détour non situé ; Malnoue → Noisy-le-Grand 5,2 routés pour 2 ; Melun → Coubert 16,0 pour 13,5.",
+     "note": "Circuit final de Fontenay-sous-Bois : 1er passage vers le km 200, 2e vers 203,5 (aucun km imprimé, positions à l'échelle ; circuit_km au km approché, règle 19), arrivée au km 207 ; le 2e passage n'est pas repris. Départ : Auxerre → Bleury 14,2 km à vol d'oiseau pour 13 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−8,6 % ; −3,4 % en voiture, 180,6 km pour 187) : Montereau → Melun 32,6 km routés pour 47, côte de Champagne non placée, Le Châtelet-en-Brie et Fontaine-le-Port au km approché, détour non situé ; Malnoue → Noisy-le-Grand 5,2 routés pour 2 ; Melun → Coubert 16,0 pour 13,5. Malnoue → Noisy-le-Grand et Melun → Coubert : km relus sur l'image, points au lieu-dit et au centre de commune, passages réels non situés.",
      "route_check": {
       "routed_km": 171,
       "profile_km": 187,
@@ -5510,7 +5513,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Demi-étape Francfort → Wiesbaden-Schierstein (132,5 km imprimés). Départ : Francfort → Dreieich-Götzenhain 13 km à vol d'oiseau pour 11,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−19,6 % ; −12,9 % en voiture, 105,4 km pour 121) : Offenbach → Francfort-Bonames 13,0 km routés pour 22 (Fechenheim au km approché, côte de Klingenweg non placée) et Wiesbaden → Wiesbaden-Schierstein 6,7 pour 15 (Frauenstein non placé), détours non situés ; Dietzenbach-Steinberg → Offenbach 8,8 km à vol d'oiseau pour 6 ; Kronberg → Schwalbach 6,4 routés pour 9,5.",
+     "note": "Demi-étape Francfort → Wiesbaden-Schierstein (132,5 km imprimés). Départ : Francfort → Dreieich-Götzenhain 13 km à vol d'oiseau pour 11,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−19,6 % ; −12,9 % en voiture, 105,4 km pour 121) : Offenbach → Francfort-Bonames 13,0 km routés pour 22 (Fechenheim au km approché, côte de Klingenweg non placée) et Wiesbaden → Wiesbaden-Schierstein 6,7 pour 15 (Frauenstein non placé), détours non situés ; Dietzenbach-Steinberg → Offenbach 8,8 km à vol d'oiseau pour 6 ; Kronberg → Schwalbach 6,4 routés pour 9,5. Dietzenbach-Steinberg → Offenbach : la mairie est au même point, km relus sur l'image ; passage vraisemblablement par le sud d'Offenbach plutôt que par son centre (hypothèse).",
      "route_check": {
       "routed_km": 97.3,
       "profile_km": 121,

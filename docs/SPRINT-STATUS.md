@@ -2009,7 +2009,7 @@ et côtes traversées avec leur kilomètre.
   23 +8), 1984/0 non contrôlable ; 18 tronçons suspects, 8 allers-retours, 4 incertains.
   **Reste, story non cochée :** remesurer à vélo, puis trier ces écarts et noter
   leurs causes (règle 16). Chiffres de voiture : à ne pas lire comme un résultat.
-- [ ] Édition 1980 (routine quotidienne du 09/11/2026) : compléter l'édition, dont
+- [x] Édition 1980 (routine quotidienne du 09/11/2026) : compléter l'édition, dont
   seules 1980/2 et 1980/3 (lot Lorraine, PR #404) sont transcrites, sans y
   toucher. Profils de ledicodutour.com
   (`images/cartes_etapes/1977_1986/1980/80_Na.jpg` ; `80_N.jpg` est la
@@ -2020,6 +2020,16 @@ et côtes traversées avec leur kilomètre.
   main, contrôle à vélo sans tronçon en voiture, tronçons suspects triés,
   circuits au 1er passage placé à l'arrivée, source_url vérifiée contre
   l'image transcrite, test d'invariant, audit Mireille, reprises en issue).
+  Fait : 22 étapes ajoutées (1a, 1b, 4 à 22 ; 2 et 3 inchangées), 470
+  points dont 379 placés ; 11 étapes dans la tolérance, 11 hors tolérance
+  avec leur cause notée (comparaison en voiture) ; 0 tronçon en voiture.
+  Géocodeur relu par classe OSM (Gripp sur une rivière, Sylvéréal sur un
+  canal, Anéran sur un centroïde : corrigés), arrivées replacées
+  (Schierstein, Bordeaux-Lac, Champs-Élysées, rue de la Tour ; Kongresshalle
+  sous hypothèse). Audit Mireille : 2 écarts bloquants (arrivée de
+  Montpellier reprise d'un hôtel de ville de 2011, aller-retour à Aiton)
+  et 9 mineurs corrigés ; règles 21 et 22 précisées ; reprises en issue
+  #561.
 - [x] Édition 1981 (routine quotidienne du 08/11/2026, PR #558) : les étapes absentes du
   fichier, depuis les profils de ledicodutour.com
   (`images/cartes_etapes/1977_1986/1981/1981_N.jpg` — noms en `1981_N`, pas
