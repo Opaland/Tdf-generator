@@ -1649,7 +1649,7 @@
        "km": 168,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "20 m imprimés ; imprimé PEZENAS ; km illisible (vers 168) (lu 158 ou 168, 168 retenu par l'échelle) ; altitude peu lisible ; non placé : km approché (règle 4)"
+       "note": "20 m imprimés ; imprimé PEZENAS ; km illisible (vers 168) (lu 158 ou 168, 168 retenu par l'échelle : la colonne tombe vers 167,7, mesurée à partir des graduations 150 et 160 (relecture #557)) ; altitude peu lisible ; non placé : km approché (règle 4)"
       },
       {
        "label": "Roujan",
@@ -2640,11 +2640,11 @@
        "label": "Les Lucs-sur-Boulogne",
        "km": 123.5,
        "kind": "ville",
-       "note": "79 m imprimés ; point de 2018/2",
+       "note": "79 m imprimés ; hôtel de ville des Lucs-sur-Boulogne (Nominatim), MNT 68 m (correction de 1983/7 reportée, reprise #555)",
        "confidence": "ok",
-       "lat": 46.84408,
-       "lon": -1.49489,
-       "how": "commune-ign"
+       "lat": 46.84432,
+       "lon": -1.49639,
+       "how": "nominatim"
       },
       {
        "label": "Rocheservière",
@@ -2703,9 +2703,9 @@
      ],
      "note": "Entrée du circuit imprimée au km 176,8, arrivée au km 180 : moins de 6 km, point de passage (règle 19). Départ : Rochefort-sur-Mer → Aigrefeuille-d'Aunis 20,1 km à vol d'oiseau pour 18 au profil, km 0 réel non situé (règle 25). « Avant le pont Aristide-Briand » → Nantes : 1,3 km à vol d'oiseau pour 9,5 au profil, boucle d'arrivée dans Nantes non transcrite (entrée du circuit non située). Loiré non placé (le point de préfixe était Loire-les-Marais, au sud d'Aigrefeuille).",
      "route_check": {
-      "routed_km": 162,
+      "routed_km": 162.1,
       "profile_km": 162,
-      "delta_pct": 0,
+      "delta_pct": 0.1,
       "tolerance_pct": 5,
       "coverage_pct": 89,
       "car_legs": 0,
@@ -2984,8 +2984,11 @@
        "label": "Pont-de-Gennes",
        "km": 9.5,
        "kind": "ville",
-       "note": "64 m imprimés ; non placé : Pont-de-Gennes connu seulement par un cimetière et des chemins homonymes (règle 21) ; essayer « Pont de Gennes » (Montfort-le-Gesnois)",
-       "confidence": "non-place"
+       "note": "64 m imprimés ; mairie de Montfort-le-Gesnois (Nominatim), dans l'ancien bourg de Pont-de-Gennes, commune fusionnée ; aucun lieu « Pont-de-Gennes » dans OSM hors un cimetière à 140 m, MNT 62 m (règle 6, reprise #557)",
+       "confidence": "ok",
+       "lat": 48.0484,
+       "lon": 0.41822,
+       "how": "nominatim"
       },
       {
        "label": "Côte de la Roche",
@@ -3022,8 +3025,11 @@
        "label": "La Chapelle-Guillaume",
        "km": 53.5,
        "kind": "ville",
-       "note": "207 m imprimés ; imprimé CHAPELLE-GUILLAUME ; non placé : seuls une route et des lieux-dits d'autres noms de la commune ; ni bourg ni mairie de La Chapelle-Guillaume trouvés (règle 21)",
-       "confidence": "non-place"
+       "note": "207 m imprimés ; imprimé CHAPELLE-GUILLAUME ; lieu-dit IGN La Chapelle-Guillaume, MNT 213 m (reprise #557)",
+       "confidence": "ok",
+       "lat": 48.1141,
+       "lon": 0.90679,
+       "how": "ign"
       },
       {
        "label": "La Chapelle-Royale",
@@ -3185,15 +3191,15 @@
       }
      ],
      "circuit_km": 254.3,
-     "note": "Circuit final d'Aulnay-sous-Bois : 1er passage au km 254,3 (km peu lisible, 254,3 ou 258,3 ; circuit_km, règle 19), arrivée au km 258,5 (peu lisible). Départ : Le Mans → Lavaré 33,9 km à vol d'oiseau pour 30,5 au profil, km 0 réel non situé (règle 25).",
+     "note": "Circuit final d'Aulnay-sous-Bois : 1er passage au km 254,3 (km peu lisible, 254,3 ou 258,3 ; circuit_km, règle 19), arrivée au km 258,5 (peu lisible). Départ : Le Mans → Pont-de-Gennes 17,5 km à vol d'oiseau pour 9,5 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 220.9,
-      "profile_km": 223.8,
-      "delta_pct": -1.3,
+      "routed_km": 242.9,
+      "profile_km": 244.8,
+      "delta_pct": -0.8,
       "tolerance_pct": 5,
-      "coverage_pct": 85,
+      "coverage_pct": 93,
       "car_legs": 0,
-      "legs": 12,
+      "legs": 14,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -5823,10 +5829,10 @@
       },
       {
        "label": "Issy-les-Moulineaux",
-       "km": 139,
+       "km": 140,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "50 m imprimés ; aucun km imprimé (graduation 139) ; non placé : km approché (règle 4)"
+       "note": "50 m imprimés ; aucun km imprimé (graduation 140) ; non placé : km approché (règle 4)"
       },
       {
        "label": "Pont de la Concorde",
@@ -12205,11 +12211,11 @@
        "confidence": "ok"
       }
      ],
-     "note": "Schéma des secteurs pavés et non profil : les km sont ceux du début de chaque secteur, aucune altitude n'est imprimée. Départ : Valenciennes → Quérénaing 8,1 km à vol d'oiseau pour 7,6 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−11,2 % ; −7,9 % en voiture, 130,7 km pour 141,9) : la source est le schéma des secteurs pavés, chaque point est au début d'un secteur et les détours entre secteurs ne sont pas situés. Tronçons suspects (règle 11) : Quérénaing → Saulzoir 7,9 km routés, 7,2 à vol d'oiseau, pour 4,7 (9,1 en voiture) : schéma des pavés, km du début de chaque secteur et non des villages, mairies essayées (7,6 km), le début de secteur est vraisemblablement hors du village (hypothèse) (reprise #551) ; Hordain → Wasnes-au-Bac 7,7 km routés, 4,2 à vol d'oiseau, pour 16,2 (7,7 en voiture), détour non situé ; Arleux → Estrées 3,6 km routés, 3,2 à vol d'oiseau, pour 11,5 (3,6 en voiture), détour non situé ; Estrées → Cantin 4,8 km routés, 4 à vol d'oiseau, pour 1,7 (4,8 en voiture) : km du début du secteur pavé, vraisemblablement entre Estrées et Cantin (hypothèse), mairies essayées (4,0 km) (reprise #551) ; Coutiches → Wattines 6,6 km routés, 5,1 à vol d'oiseau, pour 10,3 (8,6 en voiture), détour non situé ; Carrefour de l'Arbre → Hem 10,2 km routés, 7,8 à vol d'oiseau, pour 5 (9,5 en voiture) : km du début du secteur pavé, vraisemblablement au sud de Hem (hypothèse), étiquettes presque illisibles (reprise #551) ; Hem → Roubaix 5,4 km routés, 4,2 à vol d'oiseau, pour 11,7 (5,6 en voiture), détour non situé.",
+     "note": "Schéma des secteurs pavés et non profil : les km sont ceux du début de chaque secteur, aucune altitude n'est imprimée. Départ : Valenciennes → Quérénaing 8,1 km à vol d'oiseau pour 7,6 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−11,9 % ; −7,9 % en voiture, 130,7 km pour 141,9) : la source est le schéma des secteurs pavés, chaque point est au début d'un secteur et les détours entre secteurs ne sont pas situés. Tronçons suspects (règle 11) : Quérénaing → Saulzoir 7,9 km routés, 7,2 à vol d'oiseau, pour 4,7 (9,1 en voiture) : schéma des pavés, km du début de chaque secteur et non des villages, mairies essayées (7,6 km), le début de secteur est vraisemblablement hors du village (hypothèse) (reprise #551) ; Hordain → Wasnes-au-Bac 7,7 km routés, 4,2 à vol d'oiseau, pour 16,2 (7,7 en voiture), détour non situé ; Arleux → Estrées 3,6 km routés, 3,2 à vol d'oiseau, pour 11,5 (3,6 en voiture), détour non situé ; Estrées → Cantin 4,8 km routés, 4 à vol d'oiseau, pour 1,7 (4,8 en voiture) : km du début du secteur pavé, vraisemblablement entre Estrées et Cantin (hypothèse), mairies essayées (4,0 km) (reprise #551) ; Coutiches → Wattines 6,6 km routés, 5,1 à vol d'oiseau, pour 10,3 (8,6 en voiture), détour non situé ; Carrefour de l'Arbre → Hem 10,2 km routés, 7,8 à vol d'oiseau, pour 5 (9,5 en voiture) : km du début du secteur pavé, vraisemblablement au sud de Hem (hypothèse), étiquettes presque illisibles (reprise #551) ; Hem → Roubaix 5,4 km routés, 4,2 à vol d'oiseau, pour 11,7 (5,6 en voiture), détour non situé.",
      "route_check": {
-      "routed_km": 126,
+      "routed_km": 125,
       "profile_km": 141.9,
-      "delta_pct": -11.2,
+      "delta_pct": -11.9,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
@@ -25653,10 +25659,10 @@
        "label": "Vy-lès-Lure",
        "km": 78.5,
        "kind": "ville",
-       "note": "295 m imprimés ; imprimé « Vy-les-Lure »",
-       "lat": 47.64857,
-       "lon": 6.4529,
-       "how": "commune-ign",
+       "note": "295 m imprimés ; imprimé « Vy-les-Lure » ; église Saint-Léger de Vy-lès-Lure (pas de mairie dans OSM), MNT 292 m (correction de 2026/13 reportée, reprise #555)",
+       "lat": 47.64592,
+       "lon": 6.44554,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -25819,9 +25825,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 202.7,
+      "routed_km": 202.1,
       "profile_km": 198,
-      "delta_pct": 2.4,
+      "delta_pct": 2.1,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
@@ -119995,10 +120001,10 @@
        "label": "Les Lucs-sur-Boulogne",
        "km": 54,
        "kind": "ville",
-       "note": "67 m imprimés ; la graduation du km 64,5 ne porte aucun nom",
-       "lat": 46.84408,
-       "lon": -1.49489,
-       "how": "commune-ign",
+       "note": "67 m imprimés ; la graduation du km 64,5 ne porte aucun nom ; hôtel de ville des Lucs-sur-Boulogne (Nominatim), MNT 68 m (correction de 1983/7 reportée, reprise #555)",
+       "lat": 46.84432,
+       "lon": -1.49639,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -120083,7 +120089,7 @@
       }
      ],
      "route_check": {
-      "routed_km": 165.2,
+      "routed_km": 165.3,
       "profile_km": 170,
       "delta_pct": -2.8,
       "tolerance_pct": 5,
@@ -139672,10 +139678,10 @@
        "label": "Les Lucs-sur-Boulogne",
        "km": 104.5,
        "kind": "ville",
-       "note": "64 m imprimés",
-       "lat": 46.84408,
-       "lon": -1.49489,
-       "how": "commune-ign",
+       "note": "64 m imprimés ; hôtel de ville des Lucs-sur-Boulogne (Nominatim), MNT 68 m (correction de 1983/7 reportée, reprise #555)",
+       "lat": 46.84432,
+       "lon": -1.49639,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -139740,9 +139746,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 178.7,
+      "routed_km": 178.9,
       "profile_km": 178,
-      "delta_pct": 0.4,
+      "delta_pct": 0.5,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
@@ -147381,10 +147387,10 @@
        "label": "Fougax-et-Barrineuf",
        "km": 49,
        "kind": "ville",
-       "note": "554 m imprimés",
-       "lat": 42.87233,
-       "lon": 1.89302,
-       "how": "commune-ign",
+       "note": "554 m imprimés ; village de Fougax (Nominatim), MNT 538 m : le centre IGN tombait 1,5 km au sud, à 624 m (correction de 2026/4 reportée, reprise #555)",
+       "lat": 42.88509,
+       "lon": 1.89857,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -147549,9 +147555,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 183.3,
+      "routed_km": 181.2,
       "profile_km": 172.5,
-      "delta_pct": 6.3,
+      "delta_pct": 5.1,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
@@ -147560,7 +147566,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Hors tolérance (+6,3 % ; +8,8 % en voiture, 187,6 km) : écart réparti, profil plus court que la route — Bélesta → Fougax-et-Barrineuf 6,1 km pour 4, Burret → Saint-Pierre-de-Rivière 10,4 pour 8,5, Saint-Pierre-de-Rivière → Foix 6,5 pour 4."
+     "note": "Hors tolérance (+5,1 %) : écart réparti, profil plus court que la route — Burret → Saint-Pierre-de-Rivière 10,4 km pour 8,5, Saint-Pierre-de-Rivière → Foix 6,5 pour 4. Fougax-et-Barrineuf replacé au village (reprise #555) : Bélesta → Fougax-et-Barrineuf 4,3 km pour 4."
     },
     "16": {
      "source_url": "https://www.ledicodutour.com/images/2019/etape_16.jpg",
@@ -181663,7 +181669,7 @@
       }
      ],
      "route_check": {
-      "routed_km": 171.8,
+      "routed_km": 171.7,
       "profile_km": 173.5,
       "delta_pct": -1,
       "tolerance_pct": 5,
