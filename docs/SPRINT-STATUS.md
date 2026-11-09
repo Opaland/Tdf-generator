@@ -1997,6 +1997,17 @@ et côtes traversées avec leur kilomètre.
   23 +8), 1984/0 non contrôlable ; 18 tronçons suspects, 8 allers-retours, 4 incertains.
   **Reste, story non cochée :** remesurer à vélo, puis trier ces écarts et noter
   leurs causes (règle 16). Chiffres de voiture : à ne pas lire comme un résultat.
+- [ ] Édition 1980 (routine quotidienne du 09/11/2026) : compléter l'édition, dont
+  seules 1980/2 et 1980/3 (lot Lorraine, PR #404) sont transcrites, sans y
+  toucher. Profils de ledicodutour.com
+  (`images/cartes_etapes/1977_1986/1980/80_Na.jpg` ; `80_N.jpg` est la
+  carte de l'étape, `80_1b` le profil de la demi-étape 1b, `80_7b` celui de
+  7b, `80_5b` le schéma des pavés de l'étape 5 ; md5 tous distincts ;
+  prologue sans profil). Critères d'acceptation : ceux de 1981 (règle 4,
+  longueurs contre stage_towns, altitude point par point, départs à la
+  main, contrôle à vélo sans tronçon en voiture, tronçons suspects triés,
+  circuits au 1er passage placé à l'arrivée, source_url vérifiée contre
+  l'image transcrite, test d'invariant, audit Mireille, reprises en issue).
 - [x] Édition 1981 (routine quotidienne du 08/11/2026, PR #558) : les étapes absentes du
   fichier, depuis les profils de ledicodutour.com
   (`images/cartes_etapes/1977_1986/1981/1981_N.jpg` — noms en `1981_N`, pas
