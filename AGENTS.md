@@ -11,6 +11,10 @@ Ce fichier porte les règles qu'aucune machine ne peut vérifier à ma place.
 Ce qui est mécanique est dans `.claude/hooks/` et s'exécute tout seul ; ce
 qui relève du jugement est ici, et repose sur ma discipline.
 
+**À lire en premier : `docs/APPRENTISSAGES.md`** — les erreurs de méthode
+déjà commises par l'agent sur ce dépôt et la conduite à tenir. Toute erreur
+nouvelle de méthode s'y ajoute dans la PR qui la corrige.
+
 **Où est la méthode.** Source unique des agents : `.claude/agents/`
 (relecteurs et personas métier — Henri, historien ; Mireille, auditrice de
 curation) ; des skills : `.claude/skills/` (`porte`, `revue-sprint`,

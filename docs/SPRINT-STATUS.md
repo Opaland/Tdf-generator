@@ -385,6 +385,20 @@ et côtes traversées avec leur kilomètre.
   agrandi. Toute transcription se fait sur l'image agrandie.
 - [ ] 33.2 Transcription édition par édition (une PR par lot), en
   commençant par les éditions passées par la Lorraine.
+  - **Boucle de la routine quotidienne** (consigne de l'utilisateur du
+    09/11/2026, remplace celle du 06/11) : une édition à la fois, en
+    remontant le temps. Chaque jour : lire `docs/APPRENTISSAGES.md`, faire
+    l'édition en cours, la faire auditer par les personas, ouvrir une issue
+    par écart trouvé, corriger, faire passer la CI. **On ne passe à
+    l'édition suivante que le lendemain d'une journée où l'édition en
+    cours a fini verte** (audit sans écart bloquant restant, CI verte,
+    PR fusionnée) ; sinon la routine reboucle sur la même édition. Après
+    **10 tentatives** sans y parvenir, l'édition est notée bloquée, une
+    issue en dit la cause, et la routine passe à la suivante.
+    - État au 09/11 : **1980 verte** à la tentative 1/10 (PR #562
+      fusionnée, CI verte, écarts bloquants de l'audit Mireille corrigés ;
+      reprises non bloquantes en issue #561). Édition prévue le 10/11 :
+      **1979**, tentative 1/10.
   - **Reprises de la routine quotidienne** (routine du matin demandée le
     06/11/2026 : reprises d'abord, puis une édition ; ce qui n'est pas fait
     le jour même s'ajoute ici avec une issue `routine-curation`, reprise le
@@ -3158,6 +3172,22 @@ dont 1 146 non placés, aucune étape sans URL de source.
 - [x] 39.8 Prologue généré à 0 km (issue #540) — fausse alerte, sans code : le
   contrôle « distance » échoue déjà sur ce cas, avec le message dédié au circuit
   sans via (`pipeline/checks.js`, testé dans `test/checks.test.js`, issue #189).
+
+## Epic 40 — Diffusion de l'application sur les stores (issue #563)
+
+En attente : à démarrer seulement quand toutes les autres stories seront
+fermées (demande de l'utilisateur du 09/11/2026). La publication sur un store
+est une publication hors dépôt : compte développeur, clés de signature et
+mise en ligne reviennent à l'utilisateur (règle 15).
+
+- [ ] 40.1 Décision d'architecture : enveloppe TWA de la PWA (suppose une
+  instance HTTPS publique) ou appli autonome (Capacitor + SQLite embarqué,
+  backend à porter) — en attente de décision.
+- [ ] 40.2 Empaquetage APK/AAB signé (clé fournie par l'utilisateur, hors
+  dépôt) et test sur appareil.
+- [ ] 40.3 Fiche du store : description, captures, politique de
+  confidentialité.
+- [ ] 40.4 Mise en ligne (par l'utilisateur).
 
 ## Epic 24 — Bilan final
 
