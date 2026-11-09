@@ -40,7 +40,8 @@ entrée : on la marque « absorbée par … ».
    prebuilt binaries found », pas de Python pour compiler) dans une PR de
    données. Lire le log, relancer **une** fois ; si l'échec revient, c'est
    une vraie panne de l'image (version de Node, binaires précompilés) à
-   corriger dans sa propre PR — jamais « flaky » sans preuve.
+   corriger dans sa propre PR — jamais « flaky » sans preuve. (Ici, la
+   relance a suffi : le binaire précompilé n'avait pas été téléchargé.)
 
 ## Commandes et processus
 
