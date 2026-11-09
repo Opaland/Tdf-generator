@@ -271,6 +271,12 @@ dans la même PR que son correctif.
     Un point laissé `confidence: ambigu` par le géocodeur se relit par
     géocodage inverse avant d'être gardé : en 1981, Villagrains tombait sur
     une route de Cabanac et Auneau à Aunay-sous-Auneau (audit Mireille).
+    La classe OSM du candidat se lit dans le cache du géocodeur : en 1980,
+    Gripp tombait sur la rivière « L'Adour de Gripp », Sylvéréal sur un
+    canal, Anéran sur le centroïde de sa commune nouvelle. Une note « non
+    placé » nomme ce qui a été essayé ; « aucun lieu de ce nom compatible »
+    ne vaut qu'après la recherche bornée (5 faux négatifs sur 6 sondés en
+    1980, audit Mireille).
 
 22. **Vérifier le départ et l'arrivée de chaque étape avant le reste.**
     Une ville-étape devenue commune déléguée n'est plus dans l'index IGN
@@ -279,6 +285,10 @@ dans la même PR que son correctif.
     candidat Nominatim, ici un homonyme à 17 km. Il sert ensuite de repère
     au point suivant, et toute l'étape décroche (1997/3 : 5 villes non
     placées). Placer la ville à sa mairie (règle 17), puis relancer.
+    **Un point repris d'une autre édition se revérifie pour l'époque** :
+    le « point de 2013/7 » de Montpellier est l'hôtel de ville de
+    Port-Marianne, construit en 2011 ; repris en 1980, il faussait une
+    arrivée et faisait refuser La Paillade (audit Mireille).
 23. **Un point qu'aucun voisin ne laisse placer est d'abord une lecture
     à refaire.** « Lure » (1997/18), à 21 km à vol d'oiseau de son voisin
     pour 8,5 au profil, était « Luze » sur l'agrandissement. Relire le nom
