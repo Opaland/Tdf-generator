@@ -448,10 +448,10 @@ et côtes traversées avec leur kilomètre.
       Lucs-sur-Boulogne (2011/3, 2018/2, et 1981/8 après audit
       Mireille ; recherche du libellé dans tout le fichier ajoutée à la
       règle 6).
-    - [ ] 08/11 (issue #559, en attente de décision) — une étape transcrite
+    - [x] 08/11 (issue #559, décidé le 09/11) — une étape transcrite
       sous hypothèse (1982/9b) n'a aucun champ de données qui le signale,
-      seulement sa note. Ajouter un champ (`hypothesis` ?) touche le schéma
-      et l'affichage : décision produit, proposée dans l'issue.
+      seulement sa note. Décision de l'utilisateur : la note suffit, pas de
+      champ ajouté ; issue fermée.
     - [x] 08/11 (issue #557, repris le 09/11) — 1981 : Pont-de-Gennes placé
       à la mairie de Montfort-le-Gesnois, dans l'ancien bourg (MNT 62 m pour
       64 ; le cimetière d'abord retenu n'est pas une ancre, audit Mireille) ;
