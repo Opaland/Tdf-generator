@@ -426,15 +426,27 @@ et côtes traversées avec leur kilomètre.
       d'étape réécrites (hypothèse de position du rapport, tronçons qui ne
       sont plus suspects mis à jour), Sant Pere de Ribes retiré (2026/2,
       +9,9 % au lieu de +13,0 %), deux tronçons de 2026/2 triés.
-    - [ ] 08/11 (issue #555) — audit Mireille des reprises : 1983/9,
-      2026/17 et 2026/18 encore routés en partie en voiture (403) ;
-      route_check de 1983/3 à réécrire (−11,9 % mesuré) ; les corrections
-      de lieux à propager aux autres éditions (Fougax 2019/15, Vy-lès-Lure
-      1985/10, Les Lucs 2011/3 et 2018/2) ; une étape transcrite sous
-      hypothèse (1982/9b) n'a aucun champ qui le signale.
-    - [ ] 08/11 (issue #557) — 1981 : Pont-de-Gennes, « Cestres »,
-      La Chapelle-Guillaume, Pézenas ; relecture nom par nom des étapes que
-      l'audit n'a pas relues ; aller-retour incertain de 1a ; Ramaz 1 781 m.
+    - [x] 08/11 (issue #555, repris le 09/11) — remesure à vélo de 1983/3,
+      1983/9, 2026/17, 2026/18 (plus aucun tronçon en voiture) ; 1983/3 à
+      −11,9 % (note et route_check à jour) ; corrections de lieux propagées :
+      Fougax-et-Barrineuf au village (2019/15, +6,3 % → +5,1 %, note
+      réécrite), Vy-lès-Lure (1985/10, +2,1 %), hôtel de ville des
+      Lucs-sur-Boulogne (2011/3, 2018/2, et 1981/8 après audit
+      Mireille ; recherche du libellé dans tout le fichier ajoutée à la
+      règle 6).
+    - [ ] 08/11 (issue #559, en attente de décision) — une étape transcrite
+      sous hypothèse (1982/9b) n'a aucun champ de données qui le signale,
+      seulement sa note. Ajouter un champ (`hypothesis` ?) touche le schéma
+      et l'affichage : décision produit, proposée dans l'issue.
+    - [x] 08/11 (issue #557, repris le 09/11) — 1981 : Pont-de-Gennes placé
+      à la mairie de Montfort-le-Gesnois, dans l'ancien bourg (MNT 62 m pour
+      64 ; le cimetière d'abord retenu n'est pas une ancre, audit Mireille) ;
+      La Chapelle-Guillaume placée au lieu-dit IGN (MNT 213 m pour 207) ;
+      1981/10 à −0,8 %. « Cestres » reste refusé (aucun lieu compatible) ;
+      Pézenas reste non placé (km 168 mesuré à l'échelle, règle 4).
+      Relecture nom par nom des étapes non relues : un seul écart, Issy
+      (22) sur la graduation 140 et non 139. Aller-retour de 1a et écart de
+      la Ramaz déjà notés.
     - [x] 07/11 (issue #552, repris le 08/11) — 1982/9a et 9b : profil prévu
       barré en rouge. Henri n'a trouvé aucune source du parcours couru ;
       choix par défaut retenus : 9b transcrite depuis le profil prévu à partir

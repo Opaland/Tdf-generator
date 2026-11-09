@@ -69,6 +69,12 @@ dans la même PR que son correctif.
    relation tombe dans la station de l'Alpe d'Huez — vérifier par
    **géocodage inverse** ; à défaut de nœud `place=village`, ancrer à
    l'église ou à la mairie, avec une note.
+   **Un lieu corrigé se corrige dans toutes les éditions** : chercher son
+   libellé dans tout `stage_itineraries.json` (et les notes « point de
+   AAAA/n ») avant de cocher la reprise — Les Lucs-sur-Boulogne corrigé en
+   1983/7, 2011/3 et 2018/2 était resté à l'ancien point en 1981/8 (audit
+   Mireille, reprise #555). Un cimetière n'est pas une ancre : mairie ou
+   église (Pont-de-Gennes, 1981/10).
 7. **Homonymes : cohérence avec les voisins du profil.** Un point plus loin
    à vol d'oiseau de son voisin que le km du profil ne le permet est faux
    (Champigny-le-Sec au lieu de Souzay-Champigny, Marlhes pour Marlhoux,
