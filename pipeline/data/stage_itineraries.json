@@ -1210,14 +1210,14 @@
        "label": "Carrefour Verviers",
        "km": 2.5,
        "kind": "lieu-dit",
-       "note": "480 m imprimés ; imprimé CARREFOUR VERVIERS",
+       "note": "480 m imprimés ; imprimé CARREFOUR VERVIERS ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
        "label": "Sart-lez-Spa",
        "km": 4.7,
        "kind": "ville",
-       "note": "540 m imprimés ; imprimé SART-LEZ-SPA",
+       "note": "540 m imprimés ; imprimé SART-LEZ-SPA ; MNT 371 m pour 540 imprimés au point Nominatim de Sart-lez-Spa : altitude imprimée vraisemblablement celle du plateau traversé (hypothèse, règle 14)",
        "lat": 50.51744,
        "lon": 5.93348,
        "how": "nominatim",
@@ -1227,7 +1227,7 @@
        "label": "Carrefour Spa",
        "km": 9.3,
        "kind": "lieu-dit",
-       "note": "360 m imprimés ; imprimé CARRFEOUR SPA (sic)",
+       "note": "360 m imprimés ; imprimé CARRFEOUR SPA (sic) ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -1241,29 +1241,32 @@
        "label": "Spa (panneau entrée)",
        "km": 15.6,
        "kind": "ville",
-       "note": "280 m imprimés ; imprimé SPA (PANNEAU ENTREE) ; entrée",
+       "note": "280 m imprimés ; imprimé SPA (PANNEAU ENTREE) ; entrée ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
        "label": "Spa (centre)",
        "km": 16.4,
        "kind": "ville",
-       "note": "280 m imprimés ; imprimé SPA (CENTRE)",
+       "note": "280 m imprimés ; imprimé SPA (CENTRE) ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
        "label": "Spa (panneau sortie)",
        "km": 17.9,
        "kind": "ville",
-       "note": "imprimé SPA (PANNEAU SORTIE) ; aucune altitude imprimée",
+       "note": "imprimé SPA (PANNEAU SORTIE) ; aucune altitude imprimée ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
        "label": "Côte de la Malchamps",
        "km": 22.3,
        "kind": "côte",
-       "note": "560 m imprimés ; 3e catégorie ; imprimé COTE DE LA MALCHAMPS",
-       "confidence": "non-place"
+       "note": "560 m imprimés ; 3e catégorie ; imprimé COTE DE LA MALCHAMPS ; sommet de Malchamps (Nominatim, natural=peak), MNT 574 m",
+       "confidence": "ok",
+       "lat": 50.46402,
+       "lon": 5.91867,
+       "how": "nominatim"
       },
       {
        "label": "Francorchamps",
@@ -1279,21 +1282,30 @@
        "label": "Entrée du circuit de Francorchamps",
        "km": 26.6,
        "kind": "lieu-dit",
-       "note": "480 m imprimés ; imprimé ENTREE DU CIRCUIT DE FRANCORCHAMPS ; entrée",
+       "note": "480 m imprimés ; imprimé ENTREE DU CIRCUIT DE FRANCORCHAMPS ; entrée ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
        "label": "Francorchamps",
        "km": 33.4,
        "kind": "ville",
-       "note": "420 m imprimés ; arrivée ; total imprimé 33,400 km ; un sommet sans nom à 460 m vers le km 31 n'est pas un point",
-       "lat": 50.49207,
-       "lon": 5.86276,
-       "how": "stage_towns",
-       "confidence": "ok"
+       "note": "420 m imprimés ; arrivée ; total imprimé 33,400 km ; un sommet sans nom à 460 m vers le km 31 n'est pas un point ; non placé : arrivée sur le circuit de Spa-Francorchamps, ligne d'arrivée non située ; le point de stage_towns était Spa (MNT 252 m pour 420)",
+       "confidence": "non-place"
       }
      ],
-     "note": "Contre-la-montre individuel sur le circuit de Spa-Francorchamps (33,400 km imprimés) : départ et arrivée à Francorchamps, passage au km 25,5 ; « entrée du circuit » au km 26,6."
+     "note": "Contre-la-montre individuel sur le circuit de Spa-Francorchamps (33,400 km imprimés) : départ et arrivée à Francorchamps, passage au km 25,5 ; « entrée du circuit » au km 26,6. Départ : Francorchamps → Sart-lez-Spa 7,3 km à vol d'oiseau pour 4,7 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−33,8 % ; −36,5 % en voiture, 13,2 km pour 20,8) : 59 % de l'étape seulement est mesurable, la traversée de Spa (carrefours, entrée, centre, sortie) et l'arrivée sur le circuit ne sont pas situées ; Sart-lez-Spa → Côte de la Malchamps 9,9 km routés pour 17,6, détour par Spa non situé.",
+     "route_check": {
+      "routed_km": 13.8,
+      "profile_km": 20.8,
+      "delta_pct": -33.8,
+      "tolerance_pct": 5,
+      "coverage_pct": 59,
+      "car_legs": 0,
+      "legs": 2,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "5": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1980/80_5a.jpg",
@@ -1312,14 +1324,14 @@
        "label": "Noville (carrefour N.37/N.417)",
        "km": 7.5,
        "kind": "lieu-dit",
-       "note": "180 m imprimés ; imprimé NOVILLE - CARR N.37/N.417 ; altitude peu lisible (180 ou 160)",
+       "note": "180 m imprimés ; imprimé NOVILLE - CARR N.37/N.417 ; altitude peu lisible (180 ou 160) ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
        "label": "Braives (carrefour N.40/N.23)",
        "km": 23.5,
        "kind": "lieu-dit",
-       "note": "155 m imprimés ; imprimé BRAIVES - CARR N.40/N.23 ; altitude peu lisible",
+       "note": "155 m imprimés ; imprimé BRAIVES - CARR N.40/N.23 ; altitude peu lisible ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -1343,21 +1355,21 @@
        "label": "Côte de Jodoigne",
        "km": 49.5,
        "kind": "côte",
-       "note": "115 m imprimés ; 4e catégorie ; imprimé CÔTE DE JODOIGNE ; altitude peu lisible (115 ou 116)",
+       "note": "115 m imprimés ; 4e catégorie ; imprimé CÔTE DE JODOIGNE ; altitude peu lisible (115 ou 116) ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
        "label": "Carrefour N.37/N.61",
        "km": 55.5,
        "kind": "lieu-dit",
-       "note": "134 m imprimés ; imprimé CARREFOUR N.37/N.61 ; altitude peu lisible",
+       "note": "134 m imprimés ; imprimé CARREFOUR N.37/N.61 ; altitude peu lisible ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
        "label": "Archennes (carrefour N.37)",
        "km": 63,
        "kind": "lieu-dit",
-       "note": "51 m imprimés ; imprimé ARCHENNES - CARR N.37 (lu « ARCHENNER », dernière lettre peu lisible) ; altitude peu lisible",
+       "note": "51 m imprimés ; imprimé ARCHENNES - CARR N.37 (lu « ARCHENNER », dernière lettre peu lisible) ; altitude peu lisible ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -1411,7 +1423,7 @@
        "label": "Côte de Ronquières",
        "km": 106.5,
        "kind": "côte",
-       "note": "121 m imprimés ; 4e catégorie ; imprimé CÔTE DE RONQUIÈRES ; altitude peu lisible",
+       "note": "121 m imprimés ; 4e catégorie ; imprimé CÔTE DE RONQUIÈRES ; altitude peu lisible ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -1549,7 +1561,7 @@
        "label": "Frontière franco-belge",
        "km": 211,
        "kind": "lieu-dit",
-       "note": "absent du profil ; imprimé FRANCE (souligné) au trait 211 du schéma pavés 5b ; fin du secteur pavé 209,5–211",
+       "note": "absent du profil ; imprimé FRANCE (souligné) au trait 211 du schéma pavés 5b ; fin du secteur pavé 209,5–211 ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -1576,14 +1588,17 @@
        "label": "Chéreng (V.O./D.941)",
        "km": 221.3,
        "kind": "lieu-dit",
-       "note": "imprimé CHERENG V.O./D.941 ; km peu lisible (221,3) ; aucune altitude imprimée",
-       "confidence": "non-place"
+       "note": "imprimé CHERENG V.O./D.941 ; km peu lisible (221,3) ; aucune altitude imprimée ; Chéreng, lieu-dit habité IGN (le carrefour V.O./D.941 n'est pas situé), MNT 29 m",
+       "confidence": "ok",
+       "lat": 50.61186,
+       "lon": 3.20846,
+       "how": "ign"
       },
       {
        "label": "Lille - Jardin botanique",
        "km": 231,
        "kind": "lieu-dit",
-       "note": "imprimé LILLE - JARDIN BOTANIQUE ; aucune altitude imprimée",
+       "note": "imprimé LILLE - JARDIN BOTANIQUE ; aucune altitude imprimée ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -1597,7 +1612,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Profil (80_5a.jpg) et schéma des secteurs pavés (80_5b.jpg, dessiné depuis Lille mais gradué depuis Liège : Lille y vaut 236,500 km) : les lieux du seul schéma sont repris au km imprimé sur le schéma ; deux secteurs sans nom (183–186 et 190–192) ne sont pas des points. Lille - Jardin botanique au km 231, arrivée au km 236,5 (règle 19 : pas de circuit)."
+     "note": "Profil (80_5a.jpg) et schéma des secteurs pavés (80_5b.jpg, dessiné depuis Lille mais gradué depuis Liège : Lille y vaut 236,500 km) : les lieux du seul schéma sont repris au km imprimé sur le schéma ; deux secteurs sans nom (183–186 et 190–192) ne sont pas des points. Lille - Jardin botanique au km 231, arrivée au km 236,5 (règle 19 : pas de circuit). Départ : Liège → Hannut 35,1 km à vol d'oiseau pour 31 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance à vélo (−8,2 %) mais pas en voiture (+2,2 %, 210,0 km pour 205,5) : le routeur vélo coupe au plus court. Tronçons suspects (règle 11) : Genappe → Nivelles 9,1 km à vol d'oiseau pour 7,5, Braine-le-Comte → Soignies 5,9 pour 4,5 et Lens → Baudour 12,5 pour 10 (villes placées, km du profil vraisemblablement arrondis ou décalés, hypothèse) ; Blehariès → Lesdain 3,5 km routés pour 7, deux secteurs pavés sans nom entre eux, détour non situé. Longueur : 236,5 km au profil et au schéma des pavés, 249 dans stage_towns.",
+     "route_check": {
+      "routed_km": 188.7,
+      "profile_km": 205.5,
+      "delta_pct": -8.2,
+      "tolerance_pct": 5,
+      "coverage_pct": 83,
+      "car_legs": 0,
+      "legs": 19,
+      "suspect_legs": 4,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "6": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1980/80_6a.jpg",
@@ -1646,8 +1673,11 @@
        "label": "Marchiennes (entrée)",
        "km": 46,
        "kind": "ville",
-       "note": "18 m imprimés ; imprimé ENTRÉE DE MARCHIENNES ; entrée",
-       "confidence": "non-place"
+       "note": "18 m imprimés ; imprimé ENTRÉE DE MARCHIENNES ; entrée ; point de 2018/9",
+       "confidence": "ok",
+       "lat": 50.4075,
+       "lon": 3.28258,
+       "how": "commune-ign"
       },
       {
        "label": "Hélesmes",
@@ -1683,7 +1713,7 @@
        "label": "Carrefour D.113/D.134",
        "km": 93,
        "kind": "lieu-dit",
-       "note": "imprimé CARR D.113/D.134 ; aucune altitude imprimée",
+       "note": "imprimé CARR D.113/D.134 ; aucune altitude imprimée ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -1770,7 +1800,7 @@
        "label": "Côte de Thiescourt",
        "km": 195,
        "kind": "côte",
-       "note": "165 m imprimés ; 4e catégorie ; imprimé CÔTE DE THIESCOURT ; altitude peu lisible (165 ou 168)",
+       "note": "165 m imprimés ; 4e catégorie ; imprimé CÔTE DE THIESCOURT ; altitude peu lisible (165 ou 168) ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -1804,7 +1834,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "« Entrée de Marchiennes » imprimée au km 46 (point de passage)."
+     "note": "« Entrée de Marchiennes » imprimée au km 46 (point de passage). Départ : Lille → Avelin 11 km à vol d'oiseau pour 10,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−5,7 % ; −5,3 % en voiture, 198,0 km pour 209) : Avelin → La Neuville 6,8 km routés pour 10, Denain → Verchain-Maugré 11,1 pour 16 et Ribécourt → Choisy-au-Bac 9,0 pour 13, détours non situés (carrefour D.113/D.134 et côte de Thiescourt non placés) ; Dives → Ribécourt 16,1 routés pour 11,5 (9,1 à vol d'oiseau). Longueur : 219,5 km au profil, 216 dans stage_towns.",
+     "route_check": {
+      "routed_km": 197.1,
+      "profile_km": 209,
+      "delta_pct": -5.7,
+      "tolerance_pct": 5,
+      "coverage_pct": 97,
+      "car_legs": 0,
+      "legs": 17,
+      "suspect_legs": 5,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "8": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1980/80_8a.jpg",
@@ -1813,18 +1855,21 @@
        "label": "Flers",
        "km": 0,
        "kind": "ville",
-       "note": "189 m imprimés",
-       "lat": 48.74842,
-       "lon": -0.56973,
-       "how": "commune-ign",
+       "note": "189 m imprimés ; point de 1985/4",
+       "lat": 48.74994,
+       "lon": -0.57585,
+       "how": "ign",
        "confidence": "ok"
       },
       {
        "label": "Côte de la Chapelle-Biche",
        "km": 5,
        "kind": "côte",
-       "note": "300 m imprimés ; 4e cat. ; imprimé « COTE DE LA CHAPELLE BICHE »",
-       "confidence": "non-place"
+       "note": "300 m imprimés ; 4e cat. ; imprimé « COTE DE LA CHAPELLE BICHE » ; église Notre-Dame de La Chapelle-Biche (IGN), MNT 297 m ; 5,8 km à vol d'oiseau de Flers pour 5 : départ réel hors du centre (règle 25)",
+       "confidence": "ok",
+       "lat": 48.7118,
+       "lon": -0.62959,
+       "how": "ign"
       },
       {
        "label": "Ger",
@@ -1840,7 +1885,7 @@
        "label": "Carrefour D. 157/D. 182",
        "km": 27,
        "kind": "lieu-dit",
-       "note": "315 m imprimés",
+       "note": "315 m imprimés ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -1857,14 +1902,14 @@
        "label": "Carrefour D. 977/D. 85",
        "km": 45,
        "kind": "lieu-dit",
-       "note": "103 m imprimés",
+       "note": "103 m imprimés ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
        "label": "Saint-Hilaire-du-Harcouët",
        "km": 49.5,
        "kind": "ville",
-       "note": "194 m imprimés ; imprimé « SAINT-HILAIRE-DU-HARCOUET »",
+       "note": "194 m imprimés ; imprimé « SAINT-HILAIRE-DU-HARCOUET » ; MNT 82 m pour 194 imprimés : la ville est en fond de vallée, chiffre imprimé vraisemblablement mal lu ou fautif (règle 14)",
        "lat": 48.57677,
        "lon": -1.09274,
        "how": "commune-ign",
@@ -1884,8 +1929,11 @@
        "label": "Côte de Saint-James",
        "km": 78.5,
        "kind": "côte",
-       "note": "110 m imprimés ; 4e cat. ; imprimé « COTE-DE-SAINT-JAMES »",
-       "confidence": "non-place"
+       "note": "110 m imprimés ; 4e cat. ; imprimé « COTE-DE-SAINT-JAMES » ; bourg de Saint-James (lieu-dit habité IGN), en haut de la côte, MNT 124 m",
+       "confidence": "ok",
+       "lat": 48.52186,
+       "lon": -1.32675,
+       "how": "ign"
       },
       {
        "label": "Antrain",
@@ -1951,8 +1999,11 @@
        "label": "Saint-Malo (1er passage)",
        "km": 156.5,
        "kind": "ville",
-       "note": "1er passage ; aucune altitude imprimée",
-       "confidence": "non-place"
+       "note": "1er passage ; aucune altitude imprimée ; 1er passage sur la ligne : point de l'arrivée (règle 19)",
+       "confidence": "ok",
+       "lat": 48.64952,
+       "lon": -2.02604,
+       "how": "stage_towns"
       },
       {
        "label": "Saint-Malo",
@@ -1966,7 +2017,19 @@
       }
      ],
      "circuit_km": 156.5,
-     "note": "Circuit final de Saint-Malo : 1er passage au km 156,5 (circuit_km, règle 19), 2e passage vers 160 (aucun km imprimé) non repris, arrivée au km 164."
+     "note": "Circuit final de Saint-Malo : 1er passage au km 156,5 (circuit_km, règle 19), 2e passage vers 160 (aucun km imprimé) non repris, arrivée au km 164. Départ : Flers → Côte de la Chapelle-Biche 5,8 km à vol d'oiseau pour 5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "route_check": {
+      "routed_km": 153.3,
+      "profile_km": 151.5,
+      "delta_pct": 1.2,
+      "tolerance_pct": 5,
+      "coverage_pct": 92,
+      "car_legs": 0,
+      "legs": 12,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "9": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1980/80_9a.jpg",
@@ -1985,7 +2048,7 @@
        "label": "Côte de la Rance",
        "km": 8.5,
        "kind": "côte",
-       "note": "100 m imprimés ; 4e cat.",
+       "note": "100 m imprimés ; 4e cat. ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -2032,8 +2095,11 @@
        "label": "Côte de Bécherel",
        "km": 51.5,
        "kind": "côte",
-       "note": "196 m imprimés ; 4e cat. ; imprimé « COTE DE BECHEREL » ; altitude peu lisible (196 ou 186)",
-       "confidence": "non-place"
+       "note": "196 m imprimés ; 4e cat. ; imprimé « COTE DE BECHEREL » ; altitude peu lisible (196 ou 186) ; bourg de Bécherel (lieu-dit habité IGN), en haut de la côte, MNT 172 m",
+       "confidence": "ok",
+       "lat": 48.29628,
+       "lon": -1.94273,
+       "how": "ign"
       },
       {
        "label": "Irodouër",
@@ -2049,7 +2115,7 @@
        "label": "Carrefour D. 20/N. 12",
        "km": 64.5,
        "kind": "lieu-dit",
-       "note": "aucune altitude imprimée",
+       "note": "aucune altitude imprimée ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -2096,7 +2162,7 @@
        "label": "Carrefour D. 59/D. 177",
        "km": 116.5,
        "kind": "lieu-dit",
-       "note": "75 m imprimés ; numéro de route peu lisible (59 ou 69)",
+       "note": "75 m imprimés ; numéro de route peu lisible (59 ou 69) ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -2153,15 +2219,18 @@
        "label": "Nantes, carrefour boulevard des Anglais / boulevard Pierre-de-Coubertin",
        "km": 196,
        "kind": "lieu-dit",
-       "note": "imprimé « NANTES = CARREFOUR BD DES ANGLAIS BD PIERRE-DE-COUBERTIN » ; aucune altitude imprimée",
+       "note": "imprimé « NANTES = CARREFOUR BD DES ANGLAIS BD PIERRE-DE-COUBERTIN » ; aucune altitude imprimée ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
        "label": "Nantes (1er passage)",
        "km": 198.5,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "8 m imprimés ; 1er passage ; aucun km imprimé (graduation 200) ; non placé : km approché (règle 4)"
+       "confidence": "ok",
+       "note": "8 m imprimés ; 1er passage ; aucun km imprimé (graduation 200) ; 1er passage sur la ligne : point de l'arrivée (règle 19)",
+       "lat": 47.21864,
+       "lon": -1.55414,
+       "how": "stage_towns"
       },
       {
        "label": "Nantes",
@@ -2175,7 +2244,19 @@
       }
      ],
      "circuit_km": 198.5,
-     "note": "Circuit final de Nantes : carrefour bd des Anglais / bd Pierre-de-Coubertin au km 196, 1er passage vers 198,5 (aucun km imprimé, position à l'échelle ; circuit_km au km approché, règle 19), arrivée au km 203,5."
+     "note": "Circuit final de Nantes : carrefour bd des Anglais / bd Pierre-de-Coubertin au km 196, 1er passage vers 198,5 (aucun km imprimé, position à l'échelle ; circuit_km au km approché, règle 19), arrivée au km 203,5.",
+     "route_check": {
+      "routed_km": 190.5,
+      "profile_km": 187,
+      "delta_pct": 1.9,
+      "tolerance_pct": 5,
+      "coverage_pct": 91,
+      "car_legs": 0,
+      "legs": 15,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "10": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1980/80_10a.jpg",
@@ -2264,7 +2345,7 @@
        "label": "Côte du Moulin à Vent",
        "km": 79,
        "kind": "côte",
-       "note": "80 m imprimés ; 4e cat.",
+       "note": "80 m imprimés ; 4e cat. ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -2348,7 +2429,7 @@
        "label": "Les Places (Sainte-Eulalie)",
        "km": 151,
        "kind": "lieu-dit",
-       "note": "imprimé « LES PLACES, PRES ST-EULALIE » ; aucune altitude imprimée",
+       "note": "imprimé « LES PLACES, PRES ST-EULALIE » ; aucune altitude imprimée ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -2365,14 +2446,26 @@
        "label": "Bordeaux (Le Lac)",
        "km": 162,
        "kind": "ville",
-       "note": "5 m imprimés ; arrivée",
-       "lat": 44.84123,
-       "lon": -0.58004,
-       "how": "stage_towns",
+       "note": "5 m imprimés ; arrivée ; quartier de Bordeaux-Lac (Nominatim), point d'une autre édition ; l'ancre stage_towns était le centre de Bordeaux, 5 km au sud (règle 22)",
+       "lat": 44.88819,
+       "lon": -0.5777,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
-     "note": "Départ imprimé ROCHEFORT-SUR-MER ; arrivée à Bordeaux (Le Lac)."
+     "note": "Départ imprimé ROCHEFORT-SUR-MER ; arrivée à Bordeaux (Le Lac).",
+     "route_check": {
+      "routed_km": 145.4,
+      "profile_km": 146,
+      "delta_pct": -0.4,
+      "tolerance_pct": 5,
+      "coverage_pct": 90,
+      "car_legs": 0,
+      "legs": 15,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "11": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1980/80_11a.jpg",
@@ -2401,7 +2494,7 @@
        "label": "Carrefour D. 642/D. 119",
        "km": 7.3,
        "kind": "lieu-dit",
-       "note": "aucune altitude imprimée sur sa colonne (un « 37m » sans nom ni km sur un trait vers km 9)",
+       "note": "aucune altitude imprimée sur sa colonne (un « 37m » sans nom ni km sur un trait vers km 9) ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -2438,8 +2531,11 @@
        "label": "Tartifume",
        "km": 26.5,
        "kind": "lieu-dit",
-       "note": "64 m imprimés",
-       "confidence": "non-place"
+       "note": "64 m imprimés ; hameau de Tartifume (Nérac, lieu-dit habité IGN), MNT 68 m",
+       "confidence": "ok",
+       "lat": 44.09741,
+       "lon": 0.37582,
+       "how": "ign"
       },
       {
        "label": "Lasserre",
@@ -2465,7 +2561,7 @@
        "label": "Carrefour D. 232/V.O. de Fieux",
        "km": 36.7,
        "kind": "lieu-dit",
-       "note": "imprimé « CARR D. 232/V.O. DE FIEUX » ; aucune altitude imprimée",
+       "note": "imprimé « CARR D. 232/V.O. DE FIEUX » ; aucune altitude imprimée ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -2482,7 +2578,7 @@
        "label": "Carrefour D. 137/D. 131",
        "km": 41.6,
        "kind": "lieu-dit",
-       "note": "aucune altitude imprimée",
+       "note": "aucune altitude imprimée ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -2503,7 +2599,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Contre-la-montre individuel Damazan → Laplume (51 km imprimés) ; deux altitudes sans nom (37 m vers le km 9, 117 m vers le km 30) ne sont pas des points."
+     "note": "Contre-la-montre individuel Damazan → Laplume (51 km imprimés) ; deux altitudes sans nom (37 m vers le km 9, 117 m vers le km 30) ne sont pas des points. Départ : Damazan → Buzet-sur-Baïse 4,1 km à vol d'oiseau pour 3,9 au profil, départ réel hors du centre, non situé (règle 25).",
+     "route_check": {
+      "routed_km": 47.5,
+      "profile_km": 47.1,
+      "delta_pct": 0.9,
+      "tolerance_pct": 5,
+      "coverage_pct": 91,
+      "car_legs": 0,
+      "legs": 8,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "12": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1980/80_12a.jpg",
@@ -2602,8 +2710,11 @@
        "label": "Côte de Jégun",
        "km": 78,
        "kind": "côte",
-       "note": "230 m imprimés ; 4e cat. ; imprimé « COTE-DE-JEGUN » ; altitude peu lisible (230 ou 239)",
-       "confidence": "non-place"
+       "note": "230 m imprimés ; 4e cat. ; imprimé « COTE-DE-JEGUN » ; altitude peu lisible (230 ou 239) ; bourg de Jegun (lieu-dit habité IGN), MNT 211 m",
+       "confidence": "ok",
+       "lat": 43.75787,
+       "lon": 0.45819,
+       "how": "ign"
       },
       {
        "label": "Vic-Fezensac",
@@ -2619,8 +2730,11 @@
        "label": "Belmont (près)",
        "km": 104.5,
        "kind": "lieu-dit",
-       "note": "195 m imprimés ; imprimé « PRES DE BELMONT » ; altitude peu lisible (195 ou 186)",
-       "confidence": "non-place"
+       "note": "195 m imprimés ; imprimé « PRES DE BELMONT » ; altitude peu lisible (195 ou 186) ; point de 1994/11",
+       "confidence": "ok",
+       "lat": 43.68807,
+       "lon": 0.2386,
+       "how": "nominatim"
       },
       {
        "label": "Lupiac",
@@ -2676,7 +2790,7 @@
        "label": "Simacourbe",
        "km": 165.5,
        "kind": "ville",
-       "note": "187 m imprimés",
+       "note": "187 m imprimés ; MNT 309 m au centre de la commune pour 187 imprimés : passage vraisemblablement en contrebas du village (hypothèse, règle 14)",
        "lat": 43.44584,
        "lon": -0.16626,
        "how": "commune-ign",
@@ -2696,7 +2810,7 @@
        "label": "Stade de Fornel",
        "km": 187.5,
        "kind": "lieu-dit",
-       "note": "aucune altitude imprimée ; nom peu lisible",
+       "note": "aucune altitude imprimée ; nom peu lisible ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -2709,7 +2823,20 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "note": "Départ : Agen → Layrac 8,2 km à vol d'oiseau pour 6,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "route_check": {
+      "routed_km": 185.3,
+      "profile_km": 187,
+      "delta_pct": -0.9,
+      "tolerance_pct": 5,
+      "coverage_pct": 96,
+      "car_legs": 0,
+      "legs": 18,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "13": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1980/80_13a.jpg",
@@ -2728,7 +2855,7 @@
        "label": "Côte de la Vallée Heureuse",
        "km": 7,
        "kind": "côte",
-       "note": "259 m imprimés ; imprimé « COTE DE LA VALLEE HEUREUSE » ; aucune catégorie visible ; altitude peu lisible (259 ou 239)",
+       "note": "259 m imprimés ; imprimé « COTE DE LA VALLEE HEUREUSE » ; aucune catégorie visible ; altitude peu lisible (259 ou 239) ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -2755,8 +2882,11 @@
        "label": "Sévignac-Meyracq",
        "km": 24,
        "kind": "ville",
-       "note": "468 m imprimés ; imprimé « SEVIGNAC-MEYRACQ » ; altitude peu lisible (468 ou 488)",
-       "confidence": "non-place"
+       "note": "468 m imprimés ; imprimé « SEVIGNAC-MEYRACQ » ; altitude peu lisible (468 ou 488) ; bourg de Sévignacq-Meyracq (lieu-dit habité IGN), MNT 470 m",
+       "confidence": "ok",
+       "lat": 43.11313,
+       "lon": -0.41169,
+       "how": "ign"
       },
       {
        "label": "Bielle",
@@ -2892,9 +3022,9 @@
        "label": "Gripp",
        "km": 134.5,
        "kind": "lieu-dit",
-       "note": "1004 m imprimés ; altitude peu lisible (1004 ou 1084)",
-       "lat": 42.93215,
-       "lon": 0.20766,
+       "note": "1004 m imprimés ; altitude peu lisible (1004 ou 1084) ; hameau de Gripp (Campan, Nominatim) : le premier point était la rivière « L'Adour de Gripp » (règle 21) ; MNT 1 021 m",
+       "lat": 42.94664,
+       "lon": 0.2224,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -2949,9 +3079,9 @@
        "label": "Anéran",
        "km": 175,
        "kind": "ville",
-       "note": "950 m imprimés ; imprimé « ANERAN » (Anéran-Camors) ; altitude peu lisible (950 ou 960)",
-       "lat": 42.84283,
-       "lon": 0.44041,
+       "note": "950 m imprimés ; imprimé « ANERAN » (Anéran-Camors) ; altitude peu lisible (950 ou 960) ; village d'Anéran (Nominatim, place=village) : le premier point tombait sur le centroïde de la commune nouvelle Cazaux-Fréchet-Anéran-Camors (MNT 1 624 m) ; MNT 946 m",
+       "lat": 42.83326,
+       "lon": 0.41328,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -2986,7 +3116,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Esquièze-Saint-Sauveur imprimé (commune : Esquièze-Sère). Entre Arreau et Luchon, cinq km pour six noms : Bordères-Louron sans km (graduation 170), km tranchés à l'échelle."
+     "note": "Esquièze-Saint-Sauveur imprimé (commune : Esquièze-Sère). Entre Arreau et Luchon, cinq km pour six noms : Bordères-Louron sans km (graduation 170), km tranchés à l'échelle.",
+     "route_check": {
+      "routed_km": 187.5,
+      "profile_km": 188.5,
+      "delta_pct": -0.5,
+      "tolerance_pct": 5,
+      "coverage_pct": 94,
+      "car_legs": 0,
+      "legs": 24,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "14": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1980/80_14a.jpg",
@@ -3005,15 +3147,21 @@
        "label": "Roubia (près)",
        "km": 6,
        "kind": "lieu-dit",
-       "note": "33 m imprimés ; imprimé « PRES DE ROUBIA »",
-       "confidence": "non-place"
+       "note": "33 m imprimés ; imprimé « PRES DE ROUBIA » ; bourg de Roubia (lieu-dit habité IGN) : la ligne droite vers les deux voisins tient dans le profil (règle 5), MNT 40 m",
+       "confidence": "ok",
+       "lat": 43.24661,
+       "lon": 2.79762,
+       "how": "ign"
       },
       {
        "label": "Paraza (près)",
        "km": 8.5,
        "kind": "lieu-dit",
-       "note": "34 m imprimés ; imprimé « PRES DE PARAZA »",
-       "confidence": "non-place"
+       "note": "34 m imprimés ; imprimé « PRES DE PARAZA » ; bourg de Paraza (lieu-dit habité IGN) : la ligne droite vers les deux voisins tient dans le profil (règle 5), MNT 59 m",
+       "confidence": "ok",
+       "lat": 43.2526,
+       "lon": 2.82867,
+       "how": "ign"
       },
       {
        "label": "Saint-Marcel-sur-Aude",
@@ -3147,8 +3295,11 @@
        "label": "Côte de Soumont",
        "km": 129,
        "kind": "côte",
-       "note": "435 m imprimés ; 4e cat.",
-       "confidence": "non-place"
+       "note": "435 m imprimés ; 4e cat. ; village de Soumont (lieu-dit habité IGN), sur la côte, MNT 421 m",
+       "confidence": "ok",
+       "lat": 43.72881,
+       "lon": 3.35297,
+       "how": "ign"
       },
       {
        "label": "Saint-Privat",
@@ -3164,14 +3315,14 @@
        "label": "Côte des Salces",
        "km": 145,
        "kind": "côte",
-       "note": "511 m imprimés ; 3e cat.",
+       "note": "511 m imprimés ; 3e cat. ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
        "label": "Montpeyroux",
        "km": 148,
        "kind": "ville",
-       "note": "289 m imprimés ; altitude peu lisible (289 ou 280)",
+       "note": "289 m imprimés ; altitude peu lisible (289 ou 280) ; MNT 143 m pour 289 imprimés (« paraît élevé » à la lecture) : village bien placé entre Saint-Privat et Saint-Jean-de-Fos, chiffre imprimé vraisemblablement fautif (règle 14)",
        "lat": 43.6943,
        "lon": 3.50823,
        "how": "commune-ign",
@@ -3211,21 +3362,33 @@
        "label": "La Paillade, carrefour Z.U.P.",
        "km": 185.5,
        "kind": "lieu-dit",
-       "note": "imprimé « LA PAILLADE - CARREFOUR Z.U.P. » ; aucune altitude imprimée",
+       "note": "imprimé « LA PAILLADE - CARREFOUR Z.U.P. » ; aucune altitude imprimée ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
        "label": "Montpellier",
        "km": 189.5,
        "kind": "ville",
-       "note": "50 m imprimés ; arrivée ; total imprimé peu lisible (189,5 ou 189,6)",
-       "lat": 43.61124,
-       "lon": 3.87673,
-       "how": "stage_towns",
+       "note": "50 m imprimés ; arrivée ; total imprimé peu lisible (189,5 ou 189,6) ; point de 2013/7",
+       "lat": 43.59852,
+       "lon": 3.89663,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
-     "note": "Arrivée à Montpellier au km 189,5 (189,5 ou 189,6) ; « La Paillade, carrefour Z.U.P. » au km 185,5 (point de passage)."
+     "note": "Arrivée à Montpellier au km 189,5 (189,5 ou 189,6) ; « La Paillade, carrefour Z.U.P. » au km 185,5 (point de passage). Hors tolérance (+9,2 % ; +11,9 % en voiture, 205,3 km pour 183,5) : Saint-Privat → Montpeyroux 20,7 km routés pour 10 (9,4 à vol d'oiseau), côte des Salces non placée (le hameau des Salces est à 0,8 km de Saint-Privat pour 7 au profil), route réelle vraisemblablement plus directe que celle du routeur (hypothèse) ; La Boissière → Montarnaud 10,1 routés pour 6,5 (4,7 à vol d'oiseau, centres de commune).",
+     "route_check": {
+      "routed_km": 200.4,
+      "profile_km": 183.5,
+      "delta_pct": 9.2,
+      "tolerance_pct": 5,
+      "coverage_pct": 97,
+      "car_legs": 0,
+      "legs": 18,
+      "suspect_legs": 3,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "15": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1980/80_15a.jpg",
@@ -3234,10 +3397,10 @@
        "label": "Montpellier",
        "km": 0,
        "kind": "ville",
-       "note": "27 m imprimés ; départ",
-       "lat": 43.61124,
-       "lon": 3.87673,
-       "how": "commune-ign",
+       "note": "27 m imprimés ; départ ; point de 2013/7",
+       "lat": 43.59852,
+       "lon": 3.89663,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -3263,39 +3426,45 @@
        "label": "Domaine de la Pinède",
        "km": 35,
        "kind": "lieu-dit",
-       "note": "sprint B ; imprimé DOMAINE DE LA PINEDE",
+       "note": "sprint B ; imprimé DOMAINE DE LA PINEDE ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
        "label": "Sylvéréal",
        "km": 45.5,
        "kind": "lieu-dit",
-       "note": "imprimé SYLVEREAL",
-       "lat": 43.49971,
-       "lon": 4.23903,
+       "note": "imprimé SYLVEREAL ; hameau de Sylvéréal (Vauvert, Nominatim, place=hamlet) : le premier point était le « Canal de Peccais à Sylvéréal » (règle 21)",
+       "lat": 43.54756,
+       "lon": 4.34923,
        "how": "nominatim",
-       "confidence": "ambigu"
+       "confidence": "ok"
       },
       {
        "label": "Le Paty-de-la-Trinité",
        "km": 58,
        "kind": "lieu-dit",
-       "note": "8 m imprimés ; sprint B ; imprimé LE PATY-DE-LA-TRINITE",
+       "note": "8 m imprimés ; sprint B ; imprimé LE PATY-DE-LA-TRINITE ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
        "label": "Arles",
        "km": 78,
        "kind": "ville",
-       "note": "9 m imprimés",
-       "confidence": "non-place"
+       "note": "9 m imprimés ; point de 2009/3",
+       "confidence": "ok",
+       "lat": 43.67628,
+       "lon": 4.62759,
+       "how": "nominatim"
       },
       {
        "label": "Fontvieille",
        "km": 87.5,
        "kind": "ville",
-       "note": "20 m imprimés",
-       "confidence": "non-place"
+       "note": "20 m imprimés ; point de 1989/13",
+       "confidence": "ok",
+       "lat": 43.72648,
+       "lon": 4.70767,
+       "how": "commune-ign"
       },
       {
        "label": "Maussane-les-Alpilles",
@@ -3335,7 +3504,7 @@
        "label": "Côte de l'Au-delà",
        "km": 126.5,
        "kind": "côte",
-       "note": "110 m imprimés ; 4e cat. ; imprimé COTE DE L'AU-DELA",
+       "note": "110 m imprimés ; 4e cat. ; imprimé COTE DE L'AU-DELA ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -3352,8 +3521,11 @@
        "label": "Martigues (1er passage)",
        "km": 148,
        "kind": "ville",
-       "note": "40 m imprimés ; 1er passage ; pictogramme 4e cat. sur ce point",
-       "confidence": "non-place"
+       "note": "40 m imprimés ; 1er passage ; pictogramme 4e cat. sur ce point ; 1er passage sur la ligne : point de l'arrivée (règle 19)",
+       "confidence": "ok",
+       "lat": 43.40573,
+       "lon": 5.05482,
+       "how": "stage_towns"
       },
       {
        "label": "Martigues",
@@ -3367,7 +3539,19 @@
       }
      ],
      "circuit_km": 148,
-     "note": "Circuit final de Martigues : 1er passage au km 148 (circuit_km, règle 19), 2e passage au km 153 non repris, arrivée au km 158."
+     "note": "Circuit final de Martigues : 1er passage au km 148 (circuit_km, règle 19), 2e passage au km 153 non repris, arrivée au km 158. Départ : Montpellier → Palavas-les-Flots 8,4 km à vol d'oiseau pour 7,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "route_check": {
+      "routed_km": 136.1,
+      "profile_km": 140.5,
+      "delta_pct": -3.1,
+      "tolerance_pct": 5,
+      "coverage_pct": 88,
+      "car_legs": 0,
+      "legs": 8,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "16": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1980/80_16a.jpg",
@@ -3396,8 +3580,11 @@
        "label": "Les Puits de Rian",
        "km": 14.5,
        "kind": "lieu-dit",
-       "note": "450 m imprimés",
-       "confidence": "non-place"
+       "note": "450 m imprimés ; lieu-dit habité IGN « le Puits de Rians », MNT 452 m",
+       "confidence": "ok",
+       "lat": 43.55844,
+       "lon": 5.72724,
+       "how": "ign"
       },
       {
        "label": "Rians",
@@ -3413,7 +3600,7 @@
        "label": "La Bastide Blanche (carrefour D.23/D.30)",
        "km": 28,
        "kind": "lieu-dit",
-       "note": "317 m imprimés ; une seule colonne : LA BASTIDE BLANCHE / CARREFOUR D. 23/D. 30",
+       "note": "317 m imprimés ; une seule colonne : LA BASTIDE BLANCHE / CARREFOUR D. 23/D. 30 ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -3430,8 +3617,11 @@
        "label": "Les Hameaux",
        "km": 43.5,
        "kind": "lieu-dit",
-       "note": "279 m imprimés",
-       "confidence": "non-place"
+       "note": "279 m imprimés ; lieu-dit habité IGN « le Hameau » (Vinon-sur-Verdon), seul lieu de ce nom compatible, MNT 281 m",
+       "confidence": "ok",
+       "lat": 43.73074,
+       "lon": 5.81417,
+       "how": "ign"
       },
       {
        "label": "Gréoux-les-Bains",
@@ -3484,7 +3674,7 @@
        "label": "Carrefour D.953/D.8",
        "km": 81.5,
        "kind": "lieu-dit",
-       "note": "734 m imprimés",
+       "note": "734 m imprimés ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -3575,8 +3765,11 @@
        "label": "Le Vernet (près)",
        "km": 142,
        "kind": "lieu-dit",
-       "note": "1200 m imprimés ; imprimé PRES LE VERNET (vraisemblablement « près Le Vernet ») ; altitude peu lisible (1200 ou 1260)",
-       "confidence": "non-place"
+       "note": "1200 m imprimés ; imprimé PRES LE VERNET (vraisemblablement « près Le Vernet ») ; altitude peu lisible (1200 ou 1260) ; bourg du Vernet (lieu-dit habité IGN) : la ligne droite vers les deux voisins tient dans le profil (règle 5), MNT 1 196 m",
+       "confidence": "ok",
+       "lat": 44.27705,
+       "lon": 6.3911,
+       "how": "ign"
       },
       {
        "label": "Col de Maure",
@@ -3632,8 +3825,11 @@
        "label": "Le Martinet",
        "km": 182,
        "kind": "ville",
-       "note": "972 m imprimés",
-       "confidence": "non-place"
+       "note": "972 m imprimés ; hameau du Martinet (Méolans-Revel, lieu-dit habité IGN), MNT 970 m",
+       "confidence": "ok",
+       "lat": 44.39521,
+       "lon": 6.48063,
+       "how": "ign"
       },
       {
        "label": "Les Thuiles",
@@ -3659,18 +3855,33 @@
        "label": "Carrefour D.908/D.109",
        "km": 201,
        "kind": "lieu-dit",
-       "note": "1183 m imprimés ; imprimé CARR D. 908/D. 109 ; altitude peu lisible (1183 ou 1163)",
+       "note": "1183 m imprimés ; imprimé CARR D. 908/D. 109 ; altitude peu lisible (1183 ou 1163) ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
        "label": "Pra-Loup",
        "km": 207.5,
        "kind": "ville",
-       "note": "1630 m imprimés ; arrivée ; 1re cat. ; altitude peu lisible (1630 ou 1680)",
-       "confidence": "non-place"
+       "note": "1630 m imprimés ; arrivée ; 1re cat. ; altitude peu lisible (1630 ou 1680) ; point de 2015/17",
+       "confidence": "ok",
+       "lat": 44.37015,
+       "lon": 6.6025,
+       "how": "nominatim"
       }
      ],
-     "note": "Arrivée en montée à Pra-Loup (207,5 km imprimés)."
+     "note": "Arrivée en montée à Pra-Loup (207,5 km imprimés). Départ : Trets → Pourrières 7,4 km à vol d'oiseau pour 7 au profil, départ réel hors du centre, non situé (règle 25).",
+     "route_check": {
+      "routed_km": 200.4,
+      "profile_km": 200.5,
+      "delta_pct": -0.1,
+      "tolerance_pct": 5,
+      "coverage_pct": 96,
+      "car_legs": 0,
+      "legs": 25,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "17": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1980/80_17a.jpg",
@@ -3679,15 +3890,18 @@
        "label": "Le Lautaret",
        "km": 0,
        "kind": "col",
-       "note": "2058 m imprimés ; départ fictif : titre SERRE-CHEVALIER ; imprimé LE LAUTARET 2058 m (S.H.D.)",
+       "note": "2058 m imprimés ; départ fictif : titre SERRE-CHEVALIER ; imprimé LE LAUTARET 2058 m (S.H.D.) ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
        "label": "Col du Galibier",
        "km": 8.5,
        "kind": "col",
-       "note": "2645 m imprimés ; hors cat. ; un km 7,5 est imprimé juste avant, sans nom visible sous sa colonne (doute : 7,5 ou 8,5 pour le col)",
-       "confidence": "non-place"
+       "note": "2645 m imprimés ; hors cat. ; un km 7,5 est imprimé juste avant, sans nom visible sous sa colonne (doute : 7,5 ou 8,5 pour le col) ; point de 2026/20",
+       "confidence": "ok",
+       "lat": 45.06414,
+       "lon": 6.40786,
+       "how": "nominatim"
       },
       {
        "label": "Plan Lachat",
@@ -3753,8 +3967,11 @@
        "label": "Le Planet",
        "km": 76.5,
        "kind": "lieu-dit",
-       "note": "900 m imprimés",
-       "confidence": "non-place"
+       "note": "900 m imprimés ; point de 2025/18 ; MNT 1 228 m pour 900 imprimés : même hameau qu'en 2025/18 (1 226 m imprimés), chiffre de 1980 vraisemblablement mal lu (règle 14)",
+       "confidence": "ok",
+       "lat": 45.39998,
+       "lon": 6.33788,
+       "how": "nominatim"
       },
       {
        "label": "Col de la Madeleine",
@@ -3780,11 +3997,8 @@
        "label": "Villard-Soffray",
        "km": 106.5,
        "kind": "lieu-dit",
-       "note": "545 m imprimés ; lecture du nom incertaine (VILLARD-SOFFRAY ?) ; altitude peu lisible",
-       "lat": 45.5175,
-       "lon": 6.45322,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "545 m imprimés ; lecture du nom incertaine (VILLARD-SOFFRAY ?) ; altitude peu lisible ; non placé : nom incertain, le point trouvé (MNT 956 m pour 545 imprimés) n'est pas compatible (règle 14)",
+       "confidence": "non-place"
       },
       {
        "label": "Cevins",
@@ -3800,10 +4014,10 @@
        "label": "Tours-en-Savoie",
        "km": 127,
        "kind": "ville",
-       "note": "368 m imprimés ; altitude peu lisible",
-       "lat": 45.6483,
-       "lon": 6.44049,
-       "how": "commune-ign",
+       "note": "368 m imprimés ; altitude peu lisible ; point de 2023/18",
+       "lat": 45.65551,
+       "lon": 6.43603,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -3820,10 +4034,10 @@
        "label": "Ugine",
        "km": 140.5,
        "kind": "ville",
-       "note": "339 m imprimés ; altitude peu lisible (339 ou 389)",
-       "lat": 45.74904,
-       "lon": 6.42052,
-       "how": "commune-ign",
+       "note": "339 m imprimés ; altitude peu lisible (339 ou 389) ; point de 2003/8 ; MNT 474 m pour 339 imprimés (473 imprimés pour Ugine à l'étape 18) : chiffre vraisemblablement mal lu (règle 14)",
+       "lat": 45.75267,
+       "lon": 6.41987,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -3890,8 +4104,11 @@
        "label": "Côte d'Araches",
        "km": 194.5,
        "kind": "côte",
-       "note": "1060 m imprimés ; 2e cat. ; altitude peu lisible (1060 ou 1050)",
-       "confidence": "non-place"
+       "note": "1060 m imprimés ; 2e cat. ; altitude peu lisible (1060 ou 1050) ; village d'Arâches (lieu-dit habité IGN), MNT 1 020 m pour 1 060 imprimés : sommet vraisemblablement au-dessus du village (hypothèse)",
+       "confidence": "ok",
+       "lat": 46.03964,
+       "lon": 6.63628,
+       "how": "ign"
       },
       {
        "label": "Châtillon-sur-Cluses",
@@ -3927,8 +4144,11 @@
        "label": "Chantemerle (près)",
        "km": 222.5,
        "kind": "lieu-dit",
-       "note": "imprimé PRÉS DE CHANTEMERLE ; aucune altitude",
-       "confidence": "non-place"
+       "note": "imprimé PRÉS DE CHANTEMERLE ; aucune altitude ; hameau de Chantemerle (Samoëns, lieu-dit habité IGN) : la ligne droite vers les deux voisins tient dans le profil (règle 5), MNT 1 067 m",
+       "confidence": "ok",
+       "lat": 46.09611,
+       "lon": 6.72274,
+       "how": "ign"
       },
       {
        "label": "Col de Joux-Plane",
@@ -3951,7 +4171,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ fictif : titre SERRE-CHEVALIER, km 0 imprimé au Lautaret (2 058 m) ; un km 7,5 imprimé sans nom avant le Galibier, col retenu au km 8,5 sur le sommet de la courbe (7,5 possible)."
+     "note": "Départ fictif : titre SERRE-CHEVALIER, km 0 imprimé au Lautaret (2 058 m) ; un km 7,5 imprimé sans nom avant le Galibier, col retenu au km 8,5 sur le sommet de la courbe (7,5 possible).",
+     "route_check": {
+      "routed_km": 236.8,
+      "profile_km": 236,
+      "delta_pct": 0.3,
+      "tolerance_pct": 5,
+      "coverage_pct": 98,
+      "car_legs": 0,
+      "legs": 26,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "18": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1980/80_18a.jpg",
@@ -3990,8 +4222,11 @@
        "label": "Côte de Châtillon",
        "km": 22.5,
        "kind": "côte",
-       "note": "740 m imprimés ; 4e cat. ; imprimé COTE DE CHATILLON",
-       "confidence": "non-place"
+       "note": "740 m imprimés ; 4e cat. ; imprimé COTE DE CHATILLON ; col de Châtillon (IGN), MNT 742 m",
+       "confidence": "ok",
+       "lat": 46.08782,
+       "lon": 6.5815,
+       "how": "ign"
       },
       {
        "label": "Marignier",
@@ -4067,10 +4302,10 @@
        "label": "La Giettaz",
        "km": 82.5,
        "kind": "ville",
-       "note": "1100 m imprimés",
-       "lat": 45.87724,
-       "lon": 6.51982,
-       "how": "commune-ign",
+       "note": "1100 m imprimés ; point de 2006/17",
+       "lat": 45.86222,
+       "lon": 6.49527,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -4087,10 +4322,10 @@
        "label": "Ugine",
        "km": 101.5,
        "kind": "ville",
-       "note": "473 m imprimés",
-       "lat": 45.74904,
-       "lon": 6.42052,
-       "how": "commune-ign",
+       "note": "473 m imprimés ; point de 2003/8",
+       "lat": 45.75267,
+       "lon": 6.41987,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -4137,7 +4372,7 @@
        "label": "Villard-de-la-Table",
        "km": 153.5,
        "kind": "lieu-dit",
-       "note": "900 m imprimés ; imprimé VILLARD-DE-LA-TABLE ; nom à confirmer",
+       "note": "900 m imprimés ; imprimé VILLARD-DE-LA-TABLE ; nom à confirmer ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -4154,8 +4389,11 @@
        "label": "Allevard (entrée)",
        "km": 168,
        "kind": "ville",
-       "note": "475 m imprimés ; entrée ; km 168 attribué par position (colonne ~167), doute avec la sortie",
-       "confidence": "non-place"
+       "note": "475 m imprimés ; entrée ; km 168 attribué par position (colonne ~167), doute avec la sortie ; point de 2020/17",
+       "confidence": "ok",
+       "lat": 45.39347,
+       "lon": 6.07444,
+       "how": "commune-ign"
       },
       {
        "label": "Allevard (sortie)",
@@ -4205,7 +4443,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Allevard : entrée et sortie imprimées pour un seul km (168), donné à l'entrée par la position de sa colonne ; la sortie (vers 170,5) n'a aucun km imprimé."
+     "note": "Allevard : entrée et sortie imprimées pour un seul km (168), donné à l'entrée par la position de sa colonne ; la sortie (vers 170,5) n'a aucun km imprimé. Aller-retour du routeur à Aiton (1,3 km) vers le col de Champlaurent : vraisemblablement un effet du point de la commune, pas du parcours (hypothèse).",
+     "route_check": {
+      "routed_km": 188.7,
+      "profile_km": 188.5,
+      "delta_pct": 0.1,
+      "tolerance_pct": 5,
+      "coverage_pct": 95,
+      "car_legs": 0,
+      "legs": 22,
+      "suspect_legs": 0,
+      "backtracks": 1,
+      "backtracks_uncertain": 0
+     }
     },
     "19": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1980/80_19a.jpg",
@@ -4234,7 +4484,7 @@
        "label": "Côte de la Buisse",
        "km": 7.5,
        "kind": "côte",
-       "note": "266 m imprimés ; km imprimé dans la rangée des graduations ; aucune catégorie lue",
+       "note": "266 m imprimés ; km imprimé dans la rangée des graduations ; aucune catégorie lue ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -4251,7 +4501,7 @@
        "label": "Carrefour D.520/D.50",
        "km": 18,
        "kind": "lieu-dit",
-       "note": "435 m imprimés",
+       "note": "435 m imprimés ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -4355,7 +4605,7 @@
        "label": "Côte de Perrières",
        "km": 85.5,
        "kind": "côte",
-       "note": "339 m imprimés ; 3e cat. ; km imprimé dans la rangée des graduations ; imprimé COTE DE PERRIERES",
+       "note": "339 m imprimés ; 3e cat. ; km imprimé dans la rangée des graduations ; imprimé COTE DE PERRIERES ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -4436,7 +4686,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Arrivée à Saint-Étienne au km 136,5 ; « rue du Docteur-Destre » vers le km 129,5 (aucun km imprimé)."
+     "note": "Arrivée à Saint-Étienne au km 136,5 ; « rue du Docteur-Destre » vers le km 129,5 (aucun km imprimé). Départ : Voreppe → La Buisse 4,7 km à vol d'oiseau pour 4,5 au profil, départ réel hors du centre, non situé (règle 25). Rochetaillée → Saint-Étienne 7,5 km routés pour 13 : la rue du Docteur-Destre (km approché) n'est pas située, détour d'arrivée non situé. Longueur : 136,5 km au profil, 140 dans stage_towns.",
+     "route_check": {
+      "routed_km": 127.8,
+      "profile_km": 132,
+      "delta_pct": -3.2,
+      "tolerance_pct": 5,
+      "coverage_pct": 94,
+      "car_legs": 0,
+      "legs": 17,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "20": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1980/80_20a.jpg",
@@ -4445,14 +4707,17 @@
        "label": "Saint-Étienne (rue de la Tour)",
        "km": 0,
        "kind": "lieu-dit",
-       "note": "488 m imprimés ; départ ; contre-la-montre ; imprimé SAINT-ETIENNE (Rue de la Tour)",
-       "confidence": "non-place"
+       "note": "488 m imprimés ; départ ; contre-la-montre ; imprimé SAINT-ETIENNE (Rue de la Tour) ; rue de la Tour (Montreynaud, Nominatim), MNT 472 m",
+       "confidence": "ok",
+       "lat": 45.47111,
+       "lon": 4.38781,
+       "how": "nominatim"
       },
       {
        "label": "Carrefour Pont Bayard",
        "km": 4,
        "kind": "lieu-dit",
-       "note": "aucune altitude",
+       "note": "aucune altitude ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -4479,8 +4744,11 @@
        "label": "Côte de Marthourey",
        "km": 11,
        "kind": "côte",
-       "note": "660 m imprimés ; 3e cat.",
-       "confidence": "non-place"
+       "note": "660 m imprimés ; 3e cat. ; hameau du Marthourey (Saint-Héand, Nominatim), MNT 637 m",
+       "confidence": "ok",
+       "lat": 45.51052,
+       "lon": 4.4155,
+       "how": "nominatim"
       },
       {
        "label": "Carrefour D.23/D.11",
@@ -4503,8 +4771,11 @@
        "label": "Monichard",
        "km": 21.5,
        "kind": "lieu-dit",
-       "note": "521 m imprimés",
-       "confidence": "non-place"
+       "note": "521 m imprimés ; lieu-dit habité IGN Monichard (Saint-Héand), MNT 526 m",
+       "confidence": "ok",
+       "lat": 45.50913,
+       "lon": 4.35233,
+       "how": "ign"
       },
       {
        "label": "Molineaux",
@@ -4540,28 +4811,40 @@
        "label": "Carrefour La Tour-en-Jarez",
        "km": 32,
        "kind": "lieu-dit",
-       "note": "460 m imprimés",
+       "note": "460 m imprimés ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
        "label": "Saint-Étienne-Nouvelle (rue de la Tour)",
        "km": 33,
        "kind": "lieu-dit",
-       "note": "472 m imprimés ; imprimé SAINT-ÉTIENNE-NOUVELLE (Rue de la Tour)",
+       "note": "472 m imprimés ; imprimé SAINT-ÉTIENNE-NOUVELLE (Rue de la Tour) ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
        "label": "Saint-Étienne",
        "km": 34.5,
        "kind": "ville",
-       "note": "488 m imprimés ; arrivée ; imprimé 34 km 500",
-       "lat": 45.44015,
-       "lon": 4.38731,
-       "how": "stage_towns",
+       "note": "488 m imprimés ; arrivée ; imprimé 34 km 500 ; arrivée au point du départ, rue de la Tour (règle 19) : l'ancre stage_towns était le centre de Saint-Étienne",
+       "lat": 45.47111,
+       "lon": 4.38781,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
-     "note": "Contre-la-montre individuel en boucle à Saint-Étienne (34 km 500 imprimés), départ rue de la Tour."
+     "note": "Contre-la-montre individuel en boucle à Saint-Étienne (34 km 500 imprimés), départ rue de la Tour. Hors tolérance (+7,6 % ; +17,9 % en voiture, 34,2 km pour 29) : boucle dans les rues de Saint-Étienne, carrefours et Saint-Étienne-Nouvelle non placés (85 % de l'étape mesurable) ; La Talaudière → Sorbiers 2,4 km routés pour 1.",
+     "route_check": {
+      "routed_km": 31.2,
+      "profile_km": 29,
+      "delta_pct": 7.6,
+      "tolerance_pct": 5,
+      "coverage_pct": 85,
+      "car_legs": 0,
+      "legs": 8,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "21": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1980/80_21a.jpg",
@@ -4680,7 +4963,7 @@
        "label": "Côte de Champagne",
        "km": 113,
        "kind": "côte",
-       "note": "121 m imprimés ; 4e cat.",
+       "note": "121 m imprimés ; 4e cat. ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -4721,7 +5004,7 @@
        "label": "Carrefour Belle-Croix",
        "km": 168.5,
        "kind": "lieu-dit",
-       "note": "aucune altitude",
+       "note": "aucune altitude ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -4764,8 +5047,11 @@
        "label": "Fontenay-sous-Bois (1er passage)",
        "km": 200,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "60 m imprimés ; 1er passage ; imprimé FONTENAY 1er PASSAGE ; aucun km imprimé (graduation 200) ; non placé : km approché (règle 4)"
+       "confidence": "ok",
+       "note": "60 m imprimés ; 1er passage ; imprimé FONTENAY 1er PASSAGE ; aucun km imprimé (graduation 200) ; 1er passage sur la ligne : point de l'arrivée (règle 19)",
+       "lat": 48.84907,
+       "lon": 2.47493,
+       "how": "stage_towns"
       },
       {
        "label": "Fontenay-sous-Bois",
@@ -4779,7 +5065,19 @@
       }
      ],
      "circuit_km": 200,
-     "note": "Circuit final de Fontenay-sous-Bois : 1er passage vers le km 200, 2e vers 203,5 (aucun km imprimé, positions à l'échelle ; circuit_km au km approché, règle 19), arrivée au km 207 ; le 2e passage n'est pas repris."
+     "note": "Circuit final de Fontenay-sous-Bois : 1er passage vers le km 200, 2e vers 203,5 (aucun km imprimé, positions à l'échelle ; circuit_km au km approché, règle 19), arrivée au km 207 ; le 2e passage n'est pas repris. Départ : Auxerre → Bleury 14,2 km à vol d'oiseau pour 13 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−8,6 % ; −3,4 % en voiture, 180,6 km pour 187) : Montereau → Melun 32,6 km routés pour 47, côte de Champagne non placée, Le Châtelet-en-Brie et Fontaine-le-Port au km approché, détour non situé ; Malnoue → Noisy-le-Grand 5,2 routés pour 2 ; Melun → Coubert 16,0 pour 13,5.",
+     "route_check": {
+      "routed_km": 171,
+      "profile_km": 187,
+      "delta_pct": -8.6,
+      "tolerance_pct": 5,
+      "coverage_pct": 90,
+      "car_legs": 0,
+      "legs": 15,
+      "suspect_legs": 3,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "22": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1980/80_22a.jpg",
@@ -4887,7 +5185,7 @@
        "label": "Côte de Saint-Cyr-sous-Dourdan",
        "km": 74,
        "kind": "côte",
-       "note": "170 m imprimés ; 4e cat. ; imprimé COTE DE ST-CYR-SOUS-DOURDAN",
+       "note": "170 m imprimés ; 4e cat. ; imprimé COTE DE ST-CYR-SOUS-DOURDAN ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -4924,14 +5222,14 @@
        "label": "Les 17 Tournants",
        "km": 95.5,
        "kind": "côte",
-       "note": "170 m imprimés ; 3e cat.",
+       "note": "170 m imprimés ; 3e cat. ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
        "label": "Hautvilliers (côte de la Madeleine)",
        "km": 102,
        "kind": "côte",
-       "note": "202 m imprimés ; 2e cat. ; imprimé HAUTVILLIERS (CÔTE DE LA MADELEINE)",
+       "note": "202 m imprimés ; 2e cat. ; imprimé HAUTVILLIERS (CÔTE DE LA MADELEINE) ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -4948,8 +5246,11 @@
        "label": "Côte de Châteaufort",
        "km": 112,
        "kind": "côte",
-       "note": "165 m imprimés ; 4e cat.",
-       "confidence": "non-place"
+       "note": "165 m imprimés ; 4e cat. ; point de 2019/21",
+       "confidence": "ok",
+       "lat": 48.73585,
+       "lon": 2.09032,
+       "how": "nominatim"
       },
       {
        "label": "Jouy-en-Josas",
@@ -4965,15 +5266,21 @@
        "label": "Côte de l'Homme-Mort",
        "km": 125.5,
        "kind": "côte",
-       "note": "155 m imprimés ; 2e cat.",
-       "confidence": "non-place"
+       "note": "155 m imprimés ; 2e cat. ; point de 1987/25",
+       "confidence": "ok",
+       "lat": 48.77039,
+       "lon": 2.18291,
+       "how": "nominatim"
       },
       {
        "label": "Le Pavé-des-Gardes",
        "km": 130.5,
        "kind": "côte",
-       "note": "3e cat. ; aucune altitude lue",
-       "confidence": "non-place"
+       "note": "3e cat. ; aucune altitude lue ; point de 1985/22",
+       "confidence": "ok",
+       "lat": 48.80817,
+       "lon": 2.19424,
+       "how": "nominatim"
       },
       {
        "label": "Issy-les-Moulineaux",
@@ -4989,29 +5296,47 @@
        "label": "Pont de la Concorde",
        "km": 143.5,
        "kind": "lieu-dit",
-       "note": "entrée sur le circuit des Champs-Élysées",
-       "confidence": "non-place"
+       "note": "entrée sur le circuit des Champs-Élysées ; point de 1985/22",
+       "confidence": "ok",
+       "lat": 48.86338,
+       "lon": 2.3196,
+       "how": "ign"
       },
       {
        "label": "Paris, Champs-Élysées (1er passage)",
        "km": 147,
        "kind": "lieu-dit",
-       "note": "1er passage",
-       "confidence": "non-place"
+       "note": "1er passage ; 1er passage sur la ligne : point de l'arrivée (règle 19)",
+       "confidence": "ok",
+       "lat": 48.87076,
+       "lon": 2.30533,
+       "how": "nominatim"
       },
       {
        "label": "Paris",
        "km": 183.3,
        "kind": "ville",
-       "note": "31 m imprimés ; arrivée (Champs-Élysées) ; total coupé au bord de l'image (183,3…)",
-       "lat": 48.8535,
-       "lon": 2.34839,
-       "how": "stage_towns",
+       "note": "31 m imprimés ; arrivée (Champs-Élysées) ; total coupé au bord de l'image (183,3…) ; avenue des Champs-Élysées, point de 1981/22 ; l'ancre stage_towns était le centre de Paris (règle 22)",
+       "lat": 48.87076,
+       "lon": 2.30533,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
      "circuit_km": 147,
-     "note": "Circuit des Champs-Élysées : entrée au pont de la Concorde au km 143,5, 1er passage au km 147 (circuit_km, règle 19), passages suivants imprimés aux km 153, 159,1, 165,15, 171,2 et 177,25 (non repris), arrivée au km 183,3 (total coupé au bord de l'image)."
+     "note": "Circuit des Champs-Élysées : entrée au pont de la Concorde au km 143,5, 1er passage au km 147 (circuit_km, règle 19), passages suivants imprimés aux km 153, 159,1, 165,15, 171,2 et 177,25 (non repris), arrivée au km 183,3 (total coupé au bord de l'image). Départ : Fontenay-sous-Bois → Saint-Maur-des-Fossés 5,1 km à vol d'oiseau pour 4,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−11,3 % ; −7,7 % en voiture, 131,5 km pour 142,5) : 77 % de l'étape mesurable (circuit des Champs-Élysées) ; Bruyères-le-Châtel → Angervilliers 10,8 km routés pour 16,5 (côte de Saint-Cyr-sous-Dourdan non placée) et Senlisse → Cressely 12,6 pour 19,5 (Les 17 Tournants et Hautvilliers non placés), détours de la vallée de Chevreuse non situés.",
+     "route_check": {
+      "routed_km": 126.4,
+      "profile_km": 142.5,
+      "delta_pct": -11.3,
+      "tolerance_pct": 5,
+      "coverage_pct": 77,
+      "car_legs": 0,
+      "legs": 19,
+      "suspect_legs": 2,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "1a": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1980/80_1a.jpg",
@@ -5030,15 +5355,21 @@
        "label": "Dreieich-Götzenhain",
        "km": 11.5,
        "kind": "ville",
-       "note": "181 m imprimés ; imprimé DREIEICH-GÖTZENHAIN",
-       "confidence": "non-place"
+       "note": "181 m imprimés ; imprimé DREIEICH-GÖTZENHAIN ; Götzenhain (Dreieich), zone d'habitation (Nominatim), MNT 188 m",
+       "confidence": "ok",
+       "lat": 49.99813,
+       "lon": 8.7315,
+       "how": "nominatim"
       },
       {
        "label": "Rödermark-Urberach",
        "km": 17.5,
        "kind": "ville",
-       "note": "156 m imprimés ; imprimé RÖDERMARK-URBERACH ; altitude peu lisible (156 ou 158)",
-       "confidence": "non-place"
+       "note": "156 m imprimés ; imprimé RÖDERMARK-URBERACH ; altitude peu lisible (156 ou 158) ; quartier d'Urberach (Rödermark, Nominatim), MNT 158 m",
+       "confidence": "ok",
+       "lat": 49.97335,
+       "lon": 8.79813,
+       "how": "nominatim"
       },
       {
        "label": "Rödermark-Waldacker",
@@ -5054,8 +5385,11 @@
        "label": "Dietzenbach-Steinberg",
        "km": 29,
        "kind": "ville",
-       "note": "135 m imprimés ; imprimé DIETZENBACH-STEINBERG",
-       "confidence": "non-place"
+       "note": "135 m imprimés ; imprimé DIETZENBACH-STEINBERG ; quartier de Steinberg (Dietzenbach, Nominatim, place=suburb), MNT 141 m",
+       "confidence": "ok",
+       "lat": 50.02761,
+       "lon": 8.78562,
+       "how": "nominatim"
       },
       {
        "label": "Offenbach",
@@ -5078,7 +5412,7 @@
        "label": "Côte de Klingenweg",
        "km": 48,
        "kind": "côte",
-       "note": "186 m imprimés ; 4e catégorie ; imprimé COTE DE KLINGENWEG",
+       "note": "186 m imprimés ; 4e catégorie ; imprimé COTE DE KLINGENWEG ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -5095,8 +5429,11 @@
        "label": "Bad Homburg - Russische Kapelle",
        "km": 63.5,
        "kind": "lieu-dit",
-       "note": "163 m imprimés ; imprimé BAD-HOMBURG - RUSSICHE-KAPELLE (sic)",
-       "confidence": "non-place"
+       "note": "163 m imprimés ; imprimé BAD-HOMBURG - RUSSICHE-KAPELLE (sic) ; église orthodoxe russe de Bad Homburg (Nominatim), MNT 167 m",
+       "confidence": "ok",
+       "lat": 50.22573,
+       "lon": 8.62514,
+       "how": "nominatim"
       },
       {
        "label": "Kronberg-Oberhöchstadt-Waldsiedlung",
@@ -5122,7 +5459,7 @@
        "label": "Côte de Königstein",
        "km": 91,
        "kind": "côte",
-       "note": "385 m imprimés ; 3e catégorie ; imprimé COTE DE KÖNIGSTEIN",
+       "note": "385 m imprimés ; 3e catégorie ; imprimé COTE DE KÖNIGSTEIN ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -5166,14 +5503,26 @@
        "label": "Wiesbaden-Schierstein",
        "km": 132.5,
        "kind": "ville",
-       "note": "91 m imprimés ; arrivée ; imprimé WIESBADEN SHIERSTEIN (sic)",
-       "lat": 50.08204,
-       "lon": 8.24166,
-       "how": "stage_towns",
+       "note": "91 m imprimés ; arrivée ; imprimé WIESBADEN SHIERSTEIN (sic) ; quartier de Schierstein (Nominatim), MNT 95 m : l'ancre stage_towns était le centre de Wiesbaden (règle 22)",
+       "lat": 50.04465,
+       "lon": 8.19593,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
-     "note": "Demi-étape Francfort → Wiesbaden-Schierstein (132,5 km imprimés)."
+     "note": "Demi-étape Francfort → Wiesbaden-Schierstein (132,5 km imprimés). Départ : Francfort → Dreieich-Götzenhain 13 km à vol d'oiseau pour 11,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−19,6 % ; −12,9 % en voiture, 105,4 km pour 121) : Offenbach → Francfort-Bonames 13,0 km routés pour 22 (Fechenheim au km approché, côte de Klingenweg non placée) et Wiesbaden → Wiesbaden-Schierstein 6,7 pour 15 (Frauenstein non placé), détours non situés ; Dietzenbach-Steinberg → Offenbach 8,8 km à vol d'oiseau pour 6 ; Kronberg → Schwalbach 6,4 routés pour 9,5.",
+     "route_check": {
+      "routed_km": 97.3,
+      "profile_km": 121,
+      "delta_pct": -19.6,
+      "tolerance_pct": 5,
+      "coverage_pct": 91,
+      "car_legs": 0,
+      "legs": 12,
+      "suspect_legs": 4,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "1b": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1980/80_1b.jpg",
@@ -5182,8 +5531,11 @@
        "label": "Wiesbaden-Schierstein",
        "km": 0,
        "kind": "ville",
-       "note": "départ du contre-la-montre par équipes ; imprimé WIESBADEN SCHIERSTEIN ; aucune altitude imprimée",
-       "confidence": "non-place"
+       "note": "départ du contre-la-montre par équipes ; imprimé WIESBADEN SCHIERSTEIN ; aucune altitude imprimée ; quartier de Schierstein (Nominatim), point de l'arrivée de 1a",
+       "confidence": "ok",
+       "lat": 50.04465,
+       "lon": 8.19593,
+       "how": "nominatim"
       },
       {
        "label": "Biebrich",
@@ -5300,21 +5652,33 @@
        "label": "Francfort",
        "km": 42,
        "kind": "ville",
-       "note": "97 m imprimés ; imprimé FRANCFORT",
+       "note": "97 m imprimés ; imprimé FRANCFORT ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
        "label": "Francfort - Kongresshalle",
        "km": 45.8,
        "kind": "ville",
-       "note": "99 m imprimés ; arrivée ; imprimé KONGRESSHALLE FRANCFORT (adresse d'arrivée)",
-       "lat": 50.11064,
-       "lon": 8.68209,
-       "how": "stage_towns",
+       "note": "99 m imprimés ; arrivée ; imprimé KONGRESSHALLE FRANCFORT (adresse d'arrivée) ; site de la Messe Frankfurt (Nominatim) : la Kongresshalle y était vraisemblablement (hypothèse, à confirmer) ; l'ancre stage_towns était le centre de Francfort",
+       "lat": 50.11158,
+       "lon": 8.64445,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
-     "note": "Contre-la-montre par équipes Wiesbaden-Schierstein → Francfort, arrivée à la Kongresshalle (45,8 km imprimés)."
+     "note": "Contre-la-montre par équipes Wiesbaden-Schierstein → Francfort, arrivée à la Kongresshalle (45,8 km imprimés). Hors tolérance (+8,9 % ; +18,5 % en voiture, 50,7 km pour 42,8) : contre-la-montre par équipes en ville ; Biebrich → Wiesbaden 5,4 km routés pour 3,8, point de Wiesbaden (centre) vraisemblablement plus loin que le passage réel (hypothèse) ; Massenheim, Hattersheim et Griesheim au km approché.",
+     "route_check": {
+      "routed_km": 46.6,
+      "profile_km": 42.8,
+      "delta_pct": 8.9,
+      "tolerance_pct": 5,
+      "coverage_pct": 93,
+      "car_legs": 0,
+      "legs": 9,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "7a": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1980/80_7a.jpg",
@@ -5430,8 +5794,11 @@
        "label": "Hatton",
        "km": 47,
        "kind": "lieu-dit",
-       "note": "97 m imprimés ; imprimé HATTON ; lieu non identifié à la lecture",
-       "confidence": "non-place"
+       "note": "97 m imprimés ; imprimé HATTON ; lieu non identifié à la lecture ; hameau de Hatton (Essuiles, lieu-dit habité IGN), MNT 85 m",
+       "confidence": "ok",
+       "lat": 49.47812,
+       "lon": 2.30097,
+       "how": "ign"
       },
       {
        "label": "Saint-Rimault",
@@ -5457,8 +5824,11 @@
        "label": "Nivillers (près)",
        "km": 57,
        "kind": "lieu-dit",
-       "note": "97 m imprimés ; imprimé PRES-NIVILLERS (vraisemblablement « près de Nivillers »)",
-       "confidence": "non-place"
+       "note": "97 m imprimés ; imprimé PRES-NIVILLERS (vraisemblablement « près de Nivillers ») ; bourg de Nivillers (lieu-dit habité IGN) : la ligne droite vers les deux voisins tient dans le profil (règle 5), MNT 105 m",
+       "confidence": "ok",
+       "lat": 49.45673,
+       "lon": 2.16484,
+       "how": "ign"
       },
       {
        "label": "Beauvais",
@@ -5471,7 +5841,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Demi-étape Compiègne → Beauvais ; total = graduation finale 65, aucun autre total imprimé."
+     "note": "Demi-étape Compiègne → Beauvais ; total = graduation finale 65, aucun autre total imprimé. Hors tolérance (+7,2 % ; +7,7 % en voiture, 61,9 km pour 57,5) : écart réparti, la voiture le confirme ; pire tronçon Fouquerolles → Nivillers (près) 4,4 km routés pour 3,5.",
+     "route_check": {
+      "routed_km": 61.7,
+      "profile_km": 57.5,
+      "delta_pct": 7.2,
+      "tolerance_pct": 5,
+      "coverage_pct": 88,
+      "car_legs": 0,
+      "legs": 13,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "7b": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1977_1986/1980/80_7b.jpg",
@@ -5527,7 +5909,7 @@
        "label": "Côte Blanche",
        "km": 33,
        "kind": "côte",
-       "note": "203 m imprimés ; 4e catégorie ; imprimé COTE BLANCHE",
+       "note": "203 m imprimés ; 4e catégorie ; imprimé COTE BLANCHE ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -5561,7 +5943,7 @@
        "label": "Côte de Lyons",
        "km": 54.5,
        "kind": "côte",
-       "note": "163 m imprimés ; 4e catégorie ; imprimé COTE-DE-LYONS",
+       "note": "163 m imprimés ; 4e catégorie ; imprimé COTE-DE-LYONS ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -5585,8 +5967,11 @@
        "label": "Saint-Aubin",
        "km": 78,
        "kind": "ville",
-       "note": "40 m imprimés ; imprimé SAINT-AUBIN ; vraisemblablement Saint-Aubin-Épinay, à confirmer",
-       "confidence": "non-place"
+       "note": "40 m imprimés ; imprimé SAINT-AUBIN ; vraisemblablement Saint-Aubin-Épinay, à confirmer ; commune de Saint-Aubin-Épinay (Nominatim), MNT 44 m",
+       "confidence": "ok",
+       "lat": 49.42138,
+       "lon": 1.17908,
+       "how": "nominatim"
       },
       {
        "label": "Saint-Léger-du-Bourg-Denis",
@@ -5602,7 +5987,7 @@
        "label": "Côte de Repainville",
        "km": 83.5,
        "kind": "côte",
-       "note": "105 m imprimés ; 4e catégorie ; imprimé COTE DE REPAINVILLE",
+       "note": "105 m imprimés ; 4e catégorie ; imprimé COTE DE REPAINVILLE ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
        "confidence": "non-place"
       },
       {
@@ -5616,7 +6001,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Demi-étape Beauvais → Rouen (92 km imprimés)."
+     "note": "Demi-étape Beauvais → Rouen (92 km imprimés). Départ : Beauvais → Lhéraule 12,7 km à vol d'oiseau pour 11 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (−8,5 % ; −5,9 % en voiture, 76,2 km pour 81) : Saint-Léger-du-Bourg-Denis → Rouen 6,2 km routés pour 11, arrivée au centre de Rouen (stage_towns), arrivée réelle non située ; côtes Blanche, de Lyons et de Repainville non placées.",
+     "route_check": {
+      "routed_km": 74.1,
+      "profile_km": 81,
+      "delta_pct": -8.5,
+      "tolerance_pct": 5,
+      "coverage_pct": 88,
+      "car_legs": 0,
+      "legs": 8,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     }
    }
   },
