@@ -395,10 +395,10 @@ et côtes traversées avec leur kilomètre.
     PR fusionnée) ; sinon la routine reboucle sur la même édition. Après
     **10 tentatives** sans y parvenir, l'édition est notée bloquée, une
     issue en dit la cause, et la routine passe à la suivante.
-    - État au 09/11 : **1980 verte** à la tentative 1/10 (PR #562
-      fusionnée, CI verte, écarts bloquants de l'audit Mireille corrigés ;
-      reprises non bloquantes en issue #561). Édition prévue le 10/11 :
-      **1979**, tentative 1/10.
+    - État au 10/11 : édition en cours **1979**, tentative 1/10 (1980
+      verte le 09/11, PR #562 ; reprises non bloquantes en issues #561 et
+      #569). Verte si la PR de 1979 est fusionnée avec la CI verte ; sinon
+      la routine reboucle sur 1979 le 11/11.
   - **Reprises de la routine quotidienne** (routine du matin demandée le
     06/11/2026 : reprises d'abord, puis une édition ; ce qui n'est pas fait
     le jour même s'ajoute ici avec une issue `routine-curation`, reprise le
@@ -2023,6 +2023,27 @@ et côtes traversées avec leur kilomètre.
   23 +8), 1984/0 non contrôlable ; 18 tronçons suspects, 8 allers-retours, 4 incertains.
   **Reste, story non cochée :** remesurer à vélo, puis trier ces écarts et noter
   leurs causes (règle 16). Chiffres de voiture : à ne pas lire comme un résultat.
+- [x] Édition 1979 (routine quotidienne du 10/11/2026) : compléter l'édition,
+  dont seules 1979/12 et 1979/13 (lot Lorraine) sont transcrites, sans y
+  toucher. Profils de ledicodutour.com
+  (`images/cartes_etapes/1977_1986/1979/79_Na.jpg` ; `79_N.jpg` est la carte
+  de l'étape ; prologue `79_0a` = plan du circuit de 5 km sans profil, non
+  transcrit ; étape 4, contre-la-montre par équipes Captieux → Bordeaux :
+  carte seule `79_4.jpg`, sans km, non transcrite). Critères d'acceptation :
+  ceux de 1980 (règle 4, longueurs contre stage_towns, classe OSM des
+  candidats, altitude point par point, départs et arrivées à la main,
+  contrôle à vélo sans tronçon en voiture, tronçons suspects triés,
+  circuits au 1er passage placé à l'arrivée, source_url vérifiée contre
+  l'image transcrite, test d'invariant, audit Mireille, écarts en issue).
+  Fait : 21 étapes ajoutées (12 et 13 inchangées), 573 points dont 438
+  placés ; 18 étapes dans la tolérance, 2 hors (7 et 24, cause notée et
+  comparaison en voiture), 1 non contrôlable (11, aucun km imprimé) ; un
+  seul tronçon en voiture (21, point du circuit refusé par BRouter).
+  Classe OSM et nom de chaque candidat relus (Gennes, Moudon, Templeuve,
+  Chantelouve replacés ; Houlgate, Tonnerre, Yffiniac, la Boisse,
+  Beaufort d'abord retirés). Audit Mireille : 2 écarts bloquants (côte de
+  Vernot au village, Huez à 1 393 m) et 5 « introuvables » placés ; règle
+  21 précisée ; reprises en issue #569.
 - [x] Édition 1980 (routine quotidienne du 09/11/2026) : compléter l'édition, dont
   seules 1980/2 et 1980/3 (lot Lorraine, PR #404) sont transcrites, sans y
   toucher. Profils de ledicodutour.com

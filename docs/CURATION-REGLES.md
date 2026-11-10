@@ -277,6 +277,10 @@ dans la même PR que son correctif.
     placé » nomme ce qui a été essayé ; « aucun lieu de ce nom compatible »
     ne vaut qu'après la recherche bornée (5 faux négatifs sur 6 sondés en
     1980, audit Mireille).
+    Avant d'écrire « introuvable », chercher aussi le libellé et ses
+    variantes composées dans tout le fichier : Bonneval-les-Bains était déjà
+    placé en 1984/19 et 2018/11 quand « Bonneval (près) » a été déclaré
+    introuvable en 1979 (audit Mireille).
 
 22. **Vérifier le départ et l'arrivée de chaque étape avant le reste.**
     Une ville-étape devenue commune déléguée n'est plus dans l'index IGN
