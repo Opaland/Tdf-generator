@@ -3194,6 +3194,25 @@ dont 1 146 non placés, aucune étape sans URL de source.
   contrôle « distance » échoue déjà sur ce cas, avec le message dédié au circuit
   sans via (`pipeline/checks.js`, testé dans `test/checks.test.js`, issue #189).
 
+## Epic 41 — Pivot : un site sur le Tour de France (étude du 10/11/2026)
+
+Étude : `docs/ETUDE-NETATMO-SITE-TOUR.md`. Elle compare ÉtapeForge au dépôt
+Opaland/Netatmo (site statique sur Pages, textes Claude aux chiffres vérifiés,
+CI en couches) et propose de remplacer la création d'étapes par un site public
+sur l'histoire du Tour. **En attente de décision** sur les cinq questions du
+§ 7 de l'étude. Aucune story n'est lancée avant la réponse.
+
+- [x] 41.1 Étude rédigée : lecture complète de Netatmo, reprises classées,
+  vision du site, usage de Claude et coût estimé, points juridiques, secrets
+  à renseigner (aucun tant que rien n'est décidé).
+- [ ] 41.2 Décision du propriétaire sur le pivot, le sort de l'éditeur, les
+  récits Claude (périmètre, modèle, budget), le nom et le domaine, le
+  frontend — en attente de décision.
+- [ ] 41.3 Reprises sans décision produit, applicables dans tous les cas
+  (après accord) : test des chiffres de la documentation, porte locale lue
+  dans `ci.yml`, workflow « sources publiques » qui ouvre une issue, budget
+  de taille, modèles d'issue et de PR.
+
 ## Epic 40 — Diffusion de l'application sur les stores (issue #563)
 
 En attente : à démarrer seulement quand toutes les autres stories seront
