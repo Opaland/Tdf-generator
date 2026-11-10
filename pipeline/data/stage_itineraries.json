@@ -421,7 +421,7 @@
        "label": "Céran",
        "km": 31.5,
        "kind": "ville",
-       "note": "108 m imprimés ; imprimé CERAN ; non placé : la mairie de Céran est au même point que le centre de la commune et donne un aller-retour de 1,1 km vers Castéljaloux (règles 9 et 17)",
+       "note": "108 m imprimés ; imprimé CERAN ; non placé : la mairie de Céran est au même point que le centre de la commune et donne un aller-retour incertain de 1,1 km vers Castéljaloux (Montestruc-sur-Gers, non placé, sauté) (règles 9 et 17)",
        "confidence": "non-place"
       },
       {
@@ -614,8 +614,11 @@
        "label": "Le Mourtis (montée, Menté)",
        "km": 177,
        "kind": "côte",
-       "note": "1409 m imprimés ; imprimé LE MOURTIS (MENTE) ; 2e cat. ; altitude peu lisible (1 409 ou 1 400) ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
-       "confidence": "non-place"
+       "note": "1409 m imprimés ; imprimé LE MOURTIS (MENTE) ; 2e cat. ; altitude peu lisible (1 409 ou 1 400) ; col de Menté – Le Mourtis, point de 1995/15",
+       "confidence": "ok",
+       "lat": 42.91935,
+       "lon": 0.76178,
+       "how": "nominatim"
       },
       {
        "label": "Saint-Béat",
@@ -696,13 +699,13 @@
      ],
      "note": "Profil 79_1a.jpg ; Les (Espagne) au km 202 sans km imprimé. Tronçons suspects (règle 11) : Col du Portillon → Saint-Mamet 5,0 km à vol d'oiseau pour 4 et Saint-Mamet → Luchon 1,3 pour 6 : la somme tient (10,4 routés pour 10), km de Saint-Mamet vraisemblablement décalé sur le profil ou passage par le haut du village (hypothèse).",
      "route_check": {
-      "routed_km": 212.3,
+      "routed_km": 212.5,
       "profile_km": 217.5,
-      "delta_pct": -2.4,
+      "delta_pct": -2.3,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 25,
+      "legs": 26,
       "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -1309,8 +1312,11 @@
        "label": "Beaufort-en-Vallée (près)",
        "km": 108,
        "kind": "lieu-dit",
-       "note": "25 m imprimés ; imprimé « près BEAUFORT-EN-VALLEE / CARREFOUR D. 59/N. 147 » sur deux lignes, une seule colonne ; non placé : le géocodeur avait pris le hameau « Près du Petit Moulin », pas Beaufort-en-Vallée (règle 21)",
-       "confidence": "non-place"
+       "note": "25 m imprimés ; imprimé « près BEAUFORT-EN-VALLEE / CARREFOUR D. 59/N. 147 » sur deux lignes, une seule colonne ; mairie de Beaufort-en-Vallée (Nominatim) : la ligne droite vers les deux voisins tient dans le profil (règle 5), le carrefour D.59/N.147 n'est pas situé",
+       "confidence": "ok",
+       "lat": 47.44045,
+       "lon": -0.21491,
+       "how": "nominatim"
       },
       {
        "label": "Montgeoffroy",
@@ -1372,13 +1378,13 @@
      ],
      "note": "Départ : Neuville-de-Poitou → Bournezeau 8,5 km à vol d'oiseau pour 8 au profil, départ réel hors du centre, non situé (règle 25). Angers, avenue Montaigne → Angers 1,5 km à vol d'oiseau pour 6,5 : arrivée au centre d'Angers (ancre stage_towns), lieu exact de l'arrivée non situé.",
      "route_check": {
-      "routed_km": 132.9,
+      "routed_km": 134.5,
       "profile_km": 137.5,
-      "delta_pct": -3.4,
+      "delta_pct": -2.2,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 17,
+      "legs": 18,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -1976,7 +1982,7 @@
        "label": "Blonville-sur-Mer",
        "km": 147,
        "kind": "ville",
-       "note": "101 m imprimés ; altitude 101 haute pour le bourg (sommet de côte ?), à vérifier",
+       "note": "101 m imprimés ; MNT 15 m au bourg pour 101 imprimés : passage vraisemblablement au-dessus du bourg, sur la côte (hypothèse, règle 14)",
        "lat": 49.33917,
        "lon": 0.03139,
        "how": "commune-ign",
@@ -2691,8 +2697,11 @@
        "label": "Lanquesaint (Haut-Marais)",
        "km": 56,
        "kind": "lieu-dit",
-       "note": "imprimé LANQUESAINT (HAUT-MARAIS) ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
-       "confidence": "non-place"
+       "note": "imprimé LANQUESAINT (HAUT-MARAIS) ; village de Lanquesaint (Ath, Nominatim, place=village)",
+       "confidence": "ok",
+       "lat": 50.65342,
+       "lon": 3.80425,
+       "how": "nominatim"
       },
       {
        "label": "Ghislenghien",
@@ -2813,22 +2822,22 @@
        "label": "Bruxelles (Carrefour de l'Europe)",
        "km": 124,
        "kind": "ville",
-       "note": "41 m imprimés ; arrivée; imprimé BRUXELLES CARREFOUR DE L'EUROPE",
-       "lat": 50.84674,
-       "lon": 4.35249,
-       "how": "stage_towns",
+       "note": "41 m imprimés ; arrivée; imprimé BRUXELLES CARREFOUR DE L'EUROPE ; Carrefour de l'Europe (Bruxelles, Nominatim), adresse imprimée (règle 18)",
+       "lat": 50.84587,
+       "lon": 4.35657,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Roubaix → Leers 4,8 km à vol d'oiseau pour 2,7 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : Templeuve → Froyennes 5,7 km à vol d'oiseau pour 4 et Tournai → Thimougies 9,3 pour 7,5 : villages placés, km du profil vraisemblablement arrondis (hypothèse).",
+     "note": "Départ : Roubaix → Leers 4,8 km à vol d'oiseau pour 2,7 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects (règle 11) : Templeuve → Froyennes 5,7 km à vol d'oiseau pour 4 et Tournai → Thimougies 9,3 pour 7,5 : km imprimés incohérents avec la géographie, chiffres relus sur l'image (11, 15, 20,5, 28) : écart dans la source (hypothèse).",
      "route_check": {
-      "routed_km": 116.1,
+      "routed_km": 118.6,
       "profile_km": 121.3,
-      "delta_pct": -4.3,
+      "delta_pct": -2.2,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 16,
+      "legs": 17,
       "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -2841,11 +2850,11 @@
        "label": "Bruxelles (Carrefour de l'Europe)",
        "km": 0,
        "kind": "ville",
-       "note": "32 m imprimés ; départ; contre-la-montre individuel en ville; aucun point de l'étape n'a de km imprimé, tous mesurés à l'échelle ; départ au point de l'arrivée (boucle, règle 19)",
+       "note": "32 m imprimés ; départ; contre-la-montre individuel en ville; aucun point de l'étape n'a de km imprimé, tous mesurés à l'échelle ; départ au point de l'arrivée (boucle, règle 19) ; Carrefour de l'Europe (Bruxelles, Nominatim), adresse imprimée (règle 18)",
        "confidence": "ok",
-       "lat": 50.84674,
-       "lon": 4.35249,
-       "how": "stage_towns"
+       "lat": 50.84587,
+       "lon": 4.35657,
+       "how": "nominatim"
       },
       {
        "label": "Place Royale",
@@ -2991,10 +3000,10 @@
        "label": "Bruxelles (Carrefour de l'Europe)",
        "km": 34.4,
        "kind": "ville",
-       "note": "34 m imprimés ; arrivée; total imprimé 34,400",
-       "lat": 50.84674,
-       "lon": 4.35249,
-       "how": "stage_towns",
+       "note": "34 m imprimés ; arrivée; total imprimé 34,400 ; Carrefour de l'Europe (Bruxelles, Nominatim), adresse imprimée (règle 18)",
+       "lat": 50.84587,
+       "lon": 4.35657,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
@@ -3609,7 +3618,8 @@
        "lat": 46.94875,
        "lon": 6.83587,
        "how": "nominatim",
-       "confidence": "ambigu"
+       "confidence": "ok",
+       "note": "ville confirmée par géocodage inverse (audit Mireille)"
       },
       {
        "label": "Saint-Aubin-Sauges",
@@ -3631,11 +3641,11 @@
        "label": "Grandson",
        "km": 145.5,
        "kind": "ville",
-       "note": "440 m imprimés ; km 145.5 en rangée haute",
+       "note": "440 m imprimés ; km 145.5 en rangée haute ; ville confirmée par géocodage inverse (audit Mireille)",
        "lat": 46.80863,
        "lon": 6.64175,
        "how": "nominatim",
-       "confidence": "ambigu"
+       "confidence": "ok"
       },
       {
        "label": "Yverdon-les-Bains",
@@ -4144,8 +4154,11 @@
        "label": "Bonneval (près)",
        "km": 139.5,
        "kind": "lieu-dit",
-       "note": "1010 m imprimés ; imprimé PRES BONNEVAL ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
-       "confidence": "non-place"
+       "note": "1010 m imprimés ; imprimé PRES BONNEVAL ; Bonneval-les-Bains, point de 1984/19 : la ligne droite vers les deux voisins tient dans le profil (règle 5), MNT 1 081 m",
+       "confidence": "ok",
+       "lat": 45.65376,
+       "lon": 6.78757,
+       "how": "nominatim"
       },
       {
        "label": "Bourg-Saint-Maurice",
@@ -4226,13 +4239,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 194.6,
+      "routed_km": 194.9,
       "profile_km": 192,
-      "delta_pct": 1.3,
+      "delta_pct": 1.5,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 22,
+      "legs": 23,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -4443,9 +4456,9 @@
        "label": "Huez",
        "km": 161,
        "kind": "ville",
-       "note": "1495 m imprimés ; imprimé HUEZ-EN-OISANS ; point de 2022/12 ; MNT 1 393 m pour 1 495 imprimés : point de 1992/14 (village de Huez), passage vraisemblablement plus haut sur la route (hypothèse, règle 14)",
-       "lat": 45.0774,
-       "lon": 6.05328,
+       "note": "1495 m imprimés ; imprimé HUEZ-EN-OISANS ; point de 2022/12 ; mairie de Huez, point de 1981/17, MNT 1 473 m : le point de 1992/14 était à 1 393 m pour 1 495 imprimés (audit Mireille)",
+       "lat": 45.08126,
+       "lon": 6.0576,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -4462,9 +4475,9 @@
      ],
      "note": "Départ imprimé « Les Menuires (Moûtiers) » : le profil commence à 461 m, vraisemblablement au départ réel dans la vallée (hypothèse). Départ : Les Menuires → Celliers-Dessus 19,1 km à vol d'oiseau pour 18,5 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 151.1,
+      "routed_km": 150.6,
       "profile_km": 148,
-      "delta_pct": 2.1,
+      "delta_pct": 1.7,
       "tolerance_pct": 5,
       "coverage_pct": 89,
       "car_legs": 0,
@@ -4535,8 +4548,11 @@
        "label": "Saint-Barthélemy-de-Séchilienne",
        "km": 26,
        "kind": "ville",
-       "note": "294 m imprimés ; imprimé SAINT-BARTHELEMY ; non placé : le centre de la commune est sur le versant (MNT 463 m pour 294 imprimés), passage dans la vallée de la Romanche non situé (règle 14)",
-       "confidence": "non-place"
+       "note": "294 m imprimés ; imprimé SAINT-BARTHELEMY ; centre de Saint-Barthélemy-de-Séchilienne, point de 1987/20, MNT 467 m pour 294 imprimés : chiffre plus bas que la vallée elle-même (Séchilienne 364 m), vraisemblablement fautif (règle 14)",
+       "confidence": "ok",
+       "lat": 45.04394,
+       "lon": 5.82608,
+       "how": "nominatim"
       },
       {
        "label": "Côte de la Morte",
@@ -4686,9 +4702,9 @@
        "label": "Huez",
        "km": 113,
        "kind": "ville",
-       "note": "1495 m imprimés ; imprimé HUEZ-EN-OISANS ; point de 2022/12 ; MNT 1 393 m pour 1 495 imprimés : point de 1992/14 (village de Huez), passage vraisemblablement plus haut sur la route (hypothèse, règle 14)",
-       "lat": 45.0774,
-       "lon": 6.05328,
+       "note": "1495 m imprimés ; imprimé HUEZ-EN-OISANS ; point de 2022/12 ; mairie de Huez, point de 1981/17, MNT 1 473 m : le point de 1992/14 était à 1 393 m pour 1 495 imprimés (audit Mireille)",
+       "lat": 45.08126,
+       "lon": 6.0576,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -4705,13 +4721,13 @@
      ],
      "note": "Étape en boucle L'Alpe d'Huez → L'Alpe d'Huez ; le profil commence à 719 m, au Bourg-d'Oisans (descente initiale vraisemblablement non comptée, hypothèse). Départ : L'Alpe d'Huez → La Paute 5,1 km à vol d'oiseau pour 2,5 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 112,
+      "routed_km": 111.6,
       "profile_km": 117,
-      "delta_pct": -4.2,
+      "delta_pct": -4.6,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 17,
+      "legs": 18,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -5300,11 +5316,8 @@
        "label": "Côte d'Échevronne",
        "km": 186,
        "kind": "côte",
-       "note": "440 m imprimés ; 4e catégorie ; imprimé COTE DE ECHEVRONNE",
-       "lat": 47.1057,
-       "lon": 4.84997,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "440 m imprimés ; 4e catégorie ; imprimé COTE DE ECHEVRONNE ; non placé : le point du géocodeur était le village (Changey, MNT 363 m pour 440 imprimés), sommet de la côte non situé (règle 14)",
+       "confidence": "non-place"
       },
       {
        "label": "Chaux",
@@ -5376,13 +5389,13 @@
      ],
      "note": "Départ : Saint-Priest → Genas 5,7 km à vol d'oiseau pour 3,5 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect (règle 11) : Beaune → Pernand-Vergelesses 6,2 km à vol d'oiseau pour 5 (km de Beaune lu 176,5 ou 178,5). Longueur : 234,5 km au profil, 240 dans stage_towns.",
      "route_check": {
-      "routed_km": 232.5,
+      "routed_km": 230.2,
       "profile_km": 231,
-      "delta_pct": 0.6,
+      "delta_pct": -0.4,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 30,
+      "legs": 29,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -5604,11 +5617,8 @@
        "label": "Côte de Vernot",
        "km": 24,
        "kind": "côte",
-       "note": "416 m imprimés ; aucune catégorie imprimée",
-       "lat": 47.49268,
-       "lon": 4.97448,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "416 m imprimés ; aucune catégorie imprimée ; non placé : le point du géocodeur était le centre de Vernot (MNT 327 m, altitude du village), pas le sommet de la côte (416 m imprimés), audit Mireille (règles 14 et 21)",
+       "confidence": "non-place"
       },
       {
        "label": "Côte de Moloy",
@@ -5832,13 +5842,13 @@
      ],
      "note": "Départ : Dijon → Messigny-et-Vantoux 9,6 km à vol d'oiseau pour 6 au profil, départ réel hors du centre, non situé (règle 25). Saint-Cyr-les-Colons → Saint-Bris-le-Vineux 7,9 km routés pour 11,5 (côte d'Irancy non placée), détour non situé.",
      "route_check": {
-      "routed_km": 186.4,
+      "routed_km": 184.6,
       "profile_km": 183,
-      "delta_pct": 1.9,
+      "delta_pct": 0.9,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 19,
+      "legs": 18,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
