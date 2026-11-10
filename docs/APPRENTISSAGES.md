@@ -42,6 +42,9 @@ entrée : on la marque « absorbée par … ».
    une vraie panne de l'image (version de Node, binaires précompilés) à
    corriger dans sa propre PR — jamais « flaky » sans preuve. (Ici, la
    relance a suffi : le binaire précompilé n'avait pas été téléchargé.)
+   Même conduite pour le déploiement GitHub Pages (10/11/2026) : build
+   vert, déploiement expiré côté service (« syncing_files » puis timeout) ;
+   une relance l'a fait passer.
 
 ## Commandes et processus
 
@@ -74,6 +77,13 @@ entrée : on la marque « absorbée par … ».
     géocodeur a posé Gripp sur une rivière, Sylvéréal sur un canal, Anéran
     sur un centroïde de commune nouvelle. Lire la classe OSM de chaque
     candidat dans le cache (→ règle 21).
+    **La classe ne suffit pas, le nom non plus ne se suppose pas**
+    (10/11/2026) : en 1979, trois points de classe « place » portaient un
+    autre nom que celui cherché (« La Côte Renault » pour la côte
+    d'Yffiniac, « Côte Chevalier » pour la côte de la Boisse, « Près du
+    Petit Moulin » pour Beaufort-en-Vallée), et j'avais écrit dans une note
+    « côte placée au bourg » sans le vérifier. Comparer, pour chaque point
+    placé automatiquement, les mots du nom renvoyé à ceux du libellé.
 13. **Un point repris d'une autre édition se revérifie pour l'époque**
     (09/11/2026). L'hôtel de ville de Montpellier de 2011 a été repris pour
     une arrivée de 1980 (→ règle 22).
