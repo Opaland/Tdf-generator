@@ -2023,7 +2023,7 @@ et côtes traversées avec leur kilomètre.
   23 +8), 1984/0 non contrôlable ; 18 tronçons suspects, 8 allers-retours, 4 incertains.
   **Reste, story non cochée :** remesurer à vélo, puis trier ces écarts et noter
   leurs causes (règle 16). Chiffres de voiture : à ne pas lire comme un résultat.
-- [ ] Édition 1978 (routine quotidienne du 11/11/2026, tentative 1/10) :
+- [x] Édition 1978 (routine quotidienne du 11/11/2026, tentative 1/10) :
   compléter l'édition, dont seule 1978/20 (lot Lorraine) est transcrite,
   sans y toucher. Profils de ledicodutour.com
   (`images/cartes_etapes/1977_1986/1978/78_Na.jpg` ; `78_N.jpg` est la
@@ -2035,6 +2035,17 @@ et côtes traversées avec leur kilomètre.
   voiture, tronçons suspects triés, circuits au 1er passage placé à
   l'arrivée, source_url vérifiée contre l'image transcrite, test
   d'invariant, audit Mireille, écarts en issue).
+  Fait : 23 étapes ajoutées (20 inchangée), 621 points dont 469 placés ;
+  16 étapes dans la tolérance, 7 hors avec leur cause notée et comparaison
+  en voiture (1a, 2, 8, 14, 18, 21, 22) ; un seul tronçon en voiture (14,
+  sommet du Puy de Dôme refusé par BRouter). Classe OSM et nom de chaque
+  candidat relus (Gripp sur une rivière, corrigé aussi en 1986/13 ;
+  Plainpalais, Boissey, Réaux, Morgins replacés). Départ de 15 à
+  Chamalières non placé (départ fictif, hypothèse), 12a imprimé 148 km
+  (stage_towns 158). Audit Mireille : 4 écarts bloquants (Huez à
+  1 393 m, Saint-Germain-en-Laye en forêt, Mont de l'Enclus sur une
+  commune, aller-retour gardé à Lussac) et 12 mineurs corrigés ; règle 14
+  précisée ; reprises en issue #573.
 - [x] Édition 1979 (routine quotidienne du 10/11/2026) : compléter l'édition,
   dont seules 1979/12 et 1979/13 (lot Lorraine) sont transcrites, sans y
   toucher. Profils de ledicodutour.com
