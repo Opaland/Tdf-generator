@@ -1,7 +1,7 @@
 {
   "name": "etapeforge",
   "version": "1.1.0",
-  "description": "ÉtapeForge — générateur d'étapes du Tour de France : éditeur, reconstruction historique 1903→2027, fiches côte-par-côte, analyse km par km. 100 % local (Node.js + SQLite), aucune dépendance cloud propriétaire, aucun compte par défaut (mur d'accès email/mot de passe optionnel pour une exposition publique, voir docs/DEPLOY-PUBLIC.md).",
+  "description": "ÉtapeForge — générateur d'étapes du Tour de France : éditeur, reconstruction historique 1903→2027, fiches côte-par-côte, analyse km par km. 100 % local (Node.js + SQLite), aucune dépendance cloud propriétaire au fonctionnement (récits Claude optionnels, générés hors serveur), aucun compte par défaut (mur d'accès email/mot de passe optionnel pour une exposition publique, voir docs/DEPLOY-PUBLIC.md).",
   "license": "MIT",
   "type": "commonjs",
   "main": "backend/server.js",
@@ -34,6 +34,7 @@
     "node-html-parser": "^9.0.1"
   },
   "devDependencies": {
+    "@anthropic-ai/sdk": "^1.8.0",
     "@eslint/js": "^10.0.1",
     "@stryker-mutator/core": "^10.0.0",
     "eslint": "^10.9.0",
