@@ -3235,6 +3235,33 @@ sur l'histoire du Tour. **En attente de décision** sur les cinq questions du
   (après accord) : test des chiffres de la documentation, porte locale lue
   dans `ci.yml`, workflow « sources publiques » qui ouvre une issue, budget
   de taille, modèles d'issue et de PR.
+- [ ] 41.4 Récits d'étapes rédigés par Claude : le mécanisme (demande de
+  l'utilisateur du 11/11/2026, « regarde pour implémenter Claude API dans le
+  logiciel », en parallèle de la routine). Conception de l'étude (§ 4) :
+  génération hors du serveur, par un script, jamais dans le navigateur ni
+  à chaque visite. Le périmètre complet, le budget et la clé
+  `ANTHROPIC_API_KEY` restent à fournir par l'utilisateur (41.2) : aucune
+  génération payante n'est lancée dans cette story.
+  Critères d'acceptation :
+  - les faits d'une étape curée sont assemblés par le code seul (villes,
+    km, côtes et cols avec altitude et catégorie imprimées, date, distance
+    officielle, source), avec une empreinte ;
+  - la consigne interdit tout nom, chiffre, vainqueur ou anecdote absent
+    des faits (règle 12) ;
+  - chaque nombre et chaque nom propre du texte est vérifié contre les
+    faits ; un texte qui échoue est redemandé une fois avec la liste des
+    écarts, puis écarté (jamais stocké non vérifié) ;
+  - le texte est stocké dans `pipeline/data/stage_narratives.json` avec le
+    modèle, la date, les jetons, le coût et l'empreinte des faits ; il
+    n'est plus affiché quand les faits ont changé ;
+  - le script n'appelle l'API qu'avec une clé, s'arrête à `--limit`
+    étapes (10 par défaut, l'échantillon de l'étude), et `--dry-run`
+    montre les faits et le coût estimé sans appel ;
+  - la fiche d'étape affiche le récit en texte seul (pas d'`innerHTML`),
+    marqué « rédigé par Claude » avec le modèle ; le serveur n'appelle
+    jamais l'API ;
+  - le client Claude est injecté dans les tests (aucun appel réseau, aucun
+    mock de `fetch` global, règle 6) ; relecture adverse avant la PR.
 
 ## Epic 40 — Diffusion de l'application sur les stores (issue #563)
 
