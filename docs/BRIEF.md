@@ -83,10 +83,15 @@ cousin qui a le sien dans `docs/FEUILLE_DE_ROUTE.md`.
   ouvertes (IGN/Géoplateforme, OSM/OSRM, opentopodata, Wikipédia) mises en
   cache localement — jamais un service tiers à clé API payante en
   fonctionnement normal.
+  Seule exception, à la demande du propriétaire (11/11/2026, story 41.4) :
+  les récits d'étapes rédigés par Claude, générés par un script hors
+  serveur avec la clé du propriétaire ; l'application tourne sans eux et ne
+  les appelle jamais (elle lit le fichier des récits déjà vérifiés).
 - **Pas de framework frontend.** JS vanilla + Leaflet, cohérent avec
-  l'esprit « aucune dépendance inutile » du projet (5 dépendances directes
+  l'esprit « aucune dépendance inutile » du projet (6 dépendances directes
   en tout — chacune évaluée avant adoption, voir par exemple la revue de
-  `node-html-parser` dans l'historique git de ce fichier). Voir
+  `node-html-parser` dans l'historique git de ce fichier ; `@anthropic-ai/sdk`,
+  SDK officiel, n'est chargé que par `scripts/generate-recits.js`). Voir
   `docs/DESIGN_SYSTEM.md` pour ce que ce choix implique.
 
 ## Ce qui reste ouvert

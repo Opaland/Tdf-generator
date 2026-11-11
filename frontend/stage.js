@@ -58,7 +58,7 @@ async function poll() {
   } catch (err) { pollRetryAfterNetworkError(err); return; }
   poll.failures = 0;
   const st = full.stage;
-  if (st.state === 'done') { FULL = full; renderFiche(); loadSimilarStages(); return; }
+  if (st.state === 'done') { FULL = full; renderFiche(); loadSimilarStages(); loadRecit(); return; }
   if (st.state === 'error') {
     document.getElementById('pg-title').textContent = 'Échec de la génération';
     document.getElementById('pg-detail').textContent = st.error || 'erreur inconnue';
@@ -677,6 +677,30 @@ function similarItemHtml(s) {
     s.max_gradient ? `${EF.dec(s.max_gradient)} % max` : null,
   ].filter(Boolean).join(' · ');
   return `<li class="fauxplat-item"><a href="/stage.html?id=${s.id}">${EF.esc(s.name)}</a>${meta ? ` — ${EF.esc(meta)}` : ''}</li>`;
+}
+
+// Récit rédigé par Claude (story 41.4), seulement pour une étape historique
+// curée dont le récit a été vérifié contre les faits actuels. Texte seul
+// (textContent) : jamais d'innerHTML pour un texte produit par un modèle.
+async function loadRecit() {
+  if (window.EF_STATIC) return;
+  try {
+    const { narrative } = await EF.api(`/api/stages/${stageId}/recit`);
+    if (!narrative || typeof narrative.text !== 'string') return;
+    const box = document.getElementById('recit-text');
+    box.textContent = '';
+    for (const para of narrative.text.split(/\n\s*\n/)) {
+      if (!para.trim()) continue;
+      const p = document.createElement('p');
+      p.textContent = para.trim();
+      box.appendChild(p);
+    }
+    document.getElementById('recit-meta').textContent =
+      `Rédigé par Claude (${narrative.model}) à partir des faits du profil de l'étape ; chaque nombre et chaque nom vérifiés automatiquement contre ces faits.`;
+    document.getElementById('recit-section').style.display = '';
+  } catch {
+    // Non essentiel : la fiche reste complète sans le récit.
+  }
 }
 
 async function loadSimilarStages() {

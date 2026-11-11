@@ -3,7 +3,8 @@
 ![CI](https://github.com/Opaland/Tdf-generator/actions/workflows/ci.yml/badge.svg)
 
 **Générateur d'étapes du Tour de France** — application web 100 % locale : Node.js + SQLite +
-Leaflet/SVG. Aucun compte par défaut, aucune dépendance cloud propriétaire (un mur d'accès
+Leaflet/SVG. Aucun compte par défaut, aucune dépendance cloud propriétaire au fonctionnement
+(récits d'étapes par Claude en option, générés hors serveur ; un mur d'accès
 email/mot de passe optionnel existe pour qui veut exposer son instance publiquement, voir
 [docs/DEPLOY-PUBLIC.md](docs/DEPLOY-PUBLIC.md)).
 
@@ -189,6 +190,31 @@ npm run generate -- --import 1903       # import seul
   en réalité terminée depuis le 26 juillet 2026, voir les étapes reines
   curées avec résultats dans `historic_routes.json`). Toute autre année
   s'importe en ligne.
+
+## Récits d'étapes rédigés par Claude (optionnel)
+
+Une étape historique curée peut porter un court récit, rédigé par Claude à
+partir des seuls **faits** de son profil (villes, km, cols et côtes avec
+altitude et catégorie imprimées, date) : `pipeline/recits.js`. Chaque nombre
+et chaque nom propre du texte est vérifié contre ces faits ; un texte qui
+échoue est redemandé une fois, puis écarté. Les récits vérifiés sont stockés
+dans `pipeline/data/stage_narratives.json` avec le modèle, les jetons, le
+coût et l'empreinte des faits, et la fiche d'étape les affiche (marqués
+« rédigé par Claude »). Un récit dont les faits ont changé n'est plus
+affiché.
+
+Le serveur n'appelle jamais l'API : la génération est un script, payant,
+lancé à la main avec la clé du propriétaire :
+
+```bash
+node scripts/generate-recits.js 1978 --dry-run      # faits et coût estimé, aucun appel
+ANTHROPIC_API_KEY=… node scripts/generate-recits.js 1978/14 --limit 10
+```
+
+| Variable | Rôle |
+|---|---|
+| `ANTHROPIC_API_KEY` | clé de l'API Claude (console.anthropic.com, service payant ; fixer une limite de dépense dans la console). Lue par le script seulement. |
+| `ETAPEFORGE_RECITS_MODEL` | modèle, `claude-opus-5-5` par défaut. |
 
 ## Garde-fous et qualité
 
