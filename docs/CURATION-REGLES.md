@@ -139,6 +139,14 @@ dans la même PR que son correctif.
     situer sur la courbe** : Recoules-Prévinquières et Lapanouse (1984/14),
     transcrits 820 et 830, étaient imprimés 620 et 630 ; le centre de la
     commune, jugé bon par erreur sur ce témoin, cachait la vraie position.
+    **Deux cas à ne pas confondre** (audit 1978) : si la courbe elle-même
+    reste à l'altitude imprimée autour du lieu (Lourdios, 1978/10 : courbe
+    plate vers 337 m, village à 443), c'est la source qui dévie, le point
+    se garde avec cette note ; si la courbe culmine à l'altitude imprimée
+    au-dessus d'un village situé plus bas (Remonot 900 pour 764, Chavonne
+    180 pour 76, Chardonne 810 pour 609), le passage est au-dessus du lieu
+    et le point se retire. « Chiffre vraisemblablement fautif » ne s'écrit
+    qu'après avoir regardé la courbe.
     **Mesurer l'altitude au point stocké**, pas au centre que renvoie
     une nouvelle recherche Nominatim : en 1988, sept côtes notées « au
     pied » l'étaient pour le centroïde administratif, alors que le point

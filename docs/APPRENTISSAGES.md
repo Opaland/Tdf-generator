@@ -102,3 +102,14 @@ entrée : on la marque « absorbée par … ».
 17. **Les sous-agents se trompent avec assurance.** Toute relecture qu'ils
     proposent se vérifie sur l'image ou par une requête avant d'être
     appliquée ; leurs « choix par défaut » sont des propositions.
+18. **Une règle de données s'applique telle qu'écrite, pas par analogie**
+    (11/11/2026). En 1978/8, j'ai gardé Lussac malgré un aller-retour en
+    invoquant Zumaia (règle 17), parce que l'étape « tombait juste » avec
+    lui ; la règle 24 l'interdit précisément (audit Mireille). De même,
+    j'ai écrit « chiffre vraisemblablement fautif » sur des altitudes sans
+    regarder la courbe (→ règle 14 précisée). Avant de garder un point en
+    exception, relire la règle qui l'exclut.
+19. **Le test d'invariant tranche avant l'audit** (11/11/2026).
+    `placeSearch.test.js` a refusé Pontarlier et Les Hôpitaux-Vieux placés
+    ensemble (km imprimé incompatible) : lancer `npm test` dès les
+    corrections appliquées, pas seulement avant le commit.
