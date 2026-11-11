@@ -113,3 +113,8 @@ entrée : on la marque « absorbée par … ».
     `placeSearch.test.js` a refusé Pontarlier et Les Hôpitaux-Vieux placés
     ensemble (km imprimé incompatible) : lancer `npm test` dès les
     corrections appliquées, pas seulement avant le commit.
+20. **Committer avant une mutation de test** (11/11/2026). Pour vérifier
+    qu'un test échoue sans son correctif, j'ai cassé le code puis restauré
+    le fichier par `git checkout` : cela a aussi effacé le correctif non
+    encore committé (route des récits, à réappliquer). Committer d'abord,
+    ou restaurer depuis une copie du fichier, jamais depuis git.

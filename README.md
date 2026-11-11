@@ -195,16 +195,25 @@ npm run generate -- --import 1903       # import seul
 
 Une étape historique curée peut porter un court récit, rédigé par Claude à
 partir des seuls **faits** de son profil (villes, km, cols et côtes avec
-altitude et catégorie imprimées, date) : `pipeline/recits.js`. Chaque nombre
-et chaque nom propre du texte est vérifié contre ces faits ; un texte qui
-échoue est redemandé une fois, puis écarté. Les récits vérifiés sont stockés
+altitude et catégorie imprimées, date) : `pipeline/recits.js`. Les km mesurés
+à l'échelle, mal lus, et les altitudes peu lisibles n'entrent pas dans les
+faits. Contrôle automatique du texte : chaque nombre en chiffres doit être un
+fait de même nature (km, altitude, catégorie, ou année / jour / numéro
+d'étape), tout nombre en lettres est refusé, et chaque mot à majuscule doit
+venir des faits ou d'une courte liste de mots courants. Limites connues : un
+nombre juste peut être rattaché au mauvais lieu, et un nom écrit sans
+majuscule n'est pas détecté. Un texte qui échoue est redemandé une fois, puis
+écarté. Les récits vérifiés sont stockés
 dans `pipeline/data/stage_narratives.json` avec le modèle, les jetons, le
 coût et l'empreinte des faits, et la fiche d'étape les affiche (marqués
 « rédigé par Claude »). Un récit dont les faits ont changé n'est plus
 affiché.
 
 Le serveur n'appelle jamais l'API : la génération est un script, payant,
-lancé à la main avec la clé du propriétaire :
+lancé à la main avec la clé du propriétaire (le SDK `@anthropic-ai/sdk` est
+une dépendance de développement, absente de l'image Docker). Le récit ne
+s'affiche que sur l'étape historique importée dont la date correspond aux
+faits :
 
 ```bash
 node scripts/generate-recits.js 1978 --dry-run      # faits et coût estimé, aucun appel

@@ -84,8 +84,38 @@ test('verifyNarrative : un nombre, un nom inventés, et les chiffres de l\'URL s
   const f = recits.stageFacts(1978, '14');
   const v = recits.verifyNarrative(`${GOOD_14} Bernard Hinault y gagne sur 53 km ; le Dico date de 1977.`, f);
   assert.strictEqual(v.ok, false);
-  assert.deepStrictEqual(v.nombres.sort(), [1977, 53]);
+  assert.deepStrictEqual(v.nombres.sort(), ['1977', '53 (km)']);
   assert.ok(v.noms.includes('Bernard') && v.noms.includes('Hinault') && v.noms.includes('Dico'), v.noms.join());
+});
+
+test('verifyNarrative : un nombre doit être un fait de même nature (relecture adverse)', () => {
+  const f3 = recits.stageFacts(1978, '3');
+  const f14 = recits.stageFacts(1978, '14');
+  // 7 est le km d'un point de 1978/3 (et le mois de sa date ISO) : sans
+  // unité, seuls l'année, le jour (2) et le numéro d'étape (3) passent.
+  assert.deepStrictEqual(recits.verifyNarrative('7 échappés, 5 sprints.', f3).nombres, ['7', '5']);
+  assert.ok(recits.verifyNarrative('Étape 3, le 2 juillet 1978.', f3).ok);
+  // Un km n'autorise pas une altitude, et inversement.
+  assert.deepStrictEqual(recits.verifyNarrative('Au km 1 415, à 52,5 m.', f14).nombres, ['1 415 (km)', '52,5 (alt)']);
+  assert.ok(recits.verifyNarrative('Au km 52,5, à 1 415 mètres, col de 1re catégorie.', f14).ok);
+  assert.deepStrictEqual(recits.verifyNarrative('Une pente de 7 %.', f14).nombres, ['7 (pct)']);
+  // Nombres en lettres : refusés, la consigne les interdit.
+  assert.deepStrictEqual(recits.verifyNarrative('douze kilomètres de plaine', f14).nombres, ['douze']);
+});
+
+test('verifyNarrative : pas de faux refus sur les mots qui ouvrent un récit', () => {
+  const f = recits.stageFacts(1978, '14');
+  const v = recits.verifyNarrative("Départ de Besse-et-Saint-Anastaise. Arrivée au Puy de Dôme. Au-delà de Murol, là-haut. Lorsque le peloton passe. Distance : 52,5 kilomètres.", f);
+  assert.deepStrictEqual(v, { ok: true, nombres: [], noms: [] });
+});
+
+test('stageFacts : un km mesuré à l\'échelle ou mal lu n\'est pas un fait (règle 4)', () => {
+  const f = recits.stageFacts(1978, '2');
+  const berchem = f.points.find((p) => p.nom === 'Berchem');
+  assert.ok(berchem && berchem.km === undefined, 'Berchem : aucun km imprimé, km omis');
+  const enclus = f.points.find((p) => p.nom === "Mont de l'Enclus");
+  assert.ok(enclus && enclus.km === undefined, 'km peu lisible : omis');
+  assert.ok(!('date' in f), 'pas de date ISO, dont les chiffres autoriseraient des nombres');
 });
 
 test('writeNarrative : un texte fautif est redemandé une fois, avec les écarts et la réponse entière', async () => {
@@ -202,8 +232,8 @@ after(() => {
 test('GET /api/stages/:id/recit : identifiant invalide → 400 ; étape sans récit → narrative null', async () => {
   const { getDb } = require('../backend/db');
   const db = getDb();
-  const ed = db.prepare("INSERT INTO editions (year, name, category) VALUES (1978, 'Tour 1978', 'hommes')").run().lastInsertRowid;
-  const ids = [1, 1, 2].map((o, i) => db.prepare('INSERT INTO stages (edition_id, stage_order, name) VALUES (?, ?, ?)').run(ed, o, `É${i}`).lastInsertRowid);
+  const ed = db.prepare("INSERT INTO editions (year, name, category, source) VALUES (1978, 'Tour 1978', 'hommes', '{}')").run().lastInsertRowid;
+  const ids = [[1, '1a'], [1, '1b'], [2, '2']].map(([o, k], i) => db.prepare('INSERT INTO stages (edition_id, stage_order, name, date) VALUES (?, ?, ?, ?)').run(ed, o, `É${i}`, recits.stageDate(1978, k)).lastInsertRowid);
   assert.strictEqual((await fetch(`${base}/api/stages/abc/recit`)).status, 400);
   const res = await fetch(`${base}/api/stages/${ids[1]}/recit`);
   assert.strictEqual(res.status, 200);
@@ -213,4 +243,25 @@ test('GET /api/stages/:id/recit : identifiant invalide → 400 ; étape sans ré
   assert.deepStrictEqual(stageKey(db, ids[2]), { year: 1978, key: '2' });
   const custom = db.prepare("INSERT INTO stages (name) VALUES ('perso')").run().lastInsertRowid;
   assert.strictEqual(stageKey(db, custom), null);
+});
+
+test('stageKey : seulement l\'étape historique importée, à la date des faits (relecture adverse)', () => {
+  const { getDb } = require('../backend/db');
+  const db = getDb();
+  const { stageKey } = require('../backend/routes/recits');
+  const mk = (source) => db.prepare("INSERT INTO editions (year, name, category, source) VALUES (1978, 'T', 'hommes', ?)").run(source).lastInsertRowid;
+  const add = (ed, order, date) => db.prepare('INSERT INTO stages (edition_id, stage_order, name, date) VALUES (?, ?, ?, ?)').run(ed, order, 'É', date).lastInsertRowid;
+  const imported = mk('{"liste_etapes":"wikipedia"}');
+  const s1 = add(imported, 1, recits.stageDate(1978, '1a'));
+  add(imported, 1, recits.stageDate(1978, '1b'));
+  const s2 = add(imported, 2, recits.stageDate(1978, '2'));
+  assert.deepStrictEqual(stageKey(db, s1), { year: 1978, key: '1a' });
+  assert.deepStrictEqual(stageKey(db, s2), { year: 1978, key: '2' });
+  // Réordonnée : la date n'est plus celle de l'étape à cette place.
+  db.prepare('UPDATE stages SET stage_order = 9 WHERE id = ?').run(s2);
+  db.prepare('UPDATE stages SET stage_order = 2 WHERE id = ?').run(s1);
+  assert.strictEqual(stageKey(db, s1), null);
+  // Édition créée à la main, numérotée 1978 : jamais de récit historique.
+  const manual = mk(null);
+  assert.strictEqual(stageKey(db, add(manual, 2, recits.stageDate(1978, '2'))), null);
 });

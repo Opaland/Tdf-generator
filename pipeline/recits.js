@@ -22,8 +22,10 @@ const NARRATIVES_FILE = path.join(DATA_DIR, 'stage_narratives.json');
  * (choix du propriétaire, story 41.2), lu par le script seulement. */
 const DEFAULT_MODEL = 'claude-opus-5-5';
 
-/** Tarifs publics en $ par million de jetons (entrée, sortie), vérifiés le
- * 11/11/2026 dans la référence de l'API Claude. Un modèle absent de la table
+/** Tarifs publics en $ par million de jetons (entrée, sortie), d'après la
+ * table des modèles de la référence de l'API Claude (en cache au 03/11/2026,
+ * lue le 11/11/2026) ; à revérifier sur la page des tarifs avant un
+ * lancement complet. Un modèle absent de la table
  * donne un coût inconnu (null), jamais un coût faux. */
 const PRICES = {
   'claude-opus-5-5': [4, 20],
@@ -94,7 +96,6 @@ function stageFacts(year, key) {
   const facts = {
     edition: Number(year),
     etape: String(key),
-    date: st.date || null,
     date_texte: dateText(st.date),
     depart: pts.length ? pts[0].label : null,
     arrivee: pts.length ? pts[pts.length - 1].label : null,
@@ -104,7 +105,10 @@ function stageFacts(year, key) {
     distance_profil_km: pts.length ? pts[pts.length - 1].km : null,
     contre_la_montre: /contre-la-montre/i.test(it.note || '') || undefined,
     points: pts.map((t) => {
-      const p = { nom: t.label, km: t.km, type: KIND[t.kind] || t.kind };
+      const p = { nom: t.label, type: KIND[t.kind] || t.kind };
+      // Un km mesuré à l'échelle ou mal lu n'est pas un fait : omis
+      // (relecture adverse : 339 points « aucun km imprimé » repris tels quels).
+      if (!/aucun km imprimé|km illisible|km peu lisible|km approché/.test(t.note || '')) p.km = t.km;
       // Une altitude lue « peu lisible » n'est pas un fait certain : omise.
       const alt = /altitude peu lisible/.test(t.note || '') ? null : printedAltitude(t.note);
       if (alt != null) p.altitude_m = alt;
@@ -118,6 +122,12 @@ function stageFacts(year, key) {
   };
   if (!facts.contre_la_montre) delete facts.contre_la_montre;
   return facts;
+}
+
+/** Date ISO d'une étape d'après stage_towns.json (null si inconnue). */
+function stageDate(year, key) {
+  const st = townsStageFor((sources().towns[String(year)] || {}).stages, key);
+  return (st && st.date) || null;
 }
 
 /** Empreinte stable des faits : un récit n'est plus affiché quand elle change. */
@@ -138,49 +148,93 @@ function numbersIn(text) {
   return out;
 }
 
-/** Tous les nombres des faits, et tous leurs mots (pour les noms propres). */
+/** Nombres autorisés par les faits, rangés par nature : un nombre du texte
+ * n'est accepté que s'il est de la même nature qu'un fait (relecture
+ * adverse : un ensemble plat laissait « 7 échappés » passer parce qu'un
+ * point est au km 7). Et les mots des faits, pour les noms propres. */
 function factCorpus(facts) {
-  const nums = new Set();
+  const km = new Set();
+  const alt = new Set();
+  const cat = new Set();
+  const plain = new Set([facts.edition]);
+  const stageNum = parseInt(facts.etape, 10);
+  if (Number.isFinite(stageNum)) plain.add(stageNum);
+  for (const n of numbersIn(facts.date_texte || '')) plain.add(n);
+  for (const k of [facts.distance_profil_km, facts.distance_wikipedia_km]) if (Number.isFinite(k)) km.add(k);
   const words = new Set();
-  const walk = (v) => {
-    if (v == null) return;
-    if (typeof v === 'number') nums.add(v);
-    else if (typeof v === 'string') {
-      for (const n of numbersIn(v)) nums.add(n);
-      for (const w of fold(v).split(/[^a-z0-9]+/)) if (w) words.add(w);
-    } else if (Array.isArray(v)) v.forEach(walk);
-    // L'URL de la source n'est pas un fait de l'étape : ses chiffres
-    // (« 1977_1986 ») et ses mots ne doivent rien autoriser dans le texte.
-    else if (typeof v === 'object') for (const [k, x] of Object.entries(v)) if (k !== 'source') walk(x);
-  };
-  walk(facts);
-  return { nums, words };
+  const addWords = (v) => { for (const w of fold(v).split(/[^a-z0-9]+/)) if (w) words.add(w); };
+  for (const v of [facts.depart, facts.arrivee, facts.date_texte]) if (v) addWords(v);
+  for (const p of facts.points || []) {
+    addWords(p.nom);
+    if (Number.isFinite(p.km)) km.add(p.km);
+    if (Number.isFinite(p.altitude_m)) alt.add(p.altitude_m);
+    if (p.categorie) {
+      addWords(p.categorie);
+      for (const n of numbersIn(p.categorie)) cat.add(n);
+      if (p.categorie === 'hors catégorie') words.add('hc');
+    }
+  }
+  return { km, alt, cat, plain, words };
 }
 
-/** Mots à majuscule tolérés hors des faits : mots outils en début de phrase,
- * et le nom de la course. Tout autre nom propre doit venir des faits. */
+/** Nature d'un nombre d'après son voisinage : km, m (altitude), catégorie,
+ * pourcentage, ou rien (année, jour, numéro d'étape). */
+function numberKind(before, after) {
+  const a = fold(after);
+  if (/^\s*(km\b|kilometres?\b)/.test(a) || /\bkm\s*$/.test(fold(before))) return 'km';
+  if (/^\s*(m\b|metres?\b)/.test(a)) return 'alt';
+  if (/^\s*(re|e|er|eme|ᵉ|ʳᵉ)?\s*cat/.test(a)) return 'cat';
+  if (/^\s*(%|pour\s*cent)/.test(a)) return 'pct';
+  return 'plain';
+}
+
+/** Nombres écrits en lettres : interdits par la consigne, refusés ici (sauf
+ * « un/une », article). « neuf » est omis (adjectif). */
+const NUMBER_WORDS = /\b(deux|trois|quatre|cinq|six|sept|huit|dix|onze|douze|treize|quatorze|quinze|seize|vingts?|trente|quarante|cinquante|soixante|cents?|mille|milliers?|centaines?|dizaines?|douzaines?)\b/i;
+
+/** Mots à majuscule tolérés hors des faits : mots courants qui ouvrent une
+ * phrase, et le nom de la course. Tout autre nom propre doit venir des faits. */
 const COMMON = new Set(('le la les l un une des du de d au aux en dans sur sous par pour avec sans '
   + 'entre vers apres avant puis ensuite enfin alors ainsi cette ce cet ces son sa ses leur leurs '
   + 'il elle ils elles on c est etait fut qui que quand ou et mais car donc or ni si tout toute '
-  + 'tous toutes depuis des plus moins tres deja encore premier premiere derniere dernier '
-  + 'tour france etape cote col partie parcours route course coureurs peloton '
-  + 'a au-dela la-haut lundi mardi mercredi jeudi vendredi samedi dimanche').split(' '));
+  + 'tous toutes depuis plus moins tres deja encore premier premiere derniere dernier '
+  + 'tour france etape cote cotes col cols partie parcours route course coureurs peloton '
+  + 'a dela haut lundi mardi mercredi jeudi vendredi samedi dimanche '
+  + 'depart arrivee arrive distance soit lorsque lors des la ici la-bas bas pres loin '
+  + 'montee ascension descente sommet profil journee matin jour ville villes village villages '
+  + 'contre montre clm long longue court courte celle celui ceux cela ca tandis quant '
+  + 'kilometre kilometres metre metres altitude categorie categories hors finale final '
+  + 'grimpe gravit franchit traverse rejoint longe quitte part monte descend termine').split(' '));
 
-/** Vérifie un récit contre ses faits : { ok, nombres: [...], noms: [...] }
- * (les nombres et noms du texte absents des faits). */
+/** Vérifie un récit contre ses faits : { ok, nombres: [...], noms: [...] }.
+ * Garanties et limites (documentées, README) : chaque nombre écrit en
+ * chiffres doit être un fait de même nature (km, altitude, catégorie, ou
+ * année / jour / numéro d'étape) — mais il peut être attribué au mauvais
+ * point ; tout nombre en lettres est refusé ; chaque mot à majuscule doit
+ * venir des faits ou d'une liste de mots courants — un nom écrit sans
+ * majuscule n'est pas détecté. */
 function verifyNarrative(text, facts) {
-  const { nums, words } = factCorpus(facts);
-  const nombres = [...new Set(numbersIn(text).filter((n) => !nums.has(n)))];
-  const noms = new Set();
-  const re = /\p{Lu}[\p{L}'’-]*/gu;
+  const { km, alt, cat, plain, words } = factCorpus(facts);
+  const allowed = { km, alt, cat, plain, pct: new Set() };
+  const nombres = [];
+  const re = /\d{1,3}(?:[ \u00a0\u202f]\d{3})+(?:,\d+)?|\d+(?:[,.]\d+)?/g;
   let m;
   while ((m = re.exec(text))) {
+    const n = Number(m[0].replace(/[ \u00a0\u202f]/g, '').replace(',', '.'));
+    const kind = numberKind(text.slice(Math.max(0, m.index - 4), m.index), text.slice(re.lastIndex, re.lastIndex + 12));
+    if (!allowed[kind].has(n)) nombres.push(kind === 'plain' ? m[0] : `${m[0]} (${kind})`);
+  }
+  const w = NUMBER_WORDS.exec(text);
+  if (w) nombres.push(w[0]);
+  const noms = new Set();
+  const nameRe = /\p{Lu}[\p{L}'’-]*/gu;
+  while ((m = nameRe.exec(text))) {
     for (const part of fold(m[0]).split(/['’-]/)) {
       if (part.length < 2 || COMMON.has(part) || words.has(part)) continue;
       noms.add(m[0]);
     }
   }
-  return { ok: !nombres.length && !noms.size, nombres, noms: [...noms] };
+  return { ok: !nombres.length && !noms.size, nombres: [...new Set(nombres)], noms: [...noms] };
 }
 
 // --- Génération (client injecté) ---------------------------------------
@@ -275,7 +329,7 @@ function currentNarrative(year, key, doc = readNarratives()) {
 
 module.exports = {
   DEFAULT_MODEL, NARRATIVES_FILE, PRICES, SYSTEM,
-  curatedKeys, stageFacts, factsHash, numbersIn, verifyNarrative,
+  curatedKeys, stageFacts, stageDate, factsHash, numbersIn, verifyNarrative,
   writeNarrative, costUsd, readNarratives, currentNarrative,
   _resetCache: () => { cache = null; },
 };

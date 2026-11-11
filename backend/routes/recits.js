@@ -6,19 +6,25 @@
 
 const { getDb } = require('../db');
 const { stageLabels } = require('../../pipeline/placeSearch');
-const { currentNarrative } = require('../../pipeline/recits');
+const { currentNarrative, stageDate } = require('../../pipeline/recits');
 
-/** Année et libellé (« 14 », « 12a ») d'une étape d'édition masculine, ou
- * null (tour personnalisé, édition féminine, étape inconnue). */
+/** Année et libellé (« 14 », « 12a ») d'une étape historique importée
+ * d'une édition masculine, ou null. Une édition créée à la main (sans
+ * `source`, même numérotée comme une année du Tour) n'en a pas ; et la date
+ * de l'étape doit être celle des faits, pour qu'une étape réordonnée
+ * (stage_order modifié) ne reçoive pas le récit d'une autre (relecture
+ * adverse). */
 function stageKey(db, id) {
-  const st = db.prepare('SELECT id, edition_id FROM stages WHERE id = ?').get(id);
+  const st = db.prepare('SELECT id, edition_id, date FROM stages WHERE id = ?').get(id);
   if (!st || st.edition_id == null) return null;
-  const ed = db.prepare('SELECT year, is_custom, category FROM editions WHERE id = ?').get(st.edition_id);
-  if (!ed || ed.is_custom || ed.year == null || (ed.category && ed.category !== 'hommes')) return null;
+  const ed = db.prepare('SELECT year, is_custom, category, source FROM editions WHERE id = ?').get(st.edition_id);
+  if (!ed || ed.is_custom || ed.year == null || !ed.source || (ed.category && ed.category !== 'hommes')) return null;
   const list = db.prepare('SELECT id, stage_order FROM stages WHERE edition_id = ? ORDER BY stage_order, id').all(st.edition_id);
   const labels = stageLabels(list.map((r) => r.stage_order));
-  const i = list.findIndex((r) => r.id === st.id);
-  return { year: ed.year, key: labels[i] };
+  const key = labels[list.findIndex((r) => r.id === st.id)];
+  const expected = stageDate(ed.year, key);
+  if (!expected || st.date !== expected) return null;
+  return { year: ed.year, key };
 }
 
 module.exports = function registerRecits(app) {

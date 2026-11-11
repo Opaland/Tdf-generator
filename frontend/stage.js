@@ -696,7 +696,7 @@ async function loadRecit() {
       box.appendChild(p);
     }
     document.getElementById('recit-meta').textContent =
-      `Rédigé par Claude (${narrative.model}) à partir des faits du profil de l'étape ; chaque nombre et chaque nom vérifiés automatiquement contre ces faits.`;
+      `Rédigé par Claude (${narrative.model}) à partir des faits du profil historique de l'étape. Contrôle automatique : chaque nombre doit être un fait de même nature (km, altitude, catégorie, date) et chaque nom propre doit figurer dans les faits ; un nombre peut toutefois être rattaché au mauvais lieu.`;
     document.getElementById('recit-section').style.display = '';
   } catch {
     // Non essentiel : la fiche reste complète sans le récit.

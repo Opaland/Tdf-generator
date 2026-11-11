@@ -71,7 +71,14 @@ async function main(argv = process.argv.slice(2), { client: injected, log = cons
     if (!process.env.ANTHROPIC_API_KEY && !process.env.ANTHROPIC_AUTH_TOKEN) {
       throw new Error('aucune clé : définir ANTHROPIC_API_KEY (appel payant), ou lancer avec --dry-run');
     }
-    const Anthropic = require('@anthropic-ai/sdk');
+    let Anthropic;
+    try {
+      // Dépendance de développement : absente de l'image de production
+      // (npm ci --omit=dev), où le serveur n'en a pas besoin.
+      Anthropic = require('@anthropic-ai/sdk');
+    } catch {
+      throw new Error('SDK @anthropic-ai/sdk absent : lancer `npm ci` (dépendances de développement comprises)');
+    }
     client = new (Anthropic.default || Anthropic)();
   }
   let done = 0;

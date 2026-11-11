@@ -3235,7 +3235,7 @@ sur l'histoire du Tour. **En attente de décision** sur les cinq questions du
   (après accord) : test des chiffres de la documentation, porte locale lue
   dans `ci.yml`, workflow « sources publiques » qui ouvre une issue, budget
   de taille, modèles d'issue et de PR.
-- [ ] 41.4 Récits d'étapes rédigés par Claude : le mécanisme (demande de
+- [x] 41.4 Récits d'étapes rédigés par Claude : le mécanisme (demande de
   l'utilisateur du 11/11/2026, « regarde pour implémenter Claude API dans le
   logiciel », en parallèle de la routine). Conception de l'étude (§ 4) :
   génération hors du serveur, par un script, jamais dans le navigateur ni
@@ -3262,6 +3262,17 @@ sur l'histoire du Tour. **En attente de décision** sur les cinq questions du
     jamais l'API ;
   - le client Claude est injecté dans les tests (aucun appel réseau, aucun
     mock de `fetch` global, règle 6) ; relecture adverse avant la PR.
+  Fait : `pipeline/recits.js`, `scripts/generate-recits.js`, route
+  `GET /api/stages/:id/recit`, section « Récit de l'étape » de la fiche ;
+  aucune génération lancée (pas de clé). Relecture adverse : la
+  vérification acceptait un nombre de n'importe quelle nature (désormais
+  typé km / altitude / catégorie / date), les nombres en lettres, et des
+  faux refus (« Départ », « Au-delà ») ; des km estimés entraient dans les
+  faits (omis) ; un récit pouvait s'afficher sur une étape réordonnée ou
+  une édition créée à la main (date des faits et `source` exigées) ; le SDK
+  passe en dépendance de développement. Limites documentées : un nombre
+  juste peut être rattaché au mauvais lieu, un nom sans majuscule n'est pas
+  détecté.
 
 ## Epic 40 — Diffusion de l'application sur les stores (issue #563)
 
