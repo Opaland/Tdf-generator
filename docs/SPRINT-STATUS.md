@@ -2023,6 +2023,18 @@ et côtes traversées avec leur kilomètre.
   23 +8), 1984/0 non contrôlable ; 18 tronçons suspects, 8 allers-retours, 4 incertains.
   **Reste, story non cochée :** remesurer à vélo, puis trier ces écarts et noter
   leurs causes (règle 16). Chiffres de voiture : à ne pas lire comme un résultat.
+- [ ] Édition 1978 (routine quotidienne du 11/11/2026, tentative 1/10) :
+  compléter l'édition, dont seule 1978/20 (lot Lorraine) est transcrite,
+  sans y toucher. Profils de ledicodutour.com
+  (`images/cartes_etapes/1977_1986/1978/78_Na.jpg` ; `78_N.jpg` est la
+  carte de l'étape ; demi-étapes `78_1a`/`78_1b` et `78_12a`/`78_12b` ; md5
+  tous distincts ; prologue sans profil publié, non transcrit).
+  Critères d'acceptation : ceux de 1979 (règle 4, longueurs contre
+  stage_towns, classe OSM **et nom** de chaque candidat, altitude point par
+  point, départs et arrivées à la main, contrôle à vélo sans tronçon en
+  voiture, tronçons suspects triés, circuits au 1er passage placé à
+  l'arrivée, source_url vérifiée contre l'image transcrite, test
+  d'invariant, audit Mireille, écarts en issue).
 - [x] Édition 1979 (routine quotidienne du 10/11/2026) : compléter l'édition,
   dont seules 1979/12 et 1979/13 (lot Lorraine) sont transcrites, sans y
   toucher. Profils de ledicodutour.com
