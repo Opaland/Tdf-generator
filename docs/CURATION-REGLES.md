@@ -289,6 +289,12 @@ dans la même PR que son correctif.
     variantes composées dans tout le fichier : Bonneval-les-Bains était déjà
     placé en 1984/19 et 2018/11 quand « Bonneval (près) » a été déclaré
     introuvable en 1979 (audit Mireille).
+    **Chercher le nom seul et ses orthographes locales** (audit 1977) : une
+    recherche sur « Hacquegnies (carrefour N60-N58) » ne trouve rien,
+    « Hacquegnies » si ; Endarlaza s'écrit Endarlatsa, Arrayoz Arraioz
+    (basque). Un « carrefour » qui porte un nom de lieu-dit (Jauge,
+    Pierroton, 1977/5a) se cherche par ce nom, il n'est pas « sans lieu
+    cherchable ».
 
 22. **Vérifier le départ et l'arrivée de chaque étape avant le reste.**
     Une ville-étape devenue commune déléguée n'est plus dans l'index IGN
