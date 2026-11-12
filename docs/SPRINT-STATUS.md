@@ -2023,6 +2023,20 @@ et côtes traversées avec leur kilomètre.
   23 +8), 1984/0 non contrôlable ; 18 tronçons suspects, 8 allers-retours, 4 incertains.
   **Reste, story non cochée :** remesurer à vélo, puis trier ces écarts et noter
   leurs causes (règle 16). Chiffres de voiture : à ne pas lire comme un résultat.
+- [ ] Édition 1977 (routine quotidienne du 12/11/2026, tentative 1/10) :
+  aucune étape de 1977 n'est encore transcrite. Profils de ledicodutour.com
+  (`images/cartes_etapes/1977_1986/1977/77_<N>.jpg` — ici `77_N` est le
+  profil, sans carte ; demi-étapes `77_5a`, `77_7a`, `77_13b`, `77_15a`,
+  `77_22a`). Non transcrits, faute de profil à km : prologue (aucune image),
+  5b (`77_5b` = plan du circuit de Bordeaux-Lac), 7b, 13a et 15b (aucune
+  image), 20 (`77_20` = profil d'un tour du circuit de Dijon-Prenois, sans
+  nom de lieu), 22b (`77_22b` identique à `77_22a` au md5 près, tour du
+  circuit des Champs-Élysées). Critères d'acceptation : ceux de 1978
+  (règle 4, longueurs contre stage_towns, classe OSM et nom de chaque
+  candidat, altitude point par point, départs et arrivées à la main,
+  contrôle à vélo sans tronçon en voiture, tronçons suspects triés,
+  circuits au 1er passage placé à l'arrivée, source_url vérifiée contre
+  l'image transcrite, test d'invariant, audit Mireille, écarts en issue).
 - [x] Édition 1978 (routine quotidienne du 11/11/2026, tentative 1/10) :
   compléter l'édition, dont seule 1978/20 (lot Lorraine) est transcrite,
   sans y toucher. Profils de ledicodutour.com
