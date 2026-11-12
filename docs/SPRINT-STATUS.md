@@ -2023,7 +2023,7 @@ et côtes traversées avec leur kilomètre.
   23 +8), 1984/0 non contrôlable ; 18 tronçons suspects, 8 allers-retours, 4 incertains.
   **Reste, story non cochée :** remesurer à vélo, puis trier ces écarts et noter
   leurs causes (règle 16). Chiffres de voiture : à ne pas lire comme un résultat.
-- [ ] Édition 1977 (routine quotidienne du 12/11/2026, tentative 1/10) :
+- [x] Édition 1977 (routine quotidienne du 12/11/2026, tentative 1/10) :
   aucune étape de 1977 n'est encore transcrite. Profils de ledicodutour.com
   (`images/cartes_etapes/1977_1986/1977/77_<N>.jpg` — ici `77_N` est le
   profil, sans carte ; demi-étapes `77_5a`, `77_7a`, `77_13b`, `77_15a`,
@@ -2037,6 +2037,17 @@ et côtes traversées avec leur kilomètre.
   contrôle à vélo sans tronçon en voiture, tronçons suspects triés,
   circuits au 1er passage placé à l'arrivée, source_url vérifiée contre
   l'image transcrite, test d'invariant, audit Mireille, écarts en issue).
+  Fait : 21 étapes ajoutées, 587 points dont 441 placés ; 19 étapes dans
+  la tolérance, 1 hors (12 : −10,1 % à vélo, −0,3 % en voiture, boucle de
+  Charleroi), 1 non contrôlable (22a, tour de circuit) ; 0 tronçon en
+  voiture. Géocodeur relu (centroïdes de communes déléguées, emprise
+  ferroviaire de Morez, aire protégée de la Faucille, ruisseau de la Croix
+  du Fraysse) ; Huez et Morgins aux points de 1978. Début de l'étape 2
+  comprimé sur le profil (Seissan → Chélan). Audit Mireille : 7 écarts
+  bloquants (Chélan, Castelnau-Magnoac et Monlong retirés à tort, Mareuil
+  au centre de la commune nouvelle, Endarlatsa, Hacquegnies et le Mur de
+  Grammont, Arraioz, Jauge et Pierroton introuvables à tort) et 7 mineurs
+  corrigés ; règle 21 précisée ; reprises en issue #577.
 - [x] Édition 1978 (routine quotidienne du 11/11/2026, tentative 1/10) :
   compléter l'édition, dont seule 1978/20 (lot Lorraine) est transcrite,
   sans y toucher. Profils de ledicodutour.com

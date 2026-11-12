@@ -118,3 +118,13 @@ entrée : on la marque « absorbée par … ».
     le fichier par `git checkout` : cela a aussi effacé le correctif non
     encore committé (route des récits, à réappliquer). Committer d'abord,
     ou restaurer depuis une copie du fichier, jamais depuis git.
+21. **Le test d'invariant nomme une paire, pas le coupable** (12/11/2026).
+    En 1977/2, `placeSearch.test.js` a refusé Seissan → Monlong, puis
+    Seissan → La Barthe, puis Orbessan → La Barthe ; j'ai retiré point
+    après point (Monlong, Seissan, Orbessan) sans chercher la paire
+    réellement fautive. L'audit a montré que le seul trou du profil était
+    entre Seissan et Chélan : Chélan, Castelnau-Magnoac et Monlong étaient
+    retirés à tort. Avant de retirer un point refusé, tracer les distances
+    à vol d'oiseau de tous les voisins placés et localiser le tronçon
+    impossible (règle 9, cas Chevigny).
+

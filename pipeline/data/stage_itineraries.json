@@ -583,36 +583,45 @@
        "label": "Orbessan",
        "km": 16,
        "kind": "ville",
-       "note": "186 m imprimés ; altitude peu lisible (166 ou 186) ; non placé : de ce village à Arreau (km 87), 71 km à vol d'oiseau pour 71 au profil, km imprimés du début de l'étape incompatibles avec la suite (test d'invariant ; écart du profil, règles 11, 21)",
+       "note": "186 m imprimés ; altitude peu lisible (166 ou 186) ; non placé : de Seissan (km 22) à Chélan (km 31,5), 16,9 km à vol d'oiseau pour 9,5 au profil ; le profil omet vraisemblablement une dizaine de km (Masseube non imprimé, hypothèse) ; Orbessan et Seissan, en amont du trou, restent non placés (règles 11, 21)",
        "confidence": "non-place"
       },
       {
        "label": "Seissan",
        "km": 22,
        "kind": "ville",
-       "note": "180 m imprimés ; non placé : le village est à 48,7 km à vol d'oiseau de La Barthe-de-Neste (km 66) pour 44 au profil, km imprimé incompatible avec la route (test d'invariant ; km relus sur l'image, règles 11, 21)",
+       "note": "180 m imprimés ; non placé : de Seissan (km 22) à Chélan (km 31,5), 16,9 km à vol d'oiseau pour 9,5 au profil ; le profil omet vraisemblablement une dizaine de km (Masseube non imprimé, hypothèse) ; Orbessan et Seissan, en amont du trou, restent non placés (règles 11, 21)",
        "confidence": "non-place"
       },
       {
        "label": "Chélan",
        "km": 31.5,
        "kind": "ville",
-       "note": "270 m imprimés ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
-       "confidence": "non-place"
+       "note": "270 m imprimés ; village de Chélan (lieu-dit habité IGN) ; replacé après l'audit : le conflit du début d'étape est entre Seissan et Chélan (règles 9, 21)",
+       "confidence": "ok",
+       "lat": 43.344125,
+       "lon": 0.546341,
+       "how": "ign"
       },
       {
        "label": "Castelnau-Magnoac",
        "km": 38,
        "kind": "ville",
-       "note": "350 m imprimés ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
-       "confidence": "non-place"
+       "note": "350 m imprimés ; village de Castelnau-Magnoac (lieu-dit habité IGN) ; replacé après l'audit : le conflit du début d'étape est entre Seissan et Chélan (règles 9, 21)",
+       "confidence": "ok",
+       "lat": 43.293093,
+       "lon": 0.510477,
+       "how": "ign"
       },
       {
        "label": "Monlong",
        "km": 48.5,
        "kind": "ville",
-       "note": "408 m imprimés ; point de 2026/5 ; non placé : le village est à 49,6 km à vol d'oiseau d'Auch pour 48,5 au profil, km imprimé incompatible avec la route (test d'invariant ; km relus sur l'image, règles 11, 21)",
-       "confidence": "non-place"
+       "note": "408 m imprimés ; village de Monlong (lieu-dit habité IGN) ; replacé après l'audit : le conflit du début d'étape est entre Seissan et Chélan (règles 9, 21)",
+       "confidence": "ok",
+       "lat": 43.206041,
+       "lon": 0.465098,
+       "how": "ign"
       },
       {
        "label": "Carrefour D.929 / D.117 (la Demi-Lune)",
@@ -891,15 +900,15 @@
        "confidence": "ok"
       }
      ],
-     "note": "Monlong (km 48,5) est à 49,6 km à vol d'oiseau d'Auch : km imprimé incompatible, point non placé (écart du profil, km relus sur l'image). Orbessan (km 16) et Seissan (km 22) non placés pour la même raison : de ces villages au sud de l'étape (La Barthe-de-Neste, Arreau), les km imprimés sont plus courts que la ligne droite ; le profil sous-estime la traversée du Gers et du plateau de Lannemezan (écart du profil, hypothèse).",
+     "note": "Début d'étape comprimé sur le profil : de Seissan (km 22) à Chélan (km 31,5), 16,9 km à vol d'oiseau pour 9,5 au profil (Masseube non imprimé, hypothèse) ; Orbessan et Seissan non placés. Auch → Monlong : 49,9 km à vol d'oiseau pour 48,5 au profil, départ réel vraisemblablement hors du centre d'Auch, non situé (règle 25).",
      "route_check": {
-      "routed_km": 190.7,
-      "profile_km": 187,
-      "delta_pct": 2,
+      "routed_km": 225.8,
+      "profile_km": 221.5,
+      "delta_pct": 1.9,
       "tolerance_pct": 5,
-      "coverage_pct": 74,
+      "coverage_pct": 88,
       "car_legs": 0,
-      "legs": 21,
+      "legs": 24,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -1045,8 +1054,11 @@
        "label": "Arrayoz",
        "km": 109,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)"
+       "confidence": "ok",
+       "note": "hameau d'Arraioz (Baztan, Nominatim, place=hamlet), orthographe basque d'Arrayoz (règle 21, audit)",
+       "lat": 43.140257,
+       "lon": -1.5649519,
+       "how": "nominatim"
       },
       {
        "label": "Santesteban",
@@ -1195,13 +1207,13 @@
      ],
      "note": "Total de l'étape coupé au bord droit de l'image : 248 km mesurés à l'échelle, comme stage_towns.",
      "route_check": {
-      "routed_km": 239.2,
+      "routed_km": 239.3,
       "profile_km": 234.5,
       "delta_pct": 2,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 19,
+      "legs": 20,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -1328,8 +1340,11 @@
        "label": "Endarlaza",
        "km": 151.5,
        "kind": "lieu-dit",
-       "note": "frontière (Bidassoa) ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
-       "confidence": "non-place"
+       "note": "frontière (Bidassoa) ; hameau d'Endarlatsa (Irun, Nominatim, place=hamlet), orthographe basque d'Endarlaza (règle 21, audit)",
+       "confidence": "ok",
+       "lat": 43.2949962,
+       "lon": -1.7300787,
+       "how": "nominatim"
       },
       {
        "label": "Alto de Ibardin",
@@ -1433,18 +1448,18 @@
        "confidence": "ok"
       }
      ],
-     "note": "Entrée du circuit final de Seignosse-le-Penon imprimée sans km (vers le km 247), arrivée au km 256 : premier passage sur la ligne non imprimé, circuit non déclaré. Départ : Vitoria → Puerto de Arlabán 15,7 km à vol d'oiseau pour 13,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance à vélo (−7,2 %) mais pas en voiture (−3,8 %, 233,2 km pour 242,5) : circuit final de Seignosse-le-Penon non reconstitué (Saint-Vincent-de-Tyrosse → arrivée 22,5 km au profil pour 11,1 à vol d'oiseau) ; aller-retour incertain à l'Ibardin.",
+     "note": "Entrée du circuit final de Seignosse-le-Penon imprimée sans km (vers le km 247), arrivée au km 256 : premier passage sur la ligne non imprimé, circuit non déclaré. Départ : Vitoria → Puerto de Arlabán 15,7 km à vol d'oiseau pour 13,5 au profil, départ réel hors du centre, non situé (règle 25). Circuit final de Seignosse-le-Penon non reconstitué : Saint-Vincent-de-Tyrosse → arrivée, 22,5 km au profil pour 11,1 à vol d'oiseau.",
      "route_check": {
-      "routed_km": 225.1,
+      "routed_km": 232.7,
       "profile_km": 242.5,
-      "delta_pct": -7.2,
+      "delta_pct": -4,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 16,
+      "legs": 17,
       "suspect_legs": 1,
       "backtracks": 0,
-      "backtracks_uncertain": 1
+      "backtracks_uncertain": 0
      }
     },
     "6": {
@@ -1643,11 +1658,11 @@
        "label": "Mareuil",
        "km": 135,
        "kind": "ville",
-       "note": "124 m imprimés",
-       "lat": 45.44362,
-       "lon": 0.50376,
-       "how": "commune-ign-prefixe",
-       "confidence": "ambigu"
+       "note": "124 m imprimés ; village de Mareuil (Nominatim, place=village) : le géocodeur avait pris le centre de la commune nouvelle Mareuil en Périgord, à 176 m au MNT pour 124 imprimés (règles 15, 21)",
+       "lat": 45.4515308,
+       "lon": 0.4529405,
+       "how": "nominatim",
+       "confidence": "ok"
       },
       {
        "label": "Saint-Sulpice-de-Mareuil",
@@ -1768,16 +1783,16 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Bordeaux → Les Bons Enfants 10,5 km à vol d'oiseau pour 7,5 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect : Verteillac → Mareuil, 13 km au profil pour 15,2 à vol d'oiseau (écart du profil).",
+     "note": "Départ : Bordeaux → Les Bons Enfants 10,5 km à vol d'oiseau pour 7,5 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 222.7,
+      "routed_km": 220.2,
       "profile_km": 218,
-      "delta_pct": 2.1,
+      "delta_pct": 1,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
       "legs": 22,
-      "suspect_legs": 1,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -2237,7 +2252,7 @@
        "label": "Côte de Mur-de-Bretagne",
        "km": 67,
        "kind": "côte",
-       "note": "294 m imprimés ; imprimé CÔTE DE MUR-DE-BRETAGNE ; 3e cat. ; km 65 imprimé (en gris, rangée des graduations) sans nom, au creux de la courbe avant la côte",
+       "note": "294 m imprimés ; imprimé CÔTE DE MUR-DE-BRETAGNE ; 3e cat. ; km 65 imprimé (en gris, rangée des graduations) sans nom, au creux de la courbe avant la côte ; le point renvoyé par Nominatim s'appelle « Côte du Menez Hiez » (col, Saint-Gilles-Vieux-Marché) : nom différent du libellé, altitude concordante (290 m au MNT pour 294)",
        "lat": 48.22806,
        "lon": -2.99822,
        "how": "nominatim",
@@ -2439,10 +2454,10 @@
        "label": "Bagnoles-de-l'Orne Normandie",
        "km": 0,
        "kind": "ville",
-       "note": "190 m imprimés ; imprimé BAGNOLES-DE-L'ORNE ; départ",
-       "lat": 48.56978,
-       "lon": -0.42125,
-       "how": "nominatim",
+       "note": "190 m imprimés ; imprimé BAGNOLES-DE-L'ORNE ; départ ; bourg de Bagnoles-de-l'Orne (lieu-dit habité IGN) : le géocodeur avait pris un point de Saint-Michel-des-Andaines, à 1,8 km (règles 15, 25)",
+       "lat": 48.551768,
+       "lon": -0.424382,
+       "how": "ign",
        "confidence": "ok"
       },
       {
@@ -3046,7 +3061,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Rouen → Isneauville 7,3 km à vol d'oiseau pour 5 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects : Les Essarts-Varimpré → Foucarmont (5 km au profil pour 5,6 à vol d'oiseau), Seclin → Wattignies (4 pour 5,1), Hem → Roubaix (8,5 pour 4,2, circuit d'arrivée non imprimé).",
+     "note": "Départ : Rouen → Isneauville 7,3 km à vol d'oiseau pour 5 au profil, départ réel hors du centre, non situé (règle 25). Tronçons suspects : Les Essarts-Varimpré → Foucarmont (5 km au profil pour 5,6 à vol d'oiseau, hameau de Varimpré pris pour l'ancienne commune) ; Seclin → Wattignies (4 pour 5,1, points déjà aux mairies, km relus 214 et 218 : écart du profil) ; Hem → Roubaix (8,5 pour 4,2, circuit d'arrivée non imprimé).",
      "route_check": {
       "routed_km": 245.6,
       "profile_km": 237.5,
@@ -3104,8 +3119,11 @@
        "label": "Hacquegnies (carrefour N60-N58)",
        "km": 31,
        "kind": "lieu-dit",
-       "note": "54 m imprimés ; imprimé HACQUEGNIES CARREFOUR N. 60-N. 58 (deux lignes, une colonne) ; km imprimé en petit sous la graduation 30, km peu lisible (31) ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
-       "confidence": "non-place"
+       "note": "54 m imprimés ; imprimé HACQUEGNIES CARREFOUR N. 60-N. 58 (deux lignes, une colonne) ; km imprimé en petit sous la graduation 30, km peu lisible (31) ; église d'Hacquegnies (Frasnes-lez-Anvaing, Nominatim) ; carrefour non situé plus précisément (audit : la recherche portait sur le libellé complet)",
+       "confidence": "ok",
+       "lat": 50.6525678,
+       "lon": 3.5935159,
+       "how": "nominatim"
       },
       {
        "label": "Lahamaide (D60)",
@@ -3138,8 +3156,11 @@
        "label": "Muur van Geraardsbergen",
        "km": 61.1,
        "kind": "côte",
-       "note": "143 m imprimés ; imprimé MUR DE GRAMMONT ; 3e cat. ; km peu lisible (61.1 ou 61.5) ; non placé : aucun lieu de ce nom compatible avec les voisins (recherche bornée Nominatim et index POI, règle 21)",
-       "confidence": "non-place"
+       "note": "143 m imprimés ; imprimé MUR DE GRAMMONT ; 3e cat. ; km peu lisible (61.1 ou 61.5) ; rue Kapelmuur (Oudeberg, Grammont, Nominatim), montée du Mur vers la chapelle ; altitude non mesurée hors de France (Géoplateforme)",
+       "confidence": "ok",
+       "lat": 50.7720621,
+       "lon": 3.8898561,
+       "how": "nominatim"
       },
       {
        "label": "Voorde",
@@ -3282,15 +3303,15 @@
        "confidence": "ok"
       }
      ],
-     "note": "Charleroi imprimé deux fois : passage vers le km 174 (sans km imprimé) puis arrivée au km 192,5. Départ : Roubaix → Templeuve 9,3 km à vol d'oiseau pour 5,7 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance à vélo (−11,1 %) mais pas en voiture (−2,5 %, 182,1 km pour 186,8) : le routeur vélo coupe au plus court, et la boucle autour de Charleroi n'est pas reconstituée (Marchienne-au-Pont → Lodelinsart 14,5 km au profil pour 4,6 à vol d'oiseau, Charleroi « passage » sans km).",
+     "note": "Charleroi imprimé deux fois : passage vers le km 174 (sans km imprimé) puis arrivée au km 192,5. Départ : Roubaix → Templeuve 9,3 km à vol d'oiseau pour 5,7 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance à vélo (−10,1 %) mais pas en voiture (−0,3 %, 186,2 km pour 186,8) : le routeur vélo coupe au plus court, et la boucle autour de Charleroi n'est pas reconstituée (Marchienne-au-Pont → Lodelinsart 14,5 km au profil pour 4,6 à vol d'oiseau, Charleroi « passage » sans km). Aller-retour incertain de 2,5 km à Lodelinsart, Montignies-sur-Sambre (sans km imprimé) étant sauté.",
      "route_check": {
-      "routed_km": 166.1,
+      "routed_km": 167.9,
       "profile_km": 186.8,
-      "delta_pct": -11.1,
+      "delta_pct": -10.1,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 13,
+      "legs": 15,
       "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 1
@@ -3690,7 +3711,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Tronçons suspects : Gex → Maconnex (4 km au profil pour 5,6 à vol d'oiseau) et Le Grand-Saconnex → Genève (2 pour 4,1) : écarts du profil ; aller-retour incertain vers Le Pasquier, Pont-d'Héry non placé entre les deux.",
+     "note": "Tronçons suspects : Gex → Maconnex (4 km au profil pour 5,6 à vol d'oiseau) et Le Grand-Saconnex → Genève (2 pour 4,1) : écarts du profil ; Genève est placé dans la Vieille-Ville alors que les 376 m imprimés sont au niveau du lac (passage par les quais vraisemblable). Aller-retour incertain de 2,8 km vers Le Pasquier, Salins-les-Bains (sans km imprimé) étant sauté.",
      "route_check": {
       "routed_km": 221.7,
       "profile_km": 216,
@@ -4663,7 +4684,7 @@
        "label": "Saint-Marcel",
        "km": 99.5,
        "kind": "ville",
-       "note": "181 m imprimés ; Saint-Marcel (Saône-et-Loire)",
+       "note": "181 m imprimés ; Saint-Marcel (Saône-et-Loire) ; mairie de Saint-Marcel cherchée (Nominatim) : aucun bâtiment trouvé, seulement une rue et un arrêt « Mairie » ; centre de la commune gardé",
        "lat": 46.77594,
        "lon": 4.88756,
        "how": "commune-ign",
@@ -5113,15 +5134,21 @@
        "label": "Carrefour D.1 - E-N.10 (Jauge)",
        "km": 94.5,
        "kind": "lieu-dit",
-       "note": "imprimé CARREFOUR D. 1 E-N. 10 JAUGE ; non placé : carrefour ou frontière sans lieu cherchable, non situé",
-       "confidence": "non-place"
+       "note": "imprimé CARREFOUR D. 1 E-N. 10 JAUGE ; hameau de Jauge (Cestas, Nominatim, place=hamlet) ; carrefour non situé plus précisément",
+       "confidence": "ok",
+       "lat": 44.7015141,
+       "lon": -0.7056497,
+       "how": "nominatim"
       },
       {
        "label": "Carrefour D.1 - E-N.650 (Pierroton)",
        "km": 101.5,
        "kind": "lieu-dit",
-       "note": "imprimé CARREFOUR D. 1 E-N. 650 PIERROTON ; non placé : carrefour ou frontière sans lieu cherchable, non situé",
-       "confidence": "non-place"
+       "note": "imprimé CARREFOUR D. 1 E-N. 650 PIERROTON ; quartier de Pierroton (Cestas, Nominatim) ; carrefour non situé plus précisément",
+       "confidence": "ok",
+       "lat": 44.7413414,
+       "lon": -0.7636927,
+       "how": "nominatim"
       },
       {
        "label": "Saint-Jean-d'Illac",
@@ -5190,15 +5217,15 @@
        "confidence": "ok"
       }
      ],
-     "note": "Demi-étape Morcenx → Bordeaux, profil 77_5a.jpg ; la demi-étape 5b (77_5b.jpg) n'a qu'un plan du circuit de Bordeaux-Lac, sans km, non transcrite. Départ : Morcenx → Sabres 19 km à vol d'oiseau pour 19 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect : Blanquefort → Bordeaux, 5,5 km au profil pour 8,5 à vol d'oiseau : arrivée à Bordeaux non située plus précisément (centre).",
+     "note": "Demi-étape Morcenx → Bordeaux, profil 77_5a.jpg ; la demi-étape 5b (77_5b.jpg) n'a qu'un plan du circuit de Bordeaux-Lac, sans km, non transcrite. Départ : Morcenx → Sabres 19 km à vol d'oiseau pour 19 au profil, départ réel hors du centre, non situé (règle 25). Tronçon suspect : Blanquefort → Bordeaux, 5,5 km au profil pour 8,5 à vol d'oiseau : l'arrivée n'était vraisemblablement pas au centre de Bordeaux mais au nord (le plan 77_5b du contre-la-montre de l'après-midi porte « départ / arrivée » au Lac), lieu exact non sourcé, laissé au centre (hypothèse).",
      "route_check": {
-      "routed_km": 124.9,
+      "routed_km": 125.2,
       "profile_km": 119.5,
-      "delta_pct": 4.5,
+      "delta_pct": 4.7,
       "tolerance_pct": 5,
       "coverage_pct": 86,
       "car_legs": 0,
-      "legs": 14,
+      "legs": 16,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -5679,7 +5706,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Demi-étape Altkirch → Besançon, profil 77_13b.jpg ; 13a (Fribourg-en-Brisgau) sans profil publié. Tronçon suspect : Blamont → Pont-de-Roide, 9 km au profil pour 6,2 à vol d'oiseau, « Roide » non placé entre les deux.",
+     "note": "Demi-étape Altkirch → Besançon, profil 77_13b.jpg ; 13a (Fribourg-en-Brisgau) sans profil publié.",
      "route_check": {
       "routed_km": 153.4,
       "profile_km": 155.5,
