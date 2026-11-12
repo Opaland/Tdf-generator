@@ -255,6 +255,21 @@ réel (Partie A), pas par subdiviser artificiellement ces stories.
 - [x] 25.1 Inventorier les couches existantes (unitaires, lint, audit, démo, Docker, Playwright, nightly, monkey, mutation, agents) avec quand/bloquant/réseau — `docs/TESTING.md` (PR #361)
 - [x] 25.2 Lister les trous connus (pas d'E2E en CI, données jamais re-mesurées, pas de comparaison au kilométrage de course, pas de test de charge)
 - [x] 25.3 Décidé le 17/10/2026 : Playwright minimal en CI (fait, PR #367) ; régénération périodique et champ `race_km` non retenus pour l'instant
+- [x] 25.4 Rendre `test/diagnosticParallel.test.js` indépendant de la charge
+  de la machine (demande de l'utilisateur du 12/11/2026) : le test « les 7
+  sondes tournent en parallèle » comparait le temps réel à un seuil
+  (< 0,6 × 880 ms) et a échoué une fois sur un runner chargé (840 ms, PR
+  #579, job `test (20)`, relance verte). Critères d'acceptation : le
+  parallélisme est prouvé par le nombre de requêtes simultanément en cours
+  dans le faux `fetch` (7), sans seuil de temps supérieur ; le test échoue
+  si l'on séquentialise les sondes de `pipeline/diagnostic.js` (mutation
+  vérifiée) ; le mock ne simule que les 7 hôtes (règle 6) ; relecture
+  adverse.
+  Fait : le faux `fetch` compte les requêtes en cours ; le test exige 7
+  requêtes simultanées et ne garde qu'une borne basse de temps. Mutations
+  qui le font échouer : sondes en série (verrou ou boucle), lots de 2 ou 3,
+  une sonde lancée après les autres, une sonde retirée ; 5 passes sur 5 sous
+  CPU saturé (relecture adverse, aucun écart bloquant).
 
 ## Epic 26 — Revue d'architecture (persona architecte logiciel)
 
