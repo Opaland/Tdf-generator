@@ -9,11 +9,13 @@
 // BRouter ajouté le 31/08/2026 (issue #169) comme 7ᵉ hôte, fournisseur de
 // routage désormais primaire (OSRM en repli seulement).
 //
-// Vérifie deux choses que seul un vrai timing peut prouver (une simple
-// vérification du JSON retourné passerait aussi bien avec l'ancien code
-// séquentiel) :
-//  1. le temps total est borné par le plus lent des 7 délais simulés, pas
-//     leur somme ;
+// Vérifie deux choses qu'une simple vérification du JSON retourné ne
+// prouverait pas (elle passerait aussi bien avec l'ancien code séquentiel) :
+//  1. les 7 requêtes sont en cours en même temps : le faux fetch compte les
+//     requêtes simultanées (7 en parallèle, 1 en série). Ce n'est plus un
+//     seuil de temps : l'ancienne version (temps total < 0,6 × la somme des
+//     délais) a échoué sur un runner de CI chargé alors que le code était
+//     correct (840 ms mesurés, PR #579, 12/11/2026 ; story 25.4) ;
 //  2. l'ordre des résultats dans le tableau reste l'ordre fixe attendu
 //     (Géoplateforme géocodage, Géoplateforme altimétrie, BRouter, OSRM,
 //     Nominatim, opentopodata, Wikipédia) même quand les délais simulés les
@@ -57,6 +59,9 @@ const EXPECTED_ORDER = [
 let appServer;
 let base;
 let realFetch;
+// Requêtes simulées en cours, et leur maximum simultané.
+let inFlight = 0;
+let maxInFlight = 0;
 
 before(async () => {
   realFetch = global.fetch;
@@ -65,7 +70,13 @@ before(async () => {
     // Ne simule que les 7 hôtes du diagnostic ; tout le reste (dont les
     // requêtes de test vers le serveur local 127.0.0.1) passe par le vrai fetch.
     if (!entry) return realFetch(url, opts);
-    await new Promise((r) => setTimeout(r, entry.delayMs));
+    inFlight++;
+    maxInFlight = Math.max(maxInFlight, inFlight);
+    try {
+      await new Promise((r) => setTimeout(r, entry.delayMs));
+    } finally {
+      inFlight--;
+    }
     if (opts?.signal?.aborted) throw Object.assign(new Error('aborted'), { name: 'AbortError' });
     return { ok: true, status: 200, text: async () => JSON.stringify(entry.body) };
   };
@@ -82,19 +93,27 @@ after(() => {
   fs.rmSync(process.env.ETAPEFORGE_DATA_DIR, { recursive: true, force: true });
 });
 
-test('GET /api/diagnostic : les 7 sondes tournent en parallèle (temps borné par la plus lente, pas leur somme)', async () => {
-  const sumOfDelays = HOST_DELAYS.reduce((a, h) => a + h.delayMs, 0); // 880 ms si séquentiel
-  const maxDelay = Math.max(...HOST_DELAYS.map((h) => h.delayMs)); // 240 ms si parallèle
+test('GET /api/diagnostic : les 7 sondes tournent en parallèle (toutes en cours en même temps, pas l\'une après l\'autre)', async () => {
+  const maxDelay = Math.max(...HOST_DELAYS.map((h) => h.delayMs)); // 240 ms
+  inFlight = 0;
+  maxInFlight = 0;
 
   const t0 = Date.now();
   const res = await fetch(`${base}/api/diagnostic`);
   const elapsedMs = Date.now() - t0;
   assert.strictEqual(res.status, 200);
 
-  assert.ok(
-    elapsedMs < sumOfDelays * 0.6,
-    `temps total ${elapsedMs} ms trop proche de la somme séquentielle (${sumOfDelays} ms) — les sondes ne tournent probablement pas en parallèle`
+  // Toutes les sondes partent avant qu'aucune ne réponde : 7 requêtes en
+  // cours en même temps. Un code séquentiel n'en aurait jamais plus d'une.
+  // Indépendant de la charge de la machine, contrairement à un seuil de temps.
+  assert.strictEqual(
+    maxInFlight,
+    HOST_DELAYS.length,
+    `${maxInFlight} requête(s) simultanée(s) au plus pour ${HOST_DELAYS.length} sondes — les sondes ne tournent pas en parallèle`
   );
+  assert.strictEqual(inFlight, 0, 'toutes les requêtes simulées doivent être terminées');
+  // Borne basse seulement (une machine lente ne peut que l'allonger) : le
+  // diagnostic attend bien la plus lente des sondes.
   assert.ok(
     elapsedMs >= maxDelay,
     `temps total ${elapsedMs} ms plus court que la sonde la plus lente (${maxDelay} ms) — résultat suspect`
