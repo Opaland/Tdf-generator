@@ -410,9 +410,9 @@ et côtes traversées avec leur kilomètre.
     PR fusionnée) ; sinon la routine reboucle sur la même édition. Après
     **10 tentatives** sans y parvenir, l'édition est notée bloquée, une
     issue en dit la cause, et la routine passe à la suivante.
-    - État au 12/11 : **1977 verte** à la tentative 1/10 (PR #578
-      fusionnée, écarts bloquants de l'audit Mireille corrigés ; reprises
-      non bloquantes en issue #577). Édition prévue le 13/11 : **1976**,
+    - État au 13/11 : **1976 verte** à la tentative 1/10 (PR #582
+      fusionnée, écarts bloquants de l'audit Mireille corrigés ; écarts
+      restants en issue #581). Édition prévue le 14/11 : **1975**,
       tentative 1/10.
   - **Reprises de la routine quotidienne** (routine du matin demandée le
     06/11/2026 : reprises d'abord, puis une édition ; ce qui n'est pas fait
