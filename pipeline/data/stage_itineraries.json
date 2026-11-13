@@ -696,7 +696,7 @@
        "label": "Taillebois",
        "km": 177.5,
        "kind": "ville",
-       "note": "93 m imprimés ; imprimé PRES TAILLEBOIS",
+       "note": "93 m imprimés ; imprimé PRES TAILLEBOIS ; église de Taillebois à 50 m du point, MNT 170 m pour 93 imprimés : la route passe vraisemblablement en contrebas du village (règle 5)",
        "lat": 48.80195,
        "lon": -0.42725,
        "how": "nominatim",
@@ -742,7 +742,7 @@
        "label": "Bretteville",
        "km": 211.5,
        "kind": "ville",
-       "note": "56 m imprimés ; imprimé BRETTEVILLE (homonyme à lever)",
+       "note": "56 m imprimés ; imprimé BRETTEVILLE ; Bretteville-sur-Laize, cohérente avec ses voisins (audit Mireille)",
        "lat": 49.04499,
        "lon": -0.32587,
        "how": "nominatim",
@@ -776,7 +776,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Angers → Cantenay-Épinard 6,7 km à vol d'oiseau pour 5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "note": "Départ : Angers → Cantenay-Épinard 6,7 km à vol d'oiseau pour 5 au profil, départ réel hors du centre, non situé (règle 25). Ifs → Caen : 4,9 km à vol d'oiseau pour 12,5 au profil : boucle d'arrivée après l'« entrée viaduc Calix » (vers le km 230, sans km imprimé), circuit final non déclaré (règle 19).",
      "route_check": {
       "routed_km": 225.9,
       "profile_km": 231.5,
@@ -853,7 +853,7 @@
        "label": "Westrehem",
        "km": 54,
        "kind": "ville",
-       "note": "100 m imprimés",
+       "note": "100 m imprimés ; nom relu au zoom (« 100 m WESTREHEM », km 54) ; le village de Westrehem est à 13,6 km à vol d'oiseau de Dennebrœucq pour 9 au profil et à 10 km de Mametz pour 7 : incompatible, non placé (règle 23)",
        "confidence": "non-place"
       },
       {
@@ -1040,7 +1040,7 @@
        "label": "Côte de Kattenberg",
        "km": 188,
        "kind": "côte",
-       "note": "97 m imprimés ; 4e cat.",
+       "note": "97 m imprimés ; 4e cat. ; recherche bornée : le sommet « Kattenberg » (Oudenaarde, Nominatim, natural=peak) est à 44 m (EU-DEM) pour 97 imprimés : autre lieu ou sommet non identifié",
        "confidence": "non-place"
       },
       {
@@ -1235,8 +1235,11 @@
        "label": "Bellefontaine",
        "km": 51,
        "kind": "ville",
-       "note": "365 m imprimés ; imprimé BELLE-FONTAINE",
-       "confidence": "non-place"
+       "note": "365 m imprimés ; imprimé BELLE-FONTAINE ; église Saint-Pierre du village de Bellefontaine (Tintigny, Nominatim), EU-DEM 366 m (règles 6, 21)",
+       "confidence": "ok",
+       "lat": 49.6655214,
+       "lon": 5.4973335,
+       "how": "nominatim"
       },
       {
        "label": "Croix-Rouge",
@@ -1269,7 +1272,7 @@
        "label": "Côte de Grandcourt",
        "km": 75.5,
        "kind": "côte",
-       "note": "380 m imprimés ; 4e cat.",
+       "note": "380 m imprimés ; 4e cat. ; recherche bornée : le village de Grandcourt (Ruette) est à 253 m pour 380 imprimés, c'est le pied de la côte : sommet non identifié",
        "confidence": "non-place"
       },
       {
@@ -1462,13 +1465,13 @@
      ],
      "note": "Départ : Bastogne → Sibret 7 km à vol d'oiseau pour 6 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 211,
+      "routed_km": 211.5,
       "profile_km": 202.5,
-      "delta_pct": 4.2,
+      "delta_pct": 4.4,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 23,
+      "legs": 24,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -1781,7 +1784,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Nancy → Ville-en-Vermois 10,2 km à vol d'oiseau pour 7,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "note": "Départ : Nancy → Ville-en-Vermois 10,2 km à vol d'oiseau pour 7,5 au profil, départ réel hors du centre, non situé (règle 25). Fraize → Col du Bonhomme : 7,2 km par BRouter, 10,5 en voiture pour 10,5 au profil : raccourci du routeur, points gardés (règle 20).",
      "route_check": {
       "routed_km": 194.9,
       "profile_km": 200,
@@ -1953,8 +1956,11 @@
        "label": "Chaon",
        "km": 115,
        "kind": "lieu-dit",
-       "note": "956 m imprimés",
-       "confidence": "non-place"
+       "note": "956 m imprimés ; hameau de Chaon (Montperreux, Nominatim, place=hamlet), MNT 901 m pour 956 (audit Mireille, règle 21)",
+       "confidence": "ok",
+       "lat": 46.8349491,
+       "lon": 6.3456039,
+       "how": "nominatim"
       },
       {
        "label": "Malbuisson",
@@ -2092,13 +2098,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 194.7,
+      "routed_km": 194.6,
       "profile_km": 197.5,
-      "delta_pct": -1.4,
+      "delta_pct": -1.5,
       "tolerance_pct": 5,
       "coverage_pct": 90,
       "car_legs": 0,
-      "legs": 23,
+      "legs": 24,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -2694,7 +2700,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Le Bourg-d'Oisans → Allemond 8,5 km à vol d'oiseau pour 8 au profil, départ réel hors du centre, non situé (règle 25).",
+     "note": "Départ : Le Bourg-d'Oisans → Allemond 8,5 km à vol d'oiseau pour 8 au profil, départ réel hors du centre, non situé (règle 25). Briançon (haut) → La Vachette : 3,1 km à vol d'oiseau (4,1 en voiture) pour 2 au profil (km 147 et 149 imprimés) : écart de la source.",
      "route_check": {
       "routed_km": 156.8,
       "profile_km": 150,
@@ -2759,7 +2765,7 @@
        "label": "Mont-Dauphin (gare)",
        "km": 35,
        "kind": "lieu-dit",
-       "note": "1050 m imprimés ; imprimé « Mont-Dauphin (Gare) »",
+       "note": "1050 m imprimés ; imprimé « Mont-Dauphin (Gare) » ; recherche bornée : la gare de Mont-Dauphin-Guillestre (Nominatim, railway=station) tient la géométrie mais est à 888 m au MNT pour 1 050 imprimés, l'altitude de la ville forte : lieu exact incertain, non placé (règle 14)",
        "confidence": "non-place"
       },
       {
@@ -2960,7 +2966,7 @@
        "label": "Côte du Poteau-de-Telle",
        "km": 182.5,
        "kind": "côte",
-       "note": "600 m imprimés ; 3e cat.",
+       "note": "600 m imprimés ; 3e cat. ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme) : aucun lieu de ce nom compatible",
        "confidence": "non-place"
       },
       {
@@ -2987,7 +2993,7 @@
        "label": "Le Mont-d'Or",
        "km": 219.5,
        "kind": "côte",
-       "note": "660 m imprimés ; 3e cat. ; altitude peu lisible (660 ou 460)",
+       "note": "660 m imprimés ; 3e cat. ; altitude peu lisible (660 ou 460) ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme) : aucun lieu de ce nom compatible",
        "confidence": "non-place"
       },
       {
@@ -3214,11 +3220,11 @@
        "label": "Col de Jau",
        "km": 138,
        "kind": "col",
-       "note": "1513 m imprimés ; 2e cat.",
+       "note": "1513 m imprimés ; 2e cat. ; confirmé par géocodage inverse (mountain_pass sur la D 14, audit Mireille)",
        "lat": 42.68791,
        "lon": 2.25071,
        "how": "nominatim",
-       "confidence": "ambigu"
+       "confidence": "ok"
       },
       {
        "label": "Mosset",
@@ -3475,7 +3481,7 @@
        "label": "Prat-Communal",
        "km": 93,
        "kind": "lieu-dit",
-       "note": "738 m imprimés",
+       "note": "738 m imprimés ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme) : aucun lieu de ce nom compatible",
        "confidence": "non-place"
       },
       {
@@ -3512,7 +3518,7 @@
        "label": "Castet-d'Aleu",
        "km": 122,
        "kind": "lieu-dit",
-       "note": "506 m imprimés ; imprimé « Castet-d'Aleu » (lieu non identifié)",
+       "note": "506 m imprimés ; imprimé « Castet-d'Aleu »",
        "lat": 42.9063,
        "lon": 1.24928,
        "how": "nominatim",
@@ -3616,7 +3622,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Titre imprimé « Font-Romeu », mais le profil commence à Bourg-Madame (km 0) : départ réel à Bourg-Madame vraisemblablement, après un départ fictif à Font-Romeu (hypothèse).",
+     "note": "Titre imprimé « Font-Romeu », mais le profil commence à Bourg-Madame (km 0) : départ réel à Bourg-Madame vraisemblablement, après un départ fictif à Font-Romeu (hypothèse). Lassur → Les Cabannes : 4,5 km à vol d'oiseau (5,0 en voiture) pour 3,5 au profil (km 67 et 70,5 imprimés) ; Lassur est au centre de sa commune (MNT 625 m pour 620), Nominatim n'y connaît pas de bourg distinct.",
      "route_check": {
       "routed_km": 181.6,
       "profile_km": 181.5,
@@ -4224,7 +4230,7 @@
        "label": "Côte de Berbanne",
        "km": 5.5,
        "kind": "côte",
-       "note": "338 m imprimés ; imprimé COTE DE BERBANNE ; 4e cat.",
+       "note": "338 m imprimés ; imprimé COTE DE BERBANNE ; 4e cat. ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme) : aucun lieu de ce nom compatible",
        "confidence": "non-place"
       },
       {
@@ -4276,7 +4282,7 @@
        "km": 45.7,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "217 m imprimés ; imprimé RABASTENS-DE-BIGORRE ; aucun km imprimé (graduation 40) ; non placé : km approché (règle 4)"
+       "note": "217 m imprimés ; imprimé RABASTENS-DE-BIGORRE ; aucun km imprimé (position lue vers 45,7 sur l'échelle) ; non placé : km approché (règle 4)"
       },
       {
        "label": "Villecomtal-sur-Arros",
@@ -4376,7 +4382,7 @@
        "label": "Côte de Laverduns",
        "km": 117.5,
        "kind": "côte",
-       "note": "230 m imprimés ; imprimé COTE DE LAVERDUNS ; 4e cat.",
+       "note": "230 m imprimés ; imprimé COTE DE LAVERDUNS ; 4e cat. ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme) : aucun lieu de ce nom compatible",
        "confidence": "non-place"
       },
       {
@@ -4669,7 +4675,7 @@
        "label": "Saint-Cybranet",
        "km": 97.5,
        "kind": "ville",
-       "note": "79 m imprimés ; imprimé SAINT-CYBRANET ; mairie de Saint-Cybranet sur la D 50 (Nominatim) (règle 17) ; le routage repasse 1,2 km en sens inverse vers Vitrac après la mairie, sur la D 50 elle-même : tronçon d'arrivée depuis Saint-Laurent-la-Vallée non sourcé, l'aller-retour reste dans le contrôle (≈ 0,6 % de l'étape) (règle 24)",
+       "note": "79 m imprimés ; imprimé SAINT-CYBRANET ; mairie de Saint-Cybranet sur la D 50 (Nominatim) (règle 17) ; le routage repasse 1,2 km en sens inverse vers Vitrac après la mairie, sur la D 50 elle-même : tronçon d'arrivée depuis Saint-Laurent-la-Vallée non sourcé, le « ok » de l'étape (+0,7 %) contient cet aller-retour, environ +0,1 % sans lui (règles 17, 24)",
        "lat": 44.7873214,
        "lon": 1.1669425,
        "how": "nominatim",
@@ -4825,7 +4831,8 @@
       "suspect_legs": 1,
       "backtracks": 1,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Saint-Sauveur → Saint-Capraise-de-Lalinde : 6,4 km à vol d'oiseau (6,0 depuis la mairie de Saint-Sauveur, 7,0 en voiture) pour 5 au profil ; « 39 » est imprimé sous la colonne de Saint-Capraise, placée vers 40,5 sur l'échelle : km imprimé gardé, écart de la source."
     },
     "20": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1976/76_20.jpg",
@@ -4891,7 +4898,7 @@
        "label": "Gourdon-Murat",
        "km": 52,
        "kind": "ville",
-       "note": "821 m imprimés ; imprimé GOURDON-MURAT",
+       "note": "821 m imprimés ; imprimé GOURDON-MURAT ; centre de la commune, MNT 743 m pour 821 imprimés ; aucune mairie trouvée (Nominatim renvoie Labastide-Murat) ; le contrôle signale un aller-retour incertain de 1,1 km vers Bugeat, Treignac (km 40) n'étant pas placé : point gardé, tracé exact non situé (règles 17, 24)",
        "lat": 45.54987,
        "lon": 1.89563,
        "how": "commune-ign",
@@ -4979,8 +4986,11 @@
        "label": "Près Verneugheol",
        "km": 146.5,
        "kind": "lieu-dit",
-       "note": "imprimé PRES VERNEUGHEOL ; km 146,5 imprimé surélevé dans la rangée des graduations",
-       "confidence": "non-place"
+       "note": "imprimé PRES VERNEUGHEOL ; km 146,5 imprimé surélevé dans la rangée des graduations ; imprimé « Près Verneugheol » : église du bourg de Verneugheol (Nominatim), MNT 714 m ; ligne droite compatible avec les deux voisins (règle 5)",
+       "confidence": "ok",
+       "lat": 45.7686765,
+       "lon": 2.5376946,
+       "how": "nominatim"
       },
       {
        "label": "Herment",
@@ -5023,7 +5033,7 @@
        "label": "Champille",
        "km": 181,
        "kind": "lieu-dit",
-       "note": "920 m imprimés ; imprimé CHAMPILLE ; nom non identifié (lieu-dit à vérifier) ; lieu à 788 m au MNT pour 920 imprimés : la courbe reste plate vers 900 m entre le carrefour de la Miouze (880) et le carrefour D 52 E-N 141 B (956) ; c'est la source qui dévie, point gardé (règle 14)",
+       "note": "920 m imprimés ; imprimé CHAMPILLE ; lieu-dit Champille (Nominatim, place=locality) ; lieu à 788 m au MNT pour 920 imprimés : la courbe reste plate vers 900 m entre le carrefour de la Miouze (880) et le carrefour D 52 E-N 141 B (956) ; c'est la source qui dévie, point gardé (règle 14)",
        "lat": 45.78556,
        "lon": 2.88112,
        "how": "nominatim",
@@ -5040,7 +5050,7 @@
        "label": "Ternant",
        "km": 195,
        "kind": "ville",
-       "note": "1027 m imprimés ; imprimé TERNANT ; croix de Ternant (Orcines, IGN), MNT 1 006 m ; recherche bornée autour des voisins (règle 21)",
+       "note": "1027 m imprimés ; imprimé TERNANT ; croix de Ternant (Orcines, IGN), MNT 1 006 m ; recherche bornée autour des voisins (règle 21) ; le hameau de Ternant (Nominatim) est à 877 m pour 1 027 imprimés ; la croix, sur la route au-dessus, est plus proche de l'altitude imprimée",
        "confidence": "ok",
        "lat": 45.80295,
        "lon": 3.00355,
@@ -5099,13 +5109,13 @@
      ],
      "note": "Un tronçon en voiture inévitable : BRouter refuse la route du sommet du Puy de Dôme, comme en 1978, 1986, 1988 et 2023.",
      "route_check": {
-      "routed_km": 204.8,
+      "routed_km": 205.6,
       "profile_km": 215.5,
-      "delta_pct": -5,
+      "delta_pct": -4.6,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 1,
-      "legs": 19,
+      "legs": 20,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 1
@@ -5138,8 +5148,11 @@
        "label": "Corbeilles",
        "km": 14.5,
        "kind": "ville",
-       "note": "198 m imprimés ; imprimé CORBEILLES-EN-GATINAIS ; non placé : le village de Corbeilles est à 84 m au MNT, la courbe culmine en pointe à 198 m imprimés entre Mignères (90) et Beaune-la-Rolande (114) : passage au-dessus du village, non situé (règle 14)",
-       "confidence": "non-place"
+       "note": "198 m imprimés ; imprimé CORBEILLES-EN-GATINAIS ; église Saint-Germain de Corbeilles (Nominatim), MNT 86 m pour 198 imprimés : la courbe culmine en pointe à 198 m, mais le terrain alentour ne dépasse pas 96 m (neuf points sondés par l’audit Mireille de 48,06 à 48,09 N et 2,52 à 2,58 E, cinq revérifiés : 82 à 96 m) : altitude et courbe impossibles, c'est la source qui dévie, point gardé (règle 14, audit Mireille)",
+       "confidence": "ok",
+       "lat": 48.072278,
+       "lon": 2.5491193,
+       "how": "nominatim"
       },
       {
        "label": "Beaune-la-Rolande",
@@ -5205,7 +5218,7 @@
        "label": "Montreau",
        "km": 69.5,
        "kind": "lieu-dit",
-       "note": "138 m imprimés ; imprimé MONTREAU ; nom non identifié (lieu-dit à vérifier) ; point de 1985/22",
+       "note": "138 m imprimés ; imprimé MONTREAU ; point de 1985/22",
        "confidence": "ok",
        "lat": 48.30548,
        "lon": 2.05667,
@@ -5309,7 +5322,7 @@
        "label": "Les 17 Tournants",
        "km": 128.5,
        "kind": "côte",
-       "note": "170 m imprimés ; imprimé LES 17 TOURNANTS ; 4e cat.",
+       "note": "170 m imprimés ; imprimé LES 17 TOURNANTS ; 4e cat. ; recherche bornée : seul « les Sept Tournants » (Lévis-Saint-Nom, IGN, 135 m) répond, nom différent : non placé (règle 21)",
        "confidence": "non-place"
       },
       {
@@ -5345,13 +5358,13 @@
      ],
      "note": "Départ : Montargis → Mignères 9,6 km à vol d'oiseau pour 8 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 143.5,
+      "routed_km": 143.8,
       "profile_km": 137.5,
-      "delta_pct": 4.4,
+      "delta_pct": 4.6,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 18,
+      "legs": 19,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -5424,11 +5437,11 @@
        "label": "Huy",
        "km": 62,
        "kind": "ville",
-       "note": "70 m imprimés",
+       "note": "70 m imprimés ; confirmé par géocodage inverse (Grand-Place de Huy, audit Mireille)",
        "lat": 50.51809,
        "lon": 5.24081,
        "how": "nominatim",
-       "confidence": "ambigu"
+       "confidence": "ok"
       },
       {
        "label": "Strée",
@@ -5545,7 +5558,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Demi-étape Louvain → Verviers, profil 76_5b.jpg ; 5a (contre-la-montre de Louvain) sans profil publié. Départ : Leuven → Hamme-Mille 11,1 km à vol d'oiseau pour 9 au profil, départ réel hors du centre, non situé (règle 25).",
+     "note": "Demi-étape Louvain → Verviers, profil 76_5b.jpg ; 5a (contre-la-montre de Louvain) sans profil publié. Départ : Leuven → Hamme-Mille 11,1 km à vol d'oiseau pour 9 au profil, départ réel hors du centre, non situé (règle 25). De Jodoigne (km 22) à Vinalmont (km 53,5), les km imprimés sont trop courts pour le terrain : 31 km à vol d'oiseau pour 31,5 au profil, et Hannut → Vinalmont 16,1 km à vol d'oiseau pour 14,5 (17,5 en voiture) ; km relus sous leurs colonnes, points gardés. La Reid → Spa : 9,4 km par BRouter, 7,2 en voiture pour 6 au profil : détour du routeur.",
      "route_check": {
       "routed_km": 140.9,
       "profile_km": 135,
@@ -5890,11 +5903,8 @@
        "label": "Côte de Moutchic",
        "km": 118.5,
        "kind": "côte",
-       "note": "56 m imprimés ; imprimé COTE DE MOUTCHIC ; 4e cat. ; Le Moutchic (Lacanau, Nominatim, place=suburb), MNT 23 m ; recherche bornée autour des voisins (règle 21)",
-       "confidence": "ok",
-       "lat": 45.00375,
-       "lon": -1.13224,
-       "how": "nominatim"
+       "note": "56 m imprimés ; imprimé COTE DE MOUTCHIC ; 4e cat. ; non placé : le quartier du Moutchic est au bord du lac de Lacanau, à 23 m au MNT pour 56 imprimés : c'est le pied de la côte, sommet non identifié (règle 21)",
+       "confidence": "non-place"
       },
       {
        "label": "Lacanau-Océan",
@@ -5909,13 +5919,13 @@
      ],
      "note": "Demi-étape Langon → Lacanau-Océan, profil 76_18b.jpg. Départ : Langon → Noaillan 12,7 km à vol d'oiseau pour 11,5 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 115.1,
+      "routed_km": 115.3,
       "profile_km": 111.5,
-      "delta_pct": 3.2,
+      "delta_pct": 3.4,
       "tolerance_pct": 5,
       "coverage_pct": 91,
       "car_legs": 0,
-      "legs": 11,
+      "legs": 10,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -5938,11 +5948,8 @@
        "label": "Côte de Moutchic",
        "km": 5,
        "kind": "côte",
-       "note": "56 m imprimés ; imprimé COTE DE MONTCHIC (MOUTCHIC sur le profil 18b) ; 4e cat. ; Le Moutchic (Lacanau, Nominatim, place=suburb), MNT 23 m ; recherche bornée autour des voisins (règle 21)",
-       "confidence": "ok",
-       "lat": 45.00375,
-       "lon": -1.13224,
-       "how": "nominatim"
+       "note": "56 m imprimés ; imprimé COTE DE MONTCHIC (MOUTCHIC sur le profil 18b) ; 4e cat. ; non placé : le quartier du Moutchic est au bord du lac de Lacanau, à 23 m au MNT pour 56 imprimés : c'est le pied de la côte, sommet non identifié (règle 21)",
+       "confidence": "non-place"
       },
       {
        "label": "Lacanau-Médoc",
@@ -6038,13 +6045,13 @@
      ],
      "note": "Demi-étape Lacanau-Océan → Bordeaux, profil 76_18c.jpg ; arrivée après le carrefour D 107-V0 « le lac » (km 68,5).",
      "route_check": {
-      "routed_km": 60.2,
-      "profile_km": 58,
-      "delta_pct": 3.9,
+      "routed_km": 53.8,
+      "profile_km": 51.5,
+      "delta_pct": 4.5,
       "tolerance_pct": 5,
-      "coverage_pct": 83,
+      "coverage_pct": 74,
       "car_legs": 0,
-      "legs": 7,
+      "legs": 6,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
