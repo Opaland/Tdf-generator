@@ -147,6 +147,15 @@ dans la même PR que son correctif.
     180 pour 76, Chardonne 810 pour 609), le passage est au-dessus du lieu
     et le point se retire. « Chiffre vraisemblablement fautif » ne s'écrit
     qu'après avoir regardé la courbe.
+    **Avant de retirer pour un passage au-dessus du village, sonder le
+    relief** (audit 1976) : Corbeilles, 198 m imprimés au sommet d'une
+    pointe de la courbe, était retiré alors que le Gâtinais ne dépasse pas
+    96 m alentour — aucun passage à 198 m n'existe, c'est la source qui
+    dévie et le point se garde. À l'inverse, **un village perché au-dessus
+    de la route** (Canaveilles, 937 m au MNT pour 920 imprimés, la N 116
+    en contrebas) se place sur la route, au lieu imprimé quand il existe
+    (Canaveilles-les-Bains) : posé au village, il faisait un aller-retour
+    de 3,1 km (règle 24).
     **Mesurer l'altitude au point stocké**, pas au centre que renvoie
     une nouvelle recherche Nominatim : en 1988, sept côtes notées « au
     pied » l'étaient pour le centroïde administratif, alors que le point
