@@ -2038,7 +2038,7 @@ et côtes traversées avec leur kilomètre.
   23 +8), 1984/0 non contrôlable ; 18 tronçons suspects, 8 allers-retours, 4 incertains.
   **Reste, story non cochée :** remesurer à vélo, puis trier ces écarts et noter
   leurs causes (règle 16). Chiffres de voiture : à ne pas lire comme un résultat.
-- [ ] Édition 1975 (routine quotidienne du 16/11/2026, tentative 1/10 ;
+- [x] Édition 1975 (routine quotidienne du 16/11/2026, tentative 1/10 ;
   les déclenchements des 14 et 15/11 n'ont pas tourné, session inactive) :
   aucune étape de 1975 n'est encore transcrite. Profils de ledicodutour.com
   (`images/cartes_etapes/1967_1976/1975/75_<N>.jpg`, `75_N` = profil ;
@@ -2054,6 +2054,21 @@ et côtes traversées avec leur kilomètre.
   triés et notés, test d'invariant avec la paire réellement fautive
   localisée, circuits au 1er passage placé à l'arrivée, source_url
   vérifiée contre l'image transcrite, audit Mireille, écarts en issue).
+  Fait : 21 étapes ajoutées, 518 points dont 423 placés ; 18 étapes dans
+  la tolérance, 3 hors, cause notée (2 : traversées urbaines, +6,5 % à
+  vélo et +14,5 % en voiture ; 1b : −10,7 % à vélo, −0,8 % en voiture,
+  routeur ; 9a : +7,7 %, Berthez → Grignols trop court au profil) ; un
+  seul tronçon en voiture, inévitable (sommet du Puy de Dôme, 14).
+  Transcription par trois agents, relectures au zoom (Dollon 161,5
+  imprimé, Barcelonnette au km 0 de 16, côte de Thermes-Magnoac sans km) ;
+  géocodeur relu (Ophain sur une rivière, Aubrac à Saint-Chély, Près
+  Manage et Près Saint-Jean-de-Liversay sur d'autres lieux, Mont de
+  l'Enclus au sommet) ; arrivées corrigées (Chantemerle, l'ancre était au
+  sommet du Serre Chevalier ; Merlin-Plage, aussi départ de 1976/1) ;
+  témoin d'altitude avec relief sondé. Audit Mireille : 3 écarts
+  bloquants (Villemur retiré à tort, Villevieux lu 168 pour 166,
+  tronçons d'Anderlecht sans note) et 5 autres corrigés ; règles 3, 14 et
+  19 précisées ; APPRENTISSAGES n° 22 ; écarts restants en issue #584.
 - [x] Édition 1976 (routine quotidienne du 13/11/2026, tentative 1/10) :
   aucune étape de 1976 n'est encore transcrite. Profils de ledicodutour.com
   (`images/cartes_etapes/1967_1976/1976/76_<N>.jpg`, `76_N` = profil ;
