@@ -290,7 +290,7 @@
        "label": "Côte de Petit Wimy",
        "km": 50.5,
        "kind": "côte",
-       "note": "130 m imprimés ; 4e cat. ; imprimé « COTE DE PETIT WIMY » ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme, nom seul compris) : aucun lieu de ce nom compatible : non placé",
+       "note": "130 m imprimés ; 4e cat. ; imprimé « COTE DE PETIT WIMY » ; recherche bornée (audit Mireille) : le hameau du Petit Vimy (50.37375, 2.79887) est à 74 m au MNT pour 130 imprimés : pied de la côte ; sommet non identifié, non placé",
        "confidence": "non-place"
       },
       {
@@ -502,8 +502,11 @@
        "label": "La Landelle",
        "km": 71.5,
        "kind": "ville",
-       "note": "185 m imprimés ; recherche bornée : seuls une rue de la Landelle (Saint-Aubin-en-Bray) et l'arrêt « La Petite Landelle » répondent, pas le village : non placé",
-       "confidence": "non-place"
+       "note": "185 m imprimés ; imprimé « LA LANDELLE » : commune de Lalandelle, église Saint-Jean-Baptiste (Nominatim), MNT 221 m pour 185 imprimés ; orthographe locale (audit Mireille, règle 21)",
+       "confidence": "ok",
+       "lat": 49.39968,
+       "lon": 1.87374,
+       "how": "nominatim"
       },
       {
        "label": "Carrefour D. 22-N. 15",
@@ -662,7 +665,7 @@
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 19,
+      "legs": 20,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -1212,7 +1215,7 @@
        "label": "Merlin Plage II",
        "km": 222.5,
        "kind": "lieu-dit",
-       "note": "5 m imprimés ; arrivée ; imprimé « MERLIN PLAGE II » ; résidences « Merlin Plage » de Saint-Hilaire-de-Riez, au bord de mer (index POI de la Géoplateforme : « Résidence le Grand Large 2 Merlin Plage ») ; Merlin-Plage est inconnu de Nominatim, point exact de la ligne non sourcé (règle 22) ; l'ancre stage_towns était la mairie de Saint-Hilaire-de-Riez, déjà point du km 212,5",
+       "note": "5 m imprimés ; arrivée ; imprimé « MERLIN PLAGE II » ; résidences « Merlin Plage » de Saint-Hilaire-de-Riez, au bord de mer (index POI de la Géoplateforme : « Résidence le Grand Large 2 Merlin Plage ») ; Merlin-Plage est inconnu de Nominatim, point exact de la ligne non sourcé (règle 22) ; l'ancre stage_towns était la mairie de Saint-Hilaire-de-Riez, déjà point du km 212,5 ; le profil de 1976 imprime « MERLIN-PLAGE (Saint-Jean-de-Monts) », alors que les résidences « Merlin Plage » de l'index IGN sont à Saint-Hilaire-de-Riez, en limite des deux communes : désaccord entre les sources, non tranché",
        "lat": 46.756485,
        "lon": -2.030362,
        "how": "ign",
@@ -2007,7 +2010,8 @@
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Gelos → Pau : 1,2 km à vol d'oiseau pour 4,5 au profil : l'arrivée dans Pau (ancre au centre) n'est pas sourcée, le tracé final n'est pas situé."
     },
     "11": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1975/75_11.jpg",
@@ -2346,7 +2350,7 @@
        "label": "Carrefour Le Lias",
        "km": 71,
        "kind": "lieu-dit",
-       "note": "limite Haute-Garonne/Gers ; lieu « Le Lias » sur la route de Toulouse (Molas, Nominatim), MNT 203 m ; recherche bornée autour des voisins (règle 21)",
+       "note": "limite Haute-Garonne/Gers ; lieu « Le Lias » sur la route de Toulouse (Molas, Nominatim), MNT 203 m ; recherche bornée autour des voisins (règle 21) ; le point est le restaurant « Le Lias » (amenity=restaurant), seul objet de ce nom, posé comme un arrêt homonyme (règle 21)",
        "confidence": "ok",
        "lat": 43.39844,
        "lon": 0.79461,
@@ -2448,8 +2452,11 @@
        "label": "Villemur-sur-Tarn",
        "km": 158.5,
        "kind": "ville",
-       "note": "198 m imprimés ; km peu lisible (158.5 ou 159.5) ; altitude peu lisible (198 ou 190) ; symbole roue ; non placé : la ville de Villemur-sur-Tarn est à 97 m au MNT (vallée du Tarn), la courbe monte à 198 m imprimés (relief jusqu'à 189 m à 2,5 km) : passage au-dessus de la ville, non situé (règle 14)",
-       "confidence": "non-place"
+       "note": "198 m imprimés ; km peu lisible (158.5 ou 159.5) ; altitude peu lisible (198 ou 190) ; symbole roue ; mairie de Villemur-sur-Tarn (Nominatim), MNT 91 m pour 198 imprimés ; la courbe monte de Villaudric (120) au Born (314) sans culminer à Villemur, et le relief ne dépasse pas 189 m à 2,5 km : aucun passage à 198 m, c'est la source qui dévie, point gardé, comme Le Born (règle 14, audit Mireille)",
+       "confidence": "ok",
+       "lat": 43.8649286,
+       "lon": 1.5036813,
+       "how": "nominatim"
       },
       {
        "label": "Le Born",
@@ -2533,13 +2540,13 @@
      "note": "Circuit final d'Albi : entrée imprimée au km 229,5, arrivée au km 242 (12,5 km) ; circuit_km à l'entrée (règle 19). Départ : Tarbes → Sarrouilles 4 km à vol d'oiseau pour 3 au profil, départ réel hors du centre, non situé (règle 25).",
      "circuit_km": 229.5,
      "route_check": {
-      "routed_km": 224.4,
+      "routed_km": 225.4,
       "profile_km": 221.5,
-      "delta_pct": 1.3,
+      "delta_pct": 1.7,
       "tolerance_pct": 5,
       "coverage_pct": 92,
       "car_legs": 0,
-      "legs": 16,
+      "legs": 17,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -2686,7 +2693,7 @@
        "label": "Côte de Salgues",
        "km": 122.5,
        "kind": "côte",
-       "note": "950 m imprimés ; 3e cat. ; imprimé « COTE DE SALGUES » (peu lisible) ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme, nom seul compris) : aucun lieu de ce nom compatible : non placé",
+       "note": "950 m imprimés ; 3e cat. ; imprimé « COTE DE SALGUES » (peu lisible) ; recherche bornée (audit Mireille) : Salgues Hautes (868 m) et Salgues Basses (820 m), à Condom-d'Aubrac, pour 950 imprimés : hameaux sous le sommet ; sommet non identifié, non placé",
        "confidence": "non-place"
       },
       {
@@ -4206,9 +4213,9 @@
       },
       {
        "label": "Villevieux",
-       "km": 168,
+       "km": 166,
        "kind": "ville",
-       "note": "204 m imprimés ; km peu lisible (168 ou 108 imprimé flou), 168 d'après la colonne ; Villevieux (mairie à 0,2 km) → Saint-Germain-du-Bois (mairie à 0,1 km) : 17 km à vol d'oiseau pour 15 au profil : km imprimé peu lisible et trop court pour le terrain, écart de la source, points gardés",
+       "note": "204 m imprimés ; km imprimé « 166 » relu au zoom (colonne vers le km 165,5 de l'échelle, audit Mireille) ; la première transcription lisait 168 ; mairie à 0,2 km",
        "lat": 46.73714,
        "lon": 5.46412,
        "how": "commune-ign",
@@ -4308,7 +4315,7 @@
       "coverage_pct": 97,
       "car_legs": 0,
       "legs": 24,
-      "suspect_legs": 2,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -4935,14 +4942,14 @@
        "label": "Côte de Bomerée",
        "km": 8,
        "kind": "côte",
-       "note": "221 m imprimés ; 4e cat. ; imprimé « COTE DE BOMEREE » ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme, nom seul compris) : aucun lieu de ce nom compatible : non placé",
+       "note": "221 m imprimés ; 4e cat. ; imprimé « COTE DE BOMEREE » ; recherche bornée (audit Mireille) : le hameau de Bomerée (Montigny-le-Tilleul) est à 120 m EU-DEM pour 221 imprimés : pied de la côte ; sommet non identifié, non placé",
        "confidence": "non-place"
       },
       {
        "label": "Thuin-Sœmbre",
        "km": 15.5,
        "kind": "ville",
-       "note": "128 m imprimés ; imprimé « THUIN-SŒMBRE » (tel quel) ; imprimé « THUIN-SŒMBRE » (tel quel) : hôtel de ville de Thuin (Nominatim), EU-DEM 165 m pour 128 ; nom du lieu-dit « Sœmbre » non identifié (règle 17)",
+       "note": "128 m imprimés ; imprimé « THUIN-SŒMBRE » (tel quel) : hôtel de ville de Thuin (Nominatim), EU-DEM 165 m pour 128 ; nom du lieu-dit « Sœmbre » non identifié (règle 17)",
        "confidence": "ok",
        "lat": 50.3391129,
        "lon": 4.2887857,
@@ -5033,7 +5040,7 @@
        "label": "Bruxelles-Anderlecht",
        "km": 85.5,
        "kind": "ville",
-       "note": "29 m imprimés ; place du Conseil d'Anderlecht (maison communale), relu par géocodage inverse ; Lot → Anderlecht : 9,2 km à vol d'oiseau pour 8 au profil : passage dans Anderlecht non situé plus précisément (grande commune) ; aller-retour « incertain » de 1,2 km à Lot, Alsemberg (sans km imprimé) étant sauté",
+       "note": "29 m imprimés ; place du Conseil d'Anderlecht (maison communale), relu par géocodage inverse ; Lot → Anderlecht : 9,2 km à vol d'oiseau pour 8 au profil : passage dans Anderlecht non situé plus précisément (grande commune) ; Anderlecht → Boule d'Or : 1,8 km à vol d'oiseau pour 8,5 au profil ; la maison communale est à l'est de la commune, le passage réel (entrée par le sud-ouest) n'est pas situé : les deux tronçons se compensent dans le « ok » de l'étape (règle 12)",
        "lat": 50.8391,
        "lon": 4.32965,
        "how": "nominatim",
@@ -5182,8 +5189,11 @@
        "label": "Monument Karel Staiert",
        "km": 69.5,
        "kind": "lieu-dit",
-       "note": "110 m imprimés ; imprimé « MONUMENT KAREL STAIERT » ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme, nom seul compris) : aucun lieu de ce nom compatible : non placé",
-       "confidence": "non-place"
+       "note": "110 m imprimés ; imprimé « MONUMENT KAREL STAIERT » ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme, nom seul compris) : aucun lieu de ce nom compatible : non placé ; monument Karel Van Wijnendaele (né Karel Steyaert), Ronde Van Vlaanderenstraat à Kwaremont (Nominatim, tourism=artwork), EU-DEM 113 m (audit Mireille, règle 21)",
+       "confidence": "ok",
+       "lat": 50.7657753,
+       "lon": 3.5308522,
+       "how": "nominatim"
       },
       {
        "label": "Mont-de-l'Enclus",
@@ -5253,15 +5263,15 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ réel hors du centre de Molenbeek : la « Boule d'Or » (même point que l'arrivée de 1a, maison communale) est à 21,3 km à vol d'oiseau de Meerbeke pour 16,5 au profil (règle 25). Hors tolérance à vélo (−13,4 %, 84 % de l'étape mesurée), pas en voiture (87,5 km pour 92, −4,9 %) : BRouter coupe par les petites routes entre les monts flamands ; cinq points non placés (Carrefour d'Edingen, Outer, Moulin du Cat, Monument Karel Staiert, Frontière).",
+     "note": "Départ réel hors du centre de Molenbeek : la « Boule d'Or » (même point que l'arrivée de 1a, maison communale) est à 21,3 km à vol d'oiseau de Meerbeke pour 16,5 au profil (règle 25). Hors tolérance à vélo (−10,7 %, 84 % de l'étape mesurée), pas en voiture (91,3 km pour 92, −0,8 %) : BRouter coupe par les petites routes entre les monts flamands ; quatre points non placés (Carrefour d'Edingen, Outer, Moulin du Cat, Frontière).",
      "route_check": {
-      "routed_km": 79.6,
+      "routed_km": 82.2,
       "profile_km": 92,
-      "delta_pct": -13.4,
+      "delta_pct": -10.7,
       "tolerance_pct": 5,
       "coverage_pct": 84,
       "car_legs": 0,
-      "legs": 13,
+      "legs": 14,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -5443,16 +5453,16 @@
        "confidence": "ok"
       }
      ],
-     "note": "Circuit final de Fleurance : entrée au km 118,5 (sans nom imprimé), passages sur la ligne aux km 121,5 et 126, arrivée au km 131 ; circuit_km au 1er passage (règle 19). Hors tolérance (+5,2 % à vélo, +5,8 % en voiture) : Berthez → Grignols, 13 km à vol d'oiseau pour 11 au profil, concentre l'écart.",
-     "circuit_km": 121.5,
+     "note": "Circuit final de Fleurance : entrée imprimée au km 118,5 (sans nom de lieu), passages sur la ligne aux km 121,5 et 126, arrivée au km 131 ; circuit_km à l'entrée imprimée (règle 19, audit Mireille). Hors tolérance (+7,7 % à vélo, +8,4 % en voiture, 72 % de l'étape mesurée jusqu'à l'entrée du circuit) : Berthez → Grignols, 13 km à vol d'oiseau pour 11 au profil, concentre l'écart.",
+     "circuit_km": 118.5,
      "route_check": {
-      "routed_km": 113.1,
-      "profile_km": 107.5,
-      "delta_pct": 5.2,
+      "routed_km": 101.2,
+      "profile_km": 94,
+      "delta_pct": 7.7,
       "tolerance_pct": 5,
-      "coverage_pct": 82,
+      "coverage_pct": 72,
       "car_legs": 0,
-      "legs": 9,
+      "legs": 8,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -5469,7 +5479,7 @@
        "label": "Saint-Jean-de-Monts",
        "km": 0,
        "kind": "ville",
-       "note": "3 m imprimés ; imprimé MERLIN-PLAGE (Saint-Jean-de-Monts) ; départ ; résidences « Merlin Plage » de Saint-Hilaire-de-Riez, au bord de mer (index POI de la Géoplateforme : « Résidence le Grand Large 2 Merlin Plage ») ; Merlin-Plage est inconnu de Nominatim, point exact de la ligne non sourcé (règle 22), même point que l'arrivée de 1975/5 ; le départ était laissé au centre de Saint-Jean-de-Monts (règle 6)",
+       "note": "3 m imprimés ; imprimé MERLIN-PLAGE (Saint-Jean-de-Monts) ; départ ; résidences « Merlin Plage » de Saint-Hilaire-de-Riez, au bord de mer (index POI de la Géoplateforme : « Résidence le Grand Large 2 Merlin Plage ») ; Merlin-Plage est inconnu de Nominatim, point exact de la ligne non sourcé (règle 22), même point que l'arrivée de 1975/5 ; le départ était laissé au centre de Saint-Jean-de-Monts (règle 6) ; le profil de 1976 imprime « MERLIN-PLAGE (Saint-Jean-de-Monts) », alors que les résidences « Merlin Plage » de l'index IGN sont à Saint-Hilaire-de-Riez, en limite des deux communes : désaccord entre les sources, non tranché",
        "lat": 46.756485,
        "lon": -2.030362,
        "how": "ign",
