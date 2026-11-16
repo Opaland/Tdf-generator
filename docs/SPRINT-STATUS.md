@@ -2038,6 +2038,22 @@ et côtes traversées avec leur kilomètre.
   23 +8), 1984/0 non contrôlable ; 18 tronçons suspects, 8 allers-retours, 4 incertains.
   **Reste, story non cochée :** remesurer à vélo, puis trier ces écarts et noter
   leurs causes (règle 16). Chiffres de voiture : à ne pas lire comme un résultat.
+- [ ] Édition 1975 (routine quotidienne du 16/11/2026, tentative 1/10 ;
+  les déclenchements des 14 et 15/11 n'ont pas tourné, session inactive) :
+  aucune étape de 1975 n'est encore transcrite. Profils de ledicodutour.com
+  (`images/cartes_etapes/1967_1976/1975/75_<N>.jpg`, `75_N` = profil ;
+  demi-étapes `75_1a`, `75_1b`, `75_9a` ; 22 fichiers, md5 tous
+  distincts, titres vérifiés sur la planche). Non transcrits, faute de
+  profil à km : prologue de Charleroi, 6 (contre-la-montre de Merlin-Plage)
+  et 9b (contre-la-montre Fleurance → Auch) sans image, 22 (`75_22` = plan
+  des rues de Paris, sans km). Critères d'acceptation : ceux de 1976
+  (règle 4, longueurs contre stage_towns, classe OSM et nom de chaque
+  candidat, nom seul et orthographes locales cherchés, altitude point par
+  point et relief sondé avant tout retrait, départs et arrivées à la main,
+  contrôle à vélo sans tronçon en voiture évitable, tronçons suspects
+  triés et notés, test d'invariant avec la paire réellement fautive
+  localisée, circuits au 1er passage placé à l'arrivée, source_url
+  vérifiée contre l'image transcrite, audit Mireille, écarts en issue).
 - [x] Édition 1976 (routine quotidienne du 13/11/2026, tentative 1/10) :
   aucune étape de 1976 n'est encore transcrite. Profils de ledicodutour.com
   (`images/cartes_etapes/1967_1976/1976/76_<N>.jpg`, `76_N` = profil ;
