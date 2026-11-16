@@ -46,6 +46,14 @@ entrée : on la marque « absorbée par … ».
    vert, déploiement expiré côté service (« syncing_files » puis timeout) ;
    une relance l'a fait passer.
 
+22. **Après une reconstruction du conteneur, `npm ci` dans le worktree
+    avant le premier commit** (16/11/2026). Le dépôt principal et le
+    worktree n'avaient plus de `node_modules` : `npm test` a donné 379
+    échecs (modules introuvables) et le commit de déclaration de la story
+    1975 est passé quand même — le hook n'a pas arrêté le commit fait dans
+    le worktree. Lire la sortie de `npm test` (pas seulement le code de
+    retour du commit), et installer les dépendances avant toute chose.
+
 ## Commandes et processus
 
 6. **Lancer en arrière-plan avec l'outil, pas avec `&`** (08/11/2026). Un

@@ -40,6 +40,10 @@ dans la même PR que son correctif.
    px/km départage. Houssoy-le-Farcy, Troissereux, Fouquenies et Beauvais
    (1984/5) : quatre noms pour trois chiffres, tout avait glissé d'un cran,
    6,2 km de ligne droite pour 5 au profil trahissaient l'erreur.
+   **Un km « peu lisible » se tranche à l'échelle avant d'accuser la
+   source** : Villevieux (1975/19), transcrit 168 et noté « écart de la
+   source » (17 km à vol d'oiseau pour 15), était imprimé 166 — colonne
+   mesurée vers 165,5 à 32 px/km (audit Mireille).
 4. **Un nom sans km imprimé n'est pas placé**, même si sa position sur
    l'axe semble lisible — il garde une note qui le dit (Le Champ du Feu
    1987/6). Exception tolérée : un col majeur indispensable à la mesure,
@@ -151,7 +155,11 @@ dans la même PR que son correctif.
     relief** (audit 1976) : Corbeilles, 198 m imprimés au sommet d'une
     pointe de la courbe, était retiré alors que le Gâtinais ne dépasse pas
     96 m alentour — aucun passage à 198 m n'existe, c'est la source qui
-    dévie et le point se garde. À l'inverse, **un village perché au-dessus
+    dévie et le point se garde. Le relief doit **atteindre** l'altitude
+    imprimée, pas l'approcher : Villemur-sur-Tarn (1975/12), 198 m imprimés,
+    retiré alors que rien ne dépasse 189 m à 2,5 km — et la courbe n'y
+    culminait pas, elle montait vers Le Born, gardé pour la même raison
+    (audit Mireille). À l'inverse, **un village perché au-dessus
     de la route** (Canaveilles, 937 m au MNT pour 920 imprimés, la N 116
     en contrebas) se place sur la route, au lieu imprimé quand il existe
     (Canaveilles-les-Bains) : posé au village, il faisait un aller-retour
@@ -222,6 +230,9 @@ dans la même PR que son correctif.
     « entrée » : un « 1er passage » imprimé (règle 18) annonce un circuit
     sans seuil (1985/2, 1985/5, 2024/2, 1984/1, 5, 12, 14 ; 2018/10 fait
     exception).
+    Une **entrée imprimée sans nom de lieu** (« (entrée du circuit) »,
+    Fleurance 1975/9a) suivie de passages sur la ligne prend quand même
+    `circuit_km` : au km de l'entrée, pas du 1er passage (audit Mireille).
     **Un « 1er passage sur la ligne » prend le point de l'arrivée**, posé
     à la main : laissé au géocodeur, celui de Châteaulin (1982/8) tombait à
     Dinéault, 9,7 km plus loin, et faisait passer l'étape « ok » (audit
