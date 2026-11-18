@@ -2039,6 +2039,24 @@ et côtes traversées avec leur kilomètre.
   23 +8), 1984/0 non contrôlable ; 18 tronçons suspects, 8 allers-retours, 4 incertains.
   **Reste, story non cochée :** remesurer à vélo, puis trier ces écarts et noter
   leurs causes (règle 16). Chiffres de voiture : à ne pas lire comme un résultat.
+- [ ] Édition 1974 (routine quotidienne du 18/11/2026, tentative 1/10 ;
+  le déclenchement du 17/11 n'a pas tourné, session inactive) : aucune
+  étape de 1974 n'est encore transcrite. Profils de ledicodutour.com
+  (`images/cartes_etapes/1967_1976/1974/74_<N>.jpg`, `74_N` = profil ;
+  demi-étapes `74_6a`, `74_8a`, `74_8b`, `74_19a`, et `74_21` = 21a ; 23
+  fichiers, md5 tous distincts, titres vérifiés sur la planche). Non
+  transcrits, faute de profil à km nommé : prologue de Brest, 6b
+  (Harelbeke), 19b (Bordeaux) et 21b (Orléans), sans image ; 2 (`74_2` =
+  profil d'un tour du circuit de Plymouth, 11,7 km, sans nom de lieu).
+  Critères d'acceptation : ceux de 1975 (règle 4, longueurs contre
+  stage_towns, classe OSM et nom de chaque candidat, nom seul et
+  orthographes locales cherchés, altitude point par point et relief qui
+  atteint l'altitude imprimée avant tout retrait, km peu lisibles tranchés
+  à l'échelle, départs et arrivées à la main, contrôle à vélo sans tronçon
+  en voiture évitable, tronçons suspects triés et notés, test d'invariant
+  avec la paire réellement fautive localisée, circuits à l'entrée
+  imprimée, source_url vérifiée contre l'image transcrite, audit Mireille,
+  écarts en issue).
 - [x] Édition 1975 (routine quotidienne du 16/11/2026, tentative 1/10 ;
   les déclenchements des 14 et 15/11 n'ont pas tourné, session inactive) :
   aucune étape de 1975 n'est encore transcrite. Profils de ledicodutour.com
