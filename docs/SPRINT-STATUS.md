@@ -490,6 +490,16 @@ et côtes traversées avec leur kilomètre.
       créait un aller-retour vers l'ancre : gardé non placé, noté) ; Opbrakel
       et Courbieu Nord-Ouest essayés et non retenus (règles 6, 8, 21) ; trois
       précisions ajoutées aux règles 5 et 19 de CURATION-REGLES.md.
+    - [ ] 13/11 (issue #581, repris le 18/11 à la demande de
+      l'utilisateur) — écarts restants de 1976. Critères d'acceptation :
+      carrefours de 1976/17 cherchés par croisement des routes (BD TOPO de
+      la Géoplateforme, Overpass toujours injoignable), chacun gardé
+      seulement si la ligne droite vers les voisins tient dans le profil
+      et si l'altitude concorde ; contrôle à vélo de 1976/17 ; point
+      « Huez » des dix éditions tranché par les altitudes imprimées
+      (règle 14), pas par remplacement mécanique ; Grandvillers 1979/13 et
+      2012/7 testés pour l'aller-retour par BRouter ; les autres points de
+      l'issue repris ou laissés avec leur cause écrite ; audit Mireille.
   - [x] Lot Lorraine (PR #404) : 14 étapes (1970/9, 1978/20, 1979/12-13, 1980/2-3,
     1985/8, 1990/6, 1999/7-8, 2002/2-3, 2006/2, 2012/6), 235 points placés
     sur 239 (Fresse-sur-Moselle 1979/13 retirée en relecture : km imprimé
