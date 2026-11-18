@@ -490,7 +490,7 @@ et côtes traversées avec leur kilomètre.
       créait un aller-retour vers l'ancre : gardé non placé, noté) ; Opbrakel
       et Courbieu Nord-Ouest essayés et non retenus (règles 6, 8, 21) ; trois
       précisions ajoutées aux règles 5 et 19 de CURATION-REGLES.md.
-    - [ ] 13/11 (issue #581, repris le 18/11 à la demande de
+    - [x] 13/11 (issue #581, repris le 18/11 à la demande de
       l'utilisateur) — écarts restants de 1976. Critères d'acceptation :
       carrefours de 1976/17 cherchés par croisement des routes (BD TOPO de
       la Géoplateforme, Overpass toujours injoignable), chacun gardé
@@ -500,6 +500,21 @@ et côtes traversées avec leur kilomètre.
       (règle 14), pas par remplacement mécanique ; Grandvillers 1979/13 et
       2012/7 testés pour l'aller-retour par BRouter ; les autres points de
       l'issue repris ou laissés avec leur cause écrite ; audit Mireille.
+      Fait : les cinq carrefours de 1976/17 placés à l'extrémité commune des
+      deux routes dans la BD TOPO (N 654 devenue D 654, source Wikipédia) ;
+      chaque tronçon tombe à 0,4 km près du profil, l'étape reste à −6,1 %
+      par le seul Roquelaure → Auch (arrivée non sourcée). Côte de Dourdan
+      au sommet de la D 838 (160 m pour 170 imprimés, relief sondé) en
+      1976/21, 1977/21, 1985/22, 1988/22 et 1990/21 (ces deux dernières
+      étaient rattachées, non routées) ; 1987/25 (140 imprimés) laissée à
+      mi-pente, notée. Grandvillers au bourg en 1979/13 (aller-retour de
+      1,9 km supprimé) et 2012/7 (règle 6). Huez non remplacé : l'église
+      (1 393 m) et la mairie (1 473 m) tiennent toutes deux sous 100 m des
+      cotes imprimées depuis 1986. Audit Mireille : km de Xermaménil
+      relu 86 (transcrit 88) en 1979/13. Restent dans l'issue : arrivée de
+      18c, bourgs de Jandrain, Taillebois, Lassur et Gourdon-Murat,
+      Saint-Cybranet, arrivée d'Auch, et les allers-retours relevés hors
+      du diff (1987/20 à Engins, 1992/14 à La Garde).
   - [x] Lot Lorraine (PR #404) : 14 étapes (1970/9, 1978/20, 1979/12-13, 1980/2-3,
     1985/8, 1990/6, 1999/7-8, 2002/2-3, 2006/2, 2012/6), 235 points placés
     sur 239 (Fresse-sur-Moselle 1979/13 retirée en relecture : km imprimé
