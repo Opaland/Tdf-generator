@@ -260,8 +260,11 @@
        "label": "Carrefour Le Kef",
        "km": 32,
        "kind": "lieu-dit",
-       "note": "185 m imprimés ; imprimé « CARREFOUR LE KEF » ; carrefour de routes : recherche bornée sur le libellé sans résultat ; croisement des routes non cherché (Overpass injoignable depuis l'environnement de curation) : non placé",
-       "confidence": "non-place"
+       "note": "185 m imprimés ; imprimé « CARREFOUR LE KEF » : lieu-dit le Keff (La Martyre, IGN, lieu-dit habité), MNT 163 m ; Landerneau → le Keff 5,6 km à vol d'oiseau pour 6 au profil, le Keff → Sizun 8,5 pour 9 ; graphie locale « Keff » (règle 21)",
+       "confidence": "ok",
+       "lat": 48.43916,
+       "lon": -4.18257,
+       "how": "ign"
       },
       {
        "label": "Sizun",
@@ -444,13 +447,13 @@
      ],
      "note": "Départ : Brest → Gouesnou 6,9 km à vol d'oiseau pour 5 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 135.3,
+      "routed_km": 135.4,
       "profile_km": 139,
-      "delta_pct": -2.7,
+      "delta_pct": -2.6,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 17,
+      "legs": 18,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -517,7 +520,7 @@
        "label": "Saint-Gervais",
        "km": 45,
        "kind": "lieu-dit",
-       "note": "167 m imprimés ; imprimé « SAINT-GERVAIS » ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme, nom seul compris) : aucun lieu de ce nom compatible, non placé",
+       "note": "167 m imprimés ; imprimé « SAINT-GERVAIS » ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme, nom seul compris) : aucun lieu de ce nom ; la commune de Saint-Servais (Côtes-d'Armor) convient géographiquement (Callac → Saint-Servais 3,4 km à vol d'oiseau pour 5,5 au profil, Saint-Servais → Ty-Bourg 3,6 pour 4,5) : coquille vraisemblable du profil, mais le nom imprimé diffère : non placé (règle 8), hypothèse à confirmer",
        "confidence": "non-place"
       },
       {
@@ -921,8 +924,11 @@
        "label": "Carrefour près Presles",
        "km": 133,
        "kind": "lieu-dit",
-       "note": "218 m imprimés ; imprimé « CARREFOUR PRÈS PRESLES » ; carrefour de routes : recherche bornée sur le libellé sans résultat ; croisement des routes non cherché (Overpass injoignable depuis l'environnement de curation) : non placé",
-       "confidence": "non-place"
+       "note": "218 m imprimés ; imprimé « CARREFOUR PRÈS PRESLES » ; carrefour non situé : placé au bourg de Presles (Nominatim, limite de commune), MNT 162 m pour 218 imprimés (écart < 100 m), Vire → Presles 9 km à vol d'oiseau pour 9,5 au profil, Presles → Estry 4,1 pour 4,5 (règle 5)",
+       "confidence": "ok",
+       "lat": 48.8769135,
+       "lon": -0.781373,
+       "how": "nominatim"
       },
       {
        "label": "Estry",
@@ -1006,15 +1012,15 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Saint-Malo → La Gouesnière 11 km à vol d'oiseau pour 9,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "note": "Départ : Saint-Malo → La Gouesnière 11 km à vol d'oiseau pour 9,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance à vélo (+5,8 %, 185,1 km pour 175) comme en voiture (+10,2 %, 192,9 km) : excédents cumulés sur des tronçons dont la ligne droite dépasse déjà le profil (Côte de Danvon → Aunay-sur-Odon 7,7 km à vol d'oiseau pour 7, Près Louvigny → Caen 3,6 pour 3) ; le passage au bourg de Presles (règle 5) ajoute 1,8 km (Vire → Presles → Estry 15,8 km pour 14), sans aller-retour.",
      "route_check": {
-      "routed_km": 183.7,
+      "routed_km": 185.1,
       "profile_km": 175,
-      "delta_pct": 5,
+      "delta_pct": 5.8,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 22,
+      "legs": 23,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -2444,11 +2450,11 @@
        "label": "Serre Chevalier",
        "km": 199,
        "kind": "ville",
-       "note": "1350 m imprimés ; arrivée ; imprimé « SERRE CHEVALIER » ; altitude « 1 350 » ; hameau de Chantemerle (Saint-Chaffrey, Nominatim, place=hamlet), MNT 1 377 m pour 1 350 imprimés, comme 1975/16 : l'ancre stage_towns « Serre Chevalier » était au sommet, à 2 481 m (règle 22) ; non placé : imprimé « SERRE CHEVALIER » à 1 350 m, sans nom de lieu ; Chantemerle (arrivée de 1975, 1 377 m) est à 8,1 km du Monêtier-les-Bains pour 6,5 au profil : arrivée de 1974 vraisemblablement plus haut dans la vallée (La Salle-les-Alpes ou Villeneuve), non sourcée (règle 22)",
+       "note": "1350 m imprimés ; arrivée ; imprimé « SERRE CHEVALIER », altitude « 1 350 », sans nom de lieu ; l'ancre stage_towns « Serre Chevalier » est au sommet, à 2 481 m (règle 22) ; Chantemerle (arrivée de 1975, MNT 1 377 m) est à 8,1 km à vol d'oiseau du Monêtier-les-Bains pour 6,5 au profil : arrivée de 1974 vraisemblablement plus haut dans la vallée (La Salle-les-Alpes ou Villeneuve), non sourcée : non placé",
        "confidence": "non-place"
       }
      ],
-     "note": "Départ : Aix-les-Bains → Viviers-du-Lac 4,5 km à vol d'oiseau pour 3,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "note": "Départ : Aix-les-Bains → Viviers-du-Lac 4,5 km à vol d'oiseau pour 3,5 au profil, départ réel hors du centre, non situé (règle 25). Arrivée « Serre Chevalier » non placée : les 6,5 derniers km (depuis Le Monêtier-les-Bains) ne sont pas mesurés.",
      "route_check": {
       "routed_km": 193.6,
       "profile_km": 189,
@@ -2765,8 +2771,11 @@
        "label": "Près Montfrin (carrefour N 86L)",
        "km": 20.5,
        "kind": "lieu-dit",
-       "note": "imprimé « PRÈS MONTFRIN (CARR N. 86 L) » ; pas d'altitude imprimée ; carrefour de routes : recherche bornée sur le libellé sans résultat ; croisement des routes non cherché (Overpass injoignable depuis l'environnement de curation) : non placé",
-       "confidence": "non-place"
+       "note": "imprimé « PRÈS MONTFRIN (CARR N. 86 L) » ; pas d'altitude imprimée ; carrefour de la N 86 non situé (Overpass injoignable) : placé au bourg de Montfrin (Nominatim, limite de commune), Aramon → Montfrin 7,4 km à vol d'oiseau pour 8,5 au profil, Montfrin → Comps 2,9 pour 3 (règle 5)",
+       "confidence": "ok",
+       "lat": 43.8765181,
+       "lon": 4.5911803,
+       "how": "nominatim"
       },
       {
        "label": "Comps",
@@ -2826,8 +2835,11 @@
        "label": "Carrefour près Aigues-Mortes",
        "km": 81.5,
        "kind": "lieu-dit",
-       "note": "4 m imprimés ; imprimé « CARREFOUR PRÈS AIGUES-MORTES » ; recherche bornée : seule la ville d'Aigues-Mortes répond, pas le carrefour : lieu exact non situé, non placé",
-       "confidence": "non-place"
+       "note": "4 m imprimés ; imprimé « CARREFOUR PRÈS AIGUES-MORTES » ; carrefour non situé : placé au bourg d'Aigues-Mortes (IGN), Saint-Gilles → Aigues-Mortes 22,4 km à vol d'oiseau pour 31 au profil, Aigues-Mortes → Carnon-Plage 16,9 pour 21 (règle 5)",
+       "confidence": "ok",
+       "lat": 43.57095,
+       "lon": 4.19573,
+       "how": "ign"
       },
       {
        "label": "Carrefour D 62-D 62A",
@@ -2882,18 +2894,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 105.6,
+      "routed_km": 107.7,
       "profile_km": 114,
-      "delta_pct": -7.3,
+      "delta_pct": -5.5,
       "tolerance_pct": 5,
       "coverage_pct": 90,
       "car_legs": 0,
-      "legs": 7,
+      "legs": 9,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Hors tolérance à vélo (−7,3 %), pas en voiture (+5,0 %, 119,7 km pour 114) : de Saint-Gilles (km 50,5) à Carnon (km 102,5), cinq points ne sont pas placés (Mas des Isolés et quatre carrefours de Camargue), et BRouter prend une route plus courte que le parcours ; Carnon → Palavas fait 5,1 km à vol d'oiseau pour 4 au profil."
+     "note": "Hors tolérance à vélo (−5,5 %, 107,7 km pour 114), hors aussi en voiture dans l'autre sens (+9,1 %, 124,4 km) : entre Saint-Gilles (km 50,5) et Carnon (km 102,5), quatre carrefours de Camargue et le Mas des Isolés ne sont pas placés et BRouter prend une route plus courte que le parcours ; Carnon → Palavas fait 5,1 km à vol d'oiseau pour 4 au profil, et Palavas → Montpellier 14,8 km à vélo pour 19,5 au profil (arrivée laissée à l'ancre du centre)."
     },
     "14": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1974/74_14.jpg",
@@ -3386,8 +3398,11 @@
        "label": "Côte du Pas du Portel",
        "km": 82.2,
        "kind": "côte",
-       "note": "417 m imprimés ; 4e cat. ; km imprimé « 82.2 » ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme, nom seul compris) : aucun lieu de ce nom compatible, non placé",
-       "confidence": "non-place"
+       "note": "417 m imprimés ; 4e cat. ; km imprimé « 82.2 » : col du Pas du Portel (Loubens, Nominatim, mountain_pass), MNT 497 m pour 417 imprimés (écart < 100 m) ; Pailhès → Pas du Portel 11,1 km à vol d'oiseau pour 12,7 au profil, → Foix 9,3 pour 12,8 ; la première recherche bornée l'avait écarté sur le seul filtre d'altitude à ±40 m",
+       "confidence": "ok",
+       "lat": 43.0317216,
+       "lon": 1.5385949,
+       "how": "nominatim"
       },
       {
        "label": "Vernajoul",
@@ -3577,22 +3592,22 @@
        "label": "Seo de Urgel",
        "km": 220,
        "kind": "ville",
-       "note": "720 m imprimés ; arrivée ; imprimé « SEO DE URGEL » ; aucun km d'arrivée imprimé : le profil se termine sur la graduation « 220 km » (225 km dans stage_towns), km d'arrivée approché",
+       "note": "720 m imprimés ; arrivée ; imprimé « SEO DE URGEL » ; km d'arrivée imprimé « 220 km » en bout d'axe, avec son unité (225 km dans stage_towns)",
        "lat": 42.35757,
        "lon": 1.45601,
        "how": "stage_towns",
        "confidence": "ok"
       }
      ],
-     "note": "Aucun km d'arrivée imprimé : le profil s'arrête sur la graduation 220 (225 km dans stage_towns).",
+     "note": "Km d'arrivée imprimé « 220 km » en bout d'axe (225 km dans stage_towns).",
      "route_check": {
-      "routed_km": 224.4,
+      "routed_km": 226.2,
       "profile_km": 216,
-      "delta_pct": 3.9,
+      "delta_pct": 4.7,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 26,
+      "legs": 27,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -3837,10 +3852,10 @@
        "label": "Saint-Lary-Soulan",
        "km": 0,
        "kind": "lieu-dit",
-       "note": "1350 m imprimés ; départ ; imprimé « ST-LARY SOULAN », altitude « 1 350 » ; imprimé « 1 350 m ST-LARY SOULAN » : lieu-dit le Village de Soulan (Saint-Lary-Soulan, IGN), MNT 1 302 m, à 5 km de Guchen pour 5,5 au profil ; le bourg de Saint-Lary est à 817 m : départ vraisemblablement donné à Soulan, non sourcé (règle 25)",
-       "lat": 42.83033,
-       "lon": 0.29468,
-       "how": "ign",
+       "note": "1350 m imprimés ; départ ; imprimé « 1 350 m ST-LARY SOULAN » : 1 350 m est l'altitude de Soulan (lieu-dit le Village de Soulan, IGN, MNT 1 302 m), mais Soulan → Guchen fait 10,4 km par BRouter pour 5,5 au profil, alors que la mairie de Saint-Lary-Soulan (Nominatim, 817 m) → Guchen fait 5,5 km à vol d'oiseau : départ placé à la mairie, altitude imprimée vraisemblablement celle de la station, départ fictif possible à Soulan, non sourcé (règle 25)",
+       "lat": 42.8156975,
+       "lon": 0.3209292,
+       "how": "manual",
        "confidence": "ok"
       },
       {
@@ -4688,7 +4703,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Maisons-Alfort → Paris : 8,4 km à vol d'oiseau pour 7 au profil : l'arrivée imprimée « PARIS », sans adresse, est laissée à l'ancre du centre ; lieu exact non sourcé.",
+     "note": "Maisons-Alfort → Paris : 8,4 km à vol d'oiseau pour 7 au profil : l'arrivée imprimée « PARIS », sans adresse, est laissée à l'ancre du centre ; lieu exact non sourcé. Départ : Orléans → Les Bordes-Latrées 20,5 km à vol d'oiseau pour 18 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
       "routed_km": 126.6,
       "profile_km": 128,
@@ -5397,8 +5412,11 @@
        "label": "Noidant-Chatenoy",
        "km": 52,
        "kind": "ville",
-       "note": "130 m imprimés ; altitude imprimée « 130 » (profil à hauteur de Saint-Geosmes 453, voir Doutes) ; imprimé « NOIDANT-CHATENOY » ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme, nom seul compris) : aucun lieu de ce nom compatible, non placé",
-       "confidence": "non-place"
+       "note": "130 m imprimés ; imprimé « NOIDANT-CHATENOY » : commune de Noidant-Chatenoy (Nominatim, limite de commune), MNT 425 m ; l'altitude imprimée « 130 » est impossible dans ce secteur (relief entre 300 et 470 m, profil à hauteur de Saint-Geosmes 453) : c'est la source qui dévie ; Saint-Geosmes → Noidant-Chatenoy 5,4 km à vol d'oiseau pour 6 au profil, → Le Pailly 3 pour 3,5",
+       "confidence": "ok",
+       "lat": 47.7941379,
+       "lon": 5.3754235,
+       "how": "nominatim"
       },
       {
        "label": "Le Pailly",
@@ -5556,15 +5574,15 @@
        "confidence": "ok"
       }
      ],
-     "note": "Pouilley-les-Vignes → Besançon : 7,1 km à vol d'oiseau pour 5,5 au profil : arrivée dans Besançon non sourcée (ancre au centre).",
+     "note": "Pouilley-les-Vignes → Besançon : 7,1 km à vol d'oiseau pour 5,5 au profil : arrivée dans Besançon non sourcée (ancre au centre). Départ : Chaumont → Crenay 9,9 km à vol d'oiseau pour 9,5 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 143.5,
+      "routed_km": 143.6,
       "profile_km": 142.5,
-      "delta_pct": 0.7,
+      "delta_pct": 0.8,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
-      "legs": 16,
+      "legs": 17,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -5692,7 +5710,7 @@
        "km": 81,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "32 m imprimés ; aucun km imprimé (mesure colonne ≈ 80,7) ; non placé : km approché (règle 4)"
+       "note": "32 m imprimés ; imprimé « PARENTIS-EN-BORN » ; aucun km imprimé (mesure colonne ≈ 80,7) ; Parentis-en-Born est sur la côte, hors de l'axe Pau – Bordeaux : vraisemblablement Uchacq-et-Parentis, près de Mont-de-Marsan (coquille du profil, à confirmer) ; non placé : km approché (règle 4)"
       },
       {
        "label": "Près Cère",
@@ -5822,7 +5840,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Pau → Doumy 16,9 km à vol d'oiseau pour 16 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (+6,6 % à vélo, +8,5 % en voiture) : Saint-Sever → Mont-de-Marsan fait 16 km à vol d'oiseau pour 14 au profil, et l'arrivée de Bordeaux est laissée à l'ancre du centre (point de 1996 écarté, règle 22).",
+     "note": "Hors tolérance (+6,6 % à vélo, +8,5 % en voiture) : Saint-Sever → Mont-de-Marsan fait 16 km à vol d'oiseau pour 14 au profil, et l'arrivée de Bordeaux est laissée à l'ancre du centre (point de 1996 écarté, règle 22).",
      "route_check": {
       "routed_km": 186.6,
       "profile_km": 175,

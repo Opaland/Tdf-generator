@@ -62,6 +62,10 @@ dans la même PR que son correctif.
    ligne droite vers les deux voisins tient dans le profil (+1 km), sinon
    non placé avec la note (Dompaire et Saint-Aignan placés, Saint-Méloir
    non placé, 1982).
+   « Carrefour près X » et « Près X (carr. N …) » se traitent de même :
+   le carrefour introuvable ne laisse pas le point non placé si le bourg
+   de X tient dans le profil (Montfrin, Aigues-Mortes, Presles en 1974,
+   audit Mireille).
 
 ## Placer les points
 
@@ -182,6 +186,14 @@ dans la même PR que son correctif.
     mesure le rocher au-dessus (Grand Tunnel, 2015/20 : 1 465 m au point,
     1 281 et 1 288 aux portails pour 1 320 imprimés) — le point avait été
     refusé à tort.
+    **Un filtre d'altitude de recherche n'écarte pas un nom exact** : la
+    recherche bornée garde ses candidats à ±40 m de l'imprimé, mais un
+    candidat qui porte exactement le nom imprimé et tient dans le profil
+    passe par le test de cette règle (écart sous 100 m, ou relief qui
+    atteint la cote), pas par le filtre. En 1974, le Pas du Portel
+    (497 m pour 417) et Noidant-Chatenoy (425 m pour un « 130 »
+    impossible) avaient été notés « aucun lieu compatible » (audit
+    Mireille).
 15. **Commune nouvelle : le village, pas la commune fusionnée.** Le centre
     de Salignac-Eyvigues tombait vers Eyvigues, 3,8 km du village de
     Salignac nommé par le profil (1987/12, aller-retour de 5 km) ;
@@ -357,6 +369,11 @@ dans la même PR que son correctif.
     noter dans l'étape, et ne pas placer le départ quand l'écart dépasse
     la marge du départ (Lyon 2003/7 : Jons à 20,2 km pour 8). Audit 2003 :
     Toulouse, Bordeaux, Troyes, Nevers, Charleville-Mézières.
+    Un départ en altitude (station au-dessus de la ville) se vérifie par
+    la route, pas seulement à vol d'oiseau : en 1974/17, Soulan
+    (1 350 m imprimés) est à 5 km de Guchen à vol d'oiseau, mais à
+    10,4 km par BRouter pour 5,5 au profil ; départ placé à la mairie de
+    Saint-Lary (audit Mireille).
 26. **Une via de `historic_routes.json` se teste sur un import neuf.** Les
     vias sont copiées en base à l'import : `--stage <id> --force` ne relit
     pas le JSON et redonne le même écart, ce qui fait conclure à tort que
