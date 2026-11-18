@@ -15615,8 +15615,11 @@
        "label": "Carrefour N 654-D 123",
        "km": 7.4,
        "kind": "lieu-dit",
-       "note": "152 m imprimés ; imprimé CARR N 654-D 123",
-       "confidence": "non-place"
+       "note": "152 m imprimés ; imprimé CARR N 654-D 123 ; croisement des routes dans la BD TOPO (Géoplateforme, WFS troncon_de_route, extrémité commune des deux numéros) ; la route porte aujourd'hui le numéro D 654, vraisemblablement l'ancienne N 654 déclassée (à confirmer) ; Fleurance → carrefour 5,7 km à vol d'oiseau pour 7,4 au profil, carrefour → Sainte-Radegonde 1,3 pour 1, MNT 147 m",
+       "confidence": "ok",
+       "lat": 43.84874,
+       "lon": 0.593262,
+       "how": "manual"
       },
       {
        "label": "Sainte-Radegonde",
@@ -15632,8 +15635,11 @@
        "label": "Carrefour D 123-D 303",
        "km": 12,
        "kind": "lieu-dit",
-       "note": "imprimé CARREFOUR D 123-D 303",
-       "confidence": "non-place"
+       "note": "imprimé CARREFOUR D 123-D 303 ; croisement des routes dans la BD TOPO (Géoplateforme, WFS troncon_de_route, extrémité commune des deux numéros) ; Sainte-Radegonde → carrefour 2,8 km à vol d'oiseau pour 3,6 au profil, carrefour → Réjaumont 1,5 pour 1,7, MNT 150 m",
+       "confidence": "ok",
+       "lat": 43.817103,
+       "lon": 0.568236,
+       "how": "manual"
       },
       {
        "label": "Réjaumont",
@@ -15649,15 +15655,21 @@
        "label": "Carrefour D 148-D 123",
        "km": 15.4,
        "kind": "lieu-dit",
-       "note": "194 m imprimés ; imprimé CARR D 148-D 123",
-       "confidence": "non-place"
+       "note": "194 m imprimés ; imprimé CARR D 148-D 123 ; croisement des routes dans la BD TOPO (Géoplateforme, WFS troncon_de_route, extrémité commune des deux numéros) pour 194 imprimés ; Réjaumont → carrefour 1,6 km à vol d'oiseau pour 1,7 au profil, MNT 194 m",
+       "confidence": "ok",
+       "lat": 43.800276,
+       "lon": 0.545749,
+       "how": "manual"
       },
       {
        "label": "Carrefour D 148-D 177",
        "km": 19.2,
        "kind": "lieu-dit",
-       "note": "209 m imprimés ; imprimé CARR D 148-D 177",
-       "confidence": "non-place"
+       "note": "209 m imprimés ; imprimé CARR D 148-D 177 ; croisement des routes dans la BD TOPO (Géoplateforme, WFS troncon_de_route, extrémité commune des deux numéros) pour 209 imprimés ; carrefour → Mérens 1,9 km à vol d'oiseau pour 2,2 au profil, MNT 207 m",
+       "confidence": "ok",
+       "lat": 43.769555,
+       "lon": 0.545417,
+       "how": "manual"
       },
       {
        "label": "Mérens",
@@ -15673,8 +15685,11 @@
        "label": "Carrefour D 148-D 272",
        "km": 26.4,
        "kind": "lieu-dit",
-       "note": "imprimé CARREFOUR D 148-D 272",
-       "confidence": "non-place"
+       "note": "imprimé CARREFOUR D 148-D 272 ; croisement des routes dans la BD TOPO (Géoplateforme, WFS troncon_de_route, extrémité commune des deux numéros) ; Mérens → carrefour 3,9 km à vol d'oiseau pour 5 au profil, carrefour → Roquelaure 1,1 pour 1,4, MNT 133 m",
+       "confidence": "ok",
+       "lat": 43.727427,
+       "lon": 0.570526,
+       "how": "manual"
       },
       {
        "label": "Roquelaure",
@@ -15697,15 +15712,15 @@
        "confidence": "ok"
       }
      ],
-     "note": "Contre-la-montre individuel Fleurance → Auch (38,750 km imprimés). Hors tolérance (−7,4 %, 78 % de l'étape mesurée) : les cinq carrefours imprimés (N 654-D 123, D 123-D 303, D 148-D 123, D 148-D 177, D 148-D 272) ne sont pas placés, et le routage prend le plus court entre les villages ; le croisement des routes n'a pas pu être cherché (Overpass injoignable depuis l'environnement de curation). En voiture aussi l'étape est courte (28,4 km pour 30,3, −6,3 %), surtout de Roquelaure à Auch (9,4 km pour 10,9) : l'arrivée exacte dans Auch n'est pas sourcée.",
+     "note": "Contre-la-montre individuel Fleurance → Auch (38,750 km imprimés). Les cinq carrefours imprimés sont placés au croisement des routes (BD TOPO) : chaque tronçon entre Sainte-Radegonde et Roquelaure tombe à 0,4 km près du profil. Hors tolérance à vélo (−6,1 %, 29,4 km pour 31,4) comme en voiture (−5,4 %, 29,7 km) à cause du seul tronçon Roquelaure → Auch (9,2 km à vélo pour 10,9 au profil) : l'arrivée exacte dans Auch n'est pas sourcée (ancre du centre). Le premier tronçon, non mesuré, est court aussi (Fleurance → carrefour N 654-D 123 : 6 km à vélo pour 7,4) : départ réel vraisemblablement hors du centre de Fleurance, non situé.",
      "route_check": {
-      "routed_km": 28.1,
-      "profile_km": 30.35,
-      "delta_pct": -7.4,
+      "routed_km": 29.4,
+      "profile_km": 31.35,
+      "delta_pct": -6.1,
       "tolerance_pct": 5,
-      "coverage_pct": 78,
+      "coverage_pct": 80,
       "car_legs": 0,
-      "legs": 4,
+      "legs": 9,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -16432,11 +16447,11 @@
        "label": "Côte de Dourdan",
        "km": 102,
        "kind": "côte",
-       "note": "170 m imprimés ; imprimé COTE DE DOURDAN ; 4e cat. ; point de 1990/21",
+       "note": "170 m imprimés ; imprimé COTE DE DOURDAN ; 4e cat. ; sommet de la montée au nord de Dourdan, sur la route vers Saint-Cyr-sous-Dourdan (relief sondé au MNT IGN le long du tracé BRouter : 95 m au fond de la vallée, 160 m au sommet), MNT 160 m pour 170 imprimés ; le point de 1990/21 était au centre de Dourdan, à 128 m, au fond de la vallée (règle 14)",
        "confidence": "ok",
-       "lat": 48.53577,
-       "lon": 2.01224,
-       "how": "commune-ign"
+       "lat": 48.538965,
+       "lon": 2.016954,
+       "how": "manual"
       },
       {
        "label": "Saint-Cyr-sous-Dourdan",
@@ -16518,9 +16533,9 @@
      ],
      "note": "Départ : Montargis → Mignères 9,6 km à vol d'oiseau pour 8 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 143.8,
+      "routed_km": 142.9,
       "profile_km": 137.5,
-      "delta_pct": 4.6,
+      "delta_pct": 3.9,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
@@ -21986,11 +22001,11 @@
        "label": "Côte de Dourdan",
        "km": 84.5,
        "kind": "côte",
-       "note": "170 m imprimés ; imprimé COTE DE DOURDAN ; 4e cat. ; point de 1990/21",
+       "note": "170 m imprimés ; imprimé COTE DE DOURDAN ; 4e cat. ; sommet de la montée au nord de Dourdan, sur la route vers Saint-Cyr-sous-Dourdan (relief sondé au MNT IGN le long du tracé BRouter : 95 m au fond de la vallée, 160 m au sommet), MNT 160 m pour 170 imprimés ; le point de 1990/21 était au centre de Dourdan, à 128 m, au fond de la vallée (règle 14)",
        "confidence": "ok",
-       "lat": 48.53577,
-       "lon": 2.01224,
-       "how": "commune-ign"
+       "lat": 48.538965,
+       "lon": 2.016954,
+       "how": "manual"
       },
       {
        "label": "Angervilliers",
@@ -22088,9 +22103,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 129.5,
+      "routed_km": 128.5,
       "profile_km": 131,
-      "delta_pct": -1.1,
+      "delta_pct": -1.9,
       "tolerance_pct": 5,
       "coverage_pct": 92,
       "car_legs": 0,
@@ -32360,10 +32375,11 @@
        "label": "Grandvillers",
        "km": 128,
        "kind": "ville",
-       "lat": 48.23653,
-       "lon": 6.66884,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "lat": 48.2402573,
+       "lon": 6.673444,
+       "how": "nominatim",
+       "confidence": "ok",
+       "note": "rue de la Mairie de Grandvillers sur la D 420 (Nominatim), point de 1976/7 : le centre de la commune (48.23653, 6.66884) faisait un aller-retour de 1,9 km (Sainte-Hélène → Grandvillers → Bruyères 14,1 km par BRouter contre 12,2 en direct ; 12,5 par la D 420 pour 12,5 au profil) (règles 17, 24)"
       },
       {
        "label": "Bruyères",
@@ -32439,14 +32455,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 163.5,
+      "routed_km": 161.9,
       "profile_km": 157,
-      "delta_pct": 4.1,
+      "delta_pct": 3.1,
       "tolerance_pct": 5,
       "coverage_pct": 78,
       "car_legs": 0,
       "legs": 24,
-      "suspect_legs": 1
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
      }
     },
     "14": {
@@ -68063,11 +68081,11 @@
        "label": "Côte de Dourdan",
        "km": 83.5,
        "kind": "côte",
-       "note": "170 m imprimés ; 4e catégorie ; km lu sur la rangée haute ; point de 1990/21, MNT 128 m",
+       "note": "170 m imprimés ; 4e catégorie ; km lu sur la rangée haute ; sommet de la montée au nord de Dourdan, sur la route vers Saint-Cyr-sous-Dourdan (relief sondé au MNT IGN le long du tracé BRouter : 95 m au fond de la vallée, 160 m au sommet), MNT 160 m pour 170 imprimés ; le point de 1990/21 était au centre de Dourdan, à 128 m, au fond de la vallée (règle 14)",
        "confidence": "ok",
-       "lat": 48.53577,
-       "lon": 2.01224,
-       "how": "commune-ign"
+       "lat": 48.538965,
+       "lon": 2.016954,
+       "how": "manual"
       },
       {
        "label": "Saint-Cyr-sous-Dourdan",
@@ -68210,9 +68228,9 @@
      "circuit_km": 156,
      "note": "Circuit des Champs-Élysées : entrée au pont de la Concorde au km 156 (circuit_km, règle 19), 1er passage sur la ligne au km 159,7, passages suivants aux km 166,7, 171,8, 177,8, 183,9 et 189,9, arrivée au km 196 ; seuls l'entrée et le 1er passage sont repris. Départ : Orléans → Fleury-les-Aubrais 3,3 km à vol d'oiseau pour 2 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 157.8,
+      "routed_km": 156.8,
       "profile_km": 154,
-      "delta_pct": 2.4,
+      "delta_pct": 1.8,
       "tolerance_pct": 5,
       "coverage_pct": 79,
       "car_legs": 0,
