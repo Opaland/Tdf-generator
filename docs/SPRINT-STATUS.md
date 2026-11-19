@@ -2064,6 +2064,40 @@ et côtes traversées avec leur kilomètre.
   23 +8), 1984/0 non contrôlable ; 18 tronçons suspects, 8 allers-retours, 4 incertains.
   **Reste, story non cochée :** remesurer à vélo, puis trier ces écarts et noter
   leurs causes (règle 16). Chiffres de voiture : à ne pas lire comme un résultat.
+- [x] Édition 1973 (routine quotidienne du 19/11/2026, tentative 1/10) :
+  aucune étape de 1973 n'est encore transcrite. Profils de ledicodutour.com
+  (`images/cartes_etapes/1967_1976/1973/73_<N>.jpg`, `73_N` = profil ;
+  demi-étapes `73_2b`, `73_7a`, `73_7b`, `73_12a`, `73_12b`, `73_16a`,
+  `73_20b` ; 21 fichiers, md5 tous distincts, titres vérifiés sur la
+  planche). Non transcrits, faute d'image : prologue de Scheveningen, 1a,
+  1b, 2a (contre-la-montre par équipes), 16b et 20a (contre-la-montre).
+  Critères d'acceptation : ceux de 1974 (règle 4, longueurs contre
+  stage_towns, classe OSM et nom de chaque candidat, nom seul et
+  orthographes locales cherchés, altitude point par point et relief qui
+  atteint l'altitude imprimée avant tout retrait, filtre d'altitude sans
+  écarter un nom exact, « près X » au bourg quand le profil le permet,
+  km peu lisibles tranchés à l'échelle, départs et arrivées à la main,
+  départ en altitude vérifié par la route, contrôle à vélo sans tronçon
+  en voiture évitable, tronçons suspects triés et notés, test d'invariant
+  avec la paire réellement fautive localisée, circuits à l'entrée
+  imprimée, carrefours numérotés cherchés au croisement des routes (BD
+  TOPO), source_url vérifiée contre l'image transcrite, audit Mireille,
+  écarts en issue).
+  Fait : 21 étapes ajoutées, 585 points dont 492 placés ; 19 étapes dans
+  la tolérance, 2 hors, cause notée (2b : −10,1 % à vélo, −1,6 % en
+  voiture, routeur et Mur de Grammont sans km ; 18 : −5,8 %, tour des
+  puys non mesuré) ; un seul tronçon en voiture, inévitable (sommet du
+  Puy de Dôme). Transcription par trois agents, doutes tranchés au zoom
+  et à l'échelle (Valberg, Lorgues, Ribeauville 96, Izaourt « 17 »
+  coquille) ; départs réels de 8 et 9 à Moûtiers et Uvernet (colonne du
+  km 0) ; formes néerlandaises (Aalst, Herdersem, Sint-Gillis-bij-
+  Dendermonde) ; 7 carrefours au croisement des routes (BD TOPO) ;
+  centres de commune remplacés par mairie ou village sur témoin
+  d'altitude (Morteau, Valloire, Embrun, Entraunes…). Audit Mireille :
+  6 écarts bloquants (Villagrains au centre de la commune, « près X »,
+  allers-retours, tronçons et non placés sans note) et 8 autres corrigés ;
+  APPRENTISSAGES n° 23 ; règles 21 et 25 précisées ; écarts restants en
+  issue #592.
 - [x] Édition 1974 (routine quotidienne du 18/11/2026, tentative 1/10 ;
   le déclenchement du 17/11 n'a pas tourné, session inactive) : aucune
   étape de 1974 n'est encore transcrite. Profils de ledicodutour.com

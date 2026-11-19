@@ -135,4 +135,14 @@ entrée : on la marque « absorbée par … ».
     retirés à tort. Avant de retirer un point refusé, tracer les distances
     à vol d'oiseau de tous les voisins placés et localiser le tronçon
     impossible (règle 9, cas Chevigny).
+23. **Un « non placé » posé par une passe sans départ se fige**
+    (19/11/2026). En 1973, la première passe de `geocode-itineraries.js`
+    tournait sans départ placé pour les étapes 6 et 9 (l'ancre de l'étape
+    9 était Embrun, à 60 km du vrai km 0) : 121 points y ont reçu
+    `confidence: non-place`. Comme ils portaient déjà une note de
+    transcription, le script les a ensuite pris pour des retraits justifiés
+    et ne les a plus jamais redemandés — le col de la Cayolle n'était même
+    pas dans le cache. Après avoir placé un départ ou corrigé un km, retirer
+    les `non-place` sans motif écrit (pas de « non placé » ni de « règle »
+    dans la note) avant de relancer le géocodeur.
 
