@@ -327,6 +327,17 @@ dans la même PR que son correctif.
     (basque). Un « carrefour » qui porte un nom de lieu-dit (Jauge,
     Pierroton, 1977/5a) se cherche par ce nom, il n'est pas « sans lieu
     cherchable ».
+    **En Flandre, chercher la forme néerlandaise** du nom imprimé en
+    français (1973/2b : Alost = Aalst, « Herdesem » = Herdersem,
+    « Hamme-s/Durme » = Hamme) — et l'homonyme compatible avec les
+    voisins : « Saint-Gillis » était Sint-Gillis-bij-Dendermonde, au sud,
+    pas Sint-Gillis-Waas, au nord de Sint-Niklaas (règle 7).
+    **Un carrefour numéroté se cherche au croisement des routes** (BD
+    TOPO, couche `troncon_de_route`, extrémité commune des tronçons des
+    deux numéros) : une nationale de 1973 porte souvent aujourd'hui le
+    numéro départemental (réforme de 1972) ; le dire dans la note, et
+    garder le carrefour non placé quand aucun croisement des deux
+    numéros n'existe plus.
 
 22. **Vérifier le départ et l'arrivée de chaque étape avant le reste.**
     Une ville-étape devenue commune déléguée n'est plus dans l'index IGN
@@ -374,6 +385,12 @@ dans la même PR que son correctif.
     (1 350 m imprimés) est à 5 km de Guchen à vol d'oiseau, mais à
     10,4 km par BRouter pour 5,5 au profil ; départ placé à la mairie de
     Saint-Lary (audit Mireille).
+    **Le km 0 est la colonne où la courbe commence**, pas la ville-étape
+    imprimée en titre : en 1973/8 et 1973/9, « MÉRIBEL-LES-ALLUES » et
+    « EMBRUN » sont en titre, et la courbe part de « 479 m MOUTIERS » et
+    de « 1 135 m UVERNET-PRA LOUP » — le départ réel est là (comme
+    Barcelonnette pour Pra-Loup, 1975/16). Laissé à la ville-étape, le km 0
+    décroche tous les points suivants.
 26. **Une via de `historic_routes.json` se teste sur un import neuf.** Les
     vias sont copiées en base à l'import : `--stage <id> --force` ne relit
     pas le JSON et redonne le même écart, ce qui fait conclure à tort que

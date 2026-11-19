@@ -473,7 +473,7 @@
        "label": "Côte de Bruyères",
        "km": 165.5,
        "kind": "côte",
-       "note": "180 m imprimés ; 4e cat. ; imprimé « COTE DE BRUYERES »",
+       "note": "180 m imprimés ; 4e cat. ; imprimé « COTE DE BRUYERES » ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme, nom seul et variantes) : aucun lieu de ce nom compatible avec le profil ; non placé",
        "confidence": "non-place"
       },
       {
@@ -500,9 +500,9 @@
        "label": "Près Blanzy-lès-Fismes",
        "km": 185,
        "kind": "lieu-dit",
-       "note": "imprimé « PRES BLANZY-LES-FISMES » ; km 185 imprimé dans la rangée des graduations ; limite Aisne/Marne ; aucune altitude imprimée",
-       "lat": 49.32088,
-       "lon": 3.67717,
+       "note": "imprimé « PRES BLANZY-LES-FISMES » ; km 185 imprimé dans la rangée des graduations ; mairie de Blanzy-lès-Fismes (Nominatim), MNT 146 m ; Bourg-et-Comin → Blanzy 6,4 km à vol d'oiseau pour 7,5, Blanzy → Fismes 3,5 pour 3,5 ; le géocodeur avait pris un chemin de Fismes (règle 5) (audit Mireille)",
+       "lat": 49.3381044,
+       "lon": 3.6709609,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -569,14 +569,14 @@
      ],
      "note": "Départ : Roubaix → Forest-sur-Marque 6,3 km à vol d'oiseau pour 4 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 233.1,
+      "routed_km": 232.3,
       "profile_km": 222,
-      "delta_pct": 5,
+      "delta_pct": 4.6,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
       "legs": 33,
-      "suspect_legs": 1,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -732,7 +732,7 @@
        "label": "Carrefour N 402-N 401",
        "km": 126,
        "kind": "lieu-dit",
-       "note": "259 m imprimés ; imprimé « CARREFOUR N. 402-N. 401 » ; km peu lisible (126 ou 128 ; la colonne mesure ~126) ; altitude peu lisible (259 ou 250)",
+       "note": "259 m imprimés ; imprimé « CARREFOUR N. 402-N. 401 » ; km peu lisible (126 ou 128 ; la colonne mesure ~126) ; altitude peu lisible (259 ou 250) ; croisement des deux numéros cherché dans la BD TOPO (Géoplateforme) : absent, numéros d'avant 1972 ou renumérotés ; non placé",
        "confidence": "non-place"
       },
       {
@@ -749,7 +749,7 @@
        "label": "Côte du Lion",
        "km": 138.5,
        "kind": "côte",
-       "note": "393 m imprimés ; 4e cat.",
+       "note": "393 m imprimés ; 4e cat. ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme, nom seul et variantes) : aucun lieu de ce nom compatible avec le profil ; non placé",
        "confidence": "non-place"
       },
       {
@@ -1224,7 +1224,8 @@
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Pfastatt → Mulhouse : 4,8 km à vélo, 5,3 en voiture, pour 8,5 au profil ; arrivée laissée à l'ancre du centre de Mulhouse, boucle ou lieu d'arrivée non sourcé."
     },
     "6": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1973/73_6.jpg",
@@ -1273,7 +1274,7 @@
        "label": "Côte de Bondeval",
        "km": 24.5,
        "kind": "côte",
-       "note": "400 m imprimés ; 4e cat. ; imprimé « COTE DE BONDEVAL » ; le géocodeur avait pris « Côteau Bunin », autre nom (règle 21)",
+       "note": "400 m imprimés ; 4e cat. ; imprimé « COTE DE BONDEVAL » ; le géocodeur avait pris « Côteau Bunin », autre nom (règle 21) ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme, nom seul et variantes) : aucun lieu de ce nom compatible avec le profil ; non placé",
        "confidence": "non-place"
       },
       {
@@ -1307,7 +1308,7 @@
        "label": "Côte de la Croix-Saint-Marc",
        "km": 64,
        "kind": "côte",
-       "note": "825 m imprimés ; 4e cat. ; imprimé « COTE DE LA CROIX-SAINT-MARC »",
+       "note": "825 m imprimés ; 4e cat. ; imprimé « COTE DE LA CROIX-SAINT-MARC » ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme, nom seul et variantes) : aucun lieu de ce nom compatible avec le profil ; non placé",
        "confidence": "non-place"
       },
       {
@@ -1565,7 +1566,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Belfort → Châtenois-les-Forges 8,9 km à vol d'oiseau pour 6,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "note": "Départ : Belfort → Châtenois-les-Forges 8,9 km à vol d'oiseau pour 6,5 au profil, départ réel hors du centre, non situé (règle 25). Audincourt → Pont-de-Roide : 15,2 km à vélo, 15,3 en voiture, pour 22,5 au profil, la côte de Bondeval (km 24,5) n'étant pas placée ; même longueur en voiture : le parcours fait un détour que le profil ne nomme pas (règles 11, 20).",
      "route_check": {
       "routed_km": 238.6,
       "profile_km": 237.5,
@@ -1642,7 +1643,7 @@
        "label": "Saint-François",
        "km": 42,
        "kind": "ville",
-       "note": "1253 m imprimés ; imprimé « SAINT-FRANCOIS »",
+       "note": "1253 m imprimés ; imprimé « SAINT-FRANCOIS » ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme, nom seul et variantes) : aucun lieu de ce nom compatible avec le profil ; non placé",
        "confidence": "non-place"
       },
       {
@@ -1659,7 +1660,7 @@
        "label": "Carrefour D 213-N 6",
        "km": 53.5,
        "kind": "lieu-dit",
-       "note": "432 m imprimés ; imprimé « CARREFOUR D. 213-N. 6 »",
+       "note": "432 m imprimés ; imprimé « CARREFOUR D. 213-N. 6 » ; croisement des deux numéros cherché dans la BD TOPO (Géoplateforme) : absent, numéros d'avant 1972 ou renumérotés ; non placé",
        "confidence": "non-place"
       },
       {
@@ -1716,7 +1717,7 @@
        "label": "Col du Galibier",
        "km": 111,
        "kind": "col",
-       "note": "2556 m imprimés ; 1re cat. (pastille « 1c »), ascension en noir ; limite Savoie / Hautes-Alpes",
+       "note": "2556 m imprimés ; 1re cat. (pastille « 1c »), ascension en noir ; limite Savoie / Hautes-Alpes ; MNT 2 642 m au col pour 2 556 imprimés : 2 556 m est vraisemblablement le tunnel du Galibier, emprunté en 1973 (comme en 2011/19), point laissé au col (audit Mireille)",
        "lat": 45.06414,
        "lon": 6.40786,
        "how": "nominatim",
@@ -1880,7 +1881,8 @@
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Près les Salettes → Les Orres : 4,4 km à vélo, 4,3 en voiture, pour 8,5 au profil ; l'arrivée est à l'ancre du village des Orres, la montée à la station n'est pas mesurée (lieu d'arrivée non sourcé)."
     },
     "9": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1973/73_9.jpg",
@@ -2015,7 +2017,7 @@
        "label": "Carrefour N 205-N 565",
        "km": 108.5,
        "kind": "lieu-dit",
-       "note": "1099 m imprimés ; imprimé « CARR. N. 205-N. 565 »",
+       "note": "1099 m imprimés ; imprimé « CARR. N. 205-N. 565 » ; croisement des deux numéros cherché dans la BD TOPO (Géoplateforme) : absent, numéros d'avant 1972 ou renumérotés ; non placé",
        "confidence": "non-place"
       },
       {
@@ -2130,15 +2132,21 @@
        "label": "Près Bendejun",
        "km": 204,
        "kind": "lieu-dit",
-       "note": "517 m imprimés ; imprimé « PRES BENDEJUN »",
-       "confidence": "non-place"
+       "note": "517 m imprimés ; imprimé « PRES BENDEJUN » ; mairie de Bendejun (Nominatim), MNT 353 m pour 517 imprimés : la route passe au-dessus du bourg ; col Saint-Roch → Bendejun 7,6 km à vol d'oiseau pour 17, Bendejun → Châteauneuf 2,9 pour 10 (règle 5) (audit Mireille)",
+       "confidence": "ok",
+       "lat": 43.8354147,
+       "lon": 7.2949766,
+       "how": "nominatim"
       },
       {
        "label": "Châteauneuf-de-Contes",
        "km": 214,
        "kind": "ville",
-       "note": "550 m imprimés ; imprimé « CHATEAUNEUF-DE-CONTES »",
-       "confidence": "non-place"
+       "note": "550 m imprimés ; imprimé « CHATEAUNEUF-DE-CONTES » ; Châteauneuf-Villevieille (Nominatim), MNT 521 m pour 550 (audit Mireille)",
+       "confidence": "ok",
+       "lat": 43.8087793,
+       "lon": 7.2965395,
+       "how": "nominatim"
       },
       {
        "label": "Côte de Châteauneuf",
@@ -2182,16 +2190,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 226.2,
+      "routed_km": 224.4,
       "profile_km": 222.5,
-      "delta_pct": 1.7,
+      "delta_pct": 0.8,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 22,
+      "legs": 24,
       "suspect_legs": 0,
       "backtracks": 0,
-      "backtracks_uncertain": 1
+      "backtracks_uncertain": 0
      }
     },
     "10": {
@@ -2281,7 +2289,7 @@
        "label": "Carrefour D 609-N 562 (Saint-Jacques)",
        "km": 43,
        "kind": "lieu-dit",
-       "note": "imprimé « CARR. D 609-N 562 (ST-JACQUES) » ; n° de la D peu lisible (609 ou 600)",
+       "note": "imprimé « CARR. D 609-N 562 (ST-JACQUES) » ; n° de la D peu lisible (609 ou 600) ; croisement des deux numéros cherché dans la BD TOPO (Géoplateforme) : absent, numéros d'avant 1972 ou renumérotés ; non placé",
        "confidence": "non-place"
       },
       {
@@ -2305,7 +2313,7 @@
        "label": "Côte de la Siagne",
        "km": 65,
        "kind": "côte",
-       "note": "325 m imprimés ; 4e cat. (pastille « 4c ») ; imprimé « COTE DE LA SIAGNE » ; le géocodeur avait pris la rivière Siagne, pas une côte (règle 21)",
+       "note": "325 m imprimés ; 4e cat. (pastille « 4c ») ; imprimé « COTE DE LA SIAGNE » ; le géocodeur avait pris la rivière Siagne, pas une côte (règle 21) ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme, nom seul et variantes) : aucun lieu de ce nom compatible avec le profil ; non placé",
        "confidence": "non-place"
       },
       {
@@ -2332,7 +2340,7 @@
        "label": "D 25 Bargemon",
        "km": 85,
        "kind": "lieu-dit",
-       "note": "465 m imprimés ; imprimé « D 25 BARGEMON » (sans « Carr. »)",
+       "note": "465 m imprimés ; imprimé « D 25 BARGEMON » (sans « Carr. ») ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme, nom seul et variantes) : aucun lieu de ce nom compatible avec le profil ; non placé",
        "confidence": "non-place"
       },
       {
@@ -2426,7 +2434,7 @@
        "label": "Carrefour Le Pujol",
        "km": 195,
        "kind": "lieu-dit",
-       "note": "208 m imprimés ; imprimé « CARR. LE PUJOL »",
+       "note": "208 m imprimés ; imprimé « CARR. LE PUJOL » ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme, nom seul et variantes) : aucun lieu de ce nom compatible avec le profil ; non placé",
        "confidence": "non-place"
       },
       {
@@ -2460,7 +2468,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Nice → Cagnes-sur-Mer 9,4 km à vol d'oiseau pour 5,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "note": "Départ : Nice → Cagnes-sur-Mer 9,4 km à vol d'oiseau pour 5,5 au profil, départ réel hors du centre, non situé (règle 25). Carcès → Le Val : 11,7 km à vélo, 11,8 en voiture, pour 17 au profil ; même longueur en voiture : le parcours fait un détour que le profil ne nomme pas (règles 11, 20).",
      "route_check": {
       "routed_km": 213.6,
       "profile_km": 216.5,
@@ -2531,7 +2539,7 @@
        "label": "Côte de la Montagne de Moure",
        "km": 29,
        "kind": "côte",
-       "note": "182 m imprimés ; 4e cat. (pastille « 4c ») ; imprimé « COTE DE LA MONTAGNE DE MOURE »",
+       "note": "182 m imprimés ; 4e cat. (pastille « 4c ») ; imprimé « COTE DE LA MONTAGNE DE MOURE » ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme, nom seul et variantes) : aucun lieu de ce nom compatible avec le profil ; non placé",
        "confidence": "non-place"
       },
       {
@@ -2632,7 +2640,7 @@
        "label": "Saint-Geniès-le-Bas",
        "km": 81,
        "kind": "ville",
-       "note": "96 m imprimés ; imprimé « SAINT-GENIES-LE-BAS »",
+       "note": "96 m imprimés ; imprimé « SAINT-GENIES-LE-BAS » ; Saint-Geniès-de-Fontedit (MNT 96 m, géométrie compatible) porte vraisemblablement l'ancien nom, équivalence non sourcée : non placé",
        "confidence": "non-place"
       },
       {
@@ -2780,7 +2788,7 @@
        "label": "Côte de Treilles",
        "km": 176.5,
        "kind": "côte",
-       "note": "225 m imprimés ; 4e cat. (pastille « 4c ») ; imprimé « COTE DE TREILLES »",
+       "note": "225 m imprimés ; 4e cat. (pastille « 4c ») ; imprimé « COTE DE TREILLES » ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme, nom seul et variantes) : aucun lieu de ce nom compatible avec le profil ; non placé",
        "confidence": "non-place"
       },
       {
@@ -3649,7 +3657,7 @@
        "label": "Côte de Lembaye",
        "km": 28,
        "kind": "côte",
-       "note": "318 m imprimés ; 4e cat. ; imprimé « COTE DE LEMBAYE »",
+       "note": "318 m imprimés ; 4e cat. ; imprimé « COTE DE LEMBAYE » ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme, nom seul et variantes) : aucun lieu de ce nom compatible avec le profil ; non placé",
        "confidence": "non-place"
       },
       {
@@ -3676,14 +3684,14 @@
        "label": "Carrefour N 643-D 5",
        "km": 50.5,
        "kind": "lieu-dit",
-       "note": "imprimé « CARREFOUR N 643-D 5 »",
+       "note": "imprimé « CARREFOUR N 643-D 5 » ; croisement des deux numéros cherché dans la BD TOPO (Géoplateforme) : absent, numéros d'avant 1972 ou renumérotés ; non placé",
        "confidence": "non-place"
       },
       {
        "label": "Côte de Marciac",
        "km": 57.5,
        "kind": "côte",
-       "note": "250 m imprimés ; 4e cat. ; imprimé « COTE DE MARCIAC »",
+       "note": "250 m imprimés ; 4e cat. ; imprimé « COTE DE MARCIAC » ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme, nom seul et variantes) : aucun lieu de ce nom compatible avec le profil ; non placé",
        "confidence": "non-place"
       },
       {
@@ -3700,15 +3708,18 @@
        "label": "Carrefour N 643-D 159",
        "km": 64.5,
        "kind": "lieu-dit",
-       "note": "265 m imprimés ; « 64,5 » imprimé remonté dans la rangée des graduations",
+       "note": "265 m imprimés ; « 64,5 » imprimé remonté dans la rangée des graduations ; croisement des deux numéros cherché dans la BD TOPO (Géoplateforme) : absent, numéros d'avant 1972 ou renumérotés ; non placé",
        "confidence": "non-place"
       },
       {
        "label": "Carrefour N 643-N 646 (près Bassoues)",
        "km": 70.5,
        "kind": "lieu-dit",
-       "note": "265 m imprimés ; imprimé « CARREFOUR N 643-N 646 (PRES BASSOUES) »",
-       "confidence": "non-place"
+       "note": "265 m imprimés ; imprimé « CARREFOUR N 643-N 646 (PRES BASSOUES) » ; bourg de Bassoues (point de 2026/5), MNT 215 m pour 265 ; carrefour N 643-N 646 non situé (numéros absents de la BD TOPO actuelle), le bourg tient dans le profil (règle 5) (audit Mireille)",
+       "confidence": "ok",
+       "lat": 43.58,
+       "lon": 0.24611,
+       "how": "nominatim"
       },
       {
        "label": "Ardens",
@@ -3817,13 +3828,13 @@
      ],
      "note": "Départ : Pau → Morlaàs 10 km à vol d'oiseau pour 8 au profil, départ réel hors du centre, non situé (règle 25). Circuit final de Fleurance : 1er passage sur la ligne au km 132,2, arrivée au km 137 ; circuit_km au 1er passage (règle 19).",
      "route_check": {
-      "routed_km": 125.7,
+      "routed_km": 127.5,
       "profile_km": 124.19999999999999,
-      "delta_pct": 1.2,
+      "delta_pct": 2.6,
       "tolerance_pct": 5,
       "coverage_pct": 91,
       "car_legs": 0,
-      "legs": 13,
+      "legs": 14,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -3854,11 +3865,14 @@
        "confidence": "ok"
       },
       {
-       "label": "Prigourieux",
+       "label": "Prigonrieux",
        "km": 17.5,
        "kind": "lieu-dit",
-       "note": "28 m imprimés",
-       "confidence": "non-place"
+       "note": "28 m imprimés ; transcrit « Prigourieux » : commune de Prigonrieux, déjà placée en 1976/19 au km 17,5 du même parcours (imprimé PRIGONRIEUX), MNT 28 m pour 28 (règle 23) (audit Mireille)",
+       "confidence": "ok",
+       "lat": 44.85531,
+       "lon": 0.40301,
+       "how": "nominatim"
       },
       {
        "label": "Bergerac",
@@ -3911,7 +3925,7 @@
        "label": "Pradelles",
        "km": 63.5,
        "kind": "lieu-dit",
-       "note": "100 m imprimés",
+       "note": "100 m imprimés ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme, nom seul et variantes) : aucun lieu de ce nom compatible avec le profil ; non placé",
        "confidence": "non-place"
       },
       {
@@ -4008,7 +4022,7 @@
        "label": "Côte de Souillac",
        "km": 139,
        "kind": "côte",
-       "note": "230 m imprimés ; 4e cat. (pastille peu lisible) ; imprimé « COTE DE SOUILLAC » ; km peu lisible (139 ou 138)",
+       "note": "230 m imprimés ; 4e cat. (pastille peu lisible) ; imprimé « COTE DE SOUILLAC » ; km peu lisible (139 ou 138) ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme, nom seul et variantes) : aucun lieu de ce nom compatible avec le profil ; non placé",
        "confidence": "non-place"
       },
       {
@@ -4099,11 +4113,8 @@
        "label": "Côte de Voutezac",
        "km": 222,
        "kind": "côte",
-       "note": "290 m imprimés ; 4e cat. ; imprimé « COTE DE VOUTEZAC »",
-       "lat": 45.28471,
-       "lon": 1.44835,
-       "how": "nominatim",
-       "confidence": "ambigu"
+       "note": "290 m imprimés ; 4e cat. ; imprimé « COTE DE VOUTEZAC » ; le géocodeur avait pris le hameau « La Côte » à 231 m, pied et non sommet de la côte ; sommet non situé, non placé (règles 14, 21) (audit Mireille)",
+       "confidence": "non-place"
       },
       {
        "label": "Objat",
@@ -4147,17 +4158,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 244,
+      "routed_km": 241.2,
       "profile_km": 243.5,
-      "delta_pct": 0.2,
+      "delta_pct": -0.9,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
       "legs": 25,
-      "suspect_legs": 0,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Le Saillant → Objat : 5,5 km à vélo et en voiture pour 9 au profil, la côte de Voutezac (km 222) n'étant pas placée ; même longueur en voiture : le parcours fait un détour que le profil ne nomme pas (règles 11, 20)."
     },
     "18": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1973/73_18.jpg",
@@ -4176,8 +4188,11 @@
        "label": "Carrefour près Sainte-Féréole",
        "km": 9,
        "kind": "lieu-dit",
-       "note": "imprimé « CARREFOUR PRES SAINTE-FEREOLE »",
-       "confidence": "non-place"
+       "note": "imprimé « CARREFOUR PRES SAINTE-FEREOLE » ; bourg de Sainte-Féréole (point de 1973/17), MNT 424 m ; carrefour non situé, le bourg tient dans le profil (règle 5) (audit Mireille)",
+       "confidence": "ok",
+       "lat": 45.22859,
+       "lon": 1.5826,
+       "how": "nominatim"
       },
       {
        "label": "Lachamp",
@@ -4213,11 +4228,11 @@
        "label": "Vimbelle",
        "km": 39,
        "kind": "lieu-dit",
-       "note": "263 m imprimés",
+       "note": "263 m imprimés ; hameau de Vimbelle, confirmé par géocodage inverse (audit Mireille)",
        "lat": 45.33775,
        "lon": 1.7921,
        "how": "nominatim",
-       "confidence": "ambigu"
+       "confidence": "ok"
       },
       {
        "label": "Corrèze",
@@ -4381,7 +4396,7 @@
        "label": "Carrefour la Miouze",
        "km": 175.5,
        "kind": "lieu-dit",
-       "note": "880 m imprimés ; imprimé « CARREFOUR LA MIOUZE »",
+       "note": "880 m imprimés ; imprimé « CARREFOUR LA MIOUZE » ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme, nom seul et variantes) : aucun lieu de ce nom compatible avec le profil ; non placé",
        "confidence": "non-place"
       },
       {
@@ -4418,7 +4433,7 @@
        "label": "Carrefour N 141 C-N 141 A",
        "km": 203,
        "kind": "lieu-dit",
-       "note": "500 m imprimés ; imprimé « CARREFOUR N. 141C-N. 141 A »",
+       "note": "500 m imprimés ; imprimé « CARREFOUR N. 141C-N. 141 A » ; croisement des deux numéros cherché dans la BD TOPO (Géoplateforme) : absent, numéros d'avant 1972 ou renumérotés ; non placé",
        "confidence": "non-place"
       },
       {
@@ -4450,18 +4465,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 188.5,
-      "profile_km": 201.5,
-      "delta_pct": -6.5,
+      "routed_km": 195.5,
+      "profile_km": 207.5,
+      "delta_pct": -5.8,
       "tolerance_pct": 5,
-      "coverage_pct": 93,
+      "coverage_pct": 96,
       "car_legs": 1,
-      "legs": 21,
+      "legs": 22,
       "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 1
      },
-     "note": "Hors tolérance à vélo (−6,5 %, 188,5 km pour 201,5) : Champille → Les Gardes fait 1,7 km routés pour 5 au profil, et Ternant → La Baraque 4,8 pour 12,5 — le carrefour N 141 C-N 141 A (numéros absents de la BD TOPO actuelle) et La Font-de-l'Arbre (sans km imprimé) ne sont pas placés, le tour des puys entre Ternant et La Baraque n'est donc pas mesuré. La Baraque → sommet du Puy de Dôme est routé en voiture, BRouter refusant le sommet (HTTP 400), comme en 1975/14."
+     "note": "Hors tolérance à vélo (−5,8 %, 195,5 km pour 207,5) : Champille → Les Gardes fait 1,7 km routés pour 5 au profil, et Ternant → La Baraque 4,8 pour 12,5 — le carrefour N 141 C-N 141 A (numéros absents de la BD TOPO actuelle) et La Font-de-l'Arbre (sans km imprimé) ne sont pas placés, le tour des puys entre Ternant et La Baraque n'est donc pas mesuré. La Baraque → sommet du Puy de Dôme est routé en voiture, BRouter refusant le sommet (HTTP 400), comme en 1975/14."
     },
     "19": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1973/73_19.jpg",
@@ -4903,7 +4918,7 @@
        "label": "Carrefour Trieu-de-Mellès",
        "km": 103.5,
        "kind": "lieu-dit",
-       "note": "62 m imprimés ; imprimé « CARR TRIEU-DE-MELLES »",
+       "note": "62 m imprimés ; imprimé « CARR TRIEU-DE-MELLES » ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme, nom seul et variantes) : aucun lieu de ce nom compatible avec le profil ; non placé",
        "confidence": "non-place"
       },
       {
@@ -4940,7 +4955,7 @@
        "label": "Wattrelos La Housarde",
        "km": 131,
        "kind": "lieu-dit",
-       "note": "imprimé « WATTRELOS LA HOUSARDE (FRONTIÈRE FRANÇAISE) » ; frontière franco-belge ; aucune altitude imprimée",
+       "note": "imprimé « WATTRELOS LA HOUSARDE (FRONTIÈRE FRANÇAISE) » ; frontière franco-belge ; aucune altitude imprimée ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme, nom seul et variantes) : aucun lieu de ce nom compatible avec le profil ; non placé",
        "confidence": "non-place"
       },
       {
@@ -5072,17 +5087,14 @@
        "label": "Collonges-sous-Salève",
        "km": 59.5,
        "kind": "ville",
-       "note": "650 m imprimés ; imprimé « COLLONGES-SOUS-SALEVE » ; MNT 498 m pour 650 imprimés : le village est au pied de la montée du Salève, 650 m est vraisemblablement un point de la route au-dessus du village, non situé",
-       "lat": 46.14095,
-       "lon": 6.14495,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "650 m imprimés ; imprimé « COLLONGES-SOUS-SALEVE » ; le village est à 498 m au pied de la montée du Salève : la route passe à 650 m au-dessus du village, passage non situé, non placé (règle 14) (audit Mireille)",
+       "confidence": "non-place"
       },
       {
        "label": "Col du Salève",
        "km": 70.5,
        "kind": "col",
-       "note": "1283 m imprimés ; 1re cat. ; imprimé « COL DU SALEVE » ; le col de la Croisette (Nominatim) est renvoyé à 646 m, pas au col ; aucun autre lieu de ce nom : non placé",
+       "note": "1283 m imprimés ; 1re cat. ; imprimé « COL DU SALEVE » ; le col de la Croisette (Nominatim, mountain_pass) est à 1 174 m, pas à 1 283 ; aucun autre col de ce nom : non placé (audit Mireille)",
        "confidence": "non-place"
       },
       {
@@ -5099,11 +5111,8 @@
        "label": "Mornex",
        "km": 81.5,
        "kind": "ville",
-       "note": "650 m imprimés ; mairie de Monnetier-Mornex, à Mornex (Nominatim, poteau « Monnetier Mornex (Mairie) »), MNT 549 m pour 650 : le géocodeur avait pris le centre de la commune, à 868 m (règles 6, 14)",
-       "lat": 46.1617934,
-       "lon": 6.2280998,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "650 m imprimés ; la mairie de Monnetier-Mornex, à Mornex, est à 549 m et le village à 507 m : la route passe à 650 m au-dessus du village, entre Monnetier (694 m) et Mornex ; passage non situé, non placé (règle 14) (audit Mireille)",
+       "confidence": "non-place"
       },
       {
        "label": "Gaillard",
@@ -5117,17 +5126,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 76.7,
+      "routed_km": 75.6,
       "profile_km": 79,
-      "delta_pct": -2.9,
+      "delta_pct": -4.3,
       "tolerance_pct": 5,
       "coverage_pct": 91,
       "car_legs": 0,
-      "legs": 11,
+      "legs": 9,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 1
-     }
+     },
+     "note": "Le col du Salève n'est pas placé : le routage ne passe pas par la crête et fait un aller-retour de 3,8 km vers Gaillard depuis Monnetier (Collonges-sous-Salève et Mornex sont retirés, passage au-dessus des villages) ; l'écart de l'étape (−4,3 %) est obtenu avec cet aller-retour et ne vaut pas mesure (règle 24)."
     },
     "7b": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1973/73_7b.jpg",
@@ -5183,8 +5193,11 @@
        "label": "Saxia Le Petit-Bornand-les-Glières",
        "km": 30.5,
        "kind": "ville",
-       "note": "727 m imprimés ; imprimé « SAXIA LE PETIT-BORNAND-LES-GLIERES » ; ravitaillement (roue)",
-       "confidence": "non-place"
+       "note": "727 m imprimés ; imprimé « SAXIA LE PETIT-BORNAND-LES-GLIERES » ; ravitaillement (roue) ; hameau de Saxias (Le Petit-Bornand-les-Glières), MNT 724 m pour 727 (règle 21) (audit Mireille)",
+       "confidence": "ok",
+       "lat": 46.01274,
+       "lon": 6.3968,
+       "how": "nominatim"
       },
       {
        "label": "Entremont",
@@ -5371,15 +5384,15 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Gaillard → Reignier 6,9 km à vol d'oiseau pour 4 au profil, départ réel hors du centre, non situé (règle 25).",
+     "note": "Départ : Gaillard → Reignier 6,9 km à vol d'oiseau pour 4 au profil, départ réel hors du centre, non situé (règle 25). La Roche-sur-Foron → Saint-Pierre-en-Faucigny : 5,1 km à vélo, 6 en voiture, pour 11 au profil ; même longueur en voiture : le parcours fait un détour que le profil ne nomme pas (règles 11, 20).",
      "route_check": {
-      "routed_km": 140.5,
+      "routed_km": 140.8,
       "profile_km": 146,
-      "delta_pct": -3.8,
+      "delta_pct": -3.6,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 19,
+      "legs": 20,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -5426,7 +5439,7 @@
        "label": "Passage sur R.N. 9",
        "km": 15.5,
        "kind": "lieu-dit",
-       "note": "imprimé « PASSAGE SUR R.N. 9 »",
+       "note": "imprimé « PASSAGE SUR R.N. 9 » ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme, nom seul et variantes) : aucun lieu de ce nom compatible avec le profil ; non placé",
        "confidence": "non-place"
       },
       {
@@ -5453,7 +5466,7 @@
        "label": "Carrefour D 37-N 612",
        "km": 24.5,
        "kind": "lieu-dit",
-       "note": "imprimé « CARREFOUR D. 37-N. 612 »",
+       "note": "imprimé « CARREFOUR D. 37-N. 612 » ; croisement des deux numéros cherché dans la BD TOPO (Géoplateforme) : absent, numéros d'avant 1972 ou renumérotés ; non placé",
        "confidence": "non-place"
       },
       {
@@ -5818,18 +5831,21 @@
        "label": "Carrefour près Louchats",
        "km": 146.5,
        "kind": "lieu-dit",
-       "note": "imprimé « CARREFOUR PRES LOUCHATS »",
-       "confidence": "non-place"
+       "note": "imprimé « CARREFOUR PRES LOUCHATS » ; bourg de Louchats (point de 2003/17), MNT 71 m ; carrefour non situé, Louchats tient dans le profil (règle 5) (audit Mireille)",
+       "confidence": "ok",
+       "lat": 44.51253,
+       "lon": -0.5669,
+       "how": "nominatim"
       },
       {
        "label": "Villagrains",
        "km": 153,
        "kind": "lieu-dit",
-       "note": "47 m imprimés",
-       "lat": 44.60656,
-       "lon": -0.55338,
+       "note": "47 m imprimés ; hameau de Villagrains, comme en 1974/19a, 1977/5a, 1981/7, 1985/19, 1988/17 et 2003/17, MNT 55 m : le géocodeur avait pris le centre de Cabanac-et-Villagrains (règles 6, 21) (audit Mireille)",
+       "lat": 44.56966,
+       "lon": -0.59406,
        "how": "nominatim",
-       "confidence": "ambigu"
+       "confidence": "ok"
       },
       {
        "label": "Saucats",
@@ -5914,14 +5930,14 @@
       }
      ],
      "route_check": {
-      "routed_km": 202.1,
+      "routed_km": 204.4,
       "profile_km": 199,
-      "delta_pct": 1.6,
+      "delta_pct": 2.7,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 22,
-      "suspect_legs": 1,
+      "legs": 23,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -5973,7 +5989,7 @@
        "label": "Côte de Senlisse",
        "km": 21,
        "kind": "côte",
-       "note": "176 m imprimés ; 4e cat. ; imprimé « COTE DE SENLISSE » ; limite Yvelines/Essonne",
+       "note": "176 m imprimés ; 4e cat. ; imprimé « COTE DE SENLISSE » ; limite Yvelines/Essonne ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme, nom seul et variantes) : aucun lieu de ce nom compatible avec le profil ; non placé",
        "confidence": "non-place"
       },
       {
