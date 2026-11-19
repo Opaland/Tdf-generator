@@ -2064,6 +2064,25 @@ et côtes traversées avec leur kilomètre.
   23 +8), 1984/0 non contrôlable ; 18 tronçons suspects, 8 allers-retours, 4 incertains.
   **Reste, story non cochée :** remesurer à vélo, puis trier ces écarts et noter
   leurs causes (règle 16). Chiffres de voiture : à ne pas lire comme un résultat.
+- [ ] Édition 1973 (routine quotidienne du 19/11/2026, tentative 1/10) :
+  aucune étape de 1973 n'est encore transcrite. Profils de ledicodutour.com
+  (`images/cartes_etapes/1967_1976/1973/73_<N>.jpg`, `73_N` = profil ;
+  demi-étapes `73_2b`, `73_7a`, `73_7b`, `73_12a`, `73_12b`, `73_16a`,
+  `73_20b` ; 21 fichiers, md5 tous distincts, titres vérifiés sur la
+  planche). Non transcrits, faute d'image : prologue de Scheveningen, 1a,
+  1b, 2a (contre-la-montre par équipes), 16b et 20a (contre-la-montre).
+  Critères d'acceptation : ceux de 1974 (règle 4, longueurs contre
+  stage_towns, classe OSM et nom de chaque candidat, nom seul et
+  orthographes locales cherchés, altitude point par point et relief qui
+  atteint l'altitude imprimée avant tout retrait, filtre d'altitude sans
+  écarter un nom exact, « près X » au bourg quand le profil le permet,
+  km peu lisibles tranchés à l'échelle, départs et arrivées à la main,
+  départ en altitude vérifié par la route, contrôle à vélo sans tronçon
+  en voiture évitable, tronçons suspects triés et notés, test d'invariant
+  avec la paire réellement fautive localisée, circuits à l'entrée
+  imprimée, carrefours numérotés cherchés au croisement des routes (BD
+  TOPO), source_url vérifiée contre l'image transcrite, audit Mireille,
+  écarts en issue).
 - [x] Édition 1974 (routine quotidienne du 18/11/2026, tentative 1/10 ;
   le déclenchement du 17/11 n'a pas tourné, session inactive) : aucune
   étape de 1974 n'est encore transcrite. Profils de ledicodutour.com
