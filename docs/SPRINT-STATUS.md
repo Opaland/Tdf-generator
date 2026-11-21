@@ -2063,7 +2063,9 @@ et côtes traversées avec leur kilomètre.
   23 +8), 1984/0 non contrôlable ; 18 tronçons suspects, 8 allers-retours, 4 incertains.
   **Reste, story non cochée :** remesurer à vélo, puis trier ces écarts et noter
   leurs causes (règle 16). Chiffres de voiture : à ne pas lire comme un résultat.
-- [ ] Édition 1972 (routine quotidienne du 20/11/2026, tentative 1/10) :
+- [ ] Édition 1972 (routine quotidienne du 20/11/2026, tentative 1/10,
+  reprise le 21/11 en tentative 2/10 — la session du 20/11 est restée
+  inactive après la recherche bornée) :
   aucune étape de 1972 n'est encore transcrite. Profils de ledicodutour.com
   (`images/cartes_etapes/1967_1976/1972/72_<N>.jpg`, `72_N` = profil ;
   demi-étapes `72_3a`, `72_5a`, `72_14a`, `72_14b`, `72_20a`, `72_20b` ;

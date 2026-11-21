@@ -403,8 +403,11 @@
        "label": "Saint-Rémy-du-Plein",
        "km": 137,
        "kind": "ville",
-       "note": "60 m imprimés ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme, nom seul et variantes) : aucun lieu de ce nom compatible avec le profil ; non placé",
-       "confidence": "non-place"
+       "note": "60 m imprimés ; imprimé « SAINT-REMY-DU-PLEIN » ; mairie de Saint-Rémy-du-Plain, graphie de la commune (Nominatim), MNT 104 m pour 60 (règle 21) (audit Mireille)",
+       "lat": 48.3694106,
+       "lon": -1.5714816,
+       "how": "nominatim",
+       "confidence": "ok"
       },
       {
        "label": "Saint-Léger-des-Prés",
@@ -428,9 +431,9 @@
       },
       {
        "label": "Meillac",
-       "km": 158,
+       "km": 156,
        "kind": "ville",
-       "note": "58 m imprimés",
+       "note": "58 m imprimés ; km lu 158, pointillé mesuré à 156,3 ; le 6 imprimé ressemble à un 8, l'échelle tranche (règle 3) ; Combourg → Meillac 4,6 km à vol d'oiseau pour 5 (audit Mireille)",
        "lat": 48.41175,
        "lon": -1.81185,
        "how": "commune-ign",
@@ -557,13 +560,13 @@
      ],
      "note": "Départ : Angers → Avrillé 4,7 km à vol d'oiseau pour 4 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 241.4,
+      "routed_km": 241.1,
       "profile_km": 231,
-      "delta_pct": 4.5,
+      "delta_pct": 4.4,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 29,
+      "legs": 30,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -848,7 +851,7 @@
       }
      ],
      "circuit_km": 194,
-     "note": "Circuit final de La Baule : 1er passage sur la ligne au km 194, arrivée au km 206 ; circuit_km au 1er passage (règle 19).",
+     "note": "Circuit final de La Baule : 1er passage sur la ligne au km 194, arrivée au km 206 ; circuit_km au 1er passage (règle 19). Départ : Saint-Brieuc → Carrefour Malakoff 10,8 km à vol d'oiseau pour 9 au profil, départ réel hors du centre, non situé (règle 25). Le Pouliguen → La Baule (1er passage) : 3,1 km à vol d'oiseau pour 1 au profil : la ligne d'arrivée de La Baule était vraisemblablement à l'ouest de la ville, l'ancre de l'arrivée (centre) n'est pas sourcée.",
      "route_check": {
       "routed_km": 188.8,
       "profile_km": 185,
@@ -939,10 +942,10 @@
        "label": "Les Sables-d'Olonne",
        "km": 41,
        "kind": "ville",
-       "note": "8 m imprimés ; symbole roue cerclée sous la colonne",
-       "lat": 46.52633,
-       "lon": -1.76785,
-       "how": "commune-ign",
+       "note": "8 m imprimés ; symbole roue cerclée sous la colonne ; hôtel de ville des Sables-d'Olonne (place du Poilu), MNT 4 m pour 8 : le géocodeur avait pris le centre de la commune nouvelle, à 0,85 km d'Olonne ; Olonne → Les Sables 4,2 km à vol d'oiseau pour 5 (règles 6, 15) (audit Mireille)",
+       "lat": 46.49694,
+       "lon": -1.78434,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -1226,14 +1229,14 @@
      ],
      "note": "Départ : Merlin-Plage → Saint-Hilaire-de-Riez 7,6 km à vol d'oiseau pour 7 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 231,
+      "routed_km": 233.9,
       "profile_km": 229,
-      "delta_pct": 0.9,
+      "delta_pct": 2.2,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
       "legs": 31,
-      "suspect_legs": 1,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -1439,7 +1442,7 @@
        "label": "Labenne",
        "km": 183,
        "kind": "ville",
-       "note": "12 m imprimés ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme, nom seul et variantes) : aucun lieu de ce nom compatible avec le profil ; non placé",
+       "note": "12 m imprimés ; Labenne existe (43.5977, -1.42811) et tient vers Quartier-Neuf (8,2 km pour 9,5), mais est à 6,7 km d'Hossegor (mairie de Soorts-Hossegor) pour 5 au profil : paire Hossegor / Labenne incompatible, non placé (audit Mireille)",
        "confidence": "non-place"
       },
       {
@@ -2435,8 +2438,11 @@
        "label": "Lacaune-les-Bains",
        "km": 46,
        "kind": "ville",
-       "note": "620 m imprimés ; imprimé « LACAUNE-LES-BAINS » ; recherche bornée autour des voisins (Nominatim et index POI de la Géoplateforme, nom seul et variantes) : aucun lieu de ce nom compatible avec le profil ; non placé",
-       "confidence": "non-place"
+       "note": "620 m imprimés ; imprimé « LACAUNE-LES-BAINS » ; mairie de Lacaune (Nominatim), MNT 798 m pour 620 imprimés, cohérent avec le décalage d'environ 170 m de l'échelle de ce profil ; la recherche bornée l'avait écarté par son filtre d'altitude (règles 14, 21) (audit Mireille)",
+       "lat": 43.70673,
+       "lon": 2.69136,
+       "how": "nominatim",
+       "confidence": "ok"
       },
       {
        "label": "Moulin-Mage",
@@ -2494,9 +2500,9 @@
       },
       {
        "label": "Hérépian",
-       "km": 98,
+       "km": 96,
        "kind": "ville",
-       "note": "170 m imprimés ; imprimé « HÉREPIAN »",
+       "note": "170 m imprimés ; imprimé « HÉREPIAN » ; km lu 98, pointillé mesuré à 96,0 ; le 6 imprimé ressemble à un 8, l'échelle tranche (règle 3) ; Col des Treize-Vents → Hérépian 6,9 km à vol d'oiseau pour 8, Hérépian → Bédarieux 4,2 pour 5 (audit Mireille)",
        "lat": 43.5939,
        "lon": 3.11514,
        "how": "commune-ign",
@@ -2630,16 +2636,16 @@
        "confidence": "ok"
       }
      ],
-     "note": "Les altitudes imprimées de ce profil sont décalées d'environ 170 m vers le bas sur toute la première moitié (Castres « 10 m » pour 173 au MNT, Brassac 310 pour 489, Oulès 500 pour 678, Moulin-Mage 662 pour 840, Murat-sur-Vèbre 670 pour 838, col de la Bassine 630 pour 885) : c'est l'échelle du profil qui dévie, les points sont gardés (règle 14).",
+     "note": "Les altitudes imprimées de ce profil sont décalées d'environ 170 m vers le bas sur toute la première moitié (Castres « 10 m » pour 173 au MNT, Brassac 310 pour 489, Oulès 500 pour 678, Moulin-Mage 662 pour 840, Murat-sur-Vèbre 670 pour 838, col de la Bassine 630 pour 885) : c'est l'échelle du profil qui dévie, les points sont gardés (règle 14). Oulès → Col de la Bassine : 6,8 km à vol d'oiseau pour 5,5 au profil ; Brassac → Oulès 4,7 pour 9 : la Bassine est vraisemblablement mal située (relief à 885 m) ; passage exact non sourcé.",
      "route_check": {
-      "routed_km": 186.5,
+      "routed_km": 186.6,
       "profile_km": 187,
-      "delta_pct": -0.3,
+      "delta_pct": -0.2,
       "tolerance_pct": 5,
       "coverage_pct": 89,
       "car_legs": 0,
-      "legs": 19,
-      "suspect_legs": 3,
+      "legs": 20,
+      "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -2719,8 +2725,11 @@
        "label": "Carrefour Montcalm",
        "km": 48,
        "kind": "lieu-dit",
-       "note": "imprimé « CARREFOUR MONTCALM » ; le quartier le Montcalm (Vauvert, IGN) est au nord, à 11,6 km à vol d'oiseau de Mas des Iscles pour 7 au profil : incompatible ; recherche bornée autour des voisins sans autre lieu de ce nom : non placé (règles 9, 21)",
-       "confidence": "non-place"
+       "note": "imprimé « CARREFOUR MONTCALM » ; hameau de Montcalm (Vauvert, Camargue), MNT 1 m ; Marsillargues → Montcalm 15 km à vol d'oiseau pour 17 ; le quartier le Montcalm, au nord de Vauvert, avait été écarté à juste titre (règles 9, 21) (audit Mireille)",
+       "lat": 43.57195,
+       "lon": 4.31418,
+       "how": "nominatim",
+       "confidence": "ok"
       },
       {
        "label": "Mas des Iscles",
@@ -2899,18 +2908,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 184.9,
+      "routed_km": 200.7,
       "profile_km": 198.5,
-      "delta_pct": -6.9,
+      "delta_pct": 1.1,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 16,
+      "legs": 17,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 1
      },
-     "note": "Hors tolérance à vélo (−6,9 %, 184,9 km pour 198,5), pas en voiture (+2,9 %, 204,2 km) : entre Marsillargues (km 31) et Bellegarde (km 82), aucun point n'est placé (Carrefour N 579-D 58 et Saint-Gilles sans km imprimé, Montcalm incompatible, Mas des Iscles hors route) ; BRouter traverse la Camargue en 38,1 km, la voiture en 49,5, pour 51 au profil."
+     "note": "Aller-retour incertain d'1 km à Tavel (point non placé sauté)."
     },
     "12": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1972/72_12.jpg",
@@ -3409,10 +3418,10 @@
        "label": "Arvieux",
        "km": 167,
        "kind": "ville",
-       "note": "1466 m imprimés ; MNT 1 574 m au centre de la commune pour 1 466 imprimés : la route passe vraisemblablement en contrebas du village, écart de 108 m noté",
-       "lat": 44.76811,
-       "lon": 6.73927,
-       "how": "commune-ign",
+       "note": "1466 m imprimés ; mairie d'Arvieux (route de l'Izoard), MNT 1 552 m pour 1 466 (règle 17) (audit Mireille)",
+       "lat": 44.7671,
+       "lon": 6.73881,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -3464,9 +3473,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 192.9,
+      "routed_km": 192.7,
       "profile_km": 193,
-      "delta_pct": 0,
+      "delta_pct": -0.1,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
@@ -3520,8 +3529,11 @@
        "label": "Châtenod",
        "km": 11.5,
        "kind": "lieu-dit",
-       "note": "470 m imprimés ; imprimé « CHÂTENOD » ; le hameau de Châtenod (Trévignin, Nominatim) est à 622 m au MNT pour 470 imprimés : la route passe sous le hameau, passage non situé, non placé (règle 14)",
-       "confidence": "non-place"
+       "note": "470 m imprimés ; imprimé « CHÂTENOD » ; hameau de Chatenod (Pugny-Chatenod), MNT 485 m pour 470 ; Méry → Chatenod 6 km à vol d'oiseau pour 6 ; le premier candidat était un hameau de Trévignin à 622 m (règles 14, 21) (audit Mireille)",
+       "lat": 45.69685,
+       "lon": 5.94205,
+       "how": "nominatim",
+       "confidence": "ok"
       },
       {
        "label": "Trévignin",
@@ -3561,15 +3573,15 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Aix-les-Bains → Viviers-du-Lac 4,5 km à vol d'oiseau pour 3,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (+9,9 %, 26,9 km pour 24,5, soit 2,4 km) : contre-la-montre court ; le départ réel est hors du centre d'Aix-les-Bains (4,5 km à vol d'oiseau jusqu'à Viviers-du-Lac pour 3,5), Mouxy n'a pas de km imprimé, Châtenod n'est pas placé et l'arrivée « carrefour embranchement des hôtels » du Revard n'est pas située.",
+     "note": "Départ : Aix-les-Bains → Viviers-du-Lac 4,5 km à vol d'oiseau pour 3,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (+10,8 %, 27,1 km pour 24,5, soit 2,6 km ; +10,2 % en voiture) : contre-la-montre court ; le départ réel est hors du centre d'Aix-les-Bains (4,5 km à vol d'oiseau jusqu'à Viviers-du-Lac pour 3,5), Viviers → Méry fait 2,6 km à vol d'oiseau pour 2, Mouxy n'a pas de km imprimé et l'arrivée « carrefour embranchement des hôtels » du Revard n'est pas située.",
      "route_check": {
-      "routed_km": 26.9,
+      "routed_km": 27.1,
       "profile_km": 24.5,
-      "delta_pct": 9.9,
+      "delta_pct": 10.8,
       "tolerance_pct": 5,
       "coverage_pct": 88,
       "car_legs": 0,
-      "legs": 4,
+      "legs": 5,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -3781,7 +3793,7 @@
        "label": "Morbier",
        "km": 128,
        "kind": "ville",
-       "note": "930 m imprimés ; MNT 828 m pour 930 imprimés, écart de 102 m : lieu exact du passage non situé",
+       "note": "930 m imprimés ; MNT 828 m pour 930 imprimés, écart de 102 m : lieu exact du passage non situé ; courbe non culminante sous le nom, aucun autre lieu de ce nom : point gardé, écart de la source vraisemblable (règle 14)",
        "lat": 46.53632,
        "lon": 6.01695,
        "how": "commune-ign",
@@ -3933,8 +3945,11 @@
        "label": "Maisons-du-Bois",
        "km": 8,
        "kind": "ville",
-       "note": "980 m imprimés ; « 980 m » net au zoom, au sommet d'une bosse de la courbe ; Maisons-du-Bois est à 820 m au MNT : passage au-dessus du village, non situé, non placé (règle 14)",
-       "confidence": "non-place"
+       "note": "980 m imprimés ; Maisons-du-Bois (Maisons-du-Bois-Lièvremont, Nominatim), MNT 820 m pour 980 imprimés : Arçon → Montbenoît fait 8,1 km à vol d'oiseau pour 8, la route suit la vallée, dont le relief va de 806 à 863 m, jamais 980 : c'est la source qui dévie (règle 14) (audit Mireille)",
+       "lat": 46.96687,
+       "lon": 6.42123,
+       "how": "nominatim",
+       "confidence": "ok"
       },
       {
        "label": "Montbenoît",
@@ -4205,15 +4220,15 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Pontarlier → Arçon 5,1 km à vol d'oiseau pour 4 au profil, départ réel hors du centre, non situé (règle 25).",
+     "note": "Départ : Pontarlier → Arçon 5,1 km à vol d'oiseau pour 4 au profil, départ réel hors du centre, non situé (règle 25). Willer-sur-Thur → Fellering : 8,6 km à vol d'oiseau pour 7,5 au profil, km relus (166,5) : Fellering est à l'ancre du centre de la commune, passage exact non situé.",
      "route_check": {
-      "routed_km": 212.1,
+      "routed_km": 212.5,
       "profile_km": 209,
-      "delta_pct": 1.5,
+      "delta_pct": 1.7,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 24,
+      "legs": 25,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -4487,8 +4502,11 @@
        "label": "Les Souillats",
        "km": 190.5,
        "kind": "lieu-dit",
-       "note": "190 m imprimés ; le géocodeur avait pris un lieu « Les Souillats » à 369 m au MNT pour 190 imprimés : homonyme vraisemblable, non placé (règles 14, 21)",
-       "confidence": "non-place"
+       "note": "190 m imprimés ; hameau des Souillats (Bierry-les-Belles-Fontaines, Nominatim), MNT 369 m pour 190 imprimés : le relief alentour va de 274 à 360 m, rien n'atteint 190 : c'est la source qui dévie (règle 14) (audit Mireille)",
+       "lat": 47.61092,
+       "lon": 4.15719,
+       "how": "nominatim",
+       "confidence": "ok"
       },
       {
        "label": "Sarry",
@@ -4572,15 +4590,15 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Vesoul → Velle-le-Châtel 8,4 km à vol d'oiseau pour 6 au profil, départ réel hors du centre, non situé (règle 25).",
+     "note": "Départ : Vesoul → Velle-le-Châtel 8,4 km à vol d'oiseau pour 6 au profil, départ réel hors du centre, non situé (règle 25). Velle-le-Châtel → Raze : 3,2 km à vol d'oiseau pour 8 au profil, détour non nommé ; Saint-Cyr-les-Colons → Vincelottes : 15,8 km routés pour 11 (la côte Neuve, km 238, n'est pas placée) et aller-retour incertain de 4,6 km à Vincelottes : écart de l'étape à lire avec réserve (règle 24).",
      "route_check": {
-      "routed_km": 254.4,
+      "routed_km": 254.5,
       "profile_km": 251.5,
       "delta_pct": 1.2,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 28,
+      "legs": 29,
       "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 1
@@ -4901,7 +4919,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Auxerre → Bleury 14,2 km à vol d'oiseau pour 14 au profil, départ réel hors du centre, non situé (règle 25).",
+     "note": "Départ : Auxerre → Près Saint-Georges-sur-Baulche 2,6 km à vol d'oiseau pour 2,5 au profil.",
      "route_check": {
       "routed_km": 229.6,
       "profile_km": 227.5,
@@ -5147,7 +5165,8 @@
       "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Nantes → Rezé : 3,3 km à vol d'oiseau pour 2 au profil, Nantes à l'ancre du centre (passage exact non situé) ; Carrefour Le Perrier → Saint-Jean-de-Monts : 5,7 km pour 12,5, détour non nommé."
     },
     "5a": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1972/72_5a.jpg",
@@ -5392,7 +5411,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Hors tolérance à vélo (+9,0 %, 141,1 km pour 129,5) et plus encore en voiture (+15,5 %) : Pont d'Aquitaine → Bordeaux fait 9,4 km à vélo pour 5,5 au profil, l'arrivée étant laissée à l'ancre du centre de Bordeaux (lieu exact non sourcé, le point de 1996 écarté) ; le pont d'Aquitaine, autoroutier, n'est pas routé à vélo comme en course."
+     "note": "Hors tolérance à vélo (+9,0 %, 141,1 km pour 129,5) et plus encore en voiture (+15,5 %) : Pont d'Aquitaine → Bordeaux fait 9,4 km à vélo pour 5,5 au profil (l'arrivée est laissée à l'ancre du centre de Bordeaux, le point de 1996 écarté), ce qui explique environ 3,9 km de l'écart ; le reste se répartit en petits excédents sur tout l'estuaire (Blaye → Ambarès, 0,3 à 0,7 km par tronçon) ; cause non établie pour le solde."
     },
     "14a": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1972/72_14a.jpg",
@@ -5694,7 +5713,7 @@
       }
      ],
      "circuit_km": 147.5,
-     "note": "Circuit final de Aix-les-Bains : 1er passage sur la ligne au km 147,5, arrivée au km 151 ; circuit_km au 1er passage (règle 19).",
+     "note": "Circuit final de Aix-les-Bains : 1er passage sur la ligne au km 147,5, arrivée au km 151 ; circuit_km au 1er passage (règle 19). Viviers-du-Lac → Aix-les-Bains (1er passage) : 4,5 km à vol d'oiseau pour 8,5 au profil, la boucle avant la ligne n'est pas nommée.",
      "route_check": {
       "routed_km": 140.3,
       "profile_km": 142.5,
@@ -5814,9 +5833,9 @@
       },
       {
        "label": "Gif-sur-Yvette",
-       "km": 28.5,
+       "km": 26.5,
        "kind": "ville",
-       "note": "pas d'altitude ; retour dans les Yvelines",
+       "note": "pas d'altitude ; retour dans les Yvelines ; km imprimé « 26,5 », transcrit 28,5 : pointillé mesuré à 26,3 ; le 6 imprimé ressemble à un 8, l'échelle tranche (règle 3) (audit Mireille)",
        "lat": 48.70188,
        "lon": 2.13453,
        "how": "commune-ign",
@@ -5826,7 +5845,7 @@
        "label": "Châteaufort",
        "km": 31.5,
        "kind": "ville",
-       "note": "100 m imprimés ; imprimé « CHATEAUFORT » ; mairie de Châteaufort (Nominatim) ; Gif-sur-Yvette (mairie) → Châteaufort 5 km à vol d'oiseau pour 3 au profil : écart non résolu (règle 11)",
+       "note": "100 m imprimés ; imprimé « CHATEAUFORT » ; mairie de Châteaufort (Nominatim) ; Gif-sur-Yvette → Châteaufort 5 km à vol d'oiseau pour 5 au profil",
        "lat": 48.7371763,
        "lon": 2.091988,
        "how": "nominatim",
@@ -5888,11 +5907,11 @@
       "coverage_pct": 89,
       "car_legs": 0,
       "legs": 12,
-      "suspect_legs": 1,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Hors tolérance à vélo (+12,1 %, 42 km pour 37,5) comme en voiture (+19,7 %) : Gif-sur-Yvette → Châteaufort fait 5 km à vol d'oiseau entre les deux mairies pour 3 au profil (écart non résolu), et Villeras → Igny → Palaiseau est plus long que le profil (5,7 et 4,3 km à vélo pour 4 et 3)."
+     "note": "Hors tolérance à vélo (+12,1 %, 42 km pour 37,5) comme en voiture (+19,7 %) : Carrefour Villeras → Igny fait 5,7 km à vélo pour 4, Igny → Palaiseau 4,3 pour 3 et Palaiseau → Orsay 5,1 pour 4 — tronçons tous plus longs que le profil, passages exacts non sourcés (centres des communes)."
     },
     "20b": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1972/72_20b.jpg",

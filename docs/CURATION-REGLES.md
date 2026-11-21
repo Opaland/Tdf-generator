@@ -44,6 +44,11 @@ dans la même PR que son correctif.
    source** : Villevieux (1975/19), transcrit 168 et noté « écart de la
    source » (17 km à vol d'oiseau pour 15), était imprimé 166 — colonne
    mesurée vers 165,5 à 32 px/km (audit Mireille).
+   **Sur les profils de 1972-1973, le 6 se lit comme un 8** (chiffres de
+   3 à 4 px) : Surgères, Saint-Savinien, le col d'Aspin et Orcières,
+   transcrits 158, 188, 118,5 et 188, étaient à 156, 186, 116,5 et 186 à
+   l'échelle (1972, relecture au zoom). Tout km en 8 qui s'écarte de sa
+   colonne de 2 km se mesure avant d'être gardé.
 4. **Un nom sans km imprimé n'est pas placé**, même si sa position sur
    l'axe semble lisible — il garde une note qui le dit (Le Champ du Feu
    1987/6). Exception tolérée : un col majeur indispensable à la mesure,
@@ -186,6 +191,14 @@ dans la même PR que son correctif.
     mesure le rocher au-dessus (Grand Tunnel, 2015/20 : 1 465 m au point,
     1 281 et 1 288 aux portails pour 1 320 imprimés) — le point avait été
     refusé à tort.
+    **Un décalage constant sur tout un profil vient de l'échelle de la
+    source** : en 1972/10, Castres (« 10 m » pour 173), Brassac, Oulès,
+    Moulin-Mage et Murat-sur-Vèbre sont tous 160 à 180 m au-dessus de
+    l'imprimé — les points se gardent, la note d'étape le dit ; on ne
+    retire pas un point pour un écart que tous ses voisins partagent.
+    Sur un tel profil, **la recherche bornée se relance sans filtre
+    d'altitude** (ou avec le décalage appliqué) : Lacaune (798 m pour
+    620 imprimés) y avait été déclarée introuvable (audit Mireille).
     **Un filtre d'altitude de recherche n'écarte pas un nom exact** : la
     recherche bornée garde ses candidats à ±40 m de l'imprimé, mais un
     candidat qui porte exactement le nom imprimé et tient dans le profil
