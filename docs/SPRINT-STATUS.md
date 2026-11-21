@@ -2063,6 +2063,35 @@ et côtes traversées avec leur kilomètre.
   23 +8), 1984/0 non contrôlable ; 18 tronçons suspects, 8 allers-retours, 4 incertains.
   **Reste, story non cochée :** remesurer à vélo, puis trier ces écarts et noter
   leurs causes (règle 16). Chiffres de voiture : à ne pas lire comme un résultat.
+- [x] Édition 1972 (routine quotidienne du 20/11/2026, tentative 1/10,
+  reprise le 21/11 en tentative 2/10 — la session du 20/11 est restée
+  inactive après la recherche bornée) :
+  aucune étape de 1972 n'est encore transcrite. Profils de ledicodutour.com
+  (`images/cartes_etapes/1967_1976/1972/72_<N>.jpg`, `72_N` = profil ;
+  demi-étapes `72_3a`, `72_5a`, `72_14a`, `72_14b`, `72_20a`, `72_20b` ;
+  23 fichiers, md5 tous distincts, titres vérifiés sur la planche).
+  Non transcrits : prologue d'Angers (`72_0` = profil de rues, sans
+  commune), 3b et 5b (contre-la-montre, sans image). `72_20b` dessine le
+  même parcours que `73_20b` (Versailles → piste de Vincennes, 89 km),
+  sur une image distincte : à confirmer. Critères d'acceptation : ceux de
+  1973 (dont le km 0 sous la colonne où la courbe commence, les noms
+  flamands et basques sous leur forme locale, les carrefours numérotés
+  au croisement des routes avec l'hypothèse de numérotation écrite, les
+  `non-place` sans motif retirés avant chaque relance du géocodeur, et une
+  note « ce qui a été essayé » sur chaque non placé hors règle 4).
+  Fait : 22 étapes ajoutées, 578 points dont 491 placés ; 19 étapes dans
+  la tolérance, 3 hors, cause notée (5a : +9 %, arrivée de Bordeaux ;
+  15 : +10,8 %, contre-la-montre court ; 20a : +12,1 %) ; aucun tronçon
+  en voiture. Transcription par trois agents, doutes tranchés à l'échelle
+  (le 6 lu comme un 8 : Surgères, Saint-Savinien, Aspin, Orcières, puis
+  Gif, Hérépian, Meillac en audit) ; départs réels à Carnon, Pont-du-Fossé
+  et Merlin-Plage ; circuits finaux de La Baule et d'Aix-les-Bains ;
+  échelle d'altitude du profil 10 décalée d'environ 170 m ; 6 carrefours
+  au croisement des routes (BD TOPO). Audit Mireille : 12 écarts
+  bloquants (km « 6 lu 8 », six points retirés ou déclarés introuvables
+  à tort, Les Sables-d'Olonne sur la commune nouvelle, tronçons sans note)
+  et 6 autres, corrigés ou notés ; règles 3 et 14 précisées ; écarts
+  restants en issue #595.
 - [x] Édition 1973 (routine quotidienne du 19/11/2026, tentative 1/10) :
   aucune étape de 1973 n'est encore transcrite. Profils de ledicodutour.com
   (`images/cartes_etapes/1967_1976/1973/73_<N>.jpg`, `73_N` = profil ;
