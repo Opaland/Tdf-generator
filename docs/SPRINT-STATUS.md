@@ -2064,7 +2064,7 @@ et côtes traversées avec leur kilomètre.
   23 +8), 1984/0 non contrôlable ; 18 tronçons suspects, 8 allers-retours, 4 incertains.
   **Reste, story non cochée :** remesurer à vélo, puis trier ces écarts et noter
   leurs causes (règle 16). Chiffres de voiture : à ne pas lire comme un résultat.
-- [ ] Édition 1971 (routine quotidienne du 22/11/2026, tentative 1/10) :
+- [x] Édition 1971 (routine quotidienne du 22/11/2026, tentative 1/10) :
   aucune étape de 1971 n'est encore transcrite. Profils de ledicodutour.com
   (`images/cartes_etapes/1967_1976/1971/71_<N>.jpg`, `71_N` = profil ;
   demi-étapes `71_1a`, `71_1b`, `71_1c`, `71_6a`, `71_6b`, `71_16a`,
@@ -2073,7 +2073,17 @@ et côtes traversées avec leur kilomètre.
   image). Critères d'acceptation : ceux de 1972 (dont le 6 lu comme un 8
   tranché à l'échelle, l'échelle d'altitude d'un profil vérifiée avant
   tout retrait, et la recherche bornée sans filtre d'altitude sur un
-  profil décalé).
+  profil décalé)).
+  Fait : 24 étapes ajoutées, 615 points dont 522 placés ; 18 étapes sur
+  23 contrôlables dans la tolérance, 5 hors, cause notée (13 : −14 %,
+  contre-la-montre sur le circuit d'Albi ; 18 : +5,6 % ; 1a : +10,9 %,
+  arrivée de Bâle ; 1c : +7,1 % ; 6a : +5,2 % — en voiture plus longs
+  encore) ; 15 non contrôlable (deux points seulement) ; aucun aller-
+  retour, un seul tronçon en voiture (route du puy de Dôme, inévitable).
+  Audit de curation (Mireille) appliqué : sept noms sans km propre
+  retirés (règle 4), Thiaucourt et la côte de Montmédy retirés (règles 14
+  et 5), Béney au village, départ des Quatre Pavillons, arrivées de
+  Tomblaine et du vélodrome de Roubaix. Écarts restants : issue #598.
 - [x] Édition 1972 (routine quotidienne du 20/11/2026, tentative 1/10,
   reprise le 21/11 en tentative 2/10 — la session du 20/11 est restée
   inactive après la recherche bornée) :
