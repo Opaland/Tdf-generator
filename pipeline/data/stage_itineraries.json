@@ -460,7 +460,7 @@
        "label": "Strasbourg",
        "km": 144,
        "kind": "ville",
-       "note": "145 m imprimés ; arrivée ; « (STADE TIVOLI) »",
+       "note": "145 m imprimés ; arrivée ; « (STADE TIVOLI) » ; imprimé « (STADE TIVOLI) » : emplacement du stade non trouvé (Nominatim ne connaît que le hall et le square Tivoli, au Wacken), arrivée laissée au centre de Strasbourg (règle 18, audit Mireille)",
        "lat": 48.58461,
        "lon": 7.75071,
        "how": "stage_towns",
@@ -702,7 +702,7 @@
        "label": "Avricourt",
        "km": 109,
        "kind": "ville",
-       "note": "142 m imprimés ; altitude imprimée « 142 » (creux marqué sur la courbe) ; colonne mesurée ≈ 109,2–109,9",
+       "note": "142 m imprimés ; altitude imprimée « 142 » (creux marqué sur la courbe) ; colonne mesurée ≈ 109,2–109,9 ; MNT 289 m pour 142, creux marqué sur la courbe sans vallée à cette cote sur le plateau lorrain : chiffre vraisemblablement fautif ; point gardé (règle 14, audit Mireille)",
        "lat": 48.6453,
        "lon": 6.80608,
        "how": "commune-ign",
@@ -799,17 +799,17 @@
        "label": "Nancy",
        "km": 165.5,
        "kind": "ville",
-       "note": "212 m imprimés ; arrivée ; « (Tomblaine) » ; total imprimé « 165 km 500 »",
-       "lat": 48.69372,
-       "lon": 6.18341,
-       "how": "stage_towns",
+       "note": "212 m imprimés ; arrivée ; « (Tomblaine) » ; total imprimé « 165 km 500 » ; imprimé « (Tomblaine) » : stade Marcel-Picot (Tomblaine, Nominatim, ouvert en 1926) (règle 18, audit Mireille)",
+       "lat": 48.6957171,
+       "lon": 6.2105366,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
      "route_check": {
-      "routed_km": 161,
+      "routed_km": 158.9,
       "profile_km": 157,
-      "delta_pct": 2.6,
+      "delta_pct": 1.2,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
@@ -894,20 +894,17 @@
        "label": "Thiaucourt-Regniéville",
        "km": 42.5,
        "kind": "ville",
-       "note": "340 m imprimés ; imprimé « THIAUCOURT-REGNIEVILLE » ; limite Meurthe-et-Moselle / Meuse",
-       "lat": 48.95445,
-       "lon": 5.86752,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "340 m imprimés ; imprimé « THIAUCOURT-REGNIEVILLE » ; limite Meurthe-et-Moselle / Meuse ; retiré : la courbe culmine à 340 m sur la colonne alors que le village est à 209 m au MNT, le relief atteignant 341 m à 4,4 km au sud-est : le passage est au-dessus du village, non situé (règle 14, cas Remonot, audit Mireille)",
+       "confidence": "non-place"
       },
       {
        "label": "Beney-en-Woëvre",
        "km": 46,
        "kind": "ville",
-       "note": "233 m imprimés ; imprimé « BENEY-EN-WOEVRE » ; mesuré ≈ 46,1 (pas 48) ; le village (Nominatim, même point) est hors de la route directe : BRouter y entre et reprend 1,9 km en sens inverse vers Woël, et Thiaucourt → Beney fait 5 km à vol d'oiseau pour 3,5 au profil ; point gardé, la commune étant imprimée, écart non résolu",
-       "lat": 48.96333,
-       "lon": 5.80085,
-       "how": "commune-ign",
+       "note": "233 m imprimés ; imprimé « BENEY-EN-WOEVRE » ; mesuré ≈ 46,1 (pas 48) ; village de Béney (rue de la Mairie, Nominatim), MNT 237 m pour 233 : le centroïde de la commune faisait reprendre 1,9 km en sens inverse vers Woël (audit Mireille, règles 17 et 24)",
+       "lat": 48.9617032,
+       "lon": 5.8271455,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -1024,11 +1021,8 @@
        "label": "Côte de Montmédy",
        "km": 134.5,
        "kind": "côte",
-       "note": "220 m imprimés ; imprimé « COTE DE MONTMEDY » ; 4e cat. ; mairie de Montmédy (ville basse, Nominatim), MNT 198 m pour 220 : le géocodeur avait pris la côte de Tancourt (règle 21)",
-       "lat": 49.5194996,
-       "lon": 5.3665267,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "220 m imprimés ; imprimé « COTE DE MONTMEDY » ; 4e cat. ; mairie de Montmédy (ville basse, Nominatim), MNT 198 m pour 220 : le géocodeur avait pris la côte de Tancourt (règle 21) ; retiré : posé à Montmédy même (0,05 km du km 132 pour 2,5 au profil) et au pied de la côte (MNT 197 m pour 220), sommet de la côte non situé (règles 5 et 21, audit Mireille)",
+       "confidence": "non-place"
       },
       {
        "label": "Thonnelle",
@@ -1173,15 +1167,15 @@
       }
      ],
      "route_check": {
-      "routed_km": 240.7,
+      "routed_km": 236.3,
       "profile_km": 235,
-      "delta_pct": 2.4,
+      "delta_pct": 0.5,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 30,
-      "suspect_legs": 1,
-      "backtracks": 1,
+      "legs": 28,
+      "suspect_legs": 0,
+      "backtracks": 0,
       "backtracks_uncertain": 0
      },
      "note": "Départ : Nancy → Custines 11,2 km à vol d'oiseau pour 7 au profil, départ réel hors du centre, non situé (règle 25)."
@@ -1297,8 +1291,11 @@
        "label": "Sart-Dame-Avelines",
        "km": 64.5,
        "kind": "ville",
-       "note": "140 m imprimés ; mesuré ≈ 64,6",
-       "confidence": "non-place"
+       "note": "140 m imprimés ; mesuré ≈ 64,6 ; village de Sart-Dames-Avelines (Nominatim, graphie actuelle avec s), EU-DEM 126 m pour 140 (règle 21, audit Mireille)",
+       "confidence": "ok",
+       "lat": 50.5680114,
+       "lon": 4.4926311,
+       "how": "nominatim"
       },
       {
        "label": "Carrefour 4 Bras",
@@ -1451,7 +1448,7 @@
        "label": "Carrefour Trieu de Melle",
        "km": 179,
        "kind": "lieu-dit",
-       "note": "62 m imprimés ; imprimé « CARREFOUR TRIEU DE MELLE »",
+       "note": "62 m imprimés ; imprimé « CARREFOUR TRIEU DE MELLE » ; cherché : Melles (Tournai, Nominatim, place=village, 50.64673, 3.48190) tient dans le profil, mais « Trieu » n'y est pas trouvé : carrefour non situé ; non placé (règle 21, audit Mireille)",
        "confidence": "non-place"
       },
       {
@@ -1498,25 +1495,26 @@
        "label": "Roubaix",
        "km": 208.5,
        "kind": "ville",
-       "note": "30 m imprimés ; arrivée ; « (vélodrome) » ; total imprimé « 208,5.. » (tronqué à droite)",
-       "lat": 50.69159,
-       "lon": 3.17417,
-       "how": "stage_towns",
+       "note": "30 m imprimés ; arrivée ; « (vélodrome) » ; total imprimé « 208,5.. » (tronqué à droite) ; imprimé « (vélodrome) » : vélodrome André-Pétrieux (Roubaix, Nominatim, ouvert en 1936) (règle 18, audit Mireille)",
+       "lat": 50.6781109,
+       "lon": 3.205546,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
      "route_check": {
-      "routed_km": 196.3,
+      "routed_km": 195.7,
       "profile_km": 202,
-      "delta_pct": -2.8,
+      "delta_pct": -3.1,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 26,
+      "legs": 27,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Enghien → Herne fait 3,4 km à vol d'oiseau pour 7 au profil : détour non imprimé, non résolu."
     },
     "7": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1971/71_7.jpg",
@@ -1941,7 +1939,7 @@
        "label": "Grossouvre",
        "km": 27.5,
        "kind": "ville",
-       "note": "302 m imprimés",
+       "note": "302 m imprimés ; MNT 200 m pour 302 : le relief ne dépasse pas 223 m dans un rayon de 4 km, la source dévie ; point gardé (règle 14, audit Mireille)",
        "lat": 46.87861,
        "lon": 2.94046,
        "how": "commune-ign",
@@ -2038,8 +2036,11 @@
        "label": "Commentry (Carrefour N 145)",
        "km": 106,
        "kind": "lieu-dit",
-       "note": "386 m imprimés ; imprimé « COMMENTRY (Carrefour N 145) » ; symbole ⊗ ; mesuré 106,0 ; altitude 386 ou 388",
-       "confidence": "non-place"
+       "note": "386 m imprimés ; imprimé « COMMENTRY (Carrefour N 145) » ; symbole ⊗ ; mesuré 106,0 ; altitude 386 ou 388 ; hôtel de ville de Commentry (Nominatim), MNT 385 m pour 386 ; carrefour N 145 non situé, point au bourg (règle 5, audit Mireille)",
+       "confidence": "ok",
+       "lat": 46.2887928,
+       "lon": 2.7418079,
+       "how": "nominatim"
       },
       {
        "label": "Près Néris-les-Bains",
@@ -2149,8 +2150,11 @@
        "label": "Carrefour près Durtol",
        "km": 206,
        "kind": "lieu-dit",
-       "note": "imprimé « Carrefour près Durtol » ; mesuré 206,0 ; cherché par recherche bornée : seule une clinique à Durtol, carrefour non situé ; non placé (règle 21)",
-       "confidence": "non-place"
+       "note": "imprimé « Carrefour près Durtol » ; mesuré 206,0 ; cherché par recherche bornée : seule une clinique à Durtol, carrefour non situé ; non placé (règle 21) ; « près » : mairie de Durtol (Nominatim), MNT 525 m (règle 5, audit Mireille)",
+       "confidence": "ok",
+       "lat": 45.7949348,
+       "lon": 3.0532304,
+       "how": "nominatim"
       },
       {
        "label": "La Baraque",
@@ -2184,18 +2188,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 193.2,
+      "routed_km": 202.2,
       "profile_km": 205,
-      "delta_pct": -5.7,
+      "delta_pct": -1.3,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 1,
-      "legs": 22,
-      "suspect_legs": 0,
+      "legs": 24,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Hors tolérance (−5,7 %, 193,2 km pour 205) : routé plus court que le profil sans tronçon aberrant ; plusieurs points sans km imprimé ne sont pas placés (règle 4), écart non résolu. Un tronçon en voiture inévitable : BRouter refuse la route du puy de Dôme (La Font-de-l'Arbre → sommet, HTTP 400, profil vélo), fermée à la circulation, comme en 1973, 1975 et 1976."
+     "note": "Un tronçon en voiture inévitable : BRouter refuse la route du puy de Dôme (La Font-de-l'Arbre → sommet, HTTP 400, profil vélo), fermée à la circulation, comme en 1973, 1975 et 1976."
     },
     "9": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1971/71_9.jpg",
@@ -2450,7 +2454,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Clermont-Ferrand → Cournon-d'Auvergne 9,5 km à vol d'oiseau pour 7,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Clermont-Ferrand → Cournon-d'Auvergne 9,5 km à vol d'oiseau pour 7,5 au profil, départ réel hors du centre, non situé (règle 25). Saint-Genest-Lerpt → Saint-Étienne fait 4,1 km à vol d'oiseau pour 9,5 au profil : arrivée par un détour non imprimé, lieu exact de l'arrivée non sourcé."
     },
     "10": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1971/71_10.jpg",
@@ -2768,7 +2772,7 @@
        "label": "Grenoble (Vélodrome)",
        "km": 188.5,
        "kind": "ville",
-       "note": "210 m imprimés ; arrivée ; imprimé « GRENOBLE (VÉLODROME) »",
+       "note": "210 m imprimés ; arrivée ; imprimé « GRENOBLE (VÉLODROME) » ; imprimé « (Vélodrome) » : vélodrome à moins de 0,5 km de la mairie, sans effet sur la mesure (règle 18, audit Mireille)",
        "lat": 45.18756,
        "lon": 5.73578,
        "how": "stage_towns",
@@ -2997,7 +3001,7 @@
        "label": "Les Garnauds",
        "km": 122.5,
        "kind": "lieu-dit",
-       "note": "1296 m imprimés",
+       "note": "1296 m imprimés ; MNT 1 195 m pour 1 296, entre Saint-Bonnet et Orcières sans relief plus haut sur la route : la source dévie (hypothèse) ; point gardé (règle 14, audit Mireille)",
        "lat": 44.68671,
        "lon": 6.27332,
        "how": "nominatim",
@@ -3226,7 +3230,7 @@
        "label": "Côte de Padéquète",
        "km": 147,
        "kind": "côte",
-       "note": "450 m imprimés ; imprimé « COTE DE PADEQUETE » ; 4e cat.",
+       "note": "450 m imprimés ; imprimé « COTE DE PADEQUETE » ; 4e cat. ; cherché : Nominatim ne connaît pas « Padéquète », recherche bornée sans résultat ; non placé (règle 21, audit Mireille)",
        "confidence": "non-place"
       },
       {
@@ -3304,7 +3308,7 @@
        "label": "Carrefour N 7",
        "km": 202.5,
        "kind": "lieu-dit",
-       "note": "imprimé « CARR. N. 7 » ; limite Var / Bouches-du-Rhône",
+       "note": "imprimé « CARR. N. 7 » ; limite Var / Bouches-du-Rhône ; cherché : « Carr. N 7 » sans seconde route : croisement non cherchable dans la BD TOPO ; non placé (règle 21, audit Mireille)",
        "confidence": "non-place"
       },
       {
@@ -3321,8 +3325,11 @@
        "label": "La Barque (Carrefour N 96)",
        "km": 220.5,
        "kind": "lieu-dit",
-       "note": "220 m imprimés ; imprimé « LA BARQUE (CARR. N. 96) » ; symbole ravitaillement",
-       "confidence": "non-place"
+       "note": "220 m imprimés ; imprimé « LA BARQUE (CARR. N. 96) » ; symbole ravitaillement ; hameau de La Barque (Fuveau, Nominatim), MNT 190 m pour 220 ; carrefour N 96 au hameau (règle 5, audit Mireille)",
+       "confidence": "ok",
+       "lat": 43.4787022,
+       "lon": 5.5382167,
+       "how": "nominatim"
       },
       {
        "label": "Gardanne",
@@ -3376,13 +3383,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 241.5,
+      "routed_km": 241.9,
       "profile_km": 245,
-      "delta_pct": -1.4,
+      "delta_pct": -1.3,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 25,
+      "legs": 26,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -3425,7 +3432,7 @@
        "label": "Fours à chaux",
        "km": 9.3,
        "kind": "lieu-dit",
-       "note": "imprimé « FOURS A CHAUX » ; km « 9 km 300 » ; courbe ≈275 m",
+       "note": "imprimé « FOURS A CHAUX » ; km « 9 km 300 » ; courbe ≈275 m ; cherché : « Fours à chaux » : aucun lieu de ce nom trouvé par la recherche bornée ; non placé (règle 21, audit Mireille)",
        "confidence": "non-place"
       },
       {
@@ -3745,8 +3752,11 @@
        "label": "Pont du Roi (frontière)",
        "km": 185.5,
        "kind": "lieu-dit",
-       "note": "580 m imprimés ; imprimé « PONT DU ROI (FRONTIERE) » ; entrée en Espagne ; mesuré 186",
-       "confidence": "non-place"
+       "note": "580 m imprimés ; imprimé « PONT DU ROI (FRONTIERE) » ; entrée en Espagne ; mesuré 186 ; Pont du Roi (Fos, Nominatim, bridge), MNT 578 m pour 580 (règle 21, audit Mireille)",
+       "confidence": "ok",
+       "lat": 42.8491734,
+       "lon": 0.7360153,
+       "how": "nominatim"
       },
       {
        "label": "Les",
@@ -3762,7 +3772,7 @@
        "label": "Bossòst",
        "km": 195.5,
        "kind": "ville",
-       "note": "560 m imprimés ; imprimé « BOSOST » ; Espagne",
+       "note": "560 m imprimés ; imprimé « BOSOST » ; Espagne ; EU-DEM 711 m pour 560, en amont du Pont du Roi (578 m) : la source dévie ; point gardé (règle 14, audit Mireille)",
        "lat": 42.78599,
        "lon": 0.69312,
        "how": "nominatim",
@@ -3806,7 +3816,7 @@
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 28,
+      "legs": 29,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -3869,10 +3879,10 @@
        "label": "Campet",
        "km": 8,
        "kind": "ville",
-       "note": "40 m imprimés ; imprimé « CAMPET » ; mesuré 7.7",
-       "lat": 43.92154,
-       "lon": -0.58276,
-       "how": "commune-ign-prefixe",
+       "note": "40 m imprimés ; imprimé « CAMPET » ; mesuré 7.7 ; mairie de Campet (arrêt « Mairie », Nominatim), MNT 41 m pour 40 (règle 17, audit Mireille)",
+       "lat": 43.9177074,
+       "lon": -0.606259,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -3929,8 +3939,11 @@
        "label": "Laharie (Carrefour N 10)",
        "km": 46,
        "kind": "lieu-dit",
-       "note": "84 m imprimés ; imprimé « LAHARIE (Carrefour N. 10) » ; mesuré 46.0",
-       "confidence": "non-place"
+       "note": "84 m imprimés ; imprimé « LAHARIE (Carrefour N. 10) » ; mesuré 46.0 ; village de Laharie (Onesse-Laharie, Nominatim), MNT 61 m pour 84 ; carrefour N 10 au village (règle 5, audit Mireille)",
+       "confidence": "ok",
+       "lat": 44.0490257,
+       "lon": -1.0047662,
+       "how": "nominatim"
       },
       {
        "label": "Onesse",
@@ -4140,14 +4153,14 @@
       }
      ],
      "route_check": {
-      "routed_km": 187.8,
+      "routed_km": 186,
       "profile_km": 180,
-      "delta_pct": 4.3,
+      "delta_pct": 3.4,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 25,
-      "suspect_legs": 2,
+      "legs": 26,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
@@ -4160,10 +4173,10 @@
        "label": "Bordeaux",
        "km": 0,
        "kind": "ville",
-       "note": "18 m imprimés ; départ ; imprimé « BORDEAUX (4 PAVILLONS) » ; imprimé « BORDEAUX (4 PAVILLONS) » : carrefour des Quatre-Pavillons (Lormont/Cenon), non situé ; départ laissé à l'ancre de Bordeaux (règle 25)",
-       "lat": 44.84123,
-       "lon": -0.58004,
-       "how": "commune-ign",
+       "note": "18 m imprimés ; départ ; imprimé « BORDEAUX (4 PAVILLONS) » : les Quatre Pavillons (Lormont, Nominatim), MNT 52 m pour 18 ; départ → Beychac 9,5 km à vol d'oiseau pour 9,5 au profil (règle 25, audit Mireille)",
+       "lat": 44.8657847,
+       "lon": -0.5134586,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -4372,10 +4385,10 @@
        "label": "Marcillac-Lanville",
        "km": 146,
        "kind": "ville",
-       "note": "61 m imprimés",
-       "lat": 45.85755,
-       "lon": 0.01711,
-       "how": "commune-ign",
+       "note": "61 m imprimés ; place de la Mairie de Marcillac (Nominatim), MNT 60 m pour 61 : le centre de la commune fusionnée allongeait Montignac → Marcillac (règles 15 et 17, audit Mireille)",
+       "lat": 45.8461566,
+       "lon": 0.0194162,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -4514,18 +4527,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 248.2,
+      "routed_km": 247.7,
       "profile_km": 234.5,
-      "delta_pct": 5.8,
+      "delta_pct": 5.6,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
       "legs": 28,
-      "suspect_legs": 1,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Bordeaux → Beychac 15,2 km à vol d'oiseau pour 9,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (+5,8 %, 248,2 km pour 234,5) : Montignac-Charente → Marcillac-Lanville fait 11,6 km à vol d'oiseau pour 10,5 au profil ; kilométrage imprimé vraisemblablement court, écart non résolu."
+     "note": "Départ aux Quatre Pavillons (Lormont), imprimé « BORDEAUX (4 PAVILLONS) » (règle 25). Hors tolérance (+5,6 %, 247,7 km pour 234,5) et plus encore en voiture (+7,3 %, 251,7 km) : Beychac → Arveyres fait 11,6 km à vélo pour 9,5 au profil ; kilométrage imprimé vraisemblablement court, écart non résolu (règle 20)."
     },
     "19": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1971/71_19.jpg",
@@ -4772,7 +4785,7 @@
        "label": "Côte de Dourdan S.H.D.",
        "km": 141.5,
        "kind": "côte",
-       "note": "160 m imprimés ; imprimé « COTE DE DOURDAN S.H.D. » ; pas de rond de catégorie visible",
+       "note": "160 m imprimés ; imprimé « COTE DE DOURDAN S.H.D. » ; pas de rond de catégorie visible ; cherché : Dourdan est une commune, le sommet de la côte n'est pas situé par la recherche bornée ; non placé (règle 21, audit Mireille)",
        "confidence": "non-place"
       },
       {
@@ -4861,7 +4874,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Blois → Pontijou 17,1 km à vol d'oiseau pour 16,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Blois → Pontijou 17,1 km à vol d'oiseau pour 16,5 au profil, départ réel hors du centre, non situé (règle 25). Arcades-de-Buc → Versailles fait 3,1 km à vol d'oiseau pour 10,5 au profil : boucle d'arrivée non imprimée, non résolue."
     },
     "20": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1971/71_20.jpg",
@@ -4890,7 +4903,7 @@
        "label": "Côte de l'Anguille",
        "km": 14,
        "kind": "côte",
-       "note": "145 m imprimés ; imprimé « COTE DE L'ANGUILLE » ; pas de rond de catégorie",
+       "note": "145 m imprimés ; imprimé « COTE DE L'ANGUILLE » ; pas de rond de catégorie ; cherché : Nominatim ne connaît pas de lieu « l'Anguille » entre Versailles et Igny ; non placé (règle 21, audit Mireille)",
        "confidence": "non-place"
       },
       {
@@ -5197,18 +5210,18 @@
        "label": "Près de Rotteln",
        "km": 7,
        "kind": "lieu-dit",
-       "note": "268 m imprimés ; imprimé « PRES DE ROTTELH » (orthographe imprimée conservée dans le doute) ; cherché par recherche bornée : hameau de Rötteln à 340 m pour 268, la route passe vraisemblablement en contrebas ; non placé (règle 21)",
-       "confidence": "non-place"
+       "note": "268 m imprimés ; imprimé « PRES DE ROTTELH » (orthographe imprimée conservée dans le doute) ; cherché par recherche bornée : hameau de Rötteln à 340 m pour 268, la route passe vraisemblablement en contrebas ; non placé (règle 21) ; « près » : hameau de Rötteln (Lörrach, Nominatim), EU-DEM 341 m pour 268 (règle 5, audit Mireille)",
+       "confidence": "ok",
+       "lat": 47.6326,
+       "lon": 7.65923,
+       "how": "nominatim"
       },
       {
        "label": "Lörrach",
        "km": 10,
        "kind": "ville",
-       "note": "280 m imprimés ; imprimé « LORRACH » ; aucun km propre dans la rangée basse, colonne sur la graduation 10",
-       "lat": 47.61209,
-       "lon": 7.66072,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "280 m imprimés ; imprimé « LORRACH » ; aucun km propre dans la rangée basse, colonne sur la graduation 10 ; non placé : km approché (règle 4, audit Mireille)",
+       "confidence": "non-place"
       },
       {
        "label": "Brombach",
@@ -5284,7 +5297,7 @@
        "label": "Côte d'Appach",
        "km": 45,
        "kind": "côte",
-       "note": "1040 m imprimés ; imprimé « 1.040 m COTE D'APPACH » ; 3e cat.",
+       "note": "1040 m imprimés ; imprimé « 1.040 m COTE D'APPACH » ; 3e cat. ; cherché : Nominatim ne connaît pas « Appach », recherche bornée sans résultat ; non placé (règle 21, audit Mireille)",
        "confidence": "non-place"
       },
       {
@@ -5341,14 +5354,14 @@
        "label": "Kappel",
        "km": 86.5,
        "kind": "ville",
-       "note": "345 m imprimés ; mesuré ≈ 86,7",
+       "note": "345 m imprimés ; mesuré ≈ 86,7 ; cherché : Kappel (Fribourg) n'est connu que par le centroïde du quartier (47.96467, 7.90870), pas par son village ; non placé (règle 21, audit Mireille)",
        "confidence": "non-place"
       },
       {
        "label": "Freiburg im Breisgau",
        "km": 90,
        "kind": "ville",
-       "note": "300 m imprimés ; arrivée ; imprimé « FREIBURG IM BREISGAU »",
+       "note": "300 m imprimés ; arrivée ; imprimé « FREIBURG IM BREISGAU » ; Kirchzarten → Kappel → arrivée : Kappel → centre de Fribourg fait 5,6 km à vol d'oiseau pour 3,5, l'arrivée réelle est vraisemblablement à l'est du centre, lieu non sourcé (audit Mireille)",
        "lat": 47.99609,
        "lon": 7.8494,
        "how": "stage_towns",
@@ -5356,9 +5369,9 @@
       }
      ],
      "route_check": {
-      "routed_km": 93.7,
+      "routed_km": 90.3,
       "profile_km": 86.5,
-      "delta_pct": 8.4,
+      "delta_pct": 4.4,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
@@ -5367,7 +5380,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Bâle → Haltingen 6,7 km à vol d'oiseau pour 3,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (+8,4 %, 93,7 km pour 86,5) : Kirchzarten → Fribourg fait 8,6 km à vol d'oiseau pour 6,5 au profil, arrivée posée au centre de Fribourg-en-Brisgau, lieu exact non sourcé."
+     "note": "Départ : Bâle → Haltingen 6,7 km à vol d'oiseau pour 3,5 au profil, départ réel hors du centre, non situé (règle 25)."
     },
     "1c": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1971/71_1c.jpg",
@@ -5465,11 +5478,8 @@
        "label": "Weckolsheim",
        "km": 40,
        "kind": "ville",
-       "note": "197 m imprimés ; aucun km propre : colonne sur la graduation 40",
-       "lat": 48.00259,
-       "lon": 7.51388,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "197 m imprimés ; aucun km propre : colonne sur la graduation 40 ; non placé : km approché (règle 4, audit Mireille)",
+       "confidence": "non-place"
       },
       {
        "label": "Dessenheim",
@@ -5512,11 +5522,8 @@
        "label": "Ensisheim",
        "km": 60,
        "kind": "ville",
-       "note": "217 m imprimés ; aucun km propre : colonne sur la graduation 60",
-       "lat": 47.86652,
-       "lon": 7.35291,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "217 m imprimés ; aucun km propre : colonne sur la graduation 60 ; non placé : km approché (règle 4, audit Mireille)",
+       "confidence": "non-place"
       },
       {
        "label": "Wittenheim",
@@ -5560,18 +5567,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 74.2,
+      "routed_km": 73.9,
       "profile_km": 69,
-      "delta_pct": 7.5,
+      "delta_pct": 7.1,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
-      "legs": 16,
+      "legs": 14,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Hors tolérance (+7,5 %, 74,2 km pour 69) : sur plusieurs tronçons la ligne droite égale déjà le profil (Dessenheim → Ruestenhart 4,3 km pour 4, Ensisheim → Wittenheim 6,6 pour 6,5) : kilométrage imprimé vraisemblablement court, écart non résolu."
+     "note": "Hors tolérance (+7,1 %, 73,9 km pour 69) et plus encore en voiture (+16,1 %, 80,1 km) : sur plusieurs tronçons la ligne droite égale déjà le profil (Dessenheim → Ruestenhart 4,3 km pour 4) ; kilométrage imprimé vraisemblablement court, écart non résolu (règle 20)."
     },
     "6a": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1971/71_6a.jpg",
@@ -5630,11 +5637,8 @@
        "label": "Seclin",
        "km": 20,
        "kind": "ville",
-       "note": "30 m imprimés ; aucun km propre : colonne sur la graduation 20",
-       "lat": 50.54521,
-       "lon": 3.02528,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "30 m imprimés ; aucun km propre : colonne sur la graduation 20 ; non placé : km approché (règle 4, audit Mireille)",
+       "confidence": "non-place"
       },
       {
        "label": "Camphin-en-Carembault",
@@ -5660,11 +5664,8 @@
        "label": "Lens",
        "km": 40,
        "kind": "ville",
-       "note": "38 m imprimés ; aucun km propre : colonne sur la graduation 40",
-       "lat": 50.42917,
-       "lon": 2.83198,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "38 m imprimés ; aucun km propre : colonne sur la graduation 40 ; non placé : km approché (règle 4, audit Mireille)",
+       "confidence": "non-place"
       },
       {
        "label": "Liévin",
@@ -5680,11 +5681,8 @@
        "label": "Givenchy-en-Gohelle",
        "km": 50,
        "kind": "ville",
-       "note": "70 m imprimés ; aucun km propre : colonne sur la graduation 50",
-       "lat": 50.39145,
-       "lon": 2.77236,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "70 m imprimés ; aucun km propre : colonne sur la graduation 50 ; non placé : km approché (règle 4, audit Mireille)",
+       "confidence": "non-place"
       },
       {
        "label": "Petit-Vimy",
@@ -5720,11 +5718,8 @@
        "label": "Wailly-lès-Arras",
        "km": 70,
        "kind": "ville",
-       "note": "70 m imprimés ; imprimé « WAILLY-LES-ARRAS » ; aucun km propre : colonne sur la graduation 70",
-       "lat": 50.2466,
-       "lon": 2.72255,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "70 m imprimés ; imprimé « WAILLY-LES-ARRAS » ; aucun km propre : colonne sur la graduation 70 ; non placé : km approché (règle 4, audit Mireille)",
+       "confidence": "non-place"
       },
       {
        "label": "Ransart",
@@ -5807,7 +5802,7 @@
        "label": "Entrée de l'Hippodrome",
        "km": 125.2,
        "kind": "lieu-dit",
-       "note": "imprimé « ENTREE DE L'HIPPODROME » ; km imprimé « 125,2 » (mesuré ≈ 125,6)",
+       "note": "imprimé « ENTREE DE L'HIPPODROME » ; km imprimé « 125,2 » (mesuré ≈ 125,6) ; cherché : hippodrome d'Amiens (Nominatim, 49.8941, 2.2708) : site de 1971 non vérifié ; non placé (règle 21, audit Mireille)",
        "confidence": "non-place"
       },
       {
@@ -5822,18 +5817,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 132.9,
+      "routed_km": 132,
       "profile_km": 125.5,
-      "delta_pct": 5.9,
+      "delta_pct": 5.2,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 21,
+      "legs": 17,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Roubaix → Hem 4,2 km à vol d'oiseau pour 2 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (+5,9 %, 132,9 km pour 125,5) : Templemars → Seclin fait 4 km à vol d'oiseau pour 3 au profil, Ransart → Monchy-au-Bois 3,9 pour 3 ; écart non résolu."
+     "note": "Départ : Roubaix → Hem 4,2 km à vol d'oiseau pour 2 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (+5,2 %, 132 km pour 125,5) et plus encore en voiture (+9,2 %, 137,1 km) : Templemars → Camphin-en-Carembault fait 10,3 km à vélo pour 8 au profil ; écart non résolu (règle 20)."
     },
     "6b": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1971/71_6b.jpg",
@@ -6100,7 +6095,7 @@
       "backtracks_uncertain": 0
      },
      "circuit_km": 124.1,
-     "note": "Circuit final de Le Touquet : 1er passage sur la ligne au km 124,1, arrivée au km 133,5 ; circuit_km au 1er passage (règle 19). Arry → Villers-sur-Authie fait 4,8 km à vol d'oiseau pour 9,5 au profil : détour non imprimé, non résolu."
+     "note": "Circuit final de Le Touquet : 1er passage sur la ligne au km 124,1, arrivée au km 133,5 ; circuit_km au 1er passage (règle 19). Arry → Villers-sur-Authie fait 4,8 km à vol d'oiseau pour 9,5 au profil : détour non imprimé, non résolu. Trépied → 1er passage fait 2,3 km à vol d'oiseau pour 9,6 au profil : la course traverse Le Touquet (centre, km 119 sans km imprimé) avant la ligne."
     },
     "16a": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1971/71_16a.jpg",
@@ -6119,8 +6114,11 @@
        "label": "Gazeaux-de-l'Arboust",
        "km": 5.5,
        "kind": "ville",
-       "note": "1011 m imprimés ; imprimé « GAZEAUX-DE-L'ARBOUST » (sic)",
-       "confidence": "non-place"
+       "note": "1011 m imprimés ; imprimé « GAZEAUX-DE-L'ARBOUST » (sic) ; imprimé « GAZEAUX » : mairie de Cazeaux-de-Larboust (Nominatim), MNT 980 m pour 1011 (règle 21, audit Mireille)",
+       "confidence": "ok",
+       "lat": 42.806037,
+       "lon": 0.5305243,
+       "how": "nominatim"
       },
       {
        "label": "Col de Peyresourde",
@@ -6328,13 +6326,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 131.8,
-      "profile_km": 131.5,
-      "delta_pct": 0.3,
+      "routed_km": 139.2,
+      "profile_km": 139.5,
+      "delta_pct": -0.2,
       "tolerance_pct": 5,
-      "coverage_pct": 91,
+      "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 18,
+      "legs": 19,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -6489,7 +6487,8 @@
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "« PAU (CIRCUIT COMPRIS) » : boucle finale annoncée sans km d'entrée imprimé, pas de circuit_km."
     }
    }
   },
