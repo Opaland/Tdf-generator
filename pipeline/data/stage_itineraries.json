@@ -1450,7 +1450,7 @@
       "backtracks": 1,
       "backtracks_uncertain": 0
      },
-     "note": "« ok » à −0,9 % avec 1,6 km d'aller-retour à Cornimont compté deux fois : vers −3,6 % sans lui (règle 24)."
+     "note": "« ok » à 0,0 % avec 1,6 km d'aller-retour à Cornimont compté deux fois : vers −2,7 % sans lui (règle 24)."
     },
     "7": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1969/69_7.jpg",
@@ -3834,7 +3834,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Luchon → Cazeaux-de-Larboust 5,3 km à vol d'oiseau pour 5 au profil, départ réel hors du centre, non situé (règle 25). Monein → Mourenx fait 6,9 km à vol d'oiseau pour 11,5 au profil, Pardies (sur une graduation) n'étant pas placé : détour non jalonné.",
+     "note": "Départ : Luchon → Cazeaux-de-Larboust 5,3 km à vol d'oiseau pour 5 au profil, départ réel hors du centre, non situé (règle 25). Monein → Mourenx fait 6,9 km à vol d'oiseau pour 11,5 au profil : le détour passe par Pardies, placé sur la graduation 210 (règle 4 précisée).",
      "route_check": {
       "routed_km": 215.1,
       "profile_km": 209.5,
@@ -6056,7 +6056,7 @@
        "label": "Carrefour D 115-D 116",
        "km": 190,
        "kind": "lieu-dit",
-       "note": "imprimé « CARR. D. 115-D. 116 » ; aucun km propre : colonne sur la graduation 190 ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; aucun carrefour D 115-D 116 identifié sans numérotation d'époque : non placé (règle 21)",
+       "note": "imprimé « CARR. D. 115-D. 116 » ; aucun km propre : colonne sur la graduation 190 ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; la BD TOPO donne le croisement D 115-D 116 en 46.17547, -0.84487, mais Vouhé → croisement fait 4,6 km à vol d'oiseau pour 3,5 au profil : laissé non placé (règle 21, audit Mireille)",
        "confidence": "non-place"
       },
       {
@@ -6757,8 +6757,11 @@
        "label": "Carrefour D 25-D 229",
        "km": 140,
        "kind": "lieu-dit",
-       "note": "imprimé « CARR. D.25-D. 229 » ; aucun km propre : colonne sur la graduation 140 ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; aucun carrefour D 25-D 229 identifié sans numérotation d'époque : non placé (règle 21)",
-       "confidence": "non-place"
+       "note": "imprimé « CARR. D.25-D. 229 » ; aucun km propre : colonne sur la graduation 140 ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; croisement des tronçons D 25 et D 229 (BD TOPO), numéros supposés inchangés depuis 1970 ; MNT 222 m (audit Mireille, règle 21)",
+       "confidence": "ok",
+       "lat": 48.78569,
+       "lon": -0.52473,
+       "how": "ign"
       },
       {
        "label": "Athis-de-l'Orne",
@@ -6903,12 +6906,12 @@
       "tolerance_pct": 5,
       "coverage_pct": 99,
       "car_legs": 0,
-      "legs": 26,
+      "legs": 27,
       "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Rennes → Chantepie 5,3 km à vol d'oiseau pour 2,5 au profil, départ réel hors du centre, non situé (règle 25). Le Châtellier → Flers fait 8,2 km à vol d'oiseau (mairies) pour 6 au profil, La Chapelle-au-Moine n'ayant pas de km imprimé : écart de la source ou du km, non résolu. Saint-Julien-le-Faucon → Lisieux fait 13,3 km à vol d'oiseau pour 25 au profil : détour non jalonné (carrefour D 103-N 179 et Côte de la Varende non placés)."
+     "note": "Départ : Rennes → Chantepie 5,3 km à vol d'oiseau pour 2,5 au profil, départ réel hors du centre, non situé (règle 25). Le Châtellier → Flers fait 8,2 km à vol d'oiseau (mairies) pour 6 au profil, La Chapelle-au-Moine n'ayant pas de km imprimé : écart de la source ou du km, non résolu. Entre Saint-Julien-le-Faucon et Lisieux, la côte de la Varende et le carrefour D 103-N 179 ne sont pas placés, et Saint-Martin-de-la-Lieue (graduation 220) → Lisieux fait 3,7 km à vol d'oiseau (4,3 routés) pour 9 au profil : détour non jalonné."
     },
     "6": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1970/1970_6.jpg",
@@ -7253,8 +7256,11 @@
        "label": "Bourguimont",
        "km": 60,
        "kind": "ville",
-       "note": "485 m imprimés ; imprimé « BOURGUIMONT » (lecture du nom incertaine) ; aucun km propre : colonne sur la graduation 60 ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; recherche bornée entre Vesqueville et Vaux-lez-Rosières et Nominatim : « Bourguimont » introuvable ; non placé (règle 21)",
-       "confidence": "non-place"
+       "note": "485 m imprimés ; imprimé « BOURGUIMONT » (lecture du nom incertaine) ; aucun km propre : colonne sur la graduation 60 ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; « BOURGUIMONT » lu pour Bougnimont (Libramont-Chevigny, place=village, Nominatim), EU-DEM 481 m pour 485 ; 8,6 km à vol d'oiseau depuis Vesqueville pour 9 (audit Mireille, règle 21)",
+       "confidence": "ok",
+       "lat": 49.94434,
+       "lon": 5.46798,
+       "how": "nominatim"
       },
       {
        "label": "Vaux-lès-Rosières",
@@ -7512,7 +7518,7 @@
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 27,
+      "legs": 28,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -8766,7 +8772,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Grenoble → Brié-et-Angonnes 9,2 km à vol d'oiseau pour 8,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance à vélo (−5,7 %, 176,4 km pour 187) et plus encore en voiture (−8,1 %, 171,8 km) : routé plus court que le profil ; La Mure → Les Égats fait 15,2 km à vélo pour 9 au profil (4,8 à vol d'oiseau, BRouter évite la N 85) et La Guinguette → col du Noyer 4,5 km à vol d'oiseau pour 19,5, la montée du col par ses lacets n'étant jalonnée d'aucun point placé ; écart non résolu (règle 20). Saint-Théoffrey → La Mure fait 9,6 km à vol d'oiseau pour 8,5 au profil : colonnes relues à 25,2 et 34, point au village de l'église (MNT 950 m pour 965), la mairie (Petichet) étant plus loin encore — km imprimés vraisemblablement courts."
+     "note": "Départ : Grenoble → Brié-et-Angonnes 9,2 km à vol d'oiseau pour 8,5 au profil, départ réel hors du centre, non situé (règle 25). Dans la tolérance à vélo (−3,0 %, 181,3 km pour 187) depuis que les noms posés sur une graduation sont placés (−5,7 % avant, règle 4 précisée) ; routé encore plus court que le profil : La Mure → Les Égats fait 15,2 km à vélo pour 9 au profil (4,8 à vol d'oiseau, BRouter évite la N 85), et la montée du col du Noyer par ses lacets n'est jalonnée que par Poligny (graduation 90) (règle 20). Saint-Théoffrey → La Mure fait 9,6 km à vol d'oiseau pour 8,5 au profil : colonnes relues à 25,2 et 34, point au village de l'église (MNT 950 m pour 965), la mairie (Petichet) étant plus loin encore — km imprimés vraisemblablement courts."
     },
     "14": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1970/1970_14.jpg",
@@ -9267,7 +9273,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Carpentras → Monteux 4,7 km à vol d'oiseau pour 2,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance à vélo (+8,7 %, 150 km pour 138) et plus encore en voiture (+18,8 %, 164 km) : Les Garrigues → Montpellier fait 9,4 km à vélo pour 6 au profil (6,6 à vol d'oiseau), arrivée laissée au centre de Montpellier (l'hôtel de ville de 2011 écarté pour l'époque) ; la côte du Mas de Bel-Air n'est pas située ; écart non résolu (règle 20)."
+     "note": "Départ : Carpentras → Monteux 4,7 km à vol d'oiseau pour 2,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance à vélo (+8,9 %, 150,3 km pour 138) et plus encore en voiture (+14,6 %, 158,2 km) : Les Garrigues → Montpellier fait 9,4 km à vélo pour 6 au profil (6,6 à vol d'oiseau), arrivée laissée au centre de Montpellier (l'hôtel de ville de 2011 écarté pour l'époque) ; la côte du Mas de Bel-Air n'est pas située ; écart non résolu (règle 20)."
     },
     "16": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1970/1970_16.jpg",
@@ -11616,11 +11622,8 @@
        "label": "Sainte-Croix-sur-Buchy",
        "km": 20,
        "kind": "ville",
-       "note": "37 m imprimés ; imprimé « SAINTE-CROIX-SUR-BUCHY » ; aucun km propre : colonne sur la graduation 20 ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; altitude : 179 m au MNT pour 37 m imprimés ; la courbe imprimée descend bien à la graduation 20, mais le terrain entre Blainville (116 m au point) et Buchy (193 m) ne descend nulle part sous 100 m (sondes MNT) — chiffre imprimé vraisemblablement fautif (règle 14)",
-       "lat": 49.56471,
-       "lon": 1.34948,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "37 m imprimés ; imprimé « SAINTE-CROIX-SUR-BUCHY » ; aucun km propre : colonne sur la graduation 20 ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; altitude : 179 m au MNT pour 37 m imprimés ; la courbe imprimée descend bien à la graduation 20, mais le terrain entre Blainville (116 m au point) et Buchy (193 m) ne descend nulle part sous 100 m (sondes MNT) — chiffre imprimé vraisemblablement fautif (règle 14) ; retiré : Blainville → Sainte-Croix-sur-Buchy fait 7,7 km à vol d'oiseau (9,2 routés) pour 5,5 au profil et le MNT donne 179 m pour 37 imprimés — profil incohérent à cet endroit, non placé (règles 11 et 14, audit Mireille)",
+       "confidence": "non-place"
       },
       {
        "label": "Buchy",
@@ -11743,14 +11746,14 @@
       }
      ],
      "route_check": {
-      "routed_km": 114.5,
+      "routed_km": 113.8,
       "profile_km": 110.5,
-      "delta_pct": 3.6,
+      "delta_pct": 3,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 14,
-      "suspect_legs": 1,
+      "legs": 13,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
@@ -11988,7 +11991,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Valenciennes → Préseau 6,3 km à vol d'oiseau pour 4 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance à vélo (−6,4 %, 107,7 km pour 115) mais pas en voiture (+3,7 %, 119,3 km) : de Marche-lez-Écaussinnes à Forest, BRouter prend des routes plus courtes que la route de 1970, que la voiture suit — c'est le routeur, les points restent (règle 20)."
+     "note": "Départ : Valenciennes → Préseau 6,3 km à vol d'oiseau pour 4 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance à vélo (−6,2 %, 107,9 km pour 115) mais pas en voiture (+3,9 %, 119,5 km) : de Marche-lez-Écaussinnes à Forest, BRouter prend des routes plus courtes que la route de 1970, que la voiture suit — c'est le routeur, les points restent (règle 20)."
     },
     "11b": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1970/1970_11b.jpg",
@@ -12525,7 +12528,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Eysines → Bordeaux fait 5,6 km à vol d'oiseau pour 17,5 au profil : Bruges (sans km propre) et l'entrée du circuit ne sont pas placés, la boucle d'arrivée au lac n'est pas jalonnée."
+     "note": "Bruges (graduation 210) → Bordeaux fait 2,7 km à vol d'oiseau (3,7 routés) pour 13,5 au profil : l'entrée du circuit n'est pas placée, la boucle d'arrivée au lac n'est pas jalonnée."
     }
    }
   },
@@ -14246,11 +14249,8 @@
        "label": "Givry",
        "km": 10,
        "kind": "ville",
-       "note": "116 m imprimés ; aucun km imprimé : colonne sur la graduation 10 (mesuré 10,0) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; hameau de Givry (Cours-les-Barres, Nominatim) ; recherche bornée (règle 21)",
-       "confidence": "ok",
-       "lat": 47.0126032,
-       "lon": 3.0688119,
-       "how": "nominatim"
+       "note": "116 m imprimés ; aucun km imprimé : colonne sur la graduation 10 (mesuré 10,0) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; hameau de Givry (Cours-les-Barres, Nominatim) ; recherche bornée (règle 21) ; retiré : Givry (Cours-les-Barres, seul candidat) → Le Chautay fait 8,7 km à vol d'oiseau (9,6 routés) pour 6 au profil, colonne de Le Chautay relue vers 15,7 : non placé (règles 11 et 7, audit Mireille)",
+       "confidence": "non-place"
       },
       {
        "label": "Le Chautay",
@@ -14436,8 +14436,11 @@
        "label": "Lamontgie",
        "km": 160,
        "kind": "lieu-dit",
-       "note": "405 m imprimés ; aucun km imprimé : colonne sur la graduation 160 ; imprimé « LAMONTGIE » ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; Lamontgie (Puy-de-Dôme) est près d'Issoire, à plus de 50 km du parcours Saint-Gervais → Manzat ; lieu imprimé non identifié : non placé (règle 21)",
-       "confidence": "non-place"
+       "note": "405 m imprimés ; aucun km imprimé : colonne sur la graduation 160 ; imprimé « LAMONTGIE » ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; « LAMONTGIE » : hameau de La Montgie (Châteauneuf-les-Bains, place=hamlet, Nominatim), MNT 413 m pour 405 ; recherche bornée, l'homonyme d'Issoire écarté (audit Mireille, règle 21)",
+       "confidence": "ok",
+       "lat": 46.01753,
+       "lon": 2.89125,
+       "how": "nominatim"
       },
       {
        "label": "Côte de la Vareille",
@@ -14528,14 +14531,14 @@
       }
      ],
      "route_check": {
-      "routed_km": 211.9,
-      "profile_km": 211,
-      "delta_pct": 0.4,
+      "routed_km": 202.3,
+      "profile_km": 205,
+      "delta_pct": -1.3,
       "tolerance_pct": 5,
-      "coverage_pct": 95,
+      "coverage_pct": 93,
       "car_legs": 1,
       "legs": 26,
-      "suspect_legs": 2,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
@@ -14997,7 +15000,7 @@
        "label": "Croix Bayard",
        "km": 120,
        "kind": "col",
-       "note": "355 m imprimés ; imprimé « CROIX BAYARD » ; 4e cat. ; aucun km imprimé : colonne sur la graduation 120 (mesuré 119,8) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; arrêt Croix Bayard sur la route de Chartreuse (Coublevie, Nominatim), MNT 401 m pour 355 ; recherche bornée (règle 21)",
+       "note": "355 m imprimés ; imprimé « CROIX BAYARD » ; 4e cat. ; aucun km imprimé : colonne sur la graduation 120 (mesuré 119,8) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; arrêt Croix Bayard sur la route de Chartreuse (Coublevie, Nominatim), MNT 401 m pour 355 ; recherche bornée (règle 21) ; aucun objet col (mountain_pass) connu sous ce nom : point sur la route de Chartreuse au lieu-dit, à 100 m du lieu-dit IGN la Croix Bayard (418 m)",
        "confidence": "ok",
        "lat": 45.36591,
        "lon": 5.6219,
@@ -17584,8 +17587,11 @@
        "label": "Lörrach",
        "km": 10,
        "kind": "ville",
-       "note": "280 m imprimés ; imprimé « LORRACH » ; aucun km propre dans la rangée basse, colonne sur la graduation 10 ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; non placé : Haagen (près de Rötteln) et Brombach sont deux quartiers de Lörrach, la route entre eux passe au nord du centre ; le centre de Lörrach ajoutait un détour (contrôle BRouter de +4,4 % à +8,0 %) (règle 21)",
-       "confidence": "non-place"
+       "note": "280 m imprimés ; imprimé « LORRACH » ; aucun km propre dans la rangée basse, colonne sur la graduation 10 ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; le point tient dans le profil (Près de Rötteln → Lörrach 2,3 km pour 3, Lörrach → Brombach 3,45 pour 3,5) ; l'écart de l'étape s'affiche (règle 12)",
+       "confidence": "ok",
+       "lat": 47.61209,
+       "lon": 7.66072,
+       "how": "nominatim"
       },
       {
        "label": "Brombach",
@@ -17733,18 +17739,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 90.3,
+      "routed_km": 93.4,
       "profile_km": 86.5,
-      "delta_pct": 4.4,
+      "delta_pct": 8,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 14,
+      "legs": 15,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Bâle → Haltingen 6,7 km à vol d'oiseau pour 3,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Bâle → Haltingen 6,7 km à vol d'oiseau pour 3,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (+8,0 %, 93,4 km pour 86,5) et plus encore en voiture (+11,8 %, 96,7 km) : Kirchzarten → Fribourg fait 10,2 km à vélo pour 6,5 au profil (8,6 à vol d'oiseau, Kappel non placé) ; Lörrach, posé sur la graduation 10, allonge le tracé d'environ 3 km mais ses deux tronçons tiennent dans le profil (6,7 km à vélo pour 6,5) ; écart non résolu (règle 20)."
     },
     "1c": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1971/71_1c.jpg",
