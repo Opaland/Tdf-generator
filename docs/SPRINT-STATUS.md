@@ -2063,6 +2063,16 @@ et côtes traversées avec leur kilomètre.
   23 +8), 1984/0 non contrôlable ; 18 tronçons suspects, 8 allers-retours, 4 incertains.
   **Reste, story non cochée :** remesurer à vélo, puis trier ces écarts et noter
   leurs causes (règle 16). Chiffres de voiture : à ne pas lire comme un résultat.
+- [ ] Édition 1969 (reprise de la routine demandée le 23/11/2026, tentative
+  1/10) : aucune étape de 1969 n'est encore transcrite. Profils de
+  ledicodutour.com (`images/cartes_etapes/1967_1976/1969/69_<N>.jpg`) ; 26
+  fichiers, md5 tous distincts et distincts de 1970, titres vérifiés sur la
+  planche et rapprochés des distances de `stage_towns.json`. 22 profils à
+  transcrire (1a, 2 à 7, 8b, 9 à 14, 16 à 22b). Non transcrits : prologue de
+  Roubaix (profil de rues), 1b (Woluwe-Saint-Pierre), 8a (Divonne) et 15
+  (Revel) — cartes de contre-la-montre. Critères d'acceptation : ceux de
+  1970 (dont le G lu C et le H lu N sur ces profils, et la règle 4 appliquée
+  telle qu'écrite tant que l'issue #601 n'est pas tranchée).
 - [x] Édition 1970 (routine quotidienne du 23/11/2026, tentative 1/10) :
   seule 1970/9 est déjà transcrite (lot Lorraine, PR #404, gardée telle
   quelle sauf erreur prouvée). Profils de ledicodutour.com
