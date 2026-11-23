@@ -303,7 +303,7 @@ dans la même PR que son correctif.
     homonymes dans une recherche globale — onze lieux de 1991 n’étaient
     trouvés qu'ainsi. Essayer aussi la variante d'orthographe (Pallud /
     Palud, Pongivart / Pontgivart, Cazaux / Cazeaux, Monpach / Mompach,
-    Pétrou / Peyrou, Gévaudaz / Gevoudaz, Pierrepin / Pierre-Pin, Perthus / Pertus — le col du Perthus de 2011/9, noté
+    Pétrou / Peyrou, Gévaudaz / Gevoudaz, Pierrepin / Pierre-Pin, Perthus / Pertus ; sur les profils de 1967-1976, aux lettres de 3 px, **le G se lit comme un C et le H comme un N** : « Loncré », « Les Carrigues » et « Noster » (1970) étaient Longré, Les Garrigues et Hostert, déclarés introuvables avant l'audit Mireille — le col du Perthus de 2011/9, noté
     « inconnu de Nominatim », y est sous « Col du Pertus »). Un lieu-dit que Nominatim ne connaît que par son
     arrêt de bus ou un poteau homonyme sur la route (Lavey 1991, La
     Fresquière et Basse-Plaine 1989) se place sur cet arrêt, altitude
