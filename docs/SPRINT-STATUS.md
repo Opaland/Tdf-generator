@@ -2064,7 +2064,8 @@ et côtes traversées avec leur kilomètre.
   **Reste, story non cochée :** remesurer à vélo, puis trier ces écarts et noter
   leurs causes (règle 16). Chiffres de voiture : à ne pas lire comme un résultat.
 - [ ] Édition 1970 (routine quotidienne du 23/11/2026, tentative 1/10) :
-  aucune étape de 1970 n'est encore transcrite. Profils de ledicodutour.com
+  seule 1970/9 est déjà transcrite (lot Lorraine, PR #404, gardée telle
+  quelle sauf erreur prouvée). Profils de ledicodutour.com
   (`images/cartes_etapes/1967_1976/1970/1970_<N>.jpg`) ; 29 fichiers, md5
   tous distincts, titres vérifiés sur la planche et rapprochés des
   distances de `stage_towns.json` : `1970_3` est la 3b (Angers → Rennes,
