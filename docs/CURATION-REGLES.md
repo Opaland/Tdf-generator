@@ -54,6 +54,17 @@ dans la même PR que son correctif.
    1987/6). Exception tolérée : un col majeur indispensable à la mesure,
    ajouté avec « km lu sur la graduation » dans sa note (Col de
    Marie-Blanque 1986/12).
+   **Sauf un nom posé sur une graduation, dans la série 1969-1985**
+   (décision de Cédric du 23/11/2026, issue #601) : sur ces profils,
+   l'éditeur n'imprime pas le km d'un point quand il coïncide avec une
+   graduation ronde — de 1969 à 1985, presque aucun km imprimé n'est un
+   multiple de 10, alors que 17 à 38 par édition sont des multiples de 5
+   (contre 8 à 22 multiples de 10 par édition à partir de 1987). Un nom
+   dont la colonne tombe sur une graduation, mesurée à 0,5 km près contre
+   deux graduations (règle 3), prend donc le km de cette graduation et se
+   place comme les autres, avec « km de la graduation (règle 4) » dans sa
+   note. Un nom « près de » une graduation, ou hors de cette série, reste
+   non placé.
 5. **Km strictement croissants** ; un nom présent deux fois dans une étape
    (Ettlingen 1987/3) se corrige sur la bonne occurrence, pas la première
    trouvée.
