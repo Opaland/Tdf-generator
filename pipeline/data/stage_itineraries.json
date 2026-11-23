@@ -31,8 +31,11 @@
        "label": "Le Breuil",
        "km": 6.5,
        "kind": "lieu-dit",
-       "note": "302 m imprimés ; cherché par recherche bornée : hameau du Breuil (Verneuil-sur-Vienne) à 352 m pour 302 ; non placé (règle 21)",
-       "confidence": "non-place"
+       "note": "302 m imprimés ; hameau du Breuil (Verneuil-sur-Vienne, Nominatim), MNT 352 m pour 302 — nom exact, écart sous 100 m (règle 14), audit Mireille",
+       "confidence": "ok",
+       "lat": 45.84959,
+       "lon": 1.16244,
+       "how": "nominatim"
       },
       {
        "label": "Carrefour N 141-D 9",
@@ -191,8 +194,11 @@
        "label": "Loncré",
        "km": 115.5,
        "kind": "ville",
-       "note": "83 m imprimés ; imprimé « LONCRE » ; cherché par recherche bornée : Loncré introuvable par Nominatim et l'index POI ; non placé (règle 21)",
-       "confidence": "non-place"
+       "note": "83 m imprimés ; imprimé « LONCRE » ; imprimé « LONCRE » : église de Longré (Charente), MNT 84 m pour 83 — C lu pour G (règles 21 et 23), audit Mireille",
+       "confidence": "ok",
+       "lat": 46.00178,
+       "lon": -0.01179,
+       "how": "nominatim"
       },
       {
        "label": "Couture-d'Argenson",
@@ -387,13 +393,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 230.1,
+      "routed_km": 230.9,
       "profile_km": 222.5,
-      "delta_pct": 3.4,
+      "delta_pct": 3.8,
       "tolerance_pct": 5,
       "coverage_pct": 99,
       "car_legs": 0,
-      "legs": 29,
+      "legs": 31,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -491,7 +497,7 @@
        "label": "Carrefour près Fontaines",
        "km": 41,
        "kind": "lieu-dit",
-       "note": "15 m imprimés ; imprimé « CARR. PRES FONTAINES » ; cherché par recherche bornée : aucun lieu « Fontaines » entre L'Île-d'Elle et Fontenay ; non placé (règle 21)",
+       "note": "15 m imprimés ; imprimé « CARR. PRES FONTAINES » ; « carrefour près » : Fontaines (Doix-lès-Fontaines, église 46.42213, −0.81836) essayé : Fontaines → Fontenay-le-Comte fait 6,9 km à vélo pour 4 au profil et fait passer l'étape de +5,4 % à +7 % ; le carrefour n'est pas au bourg, non placé (règles 5 et 21, audit Mireille)",
        "confidence": "non-place"
       },
       {
@@ -635,8 +641,11 @@
        "label": "Vezins (Carrefour R.N. 160)",
        "km": 129,
        "kind": "ville",
-       "note": "140 m imprimés ; imprimé « VEZINS (CARR. R.N. 160) » ; cherché par recherche bornée : Vezins non trouvé entre Maulévrier et La Tourlandry ; non placé (règle 21)",
-       "confidence": "non-place"
+       "note": "140 m imprimés ; imprimé « VEZINS (CARR. R.N. 160) » ; mairie de Vezins (Lys-Haut-Layon, Nominatim), MNT 139 m pour 140 (règles 15 et 21), audit Mireille",
+       "confidence": "ok",
+       "lat": 47.1212975,
+       "lon": -0.7131599,
+       "how": "nominatim"
       },
       {
        "label": "La Tourlandry",
@@ -764,18 +773,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 208.6,
+      "routed_km": 208.8,
       "profile_km": 198,
       "delta_pct": 5.4,
       "tolerance_pct": 5,
       "coverage_pct": 99,
       "car_legs": 0,
-      "legs": 29,
+      "legs": 30,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : La Rochelle → Puilboreau 3,8 km à vol d'oiseau pour 2 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance à vélo (+5,4 %, 208,6 km pour 198) et plus encore en voiture (+7,1 %, 212 km) : Chemillé → La Jumellière fait 9,8 km à vélo pour 8 au profil, le carrefour N 161-N 161 bis n'étant pas placé ; écart non résolu (règle 20)."
+     "note": "Départ : La Rochelle → Puilboreau 3,8 km à vol d'oiseau pour 2 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance à vélo (+5,4 %, 208,8 km pour 198) et plus encore en voiture (+7,1 %, 212 km) : Chemillé → La Jumellière fait 9,8 km à vélo pour 8 au profil, le carrefour N 161-N 161 bis n'étant pas placé ; écart non résolu (règle 20)."
     },
     "4": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1970/1970_4.jpg",
@@ -1155,7 +1164,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Rennes → Chantepie 5,3 km à vol d'oiseau pour 2,5 au profil, départ réel hors du centre, non situé (règle 25). Le Châtellier → Flers fait 8,2 km à vol d'oiseau (mairies) pour 6 au profil, La Chapelle-au-Moine n'ayant pas de km imprimé : écart de la source ou du km, non résolu."
+     "note": "Départ : Rennes → Chantepie 5,3 km à vol d'oiseau pour 2,5 au profil, départ réel hors du centre, non situé (règle 25). Le Châtellier → Flers fait 8,2 km à vol d'oiseau (mairies) pour 6 au profil, La Chapelle-au-Moine n'ayant pas de km imprimé : écart de la source ou du km, non résolu. Saint-Julien-le-Faucon → Lisieux fait 13,3 km à vol d'oiseau pour 25 au profil : détour non jalonné (carrefour D 103-N 179 et Côte de la Varende non placés)."
     },
     "6": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1970/1970_6.jpg",
@@ -1241,7 +1250,7 @@
        "label": "Hamel",
        "km": 59.5,
        "kind": "ville",
-       "note": "75 m imprimés ; cherché par recherche bornée : Hamel introuvable entre Péronne et Roisel ; non placé (règle 21)",
+       "note": "75 m imprimés ; Hamel (Tincourt-Boucly, index POI IGN, 49.94223, 3.05294) existe, mais Péronne → Hamel fait 8,75 km à vol d'oiseau pour 7 au profil : non placé (règle 21, audit Mireille)",
        "confidence": "non-place"
       },
       {
@@ -1534,9 +1543,9 @@
        "label": "Martelange",
        "km": 92,
        "kind": "ville",
-       "note": "372 m imprimés ; mesuré ≈ 91,5–92 ; frontière Belgique / Luxembourg vers 100",
-       "lat": 49.81491,
-       "lon": 5.7268,
+       "note": "372 m imprimés ; mesuré ≈ 91,5–92 ; frontière Belgique / Luxembourg vers 100 ; Martelange, section du village sur la frontière (Nominatim) : le centre de la commune, 1,9 km au sud-ouest, faisait reprendre 1,8 km en sens inverse vers Hostert (règles 6, 17 et 24, audit Mireille)",
+       "lat": 49.8313323,
+       "lon": 5.7376366,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -1544,8 +1553,11 @@
        "label": "Noster",
        "km": 105.5,
        "kind": "ville",
-       "note": "391 m imprimés ; imprimé « NOSTER » (lecture incertaine) ; mesuré ≈ 105,9 ; cherché par recherche bornée : « Noster » introuvable (lecture incertaine) ; non placé (règle 21)",
-       "confidence": "non-place"
+       "note": "391 m imprimés ; imprimé « NOSTER » (lecture incertaine) ; mesuré ≈ 105,9 ; imprimé « NOSTER », relu « HOSTER » au zoom : Hostert (Rambrouch, Nominatim), EU-DEM 411 m pour 391 (règles 21 et 23), audit Mireille",
+       "confidence": "ok",
+       "lat": 49.8101761,
+       "lon": 5.8657938,
+       "how": "nominatim"
       },
       {
        "label": "Ospern",
@@ -1744,18 +1756,17 @@
       }
      ],
      "route_check": {
-      "routed_km": 227.1,
+      "routed_km": 222.3,
       "profile_km": 228.5,
-      "delta_pct": -0.6,
+      "delta_pct": -2.7,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 24,
+      "legs": 25,
       "suspect_legs": 0,
       "backtracks": 0,
-      "backtracks_uncertain": 1
-     },
-     "note": "Aller-retour incertain à Martelange (1,8 km repris vers Ospern) : « Noster » (lecture incertaine) n'est pas placé entre les deux."
+      "backtracks_uncertain": 0
+     }
     },
     "9": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1970/1970_9.jpg",
@@ -2426,7 +2437,7 @@
        "label": "Crilly",
        "km": 234,
        "kind": "ville",
-       "note": "615 m imprimés ; mesuré ≈ 233,6–233,7 ; cherché par recherche bornée : Crilly non trouvé entre Segny et Divonne ; non placé (règle 21)",
+       "note": "615 m imprimés ; mesuré ≈ 233,6–233,7 ; imprimé « CRILLY », vraisemblablement Grilly (arrêt Grilly-Mairie, 46.33126, 6.11400) : MNT 512 m pour 615, écart de plus de 100 m non tranché sur la courbe, non placé (règles 14 et 21, audit Mireille)",
        "confidence": "non-place"
       },
       {
@@ -2452,7 +2463,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Belfort → Trétudans 7,3 km à vol d'oiseau pour 6 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Belfort → Trétudans 7,3 km à vol d'oiseau pour 6 au profil, départ réel hors du centre, non situé (règle 25). Segny → Divonne-les-Bains fait 8,6 km à vol d'oiseau pour 14,5 au profil : Grilly (« Crilly ») n'est pas placé, détour non jalonné."
     },
     "12": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1970/1970_12.jpg",
@@ -2796,7 +2807,7 @@
        "label": "Les Égats",
        "km": 43,
        "kind": "lieu-dit",
-       "note": "890 m imprimés ; imprimé « LES EGATS »",
+       "note": "890 m imprimés ; imprimé « LES EGATS » ; altitude transcrite 890, relue vraisemblablement 850 au zoom (MNT 849, audit Mireille)",
        "lat": 44.87566,
        "lon": 5.83406,
        "how": "nominatim",
@@ -2910,7 +2921,7 @@
        "label": "La Madeleine",
        "km": 133.5,
        "kind": "lieu-dit",
-       "note": "650 m imprimés ; point de 1982/15 ; MNT 857 m pour « 650 » imprimés : la courbe à ce creux, entre le col du Festre (1 441) et la côte d'Espreaux (1 198), est vers 740-850 m à l'échelle — le 6 vraisemblablement lu pour un 8 (règles 3 et 14), point gardé",
+       "note": "650 m imprimés ; point de 1982/15 ; MNT 857 m pour 650 imprimés : la courbe au creux mesure environ 654 m à l'échelle, et le relief n'y descend pas sous 824 m (Veynes) — c'est la source qui dévie, point gardé (règle 14, cas Corbeilles, audit Mireille)",
        "confidence": "ok",
        "lat": 44.54844,
        "lon": 5.85475,
@@ -2996,7 +3007,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Grenoble → Brié-et-Angonnes 9,2 km à vol d'oiseau pour 8,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance à vélo (−5,7 %, 176,4 km pour 187) et plus encore en voiture (−8,1 %, 171,8 km) : routé plus court que le profil ; La Mure → Les Égats fait 15,2 km à vélo pour 9 au profil (4,8 à vol d'oiseau, BRouter évite la N 85) et La Guinguette → col du Noyer 4,5 km à vol d'oiseau pour 19,5, la montée du col par ses lacets n'étant jalonnée d'aucun point placé ; écart non résolu (règle 20)."
+     "note": "Départ : Grenoble → Brié-et-Angonnes 9,2 km à vol d'oiseau pour 8,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance à vélo (−5,7 %, 176,4 km pour 187) et plus encore en voiture (−8,1 %, 171,8 km) : routé plus court que le profil ; La Mure → Les Égats fait 15,2 km à vélo pour 9 au profil (4,8 à vol d'oiseau, BRouter évite la N 85) et La Guinguette → col du Noyer 4,5 km à vol d'oiseau pour 19,5, la montée du col par ses lacets n'étant jalonnée d'aucun point placé ; écart non résolu (règle 20). Saint-Théoffrey → La Mure fait 9,6 km à vol d'oiseau pour 8,5 au profil : colonnes relues à 25,2 et 34, point au village de l'église (MNT 950 m pour 965), la mairie (Petichet) étant plus loin encore — km imprimés vraisemblablement courts."
     },
     "14": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1970/1970_14.jpg",
@@ -3465,8 +3476,11 @@
        "label": "Les Carrigues",
        "km": 134.5,
        "kind": "lieu-dit",
-       "note": "5 m imprimés ; imprimé « LES CARRIGUES » ; cherché par recherche bornée : « Les Carrigues » introuvable ; non placé (règle 21)",
-       "confidence": "non-place"
+       "note": "5 m imprimés ; imprimé « LES CARRIGUES » ; imprimé « LES CARRIGUES » : hameau des Garrigues (Mauguio, Nominatim), MNT 21 m pour 5 — C lu pour G (règles 21 et 23), audit Mireille",
+       "confidence": "ok",
+       "lat": 43.6182405,
+       "lon": 3.9586018,
+       "how": "nominatim"
       },
       {
        "label": "Montpellier",
@@ -3486,12 +3500,12 @@
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 15,
+      "legs": 16,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Carpentras → Monteux 4,7 km à vol d'oiseau pour 2,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance à vélo (+8,7 %, 150 km pour 138) et plus encore en voiture (+18,8 %, 164 km) : Mauguio → Montpellier fait 14,1 km à vélo pour 10 au profil, arrivée laissée au centre de Montpellier (l'hôtel de ville de 2011 écarté pour l'époque) ; la côte du Mas de Bel-Air n'est pas située ; écart non résolu (règle 20)."
+     "note": "Départ : Carpentras → Monteux 4,7 km à vol d'oiseau pour 2,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance à vélo (+8,7 %, 150 km pour 138) et plus encore en voiture (+18,8 %, 164 km) : Les Garrigues → Montpellier fait 9,4 km à vélo pour 6 au profil (6,6 à vol d'oiseau), arrivée laissée au centre de Montpellier (l'hôtel de ville de 2011 écarté pour l'époque) ; la côte du Mas de Bel-Air n'est pas située ; écart non résolu (règle 20)."
     },
     "16": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1970/1970_16.jpg",
@@ -4034,8 +4048,11 @@
        "label": "Fabas",
        "km": 146,
        "kind": "ville",
-       "note": "296 m imprimés ; Fabas (Ariège) est le seul homonyme compatible avec les voisins (l'homonyme de Haute-Garonne est à 34 km de Taurignan pour 13,5 au profil), mais sa mairie est à 421 m au MNT pour 296 imprimés, au creux de la courbe : la route passe vraisemblablement en contrebas du village, lieu exact non situé, non placé (règle 14)",
-       "confidence": "non-place"
+       "note": "296 m imprimés ; mairie de Fabas (Ariège, Nominatim), MNT 421 m pour 296 : la courbe passe vers 298 m à l'échelle, mais aucune sonde du MNT ne descend sous 350 m à 3 km — c'est la source qui dévie, point gardé (règle 14, cas Lourdios) ; l'homonyme de Haute-Garonne est à 34 km de Taurignan pour 13,5 au profil (règle 7, audit Mireille)",
+       "confidence": "ok",
+       "lat": 43.1084351,
+       "lon": 1.1043166,
+       "how": "nominatim"
       },
       {
        "label": "Cérisols",
@@ -4113,18 +4130,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 186.5,
+      "routed_km": 186.9,
       "profile_km": 186.5,
-      "delta_pct": 0,
+      "delta_pct": 0.2,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 22,
+      "legs": 23,
       "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Toulouse → Tournefeuille 8,3 km à vol d'oiseau pour 3,5 au profil, départ réel hors du centre, non situé (règle 25). Bérat → Lafitte-Vigordane fait 9 km à vol d'oiseau pour 8 au profil (8,9 entre les mairies) : non résolu."
+     "note": "Départ : Toulouse → Tournefeuille 8,3 km à vol d'oiseau pour 3,5 au profil, départ réel hors du centre, non situé (règle 25). Bérat → Lafitte-Vigordane fait 9 km à vol d'oiseau pour 8 au profil (8,9 entre les mairies) : non résolu. Lafitte-Vigordane → Carbonne fait 5 km à vol d'oiseau pour 9 au profil : détour non jalonné."
     },
     "18": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1970/1970_18.jpg",
@@ -5204,7 +5221,7 @@
        "label": "Versailles",
        "km": 238,
        "kind": "ville",
-       "note": "128 m imprimés ; arrivée ; « (STADE MONTBAURON) » ; total imprimé peu lisible « 23? km », fin d'échelle mesurée ≈ 238,2 ; altitude peu lisible ; imprimé « (STADE MONTBAURON) » : stade non trouvé par Nominatim (rue et réservoir de Montbauron seulement), arrivée laissée au centre (règles 18 et 22) ; point de 1988/22",
+       "note": "128 m imprimés ; arrivée ; « (STADE MONTBAURON) » ; total imprimé peu lisible « 23? km », fin d'échelle mesurée ≈ 238,2 ; altitude peu lisible ; imprimé « (STADE MONTBAURON) » : le stade de Montbauron est dans OSM (leisure=pitch, 48.80194, 2.14034), mais son emplacement en 1970 n'est pas sourcé, arrivée laissée au centre (règles 18 et 22) ; point de 1988/22",
        "lat": 48.8011996,
        "lon": 2.1303288,
        "how": "nominatim",
@@ -6182,7 +6199,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Valenciennes → Préseau 6,3 km à vol d'oiseau pour 4 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Valenciennes → Préseau 6,3 km à vol d'oiseau pour 4 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance à vélo (−6,4 %, 107,7 km pour 115) mais pas en voiture (+3,7 %, 119,3 km) : de Marche-lez-Écaussinnes à Forest, BRouter prend des routes plus courtes que la route de 1970, que la voiture suit — c'est le routeur, les points restent (règle 20)."
     },
     "11b": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1970/1970_11b.jpg",
@@ -6712,7 +6729,8 @@
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Eysines → Bordeaux fait 5,6 km à vol d'oiseau pour 17,5 au profil : Bruges (sans km propre) et l'entrée du circuit ne sont pas placés, la boucle d'arrivée au lac n'est pas jalonnée."
     }
    }
   },
