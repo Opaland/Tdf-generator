@@ -2063,6 +2063,19 @@ et côtes traversées avec leur kilomètre.
   23 +8), 1984/0 non contrôlable ; 18 tronçons suspects, 8 allers-retours, 4 incertains.
   **Reste, story non cochée :** remesurer à vélo, puis trier ces écarts et noter
   leurs causes (règle 16). Chiffres de voiture : à ne pas lire comme un résultat.
+- [ ] Édition 1970 (routine quotidienne du 23/11/2026, tentative 1/10) :
+  aucune étape de 1970 n'est encore transcrite. Profils de ledicodutour.com
+  (`images/cartes_etapes/1967_1976/1970/1970_<N>.jpg`) ; 29 fichiers, md5
+  tous distincts, titres vérifiés sur la planche et rapprochés des
+  distances de `stage_towns.json` : `1970_3` est la 3b (Angers → Rennes,
+  140 km), `1970_5b` Rouen → Amiens (113), `1970_7a` Valenciennes → Forest
+  (119). 24 profils à transcrire. Non transcrits : prologue de Limoges,
+  3a (Angers), 7b (Forest), 11a (Divonne) et 20b (Bordeaux-Lac) — cartes ou
+  profils de rues de contre-la-montre, sans commune. Critères
+  d'acceptation : ceux de 1971 (dont les « près X » et « carrefour près X »
+  au bourg quand il tient dans le profil, les noms sans km propre non
+  placés même sur une graduation, les arrivées imprimées avec un lieu
+  placées à ce lieu quand il est vérifié).
 - [x] Édition 1971 (routine quotidienne du 22/11/2026, tentative 1/10) :
   aucune étape de 1971 n'est encore transcrite. Profils de ledicodutour.com
   (`images/cartes_etapes/1967_1976/1971/71_<N>.jpg`, `71_N` = profil ;
