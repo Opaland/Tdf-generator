@@ -2063,6 +2063,21 @@ et côtes traversées avec leur kilomètre.
   23 +8), 1984/0 non contrôlable ; 18 tronçons suspects, 8 allers-retours, 4 incertains.
   **Reste, story non cochée :** remesurer à vélo, puis trier ces écarts et noter
   leurs causes (règle 16). Chiffres de voiture : à ne pas lire comme un résultat.
+- [ ] Règle 4 précisée (décision de Cédric du 23/11/2026, issue #601) : un
+  nom posé sur une graduation prend le km de cette graduation dans la série
+  1969-1985 (motif vérifié sur les données : presque aucun km imprimé n'y
+  est un multiple de 10). Environ 640 noms à replacer, une édition par
+  passage, du plus récent transcrit au plus ancien : 1969, 1970, 1971
+  (23/11), puis 1972 à 1985 (routine quotidienne, après l'édition du
+  jour). Les 6 km imprimés multiples de 10 de la série (1973, 1977, 1981 ×2,
+  1983, 1984) se relisent sur l'image. Critères : CURATION-REGLES règle 4
+  précisée ; pour chaque édition, chaque nom sur une graduation placé (ou
+  non placé avec une note qui dit pourquoi), classe OSM, altitude ±100 m,
+  contrôle BRouter sans aller-retour nouveau, causes des écarts mises à
+  jour.
+  - [ ] 1969 · [ ] 1970 · [ ] 1971 · [ ] 1972 · [ ] 1973 · [ ] 1974 ·
+    [ ] 1975 · [ ] 1976 · [ ] 1977 · [ ] 1978 · [ ] 1979 · [ ] 1980 ·
+    [ ] 1981 · [ ] 1982 · [ ] 1983 · [ ] 1984 · [ ] 1985
 - [x] Édition 1969 (reprise de la routine demandée le 23/11/2026, tentative
   1/10) : aucune étape de 1969 n'est encore transcrite. Profils de
   ledicodutour.com (`images/cartes_etapes/1967_1976/1969/69_<N>.jpg`) ; 26
@@ -3512,9 +3527,35 @@ sur l'histoire du Tour. **En attente de décision** sur les cinq questions du
 - [x] 41.1 Étude rédigée : lecture complète de Netatmo, reprises classées,
   vision du site, usage de Claude et coût estimé, points juridiques, secrets
   à renseigner (aucun tant que rien n'est décidé).
-- [ ] 41.2 Décision du propriétaire sur le pivot, le sort de l'éditeur, les
-  récits Claude (périmètre, modèle, budget), le nom et le domaine, le
-  frontend — en attente de décision.
+- [x] 41.2 Décision du propriétaire (23/11/2026, « suis tes
+  recommandations ») : **pivot oui** — ÉtapeForge devient un site statique
+  public sur l'histoire du Tour (GitHub Pages, sans serveur ni compte) ;
+  **éditeur d'étapes gardé** dans le dépôt comme outil local (`npm start`),
+  hors du site public ; **récits Claude oui**, sur les étapes curées, en
+  commençant par un échantillon de 10 étapes (`--dry-run` puis réel) avant
+  le lot complet — modèle Opus 5.5 par défaut de l'étude, plafond de
+  dépense et clé `ANTHROPIC_API_KEY` à fournir par Cédric (secret GitHub,
+  limite fixée dans la console) ; **frontend en JS natif**, évolué page par
+  page. **Nom et domaine** : non tranchés (aucune recommandation, choix de
+  marque) — « ÉtapeForge », sans domaine propre, en attendant ; le site
+  porte « site indépendant, non affilié à ASO ».
+- [ ] 41.5 Site statique public — socle : build des JSON par édition et des
+  index (communes, cols) par le pipeline dans une Action, pages servies par
+  Pages sans serveur ; l'éditeur reste servi par `npm start` seulement.
+  Critères : `npm run build:site` produit un dossier statique sans appel
+  réseau ; la démo Pages sert ce dossier ; aucune route d'écriture exposée ;
+  mentions ASO et attributions (Wikipédia, IGN, OSM) sur chaque carte.
+- [ ] 41.6 Page par édition : carte village par village, profils, cols,
+  chiffres, écart officiel / reconstitution affiché (règle 12).
+- [ ] 41.7 « Le Tour est-il passé chez moi ? » sur le site statique
+  (index des communes, Epic 32).
+- [ ] 41.8 Fiches de cols et frise 1903 → aujourd'hui.
+- [ ] 41.9 Récits Claude : échantillon de 10 étapes curées (`--dry-run`,
+  coût mesuré), puis lot complet si l'échantillon est conforme — bloqué
+  tant que la clé `ANTHROPIC_API_KEY` n'est pas fournie.
+- [ ] 41.10 Points juridiques (§ 5 de l'étude) dans `NOTICE.md` et sur le
+  site : mention ASO, citation des profils sans republier les images,
+  conditions BRouter et OSRM.
 - [ ] 41.3 Reprises sans décision produit, applicables dans tous les cas
   (après accord) : test des chiffres de la documentation, porte locale lue
   dans `ci.yml`, workflow « sources publiques » qui ouvre une issue, budget
