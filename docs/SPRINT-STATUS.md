@@ -2063,6 +2063,31 @@ et côtes traversées avec leur kilomètre.
   23 +8), 1984/0 non contrôlable ; 18 tronçons suspects, 8 allers-retours, 4 incertains.
   **Reste, story non cochée :** remesurer à vélo, puis trier ces écarts et noter
   leurs causes (règle 16). Chiffres de voiture : à ne pas lire comme un résultat.
+- [x] Édition 1970 (routine quotidienne du 23/11/2026, tentative 1/10) :
+  seule 1970/9 est déjà transcrite (lot Lorraine, PR #404, gardée telle
+  quelle sauf erreur prouvée). Profils de ledicodutour.com
+  (`images/cartes_etapes/1967_1976/1970/1970_<N>.jpg`) ; 29 fichiers, md5
+  tous distincts, titres vérifiés sur la planche et rapprochés des
+  distances de `stage_towns.json` : `1970_3` est la 3b (Angers → Rennes,
+  140 km), `1970_5b` Rouen → Amiens (113), `1970_7a` Valenciennes → Forest
+  (119). 24 profils à transcrire. Non transcrits : prologue de Limoges,
+  3a (Angers), 7b (Forest), 11a (Divonne) et 20b (Bordeaux-Lac) — cartes ou
+  profils de rues de contre-la-montre, sans commune. Critères
+  d'acceptation : ceux de 1971 (dont les « près X » et « carrefour près X »
+  au bourg quand il tient dans le profil, les noms sans km propre non
+  placés même sur une graduation, les arrivées imprimées avec un lieu
+  placées à ce lieu quand il est vérifié).
+  Fait : 24 étapes, 661 points dont 560 placés ; 1970/9 (transcription
+  partielle du lot Lorraine, arrivée au km 267,5 pour 269,5 imprimé)
+  remplacée par la transcription complète en gardant ses points ; 20
+  étapes sur 24 dans la tolérance, 4 hors, cause notée après comparaison
+  en voiture (2 : +5,4 % ; 7a : −6,4 %, le routeur vélo, +3,7 % en
+  voiture ; 13 : −5,7 % ; 15 : +8,7 %) ; aucun tronçon en voiture, aucun
+  aller-retour. Audit de curation (Mireille) appliqué : Fabas (source qui
+  dévie, cas Lourdios), Vezins, Longré, Hostert, Les Garrigues, Le Breuil
+  placés, Martelange au village, notes de tronçon. Noms posés sur une
+  graduation : règle 4 appliquée telle qu'écrite, précision proposée en
+  issue #601. Écarts restants : issue #602.
 - [x] Édition 1971 (routine quotidienne du 22/11/2026, tentative 1/10) :
   aucune étape de 1971 n'est encore transcrite. Profils de ledicodutour.com
   (`images/cartes_etapes/1967_1976/1971/71_<N>.jpg`, `71_N` = profil ;
