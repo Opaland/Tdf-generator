@@ -2075,9 +2075,18 @@ et côtes traversées avec leur kilomètre.
   non placé avec une note qui dit pourquoi), classe OSM, altitude ±100 m,
   contrôle BRouter sans aller-retour nouveau, causes des écarts mises à
   jour.
-  - [ ] 1969 · [ ] 1970 · [ ] 1971 · [ ] 1972 · [ ] 1973 · [ ] 1974 ·
+  - [x] 1969 · [x] 1970 · [x] 1971 · [ ] 1972 · [ ] 1973 · [ ] 1974 ·
     [ ] 1975 · [ ] 1976 · [ ] 1977 · [ ] 1978 · [ ] 1979 · [ ] 1980 ·
     [ ] 1981 · [ ] 1982 · [ ] 1983 · [ ] 1984 · [ ] 1985
+  - 1969-1971 (23/11) : 72 noms repris, 64 placés (19 + 23 + 22), 8 non
+    placés avec motif (carrefours introuvables ou incompatibles, frontière,
+    passage sous autoroute, noms introuvables après recherche bornée, camp
+    du Poteau dont l'emprise créait un aller-retour ; Sainte-Croix-sur-Buchy
+    et Givry retirés, profil incohérent à leur graduation). Contrôle BRouter
+    réécrit sur les 37 étapes touchées sans aller-retour nouveau ; 1970/13
+    rentre dans la tolérance (−5,7 % → −3,0 %), 1971/1b en sort (+4,4 % →
+    +8,0 %, Lörrach placé, écart affiché). Audit Mireille : 9 corrections
+    appliquées (Bougnimont, La Montgie, carrefour D 25-D 229 trouvés).
 - [x] Édition 1969 (reprise de la routine demandée le 23/11/2026, tentative
   1/10) : aucune étape de 1969 n'est encore transcrite. Profils de
   ledicodutour.com (`images/cartes_etapes/1967_1976/1969/69_<N>.jpg`) ; 26

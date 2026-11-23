@@ -54,6 +54,15 @@ entrée : on la marque « absorbée par … ».
     le worktree. Lire la sortie de `npm test` (pas seulement le code de
     retour du commit), et installer les dépendances avant toute chose.
 
+24. **Un script qui ouvre le fichier de données le garde en entier**
+    (23/11/2026). Pour réécrire les notes d'étape de 1969, 1970 et 1971,
+    j'ai créé trois objets `Ed` (un par édition) avant de les enregistrer :
+    chacun avait chargé tout `stage_itineraries.json`, et le dernier
+    enregistré a effacé les corrections des deux autres, sans erreur.
+    L'audit Mireille a trouvé les notes périmées. Un seul chargement à la
+    fois : ouvrir, corriger, enregistrer, puis passer à l'édition suivante ;
+    relire une note de chaque édition après coup.
+
 ## Commandes et processus
 
 6. **Lancer en arrière-plan avec l'outil, pas avec `&`** (08/11/2026). Un
