@@ -410,10 +410,10 @@ et côtes traversées avec leur kilomètre.
     PR fusionnée) ; sinon la routine reboucle sur la même édition. Après
     **10 tentatives** sans y parvenir, l'édition est notée bloquée, une
     issue en dit la cause, et la routine passe à la suivante.
-    - État au 23/11 (soir) : **1969 verte** à la tentative 1/10, reprise
-      demandée par Cédric le 23/11 (PR #607 fusionnée, écarts bloquants de
-      l'audit Mireille corrigés ; écarts restants en issue #606). Édition
-      prévue le 24/11 : **1968**, tentative 1/10.
+    - État au 24/11 : **1968 verte** à la tentative 1/10 (écarts bloquants
+      de l'audit Mireille corrigés ; écarts restants en issue #612) ; règle
+      4 précisée rejouée sur 1972 (PR #611). Édition prévue le 25/11 :
+      **1967**, tentative 1/10 ; règle 4 : 1973.
   - **Reprises de la routine quotidienne** (routine du matin demandée le
     06/11/2026 : reprises d'abord, puis une édition ; ce qui n'est pas fait
     le jour même s'ajoute ici avec une issue `routine-curation`, reprise le
@@ -2096,6 +2096,28 @@ et côtes traversées avec leur kilomètre.
     aller-retour nouveau ; 1972/15, déjà hors tolérance, s'écarte un peu
     plus (Mouxy à sa mairie), cause notée. Audit Mireille : Herrère remesuré
     sur la graduation 110, Buc retiré.
+- [x] Édition 1968 (routine quotidienne du 24/11/2026, tentative 1/10) :
+  aucune étape de 1968 n'est encore transcrite. Profils de ledicodutour.com
+  (`images/cartes_etapes/1967_1976/1968/68_<N>.jpg`) ; 26 fichiers, md5 tous
+  distincts et distincts de 1969. 24 profils à transcrire (1b, 2, 3b, 4, 5a,
+  5b, 6 à 21, 22a, 22b). Non transcrits : 1a (prologue de Vittel) et 3a
+  (contre-la-montre de Forest) — plans de circuit. Critères d'acceptation :
+  ceux de 1969 ; km imprimés en fractions (« 8½ ») relus à l'échelle ; la
+  règle 4 précisée (série 1969-1985) ne s'étend à 1968 que si le motif
+  (aucun km imprimé multiple de 10) s'y vérifie sur la transcription, et
+  chaque nom sans km porte la mesure de sa colonne ; audit Mireille avant
+  la PR, écarts restants en issue.
+  Fait : 24 étapes, 608 points dont 533 placés ; règle 4 précisée étendue
+  à 1968 (aucun des 506 km imprimés n'est un multiple de 10) ; départs
+  vérifiés (14 départs réels hors du centre notés), arrivées de
+  Canet-Plage, Cordon et de la piste de Vincennes replacées ; 11
+  carrefours au croisement BD TOPO ; 21 étapes sur 24 dans la tolérance,
+  3 hors avec cause notée après comparaison en voiture (10 : +5,5 % ; 3b :
+  −7,6 %, routeur ; 22b : +6,3 %) ; 0 tronçon en voiture, 0 aller-retour.
+  Audit Mireille : 6 écarts bloquants corrigés (pont de Céret, col de la
+  Faucille, Morez, Planès, Saint-Cyr-les-Colons relu 277, motifs des
+  non-placés et causes des tronçons suspects). Écarts restants : issue
+  #612.
 - [x] Édition 1969 (reprise de la routine demandée le 23/11/2026, tentative
   1/10) : aucune étape de 1969 n'est encore transcrite. Profils de
   ledicodutour.com (`images/cartes_etapes/1967_1976/1969/69_<N>.jpg`) ; 26
