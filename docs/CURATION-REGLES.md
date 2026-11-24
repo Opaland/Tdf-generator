@@ -64,7 +64,10 @@ dans la même PR que son correctif.
    deux graduations (règle 3), prend donc le km de cette graduation et se
    place comme les autres, avec « km de la graduation (règle 4) » dans sa
    note. Un nom « près de » une graduation, ou hors de cette série, reste
-   non placé.
+   non placé. **La série commence en 1968** (24/11/2026) : sur les 506 km
+   imprimés de la transcription de 1968, aucun n'est un multiple de 10,
+   25 sont des multiples de 5 — le motif est le même, la règle s'y
+   applique. Avant de l'étendre à une autre édition, refaire ce compte.
 5. **Km strictement croissants** ; un nom présent deux fois dans une étape
    (Ettlingen 1987/3) se corrige sur la bonne occurrence, pas la première
    trouvée.
