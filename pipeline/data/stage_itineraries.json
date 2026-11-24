@@ -549,12 +549,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 230.2,
+      "routed_km": 227.4,
       "profile_km": 223.5,
-      "delta_pct": 3,
+      "delta_pct": 1.7,
       "tolerance_pct": 5,
       "coverage_pct": 94,
-      "car_legs": 4,
+      "car_legs": 0,
       "legs": 25,
       "suspect_legs": 1,
       "backtracks": 0,
@@ -781,12 +781,12 @@
      ],
      "note": "Départ : Dinard → Saint-Briac-sur-Mer 5,7 km à vol d'oiseau pour 5,5 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 179,
+      "routed_km": 177.9,
       "profile_km": 182.5,
-      "delta_pct": -1.9,
+      "delta_pct": -2.5,
       "tolerance_pct": 5,
       "coverage_pct": 97,
-      "car_legs": 7,
+      "car_legs": 0,
       "legs": 18,
       "suspect_legs": 1,
       "backtracks": 0,
@@ -1033,12 +1033,12 @@
      ],
      "note": "Départ : Lorient → Kervignac 9,7 km à vol d'oiseau pour 8 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 184.1,
+      "routed_km": 184.3,
       "profile_km": 182,
-      "delta_pct": 1.1,
+      "delta_pct": 1.3,
       "tolerance_pct": 5,
       "coverage_pct": 96,
-      "car_legs": 3,
+      "car_legs": 0,
       "legs": 20,
       "suspect_legs": 0,
       "backtracks": 0,
@@ -1290,11 +1290,11 @@
        "label": "Cadeuil",
        "km": 203,
        "kind": "lieu-dit",
-       "note": "17 m imprimés ; km peu lisible (203 ou 203½ ; colonne ≈ 203,1)",
-       "lat": 45.70234,
-       "lon": -1.0334,
+       "note": "17 m imprimés ; km peu lisible (203 ou 203½ ; colonne ≈ 203,1) ; replacé à Cadeuil (Le Gua, Nominatim) : l'homonyme de Mornac-sur-Seudre, pris d'abord, faisait un aller-retour de 3,9 km vers Fontbedeau (règles 7 et 9)",
+       "lat": 45.7522892,
+       "lon": -0.9479828,
        "how": "nominatim",
-       "confidence": "ambigu"
+       "confidence": "ok"
       },
       {
        "label": "Fontbedeau",
@@ -1329,16 +1329,16 @@
      ],
      "note": "Départ : Nantes → Viais 11,3 km à vol d'oiseau pour 9 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 216.6,
+      "routed_km": 207.9,
       "profile_km": 214,
-      "delta_pct": 1.2,
+      "delta_pct": -2.8,
       "tolerance_pct": 5,
       "coverage_pct": 96,
-      "car_legs": 7,
+      "car_legs": 0,
       "legs": 23,
       "suspect_legs": 1,
       "backtracks": 0,
-      "backtracks_uncertain": 1
+      "backtracks_uncertain": 0
      }
     },
     "9": {
@@ -1551,14 +1551,14 @@
       }
      ],
      "route_check": {
-      "routed_km": 124.7,
+      "routed_km": 122.5,
       "profile_km": 120.5,
-      "delta_pct": 3.5,
+      "delta_pct": 1.6,
       "tolerance_pct": 5,
       "coverage_pct": 88,
-      "car_legs": 7,
+      "car_legs": 0,
       "legs": 18,
-      "suspect_legs": 0,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -1648,11 +1648,8 @@
        "label": "Laharie",
        "km": 91.5,
        "kind": "lieu-dit",
-       "note": "70 m imprimés",
-       "lat": 44.06308,
-       "lon": -1.02097,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "70 m imprimés ; retiré : le point de Laharie (Nominatim) faisait un aller-retour de 1,2 km vers Souquet au contrôle BRouter, et la mairie de la commune (Onesse-Laharie) est à Onesse (règles 9 et 17)",
+       "confidence": "non-place"
       },
       {
        "label": "Souquet",
@@ -1765,17 +1762,17 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Bordeaux → Jauge 18,4 km à vol d'oiseau pour 13,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "note": "Départ : Bordeaux → Jauge 18,4 km à vol d'oiseau pour 13,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance à vélo (+5,5 %, 197,3 km pour 187) et plus encore en voiture (+10,3 %, 206,2 km) : Liposthey → Labouheyre fait 12,2 km à vol d'oiseau pour 12 au profil (15,1 à vélo), Le Muret → Liposthey 10,8 pour 11 — km imprimés vraisemblablement courts sur la N 10 ; Laharie et le Souquet ne sont pas placés ; écart non résolu (règle 20).",
      "route_check": {
-      "routed_km": 199.5,
+      "routed_km": 197.3,
       "profile_km": 187,
-      "delta_pct": 6.7,
+      "delta_pct": 5.5,
       "tolerance_pct": 5,
       "coverage_pct": 92,
-      "car_legs": 4,
-      "legs": 16,
-      "suspect_legs": 1,
-      "backtracks": 2,
+      "car_legs": 0,
+      "legs": 15,
+      "suspect_legs": 0,
+      "backtracks": 0,
       "backtracks_uncertain": 0
      }
     },
@@ -2022,17 +2019,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 163.8,
+      "routed_km": 164.4,
       "profile_km": 161,
-      "delta_pct": 1.7,
+      "delta_pct": 2.1,
       "tolerance_pct": 5,
       "coverage_pct": 88,
-      "car_legs": 5,
+      "car_legs": 0,
       "legs": 19,
       "suspect_legs": 0,
       "backtracks": 0,
-      "backtracks_uncertain": 0
-     }
+      "backtracks_uncertain": 1
+     },
+     "note": "La côte de Piétat n'étant pas placée, le contrôle signale un aller-retour incertain de 1,1 km au carrefour D 24-D 285."
     },
     "12": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1968/68_12.jpg",
@@ -2344,16 +2342,16 @@
      ],
      "note": "Départ : Pau → Gan 7,8 km à vol d'oiseau pour 6,5 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 226.4,
+      "routed_km": 220.7,
       "profile_km": 220,
-      "delta_pct": 2.9,
+      "delta_pct": 0.3,
       "tolerance_pct": 5,
       "coverage_pct": 97,
-      "car_legs": 7,
-      "legs": 28,
-      "suspect_legs": 1,
+      "car_legs": 0,
+      "legs": 27,
+      "suspect_legs": 0,
       "backtracks": 0,
-      "backtracks_uncertain": 1
+      "backtracks_uncertain": 0
      }
     },
     "13": {
@@ -2620,12 +2618,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 203.8,
+      "routed_km": 203,
       "profile_km": 193.5,
-      "delta_pct": 5.3,
+      "delta_pct": 4.9,
       "tolerance_pct": 5,
       "coverage_pct": 93,
-      "car_legs": 12,
+      "car_legs": 0,
       "legs": 24,
       "suspect_legs": 0,
       "backtracks": 0,
@@ -2868,12 +2866,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 204,
+      "routed_km": 203.9,
       "profile_km": 200,
       "delta_pct": 2,
       "tolerance_pct": 5,
       "coverage_pct": 86,
-      "car_legs": 3,
+      "car_legs": 0,
       "legs": 19,
       "suspect_legs": 1,
       "backtracks": 0,
@@ -2937,11 +2935,8 @@
        "label": "Côte de la Chapelle",
        "km": 59.5,
        "kind": "côte",
-       "note": "990 m imprimés ; 4e cat. ; imprimé « CÔTE DE LA CHAPELLE » ; chapelle Notre-Dame (Bessède-de-Sault, IGN), MNT 950 m pour 990 ; recherche bornée (règle 21)",
-       "confidence": "ok",
-       "lat": 42.78839,
-       "lon": 2.1144,
-       "how": "ign"
+       "note": "990 m imprimés ; 4e cat. ; imprimé « CÔTE DE LA CHAPELLE » ; chapelle Notre-Dame (Bessède-de-Sault, IGN), MNT 950 m pour 990 ; recherche bornée (règle 21) ; retiré : la chapelle Notre-Dame, hors de la route, faisait un aller-retour de 1,8 km vers Rodome (règle 9)",
+       "confidence": "non-place"
       },
       {
        "label": "Rodome",
@@ -3124,18 +3119,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 225.9,
+      "routed_km": 222.5,
       "profile_km": 230,
-      "delta_pct": -1.8,
+      "delta_pct": -3.3,
       "tolerance_pct": 5,
       "coverage_pct": 92,
-      "car_legs": 9,
-      "legs": 22,
-      "suspect_legs": 2,
-      "backtracks": 1,
+      "car_legs": 0,
+      "legs": 21,
+      "suspect_legs": 3,
+      "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Font-Romeu à 1 592 m au MNT (point Nominatim) pour 1 750 imprimés, départ vraisemblablement au-dessus du bourg, non contrôlé (règle 25)."
+     "note": "Départ : Font-Romeu à 1 592 m au MNT (point Nominatim) pour 1 750 imprimés, départ vraisemblablement au-dessus du bourg, non contrôlé (règle 25). Albi est imprimé deux fois (km 231½ puis arrivée à 240½) : le tronçon Albi → Albi, 9 km au profil, n'est pas mesuré (règle 5)."
     },
     "16": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1968/68_16.jpg",
@@ -3404,15 +3399,15 @@
       }
      ],
      "route_check": {
-      "routed_km": 193.1,
+      "routed_km": 196.4,
       "profile_km": 195,
-      "delta_pct": -1,
+      "delta_pct": 0.7,
       "tolerance_pct": 5,
       "coverage_pct": 98,
-      "car_legs": 10,
+      "car_legs": 0,
       "legs": 20,
-      "suspect_legs": 2,
-      "backtracks": 1,
+      "suspect_legs": 3,
+      "backtracks": 0,
       "backtracks_uncertain": 0
      }
     },
@@ -3667,7 +3662,7 @@
       "delta_pct": 3.5,
       "tolerance_pct": 5,
       "coverage_pct": 94,
-      "car_legs": 3,
+      "car_legs": 0,
       "legs": 20,
       "suspect_legs": 0,
       "backtracks": 0,
@@ -3967,12 +3962,12 @@
      ],
      "note": "Départ : Saint-Étienne → Col du Grand Bois 14 km à vol d'oiseau pour 13,5 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 226.6,
+      "routed_km": 224.3,
       "profile_km": 222,
-      "delta_pct": 2.1,
+      "delta_pct": 1,
       "tolerance_pct": 5,
       "coverage_pct": 94,
-      "car_legs": 12,
+      "car_legs": 0,
       "legs": 26,
       "suspect_legs": 0,
       "backtracks": 0,
@@ -4066,11 +4061,8 @@
        "label": "Côte de Champ-Laurent",
        "km": 58.5,
        "kind": "côte",
-       "note": "imprimé « COTE DE / CHAMP-LAURENT » ; catégorie non lue ; route du col de Champ-Laurent (Nominatim), MNT 1 071 m ; recherche bornée (règle 21)",
-       "confidence": "ok",
-       "lat": 45.50364,
-       "lon": 6.22123,
-       "how": "nominatim"
+       "note": "imprimé « COTE DE / CHAMP-LAURENT » ; catégorie non lue ; route du col de Champ-Laurent (Nominatim), MNT 1 071 m ; recherche bornée (règle 21) ; non placé : le point de la route du col (1,8 km) puis le col lui-même (Nominatim, mountain_pass, 1,2 km) font un aller-retour vers Chamoux au contrôle BRouter (règle 9)",
+       "confidence": "non-place"
       },
       {
        "label": "Chamoux",
@@ -4247,18 +4239,18 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Grenoble → Domène 8,2 km à vol d'oiseau pour 7 au profil, départ réel hors du centre, non situé (règle 25).",
+     "note": "Départ : Grenoble → Domène 8,2 km à vol d'oiseau pour 7 au profil, départ réel hors du centre, non situé (règle 25). Étable → Chamoux : la côte de Champ-Laurent n'étant pas placée (aller-retour au col), le contrôle signale un aller-retour incertain de 1,4 km à Étable.",
      "route_check": {
-      "routed_km": 188.1,
+      "routed_km": 183.9,
       "profile_km": 193.5,
-      "delta_pct": -2.8,
+      "delta_pct": -5,
       "tolerance_pct": 5,
       "coverage_pct": 97,
-      "car_legs": 9,
-      "legs": 23,
-      "suspect_legs": 2,
-      "backtracks": 1,
-      "backtracks_uncertain": 0
+      "car_legs": 0,
+      "legs": 22,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 1
      }
     },
     "20": {
@@ -4623,14 +4615,14 @@
      ],
      "note": "Départ : Sallanches → Magland 9,4 km à vol d'oiseau pour 8,5 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 232.4,
+      "routed_km": 224,
       "profile_km": 234,
-      "delta_pct": -0.7,
+      "delta_pct": -4.3,
       "tolerance_pct": 5,
       "coverage_pct": 96,
-      "car_legs": 7,
-      "legs": 28,
-      "suspect_legs": 0,
+      "car_legs": 0,
+      "legs": 26,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -4962,13 +4954,13 @@
      ],
      "note": "Départ : Besançon → Pouilley-les-Vignes 7,1 km à vol d'oiseau pour 5,5 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 240.6,
+      "routed_km": 242.1,
       "profile_km": 237,
-      "delta_pct": 1.5,
+      "delta_pct": 2.1,
       "tolerance_pct": 5,
       "coverage_pct": 98,
-      "car_legs": 11,
-      "legs": 29,
+      "car_legs": 0,
+      "legs": 28,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -5001,11 +4993,8 @@
        "label": "Carrefour près Rainville",
        "km": 18.5,
        "kind": "lieu-dit",
-       "note": "309 m imprimés ; imprimé « CAR. près RAINVILLE » ; carrefour près de Rainville : placé à Rainville (IGN), qui tient dans le profil (règle 4, « Carrefour près X »)",
-       "confidence": "ok",
-       "lat": 48.3561,
-       "lon": 5.88699,
-       "how": "ign"
+       "note": "309 m imprimés ; imprimé « CAR. près RAINVILLE » ; carrefour près de Rainville : placé à Rainville (IGN), qui tient dans le profil (règle 4, « Carrefour près X ») ; retiré : le bourg de Rainville faisait un aller-retour de 1,7 km vers Attignéville ; le carrefour, près du bourg, n'est pas situé (règle 9)",
+       "confidence": "non-place"
       },
       {
        "label": "Attignéville",
@@ -5247,15 +5236,15 @@
       }
      ],
      "route_check": {
-      "routed_km": 182.3,
+      "routed_km": 175.1,
       "profile_km": 178,
-      "delta_pct": 2.4,
+      "delta_pct": -1.6,
       "tolerance_pct": 5,
       "coverage_pct": 94,
-      "car_legs": 20,
-      "legs": 22,
-      "suspect_legs": 2,
-      "backtracks": 1,
+      "car_legs": 0,
+      "legs": 21,
+      "suspect_legs": 1,
+      "backtracks": 0,
       "backtracks_uncertain": 0
      }
     },
@@ -5411,17 +5400,17 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Anderlecht → Sint-Martens-Lennik 8,9 km à vol d'oiseau pour 8 au profil, départ réel hors du centre, non situé (règle 25).",
+     "note": "Départ : Anderlecht → Sint-Martens-Lennik 8,9 km à vol d'oiseau pour 8 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance à vélo (−7,6 %, 96,1 km pour 104) mais pas en voiture (+0,9 %, 104,9 km) : de Galmaarden à Onkerzele, BRouter prend des routes plus courtes (5,9 km pour 8,5 au profil, 7,7 en voiture) — c'est le routeur, les points restent (règle 20).",
      "route_check": {
-      "routed_km": 104.9,
+      "routed_km": 96.1,
       "profile_km": 104,
-      "delta_pct": 0.9,
+      "delta_pct": -7.6,
       "tolerance_pct": 5,
       "coverage_pct": 93,
-      "car_legs": 13,
+      "car_legs": 0,
       "legs": 13,
       "suspect_legs": 1,
-      "backtracks": 1,
+      "backtracks": 0,
       "backtracks_uncertain": 0
      }
     },
@@ -5632,13 +5621,13 @@
      ],
      "note": "Départ : Rouen → Grand-Couronne 11,6 km à vol d'oiseau pour 10 au profil, départ réel hors du centre, non situé (règle 25). Le km 0 imprimé est à 125 m, au-dessus du centre de Rouen (15 m) : départ réel sur les hauteurs, non situé (règle 25).",
      "route_check": {
-      "routed_km": 160.5,
+      "routed_km": 157.7,
       "profile_km": 155,
-      "delta_pct": 3.5,
+      "delta_pct": 1.7,
       "tolerance_pct": 5,
       "coverage_pct": 94,
-      "car_legs": 17,
-      "legs": 17,
+      "car_legs": 0,
+      "legs": 16,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -5847,15 +5836,15 @@
      ],
      "note": "Départ : Bagnoles-de-l'Orne → L'Étoile d'Andaine 6,2 km à vol d'oiseau pour 6 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 153.4,
+      "routed_km": 147.2,
       "profile_km": 148.5,
-      "delta_pct": 3.3,
+      "delta_pct": -0.9,
       "tolerance_pct": 5,
       "coverage_pct": 96,
-      "car_legs": 17,
+      "car_legs": 0,
       "legs": 17,
       "suspect_legs": 1,
-      "backtracks": 1,
+      "backtracks": 0,
       "backtracks_uncertain": 0
      }
     },
@@ -6055,12 +6044,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 138.7,
+      "routed_km": 137,
       "profile_km": 134,
-      "delta_pct": 3.5,
+      "delta_pct": 2.3,
       "tolerance_pct": 5,
       "coverage_pct": 99,
-      "car_legs": 15,
+      "car_legs": 0,
       "legs": 15,
       "suspect_legs": 0,
       "backtracks": 0,
@@ -6258,12 +6247,12 @@
       }
      ],
      "route_check": {
-      "routed_km": 56.4,
+      "routed_km": 53.6,
       "profile_km": 52.2,
-      "delta_pct": 8.1,
+      "delta_pct": 2.7,
       "tolerance_pct": 5,
       "coverage_pct": 95,
-      "car_legs": 11,
+      "car_legs": 0,
       "legs": 11,
       "suspect_legs": 0,
       "backtracks": 0,
