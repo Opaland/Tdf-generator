@@ -410,10 +410,8 @@ et côtes traversées avec leur kilomètre.
     PR fusionnée) ; sinon la routine reboucle sur la même édition. Après
     **10 tentatives** sans y parvenir, l'édition est notée bloquée, une
     issue en dit la cause, et la routine passe à la suivante.
-    - État au 23/11 (soir) : **1969 verte** à la tentative 1/10, reprise
-      demandée par Cédric le 23/11 (PR #607 fusionnée, écarts bloquants de
-      l'audit Mireille corrigés ; écarts restants en issue #606). Édition
-      prévue le 24/11 : **1968**, tentative 1/10.
+    - État au 24/11 (matin) : **1968** en cours, tentative 1/10 (1969 verte
+      le 23/11, PR #607 ; règle 4 précisée rejouée sur 1969-1971, PR #610).
   - **Reprises de la routine quotidienne** (routine du matin demandée le
     06/11/2026 : reprises d'abord, puis une édition ; ce qui n'est pas fait
     le jour même s'ajoute ici avec une issue `routine-curation`, reprise le
@@ -2087,6 +2085,17 @@ et côtes traversées avec leur kilomètre.
     rentre dans la tolérance (−5,7 % → −3,0 %), 1971/1b en sort (+4,4 % →
     +8,0 %, Lörrach placé, écart affiché). Audit Mireille : 9 corrections
     appliquées (Bougnimont, La Montgie, carrefour D 25-D 229 trouvés).
+- [ ] Édition 1968 (routine quotidienne du 24/11/2026, tentative 1/10) :
+  aucune étape de 1968 n'est encore transcrite. Profils de ledicodutour.com
+  (`images/cartes_etapes/1967_1976/1968/68_<N>.jpg`) ; 26 fichiers, md5 tous
+  distincts et distincts de 1969. 24 profils à transcrire (1b, 2, 3b, 4, 5a,
+  5b, 6 à 21, 22a, 22b). Non transcrits : 1a (prologue de Vittel) et 3a
+  (contre-la-montre de Forest) — plans de circuit. Critères d'acceptation :
+  ceux de 1969 ; km imprimés en fractions (« 8½ ») relus à l'échelle ; la
+  règle 4 précisée (série 1969-1985) ne s'étend à 1968 que si le motif
+  (aucun km imprimé multiple de 10) s'y vérifie sur la transcription, et
+  chaque nom sans km porte la mesure de sa colonne ; audit Mireille avant
+  la PR, écarts restants en issue.
 - [x] Édition 1969 (reprise de la routine demandée le 23/11/2026, tentative
   1/10) : aucune étape de 1969 n'est encore transcrite. Profils de
   ledicodutour.com (`images/cartes_etapes/1967_1976/1969/69_<N>.jpg`) ; 26
