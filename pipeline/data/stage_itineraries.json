@@ -19298,8 +19298,11 @@
        "label": "La Croix-du-Haut-Corlay",
        "km": 30,
        "kind": "lieu-dit",
-       "confidence": "non-place",
-       "note": "220 m imprimés ; aucun km imprimé dans la rangée des points ; la colonne tombe sur la graduation 30 (mesuré 29,9) ; non placé : km approché (règle 4)"
+       "note": "220 m imprimés ; aucun km imprimé dans la rangée des points ; la colonne tombe sur la graduation 30 (mesuré 29,9) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; lieu-dit la Croix (Le Haut-Corlay, IGN), MNT 215 m pour 220 ; recherche bornée (règle 21)",
+       "confidence": "ok",
+       "lat": 48.33322,
+       "lon": -3.02636,
+       "how": "ign"
       },
       {
        "label": "Côte de Corlay",
@@ -19535,13 +19538,13 @@
      "circuit_km": 194,
      "note": "Circuit final de La Baule : 1er passage sur la ligne au km 194, arrivée au km 206 ; circuit_km au 1er passage (règle 19). Départ : Saint-Brieuc → Carrefour Malakoff 10,8 km à vol d'oiseau pour 9 au profil, départ réel hors du centre, non situé (règle 25). Le Pouliguen → La Baule (1er passage) : 3,1 km à vol d'oiseau pour 1 au profil : la ligne d'arrivée de La Baule était vraisemblablement à l'ouest de la ville, l'ancre de l'arrivée (centre) n'est pas sourcée.",
      "route_check": {
-      "routed_km": 188.8,
+      "routed_km": 189.3,
       "profile_km": 185,
-      "delta_pct": 2.1,
+      "delta_pct": 2.3,
       "tolerance_pct": 5,
       "coverage_pct": 90,
       "car_legs": 0,
-      "legs": 20,
+      "legs": 21,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -19634,8 +19637,8 @@
        "label": "Carrefour D. 32A-N. 149",
        "km": 50,
        "kind": "lieu-dit",
-       "confidence": "non-place",
-       "note": "aucun km imprimé ; colonne sur la graduation 50 (mesuré 49,8) ; non placé : km approché (règle 4)"
+       "note": "aucun km imprimé ; colonne sur la graduation 50 (mesuré 49,8) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; recherche du croisement D 32A (ou D 32) et N 149 (ou D 949) dans la BD TOPO entre les voisins placés : aucune extrémité commune ; non placé (règle 21)",
+       "confidence": "non-place"
       },
       {
        "label": "Talmont",
@@ -19848,8 +19851,11 @@
        "label": "Saint-Porchaire",
        "km": 200,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "15 m imprimés ; aucun km imprimé ; colonne sur la graduation 200 (mesuré 199,5) ; non placé : km approché (règle 4)"
+       "note": "15 m imprimés ; aucun km imprimé ; colonne sur la graduation 200 (mesuré 199,5) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601)",
+       "lat": 45.82135,
+       "lon": -0.78512,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Saint-Sulpice-d'Arnoult",
@@ -19895,8 +19901,11 @@
        "label": "Jaffe",
        "km": 230,
        "kind": "lieu-dit",
-       "confidence": "non-place",
-       "note": "26 m imprimés ; imprimé « JAFFE » ; aucun km imprimé ; colonne sur la graduation 230 (mesuré 230-230,5) ; altitude peu lisible (26 ou 28) ; non placé : km approché (règle 4)"
+       "note": "26 m imprimés ; imprimé « JAFFE » ; aucun km imprimé ; colonne sur la graduation 230 (mesuré 230-230,5) ; altitude peu lisible (26 ou 28) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601)",
+       "lat": 45.66018,
+       "lon": -1.02389,
+       "how": "nominatim",
+       "confidence": "ok"
       },
       {
        "label": "Royan",
@@ -19911,13 +19920,13 @@
      ],
      "note": "Départ : Merlin-Plage → Saint-Hilaire-de-Riez 7,6 km à vol d'oiseau pour 7 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 233.9,
+      "routed_km": 234.5,
       "profile_km": 229,
-      "delta_pct": 2.2,
+      "delta_pct": 2.4,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 31,
+      "legs": 33,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -20326,8 +20335,11 @@
        "label": "Carrefour Herrère",
        "km": 110,
        "kind": "lieu-dit",
-       "confidence": "non-place",
-       "note": "294 m imprimés ; aucun km imprimé ; colonne sur la graduation 110 (mesuré 110-111) ; non placé : km approché (règle 4)"
+       "note": "294 m imprimés ; aucun km imprimé ; colonne sur la graduation 110 (remesuré ≈ 110,0 au zoom contre les graduations 100 et 120, audit Mireille) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; carrefour placé au lieu-dit Herrère (IGN, sur la route d'Ogeu), MNT 287 m pour 294 ; recherche bornée (règles 4 et 21)",
+       "confidence": "ok",
+       "lat": 43.16982,
+       "lon": -0.53594,
+       "how": "ign"
       },
       {
        "label": "Ogeu-les-Bains",
@@ -20478,13 +20490,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 203.2,
+      "routed_km": 204.2,
       "profile_km": 198,
-      "delta_pct": 2.6,
+      "delta_pct": 3.1,
       "tolerance_pct": 5,
       "coverage_pct": 90,
       "car_legs": 0,
-      "legs": 24,
+      "legs": 25,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -20661,8 +20673,11 @@
        "label": "Payolle",
        "km": 110,
        "kind": "lieu-dit",
-       "confidence": "non-place",
-       "note": "1060 m imprimés ; aucun km imprimé ; trait sur la graduation 110 ; ravitaillement (symbole) entre Sainte-Marie et La Séoube ; non placé : km approché (règle 4)"
+       "note": "1060 m imprimés ; aucun km imprimé ; trait sur la graduation 110 ; ravitaillement (symbole) entre Sainte-Marie et La Séoube ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601)",
+       "lat": 42.94253,
+       "lon": 0.28512,
+       "how": "nominatim",
+       "confidence": "ok"
       },
       {
        "label": "Col d'Aspin",
@@ -20747,13 +20762,13 @@
      ],
      "note": "Départ : Pau → Ousse 8,2 km à vol d'oiseau pour 6,5 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 155.4,
+      "routed_km": 155.5,
       "profile_km": 157,
-      "delta_pct": -1,
+      "delta_pct": -0.9,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 21,
+      "legs": 22,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -20924,8 +20939,11 @@
        "label": "Fabas",
        "km": 100,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "389 m imprimés ; aucun km imprimé ; trait sur la graduation 100 (limite Ariège/Haute-Garonne) ; non placé : km approché (règle 4)"
+       "note": "389 m imprimés ; aucun km imprimé ; trait sur la graduation 100 (limite Ariège/Haute-Garonne) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601)",
+       "lat": 43.10804,
+       "lon": 1.10501,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Carrefour D 7-D 86",
@@ -20981,8 +20999,11 @@
        "label": "Rieumes",
        "km": 140,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "280 m imprimés ; aucun km imprimé ; trait sur la graduation 140 ; non placé : km approché (règle 4)"
+       "note": "280 m imprimés ; aucun km imprimé ; trait sur la graduation 140 ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601)",
+       "lat": 43.41231,
+       "lon": 1.11873,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Carrefour Le Parayre",
@@ -21047,13 +21068,13 @@
      ],
      "note": "Départ : Luchon → Pont-de-Cazaux 8,7 km à vol d'oiseau pour 8 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 169,
+      "routed_km": 169.9,
       "profile_km": 167,
-      "delta_pct": 1.2,
+      "delta_pct": 1.7,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
-      "legs": 22,
+      "legs": 24,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -21150,8 +21171,11 @@
        "label": "Côte de Croix-de-Mounis",
        "km": 70,
        "kind": "côte",
-       "confidence": "non-place",
-       "note": "810 m imprimés ; 3e cat. ; aucun km imprimé (trait sur la graduation 70) ; imprimé « CÔTE DE CROIX- DE MOUNIS » ; non placé : km approché (règle 4)"
+       "note": "810 m imprimés ; 3e cat. ; aucun km imprimé (trait sur la graduation 70) ; imprimé « CÔTE DE CROIX- DE MOUNIS » ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; col de la Croix de Mounis (Nominatim, mountain_pass), MNT 809 m pour 810 ; recherche bornée (règle 21)",
+       "confidence": "ok",
+       "lat": 43.6852,
+       "lon": 2.96173,
+       "how": "nominatim"
       },
       {
        "label": "(point sans nom)",
@@ -21326,7 +21350,7 @@
       "tolerance_pct": 5,
       "coverage_pct": 89,
       "car_legs": 0,
-      "legs": 20,
+      "legs": 21,
       "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -21400,8 +21424,8 @@
        "label": "Carrefour N 579-D 58",
        "km": 40,
        "kind": "lieu-dit",
-       "confidence": "non-place",
-       "note": "aucun km imprimé ; colonne sur la graduation 40 ; imprimé « CARREFOUR N. 579-D. 58 » ; non placé : km approché (règle 4)"
+       "note": "aucun km imprimé ; colonne sur la graduation 40 ; imprimé « CARREFOUR N. 579-D. 58 » ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; recherche du croisement N 579 (ou D 979) et D 58 dans la BD TOPO entre les voisins placés : aucune extrémité commune ; non placé (règle 21)",
+       "confidence": "non-place"
       },
       {
        "label": "Carrefour Montcalm",
@@ -21424,8 +21448,11 @@
        "label": "Saint-Gilles",
        "km": 70,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "7 m imprimés ; aucun km imprimé ; colonne mesurée ≈ 70,3 (sur la graduation 70) ; non placé : km approché (règle 4)"
+       "note": "7 m imprimés ; aucun km imprimé ; colonne mesurée ≈ 70,3 (sur la graduation 70) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601)",
+       "lat": 43.67701,
+       "lon": 4.43185,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Bellegarde",
@@ -21590,13 +21617,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 200.7,
+      "routed_km": 201.2,
       "profile_km": 198.5,
-      "delta_pct": 1.1,
+      "delta_pct": 1.4,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 17,
+      "legs": 18,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 1
@@ -21670,8 +21697,11 @@
        "label": "Sainte-Euphémie-sur-Ouvèze",
        "km": 50,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "554 m imprimés ; aucun km imprimé ; colonne sur la graduation 50 ; imprimé « SAINTE-EUPHÉMIE- SUR-OUVÈZE » ; non placé : km approché (règle 4)"
+       "note": "554 m imprimés ; aucun km imprimé ; colonne sur la graduation 50 ; imprimé « SAINTE-EUPHÉMIE- SUR-OUVÈZE » ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601)",
+       "lat": 44.3,
+       "lon": 5.37844,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Montguers",
@@ -21879,13 +21909,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 179.7,
+      "routed_km": 179.9,
       "profile_km": 175.5,
-      "delta_pct": 2.4,
+      "delta_pct": 2.5,
       "tolerance_pct": 5,
       "coverage_pct": 91,
       "car_legs": 0,
-      "legs": 23,
+      "legs": 24,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -21948,8 +21978,11 @@
        "label": "Chorges",
        "km": 40,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "865 m imprimés ; aucun km imprimé ; colonne sur la graduation 40 ; symbole roue (sprint) sous la colonne ; non placé : km approché (règle 4)"
+       "note": "865 m imprimés ; aucun km imprimé ; colonne sur la graduation 40 ; symbole roue (sprint) sous la colonne ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601)",
+       "lat": 44.54508,
+       "lon": 6.27546,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Savines-le-Lac",
@@ -22009,8 +22042,11 @@
        "label": "Les Thuiles",
        "km": 90,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "1108 m imprimés ; aucun km imprimé ; colonne sur la graduation 90 ; non placé : km approché (règle 4)"
+       "note": "1108 m imprimés ; aucun km imprimé ; colonne sur la graduation 90 ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601)",
+       "lat": 44.39351,
+       "lon": 6.57447,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Barcelonnette",
@@ -22036,8 +22072,11 @@
        "label": "La Condamine-Châtelard",
        "km": 110,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "1286 m imprimés ; aucun km imprimé ; colonne sur la graduation 110 ; imprimé « LA CONDAMINE- CHATELARD » ; non placé : km approché (règle 4)"
+       "note": "1286 m imprimés ; aucun km imprimé ; colonne sur la graduation 110 ; imprimé « LA CONDAMINE- CHATELARD » ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601)",
+       "lat": 44.45827,
+       "lon": 6.74574,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Saint-Paul-sur-Ubaye",
@@ -22110,8 +22149,11 @@
        "label": "Brunissard",
        "km": 170,
        "kind": "lieu-dit",
-       "confidence": "non-place",
-       "note": "1755 m imprimés ; aucun km imprimé ; colonne sur la graduation 170 ; imprimé « 1 755m BRUNISSARD » ; non placé : km approché (règle 4)"
+       "note": "1755 m imprimés ; aucun km imprimé ; colonne sur la graduation 170 ; imprimé « 1 755m BRUNISSARD » ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601)",
+       "lat": 44.79352,
+       "lon": 6.7294,
+       "how": "nominatim",
+       "confidence": "ok"
       },
       {
        "label": "Col d'Izoard",
@@ -22155,13 +22197,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 192.7,
+      "routed_km": 193.4,
       "profile_km": 193,
-      "delta_pct": -0.1,
+      "delta_pct": 0.2,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 19,
+      "legs": 23,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -22204,8 +22246,11 @@
        "label": "Mouxy",
        "km": 10,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "425 m imprimés ; aucun km imprimé ; colonne pointillée exactement sur la graduation 10 ; non placé : km approché (règle 4)"
+       "note": "425 m imprimés ; aucun km imprimé ; colonne pointillée exactement sur la graduation 10 ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601)",
+       "lat": 45.68165,
+       "lon": 5.93426,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Châtenod",
@@ -22255,15 +22300,15 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Aix-les-Bains → Viviers-du-Lac 4,5 km à vol d'oiseau pour 3,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (+10,8 %, 27,1 km pour 24,5, soit 2,6 km ; +10,2 % en voiture) : contre-la-montre court ; le départ réel est hors du centre d'Aix-les-Bains (4,5 km à vol d'oiseau jusqu'à Viviers-du-Lac pour 3,5), Viviers → Méry fait 2,6 km à vol d'oiseau pour 2, Mouxy n'a pas de km imprimé et l'arrivée « carrefour embranchement des hôtels » du Revard n'est pas située.",
+     "note": "Départ : Aix-les-Bains → Viviers-du-Lac 4,5 km à vol d'oiseau pour 3,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (+14,1 %, 28 km pour 24,5 ; +20,4 % en voiture, 29,5 km) : contre-la-montre court ; le départ réel est hors du centre d'Aix-les-Bains (4,5 km à vol d'oiseau jusqu'à Viviers-du-Lac pour 3,5), Viviers → Méry fait 2,6 km à vol d'oiseau pour 2, Mouxy (posé sur la graduation 10, règle 4 précisée, à sa mairie) → Châtenod 2,4 km à vélo pour 1,5, et l'arrivée « carrefour embranchement des hôtels » du Revard n'est pas située.",
      "route_check": {
-      "routed_km": 27.1,
+      "routed_km": 28,
       "profile_km": 24.5,
-      "delta_pct": 10.8,
+      "delta_pct": 14.1,
       "tolerance_pct": 5,
       "coverage_pct": 88,
       "car_legs": 0,
-      "legs": 5,
+      "legs": 6,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -22296,8 +22341,11 @@
        "label": "Albens",
        "km": 10,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "345 m imprimés ; aucun km imprimé ; colonne sur la graduation 10 (mesure ≈ 10) ; non placé : km approché (règle 4)"
+       "note": "345 m imprimés ; aucun km imprimé ; colonne sur la graduation 10 (mesure ≈ 10) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; placé place de l'Église d'Albens (Nominatim) : le géocodeur avait pris le centroïde du quartier administratif d'Entrelacs (règle 15)",
+       "lat": 45.7860465,
+       "lon": 5.9444759,
+       "how": "nominatim",
+       "confidence": "ok"
       },
       {
        "label": "Rumilly",
@@ -22340,8 +22388,11 @@
        "label": "Frangy",
        "km": 40,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "323 m imprimés ; aucun km imprimé ; colonne sur la graduation 40 (mesure ≈ 40) ; non placé : km approché (règle 4)"
+       "note": "323 m imprimés ; aucun km imprimé ; colonne sur la graduation 40 (mesure ≈ 40) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601)",
+       "lat": 46.01907,
+       "lon": 5.92934,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Côte de Saint-Jean",
@@ -22414,8 +22465,11 @@
        "label": "Chevry",
        "km": 80,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "490 m imprimés ; aucun km imprimé ; colonne sur la graduation 80 (mesure ≈ 80) ; non placé : km approché (règle 4)"
+       "note": "490 m imprimés ; aucun km imprimé ; colonne sur la graduation 80 (mesure ≈ 80) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601)",
+       "lat": 46.28187,
+       "lon": 6.04223,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Gex",
@@ -22515,8 +22569,11 @@
        "label": "Foncine-le-Haut",
        "km": 150,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "906 m imprimés ; aucun km imprimé ; colonne sur la graduation 150 (mesure ≈ 150) ; entrée dans le Doubs vers 150 ; non placé : km approché (règle 4)"
+       "note": "906 m imprimés ; aucun km imprimé ; colonne sur la graduation 150 (mesure ≈ 150) ; entrée dans le Doubs vers 150 ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601)",
+       "lat": 46.6596,
+       "lon": 6.07438,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Châtelblanc",
@@ -22588,13 +22645,13 @@
      ],
      "note": "Départ : Aix-les-Bains → La Biolle 7,6 km à vol d'oiseau pour 6 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 196.7,
+      "routed_km": 197.7,
       "profile_km": 192.5,
-      "delta_pct": 2.2,
+      "delta_pct": 2.7,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 23,
+      "legs": 27,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -22714,8 +22771,11 @@
        "label": "Saint-Hippolyte",
        "km": 70,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "380 m imprimés ; aucun km imprimé ; colonne sur la graduation 70 (mesure ≈ 70) ; non placé : km approché (règle 4)"
+       "note": "380 m imprimés ; aucun km imprimé ; colonne sur la graduation 70 (mesure ≈ 70) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601)",
+       "lat": 47.31753,
+       "lon": 6.81195,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Pont-de-Roide",
@@ -22910,7 +22970,7 @@
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 25,
+      "legs": 26,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -23692,8 +23752,11 @@
        "label": "Le Cornais",
        "km": 50,
        "kind": "lieu-dit",
-       "confidence": "non-place",
-       "note": "aucun km imprimé ; colonne sur la graduation 50 (mesuré 49,7) ; non placé : km approché (règle 4)"
+       "note": "aucun km imprimé ; colonne sur la graduation 50 (mesuré 49,7) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; imprimé « LE CORNAIS » : hameau de La Cornais (Malville, Nominatim, place=hamlet) ; recherche bornée (règle 21)",
+       "confidence": "ok",
+       "lat": 47.328519,
+       "lon": -1.891739,
+       "how": "nominatim"
       },
       {
        "label": "Saint-Étienne-de-Montluc",
@@ -23837,13 +23900,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 155.1,
+      "routed_km": 156,
       "profile_km": 156,
-      "delta_pct": -0.6,
+      "delta_pct": 0,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 19,
+      "legs": 20,
       "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -24567,8 +24630,8 @@
        "label": "Buc",
        "km": 40,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "110 m imprimés ; aucun km imprimé ; colonne sur la graduation 40 (mesure ≈ 40) ; non placé : km approché (règle 4)"
+       "note": "110 m imprimés ; aucun km imprimé ; colonne sur la graduation 40 (mesure ≈ 40) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; non placé : colonne sur la graduation 40, mais Buc (mairie) → Versailles fait 3,05 km à vol d'oiseau pour 2 au profil (règle 11, audit Mireille)",
+       "confidence": "non-place"
       },
       {
        "label": "Versailles",

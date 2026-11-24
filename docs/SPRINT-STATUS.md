@@ -2075,7 +2075,7 @@ et côtes traversées avec leur kilomètre.
   non placé avec une note qui dit pourquoi), classe OSM, altitude ±100 m,
   contrôle BRouter sans aller-retour nouveau, causes des écarts mises à
   jour.
-  - [x] 1969 · [x] 1970 · [x] 1971 · [ ] 1972 · [ ] 1973 · [ ] 1974 ·
+  - [x] 1969 · [x] 1970 · [x] 1971 · [x] 1972 · [ ] 1973 · [ ] 1974 ·
     [ ] 1975 · [ ] 1976 · [ ] 1977 · [ ] 1978 · [ ] 1979 · [ ] 1980 ·
     [ ] 1981 · [ ] 1982 · [ ] 1983 · [ ] 1984 · [ ] 1985
   - 1969-1971 (23/11) : 72 noms repris, 64 placés (19 + 23 + 22), 8 non
@@ -2087,6 +2087,15 @@ et côtes traversées avec leur kilomètre.
     rentre dans la tolérance (−5,7 % → −3,0 %), 1971/1b en sort (+4,4 % →
     +8,0 %, Lörrach placé, écart affiché). Audit Mireille : 9 corrections
     appliquées (Bougnimont, La Montgie, carrefour D 25-D 229 trouvés).
+  - 1972 (24/11) : 24 noms repris, 21 placés, 2 carrefours non placés
+    (aucun croisement des deux numéros dans la BD TOPO), Buc non placé
+    (3,05 km à vol d'oiseau de Versailles pour 2, règle 11, audit Mireille) ; Saint-Jean-Brévelay
+    (100,6), Gourette (148,5-150,5) et les colonnes « juste avant/après » une
+    graduation restent non placés. Albens replacé à son église (centroïde
+    d'Entrelacs). Contrôle BRouter sur les 14 étapes touchées, sans
+    aller-retour nouveau ; 1972/15, déjà hors tolérance, s'écarte un peu
+    plus (Mouxy à sa mairie), cause notée. Audit Mireille : Herrère remesuré
+    sur la graduation 110, Buc retiré.
 - [x] Édition 1969 (reprise de la routine demandée le 23/11/2026, tentative
   1/10) : aucune étape de 1969 n'est encore transcrite. Profils de
   ledicodutour.com (`images/cartes_etapes/1967_1976/1969/69_<N>.jpg`) ; 26
