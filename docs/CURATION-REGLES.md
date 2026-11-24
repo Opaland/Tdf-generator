@@ -68,6 +68,9 @@ dans la même PR que son correctif.
    imprimés de la transcription de 1968, aucun n'est un multiple de 10,
    25 sont des multiples de 5 — le motif est le même, la règle s'y
    applique. Avant de l'étendre à une autre édition, refaire ce compte.
+   **Un km imprimé mais illisible n'est pas un nom sans km** : il reste
+   non placé avec « km imprimé illisible », jamais « km de la graduation »
+   (1968/4, km 205-230, audit Mireille).
 5. **Km strictement croissants** ; un nom présent deux fois dans une étape
    (Ettlingen 1987/3) se corrige sur la bonne occurrence, pas la première
    trouvée.
@@ -182,7 +185,10 @@ dans la même PR que son correctif.
     imprimée, pas l'approcher : Villemur-sur-Tarn (1975/12), 198 m imprimés,
     retiré alors que rien ne dépasse 189 m à 2,5 km — et la courbe n'y
     culminait pas, elle montait vers Le Born, gardé pour la même raison
-    (audit Mireille). À l'inverse, **un village perché au-dessus
+    (audit Mireille). Et **la cote se relit contre ses voisines avant de retirer** :
+    Saint-Cyr-les-Colons (1968/21), retiré pour « 377 m » (275 au MNT),
+    était imprimé 277 — la pointe de la courbe était au niveau du
+    carrefour voisin à 284 m (audit Mireille). À l'inverse, **un village perché au-dessus
     de la route** (Canaveilles, 937 m au MNT pour 920 imprimés, la N 116
     en contrebas) se place sur la route, au lieu imprimé quand il existe
     (Canaveilles-les-Bains) : posé au village, il faisait un aller-retour
@@ -377,6 +383,11 @@ dans la même PR que son correctif.
     le « point de 2013/7 » de Montpellier est l'hôtel de ville de
     Port-Marianne, construit en 2011 ; repris en 1980, il faussait une
     arrivée et faisait refuser La Paillade (audit Mireille).
+    **L'ancre d'arrivée de `stage_towns.json` se compare au nom imprimé**
+    (1968) : « Canet-Plage » tombait à Perpignan, « Paris / Piste
+    municipale de Vincennes » au centre de Paris, « Sallanches-Cordon » à
+    Sallanches (918 m au MNT à Cordon pour 975 imprimés) — chacune faisait
+    refuser l'avant-dernier point (Saint-Cyprien-Plage, Saint-Maur).
 23. **Un point qu'aucun voisin ne laisse placer est d'abord une lecture
     à refaire.** « Lure » (1997/18), à 21 km à vol d'oiseau de son voisin
     pour 8,5 au profil, était « Luze » sur l'agrandissement. Relire le nom

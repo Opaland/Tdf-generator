@@ -61,7 +61,7 @@
        "label": "Libramont",
        "km": 46,
        "kind": "ville",
-       "note": "colonne ≈ 45,7-45,8",
+       "note": "colonne ≈ 45,7-45,8 ; géocodage inverse : Place Communale de Libramont (audit Mireille)",
        "lat": 49.91563,
        "lon": 5.3762,
        "how": "nominatim",
@@ -110,7 +110,7 @@
        "label": "Côte d'Anthée",
        "km": 114.5,
        "kind": "côte",
-       "note": "4e cat. ; imprimé « COTE D'ANTHEE » ; nom décalé à ≈ 111,6 par le macaron, trait et sommet à ≈ 114,5",
+       "note": "4e cat. ; imprimé « COTE D'ANTHEE » ; nom décalé à ≈ 111,6 par le macaron, trait et sommet à ≈ 114,5 ; la recherche bornée autour des voisins (Nominatim, index POI de l'IGN, variantes du nom) ne trouve que le centre de la section d'Anthée (limite administrative), pas le sommet de la côte : non placé (règle 21)",
        "confidence": "non-place"
       },
       {
@@ -197,8 +197,11 @@
        "label": "Côte d'Alsemberg",
        "km": 199,
        "kind": "côte",
-       "note": "4e cat. ; imprimé « COTE D'ALSEMBERG »",
-       "confidence": "non-place"
+       "note": "4e cat. ; imprimé « COTE D'ALSEMBERG » ; sommet de l'Alsemberg (natural=peak, Nominatim), 7,8 km du voisin précédent pour 8 (audit Mireille)",
+       "confidence": "ok",
+       "lat": 50.75038,
+       "lon": 4.33702,
+       "how": "nominatim"
       },
       {
        "label": "Forest",
@@ -211,15 +214,15 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Arlon → Habay-la-Neuve 12,9 km à vol d'oiseau pour 12 au profil, départ réel hors du centre, non situé (règle 25).",
+     "note": "Départ : Arlon → Habay-la-Neuve 12,9 km à vol d'oiseau pour 12 au profil, départ réel hors du centre, non situé (règle 25). Tronçons signalés au contrôle (règle 11) : Velaine → Ligny 8,1 km routés (5,1 à vol d'oiseau) pour 5,0 au profil : la ligne droite tient dans le profil, le routage à vélo fait un détour (routeur, règle 20).",
      "route_check": {
-      "routed_km": 195.8,
+      "routed_km": 196.5,
       "profile_km": 198.5,
-      "delta_pct": -1.4,
+      "delta_pct": -1,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
-      "legs": 17,
+      "legs": 18,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -242,7 +245,7 @@
        "label": "Ascq le Pavé",
        "km": 8,
        "kind": "lieu-dit",
-       "note": "28 m imprimés ; imprimé « ASCQ LE PAVE » (peu lisible)",
+       "note": "28 m imprimés ; imprimé « ASCQ LE PAVE » (peu lisible) ; le seul candidat (lieu-dit le Pavé, IGN) est à Vendeville, au même point que le voisin suivant (0,1 km pour 8) : non placé (règle 21)",
        "confidence": "non-place"
       },
       {
@@ -309,7 +312,7 @@
        "label": "Côte de Vimy",
        "km": 53,
        "kind": "côte",
-       "note": "4e cat. ; imprimé « COTE DE VIMY »",
+       "note": "4e cat. ; imprimé « COTE DE VIMY » ; la recherche bornée autour des voisins (Nominatim, index POI de l'IGN, variantes du nom) ne trouve que le centre de Vimy (limite administrative), pas le sommet de la côte : non placé (règle 21)",
        "confidence": "non-place"
       },
       {
@@ -507,35 +510,35 @@
        "km": 207,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "230 m imprimés ; km imprimé illisible (étiquette présente) ; colonne du nom mesurée ≈ 207,2 ; aucun km imprimé (graduation 207) ; non placé : km approché (règle 4)"
+       "note": "230 m imprimés ; km imprimé illisible (étiquette présente) ; colonne du nom mesurée ≈ 207,2 ; km imprimé présent mais illisible, km de la colonne mesurée ; non placé : km imprimé illisible (règle 12 du projet : pas de km inventé)"
       },
       {
        "label": "Buchy",
        "km": 211,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "192 m imprimés ; km imprimé illisible (étiquette présente) ; colonne du nom mesurée ≈ 210,0-211,2 ; aucun km imprimé (graduation 211) ; non placé : km approché (règle 4)"
+       "note": "192 m imprimés ; km imprimé illisible (étiquette présente) ; colonne du nom mesurée ≈ 210,0-211,2 ; km imprimé présent mais illisible, km de la colonne mesurée ; non placé : km imprimé illisible (règle 12 du projet : pas de km inventé)"
       },
       {
        "label": "Le Bus",
        "km": 215,
        "kind": "lieu-dit",
        "confidence": "non-place",
-       "note": "155 m imprimés ; imprimé « LE BUS » (lecture incertaine) ; km imprimé illisible ; colonne mesurée ≈ 214,3-215,2 ; aucun km imprimé (graduation 215) ; non placé : km approché (règle 4)"
+       "note": "155 m imprimés ; imprimé « LE BUS » (lecture incertaine) ; km imprimé illisible ; colonne mesurée ≈ 214,3-215,2 ; km imprimé présent mais illisible, km de la colonne mesurée ; non placé : km imprimé illisible (règle 12 du projet : pas de km inventé)"
       },
       {
        "label": "Blainville-Crevon",
        "km": 222,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "100 m imprimés ; km imprimé illisible ; colonne mesurée ≈ 221,8-222,3 ; aucun km imprimé (graduation 222) ; non placé : km approché (règle 4)"
+       "note": "100 m imprimés ; km imprimé illisible ; colonne mesurée ≈ 221,8-222,3 ; km imprimé présent mais illisible, km de la colonne mesurée ; non placé : km imprimé illisible (règle 12 du projet : pas de km inventé)"
       },
       {
        "label": "Forgettes",
        "km": 228.5,
        "kind": "lieu-dit",
        "confidence": "non-place",
-       "note": "imprimé « FORGETTES » (lecture incertaine) ; km imprimé illisible ; colonne mesurée ≈ 228,5-228,9 ; aucun km imprimé (graduation 228.5) ; non placé : km approché (règle 4)"
+       "note": "imprimé « FORGETTES » (lecture incertaine) ; km imprimé illisible ; colonne mesurée ≈ 228,5-228,9 ; km imprimé présent mais illisible, km de la colonne mesurée ; non placé : km imprimé illisible (règle 12 du projet : pas de km inventé)"
       },
       {
        "label": "Rouen",
@@ -559,7 +562,8 @@
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Tronçons signalés au contrôle (règle 11) : Vendeville → Seclin 5,8 km routés (5,0 à vol d'oiseau) pour 4,0 au profil : ligne droite plus longue que le profil, km de graduation ou centre de commune (règle 11)."
     },
     "6": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1968/68_6.jpg",
@@ -735,7 +739,7 @@
        "label": "(sans nom)",
        "km": 161,
        "kind": "lieu-dit",
-       "note": "104 m imprimés ; seule l'altitude « 104 m. » est imprimée, sans nom, avec le km 161",
+       "note": "104 m imprimés ; seule l'altitude « 104 m. » est imprimée, sans nom, avec le km 161 ; altitude seule imprimée, sans nom de lieu : rien à placer",
        "confidence": "non-place"
       },
       {
@@ -779,7 +783,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Dinard → Saint-Briac-sur-Mer 5,7 km à vol d'oiseau pour 5,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "note": "Départ : Dinard → Saint-Briac-sur-Mer 5,7 km à vol d'oiseau pour 5,5 au profil, départ réel hors du centre, non situé (règle 25). Tronçons signalés au contrôle (règle 11) : Quéven → Lorient 6,6 km routés (5,9 à vol d'oiseau) pour 12,0 au profil : détour du profil non jalonné (boucle ou entrée de ville non imprimée).",
      "route_check": {
       "routed_km": 177.9,
       "profile_km": 182.5,
@@ -937,7 +941,7 @@
        "label": "Côte de Marzan",
        "km": 102.5,
        "kind": "côte",
-       "note": "4e cat. ; imprimé « COTE DE MARZAN »",
+       "note": "4e cat. ; imprimé « COTE DE MARZAN » ; la recherche bornée autour des voisins (Nominatim, index POI de l'IGN, variantes du nom) ne trouve que le centre de Marzan (limite administrative), pas le sommet de la côte : non placé (règle 21)",
        "confidence": "non-place"
       },
       {
@@ -1202,9 +1206,9 @@
        "label": "Près Sérigny",
        "km": 127,
        "kind": "lieu-dit",
-       "note": "10 m imprimés ; imprimé « près SÉRIGNY »",
-       "lat": 46.26249,
-       "lon": -0.99632,
+       "note": "10 m imprimés ; imprimé « près SÉRIGNY » ; replacé au hameau de Sérigny (audit Mireille) : le premier point tombait sur une route du Fief des Versaines",
+       "lat": 46.26388,
+       "lon": -1.00433,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -1276,7 +1280,7 @@
        "label": "Pont Saint-Clément",
        "km": 178,
        "kind": "lieu-dit",
-       "note": "imprimé « PONT St CLÉMENT »",
+       "note": "imprimé « PONT St CLÉMENT » ; recherche bornée autour des voisins (Nominatim, index POI de l'IGN, variantes du nom) sans candidat portant ce nom : non placé (règle 21)",
        "confidence": "non-place"
       },
       {
@@ -1327,11 +1331,11 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Nantes → Viais 11,3 km à vol d'oiseau pour 9 au profil, départ réel hors du centre, non situé (règle 25).",
+     "note": "Départ : Nantes → Viais 11,3 km à vol d'oiseau pour 9 au profil, départ réel hors du centre, non situé (règle 25). Tronçons signalés au contrôle (règle 11) : Rochefort → Cadeuil 23,0 km routés (20,5 à vol d'oiseau) pour 34,5 au profil : détour non jalonné, Carrefour N 137-D 117 E4, Pont Saint-Clément, Carrefour près Saint-Fort non placé(s) entre les deux.",
      "route_check": {
-      "routed_km": 207.9,
+      "routed_km": 206.6,
       "profile_km": 214,
-      "delta_pct": -2.8,
+      "delta_pct": -3.5,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
@@ -1397,7 +1401,7 @@
        "label": "Côte de la Montée Blanche",
        "km": 43.5,
        "kind": "côte",
-       "note": "4e cat. ; imprimé « CÔTE DE LA MONTÉE BLANCHE »",
+       "note": "4e cat. ; imprimé « CÔTE DE LA MONTÉE BLANCHE » ; recherche bornée autour des voisins (Nominatim, index POI de l'IGN, variantes du nom) sans candidat portant ce nom : non placé (règle 21)",
        "confidence": "non-place"
       },
       {
@@ -1561,7 +1565,8 @@
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Tronçons signalés au contrôle (règle 11) : Floirac → Bordeaux 6,9 km routés (4,8 à vol d'oiseau) pour 10,0 au profil : détour du profil non jalonné (boucle ou entrée de ville non imprimée)."
     },
     "10": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1968/68_10.jpg",
@@ -1729,7 +1734,7 @@
        "label": "Côte de Bardos",
        "km": 172.5,
        "kind": "côte",
-       "note": "4e cat. ; imprimé « CÔTE DE BARDOS »",
+       "note": "4e cat. ; imprimé « CÔTE DE BARDOS » ; la recherche bornée autour des voisins (Nominatim, index POI de l'IGN, variantes du nom) ne trouve que le centre de Bardos (limite administrative), pas le sommet de la côte : non placé (règle 21)",
        "confidence": "non-place"
       },
       {
@@ -1870,7 +1875,7 @@
        "label": "Udiren",
        "km": 67,
        "kind": "lieu-dit",
-       "note": "113 m imprimés ; imprimé « UDIREN » (lecture peu sûre)",
+       "note": "113 m imprimés ; imprimé « UDIREN » (lecture peu sûre) ; recherche bornée autour des voisins (Nominatim, index POI de l'IGN, variantes du nom) sans candidat portant ce nom : non placé (règle 21)",
        "confidence": "non-place"
       },
       {
@@ -1897,7 +1902,7 @@
        "label": "Côte de Barcus",
        "km": 87,
        "kind": "côte",
-       "note": "401 m imprimés ; 4e cat. ; imprimé « CÔTE DE BARCUS »",
+       "note": "401 m imprimés ; 4e cat. ; imprimé « CÔTE DE BARCUS » ; la recherche bornée ne trouve à Barcus que des lieux-dits d'un autre nom (Galharretborda), pas la côte : non placé (règle 21)",
        "confidence": "non-place"
       },
       {
@@ -1984,7 +1989,7 @@
        "label": "Côte de Piétat",
        "km": 167,
        "kind": "côte",
-       "note": "4e cat. ; imprimé « CÔTE DE PIETAT » ; colonne ≈ 167,6",
+       "note": "4e cat. ; imprimé « CÔTE DE PIETAT » ; colonne ≈ 167,6 ; la recherche bornée ne trouve que la commune de Pardies-Piétat, déjà placée au km 164 : sommet de la côte non situé, non placé (règle 21)",
        "confidence": "non-place"
       },
       {
@@ -2239,14 +2244,14 @@
        "label": "La Bosse du Hallo",
        "km": 155,
        "kind": "lieu-dit",
-       "note": "721 m imprimés ; imprimé « LA BOSSE DU HALLO » ; km peu lisible (153 ou 155 ; colonne ≈ 155,3)",
+       "note": "721 m imprimés ; imprimé « LA BOSSE DU HALLO » ; km peu lisible (153 ou 155 ; colonne ≈ 155,3) ; recherche bornée autour des voisins (Nominatim, index POI de l'IGN, variantes du nom) sans candidat portant ce nom : non placé (règle 21)",
        "confidence": "non-place"
       },
       {
        "label": "Courrèges",
        "km": 161.5,
        "kind": "lieu-dit",
-       "note": "335 m imprimés ; imprimé « COURREGES » ; lieu-dit Courrèges (Artiguemy, Nominatim), l'homonyme compatible avec les voisins (règle 7) ; retiré : le seul lieu-dit Courrèges compatible avec les voisins (Artiguemy) est à 458 m au MNT pour 335 imprimés (règle 14)",
+       "note": "335 m imprimés ; imprimé « COURREGES » ; retiré : le seul lieu-dit Courrèges compatible avec les voisins (Artiguemy) est à 458 m au MNT pour 335 imprimés (règle 14) ; courbe lue : elle reste vers 335 m autour du nom, sans culminer ; le lieu-dit d'Artiguemy, seul compatible avec les voisins, est plus haut de 123 m — c'est vraisemblablement un autre lieu",
        "confidence": "non-place"
       },
       {
@@ -2647,7 +2652,7 @@
        "label": "Baños de Vicente",
        "km": 12.5,
        "kind": "lieu-dit",
-       "note": "810 m imprimés ; imprimé « BAÑOS DE VICENTE »",
+       "note": "810 m imprimés ; imprimé « BAÑOS DE VICENTE » ; recherche bornée autour des voisins (Nominatim, index POI de l'IGN, variantes du nom) sans candidat portant ce nom : non placé (règle 21)",
        "confidence": "non-place"
       },
       {
@@ -2664,7 +2669,7 @@
        "label": "Balltarga",
        "km": 34,
        "kind": "ville",
-       "note": "imprimé « BALLTARGA » ; chiffre lu « 34 » ou « 36 », colonne ≈ 33,5-34,2 : tranché 34",
+       "note": "imprimé « BALLTARGA » ; chiffre lu « 34 » ou « 36 », colonne ≈ 33,5-34,2 : tranché 34 ; recherche bornée autour des voisins (Nominatim, index POI de l'IGN, variantes du nom) sans candidat portant ce nom : non placé (règle 21)",
        "confidence": "non-place"
       },
       {
@@ -2691,8 +2696,11 @@
        "label": "Planes",
        "km": 75,
        "kind": "ville",
-       "note": "1230 m imprimés ; imprimé « PLANES » ; Planès (Pyrénées-Orientales) est à 21 km du col de Toses pour 17,5 : non placé (règle 21)",
-       "confidence": "non-place"
+       "note": "1230 m imprimés ; imprimé « PLANES » ; Planès (Planoles, place=hamlet, Nominatim), MNT 1 162 m pour 1 230 ; écarté d'abord par le seul filtre d'altitude de la recherche bornée (règle 14, audit Mireille)",
+       "confidence": "ok",
+       "lat": 42.31888,
+       "lon": 2.09832,
+       "how": "nominatim"
       },
       {
        "label": "Ribes de Freser",
@@ -2808,9 +2816,9 @@
        "label": "Le Pont-de-Céret",
        "km": 183,
        "kind": "lieu-dit",
-       "note": "144 m imprimés ; imprimé « LE PONT DE CÉRET »",
-       "lat": 42.49447,
-       "lon": 2.71514,
+       "note": "144 m imprimés ; imprimé « LE PONT DE CÉRET » ; placé au pont du Diable sur le Tech, à Céret (Nominatim), le pont routier voisin : le hameau du Pont de Reynès, pris d'abord, faisait 13 km routés jusqu'au Boulou pour 8 (règles 7, 11 et 21, audit Mireille)",
+       "lat": 42.495357,
+       "lon": 2.744274,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -2866,14 +2874,14 @@
       }
      ],
      "route_check": {
-      "routed_km": 203.9,
+      "routed_km": 204.4,
       "profile_km": 200,
-      "delta_pct": 2,
+      "delta_pct": 2.2,
       "tolerance_pct": 5,
       "coverage_pct": 86,
       "car_legs": 0,
-      "legs": 19,
-      "suspect_legs": 1,
+      "legs": 20,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -3130,7 +3138,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Départ : Font-Romeu à 1 592 m au MNT (point Nominatim) pour 1 750 imprimés, départ vraisemblablement au-dessus du bourg, non contrôlé (règle 25). Albi est imprimé deux fois (km 231½ puis arrivée à 240½) : le tronçon Albi → Albi, 9 km au profil, n'est pas mesuré (règle 5)."
+     "note": "Départ : Font-Romeu à 1 592 m au MNT (point Nominatim) pour 1 750 imprimés, départ vraisemblablement au-dessus du bourg, non contrôlé (règle 25). Albi est imprimé deux fois (km 231½ puis arrivée à 240½) : le tronçon Albi → Albi, 9 km au profil, n'est pas mesuré (règle 5). Tronçons signalés au contrôle (règle 11) : Escouloubre-les-Bains → Carrefour N 118-D 29 5,2 km routés (4,5 à vol d'oiseau) pour 9,5 au profil : détour du profil non jalonné (boucle ou entrée de ville non imprimée) ; Carrefour N 118-D 29 → Rodome 10,7 km routés (5,5 à vol d'oiseau) pour 15,5 au profil : détour non jalonné, Côte de la Chapelle non placé(s) entre les deux."
     },
     "16": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1968/68_16.jpg",
@@ -3206,7 +3214,7 @@
        "label": "Côte du Port de la Besse",
        "km": 39,
        "kind": "côte",
-       "note": "4e cat. ; km peu lisible (39, 38½ ou 39½), colonne ≈ 38,9",
+       "note": "4e cat. ; km peu lisible (39, 38½ ou 39½), colonne ≈ 38,9 ; la recherche bornée ne trouve que la route du Port de la Besse, sans sommet nommé : non placé (règle 21)",
        "confidence": "non-place"
       },
       {
@@ -3324,7 +3332,7 @@
        "label": "Côte de Montsalvy",
        "km": 136,
        "kind": "côte",
-       "note": "3e cat. ; imprimé « COTE DE / MONTSALVY » ; km peu lisible (136 ou 138, tranché à l'échelle ≈ 136,2)",
+       "note": "3e cat. ; imprimé « COTE DE / MONTSALVY » ; km peu lisible (136 ou 138, tranché à l'échelle ≈ 136,2) ; la recherche bornée autour des voisins (Nominatim, index POI de l'IGN, variantes du nom) ne trouve que le centre de Montsalvy (limite administrative), pas le sommet de la côte : non placé (règle 21)",
        "confidence": "non-place"
       },
       {
@@ -3409,7 +3417,8 @@
       "suspect_legs": 3,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Tronçons signalés au contrôle (règle 11) : L'Hermet → Le Garric 9,0 km routés (5,3 à vol d'oiseau) pour 6,0 au profil : la ligne droite tient dans le profil, le routage à vélo fait un détour (routeur, règle 20) ; Carrefour près Cavaignac → Montbazens 6,6 km routés (5,8 à vol d'oiseau) pour 10,0 au profil : détour du profil non jalonné (boucle ou entrée de ville non imprimée) ; Aubin → Decazeville 8,7 km routés (3,6 à vol d'oiseau) pour 4,5 au profil : la ligne droite tient dans le profil, le routage à vélo fait un détour (routeur, règle 20)."
     },
     "17": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1968/68_17.jpg",
@@ -3517,7 +3526,7 @@
        "label": "(sans nom)",
        "km": 93.5,
        "kind": "lieu-dit",
-       "note": "1103 m imprimés ; seule l'altitude « 1103 m. » est imprimée (sommet)",
+       "note": "1103 m imprimés ; seule l'altitude « 1103 m. » est imprimée (sommet) ; altitude seule imprimée, sans nom de lieu : rien à placer",
        "confidence": "non-place"
       },
       {
@@ -3551,7 +3560,7 @@
        "label": "Côte de Collat",
        "km": 146.5,
        "kind": "côte",
-       "note": "3e cat. ; nom posé vers 142,5, trait coudé jusqu'au sommet ≈ 146,4",
+       "note": "3e cat. ; nom posé vers 142,5, trait coudé jusqu'au sommet ≈ 146,4 ; la recherche bornée autour des voisins (Nominatim, index POI de l'IGN, variantes du nom) ne trouve que le centre de Collat (limite administrative), pas le sommet de la côte : non placé (règle 21)",
        "confidence": "non-place"
       },
       {
@@ -3837,7 +3846,7 @@
        "km": 130.5,
        "kind": "lieu-dit",
        "confidence": "non-place",
-       "note": "317 m imprimés ; imprimé « CAR. D. 203 - N. 6 » ; aucun km propre : colonne sur la graduation 130 (mesuré ≈ 130,5) ; non placé : km approché (règle 4)"
+       "note": "317 m imprimés ; imprimé « CAR. D. 203 - N. 6 » ; aucun km propre : colonne sur la graduation 130 (mesuré ≈ 130,5) ; non placé : km approché (règle 4) ; colonne mesurée à 130,5, à la limite de la tolérance de 0,5 km de la graduation 130, et aucun croisement des routes trouvé : laissé non placé (règle 4)"
       },
       {
        "label": "La Bridoire",
@@ -3923,7 +3932,7 @@
        "label": "Col du Cucheron",
        "km": 202.5,
        "kind": "col",
-       "note": "1140 m imprimés ; 3e cat. ; imprimé « COL DU / CUCHERON » ; trait ≈ 202,8",
+       "note": "1140 m imprimés ; 3e cat. ; imprimé « COL DU / CUCHERON » ; trait ≈ 202,8 ; géocodage inverse : route du Col du Cucheron, au col (audit Mireille)",
        "lat": 45.36546,
        "lon": 5.83412,
        "how": "nominatim",
@@ -4085,7 +4094,7 @@
        "label": "Côte de la Tour Blanche",
        "km": 80,
        "kind": "côte",
-       "note": "3e cat. ; aucun km propre : colonne sur la graduation 80 (mesuré ≈ 80,3) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1968 comme dans la série 1969-1985 (règle 4 précisée)",
+       "note": "3e cat. ; aucun km propre : colonne sur la graduation 80 (mesuré ≈ 80,3) ; km de la graduation 80 (règle 4 précisée), mais la recherche bornée ne trouve que le bois de la Tour Blanche (Aiton, IGN), pas le sommet de la côte : non placé (règle 21)",
        "confidence": "non-place"
       },
       {
@@ -4239,7 +4248,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Grenoble → Domène 8,2 km à vol d'oiseau pour 7 au profil, départ réel hors du centre, non situé (règle 25). Étable → Chamoux : la côte de Champ-Laurent n'étant pas placée (aller-retour au col), le contrôle signale un aller-retour incertain de 1,4 km à Étable.",
+     "note": "Départ : Grenoble → Domène 8,2 km à vol d'oiseau pour 7 au profil, départ réel hors du centre, non situé (règle 25). Étable → Chamoux : la côte de Champ-Laurent n'étant pas placée (aller-retour au col), le contrôle signale un aller-retour incertain de 1,4 km à Étable. Tronçons signalés au contrôle (règle 11) : Chamoux → Sainte-Hélène-sur-Isère 12,4 km routés (11,1 à vol d'oiseau) pour 21,0 au profil : détour non jalonné, Carrefour N 525-N 6, Côte de la Tour Blanche non placé(s) entre les deux.",
      "route_check": {
       "routed_km": 183.9,
       "profile_km": 193.5,
@@ -4408,9 +4417,9 @@
        "label": "Col de la Faucille",
        "km": 98.5,
        "kind": "col",
-       "note": "1323 m imprimés ; 3e cat. ; imprimé « COL DE / LA FAUCILLE »",
-       "lat": 46.36888,
-       "lon": 6.02013,
+       "note": "1323 m imprimés ; 3e cat. ; imprimé « COL DE / LA FAUCILLE » ; col de la Faucille (mountain_pass), point de 1969/7 et des éditions suivantes : le géocodeur avait pris l'aire protégée (règle 21, audit Mireille)",
+       "lat": 46.3692599,
+       "lon": 6.0193845,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -4445,9 +4454,9 @@
        "label": "Morez",
        "km": 123.5,
        "kind": "ville",
-       "note": "685 m imprimés",
-       "lat": 46.5265,
-       "lon": 6.02336,
+       "note": "685 m imprimés ; mairie de Morez, point de 1972/16 : le géocodeur avait pris une installation ferroviaire (règle 21, audit Mireille)",
+       "lat": 46.5211685,
+       "lon": 6.022331,
        "how": "nominatim",
        "confidence": "ok"
       },
@@ -4613,11 +4622,11 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Sallanches → Magland 9,4 km à vol d'oiseau pour 8,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "note": "Départ : Sallanches → Magland 9,4 km à vol d'oiseau pour 8,5 au profil, départ réel hors du centre, non situé (règle 25). Tronçons signalés au contrôle (règle 11) : Reignier → Genève 15,4 km routés (11,9 à vol d'oiseau) pour 22,5 au profil : détour non jalonné, Bas-Mornex, Collonges-sous-Salève non placé(s) entre les deux.",
      "route_check": {
-      "routed_km": 224,
+      "routed_km": 223.6,
       "profile_km": 234,
-      "delta_pct": -4.3,
+      "delta_pct": -4.4,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
@@ -4918,8 +4927,11 @@
        "label": "Saint-Cyr-les-Colons",
        "km": 218,
        "kind": "ville",
-       "note": "377 m imprimés ; imprimé « St-CYR-LES-COLONS » ; km peu lisible (218 ou 217½) ; retiré : 275 m au MNT pour 377 imprimés ; la courbe culmine au nom, le plateau voisin atteint cette cote : passage au-dessus du village (règle 14)",
-       "confidence": "non-place"
+       "note": "277 m imprimés (lu d'abord 377) ; imprimé « St-CYR-LES-COLONS » ; km peu lisible (218 ou 217½) ; cote relue « 277 m » au zoom (la courbe culmine au niveau du carrefour D 101, 284 m ; 1979/22 imprime 277) : point de 1972/18 (règle 14, audit Mireille)",
+       "confidence": "ok",
+       "lat": 47.74207,
+       "lon": 3.73766,
+       "how": "commune-ign"
       },
       {
        "label": "Irancy",
@@ -4954,13 +4966,13 @@
      ],
      "note": "Départ : Besançon → Pouilley-les-Vignes 7,1 km à vol d'oiseau pour 5,5 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 242.1,
+      "routed_km": 239.5,
       "profile_km": 237,
-      "delta_pct": 2.1,
+      "delta_pct": 1.1,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 28,
+      "legs": 29,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -5221,7 +5233,7 @@
        "label": "Côte de Langengrund",
        "km": 183.5,
        "kind": "côte",
-       "note": "4e cat. ; km lu « 181½ » ou « 183½ », colonne mesurée ≈ 183,4",
+       "note": "4e cat. ; km lu « 181½ » ou « 183½ », colonne mesurée ≈ 183,4 ; recherche bornée autour des voisins (Nominatim, index POI de l'IGN, variantes du nom) sans candidat portant ce nom : non placé (règle 21)",
        "confidence": "non-place"
       },
       {
@@ -5246,7 +5258,8 @@
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Tronçons signalés au contrôle (règle 11) : Kayl → Esch-sur-Alzette 6,8 km routés (4,2 à vol d'oiseau) pour 10,5 au profil : détour non jalonné, Rumelange, Côte de Langengrund non placé(s) entre les deux."
     },
     "3b": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1968/68_3b.jpg",
@@ -5400,7 +5413,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Anderlecht → Sint-Martens-Lennik 8,9 km à vol d'oiseau pour 8 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance à vélo (−7,6 %, 96,1 km pour 104) mais pas en voiture (+0,9 %, 104,9 km) : de Galmaarden à Onkerzele, BRouter prend des routes plus courtes (5,9 km pour 8,5 au profil, 7,7 en voiture) — c'est le routeur, les points restent (règle 20).",
+     "note": "Départ : Anderlecht → Sint-Martens-Lennik 8,9 km à vol d'oiseau pour 8 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance à vélo (−7,6 %, 96,1 km pour 104) mais pas en voiture (+0,9 %, 104,9 km) : de Galmaarden à Onkerzele, BRouter prend des routes plus courtes (5,9 km pour 8,5 au profil, 7,7 en voiture) — c'est le routeur, les points restent (règle 20). Tronçons signalés au contrôle (règle 11) : Onkerzele → Mur de Grammont 2,0 km routés (1,9 à vol d'oiseau) pour 5,0 au profil : détour du profil non jalonné (boucle ou entrée de ville non imprimée).",
      "route_check": {
       "routed_km": 96.1,
       "profile_km": 104,
@@ -5468,7 +5481,7 @@
        "label": "Saint-Martin-du-Pin",
        "km": 38,
        "kind": "lieu-dit",
-       "note": "58 m imprimés ; imprimé « St MARTIN-DU-PIN »",
+       "note": "58 m imprimés ; imprimé « St MARTIN-DU-PIN » ; recherche bornée autour des voisins (Nominatim, index POI de l'IGN, variantes du nom) sans candidat portant ce nom : non placé (règle 21)",
        "confidence": "non-place"
       },
       {
@@ -5834,7 +5847,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Bagnoles-de-l'Orne → L'Étoile d'Andaine 6,2 km à vol d'oiseau pour 6 au profil, départ réel hors du centre, non situé (règle 25).",
+     "note": "Départ : Bagnoles-de-l'Orne → L'Étoile d'Andaine 6,2 km à vol d'oiseau pour 6 au profil, départ réel hors du centre, non situé (règle 25). Tronçons signalés au contrôle (règle 11) : Pleurtuit → Dinard 6,0 km routés (5,6 à vol d'oiseau) pour 11,5 au profil : détour du profil non jalonné (boucle ou entrée de ville non imprimée).",
      "route_check": {
       "routed_km": 147.2,
       "profile_km": 148.5,
@@ -5992,7 +6005,7 @@
        "label": "Côte de Champagne",
        "km": 113.5,
        "kind": "côte",
-       "note": "4e cat.",
+       "note": "4e cat. ; la recherche bornée autour des voisins (Nominatim, index POI de l'IGN, variantes du nom) ne trouve que le centre de Champagne-sur-Seine (limite administrative), pas le sommet de la côte : non placé (règle 21)",
        "confidence": "non-place"
       },
       {
@@ -6073,7 +6086,7 @@
        "label": "Côte de Saint-Gemme",
        "km": 2.5,
        "kind": "côte",
-       "note": "nom posé vers 2,0, trait coudé ≈ 2,56 ; catégorie non lue",
+       "note": "nom posé vers 2,0, trait coudé ≈ 2,56 ; catégorie non lue ; recherche bornée autour des voisins (Nominatim, index POI de l'IGN, variantes du nom) sans candidat portant ce nom : non placé (règle 21)",
        "confidence": "non-place"
       },
       {
@@ -6225,14 +6238,17 @@
        "label": "Saint-Maur",
        "km": 49.7,
        "kind": "ville",
-       "note": "décimale peu lisible (49,6 ou 49,7), trait ≈ 49,6",
-       "confidence": "non-place"
+       "note": "décimale peu lisible (49,6 ou 49,7), trait ≈ 49,6 ; point de 1969/22b (Saint-Maur-des-Fossés), 3,3 km de Bonneuil pour 5,4 (audit Mireille)",
+       "confidence": "ok",
+       "lat": 48.80331,
+       "lon": 2.4853,
+       "how": "nominatim"
       },
       {
        "label": "Côte du Val d'Osne",
        "km": 53.4,
        "kind": "côte",
-       "note": "imprimé « COTE DU VAL D'OSNE » ; décimale peu lisible, trait ≈ 53,44",
+       "note": "imprimé « COTE DU VAL D'OSNE » ; décimale peu lisible, trait ≈ 53,44 ; recherche bornée autour des voisins (Nominatim, index POI de l'IGN, variantes du nom) sans candidat portant ce nom : non placé (règle 21)",
        "confidence": "non-place"
       },
       {
@@ -6247,17 +6263,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 53.6,
+      "routed_km": 55.5,
       "profile_km": 52.2,
-      "delta_pct": 2.7,
+      "delta_pct": 6.3,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 11,
+      "legs": 12,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Hors tolérance à vélo (+6,3 %, 55,5 km pour 52,2) et plus encore en voiture (+10,2 %, 57,5 km) : Vaux-le-Pénil → Voisenon 6,8 km à vélo pour 5,7 et Saint-Maur (centre de la commune) → piste de Vincennes 6,5 pour 5,5 ; contre-la-montre aux km décimaux imprimés, passages exacts non sourcés ; écart non résolu (règle 20)."
     }
    }
   },
