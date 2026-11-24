@@ -20335,7 +20335,7 @@
        "label": "Carrefour Herrère",
        "km": 110,
        "kind": "lieu-dit",
-       "note": "294 m imprimés ; aucun km imprimé ; colonne sur la graduation 110 (mesuré 110-111) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; carrefour placé au lieu-dit Herrère (IGN, sur la route d'Ogeu), MNT 287 m pour 294 ; recherche bornée (règles 4 et 21)",
+       "note": "294 m imprimés ; aucun km imprimé ; colonne sur la graduation 110 (remesuré ≈ 110,0 au zoom contre les graduations 100 et 120, audit Mireille) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; carrefour placé au lieu-dit Herrère (IGN, sur la route d'Ogeu), MNT 287 m pour 294 ; recherche bornée (règles 4 et 21)",
        "confidence": "ok",
        "lat": 43.16982,
        "lon": -0.53594,
@@ -24630,11 +24630,8 @@
        "label": "Buc",
        "km": 40,
        "kind": "ville",
-       "note": "110 m imprimés ; aucun km imprimé ; colonne sur la graduation 40 (mesure ≈ 40) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601)",
-       "lat": 48.77393,
-       "lon": 2.1259,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "110 m imprimés ; aucun km imprimé ; colonne sur la graduation 40 (mesure ≈ 40) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; non placé : colonne sur la graduation 40, mais Buc (mairie) → Versailles fait 3,05 km à vol d'oiseau pour 2 au profil (règle 11, audit Mireille)",
+       "confidence": "non-place"
       },
       {
        "label": "Versailles",
@@ -24648,18 +24645,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 43,
+      "routed_km": 42,
       "profile_km": 37.5,
-      "delta_pct": 14.7,
+      "delta_pct": 12.1,
       "tolerance_pct": 5,
       "coverage_pct": 89,
       "car_legs": 0,
-      "legs": 13,
-      "suspect_legs": 1,
+      "legs": 12,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Hors tolérance à vélo (+14,7 %, 43 km pour 37,5) comme en voiture (+22,4 %, 45,9 km) : Buc (posé sur la graduation 40, règle 4 précisée, à sa mairie, comme en 1996 et 2019) → Versailles fait 3 km à vol d'oiseau (3,9 routés) pour 2 au profil ; Carrefour Villeras → Igny fait 5,7 km à vélo pour 4, Igny → Palaiseau 4,3 pour 3 et Palaiseau → Orsay 5,1 pour 4 — tronçons tous plus longs que le profil, passages exacts non sourcés (centres des communes)."
+     "note": "Hors tolérance à vélo (+12,1 %, 42 km pour 37,5) comme en voiture (+19,7 %) : Carrefour Villeras → Igny fait 5,7 km à vélo pour 4, Igny → Palaiseau 4,3 pour 3 et Palaiseau → Orsay 5,1 pour 4 — tronçons tous plus longs que le profil, passages exacts non sourcés (centres des communes)."
     },
     "20b": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1972/72_20b.jpg",
