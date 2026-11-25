@@ -168,11 +168,11 @@
        "label": "Vire",
        "km": 112.5,
        "kind": "ville",
-       "note": "175 m imprimés",
-       "lat": 48.8201,
-       "lon": -0.87648,
-       "how": "commune-ign-prefixe",
-       "confidence": "ambigu"
+       "note": "175 m imprimés ; placé à l'hôtel de ville de Vire : le point de la commune nouvelle tombait à Roullours, 2,2 km au sud (règles 6 et 15, audit Mireille)",
+       "lat": 48.83785,
+       "lon": -0.88849,
+       "how": "nominatim",
+       "confidence": "ok"
       },
       {
        "label": "Carrefour D 55-D 55 E",
@@ -296,19 +296,20 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Saint-Malo → La Gouesnière 11 km à vol d'oiseau pour 9,5 au profil, départ réel hors du centre, non situé (règle 25). Tronçons signalés au contrôle (règle 11) : Bretteville-sur-Odon → Caen 4,8 km routés (4,3 à vol d'oiseau) pour 2,5 au profil : ligne droite plus longue que le profil : km imprimé ou centre de commune à relire (règle 11, issue de l'édition) ; Caen est imprimé plusieurs fois (passages successifs), le tronçon de 7,5 km au profil n'est pas mesuré (règle 5).",
+     "note": "Départ : Saint-Malo → La Gouesnière 11 km à vol d'oiseau pour 9,5 au profil, départ réel hors du centre, non situé (règle 25). Tronçons signalés au contrôle (règle 11) : Bretteville-sur-Odon → Caen 4,8 km routés (4,3 à vol d'oiseau) pour 2,5 au profil : ligne droite plus longue que le profil (5,0 km en voiture pour 2,5) : la ligne d'arrivée de Caen n'est pas sourcée, le point est au centre (règle 11). Circuit final de Caen déclaré au 1er passage imprimé (km 172,5, règle 19, audit Mireille) : hors tolérance à vélo (+5,2 %, 171,5 km pour 163) et plus encore en voiture (+9,4 %, 178,4 km) ; l'écart vient pour l'essentiel de l'entrée dans Caen (Bretteville → Caen) ; écart non résolu (règle 20).",
      "route_check": {
-      "routed_km": 174.3,
-      "profile_km": 170.5,
-      "delta_pct": 2.2,
+      "routed_km": 171.5,
+      "profile_km": 163,
+      "delta_pct": 5.2,
       "tolerance_pct": 5,
-      "coverage_pct": 95,
+      "coverage_pct": 91,
       "car_legs": 0,
-      "legs": 24,
-      "suspect_legs": 2,
+      "legs": 23,
+      "suspect_legs": 1,
       "backtracks": 0,
-      "backtracks_uncertain": 1
-     }
+      "backtracks_uncertain": 0
+     },
+     "circuit_km": 172.5
     },
     "3": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1967/67_3.jpg",
@@ -912,8 +913,11 @@
        "label": "Longchamp",
        "km": 89.5,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "recherche bornée autour des voisins (Nominatim, index POI de l'IGN, variantes du nom) sans candidat portant ce nom et compatible avec les voisins : non placé (règle 21)"
+       "confidence": "ok",
+       "note": "imprimé « LONGCHAMP » : village de Longchamps (Bertogne, place=village), 9,6 km d'Ortho pour 14 et 6,0 de Bastogne pour 7 (audit Mireille)",
+       "lat": 50.05354,
+       "lon": 5.68925,
+       "how": "nominatim"
       },
       {
        "label": "Bastogne",
@@ -965,8 +969,11 @@
        "label": "Roodt-les-Ell",
        "km": 131,
        "kind": "ville",
-       "note": "imprimé « ROODT LES ELL » ; km peu lisible (130 ou 131), colonne mesurée ≈ 131,5 ; recherche bornée autour des voisins (Nominatim, index POI de l'IGN, variantes du nom) sans candidat portant ce nom et compatible avec les voisins : non placé (règle 21)",
-       "confidence": "non-place"
+       "note": "imprimé « ROODT LES ELL » ; km peu lisible (130 ou 131), colonne mesurée ≈ 131,5 ; imprimé « ROODT-LES-ELL » : Roodt (Ell, Nominatim), 10,3 km de Boulaide pour 15 et 7,2 d'Oberpallen pour 8,5 (audit Mireille)",
+       "confidence": "ok",
+       "lat": 49.794241,
+       "lon": 5.821752,
+       "how": "nominatim"
       },
       {
        "label": "Oberpallen",
@@ -1082,8 +1089,11 @@
        "label": "Maizières-lès-Metz",
        "km": 220,
        "kind": "ville",
-       "note": "165 m imprimés ; imprimé « MAIZIÈRES-LES-METZ » ; km imprimé 220 (colonne sur la graduation 220, mesuré ≈ 220,0) ; retiré : km « 220 » imprimé exactement sur la graduation (cas inhabituel, noté douteux à la transcription), et Hagondange → Maizières fait 4,9 km à vol d'oiseau pour 3 au profil (règle 11)",
-       "confidence": "non-place"
+       "note": "165 m imprimés ; imprimé « MAIZIÈRES-LES-METZ » ; km imprimé 220 (colonne sur la graduation 220, mesuré ≈ 220,0) ; « 220 » bien imprimé (étiquette décalée à droite de la graduation) : point gardé ; Hagondange → Maizières fait 4,9 km à vol d'oiseau pour 3 au profil, écart de la source noté (règle 21, audit Mireille)",
+       "confidence": "ok",
+       "lat": 49.21025,
+       "lon": 6.16003,
+       "how": "commune-ign"
       },
       {
        "label": "Metz",
@@ -1103,12 +1113,12 @@
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 20,
-      "suspect_legs": 1,
+      "legs": 23,
+      "suspect_legs": 3,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Tronçons signalés au contrôle (règle 11) : Thionville → Uckange 7,1 km routés (6,4 à vol d'oiseau) pour 5,0 au profil : ligne droite plus longue que le profil : km imprimé ou centre de commune à relire (règle 11, issue de l'édition)."
+     "note": "Tronçons signalés au contrôle (règle 11) : Thionville → Uckange 7,1 km routés (6,4 à vol d'oiseau) pour 5,0 au profil : km relus (209½ pour Uckange), Uckange à sa mairie — écart de la source (règle 11)."
     },
     "7": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1967/67_7.jpg",
@@ -1960,7 +1970,7 @@
        "label": "Grilly",
        "km": 231.5,
        "kind": "ville",
-       "note": "613 m imprimés ; km peu lisible (230½ ou 231½) ; colonne mesurée ≈ 231,4 ; MNT 511 m au point de la commune pour 613 imprimés, à la limite de la tolérance de 100 m : point gardé (règle 14)",
+       "note": "613 m imprimés ; km peu lisible (230½ ou 231½) ; colonne mesurée ≈ 231,4 ; MNT 511 m au point de la commune pour 613 imprimés, la courbe ne culmine pas au nom : c'est la source qui dévie, point gardé (règle 14)",
        "lat": 46.33039,
        "lon": 6.11436,
        "how": "commune-ign",
@@ -2698,26 +2708,26 @@
        "label": "Marseille",
        "km": 207.5,
        "kind": "ville",
-       "note": "10 m imprimés ; arrivée ; imprimé « MARSEILLE (VELODROME) »",
-       "lat": 43.2964,
-       "lon": 5.37779,
-       "how": "stage_towns",
+       "note": "10 m imprimés ; arrivée ; imprimé « MARSEILLE (VELODROME) » ; arrivée placée au stade Vélodrome (Nominatim), imprimé « MARSEILLE (VÉLODROME) » : l'ancre de stage_towns était le centre (règles 18 et 22, audit Mireille)",
+       "lat": 43.269847,
+       "lon": 5.395908,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
      "route_check": {
-      "routed_km": 204.6,
+      "routed_km": 200.9,
       "profile_km": 196,
-      "delta_pct": 4.4,
+      "delta_pct": 2.5,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
       "legs": 17,
-      "suspect_legs": 2,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Tronçons signalés au contrôle (règle 11) : Moustiers-Sainte-Marie → Pont d'Aiguines 10,1 km routés (5,5 à vol d'oiseau) pour 6,0 au profil : la ligne droite tient dans le profil, le routage à vélo fait un détour (routeur, règle 20) ; Col de la Gineste → Marseille 14,0 km routés (9,0 à vol d'oiseau) pour 10,0 au profil : la ligne droite tient dans le profil, le routage à vélo fait un détour (routeur, règle 20)."
+     "note": "Tronçons signalés au contrôle (règle 11) : Moustiers-Sainte-Marie → Pont d'Aiguines 10,1 km à vélo comme en voiture (5,5 à vol d'oiseau) pour 6 au profil : le tracé actuel contourne le lac de Sainte-Croix, rempli en 1974 — hypothèse, la route de 1967 n'est pas sourcée."
     },
     "13": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1967/67_13.jpg",
@@ -2736,7 +2746,7 @@
        "label": "Calas",
        "km": 14.5,
        "kind": "lieu-dit",
-       "note": "245 m imprimés ; MNT 143 m pour 245 imprimés, à la limite de la tolérance : passage vraisemblablement au-dessus du village, point gardé (règle 14)",
+       "note": "245 m imprimés ; MNT 143 m pour 245 imprimés, « 245 » bien lisible, la courbe ne culmine pas à Calas : c'est la source qui dévie, point gardé (audit Mireille) (règle 14)",
        "lat": 43.46045,
        "lon": 5.35359,
        "how": "nominatim",
@@ -3197,7 +3207,7 @@
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Tronçons signalés au contrôle (règle 11) : Villeneuve-lès-Maguelone → Mireval 6,2 km routés (5,6 à vol d'oiseau) pour 10,0 au profil : détour du profil non jalonné (boucle ou entrée de ville non imprimée). Mas des Iscles → Aigues-Mortes est routé en voiture : BRouter refuse le point du mas, hors route (HTTP 400), comme en 1969."
+     "note": "Tronçons signalés au contrôle (règle 11) : Villeneuve-lès-Maguelone → Mireval 6,2 km routés (5,6 à vol d'oiseau) pour 10,0 au profil : détour du profil non jalonné (boucle ou entrée de ville non imprimée). Les deux tronçons qui touchent le Mas des Iscles sont routés en voiture : BRouter refuse le point du mas, hors route (HTTP 400), comme en 1969."
     },
     "15": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1967/67_15.jpg",
@@ -3346,7 +3356,7 @@
        "label": "Saint-Amans-Soult",
        "km": 121,
        "kind": "ville",
-       "note": "376 m imprimés ; km peu lisible (121ᵏ), colonne ≈ 121,0 ; MNT 271 m pour 376 imprimés, à la limite de la tolérance : point gardé (règle 14)",
+       "note": "376 m imprimés ; km peu lisible (121ᵏ), colonne ≈ 121,0 ; MNT 271 m pour 376 imprimés, la courbe ne culmine pas au nom : c'est la source qui dévie, point gardé (règle 14)",
        "lat": 43.478,
        "lon": 2.48869,
        "how": "commune-ign",
@@ -3554,8 +3564,11 @@
        "label": "Près Sainte-Croix-Volvestre",
        "km": 68,
        "kind": "lieu-dit",
-       "note": "300 m imprimés ; imprimé « PRÈS Ste-CROIX-VOLVESTRE » ; km peu lisible (65ᵏ ou 68ᵏ, 6/8), colonne ≈ 67,8 tranche 68 ; « 471 m. » imprimé seul au sommet (colonne ≈ 65,3), sans nom ni km ; frontière vers Ariège vers km 65",
-       "confidence": "non-place"
+       "note": "300 m imprimés ; imprimé « PRÈS Ste-CROIX-VOLVESTRE » ; km peu lisible (65ᵏ ou 68ᵏ, 6/8), colonne ≈ 67,8 tranche 68 ; « 471 m. » imprimé seul au sommet (colonne ≈ 65,3), sans nom ni km ; frontière vers Ariège vers km 65 ; près de Sainte-Croix-Volvestre : placé au bourg (MNT 303 m pour 300), qui tient dans le profil (règle 4, « Près X », audit Mireille)",
+       "confidence": "ok",
+       "lat": 43.126329,
+       "lon": 1.173866,
+       "how": "nominatim"
       },
       {
        "label": "Mérignon",
@@ -3697,13 +3710,13 @@
      ],
      "note": "Départ : Toulouse → Saint-Sulpice-sur-Lèze 32,3 km à vol d'oiseau pour 30,5 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 172.7,
+      "routed_km": 169.6,
       "profile_km": 168.5,
-      "delta_pct": 2.5,
+      "delta_pct": 0.6,
       "tolerance_pct": 5,
       "coverage_pct": 90,
       "car_legs": 0,
-      "legs": 16,
+      "legs": 17,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -4094,11 +4107,14 @@
        "confidence": "non-place"
       },
       {
-       "label": "Miraco",
+       "label": "Méracq",
        "km": 25,
        "kind": "côte",
-       "note": "241 m imprimés ; imprimé « MIRACO » ou « MIBACQ » (3e et dernière lettres peu lisibles) ; côte 4e cat. (cercle « 4ᵉC ») ; km 25ᵏ, colonne ≈ 24,9 ; frontière Basses-Pyrénées/Landes vers km 33 ; recherche bornée autour des voisins (Nominatim, index POI de l'IGN, variantes du nom) sans candidat portant ce nom et compatible avec les voisins : non placé (règle 21)",
-       "confidence": "non-place"
+       "note": "241 m imprimés ; imprimé « MIRACO » ou « MIBACQ » (3e et dernière lettres peu lisibles) ; côte 4e cat. (cercle « 4ᵉC ») ; km 25ᵏ, colonne ≈ 24,9 ; frontière Basses-Pyrénées/Landes vers km 33 ; imprimé « 241 m. MÉRACQ », lu d'abord « MIRACO » : Méracq (Nominatim), MNT 243 m pour 241 (règles 21 et 23, audit Mireille)",
+       "confidence": "ok",
+       "lat": 43.511724,
+       "lon": -0.386883,
+       "how": "nominatim"
       },
       {
        "label": "Samadet",
@@ -4239,18 +4255,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 168.4,
-      "profile_km": 163.5,
-      "delta_pct": 3,
+      "routed_km": 186.2,
+      "profile_km": 181.5,
+      "delta_pct": 2.6,
       "tolerance_pct": 5,
-      "coverage_pct": 79,
+      "coverage_pct": 88,
       "car_legs": 0,
-      "legs": 12,
+      "legs": 13,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Tronçons signalés au contrôle (règle 11) : Saint-Sever → Mont-de-Marsan 18,7 km routés (16,0 à vol d'oiseau) pour 14,0 au profil : ligne droite plus longue que le profil : km imprimé ou centre de commune à relire (règle 11, issue de l'édition)."
+     "note": "Tronçons signalés au contrôle (règle 11) : Saint-Sever → Mont-de-Marsan 18,7 km routés (16,0 à vol d'oiseau) pour 14,0 au profil : km relus (61½ et 75½), 17,6 km en voiture — écart de la source (règle 11)."
     },
     "19": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1967/67_19.jpg",
@@ -4259,10 +4275,10 @@
        "label": "Bordeaux",
        "km": 0,
        "kind": "ville",
-       "note": "18 m imprimés ; départ ; imprimé « BORDEAUX (4 PAVILLONS) »",
-       "lat": 44.84123,
-       "lon": -0.58004,
-       "how": "commune-ign",
+       "note": "18 m imprimés ; départ ; imprimé « BORDEAUX (4 PAVILLONS) » ; départ placé aux Quatre-Pavillons (Lormont), point de 1971/18 (règle 25, audit Mireille)",
+       "lat": 44.8657847,
+       "lon": -0.5134586,
+       "how": "nominatim",
        "confidence": "ok"
       },
       {
@@ -4735,11 +4751,8 @@
        "label": "Clermont-Ferrand",
        "km": 205.5,
        "kind": "ville",
-       "note": "510 m imprimés ; passage dans Clermont-Ferrand (avant la montée) ; colonne ≈ 205,3 ; MNT 388 m au centre pour 510 imprimés : le passage par Clermont-Ferrand se fait vraisemblablement sur les hauteurs (Royat, Ceyrat), non situé ; point gardé au centre (règle 14)",
-       "lat": 45.77746,
-       "lon": 3.08194,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "510 m imprimés ; passage dans Clermont-Ferrand (avant la montée) ; colonne ≈ 205,3 ; MNT 388 m au centre pour 510 imprimés : le relief atteint 584 m à moins de 3 km du centre : passage au-dessus du centre (Chamalières, Royat), non situé ; non placé (règle 14, audit Mireille)",
+       "confidence": "non-place"
       },
       {
        "label": "La Baraque",
@@ -4764,13 +4777,13 @@
      ],
      "note": "Départ : Limoges → Les Allois 13 km à vol d'oiseau pour 12,5 au profil, départ réel hors du centre, non situé (règle 25). Tronçons signalés au contrôle (règle 11) : La Baraque → Clermont-Ferrand (Puy-de-Dôme) 5,6 km routés (4,6 à vol d'oiseau) pour 9,0 au profil : détour du profil non jalonné (boucle ou entrée de ville non imprimée). La Baraque → sommet du puy de Dôme est routé en voiture, BRouter refusant le sommet (HTTP 400), comme en 1969 et 1973.",
      "route_check": {
-      "routed_km": 202.6,
+      "routed_km": 200.4,
       "profile_km": 209.5,
-      "delta_pct": -3.3,
+      "delta_pct": -4.4,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 1,
-      "legs": 23,
+      "legs": 22,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -4794,56 +4807,56 @@
        "km": 14.5,
        "kind": "lieu-dit",
        "confidence": "non-place",
-       "note": "nom illisible (lecture très incertaine « LE CRATERE »), altitude 7xx illisible ; km imprimé illisible (mesuré ≈ 14,7, colonne lue sur l'étiquette) ; aucun km imprimé (graduation 14.5) ; non placé : km approché (règle 4)"
+       "note": "nom illisible (lecture très incertaine « LE CRATERE »), altitude 7xx illisible ; km imprimé illisible (mesuré ≈ 14,7, colonne lue sur l'étiquette) ; non placé : km approché (règle 4)"
       },
       {
        "label": "Volvic",
        "km": 19.5,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "lecture probable « VOLVIC » ; altitude 5xx illisible ; km imprimé illisible (mesuré ≈ 19,5) ; aucun km imprimé (graduation 19.5) ; non placé : km approché (règle 4)"
+       "note": "lecture probable « VOLVIC » ; altitude 5xx illisible ; km imprimé illisible (mesuré ≈ 19,5) ; non placé : km approché (règle 4)"
       },
       {
        "label": "Saint-Hippolyte",
        "km": 25,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "lecture probable « St. HIPPOLYTE » ; km imprimé illisible (mesuré ≈ 25,1) ; aucun km imprimé (graduation 25) ; non placé : km approché (règle 4)"
+       "note": "lecture probable « St. HIPPOLYTE » ; km imprimé illisible (mesuré ≈ 25,1) ; non placé : km approché (règle 4)"
       },
       {
        "label": "Châtel-Guyon",
        "km": 26.5,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "lecture probable « CHATEL-GUYON » ; altitude 4xx illisible ; km imprimé illisible (mesuré ≈ 26,7) ; aucun km imprimé (graduation 26.5) ; non placé : km approché (règle 4)"
+       "note": "lecture probable « CHATEL-GUYON » ; altitude 4xx illisible ; km imprimé illisible (mesuré ≈ 26,7) ; non placé : km approché (règle 4)"
       },
       {
        "label": "Combronde",
        "km": 37.5,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "lecture probable « COMBRONDE » ; altitude 3xx illisible ; km imprimé illisible (mesuré ≈ 37,4) ; aucun km imprimé (graduation 37.5) ; non placé : km approché (règle 4)"
+       "note": "lecture probable « COMBRONDE » ; altitude 3xx illisible ; km imprimé illisible (mesuré ≈ 37,4) ; non placé : km approché (règle 4)"
       },
       {
        "label": "(illisible)",
        "km": 56.5,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "nom illisible (5-6 lettres), altitude 41x ; km lu peut-être « 56ᵏ » (mesuré ≈ 56,3) ; aucun km imprimé (graduation 56.5) ; non placé : km approché (règle 4)"
+       "note": "nom illisible (5-6 lettres), altitude 41x ; km lu peut-être « 56ᵏ » (mesuré ≈ 56,3) ; non placé : km approché (règle 4)"
       },
       {
        "label": "Vicq",
        "km": 60,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "lecture probable « VICQ », altitude 33x ; km lu peut-être « 60½ » (mesuré ≈ 60,2) ; aucun km imprimé (graduation 60) ; non placé : km approché (règle 4)"
+       "note": "lecture probable « VICQ », altitude 33x ; km lu peut-être « 60½ » (mesuré ≈ 60,2) ; non placé : km approché (règle 4)"
       },
       {
        "label": "Bellenaves",
        "km": 66.5,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "lecture probable « BELLENAVES » ; km lu peut-être « 66ᵏ » (mesuré ≈ 66,3) ; aucun km imprimé (graduation 66.5) ; non placé : km approché (règle 4)"
+       "note": "lecture probable « BELLENAVES » ; km lu peut-être « 66ᵏ » (mesuré ≈ 66,3) ; non placé : km approché (règle 4)"
       },
       {
        "label": "Côte de la Villatte",
@@ -4857,182 +4870,182 @@
        "km": 88.5,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "lecture probable « MONTMARAULT », altitude 4xx ; km lu peut-être « 88ᵏ » (mesuré ≈ 88,5) ; aucun km imprimé (graduation 88.5) ; non placé : km approché (règle 4)"
+       "note": "lecture probable « MONTMARAULT », altitude 4xx ; km lu peut-être « 88ᵏ » (mesuré ≈ 88,5) ; non placé : km approché (règle 4)"
       },
       {
        "label": "Villefranche-d'Allier",
        "km": 100.5,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "lecture probable « VILLEFRANCHE D'ALLIER » ; km imprimé illisible (mesuré ≈ 100,5) ; aucun km imprimé (graduation 100.5) ; non placé : km approché (règle 4)"
+       "note": "lecture probable « VILLEFRANCHE D'ALLIER » ; km imprimé illisible (mesuré ≈ 100,5) ; non placé : km approché (règle 4)"
       },
       {
        "label": "Le Vilhain",
        "km": 120,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "lecture probable « LE VILHAIN » ; km imprimé illisible ou absent (mesuré ≈ 119,8) ; aucun km imprimé (graduation 120) ; non placé : km approché (règle 4)"
+       "note": "lecture probable « LE VILHAIN » ; km imprimé illisible ou absent (mesuré ≈ 119,8) ; non placé : km approché (règle 4)"
       },
       {
        "label": "(illisible)",
        "km": 121,
        "kind": "lieu-dit",
        "confidence": "non-place",
-       "note": "nom illisible (deux mots, « CROIX … » ?), altitude x77 ; km imprimé illisible ou absent (mesuré ≈ 121,2) ; aucun km imprimé (graduation 121) ; non placé : km approché (règle 4)"
+       "note": "nom illisible (deux mots, « CROIX … » ?), altitude x77 ; km imprimé illisible ou absent (mesuré ≈ 121,2) ; non placé : km approché (règle 4)"
       },
       {
        "label": "Cérilly",
        "km": 127.5,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "lecture probable « CERILLY » ; km imprimé illisible (mesuré ≈ 127,5) ; aucun km imprimé (graduation 127.5) ; non placé : km approché (règle 4)"
+       "note": "lecture probable « CERILLY » ; km imprimé illisible (mesuré ≈ 127,5) ; non placé : km approché (règle 4)"
       },
       {
        "label": "Carrefour (numéros illisibles)",
        "km": 134.5,
        "kind": "lieu-dit",
        "confidence": "non-place",
-       "note": "« CAR. N. … - N. … », numéros illisibles, altitude 26x ; km imprimé illisible (mesuré ≈ 134,4) ; aucun km imprimé (graduation 134.5) ; non placé : km approché (règle 4)"
+       "note": "« CAR. N. … - N. … », numéros illisibles, altitude 26x ; km imprimé illisible (mesuré ≈ 134,4) ; non placé : km approché (règle 4)"
       },
       {
        "label": "Ainay-le-Château",
        "km": 142.5,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "lecture probable « AINAY LE CHATEAU » ; km imprimé illisible (mesuré ≈ 142,4) ; aucun km imprimé (graduation 142.5) ; non placé : km approché (règle 4)"
+       "note": "lecture probable « AINAY LE CHATEAU » ; km imprimé illisible (mesuré ≈ 142,4) ; non placé : km approché (règle 4)"
       },
       {
        "label": "Le Pondy",
        "km": 153.5,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "lecture probable « LE PONDY », altitude 17x ; km imprimé illisible (mesuré ≈ 153,7) ; aucun km imprimé (graduation 153.5) ; non placé : km approché (règle 4)"
+       "note": "lecture probable « LE PONDY », altitude 17x ; km imprimé illisible (mesuré ≈ 153,7) ; non placé : km approché (règle 4)"
       },
       {
        "label": "(illisible)",
        "km": 165.5,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "nom illisible (lecture très incertaine « BRUERE-ALLICHAMPS »), altitude 17x ; km imprimé illisible (mesuré ≈ 165,5) ; aucun km imprimé (graduation 165.5) ; non placé : km approché (règle 4)"
+       "note": "nom illisible (lecture très incertaine « BRUERE-ALLICHAMPS »), altitude 17x ; km imprimé illisible (mesuré ≈ 165,5) ; non placé : km approché (règle 4)"
       },
       {
        "label": "Carrefour (numéros illisibles)",
        "km": 177,
        "kind": "lieu-dit",
        "confidence": "non-place",
-       "note": "« CAR. N. 1?3 - N. ?? », pas d'altitude lisible ; km imprimé illisible (mesuré ≈ 177,2) ; aucun km imprimé (graduation 177) ; non placé : km approché (règle 4)"
+       "note": "« CAR. N. 1?3 - N. ?? », pas d'altitude lisible ; km imprimé illisible (mesuré ≈ 177,2) ; non placé : km approché (règle 4)"
       },
       {
        "label": "Bourges",
        "km": 192.5,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "lecture probable « BOURGES » ; km imprimé illisible (mesuré ≈ 192,4) ; aucun km imprimé (graduation 192.5) ; non placé : km approché (règle 4)"
+       "note": "lecture probable « BOURGES » ; km imprimé illisible (mesuré ≈ 192,4) ; non placé : km approché (règle 4)"
       },
       {
        "label": "Saint-Martin-d'Auxigny",
        "km": 208.5,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "lecture probable « St. MARTIN D'AUXIGNY » ; km imprimé illisible (mesuré ≈ 208,7) ; aucun km imprimé (graduation 208.5) ; non placé : km approché (règle 4)"
+       "note": "lecture probable « St. MARTIN D'AUXIGNY » ; km imprimé illisible (mesuré ≈ 208,7) ; non placé : km approché (règle 4)"
       },
       {
        "label": "La Chapelle-d'Angillon",
        "km": 225.5,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "lecture probable « LA CHAPELLE D'ANGILLON » ; km imprimé illisible (mesuré ≈ 225,4) ; aucun km imprimé (graduation 225.5) ; non placé : km approché (règle 4)"
+       "note": "lecture probable « LA CHAPELLE D'ANGILLON » ; km imprimé illisible (mesuré ≈ 225,4) ; non placé : km approché (règle 4)"
       },
       {
        "label": "Aubigny-sur-Nère",
        "km": 239.5,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "lecture probable « AUBIGNY s. NERE » ; km imprimé illisible (mesuré ≈ 239,5) ; aucun km imprimé (graduation 239.5) ; non placé : km approché (règle 4)"
+       "note": "lecture probable « AUBIGNY s. NERE » ; km imprimé illisible (mesuré ≈ 239,5) ; non placé : km approché (règle 4)"
       },
       {
        "label": "Argent-sur-Sauldre",
        "km": 247.5,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "lecture probable « ARGENT s. SAULDRE » ; km imprimé illisible (mesuré ≈ 247,7) ; aucun km imprimé (graduation 247.5) ; non placé : km approché (règle 4)"
+       "note": "lecture probable « ARGENT s. SAULDRE » ; km imprimé illisible (mesuré ≈ 247,7) ; non placé : km approché (règle 4)"
       },
       {
        "label": "Cerdon",
        "km": 258.5,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "lecture probable « CERDON DU LOIRET » ; km imprimé illisible (mesuré ≈ 258,5) ; aucun km imprimé (graduation 258.5) ; non placé : km approché (règle 4)"
+       "note": "lecture probable « CERDON DU LOIRET » ; km imprimé illisible (mesuré ≈ 258,5) ; non placé : km approché (règle 4)"
       },
       {
        "label": "(illisible)",
        "km": 264.5,
        "kind": "lieu-dit",
        "confidence": "non-place",
-       "note": "nom illisible (« BO… » ?) ; km imprimé illisible (mesuré ≈ 264,7) ; aucun km imprimé (graduation 264.5) ; non placé : km approché (règle 4)"
+       "note": "nom illisible (« BO… » ?) ; km imprimé illisible (mesuré ≈ 264,7) ; non placé : km approché (règle 4)"
       },
       {
        "label": "Sully-sur-Loire",
        "km": 273.5,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "lecture probable « SULLY s. LOIRE » ; km imprimé illisible (mesuré ≈ 273,6) ; aucun km imprimé (graduation 273.5) ; non placé : km approché (règle 4)"
+       "note": "lecture probable « SULLY s. LOIRE » ; km imprimé illisible (mesuré ≈ 273,6) ; non placé : km approché (règle 4)"
       },
       {
        "label": "Bouzy-la-Forêt",
        "km": 285.5,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "lecture probable « BOUZY LA FORET » ; km imprimé illisible (mesuré entre 284,2 et 286,9) ; aucun km imprimé (graduation 285.5) ; non placé : km approché (règle 4)"
+       "note": "lecture probable « BOUZY LA FORET » ; km imprimé illisible (mesuré entre 284,2 et 286,9) ; non placé : km approché (règle 4)"
       },
       {
        "label": "Châtenoy",
        "km": 292,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "lecture probable « CHATENOY » ; km imprimé illisible (mesuré ≈ 291,8) ; aucun km imprimé (graduation 292) ; non placé : km approché (règle 4)"
+       "note": "lecture probable « CHATENOY » ; km imprimé illisible (mesuré ≈ 291,8) ; non placé : km approché (règle 4)"
       },
       {
        "label": "Bellegarde",
        "km": 302,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "lecture incertaine « BELLEGARDE DU LOIRET », altitude 11x ; km imprimé illisible (mesuré ≈ 302,1) ; aucun km imprimé (graduation 302) ; non placé : km approché (règle 4)"
+       "note": "lecture incertaine « BELLEGARDE DU LOIRET », altitude 11x ; km imprimé illisible (mesuré ≈ 302,1) ; non placé : km approché (règle 4)"
       },
       {
        "label": "(illisible)",
        "km": 310.5,
        "kind": "lieu-dit",
        "confidence": "non-place",
-       "note": "nom illisible (« … DE JURANVILLE » ?) ; km imprimé illisible (mesuré ≈ 310,3) ; aucun km imprimé (graduation 310.5) ; non placé : km approché (règle 4)"
+       "note": "nom illisible (« … DE JURANVILLE » ?) ; km imprimé illisible (mesuré ≈ 310,3) ; non placé : km approché (règle 4)"
       },
       {
        "label": "(illisible)",
        "km": 315.5,
        "kind": "lieu-dit",
        "confidence": "non-place",
-       "note": "nom illisible (un mot, « CH… » ?) ; km imprimé illisible (mesuré ≈ 315,4) ; aucun km imprimé (graduation 315.5) ; non placé : km approché (règle 4)"
+       "note": "nom illisible (un mot, « CH… » ?) ; km imprimé illisible (mesuré ≈ 315,4) ; non placé : km approché (règle 4)"
       },
       {
        "label": "Beaumont-du-Gâtinais",
        "km": 318.5,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "lecture probable « BEAUMONT DU GATINAIS » ; km imprimé illisible (mesuré ≈ 318,6) ; aucun km imprimé (graduation 318.5) ; non placé : km approché (règle 4)"
+       "note": "lecture probable « BEAUMONT DU GATINAIS » ; km imprimé illisible (mesuré ≈ 318,6) ; non placé : km approché (règle 4)"
       },
       {
        "label": "(illisible)",
        "km": 327,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "nom illisible (lecture très incertaine « PUISEAUX »), altitude 8x ; km imprimé illisible ou absent (mesuré ≈ 326,8) ; aucun km imprimé (graduation 327) ; non placé : km approché (règle 4)"
+       "note": "nom illisible (lecture très incertaine « PUISEAUX »), altitude 8x ; km imprimé illisible ou absent (mesuré ≈ 326,8) ; non placé : km approché (règle 4)"
       },
       {
        "label": "La Chapelle-la-Reine",
        "km": 343,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "lecture probable « LA CHAPELLE LA REINE » ; km imprimé illisible (mesuré ≈ 343,0) ; aucun km imprimé (graduation 343) ; non placé : km approché (règle 4)"
+       "note": "lecture probable « LA CHAPELLE LA REINE » ; km imprimé illisible (mesuré ≈ 343,0) ; non placé : km approché (règle 4)"
       },
       {
        "label": "Fontainebleau",
