@@ -197,7 +197,7 @@ async function loadStages() {
     tr.innerHTML = `
       <td><a href="/stage.html?id=${s.id}">${EF.esc(s.name)}</a></td>
       <td>${EF.esc(s.edition_name || '—')}</td>
-      <td><span style="color:${EF.typeColor(s.stage_type)}">${EF.esc(s.stage_type || '—')}</span></td>
+      <td><span style="color:${EF.typeTextColor(s.stage_type)}">${EF.esc(s.stage_type || '—')}</span></td>
       <td>${s.generated_distance_km != null ? EF.dec(s.generated_distance_km) + ' km' : s.official_distance_km ? EF.dec(s.official_distance_km) + ' km (off.)' : '—'}</td>
       <td>${s.total_ascent_m != null ? 'D+ ' + s.total_ascent_m + ' m' : '—'}</td>
       <td>${EF.stateBadge(s.state, s.checks)}</td>
