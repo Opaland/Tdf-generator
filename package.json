@@ -7,6 +7,7 @@
   "main": "backend/server.js",
   "scripts": {
     "start": "node backend/server.js",
+    "build:site": "node scripts/build-site.js",
     "dev": "node backend/server.js",
     "generate": "node pipeline/cli.js",
     "import": "node pipeline/cli.js --import",

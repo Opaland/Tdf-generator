@@ -576,12 +576,15 @@ ${climbsHtml}
 
 ${communesHtml}<p class="note">Ravitaillements : non représentés — ÉtapeForge ne dispose d'aucune source sur l'emplacement réel des zones de ravitaillement d'une étape reconstituée (donnée non publiée par ASO).</p>
 
-<footer>${esc(ATTRIBUTIONS)} — Généré par ÉtapeForge.</footer>
+<footer>${esc(ATTRIBUTIONS)} — ${INDEPENDENCE} — Généré par ÉtapeForge.</footer>
 <script>document.querySelector('button.no-print').addEventListener('click', () => window.print());</script>
 </body>
 </html>`);
 }
 
+// Mention portée par chaque page publiée ou téléchargée (story 41.5, étude
+// du 10/11/2026, § 5) ; même texte dans le pied du site (frontend/common.js).
+const INDEPENDENCE = 'Site indépendant, non affilié à ASO ni au Tour de France.';
 const ATTRIBUTIONS =
   'Données : © IGN/Géoplateforme (géocodage, altimétrie RGE ALTI, fonds PLANIGNV2) · ' +
   '© OpenStreetMap contributors · Routage BRouter (brouter.de), repli OSRM · ' +
@@ -637,7 +640,7 @@ function tourToStandaloneHtml(editionId) {
   <div id="map"></div>
   <div id="stages"></div>
 </main>
-<footer>${esc(ATTRIBUTIONS)}</footer>
+<footer>${esc(ATTRIBUTIONS)} — ${INDEPENDENCE}</footer>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>${profileJs}</script>
 <script>
@@ -749,7 +752,7 @@ function stageToStandaloneHtml(stageId) {
   <div id="map"></div>
   <div id="stagecard"></div>
 </main>
-<footer>${esc(ATTRIBUTIONS)}</footer>
+<footer>${esc(ATTRIBUTIONS)} — ${INDEPENDENCE}</footer>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>${profileJs}</script>
 <script>

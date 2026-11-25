@@ -40,7 +40,7 @@ global.EF = { day: (v) => { const m = typeof v === 'string' && v.match(/^(\d{4})
   },
 };
 
-const { stageRow } = require('../frontend/archives.js');
+const { stageRow, miniSiteLink } = require('../frontend/archives.js');
 
 function baseStage(overrides) {
   return {
@@ -70,4 +70,24 @@ test('stageRow() : aucune distance reconstituée (étape non générée) → tir
   const html = stageRow(baseStage({ generated_distance_km: null, state: 'draft' }));
   assert.doesNotThrow(() => stageRow(baseStage({ generated_distance_km: null, state: 'draft' })));
   assert.match(html, /—/);
+});
+
+// Story 41.5 (issue #623) : sur le site public, ni bouton de génération (qui
+// écrit), ni lien vers /api — le mini-site pré-construit s'il existe.
+test('stageRow() : site public (EF_STATIC) → aucun bouton de génération', () => {
+  assert.match(stageRow(baseStage()), /data-gen="1"/, 'version locale : bouton présent');
+  global.window = { EF_STATIC: true };
+  try {
+    assert.doesNotMatch(stageRow(baseStage()), /data-gen=/);
+    assert.doesNotMatch(stageRow(baseStage({ state: 'draft' })), /data-gen=/);
+  } finally {
+    delete global.window;
+  }
+});
+
+test('miniSiteLink() : route /api en local, fichier pré-construit ou rien sur le site public', () => {
+  assert.match(miniSiteLink(5, null), /href="\/api\/editions\/5\/export\.html"/);
+  assert.match(miniSiteLink(5, { 5: 'tour-1903-5.html' }), /href="tour-1903-5\.html"/);
+  assert.strictEqual(miniSiteLink(6, { 5: 'tour-1903-5.html' }), '');
+  assert.strictEqual(miniSiteLink(5, { 5: 'javascript:alert(1)' }), '', 'nom de fichier hors motif refusé');
 });

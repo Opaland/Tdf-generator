@@ -3671,12 +3671,21 @@ sur l'histoire du Tour. **En attente de décision** sur les cinq questions du
   page. **Nom et domaine** : non tranchés (aucune recommandation, choix de
   marque) — « ÉtapeForge », sans domaine propre, en attendant ; le site
   porte « site indépendant, non affilié à ASO ».
-- [ ] 41.5 Site statique public — socle : build des JSON par édition et des
+- [x] 41.5 Site statique public — socle (PR #624) : build des JSON par édition et des
   index (communes, cols) par le pipeline dans une Action, pages servies par
   Pages sans serveur ; l'éditeur reste servi par `npm start` seulement.
   Critères : `npm run build:site` produit un dossier statique sans appel
   réseau ; la démo Pages sert ce dossier ; aucune route d'écriture exposée ;
   mentions ASO et attributions (Wikipédia, IGN, OSM) sur chaque carte.
+  Précisé en ouvrant la story (issue #623) : l'éditeur, « Mes traces »,
+  la connexion et le diagnostic ne sont plus publiés et aucune page
+  publiée n'y renvoie (navigation statique ramenée à l'accueil) ; toute
+  requête autre que GET refusée sans réseau ; la construction passe sous
+  une garde qui fait échouer tout appel réseau (test) ; mention « site
+  indépendant, non affilié à ASO » et sources dans le pied de chaque
+  page, tuiles attribuées dans chaque carte ; le workflow Pages appelle
+  `npm run build:site`. L'index des communes et la recherche « passé chez
+  moi » restent à 41.7, les fiches de cols à 41.8.
 - [ ] 41.6 Page par édition : carte village par village, profils, cols,
   chiffres, écart officiel / reconstitution affiché (règle 12).
 - [ ] 41.7 « Le Tour est-il passé chez moi ? » sur le site statique
