@@ -3603,14 +3603,19 @@ Mousse de Poche). Une PR par story, relecture adverse sur tout code.
   le premier test acceptait une ligne commentée, un groupe vide et un
   `interval` hors de `schedule` — test lié à l'indentation, les quatre
   mutations échouent désormais.
-- [ ] 42.2 CSP de l'application (issue #566, phase 1) : en-tête
+- [x] 42.2 CSP de l'application (issue #566, phase 1) : en-tête
   `Content-Security-Policy` posé par Express ; `script-src 'self'` sans
   `unsafe-inline` (le seul script en ligne, `diag.html`, sorti dans
   `diag.js`) ; tuiles IGN et OSM autorisées en `img-src` ; `frame-ancestors
   'none'`. Trusted Types en `Report-Only`. Critères : test de l'en-tête et
   test qu'aucune page de `frontend/` n'a de script en ligne ; aucune
   violation CSP dans la console sur les écrans servis (Playwright) ; carte
-  intacte.
+  intacte. Fait : en plus, le service worker ne relaie plus les requêtes
+  d'une autre origine (sous la CSP, il bloquait les tuiles) ; relecture
+  adverse : le roadbook (bouton Imprimer en `onclick`) et les aperçus des
+  mini-sites (scripts en ligne, Leaflet sur unpkg) étaient cassés — ils
+  reçoivent une CSP dédiée, scripts autorisés par empreinte sha256
+  (`standaloneCsp`, `test/cspExports.test.js`).
 - [ ] 42.4 CSP du site Pages et des mini-sites exportés (issue #566,
   phase 2) : balise CSP dans les pages publiées par `scripts/build-site.js`
   (qui injecte aujourd'hui `window.EF_STATIC` par un script en ligne, à
