@@ -103,6 +103,17 @@ const EF = {
     'clm par équipes': '#8e44ad',
   },
   typeColor(t) { return EF.typeColors[t] || '#555'; },
+  // Variantes foncées pour le TEXTE (contraste WCAG AA ≥ 4,5:1 sur le blanc,
+  // le fond crème et l'en-tête de tableau #ead9b0 ; story 42.3, axe-core) :
+  // les couleurs ci-dessus restent celles des tracés et pastilles.
+  typeTextColors: {
+    plaine: '#1e6b43',
+    'accidentée': '#8a4208',
+    montagne: '#a52a1e',
+    clm: '#1f6391',
+    'clm par équipes': '#7a3a99',
+  },
+  typeTextColor(t) { return EF.typeTextColors[t] || '#555'; },
 
   // checks (optionnel) : bloc d'audits qualité de l'étape (stages.checks).
   // Une étape à l'état "done" dont au moins un audit est en échec
@@ -485,8 +496,9 @@ const EF = {
       });
     };
     ths.forEach((th) => {
+      // Pas de role="button" : il retirerait au <th> son rôle d'en-tête de
+      // colonne, le seul qui admette aria-sort (axe-core, story 42.3).
       th.tabIndex = 0;
-      th.setAttribute('role', 'button');
       const activate = () => {
         onChange(nextSort(getSort(), th.dataset.k));
         refreshAria();

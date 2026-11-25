@@ -4,6 +4,9 @@
 
 const COLOR_A = '#c0392b';
 const COLOR_B = '#2980b9';
+// Variantes foncées pour le texte des en-têtes (contraste AA, story 42.3).
+const TEXT_A = '#a52a1e';
+const TEXT_B = '#1f6391';
 
 let stages = [];
 let cache = {}; // id -> fiche complète
@@ -151,7 +154,7 @@ function metricRows(fa, fb) {
   const A = m(fa);
   const B = m(fb);
   document.querySelector('#cmp-table thead').innerHTML =
-    `<tr><th>Métrique</th><th style="color:${COLOR_A}">${EF.esc(fa.stage.name)}</th><th style="color:${COLOR_B}">${EF.esc(fb.stage.name)}</th></tr>`;
+    `<tr><th>Métrique</th><th style="color:${TEXT_A}">${EF.esc(fa.stage.name)}</th><th style="color:${TEXT_B}">${EF.esc(fb.stage.name)}</th></tr>`;
   document.querySelector('#cmp-table tbody').innerHTML = Object.keys(A)
     .map((k) => `<tr><td>${k}</td>` +
       `<td data-label="${EF.esc(fa.stage.name)}">${EF.dec(A[k]) ?? '—'}</td>` +

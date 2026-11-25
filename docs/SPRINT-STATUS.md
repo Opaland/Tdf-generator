@@ -3633,8 +3633,20 @@ Mousse de Poche). Une PR par story, relecture adverse sur tout code.
   (4) tests qui échouent sans chaque changement ; (5) vérification en
   navigateur du site construit : aucune violation CSP, cartes et tuiles
   affichées.
-- [ ] 42.3 Accessibilité (issue #567) : axe-core et texte à 200 % dans le
-  smoke test e2e des 8 écrans. Critères à préciser en ouvrant la story.
+- [x] 42.3 Accessibilité (issue #567, PR #621) : axe-core (`@axe-core/playwright`,
+  dépendance de développement) et texte à 200 % dans le smoke test e2e des
+  8 écrans. Critères : chaque écran, en 1 440 et 375 px, passé à axe-core
+  (WCAG 2.2 A/AA), violations « serious » et « critical » bloquantes ; en
+  375 px avec le texte à 200 %, aucun débordement horizontal ; les défauts
+  trouvés au premier passage corrigés (contraste des types d'étape et du
+  comparateur, aria-sort sur un th à role=button, aria-expanded sur une
+  ligne de tableau, nom accessible de la zone de dépôt, tableaux défilants
+  non focalisables, mots longs à 200 %, lien d'attribution distingué par
+  la seule couleur) ; seuls les marqueurs de carte, qui se chevauchent
+  selon le zoom, sont exclus de la règle target-size, avec la raison
+  écrite. Relecture adverse : nom de côte illisible au survol (fond
+  sombre du survol global des boutons) — corrigé, et axe repasse après
+  dépliage et survol d'une côte.
 
 ## Epic 41 — Pivot : un site sur le Tour de France (étude du 10/11/2026)
 
