@@ -4,7 +4,14 @@
 // docs/ARCHITECTURE-REVIEW.md) — code des routes inchangé, enregistré dans
 // le même ordre par server.js.
 
-const { loadExportable, stageToGpx, stageToTcx, stageToKml, tourToStandaloneHtml, stageToStandaloneHtml, stageToRoadbookHtml } = require('../exports');
+const { loadExportable, standaloneCsp, stageToGpx, stageToTcx, stageToKml, tourToStandaloneHtml, stageToStandaloneHtml, stageToRoadbookHtml } = require('../exports');
+
+// Pages HTML générées : leur CSP remplace celle de l'application, qui
+// bloquerait leurs scripts en ligne et Leaflet depuis unpkg (story 42.2).
+function sendCsp(res, html) {
+  res.setHeader('Content-Security-Policy', standaloneCsp(html));
+  res.removeHeader('Content-Security-Policy-Report-Only');
+}
 const { wrap } = require('../apiHelpers');
 
 // Réglage des zones de confidentialité illisible : tous les points sont
@@ -54,6 +61,7 @@ module.exports = function register(app) {
     const id = parseInt(req.params.id, 10);
     const html = stageToStandaloneHtml(id);
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    sendCsp(res, html);
     res.setHeader('Content-Disposition', `attachment; filename="etape-${id}.html"`);
     res.send(html);
   }));
@@ -63,6 +71,7 @@ module.exports = function register(app) {
   app.get('/api/stages/:id/roadbook.html', wrap(async (req, res) => {
     const html = stageToRoadbookHtml(parseInt(req.params.id, 10));
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    sendCsp(res, html);
     res.send(html);
   }));
 
@@ -70,6 +79,7 @@ module.exports = function register(app) {
   app.get('/api/stages/:id/site', wrap(async (req, res) => {
     const html = stageToStandaloneHtml(parseInt(req.params.id, 10));
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    sendCsp(res, html);
     res.send(html);
   }));
 
@@ -77,6 +87,7 @@ module.exports = function register(app) {
     const id = parseInt(req.params.id, 10);
     const html = tourToStandaloneHtml(id);
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    sendCsp(res, html);
     res.setHeader('Content-Disposition', `attachment; filename="tour-${id}.html"`);
     res.send(html);
   }));
@@ -85,6 +96,7 @@ module.exports = function register(app) {
   app.get('/api/editions/:id/site', wrap(async (req, res) => {
     const html = tourToStandaloneHtml(parseInt(req.params.id, 10));
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    sendCsp(res, html);
     res.send(html);
   }));
 };

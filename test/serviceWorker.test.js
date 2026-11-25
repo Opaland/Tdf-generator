@@ -2,8 +2,10 @@
 // Story 42.2 : le service worker ne relaie que les requêtes de son origine.
 // Relayées par fetch() dans le worker, les tuiles IGN et OSM tombaient sous
 // la CSP du worker (connect-src 'self') : 0 tuile sur 15 avec le worker
-// actif, 15 sur 15 sans (Playwright, 25/11/2026). Le test exécute sw.js dans
-// un faux contexte de worker et compte les appels à respondWith.
+// actif, 15 sur 15 sans — mesuré le 25/11/2026 avec Playwright (script de
+// vérification hors dépôt, décrit dans la PR de la story 42.2). Ce test ne
+// rejoue pas le navigateur : il exécute sw.js dans un faux contexte de worker
+// et vérifie le filtre d'origine (appels à respondWith).
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
