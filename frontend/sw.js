@@ -18,6 +18,11 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(self.clients.claim());
 });
 
+// Seules les requêtes de l'origine passent par le worker : une requête
+// relayée par fetch() ici tombe sous la CSP du worker (connect-src 'self',
+// story 42.2) — les tuiles IGN et OSM n'y sont permises qu'en img-src, côté
+// page. Laissées au navigateur, elles se chargent normalement.
 self.addEventListener('fetch', (event) => {
+  if (new URL(event.request.url).origin !== self.location.origin) return;
   event.respondWith(fetch(event.request));
 });
