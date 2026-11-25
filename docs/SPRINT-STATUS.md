@@ -3616,7 +3616,7 @@ Mousse de Poche). Une PR par story, relecture adverse sur tout code.
   mini-sites (scripts en ligne, Leaflet sur unpkg) étaient cassés — ils
   reçoivent une CSP dédiée, scripts autorisés par empreinte sha256
   (`standaloneCsp`, `test/cspExports.test.js`).
-- [ ] 42.4 CSP du site Pages et des mini-sites exportés (issue #566,
+- [x] 42.4 CSP du site Pages et des mini-sites exportés (PR #622, issue #566,
   phase 2) : balise CSP dans les pages publiées par `scripts/build-site.js`
   (qui injecte aujourd'hui `window.EF_STATIC` par un script en ligne, à
   sortir dans un fichier) et dans les mini-sites de `backend/exports.js`
