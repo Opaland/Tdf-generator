@@ -333,3 +333,14 @@ table.stats tfoot td { font-weight: 700; background: #f3ecd9; }
   cursor: pointer; padding: 0;
 }
 .whats-new-close:hover { background: var(--bord); color: var(--texte); }
+
+/* Texte agrandi à 200 % (WCAG 1.4.4, story 42.3) : un mot long ou une URL
+   se coupe plutôt que d'élargir la page. */
+html { overflow-wrap: break-word; }
+code, a { overflow-wrap: anywhere; }
+/* Nom de côte dépliable (catalogue des cols) : un vrai bouton, d'aspect texte. */
+.row-toggle { all: unset; cursor: pointer; font: inherit; color: inherit; }
+.row-toggle:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+/* Liens d'attribution de la carte : soulignés, pas seulement colorés
+   (WCAG 1.4.1, axe-core link-in-text-block, story 42.3). */
+.leaflet-control-attribution a { text-decoration: underline; }

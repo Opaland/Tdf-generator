@@ -125,7 +125,7 @@ function renderStageList() {
         <td>${r.order}</td>
         <td><a href="/stage.html?id=${r.id}">${EF.esc(r.name)}</a></td>
         <td>${EF.esc(EF.day(r.date))}</td>
-        <td><span style="color:${EF.typeColor(r.type)}">${EF.esc(r.type || '—')}</span></td>
+        <td><span style="color:${EF.typeTextColor(r.type)}">${EF.esc(r.type || '—')}</span></td>
         <td>${fmt(r.off)}</td><td>${fmt(r.gen, 1)}</td>
         <td>${r.delta == null ? '—' : (r.delta >= 0 ? '+' : '') + EF.dec(r.delta.toFixed(1))}</td>
         <td>${fmt(r.dplus)}</td><td>${r.nclimbs || '—'}</td>

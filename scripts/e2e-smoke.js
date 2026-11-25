@@ -10,7 +10,10 @@
 //   - une erreur JavaScript ou une erreur console de la page elle-même, y
 //     compris jusqu'à 2 s après le rendu (erreur tardive) ;
 //   - une requête vers le serveur local échoue (404/500 compris) ;
-//   - un débordement horizontal (scrollWidth > largeur de la fenêtre).
+//   - un débordement horizontal (scrollWidth > largeur de la fenêtre) ;
+//   - une violation d'accessibilité « serious » ou « critical » (axe-core,
+//     WCAG 2.2 A/AA ; story 42.3, issue #567) ;
+//   - en mobile, avec le texte agrandi à 200 %, un débordement horizontal.
 // Les requêtes externes (tuiles IGN/OSM, CDN) sont coupées : le test reste
 // déterministe, sans réseau, comme le reste de la porte bloquante.
 //
@@ -20,9 +23,12 @@ const { spawn } = require('child_process');
 const net = require('net');
 const path = require('path');
 const { chromium } = require('playwright');
+const { AxeBuilder } = require('@axe-core/playwright');
 
 const VIEWPORTS = [{ width: 1440, height: 900 }, { width: 375, height: 800 }];
 const GRACE_MS = 2000;
+const AXE_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'];
+const BLOCKING = new Set(['serious', 'critical']);
 
 // Élément rempli par le JS de chaque écran (vérifié sur la démo hors-ligne) :
 // sa présence prouve que la page a réellement rendu ses données.
@@ -125,6 +131,22 @@ async function main() {
         // eslint-disable-next-line no-undef -- exécuté dans le navigateur (page.evaluate)
         const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
         if (overflow > 1) errs.push(`débordement horizontal de ${overflow} px`);
+        // Les marqueurs de carte se chevauchent selon le zoom (cible « partiellement
+        // masquée ») : la règle target-size n'y a pas de sens, la liste des villes
+        // de la page en est l'équivalent accessible. Tout le reste est contrôlé.
+        const axe = await new AxeBuilder({ page }).withTags(AXE_TAGS).exclude('.leaflet-marker-pane').analyze();
+        for (const v of axe.violations.filter((x) => BLOCKING.has(x.impact))) {
+          const where = v.nodes.slice(0, 3).map((n) => n.target.join(' ')).join(' | ');
+          errs.push(`accessibilité (${v.impact}) ${v.id} : ${v.help} — ${v.nodes.length} élément(s) : ${where}`);
+        }
+        if (vp.width < 500) {
+          // Texte système à 200 % (WCAG 1.4.4) : rien ne doit déborder en largeur.
+          await page.addStyleTag({ content: 'html { font-size: 200% !important; }' });
+          await page.waitForTimeout(300);
+          // eslint-disable-next-line no-undef -- exécuté dans le navigateur (page.evaluate)
+          const big = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+          if (big > 1) errs.push(`texte à 200 % : débordement horizontal de ${big} px`);
+        }
         const label = `${vp.width}px ${url}`;
         if (errs.length) failures.push(`${label}\n    ${errs.join('\n    ')}`);
         else console.log(`✔ ${label}`);

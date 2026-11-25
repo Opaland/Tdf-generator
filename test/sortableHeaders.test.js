@@ -40,11 +40,12 @@ beforeEach(() => {
   calls = [];
 });
 
-test('sortableHeaders() : pose tabindex=0 et role=button sur chaque <th>', () => {
+test('sortableHeaders() : pose tabindex=0 et garde au <th> son rôle d\'en-tête de colonne', () => {
+  // Pas de role="button" : il interdirait aria-sort (axe-core, story 42.3).
   EF.sortableHeaders('#t th', () => ({ k: 'name', asc: true }), (prev, k) => ({ k, asc: true }), () => {});
   for (const th of ths) {
     assert.strictEqual(th.tabIndex, 0);
-    assert.strictEqual(th.attrs.role, 'button');
+    assert.strictEqual(th.attrs.role, undefined);
   }
 });
 
