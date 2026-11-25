@@ -38,16 +38,36 @@ before(() => {
   fs.writeFileSync(GUARD, `
     const deny = (name) => () => { throw new Error('appel réseau interdit pendant la construction : ' + name); };
     for (const m of ['http', 'https']) { const mod = require(m); mod.request = deny(m + '.request'); mod.get = deny(m + '.get'); }
-    require('net').connect = deny('net.connect'); require('net').createConnection = deny('net.createConnection');
+    const net = require('net');
+    net.connect = deny('net.connect'); net.createConnection = deny('net.createConnection');
+    net.Socket.prototype.connect = deny('net.Socket#connect');
     require('tls').connect = deny('tls.connect');
-    require('dns').lookup = deny('dns.lookup');
+    const dns = require('dns');
+    for (const k of ['lookup', 'resolve', 'resolve4', 'resolve6']) { dns[k] = deny('dns.' + k); dns.promises[k] = deny('dns.promises.' + k); }
     globalThis.fetch = deny('fetch');
   `);
   execFileSync(process.execPath, ['--require', GUARD, path.join(ROOT, 'scripts/build-site.js')], { env, stdio: 'pipe', timeout: 120000 });
 });
 
-test('la garde réseau fait bien échouer un appel', () => {
-  assert.throws(() => execFileSync(process.execPath, ['--require', GUARD, '-e', "require('https').get('https://example.org')"], { stdio: 'pipe' }));
+// Relecture adverse : une connexion par net.Socket ou une résolution par
+// dns.promises passaient la première version de la garde. Code de sortie 42
+// seulement si la garde elle-même refuse l'appel : un échec réseau ordinaire
+// (port fermé, DNS absent) ne compte pas.
+test('la garde réseau fait bien échouer chaque type d’appel', () => {
+  for (const call of [
+    "require('https').get('https://example.org').on('error', () => {})",
+    "require('http').request('http://example.org').on('error', () => {})",
+    "new (require('net').Socket)().on('error', () => {}).connect(1, '127.0.0.1')",
+    "require('tls').connect(443, 'example.org').on('error', () => {})",
+    "require('dns').promises.lookup('example.org').catch(() => {})",
+    "require('dns').lookup('example.org', () => {})",
+    "fetch('https://example.org').catch(() => {})",
+  ]) {
+    const code = `try { ${call}; } catch (e) { if (/appel réseau interdit/.test(e.message)) process.exit(42); throw e; } setTimeout(() => process.exit(0), 300);`;
+    let status = 0;
+    try { execFileSync(process.execPath, ['--require', GUARD, '-e', code], { stdio: 'pipe', timeout: 20000 }); } catch (e) { status = e.status; }
+    assert.strictEqual(status, 42, call);
+  }
 });
 
 test('npm run build:site lance la construction du site', () => {
