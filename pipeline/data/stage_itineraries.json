@@ -31708,8 +31708,11 @@
        "label": "Greue",
        "km": 150,
        "kind": "ville",
-       "note": "298 m imprimés ; imprimé « GREUE » ; aucun km imprimé (colonne sur la graduation 150) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; recherche bornée autour des voisins (Nominatim, index POI de l'IGN, variantes du nom) sans candidat portant ce nom : non placé (règle 21)",
-       "confidence": "non-place"
+       "note": "298 m imprimés ; imprimé « GREUE » ; aucun km imprimé (colonne sur la graduation 150) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; imprimé « GREUE » : Creuë (Vigneulles-lès-Hattonchâtel, place=village), le G lu pour un C (règle 21) ; MNT 291 m pour 298, 2,9 km de Chaillon pour 3,5 (audit Mireille)",
+       "confidence": "ok",
+       "lat": 48.9644137,
+       "lon": 5.6708636,
+       "how": "nominatim"
       },
       {
        "label": "Saint-Benoît-en-Woëvre",
@@ -31838,13 +31841,13 @@
      ],
      "note": "Départ : Reims → Sillery 9,8 km à vol d'oiseau pour 8,5 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 210,
+      "routed_km": 210.2,
       "profile_km": 205.5,
-      "delta_pct": 2.2,
+      "delta_pct": 2.3,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 26,
+      "legs": 27,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -34269,11 +34272,8 @@
        "label": "Près Saint-Bertrand-de-Comminges",
        "km": 30,
        "kind": "lieu-dit",
-       "note": "aucun km imprimé (colonne sur la graduation 30) ; imprimé « PRES SAINT-BERTRAND-DE-COMMINGES » ; altitude 444 m imprimée devant Izaourt, aucune devant ce nom ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; près de Saint-Bertrand-de-Comminges : placé au village (point de 1968/12), qui tient dans le profil (règle 4, « Près X »)",
-       "confidence": "ok",
-       "lat": 43.026928,
-       "lon": 0.570911,
-       "how": "nominatim"
+       "note": "aucun km imprimé (colonne sur la graduation 30) ; imprimé « PRES SAINT-BERTRAND-DE-COMMINGES » ; altitude 444 m imprimée devant Izaourt, aucune devant ce nom ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; non placé : la courbe reste en fond de vallée (440-445 m entre Izaourt et Aventignan) sous le village perché (515 m) ; le passage, au pied, n'est pas situé (règle 14, cas de Canaveilles, audit Mireille)",
+       "confidence": "non-place"
       },
       {
        "label": "Aventignan",
@@ -34585,13 +34585,13 @@
      ],
      "note": "Départ : Luchon → Pont-de-Cazaux 8,7 km à vol d'oiseau pour 8 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 225.5,
+      "routed_km": 224.2,
       "profile_km": 219,
-      "delta_pct": 3,
+      "delta_pct": 2.4,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 33,
+      "legs": 32,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -36398,7 +36398,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Gaillard → Reignier 6,9 km à vol d'oiseau pour 4 au profil, départ réel hors du centre, non situé (règle 25). La Roche-sur-Foron → Saint-Pierre-en-Faucigny : 5,1 km à vélo, 6 en voiture, pour 11 au profil ; même longueur en voiture : le parcours fait un détour que le profil ne nomme pas (règles 11, 20).",
+     "note": "Départ : Gaillard → Reignier 6,9 km à vol d'oiseau pour 4 au profil, départ réel hors du centre, non situé (règle 25). La Roche-sur-Foron → Saint-Pierre-en-Faucigny : 5,1 km à vélo, 6 en voiture, pour 11 au profil ; même longueur en voiture : le parcours fait un détour que le profil ne nomme pas (règles 11, 20). Les Allues → Méribel-les-Allues : 6,4 km routés (3,6 à vol d'oiseau) pour 10 au profil — l'arrivée est vraisemblablement plus haut que le point de Méribel (MNT 1 467 m pour 1 750 imprimés), non sourcée (règle 11).",
      "route_check": {
       "routed_km": 141.1,
       "profile_km": 146,

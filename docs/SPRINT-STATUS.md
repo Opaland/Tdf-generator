@@ -2098,9 +2098,10 @@ et côtes traversées avec leur kilomètre.
     sur la graduation 110, Buc retiré.
   - 1973 (25/11) : 32 noms repris, 29 placés (géocodeur, recherche
     bornée pour la baisse de la Cabanette et Moussy, 3 carrefours au
-    croisement BD TOPO, mur de Grammont et Saint-Bertrand repris des
-    éditions voisines, Morez à sa mairie) ; Greue et le col de Boussague
-    introuvables, la côte de Sauvagnat retirée (aller-retour au sommet).
+    croisement BD TOPO, mur de Grammont repris des éditions voisines,
+    Morez à sa mairie, « Greue » = Creuë, G lu C) ; le col de Boussague
+    introuvable, la côte de Sauvagnat retirée (aller-retour au sommet),
+    Près Saint-Bertrand non placé (village perché au-dessus du passage).
     Contrôle BRouter sur les 14 étapes touchées, sans aller-retour nouveau ;
     1973/18 et 1973/2b restent hors tolérance, causes mises à jour.
 - [x] Édition 1968 (routine quotidienne du 24/11/2026, tentative 1/10) :
