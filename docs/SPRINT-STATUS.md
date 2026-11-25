@@ -2075,7 +2075,7 @@ et côtes traversées avec leur kilomètre.
   non placé avec une note qui dit pourquoi), classe OSM, altitude ±100 m,
   contrôle BRouter sans aller-retour nouveau, causes des écarts mises à
   jour.
-  - [x] 1969 · [x] 1970 · [x] 1971 · [x] 1972 · [ ] 1973 · [ ] 1974 ·
+  - [x] 1969 · [x] 1970 · [x] 1971 · [x] 1972 · [x] 1973 · [ ] 1974 ·
     [ ] 1975 · [ ] 1976 · [ ] 1977 · [ ] 1978 · [ ] 1979 · [ ] 1980 ·
     [ ] 1981 · [ ] 1982 · [ ] 1983 · [ ] 1984 · [ ] 1985
   - 1969-1971 (23/11) : 72 noms repris, 64 placés (19 + 23 + 22), 8 non
@@ -2096,6 +2096,14 @@ et côtes traversées avec leur kilomètre.
     aller-retour nouveau ; 1972/15, déjà hors tolérance, s'écarte un peu
     plus (Mouxy à sa mairie), cause notée. Audit Mireille : Herrère remesuré
     sur la graduation 110, Buc retiré.
+  - 1973 (25/11) : 32 noms repris, 29 placés (géocodeur, recherche
+    bornée pour la baisse de la Cabanette et Moussy, 3 carrefours au
+    croisement BD TOPO, mur de Grammont repris des éditions voisines,
+    Morez à sa mairie, « Greue » = Creuë, G lu C) ; le col de Boussague
+    introuvable, la côte de Sauvagnat retirée (aller-retour au sommet),
+    Près Saint-Bertrand non placé (village perché au-dessus du passage).
+    Contrôle BRouter sur les 14 étapes touchées, sans aller-retour nouveau ;
+    1973/18 et 1973/2b restent hors tolérance, causes mises à jour.
 - [x] Édition 1968 (routine quotidienne du 24/11/2026, tentative 1/10) :
   aucune étape de 1968 n'est encore transcrite. Profils de ledicodutour.com
   (`images/cartes_etapes/1967_1976/1968/68_<N>.jpg`) ; 26 fichiers, md5 tous
