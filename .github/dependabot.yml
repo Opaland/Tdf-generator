@@ -1,7 +1,8 @@
 # Mises à jour suivies par Dependabot (story 42.1, issue #568).
 # Une PR groupée par écosystème et par mois ; chacune passe la même CI que
 # toute PR et se fusionne par la règle 15 d'AGENTS.md quand elle est verte.
-# Les versions majeures npm restent à la main (changements d'API à lire).
+# Les versions majeures npm et de l'image Node restent à la main
+# (changements d'API à lire ; la CI ne teste que Node 20 et 22).
 version: 2
 updates:
   - package-ecosystem: "npm"
@@ -31,3 +32,6 @@ updates:
     groups:
       docker:
         patterns: ["*"]
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
