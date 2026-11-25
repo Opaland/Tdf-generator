@@ -543,7 +543,7 @@ ${communes.communes.map((c) => `<tr><td>${frDec(Number(c.km).toFixed(1))}</td><t
 </style>
 </head>
 <body>
-<button class="no-print" onclick="window.print()">Imprimer / enregistrer en PDF</button>
+<button class="no-print" type="button">Imprimer / enregistrer en PDF</button>
 <h1>${esc(stage.name)}</h1>
 <p class="meta">${editionLine}${stage.date ? `${esc(frDay(stage.date))} · ` : ''}${dist}${stage.total_ascent_m != null ? ` · D+ ${stage.total_ascent_m} m` : ''}</p>
 
@@ -569,6 +569,7 @@ ${climbsHtml}
 ${communesHtml}<p class="note">Ravitaillements : non représentés — ÉtapeForge ne dispose d'aucune source sur l'emplacement réel des zones de ravitaillement d'une étape reconstituée (donnée non publiée par ASO).</p>
 
 <footer>${esc(ATTRIBUTIONS)} — Généré par ÉtapeForge.</footer>
+<script>document.querySelector('button.no-print').addEventListener('click', () => window.print());</script>
 </body>
 </html>`;
 }
@@ -784,4 +785,30 @@ document.addEventListener('DOMContentLoaded', () => {
 </html>`;
 }
 
-module.exports = { loadExportable, esc, stageToGpx, stageToTcx, stageToKml, stagePayload, tourToStandaloneHtml, stageToStandaloneHtml, stageToRoadbookHtml, decimate, ATTRIBUTIONS };
+/**
+ * Politique de sécurité du contenu d'une page HTML générée (roadbook,
+ * mini-sites ; story 42.2, issue #566) : chaque script en ligne autorisé par
+ * son empreinte sha256 (calculée sur le HTML réellement envoyé, données
+ * embarquées comprises), Leaflet depuis unpkg, tuiles OSM. Aucun
+ * 'unsafe-inline' pour les scripts : une valeur mal échappée qui injecterait
+ * un script ne correspondrait à aucune empreinte.
+ */
+function standaloneCsp(html) {
+  const hashes = [];
+  for (const m of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)) {
+    if (/\bsrc=/.test(m[1])) continue;
+    hashes.push(`'sha256-${require('crypto').createHash('sha256').update(m[2], 'utf8').digest('base64')}'`);
+  }
+  return [
+    "default-src 'none'",
+    `script-src https://unpkg.com/leaflet@1.9.4/ ${hashes.join(' ')}`.trim(),
+    "style-src 'unsafe-inline' https://unpkg.com/leaflet@1.9.4/",
+    'img-src data: https://tile.openstreetmap.org https://unpkg.com/leaflet@1.9.4/',
+    "object-src 'none'",
+    "base-uri 'none'",
+    "form-action 'none'",
+    "frame-ancestors 'none'",
+  ].join('; ');
+}
+
+module.exports = { standaloneCsp, loadExportable, esc, stageToGpx, stageToTcx, stageToKml, stagePayload, tourToStandaloneHtml, stageToStandaloneHtml, stageToRoadbookHtml, decimate, ATTRIBUTIONS };
