@@ -3587,6 +3587,30 @@ dont 1 146 non placés, aucune étape sans URL de source.
   contrôle « distance » échoue déjà sur ce cas, avec le message dédié au circuit
   sans via (`pipeline/checks.js`, testé dans `test/checks.test.js`, issue #189).
 
+## Epic 42 — Sécurité et dette (issues #566, #567, #568)
+
+Ouvert par la routine « Backlog autonome » du 25/11/2026, sur les trois
+issues de sécurité et de dette ouvertes le 10/11 (modèles : Netatmo et
+Mousse de Poche). Une PR par story, relecture adverse sur tout code.
+
+- [ ] 42.1 Dependabot (issue #568) : `.github/dependabot.yml` suit les trois
+  écosystèmes du dépôt — npm (racine), actions GitHub, image Docker — une
+  fois par mois, mises à jour groupées en une PR par écosystème, versions
+  majeures npm laissées à la main. Critères : le fichier existe et couvre
+  `npm`, `github-actions` et `docker` à la racine (test
+  `test/dependabot.test.js`, qui échoue sans le fichier) ; `npm test`,
+  lint et démo verts ; rien d'autre ne change.
+- [ ] 42.2 CSP (issue #566, phase 1) : en-tête `Content-Security-Policy`
+  posé par Express sur l'application, balise équivalente dans les pages
+  publiées sur Pages et dans les mini-sites exportés ; `script-src 'self'`
+  sans `unsafe-inline` (le seul script en ligne, `diag.html`, sorti dans un
+  fichier) ; tuiles IGN et OSM autorisées en `img-src`. Trusted Types en
+  `Report-Only` d'abord. Critères : tests de l'en-tête et des balises ;
+  aucune erreur CSP dans la console sur les 8 écrans (Playwright) ; carte
+  et exports intacts.
+- [ ] 42.3 Accessibilité (issue #567) : axe-core et texte à 200 % dans le
+  smoke test e2e des 8 écrans. Critères à préciser en ouvrant la story.
+
 ## Epic 41 — Pivot : un site sur le Tour de France (étude du 10/11/2026)
 
 Étude : `docs/ETUDE-NETATMO-SITE-TOUR.md`. Elle compare ÉtapeForge au dépôt
