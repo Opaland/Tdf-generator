@@ -32,10 +32,12 @@ const write = (rel, content) => {
 const writeJson = (rel, obj) => write(rel, JSON.stringify(obj));
 
 // Réécriture des URL absolues en relatives (l'app est servie sous un sous-chemin).
+// Le site public n'a pas l'éditeur (story 41.5, décision 41.2) : un renvoi à
+// la racine mène à l'accueil du site.
 const TOKENS = [
-  ["location.href = '/'", "location.href = 'editeur.html'"],
-  ['href="/"', 'href="editeur.html"'],
-  ['/?id=', 'editeur.html?id='],
+  ["location.href = '/'", "location.href = 'index.html'"],
+  ['href="/"', 'href="index.html"'],
+  ['/index.html', 'index.html'],
   ['/api/', 'api/'],
   ['/stage.html', 'stage.html'],
   ['/tour.html', 'tour.html'],
@@ -60,6 +62,15 @@ function rewrite(content, { html = false } = {}) {
   }
   return out;
 }
+
+// Outils locaux, jamais publiés sur le site public (story 41.5, décision
+// 41.2) : l'éditeur (index.html de l'application), « Mes traces », la
+// connexion et le diagnostic des API, avec leurs scripts. L'accueil du site
+// (index.html, plus bas) est la page d'entrée publique.
+const NOT_PUBLISHED = new Set([
+  'index.html', 'traces.html', 'login.html', 'diag.html',
+  'editor.js', 'traces.js', 'login.js', 'diag.js', 'onboarding.js',
+]);
 
 function main() {
   removeSync(DIST);
@@ -162,13 +173,13 @@ function main() {
   // — copié récursivement tel quel à la place, jamais réécrit (que des
   // binaires, aucune URL absolue à corriger dedans).
   for (const f of fs.readdirSync(FRONTEND, { withFileTypes: true })) {
+    if (NOT_PUBLISHED.has(f.name)) continue;
     if (f.isDirectory()) {
       copyDir(path.join(FRONTEND, f.name), path.join(DIST, f.name));
       continue;
     }
     const srcPath = path.join(FRONTEND, f.name);
-    if (f.name === 'index.html') write('editeur.html', rewrite(fs.readFileSync(srcPath, 'utf8'), { html: true }));
-    else if (f.name.endsWith('.html')) write(f.name, rewrite(fs.readFileSync(srcPath, 'utf8'), { html: true }));
+    if (f.name.endsWith('.html')) write(f.name, rewrite(fs.readFileSync(srcPath, 'utf8'), { html: true }));
     else if (f.name.endsWith('.js')) write(f.name, rewrite(fs.readFileSync(srcPath, 'utf8')));
     else if (f.name === 'manifest.json') {
       // PWA (backlog utilisateur, 18/09/2026) : start_url/scope et les
@@ -205,7 +216,7 @@ function main() {
   // Amorces en fichiers, pas en scripts en ligne : la CSP du site les
   // refuserait (story 42.4).
   write('static.js', 'window.EF_STATIC = true;\n');
-  write('hub.js', "document.addEventListener('DOMContentLoaded', () => EF.initChrome(''));\n");
+  write('hub.js', "document.addEventListener('DOMContentLoaded', () => EF.initChrome('accueil'));\n");
   write(
     'index.html',
     withCspMeta(`<!DOCTYPE html>
@@ -249,8 +260,8 @@ function main() {
       <div class="d">Deux étapes superposées, métriques côte à côte</div></a>
     <a href="archives.html"><div class="t">🏛 Archives 1903→</div>
       <div class="d">Reconstruction historique — distances officielles vs reconstituées, sources</div></a>
-    <a href="editeur.html"><div class="t">✎ Éditeur (lecture seule)</div>
-      <div class="d">L'interface de création — la génération nécessite la version locale</div></a>
+    <a href="https://github.com/Opaland/Tdf-generator"><div class="t">✎ Créer ses étapes</div>
+      <div class="d">L'éditeur d'étapes est un outil local : version à installer depuis le dépôt</div></a>
   </div>
   <h2>Captures de la version locale</h2>
   ${captures.map((c) => `<img class="cap" src="captures/${encodeURIComponent(c)}" alt="${esc(c)}" loading="lazy">`).join('\n  ')}

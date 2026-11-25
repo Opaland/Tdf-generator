@@ -302,7 +302,7 @@ jobs:
           path: data
           key: etapeforge-data-${{ github.event_name == 'workflow_dispatch' && inputs.full && 'full-v6' || 'demo' }}-${{ github.run_id }}
       - name: Construire la démo statique
-        run: node scripts/build-site.js
+        run: npm run build:site
       # Taille du site généré, en clair dans les logs : GitHub Pages refuse
       # un déploiement au-delà de ~1 Go et peut expirer au-delà de 10 min de
       # transfert (limites documentées d'actions/upload-pages-artifact) — un

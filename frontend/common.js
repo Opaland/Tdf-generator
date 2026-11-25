@@ -42,6 +42,37 @@ const EF = {
     return res.json();
   },
 
+  /**
+   * Liens de la barre de navigation. Site public (mode statique, story
+   * 41.5) : l'éditeur et « Mes traces » restent des outils locaux (décision
+   * 41.2) — ni publiés ni proposés ; l'accueil du site les remplace.
+   */
+  navLinks(isStatic) {
+    const links = [
+      { href: '/', nav: 'editeur', label: "Éditeur d'étape", local: true },
+      { href: '/tour.html', nav: 'tour', label: 'Carte globale' },
+      { href: '/cols.html', nav: 'cols', label: 'Cols' },
+      { href: '/compare.html', nav: 'compare', label: 'Comparer' },
+      { href: '/traces.html', nav: 'traces', label: 'Mes traces', local: true },
+      { href: '/archives.html', nav: 'archives', label: 'Archives 1903→' },
+    ];
+    if (!isStatic) return links;
+    return [{ href: '/index.html', nav: 'accueil', label: 'Accueil' }, ...links.filter((l) => !l.local)];
+  },
+
+  /**
+   * Pied de page : sources des données sur chaque page ; sur le site public,
+   * la mention d'indépendance vis-à-vis d'ASO (étude du 10/11/2026, § 5) et
+   * le lien vers le code, au lieu du diagnostic des API, qui reste local.
+   */
+  footerHtml(st, isStatic) {
+    const sources = EF.esc(st.attributions);
+    return isStatic
+      ? `${sources} · Site indépendant, non affilié à ASO ni au Tour de France. · ` +
+        '<a href="https://github.com/Opaland/Tdf-generator">code source (MIT)</a>'
+      : `${sources} · <a href="/diag.html">diagnostic APIs</a>`;
+  },
+
   // Mode « démo statique » (GitHub Pages) : les lectures sont servies par des
   // fichiers JSON pré-générés dans data/ ; toute écriture est refusée.
   STATIC_MSG:
@@ -369,12 +400,7 @@ const EF = {
       `<div class="logo">Étape<span>Forge</span></div>
        <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Menu" aria-expanded="false">☰</button>
        <nav>
-         <a href="/" data-nav="editeur">Éditeur d'étape</a>
-         <a href="/tour.html" data-nav="tour">Carte globale</a>
-         <a href="/cols.html" data-nav="cols">Cols</a>
-         <a href="/compare.html" data-nav="compare">Comparer</a>
-         <a href="/traces.html" data-nav="traces">Mes traces</a>
-         <a href="/archives.html" data-nav="archives">Archives 1903→</a>
+         ${EF.navLinks(!!window.EF_STATIC).map((l) => `<a href="${l.href}" data-nav="${l.nav}">${l.label}</a>`).join('\n         ')}
        </nav>
        <span class="offline-badge" id="offline-badge" title="mode hors-ligne — données simulées">hors-ligne<span class="long"> — données simulées</span></span>`;
     document.body.prepend(header);
@@ -420,9 +446,7 @@ const EF = {
           `<code>git clone https://github.com/Opaland/Tdf-generator && npm install && npm run demo && npm start</code>`;
         header.after(note);
       }
-      footer.innerHTML = window.EF_STATIC
-        ? `${EF.esc(st.attributions)} · <a href="https://github.com/Opaland/Tdf-generator">code source (MIT)</a>`
-        : `${EF.esc(st.attributions)} · <a href="/diag.html">diagnostic APIs</a>`;
+      footer.innerHTML = EF.footerHtml(st, !!window.EF_STATIC);
       if (st.offline) document.getElementById('offline-badge').style.display = 'inline-block';
       EF.status = st;
       EF.checkReleaseNotes(header, st.version);

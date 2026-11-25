@@ -82,6 +82,28 @@ async function importAllYears() {
   }
 }
 
+// Site public (mode statique, story 41.5) : pas de route /api pour le
+// mini-site d'une édition — le fichier pré-construit, s'il existe, est
+// référencé par data/sitelinks.json (comme tourmap.js) ; sinon pas de lien.
+// Les boutons de génération, qui écrivent, n'y sont pas affichés.
+// typeof : stageRow et miniSiteLink sont aussi chargés sous Node (tests).
+const isStatic = () => typeof window !== 'undefined' && !!window.EF_STATIC;
+
+async function loadSiteLinks() {
+  if (!isStatic()) return null;
+  try {
+    return await (await fetch('data/sitelinks.json')).json();
+  } catch {
+    return {};
+  }
+}
+
+function miniSiteLink(editionId, siteLinks) {
+  if (!siteLinks) return `<a class="btn secondary" href="/api/editions/${editionId}/export.html">Mini-site HTML</a>`;
+  const file = siteLinks[editionId];
+  return file && /^tour-[\w-]+\.html$/.test(file) ? `<a class="btn secondary" href="${file}">Mini-site HTML</a>` : '';
+}
+
 function stageRow(s) {
   const delta = EF.distanceDelta(s.official_distance_km, s.generated_distance_km);
   // EF.distanceDelta() renvoie null pour generated_distance_km === 0 (ville de
@@ -103,7 +125,7 @@ function stageRow(s) {
       ? `${EF.dec(s.generated_distance_km)} km${delta != null ? ` <span class="meta-line">(${EF.formatDelta(delta)})</span>` : ''}`
       : '—'}</td>
     <td>${EF.stateBadge(s.state, s.checks)} ${s.state === 'generating' && s.progress ? `<span class="meta-line">${EF.esc(s.progress.step || '')} ${Number(s.progress.percent) || 0}%</span>` : ''}</td>
-    <td>${s.state !== 'generating' ? `<button class="secondary" data-gen="${s.id}"${s.state === 'done' ? ` title="Régénérer" aria-label="Régénérer l'étape ${EF.esc(s.name)}"` : ''}>${s.state === 'done' ? '↻' : '▶ Générer'}</button>` : ''}</td>
+    <td>${s.state !== 'generating' && !isStatic() ? `<button class="secondary" data-gen="${s.id}"${s.state === 'done' ? ` title="Régénérer" aria-label="Régénérer l'étape ${EF.esc(s.name)}"` : ''}>${s.state === 'done' ? '↻' : '▶ Générer'}</button>` : ''}</td>
   </tr>`;
 }
 
@@ -234,6 +256,7 @@ async function runLoadEditions() {
   // allSettled : une édition supprimée entre la liste et son détail (404) ne
   // fait plus tomber toute la liste — elle seule affiche son erreur.
   const fulls = await Promise.allSettled(shown.map((e) => EF.api(`/api/editions/${e.id}`)));
+  const siteLinks = await loadSiteLinks();
   // États ouvert/fermé lus APRÈS l'attente : un <details> ouvert pendant les
   // requêtes se refermait à la reconstruction (relecture adverse).
   const openStates = {};
@@ -262,9 +285,9 @@ async function runLoadEditions() {
         ${full.source && full.source.notes ? `<div class="note">${EF.esc(full.source.notes)}</div>` : ''}
         ${full.source ? `<p class="meta-line">Sources : liste des étapes — ${EF.esc(full.source.liste_etapes || '')} ; points de passage — ${EF.esc(full.source.points_de_passage || '')}</p>` : ''}
         <div class="toolbar">
-          <button data-genall="${e.id}">▶ Générer toutes les étapes</button>
+          ${isStatic() ? '' : `<button data-genall="${e.id}">▶ Générer toutes les étapes</button>`}
           <a class="btn secondary" href="/tour.html?edition=${e.id}">Carte globale</a>
-          <a class="btn secondary" href="/api/editions/${e.id}/export.html">Mini-site HTML</a>
+          ${miniSiteLink(e.id, siteLinks)}
         </div>
         <div class="scrollx" tabindex="0" role="region" aria-label="Étapes de ${EF.esc(e.name || 'l’édition')} (tableau défilant)">
           <table class="stage-list">
@@ -468,4 +491,4 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 }
 
-if (typeof module !== 'undefined' && module.exports) module.exports = { pollWhileGenerating, stageRow, nearResultsHtml, nearCandidatesHtml, GEOCODE_WARN };
+if (typeof module !== 'undefined' && module.exports) module.exports = { pollWhileGenerating, stageRow, miniSiteLink, nearResultsHtml, nearCandidatesHtml, GEOCODE_WARN };
