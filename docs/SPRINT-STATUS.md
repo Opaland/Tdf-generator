@@ -410,10 +410,11 @@ et côtes traversées avec leur kilomètre.
     PR fusionnée) ; sinon la routine reboucle sur la même édition. Après
     **10 tentatives** sans y parvenir, l'édition est notée bloquée, une
     issue en dit la cause, et la routine passe à la suivante.
-    - État au 24/11 : **1968 verte** à la tentative 1/10 (écarts bloquants
-      de l'audit Mireille corrigés ; écarts restants en issue #612) ; règle
-      4 précisée rejouée sur 1972 (PR #611). Édition prévue le 25/11 :
-      **1967**, tentative 1/10 ; règle 4 : 1973.
+    - État au 25/11 : **1967 verte** à la tentative 1/10 (bloquant de
+      l'audit corrigé ; écarts restants en issue #615) ; règle 4 précisée
+      rejouée sur 1973 (PR #614). Édition prévue le 26/11 : **1966**,
+      tentative 1/10 (vérifier d'abord la source : profils réputés absents
+      ou illisibles avant 1967) ; règle 4 : 1974.
   - **Reprises de la routine quotidienne** (routine du matin demandée le
     06/11/2026 : reprises d'abord, puis une édition ; ce qui n'est pas fait
     le jour même s'ajoute ici avec une issue `routine-curation`, reprise le
@@ -2104,6 +2105,28 @@ et côtes traversées avec leur kilomètre.
     Près Saint-Bertrand non placé (village perché au-dessus du passage).
     Contrôle BRouter sur les 14 étapes touchées, sans aller-retour nouveau ;
     1973/18 et 1973/2b restent hors tolérance, causes mises à jour.
+- [x] Édition 1967 (routine quotidienne du 25/11/2026, tentative 1/10) :
+  aucune étape de 1967 n'est encore transcrite. Profils de ledicodutour.com
+  (`images/cartes_etapes/1967_1976/1967/`) ; 25 fichiers, md5 tous
+  distincts et distincts de 1968 ; l'étape 1 Angers → Saint-Malo est le
+  fichier `37_1b.jpg` (titre et distance vérifiés). 23 profils à
+  transcrire (1b, 2, 3, 4, 5a, 6 à 21, 22a, 22b). Non transcrits : 1a
+  (prologue d'Angers) et 5b (circuit de Jambes) — plans de rues.
+  Critères d'acceptation : ceux de 1968 ; la règle 4 précisée ne s'étend à
+  1967 que si le motif se vérifie sur la transcription ; audit Mireille
+  avant la PR, écarts restants en issue.
+  Fait : 23 étapes, 572 points dont 489 placés ; règle 4 précisée étendue
+  à 1967 (3 km imprimés multiples de 10 sur 441) ; étape 21 (image de
+  100 px de haut) illisible à la source, non placée, non contrôlable ;
+  arrivées du Ballon d'Alsace, du Vélodrome de Marseille et du Parc des
+  Princes, départ des Quatre-Pavillons replacés ; circuit final de Caen
+  déclaré ; 15 carrefours au croisement BD TOPO ; 19 étapes contrôlables
+  sur 22 dans la tolérance, 3 hors avec cause notée (1b : +5,2 % ; 2 :
+  +5,2 % ; 5a : −6,6 %, routeur) ; aucun aller-retour ; 3 tronçons en
+  voiture inévitables (puy de Dôme, Mas des Iscles). Audit Mireille :
+  bloquant (circuit de Caen) et 12 écarts corrigés (Méracq, Longchamps,
+  Roodt, Vire, Maizières, Clermont retiré, notes de la règle 14).
+  Écarts restants : issue #615.
 - [x] Édition 1968 (routine quotidienne du 24/11/2026, tentative 1/10) :
   aucune étape de 1968 n'est encore transcrite. Profils de ledicodutour.com
   (`images/cartes_etapes/1967_1976/1968/68_<N>.jpg`) ; 26 fichiers, md5 tous
