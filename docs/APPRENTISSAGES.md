@@ -135,6 +135,13 @@ entrée : on la marque « absorbée par … ».
     le fichier par `git checkout` : cela a aussi effacé le correctif non
     encore committé (route des récits, à réappliquer). Committer d'abord,
     ou restaurer depuis une copie du fichier, jamais depuis git.
+    **Récidive le 25/11/2026** (story 41.5) : la garde réseau du test,
+    corrigée mais pas encore committée, a été effacée par le
+    `git checkout --` qui annulait la mutation — la leçon lue ne suffisait
+    pas. Conduite : copier le fichier (`cp f f.keep`) avant de le muter et
+    restaurer par `cp f.keep f` ; `git diff --stat` avant tout
+    `git checkout --`, qui n'est permis que sur un fichier sans
+    modification non commitée.
 21. **Le test d'invariant nomme une paire, pas le coupable** (12/11/2026).
     En 1977/2, `placeSearch.test.js` a refusé Seissan → Monlong, puis
     Seissan → La Barthe, puis Orbessan → La Barthe ; j'ai retiré point
