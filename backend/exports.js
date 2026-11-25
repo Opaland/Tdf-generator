@@ -7,6 +7,14 @@ const { getDb } = require('./db');
 const { loadStageFull } = require('../pipeline/generate');
 const { getSetting } = require('./settings');
 const { maskStage, parseZones, PRIVACY_ZONES_KEY } = require('../pipeline/privacy');
+const csp = require('./csp');
+
+// Story 42.4 : une page téléchargée puis ouverte depuis le disque n'a plus
+// l'en-tête CSP du serveur — elle embarque la même politique (empreintes
+// calculées sur cette page) dans une balise <meta>.
+function withCspMeta(html) {
+  return csp.withCspMeta(html, standaloneCsp(html));
+}
 
 /** Étape telle qu'elle sort de l'application (exports, mini-sites,
  * roadbook) : une trace importée y perd ses points situés dans une zone de
@@ -517,7 +525,7 @@ ${communes.communes.map((c) => `<tr><td>${frDec(Number(c.km).toFixed(1))}</td><t
   const dist = stage.generated_distance_km != null ? `${frDec(stage.generated_distance_km)} km` : '?';
   const editionLine = edition ? `${esc(edition.name)} — ` : '';
 
-  return `<!DOCTYPE html>
+  return withCspMeta(`<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="utf-8">
@@ -571,7 +579,7 @@ ${communesHtml}<p class="note">Ravitaillements : non représentés — ÉtapeFor
 <footer>${esc(ATTRIBUTIONS)} — Généré par ÉtapeForge.</footer>
 <script>document.querySelector('button.no-print').addEventListener('click', () => window.print());</script>
 </body>
-</html>`;
+</html>`);
 }
 
 const ATTRIBUTIONS =
@@ -600,7 +608,7 @@ function tourToStandaloneHtml(editionId) {
   const title = edition.name;
   const sourceInfo = edition.source ? JSON.parse(edition.source) : null;
 
-  return `<!DOCTYPE html>
+  return withCspMeta(`<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="utf-8">
@@ -682,7 +690,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 </body>
-</html>`;
+</html>`);
 }
 
 /**
@@ -709,7 +717,7 @@ function stageToStandaloneHtml(stageId) {
   const title = full.stage.name;
   const edition = full.edition;
 
-  return `<!DOCTYPE html>
+  return withCspMeta(`<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="utf-8">
@@ -782,7 +790,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 </body>
-</html>`;
+</html>`);
 }
 
 /**

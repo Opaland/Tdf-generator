@@ -85,3 +85,18 @@ test('roadbook : le bouton Imprimer est branché par un script autorisé', async
   assert.match(html, /<button class="no-print"[^>]*>Imprimer/);
   assert.match(html, /addEventListener\('click', \(\) => window\.print\(\)\)/);
 });
+
+// Story 42.4 : téléchargée puis ouverte depuis le disque, une page n'a plus
+// l'en-tête du serveur — elle embarque la même politique dans une balise.
+test('pages générées : la même CSP est embarquée dans une balise <meta>, sans frame-ancestors', async () => {
+  for (const route of routes()) {
+    const res = await fetch(base + route);
+    const html = await res.text();
+    const m = html.match(/<meta http-equiv="Content-Security-Policy" content="([^"]+)">/);
+    assert.ok(m, `${route} : balise CSP absente`);
+    assert.ok(html.indexOf(m[0]) < html.search(/<script|<link/), `${route} : CSP après un script ou une feuille`);
+    const header = directives(res.headers.get('content-security-policy'));
+    delete header['frame-ancestors'];
+    assert.deepStrictEqual(directives(m[1]), header, route);
+  }
+});
