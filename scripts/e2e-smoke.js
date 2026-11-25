@@ -27,6 +27,17 @@ const { AxeBuilder } = require('@axe-core/playwright');
 
 const VIEWPORTS = [{ width: 1440, height: 900 }, { width: 375, height: 800 }];
 const GRACE_MS = 2000;
+// États qui n'existent qu'après une action (relecture adverse du 25/11/2026 :
+// le nom de côte, devenu bouton, était illisible au survol — fond sombre du
+// survol global des boutons — sans que l'analyse de l'état initial le voie).
+const INTERACT = {
+  '/cols.html': async (page) => {
+    const toggle = page.locator('.row-toggle').first();
+    await toggle.click();
+    await page.waitForSelector('.climb-expand', { state: 'attached', timeout: 5000 });
+    await toggle.hover();
+  },
+};
 const AXE_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'];
 const BLOCKING = new Set(['serious', 'critical']);
 
@@ -134,10 +145,22 @@ async function main() {
         // Les marqueurs de carte se chevauchent selon le zoom (cible « partiellement
         // masquée ») : la règle target-size n'y a pas de sens, la liste des villes
         // de la page en est l'équivalent accessible. Tout le reste est contrôlé.
-        const axe = await new AxeBuilder({ page }).withTags(AXE_TAGS).exclude('.leaflet-marker-pane').analyze();
-        for (const v of axe.violations.filter((x) => BLOCKING.has(x.impact))) {
-          const where = v.nodes.slice(0, 3).map((n) => n.target.join(' ')).join(' | ');
-          errs.push(`accessibilité (${v.impact}) ${v.id} : ${v.help} — ${v.nodes.length} élément(s) : ${where}`);
+        const audit = async (state) => {
+          const axe = await new AxeBuilder({ page }).withTags(AXE_TAGS).exclude('.leaflet-marker-pane').analyze();
+          for (const v of axe.violations.filter((x) => BLOCKING.has(x.impact))) {
+            const where = v.nodes.slice(0, 3).map((n) => n.target.join(' ')).join(' | ');
+            errs.push(`accessibilité${state} (${v.impact}) ${v.id} : ${v.help} — ${v.nodes.length} élément(s) : ${where}`);
+          }
+        };
+        await audit('');
+        const interact = INTERACT[url.split('?')[0]];
+        if (interact) {
+          try {
+            await interact(page);
+            await audit(' après interaction');
+          } catch (e) {
+            errs.push(`interaction impossible : ${e.message.split('\n')[0]}`);
+          }
         }
         if (vp.width < 500) {
           // Texte système à 200 % (WCAG 1.4.4) : rien ne doit déborder en largeur.
