@@ -296,7 +296,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Saint-Malo → La Gouesnière 11 km à vol d'oiseau pour 9,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Saint-Malo → La Gouesnière 11 km à vol d'oiseau pour 9,5 au profil, départ réel hors du centre, non situé (règle 25). Tronçons signalés au contrôle (règle 11) : Bretteville-sur-Odon → Caen 4,8 km routés (4,3 à vol d'oiseau) pour 2,5 au profil : ligne droite plus longue que le profil : km imprimé ou centre de commune à relire (règle 11, issue de l'édition) ; Caen est imprimé plusieurs fois (passages successifs), le tronçon de 7,5 km au profil n'est pas mesuré (règle 5).",
+     "route_check": {
+      "routed_km": 174.3,
+      "profile_km": 170.5,
+      "delta_pct": 2.2,
+      "tolerance_pct": 5,
+      "coverage_pct": 95,
+      "car_legs": 0,
+      "legs": 24,
+      "suspect_legs": 2,
+      "backtracks": 0,
+      "backtracks_uncertain": 1
+     }
     },
     "3": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1967/67_3.jpg",
@@ -578,7 +590,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Caen → Sannerville 10,3 km à vol d'oiseau pour 7,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Caen → Sannerville 10,3 km à vol d'oiseau pour 7,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "route_check": {
+      "routed_km": 245.4,
+      "profile_km": 240.5,
+      "delta_pct": 2.1,
+      "tolerance_pct": 5,
+      "coverage_pct": 97,
+      "car_legs": 0,
+      "legs": 20,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "4": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1967/67_4.jpg",
@@ -801,7 +825,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Amiens → Albert 28,1 km à vol d'oiseau pour 25,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Amiens → Albert 28,1 km à vol d'oiseau pour 25,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "route_check": {
+      "routed_km": 159.8,
+      "profile_km": 165.5,
+      "delta_pct": -3.5,
+      "tolerance_pct": 5,
+      "coverage_pct": 87,
+      "car_legs": 0,
+      "legs": 17,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "6": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1967/67_6.jpg",
@@ -1046,11 +1082,8 @@
        "label": "Maizières-lès-Metz",
        "km": 220,
        "kind": "ville",
-       "note": "165 m imprimés ; imprimé « MAIZIÈRES-LES-METZ » ; km imprimé 220 (colonne sur la graduation 220, mesuré ≈ 220,0)",
-       "lat": 49.21025,
-       "lon": 6.16003,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "165 m imprimés ; imprimé « MAIZIÈRES-LES-METZ » ; km imprimé 220 (colonne sur la graduation 220, mesuré ≈ 220,0) ; retiré : km « 220 » imprimé exactement sur la graduation (cas inhabituel, noté douteux à la transcription), et Hagondange → Maizières fait 4,9 km à vol d'oiseau pour 3 au profil (règle 11)",
+       "confidence": "non-place"
       },
       {
        "label": "Metz",
@@ -1062,7 +1095,20 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "route_check": {
+      "routed_km": 239.5,
+      "profile_km": 228.5,
+      "delta_pct": 4.8,
+      "tolerance_pct": 5,
+      "coverage_pct": 96,
+      "car_legs": 0,
+      "legs": 20,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     },
+     "note": "Tronçons signalés au contrôle (règle 11) : Thionville → Uckange 7,1 km routés (6,4 à vol d'oiseau) pour 5,0 au profil : ligne droite plus longue que le profil : km imprimé ou centre de commune à relire (règle 11, issue de l'édition)."
     },
     "7": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1967/67_7.jpg",
@@ -1287,7 +1333,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Metz → Ars-Laquenexy 7,5 km à vol d'oiseau pour 6,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Metz → Ars-Laquenexy 7,5 km à vol d'oiseau pour 6,5 au profil, départ réel hors du centre, non situé (règle 25). Tronçons signalés au contrôle (règle 11) : Lingolsheim → Strasbourg 6,9 km routés (6,0 à vol d'oiseau) pour 12,0 au profil : détour du profil non jalonné (boucle ou entrée de ville non imprimée).",
+     "route_check": {
+      "routed_km": 196.9,
+      "profile_km": 199,
+      "delta_pct": -1.1,
+      "tolerance_pct": 5,
+      "coverage_pct": 97,
+      "car_legs": 0,
+      "legs": 20,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "8": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1967/67_8.jpg",
@@ -1597,14 +1655,26 @@
        "label": "Belfort (Ballon d'Alsace)",
        "km": 215,
        "kind": "col",
-       "note": "1178 m imprimés ; arrivée au sommet, 2e cat. ; imprimé « BELFORT (BALLON D'ALSACE) » ; km peu lisible (215 ou 215.5) ; limite Vosges / Territoire de Belfort",
-       "lat": 47.77295,
-       "lon": 6.82815,
-       "how": "stage_towns",
+       "note": "1178 m imprimés ; arrivée au sommet, 2e cat. ; imprimé « BELFORT (BALLON D'ALSACE) » ; km peu lisible (215 ou 215.5) ; limite Vosges / Territoire de Belfort ; arrivée placée au Ballon d'Alsace, point de 1969/6 et 1972/17 (1 178 m imprimés) : l'ancre de stage_towns tombait à Lepuix, 530 m (règle 22)",
+       "lat": 47.82113,
+       "lon": 6.83435,
+       "how": "nominatim",
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Strasbourg → Entzheim 10,1 km à vol d'oiseau pour 9,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Strasbourg → Entzheim 10,1 km à vol d'oiseau pour 9,5 au profil, départ réel hors du centre, non situé (règle 25). Tronçons signalés au contrôle (règle 11) : Oderen → Urbès 4,2 km routés (3,2 à vol d'oiseau) pour 7,5 au profil : détour du profil non jalonné (boucle ou entrée de ville non imprimée).",
+     "route_check": {
+      "routed_km": 202.7,
+      "profile_km": 205.5,
+      "delta_pct": -1.4,
+      "tolerance_pct": 5,
+      "coverage_pct": 96,
+      "car_legs": 0,
+      "legs": 27,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "9": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1967/67_9.jpg",
@@ -1890,7 +1960,7 @@
        "label": "Grilly",
        "km": 231.5,
        "kind": "ville",
-       "note": "613 m imprimés ; km peu lisible (230½ ou 231½) ; colonne mesurée ≈ 231,4",
+       "note": "613 m imprimés ; km peu lisible (230½ ou 231½) ; colonne mesurée ≈ 231,4 ; MNT 511 m au point de la commune pour 613 imprimés, à la limite de la tolérance de 100 m : point gardé (règle 14)",
        "lat": 46.33039,
        "lon": 6.11436,
        "how": "commune-ign",
@@ -1907,7 +1977,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Belfort → Trétudans 7,3 km à vol d'oiseau pour 6 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Belfort → Trétudans 7,3 km à vol d'oiseau pour 6 au profil, départ réel hors du centre, non situé (règle 25). Tronçons signalés au contrôle (règle 11) : Gex → Grilly 6,2 km routés (4,4 à vol d'oiseau) pour 11,5 au profil : détour du profil non jalonné (boucle ou entrée de ville non imprimée).",
+     "route_check": {
+      "routed_km": 220.8,
+      "profile_km": 232.5,
+      "delta_pct": -5,
+      "tolerance_pct": 5,
+      "coverage_pct": 97,
+      "car_legs": 0,
+      "legs": 27,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "10": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1967/67_10.jpg",
@@ -2123,7 +2205,7 @@
        "label": "Col du Télégraphe",
        "km": 186.5,
        "kind": "col",
-       "note": "1670 m imprimés ; 2e cat.",
+       "note": "1670 m imprimés ; 2e cat. ; MNT 1 567 m au col (1 566 m) pour 1 670 imprimés : altitude imprimée vraisemblablement fautive, point gardé (règle 14)",
        "lat": 45.2026999,
        "lon": 6.4446143,
        "how": "known-cols",
@@ -2189,7 +2271,19 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "route_check": {
+      "routed_km": 238.9,
+      "profile_km": 233,
+      "delta_pct": 2.5,
+      "tolerance_pct": 5,
+      "coverage_pct": 96,
+      "car_legs": 0,
+      "legs": 25,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "11": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1967/67_11.jpg",
@@ -2375,7 +2469,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Briançon → Prelles 7 km à vol d'oiseau pour 5,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Briançon → Prelles 7 km à vol d'oiseau pour 5,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "route_check": {
+      "routed_km": 193.1,
+      "profile_km": 192,
+      "delta_pct": 0.6,
+      "tolerance_pct": 5,
+      "coverage_pct": 97,
+      "car_legs": 0,
+      "legs": 16,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "12": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1967/67_12.jpg",
@@ -2598,7 +2704,20 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "route_check": {
+      "routed_km": 204.6,
+      "profile_km": 196,
+      "delta_pct": 4.4,
+      "tolerance_pct": 5,
+      "coverage_pct": 94,
+      "car_legs": 0,
+      "legs": 17,
+      "suspect_legs": 2,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     },
+     "note": "Tronçons signalés au contrôle (règle 11) : Moustiers-Sainte-Marie → Pont d'Aiguines 10,1 km routés (5,5 à vol d'oiseau) pour 6,0 au profil : la ligne droite tient dans le profil, le routage à vélo fait un détour (routeur, règle 20) ; Col de la Gineste → Marseille 14,0 km routés (9,0 à vol d'oiseau) pour 10,0 au profil : la ligne droite tient dans le profil, le routage à vélo fait un détour (routeur, règle 20)."
     },
     "13": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1967/67_13.jpg",
@@ -2617,7 +2736,7 @@
        "label": "Calas",
        "km": 14.5,
        "kind": "lieu-dit",
-       "note": "245 m imprimés",
+       "note": "245 m imprimés ; MNT 143 m pour 245 imprimés, à la limite de la tolérance : passage vraisemblablement au-dessus du village, point gardé (règle 14)",
        "lat": 43.46045,
        "lon": 5.35359,
        "how": "nominatim",
@@ -2814,7 +2933,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Marseille → Calas 18,3 km à vol d'oiseau pour 14,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Marseille → Calas 18,3 km à vol d'oiseau pour 14,5 au profil, départ réel hors du centre, non situé (règle 25). Tronçons signalés au contrôle (règle 11) : Carrefour N 4-D 2 → Murs 5,8 km routés (5,0 à vol d'oiseau) pour 9,0 au profil : détour du profil non jalonné (boucle ou entrée de ville non imprimée).",
+     "route_check": {
+      "routed_km": 199.4,
+      "profile_km": 197,
+      "delta_pct": 1.2,
+      "tolerance_pct": 5,
+      "coverage_pct": 93,
+      "car_legs": 0,
+      "legs": 19,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "14": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1967/67_14.jpg",
@@ -3053,7 +3184,20 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "route_check": {
+      "routed_km": 191.8,
+      "profile_km": 189,
+      "delta_pct": 1.5,
+      "tolerance_pct": 5,
+      "coverage_pct": 94,
+      "car_legs": 2,
+      "legs": 21,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     },
+     "note": "Tronçons signalés au contrôle (règle 11) : Villeneuve-lès-Maguelone → Mireval 6,2 km routés (5,6 à vol d'oiseau) pour 10,0 au profil : détour du profil non jalonné (boucle ou entrée de ville non imprimée). Mas des Iscles → Aigues-Mortes est routé en voiture : BRouter refuse le point du mas, hors route (HTTP 400), comme en 1969."
     },
     "15": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1967/67_15.jpg",
@@ -3202,7 +3346,7 @@
        "label": "Saint-Amans-Soult",
        "km": 121,
        "kind": "ville",
-       "note": "376 m imprimés ; km peu lisible (121ᵏ), colonne ≈ 121,0",
+       "note": "376 m imprimés ; km peu lisible (121ᵏ), colonne ≈ 121,0 ; MNT 271 m pour 376 imprimés, à la limite de la tolérance : point gardé (règle 14)",
        "lat": 43.478,
        "lon": 2.48869,
        "how": "commune-ign",
@@ -3332,7 +3476,19 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "route_check": {
+      "routed_km": 206.6,
+      "profile_km": 208,
+      "delta_pct": -0.7,
+      "tolerance_pct": 5,
+      "coverage_pct": 90,
+      "car_legs": 0,
+      "legs": 24,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "16": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1967/67_16.jpg",
@@ -3539,7 +3695,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Toulouse → Saint-Sulpice-sur-Lèze 32,3 km à vol d'oiseau pour 30,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Toulouse → Saint-Sulpice-sur-Lèze 32,3 km à vol d'oiseau pour 30,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "route_check": {
+      "routed_km": 172.7,
+      "profile_km": 168.5,
+      "delta_pct": 2.5,
+      "tolerance_pct": 5,
+      "coverage_pct": 90,
+      "car_legs": 0,
+      "legs": 16,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "17": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1967/67_17.jpg",
@@ -3891,7 +4059,19 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "route_check": {
+      "routed_km": 232.9,
+      "profile_km": 235.5,
+      "delta_pct": -1.1,
+      "tolerance_pct": 5,
+      "coverage_pct": 94,
+      "car_legs": 0,
+      "legs": 32,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "18": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1967/67_18.jpg",
@@ -4057,7 +4237,20 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "route_check": {
+      "routed_km": 168.4,
+      "profile_km": 163.5,
+      "delta_pct": 3,
+      "tolerance_pct": 5,
+      "coverage_pct": 79,
+      "car_legs": 0,
+      "legs": 12,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     },
+     "note": "Tronçons signalés au contrôle (règle 11) : Saint-Sever → Mont-de-Marsan 18,7 km routés (16,0 à vol d'oiseau) pour 14,0 au profil : ligne droite plus longue que le profil : km imprimé ou centre de commune à relire (règle 11, issue de l'édition)."
     },
     "19": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1967/67_19.jpg",
@@ -4287,7 +4480,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Bordeaux → Beychac 15,2 km à vol d'oiseau pour 8 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Bordeaux → Beychac 15,2 km à vol d'oiseau pour 8 au profil, départ réel hors du centre, non situé (règle 25).",
+     "route_check": {
+      "routed_km": 215.3,
+      "profile_km": 209,
+      "delta_pct": 3,
+      "tolerance_pct": 5,
+      "coverage_pct": 96,
+      "car_legs": 0,
+      "legs": 19,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "20": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1967/67_20.jpg",
@@ -4530,7 +4735,7 @@
        "label": "Clermont-Ferrand",
        "km": 205.5,
        "kind": "ville",
-       "note": "510 m imprimés ; passage dans Clermont-Ferrand (avant la montée) ; colonne ≈ 205,3",
+       "note": "510 m imprimés ; passage dans Clermont-Ferrand (avant la montée) ; colonne ≈ 205,3 ; MNT 388 m au centre pour 510 imprimés : le passage par Clermont-Ferrand se fait vraisemblablement sur les hauteurs (Royat, Ceyrat), non situé ; point gardé au centre (règle 14)",
        "lat": 45.77746,
        "lon": 3.08194,
        "how": "commune-ign",
@@ -4557,7 +4762,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Limoges → Les Allois 13 km à vol d'oiseau pour 12,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Limoges → Les Allois 13 km à vol d'oiseau pour 12,5 au profil, départ réel hors du centre, non situé (règle 25). Tronçons signalés au contrôle (règle 11) : La Baraque → Clermont-Ferrand (Puy-de-Dôme) 5,6 km routés (4,6 à vol d'oiseau) pour 9,0 au profil : détour du profil non jalonné (boucle ou entrée de ville non imprimée). La Baraque → sommet du puy de Dôme est routé en voiture, BRouter refusant le sommet (HTTP 400), comme en 1969 et 1973.",
+     "route_check": {
+      "routed_km": 202.6,
+      "profile_km": 209.5,
+      "delta_pct": -3.3,
+      "tolerance_pct": 5,
+      "coverage_pct": 94,
+      "car_legs": 1,
+      "legs": 23,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "21": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1967/67_21.jpg",
@@ -5068,7 +5285,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Angers → Avrillé 4,7 km à vol d'oiseau pour 4 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Angers → Avrillé 4,7 km à vol d'oiseau pour 4 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance à vélo (+5,2 %, 191 km pour 181,5) et plus encore en voiture (+6,6 %, 193,5 km) : Saint-Jouan-des-Guérets → Saint-Malo 8,4 km à vélo (6,8 à vol d'oiseau) pour 6,5 — arrivée au centre de Saint-Malo, la ligne d'arrivée de 1967 n'est pas sourcée ; écart non résolu (règle 20).",
+     "route_check": {
+      "routed_km": 191,
+      "profile_km": 181.5,
+      "delta_pct": 5.2,
+      "tolerance_pct": 5,
+      "coverage_pct": 98,
+      "car_legs": 0,
+      "legs": 20,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "5a": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1967/67_5a.jpg",
@@ -5269,7 +5498,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Roubaix (Lys-lez-Lannoy) → Tournai 15,2 km à vol d'oiseau pour 15 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Roubaix (Lys-lez-Lannoy) → Tournai 15,2 km à vol d'oiseau pour 15 au profil, départ réel hors du centre, non situé (règle 25). Tronçons signalés au contrôle (règle 11) : Marcinelle → Couillet 2,5 km routés (1,9 à vol d'oiseau) pour 5,5 au profil : détour du profil non jalonné (boucle ou entrée de ville non imprimée) ; Gros Buisson → Jambes 7,1 km routés (4,9 à vol d'oiseau) pour 15,5 au profil : détour du profil non jalonné (boucle ou entrée de ville non imprimée). Hors tolérance à vélo (−6,6 %, 157,9 km pour 169) et moins en voiture (−2,3 %, 165,2 km) : le routeur vélo raccourcit, et Gros Buisson → Jambes fait 4,9 km à vol d'oiseau pour 15,5 au profil (boucle d'arrivée non jalonnée) (règle 20).",
+     "route_check": {
+      "routed_km": 157.9,
+      "profile_km": 169,
+      "delta_pct": -6.6,
+      "tolerance_pct": 5,
+      "coverage_pct": 98,
+      "car_legs": 0,
+      "legs": 17,
+      "suspect_legs": 2,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "22a": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1967/67_22a.jpg",
@@ -5436,7 +5677,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Fontainebleau → Arbonne 10,1 km à vol d'oiseau pour 8,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Fontainebleau → Arbonne 10,1 km à vol d'oiseau pour 8,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "route_check": {
+      "routed_km": 95.7,
+      "profile_km": 95.5,
+      "delta_pct": 0.2,
+      "tolerance_pct": 5,
+      "coverage_pct": 92,
+      "car_legs": 0,
+      "legs": 12,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "22b": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1967/67_22b.jpg",
@@ -5585,7 +5838,19 @@
        "how": "nominatim",
        "confidence": "ok"
       }
-     ]
+     ],
+     "route_check": {
+      "routed_km": 37.4,
+      "profile_km": 39.300000000000004,
+      "delta_pct": -4.8,
+      "tolerance_pct": 5,
+      "coverage_pct": 84,
+      "car_legs": 0,
+      "legs": 11,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     }
    }
   },
