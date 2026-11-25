@@ -64,10 +64,12 @@ dans la même PR que son correctif.
    deux graduations (règle 3), prend donc le km de cette graduation et se
    place comme les autres, avec « km de la graduation (règle 4) » dans sa
    note. Un nom « près de » une graduation, ou hors de cette série, reste
-   non placé. **La série commence en 1968** (24/11/2026) : sur les 506 km
-   imprimés de la transcription de 1968, aucun n'est un multiple de 10,
-   25 sont des multiples de 5 — le motif est le même, la règle s'y
-   applique. Avant de l'étendre à une autre édition, refaire ce compte.
+   non placé. **La série commence en 1967** : sur les 506 km imprimés de
+   la transcription de 1968, aucun n'est un multiple de 10, 25 sont des
+   multiples de 5 (24/11/2026) ; en 1967, 3 sur 441, dont deux dans un
+   groupe serré déjà noté douteux, et 25 multiples de 5 (25/11/2026) — le
+   motif est le même, la règle s'y applique. Avant de l'étendre à une
+   autre édition, refaire ce compte.
    **Un km imprimé mais illisible n'est pas un nom sans km** : il reste
    non placé avec « km imprimé illisible », jamais « km de la graduation »
    (1968/4, km 205-230, audit Mireille).
