@@ -3671,7 +3671,7 @@ sur l'histoire du Tour. **En attente de décision** sur les cinq questions du
   page. **Nom et domaine** : non tranchés (aucune recommandation, choix de
   marque) — « ÉtapeForge », sans domaine propre, en attendant ; le site
   porte « site indépendant, non affilié à ASO ».
-- [ ] 41.5 Site statique public — socle : build des JSON par édition et des
+- [x] 41.5 Site statique public — socle (PR #624) : build des JSON par édition et des
   index (communes, cols) par le pipeline dans une Action, pages servies par
   Pages sans serveur ; l'éditeur reste servi par `npm start` seulement.
   Critères : `npm run build:site` produit un dossier statique sans appel
