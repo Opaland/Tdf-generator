@@ -410,10 +410,8 @@ et côtes traversées avec leur kilomètre.
     PR fusionnée) ; sinon la routine reboucle sur la même édition. Après
     **10 tentatives** sans y parvenir, l'édition est notée bloquée, une
     issue en dit la cause, et la routine passe à la suivante.
-    - État au 24/11 : **1968 verte** à la tentative 1/10 (écarts bloquants
-      de l'audit Mireille corrigés ; écarts restants en issue #612) ; règle
-      4 précisée rejouée sur 1972 (PR #611). Édition prévue le 25/11 :
-      **1967**, tentative 1/10 ; règle 4 : 1973.
+    - État au 25/11 (matin) : **1967** en cours, tentative 1/10 (1968 verte
+      le 24/11, PR #613 ; écarts restants en issue #612) ; règle 4 : 1973.
   - **Reprises de la routine quotidienne** (routine du matin demandée le
     06/11/2026 : reprises d'abord, puis une édition ; ce qui n'est pas fait
     le jour même s'ajoute ici avec une issue `routine-curation`, reprise le
@@ -2096,6 +2094,16 @@ et côtes traversées avec leur kilomètre.
     aller-retour nouveau ; 1972/15, déjà hors tolérance, s'écarte un peu
     plus (Mouxy à sa mairie), cause notée. Audit Mireille : Herrère remesuré
     sur la graduation 110, Buc retiré.
+- [ ] Édition 1967 (routine quotidienne du 25/11/2026, tentative 1/10) :
+  aucune étape de 1967 n'est encore transcrite. Profils de ledicodutour.com
+  (`images/cartes_etapes/1967_1976/1967/`) ; 25 fichiers, md5 tous
+  distincts et distincts de 1968 ; l'étape 1 Angers → Saint-Malo est le
+  fichier `37_1b.jpg` (titre et distance vérifiés). 22 profils à
+  transcrire (1b, 2, 3, 4, 5a, 6 à 21, 22a, 22b). Non transcrits : 1a
+  (prologue d'Angers) et 5b (circuit de Jambes) — plans de rues.
+  Critères d'acceptation : ceux de 1968 ; la règle 4 précisée ne s'étend à
+  1967 que si le motif se vérifie sur la transcription ; audit Mireille
+  avant la PR, écarts restants en issue.
 - [x] Édition 1968 (routine quotidienne du 24/11/2026, tentative 1/10) :
   aucune étape de 1968 n'est encore transcrite. Profils de ledicodutour.com
   (`images/cartes_etapes/1967_1976/1968/68_<N>.jpg`) ; 26 fichiers, md5 tous
