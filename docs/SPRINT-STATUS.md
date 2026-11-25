@@ -3587,6 +3587,39 @@ dont 1 146 non placés, aucune étape sans URL de source.
   contrôle « distance » échoue déjà sur ce cas, avec le message dédié au circuit
   sans via (`pipeline/checks.js`, testé dans `test/checks.test.js`, issue #189).
 
+## Epic 42 — Sécurité et dette (issues #566, #567, #568)
+
+Ouvert par la routine « Backlog autonome » du 25/11/2026, sur les trois
+issues de sécurité et de dette ouvertes le 10/11 (modèles : Netatmo et
+Mousse de Poche). Une PR par story, relecture adverse sur tout code.
+
+- [x] 42.1 Dependabot (issue #568) : `.github/dependabot.yml` suit les trois
+  écosystèmes du dépôt — npm (racine), actions GitHub, image Docker — une
+  fois par mois, mises à jour groupées en une PR par écosystème, versions
+  majeures npm et de l'image Node laissées à la main. Critères : le
+  fichier existe et couvre `npm`, `github-actions` et `docker` à la racine
+  (test `test/dependabot.test.js`, qui échoue sans le fichier) ; `npm
+  test`, lint et démo verts ; rien d'autre ne change. Relecture adverse :
+  le premier test acceptait une ligne commentée, un groupe vide et un
+  `interval` hors de `schedule` — test lié à l'indentation, les quatre
+  mutations échouent désormais.
+- [ ] 42.2 CSP de l'application (issue #566, phase 1) : en-tête
+  `Content-Security-Policy` posé par Express ; `script-src 'self'` sans
+  `unsafe-inline` (le seul script en ligne, `diag.html`, sorti dans
+  `diag.js`) ; tuiles IGN et OSM autorisées en `img-src` ; `frame-ancestors
+  'none'`. Trusted Types en `Report-Only`. Critères : test de l'en-tête et
+  test qu'aucune page de `frontend/` n'a de script en ligne ; aucune
+  violation CSP dans la console sur les écrans servis (Playwright) ; carte
+  intacte.
+- [ ] 42.4 CSP du site Pages et des mini-sites exportés (issue #566,
+  phase 2) : balise CSP dans les pages publiées par `scripts/build-site.js`
+  (qui injecte aujourd'hui `window.EF_STATIC` par un script en ligne, à
+  sortir dans un fichier) et dans les mini-sites de `backend/exports.js`
+  (scripts en ligne avec données embarquées : empreintes sha256 calculées
+  à l'export). Critères à préciser en ouvrant la story.
+- [ ] 42.3 Accessibilité (issue #567) : axe-core et texte à 200 % dans le
+  smoke test e2e des 8 écrans. Critères à préciser en ouvrant la story.
+
 ## Epic 41 — Pivot : un site sur le Tour de France (étude du 10/11/2026)
 
 Étude : `docs/ETUDE-NETATMO-SITE-TOUR.md`. Elle compare ÉtapeForge au dépôt
