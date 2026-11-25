@@ -3621,7 +3621,18 @@ Mousse de Poche). Une PR par story, relecture adverse sur tout code.
   (qui injecte aujourd'hui `window.EF_STATIC` par un script en ligne, à
   sortir dans un fichier) et dans les mini-sites de `backend/exports.js`
   (scripts en ligne avec données embarquées : empreintes sha256 calculées
-  à l'export). Critères à préciser en ouvrant la story.
+  à l'export). Critères : (1) chaque page HTML de `dist/` porte une
+  balise `<meta http-equiv="Content-Security-Policy">` sans
+  'unsafe-inline' pour les scripts — pages de l'application : la politique
+  du serveur (module partagé `backend/csp.js`), moins `frame-ancestors`
+  qu'un navigateur ignore dans une balise ; pages d'édition autonomes :
+  la politique à empreintes ; (2) plus aucun script en ligne dans les pages
+  de l'application publiées (`EF_STATIC` et l'amorce de l'accueil sortent
+  dans des fichiers) ; (3) les mini-sites et le roadbook téléchargés
+  embarquent leur propre balise CSP, valable ouverts hors du serveur ;
+  (4) tests qui échouent sans chaque changement ; (5) vérification en
+  navigateur du site construit : aucune violation CSP, cartes et tuiles
+  affichées.
 - [ ] 42.3 Accessibilité (issue #567) : axe-core et texte à 200 % dans le
   smoke test e2e des 8 écrans. Critères à préciser en ouvrant la story.
 

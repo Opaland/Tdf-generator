@@ -44,28 +44,8 @@ if (AUTH_REQUIRED) app.set('trust proxy', 1);
 app.use('/api/import/gpx', express.text({ type: '*/*', limit: '30mb' }));
 app.use('/api/import/fit', express.raw({ type: '*/*', limit: '30mb' }));
 app.use(express.json({ limit: '20mb' }));
-// Politique de sécurité du contenu (story 42.2, issue #566) : deuxième
-// barrière, indépendante de l'échappement EF.esc, contre une XSS stockée
-// (règle 1 d'AGENTS.md). Aucun script en ligne n'est permis (test/csp.test.js
-// le vérifie sur frontend/*.html) ; les styles en ligne restent admis (75
-// attributs style= et Leaflet). Tuiles IGN et OSM en img-src ; data: pour les
-// icônes de Leaflet, blob: pour les exports PNG. Trusted Types en Report-Only
-// le temps de recenser les sinks innerHTML (phase suivante).
-const CSP = [
-  "default-src 'self'",
-  "script-src 'self'",
-  "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob: https://data.geopf.fr https://tile.openstreetmap.org",
-  "connect-src 'self'",
-  "font-src 'self'",
-  "worker-src 'self'",
-  "manifest-src 'self'",
-  "object-src 'none'",
-  "base-uri 'self'",
-  "form-action 'self'",
-  "frame-ancestors 'none'",
-].join('; ');
-const CSP_REPORT_ONLY = "require-trusted-types-for 'script'";
+// Politique de sécurité du contenu (story 42.2, issue #566) : voir backend/csp.js.
+const { CSP, CSP_REPORT_ONLY } = require('./csp');
 app.use((req, res, next) => {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-Frame-Options', 'DENY');

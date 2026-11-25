@@ -17,6 +17,7 @@ const { stageWithoutHr, fullWithoutHr } = require('../pipeline/heartRate');
 // fs.cpSync et fs.rmSync échouent sous Windows dans un chemin non ASCII
 // (Epic 36.1, 36.2) : copie et suppression à la main.
 const { copyDir, removeSync } = require('../pipeline/fsPortable');
+const { CSP, withCspMeta } = require('../backend/csp');
 
 const ROOT = path.join(__dirname, '..');
 // ETAPEFORGE_DIST_DIR : sortie ailleurs que dist/ (tests).
@@ -49,9 +50,13 @@ function rewrite(content, { html = false } = {}) {
   for (const [from, to] of TOKENS) out = out.split(from).join(to);
   if (html) {
     out = out.replace(/(href|src)="\//g, '$1="'); // /style.css, /vendor/…, /common.js…
-    // active le mode statique avant tout script applicatif
+    // active le mode statique avant tout script applicatif ; par un fichier,
+    // pas un script en ligne, que la CSP du site refuserait (story 42.4)
     out = out.replace(/<script src="(\.\/)?common\.js">/,
-      '<script>window.EF_STATIC = true;</script>\n<script src="common.js">');
+      '<script src="static.js"></script>\n<script src="common.js">');
+    // Pas d'en-têtes HTTP sur GitHub Pages : la CSP de l'application voyage
+    // dans une balise <meta> (story 42.4, issue #566).
+    out = withCspMeta(out, CSP);
   }
   return out;
 }
@@ -197,9 +202,13 @@ function main() {
   // --- 3. Page d'accueil (hub de la démo) --------------------------------------
   const demoStage = stages.find((s) => /hautacam/i.test(s.name)) || stages[0];
   const captures = fs.readdirSync(path.join(DIST, 'captures')).sort();
+  // Amorces en fichiers, pas en scripts en ligne : la CSP du site les
+  // refuserait (story 42.4).
+  write('static.js', 'window.EF_STATIC = true;\n');
+  write('hub.js', "document.addEventListener('DOMContentLoaded', () => EF.initChrome(''));\n");
   write(
     'index.html',
-    `<!DOCTYPE html>
+    withCspMeta(`<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="utf-8">
@@ -246,11 +255,11 @@ function main() {
   <h2>Captures de la version locale</h2>
   ${captures.map((c) => `<img class="cap" src="captures/${encodeURIComponent(c)}" alt="${esc(c)}" loading="lazy">`).join('\n  ')}
 </main>
-<script>window.EF_STATIC = true;</script>
+<script src="static.js"></script>
 <script src="common.js"></script>
-<script>document.addEventListener('DOMContentLoaded', () => EF.initChrome(''));</script>
+<script src="hub.js"></script>
 </body>
-</html>`
+</html>`, CSP)
   );
 
   console.log(`✔ dist/ : app statique (${stages.length} étapes, ${editions.length} tours, ${climbs.length} côtes, ${captures.length} captures)`);
