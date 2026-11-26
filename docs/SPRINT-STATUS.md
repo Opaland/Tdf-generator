@@ -410,6 +410,11 @@ et côtes traversées avec leur kilomètre.
     PR fusionnée) ; sinon la routine reboucle sur la même édition. Après
     **10 tentatives** sans y parvenir, l'édition est notée bloquée, une
     issue en dit la cause, et la routine passe à la suivante.
+    - État au 26/11 : **1966 verte** à la tentative 1/10 (bloquants de
+      l'audit corrigés ; écarts restants en issue #626) ; règle 4 précisée
+      rejouée sur 1974 (PR #625). Édition prévue le 27/11 : **1965**,
+      tentative 1/10 (vérifier d'abord la source, `1957_1966/1965/`) ;
+      règle 4 : 1975.
     - État au 25/11 : **1967 verte** à la tentative 1/10 (bloquant de
       l'audit corrigé ; écarts restants en issue #615) ; règle 4 précisée
       rejouée sur 1973 (PR #614). Édition prévue le 26/11 : **1966**,
@@ -2105,7 +2110,7 @@ et côtes traversées avec leur kilomètre.
     Près Saint-Bertrand non placé (village perché au-dessus du passage).
     Contrôle BRouter sur les 14 étapes touchées, sans aller-retour nouveau ;
     1973/18 et 1973/2b restent hors tolérance, causes mises à jour.
-- [ ] Édition 1966 (routine quotidienne du 26/11/2026, tentative 1/10) :
+- [x] Édition 1966 (routine quotidienne du 26/11/2026, tentative 1/10) :
   aucune étape de 1966 n'est encore transcrite. Profils de ledicodutour.com
   (`images/cartes_etapes/1957_1966/1966/`) ; 25 fichiers, md5 tous
   distincts ; lisibles à l'agrandissement (même format que 1967, km en
@@ -2118,6 +2123,19 @@ et côtes traversées avec leur kilomètre.
   règle 4 précisée ne s'étend à 1966 que si le motif se vérifie sur la
   transcription (compte des km imprimés multiples de 10 et de 5) ; audit
   Mireille avant la PR, écarts restants en issue.
+  Fait : 23 étapes, 580 points dont 482 placés ; règle 4 précisée étendue
+  à 1966 (0 km imprimé multiple de 10 sur 430, 17 multiples de 5) ;
+  départs de 19 (Saint-Gervais) et 22a (Fleury-les-Aubrais) au km 0
+  imprimé, arrivée de 22b au Parc des Princes, circuit final de Revel
+  déclaré ; 13 carrefours au croisement BD TOPO (renumérotations écrites
+  comme hypothèses) ; Le Rivier, Capvern-les-Bains, Château-Gontier,
+  Martigné, Auneau replacés. Contrôle BRouter écrit, aucun tronçon en
+  voiture : 17 étapes sur 23 dans la tolérance, 6 hors avec cause notée
+  (4, 6, 9, 19, 22b ; 17 à −11,2 % après le retrait du col de Braida).
+  Audit Mireille : 4 bloquants corrigés (arrivée d'Orléans retirée, col
+  de Braida retiré, 7 tronçons suspects notés, Capvern-les-Bains), 9 points
+  placés, seuil de 0,5 km appliqué strictement ; écarts restants en
+  issue #626.
 - [x] Édition 1967 (routine quotidienne du 25/11/2026, tentative 1/10) :
   aucune étape de 1967 n'est encore transcrite. Profils de ledicodutour.com
   (`images/cartes_etapes/1967_1976/1967/`) ; 25 fichiers, md5 tous
