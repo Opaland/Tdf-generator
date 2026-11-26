@@ -309,7 +309,19 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "route_check": {
+      "routed_km": 199.6,
+      "profile_km": 199,
+      "delta_pct": 0.3,
+      "tolerance_pct": 5,
+      "coverage_pct": 95,
+      "car_legs": 0,
+      "legs": 24,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "2": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1966/66_2.jpg",
@@ -579,7 +591,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Charleville → Tournes 6,5 km à vol d'oiseau pour 5,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Charleville → Tournes 6,5 km à vol d'oiseau pour 5,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "route_check": {
+      "routed_km": 199.5,
+      "profile_km": 192.5,
+      "delta_pct": 3.6,
+      "tolerance_pct": 5,
+      "coverage_pct": 97,
+      "car_legs": 0,
+      "legs": 23,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "4": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1966/66_4.jpg",
@@ -812,7 +836,7 @@
        "label": "Eu",
        "km": 172.5,
        "kind": "ville",
-       "note": "16 m imprimés",
+       "note": "16 m imprimés ; Sallenelle → Eu : 18,1 km à vol d'oiseau pour 17 au profil (règle 11) ; Eu laissé au centre (aucune mairie d'Eu trouvée), km relus ; cause non établie",
        "lat": 50.04917,
        "lon": 1.41757,
        "how": "nominatim",
@@ -865,7 +889,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Dunkerque → Loon-Plage 11,9 km à vol d'oiseau pour 11,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Dunkerque → Loon-Plage 11,9 km à vol d'oiseau pour 11,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (+7,4 % à vélo, +10,4 % en voiture) : l'excès est réparti (Loon-Plage → Gravelines 8,8 km pour 7, Sallenelle → Eu 20,1 pour 17, Criel → Graincourt 15,0 pour 13) ; six noms des abords de Boulogne et de la baie d'Authie sans km propre ne jalonnent pas le tracé.",
+     "route_check": {
+      "routed_km": 207.8,
+      "profile_km": 193.5,
+      "delta_pct": 7.4,
+      "tolerance_pct": 5,
+      "coverage_pct": 94,
+      "car_legs": 0,
+      "legs": 20,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "5": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1966/66_5.jpg",
@@ -1125,7 +1161,19 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "route_check": {
+      "routed_km": 163.8,
+      "profile_km": 161.5,
+      "delta_pct": 1.4,
+      "tolerance_pct": 5,
+      "coverage_pct": 91,
+      "car_legs": 0,
+      "legs": 20,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "6": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1966/66_6.jpg",
@@ -1281,10 +1329,10 @@
        "label": "Martigné",
        "km": 123,
        "kind": "ville",
-       "note": "132 m imprimés ; imprimé « MARTIGNE »",
-       "lat": 48.20556,
-       "lon": -0.66122,
-       "how": "commune-ign-prefixe",
+       "note": "132 m imprimés ; imprimé « MARTIGNE » ; placé à la mairie de Martigné-sur-Mayenne (Nominatim amenity=townhall) : depuis le point de la commune, la ligne droite vers Louverné dépassait le profil (10,2 km pour 9, règle 11) ; 8,9 km de Moulay pour 9, 9,1 de Louverné pour 9",
+       "lat": 48.195059,
+       "lon": -0.663565,
+       "how": "manual",
        "confidence": "ok"
       },
       {
@@ -1392,7 +1440,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Caen → Laize-la-Ville 11 km à vol d'oiseau pour 9,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Caen → Laize-la-Ville 11 km à vol d'oiseau pour 9,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (+8,3 % à vélo, Martigné à sa mairie ; +7,6 % en voiture avant ce déplacement) : l'excès est réparti (Condé-sur-Noireau → Flers 14,5 km pour 12, Céaucé → La Haie-Traversaine 15,9 pour 13,5, Entrammes → Château-Gontier 23,8 pour 20) ; cause non établie.",
+     "route_check": {
+      "routed_km": 224.1,
+      "profile_km": 207,
+      "delta_pct": 8.3,
+      "tolerance_pct": 5,
+      "coverage_pct": 95,
+      "car_legs": 0,
+      "legs": 22,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "7": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1966/66_7.jpg",
@@ -1725,7 +1785,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Angers (Les Ponts-de-Cé) → Brissac-Quincé 10 km à vol d'oiseau pour 8,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Angers (Les Ponts-de-Cé) → Brissac-Quincé 10 km à vol d'oiseau pour 8,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "route_check": {
+      "routed_km": 236.7,
+      "profile_km": 244,
+      "delta_pct": -3,
+      "tolerance_pct": 5,
+      "coverage_pct": 97,
+      "car_legs": 0,
+      "legs": 21,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "8": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1966/66_8.jpg",
@@ -1929,7 +2001,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Arrivée imprimée « BORDEAUX (VÉLODROME) » laissée au centre de Bordeaux : le vélodrome de 1966 n'est pas sourcé."
+     "note": "Arrivée imprimée « BORDEAUX (VÉLODROME) » laissée au centre de Bordeaux : le vélodrome de 1966 n'est pas sourcé.",
+     "route_check": {
+      "routed_km": 122.2,
+      "profile_km": 120.5,
+      "delta_pct": 1.4,
+      "tolerance_pct": 5,
+      "coverage_pct": 87,
+      "car_legs": 0,
+      "legs": 18,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "9": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1966/66_9.jpg",
@@ -2142,7 +2226,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Bordeaux → Jauge 18,4 km à vol d'oiseau pour 13,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Bordeaux → Jauge 18,4 km à vol d'oiseau pour 13,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (+6,2 % à vélo, +14,0 % en voiture) : la route des Landes de 1966 (N 10) est plus directe que les routes que prend le routeur (Lipostey → Labouheyre 14,7 km pour 12, Le Muret → Lipostey 13,0 pour 11) ; quatre noms non placés (Lamarie, Souquet repris, Côte de Bidache, carrefours).",
+     "route_check": {
+      "routed_km": 199.1,
+      "profile_km": 187.5,
+      "delta_pct": 6.2,
+      "tolerance_pct": 5,
+      "coverage_pct": 93,
+      "car_legs": 0,
+      "legs": 16,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "10": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1966/66_10.jpg",
@@ -2427,7 +2523,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Bayonne → Quartier Neuf 7,9 km à vol d'oiseau pour 7 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Bayonne → Quartier Neuf 7,9 km à vol d'oiseau pour 7 au profil, départ réel hors du centre, non situé (règle 25).",
+     "route_check": {
+      "routed_km": 236.3,
+      "profile_km": 227.5,
+      "delta_pct": 3.9,
+      "tolerance_pct": 5,
+      "coverage_pct": 97,
+      "car_legs": 0,
+      "legs": 26,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "11": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1966/66_11.jpg",
@@ -2523,7 +2631,7 @@
        "label": "Capvern-les-Bains",
        "km": 64.5,
        "kind": "ville",
-       "note": "540 m imprimés ; imprimé « CAPVERN-LES-BAINS »",
+       "note": "540 m imprimés ; imprimé « CAPVERN-LES-BAINS » ; Gourgue → Capvern-les-Bains : 5,7 km à vol d'oiseau pour 4,5 (règle 11) ; point au village de Capvern, la station thermale n'étant pas trouvée par Nominatim ; cause non établie",
        "lat": 43.10236,
        "lon": 0.31622,
        "how": "nominatim",
@@ -2698,7 +2806,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Pau → Idron 4,6 km à vol d'oiseau pour 3,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Pau → Idron 4,6 km à vol d'oiseau pour 3,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "route_check": {
+      "routed_km": 190.8,
+      "profile_km": 184.5,
+      "delta_pct": 3.4,
+      "tolerance_pct": 5,
+      "coverage_pct": 98,
+      "car_legs": 0,
+      "legs": 21,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "12": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1966/66_12.jpg",
@@ -2999,7 +3119,21 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "circuit_km": 208,
+     "note": "Circuit final à Revel : « 1er passage » imprimé au km 208, arrivée au km 218 (circuit_km, règle 19).",
+     "route_check": {
+      "routed_km": 195.9,
+      "profile_km": 191,
+      "delta_pct": 2.6,
+      "tolerance_pct": 5,
+      "coverage_pct": 87,
+      "car_legs": 0,
+      "legs": 21,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "13": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1966/66_13.jpg",
@@ -3247,7 +3381,19 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "route_check": {
+      "routed_km": 186.2,
+      "profile_km": 186.5,
+      "delta_pct": -0.1,
+      "tolerance_pct": 5,
+      "coverage_pct": 98,
+      "car_legs": 0,
+      "legs": 21,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "15": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1966/66_15.jpg",
@@ -3546,7 +3692,19 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "route_check": {
+      "routed_km": 195.6,
+      "profile_km": 195.5,
+      "delta_pct": 0,
+      "tolerance_pct": 5,
+      "coverage_pct": 96,
+      "car_legs": 0,
+      "legs": 26,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "16": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1966/66_16.jpg",
@@ -3585,10 +3743,10 @@
        "label": "Le Rivier",
        "km": 19.5,
        "kind": "lieu-dit",
-       "note": "1195 m imprimés ; imprimé « LE RIVIER » ; km imprimé « 19 k 5 »",
-       "lat": 45.02972,
-       "lon": 5.97353,
-       "how": "nominatim",
+       "note": "1195 m imprimés ; imprimé « LE RIVIER » ; km imprimé « 19 k 5 » ; hameau Le Rivier d'Allemond (Nominatim place=hamlet) : le géocodeur avait pris un point à 15 km au sud, qui faisait un aller-retour ; 7,9 km d'Allemont pour 10 (26/11/2026)",
+       "lat": 45.202306,
+       "lon": 6.040192,
+       "how": "manual",
        "confidence": "ok"
       },
       {
@@ -3596,14 +3754,20 @@
        "km": 33.5,
        "kind": "col",
        "note": "1908 m imprimés ; imprimé « COL DU GLANDON » ; pastille « 1re C. » commune avec la Croix-de-Fer ; km imprimé « 33 k 5 »",
-       "confidence": "non-place"
+       "lat": 45.23961,
+       "lon": 6.17554,
+       "how": "nominatim",
+       "confidence": "ok"
       },
       {
        "label": "Col de la Croix-de-Fer",
        "km": 36,
        "kind": "col",
        "note": "2068 m imprimés ; 1re cat. (pastille « 1re C. ») ; imprimé « COL DE LA CROIX DE FER » ; ravitaillement (pictogramme sous la pastille, à confirmer)",
-       "confidence": "non-place"
+       "lat": 45.22749,
+       "lon": 6.20333,
+       "how": "nominatim",
+       "confidence": "ok"
       },
       {
        "label": "Le Chambon",
@@ -3702,7 +3866,19 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "route_check": {
+      "routed_km": 146.4,
+      "profile_km": 142,
+      "delta_pct": 3.1,
+      "tolerance_pct": 5,
+      "coverage_pct": 96,
+      "car_legs": 0,
+      "legs": 13,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "17": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1966/66_17.jpg",
@@ -3832,7 +4008,7 @@
        "label": "Col de Braida",
        "km": 121.5,
        "kind": "col",
-       "note": "1007 m imprimés ; 3e cat. ; Colle Braida (Nominatim mountain_pass), EU-DEM 1 008 m pour 1 007 ; 4,8 km de Giaveno pour 9 (recherche bornée, 26/11/2026)",
+       "note": "1007 m imprimés ; 3e cat. ; Colle Braida (Nominatim mountain_pass), EU-DEM 1 008 m pour 1 007 ; 4,8 km de Giaveno pour 9 (recherche bornée, 26/11/2026) ; aller-retour du routage (7,2 km) : BRouter redescend du col vers Giaveno pour rejoindre Trana ; le col est bien placé (mountain_pass), la route de 1966 au-delà du col n'est pas imprimée (même cas que Zumaia, règle 17)",
        "confidence": "ok",
        "lat": 45.08326,
        "lon": 7.33374,
@@ -3862,13 +4038,25 @@
        "label": "Turin",
        "km": 160,
        "kind": "ville",
-       "note": "239 m imprimés ; arrivée",
+       "note": "239 m imprimés ; arrivée ; arrivée laissée au centre de Turin : Orbassano → Turin fait 13,3 km à vol d'oiseau pour 12 (règle 11), le lieu de l'arrivée de 1966 n'est pas sourcé",
        "lat": 45.06776,
        "lon": 7.68249,
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "route_check": {
+      "routed_km": 147.3,
+      "profile_km": 148,
+      "delta_pct": -0.5,
+      "tolerance_pct": 5,
+      "coverage_pct": 93,
+      "car_legs": 0,
+      "legs": 12,
+      "suspect_legs": 1,
+      "backtracks": 1,
+      "backtracks_uncertain": 0
+     }
     },
     "18": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1966/66_18.jpg",
@@ -4057,7 +4245,19 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "route_check": {
+      "routed_km": 171.7,
+      "profile_km": 171,
+      "delta_pct": 0.4,
+      "tolerance_pct": 5,
+      "coverage_pct": 91,
+      "car_legs": 0,
+      "legs": 15,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 1
+     }
     },
     "19": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1966/66_19.jpg",
@@ -4407,7 +4607,20 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "note": "Hors tolérance (+6,3 % à vélo, +11,8 % en voiture) : Brézins → Jarcieu 33,6 km pour 29 et Voreppe → Beaucroissant 16,4 pour 13,5, avec Sillans, Saint-Étienne-de-Saint-Geoirs, Marcilloles et Beaurepaire non placés (km illisibles sur une image de 142 px de haut).",
+     "route_check": {
+      "routed_km": 257.7,
+      "profile_km": 242.5,
+      "delta_pct": 6.3,
+      "tolerance_pct": 5,
+      "coverage_pct": 92,
+      "car_legs": 0,
+      "legs": 22,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "20": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1966/66_20.jpg",
@@ -4660,7 +4873,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Saint-Étienne → La Fouillouse 8,8 km à vol d'oiseau pour 5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Saint-Étienne → La Fouillouse 8,8 km à vol d'oiseau pour 5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "route_check": {
+      "routed_km": 209.3,
+      "profile_km": 218.5,
+      "delta_pct": -4.2,
+      "tolerance_pct": 5,
+      "coverage_pct": 98,
+      "car_legs": 0,
+      "legs": 20,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "21": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1966/66_21.jpg",
@@ -4894,7 +5119,19 @@
        "how": "manual"
       }
      ],
-     "note": "Départ : km 0 réel hors de Montluçon (La Chapelaude au km 2,5 est à 12,2 km de la mairie), non situé (règle 25)."
+     "note": "Départ : km 0 réel hors de Montluçon (La Chapelaude au km 2,5 est à 12,2 km de la mairie), non situé (règle 25).",
+     "route_check": {
+      "routed_km": 227.3,
+      "profile_km": 230,
+      "delta_pct": -1.2,
+      "tolerance_pct": 5,
+      "coverage_pct": 99,
+      "car_legs": 0,
+      "legs": 12,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "3b": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1966/66_3b.jpg",
@@ -5085,7 +5322,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Tournai → Pecq 9,5 km à vol d'oiseau pour 8,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Tournai → Pecq 9,5 km à vol d'oiseau pour 8,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "route_check": {
+      "routed_km": 121.7,
+      "profile_km": 123,
+      "delta_pct": -1,
+      "tolerance_pct": 5,
+      "coverage_pct": 94,
+      "car_legs": 0,
+      "legs": 16,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "14a": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1966/66_14a.jpg",
@@ -5257,7 +5506,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Montpellier → Prades-le-Lez 9,7 km à vol d'oiseau pour 8,6 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Montpellier → Prades-le-Lez 9,7 km à vol d'oiseau pour 8,6 au profil, départ réel hors du centre, non situé (règle 25).",
+     "route_check": {
+      "routed_km": 138.1,
+      "profile_km": 135.4,
+      "delta_pct": 2,
+      "tolerance_pct": 5,
+      "coverage_pct": 94,
+      "car_legs": 0,
+      "legs": 14,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "22a": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1966/66_21a.jpg",
@@ -5389,7 +5650,19 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "route_check": {
+      "routed_km": 94.7,
+      "profile_km": 97,
+      "delta_pct": -2.4,
+      "tolerance_pct": 5,
+      "coverage_pct": 87,
+      "car_legs": 0,
+      "legs": 10,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "22b": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1966/66_21b.jpg",
@@ -5567,10 +5840,10 @@
        "label": "Boulogne-Billancourt",
        "km": 48.5,
        "kind": "ville",
-       "note": "35 m imprimés ; km peu lisible (lu « 4?½ »), tranché à l'échelle (mesuré ≈ 48,6) ; point de 2015/21 (repris, compatible avec les voisins placés)",
-       "lat": 48.83566,
-       "lon": 2.24021,
-       "how": "commune-ign",
+       "note": "35 m imprimés ; km peu lisible (lu « 4?½ »), tranché à l'échelle (mesuré ≈ 48,6) ; point de 2015/21 (repris, compatible avec les voisins placés) ; placé à l'entrée de Boulogne par le pont de Sèvres (Nominatim man_made=bridge) : le point de la commune (centre) était à 2,4 km de Sèvres pour 1 au profil ; 1,1 km de Sèvres, 2,4 du Parc des Princes pour 2,8",
+       "lat": 48.828558,
+       "lon": 2.227225,
+       "how": "manual",
        "confidence": "ok"
       },
       {
@@ -5583,7 +5856,20 @@
        "how": "manual",
        "confidence": "ok"
       }
-     ]
+     ],
+     "note": "Hors tolérance (+8,1 % à vélo, +11,1 % en voiture) : contre-la-montre de 51,3 km aux tronçons de 2 km ; Voisins-le-Bretonneux, Guyancourt et Jouy-en-Josas sont au centre des communes, que le tracé longeait vraisemblablement ; Dampierre → carrefour D 91-D 13 fait 4,6 km pour 3 ; sept noms non placés (points cotés sans nom, Les 17 Tournants, carrefours).",
+     "route_check": {
+      "routed_km": 52.7,
+      "profile_km": 48.8,
+      "delta_pct": 8.1,
+      "tolerance_pct": 5,
+      "coverage_pct": 96,
+      "car_legs": 0,
+      "legs": 12,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 1
+     }
     }
    }
   },
