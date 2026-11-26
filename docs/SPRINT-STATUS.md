@@ -2105,6 +2105,19 @@ et côtes traversées avec leur kilomètre.
     Près Saint-Bertrand non placé (village perché au-dessus du passage).
     Contrôle BRouter sur les 14 étapes touchées, sans aller-retour nouveau ;
     1973/18 et 1973/2b restent hors tolérance, causes mises à jour.
+- [ ] Édition 1966 (routine quotidienne du 26/11/2026, tentative 1/10) :
+  aucune étape de 1966 n'est encore transcrite. Profils de ledicodutour.com
+  (`images/cartes_etapes/1957_1966/1966/`) ; 25 fichiers, md5 tous
+  distincts ; lisibles à l'agrandissement (même format que 1967, km en
+  italique avec fractions), contrairement au verdict « 1951-1967
+  illisibles » du lot Lorraine. `66_21a` et `66_21b` sont les étapes 22a
+  (Orléans → Rambouillet) et 22b (Rambouillet → Paris), titres lus. 23
+  profils à transcrire (1, 2, 3b, 4 à 13, 14a, 15 à 21, 22a, 22b). Non
+  transcrits : 3a (Tournai) et 14b (Vals-les-Bains), plans de
+  contre-la-montre sans km. Critères d'acceptation : ceux de 1967 ; la
+  règle 4 précisée ne s'étend à 1966 que si le motif se vérifie sur la
+  transcription (compte des km imprimés multiples de 10 et de 5) ; audit
+  Mireille avant la PR, écarts restants en issue.
 - [x] Édition 1967 (routine quotidienne du 25/11/2026, tentative 1/10) :
   aucune étape de 1967 n'est encore transcrite. Profils de ledicodutour.com
   (`images/cartes_etapes/1967_1976/1967/`) ; 25 fichiers, md5 tous
