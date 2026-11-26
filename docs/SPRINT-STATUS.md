@@ -2076,7 +2076,7 @@ et côtes traversées avec leur kilomètre.
   non placé avec une note qui dit pourquoi), classe OSM, altitude ±100 m,
   contrôle BRouter sans aller-retour nouveau, causes des écarts mises à
   jour.
-  - [x] 1969 · [x] 1970 · [x] 1971 · [x] 1972 · [x] 1973 · [ ] 1974 ·
+  - [x] 1969 · [x] 1970 · [x] 1971 · [x] 1972 · [x] 1973 · [x] 1974 ·
     [ ] 1975 · [ ] 1976 · [ ] 1977 · [ ] 1978 · [ ] 1979 · [ ] 1980 ·
     [ ] 1981 · [ ] 1982 · [ ] 1983 · [ ] 1984 · [ ] 1985
   - 1969-1971 (23/11) : 72 noms repris, 64 placés (19 + 23 + 22), 8 non
@@ -2105,6 +2105,18 @@ et côtes traversées avec leur kilomètre.
     Près Saint-Bertrand non placé (village perché au-dessus du passage).
     Contrôle BRouter sur les 14 étapes touchées, sans aller-retour nouveau ;
     1973/18 et 1973/2b restent hors tolérance, causes mises à jour.
+  - 1974 (26/11) : 37 noms repris (6 colonnes remesurées au zoom), 34
+    placés (géocodeur ; recherche bornée pour Saint-Servan, La Garde de
+    Dieu, Pont Carnot, Mons, Près Plaisance-du-Touch et Calibet ;
+    croisement D 622 × D 2 pour le carrefour N 622-D 2, hypothèse N 622 =
+    D 622 notée) ; Saint-Thégonnec retiré (bourg à 6,8 et 7,8 km de ses
+    deux voisins pour 4 et 2,5), carrefour N 550-D 164 et Merlin Plage II
+    non placés. Oiselay au village et La Forest au bourg (règles 6 et 15).
+    Contrôle BRouter écrit sur l'édition, aucun tronçon en voiture, aucun
+    aller-retour ; 1974/15 sort de la tolérance (+4,7 % → +5,4 %), cause
+    notée. Audit Mireille : 35 points sur 37 conformes ; les 2 écarts
+    bloquants (tronçons 1974/3 et 1974/14 sans note) et les 5 mineurs
+    corrigés.
 - [x] Édition 1967 (routine quotidienne du 25/11/2026, tentative 1/10) :
   aucune étape de 1967 n'est encore transcrite. Profils de ledicodutour.com
   (`images/cartes_etapes/1967_1976/1967/`) ; 25 fichiers, md5 tous
