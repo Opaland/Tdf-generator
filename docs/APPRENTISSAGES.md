@@ -29,6 +29,11 @@ entrée : on la marque « absorbée par … ».
 2. **Committer avant de fusionner `main`** (08/11/2026). Une fusion de
    `main` a avorté sur des modifications non committées. Ordre :
    `git add` + commit, puis `git merge origin/main`.
+   **Récidive le 26/11/2026** (édition 1966) : `git merge origin/main`
+   lancé dans la même commande que la mise à jour de SPRINT-STATUS, sur
+   un arbre modifié ; la fusion a échoué et la suite de la commande a
+   continué. La fusion se lance seule, après un `git status --short`
+   vide.
 3. **Le dépôt principal peut être en retard** (08/11/2026). Les worktrees
    de travail sont à jour, `/home/user/Tdf-generator` non : lire les
    données depuis le worktree de la tâche, ou `git fetch` d'abord.
