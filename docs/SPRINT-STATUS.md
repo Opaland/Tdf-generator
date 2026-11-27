@@ -3798,6 +3798,20 @@ sur l'histoire du Tour. **En attente de décision** sur les cinq questions du
   mutations, 7 trous comblés.
 - [ ] 41.7 « Le Tour est-il passé chez moi ? » sur le site statique
   (index des communes, Epic 32).
+  Précisé en ouvrant la story (issue #633, 27/11/2026). Critères :
+  - `npm run build:site` produit, sans réseau, `data/passages.json` :
+    chaque lieu placé des itinéraires curés (hors côte posée au village
+    éponyme), avec ses coordonnées et tous ses passages (année, étape,
+    km) ; `GET /api/passages` sert le même index en local (test) ;
+  - `passages.html` cherche par nom, sans tenir compte des accents ni de
+    la casse, ou autour de la position de l'appareil (rayon au choix),
+    sans rien envoyer : le calcul est fait dans le navigateur ;
+  - chaque résultat donne le lieu, la distance, l'édition, l'étape et le
+    km, avec un lien vers `edition.html?annee=…&etape=…` ;
+  - la couverture est rappelée (éditions et étapes curées) et un
+    résultat vide ne vaut pas preuve d'absence ;
+  - lien dans la navigation ; e2e et axe sans violation ; aucun script en
+    ligne.
 - [ ] 41.8 Fiches de cols et frise 1903 → aujourd'hui.
 - [ ] 41.9 Récits Claude : échantillon de 10 étapes curées (`--dry-run`,
   coût mesuré), puis lot complet si l'échantillon est conforme — bloqué
