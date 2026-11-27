@@ -2,6 +2,3305 @@
  "_notes": "Itinéraires détaillés (Epic 33) : villes et côtes traversées, avec leur kilomètre, transcrites à la main depuis le profil officiel cité dans source_url (profils du Dico du Tour, ledicodutour.com). Coordonnées ajoutées par scripts/geocode-itineraries.js : un point n'est placé que si la distance à vol d'oiseau depuis le point précédent ne dépasse pas l'écart de kilomètres du profil (+3 km ; +10 km depuis le km 0, le départ réel pouvant être hors du centre de la ville de départ) ; sinon il reste sans coordonnées. confidence : ok (un seul candidat compatible), ambigu (plusieurs candidats distincts de la source la plus fiable — col connu, puis commune IGN au nom exact, puis le reste —, le moins détourné retenu). Un point sans coordonnées n'est jamais utilisé par la recherche. Une côte est placée au village dont elle porte le nom (geocodeAs) : position approchée à quelques km près, jamais le sommet exact. partial: true = transcription partielle, seuls les points dont le kilomètre est lisible sans doute sur l image sont repris (un point absent n est pas une preuve que l étape n y est pas passée). length_km : longueur de l'étape lue sur le profil ; sur une transcription partielle, elle confirme que le dernier point est l'arrivée (sinon la contrainte vers l'arrivée n'est pas appliquée). kind lieu-dit : hameau ou quartier placé au centre de sa commune (geocodeAs) — comme une côte, jamais utilisé par la recherche.",
  "_source": "Profils d'étapes du Dico du Tour (https://www.ledicodutour.com), lus image par image ; seuls les noms de lieux et kilomètres (faits) sont repris, pas les images.",
  "editions": {
+  "1965": {
+   "stages": {
+    "1a": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1965/65_1a.jpg",
+     "towns": [
+      {
+       "label": "Cologne",
+       "km": 0,
+       "kind": "ville",
+       "note": "50 m imprimés ; départ"
+      },
+      {
+       "label": "Frechen",
+       "km": 6.5,
+       "kind": "ville",
+       "note": "70 m imprimés"
+      },
+      {
+       "label": "Kerpen",
+       "km": 16,
+       "kind": "ville"
+      },
+      {
+       "label": "Carrefour près Merzenich",
+       "km": 28,
+       "kind": "lieu-dit",
+       "note": "141 m imprimés ; imprimé « CAR. près MERZENICH »"
+      },
+      {
+       "label": "Düren",
+       "km": 32.5,
+       "kind": "ville",
+       "note": "129 m imprimés ; imprimé « DUREN »"
+      },
+      {
+       "label": "Kleinhau",
+       "km": 46,
+       "kind": "ville",
+       "note": "401 m imprimés"
+      },
+      {
+       "label": "Vossenack",
+       "km": 62.5,
+       "kind": "ville"
+      },
+      {
+       "label": "Carrefour N 258 Imgenbroich",
+       "km": 71,
+       "kind": "lieu-dit",
+       "note": "557 m imprimés ; imprimé « CAR. N. 258- IMGENBROICH »"
+      },
+      {
+       "label": "Mützenich",
+       "km": 76,
+       "kind": "ville",
+       "note": "imprimé « MUTZENICH » ; km peu lisible (76 ou 76,5, fraction masquée par le trait de frontière ; colonne mesurée ≈ 76,7)"
+      },
+      {
+       "label": "Eupen",
+       "km": 91.5,
+       "kind": "ville",
+       "note": "265 m imprimés ; frontière Allemagne/Belgique au km ≈ 79 (avant)"
+      },
+      {
+       "label": "Dolhain",
+       "km": 99,
+       "kind": "ville",
+       "note": "200 m imprimés"
+      },
+      {
+       "label": "Verviers",
+       "km": 106.5,
+       "kind": "ville",
+       "note": "167 m imprimés"
+      },
+      {
+       "label": "Côte de la Bouquette",
+       "km": 110,
+       "kind": "côte",
+       "note": "4e cat. ; aucun km propre : colonne sur la graduation 110 (mesuré ≈ 109,8) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1965 comme dans la série 1966-1985 (règle 4 précisée)"
+      },
+      {
+       "label": "Theux",
+       "km": 117,
+       "kind": "ville",
+       "note": "160 m imprimés"
+      },
+      {
+       "label": "Les Forges",
+       "km": 128,
+       "kind": "lieu-dit",
+       "note": "180 m imprimés"
+      },
+      {
+       "label": "Côte des Forges",
+       "km": 131,
+       "kind": "côte",
+       "confidence": "non-place",
+       "note": "3e cat. ; aucun km imprimé (mesuré ≈ 131,0) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Chaudfontaine",
+       "km": 136,
+       "kind": "ville",
+       "note": "80 m imprimés"
+      },
+      {
+       "label": "Romsée",
+       "km": 141.5,
+       "kind": "ville",
+       "note": "247 m imprimés ; imprimé « ROMSEE »"
+      },
+      {
+       "label": "Jupille",
+       "km": 146.5,
+       "kind": "ville",
+       "note": "65 m imprimés"
+      },
+      {
+       "label": "Liège (Droixhe)",
+       "km": 149,
+       "kind": "ville",
+       "note": "65 m imprimés ; arrivée ; imprimé « LIÈGE (DROIXHE) »"
+      }
+     ]
+    },
+    "2": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1965/65_2.jpg",
+     "towns": [
+      {
+       "label": "Liège (Soraing)",
+       "km": 0,
+       "kind": "ville",
+       "note": "85 m imprimés ; départ ; imprimé « LIÈGE (SORAING) » (lecture du complément incertaine)"
+      },
+      {
+       "label": "Hermalle-sous-Huy",
+       "km": 9.5,
+       "kind": "ville",
+       "note": "85 m imprimés ; imprimé « HERMALLES-SOUS-HUY »"
+      },
+      {
+       "label": "Huy",
+       "km": 20.5,
+       "kind": "ville",
+       "note": "77 m imprimés"
+      },
+      {
+       "label": "Andenne",
+       "km": 32,
+       "kind": "ville",
+       "note": "80 m imprimés"
+      },
+      {
+       "label": "Jambes",
+       "km": 54.5,
+       "kind": "ville",
+       "note": "82 m imprimés"
+      },
+      {
+       "label": "Floreffe",
+       "km": 65,
+       "kind": "ville"
+      },
+      {
+       "label": "Sart-Saint-Laurent",
+       "km": 69,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "175 m imprimés ; imprimé « SART SAINT-LAURENT » ; aucun km imprimé (mesuré ≈ 69,0) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Fosse",
+       "km": 72.5,
+       "kind": "ville"
+      },
+      {
+       "label": "Châtelet",
+       "km": 85.5,
+       "kind": "ville",
+       "note": "100 m imprimés ; imprimé « CHATELET »"
+      },
+      {
+       "label": "Marcinelle",
+       "km": 92.5,
+       "kind": "ville",
+       "note": "111 m imprimés"
+      },
+      {
+       "label": "Anderlues",
+       "km": 103.5,
+       "kind": "ville",
+       "note": "182 m imprimés"
+      },
+      {
+       "label": "Binche",
+       "km": 113,
+       "kind": "ville",
+       "note": "80 m imprimés"
+      },
+      {
+       "label": "Givry",
+       "km": 123.5,
+       "kind": "ville"
+      },
+      {
+       "label": "Frameries",
+       "km": 134,
+       "kind": "ville",
+       "note": "83 m imprimés"
+      },
+      {
+       "label": "Saint-Ghislain",
+       "km": 145.5,
+       "kind": "ville",
+       "note": "25 m imprimés"
+      },
+      {
+       "label": "Grandglise",
+       "km": 156.5,
+       "kind": "ville",
+       "note": "60 m imprimés"
+      },
+      {
+       "label": "Carrefour Barry",
+       "km": 171,
+       "kind": "lieu-dit",
+       "note": "imprimé « CAR. BARRY »"
+      },
+      {
+       "label": "Tournai",
+       "km": 183,
+       "kind": "ville",
+       "note": "20 m imprimés"
+      },
+      {
+       "label": "Chaos",
+       "km": 195,
+       "kind": "lieu-dit",
+       "note": "frontière Belgique/Nord juste après"
+      },
+      {
+       "label": "Roubaix",
+       "km": 200,
+       "kind": "ville",
+       "note": "22 m imprimés ; arrivée"
+      }
+     ]
+    },
+    "3": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1965/65_3.jpg",
+     "towns": [
+      {
+       "label": "Roubaix",
+       "km": 0,
+       "kind": "ville",
+       "note": "24 m imprimés ; départ"
+      },
+      {
+       "label": "Carrefour près Lomme",
+       "km": 20.5,
+       "kind": "lieu-dit",
+       "note": "imprimé « CAR. près LOMME »"
+      },
+      {
+       "label": "Beaucamps-Ligny",
+       "km": 26.5,
+       "kind": "ville",
+       "note": "35 m imprimés"
+      },
+      {
+       "label": "Carrefour N 41-D 4",
+       "km": 30,
+       "kind": "lieu-dit",
+       "note": "33 m imprimés ; imprimé « CAR. N. 41-D. 4 » (peu lisible) ; aucun km propre : colonne sur la graduation 30 (mesuré ≈ 30,4) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1965 comme dans la série 1966-1985 (règle 4 précisée)"
+      },
+      {
+       "label": "La Bassée",
+       "km": 38.5,
+       "kind": "ville",
+       "note": "24 m imprimés ; imprimé « LA BASSEE » ; frontière Nord/Pas-de-Calais au km ≈ 39"
+      },
+      {
+       "label": "Beuvry",
+       "km": 48.5,
+       "kind": "ville"
+      },
+      {
+       "label": "Béthune",
+       "km": 52.5,
+       "kind": "ville",
+       "note": "25 m imprimés ; imprimé « BETHUNE »"
+      },
+      {
+       "label": "Bruay-en-Artois",
+       "km": 62,
+       "kind": "ville",
+       "note": "58 m imprimés"
+      },
+      {
+       "label": "Divion",
+       "km": 65,
+       "kind": "ville",
+       "note": "83 m imprimés"
+      },
+      {
+       "label": "Ourton",
+       "km": 68,
+       "kind": "ville",
+       "note": "96 m imprimés"
+      },
+      {
+       "label": "Diéval",
+       "km": 71,
+       "kind": "ville",
+       "note": "120 m imprimés ; imprimé « DIEVAL »"
+      },
+      {
+       "label": "Carrefour N 41-N 16",
+       "km": 78,
+       "kind": "lieu-dit",
+       "note": "146 m imprimés ; imprimé « CAR. N. 41-N. 16 » ; « 157 m. » (sommet, sans nom) imprimé juste avant"
+      },
+      {
+       "label": "Saint-Pol-sur-Ternoise",
+       "km": 81.5,
+       "kind": "ville",
+       "note": "84 m imprimés ; imprimé « St-POL-s-TERNOISE » ; km peu lisible (81 ou 81,5 ; colonne mesurée ≈ 81,9)"
+      },
+      {
+       "label": "Nuncq",
+       "km": 91,
+       "kind": "ville",
+       "note": "140 m imprimés ; imprimé « NUNCQ »"
+      },
+      {
+       "label": "Frévent",
+       "km": 94.5,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "70 m imprimés ; imprimé « FREVENT » ; aucun km imprimé (mesuré ≈ 94,3) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Carrefour N 41-N 340",
+       "km": 97,
+       "kind": "lieu-dit",
+       "note": "40 m imprimés ; imprimé « CAR. N. 41-N. 340 » ; altitude peu lisible (40 ou 60)"
+      },
+      {
+       "label": "Vacquerie-le-Boucq",
+       "km": 100,
+       "kind": "ville",
+       "note": "129 m imprimés ; imprimé « VACQUERIE-LE-BOUCQ » ; aucun km propre : colonne sur la graduation 100 (mesuré ≈ 100,1) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1965 comme dans la série 1966-1985 (règle 4 précisée)"
+      },
+      {
+       "label": "Auxi-le-Château",
+       "km": 109,
+       "kind": "ville",
+       "note": "32 m imprimés ; imprimé « AUXI-LE-CHATEAU » ; « 137 m. » (sommet, sans nom) avant ; « 74 m. » (sans nom) après, à la frontière Pas-de-Calais/Somme"
+      },
+      {
+       "label": "Saint-Riquier",
+       "km": 126,
+       "kind": "ville",
+       "note": "39 m imprimés ; imprimé « St-RIQUIER » ; « 120 m. » (sans nom) imprimé juste avant"
+      },
+      {
+       "label": "Abbeville",
+       "km": 135,
+       "kind": "ville",
+       "note": "14 m imprimés"
+      },
+      {
+       "label": "Villers-sur-Mareuil",
+       "km": 140,
+       "kind": "ville",
+       "note": "8 m imprimés ; imprimé « VILLERS-s-MAREUIL » ; aucun km propre : colonne sur la graduation 140 (mesuré ≈ 140,3) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1965 comme dans la série 1966-1985 (règle 4 précisée)"
+      },
+      {
+       "label": "Les Croisettes",
+       "km": 143.5,
+       "kind": "lieu-dit",
+       "note": "116 m imprimés"
+      },
+      {
+       "label": "Le Translay",
+       "km": 154,
+       "kind": "ville",
+       "note": "145 m imprimés"
+      },
+      {
+       "label": "Blangy-sur-Bresle",
+       "km": 159,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "50 m imprimés ; imprimé « BLANGY-s-BRESLE » ; aucun km imprimé (mesuré ≈ 159,0) ; frontière Somme/Seine-Maritime sur la même colonne ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Côte du Poteau",
+       "km": 163.5,
+       "kind": "côte",
+       "confidence": "non-place",
+       "note": "4e cat. ; aucun km imprimé (mesuré ≈ 163,5) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Fallencourt",
+       "km": 168,
+       "kind": "ville",
+       "note": "100 m imprimés ; km peu lisible (168 ou 168,5 ; colonne mesurée ≈ 168,2)"
+      },
+      {
+       "label": "Foucarmont",
+       "km": 170,
+       "kind": "ville",
+       "note": "130 m imprimés ; aucun km propre : colonne sur la graduation 170 (mesuré ≈ 170,2) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1965 comme dans la série 1966-1985 (règle 4 précisée)"
+      },
+      {
+       "label": "Vatierville",
+       "km": 178.5,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "220 m imprimés ; aucun km imprimé (mesuré ≈ 178,6) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Neufchâtel-en-Bray",
+       "km": 188.5,
+       "kind": "ville",
+       "note": "100 m imprimés ; imprimé « NEUFCHATEL-EN-BRAY »"
+      },
+      {
+       "label": "Les Hayons",
+       "km": 196.5,
+       "kind": "lieu-dit",
+       "note": "220 m imprimés"
+      },
+      {
+       "label": "La Boissière",
+       "km": 203.5,
+       "kind": "lieu-dit",
+       "note": "imprimé « LA BOISSIERE »"
+      },
+      {
+       "label": "Buchy",
+       "km": 211.5,
+       "kind": "ville",
+       "note": "192 m imprimés"
+      },
+      {
+       "label": "Le Bus",
+       "km": 216.5,
+       "kind": "lieu-dit",
+       "note": "155 m imprimés"
+      },
+      {
+       "label": "Blainville-Crevon",
+       "km": 222.5,
+       "kind": "ville",
+       "note": "100 m imprimés"
+      },
+      {
+       "label": "Forgettes",
+       "km": 229.5,
+       "kind": "lieu-dit",
+       "note": "km peu lisible (lu 229½ ; colonne mesurée ≈ 229,4)"
+      },
+      {
+       "label": "Rouen",
+       "km": 240,
+       "kind": "ville",
+       "note": "40 m imprimés ; arrivée"
+      }
+     ]
+    },
+    "4": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1965/65_4.jpg",
+     "towns": [
+      {
+       "label": "Caen",
+       "km": 0,
+       "kind": "ville",
+       "note": "8 m imprimés ; départ"
+      },
+      {
+       "label": "Verson",
+       "km": 10,
+       "kind": "ville",
+       "note": "42 m imprimés ; aucun km propre : colonne sur la graduation 10 (mesuré ≈ 9,9) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1965 comme dans la série 1966-1985 (règle 4 précisée)"
+      },
+      {
+       "label": "Mondrainville",
+       "km": 14,
+       "kind": "ville",
+       "note": "41 m imprimés"
+      },
+      {
+       "label": "Noyers-Bocage",
+       "km": 19,
+       "kind": "ville",
+       "note": "126 m imprimés ; imprimé « NOYERS-BOCAGE » ; « 210 m. » (sommet, sans nom) après"
+      },
+      {
+       "label": "Villers-Bocage",
+       "km": 26.5,
+       "kind": "ville",
+       "note": "110 m imprimés"
+      },
+      {
+       "label": "Benneville",
+       "km": 34,
+       "kind": "ville",
+       "note": "136 m imprimés ; imprimé « BENNEVILLE » (tel quel) ; « 296 m. » (sommet, sans nom) après"
+      },
+      {
+       "label": "Saint-Martin-des-Besaces",
+       "km": 43,
+       "kind": "ville",
+       "note": "190 m imprimés ; imprimé « St-MARTIN-DES BESACES » ; « 196 m. » et « 228 m. » (sans nom) après"
+      },
+      {
+       "label": "Côte de Pont-Farcy",
+       "km": 60.5,
+       "kind": "côte",
+       "note": "49 m imprimés ; 4e cat. ; imprimé « CÔTE DE PONT FARCY » ; « 168 m. » (sans nom) au km 63 (petit chiffre), frontière Calvados/Manche"
+      },
+      {
+       "label": "Carrefour N 175-D 453",
+       "km": 71,
+       "kind": "lieu-dit",
+       "note": "198 m imprimés ; imprimé « CAR. N. 175 D. 453 »"
+      },
+      {
+       "label": "Villedieu-les-Poêles",
+       "km": 79.5,
+       "kind": "ville",
+       "note": "113 m imprimés ; imprimé « VILLEDIEU-les-POELES » ; « 181 m. » (sans nom) après"
+      },
+      {
+       "label": "Le Parc",
+       "km": 90,
+       "kind": "lieu-dit",
+       "note": "166 m imprimés ; aucun km propre : colonne sur la graduation 90 (mesuré ≈ 90,3) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1965 comme dans la série 1966-1985 (règle 4 précisée)"
+      },
+      {
+       "label": "Les Forges",
+       "km": 95,
+       "kind": "lieu-dit",
+       "note": "115 m imprimés"
+      },
+      {
+       "label": "Avranches",
+       "km": 101.5,
+       "kind": "ville",
+       "note": "13 m imprimés"
+      },
+      {
+       "label": "Guenoy",
+       "km": 103.5,
+       "kind": "lieu-dit",
+       "note": "98 m imprimés ; imprimé « GUENOY » ; altitude peu lisible (98 ou 93)"
+      },
+      {
+       "label": "Pontaubault",
+       "km": 108.5,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "9 m imprimés ; aucun km imprimé (mesuré ≈ 108,7) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Brée",
+       "km": 118.5,
+       "kind": "lieu-dit",
+       "note": "16 m imprimés ; imprimé « BREE »"
+      },
+      {
+       "label": "Pontorson",
+       "km": 123.5,
+       "kind": "ville",
+       "note": "10 m imprimés ; km peu lisible (123½ ou 122½ ; colonne mesurée ≈ 123,6) ; frontière Manche/Ille-et-Vilaine juste après ; « 79 m. » (sans nom) après"
+      },
+      {
+       "label": "Baguer-Pican",
+       "km": 138.5,
+       "kind": "ville",
+       "note": "30 m imprimés"
+      },
+      {
+       "label": "Dol-de-Bretagne",
+       "km": 142.5,
+       "kind": "ville",
+       "note": "16 m imprimés"
+      },
+      {
+       "label": "Le Vieux-Bourg",
+       "km": 155.5,
+       "kind": "lieu-dit",
+       "note": "63 m imprimés ; imprimé « LE VIEUX BOURG » ; frontière Ille-et-Vilaine/Côtes-du-Nord juste après"
+      },
+      {
+       "label": "La Croix-du-Frêne",
+       "km": 162.5,
+       "kind": "lieu-dit",
+       "note": "imprimé « LA CROIX DU FRÊNE »"
+      },
+      {
+       "label": "Dinan",
+       "km": 169.5,
+       "kind": "ville",
+       "note": "75 m imprimés"
+      },
+      {
+       "label": "Côte de Cassepot",
+       "km": 170.5,
+       "kind": "côte",
+       "confidence": "non-place",
+       "note": "4e cat. ; aucun km imprimé (mesuré ≈ 170,7) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Près Vildé-Guingalan",
+       "km": 177.5,
+       "kind": "ville",
+       "note": "91 m imprimés ; imprimé « près VILDE-GUINGALAN » ; « 115 m. » (sommet, sans nom) après"
+      },
+      {
+       "label": "Jugon",
+       "km": 191.5,
+       "kind": "ville",
+       "note": "30 m imprimés"
+      },
+      {
+       "label": "Noyal",
+       "km": 204.5,
+       "kind": "ville",
+       "note": "70 m imprimés"
+      },
+      {
+       "label": "Lamballe",
+       "km": 208.5,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "55 m imprimés ; aucun km imprimé (mesuré ≈ 208,3) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Yffiniac",
+       "km": 220.5,
+       "kind": "ville",
+       "note": "25 m imprimés ; imprimé « YFFINIAC »"
+      },
+      {
+       "label": "Langueux",
+       "km": 224.5,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "104 m imprimés ; aucun km imprimé (mesuré ≈ 224,4) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Saint-Brieuc (Vélodrome)",
+       "km": 227,
+       "kind": "ville",
+       "note": "99 m imprimés ; arrivée ; imprimé « SAINT-BRIEUC (VÉLODROME) »"
+      }
+     ]
+    },
+    "5a": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1965/65_5a.jpg",
+     "towns": [
+      {
+       "label": "Saint-Brieuc",
+       "km": 0,
+       "kind": "ville",
+       "note": "99 m imprimés ; départ"
+      },
+      {
+       "label": "Carrefour N 778-N 790",
+       "km": 9,
+       "kind": "lieu-dit",
+       "note": "imprimé « CAR. N. 778 N. 790 »"
+      },
+      {
+       "label": "Quintin",
+       "km": 17,
+       "kind": "ville"
+      },
+      {
+       "label": "Corlay",
+       "km": 33,
+       "kind": "ville",
+       "note": "220 m imprimés"
+      },
+      {
+       "label": "Saint-Nicolas-du-Pélem",
+       "km": 41.5,
+       "kind": "ville",
+       "note": "imprimé « SAINT-NICOLAS DU PELEM »"
+      },
+      {
+       "label": "Plouvenez-Quintin",
+       "km": 47,
+       "kind": "ville",
+       "note": "imprimé « PLOUVENEZ-QUINTIN » (tel quel)"
+      },
+      {
+       "label": "Rostrenen",
+       "km": 57,
+       "kind": "ville",
+       "note": "236 m imprimés ; imprimé « ROSTRENEN »"
+      },
+      {
+       "label": "Le Moustoir",
+       "km": 72.5,
+       "kind": "ville",
+       "note": "104 m imprimés ; frontière Côtes-du-Nord/Finistère au km ≈ 74"
+      },
+      {
+       "label": "Carhaix-Plouguer",
+       "km": 78,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "140 m imprimés ; aucun km imprimé (mesuré ≈ 77,9) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Pont-Triffen",
+       "km": 91,
+       "kind": "lieu-dit"
+      },
+      {
+       "label": "Châteauneuf-du-Faou",
+       "km": 101,
+       "kind": "ville",
+       "note": "130 m imprimés ; imprimé « CHATEAUNEUF-DU-FAOU »"
+      },
+      {
+       "label": "Ty-Blaise",
+       "km": 108.5,
+       "kind": "lieu-dit"
+      },
+      {
+       "label": "Pleyben",
+       "km": 115,
+       "kind": "ville",
+       "note": "100 m imprimés"
+      },
+      {
+       "label": "Stang ar Garont",
+       "km": 122,
+       "kind": "lieu-dit",
+       "note": "90 m imprimés ; imprimé « STANG AR GARONT »"
+      },
+      {
+       "label": "Châteaulin",
+       "km": 126,
+       "kind": "ville",
+       "note": "6 m imprimés ; imprimé « CHATEAULIN » ; 1er passage"
+      },
+      {
+       "label": "Côte de Stang ar Garont",
+       "km": 129,
+       "kind": "côte",
+       "confidence": "non-place",
+       "note": "4e cat. ; aucun km imprimé (mesuré ≈ 128,9) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Châteaulin",
+       "km": 133,
+       "kind": "ville",
+       "note": "6 m imprimés ; 2e passage"
+      },
+      {
+       "label": "Châteaulin",
+       "km": 140,
+       "kind": "ville",
+       "note": "6 m imprimés ; 3e passage ; aucun km propre : colonne sur la graduation 140 (mesuré ≈ 139,8) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1965 comme dans la série 1966-1985 (règle 4 précisée)"
+      },
+      {
+       "label": "Châteaulin",
+       "km": 147,
+       "kind": "ville",
+       "note": "6 m imprimés ; arrivée ; imprimé « CHATEAULIN »"
+      }
+     ]
+    },
+    "5b": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1965/65_5b.jpg",
+     "towns": [
+      {
+       "label": "Châteaulin",
+       "km": 0,
+       "kind": "ville",
+       "note": "départ ; contre-la-montre ; imprimé « CHATEAULIN »"
+      },
+      {
+       "label": "Stang ar Garont",
+       "km": 3,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "aucun km propre : colonne sur la graduation 3 (mesuré ≈ 2,9) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Pleyben",
+       "km": 11,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "aucun km propre : colonne sur la graduation 11 (mesuré ≈ 11,1) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Ty-Guen",
+       "km": 13.5,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "imprimé « TY-GUEN » ; aucun km imprimé (mesuré ≈ 13,5) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Tachennic",
+       "km": 20.5,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "imprimé « TACHENNIC » ; aucun km imprimé (mesuré ≈ 20,3) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Port-Launay",
+       "km": 24.5,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "aucun km imprimé (mesuré ≈ 24,7) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Châteaulin",
+       "km": 26.7,
+       "kind": "ville",
+       "note": "arrivée ; imprimé « CHÂTEAULIN » ; total imprimé « 26,7 »"
+      }
+     ]
+    },
+    "6": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1965/65_6.jpg",
+     "towns": [
+      {
+       "label": "Quimper",
+       "km": 0,
+       "kind": "ville",
+       "note": "8 m imprimés ; départ"
+      },
+      {
+       "label": "Côte de Quimper",
+       "km": 2.5,
+       "kind": "côte",
+       "note": "4e cat. ; km peu lisible (lu 2½, possible 1½ ; colonne mesurée ≈ 2,3)"
+      },
+      {
+       "label": "Carrefour N 783-D 44",
+       "km": 13.5,
+       "kind": "lieu-dit",
+       "note": "80 m imprimés ; imprimé « CAR. N. 783-D. 44 »"
+      },
+      {
+       "label": "Concarneau",
+       "km": 21.5,
+       "kind": "ville",
+       "note": "15 m imprimés"
+      },
+      {
+       "label": "Trégunc",
+       "km": 28,
+       "kind": "ville",
+       "note": "24 m imprimés ; imprimé « TREGUNC »"
+      },
+      {
+       "label": "Pont-Aven",
+       "km": 36.5,
+       "kind": "ville",
+       "note": "30 m imprimés"
+      },
+      {
+       "label": "Riec-sur-Bélon",
+       "km": 41,
+       "kind": "ville",
+       "note": "48 m imprimés ; imprimé « RIEC-SUR-BELON »"
+      },
+      {
+       "label": "Baye",
+       "km": 48.5,
+       "kind": "ville",
+       "note": "70 m imprimés"
+      },
+      {
+       "label": "Quimperlé",
+       "km": 53.5,
+       "kind": "ville",
+       "note": "25 m imprimés ; imprimé « QUIMPERLE »"
+      },
+      {
+       "label": "Carrefour N 165-D 306",
+       "km": 62.5,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "imprimé « CAR. N. 165 D. 306 » ; aucun km imprimé (mesuré ≈ 62,6) ; frontière Finistère/Morbihan sur la même colonne ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Lorient",
+       "km": 72.5,
+       "kind": "ville",
+       "note": "44 m imprimés"
+      },
+      {
+       "label": "Hennebont",
+       "km": 82.5,
+       "kind": "ville",
+       "note": "29 m imprimés"
+      },
+      {
+       "label": "Brandérion",
+       "km": 89.5,
+       "kind": "ville",
+       "note": "47 m imprimés ; imprimé « BRANDERION »"
+      },
+      {
+       "label": "Landévant",
+       "km": 96,
+       "kind": "ville",
+       "note": "30 m imprimés ; imprimé « LANDEVANT »"
+      },
+      {
+       "label": "Carrefour N 165-D 16",
+       "km": 100,
+       "kind": "lieu-dit",
+       "note": "29 m imprimés ; imprimé « CAR. N. 165-D. 16 » ; aucun km propre : colonne sur la graduation 100 (mesuré ≈ 100,2) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1965 comme dans la série 1966-1985 (règle 4 précisée)"
+      },
+      {
+       "label": "Auray",
+       "km": 110.5,
+       "kind": "ville",
+       "note": "41 m imprimés"
+      },
+      {
+       "label": "Vannes",
+       "km": 128.5,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "29 m imprimés ; aucun km imprimé (mesuré ≈ 128,4) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Theix",
+       "km": 138.5,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "20 m imprimés ; aucun km imprimé (mesuré ≈ 138,4) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Muzillac",
+       "km": 154,
+       "kind": "ville",
+       "note": "26 m imprimés"
+      },
+      {
+       "label": "La Corne du Cerf",
+       "km": 162,
+       "kind": "lieu-dit",
+       "note": "30 m imprimés"
+      },
+      {
+       "label": "La Roche-Bernard",
+       "km": 170.5,
+       "kind": "ville",
+       "note": "19 m imprimés ; frontière Morbihan/Loire-Atlantique juste après"
+      },
+      {
+       "label": "Herbignac",
+       "km": 178.5,
+       "kind": "ville",
+       "note": "16 m imprimés"
+      },
+      {
+       "label": "Pompas",
+       "km": 184,
+       "kind": "lieu-dit",
+       "note": "15 m imprimés"
+      },
+      {
+       "label": "Guérande",
+       "km": 195.5,
+       "kind": "ville",
+       "note": "40 m imprimés ; imprimé « GUERANDE »"
+      },
+      {
+       "label": "Escoublac",
+       "km": 202.5,
+       "kind": "ville",
+       "note": "35 m imprimés"
+      },
+      {
+       "label": "La Baule-Pornichet (Hippodrome)",
+       "km": 211.5,
+       "kind": "ville",
+       "note": "4 m imprimés ; arrivée ; imprimé « LA BAULE-PORNICHET (HIPPODROME) » ; km peu lisible (lu 211½, possible 210½ ; fin d'axe mesurée ≈ 211,6)"
+      }
+     ]
+    },
+    "7": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1965/65_7.jpg",
+     "towns": [
+      {
+       "label": "La Baule-Pornichet",
+       "km": 0,
+       "kind": "ville",
+       "note": "4 m imprimés ; départ ; « 45 m. » (sans nom) vers le km 5"
+      },
+      {
+       "label": "Saint-Nazaire",
+       "km": 11.5,
+       "kind": "ville",
+       "note": "8 m imprimés"
+      },
+      {
+       "label": "Près Montoir-de-Bretagne",
+       "km": 20.5,
+       "kind": "ville",
+       "note": "4 m imprimés ; imprimé « PRÈS MONTOIRE-DE BRETAGNE »"
+      },
+      {
+       "label": "La Tremblais",
+       "km": 32.5,
+       "kind": "lieu-dit",
+       "note": "4 m imprimés"
+      },
+      {
+       "label": "Savenay",
+       "km": 37.5,
+       "kind": "ville",
+       "note": "22 m imprimés"
+      },
+      {
+       "label": "Saint-Étienne-de-Montluc",
+       "km": 53,
+       "kind": "ville",
+       "note": "15 m imprimés ; imprimé « SAINT-ETIENNE DE-MONTLUC »"
+      },
+      {
+       "label": "Nantes",
+       "km": 72,
+       "kind": "ville",
+       "note": "8 m imprimés"
+      },
+      {
+       "label": "Viais",
+       "km": 84,
+       "kind": "lieu-dit",
+       "note": "30 m imprimés"
+      },
+      {
+       "label": "Saint-Philbert-de-Bouaine",
+       "km": 99.5,
+       "kind": "ville",
+       "note": "32 m imprimés ; frontière Loire-Atlantique/Vendée au km ≈ 94 (avant)"
+      },
+      {
+       "label": "Rocheservière",
+       "km": 105,
+       "kind": "ville",
+       "note": "33 m imprimés ; imprimé « ROCHESERVIERE »"
+      },
+      {
+       "label": "Les Lucs-sur-Boulogne",
+       "km": 116,
+       "kind": "ville",
+       "note": "66 m imprimés ; imprimé « LES LUCS-S/-BOULOGNE »"
+      },
+      {
+       "label": "Belleville-sur-Vie",
+       "km": 124,
+       "kind": "ville",
+       "note": "70 m imprimés"
+      },
+      {
+       "label": "La Roche-sur-Yon",
+       "km": 137,
+       "kind": "ville",
+       "note": "72 m imprimés"
+      },
+      {
+       "label": "Saint-Florent-des-Bois",
+       "km": 149,
+       "kind": "ville",
+       "note": "50 m imprimés"
+      },
+      {
+       "label": "Mareuil-sur-Lay",
+       "km": 159,
+       "kind": "ville",
+       "note": "12 m imprimés"
+      },
+      {
+       "label": "Luçon",
+       "km": 169,
+       "kind": "ville",
+       "note": "5 m imprimés"
+      },
+      {
+       "label": "Pétré",
+       "km": 176,
+       "kind": "lieu-dit",
+       "note": "imprimé « PETRE »"
+      },
+      {
+       "label": "Chaillé-les-Marais",
+       "km": 186,
+       "kind": "ville",
+       "note": "19 m imprimés ; imprimé « CHAILLE-LES-MARAIS »"
+      },
+      {
+       "label": "Marans",
+       "km": 197,
+       "kind": "ville",
+       "note": "7 m imprimés ; frontière Vendée/Charente-Maritime juste avant"
+      },
+      {
+       "label": "Sérigny",
+       "km": 202,
+       "kind": "lieu-dit",
+       "note": "6 m imprimés ; imprimé « SERIGNY » ; km peu lisible (202, fraction possible ; colonne mesurée ≈ 202,8)"
+      },
+      {
+       "label": "Saint-Xandre",
+       "km": 212,
+       "kind": "ville",
+       "note": "km peu lisible (212 ; colonne mesurée ≈ 212,4)"
+      },
+      {
+       "label": "La Rochelle (Vélodrome)",
+       "km": 219,
+       "kind": "ville",
+       "note": "4 m imprimés ; arrivée ; imprimé « LA ROCHELLE (VÉLODROME) »"
+      }
+     ]
+    },
+    "8": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1965/65_8.jpg",
+     "towns": [
+      {
+       "label": "La Rochelle",
+       "km": 0,
+       "kind": "ville",
+       "note": "4 m imprimés ; départ"
+      },
+      {
+       "label": "Carrefour N 137-D 110",
+       "km": 14.5,
+       "kind": "lieu-dit",
+       "note": "14 m imprimés ; imprimé « CAR. N. 137-D. 110 »"
+      },
+      {
+       "label": "Carrefour N 137-N 137 C",
+       "km": 20.5,
+       "kind": "lieu-dit",
+       "note": "9 m imprimés ; imprimé « CAR. N. 137-N.137 C »"
+      },
+      {
+       "label": "Rochefort",
+       "km": 29,
+       "kind": "ville",
+       "note": "5 m imprimés ; km imprimé « 29' » (signe après le chiffre illisible), mesuré ≈ 29,0"
+      },
+      {
+       "label": "Près Thonnay-Charente",
+       "km": 34.5,
+       "kind": "ville",
+       "note": "4 m imprimés ; imprimé « 4 m. près THONNAY-CHARENTE »"
+      },
+      {
+       "label": "Carrefour N 137-N 739",
+       "km": 37.5,
+       "kind": "lieu-dit",
+       "note": "21 m imprimés ; imprimé « CAR. N.137 N. 739 »"
+      },
+      {
+       "label": "Beurlay",
+       "km": 49,
+       "kind": "ville",
+       "note": "15 m imprimés"
+      },
+      {
+       "label": "Saint-Porchaire",
+       "km": 54.5,
+       "kind": "ville",
+       "note": "15 m imprimés ; mesuré ≈ 54,8"
+      },
+      {
+       "label": "Saintes",
+       "km": 68.5,
+       "kind": "ville",
+       "note": "27 m imprimés"
+      },
+      {
+       "label": "Carrefour N 137-D 6",
+       "km": 72,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "imprimé « CAR. N. 137-D. 6 » ; aucun km imprimé (mesuré ≈ 72,0) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "La Jard",
+       "km": 79.5,
+       "kind": "ville",
+       "note": "35 m imprimés"
+      },
+      {
+       "label": "Pons",
+       "km": 89.5,
+       "kind": "ville",
+       "note": "5 m imprimés ; altitude peu lisible (« 5 m. », un trait avant le 5)"
+      },
+      {
+       "label": "Avy",
+       "km": 95,
+       "kind": "ville",
+       "note": "22 m imprimés"
+      },
+      {
+       "label": "Marignac",
+       "km": 99.5,
+       "kind": "ville",
+       "note": "50 m imprimés"
+      },
+      {
+       "label": "Jonzac",
+       "km": 109,
+       "kind": "ville",
+       "note": "40 m imprimés"
+      },
+      {
+       "label": "Villexavier",
+       "km": 119,
+       "kind": "ville",
+       "note": "60 m imprimés"
+      },
+      {
+       "label": "Chartuzac",
+       "km": 123,
+       "kind": "ville",
+       "note": "100 m imprimés"
+      },
+      {
+       "label": "Montendre",
+       "km": 129,
+       "kind": "ville",
+       "note": "60 m imprimés"
+      },
+      {
+       "label": "Carrefour D 145-D 136",
+       "km": 134.5,
+       "kind": "lieu-dit",
+       "note": "imprimé « CAR. D. 145-D. 136 »"
+      },
+      {
+       "label": "Saint-Savin-de-Blaye",
+       "km": 147,
+       "kind": "ville",
+       "note": "33 m imprimés ; imprimé « St-SAVIN-DE-BLAYE »"
+      },
+      {
+       "label": "Pugnac",
+       "km": 155.5,
+       "kind": "ville",
+       "note": "21 m imprimés"
+      },
+      {
+       "label": "Saint-André-de-Cubzac",
+       "km": 166,
+       "kind": "ville",
+       "note": "30 m imprimés ; imprimé « St-ANDRE-DE-CUBZAC »"
+      },
+      {
+       "label": "Saint-Vincent-de-Paul",
+       "km": 171,
+       "kind": "ville",
+       "note": "14 m imprimés ; imprimé « St-VINCENT-DE-PAUL »"
+      },
+      {
+       "label": "Carbon-Blanc",
+       "km": 179,
+       "kind": "ville",
+       "note": "8 m imprimés ; imprimé « CARBON BLANC »"
+      },
+      {
+       "label": "Floirac",
+       "km": 187.5,
+       "kind": "ville"
+      },
+      {
+       "label": "Bordeaux (Vélodrome)",
+       "km": 197.5,
+       "kind": "ville",
+       "note": "5 m imprimés ; arrivée ; imprimé « BORDEAUX (VELODROME) »"
+      }
+     ]
+    },
+    "9": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1965/65_9.jpg",
+     "towns": [
+      {
+       "label": "Dax",
+       "km": 0,
+       "kind": "ville",
+       "note": "20 m imprimés ; départ"
+      },
+      {
+       "label": "Carrefour N 647-D 15",
+       "km": 10.5,
+       "kind": "lieu-dit",
+       "note": "imprimé « CAR. N.647-D.15 » (647 peu lisible, 447 possible)"
+      },
+      {
+       "label": "Thil",
+       "km": 24.5,
+       "kind": "ville",
+       "note": "131 m imprimés"
+      },
+      {
+       "label": "Cousté",
+       "km": 30.5,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "imprimé « COUSTE » ; au sommet d'une bosse ; aucun km imprimé (mesuré ≈ 30,7) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Orthez",
+       "km": 37.5,
+       "kind": "ville",
+       "note": "63 m imprimés"
+      },
+      {
+       "label": "Laà-Mondrans",
+       "km": 42,
+       "kind": "ville",
+       "note": "imprimé « LAA-MONDRANS »"
+      },
+      {
+       "label": "Bastanes",
+       "km": 56.5,
+       "kind": "ville",
+       "note": "imprimé « BASTANES »"
+      },
+      {
+       "label": "Carrefour N 636-D 25",
+       "km": 69,
+       "kind": "lieu-dit",
+       "note": "imprimé « CAR. N. 636-D.25 »"
+      },
+      {
+       "label": "Oloron-Sainte-Marie",
+       "km": 81.5,
+       "kind": "ville",
+       "note": "221 m imprimés ; imprimé « OLORON-Ste-MARIE » ; km peu lisible (81½ ?), mesuré ≈ 81,8"
+      },
+      {
+       "label": "Herere-de-Bas",
+       "km": 88.5,
+       "kind": "ville",
+       "note": "394 m imprimés ; imprimé « HERERE-DE-BAS »"
+      },
+      {
+       "label": "Ogeu-les-Bains",
+       "km": 92.5,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "330 m imprimés ; imprimé « OGEU-LES-BAINS » ; aucun km imprimé (mesuré ≈ 92,4) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Buzy",
+       "km": 96,
+       "kind": "ville",
+       "note": "380 m imprimés"
+      },
+      {
+       "label": "Carrefour N 618-N 134 bis",
+       "km": 102.5,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "498 m imprimés ; imprimé « 498 m. CAR. N. 618-N.134 bis » (sur deux lignes) ; aucun km imprimé (mesuré ≈ 102,6) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Bielle",
+       "km": 106,
+       "kind": "ville",
+       "note": "432 m imprimés"
+      },
+      {
+       "label": "Laruns",
+       "km": 113.5,
+       "kind": "ville",
+       "note": "525 m imprimés"
+      },
+      {
+       "label": "Eaux-Bonnes",
+       "km": 119,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "733 m imprimés ; aucun km imprimé (mesuré ≈ 119,2) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Col d'Aubisque",
+       "km": 131,
+       "kind": "col",
+       "note": "1710 m imprimés ; 1re cat. ; imprimé « 1.710 m. COL D'AUBISQUE »"
+      },
+      {
+       "label": "Col du Soulor",
+       "km": 141.5,
+       "kind": "col",
+       "note": "1445 m imprimés ; imprimé « 1.445 m. COL DE SOULOR »"
+      },
+      {
+       "label": "Arrens",
+       "km": 150,
+       "kind": "ville",
+       "note": "877 m imprimés ; aucun km propre : colonne sur la graduation 150 (mesuré ≈ 149,6) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1965 comme dans la série 1966-1985 (règle 4 précisée)"
+      },
+      {
+       "label": "Aucun",
+       "km": 152.5,
+       "kind": "ville",
+       "note": "863 m imprimés ; imprimé « 863-AUCUN »"
+      },
+      {
+       "label": "Arras-en-Lavedan",
+       "km": 158.5,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "676 m imprimés ; aucun km imprimé (mesuré ≈ 158,7) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Argelès-Gazost",
+       "km": 161.5,
+       "kind": "ville",
+       "note": "462 m imprimés ; imprimé « ARGELES-GAZOST »"
+      },
+      {
+       "label": "Pierrefitte-Nestalas",
+       "km": 168,
+       "kind": "ville",
+       "note": "490 m imprimés"
+      },
+      {
+       "label": "Luz-Saint-Sauveur",
+       "km": 179.5,
+       "kind": "ville",
+       "note": "711 m imprimés"
+      },
+      {
+       "label": "Barèges",
+       "km": 187,
+       "kind": "ville",
+       "note": "1238 m imprimés ; imprimé « 1.238 m. BAREGES »"
+      },
+      {
+       "label": "Col du Tourmalet",
+       "km": 198,
+       "kind": "col",
+       "note": "2113 m imprimés ; 1re cat. ; altitude peu lisible (2113 ou 2115)"
+      },
+      {
+       "label": "Gripp",
+       "km": 210,
+       "kind": "lieu-dit",
+       "note": "1004 m imprimés ; aucun km propre : colonne sur la graduation 210 (mesuré ≈ 210,3) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1965 comme dans la série 1966-1985 (règle 4 précisée)"
+      },
+      {
+       "label": "Sainte-Marie-de-Campan",
+       "km": 214.5,
+       "kind": "ville",
+       "note": "851 m imprimés ; imprimé « Ste-MARIE-DE-CAMPAN »"
+      },
+      {
+       "label": "Campan",
+       "km": 221,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "640 m imprimés ; aucun km imprimé (mesuré ≈ 221,1) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Bagnères-de-Bigorre",
+       "km": 225.5,
+       "kind": "ville",
+       "note": "551 m imprimés ; arrivée ; imprimé « BAGNERES-DE-BIGORRE »"
+      }
+     ]
+    },
+    "10": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1965/65_10.jpg",
+     "towns": [
+      {
+       "label": "Bagnères-de-Bigorre",
+       "km": 0,
+       "kind": "ville",
+       "note": "558 m imprimés ; départ ; altitude imprimée 558 (551 à l'arrivée de l'étape 9)"
+      },
+      {
+       "label": "Bosse du Maillan",
+       "km": 6.5,
+       "kind": "côte",
+       "note": "721 m imprimés ; imprimé « 721 m. BOSSE DU MAILLAN »"
+      },
+      {
+       "label": "Mauvezin",
+       "km": 16,
+       "kind": "ville",
+       "note": "560 m imprimés ; imprimé « MAUVEZIN »"
+      },
+      {
+       "label": "Capvern",
+       "km": 20,
+       "kind": "ville",
+       "note": "617 m imprimés ; aucun km propre : colonne sur la graduation 20 (mesuré ≈ 19,9) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1965 comme dans la série 1966-1985 (règle 4 précisée)"
+      },
+      {
+       "label": "Pinas",
+       "km": 32.5,
+       "kind": "ville",
+       "note": "600 m imprimés"
+      },
+      {
+       "label": "Montréjeau",
+       "km": 43.5,
+       "kind": "ville",
+       "note": "535 m imprimés ; imprimé « MONTREJEAU »"
+      },
+      {
+       "label": "Près Villeneuve-de-Rivière",
+       "km": 52,
+       "kind": "ville",
+       "note": "485 m imprimés ; imprimé « Près VILLENEUVE-DE-RIVIERE »"
+      },
+      {
+       "label": "Saint-Gaudens",
+       "km": 57.5,
+       "kind": "ville",
+       "note": "495 m imprimés ; imprimé « St-GAUDENS »"
+      },
+      {
+       "label": "Lespiteau",
+       "km": 65.5,
+       "kind": "ville",
+       "note": "353 m imprimés"
+      },
+      {
+       "label": "Aspet",
+       "km": 72.5,
+       "kind": "ville",
+       "note": "459 m imprimés"
+      },
+      {
+       "label": "Carrefour D 5-N 618",
+       "km": 77.5,
+       "kind": "lieu-dit",
+       "note": "528 m imprimés ; imprimé « 528 m. CAR. D. 5-N. 618 »"
+      },
+      {
+       "label": "Col du Portet-d'Aspet",
+       "km": 87.5,
+       "kind": "col",
+       "note": "1070 m imprimés ; 2e cat. ; imprimé « 1.070 m. COL DU PORTET D'ASPET »"
+      },
+      {
+       "label": "Saint-Lary",
+       "km": 93,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "690 m imprimés ; imprimé « St-LARY » ; aucun km imprimé (mesuré ≈ 93,2) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Aucazein",
+       "km": 100,
+       "kind": "ville",
+       "note": "550 m imprimés ; aucun km propre : colonne sur la graduation 100 (mesuré ≈ 99,7) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1965 comme dans la série 1966-1985 (règle 4 précisée)"
+      },
+      {
+       "label": "Engomer",
+       "km": 108.5,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "440 m imprimés ; imprimé « 440-ENGOMER » ; aucun km imprimé (mesuré ≈ 108,6) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Saint-Girons",
+       "km": 117.5,
+       "kind": "ville",
+       "note": "390 m imprimés ; imprimé « St-GIRONS »"
+      },
+      {
+       "label": "Etcheil",
+       "km": 120,
+       "kind": "ville",
+       "note": "403 m imprimés ; imprimé « ETCHEIL » ; aucun km propre : colonne sur la graduation 120 (mesuré ≈ 120,0) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1965 comme dans la série 1966-1985 (règle 4 précisée)"
+      },
+      {
+       "label": "Castet-d'Aleu",
+       "km": 134,
+       "kind": "ville",
+       "note": "500 m imprimés ; imprimé « CASTET D'ALEU » ; km peu lisible (134 ou 136), mesuré ≈ 134,0"
+      },
+      {
+       "label": "Biert",
+       "km": 142,
+       "kind": "ville",
+       "note": "606 m imprimés ; km peu lisible, mesuré ≈ 142,0"
+      },
+      {
+       "label": "Col des Caougnous",
+       "km": 151,
+       "kind": "col",
+       "note": "960 m imprimés ; km peu lisible, mesuré ≈ 150,9"
+      },
+      {
+       "label": "Col de Port",
+       "km": 157.5,
+       "kind": "col",
+       "note": "1249 m imprimés ; 3e cat. ; imprimé « 1.249 m. COL DE PORT »"
+      },
+      {
+       "label": "Saurat",
+       "km": 168.5,
+       "kind": "ville",
+       "note": "678 m imprimés"
+      },
+      {
+       "label": "Tarascon-sur-Ariège",
+       "km": 175.5,
+       "kind": "ville",
+       "note": "487 m imprimés ; imprimé « TARASCON- s-ARIEGE »"
+      },
+      {
+       "label": "Ussat-les-Bains",
+       "km": 179,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "483 m imprimés ; aucun km imprimé (mesuré ≈ 179,1) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Les Cabannes",
+       "km": 186,
+       "kind": "ville",
+       "note": "540 m imprimés"
+      },
+      {
+       "label": "Luzenac",
+       "km": 193,
+       "kind": "ville",
+       "note": "598 m imprimés ; km peu lisible (192 ou 193), mesuré ≈ 192,8-193,0"
+      },
+      {
+       "label": "Caussou",
+       "km": 198.5,
+       "kind": "ville",
+       "note": "865 m imprimés"
+      },
+      {
+       "label": "Col de Marmare-Chioula",
+       "km": 212.5,
+       "kind": "col",
+       "note": "1449 m imprimés ; 2e cat. ; imprimé « 1.449 m. COL DE MARMARE-CHIOULA »"
+      },
+      {
+       "label": "Ax-les-Thermes",
+       "km": 222.5,
+       "kind": "ville",
+       "note": "718 m imprimés ; arrivée"
+      }
+     ]
+    },
+    "11": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1965/65_11.jpg",
+     "towns": [
+      {
+       "label": "Ax-les-Thermes",
+       "km": 0,
+       "kind": "ville",
+       "note": "718 m imprimés ; départ"
+      },
+      {
+       "label": "L'Hospitalet",
+       "km": 17,
+       "kind": "ville",
+       "note": "1436 m imprimés ; imprimé « L'HOSPITALET »"
+      },
+      {
+       "label": "Col de Puymorens",
+       "km": 27,
+       "kind": "col",
+       "note": "1915 m imprimés ; 2e cat. ; imprimé « 1915 m. COL DE PUYMORENS »"
+      },
+      {
+       "label": "Latour-de-Carol",
+       "km": 45.5,
+       "kind": "ville",
+       "note": "1271 m imprimés ; imprimé « LATOUR DE CAROL »"
+      },
+      {
+       "label": "Enveitg",
+       "km": 47,
+       "kind": "ville",
+       "note": "1287 m imprimés ; imprimé « ENVEIGT »"
+      },
+      {
+       "label": "Ur",
+       "km": 50,
+       "kind": "ville",
+       "note": "1193 m imprimés ; aucun km propre : colonne sur la graduation 50 (mesuré ≈ 50,1) ; altitude peu lisible (« …93 m. », 1er chiffre effacé) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1965 comme dans la série 1966-1985 (règle 4 précisée)"
+      },
+      {
+       "label": "Bourg-Madame",
+       "km": 53.5,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "1138 m imprimés ; imprimé « BOURG MADAME » ; frontière ; aucun km imprimé (mesuré ≈ 53,3-54,1, colonne au trait de frontière) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Près Puigcerda",
+       "km": 56.5,
+       "kind": "ville",
+       "note": "1220 m imprimés ; imprimé « PRÈS PUIGCERDA » ; km peu lisible (56½), mesuré ≈ 56,6"
+      },
+      {
+       "label": "Près Urtg",
+       "km": 60.5,
+       "kind": "ville",
+       "note": "1260 m imprimés ; imprimé « PRÈS URTG »"
+      },
+      {
+       "label": "Col de Tosas",
+       "km": 80.5,
+       "kind": "col",
+       "note": "1865 m imprimés ; 1re cat. ; imprimé « 1865 m. COL DE TOSAS »"
+      },
+      {
+       "label": "Planolas",
+       "km": 99.5,
+       "kind": "ville",
+       "note": "1330 m imprimés"
+      },
+      {
+       "label": "Ribas de Fresser",
+       "km": 105.5,
+       "kind": "ville",
+       "note": "920 m imprimés ; imprimé « RIBAS DE FRESSER » ; km peu lisible (105½), mesuré ≈ 106,0"
+      },
+      {
+       "label": "Ripoll",
+       "km": 119.5,
+       "kind": "ville",
+       "note": "705 m imprimés"
+      },
+      {
+       "label": "Vich",
+       "km": 157.5,
+       "kind": "ville",
+       "note": "498 m imprimés"
+      },
+      {
+       "label": "Tona",
+       "km": 167.5,
+       "kind": "ville",
+       "note": "547 m imprimés"
+      },
+      {
+       "label": "Ayguafreda",
+       "km": 176.5,
+       "kind": "ville",
+       "note": "400 m imprimés ; km peu lisible (176½ ou 178½), tranché à l'échelle (mesuré ≈ 176,3)"
+      },
+      {
+       "label": "Figaro",
+       "km": 183,
+       "kind": "ville"
+      },
+      {
+       "label": "La Garriga",
+       "km": 188.5,
+       "kind": "ville",
+       "note": "207 m imprimés ; mesuré ≈ 188,7"
+      },
+      {
+       "label": "Mollet",
+       "km": 206.5,
+       "kind": "ville",
+       "note": "100 m imprimés ; km peu lisible (206½ ou 208½), tranché à l'échelle (mesuré ≈ 206,8)"
+      },
+      {
+       "label": "La Llagosta",
+       "km": 211,
+       "kind": "ville",
+       "note": "75 m imprimés"
+      },
+      {
+       "label": "Barcelone",
+       "km": 230,
+       "kind": "ville",
+       "note": "33 m imprimés ; 1er passage ; aucun km propre : colonne sur la graduation 230 (mesuré ≈ 229,8) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1965 comme dans la série 1966-1985 (règle 4 précisée)"
+      },
+      {
+       "label": "Barcelone",
+       "km": 240.5,
+       "kind": "ville",
+       "note": "33 m imprimés ; arrivée ; 2e passage"
+      }
+     ]
+    },
+    "12": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1965/65_12.jpg",
+     "towns": [
+      {
+       "label": "Badalona",
+       "km": 0,
+       "kind": "ville",
+       "note": "30 m imprimés ; départ ; titre « BARCELONE » à gauche, la courbe commence à la colonne de « 30 m. BADALONA » (mesuré ≈ 0,4)"
+      },
+      {
+       "label": "Premiá de Mar",
+       "km": 11,
+       "kind": "ville",
+       "note": "20 m imprimés ; imprimé « PREMIA DE MAR » ; mesuré ≈ 10,6"
+      },
+      {
+       "label": "Mataró",
+       "km": 20,
+       "kind": "ville",
+       "note": "30 m imprimés ; imprimé « MATARO » ; aucun km propre : colonne sur la graduation 20 (mesuré ≈ 19,8) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1965 comme dans la série 1966-1985 (règle 4 précisée)"
+      },
+      {
+       "label": "Arenys de Mar",
+       "km": 30,
+       "kind": "ville",
+       "note": "20 m imprimés ; imprimé « ARENYS-DE-MAR » ; aucun km propre : colonne sur la graduation 30 (mesuré ≈ 29,7) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1965 comme dans la série 1966-1985 (règle 4 précisée)"
+      },
+      {
+       "label": "Saint-Pol-de-Mar",
+       "km": 37,
+       "kind": "ville",
+       "note": "30 m imprimés ; imprimé « SAINT-POL-DE-MAR »"
+      },
+      {
+       "label": "Calella",
+       "km": 41.5,
+       "kind": "ville",
+       "note": "15 m imprimés ; km peu lisible (40½ ou 41½), tranché à l'échelle (mesuré ≈ 41,9)"
+      },
+      {
+       "label": "Près Tordera",
+       "km": 56,
+       "kind": "ville",
+       "note": "155 m imprimés ; imprimé « 155 m. près TORDERA » (sur deux lignes)"
+      },
+      {
+       "label": "Près Sils",
+       "km": 69,
+       "kind": "ville",
+       "note": "imprimé « près SILS »"
+      },
+      {
+       "label": "Gérone",
+       "km": 89.5,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "73 m imprimés ; imprimé « GERONE » ; aucun km imprimé (mesuré ≈ 89,4) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Orriols",
+       "km": 111,
+       "kind": "ville",
+       "note": "imprimé « ORRIOLS » ; km peu lisible (111 ou 111½), mesuré ≈ 110,5-111,1"
+      },
+      {
+       "label": "Figueras",
+       "km": 128,
+       "kind": "ville",
+       "note": "30 m imprimés ; imprimé « FIGUERAS »"
+      },
+      {
+       "label": "Garriguella",
+       "km": 140,
+       "kind": "ville",
+       "note": "imprimé « GARRIGUELLA » ; aucun km propre : colonne sur la graduation 140 (mesuré ≈ 140,0) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1965 comme dans la série 1966-1985 (règle 4 précisée)"
+      },
+      {
+       "label": "Llansa",
+       "km": 152,
+       "kind": "ville",
+       "note": "imprimé « LLANSA »"
+      },
+      {
+       "label": "Port-Bou",
+       "km": 166,
+       "kind": "ville",
+       "note": "imprimé « PORT-BOU »"
+      },
+      {
+       "label": "Col des Balitres",
+       "km": 168.5,
+       "kind": "col",
+       "confidence": "non-place",
+       "note": "3e cat. ; frontière ; aucun km imprimé (mesuré ≈ 168,7) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Cerbère",
+       "km": 173,
+       "kind": "ville",
+       "note": "4 m imprimés ; imprimé « CERBERE » ; mesuré ≈ 172,3"
+      },
+      {
+       "label": "Banyuls-sur-Mer",
+       "km": 183,
+       "kind": "ville",
+       "note": "3 m imprimés ; imprimé « BANYULS-sur-MER »"
+      },
+      {
+       "label": "Port-Vendres",
+       "km": 189,
+       "kind": "ville",
+       "note": "3 m imprimés ; mesuré ≈ 188,6"
+      },
+      {
+       "label": "Argelès-sur-Mer",
+       "km": 199,
+       "kind": "ville",
+       "note": "15 m imprimés ; imprimé « ARGELES-sur-MER » ; km peu lisible (197 ou 199), mesuré ≈ 198,8"
+      },
+      {
+       "label": "Elne",
+       "km": 206,
+       "kind": "ville"
+      },
+      {
+       "label": "Perpignan",
+       "km": 219,
+       "kind": "ville",
+       "note": "30 m imprimés ; arrivée"
+      }
+     ]
+    },
+    "13": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1965/65_13.jpg",
+     "towns": [
+      {
+       "label": "Perpignan (Le Vernet)",
+       "km": 0,
+       "kind": "ville",
+       "note": "27 m imprimés ; départ ; imprimé « PERPIGNAN (LE VERNET) »"
+      },
+      {
+       "label": "Salses",
+       "km": 11.5,
+       "kind": "ville",
+       "note": "4 m imprimés"
+      },
+      {
+       "label": "Les Cabanes-de-Fitou",
+       "km": 21.5,
+       "kind": "lieu-dit",
+       "note": "5 m imprimés ; imprimé « LES CABANES-DE-FITOU »"
+      },
+      {
+       "label": "Les Cabanes-de-Lapalme",
+       "km": 28.5,
+       "kind": "lieu-dit",
+       "note": "13 m imprimés ; imprimé « 13 m. LES CABANES-DE-LAPALME » (sur deux lignes)"
+      },
+      {
+       "label": "Sigean",
+       "km": 36.5,
+       "kind": "ville",
+       "note": "35 m imprimés"
+      },
+      {
+       "label": "Près Peyriac-de-Mer",
+       "km": 45.5,
+       "kind": "ville",
+       "note": "imprimé « près PEYRIAC-DE-MER »"
+      },
+      {
+       "label": "Narbonne",
+       "km": 57.5,
+       "kind": "ville",
+       "note": "9 m imprimés"
+      },
+      {
+       "label": "Nissan",
+       "km": 73.5,
+       "kind": "ville",
+       "note": "21 m imprimés"
+      },
+      {
+       "label": "Béziers",
+       "km": 84.5,
+       "kind": "ville",
+       "note": "9.5 m imprimés ; imprimé « 9,5 m. BEZIERS »"
+      },
+      {
+       "label": "Près Villeneuve",
+       "km": 90.5,
+       "kind": "ville",
+       "note": "imprimé « près VILLENEUVE »"
+      },
+      {
+       "label": "Agde",
+       "km": 106.5,
+       "kind": "ville",
+       "note": "7 m imprimés"
+      },
+      {
+       "label": "Sète",
+       "km": 129.5,
+       "kind": "ville",
+       "note": "4 m imprimés ; imprimé « SETE »"
+      },
+      {
+       "label": "Frontignan",
+       "km": 136.5,
+       "kind": "ville",
+       "note": "4 m imprimés"
+      },
+      {
+       "label": "Mireval",
+       "km": 144.5,
+       "kind": "ville"
+      },
+      {
+       "label": "Villeneuve-lès-Maguelone",
+       "km": 153,
+       "kind": "ville",
+       "note": "42 m imprimés ; imprimé « VILLENEUVE-LES-MAGUELONNE »"
+      },
+      {
+       "label": "Montpellier",
+       "km": 164,
+       "kind": "ville",
+       "note": "50 m imprimés ; arrivée ; km imprimé « 164' » (signe après le chiffre illisible)"
+      }
+     ]
+    },
+    "14": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1965/65_14.jpg",
+     "towns": [
+      {
+       "label": "Montpellier",
+       "km": 0,
+       "kind": "ville",
+       "note": "32 m imprimés ; départ"
+      },
+      {
+       "label": "Près Vendargues",
+       "km": 8.5,
+       "kind": "ville",
+       "note": "36 m imprimés ; imprimé « près VENDARGUES »"
+      },
+      {
+       "label": "Castries",
+       "km": 11.5,
+       "kind": "ville",
+       "note": "50 m imprimés"
+      },
+      {
+       "label": "Sommières",
+       "km": 26.5,
+       "kind": "ville",
+       "note": "33 m imprimés ; imprimé « SOMMIERES »"
+      },
+      {
+       "label": "Calvisson",
+       "km": 36.5,
+       "kind": "ville",
+       "note": "52 m imprimés"
+      },
+      {
+       "label": "Nîmes",
+       "km": 54,
+       "kind": "ville",
+       "note": "43 m imprimés ; imprimé « NIMES »"
+      },
+      {
+       "label": "Les Barraques-de-Curboussel",
+       "km": 65,
+       "kind": "lieu-dit",
+       "note": "imprimé « LES BARRAQUES- DE CURBOUSSEL »"
+      },
+      {
+       "label": "Montfrin",
+       "km": 78,
+       "kind": "ville",
+       "note": "13 m imprimés"
+      },
+      {
+       "label": "Carrefour D 108-N 100-N 576",
+       "km": 89.5,
+       "kind": "lieu-dit",
+       "note": "155 m imprimés ; imprimé « 155 m. CAR. D.108- N.100-N.576 »"
+      },
+      {
+       "label": "Rochefort-du-Gard",
+       "km": 93.5,
+       "kind": "ville",
+       "note": "90 m imprimés ; mesuré ≈ 93,8"
+      },
+      {
+       "label": "Roquemaure",
+       "km": 105.5,
+       "kind": "ville",
+       "note": "24 m imprimés"
+      },
+      {
+       "label": "Carrefour N 575-D 17",
+       "km": 109.5,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "28 m imprimés ; imprimé « 28 m. CAR. N. 575-D.17 » ; limite Gard/Vaucluse ; aucun km imprimé (mesuré ≈ 109,3) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Châteauneuf-du-Pape",
+       "km": 115,
+       "kind": "ville",
+       "note": "117 m imprimés ; imprimé « CHATEAUNEUF-DU-PAPE »"
+      },
+      {
+       "label": "Bédarrides",
+       "km": 123,
+       "kind": "ville",
+       "note": "28 m imprimés ; imprimé « BEDARRIDES »"
+      },
+      {
+       "label": "Carrefour D 16-D 87",
+       "km": 125,
+       "kind": "lieu-dit",
+       "note": "27 m imprimés ; imprimé « CAR. D.16-D.87 » ; km imprimé en petit dans la rangée des graduations, peu lisible (125 ou 125½), mesuré ≈ 125,2"
+      },
+      {
+       "label": "Monteux",
+       "km": 132.5,
+       "kind": "ville",
+       "note": "42 m imprimés"
+      },
+      {
+       "label": "Carpentras",
+       "km": 137,
+       "kind": "ville",
+       "note": "95 m imprimés"
+      },
+      {
+       "label": "Bédoin",
+       "km": 152,
+       "kind": "ville",
+       "note": "296 m imprimés ; imprimé « BEDOIN » ; mesuré ≈ 151,7"
+      },
+      {
+       "label": "Pavillon Forestier",
+       "km": 159.5,
+       "kind": "lieu-dit",
+       "note": "imprimé « PAVILLON FORESTIER »"
+      },
+      {
+       "label": "Mont Ventoux",
+       "km": 173,
+       "kind": "col",
+       "note": "1895 m imprimés ; arrivée ; 1re cat. ; imprimé « 1.895 m. MONT-VENTOUX (CARPENTRAS) »"
+      }
+     ]
+    },
+    "15": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1965/65_15.jpg",
+     "towns": [
+      {
+       "label": "Carpentras",
+       "km": 0,
+       "kind": "ville",
+       "note": "100 m imprimés ; départ"
+      },
+      {
+       "label": "Aubignan",
+       "km": 4.5,
+       "kind": "ville",
+       "note": "71 m imprimés"
+      },
+      {
+       "label": "Vacqueyras",
+       "km": 10,
+       "kind": "ville",
+       "note": "117 m imprimés ; aucun km propre : colonne sur la graduation 10 (mesuré ≈ 9,8) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1965 comme dans la série 1966-1985 (règle 4 précisée)"
+      },
+      {
+       "label": "Sablet",
+       "km": 17.5,
+       "kind": "ville",
+       "note": "160 m imprimés"
+      },
+      {
+       "label": "Vaison-la-Romaine",
+       "km": 29,
+       "kind": "ville",
+       "note": "195 m imprimés ; km imprimé « 29' » (signe après le chiffre illisible), mesuré ≈ 29,1"
+      },
+      {
+       "label": "Entrechaux",
+       "km": 35.5,
+       "kind": "ville",
+       "note": "270 m imprimés"
+      },
+      {
+       "label": "Mollans",
+       "km": 41,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "283 m imprimés ; aucun km imprimé (mesuré ≈ 41,2) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Pierrelongue",
+       "km": 44,
+       "kind": "ville",
+       "note": "306 m imprimés"
+      },
+      {
+       "label": "Le Buis-les-Baronnies",
+       "km": 51,
+       "kind": "ville",
+       "note": "370 m imprimés ; imprimé « LE BUIS-LES-BARONNIES »"
+      },
+      {
+       "label": "Sainte-Euphémie",
+       "km": 62.5,
+       "kind": "ville",
+       "note": "554 m imprimés ; imprimé « SAINTE-EUPHEMIE »"
+      },
+      {
+       "label": "Montguers",
+       "km": 68.5,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "650 m imprimés ; aucun km imprimé (mesuré ≈ 68,7) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "La Combe",
+       "km": 72,
+       "kind": "lieu-dit",
+       "note": "698 m imprimés"
+      },
+      {
+       "label": "Ruissas",
+       "km": 76.5,
+       "kind": "lieu-dit",
+       "note": "842 m imprimés"
+      },
+      {
+       "label": "Col de Perty",
+       "km": 85.5,
+       "kind": "col",
+       "note": "1303 m imprimés ; 3e cat. ; imprimé « 1.303 m. COL DE PERTY »"
+      },
+      {
+       "label": "Laborel",
+       "km": 94.5,
+       "kind": "ville",
+       "note": "830 m imprimés"
+      },
+      {
+       "label": "Les Bégues",
+       "km": 99,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "754 m imprimés ; imprimé « LES BÉGUES » ; limite Drôme/Hautes-Alpes ; aucun km imprimé (mesuré ≈ 99,0) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Orpierre",
+       "km": 103.5,
+       "kind": "ville",
+       "note": "682 m imprimés"
+      },
+      {
+       "label": "Eyguians",
+       "km": 111.5,
+       "kind": "ville",
+       "note": "596 m imprimés"
+      },
+      {
+       "label": "Le Vivas",
+       "km": 133.5,
+       "kind": "lieu-dit",
+       "note": "570 m imprimés"
+      },
+      {
+       "label": "La Saulce",
+       "km": 138,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "590 m imprimés ; aucun km imprimé (mesuré ≈ 138,1) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Tallard",
+       "km": 143.5,
+       "kind": "ville",
+       "note": "602 m imprimés ; imprimé « 602-TALLARD »"
+      },
+      {
+       "label": "Carrefour N 512-N 100 B",
+       "km": 151,
+       "kind": "lieu-dit",
+       "note": "imprimé « CAR. N.512-N.100 B »"
+      },
+      {
+       "label": "Valserres",
+       "km": 154,
+       "kind": "ville",
+       "note": "670 m imprimés"
+      },
+      {
+       "label": "Jarjayes",
+       "km": 157,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "953 m imprimés ; imprimé « 953 m. JARJAYES » (sur deux lignes) ; aucun km imprimé (mesuré ≈ 157,0, entre 156,6 et 158,5 selon la ligne) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Col de la Sentinelle",
+       "km": 161,
+       "kind": "col",
+       "note": "980 m imprimés ; 2e cat. ; imprimé « 980 m. COL DE LA SENTINELLE »"
+      },
+      {
+       "label": "Gap",
+       "km": 167.5,
+       "kind": "ville",
+       "note": "753 m imprimés ; arrivée"
+      }
+     ]
+    },
+    "16": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1965/65_16.jpg",
+     "towns": [
+      {
+       "label": "Gap",
+       "km": 0,
+       "kind": "ville",
+       "note": "735 m imprimés ; départ"
+      },
+      {
+       "label": "La Bâtie-Neuve",
+       "km": 9,
+       "kind": "ville",
+       "note": "860 m imprimés ; imprimé « LA BATIE-NEUVE »"
+      },
+      {
+       "label": "Chorges",
+       "km": 16,
+       "kind": "ville",
+       "note": "865 m imprimés"
+      },
+      {
+       "label": "Savines-le-Lac",
+       "km": 27,
+       "kind": "ville",
+       "note": "770 m imprimés"
+      },
+      {
+       "label": "Côte de Sauze",
+       "km": 31.5,
+       "kind": "côte",
+       "confidence": "non-place",
+       "note": "4e cat. ; imprimé « COTE DE SAUZE » ; aucun km imprimé (mesuré ≈ 31,3) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Le Sauze",
+       "km": 38,
+       "kind": "lieu-dit",
+       "note": "sommet de la côte ; aucune altitude devant le nom (« 795 m. » est imprimé sur la colonne voisine sans nom, ≈ 41,4)"
+      },
+      {
+       "label": "Carrefour N 854-D 7",
+       "km": 44,
+       "kind": "lieu-dit",
+       "note": "786 m imprimés ; imprimé « CAR. N. 854-D. 7 »"
+      },
+      {
+       "label": "Le Lauzet",
+       "km": 52,
+       "kind": "ville",
+       "note": "891 m imprimés ; imprimé « LE LAUZET »"
+      },
+      {
+       "label": "La Fresquière",
+       "km": 61,
+       "kind": "lieu-dit",
+       "note": "1040 m imprimés ; imprimé « LA FRESQUIERE »"
+      },
+      {
+       "label": "Les Thuiles",
+       "km": 66,
+       "kind": "ville",
+       "note": "1108 m imprimés ; imprimé « LES THUILES »"
+      },
+      {
+       "label": "Barcelonnette",
+       "km": 73,
+       "kind": "ville",
+       "note": "1132 m imprimés"
+      },
+      {
+       "label": "Jausiers",
+       "km": 81,
+       "kind": "ville",
+       "note": "1213 m imprimés"
+      },
+      {
+       "label": "La Condamine-Châtelard",
+       "km": 86,
+       "kind": "ville",
+       "note": "1286 m imprimés ; imprimé « LA CONDAMINE-CHATELARD »"
+      },
+      {
+       "label": "Saint-Paul-sur-Ubaye",
+       "km": 95,
+       "kind": "ville",
+       "note": "1466 m imprimés ; imprimé « Sᵀ-PAUL-S-UBAYE »"
+      },
+      {
+       "label": "Col de Vars",
+       "km": 103,
+       "kind": "col",
+       "note": "2111 m imprimés ; 1re cat."
+      },
+      {
+       "label": "Vars Saint-Marcellin",
+       "km": 112,
+       "kind": "ville",
+       "note": "1650 m imprimés ; imprimé « VARS Sᵀ-MARCELLIN »"
+      },
+      {
+       "label": "Guillestre",
+       "km": 122,
+       "kind": "ville",
+       "note": "1000 m imprimés"
+      },
+      {
+       "label": "Maison-du-Roy",
+       "km": 127,
+       "kind": "lieu-dit",
+       "note": "1065 m imprimés ; imprimé « MAISON-DU-ROY »"
+      },
+      {
+       "label": "Arvieux",
+       "km": 143,
+       "kind": "ville",
+       "note": "1540 m imprimés"
+      },
+      {
+       "label": "Col de l'Izoard",
+       "km": 153,
+       "kind": "col",
+       "note": "2360 m imprimés ; 1re cat. ; imprimé « COL DE L'IZOARD »"
+      },
+      {
+       "label": "Cervières",
+       "km": 163,
+       "kind": "ville",
+       "note": "1608 m imprimés ; imprimé « CERVIERES »"
+      },
+      {
+       "label": "Sainte-Catherine",
+       "km": 174,
+       "kind": "lieu-dit",
+       "note": "1204 m imprimés ; imprimé « Sᵀᴱ-CATHERINE »"
+      },
+      {
+       "label": "Briançon",
+       "km": 177,
+       "kind": "ville",
+       "note": "1326 m imprimés ; arrivée ; km suivi d'un petit signe en exposant comme tous les km de l'étape (mesuré ≈ 176,8)"
+      }
+     ]
+    },
+    "17": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1965/65_17.jpg",
+     "towns": [
+      {
+       "label": "Briançon",
+       "km": 0,
+       "kind": "ville",
+       "note": "1210 m imprimés ; départ"
+      },
+      {
+       "label": "Villeneuve-la-Salle",
+       "km": 5.5,
+       "kind": "ville",
+       "note": "1380 m imprimés ; imprimé « VILLENEUVE-LA-SALLE »"
+      },
+      {
+       "label": "Le Monêtier-les-Bains",
+       "km": 11.5,
+       "kind": "ville",
+       "note": "1501 m imprimés ; imprimé « LE MONETIER-LES-BAINS » ; km peu lisible (8½ ou 11½), tranché à l'échelle (mesuré ≈ 11,5)"
+      },
+      {
+       "label": "Col du Lautaret",
+       "km": 25,
+       "kind": "col",
+       "note": "2043 m imprimés ; 3e cat."
+      },
+      {
+       "label": "La Grave",
+       "km": 36,
+       "kind": "ville",
+       "note": "1460 m imprimés"
+      },
+      {
+       "label": "Le Freney",
+       "km": 52.5,
+       "kind": "ville",
+       "note": "1010 m imprimés ; imprimé « LE FRENEY »"
+      },
+      {
+       "label": "Bourg-d'Oisans",
+       "km": 64,
+       "kind": "ville",
+       "note": "726 m imprimés ; imprimé « BOURG D'OISANS »"
+      },
+      {
+       "label": "Rochetaillée",
+       "km": 71,
+       "kind": "lieu-dit",
+       "note": "709 m imprimés ; imprimé « ROCHETAILLEE »"
+      },
+      {
+       "label": "Livet",
+       "km": 77.5,
+       "kind": "ville",
+       "note": "640 m imprimés"
+      },
+      {
+       "label": "Séchilienne",
+       "km": 88,
+       "kind": "ville",
+       "note": "364 m imprimés ; imprimé « SECHILIENNE »"
+      },
+      {
+       "label": "Vizille",
+       "km": 96,
+       "kind": "ville",
+       "note": "272 m imprimés"
+      },
+      {
+       "label": "Tavernolles",
+       "km": 104,
+       "kind": "lieu-dit"
+      },
+      {
+       "label": "Grenoble",
+       "km": 112,
+       "kind": "ville",
+       "note": "214 m imprimés"
+      },
+      {
+       "label": "Le Sappey-en-Chartreuse",
+       "km": 125,
+       "kind": "ville",
+       "note": "1010 m imprimés"
+      },
+      {
+       "label": "Col de Porte",
+       "km": 129.5,
+       "kind": "col",
+       "note": "1325 m imprimés ; 1re cat. ; km peu lisible (129½ ou 129 ; mesuré ≈ 129,1)"
+      },
+      {
+       "label": "Saint-Pierre-de-Chartreuse",
+       "km": 139,
+       "kind": "ville",
+       "note": "905 m imprimés ; imprimé « Sᵀ-PIERRE-DE-CHARTREUSE » (mesuré ≈ 138,6)"
+      },
+      {
+       "label": "Col du Cucheron",
+       "km": 142.5,
+       "kind": "col",
+       "note": "1140 m imprimés ; 3e cat."
+      },
+      {
+       "label": "Saint-Pierre-d'Entremont",
+       "km": 151,
+       "kind": "ville",
+       "note": "620 m imprimés ; imprimé « Sᵀ-PIERRE-D'ENTREMONT » ; km peu lisible (150½, 151 ou 151½ ; mesuré ≈ 151,0)"
+      },
+      {
+       "label": "Entremont",
+       "km": 157,
+       "kind": "lieu-dit",
+       "note": "816 m imprimés ; km peu lisible (157 ou 157½ ; mesuré ≈ 157,4)"
+      },
+      {
+       "label": "Col du Granier",
+       "km": 161,
+       "kind": "col",
+       "note": "1134 m imprimés ; 2e cat."
+      },
+      {
+       "label": "Chambéry",
+       "km": 176.5,
+       "kind": "ville",
+       "note": "272 m imprimés ; imprimé « CHAMBERY »"
+      },
+      {
+       "label": "Aix-les-Bains",
+       "km": 193.5,
+       "kind": "ville",
+       "note": "235 m imprimés ; arrivée"
+      }
+     ]
+    },
+    "18": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1965/65_18.jpg",
+     "towns": [
+      {
+       "label": "Aix-les-Bains",
+       "km": 0,
+       "kind": "ville",
+       "note": "235 m imprimés ; départ ; contre-la-montre en côte, axe gradué au km"
+      },
+      {
+       "label": "Viviers-du-Lac",
+       "km": 3.5,
+       "kind": "ville",
+       "note": "imprimé « VIVIERS DU LAC » et « CAR. N. 491-D. 51 » sur deux lignes au-dessus d'un seul trait et d'un seul km (3,5) ; les deux noms gardés sur une ligne pour que les km restent croissants (mesuré ≈ 3,46)"
+      },
+      {
+       "label": "Méry",
+       "km": 5.5,
+       "kind": "ville",
+       "note": "imprimé « MERY »"
+      },
+      {
+       "label": "Mouxy",
+       "km": 10,
+       "kind": "ville",
+       "note": "aucun km propre : colonne sur la graduation 10 (mesuré ≈ 10,0) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1965 comme dans la série 1966-1985 (règle 4 précisée)"
+      },
+      {
+       "label": "Chatenod",
+       "km": 11.5,
+       "kind": "lieu-dit",
+       "note": "imprimé « CHATENOD »"
+      },
+      {
+       "label": "Trévignin",
+       "km": 13.5,
+       "kind": "ville",
+       "note": "imprimé « CAR. N. 513-D. 49 » et « TREVIGNIN » sur deux lignes au-dessus d'un seul trait et d'un seul km (13,5) ; les deux noms gardés sur une ligne (mesuré ≈ 13,45)"
+      },
+      {
+       "label": "Veniper",
+       "km": 16,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "imprimé « VENIPER » ; aucun km propre : colonne sur la graduation 16 (mesuré ≈ 16,0) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Embranchement des Hôtels",
+       "km": 26,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "imprimé « EMBRᵀ DES HOTELS » ; aucun km propre : colonne sur la graduation 26 (mesuré ≈ 26,0) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Le Mont Revard",
+       "km": 26.9,
+       "kind": "col",
+       "note": "1500 m imprimés ; arrivée ; 1re cat. ; total imprimé « 26,900 »"
+      }
+     ]
+    },
+    "19": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1965/65_19.jpg",
+     "towns": [
+      {
+       "label": "Aix-les-Bains",
+       "km": 0,
+       "kind": "ville",
+       "note": "235 m imprimés ; départ"
+      },
+      {
+       "label": "Carrefour N 201-N 514",
+       "km": 8.5,
+       "kind": "lieu-dit",
+       "note": "234 m imprimés ; imprimé « CAR. N. 201-N. 514 »"
+      },
+      {
+       "label": "La Motte-Servolex",
+       "km": 12.5,
+       "kind": "ville",
+       "note": "265 m imprimés ; imprimé « LA MOTTE SERVOLEX »"
+      },
+      {
+       "label": "Col de l'Épine",
+       "km": 24,
+       "kind": "col",
+       "note": "987 m imprimés ; 2e cat. ; imprimé « COL DE L'EPINE »"
+      },
+      {
+       "label": "Novalaise",
+       "km": 32,
+       "kind": "ville",
+       "note": "427 m imprimés"
+      },
+      {
+       "label": "Saint-Alban-de-Montbel",
+       "km": 38,
+       "kind": "ville",
+       "note": "374 m imprimés ; imprimé « Sᵀ-ALBAN-DE-MONTBEL » (mesuré ≈ 38,2)"
+      },
+      {
+       "label": "La Bridoire",
+       "km": 43.5,
+       "kind": "ville",
+       "note": "262 m imprimés ; imprimé « LA BRIDOIRE » (mesuré ≈ 43,8)"
+      },
+      {
+       "label": "Carrefour D 203-N 6",
+       "km": 48,
+       "kind": "lieu-dit",
+       "note": "317 m imprimés ; imprimé « CAR. D. 203-N. 6 » ; km peu lisible (47½ ou 48, chiffre coupé par le trait de limite Savoie/Isère ; mesuré ≈ 47,8)"
+      },
+      {
+       "label": "Saint-Geoire-en-Valdaine",
+       "km": 56.5,
+       "kind": "ville",
+       "note": "437 m imprimés ; imprimé « Sᵀ-GEOIRE-EN-VALDAINE »"
+      },
+      {
+       "label": "Chirens",
+       "km": 65,
+       "kind": "ville",
+       "note": "470 m imprimés"
+      },
+      {
+       "label": "Côte de la Ravigneuse",
+       "km": 72,
+       "kind": "côte",
+       "note": "4e cat. ; nom peu lisible (« RAVIGNEUSE » ou « RAVIGNOUSE »)"
+      },
+      {
+       "label": "Le Grand-Lemps",
+       "km": 80,
+       "kind": "ville",
+       "note": "476 m imprimés ; imprimé « LE GRAND LAMPS » (lecture probable) ; aucun km propre : colonne sur la graduation 80 (mesuré ≈ 80,0) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1965 comme dans la série 1966-1985 (règle 4 précisée)"
+      },
+      {
+       "label": "La Frette",
+       "km": 84,
+       "kind": "ville",
+       "note": "424 m imprimés"
+      },
+      {
+       "label": "La Côte-Saint-André",
+       "km": 92,
+       "kind": "ville",
+       "note": "375 m imprimés ; imprimé « LA CÔTE-Sᵀ-ANDRE »"
+      },
+      {
+       "label": "Semons",
+       "km": 99,
+       "kind": "ville",
+       "note": "437 m imprimés"
+      },
+      {
+       "label": "Saint-Jean-de-Bournay",
+       "km": 111,
+       "kind": "ville",
+       "note": "369 m imprimés ; imprimé « Sᵀ-JEAN-DE-BOURNAY »"
+      },
+      {
+       "label": "Carrefour N 518-D 36",
+       "km": 126,
+       "kind": "lieu-dit",
+       "note": "332 m imprimés ; imprimé « CAR. N. 518-D. 36 »"
+      },
+      {
+       "label": "Heyrieux",
+       "km": 131,
+       "kind": "ville",
+       "note": "277 m imprimés ; (mesuré ≈ 130,8)"
+      },
+      {
+       "label": "Saint-Symphorien-d'Ozon",
+       "km": 147.5,
+       "kind": "ville",
+       "note": "178 m imprimés ; imprimé « Sᵀ-SYMPHORIEN D'OZON »"
+      },
+      {
+       "label": "Feyzin",
+       "km": 157,
+       "kind": "ville",
+       "note": "colonne sur la limite Isère/Rhône"
+      },
+      {
+       "label": "Saint-Fons",
+       "km": 162,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "204 m imprimés ; imprimé « Sᵀ-FONS » ; aucun km imprimé (mesuré ≈ 161,9) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Lyon (Parc municipal)",
+       "km": 165,
+       "kind": "ville",
+       "note": "169 m imprimés ; arrivée ; imprimé « LYON (PARC MUNICIPAL) »"
+      }
+     ]
+    },
+    "20": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1965/65_20.jpg",
+     "towns": [
+      {
+       "label": "Lyon (Charbonnières-les-Bains)",
+       "km": 0,
+       "kind": "ville",
+       "note": "247 m imprimés ; départ ; imprimé « LYON » et « (CHARBONNIERES-LES-BAINS) » à la colonne 0 ; altitude peu lisible"
+      },
+      {
+       "label": "Dommartin",
+       "km": 6.5,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "380 m imprimés ; km imprimé illisible (mesuré ≈ 6,4) ; altitude peu lisible ; aucun km imprimé (graduation 6.5) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Chessy-les-Mines",
+       "km": 17.5,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "imprimé « CHESSY-LES-MINES » ; km imprimé illisible, lecture probable « 17½ » (mesuré ≈ 17,6) ; aucun km imprimé (graduation 17.5) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Chamelet",
+       "km": 31,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "nom peu lisible (« CHAMELET ») ; km imprimé illisible (mesuré ≈ 30,9) ; aucun km imprimé (graduation 31) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Le Gravier",
+       "km": 43,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "nom peu lisible (« LE GRAVIER ») ; km imprimé illisible (mesuré ≈ 42,8) ; aucun km imprimé (graduation 43) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Côte des Écharmeaux",
+       "km": 54.5,
+       "kind": "côte",
+       "confidence": "non-place",
+       "note": "4e cat. ; nom peu lisible (« COTE DES ECHARMEAUX ») ; km imprimé illisible (mesuré ≈ 54,6) ; aucun km imprimé (graduation 54.5) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Chauffailles",
+       "km": 67.5,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "403 m imprimés ; km imprimé illisible (mesuré ≈ 67,6) ; altitude peu lisible ; aucun km imprimé (graduation 67.5) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "La Clayette",
+       "km": 81,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "379 m imprimés ; km imprimé illisible (mesuré ≈ 80,9) ; altitude peu lisible ; aucun km imprimé (graduation 81) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Saint-Symphorien-des-Bois",
+       "km": 87.5,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "443 m imprimés ; imprimé « SAINT-SYMPHORIEN-DES-BOIS » (lecture probable) ; km imprimé illisible (mesuré ≈ 87,4) ; altitude peu lisible ; aucun km imprimé (graduation 87.5) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Le Gurdon",
+       "km": 93.5,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "nom peu lisible (« LE G?RDON » / « LE GUEDON ») ; km imprimé illisible (mesuré ≈ 93,7) ; aucun km imprimé (graduation 93.5) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Charolles",
+       "km": 101.5,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "km imprimé illisible (mesuré ≈ 101,6) ; aucun km imprimé (graduation 101.5) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Génelard",
+       "km": 120,
+       "kind": "ville",
+       "note": "241 m imprimés ; imprimé « GENELARD » ; aucun km propre : colonne sur la graduation 120 (mesuré ≈ 120,0) — aucun chiffre vu sous la colonne, à confirmer ; altitude peu lisible ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1965 comme dans la série 1966-1985 (règle 4 précisée)"
+      },
+      {
+       "label": "Perrecy-les-Forges",
+       "km": 124,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "271 m imprimés ; imprimé « PERRECY-LES-FORGES » ; km imprimé illisible, lecture probable « 124 » (mesuré ≈ 124,1) ; altitude peu lisible ; aucun km imprimé (graduation 124) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Toulon-sur-Arroux",
+       "km": 137,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "311 m imprimés ; km imprimé illisible (mesuré ≈ 137,1) ; altitude peu lisible ; aucun km imprimé (graduation 137) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Luzy",
+       "km": 155,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "175 m imprimés ; nom peu lisible (« LUZY ») ; km imprimé illisible (mesuré ≈ 154,9) ; altitude peu lisible (173 ou 175) ; aucun km imprimé (graduation 155) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Côte des Montarons",
+       "km": 170.5,
+       "kind": "côte",
+       "confidence": "non-place",
+       "note": "413 m imprimés ; 4e cat. ; nom peu lisible (« COTE DES MONTARONS ») ; km imprimé illisible, colonne tout près de la graduation 170 (mesuré ≈ 170,4) ; altitude peu lisible ; aucun km imprimé (graduation 170.5) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Saint-Honoré-les-Bains",
+       "km": 176.5,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "260 m imprimés ; km imprimé illisible (mesuré ≈ 176,6) ; altitude peu lisible ; aucun km imprimé (graduation 176.5) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Moulins-Engilbert",
+       "km": 188,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "234 m imprimés ; km imprimé illisible (mesuré ≈ 187,9) ; altitude peu lisible ; aucun km imprimé (graduation 188) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Aunay-en-Bazois",
+       "km": 207,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "210 m imprimés ; km imprimé illisible, lecture probable « 207 » (mesuré ≈ 207,2) ; altitude peu lisible ; aucun km imprimé (graduation 207) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Château-Gaillard",
+       "km": 213.5,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "290 m imprimés ; nom peu lisible (« CHATEAU GAILLARD ») ; km imprimé illisible (mesuré ≈ 213,6) ; altitude peu lisible ; aucun km imprimé (graduation 213.5) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Mar…ay",
+       "km": 220.5,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "330 m imprimés ; nom peu lisible (« MAR?(C/G)?AY ») ; km imprimé illisible (mesuré ≈ 220,4) ; altitude peu lisible ; aucun km imprimé (graduation 220.5) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Corbigny",
+       "km": 226,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "303 m imprimés ; km imprimé illisible (mesuré ≈ 225,9) ; altitude peu lisible ; aucun km imprimé (graduation 226) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Monceaux-le-Comte",
+       "km": 235,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "186 m imprimés ; km imprimé illisible (mesuré ≈ 234,8) ; altitude peu lisible ; aucun km imprimé (graduation 235) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Flez-Cuzy",
+       "km": 240,
+       "kind": "ville",
+       "note": "173 m imprimés ; imprimé « FLEZ CUZY » ; aucun km propre : colonne sur la graduation 240 (mesuré ≈ 240,0) — aucun chiffre distinct vu, à confirmer ; altitude peu lisible ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1965 comme dans la série 1966-1985 (règle 4 précisée)"
+      },
+      {
+       "label": "Dornecy",
+       "km": 247.5,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "163 m imprimés ; km imprimé illisible (mesuré ≈ 247,2) ; altitude peu lisible ; aucun km imprimé (graduation 247.5) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Clamecy",
+       "km": 256,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "150 m imprimés ; km imprimé illisible (mesuré ≈ 255,9) ; altitude peu lisible ; aucun km imprimé (graduation 256) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Coulanges-sur-Yonne",
+       "km": 263.5,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "148 m imprimés ; km imprimé illisible (mesuré ≈ 263,7) ; altitude peu lisible ; aucun km imprimé (graduation 263.5) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Courson-les-Carrières",
+       "km": 275,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "km imprimé illisible, lecture probable « 275 » (mesuré ≈ 274,8) ; altitude illisible (231 ou 271) ; aucun km imprimé (graduation 275) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "…-l'Évêque",
+       "km": 288.5,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "163 m imprimés ; nom peu lisible (« G? L'EVEQUE ») ; km imprimé illisible (mesuré ≈ 288,4) ; altitude peu lisible (163 ou 165) ; aucun km imprimé (graduation 288.5) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Auxerre",
+       "km": 298.5,
+       "kind": "ville",
+       "note": "123 m imprimés ; arrivée ; total imprimé « 298,5 » (mesuré ≈ 298,4) ; altitude peu lisible"
+      }
+     ]
+    },
+    "21": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1965/65_21.jpg",
+     "towns": [
+      {
+       "label": "Auxerre",
+       "km": 0,
+       "kind": "ville",
+       "note": "132 m imprimés ; départ"
+      },
+      {
+       "label": "Près Saint-Georges",
+       "km": 2.5,
+       "kind": "lieu-dit",
+       "note": "180 m imprimés ; imprimé « près SAINT-GEORGES »"
+      },
+      {
+       "label": "Bleury",
+       "km": 14,
+       "kind": "lieu-dit",
+       "note": "133 m imprimés ; imprimé « BLEURY »"
+      },
+      {
+       "label": "Aillant-sur-Tholon",
+       "km": 19,
+       "kind": "ville",
+       "note": "119 m imprimés"
+      },
+      {
+       "label": "Volgré",
+       "km": 25.5,
+       "kind": "ville",
+       "note": "145 m imprimés ; imprimé « VOLGRE »"
+      },
+      {
+       "label": "Carrefour D 89-N 443",
+       "km": 32.5,
+       "kind": "lieu-dit",
+       "note": "175 m imprimés ; imprimé « CAR. D. 89-N. 443 »"
+      },
+      {
+       "label": "Carrefour N 443-D 16",
+       "km": 37,
+       "kind": "lieu-dit",
+       "note": "178 m imprimés ; imprimé « CAR. N. 443-D. 16 »"
+      },
+      {
+       "label": "Villefranche-Saint-Phal",
+       "km": 43,
+       "kind": "ville",
+       "note": "143 m imprimés ; imprimé « VILLEFRANCHE SAINT-PHAL »"
+      },
+      {
+       "label": "Douchy",
+       "km": 49,
+       "kind": "ville",
+       "note": "128 m imprimés"
+      },
+      {
+       "label": "Châteaurenard",
+       "km": 59,
+       "kind": "ville",
+       "note": "113 m imprimés ; imprimé « CHATEAURENARD »"
+      },
+      {
+       "label": "Saint-Germain-des-Prés",
+       "km": 66,
+       "kind": "ville",
+       "note": "103 m imprimés ; imprimé « SAINT-GERMAIN-DES-PRES »"
+      },
+      {
+       "label": "Montargis",
+       "km": 76,
+       "kind": "ville",
+       "note": "88 m imprimés"
+      },
+      {
+       "label": "Préfontaines",
+       "km": 89,
+       "kind": "ville",
+       "note": "90 m imprimés ; imprimé « PREFONTAINES »"
+      },
+      {
+       "label": "Château-Landon",
+       "km": 94,
+       "kind": "ville",
+       "note": "97 m imprimés ; imprimé « CHATEAU-LANDON »"
+      },
+      {
+       "label": "Mondreville",
+       "km": 101,
+       "kind": "ville",
+       "note": "97 m imprimés"
+      },
+      {
+       "label": "Beaumont-du-Gâtinais",
+       "km": 112,
+       "kind": "ville",
+       "note": "86 m imprimés ; imprimé « BEAUMONT-DU-GATINAIS »"
+      },
+      {
+       "label": "Givraines",
+       "km": 121,
+       "kind": "ville",
+       "note": "119 m imprimés"
+      },
+      {
+       "label": "Pithiviers",
+       "km": 130,
+       "kind": "ville",
+       "note": "120 m imprimés ; aucun km propre : colonne sur la graduation 130 (mesuré ≈ 129,8) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1965 comme dans la série 1966-1985 (règle 4 précisée)"
+      },
+      {
+       "label": "Sermaises",
+       "km": 145,
+       "kind": "ville",
+       "note": "120 m imprimés ; (mesuré ≈ 144,9)"
+      },
+      {
+       "label": "Méréville",
+       "km": 154,
+       "kind": "ville",
+       "note": "100 m imprimés ; imprimé « MEREVILLE »"
+      },
+      {
+       "label": "Angerville",
+       "km": 162,
+       "kind": "ville",
+       "note": "141 m imprimés"
+      },
+      {
+       "label": "Pussay",
+       "km": 166,
+       "kind": "ville",
+       "note": "140 m imprimés"
+      },
+      {
+       "label": "Carrefour N 838-D 21",
+       "km": 174,
+       "kind": "lieu-dit",
+       "note": "133 m imprimés ; imprimé « CAR. N. 838-D. 21 »"
+      },
+      {
+       "label": "Authon-la-Plaine",
+       "km": 178,
+       "kind": "ville",
+       "note": "144 m imprimés"
+      },
+      {
+       "label": "Dourdan",
+       "km": 189,
+       "kind": "ville",
+       "note": "117 m imprimés"
+      },
+      {
+       "label": "Côte de Dourdan",
+       "km": 191,
+       "kind": "côte",
+       "confidence": "non-place",
+       "note": "4e cat. ; imprimé « CÔTE DE DOURDAN » ; aucun km imprimé (mesuré ≈ 191,2) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Angervilliers",
+       "km": 198,
+       "kind": "ville",
+       "note": "120 m imprimés"
+      },
+      {
+       "label": "Limours",
+       "km": 204,
+       "kind": "ville",
+       "note": "156 m imprimés"
+      },
+      {
+       "label": "Saint-Rémy-lès-Chevreuse",
+       "km": 211,
+       "kind": "ville",
+       "note": "73 m imprimés ; imprimé « SAINT-REMY-LES-CHEVREUSE »"
+      },
+      {
+       "label": "Toussus-le-Noble",
+       "km": 218,
+       "kind": "ville",
+       "note": "151 m imprimés"
+      },
+      {
+       "label": "Versailles",
+       "km": 225.5,
+       "kind": "ville",
+       "note": "130 m imprimés ; arrivée ; total imprimé « 225½ » peu lisible (mesuré ≈ 225,6)"
+      }
+     ]
+    },
+    "22": {
+     "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1965/65_22.jpg",
+     "towns": [
+      {
+       "label": "Versailles",
+       "km": 0,
+       "kind": "ville",
+       "note": "128 m imprimés ; départ ; axe gradué au km, aucun km imprimé sous les noms"
+      },
+      {
+       "label": "La Vierge",
+       "km": 3.5,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "130 m imprimés ; imprimé « LA VIERGE » ; aucun km imprimé (mesuré ≈ 3,4) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Buc",
+       "km": 4,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "aucun km propre : colonne sur la graduation 4 (mesuré ≈ 4,0) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Toussus-le-Noble",
+       "km": 8,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "151 m imprimés ; imprimé « TOUSSUS-LE-NOBLE » ; aucun km propre : colonne sur la graduation 8 (mesuré ≈ 8,1) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Châteaufort",
+       "km": 10,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "156 m imprimés ; imprimé « CHATEAUFORT » ; aucun km propre : colonne sur la graduation 10 (mesuré ≈ 9,8) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Voisins-le-Bretonneux",
+       "km": 15,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "aucun km imprimé (mesuré ≈ 14,8) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "La Minière",
+       "km": 18,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "165 m imprimés ; imprimé « LA MINIERE » ; aucun km propre : colonne sur la graduation 18 (mesuré ≈ 18,0) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Versailles",
+       "km": 24,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "133 m imprimés ; 2e passage ; aucun km propre : colonne sur la graduation 24 (mesuré ≈ 23,9) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Les Bruyères",
+       "km": 32,
+       "kind": "lieu-dit",
+       "confidence": "non-place",
+       "note": "162 m imprimés ; imprimé « LES BRUYERES » ; aucun km propre : colonne sur la graduation 32 (mesuré ≈ 32,0) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Sèvres",
+       "km": 33,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "99 m imprimés ; imprimé « SEVRES » ; aucun km propre : colonne sur la graduation 33 (mesuré ≈ 33,1) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Boulogne-Billancourt",
+       "km": 36,
+       "kind": "ville",
+       "confidence": "non-place",
+       "note": "35 m imprimés ; aucun km imprimé (mesuré ≈ 35,8) ; non placé : km approché (règle 4)"
+      },
+      {
+       "label": "Paris (Parc des Princes)",
+       "km": 37.8,
+       "kind": "ville",
+       "note": "37 m imprimés ; arrivée ; imprimé « PARIS (PARC DES PRINCES) », total imprimé « 37,8 »"
+      }
+     ]
+    }
+   }
+  },
   "1966": {
    "stages": {
     "1": {
