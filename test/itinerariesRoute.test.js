@@ -38,3 +38,11 @@ test('GET /api/itineraries/:annee : édition curée, 400 si invalide, 404 si abs
   assert.strictEqual((await fetch(`${base}/api/itineraries/abcd`)).status, 400);
   assert.strictEqual((await fetch(`${base}/api/itineraries/1800`)).status, 404);
 });
+
+test('GET /api/passages : index des lieux de passage (story 41.7)', async () => {
+  const res = await fetch(`${base}/api/passages`);
+  assert.strictEqual(res.status, 200);
+  const body = await res.json();
+  assert.deepStrictEqual(body, ep.passagesIndex());
+  assert.ok(body.places.length > 1000);
+});

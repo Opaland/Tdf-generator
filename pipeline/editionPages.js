@@ -158,7 +158,54 @@ function editionIndex(editions = readEditions()) {
     });
 }
 
+/** Distance en km entre deux points (haversine). */
+function distKm(lat1, lon1, lat2, lon2) {
+  const r = Math.PI / 180;
+  const a = Math.sin(((lat2 - lat1) * r) / 2) ** 2 +
+    Math.cos(lat1 * r) * Math.cos(lat2 * r) * Math.sin(((lon2 - lon1) * r) / 2) ** 2;
+  return 2 * 6371 * Math.asin(Math.min(1, Math.sqrt(a)));
+}
+
+/** Un même nom placé à moins de MERGE_KM d'un lieu déjà vu est le même
+ * lieu (chaque édition a ses propres coordonnées : Tournai était en trois
+ * points à quelques centaines de mètres, relecture adverse). Au-delà, ce
+ * sont des homonymes, gardés séparés. */
+const MERGE_KM = 1;
+
+/** Index des lieux de passage (story 41.7) : chaque point placé à sa
+ * position propre, regroupé par nom et position, avec tous ses passages.
+ * Format compact, pour le navigateur :
+ *   places = [[nom, lat, lon, type, [[année, étape, km, kmImprimé], …]], …]
+ *   stages = { "année/étape": "départ → arrivée" } (pour distinguer les
+ *   homonymes dans les résultats). */
+function passagesIndex(editions = readEditions()) {
+  const years = Object.keys(editions).filter((y) => YEAR_RE.test(y)).sort();
+  const byLabel = new Map();
+  const places = [];
+  const stages = {};
+  for (const y of years) {
+    const st = editions[y].stages || {};
+    for (const k of stageOrder(Object.keys(st))) {
+      const towns = st[k].towns || [];
+      if (towns.length) stages[`${y}/${k}`] = `${towns[0].label} → ${towns[towns.length - 1].label}`;
+      for (const t of towns) {
+        if (!onMap(t)) continue;
+        if (!byLabel.has(t.label)) byLabel.set(t.label, []);
+        const same = byLabel.get(t.label);
+        let place = same.find((p) => distKm(p[1], p[2], t.lat, t.lon) <= MERGE_KM);
+        if (!place) {
+          place = [t.label, Math.round(t.lat * 1e4) / 1e4, Math.round(t.lon * 1e4) / 1e4, t.kind, []];
+          same.push(place);
+          places.push(place);
+        }
+        place[4].push([Number(y), k, t.km, kmIsPrinted(t.note) ? 1 : 0]);
+      }
+    }
+  }
+  return { years: years.map(Number), stages: Object.keys(stages).length, stage_names: stages, places };
+}
+
 module.exports = {
   DATA_FILE, YEAR_RE, kmIsPrinted, printedAltitude, printedCategory,
-  stageOrder, readEditions, editionPage, editionIndex,
+  stageOrder, readEditions, editionPage, editionIndex, passagesIndex, distKm, MERGE_KM,
 };

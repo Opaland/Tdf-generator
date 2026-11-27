@@ -149,3 +149,36 @@ test('source_url https seulement ; notes des points non publiées', () => {
   assert.strictEqual(mk('https://example.org/a.jpg').source_url, 'https://example.org/a.jpg');
   assert.strictEqual(mk('https://example.org/a.jpg').points[0].note, undefined);
 });
+
+// Story 41.7 (issue #633) : index des lieux de passage.
+test('index des passages : lieux placés regroupés, côte au village et non placés exclus', () => {
+  const ED = {
+    1965: { stages: {
+      '2': { towns: [
+        { label: 'A', km: 0, kind: 'ville', lat: 50.00001, lon: 5 },
+        { label: 'Côte de B', km: 9, kind: 'côte', lat: 50.1, lon: 5.1, geocodeAs: 'B' },
+        { label: 'C', km: 20, kind: 'ville', note: 'aucun km imprimé' },
+        { label: 'D', km: 30, kind: 'ville', note: 'km de la graduation', lat: 50.2, lon: 5.2 },
+      ] },
+      '1a': { towns: [{ label: 'A', km: 140, kind: 'ville', lat: 50.00002, lon: 5 }] },
+    } },
+    1970: { stages: { '3': { towns: [{ label: 'A', km: 12.5, kind: 'ville', lat: 50, lon: 5 }] } } },
+    '2022-femmes': { stages: { '1': { towns: [{ label: 'Z', km: 0, kind: 'ville', lat: 1, lon: 1 }] } } },
+  };
+  const idx = ep.passagesIndex(ED);
+  assert.deepStrictEqual(idx.years, [1965, 1970]);
+  assert.strictEqual(idx.stages, 3);
+  assert.deepStrictEqual(idx.stage_names, { '1965/1a': 'A → A', '1965/2': 'A → D', '1970/3': 'A → A' });
+  assert.deepStrictEqual(idx.places, [
+    ['A', 50, 5, 'ville', [[1965, '1a', 140, 1], [1965, '2', 0, 1], [1970, '3', 12.5, 1]]],
+    ['D', 50.2, 5.2, 'ville', [[1965, '2', 30, 0]]],
+  ]);
+});
+
+test('index des passages : même nom à moins de 1 km regroupé, homonymes éloignés séparés', () => {
+  const T = (label, lat, lon, km) => ({ label, km, kind: 'ville', lat, lon });
+  const idx = ep.passagesIndex({ 1980: { stages: { '1': { towns: [T('Tournai', 50.6057, 3.3878, 0), T('Saint-Gervais', 45.892, 6.7121, 50)] },
+    '2': { towns: [T('Tournai', 50.6044, 3.3967, 10), T('Saint-Gervais', 45.2014, 5.4794, 90)] } } } });
+  assert.deepStrictEqual(idx.places.map((p) => [p[0], p[4].length]), [['Tournai', 2], ['Saint-Gervais', 1], ['Saint-Gervais', 1]]);
+  assert.ok(ep.distKm(50.6057, 3.3878, 50.6044, 3.3967) < ep.MERGE_KM);
+});
