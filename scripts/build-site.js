@@ -18,7 +18,7 @@ const { stageWithoutHr, fullWithoutHr } = require('../pipeline/heartRate');
 // (Epic 36.1, 36.2) : copie et suppression à la main.
 const { copyDir, removeSync } = require('../pipeline/fsPortable');
 const { CSP, withCspMeta } = require('../backend/csp');
-const { editionIndex, editionPage } = require('../pipeline/editionPages');
+const { editionIndex, editionPage, passagesIndex } = require('../pipeline/editionPages');
 
 const ROOT = path.join(__dirname, '..');
 // ETAPEFORGE_DIST_DIR : sortie ailleurs que dist/ (tests).
@@ -46,6 +46,7 @@ const TOKENS = [
   ['/compare.html', 'compare.html'],
   ['/archives.html', 'archives.html'],
   ['/edition.html', 'edition.html'],
+  ['/passages.html', 'passages.html'],
   ['/traces.html', 'traces.html'],
   ['/diag.html', 'diag.html'],
 ];
@@ -174,7 +175,9 @@ function main() {
   const itineraries = editionIndex();
   writeJson('data/itineraries.json', itineraries);
   for (const e of itineraries) writeJson(`data/itinerary-${e.year}.json`, editionPage(e.year));
-  console.log(`✔ itinéraires curés : ${itineraries.length} éditions`);
+  const passages = passagesIndex();
+  writeJson('data/passages.json', passages);
+  console.log(`✔ itinéraires curés : ${itineraries.length} éditions, ${passages.places.length} lieux de passage`);
 
   // --- 2. Frontend copié avec chemins réécrits ---------------------------------
   // `withFileTypes` : sans ça, un sous-dossier (ex. icons/, PWA) fait planter

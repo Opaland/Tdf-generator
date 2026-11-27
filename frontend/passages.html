@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#141414">
+  <link rel="icon" type="image/png" href="/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <title>ÉtapeForge — Le Tour est-il passé chez moi ?</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main>
+  <h1>Le Tour est-il passé chez moi ?</h1>
+  <p class="meta-line" id="passages-coverage">Chargement de l'index des lieux de passage…</p>
+  <form class="toolbar" id="name-form">
+    <label class="field" style="min-width:260px;margin:0">Commune ou lieu
+      <input id="q" autocomplete="off" placeholder="ex. Saint-Gervais, col du Galibier" minlength="2" maxlength="100">
+    </label>
+    <button type="submit">Chercher par nom</button>
+  </form>
+  <div class="toolbar">
+    <label class="field" style="margin:0">Rayon autour de moi
+      <select id="radius">
+        <option value="2">2 km</option><option value="5" selected>5 km</option>
+        <option value="10">10 km</option><option value="20">20 km</option>
+      </select>
+    </label>
+    <button type="button" class="secondary" id="btn-here">Autour de ma position</button>
+  </div>
+  <p class="meta-line">La position de l'appareil sert seulement au calcul fait dans ce navigateur : elle n'est envoyée
+    nulle part.</p>
+  <div id="passages-status" role="status" aria-live="polite"></div>
+  <div class="card scrollx" tabindex="0" role="region" aria-label="Passages trouvés (tableau défilant)">
+    <table class="stats" id="passages-table">
+      <thead><tr><th>Lieu</th><th>Distance</th><th>Édition</th><th>Étape</th><th>km de passage</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</main>
+<script src="/common.js"></script>
+<script src="/passages.js"></script>
+</body>
+</html>

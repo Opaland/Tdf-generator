@@ -53,6 +53,7 @@ const READY = {
   '/stage.html': '#profile-box svg',
   '/tour.html': '#tour-stages tr',
   '/edition.html': '#stage-points tbody tr',
+  '/passages.html': '#passages-table tbody tr',
 };
 
 /** Port libre attribué par l'OS : jamais de collision avec un serveur déjà lancé. */
@@ -104,6 +105,7 @@ async function main() {
       '/index.html', '/archives.html', '/cols.html', '/compare.html', '/diag.html', '/traces.html',
       `/stage.html?id=${done.id}`, `/tour.html?id=${editions[0].id}`,
       '/edition.html?annee=1965&etape=11',
+      '/passages.html?q=Galibier',
     ];
 
     // E2E_CHROMIUM : navigateur déjà installé dont la version ne correspond pas

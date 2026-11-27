@@ -23,7 +23,7 @@ module.exports = [
     // l'autre ne doit se voir imposer sa propre déclaration comme un global
     // externe, sinon no-redeclare se déclenche sur le fichier qui la crée).
     files: ['frontend/**/*.js'],
-    ignores: ['frontend/common.js', 'frontend/profile.js', 'frontend/compare.js', 'frontend/editor.js', 'frontend/stage.js', 'frontend/archives.js', 'frontend/traces.js', 'frontend/tourmap.js', 'frontend/edition.js'],
+    ignores: ['frontend/common.js', 'frontend/profile.js', 'frontend/compare.js', 'frontend/editor.js', 'frontend/stage.js', 'frontend/archives.js', 'frontend/traces.js', 'frontend/tourmap.js', 'frontend/edition.js', 'frontend/passages.js'],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'script',
@@ -33,7 +33,7 @@ module.exports = [
   {
     // edition.js (story 41.6) : servi au navigateur ET require()-able côté
     // test (formatage pur) sous la garde `typeof module` / `typeof document`.
-    files: ['frontend/edition.js'],
+    files: ['frontend/edition.js', 'frontend/passages.js'],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'script',

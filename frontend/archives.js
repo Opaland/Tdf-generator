@@ -454,8 +454,12 @@ function searchNearPlace(e) {
 
 if (typeof document !== 'undefined') {
 document.addEventListener('DOMContentLoaded', async () => {
-  // Démo statique : pas de serveur pour géocoder ni chercher.
-  if (window.EF_STATIC) document.getElementById('near-box').style.display = 'none';
+  // Site statique : pas de serveur pour géocoder ni chercher ; la recherche
+  // se fait dans l'index des lieux de passage (story 41.7).
+  if (window.EF_STATIC) {
+    document.getElementById('near-box').innerHTML = '<h2 style="margin-top:0">Le Tour est-il passé près de chez vous ?</h2>' +
+      '<p><a class="btn" href="/passages.html">Chercher une commune ou autour de ma position</a></p>';
+  }
   else document.getElementById('near-form').addEventListener('submit', searchNearPlace);
   await EF.initChrome('archives');
   document.getElementById('btn-import').addEventListener('click', importYear);

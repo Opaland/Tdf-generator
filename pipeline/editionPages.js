@@ -158,7 +158,32 @@ function editionIndex(editions = readEditions()) {
     });
 }
 
+/** Index des lieux de passage (story 41.7) : chaque point placé à sa
+ * position propre, regroupé par nom et position (arrondie à 1e-4°, ≈ 10 m),
+ * avec tous ses passages. Format compact, pour le navigateur :
+ * places = [[nom, lat, lon, type, [[année, étape, km, kmImprimé], …]], …]. */
+function passagesIndex(editions = readEditions()) {
+  const years = Object.keys(editions).filter((y) => YEAR_RE.test(y)).sort();
+  const byKey = new Map();
+  let stages = 0;
+  for (const y of years) {
+    const st = editions[y].stages || {};
+    for (const k of stageOrder(Object.keys(st))) {
+      stages += 1;
+      for (const t of st[k].towns || []) {
+        if (!onMap(t)) continue;
+        const lat = Math.round(t.lat * 1e4) / 1e4;
+        const lon = Math.round(t.lon * 1e4) / 1e4;
+        const key = `${t.label}|${lat}|${lon}`;
+        if (!byKey.has(key)) byKey.set(key, [t.label, lat, lon, t.kind, []]);
+        byKey.get(key)[4].push([Number(y), k, t.km, kmIsPrinted(t.note) ? 1 : 0]);
+      }
+    }
+  }
+  return { years: years.map(Number), stages, places: [...byKey.values()] };
+}
+
 module.exports = {
   DATA_FILE, YEAR_RE, kmIsPrinted, printedAltitude, printedCategory,
-  stageOrder, readEditions, editionPage, editionIndex,
+  stageOrder, readEditions, editionPage, editionIndex, passagesIndex,
 };

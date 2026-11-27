@@ -132,6 +132,9 @@ test('itinéraires curés publiés : index et une page par édition', () => {
   const p = JSON.parse(fs.readFileSync(path.join(DIST, 'data/itinerary-1965.json'), 'utf8'));
   assert.deepStrictEqual(p, ep.editionPage(1965));
   for (const f of ['edition.html', 'edition.js']) assert.ok(fs.existsSync(path.join(DIST, f)), `${f} manquant`);
+  // Story 41.7 : index des lieux de passage et page de recherche.
+  assert.deepStrictEqual(JSON.parse(fs.readFileSync(path.join(DIST, 'data/passages.json'), 'utf8')), ep.passagesIndex());
+  for (const f of ['passages.html', 'passages.js']) assert.ok(fs.existsSync(path.join(DIST, f)), `${f} manquant`);
   assert.doesNotMatch(fs.readFileSync(path.join(DIST, 'edition.html'), 'utf8'), /(href|src)="\/(?!\/)/, 'chemin absolu resté dans edition.html');
 });
 
@@ -143,6 +146,7 @@ test('mode statique : les routes d’itinéraires lisent les fichiers de data/',
   try {
     await EF.staticApi('/api/itineraries');
     await EF.staticApi('/api/itineraries/1965');
+    await EF.staticApi('/api/passages');
   } finally { globalThis.fetch = realFetch; }
-  assert.deepStrictEqual(asked, ['data/itineraries.json', 'data/itinerary-1965.json']);
+  assert.deepStrictEqual(asked, ['data/itineraries.json', 'data/itinerary-1965.json', 'data/passages.json']);
 });
