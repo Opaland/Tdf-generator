@@ -110,3 +110,42 @@ test('données réelles : lues sans être réécrites, 1965 publiée', () => {
   // chaque étape contrôlée porte un écart chiffré
   for (const s of page.stages) if (s.check) assert.ok(Number.isFinite(s.check.delta_pct), s.key);
 });
+
+// Trous relevés par la vérification des tests (mutations restées vertes).
+test('toutes les formules de km non imprimé, et HC', () => {
+  for (const n of ['km interpolé entre les voisins', 'km illisible', 'km imprimé illisible (mesuré ≈ 6,4)', 'km peu lisible']) {
+    assert.strictEqual(ep.kmIsPrinted(n), false, n);
+  }
+  assert.strictEqual(ep.printedCategory('2115 m imprimés ; HC'), 'HC');
+  assert.strictEqual(ep.printedCategory('hors catégorie'), 'HC');
+});
+
+test('tolérance par défaut 5 %, distance du profil, étape partielle', () => {
+  const ED = {
+    1970: {
+      stages: {
+        '1': {
+          towns: [{ label: 'A', km: 0, kind: 'ville' }, { label: 'B', km: 100, kind: 'ville' }],
+          length_km: 104.5,
+          partial: true,
+          route_check: { routed_km: 107, profile_km: 100, delta_pct: 7 },
+        },
+      },
+    },
+  };
+  const s = ep.editionPage(1970, ED).stages[0];
+  assert.strictEqual(s.check.tolerance_pct, 5);
+  assert.strictEqual(s.check.within, false);
+  assert.strictEqual(s.distance_km, 104.5);
+  assert.strictEqual(s.partial, true);
+});
+
+// Relecture adverse : lien de source https seulement, notes de point non publiées.
+test('source_url https seulement ; notes des points non publiées', () => {
+  const mk = (u) => ep.editionPage(1971, { 1971: { stages: { '1': { source_url: u, towns: [{ label: 'A', km: 0, kind: 'ville', note: 'détail interne' }] } } } }).stages[0];
+  assert.strictEqual(mk('javascript:alert(1)').source_url, null);
+  assert.strictEqual(mk('/relatif.jpg').source_url, null);
+  assert.strictEqual(mk('http://example.org/a.jpg').source_url, null);
+  assert.strictEqual(mk('https://example.org/a.jpg').source_url, 'https://example.org/a.jpg');
+  assert.strictEqual(mk('https://example.org/a.jpg').points[0].note, undefined);
+});

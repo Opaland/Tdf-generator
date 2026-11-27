@@ -265,3 +265,16 @@ test('stageKey : seulement l\'étape historique importée, à la date des faits 
   const manual = mk(null);
   assert.strictEqual(stageKey(db, add(manual, 2, recits.stageDate(1978, '2'))), null);
 });
+
+// Story 41.6 : même règle « km imprimé » que la page par édition — un km
+// illisible ou porté par une graduation n'entre pas dans les faits.
+test('faits : km imprimé illisible ou de graduation omis', () => {
+  const ep = require('../pipeline/editionPages');
+  const raw = ep.readEditions()['1965'].stages['20'].towns;
+  const facts = recits.stageFacts(1965, '20');
+  assert.strictEqual(facts.points.length, raw.length);
+  raw.forEach((t, i) => {
+    if (/km imprimé illisible|km de la graduation/.test(t.note || '')) assert.strictEqual(facts.points[i].km, undefined, t.label);
+  });
+  assert.ok(raw.some((t) => /km imprimé illisible/.test(t.note || '')));
+});

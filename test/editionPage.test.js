@@ -45,3 +45,23 @@ test('profil : noms échappés, moins de deux altitudes → message', () => {
   assert.match(E.profileSvg([{ label: 'A', km: 0, altitude_m: 100 }]), /pas de profil/);
 });
 
+
+// Trous relevés par la vérification des tests (mutations restées vertes).
+test('profil : points sans altitude ou sans km écartés, altitude douteuse colorée, profil plat sans NaN', () => {
+  const svg = E.profileSvg([
+    { label: 'A', km: 0, km_printed: true, altitude_m: 100 },
+    { label: 'B', km: 5, km_printed: true, altitude_m: null },
+    { label: 'C', km: null, km_printed: true, altitude_m: 300 },
+    { label: 'D', km: 10, km_printed: true, altitude_m: 250, altitude_doubtful: true },
+  ]);
+  assert.strictEqual((svg.match(/<circle /g) || []).length, 2);
+  assert.ok(svg.includes('#a15818'));
+  assert.ok(!svg.includes('NaN'));
+  const flat = E.profileSvg([{ label: 'A', km: 0, altitude_m: 50 }, { label: 'B', km: 8, altitude_m: 50 }]);
+  assert.ok(!/NaN|Infinity/.test(flat));
+});
+
+test('tableau : part contrôlée avec sa couverture', () => {
+  assert.strictEqual(E.coverageText({ routed_km: 197.2, profile_km: 190.5, coverage_pct: 95 }), '197,2 pour 190,5 km (95 %)');
+  assert.strictEqual(E.coverageText(null), '—');
+});

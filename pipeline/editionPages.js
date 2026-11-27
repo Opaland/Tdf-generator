@@ -83,7 +83,8 @@ function point(t) {
   } else if (t.geocodeAs) {
     p.at_village = true;
   }
-  if (note) p.note = note;
+  // Les notes de curation des points ne sont pas publiées : détails
+  // internes, et un quart du poids des fichiers (relecture adverse).
   return p;
 }
 
@@ -117,7 +118,8 @@ function stage(key, s) {
     // Distance imprimée par le profil : son total quand la transcription le
     // donne, sinon le km de l'arrivée.
     distance_km: Number.isFinite(s.length_km) ? s.length_km : last ? last.km : null,
-    source_url: s.source_url || null,
+    // https seulement : le lien est rendu dans un href (relecture adverse).
+    source_url: /^https:\/\/[^\s"<>]+$/.test(s.source_url || '') ? s.source_url : null,
     check: routeCheck(s.route_check),
     points: towns.map(point),
   };

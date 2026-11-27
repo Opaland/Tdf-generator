@@ -41,6 +41,13 @@ const EFEdition = {
       `${sign}${d} % (${c.within ? 'dans' : 'hors'} la tolérance de ±${c.tolerance_pct} %)`;
   },
 
+  /** Part contrôlée : km routés pour les km du profil couverts. */
+  coverageText(c) {
+    if (!c) return '—';
+    const part = c.coverage_pct != null ? ` (${c.coverage_pct} %)` : '';
+    return `${String(c.routed_km).replace('.', ',')} pour ${String(c.profile_km).replace('.', ',')} km${part}`;
+  },
+
   deltaText(c) {
     if (!c) return 'non contrôlée';
     return `${c.delta_pct > 0 ? '+' : ''}${String(c.delta_pct).replace('.', ',')} %${c.within ? '' : ' (hors tolérance)'}`;
@@ -117,10 +124,10 @@ if (typeof document !== 'undefined') {
 
   function renderStages(p) {
     document.querySelector('#edition-stages tbody').innerHTML = p.stages.map((s) => `<tr>
-        <td><button type="button" class="row-toggle" data-key="${EF.esc(s.key)}">${EF.esc(s.key)}</button></td>
+        <td><button type="button" class="row-toggle" data-key="${EF.esc(s.key)}" aria-label="Voir l'étape ${EF.esc(s.key)}">${EF.esc(s.key)}</button></td>
         <td>${EF.esc(s.depart || '?')} → ${EF.esc(s.arrivee || '?')}${s.partial ? ' <span class="badge">partielle</span>' : ''}</td>
         <td>${EF.esc(s.distance_km == null ? '—' : String(s.distance_km).replace('.', ','))}</td>
-        <td>${s.check ? `${EF.esc(String(s.check.routed_km).replace('.', ','))} km` : '—'}</td>
+        <td>${EF.esc(EFEdition.coverageText(s.check))}</td>
         <td>${EF.esc(EFEdition.deltaText(s.check))}</td>
         <td>${s.placed} / ${s.points.length}</td>
       </tr>`).join('');
@@ -157,7 +164,9 @@ if (typeof document !== 'undefined') {
     if (!s) return;
     setUrl(page.year, s.key);
     document.getElementById('stage-title').textContent = `${page.year} — ${stageLabel(s)}`;
-    const src = s.source_url ? ` Source du profil : <a href="${EF.esc(s.source_url)}" rel="noopener" target="_blank">${EF.esc(new URL(s.source_url).hostname)}</a>.` : '';
+    let host;
+    try { host = s.source_url ? new URL(s.source_url).hostname : null; } catch { host = null; }
+    const src = host ? ` Source du profil : <a href="${EF.esc(s.source_url)}" rel="noopener" target="_blank">${EF.esc(host)}</a>.` : '';
     const circuit = s.circuit_km != null ? ` Circuit final à partir du km ${EF.esc(String(s.circuit_km).replace('.', ','))}.` : '';
     document.getElementById('stage-check').innerHTML = `<p><strong>Distance du profil :</strong> ${EF.esc(s.distance_km == null ? '—' : String(s.distance_km).replace('.', ','))} km.` +
       ` <strong>Reconstitution :</strong> ${EF.esc(EFEdition.checkText(s.check))}.${circuit}${src}</p>`;
@@ -170,8 +179,17 @@ if (typeof document !== 'undefined') {
     if (scroll) document.getElementById('stage-detail').scrollIntoView({ behavior: 'smooth' });
   }
 
+  function showError(err) {
+    document.getElementById('stage-check').textContent = `Données indisponibles : ${err.message}`;
+  }
+
   async function loadYear(year, key) {
-    page = await EF.api(`/api/itineraries/${encodeURIComponent(year)}`);
+    try {
+      page = await EF.api(`/api/itineraries/${encodeURIComponent(year)}`);
+    } catch (err) {
+      showError(err);
+      return;
+    }
     const sel = document.getElementById('sel-stage');
     sel.innerHTML = page.stages.map((s) => `<option value="${EF.esc(s.key)}">${EF.esc(stageLabel(s))}</option>`).join('');
     if (key && page.stages.some((s) => s.key === key)) sel.value = key;
@@ -182,7 +200,17 @@ if (typeof document !== 'undefined') {
 
   document.addEventListener('DOMContentLoaded', async () => {
     await EF.initChrome('edition');
-    const index = await EF.api('/api/itineraries');
+    let index;
+    try {
+      index = await EF.api('/api/itineraries');
+    } catch (err) {
+      showError(err);
+      return;
+    }
+    if (!index.length) {
+      showError(new Error('aucune édition curée'));
+      return;
+    }
     const sel = document.getElementById('sel-year');
     sel.innerHTML = index.map((e) => `<option value="${e.year}">${e.year} — ${e.stages} étapes</option>`).join('');
     const asked = EF.qs('annee');
