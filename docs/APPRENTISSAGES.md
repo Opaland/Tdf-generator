@@ -68,6 +68,17 @@ entrée : on la marque « absorbée par … ».
     fois : ouvrir, corriger, enregistrer, puis passer à l'édition suivante ;
     relire une note de chaque édition après coup.
 
+25. **Un script de construction applique une règle à des cas qu'elle
+    exclut** (27/11/2026). `build.py` de 1965 posait la mention « aucun km
+    imprimé (graduation N) ; non placé : km approché (règle 4) » sur tout
+    nom dont la colonne tombait près d'une graduation, y compris les 26
+    noms de l'étape 20 dont le km est imprimé mais illisible — cas que la
+    règle 4 exclut expressément. Le géocodeur les a sautés et l'étape ne
+    se contrôlait qu'à 60 %. L'audit Mireille l'a trouvé. Conduite : après
+    construction, chercher les notes qui portent à la fois « illisible »
+    et « km approché » (`grep`), et faire tester par le script la mention
+    « illisible » avant d'appliquer la règle 4.
+
 ## Commandes et processus
 
 6. **Lancer en arrière-plan avec l'outil, pas avec `&`** (08/11/2026). Un
