@@ -3769,6 +3769,25 @@ sur l'histoire du Tour. **En attente de décision** sur les cinq questions du
   moi » restent à 41.7, les fiches de cols à 41.8.
 - [ ] 41.6 Page par édition : carte village par village, profils, cols,
   chiffres, écart officiel / reconstitution affiché (règle 12).
+  Précisé en ouvrant la story (issue #631, 27/11/2026). Critères :
+  - `npm run build:site` produit, sans réseau, `data/itineraries.json`
+    (éditions curées : étapes, points, points placés) et
+    `data/itinerary-<année>.json` pour chaque édition de
+    `stage_itineraries.json`, lu sans jamais être réécrit (test) ;
+  - en local, `GET /api/itineraries` et `GET /api/itineraries/:annee`
+    servent les mêmes données (année validée, 404 sinon) ;
+  - `edition.html?annee=AAAA` liste chaque étape : départ → arrivée,
+    distance du profil, écart profil / reconstitution (km routés pour la
+    part contrôlée, %, tolérance, dans ou hors) toujours affiché, ou
+    « non contrôlée » ; la note de curation de l'étape est lisible ;
+  - pour l'étape choisie : carte des points placés, reliés seulement
+    entre voisins placés et légendés « lignes droites, pas le tracé » ;
+    tableau village par village (km, nom, type, altitude imprimée, placé
+    ou non) ; profil des altitudes imprimées ;
+  - un km mesuré ou approché s'affiche « ≈ », une altitude peu lisible
+    n'est pas affichée comme certaine ;
+  - lien dans la navigation ; axe sans violation (e2e) ; aucun script en
+    ligne (CSP) ; mentions et attributions des cartes comme ailleurs.
 - [ ] 41.7 « Le Tour est-il passé chez moi ? » sur le site statique
   (index des communes, Epic 32).
 - [ ] 41.8 Fiches de cols et frise 1903 → aujourd'hui.
