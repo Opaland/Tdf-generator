@@ -3796,7 +3796,7 @@ sur l'histoire du Tour. **En attente de décision** sur les cinq questions du
   contrôlée, lien https seulement, notes de point non publiées, test de
   recits, accessibilité et erreurs) ; vérification des tests : 47
   mutations, 7 trous comblés.
-- [ ] 41.7 « Le Tour est-il passé chez moi ? » sur le site statique
+- [x] 41.7 « Le Tour est-il passé chez moi ? » sur le site statique (PR #634)
   (index des communes, Epic 32).
   Précisé en ouvrant la story (issue #633, 27/11/2026). Critères :
   - `npm run build:site` produit, sans réseau, `data/passages.json` :
@@ -3812,6 +3812,12 @@ sur l'histoire du Tour. **En attente de décision** sur les cinq questions du
     résultat vide ne vaut pas preuve d'absence ;
   - lien dans la navigation ; e2e et axe sans violation ; aucun script en
     ligne.
+  Fait : index de 11 979 lieux (même nom à moins de 1 km regroupé,
+  homonymes séparés et distingués par l'étape « départ → arrivée »),
+  `passages.html` (nom, « St » lu « Saint », position de l'appareil
+  traitée dans le navigateur), Archives y renvoie sur le site statique.
+  Relecture adverse : 5 trouvailles corrigées (homonymes, doublons de
+  position, « St », plafond de 500 lignes, tests).
 - [ ] 41.8 Fiches de cols et frise 1903 → aujourd'hui.
 - [ ] 41.9 Récits Claude : échantillon de 10 étapes curées (`--dry-run`,
   coût mesuré), puis lot complet si l'échantillon est conforme — bloqué
