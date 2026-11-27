@@ -410,6 +410,11 @@ et côtes traversées avec leur kilomètre.
     PR fusionnée) ; sinon la routine reboucle sur la même édition. Après
     **10 tentatives** sans y parvenir, l'édition est notée bloquée, une
     issue en dit la cause, et la routine passe à la suivante.
+    - État au 27/11 : **1965 verte** à la tentative 1/10 (bloquants de
+      l'audit corrigés ; écarts restants en issue #629) ; règle 4 précisée
+      rejouée sur 1975 (PR #628). Édition prévue le 28/11 : **1964**,
+      tentative 1/10 (vérifier d'abord la source, `1957_1966/1964/`) ;
+      règle 4 : 1976.
     - État au 26/11 : **1966 verte** à la tentative 1/10 (bloquants de
       l'audit corrigés ; écarts restants en issue #626) ; règle 4 précisée
       rejouée sur 1974 (PR #625). Édition prévue le 27/11 : **1965**,
@@ -2122,7 +2127,7 @@ et côtes traversées avec leur kilomètre.
     notée. Audit Mireille : 35 points sur 37 conformes ; les 2 écarts
     bloquants (tronçons 1974/3 et 1974/14 sans note) et les 5 mineurs
     corrigés.
-- [ ] Édition 1965 (routine quotidienne du 27/11/2026, tentative 1/10) :
+- [x] Édition 1965 (routine quotidienne du 27/11/2026, tentative 1/10) :
   aucune étape de 1965 n'est encore transcrite. Profils de ledicodutour.com
   (`images/cartes_etapes/1957_1966/1965/`) ; 24 fichiers, md5 tous
   distincts, même format que 1966 (lisibles à l'agrandissement). 22
@@ -2131,6 +2136,20 @@ et côtes traversées avec leur kilomètre.
   pas de km sous ses noms. Critères d'acceptation : ceux de 1966 ; la règle
   4 précisée ne s'étend à 1965 que si le motif se vérifie sur la
   transcription ; audit Mireille avant la PR, écarts restants en issue.
+  Fait : 23 étapes, 519 points dont 435 placés ; règle 4 précisée étendue
+  à 1965 (sauf 5b et 22, sans km imprimé) ; arrivées au Parc des Princes
+  (22) et à l'hippodrome de Pornichet (6), départs de Seraing (2) et du
+  Vernet (13) non situés (règle 25), circuits finaux de Châteaulin (5a)
+  et de Barcelone (11) déclarés ; 13 carrefours au croisement BD TOPO
+  (renumérotations écrites comme hypothèses) ; recherche bornée (noms
+  catalans sous leur forme actuelle). Contrôle BRouter écrit, aucun
+  tronçon en voiture : 13 étapes sur 23 dans la tolérance, 8 hors avec
+  cause notée (3, 4, 7, 11, 12, 13, 18, 5a), 2 non contrôlables (5b, 22).
+  Audit Mireille : 6 bloquants corrigés (circuits non déclarés, cause
+  fausse de 5a, Escoublac confondu avec l'arrivée, aller-retour au
+  Freney, Vossenack contradictoire retiré, 26 km illisibles de l'étape 20
+  étiquetés à tort « km approché »), 9 faux négatifs placés ; écarts
+  restants en issue #629.
 - [x] Édition 1966 (routine quotidienne du 26/11/2026, tentative 1/10) :
   aucune étape de 1966 n'est encore transcrite. Profils de ledicodutour.com
   (`images/cartes_etapes/1957_1966/1966/`) ; 25 fichiers, md5 tous

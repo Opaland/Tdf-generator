@@ -162,8 +162,11 @@
        "label": "Carrefour Barry",
        "km": 171,
        "kind": "lieu-dit",
-       "note": "imprimé « CAR. BARRY »",
-       "confidence": "non-place"
+       "note": "imprimé « CAR. BARRY » ; placé au village de Barry (règle 21, carrefour qui porte un nom de lieu) : 14,3 km à vol d'oiseau de Grandglise pour 14,5, 11,1 de Tournai pour 12 (audit Mireille, 27/11/2026)",
+       "confidence": "ok",
+       "lat": 50.58754,
+       "lon": 3.54306,
+       "how": "manual"
       },
       {
        "label": "Tournai",
@@ -179,7 +182,7 @@
        "label": "Chaos",
        "km": 195,
        "kind": "lieu-dit",
-       "note": "frontière Belgique/Nord juste après",
+       "note": "frontière Belgique/Nord juste après ; non placé : vraisemblablement « Cahos » (Templeuve, arrêt de bus en 50.65069,3.25005), compatible avec Tournai (10,9 km pour 12) mais à 7,0 km de l'arrivée de Roubaix pour 5 (audit Mireille, 27/11/2026)",
        "confidence": "non-place"
       },
       {
@@ -195,13 +198,13 @@
      ],
      "note": "Départ imprimé « LIÈGE (SORAING) » (vraisemblablement Seraing) : km 0 réel à l'ouest de Seraing (Hermalle-sous-Huy au km 9,5 est à 12,2 km de l'hôtel de ville), non situé (règle 25).",
      "route_check": {
-      "routed_km": 198.1,
+      "routed_km": 197.2,
       "profile_km": 190.5,
-      "delta_pct": 4,
+      "delta_pct": 3.5,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 15,
+      "legs": 16,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -224,8 +227,11 @@
        "label": "Carrefour près Lomme",
        "km": 20.5,
        "kind": "lieu-dit",
-       "note": "imprimé « CAR. près LOMME »",
-       "confidence": "non-place"
+       "note": "imprimé « CAR. près LOMME » ; placé à Lomme (Nominatim), le carrefour étant « près » d'elle : 6,8 km à vol d'oiseau de Beaucamps-Ligny pour 6 (audit Mireille, 27/11/2026)",
+       "confidence": "ok",
+       "lat": 50.6457022,
+       "lon": 2.9870927,
+       "how": "manual"
       },
       {
        "label": "Beaucamps-Ligny",
@@ -241,7 +247,7 @@
        "label": "Carrefour N 41-D 4",
        "km": 30,
        "kind": "lieu-dit",
-       "note": "33 m imprimés ; imprimé « CAR. N. 41-D. 4 » (peu lisible) ; aucun km propre : colonne sur la graduation 30 (mesuré ≈ 30,4) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1965 comme dans la série 1966-1985 (règle 4 précisée)",
+       "note": "33 m imprimés ; imprimé « CAR. N. 41-D. 4 » (peu lisible) ; aucun km propre : colonne sur la graduation 30 (mesuré ≈ 30,4) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1965 comme dans la série 1966-1985 (règle 4 précisée) ; non placé : aucun croisement de ces routes (ni de leurs renumérotations vraisemblables en D) dans la BD TOPO entre les voisins placés (27/11/2026)",
        "confidence": "non-place"
       },
       {
@@ -553,18 +559,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 225.4,
-      "profile_km": 213.5,
-      "delta_pct": 5.6,
+      "routed_km": 232.8,
+      "profile_km": 219.5,
+      "delta_pct": 6,
       "tolerance_pct": 5,
-      "coverage_pct": 89,
+      "coverage_pct": 91,
       "car_legs": 0,
-      "legs": 28,
+      "legs": 29,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Hors tolérance (+5,6 % à vélo, +5,2 % en voiture) : l'excès est réparti (Auxi-le-Château → Saint-Riquier 19,0 km pour 17, Vacquerie-le-Boucq → Auxi-le-Château 10,6 pour 9, Blainville-Crevon → Forgettes 8,6 pour 7) ; cause non établie."
+     "note": "Hors tolérance (+6,0 % à vélo, +6,9 % en voiture) : l'excès est réparti (Auxi-le-Château → Saint-Riquier 19,0 km pour 17, Vacquerie-le-Boucq → Auxi-le-Château 10,6 pour 9, Blainville-Crevon → Forgettes 8,6 pour 7, ce dernier à 8,1 km à vol d'oiseau pour 7 : Forgettes, au km peu lisible, ou le centre de Blainville-Crevon est décalé) ; cause non établie."
     },
     "4": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1965/65_4.jpg",
@@ -653,7 +659,7 @@
        "label": "Carrefour N 175-D 453",
        "km": 71,
        "kind": "lieu-dit",
-       "note": "198 m imprimés ; imprimé « CAR. N. 175 D. 453 »",
+       "note": "198 m imprimés ; imprimé « CAR. N. 175 D. 453 » ; non placé : aucun croisement de ces routes (ni de leurs renumérotations vraisemblables en D) dans la BD TOPO entre les voisins placés (27/11/2026)",
        "confidence": "non-place"
       },
       {
@@ -680,8 +686,11 @@
        "label": "Les Forges",
        "km": 95,
        "kind": "lieu-dit",
-       "note": "115 m imprimés",
-       "confidence": "non-place"
+       "note": "115 m imprimés ; lieu-dit habité « les Forges » (IGN, Le Parc), MNT 59 m pour 115 imprimés (audit Mireille, 27/11/2026)",
+       "confidence": "ok",
+       "lat": 48.73061,
+       "lon": -1.31613,
+       "how": "manual"
       },
       {
        "label": "Avranches",
@@ -697,7 +706,7 @@
        "label": "Guenoy",
        "km": 103.5,
        "kind": "lieu-dit",
-       "note": "98 m imprimés ; imprimé « GUENOY » ; altitude peu lisible (98 ou 93)",
+       "note": "98 m imprimés ; imprimé « GUENOY » ; altitude peu lisible (98 ou 93) ; non placé : recherche bornée Nominatim et IGN (27/11/2026) sans candidat de ce nom compatible avec les voisins",
        "confidence": "non-place"
       },
       {
@@ -788,10 +797,10 @@
        "label": "Près Vildé-Guingalan",
        "km": 177.5,
        "kind": "ville",
-       "note": "91 m imprimés ; imprimé « près VILDE-GUINGALAN » ; « 115 m. » (sommet, sans nom) après ; recherche bornée (27/11/2026) : commune de Vildé-Guingalan (IGN), MNT 90 m",
+       "note": "91 m imprimés ; imprimé « près VILDE-GUINGALAN » ; « 115 m. » (sommet, sans nom) après ; recherche bornée (27/11/2026) : commune de Vildé-Guingalan (IGN), MNT 90 m ; déplacé au bourg (lieu-dit IGN, règle 5) (audit Mireille, 27/11/2026)",
        "confidence": "ok",
-       "lat": 48.43628,
-       "lon": -2.15255,
+       "lat": 48.43839,
+       "lon": -2.15876,
        "how": "manual"
       },
       {
@@ -849,15 +858,15 @@
        "confidence": "ok"
       }
      ],
-     "note": "Arrivée imprimée « SAINT-BRIEUC (VÉLODROME) » laissée au centre de la ville : l'emplacement de 1965 n'est pas sourcé. Hors tolérance (+5,7 % à vélo, +16,0 % en voiture) : l'excès est réparti (Noyal → Yffiniac 17,9 km pour 16, Jugon → Noyal 14,7 pour 13, Avranches → Brée 18,3 pour 17) ; cause non établie.",
+     "note": "Arrivée imprimée « SAINT-BRIEUC (VÉLODROME) » laissée au centre de la ville : l'emplacement de 1965 n'est pas sourcé. Hors tolérance (+5,7 % à vélo, +16,0 % en voiture) : l'excès est réparti (Noyal → Yffiniac 17,9 km pour 16, Jugon → Noyal 14,7 pour 13, Avranches → Brée 18,3 pour 17 ; Verson → Mondrainville 5,0 km à vol d'oiseau pour 4, entre centres de communes) ; cause non établie.",
      "route_check": {
-      "routed_km": 229.4,
+      "routed_km": 229.3,
       "profile_km": 217,
       "delta_pct": 5.7,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 21,
+      "legs": 22,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -880,7 +889,7 @@
        "label": "Côte de Quimper",
        "km": 2.5,
        "kind": "côte",
-       "note": "4e cat. ; km peu lisible (lu 2½, possible 1½ ; colonne mesurée ≈ 2,3)",
+       "note": "4e cat. ; km peu lisible (lu 2½, possible 1½ ; colonne mesurée ≈ 2,3) ; non placé : recherche bornée Nominatim et IGN (27/11/2026) sans candidat de ce nom compatible avec les voisins",
        "confidence": "non-place"
       },
       {
@@ -1004,7 +1013,7 @@
        "label": "Carrefour N 165-D 16",
        "km": 100,
        "kind": "lieu-dit",
-       "note": "29 m imprimés ; imprimé « CAR. N. 165-D. 16 » ; aucun km propre : colonne sur la graduation 100 (mesuré ≈ 100,2) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1965 comme dans la série 1966-1985 (règle 4 précisée)",
+       "note": "29 m imprimés ; imprimé « CAR. N. 165-D. 16 » ; aucun km propre : colonne sur la graduation 100 (mesuré ≈ 100,2) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1965 comme dans la série 1966-1985 (règle 4 précisée) ; non placé : aucun croisement de ces routes (ni de leurs renumérotations vraisemblables en D) dans la BD TOPO entre les voisins placés (27/11/2026)",
        "confidence": "non-place"
       },
       {
@@ -1095,28 +1104,28 @@
        "label": "Escoublac",
        "km": 202.5,
        "kind": "ville",
-       "note": "35 m imprimés",
-       "lat": 47.28437,
-       "lon": -2.39516,
-       "how": "nominatim",
+       "note": "35 m imprimés ; replacé au village d'Escoublac (Nominatim place=suburb) : la passe automatique l'avait posé au centre de la commune de La Baule-Escoublac, au même point que l'arrivée (audit Mireille, 27/11/2026)",
+       "lat": 47.29471,
+       "lon": -2.35959,
+       "how": "manual",
        "confidence": "ok"
       },
       {
        "label": "La Baule-Pornichet (Hippodrome)",
        "km": 211.5,
        "kind": "ville",
-       "note": "4 m imprimés ; arrivée ; imprimé « LA BAULE-PORNICHET (HIPPODROME) » ; km peu lisible (lu 211½, possible 210½ ; fin d'axe mesurée ≈ 211,6)",
-       "lat": 47.28437,
-       "lon": -2.39516,
-       "how": "stage_towns",
+       "note": "4 m imprimés ; arrivée ; imprimé « LA BAULE-PORNICHET (HIPPODROME) » ; km peu lisible (lu 211½, possible 210½ ; fin d'axe mesurée ≈ 211,6) ; arrivée placée à l'hippodrome de Pornichet (Nominatim leisure=sports_centre), seul hippodrome de la station, lieu imprimé sur le profil (règle 18), 5,5 km à vol d'oiseau d'Escoublac pour 9 (audit Mireille, 27/11/2026)",
+       "lat": 47.2615291,
+       "lon": -2.3304236,
+       "how": "manual",
        "confidence": "ok"
       }
      ],
-     "note": "Arrivée imprimée « LA BAULE-PORNICHET (HIPPODROME) » laissée au centre de la ville : l'emplacement de 1965 n'est pas sourcé.",
+     "note": "Arrivée imprimée « LA BAULE-PORNICHET (HIPPODROME) » placée à l'hippodrome de Pornichet (règle 18). Le routage signale un aller-retour incertain de 1,3 km à Lorient, vers Hennebont (un point non placé y est sauté) ; il n'est pas corrigé.",
      "route_check": {
-      "routed_km": 199,
+      "routed_km": 205.8,
       "profile_km": 198,
-      "delta_pct": 0.5,
+      "delta_pct": 4,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
@@ -1381,14 +1390,14 @@
        "label": "Carrefour N 137-D 110",
        "km": 14.5,
        "kind": "lieu-dit",
-       "note": "14 m imprimés ; imprimé « CAR. N. 137-D. 110 »",
+       "note": "14 m imprimés ; imprimé « CAR. N. 137-D. 110 » ; non placé : aucun croisement de ces routes (ni de leurs renumérotations vraisemblables en D) dans la BD TOPO entre les voisins placés (27/11/2026)",
        "confidence": "non-place"
       },
       {
        "label": "Carrefour N 137-N 137 C",
        "km": 20.5,
        "kind": "lieu-dit",
-       "note": "9 m imprimés ; imprimé « CAR. N. 137-N.137 C »",
+       "note": "9 m imprimés ; imprimé « CAR. N. 137-N.137 C » ; non placé : aucun croisement de ces routes (ni de leurs renumérotations vraisemblables en D) dans la BD TOPO entre les voisins placés (27/11/2026)",
        "confidence": "non-place"
       },
       {
@@ -1723,7 +1732,7 @@
        "label": "Herere-de-Bas",
        "km": 88.5,
        "kind": "ville",
-       "note": "394 m imprimés ; imprimé « HERERE-DE-BAS » ; recherche bornée (27/11/2026) : commune d'Herrère (Nominatim ; imprimé « HERERE-DE-BAS »), MNT 324 m",
+       "note": "394 m imprimés ; imprimé « HERERE-DE-BAS » ; recherche bornée (27/11/2026) : commune d'Herrère (Nominatim ; imprimé « HERERE-DE-BAS »), MNT 324 m ; le lieu-dit IGN « Herrère de Bas », à 0,7 km, est à 290 m au MNT, 104 m sous l'altitude imprimée (règle 14) : le point reste à la commune (324 m) (audit Mireille, 27/11/2026)",
        "confidence": "ok",
        "lat": 43.1685106,
        "lon": -0.5405624,
@@ -1945,7 +1954,7 @@
        "label": "Bosse du Maillan",
        "km": 6.5,
        "kind": "côte",
-       "note": "721 m imprimés ; imprimé « 721 m. BOSSE DU MAILLAN »",
+       "note": "721 m imprimés ; imprimé « 721 m. BOSSE DU MAILLAN » ; non placé : recherche bornée Nominatim et IGN (27/11/2026) sans candidat de ce nom compatible avec les voisins",
        "confidence": "non-place"
       },
       {
@@ -2086,8 +2095,11 @@
        "label": "Etcheil",
        "km": 120,
        "kind": "ville",
-       "note": "403 m imprimés ; imprimé « ETCHEIL » ; aucun km propre : colonne sur la graduation 120 (mesuré ≈ 120,0) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1965 comme dans la série 1966-1985 (règle 4 précisée)",
-       "confidence": "non-place"
+       "note": "403 m imprimés ; imprimé « ETCHEIL » ; aucun km propre : colonne sur la graduation 120 (mesuré ≈ 120,0) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1965 comme dans la série 1966-1985 (règle 4 précisée) ; lieu-dit habité « Eycheil » (IGN ; imprimé « ETCHEIL »), MNT 459 m pour 403 (audit Mireille, 27/11/2026)",
+       "confidence": "ok",
+       "lat": 42.96541,
+       "lon": 1.1665,
+       "how": "manual"
       },
       {
        "label": "Castet-d'Aleu",
@@ -2208,13 +2220,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 210.5,
+      "routed_km": 213,
       "profile_km": 206.5,
-      "delta_pct": 1.9,
+      "delta_pct": 3.1,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
-      "legs": 22,
+      "legs": 23,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -2321,7 +2333,7 @@
        "label": "Planolas",
        "km": 99.5,
        "kind": "ville",
-       "note": "1330 m imprimés ; non placé : le village de Planoles (Nominatim) est à 1100 m au MNT pour 1330 imprimés ; le point du profil est sur la route au-dessus du village, non situé (règle 14)",
+       "note": "1330 m imprimés ; non placé : le village de Planoles (Nominatim) est à 1100 m au MNT pour 1330 imprimés ; le point coté 1330 m n'est pas situé (règle 14)",
        "confidence": "non-place"
       },
       {
@@ -2437,17 +2449,18 @@
      ],
      "route_check": {
       "routed_km": 247.4,
-      "profile_km": 223.5,
-      "delta_pct": 10.7,
+      "profile_km": 213,
+      "delta_pct": 16.2,
       "tolerance_pct": 5,
-      "coverage_pct": 93,
+      "coverage_pct": 89,
       "car_legs": 0,
-      "legs": 17,
-      "suspect_legs": 3,
+      "legs": 16,
+      "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Hors tolérance (+10,7 % à vélo ; −2,0 % en voiture) : Ripoll → Vic fait 62,7 km à vélo pour 38 (30,2 à vol d'oiseau) et Tona → Aiguafreda 14,0 pour 9 ; la route de 1965 entre Ripoll et La Garriga est vraisemblablement l'actuelle voie rapide C-17, interdite aux vélos, que le routeur contourne (hypothèse, appuyée par l'écart en voiture)."
+     "circuit_km": 230,
+     "note": "Circuit final à Barcelone : « 1er passage » imprimé au km 230, arrivée au km 240,5 (circuit_km, règle 19). Hors tolérance (+16,2 % à vélo ; +2,8 % en voiture, circuit final déduit) : Ripoll → Vic fait 62,7 km à vélo pour 38, mais 35,1 en voiture (30,2 à vol d'oiseau), et Tona → Aiguafreda 14,0 à vélo pour 9 (11,0 en voiture) ; la route de 1965 entre Ripoll et La Garriga est vraisemblablement l'actuelle voie rapide C-17, interdite aux vélos, que le routeur contourne (hypothèse, appuyée par l'écart en voiture)."
     },
     "12": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1965/65_12.jpg",
@@ -2516,7 +2529,7 @@
        "label": "Près Tordera",
        "km": 56,
        "kind": "ville",
-       "note": "155 m imprimés ; imprimé « 155 m. près TORDERA » (sur deux lignes) ; non placé : la commune de Tordera est à 31 m au MNT pour 155 imprimés ; le point est une hauteur près de Tordera, non située (règle 14)",
+       "note": "155 m imprimés ; imprimé « 155 m. près TORDERA » (sur deux lignes) ; non placé : la commune de Tordera est à 31 m au MNT pour 155 imprimés ; le point coté 155 m près de Tordera n'est pas situé (règle 14)",
        "confidence": "non-place"
       },
       {
@@ -2827,7 +2840,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ imprimé « PERPIGNAN (LE VERNET) » : km 0 réel au nord du quartier du Vernet (Salses au km 11,5 est à 12,7 km du Haut-Vernet), non situé (règle 25). Hors tolérance (+7,1 % à vélo) : l'excès est réparti (Sète → Frontignan 8,7 km pour 7, Béziers → Près Villeneuve 7,5 pour 6, Nissan → Béziers 12,5 pour 11) ; cause non établie.",
+     "note": "Départ imprimé « PERPIGNAN (LE VERNET) » : km 0 réel au nord du quartier du Vernet (Salses au km 11,5 est à 12,7 km du Haut-Vernet), non situé (règle 25). Hors tolérance (+7,1 % à vélo, +12,7 % en voiture) : l'excès est réparti (Sète → Frontignan 8,7 km pour 7, Béziers → Près Villeneuve 7,5 pour 6, Nissan → Béziers 12,5 pour 11) et se retrouve en voiture, le routeur vélo n'en est donc pas la cause ; cause non établie.",
      "route_check": {
       "routed_km": 163.3,
       "profile_km": 152.5,
@@ -2908,7 +2921,7 @@
        "label": "Les Barraques-de-Curboussel",
        "km": 65,
        "kind": "lieu-dit",
-       "note": "imprimé « LES BARRAQUES- DE CURBOUSSEL »",
+       "note": "imprimé « LES BARRAQUES- DE CURBOUSSEL » ; non placé : recherche bornée Nominatim et IGN (27/11/2026) sans candidat de ce nom compatible avec les voisins",
        "confidence": "non-place"
       },
       {
@@ -2925,7 +2938,7 @@
        "label": "Carrefour D 108-N 100-N 576",
        "km": 89.5,
        "kind": "lieu-dit",
-       "note": "155 m imprimés ; imprimé « 155 m. CAR. D.108- N.100-N.576 »",
+       "note": "155 m imprimés ; imprimé « 155 m. CAR. D.108- N.100-N.576 » ; non placé : carrefour de trois routes, non cherché dans la BD TOPO",
        "confidence": "non-place"
       },
       {
@@ -3019,7 +3032,7 @@
        "label": "Pavillon Forestier",
        "km": 159.5,
        "kind": "lieu-dit",
-       "note": "imprimé « PAVILLON FORESTIER »",
+       "note": "imprimé « PAVILLON FORESTIER » ; non placé : recherche bornée Nominatim et IGN (27/11/2026) sans candidat de ce nom compatible avec les voisins",
        "confidence": "non-place"
       },
       {
@@ -3135,7 +3148,7 @@
        "lat": 44.2767853,
        "lon": 5.2747917,
        "how": "manual",
-       "confidence": "ambigu"
+       "confidence": "ok"
       },
       {
        "label": "Sainte-Euphémie",
@@ -3252,7 +3265,7 @@
        "label": "Carrefour N 512-N 100 B",
        "km": 151,
        "kind": "lieu-dit",
-       "note": "imprimé « CAR. N.512-N.100 B »",
+       "note": "imprimé « CAR. N.512-N.100 B » ; non placé : aucun croisement de ces routes (ni de leurs renumérotations vraisemblables en D) dans la BD TOPO entre les voisins placés (27/11/2026)",
        "confidence": "non-place"
       },
       {
@@ -3538,7 +3551,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Gap → La Bâtie-Neuve 9 km à vol d'oiseau pour 9 au profil, départ réel hors du centre, non situé (règle 25).",
+     "note": "Départ : Gap → La Bâtie-Neuve 9 km à vol d'oiseau pour 9 au profil : départ laissé au centre, aucun écart ne montre qu'il était ailleurs (règle 25).",
      "route_check": {
       "routed_km": 168.2,
       "profile_km": 168,
@@ -3609,10 +3622,10 @@
        "label": "Le Freney",
        "km": 52.5,
        "kind": "ville",
-       "note": "1010 m imprimés ; imprimé « LE FRENEY »",
-       "lat": 45.04818,
-       "lon": 6.12102,
-       "how": "commune-ign-prefixe",
+       "note": "1010 m imprimés ; imprimé « LE FRENEY » ; replacé à la mairie du Freney-d'Oisans (Nominatim amenity=townhall, règle 17) : le point de la commune faisait faire au routage un aller-retour de 1,4 km (audit Mireille, 27/11/2026)",
+       "lat": 45.04392,
+       "lon": 6.12492,
+       "how": "manual",
        "confidence": "ok"
       },
       {
@@ -3728,11 +3741,11 @@
        "label": "Saint-Pierre-d'Entremont",
        "km": 151,
        "kind": "ville",
-       "note": "620 m imprimés ; imprimé « Sᵀ-PIERRE-D'ENTREMONT » ; km peu lisible (150½, 151 ou 151½ ; mesuré ≈ 151,0)",
-       "lat": 45.41791,
-       "lon": 5.85514,
-       "how": "commune-ign",
-       "confidence": "ambigu"
+       "note": "620 m imprimés ; imprimé « Sᵀ-PIERRE-D'ENTREMONT » ; km peu lisible (150½, 151 ou 151½ ; mesuré ≈ 151,0) ; replacé au bourg, à son église Saint-Pierre, point de 1987/20 (règle 6) : le point de la commune iséroise était 3,6 km au sud (audit Mireille, 27/11/2026)",
+       "lat": 45.41505,
+       "lon": 5.85399,
+       "how": "manual",
+       "confidence": "ok"
       },
       {
        "label": "Entremont",
@@ -3777,15 +3790,15 @@
      ],
      "note": "Départ : Briançon → Villeneuve-la-Salle 8,6 km à vol d'oiseau pour 5,5 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 189.6,
+      "routed_km": 187.2,
       "profile_km": 188,
-      "delta_pct": 0.8,
+      "delta_pct": -0.4,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
       "legs": 20,
       "suspect_legs": 0,
-      "backtracks": 1,
+      "backtracks": 0,
       "backtracks_uncertain": 0
      }
     },
@@ -3877,7 +3890,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Aix-les-Bains → Viviers-du-Lac 4,5 km à vol d'oiseau pour 3,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (+18,8 % à vélo, +25,2 % en voiture) : contre-la-montre en côte de 26,9 km dont les points sont des centres de communes (Viviers-du-Lac, Méry, Mouxy) à 1,5-4,5 km les uns des autres, que la route longeait vraisemblablement ; le départ réel est hors du centre d'Aix-les-Bains (règle 25) ; Veniper et l'embranchement des Hôtels ne sont pas placés.",
+     "note": "Départ : Aix-les-Bains → Viviers-du-Lac 4,5 km à vol d'oiseau pour 3,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (+18,8 % à vélo, +25,2 % en voiture) : contre-la-montre en côte de 26,9 km aux tronçons de 1,5 à 4,5 km ; Viviers-du-Lac et Méry sont à leur mairie (Nominatim amenity=townhall, à moins de 0,1 km des points), et le carrefour N 491-D 51 imprimé avec Viviers-du-Lac n'a pas de croisement compatible dans la BD TOPO (D 991 × D 51 à 5,1 km d'Aix pour 3,5) ; le départ réel est hors du centre d'Aix-les-Bains (règle 25) ; Veniper et l'embranchement des Hôtels ne sont pas placés ; cause non établie.",
      "route_check": {
       "routed_km": 27.8,
       "profile_km": 23.4,
@@ -3908,7 +3921,7 @@
        "label": "Carrefour N 201-N 514",
        "km": 8.5,
        "kind": "lieu-dit",
-       "note": "234 m imprimés ; imprimé « CAR. N. 201-N. 514 »",
+       "note": "234 m imprimés ; imprimé « CAR. N. 201-N. 514 » ; non placé : aucun croisement de ces routes (ni de leurs renumérotations vraisemblables en D) dans la BD TOPO entre les voisins placés (27/11/2026)",
        "confidence": "non-place"
       },
       {
@@ -3995,7 +4008,7 @@
        "label": "Côte de la Ravigneuse",
        "km": 72,
        "kind": "côte",
-       "note": "4e cat. ; nom peu lisible (« RAVIGNEUSE » ou « RAVIGNOUSE »)",
+       "note": "4e cat. ; nom peu lisible (« RAVIGNEUSE » ou « RAVIGNOUSE ») ; non placé : recherche bornée Nominatim et IGN (27/11/2026) sans candidat de ce nom compatible avec les voisins",
        "confidence": "non-place"
       },
       {
@@ -4106,7 +4119,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Arrivée imprimée « LYON (PARC MUNICIPAL) » laissée au centre de la ville : l'emplacement de 1965 n'est pas sourcé.",
+     "note": "Arrivée imprimée « LYON (PARC MUNICIPAL) » laissée au centre de la ville : l'emplacement de 1965 n'est pas sourcé ; Feyzin → Lyon fait 9,6 km à vol d'oiseau pour 8, la ligne était donc vraisemblablement au sud du centre (Gerland, hypothèse non sourcée).",
      "route_check": {
       "routed_km": 153.2,
       "profile_km": 152.5,
@@ -4137,77 +4150,98 @@
        "label": "Dommartin",
        "km": 6.5,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "380 m imprimés ; km imprimé illisible (mesuré ≈ 6,4) ; altitude peu lisible ; aucun km imprimé (graduation 6.5) ; non placé : km approché (règle 4)"
+       "note": "380 m imprimés ; km imprimé illisible (mesuré ≈ 6,4) ; altitude peu lisible",
+       "lat": 45.83675,
+       "lon": 4.71452,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Chessy-les-Mines",
        "km": 17.5,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "imprimé « CHESSY-LES-MINES » ; km imprimé illisible, lecture probable « 17½ » (mesuré ≈ 17,6) ; aucun km imprimé (graduation 17.5) ; non placé : km approché (règle 4)"
+       "note": "imprimé « CHESSY-LES-MINES » ; km imprimé illisible, lecture probable « 17½ » (mesuré ≈ 17,6)",
+       "lat": 45.88719,
+       "lon": 4.62298,
+       "how": "nominatim",
+       "confidence": "ok"
       },
       {
        "label": "Chamelet",
        "km": 31,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "nom peu lisible (« CHAMELET ») ; km imprimé illisible (mesuré ≈ 30,9) ; aucun km imprimé (graduation 31) ; non placé : km approché (règle 4)"
+       "note": "nom peu lisible (« CHAMELET ») ; km imprimé illisible (mesuré ≈ 30,9)",
+       "lat": 45.98337,
+       "lon": 4.51013,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Le Gravier",
        "km": 43,
        "kind": "lieu-dit",
-       "confidence": "non-place",
-       "note": "nom peu lisible (« LE GRAVIER ») ; km imprimé illisible (mesuré ≈ 42,8) ; aucun km imprimé (graduation 43) ; non placé : km approché (règle 4)"
+       "note": "nom peu lisible (« LE GRAVIER ») ; km imprimé illisible (mesuré ≈ 42,8)",
+       "confidence": "non-place"
       },
       {
        "label": "Côte des Écharmeaux",
        "km": 54.5,
        "kind": "côte",
-       "confidence": "non-place",
-       "note": "4e cat. ; nom peu lisible (« COTE DES ECHARMEAUX ») ; km imprimé illisible (mesuré ≈ 54,6) ; aucun km imprimé (graduation 54.5) ; non placé : km approché (règle 4)"
+       "note": "4e cat. ; nom peu lisible (« COTE DES ECHARMEAUX ») ; km imprimé illisible (mesuré ≈ 54,6)",
+       "confidence": "non-place"
       },
       {
        "label": "Chauffailles",
        "km": 67.5,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "403 m imprimés ; km imprimé illisible (mesuré ≈ 67,6) ; altitude peu lisible ; aucun km imprimé (graduation 67.5) ; non placé : km approché (règle 4)"
+       "note": "403 m imprimés ; km imprimé illisible (mesuré ≈ 67,6) ; altitude peu lisible",
+       "lat": 46.20773,
+       "lon": 4.33819,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "La Clayette",
        "km": 81,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "379 m imprimés ; km imprimé illisible (mesuré ≈ 80,9) ; altitude peu lisible ; aucun km imprimé (graduation 81) ; non placé : km approché (règle 4)"
+       "note": "379 m imprimés ; km imprimé illisible (mesuré ≈ 80,9) ; altitude peu lisible",
+       "lat": 46.29143,
+       "lon": 4.30776,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Saint-Symphorien-des-Bois",
        "km": 87.5,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "443 m imprimés ; imprimé « SAINT-SYMPHORIEN-DES-BOIS » (lecture probable) ; km imprimé illisible (mesuré ≈ 87,4) ; altitude peu lisible ; aucun km imprimé (graduation 87.5) ; non placé : km approché (règle 4)"
+       "note": "443 m imprimés ; imprimé « SAINT-SYMPHORIEN-DES-BOIS » (lecture probable) ; km imprimé illisible (mesuré ≈ 87,4) ; altitude peu lisible",
+       "lat": 46.33352,
+       "lon": 4.28336,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Le Gurdon",
        "km": 93.5,
        "kind": "lieu-dit",
-       "confidence": "non-place",
-       "note": "nom peu lisible (« LE G?RDON » / « LE GUEDON ») ; km imprimé illisible (mesuré ≈ 93,7) ; aucun km imprimé (graduation 93.5) ; non placé : km approché (règle 4)"
+       "note": "nom peu lisible (« LE G?RDON » / « LE GUEDON ») ; km imprimé illisible (mesuré ≈ 93,7)",
+       "confidence": "non-place"
       },
       {
        "label": "Charolles",
        "km": 101.5,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "km imprimé illisible (mesuré ≈ 101,6) ; aucun km imprimé (graduation 101.5) ; non placé : km approché (règle 4)"
+       "note": "km imprimé illisible (mesuré ≈ 101,6)",
+       "lat": 46.43531,
+       "lon": 4.27305,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Génelard",
        "km": 120,
        "kind": "ville",
-       "note": "241 m imprimés ; imprimé « GENELARD » ; aucun km propre : colonne sur la graduation 120 (mesuré ≈ 120,0) — aucun chiffre vu sous la colonne, à confirmer ; altitude peu lisible ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1965 comme dans la série 1966-1985 (règle 4 précisée)",
+       "note": "241 m imprimés ; imprimé « GENELARD » ; aucun km propre : colonne sur la graduation 120 (mesuré ≈ 120,0) — aucun chiffre vu sous la colonne, à confirmer ; altitude peu lisible ; tous les km de ce profil sont illisibles : l'absence de chiffre sous la colonne n'est pas établie, le point garde le km de la colonne mesurée comme les autres noms de l'étape (audit Mireille, 27/11/2026)",
        "lat": 46.58068,
        "lon": 4.23559,
        "how": "commune-ign",
@@ -4217,84 +4251,108 @@
        "label": "Perrecy-les-Forges",
        "km": 124,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "271 m imprimés ; imprimé « PERRECY-LES-FORGES » ; km imprimé illisible, lecture probable « 124 » (mesuré ≈ 124,1) ; altitude peu lisible ; aucun km imprimé (graduation 124) ; non placé : km approché (règle 4)"
+       "note": "271 m imprimés ; imprimé « PERRECY-LES-FORGES » ; km imprimé illisible, lecture probable « 124 » (mesuré ≈ 124,1) ; altitude peu lisible",
+       "lat": 46.61487,
+       "lon": 4.21478,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Toulon-sur-Arroux",
        "km": 137,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "311 m imprimés ; km imprimé illisible (mesuré ≈ 137,1) ; altitude peu lisible ; aucun km imprimé (graduation 137) ; non placé : km approché (règle 4)"
+       "note": "311 m imprimés ; km imprimé illisible (mesuré ≈ 137,1) ; altitude peu lisible",
+       "lat": 46.69351,
+       "lon": 4.13872,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Luzy",
        "km": 155,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "175 m imprimés ; nom peu lisible (« LUZY ») ; km imprimé illisible (mesuré ≈ 154,9) ; altitude peu lisible (173 ou 175) ; aucun km imprimé (graduation 155) ; non placé : km approché (règle 4)"
+       "note": "175 m imprimés ; nom peu lisible (« LUZY ») ; km imprimé illisible (mesuré ≈ 154,9) ; altitude peu lisible (173 ou 175)",
+       "lat": 46.7896,
+       "lon": 3.9707,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Côte des Montarons",
        "km": 170.5,
        "kind": "côte",
-       "confidence": "non-place",
-       "note": "413 m imprimés ; 4e cat. ; nom peu lisible (« COTE DES MONTARONS ») ; km imprimé illisible, colonne tout près de la graduation 170 (mesuré ≈ 170,4) ; altitude peu lisible ; aucun km imprimé (graduation 170.5) ; non placé : km approché (règle 4)"
+       "note": "413 m imprimés ; 4e cat. ; nom peu lisible (« COTE DES MONTARONS ») ; km imprimé illisible, colonne tout près de la graduation 170 (mesuré ≈ 170,4) ; altitude peu lisible",
+       "confidence": "non-place"
       },
       {
        "label": "Saint-Honoré-les-Bains",
        "km": 176.5,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "260 m imprimés ; km imprimé illisible (mesuré ≈ 176,6) ; altitude peu lisible ; aucun km imprimé (graduation 176.5) ; non placé : km approché (règle 4)"
+       "note": "260 m imprimés ; km imprimé illisible (mesuré ≈ 176,6) ; altitude peu lisible",
+       "lat": 46.9056,
+       "lon": 3.84068,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Moulins-Engilbert",
        "km": 188,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "234 m imprimés ; km imprimé illisible (mesuré ≈ 187,9) ; altitude peu lisible ; aucun km imprimé (graduation 188) ; non placé : km approché (règle 4)"
+       "note": "234 m imprimés ; km imprimé illisible (mesuré ≈ 187,9) ; altitude peu lisible",
+       "lat": 46.98719,
+       "lon": 3.81149,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Aunay-en-Bazois",
        "km": 207,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "210 m imprimés ; km imprimé illisible, lecture probable « 207 » (mesuré ≈ 207,2) ; altitude peu lisible ; aucun km imprimé (graduation 207) ; non placé : km approché (règle 4)"
+       "note": "210 m imprimés ; km imprimé illisible, lecture probable « 207 » (mesuré ≈ 207,2) ; altitude peu lisible",
+       "lat": 47.11668,
+       "lon": 3.69974,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Château-Gaillard",
        "km": 213.5,
        "kind": "lieu-dit",
-       "confidence": "non-place",
-       "note": "290 m imprimés ; nom peu lisible (« CHATEAU GAILLARD ») ; km imprimé illisible (mesuré ≈ 213,6) ; altitude peu lisible ; aucun km imprimé (graduation 213.5) ; non placé : km approché (règle 4)"
+       "note": "290 m imprimés ; nom peu lisible (« CHATEAU GAILLARD ») ; km imprimé illisible (mesuré ≈ 213,6) ; altitude peu lisible",
+       "confidence": "non-place"
       },
       {
        "label": "Mar…ay",
        "km": 220.5,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "330 m imprimés ; nom peu lisible (« MAR?(C/G)?AY ») ; km imprimé illisible (mesuré ≈ 220,4) ; altitude peu lisible ; aucun km imprimé (graduation 220.5) ; non placé : km approché (règle 4)"
+       "note": "330 m imprimés ; nom peu lisible (« MAR?(C/G)?AY ») ; km imprimé illisible (mesuré ≈ 220,4) ; altitude peu lisible",
+       "confidence": "non-place"
       },
       {
        "label": "Corbigny",
        "km": 226,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "303 m imprimés ; km imprimé illisible (mesuré ≈ 225,9) ; altitude peu lisible ; aucun km imprimé (graduation 226) ; non placé : km approché (règle 4)"
+       "note": "303 m imprimés ; km imprimé illisible (mesuré ≈ 225,9) ; altitude peu lisible ; MNT 198 m pour 303 imprimés, sur un profil aux altitudes peu lisibles : le chiffre lu est vraisemblablement fautif (hypothèse), le point reste au bourg, compatible avec ses voisins",
+       "lat": 47.25743,
+       "lon": 3.6843,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Monceaux-le-Comte",
        "km": 235,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "186 m imprimés ; km imprimé illisible (mesuré ≈ 234,8) ; altitude peu lisible ; aucun km imprimé (graduation 235) ; non placé : km approché (règle 4)"
+       "note": "186 m imprimés ; km imprimé illisible (mesuré ≈ 234,8) ; altitude peu lisible",
+       "lat": 47.32902,
+       "lon": 3.66164,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Flez-Cuzy",
        "km": 240,
        "kind": "ville",
-       "note": "173 m imprimés ; imprimé « FLEZ CUZY » ; aucun km propre : colonne sur la graduation 240 (mesuré ≈ 240,0) — aucun chiffre distinct vu, à confirmer ; altitude peu lisible ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1965 comme dans la série 1966-1985 (règle 4 précisée)",
+       "note": "173 m imprimés ; imprimé « FLEZ CUZY » ; aucun km propre : colonne sur la graduation 240 (mesuré ≈ 240,0) — aucun chiffre distinct vu, à confirmer ; altitude peu lisible ; tous les km de ce profil sont illisibles : l'absence de chiffre sous la colonne n'est pas établie, le point garde le km de la colonne mesurée comme les autres noms de l'étape (audit Mireille, 27/11/2026)",
        "lat": 47.36359,
        "lon": 3.6232,
        "how": "commune-ign",
@@ -4304,36 +4362,48 @@
        "label": "Dornecy",
        "km": 247.5,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "163 m imprimés ; km imprimé illisible (mesuré ≈ 247,2) ; altitude peu lisible ; aucun km imprimé (graduation 247.5) ; non placé : km approché (règle 4)"
+       "note": "163 m imprimés ; km imprimé illisible (mesuré ≈ 247,2) ; altitude peu lisible",
+       "lat": 47.4358,
+       "lon": 3.58527,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Clamecy",
        "km": 256,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "150 m imprimés ; km imprimé illisible (mesuré ≈ 255,9) ; altitude peu lisible ; aucun km imprimé (graduation 256) ; non placé : km approché (règle 4)"
+       "note": "150 m imprimés ; km imprimé illisible (mesuré ≈ 255,9) ; altitude peu lisible",
+       "lat": 47.45989,
+       "lon": 3.51876,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Coulanges-sur-Yonne",
        "km": 263.5,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "148 m imprimés ; km imprimé illisible (mesuré ≈ 263,7) ; altitude peu lisible ; aucun km imprimé (graduation 263.5) ; non placé : km approché (règle 4)"
+       "note": "148 m imprimés ; km imprimé illisible (mesuré ≈ 263,7) ; altitude peu lisible",
+       "lat": 47.52642,
+       "lon": 3.53949,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Courson-les-Carrières",
        "km": 275,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "km imprimé illisible, lecture probable « 275 » (mesuré ≈ 274,8) ; altitude illisible (231 ou 271) ; aucun km imprimé (graduation 275) ; non placé : km approché (règle 4)"
+       "note": "km imprimé illisible, lecture probable « 275 » (mesuré ≈ 274,8) ; altitude illisible (231 ou 271)",
+       "lat": 47.6143,
+       "lon": 3.50067,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "…-l'Évêque",
        "km": 288.5,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "163 m imprimés ; nom peu lisible (« G? L'EVEQUE ») ; km imprimé illisible (mesuré ≈ 288,4) ; altitude peu lisible (163 ou 165) ; aucun km imprimé (graduation 288.5) ; non placé : km approché (règle 4)"
+       "note": "163 m imprimés ; nom peu lisible (« G? L'EVEQUE ») ; km imprimé illisible (mesuré ≈ 288,4) ; altitude peu lisible (163 ou 165)",
+       "confidence": "non-place"
       },
       {
        "label": "Auxerre",
@@ -4347,14 +4417,14 @@
       }
      ],
      "route_check": {
-      "routed_km": 183.9,
-      "profile_km": 178.5,
-      "delta_pct": 3,
+      "routed_km": 293.4,
+      "profile_km": 292,
+      "delta_pct": 0.5,
       "tolerance_pct": 5,
-      "coverage_pct": 60,
+      "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 2,
-      "suspect_legs": 0,
+      "legs": 21,
+      "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -4815,8 +4885,11 @@
        "label": "Carrefour près Merzenich",
        "km": 28,
        "kind": "lieu-dit",
-       "note": "141 m imprimés ; imprimé « CAR. près MERZENICH »",
-       "confidence": "non-place"
+       "note": "141 m imprimés ; imprimé « CAR. près MERZENICH » ; placé à la commune de Merzenich (Nominatim), le carrefour étant « près » d'elle : 12,8 km à vol d'oiseau de Kerpen pour 12, 4,1 de Düren pour 4,5 (audit Mireille, 27/11/2026)",
+       "confidence": "ok",
+       "lat": 50.8281277,
+       "lon": 6.5245079,
+       "how": "manual"
       },
       {
        "label": "Düren",
@@ -4842,24 +4915,28 @@
        "label": "Vossenack",
        "km": 62.5,
        "kind": "ville",
-       "lat": 50.68562,
-       "lon": 6.37397,
-       "how": "nominatim",
-       "confidence": "ok"
+       "confidence": "non-place",
+       "note": "retiré : profil contradictoire, le km 62½ est net sous la colonne mais Vossenack (Nominatim place=village, Hürtgenwald) est à 4,5 km à vol d'oiseau de Kleinhau pour 16,5 et à 17,1 de Mützenich pour 13,5 (audit Mireille, 27/11/2026)"
       },
       {
        "label": "Carrefour N 258 Imgenbroich",
        "km": 71,
        "kind": "lieu-dit",
-       "note": "557 m imprimés ; imprimé « CAR. N. 258- IMGENBROICH »",
-       "confidence": "non-place"
+       "note": "557 m imprimés ; imprimé « CAR. N. 258- IMGENBROICH » ; placé au village d'Imgenbroich (règle 21, carrefour qui porte un nom de lieu) : 19,2 km à vol d'oiseau de Kleinhau pour 25, 3,0 de Mützenich pour 5 (audit Mireille, 27/11/2026)",
+       "confidence": "ok",
+       "lat": 50.57271,
+       "lon": 6.26178,
+       "how": "manual"
       },
       {
        "label": "Mützenich",
        "km": 76,
        "kind": "ville",
-       "note": "imprimé « MUTZENICH » ; km peu lisible (76 ou 76,5, fraction masquée par le trait de frontière ; colonne mesurée ≈ 76,7) ; non placé : Mützenich (Nominatim) est à 18 km à vol d'oiseau de Vossenack, imprimé au km 62,5, pour 13,5 km : l'un des deux km ou Vossenack est en cause, non tranché",
-       "confidence": "non-place"
+       "note": "imprimé « MUTZENICH » ; km peu lisible (76 ou 76,5, fraction masquée par le trait de frontière ; colonne mesurée ≈ 76,7) ; placé au quartier de Mützenich à Monschau (Nominatim place=suburb), 15,2 km à vol d'oiseau d'Eupen pour 15,5 ; c'est Vossenack qui contredisait le profil (audit Mireille, 27/11/2026)",
+       "lat": 50.56673,
+       "lon": 6.22076,
+       "how": "manual",
+       "confidence": "ok"
       },
       {
        "label": "Eupen",
@@ -4962,23 +5039,23 @@
        "label": "Liège (Droixhe)",
        "km": 149,
        "kind": "ville",
-       "note": "65 m imprimés ; arrivée ; imprimé « LIÈGE (DROIXHE) » ; arrivée imprimée « LIÈGE (DROIXHE) » : placée au quartier de Droixhe (Nominatim place=quarter), 6,1 km à vol d'oiseau de Romsée pour 7,5 ; le lieu exact de la ligne n'est pas sourcé",
+       "note": "65 m imprimés ; arrivée ; imprimé « LIÈGE (DROIXHE) » ; arrivée imprimée « LIÈGE (DROIXHE) » : placée au quartier de Droixhe (Nominatim place=quarter), 6,1 km à vol d'oiseau de Romsée pour 7,5 ; le lieu exact de la ligne n'est pas sourcé ; le fichier 65_1b.jpg, plan de l'étape 1b, montre la ligne au Marché de Droixhe, près de l'avenue de Jupille ; l'arrivée de 1a y était vraisemblablement aussi (hypothèse), d'où le point laissé au quartier",
        "lat": 50.6466975,
        "lon": 5.6071052,
        "how": "manual",
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Cologne → Frechen 11,1 km à vol d'oiseau pour 6,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "note": "Départ : Cologne → Frechen 11,1 km à vol d'oiseau pour 6,5 au profil, départ réel hors du centre, non situé (règle 25). L'étape 1b (contre-la-montre par équipes à Liège) n'est pas transcrite : son fichier 65_1b.jpg est un plan sans km (départ et arrivée au Marché de Droixhe). Le routage signale un aller-retour incertain de 1,6 km à Chaudfontaine, vers Romsée (un point non placé, Côte des Forges, y est sauté) ; il n'est pas corrigé.",
      "route_check": {
-      "routed_km": 139.6,
+      "routed_km": 147.1,
       "profile_km": 142.5,
-      "delta_pct": -2,
+      "delta_pct": 3.3,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 14,
-      "suspect_legs": 1,
+      "legs": 16,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 1
      }
@@ -5000,7 +5077,7 @@
        "label": "Carrefour N 778-N 790",
        "km": 9,
        "kind": "lieu-dit",
-       "note": "imprimé « CAR. N. 778 N. 790 »",
+       "note": "imprimé « CAR. N. 778 N. 790 » ; non placé : aucun croisement de ces routes (ni de leurs renumérotations vraisemblables en D) dans la BD TOPO entre les voisins placés (27/11/2026)",
        "confidence": "non-place"
       },
       {
@@ -5095,7 +5172,7 @@
        "lat": 48.2082535,
        "lon": -3.9013724,
        "how": "manual",
-       "confidence": "ambigu",
+       "confidence": "ok",
        "note": "replacé au hameau de Ty Blaise à Lennon (Nominatim place=hamlet), sur la route de Pleyben : la passe automatique avait pris la maison isolée du même nom à Saint-Thois, à 8,0 km de Pleyben pour 6,5"
       },
       {
@@ -5168,17 +5245,18 @@
      ],
      "route_check": {
       "routed_km": 116.2,
-      "profile_km": 130,
-      "delta_pct": -10.6,
+      "profile_km": 109,
+      "delta_pct": 6.6,
       "tolerance_pct": 5,
-      "coverage_pct": 88,
+      "coverage_pct": 74,
       "car_legs": 0,
-      "legs": 14,
-      "suspect_legs": 3,
+      "legs": 11,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      },
-     "note": "Hors tolérance (−10,6 % à vélo, −11,8 % en voiture) : le tracé routé est plus court que le profil ; le tour final de 7 km dans Châteaulin ne se route pas (départ et arrivée au même point) et le parcours de 1965 faisait vraisemblablement un détour que les points placés ne jalonnent pas ; cause non établie."
+     "circuit_km": 126,
+     "note": "Circuit final à Châteaulin : « 1er passage » imprimé au km 126, arrivée au km 147 (circuit_km, règle 19). Hors tolérance (+6,6 % à vélo, +5,2 % en voiture, circuit final déduit) : l'excès est réparti (Pleyben → Stang ar Garont 9,2 km pour 7, Saint-Brieuc → Quintin 19,9 pour 17, Rostrenen → Le Moustoir 17,6 pour 15,5) ; cause non établie."
     },
     "5b": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1965/65_5b.jpg",
