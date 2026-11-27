@@ -55335,8 +55335,11 @@
        "label": "Villennes-sur-Seine",
        "km": 140,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "23 m imprimés ; aucun km imprimé (colonne sur la graduation 140) ; non placé : km approché (règle 4)"
+       "note": "23 m imprimés ; aucun km imprimé (colonne sur la graduation 140) ; colonne remesurée ≈ 140,0 au zoom, aucun km imprimé dessous (27/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601)",
+       "lat": 48.94045,
+       "lon": 1.99876,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Poissy",
@@ -55359,8 +55362,11 @@
        "label": "Les Petits-Prés (Plaisir)",
        "km": 160,
        "kind": "lieu-dit",
-       "confidence": "non-place",
-       "note": "aucun km imprimé (colonne sur la graduation 160) ; imprimé « LES PETITS-PRES (PLAISIR) » ; non placé : km approché (règle 4)"
+       "note": "aucun km imprimé (colonne sur la graduation 160) ; imprimé « LES PETITS-PRES (PLAISIR) » ; colonne remesurée ≈ 160,0 au zoom, aucun km imprimé dessous (27/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; quartier les Petits Prés (IGN, Plaisir), MNT 115 m ; 13,0 km de Poissy pour 15, 9,2 de Saint-Cyr-l'École pour 10,5 (recherche bornée, 27/11/2026)",
+       "confidence": "ok",
+       "lat": 48.82841,
+       "lon": 1.94878,
+       "how": "manual"
       },
       {
        "label": "Saint-Cyr-l'École",
@@ -55385,13 +55391,13 @@
      ],
      "note": "Total imprimé 176 km (relu au zoom), 170 km dans stage_towns : écart entre les sources, non tranché. Départ : Amiens → L'Estocq 21,8 km à vol d'oiseau pour 20,5 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 163.1,
+      "routed_km": 171.4,
       "profile_km": 165,
-      "delta_pct": -1.2,
+      "delta_pct": 3.9,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 20,
+      "legs": 22,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -55488,17 +55494,20 @@
        "label": "Saint-Piat",
        "km": 60,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "104 m imprimés ; aucun km imprimé (colonne sur la graduation 60) ; non placé : km approché (règle 4)"
+       "note": "104 m imprimés ; aucun km imprimé (colonne sur la graduation 60) ; colonne remesurée ≈ 60,1 au zoom, aucun km imprimé dessous (27/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601)",
+       "lat": 48.54674,
+       "lon": 1.58457,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Saint-Prest",
        "km": 68.5,
        "kind": "ville",
-       "note": "124 m imprimés ; km peu lisible (66,5 ou 68,5) ; point à la mairie de Saint-Prest ; le contrôle signale un aller-retour « incertain » de 1,5 km vers Chartres, Saint-Piat (sans km imprimé) étant sauté : l'étape (+0,8 %) le contient, environ +0,1 % sans lui (règles 17, 24)",
-       "lat": 48.49269,
-       "lon": 1.52931,
-       "how": "commune-ign",
+       "note": "124 m imprimés ; km peu lisible (66,5 ou 68,5), colonne mesurée ≈ 68,5 (audit Mireille) ; placé à la mairie (Nominatim amenity=townhall) : depuis le point de la commune, le routage faisait un aller-retour de 1,5 km vers Chartres une fois Saint-Piat placé (règle 17, 27/11/2026)",
+       "lat": 48.492201,
+       "lon": 1.530906,
+       "how": "manual",
        "confidence": "ok"
       },
       {
@@ -55515,8 +55524,11 @@
        "label": "Lucé",
        "km": 80,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "aucun km imprimé (colonne sur la graduation 80) ; imprimé « LUCE » ; symbole roue près de la colonne (sens non imprimé) ; non placé : km approché (règle 4)"
+       "note": "aucun km imprimé (colonne sur la graduation 80) ; imprimé « LUCE » ; symbole roue près de la colonne (sens non imprimé) ; colonne remesurée ≈ 80,1 au zoom, aucun km imprimé dessous (27/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601)",
+       "lat": 48.43647,
+       "lon": 1.46286,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Le Pont-Tranchefétu",
@@ -55666,16 +55678,16 @@
       }
      ],
      "route_check": {
-      "routed_km": 218.7,
+      "routed_km": 217,
       "profile_km": 217,
-      "delta_pct": 0.8,
+      "delta_pct": 0,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 21,
+      "legs": 23,
       "suspect_legs": 0,
       "backtracks": 0,
-      "backtracks_uncertain": 1
+      "backtracks_uncertain": 0
      }
     },
     "5": {
@@ -55828,8 +55840,11 @@
        "label": "Montigné-sur-Moine",
        "km": 120,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "aucun km imprimé (colonne sur la graduation 120) ; imprimé « MONTIGNE-SUR-MOINE » ; non placé : km approché (règle 4)"
+       "note": "aucun km imprimé (colonne sur la graduation 120) ; imprimé « MONTIGNE-SUR-MOINE » ; colonne remesurée ≈ 120,5 au zoom, aucun km imprimé dessous (27/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601)",
+       "lat": 47.08494,
+       "lon": -1.13794,
+       "how": "nominatim",
+       "confidence": "ok"
       },
       {
        "label": "La Bruffière",
@@ -55950,13 +55965,13 @@
      ],
      "note": "Départ : Sablé-sur-Sarthe → Saint-Denis-d'Anjou 9,6 km à vol d'oiseau pour 7 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 221.1,
+      "routed_km": 221.2,
       "profile_km": 215.5,
       "delta_pct": 2.6,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 22,
+      "legs": 23,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -56408,8 +56423,8 @@
        "label": "Côte de Camarsac",
        "km": 110,
        "kind": "côte",
-       "confidence": "non-place",
-       "note": "57 m imprimés ; 4e cat. ; aucun km imprimé (colonne vers km 110) ; non placé : km approché (règle 4)"
+       "note": "57 m imprimés ; 4e cat. ; aucun km imprimé (colonne vers km 110) ; colonne remesurée ≈ 110,2 au zoom, aucun km imprimé dessous (27/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; non placé : le sommet de la côte de Camarsac n'est pas situé (le bourg de Camarsac, à 41-45 m, est au pied pour 57 imprimés) ; recherche bornée du 27/11/2026",
+       "confidence": "non-place"
       },
       {
        "label": "Tresses-Mélac",
@@ -56520,8 +56535,8 @@
        "label": "Barcugnan",
        "km": 50,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "aucun km imprimé (colonne au km 50, limite Gers/Hautes-Pyrénées) ; aucune altitude imprimée ; non placé : km approché (règle 4)"
+       "note": "aucun km imprimé (colonne au km 50, limite Gers/Hautes-Pyrénées) ; aucune altitude imprimée ; colonne remesurée ≈ 50,0 au zoom, aucun km imprimé dessous (27/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; non placé : le bourg de Barcugnan (mairie, église Saint-Martin) est à 6,9 km de Trie-sur-Baïse pour 5 au profil ; les candidats compatibles de la recherche bornée (église Saint-Laurent, Sainte-Eulalie, Cabanès) ne portent pas ce nom (règle 21, audit Mireille)",
+       "confidence": "non-place"
       },
       {
        "label": "Trie-sur-Baïse",
@@ -56664,8 +56679,11 @@
        "label": "Ferrières",
        "km": 160,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "550 m imprimés ; aucun km imprimé (colonne au km 160, limite Hautes-Pyrénées/Pyrénées-Atlantiques) ; imprimé « FERRIERES » ; non placé : km approché (règle 4)"
+       "note": "550 m imprimés ; aucun km imprimé (colonne au km 160, limite Hautes-Pyrénées/Pyrénées-Atlantiques) ; imprimé « FERRIERES » ; colonne remesurée ≈ 160,0 au zoom, aucun km imprimé dessous (27/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601)",
+       "lat": 43.01092,
+       "lon": -0.26293,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Arthez-d'Asson",
@@ -56691,8 +56709,11 @@
        "label": "Côte de Piétat",
        "km": 190,
        "kind": "côte",
-       "confidence": "non-place",
-       "note": "380 m imprimés ; aucun km imprimé (colonne au km 190) ; imprimé « COTE DE PIETAT » ; aucune catégorie lisible ; non placé : km approché (règle 4)"
+       "note": "380 m imprimés ; aucun km imprimé (colonne au km 190) ; imprimé « COTE DE PIETAT » ; aucune catégorie lisible ; colonne remesurée ≈ 190,0 au zoom, aucun km imprimé dessous (27/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; quartier Pietat (IGN, Pardies-Piétat), au sommet de la côte (MNT 365 m pour 380) ; 3,9 km d'Arros-de-Nay pour 5,5, 2,8 de la côte d'Esquillot pour 5 (recherche bornée, 27/11/2026)",
+       "confidence": "ok",
+       "lat": 43.21061,
+       "lon": -0.3343,
+       "how": "manual"
       },
       {
        "label": "Côte d'Esquillot",
@@ -56726,13 +56747,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 195.2,
+      "routed_km": 193.4,
       "profile_km": 192.5,
-      "delta_pct": 1.4,
+      "delta_pct": 0.5,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
-      "legs": 21,
+      "legs": 23,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -56880,8 +56901,11 @@
        "label": "Sainte-Marie-de-Campan",
        "km": 110,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "857 m imprimés ; aucun km imprimé (colonne au km 110) ; imprimé « SAINTE-MARIE DE CAMPAN » ; non placé : km approché (règle 4)"
+       "note": "857 m imprimés ; aucun km imprimé (colonne au km 110) ; imprimé « SAINTE-MARIE DE CAMPAN » ; colonne remesurée ≈ 110,1 au zoom, aucun km imprimé dessous (27/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601)",
+       "lat": 42.98481,
+       "lon": 0.22762,
+       "how": "nominatim",
+       "confidence": "ok"
       },
       {
        "label": "La Séoube",
@@ -56956,13 +56980,13 @@
      ],
      "note": "Départ : Pau → Ousse 8,2 km à vol d'oiseau pour 5,5 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 150.8,
+      "routed_km": 151.4,
       "profile_km": 154.5,
-      "delta_pct": -2.4,
+      "delta_pct": -2,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 17,
+      "legs": 18,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -57123,8 +57147,11 @@
        "label": "Ségoufielle",
        "km": 110,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "150 m imprimés ; aucun km imprimé (colonne au km 110, limite Gers/Haute-Garonne) ; imprimé « SEGOUFIELLE » ; non placé : km approché (règle 4)"
+       "note": "150 m imprimés ; aucun km imprimé (colonne au km 110, limite Gers/Haute-Garonne) ; imprimé « SEGOUFIELLE » ; colonne remesurée ≈ 109,9 au zoom, aucun km imprimé dessous (27/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601)",
+       "lat": 43.63233,
+       "lon": 1.13208,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Lévignac",
@@ -57266,13 +57293,13 @@
      "note": "Circuit final d'Albi : entrée imprimée au km 229,5, arrivée au km 242 (12,5 km) ; circuit_km à l'entrée (règle 19). Départ : Tarbes → Sarrouilles 4 km à vol d'oiseau pour 3 au profil, départ réel hors du centre, non situé (règle 25).",
      "circuit_km": 229.5,
      "route_check": {
-      "routed_km": 225.4,
+      "routed_km": 225.7,
       "profile_km": 221.5,
-      "delta_pct": 1.7,
+      "delta_pct": 1.9,
       "tolerance_pct": 5,
       "coverage_pct": 92,
       "car_legs": 0,
-      "legs": 17,
+      "legs": 18,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -57790,8 +57817,11 @@
        "label": "Près Saignes",
        "km": 130,
        "kind": "lieu-dit",
-       "confidence": "non-place",
-       "note": "1080 m imprimés ; aucun km imprimé (colonne au km 130) ; imprimé « Près SAIGNES » ; non placé : km approché (règle 4)"
+       "note": "1080 m imprimés ; aucun km imprimé (colonne au km 130) ; imprimé « Près SAIGNES » ; colonne remesurée ≈ 130,1 au zoom, aucun km imprimé dessous (27/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; « Près X » placé au hameau de Saignes (Nominatim place=hamlet, Le Vernet-Sainte-Marguerite), règle 5, MNT 1 072 m pour 1 080 ; 4,2 km de Murol pour 7, 6,6 d'Aydat pour 8 (recherche bornée, 27/11/2026)",
+       "confidence": "ok",
+       "lat": 45.61019,
+       "lon": 2.93062,
+       "how": "manual"
       },
       {
        "label": "Aydat",
@@ -57866,13 +57896,13 @@
      ],
      "note": "Départ : Aurillac → Velzic 11,8 km à vol d'oiseau pour 11 au profil, départ réel hors du centre, non situé (règle 25). Un tronçon en voiture inévitable : BRouter refuse la route du sommet du Puy de Dôme, comme en 1976, 1978, 1986, 1988 et 2023.",
      "route_check": {
-      "routed_km": 156.9,
+      "routed_km": 157.2,
       "profile_km": 162.5,
-      "delta_pct": -3.4,
+      "delta_pct": -3.2,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 1,
-      "legs": 21,
+      "legs": 22,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -58380,8 +58410,11 @@
        "label": "Le Planet",
        "km": 50,
        "kind": "lieu-dit",
-       "confidence": "non-place",
-       "note": "aucun km imprimé ; non placé : km approché (règle 4)"
+       "note": "aucun km imprimé ; colonne remesurée ≈ 50,3 au zoom, aucun km imprimé dessous (27/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; hameau Le Planet (Nominatim place=hamlet, Saint-François-Longchamp), MNT 1 228 m ; 4,5 km de Saint-Martin-la-Chambre pour 6,5, 4,9 du col de la Madeleine pour 9,5 (recherche bornée, 27/11/2026)",
+       "confidence": "ok",
+       "lat": 45.39998,
+       "lon": 6.33788,
+       "how": "manual"
       },
       {
        "label": "Saint-François-Longchamp",
@@ -58414,8 +58447,11 @@
        "label": "Villard-Soffray",
        "km": 80,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "945 m imprimés ; aucun km imprimé ; imprimé « VILLARD-SOFFRAY » ; non placé : km approché (règle 4)"
+       "note": "945 m imprimés ; aucun km imprimé ; imprimé « VILLARD-SOFFRAY » ; colonne remesurée ≈ 80,1 au zoom, aucun km imprimé dessous (27/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601)",
+       "lat": 45.5175,
+       "lon": 6.45322,
+       "how": "nominatim",
+       "confidence": "ok"
       },
       {
        "label": "Carrefour D 94-N 90",
@@ -58606,7 +58642,7 @@
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 21,
+      "legs": 23,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -59221,8 +59257,8 @@
        "label": "Côte du Bois du Turny",
        "km": 140,
        "kind": "côte",
-       "confidence": "non-place",
-       "note": "230 m imprimés ; aucun km imprimé ; 4e cat. ; non placé : km approché (règle 4)"
+       "note": "230 m imprimés ; aucun km imprimé ; 4e cat. ; colonne remesurée ≈ 140,1 au zoom, aucun km imprimé dessous (27/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; non placé : aucun lieu « Bois du Turny » trouvé (recherche bornée du 27/11/2026, seul le bois du Fays à Turny)",
+       "confidence": "non-place"
       },
       {
        "label": "Fournaudin",
@@ -59437,8 +59473,11 @@
        "label": "Esbly",
        "km": 50,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "50 m imprimés ; aucun km imprimé ; non placé : km approché (règle 4)"
+       "note": "50 m imprimés ; aucun km imprimé ; colonne remesurée ≈ 50,0 au zoom, aucun km imprimé dessous (27/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601)",
+       "lat": 48.90096,
+       "lon": 2.81307,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Près Meaux",
@@ -59627,16 +59666,16 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Melun → Lissy 9,9 km à vol d'oiseau pour 8 au profil, départ réel hors du centre, non situé (règle 25). À la limite de la tolérance (+5,0 % à vélo, +10,6 % en voiture) : Compiègne → Catenoy fait 29 km à vélo et 26 en voiture pour 24 au profil (23,5 à vol d'oiseau, traversée de la forêt de Compiègne non située) ; tracé exact non sourcé.",
+     "note": "Départ : Melun → Lissy 9,9 km à vol d'oiseau pour 8 au profil, départ réel hors du centre, non situé (règle 25). Dans la tolérance (+4,7 % à vélo au contrôle du 27/11/2026 ; +10,6 % en voiture avant) : Compiègne → Catenoy fait 29 km à vélo et 26 en voiture pour 24 au profil (23,5 à vol d'oiseau, traversée de la forêt de Compiègne non située) ; tracé exact non sourcé. Serris → Esbly fait 5,8 km routés pour 9,5 au profil et Esbly → Près Meaux 11,7 (8,5 à vol d'oiseau) pour 8 : les deux tronçons se compensent (17,5 km pour 17,5) ; la colonne d'Esbly est bien sur la graduation 50, le passage exact entre Serris et Meaux n'est pas situé (règle 11).",
      "route_check": {
-      "routed_km": 223,
+      "routed_km": 222.5,
       "profile_km": 212.5,
-      "delta_pct": 5,
+      "delta_pct": 4.7,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 20,
-      "suspect_legs": 0,
+      "legs": 21,
+      "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -59749,8 +59788,11 @@
        "label": "Alsemberg",
        "km": 70,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "68 m imprimés ; aucun km imprimé (colonne sur la graduation 70) ; non placé : km approché (règle 4)"
+       "note": "68 m imprimés ; aucun km imprimé (colonne sur la graduation 70) ; colonne remesurée ≈ 70,1 au zoom, aucun km imprimé dessous (27/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; placé au village d'Alsemberg (Nominatim, section de Beersel), EU-DEM 68 m pour 68 : le géocodeur avait pris le sommet « Alsemberg » (natural=peak, 122 m) ; 5,0 km de Mont-Saint-Pont pour 5, 4,8 de Lot pour 7,5 (audit Mireille)",
+       "lat": 50.741994,
+       "lon": 4.338312,
+       "how": "manual",
+       "confidence": "ok"
       },
       {
        "label": "Lot",
@@ -59785,13 +59827,13 @@
      ],
      "note": "Départ : Charleroi → Mont-sur-Marchienne 3,9 km à vol d'oiseau pour 2,5 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 89.9,
+      "routed_km": 88.9,
       "profile_km": 91.5,
-      "delta_pct": -1.7,
+      "delta_pct": -2.9,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 9,
+      "legs": 10,
       "suspect_legs": 3,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -59831,8 +59873,11 @@
        "label": "Outer",
        "km": 20,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "aucun km imprimé (colonne sur la graduation 20) ; non placé : km approché (règle 4)"
+       "note": "aucun km imprimé (colonne sur la graduation 20) ; colonne remesurée ≈ 20,0 au zoom, aucun km imprimé dessous (27/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601)",
+       "lat": 50.8416,
+       "lon": 3.99949,
+       "how": "nominatim",
+       "confidence": "ok"
       },
       {
        "label": "Zandbergen",
@@ -59965,8 +60010,8 @@
        "label": "Frontière",
        "km": 100,
        "kind": "lieu-dit",
-       "confidence": "non-place",
-       "note": "30 m imprimés ; aucun km imprimé (colonne sur la graduation 100) ; limite West-Vlaanderen/Nord ; imprimé « FRONTIERE » ; non placé : km approché (règle 4)"
+       "note": "30 m imprimés ; aucun km imprimé (colonne sur la graduation 100) ; limite West-Vlaanderen/Nord ; imprimé « FRONTIERE » ; colonne remesurée ≈ 100,3 au zoom, aucun km imprimé dessous (27/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601) ; non placé : « Frontière » ne nomme pas de lieu ; le passage de la frontière belge n'est pas situé",
+       "confidence": "non-place"
       },
       {
        "label": "Wattrelos",
@@ -59989,15 +60034,15 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ réel hors du centre de Molenbeek : la « Boule d'Or » (même point que l'arrivée de 1a, maison communale) est à 21,3 km à vol d'oiseau de Meerbeke pour 16,5 au profil (règle 25). Hors tolérance à vélo (−10,7 %, 84 % de l'étape mesurée), pas en voiture (91,3 km pour 92, −0,8 %) : BRouter coupe par les petites routes entre les monts flamands ; quatre points non placés (Carrefour d'Edingen, Outer, Moulin du Cat, Frontière).",
+     "note": "Départ réel hors du centre de Molenbeek : la « Boule d'Or » (même point que l'arrivée de 1a, maison communale) est à 21,3 km à vol d'oiseau de Meerbeke pour 16,5 au profil (règle 25). Hors tolérance à vélo (−10,7 % avant la règle 4 précisée, −6,3 % avec Outer placé le 27/11/2026, 84 % de l'étape mesurée), pas en voiture (91,3 km pour 92, −0,8 %, mesuré avant la pose d'Outer) : BRouter coupe par les petites routes entre les monts flamands ; trois points non placés (Carrefour d'Edingen, Moulin du Cat, Frontière).",
      "route_check": {
-      "routed_km": 82.2,
+      "routed_km": 86.2,
       "profile_km": 92,
-      "delta_pct": -10.7,
+      "delta_pct": -6.3,
       "tolerance_pct": 5,
       "coverage_pct": 84,
       "car_legs": 0,
-      "legs": 14,
+      "legs": 15,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -60020,8 +60065,11 @@
        "label": "Auros",
        "km": 10,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "aucun km imprimé (colonne au km 10, symbole roue) ; aucune altitude imprimée ; non placé : km approché (règle 4)"
+       "note": "aucun km imprimé (colonne au km 10, symbole roue) ; aucune altitude imprimée ; colonne remesurée ≈ 10,0 au zoom, aucun km imprimé dessous (27/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601)",
+       "lat": 44.49491,
+       "lon": -0.14635,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Berthez",
@@ -60118,8 +60166,11 @@
        "label": "Condom",
        "km": 90,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "81 m imprimés ; aucun km imprimé (colonne au km 90) ; non placé : km approché (règle 4)"
+       "note": "81 m imprimés ; aucun km imprimé (colonne au km 90) ; colonne remesurée ≈ 90,0 au zoom, aucun km imprimé dessous (27/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1969-1985 (règle 4 précisée, issue #601)",
+       "lat": 43.95607,
+       "lon": 0.37431,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Côte de Saint-Puy",
@@ -60179,16 +60230,16 @@
        "confidence": "ok"
       }
      ],
-     "note": "Circuit final de Fleurance : entrée imprimée au km 118,5 (sans nom de lieu), passages sur la ligne aux km 121,5 et 126, arrivée au km 131 ; circuit_km à l'entrée imprimée (règle 19, audit Mireille). Hors tolérance (+7,7 % à vélo, +8,4 % en voiture, 72 % de l'étape mesurée jusqu'à l'entrée du circuit) : Berthez → Grignols, 13 km à vol d'oiseau pour 11 au profil, concentre l'écart.",
+     "note": "Circuit final de Fleurance : entrée imprimée au km 118,5 (sans nom de lieu), passages sur la ligne aux km 121,5 et 126, arrivée au km 131 ; circuit_km à l'entrée imprimée (règle 19, audit Mireille). Hors tolérance avant la règle 4 précisée (+7,7 % à vélo, +8,4 % en voiture, 72 % de l'étape mesurée jusqu'à l'entrée du circuit) : Berthez → Grignols, 13 km à vol d'oiseau pour 11 au profil, concentre l'écart. Avec Auros et Condom placés (règle 4 précisée, 27/11/2026), l'étape est à la limite de la tolérance à vélo (+5,0 %) ; la part mesurée passe à 75 %.",
      "circuit_km": 118.5,
      "route_check": {
-      "routed_km": 101.2,
-      "profile_km": 94,
-      "delta_pct": 7.7,
+      "routed_km": 102.9,
+      "profile_km": 98,
+      "delta_pct": 5,
       "tolerance_pct": 5,
-      "coverage_pct": 72,
+      "coverage_pct": 75,
       "car_legs": 0,
-      "legs": 8,
+      "legs": 10,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
