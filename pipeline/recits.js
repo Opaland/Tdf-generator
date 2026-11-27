@@ -14,6 +14,7 @@ const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 const { townsStageFor } = require('./placeSearch');
+const { kmIsPrinted } = require('./editionPages');
 
 const DATA_DIR = path.join(__dirname, 'data');
 const NARRATIVES_FILE = path.join(DATA_DIR, 'stage_narratives.json');
@@ -108,7 +109,9 @@ function stageFacts(year, key) {
       const p = { nom: t.label, type: KIND[t.kind] || t.kind };
       // Un km mesuré à l'échelle ou mal lu n'est pas un fait : omis
       // (relecture adverse : 339 points « aucun km imprimé » repris tels quels).
-      if (!/aucun km imprimé|km illisible|km peu lisible|km approché/.test(t.note || '')) p.km = t.km;
+      // Même règle que la page par édition (« km imprimé illisible », « km
+      // de la graduation » échappaient à l'ancien motif).
+      if (kmIsPrinted(t.note)) p.km = t.km;
       // Une altitude lue « peu lisible » n'est pas un fait certain : omise.
       const alt = /altitude peu lisible/.test(t.note || '') ? null : printedAltitude(t.note);
       if (alt != null) p.altitude_m = alt;

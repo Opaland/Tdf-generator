@@ -121,3 +121,28 @@ test('pages d’édition autonomes publiées : mention ASO et sources dans le pi
     assert.match(footer[1], /Wikipédia/, f);
   }
 });
+
+// Story 41.6 (issue #631) : itinéraires curés publiés par édition, lus sans
+// réseau dans stage_itineraries.json ; la page et ses données sont servies.
+test('itinéraires curés publiés : index et une page par édition', () => {
+  const ep = require('../pipeline/editionPages');
+  const idx = JSON.parse(fs.readFileSync(path.join(DIST, 'data/itineraries.json'), 'utf8'));
+  assert.deepStrictEqual(idx, ep.editionIndex());
+  for (const e of idx) assert.ok(fs.existsSync(path.join(DIST, `data/itinerary-${e.year}.json`)), `${e.year} manquant`);
+  const p = JSON.parse(fs.readFileSync(path.join(DIST, 'data/itinerary-1965.json'), 'utf8'));
+  assert.deepStrictEqual(p, ep.editionPage(1965));
+  for (const f of ['edition.html', 'edition.js']) assert.ok(fs.existsSync(path.join(DIST, f)), `${f} manquant`);
+  assert.doesNotMatch(fs.readFileSync(path.join(DIST, 'edition.html'), 'utf8'), /(href|src)="\/(?!\/)/, 'chemin absolu resté dans edition.html');
+});
+
+test('mode statique : les routes d’itinéraires lisent les fichiers de data/', async () => {
+  const EF = require('../frontend/common.js');
+  const asked = [];
+  const realFetch = globalThis.fetch;
+  globalThis.fetch = async (url) => { asked.push(String(url)); return { ok: true, json: async () => ({}) }; };
+  try {
+    await EF.staticApi('/api/itineraries');
+    await EF.staticApi('/api/itineraries/1965');
+  } finally { globalThis.fetch = realFetch; }
+  assert.deepStrictEqual(asked, ['data/itineraries.json', 'data/itinerary-1965.json']);
+});
