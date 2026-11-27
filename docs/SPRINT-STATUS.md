@@ -2082,7 +2082,7 @@ et côtes traversées avec leur kilomètre.
   contrôle BRouter sans aller-retour nouveau, causes des écarts mises à
   jour.
   - [x] 1969 · [x] 1970 · [x] 1971 · [x] 1972 · [x] 1973 · [x] 1974 ·
-    [ ] 1975 · [ ] 1976 · [ ] 1977 · [ ] 1978 · [ ] 1979 · [ ] 1980 ·
+    [x] 1975 · [ ] 1976 · [ ] 1977 · [ ] 1978 · [ ] 1979 · [ ] 1980 ·
     [ ] 1981 · [ ] 1982 · [ ] 1983 · [ ] 1984 · [ ] 1985
   - 1969-1971 (23/11) : 72 noms repris, 64 placés (19 + 23 + 22), 8 non
     placés avec motif (carrefours introuvables ou incompatibles, frontière,
@@ -2122,6 +2122,16 @@ et côtes traversées avec leur kilomètre.
     notée. Audit Mireille : 35 points sur 37 conformes ; les 2 écarts
     bloquants (tronçons 1974/3 et 1974/14 sans note) et les 5 mineurs
     corrigés.
+  - 1975 (27/11) : 21 noms repris, colonnes remesurées au zoom (toutes à
+    0,5 km ou moins, aucun km imprimé dessous) ; 17 placés (géocodeur,
+    recherche bornée pour Les Petits-Prés, Piétat, Saignes, Le Planet ;
+    Alsemberg au village, pas au sommet homonyme) ; Barcugnan non placé
+    (bourg à 6,9 km de Trie pour 5), côtes de Camarsac et du Bois du Turny
+    et « Frontière » non placées. Saint-Prest à sa mairie (aller-retour
+    après Saint-Piat). Contrôle BRouter écrit : 1975/1b passe de −10,7 % à
+    −6,3 %, 9a à la limite (+5,0 %), 21 dans la tolérance (tronçons
+    d'Esbly notés). Audit Mireille : 3 bloquants corrigés (Alsemberg,
+    Barcugnan, tronçons d'Esbly) et 5 notes reprises.
 - [x] Édition 1966 (routine quotidienne du 26/11/2026, tentative 1/10) :
   aucune étape de 1966 n'est encore transcrite. Profils de ledicodutour.com
   (`images/cartes_etapes/1957_1966/1966/`) ; 25 fichiers, md5 tous
