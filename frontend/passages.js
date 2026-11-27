@@ -10,8 +10,10 @@ const EFPassages = {
 
   /** Minuscules sans accents ni ponctuation, pour comparer des noms. */
   fold(s) {
-    return String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
-      .replace(/[^a-z0-9]+/g, ' ').trim();
+    // « St »/« Ste » abrégés comme « Saint »/« Sainte » (relecture adverse).
+    return String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+      .replace(/[^a-z0-9]+/g, ' ').trim()
+      .replace(/(^| )st(?= |$)/g, '$1saint').replace(/(^| )ste(?= |$)/g, '$1sainte');
   },
 
   /** Distance en km (haversine). */
@@ -47,13 +49,15 @@ const EFPassages = {
     return out.sort((a, b) => a.distance - b.distance);
   },
 
-  /** Une ligne par passage, dans l'ordre des lieux puis des années. */
-  rows(matches) {
+  /** Une ligne par passage, dans l'ordre des lieux puis des années ;
+   * `names` (index.stage_names) donne « départ → arrivée » de l'étape, qui
+   * distingue les homonymes. */
+  rows(matches, names = {}) {
     const out = [];
     for (const m of matches) {
       const [label, , , kind, passages] = m.place;
       for (const [year, stage, km, printed] of [...passages].sort((a, b) => a[0] - b[0])) {
-        out.push({ label, kind, distance: m.distance, year, stage, km, printed: !!printed });
+        out.push({ label, kind, distance: m.distance, year, stage, km, printed: !!printed, route: names[`${year}/${stage}`] || null });
       }
     }
     return out;
@@ -65,7 +69,8 @@ const EFPassages = {
     const href = `/edition.html?annee=${encodeURIComponent(r.year)}&etape=${encodeURIComponent(r.stage)}`;
     return `<tr><td>${EF.esc(r.label)}${r.kind && r.kind !== 'ville' ? ` <span class="meta-line">(${EF.esc(r.kind)})</span>` : ''}</td>` +
       `<td>${EF.esc(dist)}</td><td>${EF.esc(r.year)}</td>` +
-      `<td><a href="${EF.esc(href)}">Étape ${EF.esc(r.stage)}</a></td><td>${EF.esc(km)}</td></tr>`;
+      `<td><a href="${EF.esc(href)}">Étape ${EF.esc(r.stage)}</a>${r.route ? ` <span class="meta-line">${EF.esc(r.route)}</span>` : ''}</td>` +
+      `<td>${EF.esc(km)}</td></tr>`;
   },
 };
 
@@ -76,15 +81,19 @@ if (typeof document !== 'undefined') {
 
   const status = (t) => { document.getElementById('passages-status').textContent = t; };
 
-  function show(matches, what) {
-    const rows = EFPassages.rows(matches);
-    const shown = rows.slice(0, EFPassages.MAX_ROWS);
+  function show(matches, what, all = false) {
+    const rows = EFPassages.rows(matches, index.stage_names);
+    const shown = all ? rows : rows.slice(0, EFPassages.MAX_ROWS);
     document.querySelector('#passages-table tbody').innerHTML = shown.map(EFPassages.rowHtml).join('');
     if (!rows.length) {
       status(`Aucun passage trouvé ${what} dans les étapes curées — ce n'est pas la preuve qu'aucun Tour n'y est passé.`);
     } else {
       status(`${rows.length} passage${rows.length > 1 ? 's' : ''} ${what}${rows.length > shown.length ? ` (${shown.length} premiers affichés)` : ''}.`);
     }
+    const more = document.getElementById('btn-more');
+    // style.display, pas l'attribut hidden : le style des boutons l'emporte.
+    more.style.display = rows.length > shown.length ? '' : 'none';
+    more.onclick = () => show(matches, what, true);
   }
 
   document.addEventListener('DOMContentLoaded', async () => {
