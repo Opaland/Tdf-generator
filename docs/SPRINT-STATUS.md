@@ -3767,7 +3767,7 @@ sur l'histoire du Tour. **En attente de décision** sur les cinq questions du
   page, tuiles attribuées dans chaque carte ; le workflow Pages appelle
   `npm run build:site`. L'index des communes et la recherche « passé chez
   moi » restent à 41.7, les fiches de cols à 41.8.
-- [ ] 41.6 Page par édition : carte village par village, profils, cols,
+- [x] 41.6 Page par édition (PR #632) : carte village par village, profils, cols,
   chiffres, écart officiel / reconstitution affiché (règle 12).
   Précisé en ouvrant la story (issue #631, 27/11/2026). Critères :
   - `npm run build:site` produit, sans réseau, `data/itineraries.json`
@@ -3788,6 +3788,14 @@ sur l'histoire du Tour. **En attente de décision** sur les cinq questions du
     n'est pas affichée comme certaine ;
   - lien dans la navigation ; axe sans violation (e2e) ; aucun script en
     ligne (CSP) ; mentions et attributions des cartes comme ailleurs.
+  Fait : `pipeline/editionPages.js` (lecture seule, vérifiée par
+  empreinte), routes GET locales, fichiers statiques (62 éditions, ≈ 5 Mo),
+  `edition.html` (tableau des étapes avec part contrôlée et couverture,
+  carte, profil, tableau village par village) ; `recits.js` lit la même
+  règle « km imprimé ». Relecture adverse : 5 trouvailles corrigées (part
+  contrôlée, lien https seulement, notes de point non publiées, test de
+  recits, accessibilité et erreurs) ; vérification des tests : 47
+  mutations, 7 trous comblés.
 - [ ] 41.7 « Le Tour est-il passé chez moi ? » sur le site statique
   (index des communes, Epic 32).
 - [ ] 41.8 Fiches de cols et frise 1903 → aujourd'hui.
