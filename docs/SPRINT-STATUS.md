@@ -2122,6 +2122,15 @@ et côtes traversées avec leur kilomètre.
     notée. Audit Mireille : 35 points sur 37 conformes ; les 2 écarts
     bloquants (tronçons 1974/3 et 1974/14 sans note) et les 5 mineurs
     corrigés.
+- [ ] Édition 1965 (routine quotidienne du 27/11/2026, tentative 1/10) :
+  aucune étape de 1965 n'est encore transcrite. Profils de ledicodutour.com
+  (`images/cartes_etapes/1957_1966/1965/`) ; 24 fichiers, md5 tous
+  distincts, même format que 1966 (lisibles à l'agrandissement). 22
+  profils à transcrire (1a, 2, 3, 4, 5a, 5b, 6 à 22) ; non transcrit : 1b
+  (plan du circuit de Liège). 5b (contre-la-montre de Châteaulin) n'imprime
+  pas de km sous ses noms. Critères d'acceptation : ceux de 1966 ; la règle
+  4 précisée ne s'étend à 1965 que si le motif se vérifie sur la
+  transcription ; audit Mireille avant la PR, écarts restants en issue.
 - [x] Édition 1966 (routine quotidienne du 26/11/2026, tentative 1/10) :
   aucune étape de 1966 n'est encore transcrite. Profils de ledicodutour.com
   (`images/cartes_etapes/1957_1966/1966/`) ; 25 fichiers, md5 tous
