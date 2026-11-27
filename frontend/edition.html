@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#141414">
+  <link rel="icon" type="image/png" href="/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <title>ÉtapeForge — Parcours par édition</title>
+  <link rel="stylesheet" href="/vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main>
+  <h1>Parcours d'une édition, village par village</h1>
+  <p class="meta-line">Villes, côtes et cols imprimés sur les profils officiels de chaque étape, transcrits
+    et placés à la main. L'écart entre la distance du profil et la reconstitution routée est toujours affiché,
+    même hors tolérance.</p>
+  <div class="toolbar">
+    <label class="field" style="min-width:200px;margin:0">Édition
+      <select id="sel-year"></select>
+    </label>
+    <label class="field" style="min-width:280px;margin:0">Étape
+      <select id="sel-stage"></select>
+    </label>
+  </div>
+  <div class="statgrid" id="edition-stats"></div>
+  <h2>Étapes de l'édition</h2>
+  <div class="card scrollx" tabindex="0" role="region" aria-label="Étapes de l'édition (tableau défilant)">
+    <table class="stats" id="edition-stages">
+      <thead><tr>
+        <th>Étape</th><th>Départ → arrivée</th><th>Profil (km)</th><th>Reconstitution</th>
+        <th>Écart</th><th>Points placés</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <section id="stage-detail" aria-live="polite">
+    <h2 id="stage-title"></h2>
+    <div id="stage-check"></div>
+    <p class="meta-line" id="stage-note"></p>
+    <div id="map" style="height:460px"></div>
+    <p class="meta-line">Points placés reliés par des lignes droites entre voisins placés : ce n'est pas le tracé
+      de la route. Un point non placé coupe la ligne.</p>
+    <h3>Profil des altitudes imprimées</h3>
+    <div id="stage-profile"></div>
+    <h3>Village par village</h3>
+    <div class="card scrollx" tabindex="0" role="region" aria-label="Points de passage de l'étape (tableau défilant)">
+      <table class="stats" id="stage-points">
+        <thead><tr><th>km</th><th>Lieu</th><th>Type</th><th>Altitude imprimée</th><th>Placé</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="meta-line">« ≈ » : km non imprimé sous le nom (mesuré à l'échelle, porté par une graduation ou
+      illisible). « ? » : altitude imprimée peu lisible.</p>
+  </section>
+</main>
+<script src="/vendor/leaflet/leaflet.js"></script>
+<script src="/common.js"></script>
+<script src="/edition.js"></script>
+</body>
+</html>

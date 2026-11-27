@@ -54,6 +54,7 @@ const EF = {
       { href: '/cols.html', nav: 'cols', label: 'Cols' },
       { href: '/compare.html', nav: 'compare', label: 'Comparer' },
       { href: '/traces.html', nav: 'traces', label: 'Mes traces', local: true },
+      { href: '/edition.html', nav: 'edition', label: 'Parcours par édition' },
       { href: '/archives.html', nav: 'archives', label: 'Archives 1903→' },
     ];
     if (!isStatic) return links;
@@ -92,6 +93,8 @@ const EF = {
     else if ((m = p.match(/^api\/editions\/(\d+)\/mapdata$/))) file = `data/mapdata-${m[1]}.json`;
     else if ((m = p.match(/^api\/editions\/(\d+)$/))) file = `data/edition-${m[1]}.json`;
     else if (p === 'api/climbs') file = 'data/climbs.json';
+    else if (p === 'api/itineraries') file = 'data/itineraries.json';
+    else if ((m = p.match(/^api\/itineraries\/(\d{4})$/))) file = `data/itinerary-${m[1]}.json`;
     if (!file) throw new Error(EF.STATIC_MSG);
     const res = await fetch(file);
     // status : comme EF.api(), pour qu'un appelant distingue un 404 (fiche
