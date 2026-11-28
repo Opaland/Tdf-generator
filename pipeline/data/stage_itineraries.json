@@ -65584,8 +65584,11 @@
        "label": "Notre-Dame-de-Riez",
        "km": 10,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "26 m imprimés ; aucun km imprimé (graduation 10) ; non placé : km approché (règle 4)"
+       "note": "26 m imprimés ; aucun km imprimé (graduation 10) ; colonne remesurée ≈ 10,0 au zoom, aucun km imprimé dessous (28/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1965-1985 (règle 4 précisée, issue #601)",
+       "lat": 46.74527,
+       "lon": -1.90703,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Commequiers",
@@ -65717,8 +65720,11 @@
        "label": "Côte de la Chapelle-du-Genêt",
        "km": 110,
        "kind": "côte",
-       "confidence": "non-place",
-       "note": "104 m imprimés ; 4e cat. ; aucun km imprimé (graduation 110) ; non placé : km approché (règle 4)"
+       "note": "104 m imprimés ; 4e cat. ; aucun km imprimé (graduation 110) ; colonne remesurée ≈ 110,0 au zoom, aucun km imprimé dessous (28/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1965-1985 (règle 4 précisée, issue #601) ; côte placée au village de La Chapelle-du-Genêt (Nominatim place=village), MNT 95 m pour 104 ; 5,1 km de Villedieu-la-Blouère pour 6,5, 2,9 de Beaupréau pour 4 (28/11/2026)",
+       "confidence": "ok",
+       "lat": 47.1829542,
+       "lon": -1.0187595,
+       "how": "manual"
       },
       {
        "label": "Beaupréau",
@@ -65805,16 +65811,16 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ imprimé « Merlin-Plage (Saint-Jean-de-Monts) ». « Angers (1er passage) » imprimé sans km (vers le km 169,5) avant l'arrivée au km 173 : circuit final non déclaré, premier passage non situé.",
+     "note": "Départ imprimé « Merlin-Plage (Saint-Jean-de-Monts) ». « Angers (1er passage) » imprimé sans km (vers le km 169,5) avant l'arrivée au km 173 : circuit final non déclaré, premier passage non situé. Notre-Dame-de-Riez (graduation 10, règle 4 précisée) → Commequiers fait 6,1 km à vélo et 6,4 en voiture pour 10,5 au profil : cause non établie : ni le routeur (6,4 km en voiture) ni la colonne (relue sur la graduation 10) ; vraisemblablement un détour que le profil ne nomme pas (hypothèse). L'étape passe de −2,1 % à −5,1 % (hors tolérance).",
      "route_check": {
-      "routed_km": 149.2,
-      "profile_km": 152.5,
-      "delta_pct": -2.1,
+      "routed_km": 154.6,
+      "profile_km": 163,
+      "delta_pct": -5.1,
       "tolerance_pct": 5,
-      "coverage_pct": 88,
+      "coverage_pct": 94,
       "car_legs": 0,
-      "legs": 18,
-      "suspect_legs": 1,
+      "legs": 20,
+      "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -65933,8 +65939,11 @@
        "label": "Thorigné-en-Charnie",
        "km": 70,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "103 m imprimés ; aucun km imprimé (graduation 70) ; non placé : km approché (règle 4)"
+       "note": "103 m imprimés ; aucun km imprimé (graduation 70) ; colonne remesurée ≈ 70,0 au zoom, aucun km imprimé dessous (28/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1965-1985 (règle 4 précisée, issue #601)",
+       "lat": 48.00087,
+       "lon": -0.35835,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Côte de Sainte-Suzanne",
@@ -66120,11 +66129,14 @@
        "confidence": "ok"
       },
       {
-       "label": "Caen",
+       "label": "Caen (entrée viaduc de Calix)",
        "km": 230,
        "kind": "lieu-dit",
-       "confidence": "non-place",
-       "note": "imprimé ENTREE VIADUC CALIX ; entrée ; aucun km imprimé (graduation 230) ; non placé : km approché (règle 4)"
+       "note": "imprimé ENTREE VIADUC CALIX ; entrée ; aucun km imprimé (graduation 230) ; colonne remesurée ≈ 230,1 au zoom, aucun km imprimé dessous (28/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1965-1985 (règle 4 précisée, issue #601) ; placé sur le viaduc de Calix (Nominatim highway=trunk, inauguré le 13/12/1975 d'après fr.wikipedia), entrée imprimée ; 6,5 km avant l'arrivée : circuit final déclaré (circuit_km, règle 19)",
+       "lat": 49.1847574,
+       "lon": -0.3280781,
+       "how": "manual",
+       "confidence": "ok"
       },
       {
        "label": "Caen",
@@ -66137,19 +66149,20 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Angers → Cantenay-Épinard 6,7 km à vol d'oiseau pour 5 au profil, départ réel hors du centre, non situé (règle 25). Ifs → Caen : 4,9 km à vol d'oiseau pour 12,5 au profil : boucle d'arrivée après l'« entrée viaduc Calix » (vers le km 230, sans km imprimé), circuit final non déclaré (règle 19).",
+     "note": "Départ : Angers → Cantenay-Épinard 6,7 km à vol d'oiseau pour 5 au profil, départ réel hors du centre, non situé (règle 25). Circuit final à Caen : « entrée viaduc Calix » sur la graduation 230 (règle 4 précisée), arrivée au km 236,5 (circuit_km, règle 19, 28/11/2026).",
      "route_check": {
-      "routed_km": 225.9,
-      "profile_km": 231.5,
-      "delta_pct": -2.4,
+      "routed_km": 227.4,
+      "profile_km": 225,
+      "delta_pct": 1.1,
       "tolerance_pct": 5,
-      "coverage_pct": 98,
+      "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 26,
-      "suspect_legs": 1,
+      "legs": 27,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "circuit_km": 230
     },
     "4": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1967_1976/1976/76_4.jpg",
@@ -66351,8 +66364,11 @@
        "label": "Kortrijk",
        "km": 150,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "19 m imprimés ; imprimé COURTRAI (KORTRIJK) ; aucun km imprimé (graduation 150) ; non placé : km approché (règle 4)"
+       "note": "19 m imprimés ; imprimé COURTRAI (KORTRIJK) ; aucun km imprimé (graduation 150) ; colonne remesurée ≈ 150,0 au zoom, aucun km imprimé dessous (28/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1965-1985 (règle 4 précisée, issue #601)",
+       "lat": 50.82764,
+       "lon": 3.26599,
+       "how": "nominatim",
+       "confidence": "ok"
       },
       {
        "label": "Nom illisible",
@@ -66507,13 +66523,13 @@
      ],
      "note": "Total de l'étape coupé au bord droit de l'image : km de l'arrivée mesuré vers 253 (stage_towns : 258 km). Départ : Le Touquet-Paris-Plage → Beutin 10,3 km à vol d'oiseau pour 9,5 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 245.1,
+      "routed_km": 246,
       "profile_km": 243.5,
-      "delta_pct": 0.7,
+      "delta_pct": 1,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
-      "legs": 28,
+      "legs": 29,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -66659,8 +66675,11 @@
        "label": "Beuveille",
        "km": 90,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "273 m imprimés ; aucun km imprimé (graduation 90) ; non placé : km approché (règle 4)"
+       "note": "273 m imprimés ; aucun km imprimé (graduation 90) ; colonne remesurée ≈ 90,0 au zoom, aucun km imprimé dessous (28/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1965-1985 (règle 4 précisée, issue #601)",
+       "lat": 49.43244,
+       "lon": 5.69112,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Pierrepont",
@@ -66696,8 +66715,8 @@
        "label": "Mainville",
        "km": 120,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "270 m imprimés ; aucun km imprimé (graduation 120) ; non placé : km approché (règle 4)"
+       "note": "270 m imprimés ; aucun km imprimé (graduation 120) ; colonne remesurée ≈ 120,2 au zoom, aucun km imprimé dessous (28/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1965-1985 (règle 4 précisée, issue #601) ; retiré : profil contradictoire à cette graduation, nom relu au zoom ×9 ; le village de Mainville (Nominatim place=village, Mairy-Mainville) est à 8,5 km à vol d'oiseau de Briey pour 5 au profil (28/11/2026)",
+       "confidence": "non-place"
       },
       {
        "label": "Briey",
@@ -66733,8 +66752,11 @@
        "label": "Carrefour D 13-D 142",
        "km": 150,
        "kind": "lieu-dit",
-       "confidence": "non-place",
-       "note": "aucun km imprimé (graduation 150) ; non placé : km approché (règle 4)"
+       "note": "aucun km imprimé (graduation 150) ; colonne remesurée ≈ 150,0 au zoom, aucun km imprimé dessous (28/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1965-1985 (règle 4 précisée, issue #601) ; placé au croisement D 13 × D 142 de la BD TOPO, seul compatible avec les voisins (7,5 km de Doncourt-lès-Conflans pour 9, 8,4 d'Onville pour 11,5) (28/11/2026)",
+       "confidence": "ok",
+       "lat": 49.078709,
+       "lon": 5.905486,
+       "how": "manual"
       },
       {
        "label": "Onville",
@@ -66760,8 +66782,11 @@
        "label": "Pagny-sur-Moselle",
        "km": 170,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "188 m imprimés ; aucun km imprimé (graduation 170) ; non placé : km approché (règle 4)"
+       "note": "188 m imprimés ; aucun km imprimé (graduation 170) ; colonne remesurée ≈ 170,0 au zoom, aucun km imprimé dessous (28/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1965-1985 (règle 4 précisée, issue #601)",
+       "lat": 48.98376,
+       "lon": 6.01975,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Pont-à-Mousson",
@@ -66824,15 +66849,15 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Bastogne → Sibret 7 km à vol d'oiseau pour 6 au profil, départ réel hors du centre, non situé (règle 25).",
+     "note": "Départ : Bastogne → Sibret 7 km à vol d'oiseau pour 6 au profil, départ réel hors du centre, non situé (règle 25). Carrefour D 13-D 142 (graduation 150, croisement BD TOPO) → Onville : 14,5 km à vélo, 10,1 en voiture pour 11,5 au profil, détour du routeur vélo (règle 20) ; l'étape passe de +4,4 % à +5,1 %, +4,7 % en voiture.",
      "route_check": {
-      "routed_km": 211.5,
+      "routed_km": 212.9,
       "profile_km": 202.5,
-      "delta_pct": 4.4,
+      "delta_pct": 5.1,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 24,
+      "legs": 27,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -67176,8 +67201,11 @@
        "label": "Pont-de-Roide-Vermondans",
        "km": 10,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "351 m imprimés ; imprimé PONT-DE-ROIDE ; aucun km imprimé (graduation 10) ; non placé : km approché (règle 4)"
+       "note": "351 m imprimés ; imprimé PONT-DE-ROIDE ; aucun km imprimé (graduation 10) ; colonne remesurée ≈ 9,8 au zoom, aucun km imprimé dessous (28/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1965-1985 (règle 4 précisée, issue #601)",
+       "lat": 47.38645,
+       "lon": 6.76907,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Saint-Hippolyte",
@@ -67327,8 +67355,11 @@
        "label": "Malbuisson",
        "km": 120,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "900 m imprimés ; aucun km imprimé (graduation 120) ; non placé : km approché (règle 4)"
+       "note": "900 m imprimés ; aucun km imprimé (graduation 120) ; colonne remesurée ≈ 120,1 au zoom, aucun km imprimé dessous (28/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1965-1985 (règle 4 précisée, issue #601)",
+       "lat": 46.79903,
+       "lon": 6.30398,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Brey-et-Maison-du-Bois",
@@ -67459,13 +67490,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 194.6,
-      "profile_km": 197.5,
-      "delta_pct": -1.5,
+      "routed_km": 207,
+      "profile_km": 210.5,
+      "delta_pct": -1.7,
       "tolerance_pct": 5,
-      "coverage_pct": 90,
+      "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 24,
+      "legs": 26,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -67505,8 +67536,11 @@
        "label": "Genève",
        "km": 20,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "375 m imprimés ; imprimé GENÈVE ; aucun km imprimé (graduation 20) ; non placé : km approché (règle 4)"
+       "note": "375 m imprimés ; imprimé GENÈVE ; aucun km imprimé (graduation 20) ; colonne remesurée ≈ 20,2 au zoom, aucun km imprimé dessous (28/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1965-1985 (règle 4 précisée, issue #601)",
+       "lat": 46.20176,
+       "lon": 6.1466,
+       "how": "nominatim",
+       "confidence": "ok"
       },
       {
        "label": "Douane suisse de Perly",
@@ -67560,8 +67594,11 @@
        "label": "Rumilly",
        "km": 70,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "345 m imprimés ; aucun km imprimé (graduation 70) ; pastille sprint sous la colonne ; non placé : km approché (règle 4)"
+       "note": "345 m imprimés ; aucun km imprimé (graduation 70) ; pastille sprint sous la colonne ; colonne remesurée ≈ 70,0 au zoom, aucun km imprimé dessous (28/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1965-1985 (règle 4 précisée, issue #601)",
+       "lat": 45.86722,
+       "lon": 5.94257,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Marigny-Saint-Marcel",
@@ -67696,8 +67733,11 @@
        "label": "Tencin",
        "km": 170,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "235 m imprimés ; aucun km imprimé (graduation 170) ; non placé : km approché (règle 4)"
+       "note": "235 m imprimés ; aucun km imprimé (graduation 170) ; colonne remesurée ≈ 170,0 au zoom, aucun km imprimé dessous (28/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1965-1985 (règle 4 précisée, issue #601)",
+       "lat": 45.30825,
+       "lon": 5.95772,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Froges",
@@ -67835,13 +67875,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 246.9,
+      "routed_km": 248.7,
       "profile_km": 249,
-      "delta_pct": -0.9,
+      "delta_pct": -0.1,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 27,
+      "legs": 30,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -68109,8 +68149,11 @@
        "label": "L'Argentière-la-Bessée",
        "km": 20,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "984 m imprimés ; aucun km imprimé (graduation 20) ; non placé : km approché (règle 4)"
+       "note": "984 m imprimés ; aucun km imprimé (graduation 20) ; colonne remesurée ≈ 20,1 au zoom, aucun km imprimé dessous (28/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1965-1985 (règle 4 précisée, issue #601)",
+       "lat": 44.78969,
+       "lon": 6.55887,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "La Roche-de-Rame",
@@ -68371,13 +68414,13 @@
      "circuit_km": 218,
      "note": "Au km 0, 1 370 m imprimés sans nom sous le titre Montgenèvre (1 854 m à l'arrivée de l'étape 10) : départ réel vraisemblablement en bas de la descente (hypothèse). Circuit final de Manosque : 1er passage au km 218 (circuit_km, règle 19), arrivée au km 224.",
      "route_check": {
-      "routed_km": 211.8,
+      "routed_km": 213,
       "profile_km": 215.5,
-      "delta_pct": -1.7,
+      "delta_pct": -1.2,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 22,
+      "legs": 23,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -68567,8 +68610,8 @@
        "label": "Sainte-Colombe-sur-Guette",
        "km": 120,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "600 m imprimés ; aucun km imprimé (graduation 120) ; non placé : km approché (règle 4)"
+       "note": "600 m imprimés ; aucun km imprimé (graduation 120) ; colonne remesurée ≈ 120,1 au zoom, aucun km imprimé dessous (28/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1965-1985 (règle 4 précisée, issue #601) ; retiré : profil contradictoire à cette graduation, le village de Sainte-Colombe-sur-Guette est à 6,1 km à vol d'oiseau d'Axat pour 4 au profil (28/11/2026) ; nom relu au zoom ×9 ; à la colonne 120, la courbe est encore au niveau d'Axat, 600 m n'est atteint qu'après (audit Mireille, 28/11/2026)",
+       "confidence": "non-place"
       },
       {
        "label": "Carrefour D 17 - D 84",
@@ -68929,8 +68972,11 @@
        "label": "La Bastide-du-Salat",
        "km": 160,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "320 m imprimés ; aucun km imprimé (graduation 160) ; non placé : km approché (règle 4)"
+       "note": "320 m imprimés ; aucun km imprimé (graduation 160) ; colonne remesurée ≈ 160,0 au zoom, aucun km imprimé dessous (28/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1965-1985 (règle 4 précisée, issue #601)",
+       "lat": 43.0564,
+       "lon": 0.98701,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Mane",
@@ -68985,13 +69031,13 @@
      ],
      "note": "Titre imprimé « Font-Romeu », mais le profil commence à Bourg-Madame (km 0) : départ réel à Bourg-Madame vraisemblablement, après un départ fictif à Font-Romeu (hypothèse). Lassur → Les Cabannes : 4,5 km à vol d'oiseau (5,0 en voiture) pour 3,5 au profil (km 67 et 70,5 imprimés) ; Lassur est au centre de sa commune (MNT 625 m pour 620), Nominatim n'y connaît pas de bourg distinct.",
      "route_check": {
-      "routed_km": 181.6,
+      "routed_km": 182.1,
       "profile_km": 181.5,
-      "delta_pct": 0,
+      "delta_pct": 0.3,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 23,
+      "legs": 24,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -69024,8 +69070,11 @@
        "label": "Soueich",
        "km": 10,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "386 m imprimés ; aucun km imprimé (graduation 10) ; non placé : km approché (règle 4)"
+       "note": "386 m imprimés ; aucun km imprimé (graduation 10) ; colonne remesurée ≈ 10,0 au zoom, aucun km imprimé dessous (28/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1965-1985 (règle 4 précisée, issue #601)",
+       "lat": 43.04758,
+       "lon": 0.77871,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Aspet",
@@ -69112,8 +69161,11 @@
        "label": "Les",
        "km": 60,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "612 m imprimés ; imprimé LES (Val d'Aran, Espagne) ; aucun km imprimé (graduation 60) ; non placé : km approché (règle 4)"
+       "note": "612 m imprimés ; imprimé LES (Val d'Aran, Espagne) ; aucun km imprimé (graduation 60) ; colonne remesurée ≈ 60,0 au zoom, aucun km imprimé dessous (28/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1965-1985 (règle 4 précisée, issue #601)",
+       "lat": 42.81269,
+       "lon": 0.71183,
+       "how": "nominatim",
+       "confidence": "ok"
       },
       {
        "label": "Bossòst",
@@ -69129,8 +69181,8 @@
        "label": "Frontière",
        "km": 70,
        "kind": "lieu-dit",
-       "confidence": "non-place",
-       "note": "710 m imprimés ; imprimé « Frontière » (Espagne/France) ; aucun km imprimé (graduation 70) ; non placé : km approché (règle 4)"
+       "note": "710 m imprimés ; imprimé « Frontière » (Espagne/France) ; aucun km imprimé (graduation 70) ; colonne remesurée ≈ 70,0 au zoom, aucun km imprimé dessous (28/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1965-1985 (règle 4 précisée, issue #601) ; non placé : « Frontière » ne nomme pas de lieu ; le passage de la frontière espagnole n'est pas situé (28/11/2026)",
+       "confidence": "non-place"
       },
       {
        "label": "Col du Portillon",
@@ -69258,13 +69310,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 132.5,
+      "routed_km": 133,
       "profile_km": 132,
-      "delta_pct": 0.4,
+      "delta_pct": 0.7,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 18,
+      "legs": 20,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -69506,8 +69558,11 @@
        "label": "Nay",
        "km": 170,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "269 m imprimés ; aucun km imprimé (graduation 170) ; non placé : km approché (règle 4)"
+       "note": "269 m imprimés ; aucun km imprimé (graduation 170) ; colonne remesurée ≈ 170,3 au zoom, aucun km imprimé dessous (28/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1965-1985 (règle 4 précisée, issue #601)",
+       "lat": 43.17987,
+       "lon": -0.26218,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Arros-de-Nay",
@@ -69562,13 +69617,13 @@
      ],
      "note": "Départ : Saint-Lary-Soulan → Guchen 5,3 km à vol d'oiseau pour 5 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 194,
+      "routed_km": 194.1,
       "profile_km": 190,
       "delta_pct": 2.1,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 26,
+      "legs": 27,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -70078,8 +70133,11 @@
        "label": "Rouffillac",
        "km": 120,
        "kind": "lieu-dit",
-       "confidence": "non-place",
-       "note": "80 m imprimés ; imprimé ROUFFILLAC ; aucun km imprimé (graduation 120) ; non placé : km approché (règle 4)"
+       "note": "80 m imprimés ; imprimé ROUFFILLAC ; aucun km imprimé (graduation 120) ; colonne remesurée ≈ 120,0 au zoom, aucun km imprimé dessous (28/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1965-1985 (règle 4 précisée, issue #601)",
+       "lat": 44.86691,
+       "lon": 1.35641,
+       "how": "nominatim",
+       "confidence": "ok"
       },
       {
        "label": "Peyrillac-et-Millac",
@@ -70197,13 +70255,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 216.4,
+      "routed_km": 216.5,
       "profile_km": 215,
       "delta_pct": 0.7,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 21,
+      "legs": 22,
       "suspect_legs": 1,
       "backtracks": 1,
       "backtracks_uncertain": 0
@@ -70267,17 +70325,20 @@
        "label": "Treignac",
        "km": 40,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "482 m imprimés ; imprimé TREIGNAC ; aucun km imprimé (graduation 40) ; non placé : km approché (règle 4)"
+       "note": "482 m imprimés ; imprimé TREIGNAC ; aucun km imprimé (graduation 40) ; colonne remesurée ≈ 39,9 au zoom, aucun km imprimé dessous (28/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1965-1985 (règle 4 précisée, issue #601)",
+       "lat": 45.53659,
+       "lon": 1.79353,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Gourdon-Murat",
        "km": 52,
        "kind": "ville",
-       "note": "821 m imprimés ; imprimé GOURDON-MURAT ; centre de la commune, MNT 743 m pour 821 imprimés ; aucune mairie trouvée (Nominatim renvoie Labastide-Murat) ; le contrôle signale un aller-retour incertain de 1,1 km vers Bugeat, Treignac (km 40) n'étant pas placé : point gardé, tracé exact non situé (règles 17, 24)",
-       "lat": 45.54987,
-       "lon": 1.89563,
-       "how": "commune-ign",
+       "note": "821 m imprimés ; imprimé GOURDON-MURAT ; centre de la commune, MNT 743 m pour 821 imprimés ; aucune mairie trouvée (Nominatim renvoie Labastide-Murat) ; le contrôle signale un aller-retour incertain de 1,1 km vers Bugeat, Treignac (km 40) n'étant pas placé : point gardé, tracé exact non situé (règles 17, 24) ; placé à la mairie (Nominatim amenity=townhall), MNT 727 m pour 821 imprimés : depuis le point de la commune, le routage faisait un aller-retour de 1,1 km vers Bugeat (règle 17) (audit Mireille, 28/11/2026)",
+       "lat": 45.5552506,
+       "lon": 1.8901365,
+       "how": "manual",
        "confidence": "ok"
       },
       {
@@ -70294,8 +70355,11 @@
        "label": "Barsanges",
        "km": 70,
        "kind": "lieu-dit",
-       "confidence": "non-place",
-       "note": "878 m imprimés ; imprimé BARSANGES ; aucun km imprimé (graduation 70) ; non placé : km approché (règle 4)"
+       "note": "878 m imprimés ; imprimé BARSANGES ; aucun km imprimé (graduation 70) ; colonne remesurée ≈ 70,0 au zoom, aucun km imprimé dessous (28/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1965-1985 (règle 4 précisée, issue #601)",
+       "lat": 45.56724,
+       "lon": 2.02231,
+       "how": "nominatim",
+       "confidence": "ok"
       },
       {
        "label": "Carrefour D 979-D 109",
@@ -70485,16 +70549,16 @@
      ],
      "note": "Un tronçon en voiture inévitable : BRouter refuse la route du sommet du Puy de Dôme, comme en 1978, 1986, 1988 et 2023.",
      "route_check": {
-      "routed_km": 205.6,
+      "routed_km": 206.3,
       "profile_km": 215.5,
-      "delta_pct": -4.6,
+      "delta_pct": -4.3,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 1,
-      "legs": 20,
+      "legs": 22,
       "suspect_legs": 0,
       "backtracks": 0,
-      "backtracks_uncertain": 1
+      "backtracks_uncertain": 0
      }
     },
     "21": {
@@ -70631,8 +70695,11 @@
        "label": "Authon-la-Plaine",
        "km": 90,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "144 m imprimés ; imprimé AUTHON-LA-PLAINE ; aucun km imprimé (graduation 90) ; non placé : km approché (règle 4)"
+       "note": "144 m imprimés ; imprimé AUTHON-LA-PLAINE ; aucun km imprimé (graduation 90) ; colonne remesurée ≈ 90,0 au zoom, aucun km imprimé dessous (28/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1965-1985 (règle 4 précisée, issue #601)",
+       "lat": 48.45159,
+       "lon": 1.95797,
+       "how": "commune-ign",
+       "confidence": "ok"
       },
       {
        "label": "Les Granges-le-Roi",
@@ -70734,13 +70801,13 @@
      ],
      "note": "Départ : Montargis → Mignères 9,6 km à vol d'oiseau pour 8 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 142.9,
+      "routed_km": 143.2,
       "profile_km": 137.5,
-      "delta_pct": 3.9,
+      "delta_pct": 4.2,
       "tolerance_pct": 5,
       "coverage_pct": 95,
       "car_legs": 0,
-      "legs": 19,
+      "legs": 20,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -70823,17 +70890,20 @@
        "label": "Strée",
        "km": 70,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "256 m imprimés ; imprimé STREE ; aucun km imprimé (graduation 70) ; non placé : km approché (règle 4)"
+       "note": "256 m imprimés ; imprimé STREE ; aucun km imprimé (graduation 70) ; colonne remesurée ≈ 69,9 au zoom, aucun km imprimé dessous (28/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1965-1985 (règle 4 précisée, issue #601) ; placé à l'église Saint-Nicolas de Strée (Modave), EU-DEM 261 m pour 256 ; 6,7 km de Huy pour 8, 7,0 de la maison communale de Nandrin pour 8 (audit Mireille, 28/11/2026) (28/11/2026)",
+       "lat": 50.4885082,
+       "lon": 5.3241307,
+       "how": "manual",
+       "confidence": "ok"
       },
       {
        "label": "Nandrin",
        "km": 78,
        "kind": "ville",
-       "note": "220 m imprimés",
-       "lat": 50.51623,
-       "lon": 5.39926,
-       "how": "nominatim",
+       "note": "220 m imprimés ; placé à la maison communale (Nominatim amenity=townhall, règle 17) : depuis le point de la commune, le routage faisait un aller-retour de 1,5 km vers Esneux une fois Strée placé (28/11/2026)",
+       "lat": 50.506445,
+       "lon": 5.4195633,
+       "how": "manual",
        "confidence": "ok"
       },
       {
@@ -70870,8 +70940,11 @@
        "label": "Remouchamps",
        "km": 110,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "130 m imprimés ; aucun km imprimé (graduation 110) ; non placé : km approché (règle 4)"
+       "note": "130 m imprimés ; aucun km imprimé (graduation 110) ; colonne remesurée ≈ 109,9 au zoom, aucun km imprimé dessous (28/11/2026) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km dans la série 1965-1985 (règle 4 précisée, issue #601)",
+       "lat": 50.47948,
+       "lon": 5.7126,
+       "how": "nominatim",
+       "confidence": "ok"
       },
       {
        "label": "Côte de Hautregard",
@@ -70936,13 +71009,13 @@
      ],
      "note": "Demi-étape Louvain → Verviers, profil 76_5b.jpg ; 5a (contre-la-montre de Louvain) sans profil publié. Départ : Leuven → Hamme-Mille 11,1 km à vol d'oiseau pour 9 au profil, départ réel hors du centre, non situé (règle 25). De Jodoigne (km 22) à Vinalmont (km 53,5), les km imprimés sont trop courts pour le terrain : 31 km à vol d'oiseau pour 31,5 au profil, et Hannut → Vinalmont 16,1 km à vol d'oiseau pour 14,5 (17,5 en voiture) ; km relus sous leurs colonnes, points gardés. La Reid → Spa : 9,4 km par BRouter, 7,2 en voiture pour 6 au profil : détour du routeur.",
      "route_check": {
-      "routed_km": 140.9,
+      "routed_km": 140.1,
       "profile_km": 135,
-      "delta_pct": 4.4,
+      "delta_pct": 3.7,
       "tolerance_pct": 5,
       "coverage_pct": 94,
       "car_legs": 0,
-      "legs": 15,
+      "legs": 17,
       "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -71064,7 +71137,7 @@
        "km": 80,
        "kind": "lieu-dit",
        "confidence": "non-place",
-       "note": "134 m imprimés ; imprimé CARREFOUR D 655-D 8 ; aucun km imprimé (graduation 80) ; non placé : km approché (règle 4)"
+       "note": "134 m imprimés ; imprimé CARREFOUR D 655-D 8 ; aucun km imprimé (graduation 80) ; colonne remesurée ≈ 79,1 au zoom, à 0,9 km de la graduation 80, aucun km imprimé dessous (28/11/2026) : non placé, nom sans km (règle 4)"
       },
       {
        "label": "Fargues-sur-Ourbise",
