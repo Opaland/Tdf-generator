@@ -2200,6 +2200,9 @@ et côtes traversées avec leur kilomètre.
   Freney, Vossenack contradictoire retiré, 26 km illisibles de l'étape 20
   étiquetés à tort « km approché »), 9 faux négatifs placés ; écarts
   restants en issue #629.
+  Reprise du 28/11 (issue #638) : les 21 points de 1965/20 à km imprimé
+  illisible, géocodés à tort après l'audit, sont retirés (règle 4) ;
+  l'étape 20 n'est plus contrôlable.
 - [x] Édition 1966 (routine quotidienne du 26/11/2026, tentative 1/10) :
   aucune étape de 1966 n'est encore transcrite. Profils de ledicodutour.com
   (`images/cartes_etapes/1957_1966/1966/`) ; 25 fichiers, md5 tous

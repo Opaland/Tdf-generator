@@ -72,12 +72,22 @@ entrée : on la marque « absorbée par … ».
     exclut** (27/11/2026). `build.py` de 1965 posait la mention « aucun km
     imprimé (graduation N) ; non placé : km approché (règle 4) » sur tout
     nom dont la colonne tombait près d'une graduation, y compris les 26
-    noms de l'étape 20 dont le km est imprimé mais illisible — cas que la
-    règle 4 exclut expressément. Le géocodeur les a sautés et l'étape ne
-    se contrôlait qu'à 60 %. L'audit Mireille l'a trouvé. Conduite : après
-    construction, chercher les notes qui portent à la fois « illisible »
-    et « km approché » (`grep`), et faire tester par le script la mention
-    « illisible » avant d'appliquer la règle 4.
+    noms de l'étape 20 dont le km est imprimé mais illisible : la mention
+    « km de la graduation / km approché » ne leur revient pas (règle 4,
+    dernier alinéa). Conduite : après construction, chercher les notes qui
+    portent à la fois « illisible » et « km approché » (`grep`), et faire
+    tester par le script la mention « illisible » avant d'appliquer la
+    règle 4. **Rectifié le 28/11 (voir 27)** : ces points restent pour
+    autant non placés — je les avais géocodés à tort.
+27. **Une consigne d'audit se relit contre la règle avant d'être
+    appliquée** (28/11/2026). L'audit de 1965 demandait de ne garder que
+    « km imprimé illisible » dans 18 notes de 1965/20 ; j'en ai conclu
+    qu'il fallait aussi géocoder ces points, et 21 ont été placés et
+    fusionnés, alors que la règle 4 dit qu'un km illisible « reste non
+    placé ». L'audit de 1964 l'a trouvé sur 1964/21 (issue #638).
+    Conduite : avant d'appliquer une correction d'audit qui change le
+    statut d'un point, relire la règle qu'elle cite, et ne faire que ce
+    que la règle demande.
 
 26. **Une requête qui renvoie un homonyme ne prouve pas l'absence**
     (28/11/2026). Pour Gourdon-Murat (1976/20), « Mairie, Gourdon-Murat »
