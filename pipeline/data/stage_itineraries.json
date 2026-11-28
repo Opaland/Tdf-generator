@@ -126,8 +126,11 @@
        "label": "Le Châtelier",
        "km": 118,
        "kind": "ville",
-       "note": "imprimé « LE CHATELIER »",
-       "confidence": "non-place"
+       "note": "imprimé « LE CHATELIER » ; recherche bornée (28/11/2026) : lieu-dit habité « Le Châtellier » (IGN), MNT 203 m",
+       "confidence": "ok",
+       "lat": 48.67676,
+       "lon": -0.58237,
+       "how": "manual"
       },
       {
        "label": "Flers",
@@ -143,18 +146,21 @@
        "label": "Athis",
        "km": 135,
        "kind": "ville",
-       "note": "231 m imprimés ; Athis-de-l'Orne",
-       "lat": 48.79477,
-       "lon": -0.45881,
-       "how": "commune-ign-prefixe",
+       "note": "231 m imprimés ; Athis-de-l'Orne ; placé à Athis-de-l'Orne (Nominatim), le village, pas le centre de la commune nouvelle Athis-Val-de-Rouvre (règle 15) : le routage y faisait un aller-retour de 1,6 km (28/11/2026)",
+       "lat": 48.8102537,
+       "lon": -0.5007676,
+       "how": "manual",
        "confidence": "ok"
       },
       {
        "label": "Côte du Pont-d'Ouilly",
        "km": 146,
        "kind": "côte",
-       "note": "4e cat. ; imprimé « COTE DU PONT D'OUILLY » ; frontière Orne/Calvados",
-       "confidence": "non-place"
+       "note": "4e cat. ; imprimé « COTE DU PONT D'OUILLY » ; frontière Orne/Calvados ; recherche bornée (28/11/2026) : côte posée au bourg de Pont-d'Ouilly (lieu-dit IGN, MNT 48 m), dans la vallée de l'Orne, au pied de la côte qui porte son nom",
+       "confidence": "ok",
+       "lat": 48.87393,
+       "lon": -0.4123,
+       "how": "manual"
       },
       {
        "label": "Falaise",
@@ -206,7 +212,19 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "route_check": {
+      "routed_km": 214.8,
+      "profile_km": 208,
+      "delta_pct": 3.3,
+      "tolerance_pct": 5,
+      "coverage_pct": 97,
+      "car_legs": 0,
+      "legs": 18,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "2": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1964/64_2.jpg",
@@ -366,8 +384,11 @@
        "label": "La Chapelle-sous-Gerberoy",
        "km": 150.5,
        "kind": "ville",
-       "note": "imprimé « LA CHAPELLE-SOUS-GERBEROY »",
-       "confidence": "non-place"
+       "note": "imprimé « LA CHAPELLE-SOUS-GERBEROY » ; recherche bornée (28/11/2026) : lieu-dit habité « Lachapelle-sous-Gerberoy » (IGN), MNT 109 m",
+       "confidence": "ok",
+       "lat": 49.53533,
+       "lon": 1.86911,
+       "how": "manual"
       },
       {
        "label": "Marseille-en-Beauvaisis",
@@ -426,7 +447,19 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "route_check": {
+      "routed_km": 206.7,
+      "profile_km": 202,
+      "delta_pct": 2.3,
+      "tolerance_pct": 5,
+      "coverage_pct": 97,
+      "car_legs": 0,
+      "legs": 17,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "4": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1964/64_4.jpg",
@@ -539,7 +572,7 @@
        "label": "Bocogne",
        "km": 153,
        "kind": "ville",
-       "note": "468 m imprimés ; imprimé lu « BOCOGNE » (peu lisible, peut-être « RECOGNE ») ; altitude peu lisible ; colonne mesurée ≈ 153,5",
+       "note": "468 m imprimés ; imprimé lu « BOCOGNE » (peu lisible, peut-être « RECOGNE ») ; altitude peu lisible ; colonne mesurée ≈ 153,5 ; non placé : recherche bornée Nominatim et IGN (28/11/2026) sans candidat de ce nom compatible avec les voisins",
        "confidence": "non-place"
       },
       {
@@ -639,7 +672,19 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "route_check": {
+      "routed_km": 286.2,
+      "profile_km": 280.5,
+      "delta_pct": 2,
+      "tolerance_pct": 5,
+      "coverage_pct": 96,
+      "car_legs": 0,
+      "legs": 16,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "5": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1964/64_5.jpg",
@@ -816,7 +861,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Lunéville → Chenevières 13,1 km à vol d'oiseau pour 11,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Lunéville → Chenevières 13,1 km à vol d'oiseau pour 11,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "route_check": {
+      "routed_km": 151.9,
+      "profile_km": 150,
+      "delta_pct": 1.3,
+      "tolerance_pct": 5,
+      "coverage_pct": 93,
+      "car_legs": 0,
+      "legs": 13,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "6": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1964/64_6.jpg",
@@ -1016,7 +1073,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Fribourg-en-Brisgau → Ehrenstetten 11,7 km à vol d'oiseau pour 11,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Fribourg-en-Brisgau → Ehrenstetten 11,7 km à vol d'oiseau pour 11,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "route_check": {
+      "routed_km": 191.3,
+      "profile_km": 188.5,
+      "delta_pct": 1.5,
+      "tolerance_pct": 5,
+      "coverage_pct": 94,
+      "car_legs": 0,
+      "legs": 16,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "7": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1964/64_7.jpg",
@@ -1105,8 +1174,11 @@
        "label": "Lacets de Septmoncel",
        "km": 69.5,
        "kind": "côte",
-       "note": "3e cat. ; imprimé « LACETS DE SEPTMONCEL » ; flèche mesurée ≈ 69,4",
-       "confidence": "non-place"
+       "note": "3e cat. ; imprimé « LACETS DE SEPTMONCEL » ; flèche mesurée ≈ 69,4 ; recherche bornée (28/11/2026) : poteau indicateur « Lacets de Septmoncel » (Nominatim information=guidepost, D 436), MNT 712 m",
+       "confidence": "ok",
+       "lat": 46.35675,
+       "lon": 5.90302,
+       "how": "manual"
       },
       {
        "label": "Lajoux",
@@ -1132,10 +1204,10 @@
        "label": "Col de la Faucille",
        "km": 91,
        "kind": "col",
-       "note": "1323 m imprimés ; 3e cat. ; imprimé « COL DE LA FAUCILLE » (le F se lit comme un T au zoom)",
-       "lat": 46.36888,
-       "lon": 6.02013,
-       "how": "nominatim",
+       "note": "1323 m imprimés ; 3e cat. ; imprimé « COL DE LA FAUCILLE » (le F se lit comme un T au zoom) ; placé au col (Nominatim mountain_pass) plutôt qu'à l'aire protégée du même nom",
+       "lat": 46.3692599,
+       "lon": 6.0193845,
+       "how": "manual",
        "confidence": "ok"
       },
       {
@@ -1162,15 +1234,21 @@
        "label": "Sous-Saint-Jean",
        "km": 120,
        "kind": "lieu-dit",
-       "note": "494 m imprimés ; imprimé « SOUS-St-JEAN » ; aucun km propre : colonne sur la graduation 120 (mesuré ≈ 120,0) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1964 comme dans la série 1965-1985 (règle 4 précisée)",
-       "confidence": "non-place"
+       "note": "494 m imprimés ; imprimé « SOUS-St-JEAN » ; aucun km propre : colonne sur la graduation 120 (mesuré ≈ 120,0) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1964 comme dans la série 1965-1985 (règle 4 précisée) ; recherche bornée (28/11/2026) : lieu-dit habité « Sous Saint-Jean » (IGN, Saint-Jean-de-Gonville), MNT 481 m pour 494",
+       "confidence": "ok",
+       "lat": 46.2065,
+       "lon": 5.95971,
+       "how": "manual"
       },
       {
        "label": "Collonges",
        "km": 130,
        "kind": "ville",
-       "note": "aucun km propre : colonne sur la graduation 130 (mesuré ≈ 130,0) ; le trait à ≈ 133,5 est la limite Ain/Haute-Savoie ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1964 comme dans la série 1965-1985 (règle 4 précisée)",
-       "confidence": "non-place"
+       "note": "aucun km propre : colonne sur la graduation 130 (mesuré ≈ 130,0) ; le trait à ≈ 133,5 est la limite Ain/Haute-Savoie ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1964 comme dans la série 1965-1985 (règle 4 précisée) ; recherche bornée (28/11/2026) : lieu-dit habité « Collonges » (IGN), MNT 492 m",
+       "confidence": "ok",
+       "lat": 46.13874,
+       "lon": 5.90481,
+       "how": "manual"
       },
       {
        "label": "Valleiry",
@@ -1242,7 +1320,19 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "route_check": {
+      "routed_km": 189.5,
+      "profile_km": 189,
+      "delta_pct": 0.3,
+      "tolerance_pct": 5,
+      "coverage_pct": 97,
+      "car_legs": 0,
+      "legs": 21,
+      "suspect_legs": 3,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "8": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1964/64_8.jpg",
@@ -1298,7 +1388,7 @@
        "label": "Condamine",
        "km": 35,
        "kind": "lieu-dit",
-       "note": "453 m imprimés ; imprimé « CONDAMINE » ; mesuré ≈ 34,7",
+       "note": "453 m imprimés ; imprimé « CONDAMINE » ; mesuré ≈ 34,7 ; non placé : recherche bornée Nominatim et IGN (28/11/2026) sans candidat de ce nom compatible avec les voisins",
        "confidence": "non-place"
       },
       {
@@ -1515,8 +1605,11 @@
        "label": "Villeneuve-la-Salle",
        "km": 241.5,
        "kind": "ville",
-       "note": "1380 m imprimés ; imprimé « VILLENEUVE LA SALLE » (deux lignes) ; km peu lisible (241 ou 241,5 ; mesuré ≈ 241,1) ; altitude peu lisible",
-       "confidence": "non-place"
+       "note": "1380 m imprimés ; imprimé « VILLENEUVE LA SALLE » (deux lignes) ; km peu lisible (241 ou 241,5 ; mesuré ≈ 241,1) ; altitude peu lisible ; recherche bornée (28/11/2026) : lieu-dit habité « Sous Villeneuve » (IGN, La Salle-les-Alpes), MNT 1 376 m pour 1 380",
+       "confidence": "ok",
+       "lat": 44.94384,
+       "lon": 6.56618,
+       "how": "manual"
       },
       {
        "label": "Briançon",
@@ -1529,7 +1622,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Thonon-les-Bains → Lully 11 km à vol d'oiseau pour 9,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Thonon-les-Bains → Lully 11 km à vol d'oiseau pour 9,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "route_check": {
+      "routed_km": 240.6,
+      "profile_km": 239,
+      "delta_pct": 0.7,
+      "tolerance_pct": 5,
+      "coverage_pct": 96,
+      "car_legs": 0,
+      "legs": 25,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "9": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1964/64_9.jpg",
@@ -1588,8 +1693,11 @@
        "label": "Vars-Saint-Marcelin",
        "km": 43,
        "kind": "ville",
-       "note": "1600 m imprimés ; imprimé « VARS St-MARCELIN » (deux lignes) ; km peu lisible (43 ou 48 ; mesuré ≈ 42,4)",
-       "confidence": "non-place"
+       "note": "1600 m imprimés ; imprimé « VARS St-MARCELIN » (deux lignes) ; km peu lisible (43 ou 48 ; mesuré ≈ 42,4) ; recherche bornée (28/11/2026) : lieu-dit habité « Saint-Marcellin » (IGN, Vars ; imprimé « VARS St-MARCELIN »), MNT 1 627 m pour 1 600",
+       "confidence": "ok",
+       "lat": 44.60838,
+       "lon": 6.68803,
+       "how": "manual"
       },
       {
        "label": "Col de Vars",
@@ -1615,10 +1723,10 @@
        "label": "La Condamine",
        "km": 69,
        "kind": "ville",
-       "note": "1286 m imprimés ; imprimé « LA CONDAMINE » ; mesuré ≈ 68,8",
-       "lat": 44.45382,
-       "lon": 6.73948,
-       "how": "commune-ign-prefixe",
+       "note": "1286 m imprimés ; imprimé « LA CONDAMINE » ; mesuré ≈ 68,8 ; placé au poteau « La Condamine » sur la D 900 (Nominatim information=guidepost) : depuis le point de la commune, hors de la route, le routage faisait un aller-retour de 2,8 km vers Jausiers (règle 17, 28/11/2026)",
+       "lat": 44.4580378,
+       "lon": 6.7450247,
+       "how": "manual",
        "confidence": "ok"
       },
       {
@@ -1635,7 +1743,7 @@
        "label": "Le Piz",
        "km": 83.5,
        "kind": "lieu-dit",
-       "note": "imprimé « LE PIZ » ; mesuré ≈ 83,3",
+       "note": "imprimé « LE PIZ » ; mesuré ≈ 83,3 ; non placé : recherche bornée Nominatim et IGN (28/11/2026) sans candidat de ce nom compatible avec les voisins",
        "confidence": "non-place"
       },
       {
@@ -1702,8 +1810,11 @@
        "label": "Pont de la Mescla",
        "km": 176.5,
        "kind": "lieu-dit",
-       "note": "187 m imprimés ; imprimé « PONT DE LA MESCLA » ; mesuré ≈ 175,9",
-       "confidence": "non-place"
+       "note": "187 m imprimés ; imprimé « PONT DE LA MESCLA » ; mesuré ≈ 175,9 ; recherche bornée (28/11/2026) : pont de la Mescla (IGN), MNT 177 m pour 187",
+       "confidence": "ok",
+       "lat": 43.90892,
+       "lon": 7.18785,
+       "how": "manual"
       },
       {
        "label": "La Roquette-sur-Var",
@@ -1739,8 +1850,11 @@
        "label": "Laghet",
        "km": 225,
        "kind": "lieu-dit",
-       "note": "imprimé « LAGNET » ou « LAGHET » ; km peu lisible (petits chiffres serrés, mesuré ≈ 225,3)",
-       "confidence": "non-place"
+       "note": "imprimé « LAGNET » ou « LAGHET » ; km peu lisible (petits chiffres serrés, mesuré ≈ 225,3) ; recherche bornée (28/11/2026) : sanctuaire Notre-Dame de Laghet (Nominatim place_of_worship), MNT 337 m ; nom imprimé lu « LAGNET » ou « LAGHET »",
+       "confidence": "ok",
+       "lat": 43.75298,
+       "lon": 7.38191,
+       "how": "manual"
       },
       {
        "label": "La Turbie",
@@ -1763,7 +1877,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Briançon → Prelles 7 km à vol d'oiseau pour 5,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Briançon → Prelles 7 km à vol d'oiseau pour 5,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (+16,2 % à vélo ; +3,0 % en voiture) : Pont de la Mescla → La Roquette-sur-Var fait 52,7 km à vélo, 16,0 en voiture pour 15 au profil (9,1 à vol d'oiseau) ; le routeur vélo évite la route de la vallée du Var (tunnels de la Mescla), d'où ce détour et l'aller-retour de 5,2 km qu'il signale au pont (règle 20) ; l'écart à vélo n'est pas celui du parcours.",
+     "route_check": {
+      "routed_km": 271.4,
+      "profile_km": 233.5,
+      "delta_pct": 16.2,
+      "tolerance_pct": 5,
+      "coverage_pct": 98,
+      "car_legs": 0,
+      "legs": 21,
+      "suspect_legs": 1,
+      "backtracks": 1,
+      "backtracks_uncertain": 0
+     }
     },
     "11": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1964/64_11.jpg",
@@ -1812,8 +1938,11 @@
        "label": "Saint-Jean",
        "km": 30,
        "kind": "lieu-dit",
-       "note": "4 m imprimés ; imprimé « St JEAN » ; aucun km propre : colonne sur la graduation 30 (mesuré ≈ 30,1) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1964 comme dans la série 1965-1985 (règle 4 précisée)",
-       "confidence": "non-place"
+       "note": "4 m imprimés ; imprimé « St JEAN » ; aucun km propre : colonne sur la graduation 30 (mesuré ≈ 30,1) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1964 comme dans la série 1965-1985 (règle 4 précisée) ; recherche bornée (28/11/2026) : quartier Saint-Jean de La Ciotat (avenue de Saint-Jean, Nominatim), MNT 4 m pour 4",
+       "confidence": "ok",
+       "lat": 43.18858,
+       "lon": 5.63099,
+       "how": "manual"
       },
       {
        "label": "Côte de Cauhet",
@@ -1937,8 +2066,11 @@
        "label": "Carrefour La Samatane",
        "km": 141,
        "kind": "lieu-dit",
-       "note": "imprimé « CAR. LA SAMATANE » ; mesuré ≈ 140,9",
-       "confidence": "non-place"
+       "note": "imprimé « CAR. LA SAMATANE » ; mesuré ≈ 140,9 ; recherche bornée (28/11/2026) : lieu-dit habité « la Samatane » (IGN, Saint-Martin-de-Crau), MNT 48 m ; carrefour qui porte un nom de lieu (règle 21)",
+       "confidence": "ok",
+       "lat": 43.64025,
+       "lon": 4.92546,
+       "how": "manual"
       },
       {
        "label": "Mouriès",
@@ -2051,7 +2183,19 @@
        "how": "manual"
       }
      ],
-     "note": "Départ : Toulon → Sanary-sur-Mer 10,6 km à vol d'oiseau pour 10 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Toulon → Sanary-sur-Mer 10,6 km à vol d'oiseau pour 10 au profil, départ réel hors du centre, non situé (règle 25).",
+     "route_check": {
+      "routed_km": 249.9,
+      "profile_km": 240,
+      "delta_pct": 4.1,
+      "tolerance_pct": 5,
+      "coverage_pct": 96,
+      "car_legs": 0,
+      "legs": 24,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "12": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1964/64_12.jpg",
@@ -2207,7 +2351,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Montpellier → Mireval 12,9 km à vol d'oiseau pour 12,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Montpellier → Mireval 12,9 km à vol d'oiseau pour 12,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (+5,7 % à vélo, +12,1 % en voiture) : l'excès est réparti (Agde → Béziers 23,4 km pour 22, Les Cabanes de la Palme → Les Cabanes de Fitou 7,7 pour 7) ; cause non établie.",
+     "route_check": {
+      "routed_km": 170.7,
+      "profile_km": 161.5,
+      "delta_pct": 5.7,
+      "tolerance_pct": 5,
+      "coverage_pct": 93,
+      "car_legs": 0,
+      "legs": 13,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "13": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1964/64_13.jpg",
@@ -2393,7 +2549,19 @@
        "how": "manual"
       }
      ],
-     "note": "Départ : Perpignan → Thuir 13,8 km à vol d'oiseau pour 12 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Perpignan → Thuir 13,8 km à vol d'oiseau pour 12 au profil, départ réel hors du centre, non situé (règle 25).",
+     "route_check": {
+      "routed_km": 156.6,
+      "profile_km": 158,
+      "delta_pct": -0.9,
+      "tolerance_pct": 5,
+      "coverage_pct": 93,
+      "car_legs": 0,
+      "legs": 16,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "14": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1964/64_14.jpg",
@@ -2589,8 +2757,11 @@
        "label": "Carrefour Auge",
        "km": 165.5,
        "kind": "lieu-dit",
-       "note": "170 m imprimés ; imprimé « CAR. AUGE » ; km peu lisible (lu « 165ᵏ5 » ou « 165ᵏ6 » ; mesuré ≈ 165,0)",
-       "confidence": "non-place"
+       "note": "170 m imprimés ; imprimé « CAR. AUGE » ; km peu lisible (lu « 165ᵏ5 » ou « 165ᵏ6 » ; mesuré ≈ 165,0) ; recherche bornée (28/11/2026) : lieu-dit habité « Moulin d'Augé » (IGN, Lagardelle-sur-Lèze), MNT 179 m pour 170 ; carrefour qui porte un nom de lieu (règle 21)",
+       "confidence": "ok",
+       "lat": 43.42046,
+       "lon": 1.37587,
+       "how": "manual"
       },
       {
        "label": "Carrefour D 4-N 20",
@@ -2609,7 +2780,20 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "note": "Hors tolérance (+5,9 % à vélo, +10,7 % en voiture) : Carrefour Auge → Toulouse fait 23,3 km à vélo, 28,6 en voiture pour 20,5 au profil (21,2 à vol d'oiseau, l'arrivée imprimée « TOULOUSE (VÉLODROME) » étant laissée au centre, lieu non sourcé) ; Montgaillard → Foix 4,8 pour 3,5 ; cause non établie.",
+     "route_check": {
+      "routed_km": 185.4,
+      "profile_km": 175,
+      "delta_pct": 5.9,
+      "tolerance_pct": 5,
+      "coverage_pct": 94,
+      "car_legs": 0,
+      "legs": 18,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "15": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1964/64_15.jpg",
@@ -2807,7 +2991,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Toulouse → Pinsaguel 11,4 km à vol d'oiseau pour 7 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Toulouse → Pinsaguel 11,4 km à vol d'oiseau pour 7 au profil, départ réel hors du centre, non situé (règle 25).",
+     "route_check": {
+      "routed_km": 193.5,
+      "profile_km": 196,
+      "delta_pct": -1.3,
+      "tolerance_pct": 5,
+      "coverage_pct": 97,
+      "car_legs": 0,
+      "legs": 13,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "16": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1964/64_16.jpg",
@@ -3062,7 +3258,19 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "route_check": {
+      "routed_km": 192.8,
+      "profile_km": 191.5,
+      "delta_pct": 0.7,
+      "tolerance_pct": 5,
+      "coverage_pct": 97,
+      "car_legs": 0,
+      "legs": 23,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "17": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1964/64_17.jpg",
@@ -3121,8 +3329,11 @@
        "label": "Près Mouguerre",
        "km": 33.5,
        "kind": "lieu-dit",
-       "note": "imprimé « CAR. PRÈS MOUGUERRE » ; imprimé « 33k5 »",
-       "confidence": "non-place"
+       "note": "imprimé « CAR. PRÈS MOUGUERRE » ; imprimé « 33k5 » ; recherche bornée (28/11/2026) : « Près X » au bourg de Mouguerre (lieu-dit IGN), règle 5, MNT 88 m",
+       "confidence": "ok",
+       "lat": 43.46901,
+       "lon": -1.41597,
+       "how": "manual"
       },
       {
        "label": "Saint-Pierre-d'Irube",
@@ -3144,7 +3355,20 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "note": "Hors tolérance (+7,7 % à vélo, +12,5 % en voiture) : contre-la-montre de 42,6 km dont 78 % est contrôlé ; Briscous → Près Mouguerre fait 9,7 km à vélo, 11,2 en voiture pour 6,5 au profil (6,7 à vol d'oiseau, bourg de Mouguerre) ; cause non établie.",
+     "route_check": {
+      "routed_km": 36.2,
+      "profile_km": 33.6,
+      "delta_pct": 7.7,
+      "tolerance_pct": 5,
+      "coverage_pct": 78,
+      "car_legs": 0,
+      "legs": 6,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "18": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1964/64_18.jpg",
@@ -3240,8 +3464,11 @@
        "label": "Saint-Girons",
        "km": 58.5,
        "kind": "lieu-dit",
-       "note": "29 m imprimés ; imprimé « St-GIRONS » (Landes)",
-       "confidence": "non-place"
+       "note": "29 m imprimés ; imprimé « St-GIRONS » (Landes) ; recherche bornée (28/11/2026) : village de Saint-Girons-en-Marensin (Nominatim place=village), MNT 28 m pour 29",
+       "confidence": "ok",
+       "lat": 43.95027,
+       "lon": -1.30188,
+       "how": "manual"
       },
       {
        "label": "Lit-et-Mixe",
@@ -3371,7 +3598,19 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "route_check": {
+      "routed_km": 190.5,
+      "profile_km": 181.5,
+      "delta_pct": 4.9,
+      "tolerance_pct": 5,
+      "coverage_pct": 97,
+      "car_legs": 0,
+      "legs": 20,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "19": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1964/64_19.jpg",
@@ -3559,7 +3798,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Bordeaux → Beychac 16,7 km à vol d'oiseau pour 9,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Bordeaux → Beychac 16,7 km à vol d'oiseau pour 9,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "route_check": {
+      "routed_km": 206.4,
+      "profile_km": 206,
+      "delta_pct": 0.2,
+      "tolerance_pct": 5,
+      "coverage_pct": 96,
+      "car_legs": 0,
+      "legs": 15,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "20": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1964/64_20.jpg",
@@ -3798,7 +4049,20 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "route_check": {
+      "routed_km": 212,
+      "profile_km": 220.5,
+      "delta_pct": -3.8,
+      "tolerance_pct": 5,
+      "coverage_pct": 93,
+      "car_legs": 1,
+      "legs": 20,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     },
+     "note": "Un tronçon en voiture inévitable : BRouter refuse la route du sommet du Puy de Dôme (HTTP 400), comme en 1976, 1978, 1986, 1988 et 2023."
     },
     "21": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1964/64_21.jpg",
@@ -3827,8 +4091,11 @@
        "label": "Côte du Cratère",
        "km": 14.5,
        "kind": "côte",
-       "note": "imprimé « CÔTE DU CRATÈRE » ; aucune pastille de catégorie lisible (mesuré ≈ 14,4)",
-       "confidence": "non-place"
+       "note": "imprimé « CÔTE DU CRATÈRE » ; aucune pastille de catégorie lisible (mesuré ≈ 14,4) ; recherche bornée (28/11/2026) : lieu-dit habité « le Cratère » (IGN, Volvic), MNT 762 m",
+       "confidence": "ok",
+       "lat": 45.859,
+       "lon": 3.00525,
+       "how": "manual"
       },
       {
        "label": "Charbonnières-les-Varennes",
@@ -3854,7 +4121,7 @@
        "label": "Lamongie",
        "km": 45.5,
        "kind": "lieu-dit",
-       "note": "455 m imprimés ; nom peu lisible, imprimé lu « LAMONGIE » ; altitude peu lisible (mesuré ≈ 45,3)",
+       "note": "455 m imprimés ; nom peu lisible, imprimé lu « LAMONGIE » ; altitude peu lisible (mesuré ≈ 45,3) ; non placé : recherche bornée Nominatim et IGN (28/11/2026) sans candidat de ce nom compatible avec les voisins",
        "confidence": "non-place"
       },
       {
@@ -3911,14 +4178,17 @@
        "label": "Marmignolles",
        "km": 102.5,
        "kind": "lieu-dit",
-       "note": "240 m imprimés ; km peu lisible, collé au précédent (mesuré ≈ 102,3)",
-       "confidence": "non-place"
+       "note": "240 m imprimés ; km peu lisible, collé au précédent (mesuré ≈ 102,3) ; recherche bornée (28/11/2026) : lieu-dit habité « Marmignolles » (IGN, Désertines), MNT 266 m pour 240",
+       "confidence": "ok",
+       "lat": 46.36487,
+       "lon": 2.62525,
+       "how": "manual"
       },
       {
        "label": "Croix de Fragne",
        "km": 108.5,
        "kind": "lieu-dit",
-       "note": "282 m imprimés ; km imprimé illisible (lu « 108 » ?, mesuré ≈ 108,7) ; altitude peu lisible (282 ou 280)",
+       "note": "282 m imprimés ; km imprimé illisible (lu « 108 » ?, mesuré ≈ 108,7) ; altitude peu lisible (282 ou 280) ; non placé : recherche bornée Nominatim et IGN (28/11/2026) sans candidat de ce nom compatible avec les voisins",
        "confidence": "non-place"
       },
       {
@@ -4095,7 +4365,19 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "route_check": {
+      "routed_km": 303.7,
+      "profile_km": 301,
+      "delta_pct": 0.9,
+      "tolerance_pct": 5,
+      "coverage_pct": 97,
+      "car_legs": 0,
+      "legs": 25,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "3a": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1964/64_3a.jpg",
@@ -4276,7 +4558,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Amiens → Albert 28,1 km à vol d'oiseau pour 25,5 au profil, départ réel hors du centre, non situé (règle 25)."
+     "note": "Départ : Amiens → Albert 28,1 km à vol d'oiseau pour 25,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "route_check": {
+      "routed_km": 170.6,
+      "profile_km": 170,
+      "delta_pct": 0.3,
+      "tolerance_pct": 5,
+      "coverage_pct": 86,
+      "car_legs": 0,
+      "legs": 15,
+      "suspect_legs": 1,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "3b": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1964/64_3b.jpg",
@@ -4335,8 +4629,11 @@
        "label": "Èze-Village",
        "km": 5,
        "kind": "ville",
-       "note": "366 m imprimés ; imprimé « EZE-VILLAGE »",
-       "confidence": "non-place"
+       "note": "366 m imprimés ; imprimé « EZE-VILLAGE » ; recherche bornée (28/11/2026) : Èze-Village (poste, IGN), MNT 361 m pour 366",
+       "confidence": "ok",
+       "lat": 43.72913,
+       "lon": 7.36129,
+       "how": "manual"
       },
       {
        "label": "Nice",
@@ -4352,8 +4649,11 @@
        "label": "Cros-de-Cagnes",
        "km": 26,
        "kind": "lieu-dit",
-       "note": "5 m imprimés ; imprimé « CROS DE CAGNES »",
-       "confidence": "non-place"
+       "note": "5 m imprimés ; imprimé « CROS DE CAGNES » ; recherche bornée (28/11/2026) : quartier « Cros de Cagnes » (IGN, Cagnes-sur-Mer), MNT 4 m pour 5",
+       "confidence": "ok",
+       "lat": 43.65798,
+       "lon": 7.17168,
+       "how": "manual"
       },
       {
        "label": "Antibes",
@@ -4483,7 +4783,7 @@
        "label": "Calvaire",
        "km": 138.5,
        "kind": "lieu-dit",
-       "note": "1 m imprimés ; imprimé « CALVAIRE » ; mesuré ≈ 138,9",
+       "note": "1 m imprimés ; imprimé « CALVAIRE » ; mesuré ≈ 138,9 ; non placé : recherche bornée Nominatim et IGN (28/11/2026) sans candidat de ce nom compatible avec les voisins",
        "confidence": "non-place"
       },
       {
@@ -4526,7 +4826,19 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "route_check": {
+      "routed_km": 185.4,
+      "profile_km": 182.5,
+      "delta_pct": 1.6,
+      "tolerance_pct": 5,
+      "coverage_pct": 98,
+      "car_legs": 0,
+      "legs": 17,
+      "suspect_legs": 2,
+      "backtracks": 0,
+      "backtracks_uncertain": 1
+     }
     },
     "10b": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1964/64_10b.jpg",
@@ -4585,7 +4897,8 @@
        "how": "stage_towns",
        "confidence": "ok"
       }
-     ]
+     ],
+     "note": "Contre-la-montre Hyères → Toulon de 20,8 km, axe gradué au kilomètre : La Moutonne et La Garde, sans km imprimé, ne tombent pas sur une graduation ronde et restent non placés (règle 4) ; l'étape n'est pas contrôlable."
     },
     "22a": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1964/64_22a.jpg",
@@ -4710,7 +5023,19 @@
        "how": "nominatim",
        "confidence": "ok"
       }
-     ]
+     ],
+     "route_check": {
+      "routed_km": 104.3,
+      "profile_km": 104,
+      "delta_pct": 0.3,
+      "tolerance_pct": 5,
+      "coverage_pct": 87,
+      "car_legs": 0,
+      "legs": 10,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "22b": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1964/64_22b.jpg",
