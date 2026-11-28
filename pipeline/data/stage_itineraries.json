@@ -405,7 +405,7 @@
        "km": 160,
        "kind": "côte",
        "confidence": "non-place",
-       "note": "4e cat. ; imprimé « COTE DU PETIT BLAMONT » ; aucun km propre : colonne (pointe de la flèche) sur la graduation 160 (mesuré ≈ 160,3) ; non placé : km approché (règle 4)"
+       "note": "4e cat. ; imprimé « COTE DU PETIT BLAMONT » ; aucun km propre : colonne (pointe de la flèche) sur la graduation 160 (mesuré ≈ 160,3) ; non placé : c'est la pointe de la flèche de la pastille de côte, pas une colonne de nom (règle 4)"
       },
       {
        "label": "Crèvecœur-le-Grand",
@@ -572,8 +572,11 @@
        "label": "Bocogne",
        "km": 153,
        "kind": "ville",
-       "note": "468 m imprimés ; imprimé lu « BOCOGNE » (peu lisible, peut-être « RECOGNE ») ; altitude peu lisible ; colonne mesurée ≈ 153,5 ; non placé : recherche bornée Nominatim et IGN (28/11/2026) sans candidat de ce nom compatible avec les voisins",
-       "confidence": "non-place"
+       "note": "468 m imprimés ; imprimé lu « BOCOGNE » (peu lisible, peut-être « RECOGNE ») ; altitude peu lisible ; colonne mesurée ≈ 153,5 ; non placé : recherche bornée Nominatim et IGN (28/11/2026) sans candidat de ce nom compatible avec les voisins ; vraisemblablement Recogne (Libramont-Chevigny, Nominatim), variante notée à la transcription : EU-DEM 495 m pour 468, 12,7 km de Saint-Hubert pour 13,5, 9,5 de Neufchâteau pour 11 (audit Mireille, 28/11/2026)",
+       "confidence": "ok",
+       "lat": 49.9112853,
+       "lon": 5.3607943,
+       "how": "manual"
       },
       {
        "label": "Neufchâteau",
@@ -674,13 +677,13 @@
       }
      ],
      "route_check": {
-      "routed_km": 286.2,
+      "routed_km": 287.1,
       "profile_km": 280.5,
-      "delta_pct": 2,
+      "delta_pct": 2.4,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 16,
+      "legs": 17,
       "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -1174,10 +1177,10 @@
        "label": "Lacets de Septmoncel",
        "km": 69.5,
        "kind": "côte",
-       "note": "3e cat. ; imprimé « LACETS DE SEPTMONCEL » ; flèche mesurée ≈ 69,4 ; recherche bornée (28/11/2026) : poteau indicateur « Lacets de Septmoncel » (Nominatim information=guidepost, D 436), MNT 712 m",
+       "note": "3e cat. ; imprimé « LACETS DE SEPTMONCEL » ; flèche mesurée ≈ 69,4 ; recherche bornée (28/11/2026) : poteau indicateur « Lacets de Septmoncel » (Nominatim information=guidepost, D 436), MNT 712 m ; replacé au village de Septmoncel (Nominatim place=village), MNT 945 m : la courbe du profil est vers 930 m à cette colonne, le poteau (712 m) était au pied des lacets (règle 14) (audit Mireille, 28/11/2026)",
        "confidence": "ok",
-       "lat": 46.35675,
-       "lon": 5.90302,
+       "lat": 46.3703,
+       "lon": 5.912,
        "how": "manual"
       },
       {
@@ -1304,11 +1307,8 @@
        "label": "Perrignier",
        "km": 188.5,
        "kind": "ville",
-       "note": "imprimé « PERRIGNIER »",
-       "lat": 46.30441,
-       "lon": 6.44181,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "imprimé « PERRIGNIER » ; placé à la mairie (Nominatim amenity=townhall, règle 17) (audit Mireille, 28/11/2026) ; retiré : même à sa mairie, Perrignier est à 8,1 km à vol d'oiseau de Thonon pour 6,5 au profil ; le km lu « 188½ » est vraisemblablement 186½ (6 lu 8, règle 3), à remesurer (audit Mireille, 28/11/2026)",
+       "confidence": "non-place"
       },
       {
        "label": "Thonon-les-Bains",
@@ -1322,14 +1322,14 @@
       }
      ],
      "route_check": {
-      "routed_km": 189.5,
+      "routed_km": 190.3,
       "profile_km": 189,
-      "delta_pct": 0.3,
+      "delta_pct": 0.7,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 21,
-      "suspect_legs": 3,
+      "legs": 20,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -1361,18 +1361,15 @@
        "label": "Bons",
        "km": 14,
        "kind": "ville",
-       "note": "627 m imprimés ; imprimé « BONS » ; km imprimé illisible (lu « 1?ᵏ5 », 13,5 ou 14,5 ; mesuré ≈ 14,1) ; altitude peu lisible",
-       "lat": 46.26492,
-       "lon": 6.37028,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "627 m imprimés ; imprimé « BONS » ; km imprimé illisible (lu « 1?ᵏ5 », 13,5 ou 14,5 ; mesuré ≈ 14,1) ; altitude peu lisible ; non placé : km imprimé illisible (règle 4) (audit Mireille, 28/11/2026)",
+       "confidence": "non-place"
       },
       {
        "label": "Saint-Cergues",
        "km": 19.5,
        "kind": "ville",
        "confidence": "non-place",
-       "note": "580 m imprimés ; imprimé « SAINT-CERGUES » ; aucun km propre : colonne sur la graduation 20 (mesuré ≈ 19,5) ; non placé : km approché (règle 4)"
+       "note": "580 m imprimés ; imprimé « SAINT-CERGUES » ; aucun km propre : colonne sur la graduation 20 (mesuré ≈ 19,5) ; non placé : colonne à 0,5 km de la graduation 20, au seuil, km noté 19,5 à la transcription (règle 4)"
       },
       {
        "label": "Bonne",
@@ -1615,14 +1612,14 @@
        "label": "Briançon",
        "km": 248.5,
        "kind": "ville",
-       "note": "1326 m imprimés ; arrivée ; km peu lisible (lu « 24?ᵏ5 », mesuré ≈ 247,9) ; point de 2017/18 (repris, compatible avec les voisins placés ; époque revérifiée) ; arrivée placée place d'Armes, dans la ville haute (Nominatim), MNT 1 313 m pour 1 326 imprimés : à la mairie (1 221 m), l'écart dépassait 100 m (règle 14) ; le lieu exact de la ligne n'est pas sourcé (28/11/2026)",
+       "note": "1326 m imprimés ; arrivée ; km peu lisible (lu « 24?ᵏ5 », mesuré ≈ 247,9) ; arrivée placée place d'Armes, dans la ville haute (Nominatim), MNT 1 313 m pour 1 326 imprimés : à la mairie (1 221 m), l'écart dépassait 100 m (règle 14) ; le lieu exact de la ligne n'est pas sourcé (28/11/2026)",
        "lat": 44.8989018,
        "lon": 6.6429857,
        "how": "manual",
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Thonon-les-Bains → Lully 11 km à vol d'oiseau pour 9,5 au profil, départ réel hors du centre, non situé (règle 25).",
+     "note": "Départ : Thonon-les-Bains → Lully 11 km à vol d'oiseau pour 9,5 au profil, départ réel hors du centre, non situé (règle 25). Col du Marais → Col des Esserieux : 3,7 km à vol d'oiseau, 4,5 routés pour 7,5 au profil (km du col du Marais lu « 80 ou 81 ») ; tronçon court laissé tel quel, cause non établie.",
      "route_check": {
       "routed_km": 240.6,
       "profile_km": 239,
@@ -1630,7 +1627,7 @@
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
-      "legs": 25,
+      "legs": 24,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -1750,7 +1747,7 @@
        "label": "Col de Restefond",
        "km": 97,
        "kind": "col",
-       "note": "2802 m imprimés ; imprimé « COL DE RESTEFOND » ; badge « 1C » (1re cat.) ; km imprimé illisible (lu « 98ᵏ » ou « 96ᵏ », mesuré ≈ 97,1) ; imprimé « COL DE RESTEFOND » à 2 802 m : altitude du point haut de la route de la Bonette, qui contourne la cime, et non du col (2 678 m) ; placé à la Cime de la Bonette (Nominatim natural=peak, MNT 2 859 m), au plus près de ce point haut (règle 24, hypothèse) (28/11/2026)",
+       "note": "2802 m imprimés ; imprimé « COL DE RESTEFOND » ; badge « 1C » (1re cat.) ; km imprimé illisible (lu « 98ᵏ » ou « 96ᵏ », mesuré ≈ 97,1) ; imprimé « COL DE RESTEFOND » à 2 802 m : altitude du point haut de la route de la Bonette, qui contourne la cime, et non du col (2 678 m) ; placé à la Cime de la Bonette (Nominatim natural=peak, MNT 2 859 m), au plus près de ce point haut (règle 24, hypothèse) (28/11/2026) ; exception tolérée : col majeur, sommet de l'étape, km lu « 98 » ou « 96 » et mesuré ≈ 97,1 sur l'échelle (règle 4) (audit Mireille, 28/11/2026)",
        "lat": 44.3215732,
        "lon": 6.8068188,
        "how": "manual",
@@ -1877,7 +1874,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Briançon → Prelles 7 km à vol d'oiseau pour 5,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (+16,2 % à vélo ; +3,0 % en voiture) : Pont de la Mescla → La Roquette-sur-Var fait 52,7 km à vélo, 16,0 en voiture pour 15 au profil (9,1 à vol d'oiseau) ; le routeur vélo évite la route de la vallée du Var (tunnels de la Mescla), d'où ce détour et l'aller-retour de 5,2 km qu'il signale au pont (règle 20) ; l'écart à vélo n'est pas celui du parcours.",
+     "note": "Départ : Briançon → Prelles 7 km à vol d'oiseau pour 5,5 au profil, départ réel hors du centre, non situé (règle 25). Hors tolérance (+16,2 % à vélo ; +3,0 % en voiture) : Pont de la Mescla → La Roquette-sur-Var fait 52,7 km à vélo, 16,0 en voiture pour 15 au profil (9,1 à vol d'oiseau) ; le routeur vélo évite vraisemblablement la route de la vallée du Var (tunnels de la Mescla, hypothèse), d'où vraisemblablement ce détour et l'aller-retour de 5,2 km qu'il signale au pont (règle 20) ; l'écart à vélo n'est pas celui du parcours.",
      "route_check": {
       "routed_km": 271.4,
       "profile_km": 233.5,
@@ -2543,22 +2540,22 @@
        "km": 170,
        "kind": "ville",
        "confidence": "ok",
-       "note": "1021 m imprimés ; arrivée sur la graduation finale 170 (aucun km propre ; mesuré ≈ 169,4) ; imprimé « ANDORRE » ; arrivée imprimée « ANDORRE » : km total de l'étape, sur la dernière graduation ; placée aux Escaldes, d'où part l'étape suivante (« ANDORRE LES ESCALDES »), hypothèse",
-       "lat": 42.509,
-       "lon": 1.54041,
+       "note": "1021 m imprimés ; arrivée sur la graduation finale 170 (aucun km propre ; mesuré ≈ 169,4) ; imprimé « ANDORRE » ; arrivée imprimée « ANDORRE » : km total de l'étape, sur la dernière graduation ; placée à Andorre-la-Vieille, ancre sourcée de stage_towns.json (fr.wikipedia, Wikidata Q1863) (audit Mireille, 28/11/2026)",
+       "lat": 42.49792,
+       "lon": 1.50323,
        "how": "manual"
       }
      ],
      "note": "Départ : Perpignan → Thuir 13,8 km à vol d'oiseau pour 12 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 156.6,
+      "routed_km": 160.8,
       "profile_km": 158,
-      "delta_pct": -0.9,
+      "delta_pct": 1.8,
       "tolerance_pct": 5,
       "coverage_pct": 93,
       "car_legs": 0,
       "legs": 16,
-      "suspect_legs": 1,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -2781,7 +2778,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Hors tolérance (+5,9 % à vélo, +10,7 % en voiture) : Carrefour Auge → Toulouse fait 23,3 km à vélo, 28,6 en voiture pour 20,5 au profil (21,2 à vol d'oiseau, l'arrivée imprimée « TOULOUSE (VÉLODROME) » étant laissée au centre, lieu non sourcé) ; Montgaillard → Foix 4,8 pour 3,5 ; cause non établie.",
+     "note": "Hors tolérance (+5,9 % à vélo, +10,7 % en voiture) : Carrefour Auge → Toulouse fait 23,3 km à vélo, 28,6 en voiture pour 20,5 au profil (21,2 à vol d'oiseau, l'arrivée imprimée « TOULOUSE (VÉLODROME) » étant laissée au centre, lieu non sourcé) ; Montgaillard → Foix 4,8 pour 3,5 ; l'arrivée au vélodrome n'étant pas placée, la cause reste à établir.",
      "route_check": {
       "routed_km": 185.4,
       "profile_km": 175,
@@ -2883,11 +2880,8 @@
        "label": "Engomer",
        "km": 103.5,
        "kind": "ville",
-       "note": "462 m imprimés ; km imprimé sous sa colonne lu « 94k », incompatible avec l'échelle (mesuré ≈ 103,5) ; km imprimé illisible ou décalé (voir Doutes)",
-       "lat": 42.94733,
-       "lon": 1.05919,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "462 m imprimés ; km imprimé sous sa colonne lu « 94k », incompatible avec l'échelle (mesuré ≈ 103,5) ; km imprimé illisible ou décalé (voir Doutes) ; non placé : km imprimé illisible (règle 4) (audit Mireille, 28/11/2026)",
+       "confidence": "non-place"
       },
       {
        "label": "Castillon-en-Couserans",
@@ -2991,15 +2985,15 @@
        "confidence": "ok"
       }
      ],
-     "note": "Départ : Toulouse → Pinsaguel 11,4 km à vol d'oiseau pour 7 au profil, départ réel hors du centre, non situé (règle 25).",
+     "note": "Départ : Toulouse → Pinsaguel 11,4 km à vol d'oiseau pour 7 au profil, départ réel hors du centre, non situé (règle 25). Lézat-sur-Lèze → Montesquieu-Volvestre : 15,4 km à vélo, 16,3 en voiture pour 22,5 au profil (12,1 à vol d'oiseau) : détour que le profil ne nomme pas, cause non établie.",
      "route_check": {
-      "routed_km": 193.5,
+      "routed_km": 193.3,
       "profile_km": 196,
-      "delta_pct": -1.3,
+      "delta_pct": -1.4,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 13,
+      "legs": 12,
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
@@ -3356,7 +3350,7 @@
        "confidence": "ok"
       }
      ],
-     "note": "Hors tolérance (+7,7 % à vélo, +12,5 % en voiture) : contre-la-montre de 42,6 km dont 78 % est contrôlé ; Briscous → Près Mouguerre fait 9,7 km à vélo, 11,2 en voiture pour 6,5 au profil (6,7 à vol d'oiseau, bourg de Mouguerre) ; cause non établie.",
+     "note": "Hors tolérance (+7,7 % à vélo, +12,5 % en voiture) : contre-la-montre de 42,6 km dont 78 % est contrôlé ; Briscous → Près Mouguerre fait 9,7 km à vélo, 11,2 en voiture pour 6,5 au profil (6,7 à vol d'oiseau, bourg de Mouguerre) ; cause non établie. Arrivée imprimée au vélodrome de Bayonne laissée au centre de la ville : lieu non sourcé.",
      "route_check": {
       "routed_km": 36.2,
       "profile_km": 33.6,
@@ -3610,7 +3604,8 @@
       "suspect_legs": 1,
       "backtracks": 0,
       "backtracks_uncertain": 0
-     }
+     },
+     "note": "Pessac → Bordeaux : 5,6 km à vol d'oiseau pour 4 au profil ; l'arrivée imprimée « BORDEAUX (VÉLODROME) » est laissée au centre de Bordeaux, le lieu de la ligne en 1964 n'étant pas sourcé (le stade de Lescure, à 3,7 km de Pessac, est un candidat non vérifié)."
     },
     "19": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1964/64_19.jpg",
@@ -3751,11 +3746,11 @@
        "label": "Sarlat",
        "km": 163,
        "kind": "ville",
-       "note": "145 m imprimés ; imprimé « SARLAT »",
-       "lat": 44.94056,
-       "lon": 1.14872,
-       "how": "nominatim",
-       "confidence": "ambigu"
+       "note": "145 m imprimés ; imprimé « SARLAT » ; replacé à l'hôtel de ville de Sarlat (Nominatim, place de la Liberté) : la passe automatique l'avait posé à Marquay (La Gorse), MNT 224 m pour 145 (audit Mireille, 28/11/2026)",
+       "lat": 44.8899531,
+       "lon": 1.2170412,
+       "how": "manual",
+       "confidence": "ok"
       },
       {
        "label": "Salignac",
@@ -3800,9 +3795,9 @@
      ],
      "note": "Départ : Bordeaux → Beychac 16,7 km à vol d'oiseau pour 9,5 au profil, départ réel hors du centre, non situé (règle 25).",
      "route_check": {
-      "routed_km": 206.4,
+      "routed_km": 208.9,
       "profile_km": 206,
-      "delta_pct": 0.2,
+      "delta_pct": 1.4,
       "tolerance_pct": 5,
       "coverage_pct": 96,
       "car_legs": 0,
@@ -4188,7 +4183,7 @@
        "label": "Croix de Fragne",
        "km": 108.5,
        "kind": "lieu-dit",
-       "note": "282 m imprimés ; km imprimé illisible (lu « 108 » ?, mesuré ≈ 108,7) ; altitude peu lisible (282 ou 280) ; non placé : recherche bornée Nominatim et IGN (28/11/2026) sans candidat de ce nom compatible avec les voisins",
+       "note": "282 m imprimés ; km imprimé illisible (lu « 108 » ?, mesuré ≈ 108,7) ; altitude peu lisible (282 ou 280) ; non placé : km imprimé illisible (règle 4) ; le lieu-dit « la Croix de Fragne » (IGN, Verneix) existe et tiendrait dans le profil",
        "confidence": "non-place"
       },
       {
@@ -4215,41 +4210,29 @@
        "label": "Saint-Bonnet-Tronçais",
        "km": 145.5,
        "kind": "ville",
-       "note": "imprimé « St-BONNET » ; km imprimé illisible (mesuré ≈ 145,5)",
-       "lat": 46.6603,
-       "lon": 2.69316,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "imprimé « St-BONNET » ; km imprimé illisible (mesuré ≈ 145,5) ; non placé : km imprimé illisible (règle 4) (audit Mireille, 28/11/2026)",
+       "confidence": "non-place"
       },
       {
        "label": "Ainay-le-Château",
        "km": 151.5,
        "kind": "ville",
-       "note": "220 m imprimés ; altitude peu lisible ; km imprimé illisible (mesuré ≈ 151,6)",
-       "lat": 46.7115,
-       "lon": 2.69393,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "220 m imprimés ; altitude peu lisible ; km imprimé illisible (mesuré ≈ 151,6) ; non placé : km imprimé illisible (règle 4) (audit Mireille, 28/11/2026)",
+       "confidence": "non-place"
       },
       {
        "label": "Le Pondy",
        "km": 162,
        "kind": "ville",
-       "note": "175 m imprimés ; km imprimé illisible (mesuré ≈ 161,9 ; lu « 162 » ?)",
-       "lat": 46.80456,
-       "lon": 2.649,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "175 m imprimés ; km imprimé illisible (mesuré ≈ 161,9 ; lu « 162 » ?) ; non placé : km imprimé illisible (règle 4) (audit Mireille, 28/11/2026)",
+       "confidence": "non-place"
       },
       {
        "label": "Dun-sur-Auron",
        "km": 173,
        "kind": "ville",
-       "note": "171 m imprimés ; imprimé « DUN-s-AURON » ; km imprimé illisible (mesuré ≈ 173,0)",
-       "lat": 46.88535,
-       "lon": 2.5697,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "171 m imprimés ; imprimé « DUN-s-AURON » ; km imprimé illisible (mesuré ≈ 173,0) ; non placé : km imprimé illisible (règle 4) (audit Mireille, 28/11/2026)",
+       "confidence": "non-place"
       },
       {
        "label": "Carrefour N 153-N 7..",
@@ -4262,21 +4245,15 @@
        "label": "Bourges",
        "km": 201.5,
        "kind": "ville",
-       "note": "157 m imprimés ; km imprimé illisible (mesuré ≈ 201,5 ; lu « 200½ » ou « 201½ »)",
-       "lat": 47.08117,
-       "lon": 2.39913,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "157 m imprimés ; km imprimé illisible (mesuré ≈ 201,5 ; lu « 200½ » ou « 201½ ») ; non placé : km imprimé illisible (règle 4) (audit Mireille, 28/11/2026)",
+       "confidence": "non-place"
       },
       {
        "label": "Vasselay",
        "km": 209,
        "kind": "ville",
-       "note": "altitude illisible (« ?68 m. ») ; km imprimé illisible (mesuré ≈ 209,1)",
-       "lat": 47.1576,
-       "lon": 2.38867,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "altitude illisible (« ?68 m. ») ; km imprimé illisible (mesuré ≈ 209,1) ; non placé : km imprimé illisible (règle 4) (audit Mireille, 28/11/2026)",
+       "confidence": "non-place"
       },
       {
        "label": "Carrefour D 18-N 7..",
@@ -4289,71 +4266,50 @@
        "label": "Presly",
        "km": 235.5,
        "kind": "ville",
-       "note": "305 m imprimés ; altitude peu lisible ; km imprimé illisible (mesuré ≈ 235,4) ; MNT 201 m pour 305 imprimés (altitude notée peu lisible) ; le relief ne dépasse pas 227 m à 2,5 km alentour (25 points sondés, un par requête) : aucun passage à 305 m n'existe, la source dévie et le point se garde (règle 14)",
-       "lat": 47.38889,
-       "lon": 2.35778,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "305 m imprimés ; altitude peu lisible ; km imprimé illisible (mesuré ≈ 235,4) ; MNT 201 m pour 305 imprimés (altitude notée peu lisible) ; le relief ne dépasse pas 227 m à 2,5 km alentour (25 points sondés, un par requête) : aucun passage à 305 m n'existe, la source dévie et le point se garde (règle 14) ; non placé : km imprimé illisible (règle 4) (audit Mireille, 28/11/2026)",
+       "confidence": "non-place"
       },
       {
        "label": "Ménétréol-sur-Sauldre",
        "km": 244.5,
        "kind": "ville",
-       "note": "133 m imprimés ; imprimé « MÉNÉTRÉOL-s-SAULDRE » ; km imprimé illisible (mesuré ≈ 244,3)",
-       "lat": 47.44793,
-       "lon": 2.30785,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "133 m imprimés ; imprimé « MÉNÉTRÉOL-s-SAULDRE » ; km imprimé illisible (mesuré ≈ 244,3) ; non placé : km imprimé illisible (règle 4) (audit Mireille, 28/11/2026)",
+       "confidence": "non-place"
       },
       {
        "label": "Clémont",
        "km": 258,
        "kind": "ville",
-       "note": "180 m imprimés ; imprimé « CLÉMONT-s-SAULDRE » ; altitude peu lisible ; km imprimé illisible (mesuré ≈ 258,2)",
-       "lat": 47.56879,
-       "lon": 2.30598,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "180 m imprimés ; imprimé « CLÉMONT-s-SAULDRE » ; altitude peu lisible ; km imprimé illisible (mesuré ≈ 258,2) ; non placé : km imprimé illisible (règle 4) (audit Mireille, 28/11/2026)",
+       "confidence": "non-place"
       },
       {
        "label": "Mont de Mars..",
        "km": 265.5,
        "kind": "lieu-dit",
-       "note": "134 m imprimés ; imprimé lu « MONT DE MARS.. » (fin illisible) ; km imprimé illisible (mesuré ≈ 265,7)",
-       "lat": 47.62782,
-       "lon": 2.27687,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "134 m imprimés ; imprimé lu « MONT DE MARS.. » (fin illisible) ; km imprimé illisible (mesuré ≈ 265,7) ; non placé : km imprimé illisible (règle 4) (audit Mireille, 28/11/2026)",
+       "confidence": "non-place"
       },
       {
        "label": "Vannes-sur-Cosson",
        "km": 277.5,
        "kind": "ville",
-       "note": "128 m imprimés ; imprimé « VANNE-s-COSSON » ; km imprimé illisible (mesuré ≈ 277,3)",
-       "lat": 47.71439,
-       "lon": 2.21069,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "128 m imprimés ; imprimé « VANNE-s-COSSON » ; km imprimé illisible (mesuré ≈ 277,3) ; non placé : km imprimé illisible (règle 4) (audit Mireille, 28/11/2026)",
+       "confidence": "non-place"
       },
       {
        "label": "Le Cercle",
        "km": 286.5,
        "kind": "lieu-dit",
-       "note": "km imprimé illisible (mesuré ≈ 286,5)",
-       "lat": 47.76925,
-       "lon": 2.10689,
-       "how": "nominatim",
-       "confidence": "ok"
+       "note": "km imprimé illisible (mesuré ≈ 286,5) ; non placé : km imprimé illisible (règle 4) (audit Mireille, 28/11/2026)",
+       "confidence": "non-place"
       },
       {
        "label": "Sandillon",
        "km": 298,
        "kind": "ville",
-       "note": "km imprimé illisible (mesuré ≈ 298,2)",
-       "lat": 47.84558,
-       "lon": 2.03275,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "km imprimé illisible (mesuré ≈ 298,2) ; non placé : km imprimé illisible (règle 4) (audit Mireille, 28/11/2026)",
+       "confidence": "non-place"
       },
       {
        "label": "Orléans",
@@ -4367,14 +4323,14 @@
       }
      ],
      "route_check": {
-      "routed_km": 303.7,
+      "routed_km": 300.3,
       "profile_km": 301,
-      "delta_pct": 0.9,
+      "delta_pct": -0.2,
       "tolerance_pct": 5,
       "coverage_pct": 97,
       "car_legs": 0,
-      "legs": 25,
-      "suspect_legs": 1,
+      "legs": 12,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -4443,11 +4399,8 @@
        "label": "Boursies",
        "km": 60,
        "kind": "ville",
-       "note": "78 m imprimés ; aucun km propre : colonne sur la graduation 60 (mesuré ≈ 59,8) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1964 comme dans la série 1965-1985 (règle 4 précisée)",
-       "lat": 50.14002,
-       "lon": 3.03165,
-       "how": "commune-ign",
-       "confidence": "ok"
+       "note": "78 m imprimés ; aucun km propre : colonne sur la graduation 60 (mesuré ≈ 59,8) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1964 comme dans la série 1965-1985 (règle 4 précisée) ; placé à la mairie (Nominatim amenity=townhall, règle 17) (audit Mireille, 28/11/2026) ; retiré : même à sa mairie, Boursies est à 14,7 km à vol d'oiseau de Cambrai pour 13,5 au profil (et 7,5 de Beugny pour 9) : le km de la graduation 60 ne tient pas, profil incompatible (règle 11) (audit Mireille, 28/11/2026)",
+       "confidence": "non-place"
       },
       {
        "label": "Cambrai",
@@ -4566,8 +4519,8 @@
       "tolerance_pct": 5,
       "coverage_pct": 86,
       "car_legs": 0,
-      "legs": 15,
-      "suspect_legs": 1,
+      "legs": 14,
+      "suspect_legs": 0,
       "backtracks": 0,
       "backtracks_uncertain": 0
      }
@@ -4610,7 +4563,8 @@
        "confidence": "non-place",
        "note": "85 m imprimés ; imprimé « AV. GABRIEL FAURÉ » ; aucun km imprimé (nom mesuré ≈ 5,3 ; « 85 m. » au sommet ≈ 5,5) ; « 42 m. » (sans nom) imprimé au km 6.5 ; non placé : km approché (règle 4)"
       }
-     ]
+     ],
+     "note": "Contre-la-montre par équipes en circuit à Forest : tour de 7,1 km au profil (21 km officiels d'après stage_towns.json, vraisemblablement trois tours), aucun km imprimé sous les noms ; ni départ ni arrivée nommés, non contrôlable."
     },
     "10a": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1964/64_10a.jpg",
@@ -4783,8 +4737,11 @@
        "label": "Calvaire",
        "km": 138.5,
        "kind": "lieu-dit",
-       "note": "1 m imprimés ; imprimé « CALVAIRE » ; mesuré ≈ 138,9 ; non placé : recherche bornée Nominatim et IGN (28/11/2026) sans candidat de ce nom compatible avec les voisins",
-       "confidence": "non-place"
+       "note": "1 m imprimés ; imprimé « CALVAIRE » ; mesuré ≈ 138,9 ; non placé : recherche bornée Nominatim et IGN (28/11/2026) sans candidat de ce nom compatible avec les voisins ; imprimé « CALVAIRE », vraisemblablement Cavalaire-sur-Mer (coquille de l'éditeur, hypothèse) : 7,5 km de Gassin pour 11,5, 13,8 du Lavandou pour 19, MNT 3 m pour 1 (audit Mireille, 28/11/2026)",
+       "confidence": "ok",
+       "lat": 43.1722952,
+       "lon": 6.531917,
+       "how": "manual"
       },
       {
        "label": "Le Lavandou",
@@ -4828,17 +4785,18 @@
       }
      ],
      "route_check": {
-      "routed_km": 185.4,
+      "routed_km": 185.6,
       "profile_km": 182.5,
-      "delta_pct": 1.6,
+      "delta_pct": 1.7,
       "tolerance_pct": 5,
       "coverage_pct": 98,
       "car_legs": 0,
-      "legs": 17,
+      "legs": 18,
       "suspect_legs": 2,
       "backtracks": 0,
       "backtracks_uncertain": 1
-     }
+     },
+     "note": "La Napoule → Anthéor : 27,7 km à vélo, 21,5 en voiture pour 17 au profil (13,1 à vol d'oiseau), Le Trayas non placé entre les deux, et le routage signale un aller-retour incertain de 4,3 km à Anthéor : le routeur ne suit vraisemblablement pas la corniche de l'Esterel (hypothèse) ; La Londe-les-Maures → Hyères fait 9,7 km routés pour 15,5 au profil (8,8 à vol d'oiseau), détour que le profil ne nomme pas. L'étape passe « ok » (+1,7 %) parce que ces écarts se compensent (règle 12)."
     },
     "10b": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1964/64_10b.jpg",
@@ -4857,8 +4815,11 @@
        "label": "La Moutonne",
        "km": 6,
        "kind": "lieu-dit",
-       "confidence": "non-place",
-       "note": "50 m imprimés ; imprimé « LA MOUTONNE » ; aucun km propre : colonne sur la graduation 6 (mesuré ≈ 5,9) ; non placé : km approché (règle 4)"
+       "confidence": "ok",
+       "note": "50 m imprimés ; imprimé « LA MOUTONNE » ; aucun km propre : colonne sur la graduation 6 (mesuré ≈ 5,9) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1964 comme dans la série 1965-1985 (règle 4 précisée) ; village de La Moutonne (La Crau, Nominatim place=village) (audit Mireille, 28/11/2026)",
+       "lat": 43.1201628,
+       "lon": 6.0705363,
+       "how": "manual"
       },
       {
        "label": "Le Pradet",
@@ -4874,8 +4835,11 @@
        "label": "La Garde",
        "km": 13,
        "kind": "ville",
-       "confidence": "non-place",
-       "note": "20 m imprimés ; aucun km propre : colonne sur la graduation 13 (mesuré ≈ 12,9) ; non placé : km approché (règle 4)"
+       "confidence": "ok",
+       "note": "20 m imprimés ; aucun km propre : colonne sur la graduation 13 (mesuré ≈ 12,9) ; km de la graduation : nom posé sur la graduation, l'éditeur n'imprimant pas ce km en 1964 comme dans la série 1965-1985 (règle 4 précisée) ; commune de La Garde (Nominatim) (audit Mireille, 28/11/2026) ; déplacé à l'hôtel de ville de La Garde (Nominatim), règle 17 (audit Mireille, 28/11/2026)",
+       "lat": 43.1242957,
+       "lon": 6.0092737,
+       "how": "manual"
       },
       {
        "label": "Pont du Suve",
@@ -4898,7 +4862,19 @@
        "confidence": "ok"
       }
      ],
-     "note": "Contre-la-montre Hyères → Toulon de 20,8 km, axe gradué au kilomètre : La Moutonne et La Garde, sans km imprimé, ne tombent pas sur une graduation ronde et restent non placés (règle 4) ; l'étape n'est pas contrôlable."
+     "note": "Contre-la-montre Hyères → Toulon de 20,8 km, axe gradué au kilomètre : La Moutonne et La Garde, sans km imprimé sur un profil qui en imprime (« 10½ », « 16½ »), sont posés sur leur graduation (règle 4 précisée, audit Mireille). Hors tolérance (+14,2 % à vélo, 70 % de l'étape contrôlés) : contre-la-montre de 20,8 km aux tronçons de 2 à 5 km ; Pont du Suve → Toulon fait 5,6 km routés pour 4,3 au profil, l'arrivée étant laissée au centre de Toulon (lieu de la ligne non sourcé) ; cause non établie.",
+     "route_check": {
+      "routed_km": 16.9,
+      "profile_km": 14.8,
+      "delta_pct": 14.2,
+      "tolerance_pct": 5,
+      "coverage_pct": 70,
+      "car_legs": 0,
+      "legs": 4,
+      "suspect_legs": 0,
+      "backtracks": 0,
+      "backtracks_uncertain": 0
+     }
     },
     "22a": {
      "source_url": "https://www.ledicodutour.com/images/cartes_etapes/1957_1966/1964/64_22a.jpg",

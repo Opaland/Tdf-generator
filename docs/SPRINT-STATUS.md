@@ -410,6 +410,11 @@ et côtes traversées avec leur kilomètre.
     PR fusionnée) ; sinon la routine reboucle sur la même édition. Après
     **10 tentatives** sans y parvenir, l'édition est notée bloquée, une
     issue en dit la cause, et la routine passe à la suivante.
+    - État au 28/11 : **1964 verte** à la tentative 1/10 (bloquants de
+      l'audit corrigés ; écarts restants en issue #636) ; règle 4 précisée
+      rejouée sur 1976 (PR #635). Édition prévue le 29/11 : **1963**,
+      tentative 1/10 (vérifier d'abord la source, `1957_1966/1963/`) ;
+      règle 4 : 1977 ; reprise de 1965/20 (km illisibles placés à tort).
     - État au 27/11 : **1965 verte** à la tentative 1/10 (bloquants de
       l'audit corrigés ; écarts restants en issue #629) ; règle 4 précisée
       rejouée sur 1975 (PR #628). Édition prévue le 28/11 : **1964**,
@@ -2137,7 +2142,7 @@ et côtes traversées avec leur kilomètre.
     −6,3 %, 9a à la limite (+5,0 %), 21 dans la tolérance (tronçons
     d'Esbly notés). Audit Mireille : 3 bloquants corrigés (Alsemberg,
     Barcugnan, tronçons d'Esbly) et 5 notes reprises.
-- [ ] Édition 1964 (routine quotidienne du 28/11/2026, tentative 1/10) :
+- [x] Édition 1964 (routine quotidienne du 28/11/2026, tentative 1/10) :
   aucune étape de 1964 n'est encore transcrite. Profils de ledicodutour.com
   (`images/cartes_etapes/1957_1966/1964/`) ; 25 fichiers (1, 2, 3a, 3b, 4
   à 9, 10a, 10b, 11 à 21, 22a, 22b), md5 tous distincts, même format que
@@ -2146,6 +2151,18 @@ et côtes traversées avec leur kilomètre.
   pour la correspondance fichier → étape ; la règle 4 précisée ne s'étend
   à 1964 que si le compte des km imprimés multiples de 10 et de 5 montre
   le même motif ; audit Mireille avant la PR, écarts restants en issue.
+  Fait : 25 étapes, 488 points dont 419 placés (cotes sans nom passées en
+  note) ; règle 4 précisée étendue à 1964 (4 km imprimés multiples de 10
+  sur 410, dont deux douteux et deux arrivées sur la dernière graduation),
+  sauf 3b et 22b ; Saint-Claude remis dans le Jura (homonyme de Besançon,
+  qui bloquait l'étape 7), Sarlat (posé à Marquay), Entremont, Golfe-Juan,
+  la Bonette au point haut de la route, Briançon en ville haute, arrivée
+  d'Andorre à Andorre-la-Vieille ; 3 carrefours à la BD TOPO ; 15 points à
+  km illisible retirés (règle 4). Contrôle BRouter écrit, seul tronçon en
+  voiture au Puy de Dôme : 18 étapes sur 25 dans la tolérance, 5 hors avec
+  cause notée (9 : détour du routeur à la Mescla, +3,0 % en voiture ; 10b,
+  12, 14, 17), 2 non contrôlables (3b, 22b). Audit Mireille : 6 bloquants
+  corrigés ; écarts restants en issue #636.
 - [x] Édition 1965 (routine quotidienne du 27/11/2026, tentative 1/10) :
   aucune étape de 1965 n'est encore transcrite. Profils de ledicodutour.com
   (`images/cartes_etapes/1957_1966/1965/`) ; 24 fichiers, md5 tous
