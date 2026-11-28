@@ -2146,9 +2146,11 @@ et côtes traversées avec leur kilomètre.
     graduation), « Frontière » non placée, carrefour D 655-D 8 non placé
     (colonne à 0,9 km de la graduation). Nandrin à sa maison communale
     (aller-retour). Contrôle BRouter écrit sur les 15 étapes touchées :
-    1976/1 (−5,1 %, détour non nommé, aussi en voiture) et 1976/6 (+5,1 %,
-    détour du routeur vélo) sortent de la tolérance, causes notées ;
-    aller-retour de Gourdon-Murat (1976/20) noté.
+    1976/1 (−5,1 %, cause non établie, ni le routeur ni la colonne) et
+    1976/6 (+5,1 %, détour du routeur vélo) sortent de la tolérance,
+    causes notées. Audit Mireille : 1 bloquant corrigé (Gourdon-Murat à sa
+    mairie, l'aller-retour de 1976/20 disparaît, −4,3 %), Strée à son
+    église, 4 notes reprises.
 - [x] Édition 1965 (routine quotidienne du 27/11/2026, tentative 1/10) :
   aucune étape de 1965 n'est encore transcrite. Profils de ledicodutour.com
   (`images/cartes_etapes/1957_1966/1965/`) ; 24 fichiers, md5 tous
