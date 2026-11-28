@@ -2137,6 +2137,15 @@ et côtes traversées avec leur kilomètre.
     −6,3 %, 9a à la limite (+5,0 %), 21 dans la tolérance (tronçons
     d'Esbly notés). Audit Mireille : 3 bloquants corrigés (Alsemberg,
     Barcugnan, tronçons d'Esbly) et 5 notes reprises.
+- [ ] Édition 1964 (routine quotidienne du 28/11/2026, tentative 1/10) :
+  aucune étape de 1964 n'est encore transcrite. Profils de ledicodutour.com
+  (`images/cartes_etapes/1957_1966/1964/`) ; 25 fichiers (1, 2, 3a, 3b, 4
+  à 9, 10a, 10b, 11 à 21, 22a, 22b), md5 tous distincts, même format que
+  1965 (468 px de large, km en italique avec fractions, lisibles à
+  l'agrandissement). Critères d'acceptation : ceux de 1965 ; titres lus
+  pour la correspondance fichier → étape ; la règle 4 précisée ne s'étend
+  à 1964 que si le compte des km imprimés multiples de 10 et de 5 montre
+  le même motif ; audit Mireille avant la PR, écarts restants en issue.
 - [x] Édition 1965 (routine quotidienne du 27/11/2026, tentative 1/10) :
   aucune étape de 1965 n'est encore transcrite. Profils de ledicodutour.com
   (`images/cartes_etapes/1957_1966/1965/`) ; 24 fichiers, md5 tous
