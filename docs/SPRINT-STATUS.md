@@ -2092,7 +2092,7 @@ et côtes traversées avec leur kilomètre.
   contrôle BRouter sans aller-retour nouveau, causes des écarts mises à
   jour.
   - [x] 1969 · [x] 1970 · [x] 1971 · [x] 1972 · [x] 1973 · [x] 1974 ·
-    [x] 1975 · [ ] 1976 · [ ] 1977 · [ ] 1978 · [ ] 1979 · [ ] 1980 ·
+    [x] 1975 · [x] 1976 · [ ] 1977 · [ ] 1978 · [ ] 1979 · [ ] 1980 ·
     [ ] 1981 · [ ] 1982 · [ ] 1983 · [ ] 1984 · [ ] 1985
   - 1969-1971 (23/11) : 72 noms repris, 64 placés (19 + 23 + 22), 8 non
     placés avec motif (carrefours introuvables ou incompatibles, frontière,
@@ -2142,6 +2142,20 @@ et côtes traversées avec leur kilomètre.
     −6,3 %, 9a à la limite (+5,0 %), 21 dans la tolérance (tronçons
     d'Esbly notés). Audit Mireille : 3 bloquants corrigés (Alsemberg,
     Barcugnan, tronçons d'Esbly) et 5 notes reprises.
+  - 1976 (28/11) : 28 noms sur une graduation, colonnes remesurées au zoom
+    (27 à 0,3 km ou moins, aucun km imprimé dessous) ; 23 placés (géocodeur ;
+    Strée au village, La Chapelle-du-Genêt, croisement D 13 × D 142 de la
+    BD TOPO) ; l'« entrée viaduc Calix » (2, km 230) placée sur le viaduc de
+    Calix, circuit final de Caen déclaré (règle 19) ; Mainville et
+    Sainte-Colombe-sur-Guette retirés (profil contradictoire à leur
+    graduation), « Frontière » non placée, carrefour D 655-D 8 non placé
+    (colonne à 0,9 km de la graduation). Nandrin à sa maison communale
+    (aller-retour). Contrôle BRouter écrit sur les 15 étapes touchées :
+    1976/1 (−5,1 %, cause non établie, ni le routeur ni la colonne) et
+    1976/6 (+5,1 %, détour du routeur vélo) sortent de la tolérance,
+    causes notées. Audit Mireille : 1 bloquant corrigé (Gourdon-Murat à sa
+    mairie, l'aller-retour de 1976/20 disparaît, −4,3 %), Strée à son
+    église, 4 notes reprises.
 - [x] Édition 1964 (routine quotidienne du 28/11/2026, tentative 1/10) :
   aucune étape de 1964 n'est encore transcrite. Profils de ledicodutour.com
   (`images/cartes_etapes/1957_1966/1964/`) ; 25 fichiers (1, 2, 3a, 3b, 4

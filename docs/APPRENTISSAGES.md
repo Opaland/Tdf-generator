@@ -79,6 +79,16 @@ entrée : on la marque « absorbée par … ».
     et « km approché » (`grep`), et faire tester par le script la mention
     « illisible » avant d'appliquer la règle 4.
 
+26. **Une requête qui renvoie un homonyme ne prouve pas l'absence**
+    (28/11/2026). Pour Gourdon-Murat (1976/20), « Mairie, Gourdon-Murat »
+    a renvoyé la place de la Mairie de Labastide-Murat (Lot), et j'ai
+    écrit « Nominatim ne connaît pas de mairie » ; la mairie existait
+    (amenity=townhall, trouvée par l'audit Mireille), et l'aller-retour
+    laissé « tel quel » disparaissait. Avant d'écrire « pas de mairie »
+    ou « introuvable » : vérifier que le résultat est dans la bonne
+    commune, relancer avec le département ou la forme « Mairie de X »,
+    et ne conclure qu'après une réponse dans la commune cherchée.
+
 ## Commandes et processus
 
 6. **Lancer en arrière-plan avec l'outil, pas avec `&`** (08/11/2026). Un
